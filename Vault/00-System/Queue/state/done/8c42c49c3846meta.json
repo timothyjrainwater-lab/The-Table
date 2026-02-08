@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "8c42c49c3846:meta",
+    "sourceId": "8c42c49c3846",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Divine/Fey Magic - Dreaming The Reverie.pdf",
+    "title": "Fey Magic - Dreaming The Reverie",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:39.561864+00:00",
+  "meta": {
+    "sourceId": "8c42c49c3846",
+    "title": "Fey Magic - Dreaming The Reverie",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Divine/Fey Magic - Dreaming The Reverie.pdf",
+    "pages": 68,
+    "extractedAt": "2026-02-03T10:36:39.253673+00:00"
+  },
+  "enqueued_extractPages": 34
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "02bd34c3a996:meta",
+    "sourceId": "02bd34c3a996",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Illusionist's Daughter.pdf",
+    "title": "The Illusionist's Daughter",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:27:34.165980+00:00",
+  "meta": {
+    "sourceId": "02bd34c3a996",
+    "title": "The Illusionist's Daughter",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Illusionist's Daughter.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T21:27:34.116394+00:00"
+  },
+  "enqueued_extractPages": 5
+}

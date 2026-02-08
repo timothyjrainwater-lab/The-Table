@@ -1,0 +1,189 @@
+Ability score guidelines for some creature. types are given
+below.
+
+Elemental: Air and fire elementals often have high Dexterity
+scores for their size; earth and water elementals often have high
+Constitution scores,
+
+Fey: Fey often have high Dexterity scores for their size.
+
+Giant: Giants often have high Strength and Constitution scores
+for their size.
+
+  
+
+Magical Beast: Magical beasts often have high Dexterity scores}
+
+for their size.
+
+Ooze: Oozes often have low Dexterity and high Constitution
+iscores for their size.
+
+Outsider: Outsiders maybe supernaturally quick and agile,
+despite their size. Outsiders have the Dexterity range of a creature
+three sizes smaller than their actual size.
+
+Plant: Plants often have low Dexterity and high Constitution
+
+scores for their size.
+
+Undead: Undead often have high Strength and Dexterity scores
+
+Hor their size.
+
+| Minimum HD: Creatures of size Small o larger should be.
+assigned a certain. number of Hit Dice as a minimum to reflect |
+
+their mass, A Gargantuan creature with 2 Hit Dice would be larger
+than an elephant, but would have the hit points of a wolf.
+
+Maximum HD: Creatures of size Tiny or smaller shouldn't
+have a very large number of Hit Dice, simply because they dont
+have the necessary body mass to have the sort of innate toughness
+that a large number of racial Hit Dice would suggest. If you want
+to create very small creatures with lots of Hit Dice, you might be
+better off to keep the creature's racial Hit Dice low and assign it
+
+|some number of character class levels instead.
+
+Slam or Tentacle: The suggested damage value for any blunt
+lattack the creature might have (punches, constriction, slaps, and
+the like),
+
+Bite: The suggested damage value for any.attack the creature
+delivers.with its mouth or teeth,
+
+Claw or Sting: The suggested damage value for any attack the
+creature makes by scratching, tearing, raking, or poking with an
+appendage.
+
+Gore or Tai
+creature makes with horns, antlers, or a head butt, A tail slap or-tail
+whip falls in this category, too.
+
+SUBTYPE
+A monster associated with an element, form of energy, or the like
+also gets a parenthetical subtype. Applying a subtype can indicate
+a subgroup within a larger type, such as undead (incorporeal)
+Some subtypes link creatures that share characteristics, such as
+humanoid (goblinoid). Other subtypes.categorize members of dif-
+ferent types that share common characteristics For example,
+|white dragons and frost giants belong to the dragon and giant
+Ltypes, respectively, but they are also of the cold subtype.
+Some common subtypes that affect a creature's abilities are
+briefly described below. Details are given in Chapter 7: Glossary,
+Air: The creature (usually an elemental or outsider) possesses
+an innate bond to the Elemental Plane of Air.
+Angel: The creature belongs to one of the angel races and
+shares common characteristics with other angels,
+Aquatic: The creature breathes water, not air,
+Archon: The creature belongs.to. one of the archon races and
+shares. common characteristics with other archons.
+Augmented: The creature's type has been changed by a.tem-
+iplate.
+Baatezu: The creature is a devil that belongs to the baatezu race
+and shares common characteristics with other baarezu.
+Chaos: The creature (usually an outsider) possesses an innate
+bond to the chaotic-aligned Outer Planes, which determines how.
+ir is affected by certain spells.
+
+ 
+
+The suggested damage value for any attack the)
+
+Cold: The creature has immunity to cold, but is vulnerable to,
+
+fire attacks.
+
+Earth: The creature (usually an elemental or outsider) pos-)
+
+sesses an innate bond.to the Elemental Plane of Earth.
+
+Eladrin: The creature is a.celestial that belongs to the eladrin
+
+race and shares common characteristics with other eladrins.
+
+Evil: The crearure (usually an outsider) possesses an innate
+bond to the evil-aligned Outer Planes, which determines how itis
+affected by cettain spells,
+
+Extraplanar: The creature (usually an clemental or outsider) is.
+
+not native to the Material Plane, which determines how. it is.af-
+fected by spells that banish or dismiss extraplanar creatures.
+Fire: The creature has immunity to fire, bur is vulnerable to
+cold attacks.
+Goblinoid: The creature belongs to one of the goblin races.
+Good: The creature (usually an outsider) possesses an innate
+{bond to the good-aligned Outer Planes, which determines how it
+jis affected by certain spells.
+
+ 
+
+Guardinal: The creature is a celestial that belongs to the guardi-.
+
+nal race and shares common characteristics with other guardinals,
+
+Incorporeal: The creature is completely intangible on the
+Material Plane and can pass through solid objects.
+
+‘Lawful: The creature (usually an outsider) possesses an innate
+bond to the lawful-aligned Outer Planes, which determines how it
+is affected by certain spells.
+
+Native: Despite its outsider type, the creature is actually a
+native of the Material Plane.
+
+Reptilian: The creature is a humanoid with reptilelike charac-
+
+teristics.
+
+Shapechanger: The creature possesses an innate ability co
+
+change shape or assume an alternate form,
+
+Swarm: The creature is actually a swarm of hundreds or.thou-;
+
+sands of very small creatures.
+Tanar'ri: The creature is a demon that belongs to the tanar'ri
+race and shares common characteristics with other tanar'i.
+‘Water: The creature (usually an elemental or outsider) pos-
+sesses an innate bond to the Elemental Plane of Water.
+
+HIT DICE
+This entry ina statistics block provides the numberand size (number
+of sides) of Hit Dice and any bonus hit points. The size of the dice is
+derived from the creature's type, The number of bonus hit points is a
+function of the creature's Hit Dice and Constitution score.
+
+A parenthetical listing of the creature's average hit points fol-
+lows the Hit Dice listing. To calculate a creature's average hit
+points, take the average value of each Hit Die, apply the creature's
+Constitution modifier (a creature always has at least 1 hit point per
+Hit Die), multiply by the number of Hit Dice, and round down.
+
+Averace Hit Die VALUES
+
+Die Size Average
+1d4 25
+106. 35.
+148 45
+1410 5.5
+1612 6s
+
+Hit Dice and Target CR: In general, a crearure’s Hit Dice!
+should be equal to.or greater than the target CR you've set for}
+the creature, but. not more than three times the target CR. For!
+
+example, if you are designing a CR $ monster, you should prob-
+ably assign at least 5 Hit Dice, but not more than 15 Hit Dice tf
+your monster has too few Hit Dice for its Challenge Rating, it
+swonit have staying power comparable to other monsters of that
+CR. if your monster has too many Hit Dice, not only will it have
+jmore hit points than.a creature of that CR should have, bur it
+will also havea betrer attack bonus and saving throws than
+
+ 
+
+ 
+

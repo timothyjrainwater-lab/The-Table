@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "5e08ebe3f272:pages:0005-0006",
+    "sourceId": "5e08ebe3f272",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/DnD35_Core_Books.pdf",
+    "pageStart": 5,
+    "pageEnd": 6,
+    "status": "pending",
+    "createdAt": "2026-02-03T08:58:33.329450+00:00"
+  },
+  "doneAt": "2026-02-03T10:39:19.847284+00:00",
+  "wrote": [
+    "00-System/Staging/5e08ebe3f272/pages/0005.txt",
+    "00-System/Staging/5e08ebe3f272/pages/0006.txt"
+  ],
+  "method": {}
+}

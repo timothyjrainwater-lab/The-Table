@@ -1,0 +1,207 @@
+ 
+ 250 
+any form of dimensional travel ( astral 
+projection, blink, dimension door , etherealness, 
+gate, plane shift , shadow walk , teleport, and 
+similar abilities) can simply leave the circle 
+through that means. You can prevent the 
+creature’s extradimensional escape by cast-
+ing a dimensional anchor spell on it, but you 
+must cast the spell before the creature acts. 
+If you are successful, the anchor effect lasts 
+as long as the magic circle does. The creature 
+cannot reach across the magic circle, but its 
+ranged attacks (ranged weapons, spells, 
+magical abilities, and the like) can. The 
+creature can attack any target it can reach 
+with its ranged attacks except for the circle 
+itself. 
+You can add a special diagram (a two-
+dimensional bounded figure with no gaps 
+along its circumference, augmented with 
+various magical sigils) to make the magic 
+circle more secure. Drawing the diagram by 
+hand takes 10 minutes and requires a DC 
+20 Spellcraft check. The DM makes this 
+check secretly. If the check fails, the 
+diagram is ineffective. You can take 10 (see 
+page 65) when drawing the diagram if you 
+are under no particular time pressure to 
+complete the task. This task also takes 10 
+full minutes. If time is no factor at all, and 
+you devote 3 hours and 20 minutes to the 
+task, you can take 20. 
+A successful diagram allows you to cast a 
+dimensional anchor  spell on the magic circle  
+during the round before casting any 
+summoning spell. The anchor holds any 
+called creatures in the magic circle  for 24 
+hours per caster level. A creature cannot 
+use its spell resistance against a magic circle 
+prepared with a diagram, and none of its 
+abilities or attacks can cross the diagram. If 
+the creature tries a Charisma check to 
+break free of the trap (see the lesser planar 
+binding spell), the DC increases by 5. The 
+creature is immediately released if any-
+thing disturbs the diagram—even a straw 
+laid across it. However, the creature itself 
+cannot disturb the diagram either directly 
+or indirectly, as noted above. 
+This spell is not cumulative with protec-
+tion from evil and vice versa. 
+Arcane Material Component:  A little pow-
+dered silver with which you trace a 3-foot-
+diameter circle on the floor (or ground) 
+around the creature to be warded. 
+ 
+Magic Circle against Good 
+Abjuration [Evil] 
+Level: Clr 3, Evil 3, Sor/Wiz 3 
+ 
+This spell functions like magic circle against 
+evil, except that it is similar to protection 
+from good instead of protection from evil , and 
+it can imprison a nonevil called creature. 
+ 
+Magic Circle against Law 
+Abjuration [Chaotic] 
+Level: Chaos 3, Clr 3, Sor/Wiz 3 
+This spell functions like magic circle against 
+evil, except that it is similar to protection 
+from law  instead of protection from evil , and 
+it can imprison a nonchaotic called crea-
+ture. 
+ 
+Magic Fang 
+Transmutation 
+Level: Drd 1, Rgr 1 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Living creature touched 
+Duration: 1 min./level 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+Magic fang gives one natural weapon of the 
+subject a +1 enhancement bonus on attack 
+and damage rolls. The spell can affect a 
+slam attack, fist, bite, or other natural 
+weapon. (The spell does not change an 
+unarmed strike’s damage from nonlethal 
+damage to lethal damage.) 
+Magic fang can be made permanent with 
+a permanency spell. 
+ 
+Magic Fang, Greater 
+Transmutation 
+Level: Drd 3, Rgr 3 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One living creature 
+Duration: 1 hour/level 
+ 
+This spell functions like magic fang, except 
+that the enhancement bonus on attack and 
+damage rolls is +1 per four caster levels 
+(maximum +5). 
+Alternatively, you may imbue all of the 
+creature’s natural weapons with a +1 en-
+hancement bonus (regardless of your cast-
+er level). 
+Greater magic fang  can be made perma-
+nent with a permanency spell. 
+ 
+Magic Jar 
+Necromancy 
+Level: Sor/Wiz 5 
+Components: V, S, F 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Target: One creature 
+Duration: 1 hour/level or until you return 
+to your body 
+Saving Throw: Will negates; see text 
+Spell Resistance: Yes 
+ 
+By casting magic jar, you place your soul in 
+a gem or large crystal (known as the magic 
+jar), leaving your body lifeless. Then you 
+can attempt to take control of a nearby 
+body, forcing its soul into the magic jar . 
+You may move back to the jar (thereby 
+returning the trapped soul to its body) and 
+attempt to possess another body. The spell 
+ends when you send your soul back to 
+your own body, leaving the receptacle 
+empty. 
+To cast the spell, the magic jar  must be 
+within spell range and you must know 
+where it is, though you do not need line of 
+sight or line of effect to it. When you 
+transfer your soul upon casting, your body 
+is, as near as anyone can tell, dead.  
+While in the magic jar , you can sense 
+and attack any life force within 10 feet per 
+caster level (and on the same plane of 
+existence). You do need line of effect from 
+the jar to the creatures. You cannot deter-
+mine the exact creature types or positions 
+of these creatures. In a group of life forces, 
+you can sense a difference of 4 or more Hit 
+Dice between one creature and another 
+and can determine whether a life force is 
+powered by positive or negative energy. 
+(Undead creatures are powered by 
+negative energy. Only sentient undead 
+creatures have, or are, souls.) 
+For example, if two 10th-level characters 
+are attacking a hill giant (12 HD) and four 
+ogres (4 HD), you could determine that 
+there are three stronger and four weaker 
+life forces within the range, all powered by 
+positive energy. You could choose to take 
+over either a stronger or a weaker creature, 
+but which particular stronger or weaker 
+creature you attempt to possess is 
+determined randomly. 
+Attempting to possess a body is a full-
+round action. It is blocked by protection 
+from evil or a similar ward. You possess the 
+body and force the creature’s soul into the 
+magic jar  unless the subject succeeds on a 
+Will save. Failure to take over the host 
+leaves your life force in the magic jar , and 
+the target automatically succeeds on fur-
+ther saving throws if you attempt to pos-
+sess its body again. 
+If you are successful, your life force oc-
+cupies the host body, and the host’s life 
+force is imprisoned in the magic jar . You 
+keep your Intelligence, Wisdom, Cha-
+risma, level, class, base attack bonus, base 
+save bonuses, alignment, and mental abili-
+ties. The body retains its Strength, Dex-
+terity, Constitution, hit points, natural abi-
+lities, and automatic abilities. For example, 
+a fish’s body breathes water and a troll’s 
+body regenerates. A body with extra limbs 
+does not allow you to make more attacks 
+(or more advantageous two-weapon at-
+tacks) than normal. You can’t choose to 
+activate the body’s extraordinary or super-
+natural abilities. The creature’s spells and 
+spell-like abilities do not stay with the 
+body. 
+As a standard action, you can shift freely 
+from a host to the magic jar if within range, 
+sending the trapped soul back to its body. 
+The spell ends when you shift from the jar 
+to your own body. 
+If the host body is slain, you return to 
+the magic jar , if within range, and the life 
+force of the host departs (it is dead). If the 
+host body is slain beyond the range of the 
+spell, both you and the host die. Any life 
+CHAPTER 11: 
+SPELLS 

@@ -1,0 +1,159 @@
+;
+4
+;
+.
+;
+\
+}
+NN
+
+ng
+
+ 
+
+Attempts to peer into the future or to petition one's
+deity for guidance often produce misleading results
+or fail completely. It might be said that the Dark
+Powers want mortals to make their own choices, for
+good or ill.
+
+The Dark Powers also shield undead creatures
+in their realm. Such creatures can always attempt
+a Will save to avoid any spell effect that would
+reveal their undead nature.
+
+Scrying: Scrying other locations, as with the
+arcane eye spell, is more reliable but carries its own
+risks. These spells normally create an invisible
+sensor. In Ravenloft, they create a visible, ghostly
+sensor resembling the caster’s own equivalent sen-
+sory organ. Any creature can detect the sensor by
+making a DC 16 Spot check, due to its fine size
+
+The caster may be vulnerable to attacks sent
+through the sensor. Visual sensors can channel
+gaze attacks, and auditory sensors can channel
+sonic attacks. A vampire that notices the ghostly
+eye created by clairvoyance can target the caster
+with its domination gaze, for example.
+
+  
+
+ 
+
+Sinkboles of Evil
+
+Ravenloft is a land shaped by passion and fear.
+Emotions linger, forming ethereal resonance. (See
+Ghosts in chapter 5 for more detailson resonance.)
+If these emotions are powerful enough, they can
+seep into the subconscious minds of creatures on
+the Material.
+
+All resonance is imbued with one or more
+focal emotions. The spells that target specific emo-
+tions such as fear or crushing despair in the Player's
+Handbook offers an excellent starting point for
+possible emotions. A secluded grove used for a
+lovers’ tryst may retain echoes of their desire; a
+torture chamber may retain the fear and hatred its
+victims felt for their captors. If the resonance is
+powerful enough —as determined by its rank — it
+applies a penalty on any Will saves made to resist
+its focal emotions. As an example, creatures in the
+lovers’ grove might suffer a penalty on Will saves
+against any effect that would create feelings of love
+or affection, including charm spells. Creatures in
+the torture chamber may suffer penalties to saves
+against fear effects or the crushing despair spell. See
+the table below for the appropriate DC modifiers.
+
+When acts of evil spawn resonance, as with
+the torture chamber above or the lair of a murder-
+ous creature, that imbued evil causes the area to
+become spiritually unclean. In these “sinkholes of
+evil,” the spiritual malevolence quietly weakens
+
+ 
+
+ 
+
+ 
+
+ 
+
+Enchantment
+
+If you force a compelled creature to commit an
+act requiring a powers check, it is you who must
+make the powers check, not your unwilling min-
+ion.
+
+Some darklords have the ability to control
+certain creatures within their domains. If you at-
+tempt to control (either through charm or
+compulsion) the mind of a creature under the
+influence of adarklord, or try to free acreature from
+a darklord’s influence, that creature stacks the
+lord’s Charisma bonus with its own Will save
+bonus. No cteature under the influence ofadarklord
+can be directed to attack that darklord; if ordered
+to do so, the pitiful creature may resolve its confu-
+sion by fleeing the scene.
+
+Example: A vampiric darklord may be able to
+control the wolves in his domain at will. If you
+attempt to charm or compel any wolves in the
+vampire’s domain, those wolves add the darklord’s
+Charisma bonus on their Will saves to resist your
+spell.
+
+resolve and bolsters the undead. In these foul
+regions, the listed DC penalty applies to all Will
+saves and all attempts to turn or rebuke undead.
+
+Ravenloft is riddled with these dens of evil.
+Darklords carry their own sinkholes with them.
+Resonance automatically rises by 1 rank (to a
+maximum of rank 5) within a 300-foot radius of a
+darklord. When the darklord moves on, the reso-
+nance returns to its former level.
+
+Characters with the Ethereal Empathy feat
+can sense these imbued emotions. Sinkholes of evil
+distort resonance, making the scene appear dark
+and menacing.
+
+Rank Ethereal Material
+Modifier Modifier
+
+1 +0 +0
+
+2 +1 +0
+
+3 +2 +1
+
+4 +4 +2
+
+5 +6 +3
+
+Rank: The rank of the underlying ethereal
+resonance. See chapter 5 for guidelines on assign-
+ing resonance ranks.
+
+Ethereal Modifier: The DC modifier applied
+to Will saves made in the Near Ethereal.
+
+Material Modifier: The DC modifier applied
+to Will saves made on the Material Plane.
+
+ 
+
+~~
+
+See ©
+
+wily rate
+
+ 
+

@@ -1,0 +1,12 @@
+# Table — Bard Spells Known). Thus, on any given day, he can cast (PHB 3–5)
+
+## Source
+- PHB (pdf p.0029)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

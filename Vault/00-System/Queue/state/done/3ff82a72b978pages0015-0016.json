@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "3ff82a72b978:pages:0015-0016",
+    "sourceId": "3ff82a72b978",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/A Giant Ransom.pdf",
+    "pageStart": 15,
+    "pageEnd": 16,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:28:33.624534+00:00"
+  },
+  "doneAt": "2026-02-03T08:38:23.658543+00:00",
+  "wrote": [
+    "00-System/Staging/3ff82a72b978/pages/0015.txt",
+    "00-System/Staging/3ff82a72b978/pages/0016.txt"
+  ],
+  "method": {}
+}

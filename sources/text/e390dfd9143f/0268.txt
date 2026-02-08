@@ -1,0 +1,342 @@
+Hit Dice:
+
+Armor Class:
+
+Base Attack/Grapph
+Attack:
+
+Full Attack:
+
+Space/Reach:
+Special Attacks:
+Special Qualities:
+
+Saves:
+Abilities:
+
+Skills;
+
+Feats:
+Environment,
+Organization;
+Challenge Rating:
+Treasure:
+Alignmen:
+Advancement:
+Level Adjustment:
+
+ 
+
+Hit Dice:
+Initiative:
+Speed:
+
+Armor Class:
+
+ 
+ 
+
+Space/Reac!
+Special Attacks:
+Special Qualities:
+
+ 
+
+ 
+
+Saves:
+Abilities:
+
+Skills:
+
+Feats;
+Environment:
+Organization:
+Challenge Rating:
+Treasure:
+Alignment:
+Advancement:
+Level Adjustment:
+
+ 
+
+Bugbear Zombie
+
+Medium Undead
+
+6d12+3 (42 hp)
+
++0
+
+30 ft. (6 squares; cant run)
+
+16 (+5 natural, +1 light wooden shield),
+souch. 10, flar-footed 16
+
+3/+6
+
+Morningstar +6 melee (1d8+3) or
+slam +6 melee (1d6+3)
+
+or javelin +3 ranged (1d6+2)
+Morningstar +6 melee (1d8+3) or
+slam +6 melee (id6+3) or
+
+javelin +3 ranged (1d6+2)
+
+5 ft/s ft
+
+ 
+
+Single actions only, damage
+reduction 5/slashing, darkvision
+60 ft, undead traits
+
+Fort +2, Ref +2, Will +5
+
+Str 17, Dex 10, Con —,
+
+Int —, Wis 10, Cha 1
+
+Toughness
+
+‘Temperate mountains
+
+Any
+
+ZA
+
+None
+Always neutral evil
+None
+
+Wyvern Zombie
+
+Large Undead
+
+141243 (94 hp)
+
++0
+
+20 ft. (4 squares; cant run),
+fly 60 ft, (poor)
+
+20 (—2 size, +12. natural),
+touch 8, flat-footed 20
+(+16
+
+Slam +11 melee (2d6+7) or
+talons +11 melee (2d6+5)
+Slam +11 melee (2d6+7) or
+talons +11 melee (2d6+5)
+
+ 
+
+Single actions only, damage
+reduction $/slashing, darkvision
+60 ft,, undead traits
+
+Fort +4, Ref +4, Will +9
+
+Str 21, Dex 10,Con—,
+
+Int —, Wis 10, Cha 1
+Toughness
+
+Warm hills
+
+Any
+
+4
+
+None
+
+Always neutral evil
+
+16-20 HD (Huge)
+
+Ogre Zombie
+
+Large Undead
+
+$d12+3 (55 hp)
+2
+
+40 ft. (8 squares; cant run)
+
+15 (-1 size, -2 Dex, +8 natural)
+touch 7, flat-footed 15
+
++4/+14
+
+Greatclub +9 melee (2d8+9)
+or slam +9 melee (1d8+9)
+
+or jayelin +1 ranged (1d8+6)
+Greatclub +9 melee (2d8+9) or
+slam +6 melee (1d8+9) or
+javelin +1 ranged (1d8+6)
+
+10 ft./10 ft
+
+Single actions only, damage
+reduction 5/slashing, darkvision
+60 ft., undead traits
+
+Fort +2, Ref +0, Will +6
+
+Str 23, Dex 6, Con —,
+
+Int —, Wis 10, Cha t
+Toughness
+
+‘Temperate hills
+
+Any
+
+3
+
+None
+
+Always neutral evil
+
+None
+
+Umber Hulk Zombie
+Large Undead
+
+16d12+3 (107 hp)
+
++0
+
+20 ft. (4 squares; can't run),
+burrow 20 ft
+
+19 (—-1 size, +10 natural)
+touch 0, flat-footed 19
++8/+19
+
+Claw +14 melee (2d4+7) or
+bite +14 melee (2d8+3)
+Claw +14 melee (2d4+7 ) or
+bite +14 melee (2d8+3)
+
+10 ft./10 ft
+
+Single actions only, damage
+reduction 5/slashing, darkvision
+60 ft., undead traits
+
+Fort +5, Ref +5, Will +10
+Str 25, Dex 11,Con—,
+
+Int —, Wis 10, Chat
+Toughness
+
+Underground
+
+Any
+
+s
+
+None
+
+Always neutral evil
+
+18-20 HD (Large)
+
+Minotaur Zombie
+
+Large Undead
+
+12d8+3 (81 hp)
+
+=1
+
+30 ft. (6 squares; cant run)
+
+16 (~1 size, —1 Dex, +8 natural)
+touch 8, flat-footed 16
+
+46/415
+
+Greataxe +10 melee (3d6+7/x3) or
+gore +10 melee (1d8+5)
+
+or slam +10 melee (1d8+5)
+Greataxe +10 melee (346+7/%3) or
+gore +10 melee (1d8+5) or
+
+slam +10 melee (1d8+5°
+
+10 fr./10 fr,
+
+Single actions only, damage
+reduction 5/slashing, darkvision
+60 ft,, undead traits.
+
+Fort +4, Ref +3, Will +8
+
+Str 21, Dex 8, Con —,
+
+Int —, Wis 10, Cha t
+
+Toughness
+
+Underground
+
+Any
+
+4
+
+None
+
+Always neutral evil
+
+None
+
+Gray Render Zombie
+Large Undead
+
+20d8+3 (133 hp)
+
+1
+
+30 ft, (6 squares; cant run)
+
+16 (1 size,—1 Dex, +8 natural)
+touch 8, flat-footed 16
++10/+24
+
+Bite +16 melee (2d6+7) or
+slam +16, melee (1d8+10)
+
+Bite +16 melee (2d6+7) or
+slam +16 melee (1d8+10)
+
+10 ft,/10 ft.
+
+Single actions only, damage
+reduction 5/slashing, darkvision
+60 ft, undead traits
+
+Fort +6, Ref +5, Will +12
+Str 25, Dex 8, Con—,
+
+Int —, Wis 10, Cha 1
+Toughness
+
+‘Temperare marshes
+
+Any
+
+6
+
+None
+
+Always neutral evil
+
+None
+
+ 
+

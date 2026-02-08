@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "35f14d2ba4f3:pages:0007-0008",
+    "sourceId": "35f14d2ba4f3",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/RPGA Living Greyhawk/A Gnomes Affair.pdf",
+    "pageStart": 7,
+    "pageEnd": 8,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:28:33.721141+00:00"
+  },
+  "doneAt": "2026-02-03T08:41:19.122734+00:00",
+  "wrote": [
+    "00-System/Staging/35f14d2ba4f3/pages/0007.txt",
+    "00-System/Staging/35f14d2ba4f3/pages/0008.txt"
+  ],
+  "method": {}
+}

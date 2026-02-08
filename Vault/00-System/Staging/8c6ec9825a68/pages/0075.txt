@@ -1,0 +1,168 @@
+   
+
+Benefit: Asa swiftaction, you designate a single opponent
+as the target of this feat. When you are adjacent to the c
+
+  
+
+   
+
+target, you can choose to count as occupying any other square
+you thre:
+
+ 
+
+n for purposes of determining flanking bonuses
+for you and your allies. You also occupy your current square
+for flanking an opponent
+
+Special: A fighter can select Adaptable Flanker as one of
+his fighter bonus feats.
+
+AGILE SHIELD FIGHTER
+
+You are skilled in combining your shield bash attack with
+an armed strike. When you use your shield in unison with
+a weapon, your training allows you to score telling blows
+with both
+
+Prerequisites: Proficiency with shields, Improved Shield
+Bash, Shield Specialization.
+
+Benefit: When making a shield bash and armed strike
+attack as part of a full attack action, you take a ~2 penalty
+on each attack. These penalties replace the normal ones you
+incur for fighting with two weapons,
+
+Special: A fighter can select Agile Shield Fighter as one
+of his fighter bonus feats.
+
+ARCANE ACCOMPANIMENT
+
+You infuse your performance with magical energy, allowing
+its effects to continue even as you attend to other tasks
+Prerequisites: Perform 4 ranks, Arcane Flourish, arcane
+caster level 1st, bardic music
+Benefit: As a swift action, you can expend a pre-
+pared spell ora spell slot to extend the duration of
+your bardic music abiliry after you stop perform-
+ing, You extend the duration a number of
+rounds equal to the level of the spell
+used in this manner, This
+
+ 
+
+Tus, by E. Fiegenschub
+
+extension is in addition to
+the normal duration of
+the effect after you stop
+your performance.
+You can expend
+only one spell slot
+to extend the du-
+ration of your
+bardic music
+
+    
+  
+    
+   
+  
+   
+  
+ 
+   
+   
+  
+   
+  
+    
+   
+   
+  
+  
+   
+   
+   
+
+   
+
+The slot can come from any of your arcane caster classes,
+nor just bard.
+
+This has no effect on bardic music or similar abilities with
+a duration of instantaneous or permanent
+
+ARCANE CONSUMPTION
+
+You can sacrifice your physical health to strengthen a spell
+This process leaves you wracked with pain, but the enhanced
+energy you draw from the spell might provide the
+between victory and defeat
+
+margin
+
+Prerequisites: Arcane Toughness, Toughness, arcane
+caster level 6th.
+
+Benefit: Once per day as a swift action, you can grant the
+next spell you cast a +4 bonus on its save DC. You must cast
+and complete this spell on the same turn thar you use a swift
+action to activate this fear. In return, you take a —4 penalry
+to Constitution for 12 hours and are fatigued.
+
+ARCANE FLOURISH
+
+You use your magical abilities to improve your performance
+talents, By bleeding magical energy into your singing, oratory,
+or other abilities, you enhance the pitch and sound, project
+your voice with a more commanding tone, and so forth.
+Prerequisites: Perform 4 ranks, arcane caster level 1st
+Benefit: As a swift action, you can expend a prepared spell
+or spell slot to grant your next Perform check a competence
+bonus equal to 1 + the level of the spell or slot. You must
+make a check within 1 minute of using
+this feat, or the energy you expend
+dissipates with no effect
+
+ARCANE THESIS
+
+You have studied a single
+
+ 
+
+  
+ 
+  
+ 
+  
+  
+  
+ 
+ 
+ 
+ 
+  
+ 
+  
+   
+
+spell in-depth. Your
+expertise grants you
+formidable though
+narrowly focused
+arcane mastery.
+¥. Prerequisites:
+- Knowledge (arcana)
+9ranks, ability tocast
+arcane spells.
+
+   
+
+Strike to get the drop
+
+  
+
+mt giant
+

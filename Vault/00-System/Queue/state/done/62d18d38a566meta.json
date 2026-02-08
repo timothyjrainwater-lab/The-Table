@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "62d18d38a566:meta",
+    "sourceId": "62d18d38a566",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Lion.pdf",
+    "title": "Secrets of The Lion",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T17:47:04.622798+00:00",
+  "meta": {
+    "sourceId": "62d18d38a566",
+    "title": "Secrets of The Lion",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Lion.pdf",
+    "pages": 98,
+    "extractedAt": "2026-02-03T17:47:04.615675+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

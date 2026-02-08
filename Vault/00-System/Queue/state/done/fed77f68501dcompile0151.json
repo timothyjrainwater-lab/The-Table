@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0151",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 151,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:23:50.587376+00:00"
+  },
+  "doneAt": "2026-02-05T16:30:23.112476+00:00",
+  "citation": "DMG (pdf p.0151)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Armor Class"
+  ],
+  "createdTables": []
+}

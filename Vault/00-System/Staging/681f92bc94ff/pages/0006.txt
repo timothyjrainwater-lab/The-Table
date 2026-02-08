@@ -1,0 +1,137 @@
+ 
+ 5
+/rhombus4 Roll a d20. 
+/rhombus4 Add any relevant modifiers. 
+/rhombus4 Compare the result to a target number. 
+If the result equals or exceeds the target number (set by the DM 
+or given in the rules), your character succeeds. If the result is lower 
+than the target number, you fail. 
+ 
+THE RULES 
+Important: You don’t have to memorize this book to play the 
+game. Once you understand the basics, start playing! Use this book 
+as reference during play. When in doubt, stick to the basics, keep 
+playing, and have fun. 
+One part of the book you may end up referring to frequently, at 
+least for a while, is the glossary that begins on page 304. Here’s 
+where you’ll find definitions of the terms we use in the rules and 
+information on how a character is affected by certain conditions 
+(such as being stunned). If you come across a term you’re not 
+familiar with and you want to know more, look it up in the glossary 
+(and also check the index, of course). 
+ 
+WHAT YOU NEED TO PLAY 
+Your group needs these items to play D&D. 
+/rhombus4 The Player’s Handbook, Dungeon Master’s Guide, and Monster Manual 
+revised core rulebooks. (All players might want to have their own 
+copies of the books.) 
+/rhombus4 A copy of the character sheet at the back of this book for each 
+player. 
+/rhombus4 A battle grid. The Dungeon Master’s Guide contains one. 
+/rhombus4 Miniatures to represent each character and the monsters that 
+challenge them. 
+/rhombus4 A set of dice for each player. A set of dice includes at least one 
+four-sided die (d4), four six-sided dice (d6), one eight-sided die 
+(d8), two ten-sided dice (d10), one twelve-sided die (d12), and one 
+twenty-sided die (d20). 
+/rhombus4 Pencils, scrap paper, and graph paper to keep notes and to map 
+the locations your characters will explore. 
+ 
+DICE 
+We describe dice rolls with expressions such as “3d4+3,” which 
+means “roll three four-sided dice and add 3” (resulting in a number 
+between 6 and 15). The first number tells you how many dice to roll 
+(adding the results together). The number immediately after the “d” 
+tells you the type of dice to use. Any number after that indicates a 
+quantity that is added or subtracted from the result. Some examples 
+include: 
+1d8: One eight-sided die, generating a number from 1 to 8. This is 
+the amount of damage a longsword deals. 
+1d8+2: One eight-sided die plus 2, generating a number from 3 to 
+10. A character with a +2 Strength bonus deals this amount of 
+damage when using a longsword. 
+2d4+2: Two four-sided dice plus 2, resulting in a number from 4 
+to 10. This is the amount of damage a 3rd-level wizard deals with a 
+magic missile spell. 
+d%: Percentile dice work a little differently. You generate a 
+number between 1 and 100 by rolling two different-colored ten-
+sided dice. One color (designated before you roll) is the tens digit. 
+The other is the ones digit. A roll of 7 and 1, for example, give you a 
+result of 71. Two 0s represents 100. Some percentile show the tens 
+digit in tens (00, 10, 20, etc.) and the ones digit in ones (0, 1, 2, etc.). 
+In this case, a roll of 70 and 1 is 71, and 00 and 0 is 100. 
+Important! Not every action requires a die roll. Roll dice in 
+combat and other dramatic situations when success is never a cer-
+tainty. 
+The d20 is used to determine whether or not your character suc-
+ceeds at an action. The other dice are used to determine what hap-
+pens after you succeed. 
+Players should roll dice openly so that everyone can see the re-
+sults. The DM may make some rolls in secret to build suspense and 
+maintain mystery. 
+ 
+WHAT CHARACTERS CAN DO 
+A character can try to do anything you can imagine, just as long as it 
+fits the scene the DM describes. Depending on the situation, your 
+character might want to listen at a door, search an area, bargain with 
+a shopkeeper, talk to an ally, jump across a pit, move, use an item, or 
+attack an opponent. 
+Characters accomplish tasks by making skill checks, ability 
+checks, or attack rolls, using the core mechanic. 
+ 
+Skill Checks 
+To make a skill check, roll a d20 and add your character’s skill 
+modifier. Compare the result to the Difficulty Class (DC) of the task 
+at hand. 
+An unopposed skill check’s success depends on your result 
+compared to a DC set by the DM or the skill’s description (see 
+Chapter 4). 
+An opposed skill check’s success depends on your result com-
+pared to the result of the character opposing your action. The 
+opponent’s check might be made using the same skill or a different 
+skill, as set forth in the skill’s description. 
+ 
+Ability Checks 
+Ability checks are used when a character doesn’t have any ranks in a 
+skill and tries to use that skill untrained. (Some skills, however, can’t 
+be used untrained.) 
+Ability checks are also used to determine success when no skill 
+applies. 
+To make an ability check, roll a d20 and add your character’s 
+modifier for the appropriate ability. 
+ 
+Attack Rolls 
+To attack an opponent, roll a d20 and add your character’s attack 
+bonus. If the result equals or exceeds the opponent’s Armor Class 
+(AC), the attack succeeds. 
+On a successful attack, roll the dice indicated for the weapon you 
+used to determine how much damage your attack deals. 
+Damage reduces hit points (hp). When all of a character’s hit 
+points are gone, the character falls unconscious and is dying. (See 
+Chapter 8: Combat for details.) 
+A critical hit deals more damage. If you roll a natural 20 on an 
+attack roll, you threaten a critical hit. Roll again to confirm it. If the 
+second attack roll is successful, then the critical hit is confirmed and 
+you deal more damage (see page 140 for more information). 
+ 
+THE COMBAT ROUND 
+Combat is played in round. Each round represents 6 seconds in the 
+game world, regardless of how long it takes to play out the round. 
+Combat starts with initiative checks to determine the order of play 
+for the entire battle. There are three types of actions: standard 
+actions, move actions, and full-round actions. In a round, you can do 
+one of these four things: Take a standard action and then a move 
+action; take a move action and then a standard action; take two move 
+actions; or perform a full-round action. (See Chapter 8: Combat for 
+details.) 
+ 
+THE PLAYER’S ROLE 
+As a player, you use this handbook to create and run a character. 
+Your character is an adventurer, part of a team that regularly delves 
+into dungeons and battles monsters. Play wherever everyone feels 
+comfortable and there’s a place to set the battle grid and miniatures, 
+roll the dice, and spread out your books and character sheets. 
+The DM sets each scene and describes the action. It’s your job to 
+decide what your character is like, how he or she relates to the other 
+adventurers, and act accordingly. You can play a serious paladin or a 
+INTRODUCTION 

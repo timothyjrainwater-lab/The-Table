@@ -1,0 +1,119 @@
+     
+
+Types of Curses
+
+Curses in Ravenloft fall into three basic groups.
+Adventures are most familiar with the type of
+curses created by spellcasters — such as a cleric
+casting bestow curse. In Ravenloft, however, any
+character can lay a curse; granted by the Dark
+Powers and fueled by the hatred of the wronged
+party, these are known as curses of vengeance.
+Lastly, there are those who willingly or unwittingly
+draw the forces of wrath down on themselves; these
+are self-induced curses.
+
+Curses of Vengeance
+
+Curses of vengeance are common in Gothic
+tales. A curse of vengeance is brought into being
+when a character believes herself to be wronged
+and, in her outrage, wishes damnation upon the
+offender. Even the humblest peasant can call on
+terrifyingly powerful forces. Examples might in-
+clude the following:
+
+© The lord of an estate sets his hounds on a
+young Vistani boy caught poaching. The
+slain boy’s mother promises that the lord
+also loses his firstborn. When the man later
+sires a child, it is born a murderous spirit
+naga.
+
+A hedge wizard is falsely accused of murder-
+ing children and burned as a witch. Even as
+the flames lick at her feet, she swears to one
+day return and destroy the village that
+wronged her.
+
+Laying a curse of vengeance requires a curse
+check (see Laying the Curse below). A curse of
+vengeance does not grant the target a saving throw,
+nor can spell resistance protect against it.
+
+Magical Curses
+
+Magical curses are those spellcasters create
+through effects such as bestow curse or geas. The
+advantage of curses empowered by magic is that
+they bypass the curse check, automatically taking
+effect. However, since they are magical, the victim
+does receive a saving throw (as listed under the
+spell description), and spell resistance does apply.
+
+Virtually any spell effect with lasting, delete-
+tious effects can appear in Ravenloft’s folklore as a
+curse. Curselike spells such as insanity, baleful poly-
+morph and unhallow appear in many cautionary
+tales. However, casting these spells does not incur
+the curse rules used in this section (although curses
+of vengeance may mirror their effects).
+
+Self-Induced Curses
+
+In some cases, a curse’s invoker and its victim
+are the same person. Driven by inner lusts or
+obsessions, a character summons the attention of
+malign forces, voluntarily drawing damnation down
+upon herself. The most notorious example of a self-
+induced curse is the tale of Strahd von Zarovich, as
+told in the Tome of Strahd. Desperate to regain
+what he saw asa wasted youth and steal his younger
+brother Sergei’s fiancée for himself, Strahd made a
+pact with death and willingly murdered Sergei to
+seal the bargain. Strahd was granted the youth he
+desired — the eternal and hollow youth of a vam-
+pire — and cursed to be forever haunted by the
+woman he betrayed.
+
+In Ravenloft, these self-induced curses are
+enforced by the Dark Powers and are called powers
+checks, which are detailed in the nextsection. Any
+character who desires the dark gifts of corruption
+can willingly fail a powers check, proving her
+sincerity by performing an Act of Ultimate Dark-
+ness.
+
+Crafting the Curse
+
+The first and most important step of invoking
+any curse is the creation of the curse itself. Every
+curse is unique and capable of producing nearly any
+result. The more atmospheric the curse, the better
+chance it has of gaining the ear of the Dark Powers.
+
+@ording
+
+Let us return to the example of the falsely
+accused witch. It’s not very gripping if her dying
+words are a trite, “Mark my words, I will be back!
+And when I return, you will all be sorry!” To make
+matters worse, the vague curse fails to explain how
+it will take effect. But consider if that same accused
+witch settled into an unnatural calm once the fire
+was lit, staring intensely at each face in the jeering
+crowd, then delivered this speech as the flames
+consumed her:
+
+“You would burn me in the name ofsevenslain
+babes. The blood of your children is not on my
+hands — but it will be! Seven children from each
+generation shall | claim! Seven children times
+seven winters! And once I have claimed my due, I
+shall be born again — as one of you! As one of your
+own children, I shall bring ruin to you all!”
+
+This version of the curse is much more impres-
+sive. Not only is the hatred and resolve of the
+character invoking the curse made clear, the curse
+

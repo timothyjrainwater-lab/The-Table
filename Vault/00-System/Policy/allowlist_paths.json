@@ -1,0 +1,14 @@
+{
+  "root_win": "F:/DnD-3.5/",
+  "root_mnt": "/mnt/f/DnD-3.5/",
+  "match": "relative",
+  "preferred_rel_paths": [
+    "Core Rulebooks/Player's Handbook.pdf",
+    "Core Rulebooks/Dungeon Master's Guide.pdf",
+    "Core Rulebooks/Monster Manual.pdf"
+  ],
+  "allowed_rel_prefixes": [
+    "Core Rulebooks/"
+  ],
+  "notes": "Allow-list for rules ingestion. Matching is performed on paths relative to F:/DnD-3.5/. Anything not matching is skipped by extractMeta/extractPages workers (marked done with skipped_disallowed)."
+}

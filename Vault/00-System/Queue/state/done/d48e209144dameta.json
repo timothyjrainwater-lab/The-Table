@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "d48e209144da:meta",
+    "sourceId": "d48e209144da",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/A Guidebook to Classes/Tome And Blood.pdf",
+    "title": "Tome And Blood",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:00:54.682919+00:00",
+  "meta": {
+    "sourceId": "d48e209144da",
+    "title": "Tome And Blood",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/A Guidebook to Classes/Tome And Blood.pdf",
+    "pages": 125,
+    "extractedAt": "2026-02-04T02:00:54.126501+00:00"
+  },
+  "enqueued_extractPages": 63
+}

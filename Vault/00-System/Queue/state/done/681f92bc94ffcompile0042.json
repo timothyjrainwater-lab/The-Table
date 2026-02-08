@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0042",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 42,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T06:53:33.833840+00:00"
+  },
+  "doneAt": "2026-02-03T07:35:20.332374+00:00",
+  "citation": "PHB (pdf p.0042)",
+  "printedGuess": "41",
+  "touched": [
+    "Condition — Grappled",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Small or Large Monk Unarmed Damage (PHB 3–11)",
+    "Table — The Monk. The (PHB 3–10)"
+  ]
+}

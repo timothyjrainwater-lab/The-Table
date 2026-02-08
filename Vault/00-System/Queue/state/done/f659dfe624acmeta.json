@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "f659dfe624ac:meta",
+    "sourceId": "f659dfe624ac",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Voyage To Storm Isle.pdf",
+    "title": "Voyage To Storm Isle",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T03:19:48.940867+00:00",
+  "meta": {
+    "sourceId": "f659dfe624ac",
+    "title": "Voyage To Storm Isle",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Voyage To Storm Isle.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-04T03:19:48.892523+00:00"
+  },
+  "enqueued_extractPages": 5
+}

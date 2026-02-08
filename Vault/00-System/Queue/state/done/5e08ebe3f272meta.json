@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "5e08ebe3f272:meta",
+    "sourceId": "5e08ebe3f272",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/DnD35_Core_Books.pdf",
+    "title": "DnD35_Core_Books",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:58:33.345337+00:00",
+  "meta": {
+    "sourceId": "5e08ebe3f272",
+    "title": "DnD35_Core_Books",
+    "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/DnD35_Core_Books.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T08:58:33.287138+00:00"
+  }
+}

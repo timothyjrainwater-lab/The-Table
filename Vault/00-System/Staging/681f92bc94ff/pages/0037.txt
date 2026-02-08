@@ -1,0 +1,135 @@
+ 
+ 36 
+Woodland Stride (Ex):  Starting at 2nd level, a druid may move 
+through any sort of undergrowth (such as natural thorns, briars, 
+overgrown areas, and similar terrain) at her normal speed and with-
+out taking damage or suffering any other impairment. However, 
+thorns, briars, and overgrown areas that have been magically 
+manipulated to impede motion still affect her. 
+Trackless Step (Ex):  Starting at 3rd level, a druid leaves no trail 
+in natural surroundings and cannot be tracked. She may choose to 
+leave a trail if so desired. 
+ 
+THE DRUID’S ANIMAL COMPANION 
+A druid’s animal companion is different from a normal animal of its kind
+in many ways. The companion is treated as a magical beast, not an
+animal, for the purpose of all effects that depend on its type (though it 
+retains an animal’s HD, base attack bonus, saves, skill points, and feats).
+It is superior to a normal animal of its kind and has special powers, as
+described below. 
+ 
+Class Bonus Natural Str/Dex Bonus 
+Level HD Armor Adj. Adj. Tricks Special  
+1st–2nd  +0 +0 +0 1 Link, share spells
+3rd–5th  +2 +2 +1 2 Evasion 
+6th–8th  +4 +4 +2 3 Devotion 
+9th–11th  +6 +6 +3 4 Multiattack 
+12th–14th  +8 +8 +4 5  
+15th–17th  +10 +10 +5 6 Improved evasion
+18th–20th  +12 +12 +6 7  
+ 
+Animal Companion Basics:  Use the base statistics for a creature of the
+companion’s kind, as given in the Monster Manual , but make the 
+following changes. 
+Class Level: The character’s druid level. The druid’s class levels stack
+with levels of any other classes that are entitled to an animal companion
+(such as the ranger) such for the purpose of determining the compan-
+ion’s abilities and the alternative lists available to the character. 
+Bonus HD:  Extra eight-sided (d8) Hit Dice, each of which gains a
+Constitution modifier, as normal. Remember that extra Hit Dice improve 
+the animal companion’s base attack and base save bonuses. An animal
+companion’s base attack bonus is the same as that of a druid of a level
+equal to the animal’s HD. An animal companion has good Fortitude and
+Reflex saves (treat it as a character whose level equals the animal’s HD).
+An animal companion gains additional skill points and feats for bonus
+HD as normal for advancing a monster’s Hit Dice (see the Monste
+r 
+Manual). 
+Natural Armor Adj.: The number noted here is an improvement to the
+animal companion’s existing natural armor bonus. 
+Str/Dex Adj.: Add this value to the animal companion’s Strength and
+Dexterity scores. 
+Bonus Tricks:  The value given in this column is the total number o f
+“bonus” tricks that the animal knows in addition to any that the druid 
+might choose to teach it (see the Handle Animal skill, page 74). These
+bonus tricks don’t require any training time or Handle Animal checks,
+and they don’t count against the normal limit of tricks known by the
+animal. The druid selects these bonus tricks, and once selected, they
+can’t be changed. 
+Link (Ex): A druid can handle her animal companion as a free action,
+or push it as a move action, even if she doesn’t have any ranks in the
+Handle Animal skill. The druid gains a +4 circumstance bonus on all wild 
+empathy checks and Handle Animal checks made regarding an animal
+companion. 
+Share Spells (Ex):  At the druid’s option, she may have any spell (but
+not any spell-like ability) she casts upon herself also affect her animal
+companion. The animal companion must be within 5 feet of her at the
+time of casting to receive the benefit. If the spell or effect has a duration
+other than instantaneous, it stops affecting the animal companion if the
+companion moves farther than 5 feet away and will not affect the animal 
+again, even if it returns to the druid before the duration expires.
+Additionally, the druid may cast a spell with a target of “You” on her
+animal companion (as a touch range spell) instead of on herself. A druid
+and her animal companion can share spells even if the spells normally
+do not affect creatures of the companion’s type (animal). 
+Evasion (Ex): If an animal companion is sub
+jected to an attack that 
+normally allows a Reflex saving throw for half damage, it takes no 
+damage if it makes a successful saving throw. 
+Devotion (Ex): An animal companion’s devotion to its master is so 
+complete that it gains a +4 morale bonus on Will saves against 
+enchantment spells and effects. 
+Multiattack: An animal companion gains Multiattack as a bonus feat if 
+it has three or more natural attacks (see the Monster Manual for details 
+on this feat) and does not already have that feat. If it does not have the 
+requisite three or more natural attacks, the animal companion instead 
+gains a second attack with its primary natural weapon, albeit at a –5 
+penalty. 
+Improved Evasion (Ex): When sub
+jected to an attack that normally 
+allows a Reflex saving throw for half damage, an animal companion takes 
+no damage if it makes a successful saving throw and only half damage i f 
+the saving throw fails. 
+ 
+ALTERNATIVE ANIMAL COMPANIONS 
+As explained in the text on page 35, a druid of sufficiently high level can 
+select her animal companion from one of the following lists, applying the 
+indicated adjustment to the druid’s level (in parentheses) for purposes 
+of determining the companion’s characteristics and special abilities. 
+ 
+4th Level or Higher (Level –3) 
+Ape (animal) Dire weasel 
+Bear, black (animal) Leopard (animal) 
+Bison (animal) Lizard, monitor (animal) 
+Boar (animal) Shark, Large 1 (animal) 
+Cheetah (animal) Snake, constrictor (animal) 
+Crocodile (animal)
+1 Snake, Large viper (animal) 
+Dire badger Wolverine (animal) 
+Dire bat 
+ 
+7th Level or Higher (Level –6) 
+Bear, brown (animal) Dire wolverine 
+Crocodile, giant (animal) Elasmosaurus 1 (dinosaur) 
+Deinonychus (dinosaur) Lion (animal) 
+Dire ape Rhinoceros (animal) 
+Dire boar Snake, Huge viper (animal) 
+Dire wolf Tiger (animal) 
+ 
+10th Level or Higher (Level –9) 
+Bear, polar (animal) Shark, Huge 1 (animal) 
+Dire lion Snake, giant constrictor (animal) 
+Megaraptor (dinosaur) Whale, orca 1 (animal) 
+ 
+13th Level or Higher (Level –12) 
+Dire bear Elephant (animal) 
+Octopus, giant1 (animal) 
+ 
+16th Level or Higher (Level –15) 
+Dire shark1 Triceratops (dinosaur) 
+Dire tiger Tyrannosaurus (dinosaur) 
+Squid, giant1 (animal) 
+ 
+1 Available only in an aquatic environment. 
+CHAPTER 3: 
+CLASSES 

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "73d955ec8941:meta",
+    "sourceId": "73d955ec8941",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Creature Collection 2 - Dark Menagerie.pdf",
+    "title": "Creature Collection 2 - Dark Menagerie",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:02:09.783539+00:00",
+  "meta": {
+    "sourceId": "73d955ec8941",
+    "title": "Creature Collection 2 - Dark Menagerie",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Creature Collection 2 - Dark Menagerie.pdf",
+    "pages": 249,
+    "extractedAt": "2026-02-03T08:02:08.675637+00:00"
+  }
+}

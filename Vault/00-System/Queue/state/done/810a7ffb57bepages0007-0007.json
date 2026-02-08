@@ -1,0 +1,17 @@
+{
+  "task": {
+    "taskId": "810a7ffb57be:pages:0007-0007",
+    "sourceId": "810a7ffb57be",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/A Harvest of Evil.pdf",
+    "pageStart": 7,
+    "pageEnd": 7,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:33:50.575190+00:00"
+  },
+  "doneAt": "2026-02-03T09:10:36.688943+00:00",
+  "wrote": [
+    "00-System/Staging/810a7ffb57be/pages/0007.txt"
+  ],
+  "method": {}
+}

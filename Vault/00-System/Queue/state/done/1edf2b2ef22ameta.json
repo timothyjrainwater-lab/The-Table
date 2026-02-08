@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "1edf2b2ef22a:meta",
+    "sourceId": "1edf2b2ef22a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 03/Blood On White Petals.pdf",
+    "title": "Blood On White Petals",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:55:06.701394+00:00",
+  "meta": {
+    "sourceId": "1edf2b2ef22a",
+    "title": "Blood On White Petals",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 03/Blood On White Petals.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T05:55:06.647206+00:00"
+  }
+}

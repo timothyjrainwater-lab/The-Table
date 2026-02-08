@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "b4cd06ef0621:meta",
+    "sourceId": "b4cd06ef0621",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Dragons.pdf",
+    "title": "Dragons",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:10:12.715719+00:00",
+  "meta": {
+    "sourceId": "b4cd06ef0621",
+    "title": "Dragons",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Dragons.pdf",
+    "pages": 210,
+    "extractedAt": "2026-02-03T09:10:11.738557+00:00"
+  }
+}

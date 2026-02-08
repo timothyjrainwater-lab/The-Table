@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "ca8c8cb83fff:meta",
+    "sourceId": "ca8c8cb83fff",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Dark Tales & Disturbing Legends.pdf",
+    "title": "Dark Tales & Disturbing Legends",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:21:31.130149+00:00",
+  "meta": {
+    "sourceId": "ca8c8cb83fff",
+    "title": "Dark Tales & Disturbing Legends",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Dark Tales & Disturbing Legends.pdf",
+    "pages": 186,
+    "extractedAt": "2026-02-03T08:21:30.284112+00:00"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "bookCode": "DMG",
+  "sourceId": "fed77f68501d",
+  "citationPrefix": "DMG",
+  "tableLabelPrefix": "DMG",
+  "pageMap": "00-System/SourceMaps/DMG.page_map.json",
+  "pageStart": 11,
+  "pageEndHard": 322,
+  "minChars": 30,
+  "bufferLow": 200,
+  "bufferHigh": 500,
+  "batch": 100,
+  "passA_targets": {
+    "MOC — Dungeon Master's Guide": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules"]
+    }
+  }
+}

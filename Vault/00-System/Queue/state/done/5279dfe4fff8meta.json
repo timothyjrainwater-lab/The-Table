@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "5279dfe4fff8:meta",
+    "sourceId": "5279dfe4fff8",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Raid On Tonwell.pdf",
+    "title": "Raid On Tonwell",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T16:37:59.258925+00:00",
+  "meta": {
+    "sourceId": "5279dfe4fff8",
+    "title": "Raid On Tonwell",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Raid On Tonwell.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T16:37:59.251828+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "f1cfd6c2b419:meta",
+    "sourceId": "f1cfd6c2b419",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Items/More Ultimate Equipment.pdf",
+    "title": "More Ultimate Equipment",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:02:15.982132+00:00",
+  "meta": {
+    "sourceId": "f1cfd6c2b419",
+    "title": "More Ultimate Equipment",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Items/More Ultimate Equipment.pdf",
+    "pages": 48,
+    "extractedAt": "2026-02-03T15:02:15.747023+00:00"
+  },
+  "enqueued_extractPages": 24
+}

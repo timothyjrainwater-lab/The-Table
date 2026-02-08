@@ -1,0 +1,173 @@
+Asyssat Encounters (EL 15)
+
+3% Encounter Average EL
+01-10 1 marilith (demon) v
+11-25 _1 abyssal greater basilisk 15
+26-50 Demon troupe: 1 nalfeshnee, 1 hezrou, 1s
+
+and 143. vrocks
+51-70 Demon troupe: 1 glabrezu, 1 succubus, 4
+\ and 143 yrocks
+71-90 143 hezrous (demon) 3
+1-91-95} death slaad 13
+96-1002 gray slaadi 2
+Hettish Encounters (EL 15)
+
+4% Encounter Average EL
+01-20 horned devil 16
+21-4S____Devil troupe:.1 ice devil, 143 bone devils, 15
+
+and 2d4+3 bearded devils
+| 46-70 1d3 ice devils 5
+|21-80___2d4+3 hellwasp swarms 14
+1 81-85 1d442 formian myrmarchs 14
+86-95 1d4+2 bone devils B
+96-100 I night hag and 1 cauchemar (nightmare) 12
+Heaventy Encounters (EL 15)
+
+4% Encounter Average EL
+01-25 13 astral devas (angel) 16
+26-45 1 planetar (angel) 16
+
+46-60, T hound archon hero 16
+
+| 61-65 1 marut (inevitable) 5
+
+66-85 1 trumpet archon in
+
+86-90 1d4+2 formian myrmarchs 14
+
+91-95 13 Jeonals (guardinal) 4
+
+.-96-100 -1d4+2 avorals. (guardinal) 3
+BeaiFic ENCounreRs (EL 15)
+
+4% Encounter Average EL
+01-1513 astral devas (angel) 16
+16-30__1 planetar (angel) 16
+31-55 13 ghaeles (eladrin) 15
+56-65 _1d3 leonals (guardinal) 4
+66-80 ‘I celestial charger (unicorn) 3
+81-90 1d4+2 avorals. (guardinal). 3
+91-95 1 death slaad B
+96-100 ___2 gray slaadi. 2
+
+Random Encounters: Alternate among all four random Outer
+Plane tables for random encounters in. the Outlands.
+
+Example Outlands Site: City of Sigil
+{The heart of the Outlands, and therefore the self-proclaimed
+center of the planes, Sigil is known.as the City of Doors, Portals
+leading throughout the cosmos lace every district of the city. Situ-
+ated atop the spire itself rhat rises above the surrounding plane,
+Sigil is a ring floating in space,.with the city itself constructed
+along the inside of the band,
+
+Sigil has a number of special traits, one of which is objective
+directional gravity. “Down is toward the ring itself. Those who
+escape the ring suddenly find themselves in open air, often plum-
+meting down the side of the spire.
+
+While magic is extremely limited near the spire, the City of
+Sigil has the normal magic trait.
+
+Sigil has.a huge number of portals, rhe sum total of which is
+unknown even to the inhabitants, Portals. connect to every known
+| Outer Plane and every Inner Plane, Portals also connect Sigil to
+
+other locations in the Outlands. Most of Sigil’s portals require.
+
+command words or special keys in order to make them function. |
+
+Sigil isa trader's city, Goods, merchandise, and information come.
+
+toit from across the planes. It does a brisk trade in information. about,
+the planes, in particular in the command words or keys required for |
+the operation of particular portals. These portal keys are sought after, |
+and usually travelers svithin the city are looking for # particular,
+{portal or a portal key to allow them to continue on their way.
+Sigil is controlled by a number of factions, all of which may be
+politely described as “philosophers with clubs.” These factions are
+categorized along the lines of traditional alignments, and they con-
+trol different parts of the city and different services therein. The,
+ultimate ruler of Sigil is an enigmatic being known.as the Lady of |
+Pain, a floating female humanoid with bladelike hair. The full
+extent of the Lady of Pain’s abilities is unknown, burit is widely
+assumed that her power equals or exceeds thar of the deities,
+
+Sigil is huge—ten times the size of a Material Plane metropolis. ,
+Accondingly, no gp limit applies when buying or selling goods in |
+the City of Doors, and NPCs of any class and level combination
+
+{can be found there. =
+
+| To draw an encounter map for Sigil, start with 2 normal city-,
+
+Ascape and add as much magic to the environment as you can. En-,
+tertaining illusions, animated “horseless carriages,” buildings built
+from walls of foree—anything you can imagine probably exists in.
+Sigil somewhere. al
+
+RANDOM OUTER PLANE ENCOUNTERS
+
+On this page are four alignment-based random encounter tables
+that you can use if the PCs find themselves on one.of the Outer
+Planes unexpectedly, If you're writing an adventure that takes.
+jplace on a particular Outer Plane, you can.use.these encounter
+tables as a starting point, designing specific tables that reflect the.
+nature of the adventure site and the level of the RCs,
+
+As you build your world, you'll eventually move onto other worlds.
+entirely—new planes where anything is possible. And if youre
+ambitious, you can create your own cosmology.
+
+WHAT PLANES DO YOU NEED?
+
+The cosmology you create should fit the needs of your campaign.
+
+Assuming that the Material Plane of your campaign is essentially
+
+the same as the Material Plane.of the D&D cosmology, you need to
+
+decide what your cosmology will contribute to the campaign.
+
+Here's a list of features that.a “typical” D&D campaign needs a cos-
+
+mology.to provide:
+
+* Aplace for deities to reside or originate from.
+
+* A place for fiendish creatures to originate from.
+
++ Aplace for celestial creatures to originate from.
+
++ Aplace for elemental creatures to originate from.
+
+* Away of getting from one plane to another,
+
+* Away for spells that use the Astral Plane, the Ethereal Plane, or
+the Plane of Shadow to function.
+
+Nene. of these are an absolute requirement for your campaign.
+You.can.run.a.campaign without deities at all, or with deities that
+are.unreachable or that don't have extraplanar kingdoms. You can
+decide that fiendish and celestial creatures come from the same
+plane, or that all elementals come from the same swirling mael-
+strom, You may decide that you don't want to have any.of the Tran-
+sitive Planes in your campaign. }
+
+Your cosmology can reflect your own desires for the direction |
+you want the campaign to take. If you want to stress the struggle
+
+[between good and evil, then setting up strongly aligned planes for.
+these concepts is. an excellent idea. Similarly, if you want.a strong}
+conflict between organization and freedom, strongly law-aligned |
+
+sand strongly chaos-aligned planes are recommended, You can
+create, add, and subtract planes as you see fir. If you want a fifth
+
+\elemental plane (perhaps elemental cold, elemental wood, or even
+elemental emptiness), you can do so within your cosmology.
+
+ 
+

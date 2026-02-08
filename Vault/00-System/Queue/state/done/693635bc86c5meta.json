@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "693635bc86c5:meta",
+    "sourceId": "693635bc86c5",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Underdark.pdf",
+    "title": "Underdark",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:49:49.578024+00:00",
+  "meta": {
+    "sourceId": "693635bc86c5",
+    "title": "Underdark",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Underdark.pdf",
+    "pages": 218,
+    "extractedAt": "2026-02-04T02:49:49.570731+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,225 @@
+equivalent of a 2nd-level spell,
+
+Heat (Ex): An efreeti’s red-hot body deals 1dé points of extra
+fire damage whenever it hits in melee, or in each round it main-
+tains a hold when grappling.
+
+Spell-Like Abilities: At will—detect magic, produce flame,
+/day—invisibility|
+
+pyrotechnics (DC 14), scorching my (1 ray only);
+\wall of fire (DC 16); 1/day—grant up to three wishes (to nongenies
+
+ 
+
+Lonly), gaseous form, permanent image (DC 18), polymorph (self only).
+
+Caster level 12th. The save DCs are Charisma-based.
+
+JANNI
+Medium Outsider (Native)
+Hit Dice: 6d8+6 (33 hp)
+Initiative: +6
+Speed: 20 ft. (4 squares), fly 15 ft. (perfect) in chainmail; base
+land speed 30 ft,, base fly speed 20 ft, (perfect)
+,Armor Class; 18 (+2 Dex, +1 natural, +5 chainmail), touch 12,
+
+ 
+
+negates the effect. The save DC is Charisma-based. This is the |
+
+    
+   
+  
+ 
+   
+   
+  
+    
+ 
+
+  
+
+upfight, they use flight and invisibility to regroup and maneuyer to.
+amore advantageous position.
+Change Size (Sp): Twice per day, a janni can magically change a |
+creature’ size, This works just like an enlarge person or reduce person,
+ispell (the janni chooses when using the ability), except thatthe
+Jability can work on the janni, A DC 13 Fortitude save negates the
+\effect. The save DC is Charisma-based. This is the equivalent of a
+2nd-level spell.
+Spell-Like Abilities: 3/day—invisibility (self only), speak with
+animals. Caster level 12th. Once per day a jannican create food and.
+water (caster level 7th) and can use ethereal jaunt (caster level 12th) |
+for 1 hour. The save DCs are Charisma-based,
+Elemental Endurance (Ex): Jann can survive on the Elemen-
+tal Planes of Air, Earth, Fire, or Water for up.to 48 hours, Failure to .
+return to.the Material Plane before that time expires. causes. ajanni,
+to take 1 point of damage per additional hour spent on the ele-
+{mental plane, until it dies or returns to the Material Plane.
+
+ 
+
+ 
+  
+
+| Jann.as Characters
+| [Jani characters possess the following racial raits.
+
+| flat-footed 16.
+Base Attack/Grapple: +6/+9
+
+   
+ 
+ 
+  
+
+   
+    
+   
+  
+ 
+
+ 
+       
+
+Attack: Scimitar +9 melee (1d6+4/18-20) or longbow +8 ranged |
+
+(1d8/x3)
+
+Full Attack: Scimitar +9/+4 melee (1d6+4/18~20) or longbow
++8/+3 ranged (1d8/x3)
+
+Space/Reach: 5 ft,/s ft.
+
+Special Attacks: Change size, spell-like abilities
+
+|Special Qualities: Darkvision 60 ft., elemental endurance, plane
+
+|__ shift, resistance to fire 10, telepathy 100 ft.
+
+|Saves: Fort +6, Ref +7, Will +7
+
+\Abilities: Str 16, Dex 15, Con 12, Int 44, Wis 15, Cha 13
+
+|Skills: Appraise +11, Concentration +10, Craft (any_two) +11,
+Diplomacy +3, Escape Artist +6, Listen +11, Move Silently
++6, Ride +11, Sense Motive +11, Spot +11, Use Rope +2 (+4
+with binding:
+
+Feats: Combat Reflexes, Dodge, Improved Initiative", Mobility
+
+Enyironment; Warm deserts
+
+Organization; Solitary, company (2-4), or band (6-15)
+
+Challenge Rating: +
+
+‘Treasure: Standard
+
+Alignment: Usually neutral
+
+Advancement: 7-9 HD (Medium); 10-18 HD (Large)
+
+Level Adjustment: +5
+
+ 
+
+This creature looks like a.tall human, tt stands proudly, with o regal bear-
+ing that is almost palpable
+
+The jann (singular janni) are the weakest.of the genies. Jann are
+jformed out of all four elements and must therefore spend most of
+itheir time on the Material Plane, They favor forlorn deserts and
+hidden oases, where they have both privacy and safety.
+
+Jann society is very_open, treating males and females as equals,
+Each tribe is ruled bya sheik and one or two viziers, Exceptionally
+powerful sheiks are given.the title of amir, and in times of need
+they gather and command large forces of jann (and sometimes
+allied humans),
+
+Many jann bands are nomadic, traveling with herds of camels,
+goats, or sheep from oasis to oasis, These itinerant jann are often
+mistaken for humans—until they are attacked, The territory of a
+jann tribe can extend for hundreds of miles.
+
+Jann speak Common, one elemental language (Aquan, Auran,
+
+(lgnan, or Terran) and one alignment language (Abyssal, Celestial,
+jor Infernal).
+
+Combat
+Jann are physically strong and courageous, and do not take kindly
+to insult or injury, [fthey meet a foe they cannot defeat in a stand-|
+
+— +6 Strength, +4 Dexterity, +2 Constitution, +4 Intelligence,
++4 Wisdom, +2. Charisma,
+
+—Medium size.
+
+—A janni’ base land speed is 30 feet. It also has a fly speed of 20
+feet (perfect),
+
+—Darkyision out to 60 feet,
+
+—Racial Hit Dice: A janni begins with six levels of outsider.,
+which provide 6d8 Hit Dice, a base attack bonus of +6, and base |
+saving throw bonuses of Fort +5, Ref +5, and Will +s.
+
+—Racial Skills, A janni’s outsider levels give it skill points equal]
+to 9 x (8 + Int modifier), Its class skills are Appraise, Concentra
+tion, Craft (any), Escape Artist, Listen, Move Silently, Ride, Sense |
+Motive, and Spot
+
+—Racial Feats: A janni’s outsider levels give it three fears. A.
+janni receives Improved Initiative as a bonus feat,
+
+— +1 natural armor bonus.
+
+—Special Attacks (see above): Change size, spell-like abilities.
+
+—Special Qualities (see above): Elemental endurance, plane
+shift, resistance to fire 10, telepathy, 100 ft.
+
+—Automatic Languages. Common, Bonus Languages: Abyssal,
+Aquan, Auran, Celestial, Jgnan, Infernal, Terran.
+
+—Favored Class; Rogue.
+
+—Level adjustment +5.
+
+ 
+
+ 
+
+ 
+
+Ghosts are the spectral remnants of intelligent beings who, for one
+reason or another, cannot rest easily in their graves.
+
+‘Some ghosts go about their business with little or no interest in
+the living, Others, however, are malevolent spirits who loathe all
+life and seek to destroy it whenever possible. Although ghosts can
+often be driven off or destroyed, they return again and again until
+they deal with the reason for their existence.
+
+A ghost greatly resembles its corporeal form in life, but in some
+cases.the spiritual form is somewhat altered. Some ghosts look
+angelic and sweet, while others are twisted and horrible things,
+showing clearly the agony of the undead. There is often—but not,
+
+always—a correlation between a ghost’s appearance and its align-
+ment, Assumptions are dangerous.
+
+A ghost’s behavior usually matches its life. The spirit ofa miserly
+
+,person, for example, might continue to hoard wealth even though.
+
+it has no use for such treasures, Similarly, a ghost is generally tied |
+to the place where it died, If the aforementioned miser had died in |
+
+\arobbery, the ghost might remain in the counting house, torment-
+Ling the new owner and all who do business there, This is not a hard
+\and fast rule, though—many ghosts wander freely.
+

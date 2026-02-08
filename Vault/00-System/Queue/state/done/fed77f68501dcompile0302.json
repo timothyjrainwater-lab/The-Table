@@ -1,0 +1,24 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0302",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 302,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:25:10.839153+00:00"
+  },
+  "doneAt": "2026-02-05T18:12:56.659451+00:00",
+  "citation": "DMG (pdf p.0302)",
+  "printedGuess": null,
+  "touched": [
+    "Condition — Flat-Footed",
+    "Condition — Grappled",
+    "Condition — Prone",
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Wind (PHB 3–24)"
+  ]
+}

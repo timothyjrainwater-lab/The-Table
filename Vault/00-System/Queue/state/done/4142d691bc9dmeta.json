@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "4142d691bc9d:meta",
+    "sourceId": "4142d691bc9d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Wartime/Heroes of Battle.pdf",
+    "title": "Heroes of Battle",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:14:06.043257+00:00",
+  "meta": {
+    "sourceId": "4142d691bc9d",
+    "title": "Heroes of Battle",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Wartime/Heroes of Battle.pdf",
+    "pages": 171,
+    "extractedAt": "2026-02-03T12:14:06.034112+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

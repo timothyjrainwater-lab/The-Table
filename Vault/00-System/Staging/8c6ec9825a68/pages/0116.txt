@@ -1,0 +1,240 @@
+Your vision blurs for a moment, When it
+clears, you can see through your enemies’
+skin to spol their arteries, organs, and other
+vulnerable points,
+
+Your slice into a foe with uncanny
+precision, allowing you to strike a
+foe's vulnerable points and deal extra
+damage. This spell grants you the sneak
+attack ability. You deal an extra 1d6é
+points of damage per three caster levels,
+If you already have the sneak attack
+ability, this damage stacks with i
+
+ 
+
+Incite Riot
+Enchantment [Mind-Affecting]
+Level: Bard 5, beguiler 5, sorcerer,
+
+wizard 5
+Components: V
+Casting Time: 1 standard action
+Range: Close (25 ft. + § ft./2 levels)
+Targets: One creature/level, no two of
+which are more than 30 ft. apart
+Duration: 1 round
+Saving Throw: Will negates
+Spell Resistance: Yi
+
+   
+
+ 
+
+You sow discord among your enemies, spur-
+ring them lo physical violence,
+
+Each creature that fails its saving
+throw attacks the nearest creature
+on its next turn, whether friend or
+foe. An affected creature attacks with
+whatever weapon is in hand, or with
+natural weapons. An unarmed creature
+attacks with an unarmed strike. An
+affected creature not already adjacent
+to another creature will move or (if
+possible) charge the nearest creature;
+if the nearest creature is not within
+range of a charge, the subject moves
+toward the nearest creature along the
+most efficient route,
+
+ 
+
+Increase Virulence
+Transmutation
+Level: Assassin 2, bard 2, blackguard
+
+ 
+
+Range: Touch
+
+Target: Vial of poison or creature
+touched
+
+Duration: 1 minute/level
+
+Saving Throw: None
+
+Spell Resistance: No
+
+Ribbons of green and black energy engulf
+your hand and pass into the vial or creature
+you touch
+
+You make the poison in a vial or a
+creature more lethal. The DCs for
+all saving throws against the poison
+increase by 2.
+
+Material Component: Licorice root.
+
+ 
+
+ 
+
+Inevitable Defeat
+
+Enchantment (Compulsion) [Mind-
+Affecting]
+
+Level: Beguiler 3, sorcerer/wizard 3
+
+Components: V, S
+
+Casting Time: 1 standard action
+
+Range: Touch
+
+Target: One creature
+
+Duration; 1 round/level
+
+Saving Throw: None and Will negates;
+see text
+
+Spell Resistance: Yes
+
+You touch the creature with your hand, and
+it teeters on the edge of unconsciousness.
+
+You draw a cloud over the subject's
+mind, dealing 3d6 points of nonlethal
+damage. No saving throw is allowed
+against this effect. Each round on its
+turn, the subject must succeed on a
+Will save or take another 3d6 points of
+nonlethal damage. If the saving throw
+is successful, the damage for that round
+is negated and the spell ends.
+
+ 
+
+Insight of Good Fortune
+
+Divination
+
+Level: Bard 2, cleric 2, sorcerer/
+wizard 2
+
+Components: V, S,M
+
+Casting Time: 1 standard action
+
+Range: Close (25 ft. + 5 ft,/2 levels)
+
+Target: One creature
+
+Duration: 1 minute/level or until
+discharged
+
+Saving Throw: Will negates (harmless)
+
+Spell Resistance: Yes (harmless)
+
+ 
+
+ 
+
+You toss a small golden die. It rolls toward
+the creature you choose, then disappears in
+4 tiny golden flash of light.
+
+ 
+
+The subject of the spell becomes
+unusually lucky. Once during the
+spell's duration, when he makes an
+attack roll, skill check, saving throw,
+or ability check, he rolls twice and
+
+takes the better result. He must choose
+to use this ability before the check is
+attempted, and the spell expires once
+the second die is rolled.
+
+Material Component: A gold die
+(worth 20 gp).
+
+ 
+
+  
+
+Invest Heavy Protection
+Conjuration (Healing)
+Level: Cleric 5
+
+This spell functions like invest light pro-
+tection, except that it cures Sd4 points of
+damage +1 per two caster levels (maxi-
+mum #12)and grants damage reduction
+S/evil. Undead creatures take an extra
+5 points of damage from any weapon or
+physical attack capable of overcoming
+good damage reduction,
+
+Invest Light Protection
+Conjuration (Healing)
+
+Level: Cleric 1
+
+standard action
+
+ 
+
+Range: Touch
+
+Target: Creature touched
+
+Duration: Instantaneous; see text
+
+Saving Throw: Will half (harmless);
+see text
+
+Spell Resistance: Yes (harmless);
+see text
+
+You invest the target with an infusion of
+divine energy. His wounds knit shut, while
+the power you grant to him helps ward off
+future injuries
+
+You heal a living creature you touch of
+id4 points of damage +1 per two caster
+levels (maximum +3), In addition, the
+creature touched gains damage reduc-
+tion 1/evil for 1 minute,
+
+Like cure light wounds, this spell deals
+damage to undead creatures instead of
+curing them. In addition, on a failed
+save undead creatures take an extra 1
+point of damage from any weapon or
+physical artack capable of overcoming
+good damage reduction for 1 minute
+
+ 
+
+ 
+
+Invest Moderate Protection
+Conjuration (Healing)
+Level: Cleric 3
+
+This spell functions like invest light pro-
+fection, except that it cures 3d4 points
+of damage +1 per two caster levels
+
+ 
+

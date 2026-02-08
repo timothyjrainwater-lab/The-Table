@@ -1,0 +1,171 @@
+    
+  
+ 
+ 
+ 
+ 
+ 
+   
+ 
+
+ 
+ 
+    
+
+until that character returns or is replaced by another who meets
+the same prerequisites, Since prerequisites for teamwork benefits
+vary widely, the character who assumes the task leader position
+might differ depending on the specific benefit,
+
+In addition to the indicated prerequisites, a task leader must
+have an Intelligence score of at least 8, (While he need not bea
+genius or havea strong personality, he must be at least reason-
+ably capable of communicating his thoughts to others.)
+
+‘Team Member Prerequisites: Every character on the team
+must meet these requirements. Any new character who joins
+the team mustalso meet them, or the team can no longer enjoy
+the benefit
+
+For example, the cunning ambush teamwork benefit has a
+task leader prerequisite of 8 ranks in both Hide and Listen,
+and a team member prerequisite of 1 rank in Hide. So, at
+least one character in the group must have 8 or more ranks
+in both Hide and Listen, and every other character on the
+team must have at least 1 rank in Hide. Thus, when the team
+is sneaking around, the task leader directs her less adept
+comrades in stealth techniques, covers any extra noise with
+environmental sounds, and so on.
+
+A team (see The Team Roster, below) gets one teamwork
+benefit for every + Hit Dice the lowest-level member of
+the ream has. If that character's level later drops below the
+required point (due to energy drain, for example), the team
+retains all its current teamwork benefits but can't gain a new
+one until that character regains his lost level(s), plus enough
+additional levels to qualify for an additional benefir,
+
+Whenever a team gains a new teamwork benefit, italso
+has the option to swap out a benefit it previously had for a
+new one, as long as it meets the new prerequisites. In effect,
+the team can elect to lose one teamwork benefit to gain
+two others. Such swaps usually occur when the team roster
+has changed in such a way as to render a previously known
+teamwork benefit less useful than before.
+
+Unless otherwise specified, each teamwork benefit can be
+taken only once. A teamwork benefit applies whenever the
+characters on the team can communicate with each other—be
+it verbally, through gestures, or by magical means.
+
+THE TEAM ROSTER
+
+‘Teamwork benefits are based on the notion that once charac-
+ters have spent time training with their comrades, they can
+respond instinctively to subtle changes in body language and
+anticipate their teammates’ likely moves. A group of PCs or
+
+ 
+
+ 
+
+ 
+
+ 
+
+HANDLE ANIMAL
+(NEW TRICK: TEAMWORK)
+
+Use this skill to train an animal as part of a team.
+
+Check: Teaching an animal the teamwork trick requires a
+DC 20 Handle Animal check made as part of teamwork train:
+ing. This trick allows the animal to be part of a team and thus
+benefit from any teamwork benefits enjoyed by that team.
+The animal must still meet any team member prerequisites
+required to gain the benefit.
+
+ 
+
+    
+  
+  
+   
+   
+   
+  
+ 
+     
+    
+ 
+
+NPCs must train together for at least two weeks before the
+group can gain any teamwork benefits. The PCs will undoubr-
+edly occupy most of the positions on the team, but cohorts,
+animal companions, paladin mounts, familiars, and recurring
+NPC allies can also be members of a team.
+
+A team must have at least two members and no more than
+eight. To join a team, a character must have an Intelligence
+score of 3 or higher. A creature with an Intelligence score of 1
+or 2can be included ona team only if it learns the teamwork
+trick through some character's use of the Handle Animal skill
+(see the sidebar). A creature without an Intelligence score can
+never be part of a team.
+
+‘To maintain their teamwork benefits, the characters on a team
+must train together for at least four one-week periods per year.
+These training periods need not be consecutive and can happen
+at the same time when the characters are training to earn the new
+class features for 2 given level, so in most cases PCs don't have
+to spend additional time to keep their teamwork skills sharp,
+
+Any new character added to a team after it has gained
+teamwork benefits must train with the other characters on
+the team for at least two weeks. During this time, she learns
+the team's standard operating procedures and the nuances of
+her comrades’ behavior. This training can occur during the
+training time required to gain the benefits of a new level.
+
+Acharacter can join an adventuring party without joining
+the team that includes the other members of the group. In this
+case, the new character doesn't gain any teamwork benefits,
+bur neither does her lack of prerequisites count against the
+team's qualification for those benefits.
+
+A character can leave a team at her own option, or by
+consensus of the other team members. For more teamwork
+benefits, see Dungeon Master's Guide Il, pages 190-194.
+
+TEAMWORK BENEFIT
+
+Below is the format for teamwork benefit descriptions.
+
+BENEFIT NAME
+
+Description of what the benefit does or represents.
+
+Training: A brief discussion of the training procedure
+required to acquire the benefit. The task leader coordinates
+the training.
+
+Task Leader Prerequisite: A base attack bonus, a feat
+or feats, a minimum number of ranks in one or more skills,
+a class feature, or some other requirement that at least one
+character on the team must have for the team to acquire this
+benefit. This entry is absent ifa teamwork benefit has no task
+leader prerequisire. Ifa benefit has more than one task leader
+prerequisite, the same character must meet all of them for
+the team to gain thar benefit.
+
+Team Member Prerequisite: Every member of the team
+must meet this requirement for the team to acquire the
+benefit. This entry is absent if a teamwork benefit has no
+team member prerequisite, If a benefit has more than one
+team member prerequisite, every character on the team must
+meet all of them for the team to gain that benefit.
+
+Benefit: What the teamwork benefit enables the team to do.
+
+ 
+

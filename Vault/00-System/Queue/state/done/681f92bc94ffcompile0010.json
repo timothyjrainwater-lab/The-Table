@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0010",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 10,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T06:22:46.514324+00:00"
+  },
+  "doneAt": "2026-02-03T06:37:52.616991+00:00",
+  "citation": "PHB (pdf p.0010)",
+  "printedGuess": "9",
+  "touched": [
+    "Rule — Charisma",
+    "Rule — Constitution",
+    "Rule — Intelligence",
+    "Rule — Saving Throws",
+    "Rule — Wisdom"
+  ],
+  "createdTables": []
+}

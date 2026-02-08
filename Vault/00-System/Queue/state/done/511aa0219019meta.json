@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "511aa0219019:meta",
+    "sourceId": "511aa0219019",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Eberron Character Sheet.pdf",
+    "title": "Eberron Character Sheet",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:44:44.192249+00:00",
+  "meta": {
+    "sourceId": "511aa0219019",
+    "title": "Eberron Character Sheet",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Eberron Character Sheet.pdf",
+    "pages": 4,
+    "extractedAt": "2026-02-03T09:44:44.166960+00:00"
+  }
+}

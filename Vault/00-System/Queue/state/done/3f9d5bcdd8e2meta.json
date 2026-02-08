@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "3f9d5bcdd8e2:meta",
+    "sourceId": "3f9d5bcdd8e2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Van Richten's Guide To The Shadow Fey.pdf",
+    "title": "Van Richten's Guide To The Shadow Fey",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T03:10:46.288581+00:00",
+  "meta": {
+    "sourceId": "3f9d5bcdd8e2",
+    "title": "Van Richten's Guide To The Shadow Fey",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Van Richten's Guide To The Shadow Fey.pdf",
+    "pages": 130,
+    "extractedAt": "2026-02-04T03:10:46.281584+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

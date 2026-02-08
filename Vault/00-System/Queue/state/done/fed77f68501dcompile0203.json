@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0203",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 203,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:23:50.857494+00:00"
+  },
+  "doneAt": "2026-02-05T17:02:47.233212+00:00",
+  "citation": "DMG (pdf p.0203)",
+  "printedGuess": null,
+  "touched": [
+    "Condition — Flat-Footed",
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

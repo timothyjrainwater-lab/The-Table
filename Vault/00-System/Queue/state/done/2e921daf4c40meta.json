@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "2e921daf4c40:meta",
+    "sourceId": "2e921daf4c40",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Tower of Lore.pdf",
+    "title": "Tower of Lore",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:22:34.722136+00:00",
+  "meta": {
+    "sourceId": "2e921daf4c40",
+    "title": "Tower of Lore",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Tower of Lore.pdf",
+    "pages": 7,
+    "extractedAt": "2026-02-04T02:22:34.680331+00:00"
+  },
+  "enqueued_extractPages": 4
+}

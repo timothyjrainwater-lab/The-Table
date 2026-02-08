@@ -1,0 +1,111 @@
+   
+
+must swim to move through a square containing a deep pool
+Tumbling is impossible in a deep pool.
+
+The water in a deep pool provides cover for
+Medium or larger creatures. Smaller creatures
+gain improved cover (+8 bonus to AC, +4 bonus on.
+Reflex saves), Medium or larger creatures can crouch
+as a move action to gain this improved cover. Crea-
+tures with this improved cover take.a—10 penalty
+on attacks against creatures that arent also under-
+water f
+
+Deep pool squares are usually clustered together
+and surrounded by a ring of shallow pool squares.
+
+Both shallow pools and deep pools impose a2 cir- : a
+cumstance penalty on Moye Silently checks \ es gil to have moved when it actually remained still.
+
+Special Fools: Through accident or design, a pool can Ti) PM A typical elevator ascends or descends 10 feet per
+become magically enhanced, Rarely, a pool or 2 fountain Weel round at the beginning of the operator's turn.(or.on
+may be found that has the ability to bestow beneficial SS Yaw initiative count 0 if it functions without regard to
+magic on those who drink from it—healing, ability whether creatures are on it. Elevators can be
+[score modification, transmutation magic, or even enclosed, can have railings or low walls, or may,
+
+something as amazing as @ wish spell. However, magic simply be treacherous floating platforms
+
+pools are just as likely to curse the drinker, causinga = Y Ladders: Whether free-standing or rungs-set
+loss of health, an unwanted polymorphing, or some 4 pool witha grim fountain _ into a wall, a ladder requires. a DC.0 Climb check to
+even greater affliction. Typically, water from a magic ascend or descend.
+
+  
+    
+  
+  
+
+   
+  
+
+elevator (essentially an oversized dumbwaiter) can,
+take inhabitants from one dungeon level to the next.
+Such an elevator may be mechanical (using gears, pul-
+leys, and winches) or magical (such as.a levitate spell
+cast ona. movable flat surface), A mechanical elevator
+might be as small as a platform that holds one charac-,
+ter at.a.time, or as large as an entire room that raises.
+and lowers. A clever builder might design an.elevaror
+room. that moves up or down without the occupants’
+knowledge to catch them in a trap, or one that appears
+
+D ?
+holy.wwater, saltwater, or water tainted with disease (see page,
+292 for some possible diseases) |
+
+\ Elevator: In place of or in addition to stairs. an |
+
+   
+    
+  
+  
+   
+  
+
+pool loses its potency if removed from the pool for more than an Shifting Stone or Wall: These features can cut off access to a
+hour or so. passage or room, trapping adventurers in.a dead end or preventing
+Some pools have fountains, Occasionally these are merely deco- _escape out of the dungeon, Shifting walls can force explorers to go
+rative, but they often serve as the focus ofa traporthe source ofa. down a dangerous path or prevent them from entering a special
+tpool's magic, area. Not all shifting walls need be traps. For example, stones con- |
+Most pools are made of water, but anything's possible ina _ trolled by pressure plates, counterweights, or.a secret lever.can
+dungeon. Pools can hold unsavory substances such as blood, shift out of a wall.to become a staircase leading toa hidden upper,
+poison, oil, or magma. And even ifa pool holds water, itcan be room or secret ledge.
+Taste 3-11: 32___ Dung heap 66 Pit (shallow)
+Major FEATURES AND FURNISHINGS 33 Evil symbol 67 Platform
+d% Feature/Furnishing 34 Fallen stones. 68 _ Pool
+01 Alcove 35. Firepit 69 Portcullis
+02 Altar 36__ Fireplace 70 Rack
+03 Arch 37 Font 71 Ramp
+04 Arrow slit (wall) /murder hole. (ceiling) 38. Forge 72 Recess
+05 Balcony 39° Fountain 73 ‘Relief
+06 Barrel 40 Furniture (broken) 74__ Sconce
+07. Bed 41 Gong 75 Screen
+08 _ Bench 42 Hay (pile) 76__ Shaft
+09 Bookcase 43 Hole 77 Shelf
+10__ Brazier 44 - Hole (blasted) 78 Shrine
+V1 Cage 45 Idol 79 Spinning wheel
+12 Caldron 46 Iron bars 80 Stall or pen
+13 Carpet 47 {ron maiden 81 Statue
+14 Carving 48 Kiln 82. Statue (toppled)
+15 Casket 49 Ladder 83 Steps
+16 Catwalk 50 Ledge $4__ Stool
+17 Chair 51 Loom 35 Stuffed beast
+18 Chandelier 52__ Loose masonry 86 Sunken area
+19 Charcoal bin 53 Manacles 87 Table (large)
+20. Chasm 54 Manger 88__ Table (small).
+21 Chest 55 Mirror 89 Tapestry
+\22__ Chest of drawers 56 Mosaic 90 Throne
+23 Chute 57 Mound of rubble 91 Trash (pile)
+24__ Coat rack 58 Oven 92 Tripod
+25 Collapsed wall 59 Overhang 93 Trough
+26 Crate 60 Painting 94 Tub
+27 Cupboard 61 Partially collapsed ceiling 95 Wall basin
+28 Curtain 62 _ Pedestal 96 Wardrobe
+29 Divan 63 Peephole 97 Weapon rack
+30 Dome. 64 Pillar 98 Well
+31 Door (broken) 65 Pillory 99 Winch and pulley
+
+100 Workbench
+
+ 
+

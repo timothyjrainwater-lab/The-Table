@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0057",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 57,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:02:07.487615+00:00"
+  },
+  "doneAt": "2026-02-03T07:58:35.165436+00:00",
+  "citation": "PHB (pdf p.0057)",
+  "printedGuess": "56",
+  "touched": [
+    "Rule — Armor Class"
+  ],
+  "createdTables": [
+    "Table —  (PHB 1–1)",
+    "Table — Armor and Shields (page (PHB 7–6)",
+    "Table — The (PHB 3–18)"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0217",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 217,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:23:50.933901+00:00"
+  },
+  "doneAt": "2026-02-05T17:06:41.965547+00:00",
+  "citation": "DMG (pdf p.0217)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table — Armor.and Shields to (PHB 7–2)",
+    "Table — Random Magic Item Genera: | — a 50-57 +5 armor 25,000 gp (PHB 7–1)",
+    "Table — Random Magic Item Generation Example: A suit of +5 armor that also has the light fortification (PHB 7–1)",
+    "Table — Shield (PHB 7–6)",
+    "Table — Specific Cursed Items rather than 2 Roll on Table 7-7: Specific Armors, (PHB 7–31)",
+    "Table — Specific Shields (PHB 7–8)",
+    "Table — Treasure (page 52), some of the results of |) = _ 39-49 4S shield 25,000 gp (PHB 3–5)"
+  ]
+}

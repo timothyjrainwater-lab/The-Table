@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "f6987e88f3d6:meta",
+    "sourceId": "f6987e88f3d6",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/The Vessel of Stars.pdf",
+    "title": "The Vessel of Stars",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:57:03.430343+00:00",
+  "meta": {
+    "sourceId": "f6987e88f3d6",
+    "title": "The Vessel of Stars",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/The Vessel of Stars.pdf",
+    "pages": 23,
+    "extractedAt": "2026-02-04T00:57:03.303331+00:00"
+  },
+  "enqueued_extractPages": 12
+}

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "b6dfccfa2986:meta",
+    "sourceId": "b6dfccfa2986",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Explorer's Handbook.pdf",
+    "title": "Explorer's Handbook",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:23:01.614109+00:00",
+  "meta": {
+    "sourceId": "b6dfccfa2986",
+    "title": "Explorer's Handbook",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Explorer's Handbook.pdf",
+    "pages": 160,
+    "extractedAt": "2026-02-03T10:23:00.882016+00:00"
+  }
+}

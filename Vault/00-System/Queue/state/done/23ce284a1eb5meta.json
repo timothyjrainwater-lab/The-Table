@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "23ce284a1eb5:meta",
+    "sourceId": "23ce284a1eb5",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Blank Pages.pdf",
+    "title": "Blank Pages",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:48:29.130253+00:00",
+  "meta": {
+    "sourceId": "23ce284a1eb5",
+    "title": "Blank Pages",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Blank Pages.pdf",
+    "pages": 2,
+    "extractedAt": "2026-02-03T05:48:29.112973+00:00"
+  }
+}

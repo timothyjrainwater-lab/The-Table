@@ -1,0 +1,129 @@
+ 311
+whether there is a lasting effect. If the saving throw succeeds, there 
+is no harm to the character. Otherwise, the creature’s character level 
+drops by one and any benefits acquired with that level are lost. The 
+afflicted creature must make a separate saving throw for each 
+negative level possessed. 
+nonintelligent: Lacking an Intelligence score. Mind-affecting 
+spells do not affect nonintelligent creatures, nor can nonintelligent 
+creatures benefit from morale bonuses. 
+nonlethal damage: Damage typically resulting from an unarmed 
+attack, an armed attack delivered with intent to subdue, a forced 
+march, or a debilitating condition such as heat or starvation. 
+nonplayer character (NPC):  A character controlled by the 
+Dungeon Master rather than by one of the other players in a game 
+session, as opposed to a player character. 
+off hand:  A character’s weaker or less dexterous hand (usually 
+the left). An attack made with the off hand incurs a –4 penalty on 
+the attack roll. In addition, only one-half of a character’s Strength 
+bonus may be added to the damage dealt with a weapon held in the 
+off hand. 
+one-handed weapon:  A weapon designed for use in one hand, 
+such as a longsword, often either along with a shield or a light 
+weapon in the other hand. A one-handed weapon is considered to be 
+an object one size category smaller than its designated wielder (for 
+example, a Medium longsword is a Small object). 
+orison: A divine 0-level spell. 
+Outer Plane: One of several planes of existence where spirits of 
+mortal beings go after death. These planes are the homes of 
+powerful beings, such as demons, devils, and deities. Individual 
+Outer Planes typically exhibit the traits of one or two specific 
+alignments associated with the beings who control them. 
+overlap: Coexist with another effect or modifier in the same area 
+or on the same target. Bonuses that do not stack with each other 
+overlap instead, such that only the largest bonus provides its benefit. 
+paladin (Pal): A class made up of characters who are champions 
+of justice and destroyers of evil, with an array of divine powers. 
+panicked: A panicked creature must drop anything it holds and 
+flee at top speed from the source of its fear, as well as any other 
+dangers it encounters, along a random path. It can’t take any other 
+actions. In addition, the creature takes a –2 morale penalty on saving 
+throws, skill checks, and ability checks. If cornered, a panicked 
+creature cowers and does not attack, typically using the total defense 
+action in combat. A panicked creature can use special abilities, 
+including spells, to flee; indeed, the creature must use such means if 
+they are the only way to escape. 
+paralyzed: Frozen in place and unable to move or act, such as by 
+the hold person  spell. A paralyzed character has effective Dexterity 
+and Strength scores of 0 and is helpless, but can take purely mental 
+actions. A winged creature flying in the air at the time that it 
+becomes paralyzed cannot flap its wings and falls. A paralyzed 
+swimmer can’t swim and may drown. A creature can move through a 
+space occupied by a paralyzed creature—ally or not. Each square 
+occupied by a paralyzed creature, however, counts as 2 squares. 
+party: A group of adventurers. 
+petrified: Turned to stone. Petrified characters are considered 
+unconscious. If a petrified character cracks or breaks, but the broken 
+pieces are joined with the body as it returns to flesh, he is 
+unharmed. Otherwise, the DM must assign some amount of per-
+manent hit point loss and/or debilitation. 
+pinned: Held immobile (but not helpless) in a grapple. 
+ 
+ 
+ 
+ 
+plane of existence:  One of many dimensions that may be 
+accessed by spells, spell-like abilities, magic items, or specific crea-
+tures. These planes include (but are not limited to) the Astral Plane, 
+the Ethereal Plane, the Inner Planes, the Outer Planes, the Plane of 
+Shadow, and various other realities. The “normal” world is part of 
+the Material Plane. 
+Plane of Shadow: A plane of existence that pervades the Material 
+Plane. The Plane of Shadow may be accessed and manipulated from 
+the Material Plane through shadows. Shadow spells make use of the 
+substance of this plane in their casting. Since some creatures use the 
+Plane of Shadow to travel from place to place, it is often described as 
+a transitive plane (like the Astral Plane and Ethereal Plane). 
+platinum piece (pp):  A form of currency not in common 
+circulation but occasionally found as treasure. One platinum piece is 
+equivalent to 10 gold pieces. 
+player character (PC):  A character controlled by a player other 
+than the Dungeon Master, as opposed to a nonplayer character. 
+point of origin:  The location in space where a spell or magical 
+effect begins. The caster designates the point of origin for any spells 
+in which it is variable. 
+points of damage:  A number by which an attack reduces a 
+character’s current hit points. 
+positive energy: A white, luminous energy that originates on the 
+Positive Material Plane. In general, positive energy heals the living 
+and hurts undead creatures. 
+Positive Energy Plane:  The Inner Plane from which positive 
+energy originates. 
+prerequisite: A requirement that must be met before a given 
+benefit can be gained. 
+profane bonus:  A bonus that stems from the power of evil. 
+Multiple profane bonuses on the same character or object do not 
+stack. Only the highest profane bonus applies. 
+projectile weapon: A device, such as a bow, that uses mechanical 
+force to propel a projectile toward a target. 
+prone: Lying on the ground. An attacker who is prone has a –4 
+penalty on melee attack rolls and cannot used a ranged weapon 
+(except for a crossbow). A defender who is prone gains a +4 bonus to 
+Armor Class against ranged attacks, but takes a –4 penalty to AC 
+against melee attacks. 
+racial bonus: A bonus granted because of the culture a particular 
+creature was brought up in or because of innate characteristics of 
+that type of creature. If a creature’s race changes (for instance, if it 
+dies and is reincarnated), it loses all racial bonuses it had in its 
+previous form. 
+range increment:  Each full range increment of distance be-
+tween an attacker using a ranged weapon and a target gives the 
+attacker a cumulative –2 penalty on the ranged attack roll. Thrown 
+weapons have a maximum range of five range increments. Projectile 
+weapons have a maximum range of ten range increments. 
+range penalty: A penalty applied to a ranged attack roll based on 
+distance. See range increment. 
+ranged attack:  Any attack made at a distance with a ranged 
+weapon, as opposed to a melee attack. 
+ranged attack roll:  An attack roll made with a ranged weapon. 
+See attack roll. 
+ranged touch attack:  A touch attack made at range, as opposed 
+to a melee touch attack. See touch attack. 
+ranged weapon:  A thrown or projectile weapon designed for 
+ranged attacks. 
+ranger (Rgr): A class made up of characters who are particularly 
+skilled at adventuring in the wilderness. 
+ray: A beam created by a spell. The caster must succeed on a 
+ranged touch attack to hit with a ray. 
+reach weapon: A long melee weapon, or one that has a long haft. 
+Reach weapons allow the user to threaten or strike at opponents 10 

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "1581f510b641:meta",
+    "sourceId": "1581f510b641",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Magic Of Faerun - A Druid's Grove.pdf",
+    "title": "Magic Of Faerun - A Druid's Grove",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:50:10.593143+00:00",
+  "meta": {
+    "sourceId": "1581f510b641",
+    "title": "Magic Of Faerun - A Druid's Grove",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Magic Of Faerun - A Druid's Grove.pdf",
+    "pages": 5,
+    "extractedAt": "2026-02-03T13:50:10.535946+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

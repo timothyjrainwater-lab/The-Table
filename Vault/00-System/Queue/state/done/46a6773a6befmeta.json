@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "46a6773a6bef:meta",
+    "sourceId": "46a6773a6bef",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Unorthadox Bards.pdf",
+    "title": "Unorthadox Bards",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:56:49.868280+00:00",
+  "meta": {
+    "sourceId": "46a6773a6bef",
+    "title": "Unorthadox Bards",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Unorthadox Bards.pdf",
+    "pages": 48,
+    "extractedAt": "2026-02-04T02:56:49.654064+00:00"
+  },
+  "enqueued_extractPages": 24
+}

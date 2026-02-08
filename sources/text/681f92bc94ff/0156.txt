@@ -1,0 +1,108 @@
+ 
+ 155
+(such as difficult terrain), or contains a creature (even an ally), you 
+can’t charge. (Helpless creatures don’t stop a charge.) 
+If you don’t have line of sight to the opponent at the start of your 
+turn, you can’t charge that opponent. 
+You can’t take a 5-foot step in the same round as a charge. 
+If you are able to take only a standard action or a move action on 
+your turn, you can still charge, but you are only allowed to move up 
+to your speed (instead of up to double your speed). You can’t use this 
+option unless you are restricted to taking only a standard action or 
+move action on your turn (such as during a surprise round). 
+Attacking on a Charge:  After moving, you may make a single 
+melee attack. Since you can use the momentum of the charge in 
+your favor, you get a +2 bonus on the attack roll. Since a charge is a 
+bit reckless, you also take a –2 penalty to your AC until the start of 
+your next turn. 
+A charging character gets a +2 bonus on the Strength check made 
+to bull rush or overrun an opponent (see Bull Rush, above, and 
+Overrun, below). 
+Even if you have extra attacks, such as from having a high enough 
+base attack bonus or from using multiple weapons, you only get to 
+make one attack during a charge. 
+Lances and Charge Attacks:  A lance deals double damage if 
+employed by a mounted character in a charge. 
+Weapons Readied against a Charge:  Spears, tridents, and cer-
+tain other piercing weapons deal double damage when readied (set) 
+and used against a charging character (see Table 7–5: Weapons, page 
+116, and Ready, page 160). 
+ 
+DISARM 
+As a melee attack, you may attempt to disarm your opponent. If you 
+do so with a weapon, you knock the opponent’s weapon out of his 
+hands and to the ground. If you attempt the disarm while unarmed, 
+you end up with the weapon in your hand. 
+If you’re attempting to disarm a melee weapon, follow the steps 
+outlined here. If the item you are attempting to disarm isn’t a melee 
+weapon (for instance, a bow or a wand), the defender may still 
+oppose you with an attack roll, but takes a penalty and can’t attempt 
+to disarm you in return if your attempt fails. 
+Step 1: Attack of Opportunity.  You provoke an attack of 
+opportunity from the target you are trying to disarm. (If you have 
+the Improved Disarm feat, you don’t incur an attack of opportunity 
+for making a disarm attempt.) If the defender’s attack of opportunity 
+deals any damage, your disarm attempt fails. 
+Step 2: Opposed Rolls.  You and the defender make opposed at-
+tack rolls with your respective weapons. The wielder of a two-
+handed weapon on a disarm attempt gets a +4 bonus on this roll, and 
+the wielder of a light weapon takes a –4 penalty. (An unarmed strike 
+is considered a light weapon, so you always take a penalty when try-
+ing to disarm an opponent by using an unarmed strike.) If the com-
+batants are of different sizes, the larger combatant gets a bonus on 
+the attack roll of +4 per difference in size category. If the targeted 
+item isn’t a melee weapon, the defender takes a –4 penalty on the 
+roll. 
+Step Three: Consequences.  If you beat the defender, the de-
+fender is disarmed. If you attempted the disarm action unarmed, 
+you now have the weapon. If you were armed, the defender’s 
+weapon is on the ground in the defender’s square. 
+If you fail on the disarm attempt, the defender may immediately 
+react and attempt to disarm you with the same sort of opposed melee 
+attack roll. His attempt does not provoke an attack of opportunity 
+from you. If he fails his disarm attempt, you do not subsequently get 
+a free disarm attempt against him. 
+Note: A defender wearing spiked gauntlets (page 118) can’t be 
+disarmed. A defender using a weapon attached to a locked gauntlet 
+(page 124) gets a +10 bonus to resist being disarmed. 
+ 
+Grabbing Items 
+You can use a disarm action to snatch an item worn by the target 
+(such as a necklace or a pair of goggles). If you want to have the item 
+in your hand, the disarm must be made as an unarmed attack. If the 
+item is poorly secured or otherwise easy to snatch or cut away (such 
+as a loose cloak or a brooch pinned to the front of a tunic), the 
+attacker gets a +4 bonus. Unlike on a normal disarm attempt, failing 
+the attempt doesn’t allow the defender to attempt to disarm you. 
+This otherwise functions identically to a disarm attempt, as noted 
+above. 
+You can’t snatch an item that is well secured, such as a ring or 
+bracelet, unless you have pinned the wearer (see Grapple). Even 
+then, the defender gains a +4 bonus on his roll to resist the attempt. 
+ 
+FEINT 
+As a standard action, you can try to mislead an opponent in melee 
+combat so that he can’t dodge your next attack effectively. To feint, 
+make a Bluff check opposed by a Sense Motive check by your target. 
+The target may add his base attack bonus to this Sense Motive 
+check. If your Bluff check result exceeds your target’s Sense Motive 
+check result, the next melee attack you make against the target does 
+not allow him to use his Dexterity bonus to AC (if any). This attack 
+must be made on or before your next turn. 
+Feinting in this way against a nonhumanoid is difficult because 
+it’s harder to read a strange creature’s body language; you take a –4 
+penalty. Against a creature of animal Intelligence (1 or 2), you take a 
+–8 penalty. Against a nonintelligent creature, it’s impossible. 
+Feinting in combat does not provoke attacks of opportunity. 
+Feinting as a Move Action:  With the Improved Feint feat, you 
+can attempt a feint as a move action instead of as a standard action. 
+ 
+GRAPPLE 
+Grappling means wrestling and struggling hand-to-hand. It’s tricky 
+to perform, but sometimes you want to pin foes instead of killing 
+them, and sometimes you have no choice in the matter. For 
+monsters, grappling can mean trapping you in a toothy maw (the 
+purple worm’s favorite tactic) or holding you down so it can claw 
+you to pieces (the dire lion’s trick). 
+CHAPTER 8: 
+COMBAT 

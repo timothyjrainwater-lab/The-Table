@@ -1,0 +1,130 @@
+ 
+ 189
+8 Phase Door:  Creates an invisible passage through wood or stone. 
+9 Astral Projection M: Projects you and companions onto Astral 
+Plane. 
+ 
+TRICKERY DOMAIN 
+Deities: Boccob, Erythnul, Garl Glittergold, Olidammara, Nerull. 
+Granted Power:  Add Bluff, Disguise, and Hide to your list of 
+cleric class skills. 
+ 
+Trickery Domain Spells 
+1 Disguise Self:  Disguise own appearance. 
+2 Invisibility:  Subject invisible 1 min./level or until it attacks. 
+3 Nondetection M: Hides subject from divination, scrying. 
+4 Confusion:  Subjects behave oddly for 1 round/level. 
+5 False Vision M: Fools scrying with an illusion. 
+6 Mislead:  Turns you invisible and creates illusory double. 
+7 Screen:  Illusion hides area from vision, scrying. 
+8 Polymorph Any Object:  Changes any subject into anything else. 
+9 Time Stop:  You act freely for 1d4+1 rounds. 
+ 
+WAR DOMAIN 
+Deities: Corellon Larethian, Erythnul, Gruumsh, Heironeous, 
+Hextor. 
+Granted Power:  Free Martial Weapon Proficiency with deity’s 
+favored weapon (if necessary) and Weapon Focus with the deity’s 
+favored weapon. 
+ 
+The favored weapons of the war deities are as follows; Corellon, 
+longsword; Erythnul, morningstar; Gruumsh, spear (or longspear); 
+Heironeous, longsword; Hextor, flail (light or heavy). 
+ 
+War Domain Spells 
+1 Magic Weapon:  Weapon gains +1 bonus. 
+2 Spiritual Weapon:  Magical weapon attacks on its own. 
+3 Magic Vestment:  Armor or shield gains +1 enhancement per 
+four levels. 
+4 Divine Power:  You gain attack bonus, +6 to Str, and 1 hp/level. 
+5 Flame Strike:  Smite foes with divine fire (1d6/level damage). 
+6 Blade Barrier:  Wall of blades deals 1d6/level damage. 
+7 Power Word Blind:  Blinds creature with 200 hp or less. 
+8 Power Word Stun:  Stuns creature with 150 hp or less. 
+9 Power Word Kill:  Kills creature with 100 hp or less. 
+ 
+WATER DOMAIN 
+Deity: Obad-Hai. 
+Granted Power:  Turn or destroy fire creatures as a good cleric 
+turns undead. Rebuke, command, or bolster water creatures as an 
+evil cleric rebukes undead. Use these abilities a total number of 
+times per day equal to 3 + your Charisma modifier. This granted 
+power is a supernatural ability. 
+ 
+Water Domain Spells 
+1 Obscuring Mist:  Fog surrounds you. 
+2 Fog Cloud:  Fog obscures vision. 
+3 Water Breathing:  Subjects can breathe underwater. 
+4 Control Water:  Raises or lowers bodies of water. 
+5 Ice Storm:  Hail deals 5d6 damage in cylinder 40 ft. across. 
+6 Cone of Cold:  1d6/level cold damage. 
+7 Acid Fog:  Fog deals acid damage. 
+8 Horrid Wilting:  Deals 1d6/level damage within 30 ft. 
+9 Elemental Swarm*:  Summons multiple elementals. 
+*Cast as a water spell only. 
+ 
+DRUID SPELLS 
+ 
+0-LEVEL DRUID SPELLS (ORISONS) 
+Create Water: Creates 2 gallons/level of pure water. 
+Cure Minor Wounds: Cures 1 point of damage. 
+Detect Magic: Detects spells and magic items within 60 ft. 
+Detect Poison: Detects poison in one creature or object. 
+Flare: Dazzles one creature (–1 penalty on attack rolls). 
+Guidance: +1 on one attack roll, saving throw, or skill check. 
+Know Direction: You discern north. 
+Light: Object shines like a torch. 
+Mending: Makes minor repairs on an object. 
+Purify Food and Drink: Purifies 1 cu. ft./level of food or water. 
+Read Magic: Read scrolls and spellbooks. 
+Resistance: Subject gains +1 bonus on saving throws. 
+Virtue: Subject gains 1 temporary hp. 
+ 
+1ST-LEVEL DRUID SPELLS 
+Calm Animals: Calms (2d4 + level) HD of animals. 
+Charm Animal: Makes one animal your friend. 
+Cure Light Wounds: Cures 1d8 damage +1/level (max +5). 
+Detect Animals or Plants: Detects kinds of animals or plants. 
+Detect Snares and Pits: Reveals natural or primitive traps. 
+Endure Elements: Exist comfortably in hot or cold environments. 
+Entangle: Plants entangle everyone in 40-ft.-radius. 
+Faerie Fire:  Outlines subjects with light, canceling blur, conceal-
+ment, and the like. 
+Goodberry: 2d4 berries each cure 1 hp (max 8 hp/24 hours). 
+Hide from Animals: Animals can’t perceive one subject/level. 
+Jump: Subject gets bonus on Jump checks. 
+Longstrider: Your speed increases by 10 ft. 
+Magic Fang:  One natural weapon of subject creature gets +1 on 
+attack and damage rolls. 
+Magic Stone:  Three stones gain +1 on attack rolls, deal 1d6+1 
+damage. 
+Obscuring Mist: Fog surrounds you. 
+Pass without Trace: One subject/level leaves no tracks. 
+Produce Flame: 1d6 damage +1/level, touch or thrown. 
+Shillelagh: Cudgel or quarterstaff becomes +1 weapon (1d10 
+damage) for 1 min./level. 
+Speak with Animals: You can communicate with animals. 
+Summon Nature’s Ally I: Calls creature to fight. 
+ 
+2ND-LEVEL DRUID SPELLS 
+Animal Messenger: Sends a Tiny animal to a specific place. 
+Animal Trance: Fascinates 2d6 HD of animals. 
+Barkskin: Grants +2 (or higher) enhancement to natural armor. 
+Bear’s Endurance: Subject gains +4 to Con for 1 min./level. 
+Bull’s Strength: Subject gains +4 to Str for 1 min./level. 
+Cat’s Grace: Subject gains +4 to Dex for 1 min./level. 
+Chill Metal: Cold metal damages those who touch it. 
+Delay Poison: Stops poison from harming subject for 1 hour/level. 
+Fire Trap M: Opened object deals 1d4 +1/level damage. 
+Flame Blade: Touch attack deals 1d8 +1/two levels damage. 
+Flaming Sphere:  Creates rolling ball of fire, 2d6 damage, lasts 1 
+round/level. 
+Fog Cloud: Fog obscures vision. 
+Gust of Wind: Blows away or knocks down smaller creatures. 
+Heat Metal: Make metal so hot it damages those who touch it. 
+Hold Animal: Paralyzes one animal for 1 round/level. 
+Owl’s Wisdom: Subject gains +4 to Wis for 1 min./level. 
+Reduce Animal: Shrinks one willing animal. 
+ 
+CHAPTER 11: 
+SPELLS 

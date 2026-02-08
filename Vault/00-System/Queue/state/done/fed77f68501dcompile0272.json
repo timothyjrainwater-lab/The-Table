@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0272",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 272,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:25:10.669815+00:00"
+  },
+  "doneAt": "2026-02-05T18:04:39.292736+00:00",
+  "citation": "DMG (pdf p.0272)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — One Hundred Traits (page 128) for ideas.on, (PHB 4–24)"
+  ]
+}

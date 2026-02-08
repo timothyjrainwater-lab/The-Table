@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "776e378ca42b:meta",
+    "sourceId": "776e378ca42b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Legacy of The Blood.pdf",
+    "title": "Legacy of The Blood",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:11:22.550885+00:00",
+  "meta": {
+    "sourceId": "776e378ca42b",
+    "title": "Legacy of The Blood",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Legacy of The Blood.pdf",
+    "pages": 154,
+    "extractedAt": "2026-02-03T13:11:22.543469+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

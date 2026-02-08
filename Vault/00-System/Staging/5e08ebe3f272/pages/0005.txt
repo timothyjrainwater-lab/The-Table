@@ -1,0 +1,91 @@
+5
+Old Feat Name New Feat Name Folded Into Notes
+Ambidexterity n/a Two-Weapon Fighting Two-Weapon Fighting includes all benefits
+Expertise Combat Expertise
+Weapon Finesse (weapon) Weapon Finesse Grants benefit with all qualified weapons
+Sunder Improved Sunder Sunder now name of the special attack
+Shield Expert Improved Shield Bash Originally appeared in Sword & Fist
+SPELLS
+Significant changes occurred regarding spells. Many news spells
+were added. A few spells were deleted entirely. Others changed
+name. Some changed school. Several spells changed level. Many
+long durations became shorter.
+NEW SPELLS
+Spell Name Level  
+Acid Splash Sor/Wiz 0
+Animate Plants Drd 7, Plant 7
+Arcane Sight Sor/Wiz 3
+Arcane Sight, Greater Sor/Wiz 7
+Baleful Polymorph Drd 5, Sor/Wiz 5
+Bear’s Endurance, Mass Clr 6, Drd 6, Sor/Wiz 6
+Blight Drd 4, Sor/Wiz 5
+Bull’s Strength, Mass Clr 6, Drd 6, Sor/Wiz 6
+Call Lightning Storm Drd 5
+Cat’s Grace, Mass Brd 6, Drd 6, Sor/Wiz 6
+Command Undead Sor/Wiz 2
+Cure Critical Wounds, Mass Clr 8, Drd 9, Healing 8
+Cure Moderate Wounds, Mass Brd 6, Clr 6, Drd 7
+Cure Serious Wounds, Mass Clr 7, Drd 8
+Daze Monster Brd 2, Sor/Wiz 2
+Deep Slumber Brd 3, Sor/Wiz 3
+Dimensional Lock Clr 8, Sor/Wiz 8
+Disrupting Weapon Clr 5
+Eagle’s Splendor Brd 2, Clr 2, Pal 2, Sor/Wiz 2
+Eagle’s Splendor, Mass Brd 6, Clr 6, Sor/Wiz 6
+Enlarge Person, Mass Sor/Wiz 4
+False Life Sor/Wiz 2
+NEW SPELLS (CONT.)
+Spell Name Level  
+Fox’s Cunning Brd 2, Rgr 2, Sor/Wiz 2
+Fox’s Cunning, Mass Brd 6, Sor/Wiz 6
+Glibness Brd 3
+Heroism Brd 2, Sor/Wiz 3
+Heroism, Greater Brd 5, Sor/Wiz 6
+Hold Monster, Mass Sor/Wiz 9
+Hold Person, Mass Sor/Wiz 7
+Inflict Critical Wounds, Mass Clr 8
+Inflict Moderate Wounds, Mass Clr 6
+Inflict Serious Wounds, Mass Clr 7
+Longstrider Drd 1, Rgr 1, Travel 1
+Moment of Prescience Sor/Wiz 8
+Mordenkainen’s Private Sanctum Sor/Wiz 5
+Owl’s Wisdom Clr 2, Drd 2, Pal 2, Rgr 2, Sor/Wiz 2
+Owl’s Wisdom, Mass Clr 6, Drd 6, Sor/Wiz 6
+Polar Ray Sor/Wiz 8
+Prying Eyes, Greater Sor/Wiz 8
+Ray of Exhaustion Sor/Wiz 3
+Reduce Person, Mass Sor/Wiz 4
+Shout, Greater Sor/Wiz 8
+Scorching Ray Sor/Wiz 2
+Song of Discord Brd 5
+Spell Immunity, Greater Clr 8
+Summon Instrument Brd 0
+Symbol of Weakness Clr 7, Sor/Wiz 7
+Sympathetic Vibration Brd 6
+Touch of Fatigue Sor/Wiz 0
+Touch of Idiocy Sor/Wiz 2
+Undeath to Death Clr 6, Sor/Wiz 6
+Waves of Exhaustion Sor/Wiz 7
+Waves of Fatigue Sor/Wiz 5
+FEATS
+Likewise, feats underwent revision. Many new feats entered the
+book. Standardized pairs of skills grant +2 bonuses from feats like
+Negotiator and Stealthy. Many old feats changed significantly.
+Spell Focus now grants a +1 bonus. A number of combat-
+oriented feats changed name or effect.
+Differences between how creatures and characters gain feats dis-
+appeared. All creatures get one feat, plus one additional feat per
+three hit dice—just like characters. Many monsters gained addi-
+tional feats.
+Creature Hit Dice Feats
+1–2 1
+3–5 2
+6–8 3
+9–11 4
+12–14 5
+15–17 6
+18–20 7
+21–23 8
+24–26 9
+27–29 10
+30–33 11

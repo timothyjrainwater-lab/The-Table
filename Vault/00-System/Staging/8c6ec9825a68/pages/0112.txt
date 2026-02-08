@@ -1,0 +1,233 @@
+bite at all living creatures in the area, then
+return to you with life essence stolen from
+their victims.
+
+This spell has two effects. It deals 1d6
+points of damage per two caster levels
+(maximum 10d6) to all creatures in
+the area. Spell resistance does nor
+apply to this damage. However, spell
+ce does apply to the spell’s
+secondary effect. If you overcome a
+creature's spell resistance, you gain
+1d4 temporary hit pointsas the scarabs
+feast on the creature's arcane energy
+and bleed it back into you. You gain
+th temporary hit points for each
+creature whose spell resistance you
+overcome. You never gain temporary
+hit points from creatures that do not
+have spell resistance.
+
+The temporary hit points gained
+from this spell last for up to 1 hour.
+
+resist
+
+ 
+
+ 
+
+ 
+
+Dragonshape
+‘Transmutation (Polymorph)
+Level: Sorcerer/wizard 9
+Component:
+Casting Time: 1 swift action
+Range: Personal
+Target: You
+Duration: 1 round/level (D)
+
+ 
+
+You feel a fire burning deep within you,
+Crimson scales quickly grow over your
+body, a pair of grent wings sprouts front your
+shoulders, and your body expands in size
+until you stand as tall asa house!
+
+You take on the form and abilities of
+a mature adult red dragon (see below
+for your new statistics). You gain 150
+temporary hit points, which disappear
+at the end of the spell's duration. You do
+not gain the normal spellcasting ability
+of your new form. See the description
+of the new polymorph subschool on
+page 95 for more details.
+
+Mature Apbutt Rep DraGon
+
+Init +0; Senses blindsense 60 ft.,
+darkvision 120 ft., quadruple-
+strength low-light vision; Listen
++32, Spot +32
+
+Languages as normal form
+
+AC 32, touch 8, flat-footed 32
+
+hp as normal form (+150 temporary
+hp); DR 10/magic
+
+Resist SR 23
+
+Immune fire
+
+Fort +20, Ref +14, Will +13
+Weakness vulnerability to cold
+
+Speed 40 ft., fly 150 ft. (poor); Flyby
+Attack
+
+Melee bite +34 (2d8+11/19-20) and
+2 claws +32 (2d6+5/19-20) and
+2 wings +32 (1d8+5/19-20) and
+tail slap +32 (2d6+16/19-20)
+
+Space 15 ft
+
+Reach 10 ft. (15 ft. with bite)
+
+Base Atk +25; Grp +44
+
+Atk Options Cleave, Power Attack
+
+Special Actions breath weapon, crush
+
+Spell-Like Abilities (CL 9th); 7/day—
+locate object
+
+Abilities Str 33, Dex 10, Con 23, Int 18,
+Wis 19, Cha 18
+
+Feats Cleave, Combat Reflexes, Flyby
+Attack, Improved Critical (bite,
+claw, tail slap, wing), Multiattack,
+Power Attack
+
+Skills Appraise +32, Bluff +32,
+Concentration +34, Diplomacy
++34, Intimidate +34, Jump +39,
+Knowledge (arcana) +32, Listen
++32, Search +32, Spot +32
+
+Breath Weapon (Su) 50-ft, cone, 14d10
+fire, Reflex DC 30 half.
+
+Crush (Ex) Area 15 ft. by 15 ft.; Small
+or smaller opponents take 248+16
+points of bludgeoning damage, and
+must succeed on a DC 28 Reflex
+save or be pinned
+
+ 
+
+Drifts of the Shalm
+Evocation
+Level: Druid 2
+Components:
+Casting Time: 1 standard action
+Range: Medium (100 ft. + 10 ft./level)
+Area: One §-ft. square/level (S)
+Duration: | round/level
+Saving Throw: None
+Spell Resistance: No
+
+ 
+
+You call upon the power of Obad-Hai and
+conjure forth a great drift of snow, leaves,
+or smoldering ash
+
+Druids of Obad-Hai routinely evoke
+the drifts of their lord to delay their
+enemies, to buy themselves time in the
+face of a sudden threat, and simply to
+decorate their groves.
+
+You create drifts of snow, leaves,
+ot ash 3 feet thick. It costs 2 squares
+of movement to enter a drift-covered
+square, Additional effects apply based
+on the type of drift
+
+A snow drift ripples with freezing
+energy. Anyone moving through or
+
+located in a snow drift takes 3 points
+of cold damage each round.
+
+If any part of a leaf drift comes in
+contact with fire (anything from a
+torch to a fireball will do), the whole
+drift instantly ignites. The heat from
+the burning leaves deals 2d6 points of
+fire damage to anyone in the inferno.
+
+An ash drift smolders with dying
+embers. Anyone moving through or
+located in an ash drift takes 3 points
+of fire damage each round.
+
+Electric Vengeance
+Evocation [Electricity]
+Level: Sorcerer/wizard 2
+Components: V,S
+Casting Time: 1 immediate action
+Range: $ ft
+Target: One creature
+Duration: Instantaneous
+Saving Throw: None
+Spell Resistance: Yes
+
+As the creature strikes you, an are of light-
+ning springs from your body and blasts the
+creature in return,
+
+You can cast this spell only when
+another creature has just dealt hit point
+damage to you with a melee attack.
+When you cast electric vengeance, a blast
+of lightning ares from your body into
+the subject's; the are deals 248 points of
+electricity damage +1 point per caster
+level (maximum +10).
+
+ 
+
+Electric Vengeance, Greater
+Evocation [Electricity]
+Level: Sorcerer/wizard 5
+Saving Throw: Fortitude partial
+
+This spell functions like electric ven-
+geance, except as noted here.
+
+This spell deals $48 points of damage
++1 per caster level (maximum +15), and
+the target of the spell must succeed on
+a Fortitude save or be dazed until the
+end of your next turn.
+
+Energy Aegis
+Abjuration
+Level: Cleric 3, duskblade 3, sorcerer/
+wizard 3
+
+Components:
+Casting Time: 1 immediate action
+Range: ff. +5 ft,/2 levels)
+Target: One creature
+
+DF
+
+    
+
+lose
+
+ 
+
+ 
+

@@ -1,0 +1,183 @@
+you can alter the type of damage it deals toa single type of
+your choice, You must make this choice when preparing the
+spell (those who do not prepare spells cannot benefit from
+this aspect of the feat). You can prepare the spell multiple
+times, selecting the same or a different energy type for it
+with each preparation.
+
+You can gain this feat multiple times, The caster level bonus
+does not stack, and each time you take the feat, a different
+spell must be chosen.
+
+FADE INTO VIOLENCE
+
+While the chaos of battle swirls around you, you rely on your
+ability to slip into the background to avoid your enemy's
+notice. Your frightened demeanor and pitiable appearance
+causes your opponents to seek out other targets.
+
+Prerequisites: Bluff 6 ranks, Hide 6 ranks.
+
+Benefit: When you wear no armor or lightarmorand carry
+nothing in your hands, your opponents might assume that
+you are an ineffectual fighter, Asan immediate action, choose
+a single target for this feat. If rhat opponent threatens both
+you and one of your allies, that foe strikes your ally rather than
+you unless he succeeds on a Sense Motive check opposed by
+your Bluff check. If your foe is larger than you, you gain a +4
+bonus on your Bluff check, You lose this benefit if you attack
+any opponent or target an opponent with a spell. This benefit
+does not apply to ranged attacks or attacks of opportunity
+that you provoke,
+
+Once you choose a target for this feat, you cannot switch
+to a new target for the rest of the encounter.
+
+FIERY FIST
+
+By channeling your ki energy, you sheathe your limbs in
+magical fire. Your unarmed strikes deal extra fire damage
+
+Prerequisites: Dex 13, Wis 13, Improved Unarmed Strike,
+Stunning Fist, base attack bonus +8.
+
+Benefit: Asa swift action, you can expend one of your uses
+of the Stunning Fist feat to surround your fists and feet in
+flame. For the rest of your turn, you gain an extra td6 points
+of fire damage on your unarmed strikes.
+
+When you select this fear, you gain an additional daily use
+of Stunning Fist.
+
+Special: A fighter can select Fiery Fist as one of his fighter
+bonus feats. A monk with the Stunning Fist fear can select
+Fiery Fist as her bonus feat at 2nd level, e
+meet the other prerequisites
+
+FIERY KI DEFENSE
+
+You channel your ki energy into a cloak of flame that injures
+all who attempt to strike you
+
+Prerequisites: Dex 13, Wis 13, Fiery Fist, Improved
+Unarmed Strike, Stunning Fist, base attack bonus +8.
+
+Benefit: As a swift action, you can expend one of your
+uses of the Stunning Fist feat to cloak yourself in flame
+Any creature thar strikes you with a melee attack takes dé
+points of fire damage. This benefit lasts until the start of
+your next turn.
+
+Special: A fighter can select Fiery Ki Defense as one of his
+fighter bonus feats. A monk with the Stunning Fist feat can
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+nif she does not
+
+  
+
+ 
+
+ 
+
+select Fiery Ki Defense as her bonus feat at 8th level, as long
+as she also possesses the Fiery Fist feat (other prerequisites
+can be ignored).
+
+FLAY
+
+When fighting unarmored opponents, you excel at twist-
+ing your weapon just before impact. This motion rips and
+tears at your foe's flesh, causing intense pain. This attack is
+wholly ineffective against armored foes, but it tears through
+natural defenses.
+
+Prerequisites: Str 13, Power Attack.
+
+Benefit: When you use your Power Attack feat with
+a slashing or piercing weapon against a foe who lacks an
+armor bonus to AC, you inflict horrid pain on your target
+If your attack hits, your opponent must make a Fortitude
+save {DC 10+ your damage bonus from Power Attack on the
+strike). If this save fails, he takes a—2 penalty on attacks
+for 1 round.
+
+You can use this feat once per round against a given target.
+
+Special: A fighter can select Flay as one of his fighter
+bonus feats.
+
+GRENADIER
+
+You are skilled in using grenadelike weapons. You excel at
+tossing them co just the right spot to maximize the amount of
+damage they cause as they burst open upon the battlefield
+
+Benefit: You are an expert with splash weapons and all
+manner of incendiary mixtures. You gain a+1 bonus on attack
+rolls with splash weapons and a +1 bonus on the weapon's
+damage (including splash damage).
+
+Special: A fighter can select Grenadier as one of his fighter
+bonus feats
+
+HINDERING OPPORTUNIST
+
+When you have a chance to strike a distracted foe, you instead
+use that opportunity to aid or protect an ally against him.
+Prerequisites: Combat Reflexes, base attack bonus +3.
+Benefit: Whenever an opponent provokes an attack of
+opportunity from you, you can choose to replace that attack
+with an aid another action targeting that opponent.
+
+INTIMIDATING STRIKE
+
+You make display of your combat prowess designed to strike
+terror in your foe, Your stance, attack method, and demeanor
+demonstrate to your foe that you are capable of defeating him
+with little effort. Your intent is clear—if you decide to hit
+your foe, you could easily slay him
+
+Prerequisites; Intimidate 4 ranks.
+
+Benefit: As a standard action, you make a single melee
+attack against your foe, You subtract a number from this
+attack equal to or less than your base attack bonus. If your
+attack hits, you can make an Intimidate check against the foe
+you struck, with a bonus equal to the number you subtracted
+from your attack roll. If this check succeeds, your opponent is
+shaken for the rest of the encounter. You cannot use this feat
+to worsen an opponent's fear condition beyond shaken.
+
+Special: A fighter can select Intimidating Strike as one of
+his fighter bonus feats.
+
+ 
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+

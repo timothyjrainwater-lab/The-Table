@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "e655ffa0cf93:meta",
+    "sourceId": "e655ffa0cf93",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Hedge Wizard - Power Class.pdf",
+    "title": "Hedge Wizard - Power Class",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:14:05.786668+00:00",
+  "meta": {
+    "sourceId": "e655ffa0cf93",
+    "title": "Hedge Wizard - Power Class",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Hedge Wizard - Power Class.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-03T12:14:05.696319+00:00"
+  },
+  "enqueued_extractPages": 6
+}

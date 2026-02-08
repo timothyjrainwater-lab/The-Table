@@ -1,0 +1,293 @@
+Attack: Bite +14 melee (1ds+5
+
+Full Attack: Bite +14 melee (1d8+5) and 2 claws +12 melee
+(1d4+2) and sting +12 melee (3d4+2 plus poison)
+
+Space/Reach: 10 ft./10 ft.
+
+Special Attacks: Spell-like abilities, fear aura, poison, summon
+baatezu
+
+Special Qualities: Damage reduction 10/good, darkvision 60 fr.,
+immunity to fire and poison, resistance to acid 10 and cold 10,
+see in darkness, spell resistance 21, telepathy 100 ft.
+
+Saves: Fort +12, Ref +12, Will +11
+
+Abilities: Str 21, Dex 21, Con 21, Int.14, Wis 14, Cha 14
+
+Skills: Bluff +15, Concentration +18, Diplomacy +6, Disguise +2
++4 acting), Hide +14, Intimidare +17, Knowledge (any on
++15, Listen +17, Move Silently +18, Search +15, Sense Motive
++15, Spot +17, Survival +2 (+4 following tracks
+
+Feats: Alertness, Improved Initiative, Iron Will, Multiattack
+
+Environment; Nine Hells of Bator
+
+Organization: Solitary, team (2-4), or squ
+
+Challenge Rating: 9
+
+‘Treasure: Standard
+
+Alignment: Always lawful evil
+
+Advancement: 11-20 HD (Large); 21-30 HD (Huge
+
+Level Adjustment: -
+
+ 
+
+id (6-10)
+
+    
+
+This tall creature looks skeletal and wretched, almost a husk of a human.
+oid form, with dried skin stretched so tight as to outline and empha-
+size every bone. It has a fearsome,,skull-like head and a tail like
+scorpion's,.and a foul odor of decay. hangs.in the air around it.
+
+ 
+
+  
+
+Bone devils, also called osyluths, often serve as
+the police and informers of the Nine Hells,
+monitoring other devils’ activities and re-
+porting on their service
+
+Bone devils stand about 9 feet tall and
+weigh about 500 pounds,
+
+Soreyin)
+Sat
+
+es
+
+at
+
+ 
+
+Bone devils hate all other creatures and
+
+artac
+
+ 
+
+uthlessly, They freely use wall
+ded
+
+A bone devil's natural weapons
+as well as any weapons it wields, are
+treated as evil-aligned and lawful
+aligned for the purpose of overcom:
+ing damage reduction
+
+Fear Aura (Su); Bone devils can
+re a S-foot-radius fear aura as a
+
+of ice to keep the enemy div
+
+ 
+
+ 
+
+ 
+
+free action, Affected creatures must
+succeed ona DC 17 Will save or be
+affected as though by a fear spell
+(caster level 7th), A creature that
+successfully saves cannot be affected
+again by the same bone devil's aura for
+24 hours. Other baatezu are immune
+to the aura. The save DC is Charisma:
+based.
+
+Poison (Ex): Injury, Fortitude DC 20, initial
+damage 1d6 Str, secondary damage 2d6 StrThe save DC
+is Constitution-based.
+
+Spell-Like Abilities: At will. port (self plus 50
+pounds of objects only), dimensional anchor, fly, invisibility (se
+only), major image (DC 15), wall of ice. Caster level 12th. The save
+DC is Charisma-based.
+
+Summon Baatezu (Sp): Once per day a bone devil can.attemptso.
+summon. 2d10 lemures with a 50% chance of success, or another
+bone devil with a 35% chance of success. This ability is the equiva-
+lent of a 4th-level spell
+
+Chain devi
+
+ 
+
+greater
+
+  
+
+ 
+
+CHAIN DEVIL (KYTON)
+
+Medium Outsider (Evil, Extraplanar, Lawful)
+
+ 
+
+ 
+
+Hit Dice: sd8+16 (52 hp’
+Initiative: +6
+Speed: 30 ft. (6 squares
+
+touch 12, flat-footed 18
+
+Armor Class: 20 (+2 Dex, +8 natural
+
+Base Attack/Grapple; +8/+10
+
+Attack: Chain +10 melee (2d4+2/19-20)
+
+Full Attack: 2 chains +10 melee (2d4+2/19-20)
+
+Space/Reach: 5 ft,/s ft.(10 ft. with chains,
+
+Special Attacks: Dancing chains, unnerving gaze
+
+Special Qualities: Damage reduction S/silver or good, dark-
+vision 60 ft., immunity to cold, regeneration 2, spell resist:
+ance 18.
+
+Saves: Fort +8, Ref +8, Will +6
+
+Abilities: Str 15, Dex 15, Con 15, Int 6, Wis 10, Cha 12
+
+Skills: Climb +13, Craft (blacksmithing) +17, Escape Artist.
++13, Intimidate +12, Listen +13, Spot +13, Use Rope +2 (+4
+svith bindings
+
+Feats: Alertness, Improved Critical (chain
+
+Environment: Nine Hells of Baator
+
+Organization: Solitary, gang (2~4), band (6-10),.or mob
+11-20
+
+Challenge Rating: 6
+
+Treasure: Standard
+
+Alignment: Always lawful evil
+
+Advancement: 9-16 HD (Medium
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Improved Initiative
+
+ 
+
+ 
+
+    
+  
+  
+    
+    
+  
+ 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+  
+ 
+  
+ 
+ 
+ 
+ 
+ 
+
+lank and rattle of chains announces the arrival of this crea
+ture. It oppears human in shape and size, but chains wrap it like
+@ shroud, every length ending in a. hook or a blade or a heavy.
+slither and slide over the creature's.
+
+ 
+
+beings, also called kyto
+are often mistaken for undead by those who like:
+them to the traditional shackle-rartling ghost
+Kytons are humanlike devils, wrapped in
+chains instead of clothing
+
+A chain devil is 6 feet tall and weighs about
+300 pounds, chains included
+
+Chain devils speak Infernal and Common,
+
+   
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+A chain devil attacks by flailing away with the
+spiked chains that serve as its clot!
+and weapons. Chain devils savor fear and
+terror so much that they may stalk victims
+for hours, building dread and panic prior
+to attacking.
+
+Acchain devil’s natural weapons, as
+well as any weapons it wields, are
+
+treated as evil-aligned and lawful
+
+aligned for the purpose of overcom
+ing damage reduction.
+
+Dancing Chains (Su): A chain devil's most awesome attack is
+its ability to control up to four chains within 20 feet as a standard
+action, making the chains dance or move as it wishes, In addition,
+a chain devil can increase these chains’ length by up to.15 feetand
+cause them .to sprout razor-edged barbs. These chains attack as.
+effectively.as the devil itself. Ifa chain is in another creature's pos-}
+session, the creature can attempt a DC. 15 Will-save to break the.
+chain devil's power over that chain. If the save is successful, the
+kyton cannot attempt to control that particular chain again for 24
+hours or until the chain leaves the creature's possession. The save
+DC is Charisma-based.
+
+ 
+
+ing, armor
+
+ 
+
+ 
+
+ 
+
+ 
+

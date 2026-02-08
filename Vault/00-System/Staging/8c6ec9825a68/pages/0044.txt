@@ -1,0 +1,165 @@
+Ir falls to you to defend the innocent and harry the iniqui
+tous. You are driven, never able to rest as long as your deity's
+enemies remain at large. Since you have an inclusive view of
+who might be considered an enemy of your deity, that means
+you rarely rest at all.
+
+amine your deity’s alignment, description, and dogma
+or credo and create a list of the creatures or people you need
+to smite first. Anybody not on that listis irrelevant... unless,
+of course, they can be recruited as allies in your ongoing
+crusade. When your adventures pit you against foes that your
+deity has no special distaste for, you chafe for the opportunity
+to finish up and return to what's cruly important: bringing
+the wrath of your deity down upon his or her enemies.
+
+You are frequently inspired to scream or snarl imprecations,
+letting your foes know exactly who you are and exactly why
+you are punishing them
+
+“Pelor’s light will sear you, spawn of darlenesst”
+
+“Pelor commands your destruction, infidel!"
+
+“Naught shall avail you against the might of Pelor, demon! Lwill
+hurl you screaming back into the Abyss!”
+
+DEITY’S FAVOR
+
+‘The favored soul enjoys the flexibility of spontaneous spellcast-
+ing, but her limited spell selection can hinder her ability to
+provide the healing expected from a divine caster. Choosing
+the deity’s favor class feature means youll be a bit less potent
+in combat, but lets you use the spells you're already casting to
+help youand your allies last longer ina fight. Favored souls who
+choose this option should expect a lot of requests for support
+spells such as bless, bull's strength, and prayer, but remember
+thar your cure spells gain this benefit as well.
+
+Level: 3rd.
+
+Replaces: If you select this class feature, you do not gain
+the deity’s weapon focus or deity's weapon specialization
+class features (you still gain proficiency with your deity’s
+favored weapon).
+
+Benefit: Beginning at 3rd level, whenever you cast a favored
+soul spell, you can choose any one ally affected by that spell
+
+ 
+
+ 
+
+(including yourself) to gain temporary hit points equal to three
+
+times the spell’s level, These temporary hit points last for up
+to 1 minute per level of the spell. If the spell would also grant
+temporary hit points, use only the larger value and its duration.
+Ifyou use this ability on a creature thatis still under the effect of
+aptevious use, the new temporary hit points overlap (do not stack
+with) the temporary hit points the creature had remaining.
+Beginning at 12th level, you can choose to grant these tem-
+porary hit points to any number of allies affected by the spell.
+
+STARTING PACKAGES
+
+Package 1: The Defender
+
+Dwarf Favored Soul of Moradin
+
+Alulity Scores: Str 13, Dex 10, Con 14, Int 8, Wis 15, Cha 12
+
+Skills: Concentration.
+
+Feat: Shield Specializarion* (heavy)
+
+Weapon: Warhammer (1d8/x3), five javelins (1d6, 30 ft).
+
+Armor: Scale mail (+4 AC), heavy wooden shield (+2 AC).
+
+Other Geay: Spell component pouch, standard adventurer's
+kit, 31 gp.
+
+ 
+
+ 
+
+Package 2: The Healer
+
+Halfling Favored Soul of Yondalla
+
+Ability Scores: Str 12, Dex 12, Con 12, Int 8, Wis 15, Cha 13.
+
+Skills: Heal
+
+eat: Spontaneous Healer (Complete Divine).
+Weapons: Short sword (1d4/19-20), five javelins (1d4, 30 ft.)
+Armor: Scale mail (+4 AC), heavy wooden shield (+2 AC).
+Other Gear: Spell component pouch, standard adventurer's
+
+kit, 33 gp.
+
+  
+
+ 
+
+ 
+
+ 
+
+Human Favored Soul of Kord
+Ability Scores: Str 14, Dex 10, Con 12, Inr 8, Wis 15, Cha 13.
+Skills: Concentration, Diplomacy.
+Feats: Combat Casting, Combat Focus*,
+Weapons: Greatsword (1d12/19-20), five javelins (1d6, 30 ft.).
+Armor: Scale mail (+4 AC)
+Other Gear; Spell component pouch, standard adventur-
+er's kit
+
+ 
+
+MAKING A PROPHECY
+
+What's the point of being a prophet if you never get anything
+right? The trick in creating a prophecy is to bury it in symbols
+or metaphors that, after the fact, become perfectly obvious.
+The more specific you are, the more likely it is that you will get
+something wrong.
+
+Don't use names, use titles. Instead of saying, “King Derath
+of Veronia,” say something like, “Veronia’s lord" —or better yet,
+“the Lion of Veronia,” or even “the Lion of the East.”
+
+Don't use dates that occur once; use times of year, seasons,
+or celestial events. So, instead of saying “March 15th of the year
+635," say something like “beneath the third moon," or “when
+winter's grip weakens in the fifth year.”
+
+Use metaphors instead of clear statements. Don't say “dies,”
+or “is killed;” say “falls into darkness,” “stands before his fathers,”
+or “goes into the night.”
+
+Add a random, uriconnected remark, such as “The traitor sees
+it all,” or “Now the door stands open to the night.”
+
+Here’s an example:
+
+When rises the red moon above the North,
+The Lion of Veronia ceases his roar.
+
+Three times three are the slain.
+
+Rose petals fall from the elf maiden's hands.
+
+These images could mean almost anything. The red moon might
+be a specific season or celestial phenomena, or a metaphor for
+“war.” The Lion of Veronia might be its king or a Veronian-born
+hero. The rose petals could be flowers strewn on a grave, or
+perhaps drops of blood—so was the elf maiden grieving for the
+slain, or was she actually their murderer? It worked for Nostrada-
+mus: you can make it work for you.
+
+ 
+
+ 
+

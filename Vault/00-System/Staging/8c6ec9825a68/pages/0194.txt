@@ -1,0 +1,155 @@
+Taste 8-2: CLass FEATURE RETRAINING OPTIONS
+
+Class Option
+
+Cleric* Choice of domains (each domain
+counts as @ separate choice)
+Choice to turn or to rebuke undead
+(can be changed only if deity allows it)
+Choice of animal companion
+Choice of bonus feat
+
+Neutral cleric
+
+Druid or ranger
+Fighter, monk,
+
+or wizard
+
+Ranger Choice of combat style
+
+Rogue Choice of special ability
+Sorcerer or wizard Choice of familiar
+
+Wizard** Choice of school specialization and
+
+prohibited schools
+*A cleric's choice of deity can't be changed by class feature
+retraining. See the Divine Conversion sidebar for details on
+how to accomplish this change
+**$chool specialization and prohibited schools are treated
+asa single class feature. Thus, a character could change
+one, two, or even all three choices at the same time.
+
+Example: Upon gaining a new level, a ranger could
+change the combat style class feature he gained at 2nd level
+from two-weapon fighting to archery, Thereafter, he would
+be treated as if he had the Rapid Shot feat instead of the
+Two-Weapon Fighting feat, If he had at least six levels of
+ranger before making this change, he would exchange both
+the Two-Weapon Fighting feat (gained at 2nd level) and the
+Improved Two-Weapon Fighting feat (gained at 6th level)
+for the appropriate archery feats, since both of these features
+are derived from the choice made at 2nd level. However, the
+ranger couldn't make this change if he had selected the Two-
+Weapon Defense feat in the interim, since losing Two-Weapon
+Fighting means he would no longer meet the prerequisites
+for thar feat
+
+Example: Upon gaining a new level, a necromancer
+could change her school specialization to evocation, thus
+becoming an evoker. At the same time, she could also choose
+to change her prohibited schools from conjuration and illu-
+sion to abjuration and transmutation. Doing so would cause
+her to lose access to all spells from the newly designated
+prohibited schools. Even if her spellbook contains one or
+
+ 
+
+more such spells, she would lose the ability to prepare and
+cast them.
+
+Example: Upon gaining a new level, a wizard could choose
+to specialize in the enchantment school, thereby becoming
+an enchanter. Arthe same time, she would have to select two
+prohibited schools, as normal for a specialist wizard.
+
+Example: Upon gaining a new level, a conjurer could
+choose to become a wizard. By doing so, she would lose the
+benefits of specialization. But since she would also lose her
+prohibited schools, she could then learn spells from those
+schools as normal.
+
+FEAT RETRAINING
+
+Sometimes a feat choice looks great on paper, but it just
+doesn't work for your character in practice, Maybe an early
+feat choice reflected the character's personality and style,
+bura little experience changed his outlook. For instance,
+you might have selected Improved Initiative for your 1st-
+level character because you pictured him as ambitious and
+alittle reckless, Bur after falling victim toa wight's touch
+because he just couldn't wait until the cleric turned the
+undead, he decides it's better to use a little more care in
+combat, causing you to regret your early feat choice. New
+supplements, with their wealth of exciting feat options,
+also provide plenty of reasons to reconsider your earlier
+feat selections.
+
+ 
+
+ 
+
+The Process
+You can exchange one of the feats you previously selected
+for another feat, If the new feat has prerequisites, not only
+must your character meet them in his current state, but you
+must also be able to show that he met them at the time you
+chose the previous feat.
+
+Example: A 4th-level fighter/tst-level rogue couldn't trade
+the Mobility feat he chose at 3rd level for Improved Critical
+because he doesn't currently meet a prerequisite for the latter
+feat (base attack bonus +6). He also couldn't trade that Mobil-
+ity feat for Weapon Specialization, even though he currently
+meets the prerequisite (fighter level 4th), because he could
+not have done so as a 3rd-level character.
+
+ 
+ 
+
+ 
+
+ 
+
+DIVINE CONVERSION
+
+As noted in the Player's Handbook, a cleric who grossly violates
+the code of conduct imposed by his deity loses all spells and
+class features and cannot attain any more levels as a cleric of
+that deity. All these penalties remain in effect until he atones.
+But what if he doesn’t want to atone? What if a cleric of Hextor
+finds new meaning and purpose in serving Heironeous after
+a dramatic conversion experience? Such a character need not
+become a multiclass ex-cleric of Hextor/cleric of Heironeous.
+Instead, Heironeous can simply reinstate the character's cleric
+powers once he has proven his loyalty, talent, and ability,
+
+A cleric who changes his patron deity must complete a quest
+to prove his devotion to his new patron. The nature of the quest
+depends on the deity, and it always clearly reflects the deity's
+alignment as well as his or her goals and beliefs, To start the
+process, the cleric must voluntarily accept a geas/quest spell cast
+
+ 
+
+by a higher-level cleric of his new deity. During the quest, the
+cleric has no access to spells or cleric class features—except his
+weapon and armor proficiencies, which he does not forfeit.
+
+Upon completing the quest, the cleric receives the benefit of
+an atonement spell from a cleric of the new deity. The character
+then becomes a cleric of the new deity and is inducted into the
+clergy during an appropriate ceremony of the DM's choosing.
+After selecting two of the new deity's domains in lieu of his old
+ones, the character has all the powers and abilities of his previ-
+ous cleric level, plus the granted powers of his new domains.
+
+This method is the only one by which a cleric can change
+his deity. The retraining rules can’t be used to accomplish this
+task—it is simply too substantial a change in the character's
+identity (not to mention his source of power) to chalk up to a
+bit of practice in his off hours.
+
+ 
+

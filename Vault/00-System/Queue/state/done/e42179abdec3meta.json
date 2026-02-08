@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "e42179abdec3:meta",
+    "sourceId": "e42179abdec3",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/The Dark Elf City of Hosuth.pdf",
+    "title": "The Dark Elf City of Hosuth",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:47:32.346750+00:00",
+  "meta": {
+    "sourceId": "e42179abdec3",
+    "title": "The Dark Elf City of Hosuth",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/The Dark Elf City of Hosuth.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T20:47:32.283926+00:00"
+  },
+  "enqueued_extractPages": 5
+}

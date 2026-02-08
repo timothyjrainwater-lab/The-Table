@@ -1,0 +1,133 @@
+ 
+
+creature from leaving Ravenloft unless it can find
+an exit, like any other creature. When the called
+creature attempts to leave Ravenloft after com-
+pleting its task and discovers it cannot, the pact is
+broken. You lose all control over the creature,
+which is likely to feel betrayed.
+
+A called creature’s behavior once a broken
+pact frees it from your control depends on the
+creature’s alignment. Evil orneutral creatures might
+try to destroy you in retaliation.
+
+If you attempt to call an elemental, there is a
+20% chance that the spell produces a dread el-
+emental instead. Dread elementals are detailed in
+Denizens of Dread. DMs without access to that
+accessory can treat dread elementals as standard
+Monster Manual elementals, with the following
+changes: dread elementals have the Mists descrip-
+tor, and their moral alignment is always evil.
+
+Usinga calling spell to conjure an evil creature
+requires a powers check.
+
+Summoning: Summoning spells are signifi-
+cantly warped by the severe restrictions on planar
+travel in Ravenloft. Rather than summoning out-
+siders for assistance, you conjure creatures taken
+from the surrounding region. Thus, only creatures
+found in the domain in which this spell is cast can
+be summoned.
+
+ 
+
+ 
+
+  
+
+Summoned creatures in Ravenloft do not use
+the outsider template. Thus, summon monster I
+would summon a dire rat, not a fiendish dire rat.
+Attempts tosummon an outsider such asa succubus
+or kyton automatically fail unless such a creature
+happens to be in the domain. Attempts to summon
+elementals automatically produce dread elementals.
+
+Most domains, such as those of the Core, have
+rich ecologies where many of the creatures listed
+under the summon spells can be found. Some
+wretched domains have extremely limited or even
+nonexistent ecologies. If you choose a creature to
+summon that isnot present in the domain, the spell
+fails. Chapter Four lists each domain with its ecol-
+ogy:
+
+Full Ecology: This is always followed by a list of
+climate/terrain conditions found in the domain.
+Any creature native to these conditions is usually
+available to be summoned.
+
+Sparse Ecology: The domain has an extremely
+limited ecology; this is usually the case in domains
+with blasted or alien landscapes. Only vermin and
+
+ 
+
+oozes can be summoned.
+
+No Ecology: There are no living creatures
+within the domain. Only Mist creatures can be
+summoned.
+
+Summoned creatures return from whence they
+came at the end of the spell’s duration, as described
+in the D&D Player’s Handbook. Because they never
+cross planar borders, no pact is broken, and the
+creatures do not turn against the caster.
+
+If you summon creatures under the influence
+of the darklord, the creatures still appear, but the
+influence modifiers still apply (see Enchantment”).
+
+Mists: Elementals or outsiders with the Mists
+descriptor are conjured from the Mists themselves
+— the planar fabric of the Realm of Dread. These
+creatures can be summoned from any domain, and
+can cross closed domain borders without harm.
+However, being extensions of the Land of Mists
+itself, they never have the extraplanar descriptor,
+phylacteries orreality wrinkles (see Fiends in Chap-
+ter Five), and they can never escape Ravenloft’s
+boundaries.
+
+Detecting Alignment
+
+The Dark Powers shield evil in their realm.
+Any attempt to detect a target’s moral alignment
+automatically fails.
+
+Some spells can or must be defined as affecting
+a specific alignment (chaotic evil, neutral good
+and soon) at the time of casting. In these cases, you
+specify only the intended target’s ethical align-
+ment. The spell then targets any applicable subject
+with the chosen aspect in its ethical alignment.
+However, these spells can be specifically targeted
+to affect Innocents.
+
+Example: A spell defined to affect “neutral”
+creatures would affect neutral good, true neutral
+and neutral evil creatures equally.
+
+Magic effects that detect alignment only in an
+indirect fashion (such as protection from evil or a
+paladin’s smite evil ability) still work normally.
+
+Death
+
+Spells with the death descriptor harm their
+target by directly attacking its life force — its soul,
+in essence. In Ravenloft, casting such a spell re-
+quires a powers check. Targets killed by death
+spells ofien renmay from the grave as undead oxea-
+tures.
+
+Divination
+Divination is notoriously untrustworthy in
+Ravenloft, except in the hands of the Vistani.
+
+Ss
+

@@ -1,0 +1,116 @@
+ 
+
+a
+>
+“Cable 2-2: Che Specialty Hunter
+“S, Class Level Base Attack Fort Ref
+; Bonus Save Save
+est Fe) +2 +2
+; 2nd +1 +3 +3,
+be) +2 3 8
+% 4th +2 +4 +4
+Sth 3 +4 +4
+Specialist Level Spells per day
+; 2 3 4
+fist Drip 1 0
+nd PED 1 1
+# 3rd Dona 1 1
+: 4th Z 2 2 1
+a sth a2 2 2
+, iia .
+
+Courage (Ex): At 2nd level, you gain the
+Courage feat. If youalready have Courage, you gain
+the benefit of Dead Man Walking upon making a
+successful Fear check.
+
+Ghost-bunter
+
+Turn or Rebuke Undead (Su): At Ist level,
+a ghost-hunter can turn or rebuke undead much as
+clerics can. Like a cleric, the ghost-hunter makes a
+Charisma check and consults Table 8-9 in the
+D&D Player's Handbook. He uses his monster hunter
++ ghost hunter levels to determine the most pow-
+erful undead he can turn. He then rolls 2d6 + ghost
+hunter levels + Charisma modifier to determine
+the turn result.
+
+Ghostsight (Su): At 2nd level, the ghost-
+hunter gains the Ghostsight feat.
+
+Vampire-bunter
+
+Turn or Rebuke Undead (Su): At Ist level,
+a vampire-hunter can turn or rebuke undead much
+as clerics can. Like a cleric, the vampire-hunter
+makes a Charisma check and consults Table 8-9 in
+the D&D Player’s Handbook. He uses his monster
+hunter + vampire hunter levels to determine the
+most powerful undead he can turn. He then rolls
+2d6 + vampire hunter levels + Charisma modifier
+to determine turn result.
+
+Drain Resistant (Su): Starting at 2nd level, the
+vampire hunter makes a Will save (DC 10 + 1/2
+attacker’s HD + attacker's Cha modifier) when he
+suffers an energy drain attack from undead. A suc-
+cessful save negates the drain attack, including any
+negative levels and related penalties that he would
+
+Special
+
+Studied foe; see specialty class
+
+Studied foe, improved critical; see specialty class
+
+Studied foe, smite enemy; see specialty class
+
+|
+1
+1
+
+nil eile cman
+
+have suffered. (This does not apply to negative levels
+caused by a spell or similar effect.) Ona failed save,
+the vampire hunter suffers the energy drain and must
+recover from the negative level as normal.
+
+Similarly, the creature attempting the drain
+attack does not gain 5 temporary hit points foreach
+negative level it would have bestowed).
+
+Qitch-bunter
+
+Scent Arcane (Su): At Ist level, the witch-hunter
+can smell arcane taint (DC 15 Spot check if within 10
+feet); this functions as detect magic but cannot pinpoint
+the source and is expressed as a sneeze or foul odor or
+other appropriate effect. As the witch-hunter’s level
+increases, this ability functionsata higher level, with the
+range increasing by 5 feet per level to a maximum of 30
+feet. The hunter receives a +1 insight bonus for each
+level above the Ist as a witch-hunter added to his Spot
+check for scenting arcane.
+
+Hexbreaker (Su): At 2nd level, the witch-
+hunter becomes skilled at unweaving the
+blasphemous fabric of the black arts. He receives a
++2 insight bonus to Spellcraft checks to identify a
+spell being cast if the spell in question requires a
+powers check. The witch-hunter also receives a +2
+bonus to his dispel check when using dispel magic
+against a spell that requires a powers check, regard-
+less of whether it is a targeted dispel, an area dispel,
+or a counterspell.
+
+Demon-bunter
+
+Scent Infernal (Su): At Ist level, the demon-
+hunter can smell extraplanar taint (DC 15 Spot
+
+oe
+
+SS.
+

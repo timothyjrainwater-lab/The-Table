@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "781e2776477a:meta",
+    "sourceId": "781e2776477a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Hobgoblins.pdf",
+    "title": "The Slayer's Guide To Hobgoblins",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:47:45.480061+00:00",
+  "meta": {
+    "sourceId": "781e2776477a",
+    "title": "The Slayer's Guide To Hobgoblins",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Hobgoblins.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T23:47:45.292774+00:00"
+  },
+  "enqueued_extractPages": 18
+}

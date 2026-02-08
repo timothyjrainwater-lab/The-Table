@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "b9bc5d486916:meta",
+    "sourceId": "b9bc5d486916",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 13/Frigid Demise.pdf",
+    "title": "Frigid Demise",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:58:45.087083+00:00",
+  "meta": {
+    "sourceId": "b9bc5d486916",
+    "title": "Frigid Demise",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 13/Frigid Demise.pdf",
+    "pages": 6,
+    "extractedAt": "2026-02-03T10:58:45.060412+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "500b7bc12cdc:meta",
+    "sourceId": "500b7bc12cdc",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Multilevel Advetnures/The Tomb of Abysthor.pdf",
+    "title": "The Tomb of Abysthor",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:35:46.599019+00:00",
+  "meta": {
+    "sourceId": "500b7bc12cdc",
+    "title": "The Tomb of Abysthor",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Multilevel Advetnures/The Tomb of Abysthor.pdf",
+    "pages": 96,
+    "extractedAt": "2026-02-04T00:35:46.159862+00:00"
+  },
+  "enqueued_extractPages": 48
+}

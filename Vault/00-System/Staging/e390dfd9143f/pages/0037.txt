@@ -1,0 +1,363 @@
+z
+3
+B
+=
+3
+s
+
+ 
+
+tacles as a move action. The tentacles grapple with the same
+strength as the claw but deal no damage. However, they exude a
+paralytic Anyone held in the tentacles must succeed on a
+DC 19 Fortitude save each round on the chuul’ turn or be para
+lyzed for 6 rounds. The save DC is Constitution-based, While held.
+in the tentacles, paralyzed or not, a victim automatically takes!
+1d8+2 points of damage each round from the c
+
+Amphibious (Ex): Although chuuls are aquatic, they can sur-
+vive indefinitely on land,
+
+Skills; A chuul has a +8 racial bon US.ON a
+form some special action or avoid a hazard. It can alw
+take 10 on a Swim check, even if distracted or endangered. It can use
+the run action while swimming, provided it swims in a straight line.
+
+ 
+
+ 
+
+ 
+
+ecrett
+
+ 
+
+ 
+
+   
+
+ 
+
+y Swim
+
+ 
+
+ck to. per:
+s choose to
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Large Aberration
+
+Hit Dice: d8+18 (45 hp
+
+Initiative: +7
+
+Speed; 10 ft. (2 squares), fly 40 ft. (average’
+
+Armor Class: 19 (—1 size, +3 Dex, +7 natural), touch 12
+flat-footed 16
+
+Base Attack/Grapple: +4/+13
+
+Attack: Tail slap +8 melee (1dé
+
+Full Attack: Tail slap +8 melee (1d6+5) and bite +3 m
+
+Space/Reach; 10 ft,/10 ft. (5 ft. with bite
+
+Special Attacks: Moan, engulf
+
+Special Qualities; Darkvision 60 ft, shadow
+shift
+
+Saves: Fort +5, Ref +5, Will +7
+
+Abilities: Str 21, Dex 16, Con 17, Int
+14, Wis 15, Cha 15
+
+Skills: Hide +8, Listen +13, Move
+Silently +12, Spot +13
+
+Feats: Alertness, Combat
+Reflexes, Improved
+Initiative
+
+Environment:
+Underground
+
+Organization: Solitary
+
+mob (3-6), or flock
+7-12
+
+ 
+
+ 
+
+ 
+
+Challenge Rating: 5
+
+Treasure: Standard
+
+Alignment: Usually
+chaotic. neutral
+
+Advancement: 7-9 HD
+Large} 10-18 HD
+Huge.
+
+Level Adjustment
+
+A long black cloak hangs from the cave wall, Suddenly, the cloak slips
+from the wall and catches a breeze moving through the
+it unfolds,
+ing to stretch out behind it. It flies
+piercing red eyes deep in the shadows of its raylike body
+
+yern. Then
+
+ 
+
+ 
+
+¢ cloak becoming dark wings and a bony, whiplike tail unfurt
+i 8
+ward, revealing a toothy maw and
+
+ 
+
+Cloakers are bizarre creatures that Jurk in dark places far beneath
+the surface. They kill intruders without remorse or pause, except
+to plan cruel amusement
+
+When resting or lying in wait, these creatures are almost impos
+sible to distinguish from common black cloaks (the cloaker's ivory
+
+    
+
+ 
+
+ 
+
+(claws look very much like bone clasps). Only when it unfurls does
+
+the horrific nature of the creature become apparent.
+
+Cloakers pursue their own mysterious goals. Whi
+tainly. intellige! nt, their minds work in a way so alien that few
+humans have ever been able to r
+
+ 
+
+ey are cer
+
+ 
+
+   
+
+ake meaningful contact with one.
+
+rure’s mandibles. |
+
+ 
+  
+ 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+  
+      
+  
+
+A cloaker has.a wingspan of about 8 feet. It weighs about 100
+pounds
+
+Cloakers speak Undercom
+
+COMBAT
+
+Cloakers usually lie still, watching and listening for prey. If
+facing a single opponent,acloaker uses its engulf attack.
+Against multiple foes, it lashes with its tail in concert with its
+moan and shadow shift abilities to reduce the opposition’s num:
+bers, then engulfs.a survivor. Multiple cloakers usually split up,
+leaving one or two behind to use special abilities while the rest
+make melee attacks,
+
+Moan (Ex): A cloaker can emit a dangerous subsonic moan.as a
+standard action. By changing the frequency, the cloaker can cause
+one of four effects. Cloakers are immune to these sonic, mind
+
+cting attacks. Unless otherwise specified, a creature that suc
+cessfully saves against one of these effects cannot be affected by
+the same moan eff 1 r 24 hours, All save
+
+ 
+
+non.
+
+ 
+
+ 
+
+    
+
+  
+
+ 
+
+ 
+
+ 
+
+ct from the same cloaker f
+DCs for moan effects are Charisma-based.
+
+Unnerve: Anyone within a 60-foot spread automa:
+3-2 penalty on attack and damage rolls, Those forced to hear the
+moan for more than 6 consecutive rounds must succeed on a
+DC 15 Will save or enter a.trance, unable to attack or defend
+themselves until the moaning stops
+
+Fear; Anyone within a 30-foot spread must. succeed on a DC 15
+
+Will save or become panicked for 2 rounds
+
+Nausea: Anyone in a 30-foot
+cone. must succeed ona DC 15
+Fortitude save or be ov
+come by nausea and weak.
+ness. Affected characters.
+nd become
+
+ 
+
+       
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+fall prone
+
+ 
+
+nauseated
+rounds,
+Stupor: A single crea
+ture within. 30 feet of the
+cloaker must succeed
+a DC 15 Fortitude save
+rbeaflected as though
+by ah
+for $ ro
+
+ 
+
+ 
+
+imonster spell
+
+ds, Even afte
+
+   
+
+successful save, the crea:
+ture must repea
+the cloaker uses this effect
+
+tthe save if
+
+ 
+
+Engulf (Ex): A cloaker can
+try to wrap a Medium or smaller
+as a standard
+
+ 
+
+creature in its
+action, The cloaker attempts a grap:
+ple that does not provoke an attack of
+opportunity. If it w
+check, it establishes a hold and bites the
+engulfed victim with a +4 bonus on its
+attack roll, Ir can still use its whiplike
+tail to strike at other targets,
+
+Attacks that hit an ¢' ngulfing cloaker
+deal half their damage to the monster and half to the trapped
+victim,
+
+Shadow Shift (Su); A cloaker can manipulate shadows, This
+ability is effective only in shadowy areas and has.three. possible
+
+  
+
+ns the grapple
+
+ 
+
+aaker
+
+ 
+
+ 
+
+ 
+
+s concealment (20% miss
+
+   
+
+Obscure ion; The cloaker gai
+chance) for 1d4 rounds
+
+Dancing Images: This effect duplicates a mirmorim
+level 6th.
+
+Silent Image: This effect duplicates a silent image spell (DC 15
+caster level 6th). The save DC is Charisma-based.
+
+spell (caster
+
+ 
+
+ 
+
+   
+

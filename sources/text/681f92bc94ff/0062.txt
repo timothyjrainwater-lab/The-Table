@@ -1,0 +1,129 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+idda the rogue can walk quietly up to a door, put her ear to it, and 
+hear the troglodyte priest on the other side casting a spell 
+on his pet crocodile. If Jozan the cleric were to try the same 
+thing, he’d make so much noise that the troglodyte would 
+hear him. Jozan could, however, identify the spell that the 
+evil priest is casting. Actions such as these rely on the skills that 
+characters have (in this case, Move Silently, Listen, and Spellcraft). 
+ 
+SKILLS SUMMARY 
+A character’s skills represent a variety of abilities. As a character 
+advances in level, he or she gets better at using some or all of her 
+skills. 
+Getting Skills:  A  c h a r a c t e r  g e t s  a  b a s e  a l l o t m e n t  o f  2 ,  4 ,  6 ,  o r  8  
+skill points for each new level, depending on the class to which that 
+level was added. If the character gaining his or her 1st character 
+level overall (that is, gaining his or her first level in any class), add 
+his or her Intelligence modifier to the base skill point allotment for 
+the class and multiply the total by four; then add an extra 4 points of 
+the character is human. 
+If you buy a class skill (such as Listen for a rogue or Spellcraft for 
+a cleric), your character gets 1 rank (equal to a +1 bonus on checks 
+with that skill) for each skill point. If you buy other classes’ skills 
+(cross-class skills), you get 1/2 rank per skill point. Your maximum 
+rank in a class skill is your character level + 3. Your maximum rank 
+in a cross-class skill is one-half of this number (do not round up or 
+down). 
+Using Skills: To make a skill check, roll: 
+1d20 + skill modifier 
+(Skill modifier = skill rank + ability modifier 
++ miscellaneous modifiers) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+This roll works just like an attack roll or a saving throw—the 
+higher the roll, the better. Either you’re trying to match or 
+exceed  a certain Difficulty Class (DC), or you’re trying to beat 
+another character’s check result. For instance, to sneak quietly 
+past a guard, Lidda needs to beat the guard’s Listen check result 
+with her own Move Silently check result. 
+Skill Ranks:  A character’s number of ranks in a skill is 
+based on how many skill points a character has invested in a 
+skill. Many skills can be used even if the character has no 
+ranks in them; doing this is called making an untrained skill 
+check. 
+Ability Modifier:  The ability modifier used in a skill 
+check is the modifier for the skill’s key ability (the ability 
+associated with the skill’s use). The key ability of each skill is 
+noted in its description and on Table 4–2: Skills. 
+Miscellaneous Modifiers:  Miscellaneous modifiers 
+include racial bonuses, armor check penalties, and bonuses 
+provided by feats, among others. 
+ 
+ACQUIRING SKILL RANKS 
+Ranks indicate how much training or experience your 
+character has with a given skill. Each of his or her skills 
+has a rank, from 0 (for a skill in which your character has 
+no training at all) to a number equal to 3 + character level 
+(for a character who has increased a skill to its maximum 
+rank). When making a skill check, you add your skill ranks 
+to the roll as part of the skill modifier, so the more ranks you 
+have, the higher your skill check result will be. 
+ 
+ 
+61

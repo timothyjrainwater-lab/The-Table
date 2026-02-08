@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "d975414fafca:meta",
+    "sourceId": "d975414fafca",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Fool - Power Class.pdf",
+    "title": "Fool - Power Class",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:38:42.753753+00:00",
+  "meta": {
+    "sourceId": "d975414fafca",
+    "title": "Fool - Power Class",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Fool - Power Class.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T10:38:42.721827+00:00"
+  },
+  "enqueued_extractPages": 5
+}

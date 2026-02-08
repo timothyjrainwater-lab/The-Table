@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "0fc2314968fe:meta",
+    "sourceId": "0fc2314968fe",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Dawn of The Serpent.pdf",
+    "title": "Dawn of The Serpent",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:27:54.963753+00:00",
+  "meta": {
+    "sourceId": "0fc2314968fe",
+    "title": "Dawn of The Serpent",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Dawn of The Serpent.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T08:27:54.910651+00:00"
+  }
+}

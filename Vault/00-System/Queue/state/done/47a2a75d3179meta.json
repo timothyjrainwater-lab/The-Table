@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "47a2a75d3179:meta",
+    "sourceId": "47a2a75d3179",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/RPGA Living Greyhawk/Exposing Kyuss - The Hunt Is On.pdf",
+    "title": "Exposing Kyuss - The Hunt Is On",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:23:01.757300+00:00",
+  "meta": {
+    "sourceId": "47a2a75d3179",
+    "title": "Exposing Kyuss - The Hunt Is On",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/RPGA Living Greyhawk/Exposing Kyuss - The Hunt Is On.pdf",
+    "pages": 22,
+    "extractedAt": "2026-02-03T10:23:01.653477+00:00"
+  }
+}

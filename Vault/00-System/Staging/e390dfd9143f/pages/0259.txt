@@ -1,0 +1,194 @@
+      
+  
+    
+   
+   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+   
+  
+ 
+ 
+ 
+ 
+  
+   
+  
+  
+    
+  
+ 
+  
+ 
+     
+ 
+  
+   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+   
+   
+
+roughly the size of an ogre. Since both ate incorporeal, they are
+weightless.
+Wraiths speak Common and Infernal.
+
+COMBAT
+Both the wraith and the dread wraith share the following
+{abilities
+Unnatural Aura (Su): Animals, whether
+wild or domesticated, can sense the unnatu-
+ral presence of a wraith at a distance of 30
+Lfeet, They will nor willingly approach
+-nearer than that and panic if forced todo
+so; they remain panicked as Jong as they are
+within that range.
+Daylight Powerlessness (Ex); Wraiths are _/
+jutterly powerless in natural sunlight (not
+jmerely a daylight spell) and flee from it
+
+WRAITH
+Close combat with a wraith is dangerous, thanks
+to its deadly touch,
+
+Constitution Drain (Su): Living crea-
+tures hit by a wraith’s incorporeal touch
+attack must succeed on a DC 14 Fortitude
+save or take 1d6 points of Constitution
+\drain. The save DC is Charisma-based. On
+jeach such successful attack, the wraitk
+|gains 5 temporary hit points.
+
+Create Spawn (Su): Any humanoid slain bya ei becomes
+hwraith in 1d4 rounds. Its body remains intact and inanimate, but
+Lits spirit is torn free from its corpse and transformed, Spawn are
+junder the command of the wraith that created them and remain
+
+Improved Initiative"
+
+   
+
+Any
+
+Solitary, gang (2-5), or pack (6-11)
+Challenge Rating: 5
+Treasure: None
+Alignment: Always lawful evil
+Advancement: 6-10 HD (Medium)
+
+Level Adjustment: = —
+
+A wraith is about as tall. as a human, while adread wraith is
+
+RRS
+
+enslaved until its death, They do not possess any of the abilities.
+they had in life.
+
+GREAD WRAITH
+
+The.oldest.and most malevolent wraiths
+lurk in the depths of forgotten tem-
+ples and other forsaken places. They
+
+can. sense the approach of living crea-
+
+tures, and hunger for them. Despite its.
+size, the dread wraith possesses un-
+earthly quickness, and makes use of its |
+Spring Attack feat and natural reach to
+strike with deadly effect and melt
+back into the shadows—or the walls.
+Lifesense (Su): A dread wraith
+notices and locates living creatures
+within 60 feet, just as if it possessed
+the blindsight ability Ir also senses the
+strength of rheir life force automati-,
+
+cally, as if it had cast deathwatch.
+
+Constitution Drain (Su); Living crea~
+
+tures hit by a dread wraith’s incorporeal touch
+
+y attack must succeed on a DC 25 Fortitude save
+
+ortake 1d8 points of Constitution drain. The save
+
+DC is Charisma-based. On each such successful attack,
+the dread wraith gains 5 temporary hit paints.
+
+Create Spawn (Su): Any humanoid slain by.a.dread wraith,
+becomes a wraith in 1d4 rounds, Its body remains intact and |
+inanimate, but its spirit is torn free from its.corpse and
+transformed, Spawn are under the command of the wraith that
+created them and remain enslaved until its death. They do not pos-,
+
+sess any of the abilities they had in life,
+
+  
+    
+  
+  
+   
+    
+  
+
+ 
+
+Wraith Dread Wraith
+Medium Undead (Incorporeal) Large Undead (Incorporeal)
+Hit Dice: $di2 (32 hp) 16d12 (104 hp)
+Initiative: +7. +13
+Speed: Fly 60 ft. (good) (12 squares) Fly 60 ft. (good) (12 squares)
+Armor Class: 15 (+3 Dex, +2 deflection), touch 15, flat-footed 12 25 (~1 size, +9 Dex, +7 deflection), touch 25, flar-footed 16
+Base Attack/Grapple: +2/— +8/—
+Attack: Incorporeal touch +5 melee (1d4 plus 1dé Incorporeal touch +16 melee. (2d6 plus 1d8
+Constitution drain) Constitution drain)
+Pull Attack: Incorporeal touch +5 melee (1d4 plus 1d6 Incorporeal touch +16 melee (2d6 plus 1d&
+Constitution drain) Constitution drain)
+Space/Reach: 5 fr./s ft. 10 ft,/10 ft.
+Special Attacks: Constitution drain, create spawn Constitution drain, create spawn |
+Special Qualities: Darkvision 60 ft., daylight powerlessness, Darkvision 60 fr., daylight powerlessness, incorporeal
+incorporeal traits, +2 turn resistance, traits, lifesense 60 ft., undead traits, unnatural aura
+undead traits, unnatural aura
+Saves: Fort +1, Ref +4, Will +6 Fort +5, Ref +14, Will +14
+_ Abilities: Str—, Dex 16,Con—, Sur—, Dex 28,Con—,
+Int 14, Wis 14, Cha ts Int-17, Wis 18, Cha 24
+Skills: Diplomacy +6, Hide +11, Intimidate +10, Diplomacy +9, Hide +24, Intimidate +26,
+Listen +12, Search +10, Sense Motive +8, Knowledge (religion) +22, Listen +25, Search +22,
+Spot +12, Survival +2 (+4 following tracks) Sense Motive +23, Spot +25, Survival +4
+(46 following tracks)
+Feats: Alertness", Blind-Fight, Combat Reflexes, Alertness*, Blind-Fight, Combat Reflexes,
+
+Dodge, Improved Initiative®, Improved Natural
+Attack (incorporeal touch), Mobility, Spring Attack
+Any
+
+Solitary
+
+iu
+
+None
+
+Always lawful evil
+
+17-32 HD (Large)
+

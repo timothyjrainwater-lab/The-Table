@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0244",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 244,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:25:10.512370+00:00"
+  },
+  "doneAt": "2026-02-05T17:16:27.402092+00:00",
+  "citation": "DMG (pdf p.0244)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table — Staffs, (PHB 7–25)"
+  ]
+}

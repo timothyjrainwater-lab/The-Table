@@ -1,0 +1,72 @@
+    
+
+ 
+
+Undead Control (Su): Liches are lords of the
+undead. A lich may attempt to command any
+undead that has Hit Dice up to half the lich’s Hit
+Dice. The range for this power is astounding: up to
+1,000 x the lich’s Hit Dice in feet. The lich must
+
+ 
+
+  
+
+have some way of perceiving the undead it is
+attempting to command, but with the vast magical
+knowledge liches possess, this is not difficult to
+accomplish
+Attemptingtocontrolan undead within range
+isa free action, and the lich may make any number
+ofsuch attempts in around. The targetsare allowed
+a Will save against DC (10 + 1/2 the lich’s Hit Dice
++ lich’s Charisma modifier). Targets that save
+successfully cannot be controlled this round, but
+
+ 
+
+the lich may try again the next round. Targets that
+fail the save can be commanded by the lich as if by
+an evil cleric, save that the lich may issue orders as
+a free action. The maximum total Hit Dice of
+undead that can be controlled by the lich at one
+time is equal to 3 x the lich’s Hit Dice.
+
+Undead under a lich’s control have glowing
+pinpoint eyes like the lich itself. This is not a mere
+cosmetic modification, as the lich is able to see
+through the eyes of any of the undead it controls.
+This can be done regardless of the physical condi-
+tion of the undead creature’s eyes. This lich can
+likewise hear as if it were standing in the undead
+creature’s place. The lich can exert itssenses through
+only one of its controlled undead at a time, and
+while itdoesso, itis unable to sense through its own
+eyes or ears. However, the lich immediately knows
+if it is being attacked, and it can switch between its
+own senses and those of its controlled undead as a
+free action
+
+The lich instantly loses control of undead that
+move beyond the range of this power, though there
+are rumored ways for the lich to circumvent even
+this limitation.
+
+Salient Powers
+
+In addition to their already impressive abili-
+ties, liches often develop salient powers. Whether
+a lich has salient powers, and how many it pos-
+sesses, is related to its Intelligence
+
+Int Powers
+18 or less 0
+17-20 1
+21-22 2
+23-24 3
+25+ 4
+
+Int: The lich’s intelligence.
+
+ 
+

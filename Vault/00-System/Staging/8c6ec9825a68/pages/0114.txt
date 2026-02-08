@@ -1,0 +1,219 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+  
+ 
+   
+ 
+ 
+    
+   
+  
+   
+   
+   
+   
+   
+   
+    
+    
+  
+  
+   
+   
+  
+   
+   
+
+ 
+
+or sonic). The affected creatures g
+vulnerability to that energy type (the
+take +0% damage from that energy,
+even on a successful save
+
+Arcane Material Component: A tiny
+wooden shield, which the caster snaps
+in half
+
+Etherealness, Swift
+Transmutation
+Level: Beguiler 5, cleric 5, sorcerer,
+
+wizard §
+
+Components: V,
+Casting Time: 1 swift
+Range: Close (25 ft. + 5 ft./2 levels
+Target: One willing creature
+Duration: | round
+Saving Throw: Will negates
+Spell Resistance:
+
+ction
+
+ 
+
+ 
+
+With a single word and a quick wave of
+
+your hand, the creature disappears.
+
+The subject becomes ethereal until
+the end of its next turn. If, at the end
+of the spell’s duration, the subject
+creature rematerializes within a solid
+object or in an occupied space, it is
+shunted off to the nearest open space
+and takes 1d6 points of damage per 5
+feet so traveled
+
+Evard's Menacing Tentacles
+Transmutation
+Level: Druid 3, sorcerer/wizard 3
+Components: V,S,M
+Casting Time: 1 standard action
+Range: Personal
+Target: You
+Duration: 1 round/level
+
+ 
+
+Tivo black fentacles sprout from your shoul-
+
+der blades and arch over your shoulders,
+
+ 
+
+The tentacles have 10-foot reach and are
+animate. Each round as a free action,
+starting on the turn when you cast
+the spell, you can direct each tentacle
+to attack one opponent within reach
+The tentacles use your base attack
+bonus and Strength score, and each
+deals bludgeoning damage equal to
+1d8 points + your Str modifier. The
+tentacles threaten the area within their
+reach, and each can make one attack
+opportunity per round
+
+The tentacles also grant you a +4
+bonus on Climb checks.
+
+ 
+
+ 
+
+A dwarf w
+
+ 
+
+cd uses explosive rune
+
+Material Component: A piece of
+octopus, squid, or carrion crawler
+tentacle.
+
+Explosive Rune Field
+Conjuration (Fire)
+Level: Sorcerer/ wizard 4
+Components: V, S, M
+Casting Time: 1 standard action
+Range: Medium (100 ft. + 10 ft./level)
+
+ 
+
+Area: 20-ft-radius burst
+Duration: 1 round/level
+Saving Throw: Reflex negates
+Spell Resistance: No
+
+You infuse an area with arcane patterns
+
+ 
+
+that shift and slide along the ground.
+They seethe with arcane energy, and an
+occasional boll of energy surges from them
+with a bright flash.
+
+This spell creates a hazardous field of
+energy similar to that created by an
+explosive runes. spell. Unlike that spell,
+the runes created by this spell detonate
+when they come into contact with a
+living creature other than the caster.
+Any creature thar begins its turn in the
+spell's area must attempt a Reflex save.
+Ona failed save, the creature takes 4d6
+points of fire damage
+
+  
+
+vard an area against intrusion
+
+Moving through the spell’s area is
+hazardous at best. Creatures that move
+at their normal speed must succeed
+on Reflex saves to avoid the spell’s
+explosive effects, Creatures that move
+at half speed through the spell's area
+can avoid the damage justas if they had
+succeeded on their saves.
+
+Material Cov
+
+ 
+
+ment: A piece of parch-
+ment scribed with runes, The runes
+must be drawn with silver-flecked ink
+25 gp)
+
+ 
+
+Field of Resistance
+Abjuration
+Level: Sorcerer/wizard 5
+Component: V,S
+Casting Time: | standard action
+Range: Medium (100 fr. + 10 ft,/level)
+Area: 20-ft-radius emanation centered
+
+   
+
+ona point in space
+Duration: 1 round/le
+Saving Throw: None
+Spell Resistance; No
+
+1(D)
+
+ 
+
+ 
+
+The air in this spell's effect shimmers with
+arcane energy. A buzzing sound echoes in
+your mind as the flow of magic into the
+affected area choles off and ends.
+

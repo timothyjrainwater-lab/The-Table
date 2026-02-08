@@ -1,0 +1,105 @@
+   Module Workshop  A Dead Man’s Party - Page 17 
+ 
+the shadows inside if their Spot check beats 
+the shadows’ Hide checks. 
+ 
+Any character attempting to bring a light 
+source into the room will immediately be 
+attacked by all the shadows for disturbing 
+their darkness. The shadows will not care 
+about the disguises and will attack 
+mercilessly until destroyed (passing through 
+walls to reach the PCs, if need be). 
+ 
+ Shadows (4) 
+CR 3 each; Medium Incorporeal Undead; HD 3d12 
+(20, 19, 19, 13 hp); Init +2 (Dex); Spd 30ft., Fly 40ft. 
+(good); AC 13 (+2 Dex, +1 deflection); Atks 
+Incorporeal touch +3 melee (1d6 temporary Str dmg); 
+Face/Reach 5ft. by 5ft./5ft.; SA Strength Damage, 
+Create Spawn; SQ Undead, Incorporeal, +2 turn 
+resistance; AL CE; SV Fort +1, Ref +3, Will +4; Str 
+– Dex 14 Con – Int 6 Wis 12 Cha 13. 
+Skills: Hide +8, Intuit Direction +5, Listen +7, Spot 
++7. 
+Feats: Dodge 
+SA-Strength Damage(Su): The touch of a shadow 
+deals 1d6 points of temporary Str damage to a living 
+foe. A creature reduced to 0 Str by a shadow dies. 
+Create Spawn(Su): Any humanoid reduced to 0 Str 
+by a shadow becomes a shadow under the control of 
+the killer in 1d4 rounds. 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Incorporeal: Can be harmed only by other incorporeal 
+creatures, +1 or better magic weapons, or magic, with 
+a 50% chance to ignore any damage from a corporeal 
+source. Can pass through solid objects at will, and 
+own attacks pass though armor. Always moves 
+silently.
+ 
+ 
+17. Skeleton Room (EL 6) 
+ 
+When you open the door, you can’t see 
+the other side of the room because it is 
+full of skeletons! Wall to wall skeletons 
+packed as tight as they can go. They all 
+turn to face the open door…  
+ 
+The ogre was told “this is the skeleton 
+room”, so every skeleton that showed up he 
+pushed in here, even after it got too crowded 
+for them to move. 
+ 
+If the group is still disguised as zombies, the 
+skeletons automatically believe the disguises 
+and try their best to shuffle back out of the 
+way to make room. There is no way a PC 
+can enter the room to look around without 
+getting the skeletons out of the way. Any 
+attempt to move the skeletons out of the 
+room by force or to destroy one of the 
+creatures makes the whole pack attack. 
+ 
+They will also immediately attack anyone 
+not disguised. Fortunately for the PCs, only 
+two can fit through the door at a time, so if 
+they position themselves properly, the 
+characters can make this encounter very 
+easy. 
+ 
+ Skeletons (24) 
+CR 1/3 each; Medium Undead; HD 1d12 (12, 12, 11, 
+11, 11, 10, 10, 9, 9, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 4, 4, 
+3, 2 hp); Init +5 (+1 Dex, +4 Improv. Init.); Spd 30ft.; 
+AC 13 (+1 Dex, +2 natural); Atks 2 claws melee +0 
+(1d4 dmg); Face/Reach 5ft. by 5ft./5ft.; SQ Undead, 
+immunities; AL N; SV Fort +0, Ref +1, Will +2; Str 
+10 Dex 12 Con – Int – Wis 10 Cha 11. 
+Feats: Improved Initiative 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Immunities(Ex): Skeletons have cold immunity. They 
+also take half damage from piercing and slashing 
+weapons.
+ 
+Tactics: The skeletons have no tactics, and 
+will attack mindlessly. 
+ 
+18. Zombie Room (EL 6)
+ 
+ 
+When the door to this room opens, it 
+reveals a former inmate’s cell. Tiny 
+windows high up open to the outside, but 
+are blocked by bars. This room is full of 
+zombies, milling about… some even 
+bumping into the walls or each other! 
+ 

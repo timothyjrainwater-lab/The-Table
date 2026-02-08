@@ -1,0 +1,15 @@
+{
+  "ts": "2026-02-05T00:21:36.938751+00:00",
+  "sourceId": "fed77f68501d",
+  "pass": "A",
+  "expected_pages": 322,
+  "staged_pages_present": 322,
+  "staged_pages_nonempty": 322,
+  "max_staged_page": 322,
+  "queued_total_for_source": 0,
+  "done_count": 9,
+  "failed_count": 1,
+  "missing_count": 312,
+  "last_done_page": 20,
+  "ok": false
+}

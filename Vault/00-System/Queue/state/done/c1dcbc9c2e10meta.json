@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "c1dcbc9c2e10:meta",
+    "sourceId": "c1dcbc9c2e10",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Book of Eldritch Might/Book of Eldritch Might 2 - Songs and Souls of Power.pdf",
+    "title": "Book of Eldritch Might 2 - Songs and Souls of Power",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T06:04:52.110561+00:00",
+  "meta": {
+    "sourceId": "c1dcbc9c2e10",
+    "title": "Book of Eldritch Might 2 - Songs and Souls of Power",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Book of Eldritch Might/Book of Eldritch Might 2 - Songs and Souls of Power.pdf",
+    "pages": 65,
+    "extractedAt": "2026-02-03T06:04:51.795802+00:00"
+  }
+}

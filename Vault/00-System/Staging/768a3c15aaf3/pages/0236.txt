@@ -1,0 +1,134 @@
+ 
+
+—
+
+Cable 5-1: Dag Aging Modifiers
+Ability Score Modifiers
+Category Age Str
+One 40-197 +4 +0 +0 +0 +2 +0
+Two 200-277 +5 «+1 +l 4043 +0
+Three 300-377 +5 +1 +1 +1 43 +0
+Four 400-497 +6 +1 +2 +f +4 4
+Five 500-577 +7 +2 42 42 +4 Gl
+Six 600-677 +7 +2 +3 4245 +l
+Seven 700-777 +8 +3 +3 +3 +5 42
+Eight 800-877 +7 +3 +4 43 +6 42
+Nine 900-997 +7 +3 +4 +4 +6 42
+Ten 1000 +0 +4 +5 +4 47 43
+
+ 
+
+Dex Con Int Wis Cha Hag Magic Aura = SR AC CR
+None None 0 45 +1
+Minor magic (3) None 12 +6 +2
+Medium magic (2) 20ft. 14 47 +2
+Supernatural ability 30 ft. 16 +8 +2
+Minor magic (2) 40 ft. 18 +7 +3
+Medium magic (2) 60ft. 20 10043
+
+Supernatural ability 80 Ft. 22 flirt and
+
+Major Magic(I) 100Ft. 24 +12 +4
+Major magic (I) 200ft. 26 +344
+Supernatural ability 300 ft. 28 +1445
+
+With the exception of the Special Abilities category, values on the table are not cumulative.
+
+Category: The age group the hag falls into.
+
+‘Age: The hag’s age in years. Hags cannot gain powers until after the age of forty, so the table begins there.
+Ability Score Modifiers: Bonuses added to the hag’s ability scores for each age category.
+Hag Magic: The new powers the hag receives upon reaching the age category. Hag Magic is further explained below. Powers
+
+gained are cumulative.
+
+Aura: The radius of the hag’s corruptive aura for each age category. Corruptive aurais explained below under HagMagicbelow.
+
+SR: The hag’s spell resistance value for each category.
+AC: The hag’s bonus to natural armor for each category.
+
+CR: The number added to the hag's challenge rating for each category.
+
+ie seer — spt
+
+ 
+
+AC: Natural armor improves by +5.
+
+Attacks and Damage: Gains two claw attacks,
+each dealing 1d4 points of damage plus the hag’s
+Strength modifier.
+
+ 
+
+Special Attacks: As base creature.
+Special Qualities: As base creature, plus the following:
+
+ 
+
+Spell-Like Abilities: The hag gains the power to
+disguise self at will.
+Saves: Receives a +2 bonus on Reflex and
+
+ 
+
+Will saves.
+
+Abilities: The hag receives a +4 bonus to
+Strength and a +2 bonus to Wisdom.
+
+Skills: The hag receives a +6 racial bonus on
+Listen, Hide and Spot checks.
+
+Feats: As base character, plus Alertness and
+Combat Casting
+
+Environment: Potentially any.
+
+Organization: Solitary or covey (3). Also fre-
+quently has humanoid minions.
+
+Challenge Rating: +1
+
+Treasure: Standard.
+
+Alignment: Always evil.
+
+Advancement: By character class and Table
+5-11 below.
+
+The above template represents a “young” hag,
+less than 200 years old, which has relatively re-
+cently gained access to its unique abilities. As hags
+age, their bodies become more powerful and they
+become more adept at their own brand of corrup-
+tive magic. As the hag ages, apply the modifiers
+shown on Table 5-11 to the Hag template.
+
+Bag Magic
+
+As hags grow older, their command over their
+unique form of magic increases and they gain new
+powers. Hag magic is poorly understood, but it seems to
+somehow tap into natural cycles. The hags draw upon
+natural cycles, corrupt them and channel the power
+through their bodies in the form of spell-like abilities.
+The powers possessed by individual hagscan vary widely,
+as they prefer drawing from different natural cycles to
+gain theirpowers. Followingaredetailsonthepowersthe
+hag can draw on. Once a power is selected, it cannot be
+changed. All hagpowers take effectas ifcast by asorcerer
+of 8th level, or of level equal to the hag’s Hit Dice,
+whichever is higher.
+
+ 
+
+Minor Magic: Whenever the hag receives a
+Minor Magic powerasa result of aging, it receives the
+listed number of spell-like abilities. For example, a
+hag that reaches the age of 200 receives three spell-
+
+noe ne
+
+ 
+

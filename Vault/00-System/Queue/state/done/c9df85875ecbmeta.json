@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "c9df85875ecb:meta",
+    "sourceId": "c9df85875ecb",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/RPGA Living Greyhawk/Festival Knight.pdf",
+    "title": "Festival Knight",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:38.658535+00:00",
+  "meta": {
+    "sourceId": "c9df85875ecb",
+    "title": "Festival Knight",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/RPGA Living Greyhawk/Festival Knight.pdf",
+    "pages": 21,
+    "extractedAt": "2026-02-03T10:36:38.651310+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

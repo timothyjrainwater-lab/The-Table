@@ -1,0 +1,104 @@
+Tasie 4-19: NPC RANGER
+Skill Pts.) Spells
+
+Level hp AC Melee’ Ranged? F/R/W Feats per Day Gear
+Ist 9 3 +3 +4 43/44/41 24/1 + Track = =— Studded leather, mundane melee, mwk
+ranged, 550 gp
+2nd___15 1S. 9 +5. +4/+5/+1 30/1 - Myk studded leather, mwk melee, mwk
+ranged, 1,200 gp
+3d 200158 +6 44/45/42 36/2 + Endurance. — As 2nd level, except 1,700 gp
+
+4th 2517.42. +8 +5/+7/+2 42/2 1 +1 studded leather, mwk melee, mwk ranged,
+1,500 gp.
+Sth 31 17. 48 +9 +5/47/+2 48/2 1 As 4th level, except 2,500 gp
+6th 37. 17 +9/4 +10/5 +6/+8/43 54/3 2 +1 studded leather, +1 melee, mwk ranged,
+2,800 gp
+Mth 42 17 +10/5 +11/6 +6/+8/43 60/3 2 +1 studded leather, +1 melee , +1 ranged,
+1,400 gp
+8th 48 1711/6 +12/7 +7/+9/+3 66/3 2 As 7th level, except 3,600 gp
+Hh 53) 17) 42/7 +13/8 +7/49/44 72/4 2 As 7th level, except 6,200 gp
+0th 59 «18 —+13/8 +1510 48/411 /+4 78/4 an +1 studded leather, +1_melee, +1 ranged,
+gloves of Dexterity +2, 6,200 gp
+Mth 64 «19 +14/9/4 ee +8/411/44 84/4 an +2 studded leather, +1 melee, +1 ranged,
+gloves +2, 8,200 gp
+th 70 20 +15/10/5 +18/13/8 +9/+13/+5 90/5 2 As 11th level, except 15,000 gp
+Vth «75 22 +16/11/6 +20/15/10 +9/+13/+5 96/5 an +2 studded leather, amulet of natural armor
+
++1, ring of protection +1, +1 melee, +2
+ranged, gloves +2, 12,000 gp
+
+I4th 8122 +18/13/8 +21/16/11 +10/+14/+6___102/5 3/2/1 +2 studded leather, amulet +1, ring +1,
++2 melee, +2 ranged, gloves +2, periapt of
+Wisdom +2. 12,000 gp
+
+sth 86 «© 23. +19/14/9 42/17/12 +10/+14/+7 —108/6 3/2/1/1 As 14th level, except +3 studded leather and
+21,000 gp
+
+Méth__92 23. +22/17/12/7—-+23/18/13/8_+11/+15/+7_114/6 3/3/11 +3 studded leather, amulet +1, ring +1.
++2 melee, +2 ranged, belt of giant Strength
++4, gloves +2, periopt +2. 19,000 gp
+
+Vth 9724 -423/08/13/8 —-425/20/15/10-411/416/s7 1206 3/3/2/1 As 16th level, except gloves +4 and 30,000 gp
+
+1th = 103.25. -+25/20/15/10.__+27/22/17/12__+12/+17/+8 1126/7 4/3/2/)_+4 studded leather, amulet +1, ring +1,
++3 melee, +3 ranged, belt +4, gloves +4,
+periopt +2, 33,000 gp
+
+19th «108-25 426/21/16/17  +28/23/18/13+12/417/48 1382/7 4/4/3/2 As 18th level, except 73,000 gp
+
+20th 114-25 +28/23/18/13_+31/26/21/16 +13/+19/+8 1387 4/4/3/3 +4 studded leather, amulet +1, ring +1,
++4 melee, +4 ranged, belt +4, gloves +4,
+periopt +2. 95,000 gp
+
+If the ranger’s combat style is two-weapon fighting. as a full attack action, she can use a second light melee weapon in combat. Doing so allows
+an extra attack with that weapon at the highest attack value, but all attacks that round take a-2 penalty. From 6th-11th level, doing so allows two
+extra attacks with the second weapon, once at the highest attack value and once at a -5 penalty. (There’s still a -2 penalty on all attacks.) From
+Ith level on,.doing so allows three extra attacks with the second weapon: once at the highest attack value, once at a5 penalty, and once at a
+10 penalty. (There's still a—2 penalty on all attacks.)
+
+2 If the ranger’s combat style is archery, as a full attack action, she can make an extra ranged attack at the highest attack value, but all attacks that
+round take a-2 penalty. From 6th=1)th Jevel, the ranger may shoot an additional arrow in the same attack (and.can shoot an extra time per 5
+points of base attack bonus above +6). All attacks that round take a ~4 penalty, worsened by -2 for each additional arrow beyond the second.
+
+Bonus Trick: This animal companion is capable of learn-
+ing one trick in addition to.any that the ranger might
+choose to teach it (see the Handle Animal skill, page 74 of
+
+“Animal Companion (Ex): This ranger has.a dire wolf as an animal
+companion. This creature is.a loyal companion that accompanies
+the ranger on adventures as appropriate for its kind. Its abilities
+
+and characteristics are summarized below,
+
+Dire Wolf Animal Companion; CR —; Large magical
+beast; HD 6d8+18; hp 45; Init +2, Spd 50 ft; AC 14, touch
+11, flat-footed 12; Base Atk +4; Grp +15; Ark +10 melee
+(1d8+10, bite); Full Ack +10 melee (1d8+10, bite);
+Space/Reach 10 ft./S ft, SA trip; SQ bonus trick, low-light
+vision, scent; AL N; SV Fort +8, Ref +7, Will +6; Str 26, Dex
+16,Con 17, Int 2, Wis 12, Cha 10,
+
+} Skills.and Feats: Hide +0, Listen +2, Move Silently +4,
+}.Spot.+7, Survival +2; Alertness, Run, Track, Weapon Focus
+
+the Player’: Handbook), This bonus trick doesnt require any
+training time or Handle Animal checks, and it doesn't
+count against the normal limit of tricks known by the
+creature. The ranger selects this bonus trick, and once
+selected, it cant be changed.
+
+Low-Light Vision (Ex): Can see twice as far as a human in
+dim light.
+
+Scent (Ex): Can detect approaching enemies, sniff out
+hidden foes, and track by sense of smell,
+Camouflage (Ex): This ranger can use Hide in terrain that doesnt)
+
+(bite). grant cover or. concealment.
+
+Trip.LEx): A wolf that hits with a bite attack can attempt Swift Trucker (Ex): This ranger can track at normal speed without
+to.trip. the opponent as a free action. See page 158 of the \taking the usual —s penalty, or can track at double speed at only a
+Player's Handbook for more information. 1 10 penalty.
+
+ 
+

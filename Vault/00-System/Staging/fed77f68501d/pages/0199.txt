@@ -1,0 +1,78 @@
+Open Lock and Ride; even though both skills are Dexterity- natively, you can rule that the bard must spend an equivalent
+based, they cover different kinds of activity (fine manipulation of period of time and money scouring the countryside for new
+a mechanism versus keeping a mount under control in combat). songs, new. rumors, and so on. }
+Scarcer yet would be a.srainer who could impart knowledge of
+
+Great Cleave and Forge Ring—those feats are so far apart incon-| Researching Original Spells
+
+  
+     
+
+ceptand application thatthe chance of onecharacter having both {If you decide to allow characters to develop original spells, you
+vof them is close to nil, |. jean use these guidelines to handle the situation.
+|1£you allow it, at the expense of a certain degree of realism.a, A spelicaster of any kind can create a new spell, The research to
+[character can obtain training ahead of time. A player whose char-| _do this requires access to.a well-stocked library, typically in a large,
+jacter is at 2nd level, knowing thatthe character will get a newfeat, _,city or metropolis, Research requires an expenditure of 1,000 gp.
+\at3rd level, might choose.to have his character train for the feat per week and takes one week per level of the spell. This money}
+snow.either because the opportunity is available or to just get it out goes into fees, consultants, material component experimentation,
+of the way. and other miscellaneous expenditures. At the end of thattime, the
+Distinguishing Skills and Feats: You dont have to treat skills character makes a Spellcraft check (DC 10+ spell level), If that roll.
+and feats the same_in this.context. For example, you can require succeeds, the character learns the new spell if her research pro-;
+training or exposure for skills bur not feats, ruling that feats are duced a viable spell. If the roll fails, the character must go through
+,something that develop on their own as a character adventures. Or ,the research process again if she wants to keep trying.
+yyou.can set such requirements for feats but nor skills, justifying) | _,__A viable spell is one thar you allow into the game. Dont tell the
+}this by.the fact that feats are so much more potent than skillsand}. {player whether you think the spell is viable when research begins.
+\thus require more investment on the PC's part to acquire. 4 (That's the point of the research.) However, feel free to work with
+} the player before the research begins and give him guidance on the
+LEARNING NEW SPELLS parameters under which an original spell might be acceptable in
+Divine spellcasters just get new spells when they gain the ability your game.
+to cast them. Their deities, or the powers they revere, take care of Research to create new spells is always in addition to any other
+itall for them. You will not find a ranger in a library trying to learn _research involved for gaining spells that are already patt.of your
+anew spell. campaign (if you decide to also require spell research for the new
+Arcane spellcasters don't haye things quite so easy, Wizards spells that casters are entitled to as they attain higher levels).
+(must learn new spells and add them_to their spellbooks. This The number of spells that sorcerers and bards can know.is)
+|process is detailed in the Player's Handbook (see Arcane Magical strictly limited; members of those classes can never.exceed these |
+writings, page 178). limits even through the research of original spells.
+[-_4f you require wizards to actually spend game time on spell
+[research to gain those new spells, assume that it takes one day per +GAINING CLASS BENEFITS }
+{spell (but no roll is needed for spells that come swith level advance- You can mandate that to gain any of the newfound class-based ben-
+|ment) and that such research costs twice what it would normally efits earned by advancing a level, a character needs to. perform
+cost.to have an NPC cast thar spell for the character (see NPC some overall training. This training requires one week per every
+Spellcasting, page 107). two levels, rounded up. Training requires a character to train with a
+It's perfectly all right for two PC wizards to share spells. character of the same class who is higher in level and costs 1,000 gp
+According to the standard rules, sorcerers and bards dont need, per week. If no such trainer can be found, the cost is the same, but
+to study books to get their spells bur just automatically gain new) the time required is doubled. The money goes into fees, consult-
+spells when they gain levels. However, as a variant rule you could) __ants, material component experiments, and other miscellaneous
+require that each sorcerer contact an intelligent supernatural, expenditures, Without the training,.a character cannot acquire
+entity (anything from a lammasu to.a demon) to learn new spells. more hit points, class features, saying throw and attack bonus
+Such creatures usually don't want payment in gold but prefer to increases, spells per day, skill points, new spells, and so on.
+
+strike a bargain instead, These supernatural patrons teach their
+mortal friends spells in exchange for an occasional service (which GENERAL DOWNTIME
+could lead to an exciting adventure in its own right). Playing the If you dislike the idea of all this formalized training getting in the
+
+patron is in the purview of the DM and, depending on the crea way of the heroic, epic campaign you have going, simply require
+,ture chosen, you should require whatever sort of bargain you see thar whenever a character gains anew level she must spend one day
+Ifit, The following are but a couple of examples. per level (or just 1d4 days) in downtime. During this period the
+|+ “AJammasu only makes.a bargain with.a good-aligned sorcerer. _ character is busy training, focusing, or simply resting and cannot
+In.exchange for spells, once every other level the sorcerer must cast spells, go on adventures, and so.on,
+
+right a wrong or do some specific good deed, such as freeing a
+captive cleric unjustly placed in prison, building a.shelrer for GAINING FIXED HIT POINTS
+
+diseased beggars, or destroying an evil remple. Instead of rolling for hit points when she gains a level, a player
+* A dragon only makes a bargain with a sorcerer of the same may.(if you use this variant) take.the average roll for the class (see
+alignment. In exchange for spells, the dragon requires payment the table below), Constitution modifiers still apply. Below-average
+either in magic treasure.or in service. If treasure. the item must hit points hurt a PC more than above-average hit points help, so
+be of a value twice what it would normally.cost.to have an NPC this variant makes characters slightly more powerful.
+cast that spell for the character (see NPC Spellcasting, page
+. 107), If a service, every other level (typically) the sorcerer must Cleric Fighter.
+|—-perform some task appointed by the dragon. Usually, this sery-. Sorcerer Bard Druid _ Paladin |
+| —ice.is te procure some specific abject and bring it to the dragon, Wizard Rogue Monk Ranger Barbarian |
+4__slay.a creature. the dragon considers a threat or pest..or spy on Hit Die 4 d6 a do a2 |
+tone of the dragon's enemies and report what he learns. LHit points at.even 2 3 4 5 6
+Bards gain new spells by learning new songs. You can treat this | level (2nd, 4th, etc.)
+just.asa.wizard learning new spells from books ina library, butthe| | Hit points at odd 3 4 5 6 7
+
+band is studying with another bard and learning new music. Alter-) | level (3rd, Sth, etc)
+

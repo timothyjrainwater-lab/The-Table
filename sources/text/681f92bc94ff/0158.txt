@@ -1,0 +1,138 @@
+ 
+ 157
+You can use a disarm action to remove or grab away a well secured 
+object worn by a pinned opponent, but he gets a +4 bonus on his roll 
+to resist your attempt (see Disarm, page 155). 
+You may voluntarily release a pinned character as a free action; if 
+you do so, you are no longer considered to be grappling that char-
+acter (and vice versa). 
+You can’t draw or use a weapon (against the pinned character or 
+any other character), escape another’s grapple, retrieve a spell 
+component, pin another character, or break another’s pin while you 
+are pinning an opponent. 
+ 
+If You’re Pinned by an Opponent 
+When an opponent has pinned you, you are held immobile (but not 
+helpless) for 1 round. While you’re pinned, you take a –4 penalty to 
+your AC against opponents other than the one pinning you. At your 
+opponent’s option, you may also be unable to speak. On your turn, 
+you can try to escape the pin by making an opposed grapple check 
+in place of an attack. You can make an Escape Artist check in place 
+of your grapple check if you want, but this requires a standard 
+action. If you win, you escape the pin, but you’re still grappling. 
+ 
+Joining a Grapple 
+If your target is already grappling someone else, you can use an 
+attack to start a grapple, as above, except that the target doesn’t get 
+an attack of opportunity against you, and your grab automatically 
+succeeds. You still have to make a successful opposed grapple check 
+to become part of the grapple. 
+If there are multiple opponents involved in the grapple, you pick 
+one to make the opposed grapple check against. 
+ 
+Multiple Grapplers 
+Several combatants can be in a single grapple. Up to four combat-
+ants can grapple a single opponent in a given round. Creatures that 
+are one or more size categories smaller than you count for half, 
+creatures that are one size category larger than you count double, 
+and creatures two or more size categories larger count quadruple. 
+When you are grappling with multiple opponents, you choose 
+one opponent to make an opposed check against. The exception is 
+an attempt to escape from the grapple; to successfully escape, your 
+grapple check must beat the check results of each opponent. 
+ 
+MOUNTED COMBAT 
+Riding a mount into battle gives you several advantages (see the 
+Ride skill, page 80, and the Mounted Combat feat, page 98). 
+Horses in Combat:  Warhorses and warponies can serve readily 
+as combat steeds. Light horses, ponies, and heavy horses, however, 
+are frightened by combat. If you don’t dismount, you must make a 
+DC 20 Ride check each round as a move action to control such a 
+horse. If you succeed, you can perform a standard action after the 
+move action. If you fail, the move action becomes a full round action 
+and you can’t do anything else until your next turn. 
+Your mount acts on your initiative count as you direct it. You 
+move at its speed, but the mount uses its action to move. 
+A horse (not a pony) is a Large creature (see Big and Little Crea-
+tures in Combat, page 149), and thus takes up a space 10 feet (2 
+squares) across. For simplicity, assume that you share your mount’s 
+space during combat. 
+Combat while Mounted:  With a DC 5 Ride check, you can 
+guide your mount with your knees so as to use both hands to attack 
+or defend yourself. This is a free action. 
+When you attack a creature smaller than your mount that is on 
+foot, you get the +1 bonus on melee attacks for being on higher 
+ground. If your mount moves more than 5 feet, you can only make a 
+single melee attack. Essentially, you have to wait until the mount 
+gets to your enemy before attacking, so you can’t make a full attack. 
+Even at your mount’s full speed, you don’t take any penalty on melee 
+attacks while mounted. 
+If your mount charges, you also take the AC penalty associated 
+with a charge. If you make an attack at the end of the charge, you 
+receive the bonus gained from the charge. When charging on horse-
+back, you deal double damage with a lance (see Charge, page 154). 
+You can use ranged weapons while your mount is taking a double 
+move, but at a –4 penalty on the attack roll. You can use ranged 
+weapons while your mount is running (quadruple speed), at a –8 
+penalty. In either case, you make the attack roll when your mount 
+has completed half its movement. You can make a full attack with a 
+ranged weapon while your mount is moving. Likewise, you can take 
+move actions normally, so that, for instance, you can load and fire a 
+light crossbow in a round while your mount is moving. 
+Casting Spells while Mounted:  You can cast a spell normally if 
+your mount moves up to a normal move (its speed) either before or 
+after you cast. If you have your mount move both before and after 
+you cast a spell, then you’re casting the spell while the mount is 
+moving, and you have to make a Concentration check due to the 
+vigorous motion (DC 10 + spell level) or lose the spell. If the mount 
+is running (quadruple speed), you can cast a spell when your mount 
+has moved up to twice its speed, but your Concentration check is 
+more difficult due to the violent motion (DC 15 + spell level). 
+If Your Mount Falls in Battle:  If your mount falls, you have to 
+succeed on a DC 15 Ride check to make a soft fall and take no 
+damage. If the check fails, you take 1d6 points of damage. 
+If You Are Dropped: If you are knocked unconscious, you have a 
+50% chance to stay in the saddle (or 75% if you’re in a military 
+saddle). Otherwise you fall and take 1d6 points of damage. Without 
+you to guide it, your mount avoids combat. 
+ 
+OVERRUN 
+You can attempt an overrun as a standard action taken during your 
+move, or as part of a charge. (In general, you cannot take a standard 
+action during a move; this is an exception.) With an overrun, you 
+attempt to plow past or over your opponent (and move through his 
+square) as you move. You can only overrun an opponent who is one 
+size category larger than you, the same size, or smaller. You can 
+make only one overrun attempt per round. 
+If you’re attempting to overrun an opponent, follow these steps. 
+Step 1: Attack of Opportunity.  Since you begin the overrun by 
+moving into the defender’s space, you provoke an attack of 
+opportunity from the defender. 
+Step 2: Opponent Avoids?  The defender has the option to 
+simply avoid you. If he avoids you, he doesn’t suffer any ill effect. If 
+you were attempting the overrun as part of a charge, you may keep 
+moving. (You can always move through a square occupied by 
+someone who lets you by.) In either case, the overrun attempt 
+doesn’t count against your actions this round (except for any 
+movement required to enter the opponent’s square). If your oppo-
+nent doesn’t avoid you, move to Step 3. 
+Step 3: Opponent Blocks?  If your opponent blocks you, make a 
+Strength check opposed by the defender’s Dexterity or Strength 
+check (whichever ability score has the higher modifier). A 
+combatant gets a +4 bonus on the check for every size category he is 
+larger than Medium or a –4 penalty for every size category he is 
+smaller than Medium. You gain a +2 bonus on your Strength check 
+if you made the overrun as part of a charge. The defender gets a +4 
+bonus on his check if he has more than two legs or is otherwise 
+more stable than a normal humanoid (such as a dwarf). If you win, 
+you knock the defender prone. If you lose, the defender may 
+immediately react and make a Strength check opposed by your 
+Dexterity or Strength check (including the size modifiers noted 
+above, but no other modifiers) to try to knock you prone. 
+Step 4: Consequences.  If you succeed in knocking your oppo-
+nent prone, you can continue your movement as normal. If you fail 
+and are knocked prone in turn, you have to move 5 feet back the 
+way you came and fall prone, ending your movement there. If you 
+fail but are not knocked prone, you have to move 5 feet back the way 
+CHAPTER 8: 
+COMBAT 

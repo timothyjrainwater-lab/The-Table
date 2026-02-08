@@ -1,0 +1,164 @@
+   
+   
+  
+   
+   
+  
+ 
+   
+   
+   
+  
+ 
+   
+
+ 
+   
+  
+  
+   
+   
+ 
+
+       
+
+makes an excellent new villain, a powerful temporary ally, or
+an eager participant in an ongoing plot because his focused
+pursuit of power can get him involved in anyone's scheme
+to gain it
+
+Dragon shaman PCs should present no more difficulty
+than introducing a monk or cleric of a lesser-known deity,
+Although the character's abilities might be somewhat foreign,
+the idea that an individual is so dedicated to one philosophy
+that it grants him powers should be easily understood. The
+player of a dragon shaman usually finds the character's
+association with dragons to be the most entertaining part of
+the class. Before featuring adventures that deal with dragons,
+ask thar player about her character's philosophy concerning
+dragons. Does the character admire dragons in the abstract.
+worship them as living gods, or hold toa philosophy between
+these extremes? The answer should inform your adventure
+planning and inspire new adventure ideas. Be careful
+about using the PC's dedication to dragons to manipulate
+the character's actions; Occasional use of this idea might
+provoke some interesting roleplaying, but the player won't
+enjoy your game if a dragon shows up eyery session to boss
+her PC around.
+
+Adaptation
+
+You canalter the dragon shaman to suit your game ina number
+of ways. You could decide that all dragon shamans are barbaric,
+or that all them are civilized and sophisticated disciples of
+dragons who prefer to work behind the scenes through such
+agents. You might decide that only good dragons are available
+to your players for their totem dragons, or chat a particular
+organization fosters dragon shamans devoted toa single kind
+of dragon. If you feature other dragons prominently in your
+game, such as the gem dragons from Monster Manual I orthe
+deep dragon and the shadow dragon from Monsters of Faeriin,
+you might consider changing the class's features to allow a
+dragon shaman to follow other kinds of dragons as well.
+
+  
+
+ 
+
+Sample Encounter
+Dragon shamans make excellent villains and tricky allies. As
+a villain, a dragon shaman dedicated to an evil dragon can
+be paired with a cult of followers, half-dragons, and dragons
+
+ 
+
+ 
+
+    
+
+of all ages to make for exciting themed encountets. As an
+ally, a dragon shaman's blind pursuit of power could create
+interesting friction with the PCs and turn an ally into an
+enemy. A dragon shaman might become embroiled in the
+PCs‘ pursuits if they come into possession of an item of great
+power, if both the PCs and dragon shaman seek the same
+source of power, or if the dragon shaman’s attempts to gather
+power endanger the PCs or those they care about.
+
+L 7: Thane has admired blue dragons ever since he wi
+nessed a blue dragon's attack on his city when he was a child.
+The power of the dragon and the futility of the defenders’
+efforts against it frightened him, but he also found the spec-
+tacle strangely thrilling. When he was older, Thane learned all
+he could about blue dragons, With each new bit of knowledge,
+his respect for them grew. In his search for information he
+met a dragon shaman, and that encounter changed his life.
+Now a dragon shaman himself, Thane seeks ever greater
+power and hopes one day to have enough to challenge the
+dragon that laid waste to his childhood home and prove
+himself the stronger of the two, Thane seems single-minded
+and focused. He always has a mental list of goals he wants
+to achieve in any situation and doggedly pursues them.
+Although outwardly calm and cold, he explodes into action
+in an instant when thwarted.
+
+ 
+
+ 
+
+THANE CR7
+Male human blue dragon shaman 7
+LN Medium humanoid
+Init +1
+Senses Listen +2, Spot +2
+Aura draconic aura® +2
+*Class feature described on page 13
+Languages Common, Draconic
+AC 21, touch 11, flat-footed 20
+(+1 Dex, +6 armor, +3 shield)
+hp 57 (7 HD)
+Immune paralysis, sleep, frightful presence (dragons)
+Fort +8, Ref +6, Will +6
+Speed 20 ft. (4 squares)
+Melee +1 morningstar +9 (1d8+3)
+Ranged +1 light crossbow +7 (1d8+1/19-20)
+Base Atk +5; Grp +7
+
+ 
+
+rE NL i ree TTT
+
+EX-DRAGON SHAMANS
+
+Dragon shamans who change alignment could lose their powers
+Ifa dragon shaman changes to an alignment still appropriate
+to the dragon to which he is already dedicated, nothing hap-
+pens. However, if the dragon shaman changes to an alignment
+inappropriate for his chosen dragon, he immediately loses all
+abilities granted by the dragon shaman class and becomes an
+ex-dragon shaman,
+
+An ex-dragon shaman can choose a new color or metallic hue
+of true dragon to emulate and thus regain the powers granted
+by the class. To switch to a new totem dragon, he must find 4
+dragon shaman of higher level who is dedicated to that dragon
+type. The higher-level dragon shaman must willingly expend
+all her touch of vitality on the ex-dragon shaman each day for
+a week. At the end of the week, the ex-dragon shaman gains
+
+the class features of a dragon shaman dedicated to the newly
+chosen totem dragon, including exchanging the focus of any
+class-granted Skill Focus feats. Most dragon shamans who are
+asked to perform this service demand payment in the form
+of some great deed. This deed might be a demand that the
+ex-dragon shaman retrieve magic items that will add to his
+sponsor's power or simply a short quest to prove the ex-dragon
+shaman's worth.
+
+Dragon shamans can go through the same process to switch
+chosen totem dragons even if they don't change alignment. If
+a dragon shaman has an alignment appropriate for a different
+true dragon color or hue, the shaman can switch to that kind of
+dragon through a process identical to the one described above
+for ex-dragon shamans.
+

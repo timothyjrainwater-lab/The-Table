@@ -1,0 +1,17 @@
+{
+  "task": {
+    "taskId": "4d197aed5293:pages:0023-0024",
+    "sourceId": "4d197aed5293",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Munchkin/Munchkin Player's Handbook.pdf",
+    "pageStart": 23,
+    "pageEnd": 24,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:12:45.593149+00:00"
+  },
+  "doneAt": "2026-02-03T04:21:16.751231+00:00",
+  "wrote": [
+    "00-System/Staging/4d197aed5293/pages/0023.txt",
+    "00-System/Staging/4d197aed5293/pages/0024.txt"
+  ]
+}

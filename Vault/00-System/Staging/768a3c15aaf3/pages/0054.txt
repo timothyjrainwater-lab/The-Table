@@ -1,0 +1,139 @@
+ 
+
+* Divine Grace (Su): The paladin’s noble
+spirit bleeds out into the world around her, subcon-
+sciously placing virtuous minds at ease and sinister
+minds on edge. The paladin can apply her divine
+grace bonus when attempting to improve the reac-
+
+tions of good NPCs (effectively allowing her to
+count her Charisma bonus twice). However, this
+modifier counts as a penalty when attempting to
+improve the reactions of evil NPCs (effectively
+negating the paladin’s Charisma bonus). Note also
+that the divine grace bonus applies to all Fear,
+Horror and Madness saves.
+
+¢ Aura of Courage (Su): Although the
+Ravenloft paladin remains immune to magical
+fear, she is not immune to “natural” Fear saves,
+which are the product of her own sense of survival
+(Inasense, playing a PC immune to fear ina horror
+campaign is simply missing the point.) Instead, the
+paladin receives the Courage feat as a bonus feat at
+2nd level.
+
+* Divine Health (Ex): This protection is not
+inviolate in Ravenloft. Darklords and curses are
+powerful in the Realm of Dread. As such, the
+paladin is not immune to diseases spawned by these
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+sources.
+
+© Turn Undead (Su): See sidebar on turning
+and rebuking undead (above).
+
+© Spells: Some spells function differently in
+Ravenloft. See Altered Magic in Chapter Three.
+
+* Special Mount (Sp): A paladin’s special
+mount is a dread companion. See the Dread Com-
+panions sidebar.
+
+© Disruption (Su): As a paladin’s divine
+powers grow in strength, they begin to disrupt the
+very planar fabric of the evil-tainted world around
+her. Although this disruption is negligible when
+compared to that caused by a good outsider,
+darklords can sense the presence of a paladin in
+theirdomainsas they wouldsense a festering wound
+on their own body. With a successful Sense Motive
+check (DC = 25 - the paladin’s level), a darklord
+can detect the approximate location of a paladin
+within her domain within a one-mile radius (“in
+that town” or “in the woods west of this keep”).
+With an extraordinary success, the darklord nar-
+rows the approximate location down toa 100-foot
+radius. The darklord automatically retries the Sense
+Motive check once per 24 hours. It is rumored that
+in the past, darklords could automatically sense
+paladins in their domains, but if these rumors were
+true, how would any of the holy warriors survive
+past their formative years?
+
+ 
+
+  
+
+Weakness: As with good and neutral clerics,
+paladins who commit questionable acts must make
+powers checks at twice the usual percentage (i.e., a
+3% chance becomes a 6% chance).
+
+Ranger
+
+Like the barbarian and druid, rangers are most
+at home in the wilderness. Unlike those classes,
+however, rangers are often welcome in civilized
+lands, particularly rustic communities where the
+wilds press close. Like druids, rangers strive to
+maintain an uneasy balance between nature and
+civilization. Where the druid protects nature from
+the intrusions of mankind, rangers often guard
+humans from nature’s savagery. In untamed lands
+such as Vorostokov, they may hunt game to pro-
+vide for their clans or scout out new territory for
+settling. Rangers in developed lands are usually
+employed as game wardens for noble estates. In
+Sithicus, elven rangers patrol the deep forests astride
+monstrous stag beetles, hunting evil creatures and
+discouraging foreign visitors. Most folk consider
+rangers somewhat rustic, but their skills are gener-
+ally respected.
+
+ 
+
+Rangers are master trackers and scouts. Rang-
+ers usually adventure to eliminate dangerous beasts
+and other menaces from their chosen territories.
+Some patrol the wilds to protect or provide for their
+homelands. Others, particularly lycanthropes, prey
+on humanity, becoming more dangerous than any
+beast.
+
+Altered Class Features
+
+© Spells: Some spells function differently in
+Ravenloft. See Altered Magic in Chapter Three.
+
+* Animal Companion (Ex): At 4th level,
+rangers acquire an animal companion equal to a
+druid’s animal companion as if gained at 2nd level.
+Such animal companions are not dread compan-
+ions, but may fall under the influence of powerful
+domain lords. A ranger’s companions do not forget
+their friendship, however, and do not attack the
+ranger or his associates even if a darklord directly
+commands them to do so. Animal companions in
+these situations often flee to resolve their conflict-
+ing loyalties. These animals often shadow their
+ranger masters, fearfully spying on them from a
+distance. Ifan animal companion leaves the influ-
+encing darklord’s domain, its behavior returns to
+normal. See Altered Magic in Chapter Three for
+more details.
+
+ 
+
+ 
+

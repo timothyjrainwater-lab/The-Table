@@ -1,0 +1,128 @@
+Skills and Feats: Climb +6, Handle Animal +13, Jump +10, 
+Ride (horse) +14, Sense Motive +5, Spot +5, Swim +7, Wilderness Lore
++5; Cleave, Dodge, Great Cleave, Improved Bull Rush, Improved Ini-
+tiative, Improved Unarmed Strike, Leadership, Power Attack, Track.
+Possessions: +2 chain shirt, +2 morningstar, purse with 5 pp, 
+20 gp, 33 sp.
+Kraansh is a grizzled, scarred old veteran who fought the Tuigan
+hordes as part of the contingent sent by Zhentil Keep. He is a gruff,
+no-nonsense sort who has a fondness for a “favorite seat” at the
+Resthaven. Kraansh is 50 years old, with salt and pepper hair
+trimmed extremely close to his head.
+A SPY A MONG US
+The Zhentarim have an agent in Thesk: a young man who looks
+wholesome and behaves decently—a hardworking sort. Boridin, the
+agent, keeps in close contact with Zhentil Keep and gives them
+tenday reports.
+Boridin does odd jobs all over Thesk, but he spends a lot of time
+at Resthaven Inn. He keeps an eye on the good sergeant, since he is
+wary of the old veteran’s stabilizing influence on the orcs. If at all
+possible, he ingratiates himself with the PCs, though he is extremely
+careful not to overplay his hand.
+DD Boridin, Zhentish Agent: Male human Cleric 5 of Bane/Rogue
+8; CR 13; Medium-size humanoid; HD 5d8+20 plus 8d6+32; hp 102;
+Init +10; Spd 30 ft.; AC 17, touch 15, flat-footed 17; Atk +16/+11
+melee (1d8+9, +3 morningstar), or +12/+7 melee (1d4+5/19–20, +1
+dagger) and +12 melee (1d4+/19–20, +1 dagger); SA rebuke undead
+4/day, sneak attack +4d6; SQ evasion, traps, uncanny dodge (Dex
+bonus to AC, can’t be flanked); AL LE; SV Fort +10, Ref +11, Will
++9; Str 19, Dex 19, Con 19, Int 12, Wis 16, Cha 13.  
+Skills and Feats:Balance +6, Bluff +14, Concentration +7, Diplo-
+macy +9, Disguise +5, Gather Information +14, Heal +6, Hide +10,
+Intimidate +5, Jump +6, Listen +12, Move Silently +10, Open Lock
++10, Pick Pocket +10, Read Lips +5, Search +5, Sense Motive +7, Spell-
+craft +5, Spot +12, Tumble +14; Ambidexterity, Combat Reflexes,
+Improved Initiative, Street Smart, Thug, Two-Weapon Fighting.
+Evasion (Ex): If exposed to any effect that normally allows a
+character to attempt a Reflex saving throw for half damage,
+Borodin takes no damage with a successful saving throw.
+Cleric Spells Prepared (5/5/4/3; save DC 13 + spell level): 0—
+detect magic, detect poison, light, read magic, resistance; 1st—cause
+fear, command*, cure light wounds, divine favor, sanctuary; 2nd—
+aura against flame**, curse of ill fortune**, enthrall*, spell shield**;
+3rd—bestow curse*, dispel magic, mystic lash**. 
+* Domain spell. Domains: Hatred (+2 profane bonus on attack rolls, saves,
+and AC for 1 minute against selected opponent, 1/day), Tyranny (+2 to
+save DC of compulsion spells).
+Possessions: +3 morningstar,a pair of matched +1 daggers, bracers
+of armor +2, ring of protection +1, Heward’s handy haversack, mas-
+terwork thieves tools, potions of cure moderate wounds(2), purse
+with 100 gp, 100 sp, and six small topazes worth 50 gp each, holy
+symbol of Bane, 4 vials of unholy water, light warhorse.
+** Spell found in Magic of Faerûn.
+Boridin is in his early twenties, and he has a very open, guileless
+face. He has tousled brown hair, freckles, and bright blue eyes.
+Boridin acts like a wholesome, hard-working lad. Secretly, he’s a
+spiteful, hateful, devout servant of Bane and the Zhentarim. He
+often works for Resthaven Inn, where he keeps tabs on adventurers
+and reports them and their activities to the Black Network.
+Loose Ends
+Some of the rumors presented in the inn may cause the PCs to find
+some fun that isn’t quite related to the adventure at hand. Here are
+some short encounters that cover the false rumors, as well as those
+rumors that aren’t entirely relevant. (This can also be used as part
+of a larger Phent Random Encounter chart. In this format, assign
+each mini-encounter a 20% chance of happening.)
+The Tarnished Blades (EL 9): The bandits have a pair of repre-
+sentatives anxious to find information about caravans leaving
+town (so that they can jump on the caravan before the orc bands
+do) and extremely interested to discover where the orc bandits are
+hiding out (so that they can “deal” with the orcs in some manner
+of their own choosing). The one who usually works around the inn
+arranges for a few of her friends to meet up with the PCs at some
+appropriate time and location. (If the PCs go about town looking
+for information about bandits, they invariably draw the attention
+of the second bandit, as well, with the same result.) The two prefer
+dark alleys or wilderness settings, but they aren’t averse to getting
+the PCs to a remote location via subterfuge. For instance, Stace
+(the female of the pair assigned to gathering information) often
+uses the ploy of saying that her sister was badly mauled by a brute
+of an orc (or other creature) outside of town, and she can’t possi-
+bly move her given her current wounds unless she has help or until
+her sister has been healed a bit first. If the PCs fall for this bluff,
+they meet up with a band of eight bandits from the Tarnished
+Blades. DMs should note that the PCs may in fact find themselves
+forging a temporary alliance with the bandits in return for infor-
+mation about the current orc problems. Be sure to allow any inter-
+actions that the PCs wish; the leader of the Tarnished Blades is
+quite willing to make a deal as long as it benefits her group in some
+way. This aspect of the adventure is left to DMs to flesh out, how-
+ever, but it can help get the PCs on track if they overlook the orc
+meetings.
+D Bandits (8):Male and female humans Rogue 1/Fighter 2; CR
+3; Medium-size humanoid; HD 1d6+1 plus 2d10+2; hp 17; Init +2;
+Spd 30 ft.; AC 16, touch 12, flat-footed 14; Atk +4 melee
+(1d6+2/18–20, masterwork scimitar) and +3 melee (1d61/19–20,
+masterwork short sword), or +4 ranged (1d2/0, whip); SA sneak
+attack +1d6; SQ traps; AL N; SV Fort +4, Ref +4, Will –1; Str 14,
+Dex 15, Con 12, Int 10, Wis 8, Cha 13.  
+Skills and Feats:Balance +5, Bluff +5, Climb +5, Diplomacy +3,
+Jump +5, Move Silently +5, Read Lips +2, Ride (horse) +3, Search +2,
+Spot +1, Swim +7, Tumble +5, Use Rope +6, Ambidexterity, Dodge,
+Exotic Weapon Proficiency (whip), Two-Weapon Fighting, Weapon
+Focus (scimitar).
+Possessions:Masterwork chain shirt, masterwork scimitar, mas-
+terwork short sword, whip, potion of cure light wounds (4). 
+The Thayan Enclave: If the PCs decide that they need to check
+into this rumored new enclave, they find that this rumor is true.
+Tracking down some visiting representatives of Thay is easier than
+the PCs might expect, but that’s due to the fact that things are not
+yet finalized, and these representatives are still looking into various
+matters (and not all of the representatives are here in Phent right
+now due to various negotiations going on). If the PCs seek an audi-
+ence with the Thayans, they find out only that the enclave will come
+about after various matters have been reconciled (and nobody wishes
+to speak about these matters). However, the PCs also can walk away
+with a task from the Thayans if they wish. The task is up to the DM,
+but it can include delivering a message to another existing enclave,
+ensuring that the spot chosen for the enclave is free of any hidden
+dangers, or something similar. (DMs might also want to use this as
+a way to introduce some potions of invisibilityto the PCs so that they
+can sneak around when appropriate later.)
+Meetings at Night (EL 7): Should the PCs decide to look more
+into the matter of night meetings among orcs, they find themselves
+dealing with some rowdy orcs during their investigation. The orcs
+noted their interest at some appropriate point before, and now they
+want to make sure that no pesky humans are messing with their
+Unapproachable EastWeb Enhancement
+4

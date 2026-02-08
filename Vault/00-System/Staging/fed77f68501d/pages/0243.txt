@@ -1,0 +1,71 @@
+77 snare 150 gp 4th-Level Divine Spells 75-77 summon nature's.ally V 1,125 gp
+
+78 — softenearthand stone 150. gp 4% Spell Market Price 78 symbol of pain 2,125 gp
+73-80 sound burst 150 gp 01-05 air walk 700 gp 79___ symbol of sleep 2,125 gp
+81 speak with plants 150 gp 06-07 _antiplant shell 700 gp 80-82 transmute mud to rock 1,125 gp
+82-83 spider climb 150 gp 08-09 blight 700 gp $3-85__transmute rockto mud 1,125 gp
+84-85 spiritual weapon 150 gp 10-11 break enchantment 700 gp 86-89 true seeing 1,375 gp
+86 status 150.gp. 12-13 command plants 700 gp 90-91_unhallow 6,125 gp!
+87-88 summon monster il 150 gp 14-15 control water 700 gp 92-94 wall of fire 1,125 gp
+89-90 summon nature's ally I!__150.gp 16-21 cure critical wounds 700 gp 95-97 _ wall of stone 1,125 gp.
+| 91-92 summon swarm 150 gp, 22-26 death ward. 700 gp 98-100. wall of thoms 1,125 gp
+93. tree shape 150.gp. 27-31 dimensional anchor 700 gp 1 Allows for a spell of up to 4th level to be
+| 94-95 undetectable alignment 180 gp 32-34 _ discem lies 700 gp tied to the hallowed or unhallowed area.
+| 96-97 warp wood 150 gp 35-37 dismissal 700 gp
+98 — wood shape 150 gp 38-39 divination 725 gp 6th-Level Divine Spells
+99-100 zone of truth 150. gp 40-42 divine power 700 gp d% Spell Market Price
+43-47 _ freedom of movement 700 gp 01-03 animate objects 1,650 gp
+3rd-Level Divine Spells 48-49 giant vermin 700 gp 04-06 _ antilife shell 1,650 gp
+4% Spell Market Price 50-51 holy sword 700 gp 07-09 banishment 1,650 gp
+01-02 animate dead 625 gp 52-54 imbue with spell ability 700 gp 10-13 bear's endurance, mass 1,650 gp
+03-04 _ bestow curse. 375 gp 55-57 _ inflict critical wounds 700 gp 14-16 blade barrier 1,650 gp
+05-06 blindness /deafness 375 gp 58-60 magic weapon, greater 700 gp 17-20 bull's strength, mass. __ 1,650 gp
+07-08 __call lightning 375. gp 61-62_nondetection 750 gp 21-24 cat's grace, mass 1,650 gp
+09-10 contagion 375 ep 63-64 planar ally, lesser 1,200 gp 25 create undead 1,650 gp
+11-12__ continual flame. 425.gp\ | 65-67 _ poison 700 gp 26-29 cure moderate wounds, 1,650 gp
+13-14 create food and water 375 gp 68-69 reincamate 700 gp mass
+15-18 _ cure serious wounds. 375.gp\ | 70-71 _ repel vermin 700 gp 30-33 _ dispel mogic, greater _1,650 gp
+19 darkvision 375 gp 72-16 restoration 800 gp 34-37 eagle's splendor, mass 1,650 gp
+20-21 _ daylight 375.gp 77-78 rusting grasp 700 gp 38-40 _ find the path 1,650 gp
+22-23 deeper darkness 375 gp 79-81 sending 700 gp 4}-43 fire seeds 1,650 gp
+24-25 _ diminish plants 375. gp 82-85 spell immunity. 700 gp 44 forbiddance 4,650 gp!
+26-27 dispel magic 375 gp 86-87 spike stones 700 gp 45 geas/quest 1,650 gp
+28-29 dominate animal 375 gp 88-90 __summon.monster IV 700 gp 46 glyph of warding. greater 1,650 gp
+30-31 ghph of warding 575 gp 91-93 summon nature’s ally IV 700 gp 47-49 harm 1,650 gp
+32___ heal mount 375 gp 94-98 tongues 700 gp. 50-52 _ heal 1,650 gp
+33-34 helping hand 378 gp 99-100 tree stride 700 gp 53-55 heroes’ feast 1,650 gp
+35-36 _ inflict serious wounds 375.gp. 56-58 inflict moderate wounds, 1,650 gp
+37-38. invisibility purge 375 ep Sth-Level Divine Spells mass
+39-40 locate object 375.gp. 4% __ Spell Market Price 59-61 ironwood 1,650 gp
+41-46 magic circle against chaos/ 375 gp 01-03 animal growth 1,125 gp 62. fiveook 1,650 gp
+evil /good flaw 04-05 _ atonement 3,625 gp 63-65 move carth 1,650 gp
+47-48._mogic fang, greater 375.gp 06 awaken 2,375 gp 66-69 owl's wisdom, mass 1,650 gp
+| 49-50 magic vestment 375 gp 07-03 baleful polymorph 1,125 gp 70-71 planar ally 2,400 gp
+}..51-52_meld imto stone 375 gp 10-13 break enchantment 1,125 gp 72-74 repel wood 1,650 gp
+| 53455. neutralize poison 375 gp 14-16 _ call lightning storm 1,125.gp 75-77 spellstaff 1,650 gp
+|_56-57 _ obscure object 375 gp 17-20 command, greater 1,125 gp 78-80 _ stone tell 1,650 gp
+58-59 plant growth 375 gp 21__ commune 1,625.gp 81-83 summon monster VI 1,650 gp
+60-62 _prayer 375 gp 22 commune with noture 1,125 gp 34-86 summon nature's ally VI_ 1,650 gp
+63-64 protection from energy 375 gp 23-24 control winds 1,125 gp 87 symbol of fear 2,650 gp
+65-66 quench 375 gp 25-30 cure light wounds, mass 1,125 gp 88 symbol of persuasion _6,650 gp.
+67-69 remove blindness/deafness 375 gp 31-34 dispel chaos/evil/ 89-91 _tronsport via plants 1,650 gp
+70-71 remove curse 375 gp good/law 1,125 gp 92-94__undeath to death 2,150 gp.
+72-73 remove disease 375 gp 35-38 disrupting weapon 1,125 gp 95-97 wind walk 1,650 gp
+74-76 _ searing light 375 gp 39-41 flame strike 1,125 gp 98-100 _ word of recall 1,650 gp
+77-18 sleet storm 375 gp 42-43 hallow 6,125 gp’ 1 Assumes an area equivalent to one 60-
+|_79-80 snare 375 gp. 44-46 _ice storm 1,125 gp foot cube,
+81-83 speak with dead 375 gp 47-49. inflict light wounds, mass 1,125 gp
+| 84-85 _ speak with plants 375 gp 50-52 _ insect plague 1,125 gp 7th-Level Divine Spells
+86-87 spike growth 375 gp 53 mark of justice 1,125 gp 3% Spell Market Price
+88-89 _ stone shope 375.gp 54-56 _ plane shift 1,125 gp 01-05 animate plants 2,275 gp
+90-91 summon monster Ill 375 gp 57-58 raise dead 6,125 gp 06-09 _ blasphemy. 2,275 gp
+92-93_summon nature's ally I!!__ 375 gp 59-61 righteous might 1,125 gp 10-14 changestaff 2,275 gp
+94-96 water breathing 375 gp 62-63 scrying 1,125 gp 15-16 _ control weather 2.275 gp
+97-98 _woter walk 375 gp 64-66 slay living 1,125 gp 17-21 creeping doom 2,275 gp
+99-100 wind wall 375 gp 67-69 spell resistance 1,125 gp 22-27 cure serious wounds, «2,275 gp
+70-71 _ stoneskin 1,375 gp mass
+
+72-74 summon monster V 1,125 gp 28-32 destruction 2,275 gp
+
+ 
+

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "8a6b5137b266:meta",
+    "sourceId": "8a6b5137b266",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 07/Equinox.pdf",
+    "title": "Equinox",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:06:31.141097+00:00",
+  "meta": {
+    "sourceId": "8a6b5137b266",
+    "title": "Equinox",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 07/Equinox.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T10:06:31.083116+00:00"
+  }
+}

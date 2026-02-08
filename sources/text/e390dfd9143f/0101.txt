@@ -1,0 +1,387 @@
+   
+
+Combat
+
+   
+  
+ 
+ 
+  
+  
+  
+     
+  
+   
+    
+  
+  
+   
+   
+    
+  
+ 
+ 
+ 
+    
+  
+   
+  
+ 
+  
+ 
+ 
+ 
+   
+   
+   
+   
+   
+   
+   
+   
+  
+  
+   
+
+behind its opponents,
+
+Hit Dice:
+Initiative:
+Speed:
+
+Armor Class:
+
+Base Attack/Grapple:
+Attack;
+
+Full Attack:
+Space/Reach:
+Special Attacks:
+Special Qualities:
+
+Saves:
+Abilities:
+
+Skills:
+
+Feats:
+Environment;
+Organization:
+Challenge Rating:
+‘Treasure:
+Alignment:
+Advancement:
+Level Adjustment:
+
+Hit Dice:
+Initiative:
+Speed:
+Armor Class:
+
+Base Attack/Grapple:
+Attack:
+
+Full Attack:
+Space/Reach:
+
+Special Attacks:
+Special Qualities:
+
+Saves:
+Abilities:
+
+Skills:
+Feats:
+
+Environment:
+Organization:
+Challenge Rating:
+‘Treasure;
+
+ent:
+Advancement:
+Level Adjustment:
+
+A water elemental prefers to fight ina large body of water where
+it can disappear beneath the waves.and suddenly swell up
+
+Water Mastery (Ex); A water elemental gains a +1 bonus on,
+attack and damage rolls if both it and irs opponent are touching |.
+water. If the opponent or the elemental is touching the ground,|
+
+Water Elemental, Small
+Small Elemental
+
+(Water, Extraplanar)
+
+2d8+2 (11 hp)
+
++0
+
+20 fr. (4 squares), swim 90 ft.
+17 (+1 size, +6 natural)
+
+touch 11, flat-footed 17
+
+41/4
+
+Slam +4 melee (1d6+3)
+
+Slam +4 melee (1d6+3)
+
+5 ft/s ft
+
+Water mastery, drench, vortex
+Darkvision 60 ft., elemental traits
+
+Fort +4, Ref +0, Will +0
+Str 14, Dex 10, Con 13,
+Int 4, Wis 11, Cha 11
+Listen +2, Spot +3
+Power Attack
+Elemental Plane of Water
+Solitary
+
+1
+
+None
+
+Usually neutral
+
+3 HD (Small)
+
+   
+
+Water Elemental, Huge
+Huge Elemental
+
+(Water, Extraplanar)
+
+16d8+80 (152 hp)
+
++4
+
+30 ft. (6 squares), swim 120 ft.
+21.(-2 size, +4 Dex, +9 natural),
+touch 12, flat-foored 17
++12/427
+
+Slam +17 melee (2d10+7.
+
+2 slams +17 melee (2d10+7)
+
+15 ft,/15 ft
+
+‘Water mastery, drench, vortex
+Damage reduction $/~,
+darkvision 60 ft,, elemental traits
+Fort +15, Ref +9, Will +7
+
+Str 24, Dex 18, Con 21,
+
+Int 6, Wis 11, Cha 11
+
+Listen +11, Spot +12
+
+Alertness, Cleave, Great Cleave,
+Power Attack, Improved Bull
+Rush, Iron Will
+
+Elemental Plane of Water
+Solitary
+
+None
+Usually neutral
+17-20 HD (Huge)
+
+the elemental takes.a —4 penalty on attack and damage rolls,
+(These modifiers are not included in the statistics block.)
+A water elemental can be a serious threat to a ship that)
+
+  
+
+crosses its path, An elemental can easily overturn small craft (5
+
+Water Elemental, Medium
+Medium Elemental
+
+(Water, Extraplanar)
+
+4d8+12 (30 hp)
+
++
+
+20 ft. (4 squares), swim 90 ft.
+19 (+1 Dex, +8 natural)
+
+touch 11, flat-footed 18
+
+43/46
+
+Slam +6 melee (1d8+4)
+
+Slam +6 melee (1d8+4)
+
+5 ft./s ft.
+
+Water mastery, drench, vortex
+Darkvision 60 ft., elemental traits
+
+Fort +7, Ref +2, Will +1
+Str 16, Dex 12, Con 17,
+Int4, Wis 11, Cha 11
+Listen +3, Spot +4
+Cleave, Power Attack
+Elemental Plane of Water
+Solitary
+
+3
+
+None
+
+Usually neutral
+
+5-7, HD (Medium)
+
+Water Elemental, Greater
+Huge Elemental
+
+(Water, Extraplanar)
+
+21d8+105 (199 hp)
+
++5
+
+30 ft. (6 squares), swim 120 ft.
+22 (--2 size, +5 Dex, +9 natural),
+touch 13, flat-footed 17
++15/+31
+
+Slam +21 melee (2d10+8)
+
+2 slams +21 melee (2d10+8)
+
+15 ft/15 ft.
+
+Water mastery, drench, vortex
+Damage reduction 10/-,
+darkvision 60 ft., elemental traits
+Fort +17, Ref +14, Will +9
+
+Str 26, Dex 20, Con 21,
+
+Int 8, Wis 11, Cha 11
+
+Listen +14, Spot +14
+
+Alermess, Cleave, Great Cleave,
+Improved Bull Rush, Improved
+Sunder, Iron Will, Lightning
+Reflexes, Power Attack
+
+Elemental Plane of Water
+Solitary
+
+9
+
+None
+
+Usually neutral
+
+22-23 HD (Huge)
+
+ifeet of length per Hit Die of the elemental) and stop larger ves-
+isels (10 feet long per HD), Even large ships (20 feet long per
+HD) can be slowed to half speed.
+
+Water Elemental, Large
+Large Elemental
+
+(Water, Extraplanar)
+8d8+32 (68 hp)
+
+20 ft. (4 squares), swim 90 ft.
+
+20 (-1 size, +2 Dex, +9 natural)
+touch 11, flat-footed 18
+
+46/415
+
+Slam +10 melee (2d8+5)
+
+2 slams +10 melee (2d8+5)
+
+10 fr./10 fr.
+
+Water mastery, drench, vortex
+Damage reduction $/~,
+darkvision 60 ft., elemental traits
+Fort +10, Ref +4, Will +2
+
+Str 20, Dex 14, Con 19,
+
+Int 6, Wis 11, Cha 11
+
+Listen +5, Spor +6
+
+Cleave, Great Cleave, Power Attack
+Elemental Plane of Water
+Solitary
+
+s
+
+None
+
+Usually neutral
+9-15 HD (Large
+
+Water Elemental, Elder
+
+Huge Elemental
+
+(Water, Extraplanar)
+
+24d8+120 (228 hp)
+
++6
+
+30 ft. (6 squares), swim 120 ft.
+
+23 (2 size, +6 Dex, +9 natural),
+touch 14, flat-footed 17
+
++18/+35
+
+Slam +25 melee (2d10+9/19-20
+2slams +25 melee (2d10+9/19-20)
+15 ft./15 ft,
+
+Water mastery, drench, vortex
+Damage reduction 10/—,
+darkvision 60 ft,, elemental traits
+Fort +19, Ref +16, Will +10
+
+Str 28, Dex 22, Con 21,
+
+Int 10, Wis 11, Cha 11
+
+Listen +29, Spot +29
+
+Alertness, Cleave, Great Cleave,
+Improved Critical (slam), Improved
+Bull Rush, Improved Sunder, Iron Will,
+Iron Will, Lightning Reflexes,
+Power Attack
+
+Elemental Plane of Water
+
+Solitary
+
+u
+
+None
+
+Usually neutral
+
+25-48 HD (Huge)
+

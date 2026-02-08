@@ -1,0 +1,198 @@
+The value of noble garb created by the rod ranges from 7,000 to
+
+10,000 gp (1d4+6 x 1,000 gp)—1,000 gp forthe fabricalone, 5,000
+gp for the furs, and the rest for the jewel trim (maximum. oftwenty
+gems, maximum value 200 gp each),
+
+In addition, the rod has.a second special power, usable once per |
+
+week. Upon command, it creates a palatial ent—a huge pavilion.
+
+of silk 60 feet across. Inside the tent are temporary furnishings,
+and food suitable to the splendor of the pavilion and sufficient10,,
+entertain as many as one hundred persons, The tent and its trap-|
+‘pings last for one day. Ar the end of that time, the rent and alll
+
+objects associated with it (including any items that were taken out
+of the tent) disappear.
+
+Strong conjuration and transmutation; CL'12th; Craft Rod,
+eagle's splendor, fabricate, major creation; Price 25,000 gp.
+
+Thunder and Lightning: Constructed of iron set with silver
+rivets, this rod has the properties of a +2 light mace. Irs other magi-
+cal powers are as follows.
+
+\* Thunder: Once per day, the rod can strike as a +3 light mace, and |
+the opponent struck is stunned from the noise of the rods}
+impact (Fortitude DC 16 negates). Activating this power counts
+
+asa free action, and it works if the wielder strikes an opponent
+within 1 round.
+
+Lightning: Once per day, when the wielder desires, a short spark
+of electricity can leap forth when the rod strikes an opponent to
+deal the normal damage for a +2 light mace (1d6+2) and an extra
+2d6 points of electricity damage. Even. when the rod might not
+score a normal hit in combat, if the roll was good enough to
+countasa successful melee touch attack hit, then the 2d6 points
+of electricity damage still applies. The wielder activates this
+power as a free action, and it works if he strikes.an opponent
+within 1 round.
+
+Thunderclap: Once per day as a standard action, the wielder can
+cause the rod to give out a deafening noise, just.as.a shout spell
+(Fortitude DC 16 partial, 246 points of sonic damage, target
+deafened for 2d6 rounds).
+
+Lightning Stroke: Once per day as a standard action, the wielder
+can cause the rod to shoot out a 5-foot-wide lightning bolt (9d6
+
+points of electricity damage, Reflex DC 16 half) to. range of,
+
+200 feet.
+
+wielder of the rod can combine the thunderclap described abaye
+
+with a lightning bolt, as in the lightning stroke, The thunderclap
+
+affects all within 10 feet of the bolt, The lightning stroke deals 9d6
+points of electricity damage (count rolls of 1 or 2 as rolls of 3, for
+
+a range of 27 to $4 points), and the thunderclap deals 2d6 points of
+
+sonic damage. A single DC 16 Reflex save applies for both effects.
+
+Moderate evocation; CL 9th; Craft Rod, Craft Magic Arms and
+Armor, lightning bolt, shout; Price 33,000 gp.
+
+Viper: This rod strikes as a +2 heavy mace. Once per day, upon
+command, the head of the rod becomes that of an actual serpent
+for 10 minutes. During this period, any. successful strike with
+the rod deals its usual damage.and also poisons the crearure hit
+The poison deals 1d10 points of Constitution damage immedi-
+ately (Fortitude DC 14 negates) and another 1d10 points of
+Constitution damage 1 minute later (Fortitude DC 14 negates).
+The rod only functions if its possessor is evil
+
+Moderate necromancy; CL 10th; Craft Rod, Craft Magic Arms
+and Armor, poison, creator must be evil; Price 19,000 gp.
+
+Withering: A rod of witheringacts as.a-+1 light mace thar deals no
+hit point damage. Instead, the wielder deals 1d4 points of Srrength
+damage and_1d4 points of Constitution damage to any_creature
+she touches with the rod (by making a melee touch attack). If she
+\scores.a critical hit, rhe damage from that hit is permanent ability
+(drain. In either case, the defender negates the effect with a DC 17
+Fortitude save.
+
+Strong necromancy; CL 13th; Craft Rod, Craft Magic Arms and |
+
+Armor, contagion; Price 25,000 gp.
+
+Thunder and Lightning: Once per week as a standard action, the |
+
+Wonder: A rod of wonder is a strange and unpredictable device,
+thar randomly generates any number of weird effects each time.it
+is.used. (Activating the rod is a standard action.) The usual effects.
+are shown on the table below, but you may alter any of these as you|
+see fit for your own campaign. Typical powers of the rod include
+
+ithe following.
+
+|d% Wondrous Effect.
+
+01-05 — Slow creature pointed at for 10 rounds {Will OC 15
+negates). 4
+
+06-10 Faerie fire surrounds the target.
+
+11-15 eludes wielder for 1 round into believing the rod
+functions as indicated by a second die roll (no save).
+
+16-20 ___ Gust of wind, but at windstorm force: see Winds, page 95__.
+(Fortitude DC 14 negates)
+
+21-25 Wielder learns target's surface thoughts (as with detect
+thoughts) for 1d4 rounds (no save).
+
+126-30 Stinking cloud at 30-f. range (Fortitude DC 15 negates).
+31-33 Heavy rain falls for 1 round in 60-ft. radius centered on rod .
+
+wielder.
+
+34-36 Summon an animal—a-thino.(01-25.an 4%), elephant.
+
+(26-50), or mouse (51-100).
+
+37-46 Lightning bolt (70 ft. long, 5 ft. wide), 6d6 damage
+(Reflex DC 15 half),
+
+47-49___ Stream of 600 large butterflies pours forth and flutters.
+around for 2 rounds, blinding everyone {including wielder)
+within 25 ft. (Reflex DC 14 negates).
+
+50-53 Enlarge person if within 60 f. of rod (Fortitude OC 13
+negates),
+
+54-58 __Darkness,
+from rod.
+
+59-62 Grass grows in 160-sq.-ft. area before the rod, or grass
+existing there grows to ten times normal size.
+
+63-65 Turn ethereal any nonliving object of up to 1,0001b. mass
+and up to 30 cu. ft. in size.
+
+66-69 Reduce wielder to 1/12 height (no save).
+
+70-79 Fireball at target or 100 ft. straight ahead. 6d6 damage
+(Reflex OC 15 half).
+
+80-84 Invisibility covers rod wielder.
+
+85-87 —_ Leaves grow from target if within. 60 ft, of rod. These last
+24 hours.
+
+88-90 10-40 gems, value 1 gp each, shoot forth in a 30-ft-ong
+stream, Each gem deals 1 point of damage to any creature
+in its path: Roll $d4 for the number of hits and divide them
+among the available targets.
+
+91-95___ Shimmering colors dance and play over a 40-ft.-by-30-ft
+area in front of rod. Creatures therein are blinded for 1d6
+rounds (Fortitude DC 15.negates)
+
+96-97 — Wielder (50% chance) or target (50% chance) turns
+
+permanently blue, green, or purple (no save),
+
+Flesh to stone (or stone.to flesh if target is stone already) if
+
+targetis within 60 ft. (Fortitude DC 18 negates).
+
+30-ft.-diameter hemisphere, centered 30 ft. away_,
+
+98-100
+
+Moderate enchantment; CL 10th; Craft Rod, confusion, creator
+must be chaotic; Price 12,000 gp.
+
+SCROLLS
+
+A scroll is.a spell (or collection of spells) that has been stored in ,
+written form. A spell ona scroll can be used only once. The swrit-|
+ing vanishes fromthe scroll when the spell is activated. Using a|
+scroll is basically like casting a spell.
+
+Physical Description: A scroll is a heavy sheet of fine}
+vellum.or high-quality paper. An area the size of a piece of
+
+imodern-day notebook paper (about $ 1/2 inches wide and 11
+‘inches long) is sufficient to hold one spell. The sheet is rein-
+
+forced at the rop.and bottom swith strips of leather slightly
+longer than the sheet is wide. A scroll holding more than one
+
+ 
+

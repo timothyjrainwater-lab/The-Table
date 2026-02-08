@@ -1,0 +1,130 @@
+ 
+ 140 
+damage for your weapon (see Table 7–5: Weapon, page 116). Damage 
+is deducted from the target’s current hit points. If the opponent’s hit 
+points drop to 0 or lower, he’s in bad shape (see Injury and Death, 
+page 145). 
+Multiple Attacks:  A character who can make more than one 
+attack per round must use the full attack action (see Full-Round 
+Actions, below) in order to get more than one attack. 
+Shooting or Throwing into a Melee:  If you shoot or throw a 
+ranged weapon at a target engaged in melee with a friendly char-
+acter, you take a –4 penalty on your attack roll because you have to 
+aim carefully to avoid hitting your friend. Two characters are 
+engaged in melee if they are enemies of each other and either 
+threatens the other. (An unconscious or otherwise immobilized 
+character is not considered engaged unless he is actually being 
+attacked.) 
+If your target (or the part of your target you’re aiming at, if it’s a 
+big target) is at least 10 feet away from the nearest friendly character, 
+you can avoid the –4 penalty, even if the creature you’re aiming at is 
+engaged in melee with a friendly character. 
+Precise Shot: If you have the Precise Shot feat (page 98), you don’t 
+take this penalty. 
+Fighting Defensively as a Standard Action:  You can choose to 
+fight defensively when attacking. If you do so, you take a –4 penalty 
+on all attacks in a round to gain a +2 dodge bonus to AC for the same 
+round. This bonus stacks with the AC bonus granted by the Combat 
+Expertise feat (page 92). 
+ 
+Cast a Spell 
+Most spells require 1 standard action to cast. You can cast such a 
+spell either before or after you take a move action. See Chapter 10: 
+magic for details on casting spells, their effects, and so on. 
+Note: You retain your Dexterity bonus to AC while casting. 
+Spell Components: To cast a spell with a verbal (V) component, 
+your character must speak in a firm voice. If you’re gagged or in the 
+area of a silence spell, you can’t cast such a spell. A spellcaster who 
+has been deafened has a 20% chance to spoil any spell he tries to cast 
+if that spell has a verbal component. 
+To cast a spell with a somatic (S) component, you must gesture 
+freely with at least one hand. You can’t cast a spell of this type while 
+bound, grappling, or with both your hands full or occupied 
+(swimming, clinging to a cliff, or the like). 
+To cast a spell with a material (M), focus (F), or divine focus (DF) 
+component, you have to have the proper materials, as described by 
+the spell. Unless these materials are elaborate, such as the 2-foot-by-
+4-boot mirror that a wizard needs to cast scrying, preparing these 
+materials is a free action. For material components and focuses 
+whose costs are not listed, you can assume that you have them if you 
+have your spell component pouch. 
+Some spells have an experience point (XP) component and entail 
+an experience point cost to you. No spell, not even restoration, can 
+restore the lost XP. You cannot spend so much XP that you lose a 
+level, so you cannot cast the spell unless you have enough XP to 
+spare. However, you may, on gaining enough XP to achieve a new 
+level, immediately spend the XP on casting the spell rather than 
+keeping it to advance a level. The XP are expended when you cast 
+the spell, whether or not the casting succeeds. 
+Concentration: You must concentrate to cast a spell. If you can’t 
+concentrate (because you are on the deck of a storm-tossed ship, for 
+instance), you can’t cast a spell. If you start casting a spell but 
+something interferes with your concentration, such as an ogre 
+taking the opportunity to hit you with its club (successfully hitting 
+you with his attack of opportunity), you must make a Concentration 
+check or lose the spell. The check’s DC depends on what is 
+threatening your concentration (see the Concentration skill, page 
+69, and Concentration, page 170). If you fail, the spell fizzles with no 
+effect. If you prepare spells (as a wizard, cleric, druid, paladin, or 
+ranger does), it is lost from preparation. If you cast at will (as a 
+sorcerer or bard does), it counts against your daily limit of spells 
+even though you did not cast it successfully. 
+Concentrating to Maintain a Spell:  Some spells require con-
+tinued concentration to keep them going. Concentrating to main-
+tain a spell is a standard action that doesn’t provoke an attack of 
+opportunity. Anything that could break your concentration when 
+casting a spell can keep you from concentrating to maintain a spell. 
+If your concentration breaks, the spell ends. 
+Casting Time:  Most spells have a casting time of 1 standard 
+action. A spell cast in this manner immediately takes effect. 
+Attacks of Opportunity:  Generally, if you cast a spell, you 
+provoke attacks of opportunity from threatening enemies. If you 
+take damage from an attack of opportunity, you must make a 
+Concentration check (DC 10 + points of damage taken + spell level) 
+or lose the spell. Spells that require only a free action to cast (such as 
+feather fall  or any quickened spell) don’t provoke attacks of oppor-
+tunity. 
+Casting on the Defensive: You may attempt to cast a spell while 
+paying attention to threats and avoiding blows. In this case, you are 
+n o  m o r e  v u l n e r a b l e  t o  a t t a c k  t h a n  y o u  w o u l d  b e  i f  y o u  w e r e  j u s t  
+standing there, so casting a spell while on the defensive does not 
+provoke an attack of opportunity. It does, however, require a 
+Concentration check (DC 15 + spell level) to pull off. Failure means 
+that you lose the spell. 
+Touch Spells in Combat:  Many spells have a range of touch. To 
+use these spells, you cast the spell and then touch the subject, either 
+in the same round or any time later. In the same round that you cast 
+the spell, you may also touch (or attempt to touch) the target. You 
+may take your move before casting the spell, after touching the 
+CRITICAL HITS 
+When you make an attack roll and get a natural 20 (the d20 shows 20),
+you hit regardless of your target’s Armor Class, and you have scored a
+threat. The hit might be a critical hit (or “crit”). To find out if it’s a critical
+hit, you immediately make a critical roll—another attack roll with all the
+same modifiers as the attack roll you just made. If the critical roll also
+results in a hit against the target’s AC, your original hit is a critical hit.
+(The critical roll just needs to hit to give you a crit. It doesn’t need to
+come up 20 again.) If the critical roll is a miss, then your hit is just a
+regular hit. 
+A critical hit means that you roll your damage more than once, with all 
+your usual bonuses, and add the rolls together. Unless otherwise
+specified, the threat range for a critical hit on an attack roll is 20, and the
+multiplier is ×2. 
+Exception: Extra damage over and above a weapon’s normal damage,
+such as that dealt by a sneak attack or the special ability of a flaming 
+sword, is not multiplied when you score a critical hit. 
+Increased Threat Range: Sometimes your threat range is greater than 
+20. That is, you can score a threat on a lower number. Longswords, for 
+instance, give you a thread on a natural attack roll of 19 or 20. In such 
+cases, a roll of lower than 20 is not an automatic hit. Any attack roll that 
+doesn’t result in a hit is not a threat. 
+Increased Critical Multiplier:  Some weapons, such as battleaxes and
+arrows, deal better than double damage on a critical hit. See Table 7–5: 
+Weapons (page 116) and the Critical section of Weapon Qualities (page 
+114). 
+Spells and Critical Hits: A spell that requires an attack roll, such as 
+shocking grasp or Melf’s acid arrow , can score a critical hit. A spell attack 
+that requires no attack roll, such as lightning bolt, cannot score a critical 
+hit. 
+CHAPTER 8: 
+COMBAT 

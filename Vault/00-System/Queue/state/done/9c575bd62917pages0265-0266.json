@@ -1,0 +1,15 @@
+{
+  "task": {
+    "taskId": "9c575bd62917:pages:0265-0266",
+    "sourceId": "9c575bd62917",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Multilevel Advetnures/Adventure I.pdf",
+    "pageStart": 265,
+    "pageEnd": 266,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:46:07.883168+00:00"
+  },
+  "doneAt": "2026-02-04T10:41:04.913814+00:00",
+  "wrote": [],
+  "skipped_disallowed": true
+}

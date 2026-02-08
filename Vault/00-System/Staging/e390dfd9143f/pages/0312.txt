@@ -1,0 +1,78 @@
+attack normally, the incorporeal creature must emerge, An incor have supernatural or extraordinary abilities, but sometimes are |
+
+poreal creature inside an object has total cover, but when it attacks merely bizarre in appearance or habits. j
+acreature outside the object it only has cover, soa creature outside Features: A. magical beast has the following features. |
+with a readied action could strike ar itas it attacks, An incorporeal —10-sided Hit Dice.
+
+creature cannot pass through a force effect. | —Base attack bonus equal to rotal Hit Dice (as fighter).
+
+An incorporeal creature's attacks pass through (ignore) natural! _| —Good Fortitude and Reflex saves,
+armor, armor, and shields, although deflection bonuses and force, _,_ —Skill points equal to (2 + Int modifier, minimum 1) per Hit
+| effects (such as mage armor).work normally against it. Incorporeal, | Die, with quadruple skill points for the first Hit Die.
+\creatures pass through and operate in water as easily as they do in) Truits: A magical beast possesses the eae traits (unless orh-|
+|ait. Incorporeal creatures cannot fall or take falling damage. Incor-| _lerwise noted in a creature's entry). |
+|poreal creatures cannot make trip or grapple attacks, nor can they | —Darkvision out to 60 feet and low-light vision.
+be tripped or grappled. In fact,.they cannot take any physical action —Proficient with its natural weapons only. —
+[that would move or manipulate an opponent or its equipment, nor —Proficient with no armor.
+are they subject to such actions, Incorporeal creatures have no —Magical beasts eat, sleep, and breathe. }
+weight and do not set off traps that are triggered by weight. 4
+An incorporeal creature moyes silently and cannot be heard Manufactured Weapons: Some monsters employ _manufac-
+
+with Listen checks if it doesnt wish to be. It has no Strength score, .tured weapons when they attack. Creatures that use swords, bows,
+\so. its Dexterity. modifier applies to both its melee attacks and its, _{spears, and the like follow the same rules as characters, including,
+| ranged attacks, Nonvisual senses, such as scent and blindsight,are| —_,those for additional attacks from.a high base attack bonus and_
+leither ineffective or only partly effective with regard to incorpo-|. _,xwo-weapon fighting penalties. This category also includes “found
+real creatures. Incorporeal creatures have an innate sense of direc-| items,” such as rocks and logs, that.a creature wields in. combar—
+tion and can move at full speed even when they cannot see. in essence, any.weapon thar is not intrinsic.to the creature.
+
+Some creatures combine attacks with natural and manufac-|
+Lawful: A subtype usually applied only to outsiders native to tured weapons when they make a full attack, When they.do so, the
+
+  
+
+the lawful-aligned Outer Planes. Most creatures that have this sub- manufactured weapon attack is considered the primary_attack
+type also have lawful alignments; however, if their alignments unless the creature's description indicates otherwise (using the,
+change, they still retain the subtype, Any effect that depends on. manufactured weapon consumes most of the creature's attention), |
+jalignment affects a creature with this subtype as if the creature has and any natural weapons the creature also uses are considered sec-|
+a lawful alignment, no matter what its alignment actually is. The ondary natural attacks, These secondary attacks do not interfere |
+creature also suffers effects according to its actual alignment. A with the primary attack as attacking with an off-hand weapon.
+creature with the lawful subtype overcomes. damage reduction as does, but they take the usual -5 penalty (or -2 with the Multiat-|
+\i£its natural weapons and any weapons it wields were lawful- tack feat) for such attacks, even if the natural weapon used is nor-|
+saligned (see Damage Reduction, above). mally the creature's primary natural weapon. }
+Level Adjustment: Certain monsters can used as.the basis for Monstrous Humanoid Type: Monstrous humanoids are simi-
+interesting, viable player characters, These creatures have a level _lar to humanoids, but with monstrous or animalistic features.
+adjustmententry, which is a number that is added to the creature's They often have magical abilities as well.
+total Hit Dice to arrive at its effective character level. A creature, Features: A monstrous humanoid has the following features.
+with multiple special abilities is more powerful as a player charac: | —8-sided Hit Dice.
+ter than its Hit Dice alone would indicate. For example, a drow elf —Base attack bonus equal to total Hit Dice (as fighter)
+has spell resistance, bonuses to its ability scores, and spell-like —Good Reflex and Will saves,
+abilities, Its level adjustment of +2 indicates that.a tst-level drow —Skill points equal.to.(2 + Int modifier, minimum 1) per Hit
+wizard is the equivalent of a 3rd-level character. Die, with quadruple skill points for the first Hit Die,
+Some creatures’ level adjustment entries include the word ‘Tmits: A monstrous humanoid possesses the following traits
+*(cohort).” Although these creatures may be problematic as PCs, (unless otherwise noted in a creature's entry).
+they make good companions fora. character who has taken the —Darkvision out to 60 feet,
+Leadership feat. Some other creatures arent intended for use as —Proficient with all simple weapons and any weapons men-
+PCs or cohorts but can become companions through the use of tioned in its entry.
+the Improved Familiar feat. In these cases, the level adjustment —Proficient with whatever type of armor (light, medium, or
+entry.is.a dash followed by the words “(Improved Familiar).” heavy) it is described as wearing, as well as all lighter types. Mon-
+Level adjustment is not the same thing as an adjustment toa _strous humanoids not indicated as wearing armor are not profi-
+creature's Challenge Rating because of some special qualities it cient.wwith armor, Monstrous humanoids are proficient with
+possesses. Challenge Rating reflects how difficult an opponent is shields if they are proficient with any_form of armor.
+to fight in a limited number.of encounters. Level adjustment —Monstrous humanoids ear, sleep, and breathe,
+shows how powerful a creature is asa player character or cohort in
+campaign play, For instance, a drow receives a +1 adjustment to its Movement Modes: Creatures may have modes of movement
+Challenge Rating to account for its special abilities, indicating other than walking and running. These are natural, not magical,
+that it's tougher in a fight than its Hit Dice would suggest, but its unless specifically noted in a monster description
+level adjustment is +2 to balance its abilities over long-term play. Burrow: A creature with a burrow speed can tunnel through dirt, |
+but not through rock unless the descriptive text says otherwise.
+._Low-Light Vision (Ex): A creature with low-light vision can Creatures cannot charge or run while burrowing. Most burrowing |
+\see twice as far as.a human in starlight, moonlight, rorchlight, and creatures do not leave behind tunnels other creatures can.use|
+|similar conditions of shadowy illumination. It retains the ability (either because the material they tunnel through fills in behind |
+{to distinguish color and detail under these conditions. oa ithem or because they do not.actually dislocate any material when.
+[burrowing); see the individual creature descriptions for details.
+Magical Beast Type: Magical beasts are similar to animals but, _|__Climb: A crearure with a climb speed has a +8 racial bonus on all
+
+can have Intelligence scores higher than 2. Magical beasts usually., Climb checks. The creature must make a Climb check to climb any
+
+ 
+

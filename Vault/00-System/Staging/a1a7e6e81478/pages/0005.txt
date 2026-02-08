@@ -1,0 +1,122 @@
+Unapproachable EastWeb Enhancement
+business. Use the statistics below, but be ready to have the sergeant
+and his own troops come bust up the battle by the third round of
+combat (unless this takes place outside town). This gives the DM
+another opportunity to introduce the sergeant and send the PCs to
+the section called The Nightly Meeting.
+DD Orc Fighters (4): Male and female orc Fighter 7; CR 7;
+Medium-size humanoid; HD 7d10+21; hp 59; Init +2; Spd 20 ft.; AC
+18, touch 12, flat-footed 16; Atk +12/+7 melee (1d6+5/18–20, +1
+scimitar); or +9/+4 ranged (1d6+3, javelin); AL LE; SV Fort +8, Ref
++4, Will +3; Str 16, Dex 14, Con 16, Int 12, Wis 12, Cha 10.  
+Skills and Feats:Climb +5, Intimidate +3, Listen +3, Ride (horse)
++7, Spot +5; Alertness, Cleave, Combat Reflexes, Dodge, Great
+Cleave, Power Attack , Weapon Focus (scimitar).
+The Temple of Mask: As with the bandits, interest shown by
+the PCs in anything dealing with Mask is soon rewarded by a con-
+frontation with a few followers of Mask—but only if the PCs per-
+sist in following up on this lead after the first evening in town. If
+the PCs make a successful Gather Information check (DC 20)
+that first evening, they do find out that the Mask temple was a
+rumor started by Fiskus Evanson (CN male half-orc War3), who
+was actually quite drunk one evening. (He was proposing that the
+bandit problems were actually the work of Mask’s followers and
+that he wouldn’t be surprised if a temple was forming up some-
+where nearby. Others misheard and took that as word that this
+was actually happening.) Should the PCs fail at the Gather Infor-
+mation check with regards to following up on the Mask temple,
+they don’t learn of this information. Further investigation is up
+to them and may lead to some interesting problems later (DM’s
+option).
+Cyric Followers in Phent: Again, if the PCs spend time outside
+the inn doing some follow-up research on the rumor about Cyric
+followers, they can learn (Gather Information DC 20) that the
+rumor they had heard is completely false. This time the rumor
+comes from the speculation of a local merchant’s daughter, whose
+father had just been assassinated. While some believe an
+unscrupulous merchant from another town set up the assassina-
+tion, the daughter Lesta Fording (CG female human Exp3) is cer-
+tain that a follower of Cyric set up the assassination since she
+knows that her father and the so-called opposing merchant were
+about to come to an agreement on something. If the PCs follow
+up on this lead, they can talk to the daughter and find out that
+the agreement included her marrying the son of the “enemy”
+merchant, and that this union would bring together these two
+families in a manner that would allow for further mercantile
+expansion. She believes that she saw someone wearing purple and
+silver leaving her father’s rooms just before he was discovered
+dead by poison. She also thinks she had a glimpse of a skull-and-
+sunburst symbol. If pressed, though, she’ll reveal that she isn’t so
+sure about the symbol. DMs can allow PCs to further investigate
+this death, though this investigation goes beyond the scope of this
+current adventure. Suggestions for the killer include having it be
+the son of the enemy merchant (who loves another despite what
+he has told Lesta and his father), the “enemy” merchant (who
+decided that he’d rather absorb Lesta’s father’s trade completely
+instead of sharing it with the Fording family, who is a fairly
+recent arrival to the area), or perhaps even a current foe from
+among the enemies that the PCs have already made who would
+have reason to disrupt a fortuitous trade alliance. Should the PCs
+fail at their Gather Information rolls, they may well end up
+spending some wasted time trying to track down nonexistent fol-
+lowers of Cyric. (Of course, another option is to have this rumor
+be true and integrate this adventure into an existing Cyric-based
+plot in your campaign.)
+The Nightly Meeting
+The nightly meeting is the meeting where the prophet comes down
+from the hills and talks to the gathered assembly of orcs. Should the
+PCs make their way to the meeting, read the following aloud, adjust-
+ing as necessary:
+If one of the PCs has the ability to understand Orc, this is what he
+or she hears (adjust as necessary for PC actions):
+Eventually, the assembly starts to leave the area, most of them in
+small groups, talking about what they saw. About a half-hour after
+the priest fades away, the area is silent and empty.
+If the PCs didn’t make good use of their invisibility and hiding
+options, it’s possible that they will have to deal with a nasty situa-
+tion in terms of orcs. First of all, none of the orcs care for the fact
+that the PCs are sneaking around spying on them, but enough orcs
+are around who don’t want to see this break into a fight that they
+can all calm each other down somewhat. Since there are so many
+orcs, it makes no sense for the PCs to attempt to face them all down,
+and it would become rather hard on the DM to run that many.
+(Remember, hundreds of monsters does not equate to a good fight
+for four PCs.) As an added situational modifier, several of the orcs
+who weren’t so impressed with the priest also may have seen the PCs
+talk to the sergeant back in town, so they could easily become
+spokespeople for the PCs and help the situation evolve into one of
+the following outcomes. DMs should use the NPC Attitudes section
+in the D
+UNGEONMASTER’s Guideto help adjudicate the situation;
+orcs range from hostile to unfriendly initially:
+• PCs are escorted back to the sergeant and left in his custody, with
+a slew of complaints about their presence at the meeting.
+• The PCs must fulfill some task for some of the orcs to appease
+them and help calm down the angrier ones. This task could
+include working the jobs of some of the orcs present for a couple
+of days and would invariably involve mining iron.
+“Orcs! Again I come to you, as I have every night for the past
+tenday, to stir your blood! For years now, you have settled down
+and lived side-by-side with humans. Instead of lifting the sword of
+war, you lift an axe . . . a plow! Instruments of the weak!
+Have you forgotten who you are? Have you forgotten what
+you are? Our god calls us to battle—to be orcs—and you sit in
+human taverns and drink ale, instead of drinking their blood?
+Listen to your instincts. Heed the pounding savage blood in your
+veins. Rise up, lift off this mantle of false human civilization,
+embrace your orc heritage, and go forward! Forward, in the name
+of Gruumsh!”
+Some of the orcs stand and cheer; most just sit and ponder, and
+a few shake their heads and scoff at the priest’s words. The priest
+simply stares at the orcs, drops something on the ground, then,
+gradually, his body fades away.
+Picking your way carefully along the barely discernible trail, you
+eventually come to a ravine. Arrayed in a sort of amphitheater-
+like setting are lots of orcs. At least three hundred of them are all
+focusing on one spot. They are eerily, unsettlingly silent. Standing
+at the spot they are all staring at is a huge orc who is clad in the
+priestly vestments of a servant of Gruumsh, including an eye-
+patch to cover the orb he gouged out as service to his god. As the
+crowd watches, the cleric speaks, and his voice rings through the
+ravine.
+5

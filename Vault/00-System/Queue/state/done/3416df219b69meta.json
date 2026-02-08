@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "3416df219b69:meta",
+    "sourceId": "3416df219b69",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Magic of Eberron.pdf",
+    "title": "Magic of Eberron",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:43:37.448529+00:00",
+  "meta": {
+    "sourceId": "3416df219b69",
+    "title": "Magic of Eberron",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Magic of Eberron.pdf",
+    "pages": 160,
+    "extractedAt": "2026-02-03T13:43:37.440009+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

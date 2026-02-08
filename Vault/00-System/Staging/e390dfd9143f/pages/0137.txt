@@ -1,0 +1,172 @@
+ 
+
+persuasively to the golem, which requires a DC 19 Charisma
+check. It takes 1 minute of inactivity by the golem to reset the
+golem’s berserk chance to 0%.
+
+Immunity to Magic (Ex): A flesh golem is immune to any
+spell or spell-like ability thar allows spell resistance. In additior
+
+certain spells and effects function differently against the creature,.
+
+as noted below.
+
+‘A magical attack that deals cold or fire damage slows a flesh|
+golem (as the slow spell) for 246 rounds, with no saving throw.
+‘A magical attack that deals electricity damage breaks any. slow
+
+effect on the golem and heals 1 point of damage for every 3 points
+
+lof damage the attack would otherwise deal. If the amount of heal-
+ing would cause the golem to exceed its full normal hit points, it
+gains any excess as temporary hit points. For example, a flesh
+golem hit by a lightning bolt heals 3 points of damage if the attack
+would have dealt 11 points of damage. A flesh golem golem gets
+no saving throw against attacks that deal electricity damage.
+
+Construction.
+
+|The pieces of a flesh golem must come from normal human|
+
+corpses thar have not decayed significantly. Assembly requires a
+minimum of six different bodies—one for each limb, the torso
+(including head), and the brain. In some cases, more bodies may
+be necessary, Special unguents and bindings worth 500 gp are also
+required. Note that creating a flesh golem requires casting a spell
+with the evil descriptor,
+Assembling the body requires a DC 13 Craft (leatherworking)
+icheck ora DC 13 Heal check.
+CL sth; Craft Construct (see page 303), animate dead, bull’s
+\strength, geas/quest, limited wish, caster must be at least 8th level;
+Price 20,000 gp; Cost 10,500 gp + 780 XP.
+
+IRON GOLEM
+Large Construct
+Hit Dice: 18di0+30 (129 hp)
+Initiative;
+Speed: 20 ft. (4 squares)
+Armor Class: 30 (—1 size, 1 Dex, +22 natural) rouch 8,
+
+flar-footed 30
+
+Base Attack/Grapple: +12/+28
+
+ 
+
+Stone Golem
+
+Large Construct
+Hit Dice: 14d10+30 (107 hp)
+Initiative: ~1
+
+20 ft. (4 squares)
+
+26 (-1 size, —1 Dex, +18 natural),
+touch §, flat-footed 26
+
++10/+23
+
+Slam +18 melee (2d10+9)
+
+2 slams +18 melee (2d10+9)
+
+ 
+
+ 
+ 
+
+Attack: Slam +23. melee (2d10+11)
+
+Full Attack: 2 slams +23 melee (2d10+11)
+
+Space/Reach: 10 ft,/10 ft.
+
+Special Attacks: Breath weapon
+Special Qualities: Construct traits, damage reduction 15/adaman-
+
+tine, darkvision 60 ft., immunity to magic, low-light vision
+
+Saves: Fort +6, Ref +5, Will +6
+
+Abilities: Str 33, Dex 9, Con —, Int —, Wis 11, Chat
+Skills: —
+
+_ Feats: —
+
+Environment: Any
+
+Organization: Solitary or gang (2-4)
+
+Challenge Rating: 13
+
+Treasure: None
+
+Alignment: Always neutral
+
+Advancement: 19-24 HD (Large); 25-54 HD (Huge)
+Level Adjustment: —
+
+ 
+
+This. metallic automaton is twice the height of @ normal human and.
+iresembles an armored giant.
+
+This golem has.a humanoid body made from iron.
+
+An iron golem can be fashioned in any manner, just like a stone
+golem (see below), although it almost always displays armor of
+some sort. Its features are much smoother than. those of a stone
+golem. Iron golems sometimes carry a short sword in one hand,
+
+An fron golem is 12 feet tall and weighs about 5,000 pounds,
+
+An iron golem cannot speak or make any vocal noise, nor does |
+it have any distinguishable odor. It moves with a ponderous but
+smooth gait. Each step causes the floor ro tremble unless itis.on.a,
+thick, solid foundation.
+
+Combat
+Iron golems are mighty combatants. They strike with deadly accu-
+racy and incredible force. Their bodies are nearly invulnerable but
+can be reduced to piles of rubbish by rust monsters,
+
+Breath Weapon (Su): 10-foot cube, cloud of poisonous gas last-
+ing 1 round, free action once every 1d4+1 rounds; initial damage
+id¢ Con, secondary damage 3d4 Con, Fortitude DC 19 negates,
+The save DC is Constitution-based.
+
+Greater Stone Golem
+
+Huge Construct
+
+42d10+40 (271 hp)
+
+20 ft. (4 squares)
+
+27 (-2 size, -2 Dex, +21 natural),
+touch 6, flat-footed 27
+
+#31/+52
+
+Slam +42 melee (4d8+13)
+
+2 slams +42 melee (4d8+13)
+
+10 ft (4 squares),/10 ft 15 fr,/15 ft,
+Slow Slow
+Special Qualities: Construct traits, damage reduction 10/adamantine,_ Construct traits, damage reduction 10/adamantine,
+darkyision 60 ft, immunity to magic, low-light vision darkvision 60 ft, immuniry to magic, low-light vision
+Saves: Fort +4, Ref +3, Will +4 Fort +14, Ref +12, Will +14
+Abilities: Str 29, Dex 9,Con —, Str 37, Dex 7,Con—,
+Int —, Wis 11, Cha 1 Int —, Wis 11, Chat
+Skills: — =
+Feats: es —
+Environment: Any Any
+Organization: Solitary or gang (2-4) Solitary or gang (2-4)
+Challenge Rating: it 16
+Treasure: None None.
+Alignment: Always neutral Always neutral
+Advancement: 15~21 HD (Large); 22-42 (Huge) _
+
+Level Adjustment: = —
+

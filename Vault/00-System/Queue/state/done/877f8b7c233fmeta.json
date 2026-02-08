@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "877f8b7c233f:meta",
+    "sourceId": "877f8b7c233f",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/The Fate of Heroes.pdf",
+    "title": "The Fate of Heroes",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:01:17.935173+00:00",
+  "meta": {
+    "sourceId": "877f8b7c233f",
+    "title": "The Fate of Heroes",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/The Fate of Heroes.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T21:01:17.927841+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

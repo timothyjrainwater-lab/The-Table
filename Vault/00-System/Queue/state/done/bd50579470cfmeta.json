@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "bd50579470cf:meta",
+    "sourceId": "bd50579470cf",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Thief's Gold.pdf",
+    "title": "The Thief's Gold",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:28:46.598237+00:00",
+  "meta": {
+    "sourceId": "bd50579470cf",
+    "title": "The Thief's Gold",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Thief's Gold.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-04T00:28:46.545516+00:00"
+  },
+  "enqueued_extractPages": 5
+}

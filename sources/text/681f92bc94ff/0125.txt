@@ -1,0 +1,73 @@
+ 
+ 124 
+ARMOR DESCRIPTIONS 
+The types of armor found on Table 7–6: Armor and Shields are 
+described below (in alphabetical order), along with any special 
+benefits they confer on the wearer (“you”). 
+Armor Spikes: You can have spikes added to your armor, which 
+allow you to deal extra piercing damage (see Table 7–5: Weapons) on 
+a successful grapple attack. The spikes count as a martial weapon. If 
+you are not proficient with them, you take a –4 penalty on grapple 
+checks when you try to use them. You can also make a regular melee 
+attack (or off-hand attack) with the spikes, and they count as a light 
+weapon in this case. (You can’t also make an attack with armor 
+spikes if you have already made an attack with another off-hand 
+weapon, and vice versa.) 
+An enhancement bonus to a suit of armor does not improve the 
+spikes’ effectiveness, but the spikes can be made into magic weapons 
+in their own right. 
+Banded Mail: This armor is made of overlapping strips of metal 
+sewn to a backing of leather and chainmail. The strips cover 
+vulnerable areas, while the chain and leather protect the joints and 
+provide freedom of movement. Straps and buckles distribute the 
+weight evenly. The suit includes gauntlets. 
+Breastplate: A breastplate covers your front and your back. It 
+comes with a helmet and greaves (plates to cover your lower legs). A 
+light suit or skirt of studded leather beneath the breastplate protects 
+your limbs without restricting movement much. 
+Buckler: This small metal shield is worn strapped to your fore-
+arm. You can use a bow or crossbow without penalty while carrying 
+it. You can also use your shield arm to wield a weapon (whether you 
+are using an off-hand weapon or using your off hand to help wield a 
+two-handed weapon), but you take a –1 penalty on attack rolls while 
+doing so because of the extra weight on your arm. This penalty 
+stacks with those that may apply for fighting with your off hand and 
+for fighting with two weapons. In any case, if you use a weapon in 
+your off hand, you don’t get the buckler’s AC bonus for the rest of 
+the round. 
+You can’t bash someone with a buckler. 
+Chain Shirt: A chain shirt protects your torso while leaving your 
+limbs free and mobile. It includes a layer of quilted fabric worn 
+underneath to prevent chafing and to cushion the impact of blows. 
+A chain shirt comes with a steel cap. 
+Chainmail: This armor is made of interlocking metal rings. It 
+includes a layer of quilted fabric worn underneath to prevent chaf-
+ing and to cushion the impact of blows. Several layers of mail are 
+hung over vital areas. Most of the armor’s weight hangs from the 
+shoulders, making chainmail uncomfortable to wear for long 
+periods of time. The suit includes gauntlets. 
+Full Plate: This armor consists of shaped and fitted metal plates 
+riveted and interlocked to cover the entire body. The suit includes 
+gauntlets, heavy leather boots, a visored helmet, and a thick layer of 
+padding that is worn underneath the armor. Buckles and straps 
+distribute the weight over the body, so full plate hampers movement 
+less than splint mail even though splint is lighter. Each suit of full 
+plate must be individually fitted to its owner by a master 
+armorsmith, although a captured suit can be resized to fit a new 
+owner at a cost of 200 to 800 (2d4 × 100) gold pieces. 
+Full plate is also known as field plate. 
+Gauntlet, Locked:  This armored gauntlet has small chains and 
+braces that allow the wearer to attach a weapon to the gauntlet so 
+that it cannot be dropped easily. It provides a +10 bonus on any roll 
+made to keep from being disarmed in combat. Removing a weapon 
+from a locked gauntlet or attaching a weapon to a locked gauntlet is 
+a full-round action that provokes attacks of opportunity. The price 
+given is for a single locked gauntlet. The weight given applies only if 
+you’re wearing a breastplate, light armor, or no armor. Otherwise, 
+the locked gauntlet replaces a gauntlet you already have as part of 
+the armor. 
+While the gauntlet is locked, you can’t use the hand wearing it for 
+casting spells or employing skills. (You can still cast spells with 
+somatic components, provided that your other hand is free.) 
+CHAPTER 7: 
+EQUIPMENT 

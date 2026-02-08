@@ -1,0 +1,73 @@
+ 
+ 91
+  
+Power Attack1 Str 13 Trade attack bonus for damage (up to base attack bonus) 
+Cleave1 Power Attack Extra melee attack after dropping target 
+Great Cleave1 Cleave, Power Attack, base attack bonus +4 No limit to cleave attacks each round 
+Improved Bull Rush1 Power Attack +4 bonus on bull rush attempts; no attack of opportunity 
+Improved Overrun1 Power Attack +4 bonus on overrun attempts; no attack of opportunity 
+Improved Sunder1 Power Attack +4 bonus on sunder attempts; no attack of opportunity 
+Quick Draw1 Base attack bonus +1 Draw weapon as free weapon 
+Rapid Reload1 Weapon Proficiency with crossbow Reload crossbow more quickly 
+Run — Run 5 times normal speed, +4 bonus on Jump checks 
+  Made after a running start 
+Self-Sufficient — +2 bonus on Heal and Survival checks 
+Shield Proficiency — No armor check penalty on attack rolls 
+Improved Shield Bash1 Shield Proficiency Retain shield bonus to AC when shield bashing 
+Tower Shield Proficiency Shield Proficiency No armor check penalty on attack rolls 
+Simple Weapon Proficiency — No –4 penalty on attack rolls with simple weapons 
+Skill Focus2 — +3 bonus on checks with selected skill 
+Spell Focus2 — +1 bonus on save DCs against specific school of magic 
+Greater Spell Focus2 — +1 bonus on save DCs against specific school of magic 
+Spell Mastery2 Wizard level 1st Can prepare some spells without spellbook 
+Spell Penetration — +2 bonus on caster level checks to defeat spell resistance 
+Greater Spell Penetration Spell Penetration +4 to caster level checks to defeat spell resistance 
+Stealthy — +2 bonus on Hide and Move Silently checks 
+Toughness3 — +3 hit points 
+Track — Use Survival skill to track 
+Two-Weapon Fighting1 Dex 15 Reduce two-weapon fighting penalties by 2 
+Two-Weapon Defense1 Two-Weapon Fighting Off-hand weapon grants +1 shield bonus to AC 
+Improved Two-Weapon Fighting1 Dex 17, Two-Weapon Fighting, Gain second off-hand attack 
+ base attack bonus +6 
+Greater Two-Weapon Fighting Dex 19, Improved Two-Weapon Gain third off-hand attack 
+ Fighting, Two-Weapon Fighting, 
+ base attack bonus +11 
+Weapon Finesse1, 2 Proficiency with weapon, Use Dex modifier instead of Str modifier on attack rolls 
+ base attack bonus +1 with light melee weapons 
+Weapon Focus1, 2 Proficiency with weapon, base attack bonus +1 +1 bonus on attack rolls with selected weapon 
+Weapon Specialization1, 2 Proficiency with weapon, Weapon Focus +2 bonus on damage rolls with selected weapon 
+ with weapon, fighter level 4th 
+Greater Weapon Focus
+1, 2 Proficiency with weapon, Weapon Focus +2 bonus on attack rolls with selected weapon 
+ with weapon, fighter level 8th 
+Greater Weapon Specialization1, 2 Proficiency with weapon, Greater Weapon Focus +4 bonus on damage rolls with selected weapon 
+ with weapon, Weapon Focus with weapon, 
+ Weapon Specialization with weapon, fighter level 12th 
+ 
+Item Creation Feats Prerequisites Benefit 
+Brew Potion Spellcaster level 3rd Create magic potions 
+Craft Magic Arms and Armor  Spellcaster level 5th Create magic weapons, armor, and shields 
+Craft Rod  Spellcaster level 9th Create magic rods 
+Craft Staff  Spellcaster level 12th Create magic staffs 
+Craft Wand  Spellcaster level 5th Create magic wands 
+Craft Wondrous Item  Spellcaster level 3rd Create magic wondrous items 
+Forge Ring  Spellcaster level 12th Create magic rings 
+Scribe Scroll  Spellcaster level 1st Create magic scrolls 
+ 
+Metamagic Feats Prerequisites Benefit 
+Empower Spell — Increase spell’s variable, numeric effects by 50% 
+Enlarge Spell — Double spell’s range 
+Extend Spell — Double spell’s duration 
+Heighten Spell — Cast spells as higher level 
+Maximize Spell — Maximize spell’s variable, numeric effects 
+Quicken Spell — Cast spells as free action 
+Silent Spell — Cast spells without verbal components 
+Still Spell — Cast spells without somatic components 
+Widen Spell — Double spell’s area 
+ 
+1 A fighter may select this feat as one of his fighter bonus feats. 
+2 You can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a new weapon, ski ll, school of magic, or 
+selection of spells. 
+3 You can gain this feat multiple times. Its effects stack. 
+CHAPTER 5: 
+FEATS 

@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0011-retry",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 11,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-04T08:50:33.084359Z"
+  },
+  "doneAt": "2026-02-04T08:51:20.197935+00:00",
+  "citation": "DMG (pdf p.0011)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

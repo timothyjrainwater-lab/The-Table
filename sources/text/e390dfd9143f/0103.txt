@@ -1,0 +1,145 @@
+     
+   
+   
+   
+    
+   
+   
+  
+   
+   
+  
+  
+   
+   
+ 
+    
+  
+ 
+
+EIf, ist-Level Warrior
+
+Drow, ist-Level Warrior
+
+   
+  
+    
+   
+  
+   
+ 
+
+Medium Humanoid (Elf) Medium Humanoid (Elf)
+Hit Dice: ds (4 hp) ids (4 hp)
+Initiative: +1 +1
+Speed: 30 ft. (6 squares) 30 ft. (6 squares)
+Armor Class: 15 (+1 Dex, +3 studded leather, 16 (+1 Dex, +4 chain shirt, +1 light shield)
++1 light shield), touch 11, flat-footed 14 touch 11, flat-footed 15
+Base Attack/Grapple: +1/+2 +1/+2
+Attack: Longsword +2 melee (id8+1/19-20) or Rapier +3 melee (1d6+1/18-20) or
+longbow +3 ranged (1d8/x3) hand crossbow +2 ranged (1d4/19-20)
+Full Attack: Longsword +2 melee(1d8+1/19~-20) or Rapier +3 melee (1d6+1/18-20) or
+longbow +3 ranged (1d8/x3) hand crossbow +2 ranged (1d4/19-20)
+Space/Reach: 5 fc/s fr. 5 ft./s ft "
+Special Attacks: None Poison, spell-like abilities
+Special Qualities: Elven traits Drow traits, spell resistance 12
+Saves: Fort +2, Ref +1, Will -1" Fort +2, Ref +1, Will -1*
+Abilities: Str 13, Dex 13, Con.10, Int 10, Wis 9, Cha 8 Str 13, Dex 13, Con 10, Int 12, Wis 9, Cha 10
+Skills: Hide +1, Listen +2, Search +3, Spot +2 Hide +0, Listen +2, Search +4, Spot +3
+Feats: Weapon Focus (longbow) Weapon Focus (rapier)
+Environment: ‘Temperate forest Underground
+(Half-elf: Temperate forests)
+(Aquatic: Temperate aquatic)
+(Gray: Temperate mountains)
+(Wild: Warm forests)
+(Wood: Temperate forests)
+Organization: Squad (2-4), company (11-20 plus 2 3rd-level Squad (2-4), patrol (5-8 plus 2 2nd-level sergeants and
+sergeants and 1 leader of 3rd—éth level), or band 1 leader of 3rd-6th level), or band (20-50 plus 10%
+(30-100 plus 20% noncombatants plus 1 3rd-level noncombatants plus 1 2nd-level sergeant per 5 adults,
+sergeant per 10 adults, 5 Sth-level lieutenants, 2d4 6th-level lieutenants, and 1d4.9th-level captains)
+and 3 7th-level captains)
+Challenge Rating: 1/2 4 (see text)
+‘Treasure: Standard Standard
+Alignment: Usually chaotic good Usually neutral evil
+(Wood: Usually neutral)
+Advancement: By character class By character class
+Level Adjustment: 0 2
+
+— +2 racial bonus on Listen, Search, and Spot checks. An elf.
+who merely passes within 5 feet of a secret or concealed door is|
+entitled to a Search check to notice it as if she were actively look-|
+
+ing for it
+
+—Automaric Languages: Common, Elven, Bonus Languages:
+Draconic, Gnoll, Gnome, Goblin, Ore, Sylvan,
+
+—Favored Class: Wizard.
+
+‘The elf warrior presented here had the following ability scores
+before racial adjustments: Str 13, Dex 1, Con 12, Int 10, Wis 9,
+Cha 8.
+
+ELE SOCIETY
+
+Elves believe that independence and freedom for the individ-
+ual are more important.than the rigid structures of civilization,
+so they tend to live and travel in small bands. These bands
+accept the loose authority of a noble, who in turn owes alle-
+giance to an elven monarch (who rules his or her own band
+directly),
+
+Elves live in harmony with nature, building temporary. camps
+that blend into the trees—or are in the branches of the trees,
+away from prying eyes. They frequently have animal guardians or
+
+_giant eagles watching their homes. An elven settlement contains
+noncombatants (mostly children) equal to 20% of the fighting
+jpopulation. Elf society is egalitarian, and males or females may be
+jfound in almost any.role.
+Their long life span gives elves a patient perspective and
+allows them to.take pleasure in the enduring beauty of the natu-
+ral world. They don't see the point in short-term gains and
+instead learn things that will provide joy for years to come, such |
+
+    
+
+as stories, music, art, and dance. Treasures such as elven music
+and crafts disguise the fact that elves are dedicated warriors
+determined to check the spread of evil in the forests
+
+Elves eat little, and although they are omnivorous, they eat
+more plants than meat. This is partly because of their affinity with
+nature (they believe a harvested plant causes less disruption to
+nature.than a slain animal) and.partly because their fondness for
+roving requires food that is preserved more easily.
+
+The chief elf deiry is Corellon Larethian, who is the creator and
+protector of the race.
+
+SUBRACES
+
+The above information describes the high elf, che most common
+variety, There are five other major subraces of elf, in addition to
+half-elves, who share enough elyen characteristics to be
+included here.
+
+Half-Elf
+Half-elves are not truly an elf subrace, but they are often mistaken
+for elves. They may be outcasts from their parents’ societies or wel-
+comed into the elven or human community, depending on the.
+attitudes the two groups have for each other. Half-elves usually |
+inherita good blend of their parents’ physical characteristics, soa
+
+shalf-aguatic elf has greenish skin, a half-drow.has dusky. skin and
+light hair, and so.on, 4
+
+Half-Elf Traits (Ex); Half-elves possess the following racial |
+traits.
+
+Medium size.
+
+—A half-elf's base land speed is 30 feet.
+
+—Immunity.to sleep spells and similar magical effects, and a
+

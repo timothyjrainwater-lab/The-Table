@@ -1,0 +1,114 @@
+ 
+ 32 
+Aura (Ex):  A cleric of a chaotic, evil, good, or lawful deity has a 
+particularly powerful aura corresponding to the deity’s alignment 
+(see the detect evil spell for details). Clerics who don’t worship a spe-
+cific deity but choose the Chaotic, Evil, Good, or Lawful domain 
+have a similarly powerful aura of the corresponding alignment. 
+Spells: A cleric casts divine spells (the same type of spells avail-
+able to the druid, paladin, and ranger), which are drawn from the 
+cleric spell list (page 183). However, his alignment may restrict him 
+from casting certain spells opposed to his moral or ethical beliefs; 
+see Chaotic, Evil, Good, and Lawful Spells, below. A cleric must 
+choose and prepare his spells in advance (see below). 
+To prepare or cast a spell, a cleric must have a Wisdom score equal 
+to at least 10 + the spell level (Wis 10 for 0-level spells, Wis 11 for 
+1st-level spells, and so forth). The Difficulty Class for a saving throw 
+against a cleric’s spell is 10 + the spell level + the cleric’s Wisdom 
+modifier. 
+Like other spellcasters, a cleric can cast only a certain number of 
+spells of each spell level per day. His base daily spell allotment is 
+given on Table 3–7: The Cleric. In addition, he receives bonus spells 
+per day if he has a high Wisdom score (see Table 1–1: Ability 
+Modifiers and Bonus Spells, page 8). A cleric also gets one domain 
+spell of each spell level he can cast, starting at 1st level. When a 
+cleric prepares a spell in a domain spell slot, it must come from one 
+of his two domains (see Deities, Domains, and Domain Spells, 
+below). 
+Clerics do not acquire their spells from books or scrolls, nor do 
+they prepare them through study. Instead, they meditate or pray for 
+their spells, receiving them through their own strength of faith or as 
+divine inspiration. Each cleric must choose a time at which he must 
+spend 1 hour each day in quiet contemplation or supplication to 
+regain his daily allotment of spells. Typically, this hour is at dawn or 
+noon for good clerics and at dusk or midnight for evil ones. Time 
+spent resting has no effect on whether a cleric can prepare spells. A 
+cleric may prepare and cast any spell on the cleric spell list (page 
+183), provided that he can cast spells of that level, but he must 
+choose which spells to prepare during his daily meditation. 
+Deity, Domains, and Domain Spells:  Choose a deity for your 
+cleric. Sample deities are listed on Table 3–7: Deities and described 
+on page 106–108. The cleric’s deity influences his alignment, what 
+magic he can perform, his values, and how others see him. You may 
+also choose for your cleric to have no deity. 
+If the typical worshipers of a deity include the members of a race, 
+a cleric must be of the indicated race to choose that deity as his own. 
+(The god may have occasional worshipers of other races, but not 
+clerics.) 
+When you have chosen an alignment and a deity for your cleric, 
+choose two domains from among those given on Table 3–7 for the 
+deity. While the clerics of a particular religion are united in their 
+reverence for their deity, each cleric emphasizes different aspects of 
+the deity’s interests. You can select an alignment domain (Chaos, 
+Evil, Good, or Law) for your cleric only if his alignment matches that 
+domain. 
+If your cleric is not devoted to a particular deity, you still select 
+two domains to represent his spiritual inclinations and abilities. The 
+restriction on alignment domains still applies. 
+Each domain gives your cleric access to a domain spell at each 
+spell level he can cast, from 1st on up, as well as a granted power. 
+Your cleric gets the granted powers of both the domains selected. 
+With access to two domain spells at a given spell level, a cleric 
+prepares one or the other each day in his domain spell slot. If a 
+domain spell is not on the cleric spell list (page 183), a cleric can 
+prepare it only in his domain spell slot. Domain spells and granted 
+powers are given in Cleric Domains, pages 185–189. 
+For example, Jozan is a 1st-level cleric of Pelor. He chooses Good 
+and Healing (from Pelor’s domain options) as his two domains. He 
+gets the granted powers of both his selected domains. The Good 
+domain allows him to cast all spells with the good descriptor at +1 
+caster level (as if he were one level higher as a cleric) as a granted 
+power, and it gives him access to protection from evil  as a 1st-level 
+domain spell. The Healing domain allows him to cast all healing 
+subschool spells of the conjuration school at +1 caster level as a 
+granted power, and it gives him access to cure light wounds  as a 1st-
+level domain spell. When Jozan prepares his spells, he gets one 1st-
+level spell for being a 1st-level cleric, one bonus 1st-level spell for 
+having a high Wisdom score (15), and one domain spell. The 
+domain spell must be one of the two to which he has access, either 
+protection from evil or cure light wounds. 
+Spontaneous Casting:  A good cleric (or a neutral cleric of a 
+good deity) can channel stored spell energy into healing spells that 
+the cleric did not prepare ahead of time. The cleric can “lose” any 
+prepared spell that is not a domain spell in order to cast any cure 
+spell of the same spell level or lower (a cure spell is any spell with 
+“cure” in its name).  For example, a good cleric who has prepared 
+command (a 1st-level spell) may lose command in order to cast cure 
+light wounds  (also a 1st-level spell). Clerics of good deities can cast 
+cure spells in this way because they are especially proficient at 
+Table 3–7: Deities 
+Deity Alignment Domains Typical Worshipers 
+Heironeous, god of valor Lawful good Good, Law, War Paladins, fighters, monks 
+Moradin, god of the dwarves Lawful good Earth, Good, Law, Protection Dwarves 
+Yondalla, goddess of the halflings Lawful good Good, Law, Protection Halflings 
+Ehlonna, goddess of the woodlands Neutral good Animal, Good, Plant, Sun Elves, gnomes, half-elves, halflings, 
+   rangers, druids 
+Garl Glittergold, god of the gnomes Neutral good Good, Protection, Trickery Gnomes 
+Pelor, god of the sun Neutral good Good, Healing, Strength, Sun Rangers, bards 
+Corellon Larethian, god of the elves Chaotic good Chaos, Good, Protection, War Elves, half-elves, bards 
+Kord, god of Strength Chaotic good Chaos, Good, Luck, Strength Fighters, barbarians, rogues, 
+   athletes 
+Wee Jas, goddess of death and magic Lawful neutral Death, Law, Magic Wizards, necromancers, sorcerers 
+St. Cuthbert, god of retribution Lawful neutral Destruction, Law, Protection, Strength Fighters, monks, soldiers 
+Boccob, god of magic Neutral Knowledge, Magic, Trickery Wizards, sorcerers, sages 
+Fharlanghn, god of roads Neutral Luck, Protection, Travel Bards, adventurers, merchants 
+Obad-Hai, god of nature Neutral Air, Animal, Earth, Fire, Plant, Water Druids, barbarians, rangers 
+Olidammara, god of thieves Chaotic neutral Chaos, Luck, Trickery Rogues, bards, thieves 
+Hextor, god of tyranny Lawful evil Destruction, Evil, Law, War Evil fighters, monks 
+Nerull, god of death Neutral evil Death, Evil, Trickery Evil necromancers, rogues 
+Vecna, god of secrets Neutral evil Evil, Knowledge, Magic Evil wizards, sorcerers, rogues, spies 
+Erythnul, god of slaughter Chaotic evil Chaos, Evil, Trickery, War Evil fighters, barbarians, rogues 
+Gruumsh, god of the orcs Chaotic evil Chaos, Evil, Strength, War Half-orcs, orcs 
+ 
+CHAPTER 3: 
+CLASSES 

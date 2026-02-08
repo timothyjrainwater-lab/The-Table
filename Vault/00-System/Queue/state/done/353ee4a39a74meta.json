@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "353ee4a39a74:meta",
+    "sourceId": "353ee4a39a74",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Seas and Oceans/Stormwrack.pdf",
+    "title": "Stormwrack",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:42:15.379064+00:00",
+  "meta": {
+    "sourceId": "353ee4a39a74",
+    "title": "Stormwrack",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Seas and Oceans/Stormwrack.pdf",
+    "pages": 226,
+    "extractedAt": "2026-02-03T19:42:15.371560+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

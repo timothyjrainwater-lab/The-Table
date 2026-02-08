@@ -1,0 +1,19 @@
+{
+  "task": {
+    "taskId": "4d197aed5293:compile:0016",
+    "sourceId": "4d197aed5293",
+    "kind": "compileChunk",
+    "page": 16,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T04:39:58.971793+00:00"
+  },
+  "doneAt": "2026-02-03T05:00:48.175407+00:00",
+  "citation": "PHB (pdf p.0016)",
+  "printedGuess": "15",
+  "touched": [
+    "Condition — Flat-Footed",
+    "Rule — Armor Class"
+  ],
+  "createdTables": []
+}

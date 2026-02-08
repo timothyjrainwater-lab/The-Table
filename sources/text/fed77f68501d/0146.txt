@@ -1,0 +1,127 @@
+TABLE 5-3: ASIAN WEAPONS
+
+Simple Weapons Cost Dmg (S)___Dmg (M) Critical Range Increment___ Weight Damage Type
+Ranged Weapons
+Blowgun. 1 gp 1 1 x2 10.f. 2 Ib. Piercing
+Needles, blowgun (20) 1 gp = = = ’ =
+Martial Weapons
+Light Melee Weapons
+Wakizashi? 300 gp 1d4 1d6 19-20/x2 = 3.Ib. Slashing
+Exotic Weapons
+Light Melee Weapons
+Kusari-gama? 10gp 1d4 146 2 = 3b. Slashing
+One-Handed Melee Weapons
+Katana* 400 gp 148 1410 19-20/x2 = 6b, Slashing
+1 No weight worth noting
+2 Except as indicated, treat a wakizashi as a. masterwork short sword,
+3 Reach weapon.
+4 Except as indicated, treat a katana asa. masterwork bastard sword.
+TABLE 5-4: RENAISSANCE WEAPONS
+Exotic Weapons (Firearms) Cost Dmg (S) Dmg (M) Critical Range Increment Weight Damage Type
+One-Handed Ranged Weapons
+Pistol 250 gp 148 1410 x3 50 ft 3 Ib. Piercing
+Two-Handed Ranged Weapons
+Musket 500 gp 1d10 1412 3 150 ft. 10 Ib. Piercing
+Explosive Weapons! Cost Damage Blast Radius Range Increment Weight Damage Type
+Bomb 150 gp 2d6 sft 1Of. Tb, Fire
+Smoke bomb 70 gp Smoke ! 10 ft. Lib. -
+
+{1 Bombs and smoke bombs require no proficiency-to use
+
+Gunpowder: While gunpowder burns (1 ounce consumes itself
+
+int round and illuminates like a sunrod) or even explodes in the
+jright conditions, it is chiefly used to propel a bullet out of the
+barrel of a pistol or a rifle, or it is formed into. a bomb (see. below),
+An.ounce of gunpowder is needed to propel.a bullet. Gunpowder
+is sold in small kegs (15-pound capacity, 20 pounds total weight,
+250.gp each) and in water-resistant powder horns (2-pound capac-
+ity and total weight, 35 gp for a full powder horn). If gunpowder
+gets wet, it cannot be used to fire a butler.
+
+Bullets: These large, round, lead projectiles are sold in bags of 10.
+for 3 gp. A bag of bullets weighs 2 pounds.
+
+Pistol: This firearm holds a single shot and requires a standard.
+action to reload.
+
+Musket: The musket holds a single shot and requires a standard
+action to reload,
+
+Renaissance Explosive Weapons: These explosives require
+no proficiency to use. Scoring a hit with one of these weapons
+requires a successful ranged touch attack aimed at a square. A
+|direct hit with an explosive weapon means that the weapon has hit
+ithe creature it was aimed_at.and everyone within the blast radius,
+
+including that creature, takes the indicated damage.
+
+If the explosive misses, ir still lands somewhere. Roll 1d8 to
+determine the misdirection of the throw, with 1 indicating the
+direction back toward the thrower and 2 through 8 counting
+clockwise around the sarget square, (See she diagram on page 158
+of the Player's Handbook.) Then, count 1 square away from the
+target square for every two range increments.of the attack,
+
+Bomb: This round gunpowder bomb must be lit before it is
+thrown. Lighting a bomb is a move action. The explosive deals 2d6
+.points of fire damage, Anyone caught within the blast radius can
+ymake.a DC 15 Reflex save to take half damage.
+| Smoke Bomb; This cylindrical bomb must be lit before it is
+thrown. Lighting it is amove action. Two rounds after iris lit, this
+nondamaging explosive emits a cloud of smoke (as.a fog cloud
+spell) in a 20-foor radius. A moderate wind (11+ mph) disperses
+
+the smoke in 4 rounds;.a strong wind (21+ mph) disperses the fog |
+
+in 1 round.
+
+2 See description:
+
+Modern and Future Technology
+
+You could create a setting with high technology. Perhaps a starship!
+from a much more highly advanced civilization landed or crashed
+in the campaign world. The crash might have happened long ago,
+so that now the starship is a mysterious, specialized dungeon set-
+ting in its own right, with a special sort of magic (advanced tech-
+nology) and monsters (aliens and robors that survived the crash)
+Or perhaps the advanced civilization was native to the campaign
+world but is now long gone, leaving behind remnants of its
+ancient cities filled with strange secrets, which now form sites for
+adventures. In such a campaign, you could decide that many of the
+strange creatures found in.the world result from ancient genetic
+engineering. Finally, perhaps members of some advanced civiliza-
+tion have.come to the campaign world with their advanced sci-
+ence and now serve as patrons ot overlords. They dole our their
+technology in small doses to those who serve them well.
+
+No matter what rationale you use to place high-tech items in
+your game, they should always be like yery rare magic items.or
+artifacts—difficult or impossible to reproduce. Treating them as
+artifacts (see page 277) is most.appropriate. They shouldn't domi-
+nate the game, but should serve as an occasional diversion, Ir's fun
+for some players when their characters occasionally use a big gun
+against.a dragon rather than.a sword, and it’s an interesting diver
+sion to run into a warbot in a dungeon rather than a band of trolls.
+But ina fantasy game, most players dont want to do that.every day,
+
+Some advanced technological weapons are detailed below,
+These weapons haye no costs provided, because they cannot be
+manufactured. They can only be found as artifacts.
+
+These weapon statistics also show how to rate something in
+your game that you might not know how to handle. Since you!
+probably have.a good idea what a pistol is like, or a laser, you.can.
+deal with such situations on firmer ground. For example, you!
+might want to develop a trap that fires large needles rapidly. You |
+could use the statistics for an automatic rifle or extrapolate from
+them.to.get what you want. When explaining the trap, you could
+
+\even describe it to the players as resembling a machine gun to
+help them understand it.
+
+ 
+
+ 
+

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "451d51ae160d:meta",
+    "sourceId": "451d51ae160d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Black Stairs.pdf",
+    "title": "The Black Stairs",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T20:07:11.388963+00:00",
+  "meta": {
+    "sourceId": "451d51ae160d",
+    "title": "The Black Stairs",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Black Stairs.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T20:07:11.381951+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,178 @@
+ 
+
+Combat
+
+‘Once it has found its target, a marut brings it the death it has been
+trying to avoid. Those who defile death through necromancy may
+instead receive a geas and/or mark of justice to. enforce proper re-
+spect. It typically uses wall of force to shut off any escape routes,
+then opens up with chain lightning while it closes to melee range.
+Once there, it strikes with its massive fists, using cirvle of death if,
+beset by numbers of defenders. It hits spellcasting opponents with.
+repeated uses of greater dispel magic, and it.uses dimension door and
+locate creature. to track down foes who flee.
+
+A.marut’s natural weapons, as well as any weapons it wields, are
+|treated as lawful-aligned for the purpose of overcoming damage
+reduction.
+
+Fists of Thunder and Lightning (Su): A marut’s left fist deliv-
+ers a loud thunderclap whenever it hits something, dealing an
+extra 3d6 points of sonic damage and causing the target to be deaf-
+jened for 2d6 rounds (Fortitude DC 31 negates the deafness). Irs
+right fist delivers a shock for an extra 3d6 points of electricity |
+
+\damage, and the flash of lightning causes the target to be blinded
+lfor 2d6 rounds (Fortitude DC 31 negates the blindness). The save
+DCs are Strength-based and include the marut’s Ability Focus feat.
+
+Spell-Like Abilities: Ar will—air walk, dimension door, fear (DC
+18), greater command (DC 19), greater dispel magic, mass inflict light
+wounds (DC 19), locate creature, true seeing; 1/day—chain lightning
+(DC 20), circle of death (DC 20), mark of justice, wall of force; 1/week—
+earthquake (DC 22), geas/quest, plane shift (DC 21), Caster level 14th.
+[The save DCs are Charisma-based.
+| Skills: A marut has a +4 racial bonus on Concentration, Listen,
+land Spot checks.
+
+ZELEKHUT
+| Large Construct (Extraplanar, Lawful)
+Hit Dice: 8d10+30 (74 hp)
+Initiative: +0
+Speed: 35 ft. in plate barding (7 squares), fly 40 ft. (average) in
+plate barding (8 squares); base speed S0 ft. fly 60 ft, (average)
+Armor Class: 27 (—1 size, +10 natural, +8 plate barding), touch 9,
+flat-footed 27 4
+Base Attack/Grapple; +6/+15
+Attack: Spiked chain +10 melee (2d6+5 plus 1dé electricity)
+Full Attack: 2 spiked chains +10 melee (2d6+5 plus 1dé electric: ,
+ity)
+Space/Reach: 10 f1,/10 ft.
+Special Attacks: Spell-like abilities
+Special Qualities: Construct traits, damage reduction
+10/chaoric, darkvision 60 ft., fast healing S, low-light vision,
+spell resistance 20
+Saves: Fort +4, Ref +2, Will +5
+J Abilities: Str 21, Dex 11, Con —, Int.10, Wis 17, Cha 15
+|Skills: Diplomacy +4, Listen +9, Search +9, Sense Motive +12,
+Spot +9, Survival +3 (+5 following tracks)
+Feats: Great Fortitude, Ride-By Attack, Spirited Charge
+Environment: Clockwork Nirvana of Mechanus
+Organization: Solitary Z
+Challenge Rating: 9
+Treasure: None
+Alignment: Always lawful neutral
+Advancement: 9-16 HD (Large); 17-24 HD (Huge)
+Level Adjustment: +7
+
+ 
+
+ 
+
+ 
+
+This clockwork creature resembles a.centaur in shape. It wears orate
+| golden armor over alabaster skin. It carries no weapons or other equipment
+
+{Zelekhuts are. charged with hunting down those who would deny.
+fustice—especially those. who flee to escape punishment. Expert
+trackers, they use a combination of natural skill and magic to find
+fugitives wherever they may hide.
+
+A zelekhut may. initially appear rather nonthreatening—bur.,
+when it is about to. enter combat, it can cause two spiked chains.t0|
+spring forth from its forearms as a free action. In similar fashion, it)
+can.cause a pait of golden metallic wings to emerge from its back.|
+
+{Retracting the chains or the sings is also a free action.
+
+Combat
+Once it has found its fugitive, a zelekhut uses its speed and irs
+spell-like abilities to cover the most likely escape routes. Then it
+immobilizes any defenders while attempting to protect any inno-_
+cent bystanders. Finally, it apprehends the fugitive with its spiked
+chains, tripping or disarming the foe as needed. If the sentence is.
+death, the zelekbut carries it out with little fuss or fanfare.
+
+A zelekhut’s natural weapons, as well as.any_weapons it wields,
+are treated as lawful-aligned for the purpose of overcoming dam-
+age reduction
+
+| Spell-Like Abilities: At will—claimaudience/lairvoyance, dimen
+[sional anchor, dispel magic, fear (DC 16), hold person (DC 15), locate crea-
+ture, true seeing; 3/day—hold monster (DC.17), mark of justice; 1/veek—
+Llesser geas (DC 16). Caster level 8th. The save DCs are Charisma-based,
+
+Skills: A zelekhut has a+ racial bonus.on Search and Sense
+Motive checks,
+
+Feats: Due_to its centaurlike construction,.a zelekhut qualifies
+for feats as if it had the Mounted Combat feat.
+
+Large Elemental (Air, Extraplanar)
+
+Hit Dice: 8d8+16 (52 hp)
+
+Initiative: +8
+
+Speed: 30 ft, (6 squares), fly 30 ft, (perfect)
+
+Armor Class; 17 (1 size, +4 Dex, +4 natural), touch 13,
+flat-footed 13
+
+Base Attack/Grapple: +6/+14
+
+Attack: Slam +10 melee (2d6+4)
+
+Full Attack: 2 slams +10 melee (2d6+4)
+
+Space/Reach: 10 ft./10 ft.
+
+Special Attacks: —
+
+Special Qualities: Darkvision 60 ft, elemental traits, natural
+invisibility, improved tracking
+
+Saves: Fort +4, Ref +10, Will +4
+
+Abilities: Str 18, Dex 19, Con 14, Int 14, Wis 15, Cha 11
+
+Skills: Listen +13, Move Silently +15, Search +13, Spot +13,
+Survival +2 (+4 following tracks)
+
+Feats; Combat Reflexes, Improved Initiative, Weapon Focus (slam,
+
+Environment; Elemental Plane of Air
+
+Organization: Solitary
+
+Challenge Rating: 7
+
+‘Treasure: None
+
+Alignment: Usually neutral
+
+Advancement: 9-12 HD (Large); 13-24 HD (Huge)
+
+Level Adjustment; —
+
+ 
+
+Invisible stalkers are creatures native to the Elemental Plane of
+Air. They sometimes serve wizards and sorcerers, who summon,
+them to perform specific tasks,
+
+A summoned invisible stalker undertakes whatever task the
+summoner commands, even if the task sends it hundreds or thou-
+sands of miles away, The creature follows a command until.the,
+task is completed and obeys only the summoner, However, it)
+resents protracted missions or complex tasks and seeks to pervert,
+its instructions accordingly. }
+
+Invisible stalkers have an amorphous form. A sec inwisibility spell |
+‘shows only.adim outline of acloud, while a true seeing spell reveals
+laroiling cloud of vapor,
+
+These creatures speak only Auran but can understand
+Common.
+

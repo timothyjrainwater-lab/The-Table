@@ -1,0 +1,184 @@
+with fear for 1d8 rounds, Whether or not the. save is successful,
+that creature cannot be affected again by the same nightshade's
+gaze for 24 hours. This is a mind-affecting fear effect. The save DC
+is Charisma-based.
+
+Spell-Like Abilities: At will—contagion (DC 18), deeper dark-
+ness, detect magic, greater dispel magic, haste, see invisibility, and unholy
+blight (DC 18); 3/day—confusion (DC 18), hold monster (DC 19),)
+invisibility; 1/day—cone of cold (DC 19), finger of death (DC 21), plane.
+shift (DC 21), Caster level 21st. The save DCs are Charisma-based.}
+
+Summon Undead (Su): A nighnwalker.can summon undead |
+creatures once per night: 7-12 shadows, 2-5 greater shadows, or
+
+|1-2.dread wraiths. The undead arrive in 1410 rounds and serve for
+hour or until released,
+
+Skills: When hiding in a dark area, a nightwalker gains a +8
+racial bonus on Hide checks.
+
+Tactics Round-by-Round
+The nightwalker is an exceedingly intelligent foe that makes the,
+[best use_of all irs abilities. It favors using its spell-like abilities to}
+divide and disable its enemies, then closing to melee with oppo:
+nents it has isolated from their allies.
+
+Prior to combat: The nightwalker keeps its see invisibility power
+active most of the time. It uses haste and invisibility to prepare for
+battle,
+
+Round 1: Move to within 30 feet to make use of gaze attack and
+strike with confusion or hold monster, coupled with a quickened
+unholy blight.
+
+Round 2: Hit a spellcaster with finger of death and another quick-
+ened unholy blight,
+
+Round 3: Move up to engage the enemy and attemptio disarm an
+enemy fighter.
+
+Round 4; Crush the disarmed weapon (or use gaze attack if
+disarm attempt failed).
+
+Round 5: Full attack against the unarmed foe (or. on.a. nearby
+spelleaster).
+
+NIGHTWING
+Huge Undead (Extraplanar)
+Hit Dice: 17d12+34 (144 hp)
+Initiative: +8
+Speed: 20 ft. (4 squares), fly. 60 ft. (good)
+Armor Class: 30 (—2 size, +4 Dex, +18 natural) touch 12,
+flat-footed 26
+Base Attack/Grapple: +8/+28
+Attack: Bite +18 melee (2d6+17/19-20 plus magic drain)
+Full Attack; Bite +18 melee (2d6+17/19-20 plus magic drain)
+Space/Reach: 15 ft./10 ft.
+Special Attacks: Desecrating aura, magic drain, spell-like abili-
+ties, summon undead
+Special Qualities: Aversion to daylight, damage reduction
+15/silver and magic, darkvision 60 ft., immunity to cold, spell
+resistance 27, telepathy 100 ft., undead traits
+Saves; Fort +9, Ref +11, Will +17
+Abilities: Str 31, Dex 18, Con —, Int 18, Wis 20, Cha 18
+Skills: Concentration +24, Diplomacy +6, Hide +16*, Listen +25,
+Move Silently +24, Search +24, Sense Motive +25, Spellcraft
++24, Spot +25, Survival +5 (+7 following tracks!
+Feats: Combat Reflexes, Dodge, Flyby Attack, Great Fortitude,
+Improved Critical (bite), Improved Initiative
+_Environment: Plane of Shadow.
+Organization: Solitary, pair, or flock (3-6)
+Challenge Rating: 14
+‘Treasure: Standard.
+/Alignment: Always chaotic evil
+Advancement: 18-25 HD (Huge); 26-34 HD (Gargantuan)
+Level Adjustment: —
+
+  
+
+The creature seemns to.be nothing but a mass of utter darkness shaped lke |
+@ monstrous bat.
+Nightwings are batlike flyers that hunt on the wing. ]
+A nightwing has a wingspan of about 40 feet and weighs about
+| 4,000 pounds,
+
+Combat
+Nightwings prowl the night sky and dive onto their victims. They.,
+are all but invisible, detectable only because of the stars they,
+obscure in their passing. j
+
+A nightwing’s natural weapons are treated as magic weapons for
+the purpose of overcoming damage reduction,
+
+Magic Drain (Su): A nightwing can weaken magic armor,
+weapons, and shields by making a successful touch attack. The
+targeted item must succeed on a DC 22 Fortitude save or lose 1
+
+{point of its enhancement bonus (for example, a +2 swonl becomes
+
+ja+1 sword), The save DC is Charisma-based, An item that loses its
+
+sentire enhancement bonus becomes merely a masterwork item,
+
+land loses any special abilities (such as flaming) as well. Casting
+dispel evil upon. the item. reverses.the effect of the magic drain,
+provided this occurs within a number of days after the attack,
+equal to the caster's level and the caster succeeds on a DC 29
+caster level check.
+
+Spell-Like Abilities: Ar will—contagion (DC 18), deeper dark-
+ness, detect magic, haste, see invisibility, unholy blight (DC 18);
+3/day—tonfusion (DC 18), greater dispel magic, hold monster (DC)
+
+J19), invisibility; 1/day—cone of cold (DC 19), finger of death (DC,
+21), plane shift.(DC 21). Caster level 17th. The save DCs are/
+Charisma-based.
+
+Summon Undead (Su): A nightwing can summon undead
+creatures once per night: S—12 shadows, 2-4 greater shadows, or 1
+dread wraith. The undead arrive in 1d10 rounds and serve fort,
+hour or until released.
+
+Skills: *When hiding in a dark area or flying in a.dark sky, a
+nightwing gains a +8 racial bonus on Hide checks.
+
+NY MPH
+
+Medium Fey
+
+Hit Dice: 6d6+6 (27 hp)
+
+Initiative: +3
+
+Speed: 30 ft. (6 squares), swim 20.ft.
+
+Armor.Class; 17 (+3 Dex, +4 deflection), touch 17, flat-footed 14
+
+Base Attack/Grapple: +3/+3
+
+Attack; Dagger +6 melee (1d4/19-20)
+
+Full Attack: Dagger +6 melee (1d4/19-20)
+
+Space/Reach: 5 f1,/5 ft.
+
+Special Attacks: Blinding beauty, spells, spell-like abilities, stun-
+ning glance
+
+Special Qualities: Damage reduction 10/cold iron, low-light
+vision, unearthly grace, wild empathy
+
+Saves: Fort +7, Ref +12, Will +12
+
+Abilities: Str 10, Dex 17, Con 12, Int 16, Wis 17, Cha 19
+
+Skills: Concentration +10, Diplomacy +6, Escape Artist +12,
+Handle Animal +13, Heal +12, Hide +12, Listen +12, Move
+Silently +12, Ride +5, Sense Motive +12, Spot +12, Swim +8,
+Use Rope +3 (+5 with bindings)
+
+Feats: Combat Casting. Dodge, Weapon Finesse
+
+Environment: Jemperate forests
+
+Organization; Solitary
+
+Challenge Rating: 7
+
+Treasure; Standard
+
+Alignment: Usually chaotic good
+
+_Adyancement: 7-12 HD (Medium)
+
+Level Adjustment: +7
+
+  
+
+ 
+
+  
+
+ 
+

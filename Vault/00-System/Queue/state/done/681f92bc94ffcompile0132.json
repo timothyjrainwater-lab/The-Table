@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0132",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 132,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:34:17.576350+00:00"
+  },
+  "doneAt": "2026-02-03T09:35:27.674757+00:00",
+  "citation": "PHB (pdf p.0132)",
+  "printedGuess": "131",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Armor and Shields (PHB 7–6)",
+    "Table — Donning Armor. A barded (PHB 7–7)"
+  ]
+}

@@ -1,0 +1,130 @@
+Weapon and Armor Proficiency; An arcane archer is proft
+cient with all simple and martial weapons, light armor, medium
+armor, and shields,
+
+Enhance Arrow (Su): At ist level, every nonmagical arrow an
+arcane archer nocks and lets fly becomes magical, gaining a +1 en-,
+hancement bonus, Unlike magic weapons created by normal
+means, the archer need not spend experience points or gold pieces |
+to accomplish this task. However, an archer’s magic arrows only
+function for her. For every two levels the character advances past)
+ist level in the prestige class, the magic arrows she creates gain +1)
+greater potency (+1 at ist level, +2 at ard level, +3 at Sth level, +4.at
+7th level, and +5 at 9th level),
+
+Imbue Arrow (Sp): At 2nd level, an arcane archer gains the ability
+to place an area spell upon_an.arrow, When the arrow is fired, the
+spell’s area is centered on where the arrow lands, even if the spell
+could normally be centered only on the caster. This ability allows
+the archer to use the how’s range rather than the spell’s range. It
+takes a standard action to cast the spell and fire the arrow. The arrow.
+unust be fired in the round the spell is cast, or the spell is wasted,
+
+Seeker Arrow (Sp): At 4th level, an arcane archer can launch an
+arrow once per day at a target known to her within range, and the |
+arrow travels to the target, even around corners. Only an unavoid-
+able obstacle or the limit of the arrow's range prevents the arrow's
+flight. For example, if the target is within a windowless chamber
+with the door closed, the arrow cannot enter. This ability negates
+cover and concealment modifiers, but otherwise the attack is
+rolled normally. Using this ability is a standard action (and shoot-
+ing the arrow is part of the action!
+
+Phase Arrow (Sp): At 6th level, an arcane archer can launch an
+arrow once per day at a target known to her within range, and the
+arrow travels to the target in a straight path, passing through any
+nonmagical barrier or wall in its way. (A wall. of force, a wall of fire, o
+the like stops the arrow.) This ability negates cover, concealment,
+and even armor modifiers, but otherwise the attack is rolled nor-
+mally. Using this ability is a standard action (and shooting the
+arrow is part of the action)
+
+  
+ 
+ 
+  
+  
+
+An arcane trickster
+
+    
+ 
+
+Hail of Arrows (Sp): In lieu of her regular attacks, once per day.an.,
+arcane archer of 8th level or higher can fire an arrow at each and.
+every_target. within range, toa maximum of one target for-every |
+arcane archer level she has earned. Each attack uses the archer's
+primary attack bonus, and each enemy may only be targeted by a
+
+{single arrow. =
+
+Arrow of Death (Sp): At_L0th level, an arcane archer can create an
+arrow of death that forces the target, if damaged by the arrow's
+attack, to make a DC 20 Fortitude save or be slain immediately, It
+
+stakes one day to make an arrow of death, and the arrow only func-
+
+tions for the arcane archer who created it. The arrow of death lasts.
+no longer than one year, and the archer can only have one such
+arrow in existence at a time.
+
+ARCANE TRICKSTER
+Arcane tricksters combine their knowledge of spells with a taste
+for intrigue, larceny, or just plain mischief. They are among the
+most adaptable of adventurers.
+
+Arcane spellcasting and the sneak attack ability are needed to.
+qualify for this class, making ir a natural choice for multiclass
+wizard /rogues or sorcerer/rogues, Assassins occasionally opt for this
+class, bur usually only if they already have. wizard or sorcerer levels,
+
+Arcane tricksters tend to use a seat-of-the-pants approach to
+adventuring, loading up on_spells that improve their stealth and
+mobility. An NPC arcane trickster is just the sort of person that
+might bump into you in.a. crowded tavern. (Check your pockets.)
+
+Hit Die: d4.
+
+Requirements
+To qualify to become an arcane trickster, a character must fulfill all
+of the following criteria.
+Alignment: Any noplawful |
+Skills: Decipher Script 7 ranks, Disable Device 7 ranks, Escape.
+Artist 7 ranks, Knowledge (arcana) 4 ranks.
+Spells: Ability to cast mage hand and at least one arcane spell of
+3rd level ot higher.
+Special: Sneak attack +2d6.
+
+ 
+
+Class Skills
+‘The arcane trickster’ class skills (and the key ability for each skill
+are Appraise (Int), Balance (Dex), Bluff (Cha), Climb (Str),
+
+Concentration (Con), Craft (Int), Decipher Script (Int),
+Diplomacy (Cha), Disable Device (Int), Disguise (Cha),
+Escape Artist (Dex), Gather Information (Cha), Hide (Dex), Jump
+Str), Knowledge (Int), Listen (Wis), Move Silently (Dex), Open
+Lock (Dex), Profession (Wis), Sense Motive (Wis), Search (Int),
+Sleight of Hand (Dex), Speak Language (Int), Spellcraft (Int), Spot
+(Sis), Swim (Str), Tumble (Dex),and Use Rope (Dex), See Chapter
+4 of the Player's Handbook for skill descriptions.
+Skill Points at Each Level: + + Int modifier.
+
+   
+
+Class Features
+All of the following are class features of the arcane trickster pres-
+tige class, ;
+
+Weapon and Armor Proficiency: Arcane tricksters gain no
+
+proficiency with any weapon or armor,
+
+Spells per Day: \When anew arcane trickster level is gained,
+the character gains new spells per day as if he had also gained a
+level in a spellcasting class he belonged to before adding the pres-
+tige class, He does not, however, gain any other benefit a character
+
+ 
+

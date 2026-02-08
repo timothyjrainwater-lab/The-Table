@@ -1,0 +1,240 @@
+ 
+
+   
+
+     
+ 
+     
+ 
+     
+ 
+     
+       
+     
+      
+ 
+     
+       
+     
+ 
+      
+    
+    
+    
+     
+
+Hlas. by S. Ellis
+
+    
+    
+   
+  
+  
+  
+   
+   
+   
+   
+   
+   
+   
+ 
+   
+  
+       
+
+or be slowed, as the slow
+spell, forthe remaining
+duration of as the frost.
+Spell resistance applies
+to this effect
+Material Component; Achunk
+of ice or crystal.
+
+Baleful Blink
+
+Transmutation
+
+Level: Bard 4, sorcerer/wizard 4
+
+Components: V
+
+Casting Time: 1 standard
+action
+
+Range: Close (25 ft. + § ft./2
+levels:
+
+Target: One creature
+
+Duration: 1 round/level
+
+Saving Throw: Fortitude
+negates
+
+Spell Resistance: No
+
+You cause the creature to wink in and out of
+existence erratically, much to its chagrin.
+
+You curse one creature toa frustrating
+existence on the edge of the Ethereal
+Plane. The subject shimmers between
+the Ethereal Plane and the Material
+Plane, has a 50% miss chance on any
+melee or ranged attacks (
+
+ 
+
+ 
+
+ifthe target
+of the attack had total concealment),
+and there isa 50% chance that any spell
+she casts does not have an effect on the
+desired plane while she blinks berween
+the planes
+
+Because the magic of the spell only
+causes the subject to blink when
+attacking or casting, attackers have
+no miss chance against her, and spells
+cast against her affect her normally.
+Because the blinking is so rapid, she
+cannot attempt to blink through walls
+or move in the Ethereal Plane.
+
+The subject of a baleful blink spell can
+cast spells on itself with impunity; in
+this case, it has no miss chance because
+the target of its spell (itself) travels
+along with the spell
+
+ 
+
+The subject can
+also target creatures on the Ethereal
+Plane, but still has a 50% chance of
+failure on attacks and spells. Spells
+with the force descriptor are unaffected
+by the effect of baleful blink:
+
+Bigby's Disrupting Hand
+Evocation [Force]
+Level: Sorcerer/wizard 3
+
+Ass the frost turns Mia
+
+ 
+
+inte an outsider
+with cold inten
+
+Components: V, S, F
+
+Casting Time: 1 standard action
+Range: Medium (100 ft. + 10 ft./level
+Effect: One hand of force
+Duration: 1 minute (D
+
+Saving Throw: None
+
+Spell Resistance: Yes
+
+Asmall, spectral human hand springs into
+existence before your target. It hovers in the
+air, ready to deliver a backhanded blow.
+
+Like Bighy’s interposing hand, this spell
+creates a magical construct in the form
+of a human hand. The hand targets a
+single opponent of your choice within
+range. You choose this opponent as you
+cast the spell. You can target a different
+opponent with this spell by raking a
+move action to do so
+
+When the subject of Bigby’s disrupt
+ing hand attempts to cast a spell, the
+hand punches him, This attack causes
+no damage, but it forces the subject to
+
+   
+
+make a Concentration check with a
+DC equal to this spell's save DC. If
+the subject fails the check, the hand's
+blow ruins his casting attempt
+The hand is about 1 foot long,
+Ithas hit points equal ro half your
+full normal hit points, and its
+AC is 20 (+4 size, +6 natural).
+Irmakes saving throws using
+your total save bonuses and
+takes damage from spells and
+attacks as normal
+Focus: A soft glove.
+
+Bigby's Helpful
+Hand
+Evocation [Force]
+Level: Sorcerer/wizard 1
+Components: V, S, F
+Casting Time: 1 standard
+action
+Range: 0 ft
+Effect: One hand of force
+Duration: 1 hour/level (D)
+Saving Throw: None
+Spell Resistance: No
+
+ 
+
+A magical construct in the shape of a hand
+appears next to you. Its fingers open toward
+
+you, waiting for you to hand it an item.
+
+This spell creates a hand of magical
+force that holds items for you, helps
+you complete long, involved tasks, and
+otherwise aids you. The spell grants
+you a +2 competence bonus on Craft,
+Disable Device, and Open Lock checks
+for the duration of the spell. Ir can
+hold a single object weighing up to 20
+pounds. You can grasp the object that
+the hand carries or place an object in
+its grasp as a swift action, The hand
+remains in your square at all times. It
+matches your speed, and you can bring
+the hand and the object along with you
+if you use dimension door, teleport, and
+similar spells. You cannot order the
+hand to move away from you. If you
+are separated from the hand, the spell
+immediately ends.
+
+The hand is about 1 foot long, It has
+hit points equal to half your full normal
+hit points, and its /
+It ma
+
+ 
+
+C is 20 (+4 size,
+
+ 
+
++6 natural ¢ saving throws
+using your total save bonuses and
+takes damage from spells and atts
+
+as normal.
+
+  
+
+Focus: A soft glove
+
+ 
+

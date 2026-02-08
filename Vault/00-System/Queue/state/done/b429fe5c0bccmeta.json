@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "b429fe5c0bcc:meta",
+    "sourceId": "b429fe5c0bcc",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Familiars - Crouching Monkey Hidden Toad.pdf",
+    "title": "Familiars - Crouching Monkey Hidden Toad",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:33:23.524698+00:00",
+  "meta": {
+    "sourceId": "b429fe5c0bcc",
+    "title": "Familiars - Crouching Monkey Hidden Toad",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Familiars - Crouching Monkey Hidden Toad.pdf",
+    "pages": 66,
+    "extractedAt": "2026-02-03T10:33:23.202919+00:00"
+  },
+  "enqueued_extractPages": 33
+}

@@ -1,0 +1,99 @@
+   Module Workshop  A Dead Man’s Party - Page 16 
+ 
+given to him by Nigel Blackheart himself, is 
+to guide the wraith’s “guests” to their 
+“quarters” and make sure they are 
+“comfortable”. So basically, the ogre acts as 
+an oversized and clumsy undead butler. He 
+is actually dressed in makeshift clothing that 
+vaguely resembles a butler’s livery. 
+ 
+If they are not disguised as zombies, the 
+ogre will attack the PCs on sight. If they are, 
+have him make his Spot check opposed by 
+the worst character’s Disguise. If he believes 
+they are zombies he will approach them in a 
+friendly fashion and greet them in broken 
+Common. He will ask them how they are 
+doing, and if they are enjoying the 
+festivities. 
+ 
+If the PCs don’t respond to his greetings, he 
+will prattle on for a bit, then try to lead them 
+to the “zombie’s quarters” in Area 18. 
+ 
+If the characters respond to his questions, 
+the ogre will be glad to talk with them. 
+However, after a few questions posed by the 
+PCs, the ogre will remember that zombies 
+aren’t supposed to talk. He will question 
+them about this. Have the characters come 
+up with an excuse or reason why they are 
+talking. Then have one character roll a bluff 
+check opposed by the ogre (Sense Motive 
++1). If the ogre fails, he believes them and is 
+willing to talk as much as the PCs want. If 
+he succeeds, he will attack them. 
+ 
+The ogre knows a great deal about what is 
+going on, but isn’t exactly bright. His 
+responses depend on what the characters 
+ask. Questions about Nigel Blackheart: 
+“Master is entertaining most important 
+guests in cat-er-coms.” Questions about the 
+rift: “Funny room very important to Master. 
+Supposed to keep things away from there.” 
+Questions about the ogre’s name or its past: 
+“Hmmm. Me no remember.” Feel free to 
+improvise other responses. 
+ 
+If the PCs fool the ogre into believing they 
+are zombies and getting him to answer their 
+questions, give them full XP for defeating 
+the creature. They do not get this reward if 
+they later fight the ogre for any reason.  
+ 
+ Ogre Ghoul 
+CR 4; Large Undead; HD 5d12 (35 hp); Init +0; Spd 
+30ft.; AC 16 (-1 size, +7 natural); Atks Bite +9 melee 
+(1d8+7 dmg and paralysis), 2 claws +4 melee (1d4+3 
+dmg and paralysis); Face/Reach 5ft. by 5ft./10ft.; SA 
+Paralysis, Create Spawn; SQ Undead, +2 turn 
+resistance; AL CE; SV Fort +1, Ref +1, Will +4; Str 
+22 Dex 10 Con – Int 7 Wis 12 Cha 13. 
+Skills: Climb +12, Intuit Direction +2, Jump +12, 
+Listen +5, Search +4, Spot +4. 
+Feats: Multiattack, Weapon Finesse(bite) 
+SA- Paralysis(Ex): Those hit by a ghoul must make a 
+Fort Save (DC 14) or be paralyzed for 1d6+2 
+minutes. Elves are immune to this paralysis. 
+Create Spawn(Su): Any being slain by a ghoul and 
+not eaten by the creature will rise as a ghoul in 1d4 
+days. Casting Protection from Evil on the body 
+prevents this. 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Tactics: Once provoked, the ogre ghoul is a 
+vicious opponent. He will use his 10 ft. 
+reach and paralysis to help offset the fact 
+that he will probably be outnumbered by the 
+PCs. 
+ 
+16. Dark Room (EL 7)
+ 
+ 
+This room is a simple cell with many tiny 
+cots in it. Before the sanitarium was taken 
+over by the wraith, several insane inmates 
+lived here.  
+ 
+Now the room is completely dark. Many 
+shadows live in here, enjoying the darkness. 
+If a PC opens the door to this room, nothing 
+will happen. The room inside will be 
+completely dark, and no one will be able to 
+see inside without darkvision. Even 
+characters with darkvision will only notice 

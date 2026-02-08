@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "270690884415:meta",
+    "sourceId": "270690884415",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 07/Into The Frozen Waste.pdf",
+    "title": "Into The Frozen Waste",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:38:35.568078+00:00",
+  "meta": {
+    "sourceId": "270690884415",
+    "title": "Into The Frozen Waste",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 07/Into The Frozen Waste.pdf",
+    "pages": 18,
+    "extractedAt": "2026-02-03T12:38:35.559790+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

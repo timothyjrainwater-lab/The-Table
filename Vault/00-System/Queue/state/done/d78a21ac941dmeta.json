@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "d78a21ac941d:meta",
+    "sourceId": "d78a21ac941d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Crab.pdf",
+    "title": "Secrets of The Crab",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T17:40:24.157607+00:00",
+  "meta": {
+    "sourceId": "d78a21ac941d",
+    "title": "Secrets of The Crab",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Crab.pdf",
+    "pages": 98,
+    "extractedAt": "2026-02-03T17:40:24.150440+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

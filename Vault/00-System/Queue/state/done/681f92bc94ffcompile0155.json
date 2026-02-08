@@ -1,0 +1,23 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0155",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 155,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:37:14.045609+00:00"
+  },
+  "doneAt": "2026-02-03T09:37:49.205965+00:00",
+  "citation": "PHB (pdf p.0155)",
+  "printedGuess": "154",
+  "touched": [
+    "Condition — Grappled",
+    "Condition — Prone",
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Special Attacks (PHB 8–7)"
+  ]
+}

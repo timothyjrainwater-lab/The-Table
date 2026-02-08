@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "667203bead51:meta",
+    "sourceId": "667203bead51",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Troglodytes.pdf",
+    "title": "The Slayer's Guide To Troglodytes",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:07:54.484840+00:00",
+  "meta": {
+    "sourceId": "667203bead51",
+    "title": "The Slayer's Guide To Troglodytes",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Troglodytes.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-04T00:07:54.317562+00:00"
+  },
+  "enqueued_extractPages": 18
+}

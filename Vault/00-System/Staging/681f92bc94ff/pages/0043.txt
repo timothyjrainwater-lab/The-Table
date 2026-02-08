@@ -1,0 +1,132 @@
+ 
+ 42 
+Wholeness of Body (Su): At 7th level or higher, a monk can heal 
+her own wounds. She can heal a number of hit points of damage 
+equal to twice her current monk level each day, and she can spread 
+this healing out among several uses. 
+Improved Evasion (Ex):  At 9th level, a monk’s evasion ability 
+improves. She still takes no damage on a successful Reflex saving 
+throw against attacks such as a dragon’s breath weapon or a fireball, 
+but henceforth she takes only half damage on a failed save. A help-
+less monk (such as one who is unconscious or paralysed) does not 
+gain the benefit of improved evasion. 
+Diamond Body (Su):  At 11th level, a monk is in such firm con-
+trol of her own metabolism that she gains immunity to poisons of all 
+kinds. 
+Abundant Step (Su):  At 12th level or higher, a monk can slip 
+magically between spaces, as if using the spell dimension door , once 
+per day. Her caster level for this effect is one-half her monk level 
+(rounded down). 
+Diamond Soul (Ex):  At 13th level, a monk gains spell resistance 
+equal to her current monk level + 10. In order to affect the monk 
+with a spell, a spellcaster must get a result on a caster level check 
+(1d20 + caster level; see Spell Resistance, page 177) that equals or 
+exceeds the monk’s spell resistance. 
+Quivering Palm (Su):  Starting at 15th level, a monk can set up 
+vibrations within the body of another creature that can thereafter be 
+fatal if the monk so desires. She can use this quivering palm attack 
+once a week, and she must announce her intent before making her 
+attack roll. Constructs, oozes, plants, undead, incorporeal creatures, 
+and creatures immune to critical hits cannot be affected. Otherwise, 
+if the monk strikes successfully and the target takes damage from 
+the blow, the quivering palm attack succeeds. Thereafter the monk 
+can try to slay the victim at any later time, as long as the attempt is 
+made within a number of days equal to her monk level. To make 
+such an attempt, the monk merely wills the target to die (a free 
+action), and unless the target makes a Fortitude saving throw (DC 10 
++ 1/2 the monk’s level + the monk’s Wis modifier), it dies. If the 
+saving throw is successful, the target is no longer in danger from 
+that particular quivering palm attack, but it may still be affected by 
+another one at a later time. 
+Timeless Body (Ex):  Upon attaining 17th level, a monk no 
+longer takes penalties to her ability scores for aging and cannot be 
+magically aged. Any such penalties that she has already taken, 
+however, remain in place. Bonuses still accrue, and the monk still 
+dies of old age when her time is up. 
+Tongue of the Sun and Moon (Ex):  A monk of 17th level or 
+higher can speak with any living creature. 
+Empty Body (Su):  At 19th level, a monk gains the ability to 
+assume an ethereal state for 1 round per monk level per day, as 
+though using the spell etherealness. She may go ethereal on a number 
+of different occasions during any single day, as long as the total 
+number of rounds spent in an ethereal state does not exceed her 
+monk level. 
+Perfect Self: At 20th level, a monk has tuned her body with skill 
+and quasi-magical abilities to the point that she becomes a magical 
+creature. She is forevermore treated as an outsider (an extraplanar 
+creature) rather than as a humanoid for the purpose of spells and 
+magical effects. For instance, charm person  does not affect her. 
+Additionally, the monk gains damage reduction 10/magic, which 
+allows her to ignore the first 10 points of damage from any attack 
+made by a nonmagical weapon or by any natural attack made by a 
+creature that doesn’t have similar damage reduction (see Damage 
+Reduction, page 291 of the Dungeon Master’s Guide ). Unlike other 
+outsiders, the monk can still be brought back from the dead as if she 
+were a member of her previous creature type. 
+ 
+ 
+Ex-Monks 
+A monk who becomes nonlawful cannot gain new levels as a monk 
+but retains all monk abilities. 
+Like a member of any other class, a monk may be a multiclass 
+character, but multiclass monks face a special restriction. A monk 
+who gains a new class or (if already multiclass) raises another class 
+by a level may never again raise her monk level, though she retains 
+all her monk abilities. 
+ 
+Human Monk Starting Package 
+Armor: None (speed 30 ft). 
+Weapons: Quarterstaff (1d6/1d6, crit ×2, 4 lb., two-handed, 
+bludgeoning). 
+Sling (1d4, crit ×2, range inc. 50 ft., 0 lb., bludgeoning). 
+Skill Selection: Pick a number of skills equal to 5 + Int modifier. 
+ 
+Skill Ranks Ability Armor Check Penalty 
+Listen 4 Wis — 
+Climb 4 Str 0 
+Move Silently 4 Dex 0 
+Tumble 4 Dex 0 
+Jump 4 Str 0 
+Escape Artist 4 Dex 0 
+Hide 4 Dex 0 
+Swim 4 Str 0 
+Balance 4 Dex 0  
+ 
+Feat: If Dexterity is 13 or higher, Dodge; if Dexterity is 12 or 
+lower, Improved Initiative instead. 
+Bonus Feat: If Dexterity is 13 or higher, Mobility; if Dexterity is 
+12 or lower, Blind-Fight instead. 
+Gear: Backpack with waterskin, one day’s trail rations, bedroll, 
+sack, and flint and steel. Three torches. Pouch with 10 sling stones. 
+Gold: 2d4 gp. 
+ 
+PALADIN 
+The compassion to pursue good, the will to uphold law, and the 
+power to defeat evil—these are the three weapons of the paladin. 
+Few have the purity and devotion that it takes to walk the paladin’s 
+path, but those few are rewarded with the power to protect, to heal, 
+and to smite. In a land of scheming wizards, unholy priests, 
+bloodthirsty dragons, and infernal fiends, the paladin is the final 
+hope that cannot be extinguished. 
+Adventures: Paladins take their adventures seriously and have a 
+penchant for referring to them as quests. Even a mundane mission 
+is, in the heart of the paladin, a personal test—an opportunity to 
+demonstrate bravery, to develop martial skills, to learn tactics, and to 
+find ways to do good. Still, the paladin really comes into her own 
+when leading a mighty campaign against evil, not when merely 
+looting ruins. 
+Characteristics: Divine power protects the paladin and gives her 
+special powers. It wards off harm, protects her from disease, lets her 
+heal herself, and guards her heart against fear. The paladin can also 
+direct this power to help others, healing their wounds or curing 
+diseases. Finally, the paladin can use this power to destroy evil. Even 
+the least experienced paladin can detect evil, and more experienced 
+paladins can smite evil foes and turn away undead. In addition, this 
+power draws a mighty steed to the paladin and imbues that mount 
+with strength, intelligence, and magical protection. 
+Alignment: Paladins must be lawful good, and they lose their 
+divine powers if they deviate from that alignment. Additionally, 
+paladins swear to follow a code of conduct that is in line with law-
+fulness and goodness. 
+CHAPTER 3: 
+CLASSES 

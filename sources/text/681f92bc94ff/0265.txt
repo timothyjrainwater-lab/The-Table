@@ -1,0 +1,204 @@
+ 
+ 264 
+You utter a single word of power that in-
+stantly causes one creature of your choice 
+to become stunned, whether the creature 
+can hear the word or not. The duration of 
+the spell depends on the target’s current 
+hit point total. Any creature that currently 
+has 151 or more hit points is unaffected by 
+power word stun. 
+ 
+ Hit Points Duration 
+ 50 or less 4d4 rounds 
+ 51–100 2d4 rounds 
+ 101–150 1d4 rounds  
+ 
+Prayer 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Clr 3, Pal 3 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: 40 ft. 
+Area: All allies and foes within a 40-ft.-
+radius burst centered on you 
+Duration: 1 round/level 
+Saving Throw: None 
+Spell Resistance: Yes 
+ 
+You bring special favor upon yourself and 
+your allies while bringing disfavor to your 
+enemies. You and your each of your allies 
+gain a +1 luck bonus on attack rolls, 
+weapon damage rolls, saves, and skill 
+checks, while each of your foes takes a –1 
+penalty on such rolls. 
+ 
+Prestidigitation 
+Universal 
+Level: Brd 0, Sor/Wiz 0 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 10 ft. 
+Target, Effect, or Area: See text 
+Duration: 1 hour 
+Saving Throw: See text 
+Spell Resistance: No 
+ 
+Prestidigitations are minor tricks that 
+novice spellcasters use for practice. Once 
+cast, a prestidigitation spell enables you to 
+perform simple magical effects for 1 hour. 
+The effects are minor and have severe lim-
+itations. A prestidigitation can slowly lift 1 
+pound of material. It can color, clean, or 
+soil items in a 1-foot cube each round. It 
+can chill, warm, or flavor 1 pound of non-
+living material. It cannot deal damage or 
+affect the concentration of spellcasters. 
+Prestidigitation can create small objects, but 
+they look crude and artificial. The 
+materials created by a prestidigitation spell 
+are extremely fragile, and they cannot be 
+used as tools, weapons, or spell compo-
+nents. Finally, a prestidigitation lacks the 
+power to duplicate any other spell effects. 
+Any actual change to an object (beyond 
+just moving, cleaning, or soiling it) persists 
+only 1 hour. 
+Characters typically use prestidigitation 
+spells to impress common folk, amuse 
+children, and brighten dreary lives. Com-
+mon tricks with prestidigitations include 
+producing tinklings of ethereal music, 
+brightening faded flowers, creating glow-
+ing balls that float over your hand, gener-
+ating puffs of wind to flicker candles, 
+spicing up aromas and flavors of bland 
+food, and making little whirlwinds to 
+sweep dust under rugs. 
+ 
+Prismatic Sphere 
+Abjuration 
+Level: Protection 9, Sor/Wiz 9, Sun 9 
+Components: V 
+Range: 10 ft. 
+Effect: 10-ft.-radius sphere centered on 
+you 
+ 
+This spell functions like prismatic wall , ex-
+cept you conjure up an immobile, opaque 
+globe of shimmering, multicolored light 
+that surrounds you and protects you from 
+all forms of attack. The sphere flashes in all 
+colors of the visible spectrum.  
+The sphere’s blindness effect on creatures 
+with less than 8 HD lasts 2d4×10 minutes. 
+You can pass into and out of the pris-
+matic sphere  and remain near it without 
+harm. However, when you’re inside it, the 
+sphere blocks any attempt to project 
+something through the sphere (including 
+spells). Other creatures that attempt to 
+attack you or pass through suffer the 
+effects of each color, one at a time. 
+Typically, only the upper hemisphere of 
+the globe will exist, since you are at the 
+center of the sphere, so the lower half is 
+usually excluded by the floor surface you 
+are standing on. 
+The colors of the sphere have the same 
+effects as the colors of a prismatic wall. 
+Prismatic sphere  can be made permanent 
+with a permanency spell. 
+ 
+Prismatic Spray 
+Evocation 
+Level: Sor/Wiz 7 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 60 ft. 
+Area: Cone-shaped burst 
+Duration: Instantaneous 
+Saving Throw: See text 
+Spell Resistance: Yes 
+ 
+This spell causes seven shimmering, in-
+tertwined, multicolored beams of light to 
+spray from your hand. Each beam has a 
+different power. Creatures in the area of 
+the spell with 8 HD or less are automati-
+cally blinded for 2d4 rounds. Every crea-
+ture in the area is randomly struck by one 
+or more beams, which have additional 
+effects. 
+ Color 
+1d8 of Beam Effect  
+ 1 Red 20 points fire damage 
+(Reflex half) 
+ 2 Orange 40 points acid damage 
+(Reflex half) 
+ 3 Yellow 80 points electricity damage 
+(Reflex half) 
+ 4 Green Poison (Kills; Fortitude 
+partial, take 1d6 points of 
+Con damage instead) 
+ 5 Blue Turned to stone (Fortitude 
+negates) 
+ 6 Indigo Insane, as insanity spell (Will 
+negates) 
+ 7 Violet Sent to another plane (Will 
+negates) 
+ 8  Struck by two rays; roll twice 
+more, ignoring any “8” 
+results. 
+ 
+Prismatic Wall 
+Abjuration 
+Level: Sor/Wiz 8 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Effect: Wall 4 ft./level wide, 2 ft./level 
+high 
+Duration: 10 min./level (D) 
+Saving Throw: See text 
+Spell Resistance: See text 
+ 
+Prismatic wall  creates a vertical, opaque 
+wall—a shimmering, multicolored plane 
+of light that protects you from all forms of 
+attack. The wall flashes with seven colors, 
+each of which has a distinct power and 
+purpose. The wall is immobile, and you can 
+pass through and remain near the wall 
+without harm. However, any other 
+creature with less than 8 HD that is within 
+20 feet of the wall is blinded for 2d4 
+rounds by the colors if it looks at the wall. 
+The wall’s maximum proportions are 4 
+feet wide per caster level and 2 feet high 
+per caster level. A prismatic wall  spell cast 
+to materialize in a space occupied by a 
+creature is disrupted, and the spell is 
+wasted. 
+Each color in the wall has a special 
+effect. The accompanying table shows the 
+seven colors of the wall, the order in which 
+they appear, their effects on creatures 
+trying to attack you or pass through the 
+wall, and the magic needed to negate each 
+color. 
+The wall can be destroyed, color by 
+color, in consecutive order, by various 
+magical effects; however, the first color 
+must be brought down before the second 
+can be affected, and so on. A rod of cancel-
+lation or a Mordenkainen’s disjunction  spell 
+destroys a prismatic wall , but an antimagic 
+field fails to penetrate it. Dispel magic  and 
+greater dispel magic cannot dispel the wall or 
+anything beyond it. Spell resistance is 
+CHAPTER 11: 
+SPELLS 

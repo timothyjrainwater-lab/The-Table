@@ -1,0 +1,139 @@
+ALAMENTATION OF THIEVES
+
+with others, he pulls no punches when dealing with
+supporters of what he considers “evil” faiths.
+
+to. Lors’ Quarters
+
+Lors is a quiet, gentle custodian who has worked with
+Eron and Lady Zan since the day they bought the
+property. Though he only speaks to patrons if directly
+addressed, Lors does at times converse with the other
+servants while taking dinner in the kitchen. Lors is a
+physical specimen, standing nearly seven feet tall, his
+plain homespun tunic stretching across a mountain
+range of shoulders. Sadly, Lors doesn’t have much of an
+alibi; he was alone in his room, with no one to verify his
+story.
+
+Lors, Male Human Com2: CR 1; SZ M (6 ft., 8 in.
+tall); HD 2d4+2; hp 8; Init +3 (Dex); Spd 30 ft.; AC 13
+(+3 Dex); BAB/Grap +1/+4; Atk +4 melee (1d3+3
+nonlethal, unarmed); Full Atk +4 melee (1d3+3 nonle-
+thal, unarmed); AL NG; SV Fort +1, Ref +3, Will +3;
+Str 17, Dex 17, Con 12, Int 16, Wis 17, Cha 11.
+
+Skills: Climb +4, Concentration +2, Diplomacy +2,
+Disable Device +5, Gather Information +3, Intimidate
++2, Listen +5, Perform (juggling) +1, Spot +5, Swim +7,
+Use Rope +5. Feats: Combat Reflexes, Skill Focus
+(Swim).
+
+Possessions: none.
+
+Personality: Lors is painfully shy. He is an honest man,
+but an unambitious one. Though his size, strength, and
+physical skills could take him down any number of
+worthy careers, including that of adventurer, he chooses
+to remain at Darkstar Hall, silently performing his duties
+as custodian. If one of the PCs forms a friendship with
+Lors, the custodian might overcome his reticence and
+inquire about the possibility of receiving training, per-
+haps in the fighting arts. Lors loves Eron and Lady Zan
+as if they were his parents. He has a secret crush on the
+seamstress, Invis (Area 13).
+
+u. Privy
+
+The chambermaid Invis finds Yugin Vooshae’s body
+here at dawn. Her piercing scream awakens the charac-
+ters, along with nearly everyone else in the inn. Shortly
+after the discovery, Lady Zan seals off the building, as
+described above.
+
+Examining the body requires an Intelligence check
+(DC 12). Success reveals that Yugin was definitely
+struck from behind by a heavy, blunt object, by someone
+at least as tall as Yugin himself. Because of the cramped
+conditions in the privy room, the murder weapon couldn’t
+have been more than a couple of feet long, as there’s not
+space to swing a longer item. A single blow was all it took
+to end Yugin’s life, and by the looks of it, that blow was
+a powerful one. The attack was well placed and effi-
+ciently delivered; the killer knew what he or she was
+doing. These conditions might lead the PCs to believe
+that Kristoff the anatomist was involved (incorrect), or
+that a thief—trained in the art of the sneak attack—
+might have delivered the fatal stroke (true).
+
+15
+
+Yugin was probably struck by someone who is right-
+handed, although only Kristoff can provide the PCs with
+this knowledge, if they ask him to examine the body.
+
+Yugin was dressed in his sleeping robe at the time of
+his death. The robe is now a bloody mess. Around
+Yugin’s neck hangs the key to his footlocker (Area 12).
+
+12. Sleeping Room (EL1)
+
+There are six sets of bunk beds in this room, permit-
+ting 12 persons to sleep here. This is the room the PCs
+are given if they stay at the inn as guests. The charge is
+a mere 1 cp per night (3 cp with bath, 1 sp with one
+meal). Each bunk is numbered, with a corresponding
+numbered footlocker nearby.
+
+Yugin Vooshae was boarding in this room at the time
+of his death. If the PCs met him the previous evening in
+the taproom, they might well know this fact. Yugin slept
+in bunk number six. His footlocker is locked, and the key
+is found on his corpse. The lock may be picked with an
+Open Lock (DC 13). Inside is his nondescript traveling
+clothes, asmall pouch of 22 gp, his spellbook, anda small
+metal slipcase. The spellbook contains the following
+spells: mage hand, mending, animate rope, jump, alter self,
+haste, polymorph , and teleport.
+
+The slipcase is closed with a simple brass clasp, but it
+is trapped so that unless the clasp is turned in the proper
+sequence, a hidden needle pricks the holder's finger.
+Only Yugin knows the sequence, so the only way to
+avoid the trap is to first locate it, then remove it.
+
+Poison Needle Trap: CR 1; mechanical; location
+trigger; manual reset; Atk +8 ranged (1 plus greenblood
+oil poison); Search DC 22; Disable Device DC 22.
+
+The slipcase contains a small book that served as
+Yugin’s notebook and ledger. As an agent of Sivian
+Ulphar, Yugin kept notes in this tome concerning his
+various assignments. He also used the book to keep track
+of his expenses so that he might be reimbursed upon
+returning to Hawkmoon. Feel free to place within the
+book anything to spur further adventures surrounding
+the fabled thieves’ guild of Hawkmoon. The only entry
+that pertains to this adventure is the last, which details
+Yugin’s mission to secure the Star for Sivian Ulphar.
+The book contains no information on the nature of the
+Star, only that Yugin was under orders to steal it. The
+PCs may learn more of the Star if they search the ancient
+tower (Areas 6, 22, 26, 27). Finally, Yugin has under-
+lined one particular note to himself: BEWARE OF
+TRAITOR IN GUILD! WHO ELSE WANTS STAR???
+
+13. Servants’ Q uarters
+
+Two of the inn’s six staff members sleep here. Invis
+and Marion are responsible for cleaning and general
+upkeep around the inn. Both are young, unmarried
+women in their early twenties. Invis is also an accom-
+plished seamstress, while Marion is a skilled masseuse.
+When Yugin Vooshae was killed, Invis was in this room
+sleeping, and Marion was downstairs getting a snack
+from the kitchen—or so they claim. A successful Sense
+Motive check opposed by Marion’s Bluff check leads the
+
+ 
+

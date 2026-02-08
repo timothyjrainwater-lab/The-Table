@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0111",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 111,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:20:08.398101+00:00"
+  },
+  "doneAt": "2026-02-05T16:24:00.714988+00:00",
+  "citation": "DMG (pdf p.0111)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Armor Class"
+  ],
+  "createdTables": [
+    "Table — Good NPC Race or Kind, 4-10; Neutral NPC Race or (PHB 4–9)",
+    "Table — Random NPC Class, (PHB 4–8)"
+  ]
+}

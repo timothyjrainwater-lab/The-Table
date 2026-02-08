@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "ce9d035cd84a:meta",
+    "sourceId": "ce9d035cd84a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Burning Plague.pdf",
+    "title": "The Burning Plague",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:27:53.615671+00:00",
+  "meta": {
+    "sourceId": "ce9d035cd84a",
+    "title": "The Burning Plague",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Burning Plague.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-03T20:27:53.578375+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "ebb1f040f2ca:meta",
+    "sourceId": "ebb1f040f2ca",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Monster Manual 3.pdf",
+    "title": "Monster Manual 3",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T14:35:58.282325+00:00",
+  "meta": {
+    "sourceId": "ebb1f040f2ca",
+    "title": "Monster Manual 3",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Monster Manual 3.pdf",
+    "pages": 243,
+    "extractedAt": "2026-02-03T14:35:57.099132+00:00"
+  },
+  "enqueued_extractPages": 122
+}

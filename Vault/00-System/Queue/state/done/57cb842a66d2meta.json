@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "57cb842a66d2:meta",
+    "sourceId": "57cb842a66d2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Divine/Shamans - The Call of The Wild.pdf",
+    "title": "Shamans - The Call of The Wild",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:13:34.804046+00:00",
+  "meta": {
+    "sourceId": "57cb842a66d2",
+    "title": "Shamans - The Call of The Wild",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Divine/Shamans - The Call of The Wild.pdf",
+    "pages": 67,
+    "extractedAt": "2026-02-03T18:13:34.515686+00:00"
+  },
+  "enqueued_extractPages": 34
+}

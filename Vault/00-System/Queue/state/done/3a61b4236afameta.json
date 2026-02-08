@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "3a61b4236afa:meta",
+    "sourceId": "3a61b4236afa",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/Dead Man's Cove.pdf",
+    "title": "Dead Man's Cove",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:27:55.039333+00:00",
+  "meta": {
+    "sourceId": "3a61b4236afa",
+    "title": "Dead Man's Cove",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/Dead Man's Cove.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T08:27:54.985615+00:00"
+  }
+}

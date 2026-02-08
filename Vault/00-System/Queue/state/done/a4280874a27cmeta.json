@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "a4280874a27c:meta",
+    "sourceId": "a4280874a27c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Races of/Races of the Wild.pdf",
+    "title": "Races of the Wild",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T16:37:59.161085+00:00",
+  "meta": {
+    "sourceId": "a4280874a27c",
+    "title": "Races of the Wild",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Races of/Races of the Wild.pdf",
+    "pages": 206,
+    "extractedAt": "2026-02-03T16:37:58.275159+00:00"
+  },
+  "enqueued_extractPages": 103
+}

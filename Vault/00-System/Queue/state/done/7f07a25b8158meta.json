@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "7f07a25b8158:meta",
+    "sourceId": "7f07a25b8158",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Ravenloft Gamemaster Screen.pdf",
+    "title": "Ravenloft Gamemaster Screen",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T17:00:35.450073+00:00",
+  "meta": {
+    "sourceId": "7f07a25b8158",
+    "title": "Ravenloft Gamemaster Screen",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Ravenloft Gamemaster Screen.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T17:00:35.446189+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

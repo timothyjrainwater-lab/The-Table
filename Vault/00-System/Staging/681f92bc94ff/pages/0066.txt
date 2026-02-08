@@ -1,0 +1,136 @@
+ 
+ 65
+For example, Gimble the bard wants to entertain a band of 
+dwarves who are staying at the same inn where he and his party are 
+staying. Before playing his lute, Gimble listens to the dwarves’ 
+drinking songs so he can judge their mood. Doing so improves his 
+performance, giving him a +2 circumstance bonus on his check. His 
+player rolls a 5 and adds +9 for his skill modifier (4 ranks, +3 
+Charisma modifier, and +2 for his impromptu research). His result is 
+14. The DM sets the DC at 15. However, the dwarves are in a good 
+mood because they have recently won a skirmish with orc bandits, 
+so the DM reduces the DC to 13. (Gimble’s performance isn’t better 
+just because the dwarves are in a good mood, so Gimble doesn’t get a 
+bonus to add into his skill modifier. Instead, the DC goes down.) 
+The leader of the dwarven band, however, has heard that a gnome 
+spy works for the bandits, and he’s suspicious of Gimble. The DC to 
+entertain him is higher than normal: 17 instead of 15. Gimble’s skill 
+check result (14) is high enough to entertain the dwarves (DC 13) 
+but not their leader (DC 17). The dwarves applaud Gimble and offer 
+to buy him drinks, but their leader eyes him suspiciously. 
+ 
+Time and Skill Checks 
+Using a skill might take a round, take no time, or take several 
+rounds or even longer. Most skill uses are standard actions, move 
+actions, or full-round actions. Types of actions define how long 
+activities take to perform within the framework of a combat round 
+(6 seconds) and how movement is treated with respect to the activity 
+(see Action Types, page 138). Some skill checks are instant and 
+represent reactions to an event, or are included as part of an action. 
+These skill checks are not actions. Other skill checks represent part 
+of movement. The distance you jump when making a Jump check, 
+for example, is part of your movement. Each skill description 
+specifies the time required to make a check. 
+ 
+Practically Impossible Tasks 
+Sometimes you want to do something that seems practically 
+impossible. In general, a task considered practically impossible has a 
+DC of 40, 60, or even higher (or it carries a modifier of +20 or more 
+to the DC). 
+Practically impossible tasks are hard to delineate ahead of time. 
+They’re the accomplishments that represent incredible, almost 
+logic-defying skill and luck. Picking a lock by giving it a single, swift 
+kick might entail a +20 modifier to the DC; swimming up a waterfall 
+could require a Swim check against DC 80; and balancing on a 
+fragile tree branch might have a DC of 90. 
+The DM decides what is actually impossible and what is merely 
+practically impossible. Characters with very high skill modifiers are 
+capable of accomplishing incredible, almost unbelievable tasks, just 
+as characters with very high combat bonuses are. 
+ 
+Checks without Rolls 
+A skill check represents an attempt to accomplish some goal, usually 
+while under some sort of time pressure or distraction. Sometimes, 
+though, a character can use a skill under more favorable conditions 
+and eliminate the luck factor. 
+Taking 10:  When your character is not being threatened or dis-
+tracted, you may choose to take 10. Instead of rolling 1d20 for the 
+skill check, calculate your result as if you had rolled a 10. For many 
+routine tasks, taking 10 makes them automatically successful. Dis-
+tractions or threats (such as combat) make it impossible for a 
+character to take 10. In most cases, taking 10 is purely a safety 
+measure —you know (or expect) that an average roll will succeed 
+but fear that a poor roll might fail, so you elect to settle for the 
+average roll (a 10). Taking 10 is especially useful in situations where 
+a particularly high roll wouldn’t help (such as using Climb to ascend 
+a knotted rope, or using Heal to give a wounded PC long-term care). 
+For example, Krusk the barbarian has a Climb skill modifier of +6 
+(4 ranks, +3 Strength modifier, –1 penalty for wearing studded 
+leather armor). The steep, rocky slope he’s climbing has a Climb DC 
+of 10. With a little care, he can take 10 and succeed automatically. 
+But partway up the slope, a goblin scout begins pelting him with 
+sling stones. Krusk needs to make a Climb check to get up to the 
+goblin, and this time he can’t simply take 10. If his player rolls 4 or 
+higher on 1d20, he succeeds. 
+Taking 20:  When you have plenty of time (generally 2 minutes 
+for a skill that can normally be checked in 1 round, one full-round 
+action, or one standard action), you are faced with no threats or 
+distractions, and the skill being attempted carries no penalties for 
+failure, you can take 20. In other words, eventually you will get a 20 
+on 1d20 if you roll enough times. Instead of rolling 1d20 for the skill 
+check, just calculate your result as if you had rolled a 20. Taking 20 
+means you are trying until you get it right, and it assumes that you 
+fail many times before succeeding. Taking 20 takes twenty times as 
+long as making a single check would take. Since taking 20 assumes 
+that the character will fail many times before succeeding, if you did 
+attempt to take 20 on a skill that carries penalties for failure (for 
+instance, a Disable Device check to disarm a trap), your character 
+would automatically incur those penalties before he or she could 
+complete the task (in this case, the character would most likely set 
+off the trap). Common “take 20” skills include Escape Artist, Open 
+Lock, and Search. 
+For example, Krusk comes to a cliff face. He attempts to take 10, 
+for a result of 16 (10 plus his +6 skill modifier), but the DC is 20, and 
+the DM tells him that he fails to make progress up the cliff. (His 
+check is at least high enough that he does not fall.) Krusk cannot 
+take 20 because there is a penalty associated with failure (falling, in 
+this case). He can try over and over, and eventually he may succeed, 
+but he might fall one or more times in the process. Later, Krusk 
+finds a cave in the cliff and searches it. The DM sees in the Search 
+skill description that each 5-foot-square area takes a full-round 
+action to search, and she secretly assigns a DC of 15 to the attempt. 
+She estimates that the floors, walls, and ceiling of the cave make up 
+about ten 5-foot squares, so she tells Krusk’s player that it takes 1 
+minute (10 rounds) to search the whole cave. Krusk’s player gets a 
+result of 12 on 1d20, adds no skill ranks because Krusk doesn’t have 
+the Search skill, and adds –1 because that is Krusk’s Intelligence 
+modifier. His roll fails. Now the player declares that Krusk is going 
+to search the cavern high and low, taking as long as it takes. The DM 
+takes the original time of 1 minutes and multiplies it by 20, for 20 
+minutes. That’s how long it takes for Krusk to search the whole cave 
+in exacting detail. Now Krusk’s player treats his roll as if it were 20, 
+for a result of 19. That’s good enough to beat the DC of 15, and 
+Krusk finds an old, bronze key discarded under a loose rock. 
+Ability Checks and Caster Level Checks:  The normal take 10 
+and take 20 rules apply for ability checks. Neither rule applies to 
+caster level checks (such as when casting dispel magic or attempting 
+to overcome spell resistance). 
+ 
+COMBINING SKILL ATTEMPTS 
+When more than one character tries the same skill at the same time 
+and for the same purpose, their efforts may overlap. 
+ 
+Individual Events 
+Often, several characters attempt some action and each succeeds or 
+fails independently. 
+For example, Krusk and each of his friends needs to climb a slope 
+if they’re all to get to the top. Regardless of Krusk’s roll, the other 
+characters need successful checks, too. Every character makes a skill 
+check. 
+ 
+Aid Another 
+You can help another character achieve success on his or her skill 
+check by making the same kind of skill check in a cooperative effort. 
+If you roll a 10 or higher on your check, the character you are 
+CHAPTER 4: 
+SKILLS 

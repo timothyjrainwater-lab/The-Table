@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "804715997b90:meta",
+    "sourceId": "804715997b90",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Pirate - Power Class.pdf",
+    "title": "Pirate - Power Class",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:51:06.150545+00:00",
+  "meta": {
+    "sourceId": "804715997b90",
+    "title": "Pirate - Power Class",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Pirate - Power Class.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-03T15:51:06.079314+00:00"
+  },
+  "enqueued_extractPages": 6
+}

@@ -1,0 +1,123 @@
+ 
+
+The DM may allow characters with this skill to
+havesomeunderstandingofplanesaside fromthe Realm
+cof Dread (as described in the D Player’s Handbook). Ifso,
+increase the DC by 10 for such checks.
+
+Relying on Folklore: Knowledge skills mix aca-
+demic study with a broad overview of legend and
+superstition. Characters can attempt to use Knowl-
+edge skills untrained by relying on their knowledge
+of common wisdom and folklore. However, folk-
+lore is often misleading. An untrained Knowledge
+check is an intelligence check, which the DM
+should roll in private. If a character trained in a
+Knowledge skill fails the check, she realizes that
+she simply does not know the needed information.
+If an untrained character fails the check, the DM
+should provide a skewed (or even dangerously
+unreliable) version of the desired information.
+
+New Shill
+
+The following is a class skill for monks, sorcer-
+ers and wizards.
+Pypnosis (Cha; Crained Only)
+
+You have studied the hidden workings of the
+human mind and can unlock its secrets.
+
+  
+
+Check: Youcan use hypnosis to induce adeep,
+calming trance in your subject. The effects of a
+hypnotic trance are identical to those created by
+the hypnotism spell. Unlike the spell, however, the
+skill allows you to hypnotize only one target at a
+time, who does not receive the —2 penalty on her
+Will save. Each attempt to use hypnosis requires |
+hour, If the target is unwilling, you must first
+succeed at a Bluff check to disguise your intent.
+
+A Hypnosis check is opposed by the target's
+Will save. Loud or distracting surroundings grant a
++2 circumstance modifier to the target’s Will save.
+Willing targets can voluntarily choose not to make
+their saving throw.
+
+Once the target is hypnotized, you can either
+planta suggestion (as per the hypnotism spell) oraid
+the recovery of a target who suffers from the effects
+of a failed Madness save. The latter option is
+detailed under Recovering from Madness in Chap-
+ter Three
+
+Retry: Generally, you cannot retry a Hypnosis
+check against an unwilling target; the target be-
+comes too suspicious to cooperate. Ifattempting to
+hypnotize a willing target, you may retry freely.
+Retries are a vital component in the process of
+helping targets recover from Madness effects, in
+fact.
+
+ 
+
+ 
+
+henhe was angry, one of his eyes became so
+terrible, that no person could bear to behold
+it; and the wretch upon whom it was fixed
+instantly fell backward, and sometimes
+expired.
+— William Beckford, Vathek
+Gothic tales often feature characters whose
+strange abilities link them — perhaps unwillingly
+— to supernatural forces but allow them to prevail.
+Some of these new feats are listed with
+roleplaying prerequisites, such as the death re-
+quired by Haunted. You can still take these feats at
+1st level by incorporating the event into your
+character’s background.
+
+Back to the Mall [General]
+
+You are at your best when your situation is at
+its worst. The minions of evil may overwhelm you,
+but the gods be damned if you don’t take a few of
+them down with you.
+
+Prerequisite: Base attack bonus +2.
+
+Benefit: You gain a +2 bonus on attack rolls
+and to Armor Class when you are at one quarter or
+less of your maximum normal hit points.
+
+Cold One [General]
+
+You are cold and clammy to the touch.
+
+Prerequisite: You must have lost at least one
+level to an energy drain attack.
+
+Benefit: Mindless undead (those without In-
+telligence scores) ignore you unless you attack
+them first. Intelligent undead must succeed at a
+Wisdom check at DC 13 to realize that you are not
+undead. Due to your slowed metabolism, if you are
+ever dying (reduced to-1 to-9 hit points), you lose
+hit points at the rate of only 1 point every 2 rounds.
+When recovering from damage via natural heal-
+ing, you recover only 1/2 hit point per character
+level per day of rest (round down, with 1 hp/day as
+the minimum). This is an extraordinary quality.
+
+Courage [General]
+You are particularly fearless in the face of danger.
+Benefit: You get a +4 bonus on all Fear saves.
+
+Dead Man @alking [General]
+
+Aftera brush with the horrors of the night, you
+accept that you are living on borrowed time.
+

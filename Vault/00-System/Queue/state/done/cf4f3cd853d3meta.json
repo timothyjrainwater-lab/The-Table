@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "cf4f3cd853d3:meta",
+    "sourceId": "cf4f3cd853d3",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Book of The Shadowlands - The Writings of Kuni Mokuna.pdf",
+    "title": "The Book of The Shadowlands - The Writings of Kuni Mokuna",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:21:04.233880+00:00",
+  "meta": {
+    "sourceId": "cf4f3cd853d3",
+    "title": "The Book of The Shadowlands - The Writings of Kuni Mokuna",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Book of The Shadowlands - The Writings of Kuni Mokuna.pdf",
+    "pages": 161,
+    "extractedAt": "2026-02-03T20:21:04.226471+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

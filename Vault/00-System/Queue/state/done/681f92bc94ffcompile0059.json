@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0059",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 59,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:02:07.499768+00:00"
+  },
+  "doneAt": "2026-02-03T08:01:05.975822+00:00",
+  "citation": "PHB (pdf p.0059)",
+  "printedGuess": "58",
+  "touched": [],
+  "createdTables": [
+    "Table —  (PHB 3–2)",
+    "Table — Ability Modifiers (PHB 1–1)",
+    "Table — Experience and (PHB 3–2)"
+  ]
+}

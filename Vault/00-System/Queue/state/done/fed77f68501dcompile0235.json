@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0235",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 235,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:25:10.461257+00:00"
+  },
+  "doneAt": "2026-02-05T17:11:57.723689+00:00",
+  "citation": "DMG (pdf p.0235)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Item Intelligence, Wisdom, Charisma, and rod's energy can be used to cast any spell of the appropriate level (PHB 7–30)"
+  ]
+}

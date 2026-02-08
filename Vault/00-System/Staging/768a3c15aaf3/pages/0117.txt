@@ -1,0 +1,169 @@
+ 
+
+ 
+     
+     
+
+F aS th
+
+grant the wish, but they always try to pervert its
+intent. Thus, this spell rarely performs as desired
+when cast in Ravenloft. When evil characters wish
+for something dark and twisted, they have a 50%
+chance of receiving their wish exactly as requested,
+indicating that the Dark Powers deemed the wish’s
+intent to be already corrupted.
+
+ 
+
+A wish intended to allow you to escape from
+Ravenloft, destroy a darklord, or otherwise violate
+one of the basic tenets of the land simply fails. Any
+wish used for evil requires a powers check.
+
+Locate Creature: As locate object, butadarklord
+can always attempt a Will save to avoid being
+discovered by this spell. If the darklord succeeds at
+this saving throw, he also instantly knows the
+location of the person who cast it.
+
+Locate Object: See Closed Domain Borders.
+This spell cannot detect a subject on the other side
+of a domain border, even if it is within the spell’s
+normal range — or even within eyeshot.
+
+Magic Jar: This spell undergoes disturbing
+changes. If your host’s body is slain, your spirit does
+not necessarily return to the magic jar. You must
+succeed at a Will save or be bound to your host’s
+corpse. If the save succeeds, the spell works nor-
+mally. Otherwise, you become an undead monster
+occupying the host’s body; add the “Undead” spe-
+cial quality (see the Monster Manual). In addition,
+you receive special powers depending on the previ-
+ous HD of your host body:
+
+ 
+
+Hit Dice Special Powers
+
+4.or fewer None
+
+5-7 Enervating touch (Su)
+8-1 Fast healing (Ex)
+
+12+ ‘Aura of fear (Su)
+
+Enervating Touch (Su): This touch attack per-
+forms just as the enervation spell.
+
+Fast Healing (Ex
+damage per round.
+
+‘Aura of Fear (Su): This power performs as the
+spell fear, except that the area affected is a sphere
+surrounding you at all times, not a cone.
+
+ 
+
+You recover 1 hit point of
+
+These special powers are cumulative. Hence, a
+12-HD monster would enjoy all three.
+
+If the host’s corpse is not destroyed within 24
+hours of death, it animates with your life force. If
+the head or torso has been destroyed, you die.
+
+Your original body also animates as an undead
+creature under your control. This creature has no
+Intelligence score and only half as many Hit Dice
+as you had caster levels. The DM can choose the
+specific type of undead creature created.
+
+ 
+
+Lane oN
+
+aes ONrusamend ae
+
+ 
+
+ 
+
+ 
+
+Lastly, the life force of the host remains trapped
+in the jar. This imprisoned life force should be
+considered a ghost, and it may eventually learn to
+reach out from its prison to avenge itself.
+
+Destroying the receptacle usually kills the life
+force within it but doesnot end the spell. When the
+spell duration runs out your life force is still ex-
+pelled from the host’s body but is unable to return
+to your own body, becoming a ghost. Casting this
+spell requires a powers check.
+
+Mark of Justice: See bestow curse.
+
+Maze: See Nondimensional Spaces.
+
+Miracle: As limited wish.
+
+Modify Memory: This spell can negate the
+effects of a failed Fear or Horror save and can be
+used to restore memories lost to failed Madness
+saves. You either wipe the memory of the event
+from thesubject’s mind oralter the subject’smemory
+so that the horror of the situation is masked.
+
+The spell can cause sinister effects as well. If
+used to force a subject to relive a scene that was
+originally cause for a Horror save, the subject acts
+as though she were there. If the results of a previous
+Horror save for that situation failed, then the
+results of that failure may come back to haunt the
+victim. Forexample, if the previous result had been
+Aversion, the character again feels the need torun
+in horror. If the previous Horror save succeeded,
+the subject must make a new Horror save, witha +1
+morale bonus for having survived the scene before.
+
+Keep in mind that this spell cannot be used to
+alter a subject’s personality or alignment. Even if a
+good character is given the memories of a foul
+villain, she continues to follow her conscience —
+perhaps coming to believe that she has “reformed.”
+
+ 
+
+ 
+
+ 
+
+Making a person relive a scene of horror al-
+most certainly warrants a powers check.
+
+Mordenkainen’s Faithful Hound: See Con-
+juration (Summoning). The watchdog has the
+Mists descriptor.
+
+Mordenkainen’s Magnificent Mansion: See
+Nondimensional Spaces.
+
+Mount: See Conjuration (Summoning).
+
+Neutralize Poison: See Closed Domain Borders.
+
+Nightmare: If the victim is killed by the damage
+dealtby this spell, she returns from death asa bastellus.
+This creature is free willed but remembers nothing of
+its mortal life, so it does not seek revenge. Casting
+this spell requires a powers check.
+
+Phantom Steed: See Conjuration (Summon-
+ing). The steed has the Mists descriptor.
+
+ 
+

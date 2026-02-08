@@ -1,0 +1,132 @@
+ 
+ 83
+Action: Varies, as noted above. 
+Try Again: See above. 
+Special: If you are a specialist wizard, you get a +2 bonus on 
+Spellcraft checks when dealing with a spell or effect from your 
+specialty school. You take a –5 penalty when dealing with a spell or 
+effect from a prohibited school (and some tasks, such as learning a 
+prohibited spell, are just impossible). 
+If you have the Magical Aptitude feat, you get a +2 bonus on 
+Spellcraft checks. 
+Synergy: If you have 5 or more ranks in Knowledge (arcana), you 
+get a +2 bonus on Spellcraft checks. 
+If you have 5 or more ranks in Use Magic Device, you get a +2 
+bonus on Spellcraft checks to decipher spells on scrolls. 
+If you have 5 or more ranks in Spellcraft, you get a +2 bonus on 
+Use Magic Device checks related to scrolls. 
+Additionally, certain spells allow you to gain information about 
+magic, provided that you make a successful Spellcraft check as 
+detailed in the spell description. (For example, see the detect magic  
+spell, page 219.) 
+ 
+SPOT (WIS) 
+Use this skill to notice bandits waiting in ambush, to see a rogue 
+lurking in the shadows, to see through a disguise, to read lips, or to 
+see the monstrous centipede in the pile of trash. 
+Check: The Spot skill is used primarily to detect characters or 
+creatures who are hiding. Typically, your Spot check is opposed by 
+the Hide check of the creature trying not to be seen. Sometimes a 
+creature isn’t intentionally hiding but is still difficult to see, so a 
+successful Spot check is necessary to notice it. 
+A Spot check result higher than 20 generally lets you become 
+aware of an invisible creature near you, though you can’t actually see 
+it. 
+Spot is also used to detect someone in disguise (see the Disguise 
+skill, page 72), and to read lips when you can’t hear or understand 
+what someone is saying. 
+The Dungeon Master may call for Spot checks to determine the 
+distance at which an encounter begins. A penalty applies on such 
+checks, depending on the distance between the two individuals or 
+groups, and an additional penalty may apply if the character making 
+the Spot check is distracted (not concentrating on being observant). 
+ 
+Condition Penalty 
+Per 10 feet of distance –1 
+Spotter distracted –5  
+ 
+Read Lips: To understand what someone is saying by reading lips, 
+you must be within 30 feet of the speaker, be able to see him or her 
+speak, and understand the speaker’s language. (This use of the skill 
+is language-dependent.) The base DC is 15, but it increases for 
+complex speech or an inarticulate speaker. You must maintain a line 
+of sight to the lips being read. 
+If your Spot check succeeds, you can understand the general 
+content of a minute’s worth of speaking, but you usually still miss 
+certain details. If the check fails by 4 or less, you can’t read the 
+speaker’s lips. If the check fails by 5 or more, you draw some incor-
+rect conclusion about the speech. Your DM rolls your check secretly 
+in this case, so that you don’t know whether you succeeded or 
+missed by 5. 
+Action: Varies. Every time you have a chance to spot something 
+in a reactive manner (for example, when someone tries to sneak past 
+you while hidden, or you move into a new area), you can make a 
+Spot check without using an action. Trying to spot something you 
+failed to see previously is a move action. To read lips, you must 
+concentrate for a full minute before making a Spot check, and you 
+can’t perform any other action (other than moving at up to half 
+speed) during this minute. 
+Try Again: Yes. You can try to spot something that you failed to 
+see previously at no penalty. You can attempt to read lips once per 
+minute. 
+Special: A fascinated creature takes a –4 penalty on Spot checks 
+made as reactions. 
+If you have the Alertness feat, you get a +2 bonus on Spot checks. 
+A ranger gains a bonus on Spot checks when using this skill 
+against a favored enemy (see page 47). 
+An elf has a +2 racial bonus on Spot checks because elves have 
+keen senses. 
+A half-elf has a +1 racial bonus on Spot checks. Her eyesight is 
+good because of her elven heritage, but not as keen as that of a full 
+elf. 
+The master of a hawk familiar (see the Familiars sidebar, page 52) 
+gains a +3 bonus on Spot checks in daylight or other lighted areas. 
+The master of an owl familiar (see the Familiars sidebar, page 52) 
+gains a +3 bonus on Spot checks in shadowy or other darkened areas. 
+ 
+SURVIVAL (WIS) 
+Use this skill to follow tracks, hunt wild game, guide a party safely 
+through frozen wastelands, identify signs that owlbears live nearby, 
+predict the weather, or avoid quicksand and other natural hazards. 
+Check: You can keep yourself and others safe and fed in the wild. 
+The table below gives the DCs for various tasks that require Survival 
+checks. 
+Survival does not allow you to follow difficult tracks unless you 
+are a ranger or have the Track feat (see the Restriction section 
+below). 
+ 
+Survival DC  Task 
+ 10  Get along in the wild. Move up to one-half your 
+  overland speed while hunting and foraging (no food 
+  or water supplies needed). You can provide food and 
+  water for one other person for every 2 points by which 
+  your check result exceeds 10. 
+ 15 Gain a +2 bonus on all Fortitude saves against severe 
+  weather while moving up to one-half your overland 
+  speed, or gain a +4 bonus if you remain stationary. 
+  You may grant the same bonus to one other character 
+  for every 1 point by which your Survival check result 
+  exceeds 15. 
+ 15  Keep from getting lost or avoid natural hazards, such 
+  as quicksand. 
+ 15  Predict the weather up to 24 hours in advance. For 
+  every 5 points by which your Survival check result 
+  exceeds 15, you can predict the weather for one 
+  additional day in advance. 
+ Varies  Follow tracks (see the Track feat).  
+ 
+Action: Varies. A single Survival check may represent activity 
+over the course of hours or a full day. A Survival check made to find 
+tracks is at least a full-round action, and it may take even longer at 
+the DM’s discretion. 
+Try Again: Varies. For getting along in the wild or for gaining the 
+Fortitude save bonus noted in the table above, you make a Survival 
+check once every 24 hours. The result of that check applies until the 
+next check is made. To avoid getting lost or avoid natural hazards, 
+you make a Survival check whenever the situation calls for one. 
+Retries to avoid getting lost in a specific situation or to avoid a 
+specific natural hazard are not allowed. For finding tracks, you can 
+retry a failed check after 1 hour (outdoors) or 10 minutes(indoors) of 
+searching. 
+CHAPTER 4: 
+SKILLS 

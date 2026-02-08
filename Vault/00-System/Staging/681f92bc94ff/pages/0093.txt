@@ -1,0 +1,142 @@
+ 
+ 92 
+CLEAVE [GENERAL] 
+You can follow through with powerful blows. 
+Prerequisites: Str 13, Power Attack. 
+Benefit: I f  y o u  d e a l  a  c r e a t u r e  e n o u g h  d a m a g e  t o  m a k e  i t  d r o p  
+(typically by dropping it to below 0 hit points or killing it), you get 
+an immediate, extra melee attack against another creature within 
+reach. You cannot take a 5-foot step before making this extra attack. 
+The extra attack is with the same weapon and at the same bonus as 
+the attack that dropped the previous creature. You can use this 
+ability once per round. 
+Special: A fighter may select Cleave as one of his fighter bonus 
+feats (see page 38). 
+ 
+COMBAT CASTING [GENERAL] 
+You are adept at casting spells in combat. 
+Benefit: You get a +4 bonus on Concentration checks made to 
+cast a spell or use a spell-like ability while on the defensive (see 
+Casting on the Defensive, page 140) or while you are grappling or 
+pinned. 
+ 
+COMBAT EXPERTISE [GENERAL] 
+You are trained at using your combat skill for defense as well as 
+offense. 
+Prerequisite: Int 13. 
+Benefit: When you use the attack action or the full attack action 
+in melee, you can take a penalty of as much as –5 on your attack roll 
+and add the same number (+5 or less) as a dodge bonus to your 
+Armor Class. This number may not exceed your base attack bonus. 
+The changes to attack rolls and Armor Class last until your next 
+action. 
+Normal: A character without the Combat Expertise feat can fight 
+defensively while using the attack or full attack action to take a –4 
+penalty on attack rolls and gain a +2 dodge bonus to Armor Class. 
+Special: A fighter may select Combat Expertise as one of his 
+fighter bonus feats (see page 38). 
+ 
+COMBAT REFLEXES [GENERAL] 
+You can respond quickly and repeatedly to opponents who let their 
+defenses down. 
+Benefit: When foes leave themselves open, you may make a 
+number of additional attacks of opportunity equal to your Dexterity 
+bonus. For example, a fighter with a Dexterity of 15 can make a total 
+of three attacks of opportunity in 1 round—the one attack of 
+opportunity any character is entitled to, plus two more because of 
+his +2 Dexterity bonus. If four goblins move out of the character’s 
+threatened squares, he can make one attack of opportunity each 
+against three of the four. You can still make only one attack of 
+opportunity per opportunity. 
+With this feat, you may also make attacks of opportunity while 
+flat-footed. 
+Normal: A character without this feat can make only one attack 
+of opportunity per round and can’t make attacks of opportunity 
+while flat-footed. 
+Special: The Combat Reflexes feat does not allow a rogue to use 
+her opportunist ability (see page 51) more than once per round. 
+A fighter may select Combat Reflexes as one of his fighter bonus 
+feats (see page 38) 
+A monk may select Combat Reflexes as a bonus feat at 2nd level. 
+ 
+CRAFT MAGIC ARMS AND ARMOR 
+[ITEM CREATION] 
+You can create magic weapons, armor, and shields. 
+Prerequisite: Caster level 5th. 
+Benefit: You can create any magic weapon, armor, or shield 
+whose prerequisites you meet (see the Dungeon Master’s Guide  for 
+prerequisites and other information on these items). Enhancing a 
+weapon, suit of armor, or shield takes one day for each 1,000 gp in 
+the price of its magical features. To enhance a weapon, suit of armor, 
+or shield, you must spend 1/25 of its features’ total price in XP and 
+use up raw materials costing one-half of this total price. 
+The weapon, armor, or shield to be enhanced must be a mas-
+terwork item that you provide. Its cost is not included in the above 
+cost. 
+You can also mend a broken magic weapon, suit of armor, or 
+shield if it is one that you could make. Doing so costs half the XP, 
+half the raw materials, and half the time it would take to craft that 
+item in the first place. 
+ 
+CRAFT ROD [ITEM CREATION] 
+You can create magic rods, which have varied magical effects. 
+Prerequisite: Caster level 9th. 
+Benefit: You can create any rod whose prerequisites you meet 
+(see the Dungeon Master’s Guide  for prerequisites and other infor-
+mation on rods). Crafting a rod takes one day for each 1,000 gp in its 
+base price. To craft a rod, you must spend 1/25 of its base price in XP 
+and use up raw materials costing one-half of its base price. 
+Some rods incur extra costs in material components or XP, as 
+noted in their descriptions. These costs are in addition to those 
+derived from the rod’s base price. 
+ 
+CRAFT STAFF [ITEM CREATION] 
+You can create magic staffs, each of which has mul-
+tiple magical effects. 
+Prerequisite: Caster level 12th. 
+Benefit: You can create any staff 
+whose prerequisites you meet 
+(see the Dungeon Master’s 
+Guide for prerequisites and 
+other information on staffs). 
+Crafting a staff takes 
+one day for each 1,000 
+gp in its base price. To 
+craft a staff, you must spend 
+1/25 of its base price in XP and 
+use up raw materials costing 
+one-half of its base price. A 
+newly created staff 
+has 50 charges. 
+Some staffs incur 
+extra costs in material 
+components or XP, as 
+noted in their descrip-
+tions. These costs are in 
+addition to those derived 
+from the staff ’s base price. 
+ 
+CRAFT WAND [ITEM CREATION] 
+You can create wands, which hold spells (see the Dungeon Master’s 
+Guide for rules on wands). 
+Prerequisite: Caster level 5th. 
+Benefit: You can create a wand of any 4th-level or lower spell that 
+you know. Crafting a wand takes one day for each 1,000 gp in its 
+base price. The base price of a wand is its caster level ×  the spell 
+level × 750 gp. To craft a wand, you must spend 1/25 of this base 
+price in XP and use up raw materials costing one-half of this base 
+price. A newly created wand has 50 charges. 
+Any wand that stores a spell with a costly material component or 
+an XP cost also carries a commensurate cost. In addition to the cost 
+derived from the base price, you must expend fifty copies of the 
+material component or pay fifty times the XP cost. 
+ 
+CRAFT WONDROUS ITEM [ITEM CREATION] 
+You can create a wide variety of magic items, such as a crystal ball or a 
+flying carpet. 
+Prerequisite: Caster level 3rd. 
+Lidda dodges
+the ray of a spell cast
+by an evil cleric.
+CHAPTER 5: 
+FEATS 

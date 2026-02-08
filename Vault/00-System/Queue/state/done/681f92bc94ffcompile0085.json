@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0085",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 85,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:23:56.474884+00:00"
+  },
+  "doneAt": "2026-02-03T08:29:53.110861+00:00",
+  "citation": "PHB (pdf p.0085)",
+  "printedGuess": "84",
+  "touched": [],
+  "createdTables": [
+    "Table — Carrying Loads, page 162) (PHB 9–2)"
+  ]
+}

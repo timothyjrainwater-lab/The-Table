@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "e51e83cef810:meta",
+    "sourceId": "e51e83cef810",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Bugbears.pdf",
+    "title": "The Slayer's Guide To Bugbears",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:21:16.510262+00:00",
+  "meta": {
+    "sourceId": "e51e83cef810",
+    "title": "The Slayer's Guide To Bugbears",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Bugbears.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T23:21:16.348699+00:00"
+  },
+  "enqueued_extractPages": 18
+}

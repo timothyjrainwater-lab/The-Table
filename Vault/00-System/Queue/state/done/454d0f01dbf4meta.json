@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "454d0f01dbf4:meta",
+    "sourceId": "454d0f01dbf4",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/Vampires And Liches.pdf",
+    "title": "Vampires And Liches",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T03:03:55.414868+00:00",
+  "meta": {
+    "sourceId": "454d0f01dbf4",
+    "title": "Vampires And Liches",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/Vampires And Liches.pdf",
+    "pages": 58,
+    "extractedAt": "2026-02-04T03:03:55.156845+00:00"
+  },
+  "enqueued_extractPages": 29
+}

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "462b1566ee84:meta",
+    "sourceId": "462b1566ee84",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Deluxe Character Sheets.pdf",
+    "title": "Deluxe Character Sheets",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:41:06.308049+00:00",
+  "meta": {
+    "sourceId": "462b1566ee84",
+    "title": "Deluxe Character Sheets",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Deluxe Character Sheets.pdf",
+    "pages": 68,
+    "extractedAt": "2026-02-03T08:41:05.989496+00:00"
+  }
+}

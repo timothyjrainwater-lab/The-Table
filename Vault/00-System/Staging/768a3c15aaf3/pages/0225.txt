@@ -1,0 +1,76 @@
+Rank: The ancient’s rank. Ancient dead of
+the first and second rank cannot rejuvenate once
+brought to 0 or fewer hit points. Third- and fourth-
+rank ancients cannot rejuvenate if brought to —10
+or fewer hit points. Fifth-rank ancients can rejuy
+nate even if destroyed and usually require some
+special method of permanent destruction.
+
+ 
+
+Rate: The rate at which the ancient recovers
+hit points.
+
+Rest: The number before the slash is the time
+the ancient must lie inert before rejuvenation can
+occur. The number after the slash is the time the
+ancient must lie inert after rejuvenation is com-
+plete. The ancient is always inert during
+rejuvenation. An inert ancient is incapable of any
+action and cannot perceive its surroundings; it is
+effectively helpless. An ancient that has started
+the rejuvenation process cannot end it until it is
+completed
+
+Special Qualities: As base character, plus the
+following:
+
+Energy Vulnerability (Ex): Each of the ancient
+dead is vulnerable to a specific type of energy. The
+energy type varies from creature to creature, but
+vulnerability to fire is most common. The ancient
+
+ 
+
+suffers double damage from attacks of this energy
+type.
+
+Immunity (Ex): The ancient dead are immune
+to certain energy attacks. The exact immunity
+varies from ancient to ancient, but most are im-
+mune to cold. Powerful ancients might be immune
+to additional types of energy. Table 5—6 shows how
+many forms of energy the ancient is immune to.
+Possible energy types include cold, fire, electricity,
+sound, air based, water based, or earth based.
+
+Resistance (Ex): Some ancients have energy
+resistance 20 versus additional forms of energy
+Whether the ancient has such additional resis-
+tance is shown in Table 5-6.
+
+Resistant to Blows (Ex): The ancient dead are
+incredibly resistant to physical < Physical
+attacks only do half damage, applied before damage
+reduction.
+
+  
+
+tacks
+
+Turn Resistance (Ex): The ancient receives
+turn resistance at the value given in Table 5-6,
+
+The ancient might receive additional special
+qualities if it has any salient powers (see below).
+
+ 
+
+Saves: Same as base character:
+Abilities: Refer to Table 5-6. As an undead
+creature, the base character no longer has a Consti-
+
+tution score.
+
+ 
+

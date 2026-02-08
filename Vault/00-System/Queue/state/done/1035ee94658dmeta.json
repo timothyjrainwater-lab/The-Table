@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "1035ee94658d:meta",
+    "sourceId": "1035ee94658d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Quintessential/The Quintessential Monk.pdf",
+    "title": "The Quintessential Monk",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T22:30:47.028016+00:00",
+  "meta": {
+    "sourceId": "1035ee94658d",
+    "title": "The Quintessential Monk",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Quintessential/The Quintessential Monk.pdf",
+    "pages": 130,
+    "extractedAt": "2026-02-03T22:30:46.472831+00:00"
+  },
+  "enqueued_extractPages": 65
+}

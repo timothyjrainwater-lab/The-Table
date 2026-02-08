@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "1ffba17687fb:meta",
+    "sourceId": "1ffba17687fb",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/The Flesh Is Weak.pdf",
+    "title": "The Flesh Is Weak",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:07:44.785572+00:00",
+  "meta": {
+    "sourceId": "1ffba17687fb",
+    "title": "The Flesh Is Weak",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/The Flesh Is Weak.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T21:07:44.734313+00:00"
+  },
+  "enqueued_extractPages": 5
+}

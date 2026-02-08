@@ -1,0 +1,206 @@
+ 
+ 278 
+golem and walk away. When pursued, you 
+change into a flea, which hides on a horse 
+until it can hop off. From there, you can 
+become a dragon, an orc, or just about 
+anything else you are familiar with. 
+If you use this spell to create a disguise, 
+you get a +10 bonus on your Disguise 
+check. 
+Focus: A jade circlet worth no less than 
+1,500 gp, which you must place on your 
+head when casting the spell. (The focus 
+melds into your new form when you 
+change shape.) 
+ 
+Shatter 
+Evocation [Sonic] 
+Level: Brd 2, Chaos 2, Clr 2, Destruction 2, 
+Sor/Wiz 2 
+Components: V, S, M/DF 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Area or Target: 5-ft.-radius spread; or 
+one solid object or one crystalline 
+creature 
+Duration: Instantaneous 
+Saving Throw: Will negates (object); 
+Will negates (object) or Fortitude half; 
+see text 
+Spell Resistance: Yes (object) 
+ 
+Shatter creates a loud, ringing noise that 
+breaks brittle, nonmagical objects; sunders 
+a single solid, nonmagical object; or 
+damages a crystalline creature. 
+Used as an area attack, shatter destroys 
+nonmagical objects of crystal, glass, ce-
+ramic, or porcelain, such as vials, bottles, 
+flasks, jugs, windows, mirrors, and so forth. 
+All such objects within a 5-foot radius of 
+the point of origin are smashed into do-
+zens of pieces by the spell. Objects weigh-
+ing more than 1 pound per your level are 
+not affected, but all other objects of the 
+appropriate composition are shattered. 
+Alternatively, you can target shatter 
+against a single solid object, regardless of 
+composition, weighing up to 10 pounds 
+per caster level. 
+Targeted against a crystalline creature 
+(of any weight), shatter deals 1d6 points of 
+sonic damage per caster level (maximum 
+10d6), with a Fortitude save for half 
+damage. 
+Arcane Material Component:  A chip of 
+mica. 
+ 
+Shield 
+Abjuration [Force] 
+Level: Sor/Wiz 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 min./level (D) 
+ 
+Shield creates an invisible, tower shield-
+sized mobile disk of force that hovers in 
+front of you. It negates magic missile attacks 
+directed at you. The disk also provides a +4 
+shield bonus to AC. This bonus applies 
+against incorporeal touch attacks, since it 
+is a force effect. The shield has no armor 
+check penalty or arcane spell failure 
+chance. Unlike with a normal tower 
+shield, you can’t use the shield spell for 
+cover. 
+ 
+Shield of Faith 
+Abjuration 
+Level: Clr 1 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature touched 
+Duration: 1 min./level 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+This spell creates a shimmering, magical 
+field around the touched creature that 
+averts attacks. The spell grants the subject 
+a +2 deflection bonus to AC, with an 
+additional +1 to the bonus for every six 
+levels you have (maximum +5 deflection 
+bonus at 18th level). 
+Material Component:  A small parchment 
+with a bit of holy text written upon it. 
+ 
+Shield of Law 
+Abjuration [Lawful] 
+Level: Clr 8, Law 8 
+Components: V, S, F 
+Casting Time: 1 standard action 
+Range: 20 ft. 
+Targets: One creature/level in a 20-ft.-
+radius burst centered on you 
+Duration: 1 round/level (D) 
+Saving Throw: See text 
+Spell Resistance: Yes (harmless) 
+ 
+A dim, blue glow surrounds the subjects, 
+protecting them from attacks, granting 
+them resistance to spells cast by chaotic 
+creatures, and slowing chaotic creatures 
+when they strike the subjects. This abjura-
+tion has four effects. 
+First, each warded creature gains a +4 
+deflection bonus to AC and a +4 resistance 
+bonus on saves. Unlike protection from 
+chaos, this benefit applies against all 
+attacks, not just against attacks by chaotic 
+creatures. 
+Second, a warded creature gains spell 
+resistance 25 against chaotic spells and 
+spells cast by chaotic creatures. 
+Third, the abjuration blocks possession 
+and mental influence, just as protection from 
+chaos does. 
+Finally, if a chaotic creature succeeds on 
+a melee attack against a warded creature, 
+the attacker is slowed (Will save negates, as 
+the slow spell, but against shield of law’s save 
+DC). 
+Focus: A tiny reliquary containing some 
+sacred relic, such as a scrap of parchment 
+from a lawful text. The reliquary costs at 
+least 500 gp. 
+ 
+Shield Other 
+Abjuration 
+Level: Clr 2, Pal 2, Protection 2 
+Components: V, S, F 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One creature 
+Duration: 1 hour/level (D) 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+This spell wards the subject and creates a 
+mystic connection between you and the 
+subject so that some of its wounds are 
+transferred to you. The subject gains a +1 
+deflection bonus to AC and a +1 resistance 
+bonus on saves. Additionally, the subject 
+takes only half damage from all wounds 
+and attacks (including that dealt by special 
+abilities) that deal hit point damage. The 
+amount of damage not taken by the 
+warded creature is taken by you. Forms of 
+harm that do not involve hit points, such 
+as charm effects, temporary ability damage, 
+level draining, and death effects, are not 
+affected. If the subject suffers a reduction 
+of hit points from a lowered Constitution 
+score, the reduction is not split with you 
+because it is not hit point damage. When 
+the spell ends, subsequent damage is no 
+longer divided between the subject and 
+you, but damage already split is not 
+reassigned to the subject. 
+If you and the subject of the spell move 
+out of range of each other, the spell ends. 
+Focus: A pair of platinum rings (worth at 
+least 50 gp each) worn by both you and the 
+warded creature. 
+ 
+Shillelagh 
+Transmutation 
+Level: Drd 1 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: One touched nonmagical oak 
+club or quarterstaff 
+Duration: 1 min./level 
+Saving Throw: Will negates (object) 
+Spell Resistance: Yes (object) 
+ 
+Your own nonmagical club or quarterstaff 
+becomes a weapon with a +1 enhancement 
+bonus on attack and damage rolls. (A 
+quarterstaff gains this enhancement for 
+both ends of the weapon.) It deals damage 
+a s  i f  i t  w e r e  t w o  s i z e  c a t e g o r i e s  l a r g e r  ( a  
+Small club or quarterstaff so transmuted 
+deals 1d8 points of damage, a Medium 2d6, 
+and a Large 3d6), +1 for its enhancement 
+bonus. These effects only occur when the 
+weapon is wielded by you. If you do not 
+wield it, the weapon behaves as if 
+unaffected by this spell. 
+CHAPTER 11: 
+SPELLS 

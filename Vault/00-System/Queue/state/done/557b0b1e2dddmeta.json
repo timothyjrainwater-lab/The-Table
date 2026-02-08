@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "557b0b1e2ddd:meta",
+    "sourceId": "557b0b1e2ddd",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Chronomancy - The Power of Time.pdf",
+    "title": "Chronomancy - The Power of Time",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T07:25:15.148323+00:00",
+  "meta": {
+    "sourceId": "557b0b1e2ddd",
+    "title": "Chronomancy - The Power of Time",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Chronomancy - The Power of Time.pdf",
+    "pages": 68,
+    "extractedAt": "2026-02-03T07:25:14.827718+00:00"
+  }
+}

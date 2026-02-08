@@ -1,0 +1,180 @@
+    
+   
+   
+   
+    
+    
+   
+  
+   
+   
+  
+ 
+
+ 
+    
+
+ 
+
+When adding class levels to a creature, you should give it typi-
+cal ability scores appropriate for that class. Most creatures in this
+book are built using the standard array.of ability scores: 11,11, 11,
+10, 10, 10, adjusted by racial modifiers. If you give a creature a PC
+class, such as fighter or druid, use the elite array of ability scores |
+before racial adjustments:15, 14, 13, 12,10, 8, For example, the |
+troll hunter (in the Troll entry) is a ranger and uses the elite array,
+
+iwhich is then modified by. the troll’s racial adjustments (Str+12,,
+Dex +4, Con-+12, Int ~4, Wis -2, Cha —4), Creatures with NPC)
+classes, such as adept or warrior, use the nonelite array of 13,.12,)
+14, 10, 9, 8. The orc warrior presented in this book is an example.
+Estimating CR: Assigning a Challenge Rating is a subjective
+,judgment, not an exact science—meaning that you have control
+over what the CR of an monster with class levels should be. If you
+find a class combination that improves a monster's capabilities sig-
+nificantly—or not as significantly as this guideline supposes—
+jyou should modify its CR as seems logical. Err on the side of over-
+jestimating: If a monster has a higher Challenge Rating than it}
+jdeserves, it's less likely to kill off an entire party than if you had |
+ferred in the other direction,
+
+Associated Class Levels
+Class levels that increase a monster's existing strengths are known
+as associated class levels. Each associated class level a monster has
+increases its CR by 1.
+
+Barbarian, fighter, paladin, and ranger are associated classes for
+ja.creature that relies on its fighting ability, For example, if you add
+jalevel of fighter, barbarian, ranger, or paladin toa frost giant, this
+idirectly improves the monster's existing strengths and is therefore
+
+anassociated class level.
+
+Rogue and ranger are associated classes fora creature that relies on
+\stealth to surprise its foes, or on skill use to give itself an advantage.
+,The babau demon, for example, is “sneaky and sly" and has sneak
+jattack as a special abiliry, Rogue is an associated class for this creature.
+
+A spellcasting class is.an associated class for a creature that al-
+ready has the ability to cast spells as a character of the class in ques-
+tion, since the monster's levels in the spellcasting class stack with
+its innate spellcasting ability. A rakshasa, for example, casts spells!
+as a 7th-level sorcerer. If it picks up a level of sorcerer, it casts |
+spells as an 8th-level sorcerer.
+
+Nonassociated Class Levels
+If you add a class level thar doesn't directly play to a creature's
+strength (such as adding a sorcerer level to a frost giant), the class
+level is considered nonassociated, and things get a little more
+complicated. Adding a nonassociated class level to.a monster
+increases its CR by 1/2 per level until one of its nonassociated
+class levels equals its original Hit Dice. Atthat point, each addi-
+itional level of the same class or a similar one is considered associ-
+sated and increases the monster's CR by 1.
+
+For example, frost giants have 14 HD, After you add 14 levels of
+sorcerer to a frost giant (and +7 to its CR), any further sorcerer
+class levels are considered associated. Adding one more sorcerer
+level increases this particular frost giant's CR by 1
+
+Levels in NPC classes are.always treated as nonassociared.
+
+ADDING HIT DICE
+
+When you improve a monster by adding Hit Dice, use Table 4410
+
+determine the effect on the creature's CR. Keep in mind thar many
+
+-monsters that advance by adding Hit Dice also increase in size. Do
+
+snot stack this CR increase with any.increase from class levels.
+| In general, once you've doubled a creature's CR, you should.
+closely watch any additional increases in its abilities, Adding Hit
+| Dice to a creature improves several of its abilities, and radical in-
+creases might not follow this progression indefinitely. Compare
+the monster's improved attack bonus, saving throw bonuses, and |
+
+    
+
+  
+
+TaBLe 44; IMPROVED MONSTER CR INCREASE
+
+Creature’s Original Type CR Increase
+Aberration, construct, elemental, fey, giant,
+
+humanoid, ooze, plant, undead, vermin +1 per4 HD added
+Animal, magical beast, monstrous humanoid _+1 per 3 HD added
+Dragon, outsider, nonassociated class levels +1 per 2 HD or
+
+2 levels added
+
+Directly associated class levels +1 per. level added
+Other Modifiers:
+Size increased to Large or larger +1to CR
+Monster's ability scores based on elite array*___ +1 to CR
+
+Monster possesses special attacks or qualities
+that significantly improve combat effectiveness +2 to CR
+Monster possesses special attacks or qualities that.
+
+improve combat effectiveness in a minor way. +1. to CR
+Template added + template
+CR modifier
+
+* Do not apply this increase if you advance a monster by class levels.
+|_ (Monsters advanced by class levels are assumed to use the elite array).
+
+‘any DCs of its special abilities from the HD increase to typical
+characters of the appropriate level and adjust the CR accordingly.
+
+INCREASING SIZE
+Generally, increasing a monster's size increases its combat effec-
+tiveness. Large creatures gain increased Strength, reach, and other
+benefits, Apply this modifier if you increase.a creature beyond |
+{Medium and in conjunction with any other increases.
+Be careful, though. Monsters that benefit froma smaller size.
+may actually lose effectiveness because of a size increase.A grig,
+for example, gains AC and attack bonuses for being Tiny, and,
+reduced Dexterity from a.size increase actually hurts its Weapon
+Finesse capability. Monsters that dontt benefit from size increases.
+don't advance in that manner for this reason.
+
+ADDING SPECIAL ABILITIES
+
+You can add any sort of spell-like, supernatural, or extraordinary
+ability to a creature. As with a class level, you should determine
+how much, or how little, this ability adds to the creature's existing
+repertoire. A suite of abilities that work together should be treated
+asa single modifier for this purpose, If the ability (or combination
+of abilities) significantly increases.the monster's combat effective-
+ness, increase its CR by. 2. Minor abilities increase the creature's
+CR by.1.and truly trivial abilities may not increase CR atall. If the
+special abilities a monster gains are not tied to a class or Hit Die
+increase, this CR increase stacks.
+
+A significant special attack is one that stands a good chance of
+incapacitating or crippling a character in one round; the troll’s
+rend ability, while it is dangerous, does not make it significantly
+more dangerous than it already is, but an umber hulk’s confusing
+gaze.can take characters out of the fight every round. A significant
+special quality is. one that seriously diminishes the monster's vul-
+nerability to common attacks, such as spell resistance or an
+undead creature's immunities. Do not add this factor twice if a
+monster has both special attacks and special qualities.
+
+Make sure to “scale” your evaluation of these abilities by the
+monster's current CR. Giving a CR 15 monster built for melee
+combat the ability to.cast bull’s strength once per day is pretty triv-
+ial, taken all by itself. It probably wouldn't bump the CR arall,orat,
+best, by 1. 1f you give a melee combat monster of. CR 1 the same
+
+sability, however, thar's fairly significant: Increase. the CR by 2.
+
+Adding lots of abilities is always problematic. Monsters usually.
+
+only spend a short period of time “on screen’ in any. adventure. If
+| you give a monster more special abilities than it.can reliably use in
+ja single encounter, you may just be increasing complexity for no
+jreal improvement.
+

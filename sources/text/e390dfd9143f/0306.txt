@@ -1,0 +1,174 @@
+CHAPTER 7: GLOSSARY
+
+This chapter provides definitions and descriptions of monster
+characteristics. If you come across a term earlier in this book thar
+you're not familiar with, this is the place to find out more.
+
+Aberration Type: An aberration has a bizarre anatomy, strange |
+
+abilities, an alien mindset, or any combination of the three.
+
+Features; An aberration has the following features.
+
+—d8 Hit Dice.
+
+—Base attack bonus equal to 3/4 total Hit Dice (as cleric),
+
+—Good Will saves.
+
+—Skill points equal to (2 + Int modifier, minimum 1) per Hit
+Die, with quadruple skill points for the first Hit Die.
+
+Tmits: An aberration possesses the following traits (unless oth-
+erwise noted in a creature's entry),
+
+—Darkvision out to.60 feet.
+
+—Proficient with its natural weapons. If generally humanoid in}
+
+(form, proficient with all simple weapons and any weapon it is de-|
+scribed as using.
+
+—Proficient with whatever type of armor (light, medium, or
+heavy) it is described as wearing, as well as all lighter types. Aber-
+rations not indicated as wearing armor are not proficient with
+armor. Aberrations are proficient with shields if they are profi-
+cient with any form of armor.
+
+—Aberrations eat, sleep, and breathe,
+
+Ability Score Loss (Su): Some attacks reduce the opponent's
+score in one or more abilities, This loss can be temporary (ability
+damage) or permanent (ability drain),
+
+Ability Damage: This attack damages an. opponent's ability score.
+
+\The creature's descriptive text gives the ability and the amount of
+
+damage. If an attack that causes ability damage scores a critical hit,
+vit deals twice the indicated amount of damage (if the damage is
+expressed.as a die range, roll two dice). Ability damage returns at
+the rate of 1. point per day for each affected ability.
+
+Ability Drain: This effect permanently reduces a living oppo-
+nent's ability score when the crearure hits with a melee attack, The
+creature's descriptive text gives the ability and the amount,
+drained. If an attack that causes ability drain scores a critical hit, it,
+drains twice the indicated amount (if the damage is expressed as a,
+die range, roll two dice). Unless otherwise specified in the crea-
+ture’s description, a draining creature gains 5 temporary hit points
+(10 on a critical hit) whenever it drains an ability score no matter
+how many points it drains, Temporary hit points gained in this
+fashion last for a maximum of 1 hour,
+
+Some ability drain attacks allow a Fortitude save (DC 10 + 1/2
+draining creature's racial HD + draining creature's Cha modifier,
+ithe exact DC is given in the creature's descriptive text). If no
+\saving throw is mentioned, none is allowed.
+
+Alternate Form (Su); A creature with this special quality has
+the ability to assume.one or more specific alternate forms, This
+ability works much like the polymorph spell, except that the crea-
+ture is limited to the forms specified, and does not regain any hit
+points for changing its form. Assuming an alternate form results
+in the following changes to the creature:
+
+—tThe creature retains the type and subtype of its original form.
+Ir gains the size of its new form,
+
+—The creature loses the natural weapons, natural armor, move-
+
+;mentmodes, and extraordinary special attacks of its original form,
+—The creature gains the natural. weapons, natural armor, move-
+ment. modes, and extraordinary special attacks of its new form.
+—The creature retains the special qualities of its original form.
+It does not gain any special qualities of its new form.
+
+—The creature retains the spell-like abilities and supernatural |
+
+attacks of its old form (except for breath weapons and gaze
+
+attacks), It does not gain the spell-like abilities or supernatural,
+attacks of its new form. {
+—tThe creature gains the physical ability scores (Str, Dex, Con),
+of its new form. It retains the mental ability scores (Int, Wis, Cha);
+of its original form,
+|. —The creature retains its hit points and save bonuses,
+although its save modifiers may change due to a change in ability
+scores,
+—The creature retains any spellcasting ability it had in its orig:
+inal form, although it must be able to speak intelligibly to cast,
+spells with verbal components and it must have humanlike hands |
+to cast spells with somatic components.
+—The creature is effectively camouflaged asa creature of its
+new form, and it gains a +10 bonus on Disguise checks if it,uses
+this ability to create a disguise.
+
+Air Subtype: This subtype usually is used for elementals and
+Joutsiders with a connection to the Elemental Plane Air. Air crea-
+tures always have fly speeds and usually have perfect maneuver-
+Jability (see the section on Movement, page 311).
+
+Alignment; This line in a. monster entry gives the alignment
+that the creature is most likely to have, Every_entry. includes a
+qualifier that indicates how broadly that alignment applies to all
+monsters of that kind,
+
+Always: The creature is born with the indicated alignment. The
+creature may have a hereditary predisposition tothe alignment or,
+come from a plane that predetermines it. Ivis possible for individ- |
+uals to change alignment, but such individuals are either unique |
+or rare exceptions,
+
+Usually: The majority (more than $0%) of these creatures have,
+the given alignment. This may be due to strong cultural influ-|
+ences, or it may be a legacy of the creatures’ origin. For example,
+most elves inherited their chaotic good alignment from their cre~
+ator, the deity Corellon Larethian.
+
+Often: The creature tends toward the given alignment, either by
+nature or nurture, but not strongly. A plurality (40-50%) of indi-
+viduals have the given alignment, but exceptions are common.
+
+ 
+
+Angel Subtype: Angels are a_race of celestials, or good our-
+siders, native to the good-aligned Outer Planes, In the D&D cos-
+mology, these planes are the Seven Mounting Heavens of Celestia,
+the Twin Paradises of Byropia, the Olympian Glades of Arborea,
+the Blessed Fields of Elysium, and the Wilderness of the Beast-
+lands.
+
+‘Traits, An. angel possesses the following traits (unless otherwise
+noted in a.creature’ entry).
+
+—Darkvision out to 60 feet and low-light vision.
+
+—Immunity to acid, cold, and petrification.
+
+—Resistance to electricity 10 and fire 10.
+
+—++ racial bonus on saves against poison.
+
+—Protective Aura (Su): Against attacks made or effects created
+by evil. creatures, this ability provides a.+4 deflection bonus to AC
+and a +4 resistance bonus on saving throws to anyone within 20
+feet of the angel. Otherwise, it functions as a magic circle against evil
+effect and a lesser globe of invulnerability, both with a radius of 20 feet
+(caster level equals angel's HD). (The defensive benefits from the |
+circle are not included in an angel's statistics block.) |
+
+—Tongues (Su); All angels can speak with any creature that has,
+a language, as though using a tongues spell (caster level equal. to!
+angel's Hit Dice). This ability is always active.
+
+Animal Type; An animal is a living, nonhuman. creature, usu-|
+sally.a-vertebrate with no magical abilities and no innate capacity
+{for Janguage or culture.
+
+Features: An animal has the following features (unless otherwise
+
+noted in.a.creature’s entry),
+
+ 
+

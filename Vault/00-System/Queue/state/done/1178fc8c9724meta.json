@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "1178fc8c9724:meta",
+    "sourceId": "1178fc8c9724",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Troll Lords - The Mortality of Green.pdf",
+    "title": "Troll Lords - The Mortality of Green",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:29:29.635509+00:00",
+  "meta": {
+    "sourceId": "1178fc8c9724",
+    "title": "Troll Lords - The Mortality of Green",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Troll Lords - The Mortality of Green.pdf",
+    "pages": 26,
+    "extractedAt": "2026-02-04T02:29:29.516514+00:00"
+  },
+  "enqueued_extractPages": 13
+}

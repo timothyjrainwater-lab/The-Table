@@ -1,0 +1,12 @@
+# Table — Hampered Movement (PHB 9–4)
+
+## Source
+- PHB (pdf p.0164)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

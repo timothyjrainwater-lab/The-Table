@@ -1,0 +1,150 @@
+GRAY SLAAD
+Medium Outsider (Chaotic, Extraplanar)
+Hit Dice: 10d8+50 (95 hp)
+Initiative: +7
+Speed: 30 ft. (6 squares)
+Armor Class; 24 (+3 Dex, +11 natural), touch 13, flat-footed 21
+Base Attack/Grapple: +10/+14
+\Attack: Claw +15 melee (2d4+4)
+Full Attack: 2 claws +15 melee (2d4+4) and bite +12 melee
+(2d8+2)
+Space/Reach: s ft,/s fi.
+Special Attacks: Spell-like abilities, summon slaad
+Special Qualities: Change shape, damage reduction 10/lawful,
+darkvision 60 ft., fast healing 5, immunity to sonic, resistance
+to acid 5, cold 5, electricity 5, and fire 5
+Saves: Fort +12, Ref +10, Will +9
+Abilities: Sux 19, Dex 17, Con 21, Int 14, Wis 14, Cha 14
+Skills: Climb +17, Concentration +15, Hide +16, Jump +17,
+Knowledge (arcana) +15, Listen +15, Move Silently +16, Search |
++15, Spellcraft +17, Spot +15, Survival +5 (+7 following tracks)
+Feats: Multiattack, Improved Initiative, Weapon Focus (claw),
+item creation feat (any one)
+Environment: Eyer-Changing Chaos of Limbo
+Organization: Solitary or pair
+Challenge Rating: 10
+Treasure: Double standard
+Alignment: Usually chaotic neutral
+Advancement: 11-15 HD (Medium); 16-30 HD (Large)
+Level Adjustment: +6
+
+ 
+
+[Lean ond quick-looking, this humanoid resembles. two-legged frog. Its
+skin isa doppled gray color, and it fingers ore long and clawed. jt stands
+as tall os 0 human.
+
+A green slaad that survives for more than a.century.retreats into
+isolation for at least a year. It returns as.a smaller, leaner gray slaad
+and devotes most of its time and attention to magical study. Gray.
+slaadi enjoy crafting magic items to further their own power.,
+
+Combat 1
+Gray slaadi prefer to fight from a distance, using their spell-like,
+abilities, although they dont shy away from melee.
+
+Spell-Like Abilities: At will—chaos hammer (DC 16), deeper
+darkness, detect magic, identify, invisthility, lightning bolt (DC 15), magic
+circle against law, see invisibility, shatter (DC 14); 3/day—animate
+objects, dispel law (DC. 17), fly; 1/day—power. wont stun, Caster level
+10th. The save DCs are Charisma-based.
+
+Change Shape (Su): A gray slaad can assume any humanoid
+form as a standard action, In humanoid form, a gray slaad cannot
+
+|use its narural weapons (although a slaad can equip itself with
+{weapons and armor appropriate to its appearance). A gray slaad re-
+mains in one form until it chooses to assume a new one. A change
+in form cannot be dispelled, but.the slaad reverts to its natural
+form when killed, A true seeing spell reveals its natural form.
+
+Summon Slaad (Sp): Twice per day a gray slaad can attempt to
+summon 1-2 red slaadi or 1 blue slaad with a 60% chance of suc-
+cess, or 1 green slaad with a 40% chance of success, This ability is
+the equivalent of a sth-level spell.
+
+DEATH SLAAD
+Medium Outsider (Chaotic, Extraplanar)
+(Hit Dice: 15d8+75 (142 hp)
+Anitiative: +10
+|Speed: 30 ft. (6 squares)
+
+Armor Class: 28.(+6 Dex, +12 natural), touch 16, flat-footed 22
+Base Attack/Grapple: +15/+20
+Attack: Claw +20 melee (3d6+5 plus stun)
+Full Attack: 2 claws +20 melee (3d6+5 plus stun) and bite +18
+melee (2d10+2)
+Space/Reach: 5 ft./s ft
+|Special Attacks: Stun, spell-like abilities, summon slaad
+Special Qualities: Change shape, damage reduction 10/lawful,
+darkvision 60 ft., fast healing 5, immunity to sonic, resistance
+to acid 5, cold 5, electricity 5, and fire 5, telepathy 100 ft.
+Saves: Fort +14, Ref +15, Will +13
+Abilities: Str 21, Dex.23, Con 21, Int 18, Wis 18, Cha 18
+Skills: Climb +23, Concentration +15, Escape Artist +24, Hide
++24, Intimidate +22, Jump +23, Knowledge (any two) +22,
+Listen +22, Move Silently +24, Search +22, Spot +22, Survival
++12 (+14 when tracking), Use Rope +6 (+8 with bindings)
+\Eeats: Cleave, Great Cleave, Improved Initiative, Improved.
+Sunder, Multiattack, Power Attack
+,Enyironment: Ever-Changing Chaos of Limbo
+Organization: Solitary or pair
+Challenge Rating: 13
+Treasure: Double standard
+Alignment: Usually chaotic evil
+Advancement: 16-22 HD (Medium); 23-45. HD (Large)
+Level Adjustment: —
+
+ 
+
+ 
+
+Lean and quick-looking. this humanoid resembles a two-legged frog. Its;
+skin is q dappled gray color, and its fingers are lang and clawed. It stands.,
+a5 tall as.a human, }
+
+Death slaadi are grays that undergo some mysterious ritual that,
+transforms them into veritable killing machines. Although they
+have spell-like abilities like gray slaadi, death slaadi focus more.on,
+killing than on magical power, They look exactly like gray slaadi,
+
+All slaadi obey the command of a death slaad, out of fear more
+than anything else. Death slaadi represent a corruption of pure
+chaos by evil rather than true exemplars of it.
+
+Combat
+Although its prowess with its narural weapons is fearsome, a death
+slaad enjoys wielding a magic weapon if available.
+
+Stun (Ex): Three times per day, adeath slaad can attempt to
+stun its opponent on an attack with one of its natural weapons. If
+the opponent fails a DC 21 Fortitude save, it is stunned for 1 round
+in addition to taking normal damage from the attack, The save DC
+is Wisdom-based.
+
+Spell-Like Abilities: At will—animate objects, chaos hammer
+(DC 18), deeper darkness, detect magic, dispel law (DC 19), fear (DC 18),
+finger of death (DC 21), fireball (DC 17), fly, identify, invisibility, magic
+circle against law, see invisibility, shatter (DC 16); 3/day—circle of death
+(DC 20), cloak of chaos (DC 22),.wond of chaos (DC 21); 1/day—implo-
+sion (DC 23), pawer.word blind, Caster level 15th. The save DCs are
+Charisma-based.
+
+Change Shape (Su): A death slaad can assume any humanoid
+form.as.a standard action. In humanoid form, a death slaad cannot
+use its natural weapons (although a slaad can equip itself with
+weapons and armot appropriate to its appearance), A death slaad |
+remains in one form until it chooses to assume a new.one. A)
+change in form cannot be dispelled, but the slaad reverts to its nat-|
+ural form. when killed. A true seeing spell reveals its natural form.|
+
+Summon. Slaad (Sp); Twice per day a death slaad can attempt to}
+summon 1-2 red or blue slaadi with a 60% chance of success,.or
+1~2 green slaadi with a40% chance of success. This ability is the,
+
+lequivalent.of a 6th-level spell.
+
+  
+
+ 
+

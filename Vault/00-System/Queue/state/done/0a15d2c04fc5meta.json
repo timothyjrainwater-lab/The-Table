@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "0a15d2c04fc5:meta",
+    "sourceId": "0a15d2c04fc5",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Siren's Prize.pdf",
+    "title": "Siren's Prize",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:53:08.930136+00:00",
+  "meta": {
+    "sourceId": "0a15d2c04fc5",
+    "title": "Siren's Prize",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Siren's Prize.pdf",
+    "pages": 52,
+    "extractedAt": "2026-02-03T18:53:08.922855+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

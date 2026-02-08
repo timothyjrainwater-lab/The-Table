@@ -1,0 +1,111 @@
+ 
+ 43
+Religion: Paladins need not devote themselves to a 
+single deity—devotion to righteousness is enough. Those 
+who align themselves with particular religions prefer 
+Heironeous (god of valor) over all others, but some paladins 
+follow Pelor (the sun god). Paladins devoted to a god are 
+scrupulous in observing religious duties and are welcome in 
+every associated temple. 
+Background: No one ever chooses to be a paladin. 
+Becoming a paladin is answering a call, accepting one’s 
+destiny. No one, no matter how diligent, can become a 
+paladin through practice. The nature is either within 
+one or not, and it is not possible to gain the paladin’s 
+nature by any act of will. It is possible, however, to fail 
+to recognize one’s own potential, or to deny one’s 
+destiny. Occasionally, one who is called to be a paladin 
+denies that call and pursues some other life instead. 
+Most paladins answer the call and begin training 
+as adolescents. Typically, they become squires or 
+assistants to experienced paladins, train for 
+years, and finally set off on their own to 
+further the causes of good and law. Other 
+paladins, however, find their calling only 
+later in life, after having pursued some 
+other career. All paladins, regardless 
+of background, recognize in each 
+other an eternal bond that 
+transcends culture, race, and even 
+religion. Any two paladins, even 
+from opposite sides of the world, 
+consider themselves comrades. 
+Races: Humans, with their 
+ambitious souls, make great 
+paladins. Half-elves, who often 
+have human ambition, may also 
+find themselves called into 
+service as paladins. Dwarves 
+are sometimes paladins, but 
+becoming a paladin may be 
+hard on a dwarf because it 
+means putting the duties of 
+the paladin’s life before 
+duties to family, clan, and king. Elf paladins are few, and they 
+tend to follow quests that take them far and wide because 
+their lawful bent puts them out of synch with life among the 
+elves. Members of the other common races rarely hear the 
+call to become paladins. 
+Among the savage humanoids, paladins are all but 
+unheard of. 
+Other Classes:  Even though paladins are in some ways 
+set apart from others, they eagerly team up with those 
+whose skills and capabilities complement their own. 
+They work well with good and lawful clerics, and 
+they appreciate working with those who are 
+brave, honest, and committed to good. While 
+they cannot abide evil acts by their 
+companions, they are otherwise willing to 
+work with a variety of people quite different 
+from themselves. Charismatic, trustworthy, and 
+well respected, the paladin makes a fine leader 
+for a team. 
+Role: The paladin’s chief role in most 
+groups is as a melee combatant, but she 
+contributes other useful support as well. She 
+makes a good secondary healer, and her high 
+Charisma opens up fine leadership opportu-
+nities. 
+ 
+GAME RULE INFORMATION 
+Paladins have the following game statistics. 
+Abilities: Charisma enhances a paladin’s 
+healing, self-protective capabilities, and 
+undead turning ability. Strength is 
+important for a paladin because of its 
+role in combat. A Wisdom score of 
+14 or higher is required to get 
+access to the most powerful 
+paladin spells, and a score of 11 or 
+h i g h e r  i s  r e q u i r e d  t o  c a s t  a n y  
+paladin spells at all. 
+Alignment: Lawful good. 
+Hit Die: d10. 
+ 
+ 
+Table 3–12: The Paladin 
+ Base Fort Ref Will ———— Spells per Day ———— 
+Level Attack Bonus Save Save Save Special 1st 2nd 3rd 4th 
+ 1st +1 +2 +0 +0 Aura of good, detect evil, smite evil 1/day — — — — 
+ 2nd +2 +3 +0 +0 Divine grace, lay on hands — — — — 
+ 3rd +3 +3 +1 +1 Aura of courage, divine health — — — — 
+ 4th +4 +4 +1 +1 Turn undead 0 — — — 
+ 5th +5 +4 +1 +1 Smite evil 2/day, special mount 0 — — — 
+ 6th +6/+1 +5 +2 +2 Remove disease 1/week 1 — — — 
+ 7th +7/+2 +5 +2 +2  1 — — — 
+ 8th +8/+3 +6 +2 +2  1 0 — — 
+ 9th +9/+4 +6 +3 +3 Remove disease 2/week 1 0 — — 
+10th +10/+5 +7 +3 +3 Smite evil 3/day 1 1 — — 
+11th +11/+6/+1 +7 +3 +3  1 1 0 — 
+12th +12/+7/+2 +8 +4 +4 Remove disease 3/week 1 1 1 — 
+13th +13/+8/+3 +8 +4 +4  1 1 1 — 
+14th +14/+9/+4 +9 +4 +4  2 1 1 0 
+15th +15/+10/+5 +9 +5 +5 Remove disease 4/week, smite evil 4/day 2 1 1 1 
+16th +16/+11/+6/+1 +10 +5 +5  2 2 1 1 
+17th +17/+12/+7/+2 +10 +5 +5  2 2 2 1 
+18th +18/+13/+8/+3 +11 +6 +6 Remove disease 5/week 3 2 2 1 
+19th +19/+14/+9/+4 +11 +6 +6  3 3 3 2 
+20th +20/+15/+10/+5 +12 +6 +6 Smite evil 5/day 3 3 3 3 
+Alhandra 
+CHAPTER 3: 
+CLASSES 

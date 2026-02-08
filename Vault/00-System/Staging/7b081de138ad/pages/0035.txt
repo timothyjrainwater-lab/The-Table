@@ -1,0 +1,133 @@
+ 
+
+CHAPTER TWO: CAVES
+
+Cavern Features
+
+Beyond the cave entrance, the darkness is impen-
+etrable. Those with darkvision have no problem
+discerning their companions, but the remainder of
+their surroundings isa uniform black color. The PCs
+need a light source, and whatever they choose is
+hampered by the mag
+sickly ae surfe
+
+in the ice. The
+
+a 20% chance of d the blocks. The
+subsequent rain of ice deals 3410 points of damage to
+Gejoce dite ven Wienke kaneis Ge
+ground, a Reflex save (DC 15) indicating the PC has
+jumped clear of the falling debris.
+
+Unless otherwise noted, the ceilings are 15 ft. high
+throughout the caverns.
+
+ 
+
+When describingtheatmosphere ofthe cavernstotheplayers,
+keep the tone lonely, ominous, and alien. Instead of the raging
+wind of the ice field, darkness now becomes the PCs’ most
+constant companion. On the open plain, a traveler has the stars
+tokeephim company. In here, beneath ten million tons of earth
+and ice, the silence is deeper. The air seems colder, damper. A
+person hastime to think, toconjure images from nightmares that
+haunt him the entire trip. Even dwarves feel a slight uneasiness
+when passing through this queer red icy darkness. The distant
+sound of dripping water must be a lie, because every surface is
+frozen solid. The cavernsare as red and unnaturalas the river that
+formed them. No one feels quite at his or her ease.
+
+Refer to the appropriate map when the heroes enter the cave.
+
+KeyedLocations
+
+1. Tongue of White (EL 4)
+
+The light dims noticeably as soon as you step into
+the mouth of the cave. The cliff behind you offers a
+commanding view of the Rubicund Chasm and the
+eerie red river that runs through it. In front of you,
+the waning light illuminates a large cavern with four
+distinct passageways, like fingers leading into dark-
+ness. The floor is smooth and slick, but the walls and
+ceiling have been carved like a massive, multifac-
+eted crimson gem by years of flowing water. The
+light reflects in strange patterns off the many sur-
+faces, distorting your sense of depth and distance.
+You can discern a large patch of white ice in the
+middle of the otherwise red cavern, lying between ‘
+- you and the tunnels beyond. i
+
+AND THE HIDDEN VALE
+
+Though there are actually five tunnels leading from thisroom,
+only four are readily apparent. Three of these angle slightly
+upward, terminating in dead ends (Areas 3, 4, and 6); over the
+years, the ice slowly built up on the floor until these passages
+becamesealed offatthe farend where floorandceilingmeet. The
+“thumb” of the hand-shaped chamber is a hidden tunnel,
+obscured from sight by a combination of optics and debris. Light
+reflects off the pile of stones in this area to make it appears if the
+PCsare lookingatasolid wall. A casual glance reveals the passage
+ona Spot check (DC 25). Otherwise, the tunnel is located ona
+Search check (DC 18) if the heroes actively inspect the area.
+Scratched into the ice just inside the entrance is the first of Arak’s
+clues, found on a Search check (DC 15):
+
+The mouth of darkness swallows light
+
+Tread soft the quiet tongue of white
+
+Arak’s metaphor of “quiet tongue of white” alludes to the
+creature that makes this cave its home. The creature lies
+quiescent until the PCs draw near.
+
+Creature: The patch of white ice is not ice at all, but actually
+arare form of arctic ooze. Arctic ooze has the same abilities as its
+cousin, gray ooze, with one exception: its touch inflicts a bone-
+chilling cold that causes paralysis in 1 round and death after 5
+rounds, unless the freezing process is arrested by bringing the
+victim into close proximity with a major heat source, such as a
+campfire. The heat of a single torch isn’t enough to warm the
+victim sufficiently.
+
+Arctic Ooze: CR 4; hp 30; see the Appendix.
+2.Hidden Hall
+
+Anyone traversing thisdownward-sloping passage must make
+a Dexterity check (DC 15) or slip and fall, taking 1d2 points of
+damage. At the far end of the tunnel is a 40-foot pit, the bottom
+of which is covered in ice shards. A fall into the pit deals 5d6
+points of damage. Midway down the pitisasmall crawlspace that
+leads to the passage to Area 7. Because of the mirror effects of the
+red ice, the opening is difficult to see from the top of the shaft
+(Spot check [DC 20]). Anyone who descendsslowly into the pit
+easilyspies thisnarrow tunnel. Climbingthe walls withoutarope
+istricky ,requiringasuccessful Climbcheck (DC 27). Thetunnel
+itselfisa little over 3 feet wide, forcing most PCs tocrawlon their
+hands and knees until it broadens after a few feet, eventually
+leading to Area 7.
+
+3-IcyEnd
+
+The tunnel peters out after a short distance, the result of
+seismic activity, the shifting river, and the ever-increasing
+amount of ice.
+
+4.Coinsof the Dead
+
+The passage comes to an end in a narrow place where
+the floor meets the ceiling, evidently the point of a
+cave-in some time in the distant past. Half buried
+undera mound of rocks is what appears to be an apelike
+humanoid, its fur coated in red ice.
+
+This corpse is all that remains of a yeti that had the misfortune
+of being trapped here when a portion of the ceiling gave way. If
+the PCs “take 20” to excavate the body, they find a small pouch
+made of woven hair, frozen into the flesh around its neck. Inside
+the pouch are 6 featureless, coin-size disks of strange red crystal.
+
+34
+

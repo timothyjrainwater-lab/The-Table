@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "49ceff89ae3b:meta",
+    "sourceId": "49ceff89ae3b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Planes/Beyond Countless Doorways - A Planar Sourcebook.pdf",
+    "title": "Beyond Countless Doorways - A Planar Sourcebook",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:36:33.426863+00:00",
+  "meta": {
+    "sourceId": "49ceff89ae3b",
+    "title": "Beyond Countless Doorways - A Planar Sourcebook",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Planes/Beyond Countless Doorways - A Planar Sourcebook.pdf",
+    "pages": 226,
+    "extractedAt": "2026-02-03T05:36:32.322391+00:00"
+  }
+}

@@ -1,0 +1,137 @@
+ 
+ 126 
+Splint Mail: This armor is made of narrow vertical strips of metal 
+riveted to a backing of leather that is worn over cloth padding. Flex-
+ible chainmail protects the joints. The suit includes gauntlets. 
+Studded Leather:  This armor is made from tough but flexible 
+leather (not hardened leather as with normal leather armor) rein-
+forced with close-set metal rivets. 
+ 
+MASTERWORK ARMOR 
+Just as with weapons, you can purchase or craft masterwork versions 
+of armor or shields. Such a well-made item functions like the normal 
+version, except that its armor check penalty is lessened by 1. For 
+example, a masterwork chain shirt has an armor check penalty of –1 
+rather than –2. 
+A masterwork suit of armor or shield costs an extra 150 gp over 
+and above the normal cost for that type of armor or shield. A mas-
+terwork chain shirt would thus cost 250 gp. 
+The masterwork quality of a suit of armor or shield never provides 
+a bonus on attack or damage rolls, even if the armor or shield is used 
+as a weapon (such as spiked armor or a spiked shield). 
+All magic armors and shields are automatically considered to be 
+of masterwork quality. 
+You can’t add the masterwork quality to armor or a shield after it 
+is created; it must be crafted as a masterwork item. 
+ 
+GOODS AND SERVICES 
+Of course, characters need more than just weapons and armor. Table 
+7–8: Goods and Services provides costs and weights for dozens of 
+other items, and costs for a variety of services that characters can 
+purchase. 
+ 
+ADVENTURING GEAR 
+Adventurers face all sorts of challenges and difficulties, and the 
+right gear can make the different between a successful adventure 
+and failure. Most of this gear is basic equipment that might come in 
+handy regardless of a character’s skills or class. 
+A few of the pieces of adventuring gear found on Table 7–8: 
+Goods and Services (page 128) are described below, along with any 
+special benefits they confer on the user (“you”). For objects with 
+hardness and hit points, see Smashing an Object, page 165. 
+Backpack: A backpack is a leather pack carried on the back, 
+typically with straps to secure it. 
+Bedroll: You never know where you’re going to sleep, and a 
+bedroll helps you get better sleep in a hayloft or on the cold ground. 
+A bedroll consists of bedding and a blanket thin enough to be rolled 
+up and tied. In an emergency, it can double as a stretcher. 
+Blanket, Winter:  A thick, quilted, wool blanket made to keep 
+you warm in cold weather. 
+Caltrops: A caltrop is a four-pronged iron spike crafted so that 
+one prong faces up no matter how the caltrop comes to rest. You 
+scatter caltrops on the ground in the hope that your enemies step on 
+them or are at least forced to slow down to avoid them. One 2- 
+pound bag of caltrops covers an area 5 feet square. 
+Each time a creature moves into an area covered by caltrops (or 
+spends a round fighting while standing in such an area), it might 
+step on one. The caltrops make an attack roll (base attack bonus +0) 
+against the creature. For this attack, the creature’s shield, armor, and 
+deflection bonuses do not count. (Deflection averts blows as they 
+approach, but it does not prevent a creature from touching 
+something dangerous.) If the creature is wearing shoes or other 
+footwear, it gets a +2 armor bonus to AC. If the caltrops succeed on 
+the attack, the creature has stepped on one. The caltrop deals 1 point 
+of damage, and the creature’s speed is reduced by one-half because 
+its foot is wounded. This movement penalty lasts for 24 hours, or 
+until the creature is successfully treated with a DC 15 Heal check, or 
+until it receives at least 1 point of magical curing. A charging or 
+running creature must immediately stop if it steps on a caltrop. Any 
+creature moving at half speed or slower can pick its way through a 
+bed of caltrops with no trouble. 
+The DM judges the effectiveness of caltrops against unusual 
+opponents. A Small monstrous centipede, for example, can slither 
+through an area containing caltrops with no chance of hurting itself, 
+and a fire giant wearing fire giant-sized boots is immune to normal-
+size caltrops. (They just get stuck in the soles of his boots.) 
+Candle: A candle dimly illuminates a 5-foot radius and burns for 
+1 hour. See page 164 for more rules on illumination. 
+Case, Map or Scroll: This capped leather or tin rube holds rolled 
+pieces of parchment or paper. 
+Chain: Chain has hardness 10 and 5 hit points. It can be burst 
+with a DC 26 Strength check. 
+Crowbar: This iron bar is made for levering closed items open. A 
+crowbar is the perfect tool for prying open doors or chests, shat-
+tering chains, and the like, and it grants a +2 circumstance bonus on 
+Strength checks made for such purposes. If used in combat, treat a 
+crowbar as a one-handed improvised weapon (see page 113) that 
+deals bludgeoning damage equal to that of a club of its size. 
+Flask: This ceramic, glass, or metal container is fitted with a tight 
+stopper and holds 1 pint of liquid. 
+Flint and Steel:  Striking steel and flint together creates sparks. 
+By knocking sparks into tinder, you can create a small flame. 
+Lighting a torch with flint and steel is a full-round action, and 
+lighting any other fire with them takes at least that long. 
+Grappling Hook:  When tied to the end of a rope, a grappling 
+hook can secure the rope to a battlement, window ledge, tree limb, 
+or other protrusion. Throwing a grappling hook successfully requi-
+res a Use Rope check (DC 10, +2 per 10 feet of distance thrown). 
+Hammer: This one-handed hammer with an iron head is useful 
+for pounding pitons into a wall. If a hammer is used in combat, treat 
+it as a one-handed improvised weapon (see page 113) that deals 
+bludgeoning damage equal to that of a spiked gauntlet of its size. 
+Ink: This is black ink. You can buy ink in other colors, but it costs 
+twice as much. 
+Inkpen: An inkpen is a wooden stick with a special tip on the 
+end. The tip draws ink in when dipped in a vial and leaves an ink 
+trail when drawn across a surface. 
+Jug, Clay: This basic ceramic jug is fitted with a stopper and holds 
+1 gallon of liquid. 
+Ladder, 10-foot: This item is a straight, simple wooden ladder. 
+Lamp, Common:  A lamp clearly illuminates a 15-foot radius, 
+provides shadowy illumination out to a 30-foot radius, and burns for 
+6 hours on a pint of oil. It burns with a more even flame than a 
+torch, but, unlike a lantern, it uses an open flame and it can spill 
+easily, a fact that makes it too dangerous for most adventuring. You 
+can carry a lamp in one hand.  See page 164 for more rules on 
+illumination. 
+Lantern, Bullseye: A bullseye lantern has only a single shutter. 
+Its other sides are highly polished inside to reflect the light in a 
+single direction. A bullseye lantern provides clear illumination in a 
+60-foot cone and shadowy illumination in a 120-foot cone. It burns 
+for 6 hours on a pint of oil. You can carry a bullseye lantern in one 
+hand. See page 164 for more rules on illumination. 
+Lantern, Hooded:  A hooded lantern has shuttered or hinged 
+sides. It clearly illuminates a 30-foot radius and provides shadowy 
+illumination in a 60-foot radius. It burns for 6 hours on a pint of oil. 
+You can carry a hooded lantern in one hand. See page 164 for more 
+rules on illumination. 
+Lock: A lock is worded with a large, bulky key. The DC to open a 
+lock with the Open Lock skill depends on the lock’s quality: simple 
+(DC 20), average (DC 25), good (DC 30), or superior (DC 40). 
+Manacles and Manacles, Masterwork:  The manacles detailed 
+on Table 7–8: Goods and Services can bind a Medium creature. A 
+manacled creature can use the Escape Artist skill to slip free (DC 30, 
+or DC 35 for masterwork manacles). Breaking the manacles requires 
+a Strength check (DC 26, or DC 28 for masterwork manacles). 
+CHAPTER 7: 
+EQUIPMENT 

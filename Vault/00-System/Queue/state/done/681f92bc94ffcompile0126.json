@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0126",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 126,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:34:17.540456+00:00"
+  },
+  "doneAt": "2026-02-03T09:35:26.625152+00:00",
+  "citation": "PHB (pdf p.0126)",
+  "printedGuess": "125",
+  "touched": [],
+  "createdTables": [
+    "Table — Weapons for the (PHB 7–5)"
+  ]
+}

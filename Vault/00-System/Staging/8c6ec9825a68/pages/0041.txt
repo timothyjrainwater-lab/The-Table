@@ -1,0 +1,195 @@
+   
+  
+   
+   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+    
+ 
+ 
+
+ 
+  
+     
+   
+ 
+ 
+
+   
+   
+
+feature at later levels, such as the ability to wild shape into
+an elemental at 16th level).
+
+Benefit: You can shapeshift at will into powerful animal
+or nature-oriented forms, Each time you use this ability, you
+can choose the exact look that your shapeshifted form takes.
+Druids pick animals from the terrain and climate they're most
+familiar with. For example, a druid from a jungle mightadopt
+the form of a black panther when in predator form, while one
+from the taiga might shapeshift into a white wolf. The svo
+forms look different, but functionally they're identical. This
+is a supernatural ability.
+
+It requires only a swift action to shapeshift. If you are
+capable of taking more than one form, you can shapeshift
+directly between two forms without returning to your normal
+form. There's no limit to the number of times per day you
+can change forms, nor to the amount of time you can spend
+in a shapeshifted form.
+
+You retain your normal Hit Dice, hit points, base attack
+bonus, base saving throw bonuses, and skill ranks regardless
+of your form, You also retain your normal ability scores,
+though each form grants a bonus to your Strength score.
+
+You keep all extraordinary, supernatural, and spell-like
+special attacks and qualities of your normal form, except for
+those requiring a body part your new form does not have.
+
+All your held, carried, or worn gear melds into your new
+form and becomes nonfunctional until you return to your
+normal form. You cannot speak in shapeshifted form, and
+your limbs lack the precision required to wield a weapon ot
+perform tasks requiring fine manipulation. You can't cast
+spells or activate magic items while in shapeshifted form,
+even if you have the Natural Spell feat or other abiliry that
+would allow you to cast spells while wild shaped.
+
+Unless otherwise noted in the descriptions below, you
+retain your size and space when you adopt a new form. You
+always retain your type and subtypes, regardless of the nature
+of the form assumed, You don't gain any special attac
+qualities while shapeshifted except as described below.
+
+When you shapeshilt into a form other than your own,
+you gain natural weapons (and reach with those weapons)
+as described below. These natural weapons gain an enhance-
+ment bonus on attack rolls and damage rolls equal to 1/4
+your druid level, and at 4th level and higher they are treated
+
+ 
+
+ 
+
+ 
+
+  
+
+5 or
+
+as magic weapons for the purpose of overcoming damage
+reduction. The damage dice given are for Medium druids;
+smaller or larger druids should adjust those values according
+to the table on page 28 of the Dungeon Master's Guide.
+
+1f knocked unconscious orslain in shapeshifted form, you
+revert to your original form,
+
+Predator Form: This form, traditionally that of a wolf,
+panther, or other predatory mammal, is the first one a shape-
+shifting druid learns.
+
+While in predator form, you gain a primary bite attack
+that deals tdé points of damage. You have the reach of a long
+creature of your size (5 feet for Small or Medium). You gain a
++4 enhancement bonus to Strength, and your natural armor
+bonus improves by 4. Your base land speed becomes 50 feet
+
+Ar4th level, you gain Mobility as a bonus feat whenever you
+are in predator form (even if you don't meet the prerequisites)
+
+    
+
+    
+
+Aerial Form: At th level, you can shapeshift into a flying
+creature. Traditionally resembling an eagle, vulture, or bat,
+the aerial form enables fast travel and che ability to soar out
+of harm's way.
+
+While in aerial form, you gain a primary talon attack that
+deals 1dé points of damage. You have the reach of a long crea-
+ture of your size (5 feet for Small or Medium), You gain a
+enhancementbonus to Strength anda +2 enhancement bonus
+on Reflex saves, and your natural armor bonus improves by
+2. You gain a fly speed of 40 feet (good maneuverability)
+
+At7th level, you gain Flyby Attack as a bonus fear whenever
+you are in aerial form.
+
+Ferocious Slayer Form: At 8th level, you can shapeshift into
+a large and fierce predatory form, such as a tiger, brown bear,
+or dire wolf.
+
+While in ferocious slayer form, you gain a primary bite attack
+that deals 148 points of damage and two secondary claw attacks
+that each deal 1dé points of damage. Your size increases by one
+category (toa maximum of Colossal), and you have the reach of
+a long creature of your size (5 feet for Medium or Large). You
+gain a +8 enhancement bonus to Strength and a +4 enhance-
+ment bonus on Fortitude saves, and your natural armor bonus
+improves by 8. Your base land speed changes to 40 feet.
+
+At 10th level, you gain Improved Critical (bite) and
+Improved Critical (claw) as bonus feats whenever you are in
+ferocious slayer form.
+
+Forest Avenger Form: At 12th level, you can take the form of
+a massive plantlike creature, similar to a shambling mound
+or a treant. (Druids not native to forest terrains typically
+rename this form to fit their environment.)
+
+While in forest avenger form, you gain a pair of primary
+slam attacks that deal 1d8 points of damage each. Your size
+increases by one category (to a maximum of Colossal) and
+you have the reach of a tall creature of your size (5 feet for
+Medium, 10 feet for Large), You gain a +12 enhancement
+bonus to Strength and a +4 enhancement bonus on Fortitude
+and Will saves, and your natural armor bonus improves by
+12. Your base land speed becomes 20 feet.
+
+You gain damage reduction 5/slashing while in forest
+avenger form
+
+At 14th level, you gain Improved Overrun as a bonus feat
+while in forest avenger form (even if you don't meet the
+normal prerequisites)
+
+Elemental Fury Form: At 16th level, you can shapeshift into
+agiant form of air, earth, fire, or water (your choice each time
+you shapeshift)
+
+While in elemental fury form, you gain a pair of primary
+slam attacks that deal 2d6 points of damage each. Your size
+increases by two categories (to a maximum of Colossal), and
+you have the reach of a tall creature of your size (10 feet for
+Large, 15 feet for Huge). You gain a +16 enhancement bonus to
+Strength and a+4 enhancement bonus on Fortitude, Reflex,
+and Will saves, and your natural armor bonus improves by 16.
+You do not gain any new modes of movement in elemental
+fury form, nor does your base land speed change.
+
+You gain immunity to extra damage from critical hits while
+in elemental form. You also gain immunity toan energy type
+related to the element chosen (air = electricity, earth = acid,
+
+ 
+
+ 
+
+ 
+
+  
+
+   
+
+ 
+

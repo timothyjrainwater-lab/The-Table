@@ -1,0 +1,131 @@
+ 
+ 186 
+ANIMAL DOMAIN 
+Deities: Ehlonna, Obad-Hai. 
+Granted Powers: You can use speak with animals once per day as a 
+spell-like ability. 
+Add Knowledge (nature) to your list of cleric class skills. 
+ 
+Animal Domain Spells 
+1 Calm Animals:  Calms (2d4 + level) HD of animals. 
+2 Hold Animal:  Paralyzes one animal for 1 round/level. 
+3 Dominate Animal:  Subject animal obeys silent mental 
+commands. 
+4 Summon Nature’s Ally IV*:  Calls creature to fight. 
+5 Commune with Nature:  Learn about terrain for 1 mile/level. 
+6 Antilife Shell:  10-ft. field hedges out living creatures. 
+7 Animal Shapes:  One ally/level polymorphs into chosen animal. 
+8 Summon Nature’s Ally VIII*:  Calls creature to fight. 
+9 Shapechange F: Transforms you into any creature, and change 
+forms once per round. 
+*Can only summon animals. 
+ 
+CHAOS DOMAIN 
+Deities: Corellon Larethian, Erythnul, Gruumsh, Kord, Olidam-
+mara. 
+Granted Power: You cast chaos spells at +1 caster level. 
+ 
+Chaos Domain Spells 
+1 Protection from Law:  +2 to AC and saves, counter mind control, 
+hedge out elementals and outsiders. 
+2 Shatter:  Sonic vibration damages objects or crystalline creatures. 
+3 Magic Circle against Law:  As protection spells, but 10-ft. radius 
+and 10 min./level. 
+4 Chaos Hammer:  Damages and staggers lawful creatures. 
+5 Dispel Law:  +4 bonus against attacks by lawful creatures. 
+6 Animate Objects:  Objects attack your foes. 
+7 Word of Chaos:  Kills, confuses, stuns, or deafens nonchaotic 
+subjects. 
+8 Cloak of Chaos F: +4 to AC, +4 resistance, SR 25 against lawful 
+spells. 
+9 Summon Monster IX*:  Calls extraplanar creature to fight for 
+you. 
+*Cast as a chaos spell only. 
+ 
+DEATH DOMAIN 
+Deities: Nerull, Wee Jas. 
+Granted Power: You may use a death touch once per day. Your 
+death touch is a supernatural ability that produces a death effect. 
+You must succeed on a melee touch attack against a living creature 
+(using the rules for touch spells). When you touch, roll 1d6 per 
+cleric level you possess. If the total at least equals the creature’s 
+current hit points, it dies (no save). 
+ 
+Death Domain Spells 
+1 Cause Fear:  One creature of 5 HD or less flees for 1d4 rounds. 
+2 Death Knell:  Kill dying creature and gain 1d8 temporary hp, +2 
+to Str, and +1 caster level. 
+3 Animate Dead M: Creates undead skeletons and zombies. 
+4 Death Ward:  Grants immunity to death spells and negative 
+energy effects. 
+5 Slay Living:  Touch attack kills subject. 
+6 Create Undead M: Create ghouls, ghasts, mummies, or mohrgs. 
+7 Destruction F: Kills subject and destroys remains. 
+8 Create Greater Undead M: Create shadows, wraiths, spectres, r 
+devourers. 
+9 Wail of the Banshee:  Kills one creature/level. 
+DESTRUCTION DOMAIN 
+Deities: St. Cuthbert, Hextor. 
+Granted Power:  You gain the smite power, the supernatural 
+ability to make a single melee attack with a +4 bonus on attack rolls 
+and a bonus on damage rolls equal to your cleric level (if you hit). 
+You must declare the smite before making the attack. This ability is 
+usable once per day. 
+ 
+Destruction Domain Spells 
+1 Inflict Light Wounds:  Touch attack, 1d8 damage +1/level (max 
++5). 
+2 Shatter:  Sonic vibration damages objects or crystalline creatures. 
+3 Contagion:  Infects subject with chosen disease. 
+4 Inflict Critical Wounds:  Touch attack, 4d8 damage +1/level 
+(max +20). 
+5 Inflict Light Wounds, Mass:  Deals 1d8 damage +1/level to any 
+creatures. 
+6 Harm:  Deals 10 points/level damage to target. 
+7 Disintegrate:  Makes one creature or object vanish. 
+8 Earthquake:  Intense tremor shakes 5-ft./level radius. 
+9 Implosion:  Kills one creature/round. 
+ 
+EARTH DOMAIN 
+Deities: Moradin, Obad-Hai. 
+Granted Power:  Turn or destroy air creatures as a good cleric 
+turns undead. Rebuke, command, or bolster earth creatures as an 
+evil cleric rebukes undead. Use these abilities a total number of 
+times per day equal to 3 + your Charisma modifier. This granted 
+power is a supernatural ability. 
+ 
+Earth Domain Spells 
+1 Magic Stone:  Three stones become +1 projectiles, 1d6 +1 
+damage. 
+2 Soften Earth and Stone:  Turns stone to clay or dirt to sand or 
+mud. 
+3 Stone Shape:  Sculpts stone into any shape. 
+4 Spike Stones:  Creatures in area take 1d8 damage, may be lowed. 
+5 Wall of Stone:  Creates a stone wall that can be shaped. 
+6 Stoneskin M: Ignore 10 points of damage per attack. 
+7 Earthquake:  Intense tremor shakes 5-ft./level radius. 
+8 Iron Body:  Your body becomes living iron. 
+9 Elemental Swarm*:  Summons multiple elementals. 
+*Cast as an earth spell only. 
+ 
+EVIL DOMAIN 
+Deities: Erythnul, Gruumsh, Hextor, Nerull, Vecna. 
+Granted Power: You cast evil spells at +1 caster level. 
+ 
+Evil Domain Spells 
+1 Protection from Good:  +2 to AC and saves, counter mind 
+control, hedge out elementals and outsiders. 
+2 Desecrate M: Fills area with negative energy, making undead 
+stronger. 
+3 Magic Circle against Good:  As protection spells, but 10-ft. radius 
+and 10 min./level. 
+4 Unholy Blight:  Damages and sickens good creatures. 
+5 Dispel Good:  +4 bonus against attacks by good creatures. 
+6 Create Undead M: Create ghouls, ghasts, mummies, or mohrgs. 
+7 Blasphemy:  Kills, paralyzes, weakens, or dazes nonevil subjects. 
+8 Unholy Aura F: +4 to AC, +4 resistance, SR 25 against good spells. 
+9 Summon Monster IX*:  Calls extraplanar creature to fight for 
+you. 
+*Cast as an evil spell only. 
+CHAPTER 11: 
+SPELLS 

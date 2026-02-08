@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "631d0c2ae873:meta",
+    "sourceId": "631d0c2ae873",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Heroes of High Favor - Dwarves.pdf",
+    "title": "Heroes of High Favor - Dwarves",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:19:30.700768+00:00",
+  "meta": {
+    "sourceId": "631d0c2ae873",
+    "title": "Heroes of High Favor - Dwarves",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Heroes of High Favor - Dwarves.pdf",
+    "pages": 66,
+    "extractedAt": "2026-02-03T12:19:30.354237+00:00"
+  },
+  "enqueued_extractPages": 33
+}

@@ -1,0 +1,12 @@
+# Table — The Rogue (PHB 3–15)
+
+## Source
+- PHB (pdf p.0050)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

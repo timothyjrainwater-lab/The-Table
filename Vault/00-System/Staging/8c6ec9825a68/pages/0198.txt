@@ -1,0 +1,142 @@
+Taste 8-3: REDUCING ABiLity Scores
+
+Old Score New Score Points Gained
+30 29 9
+29 28 7
+28 27 8
+27 26 6
+26 25 7
+25 24 7
+24 23 6
+23 22 4
+22 2) e
+21 20 3
+20 19 4
+19 18 2
+8 v7 3
+7 16 1
+16 15 2
+15 4 1
+4 13 1
+13 12 1
+12 n 1
+nv 10 1
+10 9 1
+9 8 1
+
+TasLe 8—4; IMPROVING ABILITY SCORES
+
+Old Score NewScore Point Cost
+30 31 10
+29 30 9
+28 29 9
+27 28 8
+26 27 8
+25 26 rf
+24 25 7
+23 24 6
+22 23 6
+21 22 5
+20 21 5
+19 20 4
+18 19 4
+7 18 3
+16 W7 3
+15 16 2
+14 15 2
+B 14 1
+2 13 1
+u 12 1
+10 V 1
+
+Improving an ability score of less than 10 costs 1 point.
+
+Noability score can be reduced below 8 in this fashion, and
+you can't reduce a score that is already below 8, Furthermore,
+you can't reduce any ability score so much that it makes one of
+your other choices (such asa feat) illegal. For example, if your
+character has Power Attack, you can't reduce his Strength to
+less than 13,
+
+Determine the points for each reduction by consulting
+Table 8-3. For ability scores higher than 30, simply extend
+the table by continuing the progression. Add up the points
+gained in this process.
+
+Next, spend the total points you gained through ability
+score reduction to improve one or more of your character's
+other ability scores. Consult Table 8-4 to determine the cost
+
+of each desired improvement. Again, for ability scores higher
+than 30, extend the table by continuing the progression.
+
+Be sure to adjust all other aspects of your character that
+depend on ability scores—including saving throws, skill
+modifiers, and the like—after you've rebuilt his ability scores,
+The one exception is skill ranks, A permanent Intelligence
+change doesn't retroactively increase or reduce the skill ranks
+your character has already gained from previous levels,
+
+CLASS LEVEL REBUILDING
+
+From the multiclass sorcerer who's tired of lagging behind
+in spell acquisition to che fighter who wishes he had taken
+a level of rogue so that he could more easily qualify for a
+desired prestige class, characters often come up short of their
+players’ expectations. Even if you haven't made a “mistake”
+in choosing classes, it's entirely possible that a new class or
+prestige class might offer abilities that are more appropriate
+for your character. For instance, a player whose stealthy rogue
+considers herself a spy and assassin might decide that the
+ninja class (from Complete Adventurer) better describes that
+character. If ninja wasn't an available option when the player
+first created the character, it's not fair to say that she made a
+mistake in raking rogue levels. A more accurate assessment
+would be that the new class better describes what the char-
+acter was always meant to be.
+
+Your character's class levels are the most powerful tools
+for defining his role in the party, not to mention his place in
+the world. So, consider carefully any class level rebuilds that
+would dramatically alter the way your character functions
+in the game—if he's the only frontline fighter in the party,
+trading away a couple of paladin levels for sorcerer levels
+might not be the best decision.
+
+You can alsouse this method to trade out (or add in) prestige
+class levels, though if you want to take levels in a prestige class
+thar’s new to your character, you must be able to demonstrate
+that he can still qualify for it using what he has gained from his
+remaining class levels. For example, a 7th-level dwarf fighter
+couldn't trade a fighter level fora dwarven defender level, since
+his remaining fighter levels wouldn't allow him to meet the
++7 base attack bonus requirement for that prestige class
+
+If reallocating your character's class levels disqualifies him
+fora prestige class in which he already has one or more levels,
+he loses the benefit of any class features or other special abilities
+granted by that prestige class. He retains the hit points gained
+from advancing in that class, as well as any improvements to base
+attack bonus and base save bonuses that those levels provided,
+However, you can always use the class level rebuilding option
+to replace the now-useless prestige class levels as well—and
+you probably should, unless you're sure that the character will
+be able to meet the requirements again soon,
+
+Some players might find it tempting to use this method of
+character rebuilding to create a bizarre but powerful amalgam
+of classes, or to drastically rewrite a character's history. As
+with any important character decisions, the DM and the
+player should work together to ensure that the player's new
+vision of his character still works in the game and fitsin with
+the other characters in the party. As long as the changes don't
+significantly disrupt the game, though, players should play
+
+ 
+
+ 
+
+ 
+
+ 
+

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "134019a9a266:meta",
+    "sourceId": "134019a9a266",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/The Ruins of Castle Grimstead.pdf",
+    "title": "The Ruins of Castle Grimstead",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:01:28.261620+00:00",
+  "meta": {
+    "sourceId": "134019a9a266",
+    "title": "The Ruins of Castle Grimstead",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/The Ruins of Castle Grimstead.pdf",
+    "pages": 18,
+    "extractedAt": "2026-02-03T23:01:28.254432+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

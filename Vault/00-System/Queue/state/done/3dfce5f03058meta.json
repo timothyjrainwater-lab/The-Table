@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "3dfce5f03058:meta",
+    "sourceId": "3dfce5f03058",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 19/The Demon Love Nest.pdf",
+    "title": "The Demon Love Nest",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:47:33.041174+00:00",
+  "meta": {
+    "sourceId": "3dfce5f03058",
+    "title": "The Demon Love Nest",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 19/The Demon Love Nest.pdf",
+    "pages": 12,
+    "extractedAt": "2026-02-03T20:47:32.983588+00:00"
+  },
+  "enqueued_extractPages": 6
+}

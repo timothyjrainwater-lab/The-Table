@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:pages:0089-0090",
+    "sourceId": "fed77f68501d",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/Dungeon Master's Guide.pdf",
+    "pageStart": 89,
+    "pageEnd": 90,
+    "status": "pending",
+    "createdAt": "2026-02-03T09:22:29.751855+00:00"
+  },
+  "doneAt": "2026-02-03T13:11:10.182205+00:00",
+  "wrote": [
+    "00-System/Staging/fed77f68501d/pages/0089.txt",
+    "00-System/Staging/fed77f68501d/pages/0090.txt"
+  ],
+  "method": {
+    "89": "ocr",
+    "90": "ocr"
+  }
+}

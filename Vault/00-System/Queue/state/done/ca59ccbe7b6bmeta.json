@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "ca59ccbe7b6b:meta",
+    "sourceId": "ca59ccbe7b6b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Manual-Extraction/The Shaman's Handbook.pdf",
+    "title": "The Shaman's Handbook",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:14:48.024061+00:00",
+  "meta": {
+    "sourceId": "ca59ccbe7b6b",
+    "title": "The Shaman's Handbook",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Manual-Extraction/The Shaman's Handbook.pdf",
+    "pages": 81,
+    "extractedAt": "2026-02-03T23:14:48.017049+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

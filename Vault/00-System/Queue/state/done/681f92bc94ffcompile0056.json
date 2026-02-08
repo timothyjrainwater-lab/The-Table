@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0056",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 56,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:02:07.481745+00:00"
+  },
+  "doneAt": "2026-02-03T07:56:53.177464+00:00",
+  "citation": "PHB (pdf p.0056)",
+  "printedGuess": "55",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — The Wizard (PHB 3–18)"
+  ]
+}

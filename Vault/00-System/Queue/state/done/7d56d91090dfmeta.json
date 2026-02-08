@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "7d56d91090df:meta",
+    "sourceId": "7d56d91090df",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 07/Start At The End.pdf",
+    "title": "Start At The End",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:27:58.726904+00:00",
+  "meta": {
+    "sourceId": "7d56d91090df",
+    "title": "Start At The End",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 07/Start At The End.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T19:27:58.719847+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

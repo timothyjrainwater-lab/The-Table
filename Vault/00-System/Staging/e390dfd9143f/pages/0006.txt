@@ -1,0 +1,173 @@
+INTRODUCTION:
+
+This is the Duxctons & Daacons* Roleplaying Game, the game
+that defines the genre and has set the standard for fantasy role-
+playing for more than 30 years.
+
+Specifically, this is. the Monster Manual. This book contains|
+entries for hundreds of creatures, both hostile and benign, for use)
+lin Duncgoxs & Daacons adventures. This book, the Player's Hand:
+book, and the Dungeon Master's Guide comprise the core rules for,
+
+the D&D* game.
+
+This introduction explains how to read each creature's write- up.|
+Inoften refers to the Glossary, located in Chapter 7 at the back of
+this book (starting on page 305), for more details on attack forms
+and the special qualities associated with monsters
+
+A list of monsters organized by Challenge Rating appears on
+pages 318 and 319 to make it easy for the Dungeon Master to tailor
+encounters to the party level of the player characters.
+
+Each monster description is organized in the same general format,
+as outlined below, For complete information about the character-
+istics of monsters, consult Chapter 7: Glossary (starting on page
+305), the Player's Handbook, or the Dungeon Master's Guide.
+
+STATISTICS BLOCK
+‘This portion of a monster description contains basic game infor-
+mation on the creature.
+
+Name
+This is the name by which the creature is generally known. The
+descriptive text may provide other names,
+
+Size and Type
+
+This line describes the creature's size (Huge, for example), Size cat-
+egories are defined in the Glossary. A size modifier applies to the
+creature's Armor Class (AC) and attack bonus, as well as to certain.
+skills, A creature's size also determines how far it can reach to,
+make a melee attack and how much space it occupies in.a fight)
+(see Space/Reach, below).
+
+The size and type line continues with the creature's type (giant,
+for example), Type determines hosy magic affects a creature; for
+
+example, the hold animal spell affects only creatures of the animal,
+
+type. Type determines certain features, such as Hit Dice size, base |
+
+attack bonus, base saving throw bonuses, and skill points. For|
+
+quick reference, the Glossary gives a full description of the fea-|
+|tures and traits of each type and subtype.
+
+Hit Dice
+This line gives the creatures number and type of Hit Dice, and
+lists any bonus hit points_A parenthetical note gives the average,
+hit points for a creature of the indicated number of Hit Dice.
+
+A creature’ Hit Dice total is also treated as its level for deter-
+mining how spells affect the creature, its rate.of natural healing,
+and its maximum ranks in a skill.
+
+Initiative
+This line gives the creature's modifier on initiative checks.
+
+Speed
+{This line gives the creature's tactical speed on land (the amount of ,
+jdistance it can cover in one move action). If the creature wears
+armor that reduces its speed, the creature's base land speed follows.
+If the creature has other modes of movement, these are. given.
+after (or in place of) the land speed. Unless nated otherwise,
+modes of movement are natural (not magical). See the Glossary for
+information on movement modes.
+
+Armor Class
+The Armor Class line gives the creature's AC for normal combat,
+and includes a parenthetical mention of the modifiers contribut-
+ing to it (usually size, Dexterity, and natural armor), The creature's
+touch and flat-footed ACs follow the combat-ready AC,
+
+A creature's armor proficiencies (if it has any) depend on its.
+type, but in general a creature is automatically proficient. with any,
+kind of armor it is described as wearing (light, medium, or heavy),
+and with all lighter kinds of armor.
+
+Base Attack/Grapple
+The number before the slash on this line is the creature's base
+attack bonus (before any modifiers are applied), The DM usually
+wont need this number, burit.can be handy sometimes, especially
+if the creature has the Power Attack or Combat Expertise feats,
+‘The number after the slash is the creature's grapple bonus, which
+
+ 
+
+continued from page 4
+
+{Goblinoid): bugbear, goblin, hobgoblin
+
+Humanoid: bugbear, dwarf, elf, githyanki, githzerai, gnoll, gnome,
+goblin, halfling, hobgoblin, kobold, lizardfolk, locathah, merfolk, orc,
+troglodyte.
+
+{Incorporeal): allip, ghost, shadow, spectre, wraith,
+
+(Lawful): inevitable
+
+Magical Beast: ankheg, aranea, basilisk, behir, bulette, blink dog,
+chimera, cockatrice, darkmantle, digester, displacer beast, dragonne,
+ethereal marauder, fiendish dire rat, frost worm, giant eagle, giant owl,
+girallon, gorgon, gray render, griffon, hellwasp swarm, hippogriff, hydras,
+kraken, krenshar, lamia, lammasu, manticore, owlbear, pegasus, phase
+spider, purple worm, remorhaz, roper, shocker lizard, sea cat, sphinxes,
+spider eater, stirge, tarrasque, unicorn, winter wolf, worg, yrthak.
+
+Monstrous Humanoid: centaur, derro, doppelganger, gargoyle, grim-
+lock, hags, harpy, kuo-toa, medusa, minotaur, sahuagin, yuan-ti
+
+Ooze: black pudding, gelatinous cube, gray ooze, ochre jelly.
+
+Outsider: ravid.
+
+Outsider (Air): air mephit, arrowhawk, djinni, dust mephit, ice mephit.
+
+Outsider (Chaotic}: chaos beast, demons, eladrins, howler, lillend,
+slaadi, titan.
+
+Outsider (Evil): achaierai, barghest, demons, devils, hell hound,
+
+ 
+
+howler, night hag, nightmare, rakshasa, shadow mastiff, vargouille, wil,
+yeth hound.
+
+Outsider (Earth): earth mephit, salt mephit, xorn
+
+Outsider (Fire): azer, efreeti, hell hound, fire mephit, magma mephit
+steam mephit, rast, salamanders.
+
+Outsider (Good): angels, archons, eladrins, guardinals, lillend, titan.
+
+Outsider (Lawful): achaierai, archons, barghest, devils, formians, hell
+hound, rakshasa, xill
+
+Outsider (Native): aasimar, couatl, janni, tiefling, rakshasa, triton
+
+Outsider (Water): ooze mephit, water mephit, tojanidas, triton,
+
+Plant: assassin vine, phantom fungus, shambling mound, shrieker,
+tendriculos, treant, violet fungus.
+
+(Reptilian): kobold, lizardfolk, troglodyte.
+
+(Shapechanger): aranea, barghest, doppelganger, lycanthropes,
+mimic, phasm.
+
+Undead: allip, bodak, devourer, ghast, ghost, ghoul, lich, mohrg,
+mummy, nightshades, shadow, skeletons, spectre, vampire, vampire
+spawn, wight, wraith, zombie.
+
+Vermin: centipede swarm, giant insects, locust swarm, monstrous
+centipedes, monstrous scorpions, monstrous spiders, spider swarm.
+
+(Water): black dragon, bronze dragon, ooze mephit, water mephit.
+
+ 
+
+ 
+
+ 
+

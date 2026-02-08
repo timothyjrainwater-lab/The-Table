@@ -1,0 +1,294 @@
+ 
+
+Fast Healing (Ex): Each round, a hydra heals damage equal to
+10 + the number of its original heads,
+
+Skills; Hydras have a +2 racial bonus on Listen and Spot.checks,
+thanks to their multiple heads.
+
+A hydra has a +8 racial bonus.on any Swim check to perform
+
+(a touch attack to hit) before the new heads appear. A flaming
+weapon (or similar effect Is its energy damage to the stump in
+the same blow in which a head is severed. Fire or acid damage
+from an area effect (such as a fireball spell or dragon breath) may
+burn multiple stumps in addition to.dealing damage to the hydras
+
+   
+
+ 
+
+     
+
+   
+
+body. A hydra does not die from losing its heads until all its heads| __|some special action or avoid a hazard. It can always choose to take
+have been cut off and the stumps seared by fire ot acid 10 on a Swim check, even if distracted or endangered. It can use
+A hydra’s body can be slain the run action while swimming, provided it swims i ght
+
+     
+
+ 
+
+just like any other c
+
+ 
+
+ture’s, bur hydras possess
+fast_healing (see below
+and are difficult to defeat.
+in this fashion. Any at
+
+tack that is not (or
+cannot be) an_at-
+tempt to sunder a
+head affects the
+body... For ex-
+ample,_atea
+effects deal
+damage to a
+hydra's t
+not to its heads,
+Targeted magical ef
+
+ 
+
+fects cannot sever a
+
+hydra's heads (and
+
+thus must be directed
+atthe body) unless they
+deal slashing damage
+
+and could be used
+to make sunder
+attempts
+
+ 
+
+Hit Dice:
+Initiative:
+Speed:
+Armor Class:
+
+Base Attack/Grapple:
+Attack:
+
+Full Attack;
+Space/Reach:
+Special Attacks:
+Special Qualities:
+
+ 
+
+Saves:
+Abilities:
+
+Skills:
+
+Feats;
+
+Environment:
+
+Organization:
+Challenge Rating:
+Treasure:
+Alignment:
+Advancement
+Level Adjustment:
+
+  
+
+rea
+
+Five-Headed Hydra
+Huge Magical Beast
+§d10+28 (Ss hp)
+
++1
+
+20 ft. (4 squares), swim 20 ft
+15 (—2 size, +1 Dex, +6 natural
+touch 9, flat-footed 14
+$/+16
+
+5 bites +6 melee (1d10+3,
+
+5 bites +6 melee (1d10+3
+
+15 it/10 fr.
+
+ 
+
+ 
+
+Darkvision 60 ft,, fast healing 15.
+low-light vision, scent
+Fort +9, Ref +5, Will +3
+Str 17, Dex 12, Con 20,
+Int 2, Wis 10,Cha 9
+Listen +6, Spot +6, Swim +11
+Combat es*, Iron Will
+Toughness
+Temperate marshes
+
+(Pyro: Warm marshes)
+
+(Cryo: Cold marshes)
+Solitary
+4 (normal); 6 (pyro- or cryo-
+1/10 coins; 50% goods; 50% items
+Usually neutral
+
+ 
+
+  
+
+line.
+
+   
+ 
+  
+   
+  
+  
+ 
+  
+   
+  
+   
+  
+  
+ 
+  
+  
+ 
+ 
+ 
+ 
+  
+
+Six-Headed Hydra
+Huge Magical Beast
+6d10+33 (66 hp)
+
+“1
+20 ft. (4 squares), swim 20 ft
+16 (~2 size, +1 Dex, +7 natural
+
+touch 9, flat-footed 15
++6/+17
+
+6 bites +8 melee (1d10+3
+6 bites +8 melee (1d10+3,
+15 ft,/10 ft
+
+Darkvision 60 ft., fast healing 16,
+low-light vision, scen
+Fort +10, Ref +6, Will +4
+Str 17, Dex 12, Con 20,
+
+   
+
+ 
+
+Int 2, Wis 10, Cha 9
+Listen +6, Spot +7, Swim +11
+Combat Reflexes*, Iron Will
+
+ 
+
+ 
+
+Toughness, Weapon Focus (bite
+Temperate marshes
+
+Pyro: Warm marshes)
+
+Cryo: Cold marshes:
+Solitary
+5 (normal); 7 (pyro- or cryo-
+1/10 coins; 50% goods; 50% items
+Usually neutral
+
+Feats; A hydras Combat Reflexes feat
+allows it to use all irs heads for attacks of
+opportunity
+
+PYROHYDRA
+Huge Magical Beast (Fire)
+These reddish hydras can breathe jets of fire
+10 feet high, 10 feet wide, and 20 feet
+
+long. All heads breathe once every
+td¢ rounds. Each jet deals 36.
+fire di e per
+
+uccessful Reflex
+Ives the damage. The
+save DC is 10 + 1/2 hydra’s
+original number of heads
++hydra's Con. modifier
+
+   
+
+ 
+
+head. A
+
+ 
+
+ 
+
+Seven-Headed Hydra
+Huge Magical Beast
+7d10+38 (77 hp)
+
+aI
+20 fr. (4 squares), swim 20 ft.
+17.(-2 size, +1 Dex, +8 natural
+touch 9, flat-footed 16
+47/+19
+
+ 
+
+6 +10 melee (1d10+4
+7 bites +10 melee (1d10+4)
+15 ft,/10 ft
+
+ 
+
+Darkvision 60 ft., fast healing 17,
+low-light vision, scent
+Fort +10, Ref +6, Will +4
+Str 19, Dex 12, Con 20,
+Int 2, Wis 10, Cha 9
+Listen +7, Spot +7, Swim +12
+Combat Reflexes® , Iron Will,
+Toughness, Weapon Focus (b
+Temperate marshes
+
+(Pyro: Warm marshes)
+Cryo: Cold marshes)
+colitary
+6 (normal); 8 (pyro- or cryo-
+1/10 coins; 50
+Usually neutral
+
+   
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+goods; 50% iten
+
+   
+

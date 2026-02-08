@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "2d575ca3411a:meta",
+    "sourceId": "2d575ca3411a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 03/Frozen Whispers.pdf",
+    "title": "Frozen Whispers",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T11:03:54.655414+00:00",
+  "meta": {
+    "sourceId": "2d575ca3411a",
+    "title": "Frozen Whispers",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 03/Frozen Whispers.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T11:03:54.633698+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

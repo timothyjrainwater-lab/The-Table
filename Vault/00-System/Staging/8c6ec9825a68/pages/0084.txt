@@ -1,0 +1,172 @@
+Prerequisites: Proficiency with selected slashing weapon,
+Weapon Focus with selected slashing weapon, Weapon Mas-
+tery (slashing), Weapon Specialization with selected slashing
+weapon, base attack bonus +14,
+
+Benefit: When you use a standard action to attack with
+any slashing weapon, you can choose to make a second attack
+with that weapon, You take a —5 penalty on the first attack,
+and a 10 penalty on the second.
+
+When you use a full attack action with any slashing
+weapon, you gain one additional attack at your highest base
+artack bonus. That attack and all other attacks you make in
+the current round take a—5 penalty.
+
+SPECTRAL SKIRMISHER
+
+You have trained extensively in the use of magic that renders
+you invisible. In combat, you use this experience to vex your
+opponents and increase your survivability.
+
+Prerequisite: Base attack bonus +6.
+
+Benefit: While you are invisible, you gain additional
+benefits. Creatures unable to see you due to invisibility take
+a—S5 penalty on all Listen checks to detect you. A creature
+using a melee attack against the square you occupy provokes
+an attack of opportunity from you. You must choose to make
+this artack before checking to see if the creature finds you
+If you attack and hit, the creature automatically finds you in
+your square. See page 152 of the Player's Handbook and page
+295 of the Dungeon Master's Guide for the effects of invisibility
+on combar,
+
+Special: A fighter can select Spectral Skirmisher as one
+of his fighter bonus feats,
+
+SPELL-LINKED FAMILIAR
+
+You and your familiar can share spell energy, allowing your
+familiar to cast a limited number of spells each day
+Prerequisites: Arcane caster level 9th, familiar.
+Benefit: Your familiar can cast spells that you grant to it
+A familiar gains spells based on your arcane caster level, and
+any spells granted to your familiar are subtracted from your
+daily allotment.
+The maximum number of spells of a certain level that you
+
+  
+
+ 
+
+  
+
+ 
+
+ 
+
+can grant to your familiar is given on the table below. For
+example, as a 16th-level arcane caster, you can grant your
+familiar as many as three 0-level spells, two 1st-level spells
+
+and one 2nd-level spell
+
+ 
+
+——Spell Level
+
+Caster Level 0 Ist 2nd
+9th-Tth 1 = =—
+12th-14th 2 a
+
+1Sth-17th 3 2 1
+18th-20th a 3 2
+
+The familiar uses 1/2 your caster level as its caster level. It
+cannot cast spells that have a gp or XP cost, or that require
+a focus. A familiar does not need somatic, material, or
+verbal components to cast a spell that was granted to it by
+this feat
+
+STALWART DEFENSE
+
+You excel at aiding your allies in bartle. When an opponent
+attempts to strike one of them, you make a quick, distracting
+motion to ruin the foe's efforts.
+
+Prerequisites: Combat Reflexes, Hindering Opportunist,
+base attack bonus +9.
+
+Benefit: When an opponent you threaten attempts a melee
+attack against one of yourallies, you can give up one of your
+attacks of opportunity to attempt an aid another action. You
+target the attacking opponent with the aid another, The
+target of your foe's attack gains the benefit of your action in
+the form of a +2 bonus to AC against the attempted attack.
+You cannot use this feat against the same opponent more
+than once per round,
+
+STEADFAST DETERMINATION
+
+Your physical durability allows you to shrug off attacks that
+would cripple a lesser person. Rather than depend on agility
+or willpower, you use your raw toughness to survive.
+
+Prerequisites: Endurance
+
+Benefit: You can use your Constitution modifier in place
+of your Wisdom modifier on Will saves.
+
+You do not automatically fail Fortitude saves on a roll of
+natural 1
+
+TELLING BLOW
+
+When you strike an opponent's vital areas, you draw on
+your ability to land crippling blows to make the most of
+your attack,
+
+Prerequisite: Skirmish or sneak attack ability.
+
+Benefit: When you score a critical hit against a target, you
+deal your skirmish or sneak attack damage in addition to
+the damage from your critical hit. Your critical multiplier
+applies only to your normal damage, not your skirmish or
+sneak attack damage. This benefit affects both melee and
+ranged attacks.
+
+TROPHY COLLECTOR
+
+A belt of minotaur fur, a hood of cloaker wing-skin, and an
+amulet fashioned from a petrified dragon's eye—these are
+the intimidating symbols of your trade. You are skilled in
+preserving portions of defeated enemies and turning them
+into trophies, The memory of your past accomplishments
+drives you onward, instilling in you the confidence needed
+to face still greater foes.
+
+Prerequisite: Craft (taxidermy) 6 ranks.
+
+Benefit: When you defeara foe in combat, you can preserve
+a part of its body and create a trophy that you can wear or
+brandish. In order to be worthy of your efforts, the opponent
+must have a CR greater than your current level
+
+A trophy has a value equal to the defeated creature's CR
+x 100 gp. You must spend time using the Craft (taxidermy)
+skill to create the trophy as normal. Once you create a trophy,
+you can sell it for its market price or wear it. When you create
+a trophy, you must design it to occupy space on your body
+as one of these kinds of magic items: amulet, belt, boots, or
+cloak. You cannot gain the benefit of both a magic item and
+atrophy if both occupy the same space on your body; in such
+
+ 
+
+ 
+
+ 
+
+  
+
+   
+
+ 
+
+       
+
+ 
+
+ 
+

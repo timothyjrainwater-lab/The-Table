@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "641762047138:meta",
+    "sourceId": "641762047138",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Dragonlance Campaign Setting.pdf",
+    "title": "Dragonlance Campaign Setting",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:10:10.950995+00:00",
+  "meta": {
+    "sourceId": "641762047138",
+    "title": "Dragonlance Campaign Setting",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Dragonlance Campaign Setting.pdf",
+    "pages": 298,
+    "extractedAt": "2026-02-03T09:10:09.537293+00:00"
+  }
+}

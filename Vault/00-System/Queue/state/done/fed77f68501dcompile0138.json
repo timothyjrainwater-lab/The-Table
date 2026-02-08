@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0138",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 138,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:23:50.538588+00:00"
+  },
+  "doneAt": "2026-02-05T16:24:05.979140+00:00",
+  "citation": "DMG (pdf p.0138)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Core Mechanic (d20)"
+  ],
+  "createdTables": [
+    "Table — Random Town Generation shows a breakdown of dif- (PHB 5–2)"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "c735083b14b3:meta",
+    "sourceId": "c735083b14b3",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Character Portraits - Fantasy Heroes.pdf",
+    "title": "Character Portraits - Fantasy Heroes",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T07:12:19.397509+00:00",
+  "meta": {
+    "sourceId": "c735083b14b3",
+    "title": "Character Portraits - Fantasy Heroes",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Character Portraits - Fantasy Heroes.pdf",
+    "pages": 27,
+    "extractedAt": "2026-02-03T07:12:19.266844+00:00"
+  }
+}

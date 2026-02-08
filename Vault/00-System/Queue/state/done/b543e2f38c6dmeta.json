@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "b543e2f38c6d:meta",
+    "sourceId": "b543e2f38c6d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/Fallen Angel.pdf",
+    "title": "Fallen Angel",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:33:23.079768+00:00",
+  "meta": {
+    "sourceId": "b543e2f38c6d",
+    "title": "Fallen Angel",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/Fallen Angel.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T10:33:23.072265+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

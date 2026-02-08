@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "51f8844f9362:meta",
+    "sourceId": "51f8844f9362",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Undead.pdf",
+    "title": "The Slayer's Guide To Undead",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:07:56.347281+00:00",
+  "meta": {
+    "sourceId": "51f8844f9362",
+    "title": "The Slayer's Guide To Undead",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Undead.pdf",
+    "pages": 132,
+    "extractedAt": "2026-02-04T00:07:55.767372+00:00"
+  },
+  "enqueued_extractPages": 66
+}

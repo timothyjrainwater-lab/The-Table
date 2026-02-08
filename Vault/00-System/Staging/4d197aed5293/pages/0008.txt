@@ -1,0 +1,133 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ust about every die roll you make is going to be modified 
+based on your character’s abilities. A tough character has 
+a better chance of surviving a wyvern’s poison sting. A 
+perceptive character is more likely to notice bugbears 
+sneaking up from behind. A stupid character is not as 
+likely to find a secret door that leads to a hidden treasure 
+chamber. Your ability scores tell you what your modifiers are for 
+rolls such as these. 
+Your character has six abilities: Strength (abbreviated Str), Dex-
+terity (Dex), Constitution (Con), Intelligence (Int), Wisdom (Wis), 
+and Charisma (Cha). Each of your character’s above-average abilities 
+gives you a benefit on certain die rolls, and each below-average 
+ability gives you a disadvantage on other die rolls. When creating 
+your character, you roll your scores randomly, assign them to the 
+abilities as you like, and raise and lower them according to the 
+character’s race. Later, you can increase them as your character 
+advances in experience. 
+ 
+ABILITY SCORES 
+To create an ability score for your character, roll four six-sided dice 
+(4d6). Disregard the lowest die roll and total the three highest ones. 
+The result is a number between 3 (horrible) and 18 (tremendous). 
+The average ability score for the typical commoner is 10 or 11, but 
+your character is not typical. The most common ability scores for 
+player characters (PCs) are 12 and 13. (That’s right, the average 
+player character is above average.) 
+Make this roll six times, recording each result on a piece of paper. 
+Once you have six scores, assign each score to one of the six abilities. 
+At this step, you need to know what kind of person your character is 
+going to be, including his or her race and class, in order to know 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+how best to distribute the ability scores. Choosing a race other 
+than human or half-elf causes some of these ability scores to 
+change (see Table 2–1: Racial Ability Adjustments, page 12). 
+ 
+ABILITY MODIFIERS 
+Each ability, after changes made because of race, has a modifier 
+ranging from –5 to +5. Table 1–1: Ability Modifiers and Bonus 
+Spells (on the next page) shows the modifier for each score. It 
+also shows bonus spells, which you’ll need to know about if 
+your character is a spellcaster. 
+The modifier is the number you apply to the die roll when 
+your character tries to do something related to that ability. 
+For instance, you apply your character’s Strength modifier to 
+your roll when he or she tries to hit someone with a sword. 
+You also use the modifier with some numbers that aren’t die 
+rolls—for example, you apply your character’s Dexterity 
+modifier to his or her Armor Class (AC). A positive 
+modifier is called a bonus, and a negative modifier is called 
+a penalty. 
+ 
+ABILITIES AND SPELLCASTERS 
+The ability that governs bonus spells (see Chapter 3: 
+Classes) depends on what type of spellcaster your 
+character is: Intelligence for wizards; Wisdom for clerics, 
+druids, paladins, and rangers; or Charisma for sorcerers and 
+bards. In addition to having a high ability score, a spellcaster 
+must be of high enough class level to be able to cast spells of 
+a given spell level. (See the class descriptions in Chapter 3 
+for details.) For instance, the wizard Mialee has an 

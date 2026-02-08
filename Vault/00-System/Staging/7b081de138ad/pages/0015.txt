@@ -1,0 +1,141 @@
+ 
+
+CHAPTER ONE: FOUR ROADS TO RICHES
+
+appearing as a somewhat suspicious character. He leaves
+his apartment only at meal times, so if the PCs want to
+search his room, they'll have to do so when he visits the
+taproom for the 20-minute intervals at breakfast, lunch,
+and dinner. Or they could always create a diversion to
+draw him from his room...
+
+Kristoff, Male Human Exp6: CR 5; SZ M (5 ft., 11 in.
+tall); HD 6d6+6; hp 26; Init +7 (Dex, Improved Initia-
+tive); Spd 30 ft.; AC 13 (+3 Dex); BAB/Grap +4/+5;
+Atk +5 melee (1d4+1, dagger, 19-20/x2); Full Atk +5
+melee (1d4+1, dagger, 19-20/x2); AL LN; SV Fort +3,
+Ref +5, Will +7; Str 13, Dex 17, Con 13, Int 16, Wis 15,
+Cha 10.
+
+Skills: Appraise +6*, Bluff* +9*, Craft (manuscripts)
++7*, Decipher Script +12*, Diplomacy +5, Handle
+Animal +9*, Knowledge (anatomy) +6, Knowledge
+(physiology) +12*, Listen +4, Perform (ballad) +9*,
+Ride (horses) +10*, Search +7*, Sense Motive +7*,
+Spot +5, Survival +3, Use Rope +5. Feats: Alertness,
+Blind-Fight, Improved Initiative, Skill Focus (Ride).
+Note: * denotes a chosen class skill.
+
+Possessions: Kristoff's personal things are locked in
+three matching trunks bearing a stylized letter “K” (Open
+Lock [DC 15]). Kristoff carries the keys with him at all
+times. The trunks contain dozens of books on anatomy,
+biology, and other, more obscure disciplines dealing
+with the functions of the human body, as well as a small
+sack of 55 gp, 70 gp smoky quartz, anda 10 gp eye agate.
+He carries with him a dagger, potions of levitate and cure
+light wounds, and a ring of feather falling.
+
+Personality: Though the chambermaid Marion de-
+scribes him as irascible, Kristoff is really a gentle soul.
+Marion simply caught him after a long day of travel, and
+Kristoff is looking forward to finding her and apologiz-
+ing. Ifthe PCs knock on his door and request an interview,
+Kristoff is curt but not impolite. Though he doesn’t
+invite the PCs inside and doesn’t offer to show them the
+contents of his trunks, he remains personable, if some-
+what reserved.
+
+9. Toomba’s Room
+
+The priest of Zahm calls this room his own. Toomba
+and his three acolytes have been staying at the Darkstar
+for three nights now, proselytizing the travelers who pass
+through the inn. Toomba has a large, flat face and
+blonde mustache, and his blue eyes glow with righteous
+fire when he senses an injustice. Shortly after he learns
+that a man has been found dead, he also realizes that his
+mace is missing. Toomba rightly suspects that the mur-
+derer stole the mace and with it conveyed a malicious
+blow to Yugin Vooshae—a man Toomba met last night
+in the taproom and was seen speaking with at length. In
+truth, Toomba was trying to convince Yugin of the
+sundry splendors of Zahm’s church, but witnesses might
+not see it that way. Toomba tells no one that his mace
+is missing. If the PCs interview him, they'll have to make
+a Sense Motive check opposed by Toomba’s Bluff check
+to determine that he’s withholding this vital bit of
+evidence. If asked to account for himself at the time of
+the murder, Toomba puffs out his chest and says that he
+
+was here in his room, kneeling before his altar engaged
+in the most penitent of prayers. Anyone succeeding ina
+Sense Motive (opposed by Toomba’s Bluff skill) realizes
+that he is lying. Actually he was sound asleep.
+
+If the PCs find the mace in the well and realize that it
+belongs to Toomba (the priests of Quooembla loudly
+proclaim this fact), then Toomba confesses that yes, the
+weapon is his, but it was evidently stolen from his room
+during the night. If asked, Toomba assures the PCs that
+he keeps his door soundly locked at all times.
+
+Searching Toomba’s room reveals a wardrobe full of
+fine traveling clothes and sacerdotal garments, a locked
+chest containing a sack of 100 gp and a bundle of
+religious tracts (Open Lock [DC 13]), and a portable
+altar. The altar has a hidden compartment discovered
+on a Search check (DC 12). It contains two potions of
+healing and a love letter from someone named Estrella.
+
+Though there isa secret door in the west wall (discov-
+ered on a Search check [DC 20]), Toomba is unaware of
+its existence. Eron, Lady Zan, and Lors know of the
+hidden portal, but they see no reason to share this
+information. The door leads to a small storage area,
+currently empty.
+
+Toomba, Male Human Clr5 (Zahm): CR 5; SZ M (6
+ft., 2 in. tall); HD 5d8+5; hp 26; Init +2; Spd 20 ft. (30
+ft. base); AC 18 (+6 splint mail, +2 shield); BAB/Grap
++3/+7; Atk +9 melee (1d6+4, masterwork heavy mace),
+or +7 melee (1d6+4, club) or +5 ranged (1d8, light
+crossbow, 19-20/x2, range 80 ft.); Full Atk +9 melee
+(1d6+4, masterwork heavy mace), or +7 melee (1d6+4,
+club) or +5 ranged (148, light crossbow, 19-20/x2, range
+80 ft.); SQ good fortune (reroll 1/day), spontaneous
+casting, turn undead; AL N; SV Fort +5, Ref +3, Will
++8; Str 18, Dex 15, Con 13, Int 11, Wis 19, Cha 13.
+
+Skills: Bluff +4, Concentration +6, Diplomacy +6,
+Heal +10, Listen +4, Spot +4, Use Rope +3. Feats: Craft
+Wondrous Item, Dodge, Scribe Scroll, Weapon Focus
+(heavy mace).
+
+Divine Spells Prepared (5/4/3/2; save DC 14 + spell
+level): O—clean*, create water (x2), cure minor wounds
+(x2); Ist—bless (x2), command (x2); 2nd—augury,
+delay poison, hold person; 3rd—cure serious wounds,
+remove curse.
+
+Domain Spells (Luck, War): Ist-magic weapon; 2nd-aid;
+3rd-magic vestment.
+
+Note: * denotes a spell found in Relics & Rituals by
+Sword &Sorcery Studios.
+
+Possessions: 75 gp, 6 silver pearls (90 gp each), light
+crossbow, masterwork heavy mace (currently missing),
+club, silver light bolts (x14), splint mail, large wooden
+shield, potion of delay poison, scroll (divine, caster level
+5, plant growth, searing light), scroll (divine, caster level
+1, invisibility to undead, shillelagh, invisibility to undead),
+scroll (divine, caster level 5, water walk, cure serious
+wounds), scroll (divine, caster level 3, magic stone, au-
+gury), wand of burning hands (34 charges).
+
+Personality: Toomba is a large, stern man, who brooks
+no backsliding. Though honest and fair in his dealings
+
+14
+

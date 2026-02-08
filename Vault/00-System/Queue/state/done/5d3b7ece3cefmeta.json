@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "5d3b7ece3cef:meta",
+    "sourceId": "5d3b7ece3cef",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Race To The Yellow Lotus.pdf",
+    "title": "Race To The Yellow Lotus",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T16:25:02.700225+00:00",
+  "meta": {
+    "sourceId": "5d3b7ece3cef",
+    "title": "Race To The Yellow Lotus",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Race To The Yellow Lotus.pdf",
+    "pages": 52,
+    "extractedAt": "2026-02-03T16:25:02.693080+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

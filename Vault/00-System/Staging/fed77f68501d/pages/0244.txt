@@ -1,0 +1,141 @@
+33-36 dictum 2,275 gp 14-17__ control plants 3,000 gp. 9th-Level Divine Spells
+37-41 ethereal jaunt 2,275 gp 18-20 create greater undead 3,600 gp 4% _ Spell Market Price
+42-45 holy word 2,275 gp 21-27__ cure critical wounds, 01-04 antipathy 3,825 gp
+46-50 inflict serious wounds, 2,275 gp mass 3,000 gp 05-07 _ astral projection 4,870 gp
+mass 28-32 dimensional lock 3,000 gp 08-13 elemental swarm 3,825 gp
+51-55 refuge 3,775 gp 33-36 discern location 3,000 gp 14-19_ energy drain 3,825 gp
+56-60 regenerate 2,275 gp 37-41 earthquake 3,000 gp 20-25. etherealness 3,825 gp
+61-65 repulsion 2,275 gp. 42-45 finger of death 3,000 gp 26-31__ foresight. 3,825 gp
+66-69 restoration, greater 4,775 gp. 46-49 fire storm 3,000 gp 32-37 gate 3,825 gp
+70-71 resurrection 12,275 gp. 50-52__ holy aura 3,000 gp 38-46 heal, moss 3,825 gp,
+72-76 sctying, greater 2,275 gp 53-56 inflict critical wounds, 3,000 gp 47-53 implosion 3,825 gp
+|_77-81 summon monster Vil 2,275 gp mass 54-55__miracle 28,825 gp"
+82-85 summon nature’s ally Vil 2,275 gp 57-60 planar ally, greater 5,500 gp 56-61 regenerate 3,825 gp
+86-90 sunbeam 2,275 gp 61-65 repel metal or stone 3,000 gp 62-66_shambler 3.825 gp
+91 symbol of stunning 7,275 gp 66-69 reverse gravity 3,000 gp 67-72 shopechange 3,825 gp
+92 symbol of weakness __7,275 gp 70-72. shield of law 3,000 gp 73-77 soul bind 3,825 gp
+93-97 transmute metal to wood 2,275 gp 73-76 spell immunity, greater 3,000 gp 78-83 storm of vengeance 3,825 gp
+98-100 word of chaos 2.275 gp. 77-80 summon monster Vil! 3,000 gp 84-89 summon monster IX 3,825 gp
+81-84 summon nature’s ally VIII 3,000 gp 90-95 summon nature's ally IX 3,825 gp
+8th-Level Divine Spells 85-89 sunburst 3,000 gp 96-99 sympathy 5,325 gp
+4% __ Spell Market Price 90-91__ symbol of death 8,000 gp 100 true resurrection 28,825 gp
+01-04 animal shapes 3,000 gp 92-93 symbol of insanity 8,000 gp 1 Assumes powerful request but no
+05-10 _antimagic field 3,000.gp) | 94-96 unholy aura 3,000 gp expensive material components in excess
+11-13 cloak of chaos 3,000 gp 97-100 whirlwind 3,000 gp of 100 gp and no additional XP cost.
+
+Ifa divine spell is cast at different levels by clerics and druids, it
+appears on Table 7-24 at the level appropriate to.a cleric (consid-
+lered the default choice between clerics and druids), Examples;
+cure serious wounds, neutralize poison, flame strike.
+
+Many spells are either arcane or divine, depending on the class
+of the caster. Such spells appear on both lists at. the level appropri-
+yate to the class of the arcane or divine caster.
+
+STAFFS
+A staff is.a long shaft of wood that stores several spells, Unlike
+wands (see page 245), which can contain a wide variety of spells,
+each staff-is of a certain kind and holds specific spells A staff has
+50 charges when created.
+
+Physical Description: A typical staff is 4 feet to 7 feet Jong and 2]
+
+inches to 3 inches thick, weighing about 5 pounds, Most staffs are
+wood, but a rare few are bone, metal, or even glass. (These are
+extremely exotic.) Staffs often have a gem or some device at their tip or
+are shod in metal at one or both ends. Staffs are often decorated with
+carvings or runes. A typical staff is like a walking stick, quarterstaff, or
+cudgel, It has AC 7,.10 hit points, hardness 5, and a break DC of 24.
+
+Activation: Staffs use the spell trigger activation method, so
+casting a spell from a staff is usually a standard action that doesn't
+provoke attacks of opportunity, (If the spell being cast, however,
+has a longer casting time than t standard action, it takes that long
+to.cast.the spell from a staff.) To activate a staff, a character must
+hold it forth in at least one hand (or whatever passes fora hand, for
+nonhumanoid creatures).
+
+Random Generation: To generate staffs randomly, roll on
+Table 7-25: Staffs,
+
+Special Qualities; Roll d%. A 01-30 result indicates thar some-
+thing (a design, inscription, or the like) provides some clue to the
+staff's function, and 31-100 indicates no special qualities.
+
+Staff Descriptions
+Staffs have immense utility because they pack so many_capabili-
+ties into one item and they use the wielder's ability score and rele-
+jvant feats to set the DC for saves against their spells, Unlike with
+jother sorts of magic items, the wielder can use his caster level
+lwhen activating the power of a staff if it's higher than the.caster.
+level of the staf
+
+‘This means that staffs are far more potent in the hands of a pow-/
+
+erful spellcaster. Because they use the wielder's ability score to set
+
+the save DC for the spell, spells from_a staff are often harder to
+
+resist than ones from other magic items, which use the minimum.
+
+ability score required to cast the spell. Nor only are aspects of the |
+
+spell dependent on caster level (range, duration, and.so.on) poten-|
+
+tially higher, but spells from a staff are harder to dispel and have a,
+
+better chance of overcoming a target's spell resistance (especially |
+
+if the wielder has the Spell Penetration feat). ;
+Furthermore, a staff can hold a spell of any level, unlike a wand,
+
+which is limited to spells of 4th level or lower. The minimum
+
+caster level of a staff is 8th. Standard staffs are described below,
+Abjuration: Usually carved from the heartwood of an ancient
+
+oak or other large tree, this staff allows use of the following spells:
+
+* Shield (1 charge)
+
+* Resist energy (1 charge)
+
+* Dispel magic (1 charge)
+
+* Lesser globe of invulnenability (2. charges)
+
+* Dismissal (2 charges) i.
+
++ Repulsion (3 charges)
+
+TasLe 7-25: STAFFS
+
+Medium.Major Staff Market Price
+01-15 01-03 Charming 16,500 gp
+16-30 04-09 Fire 17,750 gp
+31-40 10-11 Swarming insects 24,750 gp
+41-60 12-17 Healing 27,750 gp
+61-75 18-19 _Size alteration 29,000 gp
+76-90 20-24 __Jilumination. 48,250 gp
+91-95 25-31 Frost 56,250 gp
+
+96-100 32-38 __Defense 58,250 gp
+
+- 39-43 Abjuration 65,000 gp
+= 44-48 Conjuration 65,000 gp
+— 49-53 Enchantment 65,000 gp
+- $4-58___Evocation 65,000 gp.
+= 59-63 Iilusion 65,000 gp
+= 64-68. Necromancy 65,000 gp,
+— 69-73. Transmutation 65,000 gp
+= 74-71___ Divination. 73,500 gp}
+— 78-82 Earth and stone 80,500 gp |
+— 83-87___ Woodlands 101,250 gp
+
+| — 88-92 Life 155,750 gp
+
+|——___93-97_ Passage 170,500 gp
+— 98-100 Power 211,000 gp
+
+ 
+

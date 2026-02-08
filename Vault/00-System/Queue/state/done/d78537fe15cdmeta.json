@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "d78537fe15cd:meta",
+    "sourceId": "d78537fe15cd",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Shadowlands.pdf",
+    "title": "Secrets of The Shadowlands",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:00:14.767157+00:00",
+  "meta": {
+    "sourceId": "d78537fe15cd",
+    "title": "Secrets of The Shadowlands",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Shadowlands.pdf",
+    "pages": 96,
+    "extractedAt": "2026-02-03T18:00:14.759873+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

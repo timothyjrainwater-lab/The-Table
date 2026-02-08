@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0096",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 96,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:20:08.315993+00:00"
+  },
+  "doneAt": "2026-02-05T16:23:57.518593+00:00",
+  "citation": "DMG (pdf p.0096)",
+  "printedGuess": null,
+  "touched": [
+    "Condition — Prone",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Wilderness Encounter Lists, in which creatures (PHB 3–25)",
+    "Table — Wind Effects), char- (PHB 3–24)"
+  ]
+}

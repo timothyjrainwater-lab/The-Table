@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "f634e4615c06:meta",
+    "sourceId": "f634e4615c06",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Campaign Settings/Dragonlance/Age of Mortals.pdf",
+    "title": "Age of Mortals",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T04:56:37.127047+00:00",
+  "meta": {
+    "sourceId": "f634e4615c06",
+    "title": "Age of Mortals",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Campaign Settings/Dragonlance/Age of Mortals.pdf",
+    "pages": 226,
+    "extractedAt": "2026-02-03T04:56:36.071127+00:00"
+  }
+}

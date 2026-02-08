@@ -1,0 +1,78 @@
+    
+
+morale of the heroes’ foes. Common fear triggers
+include the following.
+
+© The group is badly outnumbered or out
+
+classed by opponents (EL is 4+ higher than
+the party level).
+
+¢ The most powerful character in the group or
+
+half of the group’s members are killed.
+
+* A menacing creature is immune to the
+
+group’s attacks.
+
+© A menacing creature is at least two size
+
+categories larger than the biggest member of
+the group.
+
+* A menacing creature has the frightful pres-
+
+ence special attack.
+
+¢ The character is helpless and threatened by
+
+immediate death (trapped underwater, for
+example).
+
+Appearances are everything; if a character
+doesn’t know she’s in dire peril, then she has no
+reason to make a Fear save. Likewise, if a player
+thinks her hero is doomed, a Fear save may be
+warranted. Illusions can often trigger these false
+Fear saves.
+
+Determining the fear Save DC
+
+When a Fear save is prompted by a menacing
+creature, the DC is 8 + 1/2 the creature’s HD + the
+creature’s Charisma modifier; if the threat has a
+Fearsome Presence, begin with 10 instead of 8. A
+DM in a rush can just set the DC to the menacing
+creature's CR + 8 (or 10, if the creature has Fright-
+ful Presence), which nets a roughly similar target
+number.
+
+When multiple creatures or a menacing situa-
+tion prompts a Fear save, the DC is equal to the
+obstacle’s EL + 8. This requires some judgment
+on the part of the DM; while a simple pit trap
+won't send anyone into a wild panic, a sealed room
+with sliding walls that slowly push the heroes into
+a pit filled with whirling blades might.
+
+   
+
+ 
+
+ca
+
+Circumstance modifiers often factor into Fear
+saves. The modifiers below apply to the check and
+stack with each other.
+
+Failure Results
+Minor Effect: Shaken. The character suffers a
+2 morale penalty on attack rolls, skill and ability
+checks and saves.
+Moderate Effect: Frightened. The character is
+shaken and flees as well as she can. She can fight to
+defend herself if unable to flee. A frightened char-
+
+ 
+

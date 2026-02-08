@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "eb87f7c8146c:meta",
+    "sourceId": "eb87f7c8146c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Wizard's Amulet/source.pdf",
+    "title": "source",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:14:36.810097+00:00",
+  "meta": {
+    "sourceId": "eb87f7c8146c",
+    "title": "source",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Wizard's Amulet/source.pdf",
+    "pages": 19,
+    "extractedAt": "2026-02-03T19:14:36.802303+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

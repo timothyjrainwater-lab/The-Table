@@ -1,0 +1,156 @@
+ 
+
+Find your character class on Table A~2: Number of Skills by
+Class to determine how many skills your character can have.
+
+Taste A—2: NUMBER OF SKILLS By CLass
+
+Class Base Number of Skills
+Barbarian 4+ Intmod
+Bard 6 + Int mod
+Beguiler 6+ Int mod
+Cleric 2+ Int mod
+Dragon shaman 2+ Int mod
+Druid 4+ Int mod
+Duskblade 2+ Int mod
+Favored soul 2+ Int mod
+Fighter 2+ Int mod
+Hexblade 2+ Int mod
+Knight 2+ Int mod
+Marshal 4+ Int mod
+Monk 4+ Int mod
+Paladin 2+ Int mod
+Ranger 6+ Int mod
+Rogue 8 + Int mod
+Scout 8 4 Int mod
+Sorcerer 2+ Int mod
+Swashbuckler 4+ Int mod
+Warlock 2+ Int mod
+Warmage 24 Int mod
+Wizard 2+ Int mod
+
+SKILL PRIORITY LISTS
+
+Each of the entries below is a list of skills, rated in order from
+most important to least important for a typical member of
+the class. Start at the beginning of your class's skill list and
+count off the number of skills your character is entitled
+to based on the information in Table A-2, The character
+gains each of those skills at the maximum ranks allowed
+for his level. A human character gains one bonus skill at
+maximum ranks.
+
+For example, if you're playing a halfore barbarian with
+an Intelligence score of 8, you are entitled to 4—1 = 3 skills.
+Take the first three skills from the barbarian list (Survival
+Listen, and Jump), and spend the maximum ranks allowed
+for each (character level + 3).
+
+Barbarian: Survival (Wis), Listen (Wis), Jump (Str), Climb
+(Str), Swim (Str), Handle Animal (Cha), Ride (Dex).
+
+Bard: Perform (Cha), Concentration (Con), Use Magic
+Device (Cha), Bluff (Cha), Diplomacy (Cha), Gather Infor-
+mation (Cha), Intimidate (Cha), Spelleraft (Int), Knowledge
+(local) (Int), Decipher Script (Int),
+
+Beguiler: Hide (Dex), Move Silently (Dex), Spot (Wis),
+Search (Int), Disable Device (Int), Open Lock (Int), Concen-
+tration (Con), Bluff (Cha), Listen (Wis), Tumble (Dex).
+
+Cleric: Concentration (Con), Heal (Wis), Knowledge
+(religion) (Int), Diplomacy (Cha), Spelleraft (Int), Knowledge
+(the planes) (Int).
+
+Dragon Shaman: Three skills from totem dragon choice
+(see class), Climb (Str), Intimidate (Cha), Knowledge
+(nature) (Int),
+
+Druid: Survival (Wis), Handle Animal (Cha), Spot (Wis),
+Listen (Wis), Knowledge (nature) (Int), Spelleraft (Int), Ride
+(Dex}, Swim (Str).
+
+ 
+
+ 
+
+ 
+
+Duskblade: Concentration (Con), Jump (Str), Spellcraft
+(Int), Climb (Str), Knowledge (arcana) (Int), Decipher
+Script (Int)
+
+Favored Soul; Concentration (Con), Heal (Wis), Diplo-
+macy (Cha), Sense Motive (Wis), Spellcraft (Int), Knowledge
+(arcana) (Int).
+
+Fighter: Climb (Str), Jump (Str), Intimidate (Cha), Swim
+(Str), Ride (Dex), Handle Animal (Cha).
+
+Hexblade: Concentration (Con}, Intimidate (Cha),
+Bluff (Cha), Spellcraft (Int), Knowledge (arcana) (Int),
+Ride (Dex).
+
+Knight: Intimidate (Cha), Ride (Dex), Handle Animal
+(Cha), Knowledge (nobility and royalry (Int), Jump (Str),
+Climb (Str).
+
+Marshal: Diplomacy (Cha), Spot (Wis), Listen (Wis
+Intimidate (Cha), Sense Motive (Wis), Knowledge (history)
+(Int), Swim (Str), Ride (Dex)
+
+Monk: Tumble (Dex), Spot (Wis), Move Silently (Dex),
+Hide (Dex), Escape Artist (Dex), Climb (Str), Jump (Str),
+Balance (Dex).
+
+Paladin: Diplomacy (Cha), Ride (Dex), Sense Motive
+(Wis), Heal (Wis), Concentration (Con), Knowledge (reli-
+gion) (Int).
+
+Ranger: Survival (Wis), Hide (Dex), Listen (Wis),
+Spot (Wis), Handle Animal (Cha), Move Silently (Dex),
+Knowledge (geography) (Int), Search (Int), Jump (Str),
+Swim (Str).
+
+Rogue: Hide (Dex), Move Silently (Dex), Search (Int), Dis-
+able Device (Int), Open Locks (Dex), Sleight of Hand (Dex),
+Tumble (Dex), Spor (Wis), Listen (Wis), Bluff (Cha), Climb
+(Str), Escape Artist (Dex).
+
+Scout: Hide (Dex), Move Silently (Dex), Spor (Wis), Search
+(nt), Disable Device (Int), Listen (Wis}, Tumble (Dex), Survival
+(Wis), Climb (Str), Jump (Str), Knowledge (dungeoneering)
+(Int), Balance (Dex)
+
+Sorcerer: Concentration (Con), Bluff (Cha), Knowledge
+(arcana) (Int), Spelleraft (Int), Craft (Int), Profession (Wis),
+
+Swashbuckler: Tumble (Dex), Bluff (Cha), Jump (Str),
+Diplomacy (Cha), Balance (Dex), Escape Artist (Dex), Swim
+(Str), Sense Motive (Wis).
+
+Warlock: Concentration (Con), Use Magic Device (Cha),
+Bluff (Cha), Spellcraft (Int), Intimidate (Cha), Knowledge
+{arcana) (Int).
+
+Warmage: Concentration (Con), Spelleraft (Int), Intimi-
+date (Cha), Knowledge (arcana) (Int), Knowledge (history)
+(Int), Craft (Int).
+
+Wizard: Concentration (Con), Spellcraft (Int), Decipher
+Seript (Int), Knowledge (arcana) (Int), Knowledge (the planes)
+(Int), Knowledge (dungeoneering) (Int).
+
+ 
+
+ 
+
+  
+
+In many ways, your character's feats define his basic abilities
+and talents. The following feat progressions map out appro-
+priate selections from 1st to 20th level. The “H” entry in the
+tables represents a human's bonus feat, and the numbers
+represent the levels at which a character of that type would
+gain a feat in question
+

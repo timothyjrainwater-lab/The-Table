@@ -1,0 +1,178 @@
+    
+
+  
+
+state of spiritual existence. Outsiders have good combat ability,
+average hit points, and good saving throws.
+
+If your creature comes from another plane and it’: not an ele-
+mental, it an outsider.
+
+type and become outsiders when they attain.a higher (or lower).
+
+Plant: This type comprises vegetable creatures. Note that regu-/
+
+lar plants, such as one finds growing in gardens and fields, lack
+
+immunity to many forms of attack.
+
+Undead: Undead are once-living creatures animated by spiri-
+tual or supernatural forces. Undead have poor combat ability, aver-
+age hit points, and poor saving throws, but have immunity to
+many forms of attack. If you want to create an undead creature
+with formidable combat abilities, you will need to give it high
+‘Strength or Dexterity, or provide it with dangerous special attacks
+jand defenses.
+
+arcane process), If the creature has energy drain or ability drain
+capability, it is more likely undead than a construct.
+
+Vermin: This type includes insects, arachnids, other arthro-
+pods, worms, and similar invertebrates. Vermin have average
+combat ability and hit points and poor saving throws, but are often
+mindless and therefore have immunity to mind-affecting effects
+
+\(charms, compulsions, phantasms, patterns, and morale effects).
+
+Use this type for giant bugs and other mindless invertebrates, If
+your creature has an Intelligence score and you've considered the
+yermin type, its probably a magical beast or an aberration instead.
+
+TARGET CHALLENGE RATING
+Before you get too far into designing your monster,.you should
+decide about how tough a monster youre trying to build by picking
+a.target CR. Challenge rating measures the level of characters the
+monster will be best suited to oppose. As you assign the monster's
+Hit Dice, Armor Class, attack bonus, special attacks, save DCs, and
+other characteristics, you will want to keep your target CR in mind.
+For example, if you want.to create a monster to challenge a)
+party of 2nd-level characters, you probably don't want to create.a
+monster with an Armor Class of 25..A strong and capable 2nd-
+evel fighter might have an attack bonus of +6 or so, which means
+thar the best character in the party will hit your monster only on a
+natural 19 or 20. The clerics, rogues, and other characters in the
+party will only hit on a natural 20.
+1f yoware interested in creating your own monsters for a partic-
+ular game or campaign, you have an advantage: You know exactly
+what characters your monsters will face. You can examine your
+players’ character sheets and check the attack bonus, Armor Class,
+and saving throws of the characters you expect your monster to
+Hight. If you don‘ want.o tailor your monster to a particular group
+of characters, you can use. the NPC tables in Chapter 4.of the Dun-
+geon Master’s Guide to see how. characters of a level equal to your
+target CR can handle different monster attacks and defenses.
+
+Taste S—1: Creature Size, ABiLiTY Scores, AND DAMAGE
+
+|Wwisdom and Charisma scores and.thus are not creatures, but!
+Jobjects, even though they are alive. Plant creatures have average
+combat ability and hit points and poor saving throws, but have |
+
+Ifit's dead, but still kicking, it's undead (although it could be al
+jconstruct if it’s just a collection of parts animated through an,
+
+   
+
+   
+ 
+ 
+ 
+ 
+ 
+ 
+   
+   
+   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+    
+ 
+
+As you proceed through the steps of creating your monster, use|
+your target. CR to guide your decisions about what value to assign. |
+Your final monster design may or may not match the target CR,|
+but you will be much less likely to create a monster that never
+
+ymisses or cant be hit.
+
+All the other elements of the monster recipe serve to put your con-
+cept into words and numbers so you can use the monster in play.
+The steps below are not presented in the same order as a.monster
+entry, because some items that appear late in a monster entry. (for
+
+example, the monster's ability scores) affect decisions. you might
+make about items that precede them.
+
+CREATURE TYPE
+
+A creature's type defines what the creature is like and what itcan
+{doin the much the same way asa character's class defines the char-
+Jacter’s abilities. A creature's type determines the size of its Hit Dice,
+jand how magic affects the creature; for example, the hold animal
+
+spell affects only creatures of the animal type.
+
+Type, along with size, helps determine the monster's ability
+scores and damage values. Consider your concept for the monster,
+and choose the type that best matches that concept. Full descrip-
+tions of each type's features and traits appear in Chapter 7: Glossary.
+
+SIZE 1
+A creature's size.affects its combat abilities. in numerous sways, In)
+general, the bigger the creature, the nastier itis, Whenassigning a
+size to your monster, think about your monster concept. Does.the.
+creature need to be really strong and tough? Does it have a.vora-|
+cious appetite? If so, it should be big. Is the creature sneaky, agile,
+and easy to overlook? If so, it should be smaller.
+
+It's important to remember that a creature's total volume is what
+determines its size, If a creature is significantly denser or less
+dense than a regular animal, then its weight is a poor indicator of
+size. For example, the ghost of a human weighs nothing but is size
+Medium.
+
+A creature's size should influence its ability scores and its
+number of Hit Dice. Table 5—1 shows suggested ability scores, Hit
+Dice, and natural weapon damage for monsters of various sizes.
+These are guidelines, not hard-and-fast requirements. Many crea-
+tures in this book do not adhere to the guidelines on the table.
+
+The column headers on Table 5-1 are defined below.
+
+Minimum CR: This column gives the minimum target CR you
+should assign to a creature of this size. This reflects the size-based
+suggestions for number of HD, Strength, and damage capability,
+For example, if you are creating a Gargantuan creature, you should
+plan ona final CR of 6 or higher.
+
+Str, Dex, Con: These numbers are typical values for a creature
+of the indicated size. The creature's type influences which end of
+the given range a monster falls into; for example, since giants are
+often at the high end of the Strength range for their size, a Large
+giant's Strength score should be closer to 27 than 18.
+
+Minimum Minimum — Maximum Slam or Claw or Gore or
+
+Size ck Str Dex Con HD HD. Tentacle Bite Sting Tail.
+Fine = 1 16-27 an =_ 2 =- 1 - —
+Diminutive - 1 14-25 +413 — 4 1 1d2 1 1
+
+Tiny = 25 12-23 4-15 => 6 1 163 142 162
+Small - 411 10-21 6-17 V2 143 164 143 1d4
+Medium = 19 19 8-19 1 = 1d4 106 1d4 146
+Large 2 18-27 6-17 10-23, 2 = 1d6 168 1d6 148.
+Huge 4 24-33 +15 12-27 4 =_ 148 266 1d8 2d6
+Gargantuan 6 30-41 43 14-31 12 = 2d6 2d8 246 248
+Colossal 211 18-39 208 406
+
+  
+
+   
+
+  
+

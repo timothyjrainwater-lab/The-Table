@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "0402579557ec:meta",
+    "sourceId": "0402579557ec",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 15/Matters of Vengeance.pdf",
+    "title": "Matters of Vengeance",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T14:16:28.620185+00:00",
+  "meta": {
+    "sourceId": "0402579557ec",
+    "title": "Matters of Vengeance",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 15/Matters of Vengeance.pdf",
+    "pages": 15,
+    "extractedAt": "2026-02-03T14:16:28.611891+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

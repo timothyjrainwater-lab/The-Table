@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0040",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 40,
+    "status": "pending",
+    "pass": "A"
+  },
+  "doneAt": "2026-02-03T07:33:38.493678+00:00",
+  "citation": "PHB (pdf p.0040)",
+  "printedGuess": "39",
+  "touched": [
+    "Condition — Prone",
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — The Fighter (PHB 3–9)"
+  ]
+}

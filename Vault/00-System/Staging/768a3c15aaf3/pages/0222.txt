@@ -1,0 +1,145 @@
+rel ~~ /-_
+
+Environment: As base construct.
+Organization: Solitary.
+Challenge Rating: +1.
+Treasure: None.
+
+Alignment: Usually chaotic evil.
+Advancement: As base construct.
+
+Salient Powers
+
+In addition to the above modifications, dread
+golems frequently have salient powers. These pow-
+ers result from the materials used in the golem’s
+construction or area twisted mockery of the creator's
+goals and fears. Roll 1d4—1 to randomly determine
+how many salient powers the golem possesses, or
+choose an appropriate number.
+
+Constrict (Ex): The golem is able to crush or
+strangle its enemies. The golem gains the constrict
+ability.
+
+Contagious Touch (Sp): The golem can cast a
+contagion spell at will. The golem always deals the
+same disease with this power.
+
+ 
+
+ 
+
+Energy Drain (Su): Any living creature hit by
+the golem’s slam attack suffers one negative level.
+
+Frightful Presence (Su): The golem has the
+frightful presence ability, identical to the vampire
+salient power described above. Common ways for
+golems to trigger this power are by moaning, gib-
+bering or even tearing at their own flesh.
+
+Heightened Scent (Ex): This power is most
+frequently possessed by flesh golems that were
+constructed with the sensory organs of an animal.
+The golem gains the Scent feat.
+
+Improved Grab (Ex): The golem gains the
+improved grab ability. It must hit with its slam
+attack to use this ability.
+
+Jump (Ex): The golem is capable of truly
+astounding leaps. It is treated as if always under the
+effect of a jump spell.
+
+Laugh of Enfeeblement (Su): At will, the golem
+can unleash a booming, derisive laugh that affects
+all living creatures within 30 feet as if they had
+been hit by a ray of enfeeblement cast by a 1Oth-level
+sorcerer. Creatures that cannot hear the laugh are
+unaffected.
+
+ 
+
+Rage (Ex): Once per day the golem can enter
+arageas if it were a 20th-level barbarian. Itdoes not
+have a Constitution score, so it does not gain extra
+hit points, but all other bonuses and penalties
+apply.
+
+Regeneration (Ex): The dread golem gains re-
+generation 5. Two relatively common varieties of
+
+     
+
+ 
+
+damage must be selected that deal normal damage
+to the golem. Dread flesh golems, for example, are
+frequently unable to regenerate fire or acid dam-
+age. The dread golem cannot regrow lost body
+parts, but it can reattach severed body parts in-
+stantly by holding them against the stump.
+
+Spider Climb (Ex): The golem can cling to
+surfaces as though under the effects of the spider
+climb spell.
+
+Stench of Decay (Su): The golem constantly
+exudes a foul stench in a 20-foot radius that is
+identical in effect to the stinking cloud spell.
+
+Trample (Ex): The golem gains the trample
+ability.
+
+Zeitgebers
+
+Almost all dread golems suffer from one or
+more zeitgebers, which are involuntary responses
+triggered by certain sights, sounds or experiences.
+Like the golem’s salient powers, the zeitgebers
+often mock the creator's goals by rendering the
+golem unable to act as desired in given situations.
+
+The potential triggers and effects of zeitgebers
+are limitless. The sight of fire might cause a particu-
+lar golem to cower in fear or stare transfixed at the
+flames. A song or style of music might cause an-
+other golem to dance clumsily or sing croakingly.
+Another golem might start howling uncontrolla-
+blywhen the full moon rises. The effect of zeitgebers
+in game terms are up to the DM, but they should
+serve as a tool for clever hunters to use against the
+beasts.
+
+Punting Constructs
+
+Golems are powerful creatures and hunting
+them requires much patience, skill and dedication,
+as well as considerable research and careful plan-
+ning. Several factors must be considered when
+setting out to pursue a golem.
+
+hbo Created It?
+
+Golems are made, not born. Discovering the
+creator ofa golem can sometimes provide informa-
+tion necessary to its destruction. Since each golem
+has both a trigger and a zeitgeber, finding out the
+nature of each stimulus or vulnerability can mean
+the difference between success and failure in the
+hunt.
+
+Golems still under the control of their creator
+most often serve as guardians, and hunters may
+encounter them as obstacles en route to defeating
+an evil wizard or a mad alchemist. Free-willed
+
+  
+
+ 
+
+ 
+
+ 
+

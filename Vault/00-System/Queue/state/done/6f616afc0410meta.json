@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "6f616afc0410:meta",
+    "sourceId": "6f616afc0410",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Book of Challenges.pdf",
+    "title": "Book of Challenges",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:55:08.114321+00:00",
+  "meta": {
+    "sourceId": "6f616afc0410",
+    "title": "Book of Challenges",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Book of Challenges.pdf",
+    "pages": 137,
+    "extractedAt": "2026-02-03T05:55:07.461621+00:00"
+  }
+}

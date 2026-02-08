@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0098",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 98,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:41:02.466736+00:00"
+  },
+  "doneAt": "2026-02-03T08:38:07.788094+00:00",
+  "citation": "PHB (pdf p.0098)",
+  "printedGuess": "97",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Weapons, page 116, for a list of martial (PHB 7–5)"
+  ]
+}

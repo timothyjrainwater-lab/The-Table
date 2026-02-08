@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "ee87ad1826f2:meta",
+    "sourceId": "ee87ad1826f2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Crossbreeding - Flesh And Blood.pdf",
+    "title": "Crossbreeding - Flesh And Blood",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:08:37.161452+00:00",
+  "meta": {
+    "sourceId": "ee87ad1826f2",
+    "title": "Crossbreeding - Flesh And Blood",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Crossbreeding - Flesh And Blood.pdf",
+    "pages": 68,
+    "extractedAt": "2026-02-03T08:08:36.818639+00:00"
+  }
+}

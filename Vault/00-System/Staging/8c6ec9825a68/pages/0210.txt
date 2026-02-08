@@ -1,0 +1,140 @@
+Taste A—3: Feat Procressions By Party ROLE
+
+BARBARIAN
+Destroyer Hunter
+H Power Attack Track
+Ist Cleave Weapon Focus (any two-handed)
+3rd Mad Foam Rager* Trophy Collector*
+
+6th Weapon Focus (greataxe) Combat Focus*
+oth Improved Critical (greataxe) Blind-Fight
+12th Improved Sunder Combat Vigor*
+15th Defensive Sweep* Combat Awareness*
+18th Overwhelming Assault* Flay*
+Barb
+Controller Problem Solver
+H Skill Focus (Perform) Skill Focus (Use Magic Device)
+Ist Negotiator Arcane Flourish*
+3rd Wanderer's Diplomacy* Magical Aptitude
+6th Combat Panache* Battle Dancer*
+9th Master Manipulator* Arcane Accompaniment*
+12th Spell Focus (enchantment) Improved Initiative
+15th Improved Feint Combat Reflexes
+18th —_Fade into Violence* Vexing Flanker*
+Becuiter
+Controller Investigator
+H Spell Focus (enchantment) Spell Focus (enchantment)
+Ist improved Initiative Stealthy
+3rd Greater Spell Focus (enchantment) Wanderer’s Diplomacy*
+Sthy Silent Spell Silent Spell
+6th Arcane Thesis* Quick Draw
+9th Spell Penetration Eschew Materials
+10th} Still Spell Still Spell
+12th Heighten Spell Weapon Finesse
+15th Scribe Scroll Spell Penetration
+18th Greater Spell Penetration Greater Spell Focus (enchantment)
+Creric
+Defender Destroyer
+H Extra Turning Extra Turning
+Ist Improved Turning Divine Justice*
+3rd ron Will Weapon Focus (any)
+6th Spell Focus (evocation) Divine Armor*
+Sth Sacred Radiance* Smiting Spell*
+12th Combat Casting Power Attack
+15th Tower Shield Proficiency Combat Casting
+18th Lunging Strike* Armor Specialization* (heavy)
+
+Whirlwind
+
+‘Two-Weapon Fighting
+
+Weapon Focus (kukri)
+
+Skill Focus (Tumble)
+Two-Weapon Pounce*
+improved Critical (kukri)
+Improved Two-Weapon Fighting
+Two-Weapon Rend*
+
+Greater Two-Weapon Fighting
+
+Vanguard
+
+Still Spell
+
+Combat Expertise
+
+Exotic Weapon Proficiency
+{spiked chain)
+
+Improved Trip
+
+Improved Disarm
+
+Combat Reflexes
+
+Weapon Focus (spiked chain)
+
+Power Attack
+
+Trickster
+
+Spell Focus (illusion)
+Combat Expertise
+Improved Feint
+Silent Spell
+
+Fade into Violence=
+Acrobatic Strike*
+Still Spell
+
+Shadow Striker*
+Spell Penetration
+Greater Spell Focus (illusion)
+
+Healer
+
+Combat Casting
+Sacred Healing*
+Divine Ward*
+
+Extra Turning
+
+Brew Potion
+
+Sacred Purification*
+Quicken Spell
+
+Extra Turning
+
+To use this table, find the number of feats your character is
+entitled to, then start at the beginning of the chosen progres-
+sion and take that number of feats. If your character is not
+human, you can still start with the feat labeled “H,” but this
+often isn’t necessary.
+
+For example, a 7th-level halfore barbarian has three feats.
+If you're using the destroyer progression. you would need to
+take the “H" feat, Power Attack, since that feat isa prerequisite
+for Cleave.
+
+Some of the progressions require certain ability scores
+to meet their prerequisites. After you choose the feat
+progression you want, check the prerequisites and be sure
+
+to fulfill them, even if you have to go back and change your
+character's attributes to match the requirements. In some
+cases, you must also buy ranks in certain skills to qualify
+for a particular feat progression, In this case, make sure
+you purchased the relevant skills when you spent your
+character's skill ranks in step 4 (or go back and change your
+skill choices).
+
+Most of rhe feats in these progressions are found in the
+Player's Handbook or in this book (those marked with an
+asterisk). Any class appearing in a book other than the Player's
+Handbook might mention some feats from another book
+(usually the supplement in which the class appeared)
+
+ 
+

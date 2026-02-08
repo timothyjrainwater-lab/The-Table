@@ -1,0 +1,136 @@
+ 
+ 47
+often rangers as well, being adaptable enough to learn their way 
+around the woods even if it doesn’t come naturally to them. Half-
+orcs may find the life of a ranger more comfortable than life among 
+cruel and taunting humans (or orcs). Gnome rangers are more 
+common than gnome fighters, but still they tend to remain in their 
+own lands rather than adventure among “the big people.” Dwarf 
+rangers are rare, but they can be quite effective. Instead of living in 
+the surface wilderness, they are at home in the endless caverns 
+beneath the earth. Here they hunt down and destroy the enemies of 
+dwarvenkind with the relentless precision for which dwarves are 
+known. Dwarf rangers are often known as cavers. Halfling rangers 
+are highly respected for their ability to help communities of 
+halflings prosper as they pursue their nomadic lifestyle. 
+Among the savage humanoids, only gnolls are commonly rangers, 
+using their skills to slyly stalk their prey. 
+Classes: Rangers get along well with druids and to some extent 
+with barbarians. They are known to bicker with paladins, mostly 
+because they often share goals but differ in style, tactics, approach, 
+philosophy, and esthetics. Since rangers don’t often look to other 
+people for support or friendship, they find it easy to tolerate people 
+who are quite different from themselves, such as bookish wizards 
+and preachy clerics. They just don’t care enough to get upset about 
+others’ differences. 
+Role: The ranger’s best role is that of a scout and secondary 
+combatant. Without the heavy armor of the fighter or the staying 
+power of the barbarian, the ranger should focus on opportunistic 
+and ranged attacks. Most rangers user their animal companions as 
+sentries, scouts, or to assist them in melee combat. 
+ 
+GAME RULE INFORMATION 
+Rangers have the following game statistics. 
+Abilities: Dexterity is important for a ranger both because he 
+tends to wear light armor and because several ranger skills are based 
+on that ability. Strength is important because rangers frequently get 
+involved in combat. Several ranger skills are based on Wisdom, and 
+a Wisdom score of 14 or higher is required to get access to the most 
+powerful ranger spells. A Wisdom score of 11 or higher is required 
+to cast any ranger spells at all. One of the ranger’s trademark skills, 
+his ability to track foes, is based on Wisdom. 
+Alignment: Any. 
+Hit Die: d8. 
+ 
+Class Skills 
+The ranger’s class skills (and the key ability for each skill) are Climb 
+(Str), Concentration (Con), Craft (Int), Handle Animal (Cha), Heal 
+(Wis), Hide (Dex), Jump (Str), Knowledge (dungeoneering) (Int), 
+Knowledge (geography) (Int), Knowledge (nature) (Int), Listen 
+(Wis), Move Silently (Dex), Profession (Wis), Ride (Dex), Search 
+(Int), Spot (Wis), Survival (Wis), Swim (Str), and Use Rope (Dex). 
+See Chapter 4: Skills for skill descriptions. 
+Skill Points at 1st Level: (6 + Int modifier) × 4. 
+Skill Points at Each Additional Level: 6 + Int modifier. 
+ 
+Class Features 
+All of the following are class features of the ranger. 
+Weapon and Armor Proficiency:  A ranger is proficient with all 
+simple and martial weapons, and with light armor and shields 
+(except tower shields). 
+Favored Enemy (Ex):  At 1st level, a ranger may select a type of 
+creature from among those given on Table 3–14: Ranger Favored 
+Enemies. Due to his extensive study on his chosen type of foe and 
+training in the proper techniques for combating such creatures, the 
+ranger gains a +2 bonus on Bluff, Listen, Sense Motive, Spot, and 
+Survival checks when using these skills against creatures of this 
+type. Likewise, he gets a +2 bonus on weapon damage rolls against 
+such creatures. 
+At 5th level and every five levels thereafter (10th, 15th, and 20th 
+level), the ranger may select an additional favored enemy from those 
+given on the table. In addition, at each such interval, the bonus 
+against any one favored enemy (including the one just selected, if so 
+desired) increases by 2. For example, a 5th-level ranger has two 
+favored enemies; against one he gains a +4 bonus on Bluff, Listen, 
+Sense Motive, Spot, and Survival checks and weapon damage rolls, 
+and against the other he has a +2 bonus. At 10th level, he has three 
+favored enemies, and he gains an additional +2 bonus, which he can 
+allocate to the bonus against any one of his three favored enemies. 
+Thus, his bonuses could be either +4, +4, +2 or +6, +2, +2. 
+If the ranger chooses humanoids or outsiders as a favored enemy, 
+he must also choose an associated subtype, as indicated on the table. 
+If a specific creature falls into more than one category of favored 
+enemy (for instance, devils are both evil outsiders and lawful 
+outsiders), the ranger’s bonuses do not stack; he simply uses 
+whichever bonus is higher. See the Monster Manual for more infor-
+mation on types of creatures. 
+ 
+Table 3–14: Ranger Favored Enemies 
+Type (Subtype) Examples 
+Aberration beholder 
+Animal bear 
+Construct golem 
+Dragon  black dragon 
+Elemental invisible stalker 
+Fey dryad 
+Giant ogre 
+Humanoid (aquatic) merfolk 
+Humanoid (dwarf) dwarf 
+Humanoid (elf) elf 
+Humanoid (goblinoid) hobgoblin 
+Humanoid (gnoll) gnoll 
+Humanoid (gnome) gnome 
+Humanoid (halfling) halfling 
+Humanoid (human) human 
+Humanoid (orc) orc 
+Humanoid (reptilian) kobold 
+Magical beast displacer beast 
+Monstrous humanoid minotaur 
+Ooze gelatinous cube 
+Outsider (air) arrowhawk 
+Outsider (chaotic) demon 
+Outsider (earth) xorn 
+Outsider (evil) devil 
+Outsider (fire) salamander 
+Outsider (good) angel 
+Outsider (lawful) formian 
+Outsider (native) tiefling 
+Outsider (water) tojanida 
+Plant shambling mound 
+Undead zombie 
+Vermin monstrous spider 
+ 
+Track: A ranger gains Track (see page 101) as a bonus feat. 
+Wild Empathy (Ex):  A ranger can use body language, vocaliza-
+tions, and demeanor to improve the attitude of an animal (such as a 
+bear or a monitor lizard). This ability functions just like a Diplomacy 
+check to improve the attitude of a person (see page 72). The ranger 
+rolls 1d20 and adds his ranger level and his Charisma bonus to 
+determine the wild empathy check result. The typical domestic 
+animal has a starting attitude of indifferent, while wild animals are 
+usually unfriendly. 
+To use wild empathy, the ranger and the animal must be able to 
+study each other, which means that they must be within 30 feet of 
+one another under normal visibility conditions. Generally, 
+CHAPTER 3: 
+CLASSES 

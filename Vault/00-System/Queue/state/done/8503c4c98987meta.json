@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "8503c4c98987:meta",
+    "sourceId": "8503c4c98987",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Wartime/Miniatures Handbook.pdf",
+    "title": "Miniatures Handbook",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T14:22:51.916516+00:00",
+  "meta": {
+    "sourceId": "8503c4c98987",
+    "title": "Miniatures Handbook",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Wartime/Miniatures Handbook.pdf",
+    "pages": 193,
+    "extractedAt": "2026-02-03T14:22:51.908133+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

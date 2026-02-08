@@ -1,0 +1,12 @@
+# Table — The Druid. In addition, (PHB 3–8)
+
+## Source
+- PHB (pdf p.0038)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

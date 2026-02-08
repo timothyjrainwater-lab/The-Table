@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0313",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 313,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:41:17.977568+00:00"
+  },
+  "doneAt": "2026-02-03T09:44:03.232031+00:00",
+  "citation": "PHB (pdf p.0313)",
+  "printedGuess": "312",
+  "touched": [
+    "Condition — Grappled",
+    "Rule — Armor Class",
+    "Rule — Core Mechanic (d20)",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

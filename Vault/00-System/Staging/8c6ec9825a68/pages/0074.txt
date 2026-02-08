@@ -1,0 +1,163 @@
+Feat
+Crushing Strike
+
+Driving Attack
+
+Slashing Flurry
+
+Weapon Supremacy
+
+Overwhelming Assault
+Penetrating Shot
+
+Ranged Weapon Mastery
+
+Robilar’s Gambit
+
+Shield Specialization
+Active Shield Defense
+
+Agile Shield Fighter
+
+Shield Sling
+
+Shield Ward
+Short Haft
+Spectral Skirmisher
+Spell-Linked Familiar
+Steadfast Determination
+Telling Blow
+Trophy Collector
+Tumbling Feint
+Two-Weapon Pounce
+Two-Weapon Rend
+Vatic Gaze
+
+Versatile Unarmed Strike
+
+Vexing Flanker
+Adaptable Flanker
+
+Wanderer’s Diplomacy
+
+Water Splitting Stone
+
+Prerequisites Benefit
+
+Proficiency with a bludgeoning weapon, +1 on attacks per previous hit with bludgeon
+Weapon Focus with a bludgeoning weapon,
+
+Melee Weapon Mastery (bludgeoning), Weapon
+
+Specialization with a bludgeoning weapon,
+
+base attack bonus +14
+
+Proficiency with selected weapon, Bull rush with piercing weapon attack
+Weapon Focus with selected weapon,
+
+Melee Weapon Mastery (piercing), Weapon
+
+Specialization with selected weapon,
+
+base attack bonus +14
+
+Proficiency with selected weapon, Gain extra attack with slashing weapon,
+Weapon Focus with selected weapon,
+
+Melee Weapon Mastery (slashing), Weapon
+
+Specialization with selected weapon,
+
+base attack bonus +14
+
+Proficiency with selected weapon, Gain further abilities with chosen weapon
+Greater Weapon Focus with selected
+
+weapon, Greater Weapon Specialization
+
+with selected weapon, Weapon Focus
+
+with selected weapon, Weapon
+
+Specialization with selected weapon,
+
+Melee Weapon Mastery with weapon type
+
+of selected weapon, fighter level 18th
+
+Base attack bonus +15 Gain bonus against adjacent foe not attacking you
+Str 15, Point Blank Shot, Your ranged attack targets every foe in 60-ft. line
+base attack bonus +10
+
+Proficiency with selected weapon, Gain Weapon Focus, Weapon Specialization benefits
+Weapon Focus with selected weapon, _with multiple weapons
+
+Weapon Specialization with selected
+
+weapon, base attack bonus +8
+
+Combat Reflexes, base attack bonus +12 Grant foes bonus on attacks and damage, but their
+attacks provoke attacks of opportunity
+
+Proficiency with shields Increase shield bonus by +1
+Proficiency with shields, Make attacks of opportunity without penalty when
+Shield Specialization fighting defensively
+
+Proficiency with shields, Improved Shield Reduce two weapon penalties when using shield bash
+Bash, Shield Specialization
+
+Proficiency with shields, improved Use shield as ranged weapon
+
+Shield Bash, Shield Specialization,
+
+base attack bonus +9
+
+Proficiency with shields, Gain shield bonus to touch AC and against bull rush,
+Shield Specialization disarm, grapple, overrun, and trip
+Proficiency with selected weapon, Lose reach benefits, attack adjacent foes
+
+Weapon Focus with selected weapon,
+base attack bonus +3
+
+Base attack bonus +6 Gain bonuses while invisible
+
+Arcane caster level 9th, familiar Familiar gains limited spellcasting ability
+
+Endurance Use Constitution to modify Will saves
+
+Skirmish attack or sneak attack Gain skirmish or sneak attack damage on critical hits
+
+Craft (taxidermy) 6 ranks Gain bonuses from trophies you create and wear
+
+Bluff 4 ranks, Tumble 4 ranks +5 on feint attempt after successful Tumble
+
+Dex 15, Two-Weapon Fighting, Attack with both weapons when charging
+
+base attack bonus +6
+
+Dex 15, Two:Weapon Fighting, Gain bonus damage if you hit with both weapons
+
+base attack bonus +11
+
+Arcane caster level 9th Detect magic at will, use Sense Motive to determine
+foe's highest-level spell
+
+Improved Unarmed Strike Deal bludgeoning, piercing, or slashing damage
+with unarmed strikes
+
+Combat Reflexes +4 on attacks when flanking
+
+Combat Reflexes, Vexing Flanker, Flank chosen foe from adjacent square
+
+base attack bonus +4
+
+Halfling or 4 ranks in Bluff, Diplomacy, Gain special social abilities
+
+and Sense Motive
+
+Dex 13, Wis 13, Improved Unarmed Strike, +4 bonus on damage when striking foe that has DR
+Stunning Fist, base attack bonus +9
+
+ 
+

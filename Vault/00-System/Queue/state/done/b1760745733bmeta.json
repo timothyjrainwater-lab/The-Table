@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "b1760745733b:meta",
+    "sourceId": "b1760745733b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Champions of Valor.pdf",
+    "title": "Champions of Valor",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T07:05:52.171567+00:00",
+  "meta": {
+    "sourceId": "b1760745733b",
+    "title": "Champions of Valor",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Champions of Valor.pdf",
+    "pages": 159,
+    "extractedAt": "2026-02-03T07:05:51.382578+00:00"
+  }
+}

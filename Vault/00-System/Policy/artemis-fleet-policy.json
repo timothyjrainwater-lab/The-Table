@@ -1,0 +1,88 @@
+{
+  "phase": "staging-extraction",
+  "core_sources": ["681f92bc94ff", "fed77f68501d", "e390dfd9143f"],
+  "source_names": {
+    "681f92bc94ff": "PHB",
+    "fed77f68501d": "DMG",
+    "e390dfd9143f": "MM"
+  },
+  "staging_status": {
+    "PHB": {
+      "sourceId": "681f92bc94ff",
+      "status": "COMPLETE",
+      "pages_staged": 322,
+      "pages_expected": 322,
+      "compile_done": true,
+      "notes_created": 284
+    },
+    "DMG": {
+      "sourceId": "fed77f68501d",
+      "status": "PARTIAL",
+      "pages_staged": 322,
+      "pages_expected": 322,
+      "compile_done": false,
+      "notes_created": 12,
+      "pages_compiled": 10,
+      "pages_remaining": 312
+    },
+    "MM": {
+      "sourceId": "e390dfd9143f",
+      "status": "NOT_STARTED",
+      "pages_staged": 0,
+      "pages_expected": 322,
+      "compile_done": false,
+      "notes_created": 0
+    }
+  },
+  "compile_thresholds": {
+    "681f92bc94ff": {
+      "staging_complete": 322,
+      "compile_done_ratio": 1.0
+    },
+    "fed77f68501d": {
+      "staging_complete": 322,
+      "compile_done_ratio": 0.031
+    },
+    "e390dfd9143f": {
+      "staging_complete": 322,
+      "compile_done_ratio": 0.90
+    }
+  },
+  "noise_jobs_disabled": [
+    "bba9698d-ca94-449c-b127-7b0df8152c30",
+    "2a7fb666-b17e-4679-bc9d-a1bfc7d706c4",
+    "1f28a430-148f-4cbb-913e-640887f6c75f"
+  ],
+  "active_jobs": {
+    "extraction": "CORE-ONLY extraction (PHB/DMG/MM)",
+    "compile": "PHB COMPILE (complete) -> DMG COMPILE next",
+    "qa": ["QA queue health", "QA RAG readiness", "QA ontology"],
+    "maintenance": ["Queue compaction", "Hourly checkpoint"]
+  },
+  "rag_readiness": {
+    "total_typed_notes": 283,
+    "rules": 14,
+    "conditions": 4,
+    "mocs": 12,
+    "tables": 253,
+    "issues": {
+      "missing_frontmatter": 6,
+      "missing_citations": 10,
+      "unknown_frontmatter_keys": 6
+    }
+  },
+  "next_phase": {
+    "trigger": "DMG compile_ratio >= 0.90",
+    "action": "Enable MM extraction",
+    "prerequisite": "Complete DMG compilation"
+  },
+  "remediation_queue": {
+    "status": "PENDING",
+    "tasks": [
+      "Add missing citations to PHB notes",
+      "Add missing frontmatter keys to Ability Score rules",
+      "Fix unknown frontmatter keys"
+    ]
+  },
+  "updated_at": "2026-02-05T14:50:00.000000+00:00"
+}

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "91c3a7a41043:meta",
+    "sourceId": "91c3a7a41043",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Everyone Else.pdf",
+    "title": "Everyone Else",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:06:31.468054+00:00",
+  "meta": {
+    "sourceId": "91c3a7a41043",
+    "title": "Everyone Else",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Everyone Else.pdf",
+    "pages": 70,
+    "extractedAt": "2026-02-03T10:06:31.170433+00:00"
+  }
+}

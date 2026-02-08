@@ -1,0 +1,98 @@
+ 
+ 123
+GETTING INTO AND OUT OF ARMOR 
+The time required to don armor depends on its type; see Table 7–7: 
+Donning Armor. 
+Don: This column on Table 7–7 tells how long it takes a character 
+to put the armor on. (One minute is 10 rounds.) Readying (strapping 
+on) a shield is only a move action. 
+Don Hastily:  This column tells how long it takes to put the 
+armor on in a hurry. The armor check penalty and armor bonus for 
+hastily donned armor are each 1 point worse than normal. For 
+example, if Tordek donned his scale mail hastily, it would take him 1 
+minute (10 rounds), the armor would provide only a +3 bonus to his 
+AC (instead of +4), and his armor check penalty would be –5 
+(instead of –4). 
+Remove: This column tells how long it takes to get the armor off 
+(important to know if you are suddenly submerged; see the 
+drowning rules in the Dungeon Master’s Guide ). Loosing a shield 
+(removing it from the arm and dropping it) is only a move action. 
+ 
+Table 7–7: Donning Armor 
+Armor Type Don Don Hastily Remove 
+Shield (any) 1 move action n/a 1 move action 
+Padded,  1 minute 5 rounds 1 minute 1 
+leather, hide, 
+studded leather, 
+or chain shirt 
+Breastplate, 4 minutes 1 1 minute 1 minute 1 
+scale mail, 
+chainmail, 
+banded mail, 
+or splint mail 
+Half-plate 4 minutes 2 4 minutes 1 1d4+1 minutes 1 
+or full plate 
+1 If the character has some help, cut this time in half. A single character 
+doing nothing else can help one or two adjacent characters. Two 
+characters can’t help each other don armor at the same time. 
+2 The wearer must have help to don this armor. Without help, it can be 
+donned only hastily. 
+ 
+ 
+ 
+ 
+ 
+Table 7–6: Armor and Shields 
+  Armor/Shield Maximum Armor Arcane Spell —–— Speed ——– 
+Armor Cost Bonus Dex Bonus Check Penalty Failure Chance (30 ft.) (20 ft.) Weight 1 
+Light armor 
+Padded 5 gp +1 +8 0 5% 30 ft. 20 ft. 10 lb. 
+Leather 10 gp +2 +6 0 10% 30 ft. 20 ft. 15 lb. 
+Studded leather 25 gp +3 +5 –1 15% 30 ft. 20 ft. 20 lb. 
+Chain shirt 100 gp +4 +4 –2 20% 30 ft. 20 ft. 25 lb. 
+Medium armor 
+Hide 15 gp +3 +4 –3 20% 20 ft. 15 ft. 25 lb. 
+Scale mail 50 gp +4 +3 –4 25% 20 ft. 15 ft. 30 lb. 
+Chainmail 150 gp +5 +2 –5 30% 20 ft. 15 ft. 40 lb. 
+Breastplate 200 gp +5 +3 –4 25% 20 ft. 15 ft. 30 lb. 
+Heavy armor 
+Splint mail 200 gp +6 +0 –7 40% 20 ft. 2 15 ft. 2 45 lb. 
+Banded mail 250 gp +6 +1 –6 35% 20 ft. 2 15 ft. 2 35 lb. 
+Half-plate 600 gp +7 +0 –7 40% 20 ft. 2 15 ft. 2 50 lb. 
+Full plate 1,500 gp +8 +1 –6 35% 20 ft. 2 15 ft. 2 50 lb. 
+Shields 
+Buckler 15 gp +1 — –1 5% — — 5 lb. 
+Shield, light wooden 3 gp +1 — –1 5% — — 5 lb. 
+Shield, light steel 9 gp +1 — –1 5% — — 6 lb. 
+Shield, heavy wooden 7 gp +2 — –2 15% — — 10 lb. 
+Shield, heavy steel 20 gp +2 — –2 15% — — 15 lb. 
+Shield, tower 30 gp +4
+3 +2 –10 50% — — 45 lb. 
+Extras 
+Armor spikes +50 gp — — — — — — +10 lb. 
+Gauntlet, locked 8 gp — — Special 4 — — +5 lb. 
+Shield spikes +10 gp — — — — — — +5 lb. 
+1 Weight figures are for armor sized to fit Medium characters. Armor fitted for Small characters weighs half as much, and armor  fitted for Large 
+characters weighs twice as much. 
+2 When running in heavy armor, you move only triple your speed, not quadruple. 
+3 A tower shield can instead grant you cover. See the description. 
+4 Hand not free to cast spells. 
+ARMOR FOR UNUSUAL CREATURES 
+Armor and shields for unusually big creatures, unusually little creatures,
+and nonhumanoid creatures have different costs and weights from those
+given on Table 7–6: Armor and Shields. Refer to the appropriate line on
+the table below and apply the multipliers to cost and weight for the
+armor type in question. 
+ 
+  Humanoid Nonhumanoid 
+Size Cost Weight Cost Weight  
+Tiny or smaller1 ×1/2 ×1/10 ×1 ×1/10 
+Small ×1 ×1/2 ×2 ×1/2 
+Medium ×1 ×1 ×2 ×1 
+Large ×2 ×2 ×4 ×2 
+Huge ×4 ×5 ×8 ×5 
+Gargantuan ×8 ×8 ×16 ×8 
+Colossal ×16 ×12 ×32 ×12 
+1 Divide armor bonus by 2. 
+CHAPTER 7: 
+EQUIPMENT 

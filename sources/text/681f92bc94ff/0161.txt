@@ -1,0 +1,136 @@
+ 
+ 160 
+Neutral Clerics and Undead 
+A cleric of neutral alignment can either turn undead but not rebuke 
+them, or rebuke undead but not turn them. See Turn or Rebuke 
+Undead, page 33, for more information. 
+Even if a cleric is neutral, channeling positive energy is a good act 
+and channeling negative energy is evil. 
+ 
+Paladins and Undead 
+Beginning at 4th level, paladins can turn undead as if they were 
+clerics of three levels lower than they actually are. 
+ 
+Turning Other Creatures 
+Some clerics have the ability to turn creatures other than undead. 
+For example, a cleric with the Fire domain can turn or destroy water 
+creatures (as if he were a good cleric turning undead) and rebuke or 
+command fire creatures (as if he were an evil cleric rebuking 
+undead). The turning check result is determined as normal. 
+ 
+Other Uses for Positive or Negative Energy 
+Positive or negative energy may have uses other than affecting 
+undead. For example, a holy site might be guarded by a magic door 
+that opens for any good cleric who can make a turning check high 
+enough to affect a 3-HD undead and that shatters for an evil cleric 
+who can make a similar check. 
+ 
+TWO-WEAPON FIGHTING 
+If you wield a second weapon in your off hand, you can get one extra 
+attack per round with that weapon. Fighting in this way is very hard, 
+however, and you suffer a –6 penalty with your regular attack or 
+attacks with your primary hand and a –10 penalty to the attack with 
+your off hand. You can reduce these penalties in two ways: 
+/rhombus4 If your off-hand weapon is light, the penalties are reduced by 2 
+each. (An unarmed strike is always considered light.) 
+/rhombus4 The Two-Weapon Fighting feat lessens the primary hand penalty 
+by 2, and the off-hand penalty by 6. 
+Table 8–10: Two-Weapon Fighting Penalties summarizes the 
+interaction of all these factors. 
+ 
+Table 8–10: Two-Weapon Fighting Penalties 
+Circumstances Primary Hand Off Hand 
+Normal penalties –6 –10 
+Off-hand weapon is light –4 –8 
+Two-Weapon Fighting feat –4 –4 
+Off-hand weapon is light and –2 –2 
+Two-Weapon Fighting feat 
+ 
+Double Weapons:  You can use a double weapon to make an 
+extra attack with the off-hand end of the weapon as if you were 
+fighting with two weapons. The penalties apply as if the off-hand 
+end of the weapon were a light weapon. 
+Thrown Weapons:  The same rules apply when you throw a 
+weapon from each hand. Treat a dart or shuriken as a light weapon 
+when used in this manner, and treat a bolas, javelin, net, or sling as a 
+one-handed weapon. 
+ 
+SPECIAL INITIATIVE ACTIONS 
+Here are ways to change when you act during combat by altering 
+your place in the initiative order. 
+ 
+DELAY 
+By choosing to delay, you take no action and then act normally on 
+whatever initiative count you decide to act. When you delay, you 
+voluntarily reduce your own initiative result for the rest of the 
+combat. When your new, lower initiative count comes up later in 
+the same round, you can act normally. You can specify this new 
+initiative result or just wait until some time later in the round and 
+act then, thus fixing your new initiative count at that point. 
+Delaying is useful if you need to see what your friends or oppo-
+nents are going to do before deciding what to do yourself. The price 
+you pay is lost initiative. You never get back the time you spend 
+waiting to see what’s going to happen. You can’t, however, interrupt 
+anyone else’s action (as you can with a readied action). 
+Initiative Consequences of Delaying:  Your initiative result 
+becomes the count on which you took the delayed action. If you 
+come to your next action and have not yet performed an action, you 
+don’t get to take a delayed action (though you can delay again). If 
+you take a delayed action in the next round, before your regular turn 
+comes up, your initiative count rises to that new point in the order 
+of battle, and you do not get your regular action that round. 
+ 
+READY 
+The ready action lets you prepare to take an action later, after your 
+turn is over but before your next one has begun. Readying is a 
+standard action. It does not provoke an attack of opportunity 
+(though the action that you ready might do so). 
+Readying an Action:  You can ready a standard action, a move 
+action, or a free action. To do so, specify the action you will take and 
+the conditions under which you will take it. For example, you might 
+specify that you will shoot an arrow at anyone coming through a 
+nearby doorway. Then, any time before your next action, you may 
+take the readied action in response to that condition. The action 
+occurs just before the action that triggers it. If the triggered action is 
+part of another character’s activities, you interrupt the other 
+character. Assuming he is still capable of doing so, he continues his 
+actions once you complete your readied action. 
+Your initiative result changes. For the rest of the encounter, your 
+initiative result is the count on which you took the readied action, 
+and you act immediately ahead of the character whose action 
+triggered your readied action. 
+You can take a 5-foot step as part of your readied action, but only 
+if you don’t otherwise move any distance during the round. For 
+instance, if you move up to an open door and then ready an action to 
+swing your sword at whatever comes near, you can’t take a 5-foot 
+step along with the readied action (since you’ve already moved in 
+this round). 
+Initiative Consequences of Readying:  Your initiative result 
+becomes the count on which you took the readied action. If you 
+come to your next action and have not yet performed your readied 
+action, you don’t get to take the readied action (though you can 
+ready the same action again). If you take your readied action in the 
+next round, before your regular turn comes up, your initiative count 
+rises to that new point in the order of battle, and you do not get your 
+regular action that round. 
+Distracting Spellcasters: You can ready an attack against a spell-
+caster with the trigger “if she starts casting a spell.” If you damage 
+the spellcaster, she may lose the spell she was trying to cast (as deter-
+mined by her Concentration check result). 
+Readying to Counterspell:  You may ready a counterspell 
+against a spellcaster (often with the trigger “if she starts casting a 
+spell”). In this case, when the spellcaster starts a spell, you get a 
+chance to identify it with a Spellcraft check (DC 15 + spell level). If 
+you do, and if you can cast that same spell (are able to cast it and 
+have it prepared, if you prepare spells), you can cast the spell as a 
+counterspell and automatically ruin the other spellcaster’s spell. 
+Counterspelling works even if one spell is divine and the other 
+arcane. 
+A spellcaster can use dispel magic  (page 223) to counterspell 
+another spellcaster, but it doesn’t always work. 
+Readying a Weapon against a Charge:  You can ready certain 
+piercing weapons, setting them to receive charges (see Table 7–5: 
+Weapons, page 116). A readied weapon of this type deals double 
+damage if you score a hit with it against a charging character. 
+CHAPTER 8: 
+COMBAT 

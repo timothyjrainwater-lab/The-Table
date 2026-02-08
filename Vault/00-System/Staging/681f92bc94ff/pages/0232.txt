@@ -1,0 +1,203 @@
+ 
+ 231
+Warm Shield: The flames are warm to the 
+touch. You take only half damage from 
+cold-based attacks. If such an attack allows 
+a Reflex save for half damage, you take no 
+damage on a successful save. 
+Chill Shield:  The flames are cool to the 
+touch. You take only half damage from 
+fire-based attacks. If such an attack allows a 
+Reflex save for half damage, you take no 
+damage on a successful save. 
+Arcane Material Component:  A bit of 
+phosphorus for the warm shield; a live fire-
+fly or glowworm or the tail portions of four 
+dead ones for the chill shield. 
+ 
+Fire Storm 
+Evocation [Fire] 
+Level: Clr 8, Drd 7, Fire 7 
+Components: V, S 
+Casting Time: 1 round 
+Range: Medium (100 ft. + 10 ft./level) 
+Area: Two 10-ft. cubes per level (S) 
+Duration: Instantaneous 
+Saving Throw: Reflex half 
+Spell Resistance: Yes 
+ 
+When a fire storm  spell is cast, the whole 
+area is shot through with sheets of roaring 
+flame. The raging flames do not harm nat-
+ural vegetation, ground cover, and any 
+plant creatures in the area that you wish to 
+exclude from damage. Any other creature 
+within the area takes 1d6 points of fire 
+damage per caster level (maximum 20d6). 
+ 
+Fire Trap 
+Abjuration [Fire] 
+Level: Drd 2, Sor/Wiz 4 
+Components: V, S, M 
+Casting Time: 10 minutes 
+Range: Touch 
+Target: Object touched 
+Duration: Permanent until discharged 
+(D) 
+Saving Throw: Reflex half; see text 
+Spell Resistance: Yes 
+ 
+Fire trap  creates a fiery explosion when an 
+intruder opens the item that the trap pro-
+tects. A fire trap  can ward any object that 
+can be opened and closed (book, box, 
+bottle, chest, coffer, coffin, door, drawer, 
+and so forth). 
+When casting fire trap, you select a point 
+on the object as the spell’s center. When 
+someone other than you opens the object, 
+a fiery explosion fills the area within a 5-
+foot radius around the spell’s center. The 
+flames deal 1d4 points of fire damage +1 
+point per caster level (maximum +20). The 
+item protected by the trap is not harmed 
+by this explosion. 
+A fire trapped item cannot have a second 
+closure or warding spell placed on it. 
+A knock spell does not bypass a fire trap.  
+An unsuccessful dispel magic spell does not 
+detonate the spell. 
+Underwater, this ward deals half dam-
+age and creates a large cloud of steam. 
+You can use the fire trapped object with-
+out discharging it, as can any individual to 
+whom the object was specifically attuned 
+when cast. Attuning a fire trapped object to 
+an individual usually involves setting a 
+password that you can share with friends. 
+Note: Magic traps such as fire trap  are 
+hard to detect and disable. A rogue (only) 
+can use the Search skill to find a fire trap  
+and Disable Device to thwart it. The DC in 
+each case is 25 + spell level (DC 27 for a 
+druid’s fire trap  or DC 29 for the arcane 
+version). 
+Material Component:  A half-pound of 
+gold dust (cost 25 gp) sprinkled on the 
+warded object. 
+ 
+Fireball 
+Evocation [Fire] 
+Level: Sor/Wiz 3 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Long (400 ft. + 40 ft./level) 
+Area: 20-ft.-radius spread 
+Duration: Instantaneous 
+Saving Throw: Reflex half 
+Spell Resistance: Yes 
+ 
+A fireball spell is an explosion of flame that 
+detonates with a low roar and deals 1d6 
+points of fire damage per caster level 
+(maximum 10d6) to every creature within 
+the area. Unattended objects also take this 
+damage. The explosion creates almost no 
+pressure. 
+You point your finger and determine 
+the range (distance and height) at which 
+the fireball is to burst. A glowing, pea-sized 
+bead streaks from the pointing digit and, 
+unless it impacts upon a material body or 
+solid barrier prior to attaining the 
+prescribed range, blossoms into the fireball 
+at that point. (An early impact results in an 
+early detonation.) If you attempt to send 
+the bead through a narrow passage, such as 
+through an arrow slit, you must “hit” the 
+opening with a ranged touch attack, or else 
+the bead strikes the barrier and detonates 
+prematurely. 
+The fireball sets fire to combustibles and 
+damages objects in the area. It can melt 
+metals with low melting points, such as 
+lead, gold, copper, silver, and bronze. If the 
+damage caused to an interposing barrier 
+shatters or breaks through it, the fireball 
+may continue beyond the barrier if the 
+area permits; otherwise it stops at the 
+barrier just as any other spell effect does. 
+Material Component:  A tiny ball of bat 
+guano and sulfur. 
+ 
+Flame Arrow 
+Transmutation [Fire] 
+Level: Sor/Wiz 3 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: Fifty projectiles, all of which must 
+be in contact with each other at the time 
+of casting 
+Duration: 10 min./level 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You turn ammunition (such as arrows, 
+bolts, shuriken, and stones) into fiery pro-
+jectiles. Each piece of ammunition deals an 
+extra 1d6 points of fire damage to any 
+target it hits. A flaming projectile can 
+easily ignite a flammable object or struc-
+ture, but it won’t ignite a creature it strikes. 
+Material Component:  A drop of oil and a 
+small piece of flint. 
+ 
+Flame Blade 
+Evocation [Fire] 
+Level: Drd 2 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: 0 ft. 
+Effect: Sword-like beam 
+Duration: 1 min./level (D) 
+Saving Throw: None 
+Spell Resistance: Yes 
+ 
+A 3-foot-long, blazing beam of red-hot fire 
+springs forth from your hand. You wield 
+this bladelike beam as if it were a scimitar. 
+Attacks with the flame blade  are melee 
+touch attacks. The blade deals 1d8 points 
+of fire damage +1 point per two caster 
+levels (maximum +10). Since the blade is 
+immaterial, your Strength modifier does 
+not apply to the damage. A flame blade can 
+ignite combustible materials such as 
+parchment, straw, dry sticks, and cloth. 
+The spell does not function underwater. 
+ 
+Flame Strike 
+Evocation [Fire] 
+Level: Clr 5, Drd 4, Sun 5, War 5 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Area: Cylinder (10-ft. radius, 40 ft. high) 
+Duration: Instantaneous 
+Saving Throw: Reflex half 
+Spell Resistance: Yes 
+ 
+A flame strike produces a vertical column of 
+divine fire roaring downward. The spell 
+deals 1d6 points of damage per caster level 
+(maximum 15d6). Half the damage is fire 
+damage, but the other half results directly 
+from divine power and is therefore not 
+subject to being reduced by resistance to 
+fire-based attacks, such as that granted by 
+protection from energy (fire) , fire shield (chill 
+shield), and similar magic. 
+ 
+CHAPTER 11: 
+SPELLS 

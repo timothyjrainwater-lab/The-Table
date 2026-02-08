@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "c0c854b3f531:meta",
+    "sourceId": "c0c854b3f531",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/Road To Oblivion.pdf",
+    "title": "Road To Oblivion",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T17:13:59.681703+00:00",
+  "meta": {
+    "sourceId": "c0c854b3f531",
+    "title": "Road To Oblivion",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/Road To Oblivion.pdf",
+    "pages": 13,
+    "extractedAt": "2026-02-03T17:13:59.674489+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

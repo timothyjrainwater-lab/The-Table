@@ -1,0 +1,133 @@
+ 
+ 185
+True Seeing M: Lets you see all things as they really are. 
+Unhallow M: Designates location as unholy. 
+Wall of Stone: Creates a stone wall that can be shaped. 
+ 
+6TH-LEVEL CLERIC SPELLS 
+Animate Objects: Objects attack your foes. 
+Antilife Shell: 10-ft. field hedges out living creatures. 
+Banishment: Banishes 2 HD/level of extraplanar creatures. 
+Bear’s Endurance, Mass:  As bear’s endurance , affects one subject/ 
+level. 
+Blade Barrier: Wall of blades deals 1d6/level damage. 
+Bull’s Strength, Mass: As bull’s strength, affects one subject/level. 
+Create Undead: Create ghouls, ghasts, mummies, or mohrgs. 
+Cure Moderate Wounds, Mass:  Cures 2d8 damage +1/level for 
+many creatures. 
+Dispel Magic, Greater: As dispel magic, but up to +20 on check. 
+Eagle’s Splendor, Mass: As eagle’s splendor, affects one subject/level. 
+Find the Path: Shows most direct way to a location. 
+Forbiddance M: Blocks planar travel, damages creatures of different 
+alignment. 
+Geas/Quest: As lesser geas, plus it affects any creature. 
+Glyph of Warding, Greater:  As glyph of warding , but up to 10d8 
+damage or 6th-level spell. 
+Harm: Deals 10 points/level damage to target. 
+Heal: Cures 10 points/level of damage, all diseases and mental 
+conditions. 
+Heroes’ Feast: Food for one creature/level cures and grants combat 
+bonuses. 
+Inflict Moderate Wounds, Mass:  Deals 2d8 damage +1/level to 
+many creatures. 
+Owl’s Wisdom, Mass: As owl’s wisdom, affects one subject/level. 
+Planar Ally X: As lesser planar ally, but up to 12 HD. 
+Summon Monster VI: Calls extraplanar creature to fight for you. 
+Symbol of Fear M: Triggered rune panics nearby creatures. 
+Symbol of Persuasion M: Triggered rune charms nearby creatures. 
+Undeath to Death M: Destroys 1d4 HD/level undead (max 20d4). 
+Wind Walk: You and your allies turn vaporous and travel fast. 
+Word of Recall: Teleports you back to designated place. 
+ 
+7TH-LEVEL CLERIC SPELLS 
+Blasphemy: Kills, paralyzes, weakens, or dazes nonevil subjects. 
+Control Weather: Changes weather in local area. 
+Cure Serious Wounds, Mass:  Cures 3d8 damage +1/level for 
+many creatures. 
+Destruction F: Kills subject and destroys remains. 
+Dictum: Kills, paralyzes, slows, or deafens nonlawful subjects. 
+Ethereal Jaunt: You become ethereal for 1 round/level. 
+Holy Word: Kills, paralyzes, blinds, or deafens nongood subjects. 
+Inflict Serious Wounds, Mass:  Deals 3d8 damage +1/level to 
+many creatures. 
+Refuge M: Alters item to transport its possessor to you. 
+Regenerate: Subject’s severed limbs grow back, cures 4d8 damage 
++1/level (max +35). 
+Repulsion: Creatures can’t approach you. 
+Restoration, Greater X: As restoration, plus restores all levels and 
+ability scores. 
+Resurrection M: Fully restore dead subject. 
+Scrying, Greater: As scrying, but faster and longer. 
+Summon Monster VII: Calls extraplanar creature to fight for you. 
+Symbol of Stunning M: Triggered rune stuns nearby creatures. 
+Symbol of Weakness M: Triggered rune weakens nearby creatures. 
+Word of Chaos:  Kills, confuses, stuns, or deafens nonchaotic 
+subjects. 
+ 
+8TH-LEVEL CLERIC SPELLS 
+Antimagic Field: Negates magic within 10 ft. 
+Cloak of Chaos F: +4 to AC, +4 resistance, and SR 25 against lawful 
+spells. 
+Create Greater Undead M: Create shadows, wraiths, spectres, or 
+devourers. 
+Cure Critical Wounds, Mass:  Cures 4d8 damage +1/level for 
+many creatures. 
+Dimensional Lock:  Teleportation and interplanar travel blocked 
+for one day/level. 
+Discern Location: Reveals exact location of creature or object. 
+Earthquake: Intense tremor shakes 5-ft./level radius. 
+Fire Storm: Deals 1d6/level fire damage. 
+Holy Aura F: +4 to AC, +4 resistance, and SR 25 against evil spells. 
+Planar Ally, Greater X: As lesser planar ally, but up to 18 HD. 
+Inflict Critical Wounds, Mass:  Deals 4d8 damage +1/level to 
+many creatures. 
+Shield of Law F: +4 to AC, +4 resistance, and SR 25 against chaotic 
+spells. 
+Spell Immunity, Greater:  As spell immunity , but up to 8th-level 
+spells. 
+Summon Monster VIII: Calls extraplanar creature to fight for you. 
+Symbol of Death M: Triggered rune slays nearby creatures. 
+Symbol of Insanity M: Triggered rune renders nearby creatures 
+insane. 
+Unholy Aura F: +4 to AC, +4 resistance, and SR 25 against good 
+spells. 
+ 
+9TH-LEVEL CLERIC SPELLS 
+Astral Projection M: Projects you and companions onto Astral 
+Plane. 
+Energy Drain: Subject gains 2d4 negative levels. 
+Etherealness: Travel to Ethereal Plane with companions. 
+Gate X: Connects two planes for travel or summoning. 
+Heal, Mass: As heal, but with several subjects. 
+Implosion: Kills one creature/round. 
+Miracle X: Requests a deity’s intercession. 
+Soul Bind F: Traps newly dead soul to prevent resurrection. 
+Storm of Vengeance: Storm rains acid, lightning, and hail. 
+Summon Monster IX: Calls extraplanar creature to fight for you. 
+True Resurrection M: As resurrection, plus remains aren’t needed. 
+ 
+CLERIC DOMAINS 
+ 
+AIR DOMAIN 
+Deity: Obad-Hai. 
+Granted Powers: Turn or destroy earth creatures as a good cleric 
+turns undead. Rebuke, command, or bolster air creatures as an evil 
+cleric rebukes undead. Use these abilities a total number of times 
+per day equal to 3 + your Charisma modifier. This granted power is a 
+supernatural ability. 
+ 
+Air Domain Spells 
+1 Obscuring Mist:  Fog surrounds you. 
+2 Wind Wall:  Deflects arrows, smaller creatures, and gases. 
+3 Gaseous Form:  Subject becomes insubstantial and can fly slowly. 
+4 Air Walk:  Subject treads on air as if solid (climb at 45-degree 
+angle). 
+5 Control Winds:  Change wind direction and speed. 
+6 Chain Lightning:  1d6/level damage; 1 secondary bolt/level each 
+deals half damage. 
+7 Control Weather:  Changes weather in local area. 
+8 Whirlwind:  Cyclone deals damage and can pick up creatures. 
+9 Elemental Swarm*:  Summons multiple elementals. 
+*Cast as an air spell only. 
+CHAPTER 11: 
+SPELLS 

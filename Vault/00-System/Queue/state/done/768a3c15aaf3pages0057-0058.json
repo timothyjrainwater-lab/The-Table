@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "768a3c15aaf3:pages:0057-0058",
+    "sourceId": "768a3c15aaf3",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Ravenloft Player's Handbook.pdf",
+    "pageStart": 57,
+    "pageEnd": 58,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:18:11.834959+00:00"
+  },
+  "doneAt": "2026-02-03T07:22:58.930790+00:00",
+  "wrote": [
+    "00-System/Staging/768a3c15aaf3/pages/0057.txt",
+    "00-System/Staging/768a3c15aaf3/pages/0058.txt"
+  ],
+  "method": {
+    "57": "ocr",
+    "58": "ocr"
+  }
+}

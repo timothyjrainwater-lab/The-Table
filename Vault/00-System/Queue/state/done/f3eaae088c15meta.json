@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "f3eaae088c15:meta",
+    "sourceId": "f3eaae088c15",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Geanavue - The Stones of Peace.pdf",
+    "title": "Geanavue - The Stones of Peace",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T11:22:01.085244+00:00",
+  "meta": {
+    "sourceId": "f3eaae088c15",
+    "title": "Geanavue - The Stones of Peace",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Geanavue - The Stones of Peace.pdf",
+    "pages": 201,
+    "extractedAt": "2026-02-03T11:22:01.076776+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

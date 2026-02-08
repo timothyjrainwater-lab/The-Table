@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "9795d5dcf431:meta",
+    "sourceId": "9795d5dcf431",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Sunless Citadel.pdf",
+    "title": "The Sunless Citadel",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:21:58.220502+00:00",
+  "meta": {
+    "sourceId": "9795d5dcf431",
+    "title": "The Sunless Citadel",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Sunless Citadel.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-04T00:21:58.213137+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

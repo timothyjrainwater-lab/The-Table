@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "f3bbefc4b45c:meta",
+    "sourceId": "f3bbefc4b45c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 03/The Forge of Fury.pdf",
+    "title": "The Forge of Fury",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:07:45.032032+00:00",
+  "meta": {
+    "sourceId": "f3bbefc4b45c",
+    "title": "The Forge of Fury",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 03/The Forge of Fury.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T21:07:44.870283+00:00"
+  },
+  "enqueued_extractPages": 18
+}

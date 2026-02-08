@@ -1,0 +1,19 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0112",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 112,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T08:06:00.345272+00:00"
+  },
+  "doneAt": "2026-02-03T08:43:02.570679+00:00",
+  "citation": "PHB (pdf p.0112)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table —  (PHB 7–1)",
+    "Table — Random Starting Gold (PHB 7–1)"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "6830a28d9a4d:meta",
+    "sourceId": "6830a28d9a4d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Fortunes & Winds.pdf",
+    "title": "Fortunes & Winds",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:58:45.043015+00:00",
+  "meta": {
+    "sourceId": "6830a28d9a4d",
+    "title": "Fortunes & Winds",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Fortunes & Winds.pdf",
+    "pages": 114,
+    "extractedAt": "2026-02-03T10:58:45.035581+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

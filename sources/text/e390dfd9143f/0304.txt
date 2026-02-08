@@ -1,0 +1,80 @@
+CHAPTER G-MONSTER —sacafomianclecsnectwllinddstveren rome bet
+SKILLS AND FEATS Seeetipe ucieane coceed mckeaonen acl
+
+This chapter provides descriptions of one skill, Control Shape,and, _,= damage dealt) or be knocked flying 10 feet in a direction of the
+a number of feats thatare typically used only. by. monsters. {attacking creature's choice and fall prone. The attacking creature
+|. {can only push the opponent.in a straight line, and the opponent
+GONTROL SHAPE (wis) can't move closer to the attacking creature than the square it
+‘Any character who has contracted lycanthropy and is aware of his __started in, If an obstacle prevents the completion of the oppo-
+condition can learn Control Shape.as.a.class skill. (An afflicted) _jnent's move, the opponent and the obstacle.each take 1d6 points,
+lycanthrope not yet aware of his.condition can attempt Control of damage, and the opponent stops in the space adjacent.to the}
+\Shape checks untrained.) This skill determines whether an obstacle
+afflicted lycanthrope can control his shape. A tiatural lycanthrope .
+does not need this skill, since it has full control over its shape. CRAFT CONSTRUCT [ITEM CREATION]
+Check (Involuntary Change): An afflicted character must The creature can create golems and other magic automatons that)
+make a check at moonrise each night of the full moon to resist obey its orders.
+involuntarily assuming animal form. An injured character must. _|__ Prerequisites: Craft Magic Arms and Armor, Craft Wondrous
+jalso.check for an involuntary change after accumulating enough| Item. +
+idamage to reduce his hit points by one-quarter and again after|, _,_Benefit: A creature with this featcan create any construct.
+jeach additional one-quarter lost. . iwhose prerequisites it: meets, Enchanting a construct takes one
+Involuntary Change. Control Shape DC day for each 1,000 gp in its market price. To enchant aconstruct, a,
+Resist involuntary change 2 spellcaster must spend 1/25 the item's price in XP and use up raw,
+On a failed check, the character must remain in animal form until materials costing half of this price (see the Golem, Homunculus,
+the next dawn, when he automatically returns to his base form. A and Shield Guardian monster entries for details).
+character aware of his condition may make one attempt to return A creature with this feat can repair constructs that have taken
+to humanoid form (see below), but if he fails, he remains in animal damage, In one day of work, the creature.can repair.up to.20 points.
+(form until the next dawn. of damage by expending 50 gp per point of damage repaired, 4
+
+Retry (Involuntary Change); Check to resist. an involuntary , A newly created construct has average hit points for irs Hit
+|change once each time a triggering event occurs. Dice,
+
+Check (Voluntary Change): In addition, an afflicted lycan- EMPOWER SPELL-LIKE ABILITY [GENERAL] |
+Uthrope aware of his condition may attempt to.use this skill volun- The creature can_use aspell-like ability with greater effect than}
+jtarily in order to. change to animal form, assume hybrid form, or normal.
+
+\rerurn to humanoid form, regardless of the state of the moon or Prerequisite: Spell-like ability at caster level 6th or higher.|
+whether he has been injured. Benefit: Choose one of the creature's spell-like abilities, subject
+Involuntary Change Control Shape DC to the restrictions below. The creature can use that ability as an
+Return to humanoid form (full moon*) 25 empowered spell-like ability three times per day (or less, if the
+Return to humanoid form (not full moon) 20) ability is normally usable only once or twice per day),
+Assume hybrid form Ss When a creature uses an empowered spell-like ability, all vari-
+Voluntary change to animal form (full moon) 15.) _ able, numeric effects of the spell-like ability are increased by one-
+Voluntary change to animal form (not full moon) 20 half. An empowered spell-like ability does half again as much
+* For game purposes, the full moon_lasts three days every month. damage as normal, cures half again as many hit points, affects half
+Retry (Voluntary Change); A character can retry voluntary again as many targets, and so on.as appropriate, For example, a
+changes to animal form or hybrid formas often as he likes. Each night hag’s empowered magic missile deals 1-1/2 times normal
+attempt is a standard action. However, on a failed check to return damage (roll 1d4+1 and multiply the result by 1-1/2 for each mis-
+to humanoid form, the character must remain in animal or hybrid sile). Saving throws and opposed rolls (such as the one made when
+form until the next dawn, when he automatically returns to a character casts dispel magic) are not affected. Spell-like abilities
+humanoid form. without random variables are not affected.
+
+Special: An afflicted lycanthrope cannot attempt a voluntary The creature can only selecta spell-like ability duplicating a
+jchange until it becomes aware of its condition (see Lycanthropy as spell with a level less than or equal to half its caster level (round.
+\an Affliction, page 178). down) —2. For a summary, see the table in the description of the
+
+Quicken Spell-Like Ability feat. For example, a creature that uses
+
+ABILITY FOCUS [GENERAL] its spell-like abilities asa 13th-level caster can only empower spell-
+Choose one of the creature's special attacks, This attack becomes like abilities duplicating spells of 4th level or lower.
+
+more potent than normal. Special: This feat can be taken multiple times. Each time it is
+
+Prerequisite: Special attack. taken, the creature can apply it to a different one of its spell-like
+
+Benefit: Add +2 to the DC for all saving throws against the spe- abilites.
+cial attack on which the creature focuses.
+
+Special: A creature can gain this feat multiple times. Its effects FLYBY ATTACK [GENERAL]
+
+do not stack. Each time the creature takes the feat, it applies to a The creature canattack on the wing.
+idifferent special arrack. . Prerequisite: Fly speed.
+Benefit: When flying, the creature can take a move action
+AWESOME BLOW [GENERAL, FIGHTER] ‘(including a dive) and another standard action at any point during |
+(The creature can choose to deliver blows that send its smaller ithe move. The creature cannot take a second move.action during a
+‘opponents flying like bowling pins. [round when it makes a flyby attack.
+Prerequisites: Str 25, Power Attack, Improved Bull Rush, size. _|__Normal: Without this feat, the creature takes a standard action
+
+Large or larger, | either before or after its move.
+
+ 
+

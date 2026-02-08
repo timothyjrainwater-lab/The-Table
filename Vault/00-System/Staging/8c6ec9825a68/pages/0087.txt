@@ -1,0 +1,167 @@
+ 
+
+—_______CEREMONY FEATS
+
+A ceremony feat grants you the knowledge and training
+needed to complete several specific ceremonies. Each feat
+uses the Knowledge (religion) skill to gauge the depth of your
+study. As you gain more ranks in that skill, the ceremonies
+available through the feat increase
+
+A creature can benefit from one ceremony at a time. If
+you attempt a second ceremony on the same creature, the
+first ceremony’s benefits immediately end and the second
+ceremony applies.
+
+Each ceremony has a cost in time and resources. The
+ceremony consumes the materials needed for it when itends
+(not when the benefit ends), If the ceremony is disrupted,
+such as ifan opponent attacks before you finish, the material
+components are not lost.
+
+The two feats described below are ceremony feats, Their
+prerequisites and benefits are summarized on Table 3-2
+
+RITUAL BLESSING
+
+You call upon the powers of goodness and light to bless your
+allies. If your religious studies are advanced enough, the
+rituals you learn allow you to ward against illness or poison,
+enhance your healing abilities, and protect against evil.
+
+Prerequisites: Good alignment, Knowledge (religion)
+4 ranks.
+
+Benefit: You gain access to rituals based on your ranks in
+Knowledge (religion
+
+Anoint (Knowledge [religion] 4 ranks): You speak a blessing
+over the recipient of this ritual, anoint him with holy water,
+and say a short prayer for him, When you cast a cure spell on
+the recipient, he heals an extra 2 points of damage.
+
+Performing this ritual requires § minutes of incantation
+and a vial of holy water. Its effects last for 24 hours.
+
+Cleanse (Knowledge [religion] 8 ranks): You sprinkle holy
+water over the recipient of this ritual and speak a prayer to
+his health and vigor. The target gains a 42 bonus on saves
+
+ 
+
+ 
+
+ 
+
+against disease and poison.
+
+Performing this ritual requires 10 minutes of incantation
+and a vial of holy water. Its effects last for 24 hours
+
+Ward (Knowledge [religion] 13 ranks): You use a special combi-
+nation of powdered silver and holy water to create a mystical
+ward that offers protection against demons and devils, The
+recipient of this ritual gains a +1 bonus on saves against spells
+and special attacks used by evil outsiders.
+
+Performing this rirual requires 10 minutes of work, a vial
+of holy water, and powdered silver worth 30 gp. Its effects
+last for 24 hours.
+
+RITUAL BLOOD BONDS
+
+You invest your allies with the mighty power of your totem,
+god, or similar divine entity, These rituals allow you to forge
+bonds between warriors that stand the test of combat.
+
+Prerequisites: Orc or half-orc, Knowledge (religion)
+4ranks.
+
+Benefit: You gain access to rituals based on your total
+tanks in Knowledge (religion
+
+Blood Brothers (Knowledge [religion] 4 ranks); You gather up
+to six of your allies together in a circle. h member of this
+
+ 
+
+ 
+
+circle pledges allegiance to the others, cuts himself, and
+bleeds into a bow! containing holy water or unholy water
+(as appropriate to your alignment). You then sprinkle this
+mixture on yourself and the members of the circle. You and
+everyone else who participated in this ritual gains a +4 morale
+bonus on Will saves against fear as long as each individual
+can see one other ally who took part in this ritual.
+
+This ritual requires 10 minutes of incantation and a vial
+of holy water or unholy water. Its effect lasts for 24 hours.
+
+Vengeful Bonds of Brotherhood (Knowledge [religion] 8 ranks)
+You create a close, mystical bond between you and your
+allies. Up to six individuals can participate with you in
+this ritual, Each participant cuts his hand, Everyone in
+the ritual then clasps hands in a circle while you stand
+in the middle. You speak a prayer while sprinkling holy
+or unholy water on each participant. This ritual grant
+benefit to its participants (including you) when an ally
+falls in bartle. If an individual who participated in this
+ritual sees another participant drop to 0 or fewer hit points
+due to an opponent's actions, he gains a +2 morale bonus
+on attack rolls against the foe who dropped his ally. The
+benefit lasts for 1 minute every time it is triggered. You can
+gain this bonus against multiple foes during the duration
+of the effect
+
+This ritual requires 10 minutes of incantation, a vial of
+holy water or unholy water, and silver dust worth 10 gp. The
+ritual’s benefit lasts for 24 hours
+
+—___ COMBAT FORM FEATS
+
+While most warriors draw on their strength, agility, and
+toughness in battle, a few learn to tap into the true poten
+tial of their minds. Somewhat like a monk, such a warrior
+supplements his physical practice with rigorous mental
+training to hone his fighting abilities. His mind and body
+become one as he fights, allowing him to achieve unparal
+leled levels of combat mastery. Being in this state of perfect
+mental and physical harmony is known as maintaining a
+combat focus. (Taking the feat called Combat Focus is how
+a character learns to achieve this state; all other combat
+form feats have Combat Focus as a prerequisite.) The task
+of maintaining a combat focus is both difficult and strain:
+ing. Thus, a warrior cannot remain in this state for long.
+While he does, however, he can use any combat form feats
+he possesses,
+
+The six feats described below are combat form feats. Their
+prerequisites and benefits are summarized on Table 3-3.
+
+COMBAT AWARENESS
+
+When you maintain your combat focus, you have an uncanny
+ability to sense the ebb and flow of your opponents’ vitality.
+As you attain greater mastery of this fighting style, you learn
+to sense a foe's presence even with your eyes closed.
+
+Prerequisites: Wis 13, Blind-Fight, Combat Focus, base
+attack bonus +12
+
+Benefit: While maintaining your combat focus, you
+learn the current hit point total of each adjacent opponent
+and ally.
+
+ 
+
+   
+
+   
+
+ 
+
+ 
+
+ 
+

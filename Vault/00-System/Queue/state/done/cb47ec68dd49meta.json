@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "cb47ec68dd49:meta",
+    "sourceId": "cb47ec68dd49",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/To Quell The Rising Storm.pdf",
+    "title": "To Quell The Rising Storm",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T01:53:59.912608+00:00",
+  "meta": {
+    "sourceId": "cb47ec68dd49",
+    "title": "To Quell The Rising Storm",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/To Quell The Rising Storm.pdf",
+    "pages": 17,
+    "extractedAt": "2026-02-04T01:53:59.829372+00:00"
+  },
+  "enqueued_extractPages": 9
+}

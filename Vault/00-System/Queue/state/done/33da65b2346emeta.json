@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "33da65b2346e:meta",
+    "sourceId": "33da65b2346e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Magic of Faerun.pdf",
+    "title": "Magic of Faerun",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:50:10.516305+00:00",
+  "meta": {
+    "sourceId": "33da65b2346e",
+    "title": "Magic of Faerun",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Magic of Faerun.pdf",
+    "pages": 193,
+    "extractedAt": "2026-02-03T13:50:10.507830+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

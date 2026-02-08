@@ -1,0 +1,173 @@
+the subtype. Any effect that depends on alignment affects a.crea-
+
+ture with this subtype as if the creature has an evil alignment, no
+matter what its alignment actually is. The creature also suffers
+effects according to its actual alignment. A creature with the evil
+
+subtype overcomes damage reduction as if its natural weapons,
+and any weapons it wields were evil-aligned (see Damage Reduc-|
+
+tion, above).
+
+Extraplanar Subtype: A subtype applied to any creature when |
+itis on a-plane other than its native plane. A creature that travels
+
+the planes can gain or lose this subtype as it goes from plane to
+plane. This book assumes.that encounters with creatures take
+place.on the Material Plane, and every creature whose native plane
+is not the Material Plane has the extraplanar subtype (but would
+not have when on its home plane). Every extraplanar creature in
+this book has a home plane mentioned in its description. These
+-home planes are taken from the Great Wheel cosmology of the
+
+, D&D. game (see Chapter 5 of the Dungeon Master's Guide), Lf your}
+\campaign.uses a.different cosmology, you will need to assign dif- 1
+
+ferent home planes to extraplanar creatures.
+
+Creatures not labeled as extraplanar are natives of the Material
+
+Plane, and they gain the extraplanar subtype if they leave the
+Material Plane. No creature has the extraplanar subtype when it is
+on a transitive plane; the transitive planes in the D&D cosmology
+are the Astral Plane, the Ethereal Plane, and the Plane of Shadow.
+
+Fast Healing (Ex): A creature with the fast healing special
+quality regains hit points at an exceptionally fast rare, usually 1 or
+more hit points per round, as given in the creature's entry (for
+example, a vampire has fast healing 5). Except where noted here,
+
+fast healing is just like natural healing (see page 146 of the Player's
+| Handbook). Fast healing does not restore hit points lost from star-
+vation, thirst, or suffocation, and it does not allow.a creature to
+regrow lost body parts, Unless otherwise stated, it does not allow
+lost body parts ro be reattached.
+
+Favored Class: A monster that takes levels in a class (or more
+than one class) has a favored class, just as player characters do. In.
+
+addition, a monster's racial Hit Dice also count as a favored.class, |
+in effect: If the monster becomes a multiclass character, neither its |
+favored class nor its racial Hit Dice count when determining,
+
+whether the creature takes an experience point penalty.
+
+Fear (Su or Sp): Fear attacks can have various effects.
+
+Fear Aura (Su): The use of this ability is a free action. The aura
+can freeze.an.opponent (such asa mummy's despair) or function
+like the fear spell (for example, the aura of a lich). Other effects are
+possible. A fear aura is an area effect. The descriptive text gives the
+size and kind of area.
+
+Fear Cones (Sp) and Rays (Su); These effects usually work like the
+fear spell.
+
+If a fear effect allows.a saving throw, it is a Will save (DC 10 +
+1/2 fearsome creature's racial HD + creature's Cha modifier; the
+exact DC is given in the creature's descriptive text), All fear attacks
+are mind-affecting fear effects,
+
+FeyType: A fey is a creature with supernatural abilities and con-
+nections to nature or to some other force or place, Fey are usually
+human-shaped.
+
+,_ Features: A fey has the following features.
+
+—6-sided Hit Dice.
+
+—Base attack bonus equal to 1/2 total Hit Dice (as wizard).
+
+—Good Reflex and Will saves.
+
+—Skill points equal to.(6 + Int modifier, minimum 1) per Hit
+‘Die, with quadruple skill points for the first Hit Dic.
+
+Tmits: A fey possesses the following traits (unless otherwise
+noted in acrearure’s entry).
+
+—Low-light vision.
+
+—Proficient with all simple weapons and any weapons men-|
+tioned in its entry. }
+
+—Proficient with whatever type of armor (light, medium, or,
+
+sheavy) thar it is described as wearing, as well as all lighter types.
+{Fey not indicated as wearing armor are not proficient with armor.
+\Fey are proficient with shields if they are proficient with any form
+
+of armor.
+—Fey eat, sleep, and breathe.
+
+Fire Subtype: A creature with the fire subtype has immunity.t0,
+fire. Ir has vulnerability to cold, which means it takes half again as.
+much (+50%) damage as normal from cold, regardless. of whether a
+saving throw is allowed, or if the save is a success or failure.
+
+Flight (Ex or Su): A creature with this ability can cease or
+
+.resume flight as a free action, If the ability is supernatural, it
+{becomes ineffective in an antimagic field, and the creature loses
+its ability to fly for as long as the antimagic effect persists.
+
+Frightful Presence (Ex): This special quality makes a.creature’s
+very presence unsettling to foes, It takes effect automatically.
+when the creature performs some sort of dramatic action (such as
+charging, artacking, or snarling). Opponents sithin range who
+witness the action may become frightened or shaken.
+
+Actions required to trigger the ability are given in the crea-
+ture's descriptive text. The range is usually 30 feet, and the dura-|
+tion is usually Sdé rounds.
+
+This ability affects only opponents with fewer Hit Dice or levels |
+than the creature has. An affected opponent can resist the effects
+with a successful Will save (DC 10 + 1/2 frightful creature's racial,
+HD + frightful creature's Cha modifier, the exact DC is given in.
+the creature's descriptive text), An opponent that succeeds on the,
+saving throw is immune to that same creature's frightful presence
+for 24 hours. Frightful presence is a mind-affecting fear effect.
+
+Gaze (Su): A gaze special attack takes effect.when opponents
+look at the creature's eyes. The attack can have almost any sort of
+effect: petrification, death, charm, and so on.The typical range is
+30 feet, but check the creature's entry for details.
+
+The type of saving throw for.a gaze attack varies, but it is usually a
+Will or Fortitude save (DC 10+ 1/2 gazing creature's racial HD +
+gazing creature’ Cha modifier; the exact DC is given in the creature's
+descriptive text). A successful saving throw negates the effect. A mon-
+ster’s gaze attack is described in abbreviated form in its description.
+
+Each opponent within range of a gaze attack must attempt a
+saving throw each round at the beginning of his or her turn in the
+initiative order. Only looking directly at a creature with a gaze
+attack leaves an opponent vulnerable. Opponents can avoid the
+need to make the saving throw by not looking at the creature, in
+one of two ways.
+
+Averting Eyes: The opponent avoids looking at the creature's face,
+instead looking at its body, watching its shadow, tracking it in a
+reflective surface, and so.on. Each round, the opponent has a 50%
+chance to not need to make a saving throw against the gaze attack.
+The creature with the gaze attack, however, gains concealment
+against that opponent. 1
+
+Wearing a Blindfold: The opponent cannot see the creature atall,
+(also possible to achieve by turning one's back on the creature or
+shutting one’s eyes). The creature with the gaze attack gains total
+
+\concealment against the opponent.
+
+A.creature with a gaze attack can actively gaze as an attack}
+action by choosing a target within range. That opponent must|
+attempta saving throw but can try to avoid this as described above.
+
+| Thus, it is possible for an opponent to save against a creature's gaze
+\twice during the same round, once before the opponent's action
+
+and once during the creatures turn.
+
+ 
+

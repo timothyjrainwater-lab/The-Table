@@ -1,0 +1,12 @@
+# Table — Example Opposed Checks (PHB 4–4)
+
+## Source
+- PHB (pdf p.0065)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

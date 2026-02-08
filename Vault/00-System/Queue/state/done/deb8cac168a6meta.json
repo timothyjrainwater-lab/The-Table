@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "deb8cac168a6:meta",
+    "sourceId": "deb8cac168a6",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Sorcery & Steam.pdf",
+    "title": "Sorcery & Steam",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:07:56.623941+00:00",
+  "meta": {
+    "sourceId": "deb8cac168a6",
+    "title": "Sorcery & Steam",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Sorcery & Steam.pdf",
+    "pages": 178,
+    "extractedAt": "2026-02-03T19:07:56.616872+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

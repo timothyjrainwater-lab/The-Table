@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "353e9a2e36aa:meta",
+    "sourceId": "353e9a2e36aa",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/A Guidebook to Classes/Song and Silence.pdf",
+    "title": "Song and Silence",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:59:41.853804+00:00",
+  "meta": {
+    "sourceId": "353e9a2e36aa",
+    "title": "Song and Silence",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/A Guidebook to Classes/Song and Silence.pdf",
+    "pages": 111,
+    "extractedAt": "2026-02-03T18:59:41.368012+00:00"
+  },
+  "enqueued_extractPages": 56
+}

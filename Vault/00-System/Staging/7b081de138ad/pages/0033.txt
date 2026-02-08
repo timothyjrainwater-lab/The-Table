@@ -1,0 +1,140 @@
+ 
+
+CHAPTER TWO: CAVES
+
+Regardless of the method used for embroiling the heroes
+in this adventure, they should be given means of locating
+the Rubicund Chasm, as the Frostfields are a featureless
+barren offering no landmarks for the rare traveler to gauge
+his progress. If under the employ of an NPC, the party is
+provided with a map, indicating the location of a cave
+entrance in the Chasm a few miles from the southern edge
+of the ice field as depicted on the Domain of Hawkmoon
+overland map. If seeking the Paragraph Poetica of their
+own accord, the PCs acquire a map in any fashion the DM
+desires.
+
+Southward Bound
+
+Unless the PCs possess magical means of travel, the trip
+to the Frostfields through the Scar-in-the-Sky should be a
+lengthy and arduous one. Though the exact details of such
+a journey are not detailed here, you should take the time
+to develop aseries of relevant encounters, keeping in mind
+the feral and highly dangerous nature of the mountains.
+Encounters within these peaks can become an adventure
+unto themselves.
+
+Read or paraphrase the following text when the heroes
+eventually reach the ice field.
+
+You stand on the edge of a white wasteland. The
+Frostfields are an arctic desert, the ferocity of the wind
+equaled in intensity only by the unimaginable depths
+of the cold. Most of the ground is covered by several
+feet of solid ice, ranging in color from ash-gray to
+blinding white. Ugly, colorless plants poke up from
+the rare patches of exposed earth, their thorny stems
+coated with hoarfrost. The land itself is featureless
+and flat until encountering the mountains that sur-
+round it on all sides.
+
+The weather is the PCs’ immediate foe. Anyone with
+the temerity to strike out unprepared across the ice is
+subject to the effects of the extreme temperature, which
+drains the body of 1 Constitution point per hour, affecting
+even those characters bundled up in cold-weather gear.
+Only the direct warmth of fire or magic prevents this loss
+of Constitution points. Unprotected characters lose 2
+Constitution points per hour, as well as 2 points of Strength.
+If either ability score reaches 0, the character is debilitated
+and slips into hypothermia, losing an additional point per
+round until he or she freezes to death at -10.
+
+Anyone with exposed flesh must make a Fortitude save
+(DC 15) once per hour. Failure means the character has
+contracted frostbite, suffering 1d6 hit points of damage. At
+the DM's option, frostbite renders that area of the body
+numb and immobile until sufficiently warmed. Horses and
+other sturdy mounts face the same effects, albeit twice as
+slowly. Wise PCs frequently break for camp, building fire
+which returns lost points at the rate of 1 per 20 minutes.
+
+The wind plays havoc on combat, imposing a—4 penalty
+on all missile fire. Additionally, for every two miles the
+heroes journey across the ice, they stand a chance of
+encountering one of the doughty denizens of this brutal
+realm. Roll 1d12 and consult the following table. On any
+result of 9 or higher, no encounter occurs. On a roll of 1-
+
+AND THE HIDDEN VALE
+
+8, apply the suggested encounter or insert one of your own.
+Statistics for these monsters appear in the MM.
+
+1d12 Monster # Appearing EL
+1-2 Polar Bears 2 6
+3-4 Frost Worm. dL, 12
+6-6 Winter Wolves 2 7
+7-8 Frost Giant 1 9
+
+Edge of aRed Abyss
+
+Plunging down 400 feet into the frozen earth and
+spanning a distance of no less than 300 feet is a dangerous
+ravine known as the Rubicund Chasm. With walls of sheer ice
+broken intermittently by wind-carved cliffs, the Chasm poses a
+serious challenge to the most experienced mountaineer. Rubi-
+cund Chasm isone of the unexplained wonders of the Frostfields,
+asitswallsare made of strange red ice, asifstained with blood. The
+redness permeatesall the ice around the mighty flume, givingno
+clue as to how it came to exist. The walls are also extremely
+slippery, and the occasional handhold is generally a blade of ice
+honed toa fine edge by the whetstone of the wind.
+
+However, the Chasm isn’t the only wondroussight. A fantas-
+tic river of crimson water runs through the canyon. The river is
+sluggish, clogged with hunks of red ice—like blood clots. It
+emerges froma tunnel in the east and oozes slowly westward like
+agreat bleeding wound. The river originates in the fabulous glen
+called Shilmagar. However, because itrunsunderground, follow-
+ing the river to the glen is nearly impossible. Unless the PCs
+possess extraordinary means of protecting themselves from the
+heart-stopping temperature of the water, not to mention breath-
+ing during the extensive trip through the water-filled passage,
+they are forced to follow the river via the caverns.
+
+Barely visible in the Chasm’s northem face (opposite the
+PCs), about 380 feet down, where the river emerges from the
+ground, is a small cave entrance (Spot check [DC 20] to
+recognize). The ranger Arak was last seen striking off into the
+darkness of this cave. Spanning the river in front of the cave isa
+tickety rope bridge. The rope has been dyed red and is thus
+invisible against the canyon walls and the river below. In order
+toreach the bottom of the gorge, cross the bridge, andeventually
+enter the cave, the heroes may use either magical or mundane
+means of travel, although the latter involves a harrowing series
+of ability and skill checks as ropes, crampons, ice axes, and
+belaying lines are used to facilitate the 400-foot descent to the
+south end of the rope bridge. Simply climbing down the wall
+unaided is difficult, if not altogether impossible. After making a
+Wilderness Lore check (DC 20) to find an area with sufficient
+handholds, four successful Climb checks (DC 26) permit the PC
+to reach the bridge. Without handholds to provide purchase,
+four Climb checks (DC 35) are needed.
+
+Ifthe PCshappened to bringalong 400 feet of rope, they might
+think toanchoroneendatthe top of the chasmand simply lower
+themselves down. However, the tricky winds and the sharp ice
+conspire to fray and quickly sever the rope. A Wilderness Lore
+check (DC20) allows the heroes to position their rope in an area
+safe from this effect before they find out the hard way.
+
+Anyone whofailsaClimb check or loses their grip on the rope
+plummets to the crimson river, sustaining 1d6 points of damage
+for every 10 feet of the fall (maximum 20d6). The river is so cold
+astorequireasubmerged PC tomakean immediate Constitution
+check (DC 18). Failure indicates a loss of 1d4+1 Constitution
+
+32
+

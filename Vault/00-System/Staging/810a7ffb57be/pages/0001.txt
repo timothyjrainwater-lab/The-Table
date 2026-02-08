@@ -1,0 +1,85 @@
+1
+A Harvest
+of Evil
+A short adventure for four 10th-
+to 12th- level player characters
+CREDITS
+Design: Jason Carl
+Editing: Gwendolyn F.M. Kestrel 
+Cartography: Todd Gamble and Diesel
+Typesetting: Sue W einlein Cook
+Web Production: Julia Martin
+Web Development: Mark A. Jindra
+Graphic Design: Sean Glenn, Cynthia Fliege
+Special Thanks: Rob B ane and Kristie Crawford, 
+for bringing Deskryn to life!
+Based on the original D UNGEONS & D RAGONS ® game by E.
+Gary Gygax and Dave Arneson and on the new edition of the
+DUNGEONS & DRAGONS game designed by Jonathan Tweet,
+Monte Cook, Skip Williams, Rich Baker, and Peter Adkison.
+D&D, DUNGEONS & DRAGONS, and DUNGEON MASTER are registered
+trademarks owned by Wizards of the Coast, Inc. The d20 logo is a
+trademark owned by Wizards of the Coast, Inc. All Wizards charac-
+ters, character names, and the distinctive likenesses thereof are
+trademarks owned by Wizards of the Coast, Inc.
+This material is protected under the copyright laws of the United States of America.
+Any reproduction or unauthorized use of the material or artwork contained herein is
+prohibited without the express written permission of Wizards of the Coast, Inc.
+This product is a work of fiction. Any similarity to actual people, organizations,
+places, or events is purely coincidental.
+This Wizards of the Coast game product contains no Open Game Content. No
+portion of this work may be reproduced in any form without written permission.
+To learn more about the Open Gaming License and the d20 System License,
+please visit www.wizards.com/d20. 
+©2001 Wizards of the Coast, Inc. All rights reserved. Made in the U.S.A.
+INTRODUCTION
+A Harvest of Evil is a short adventure for four 10th- to
+12th-level characters. The adventure can be made more
+or less difficult by utilizing any one or a combination of
+several methods:
+•I ncreasing or decreasing the wizard levels of
+the main antagonist, Deskryn.
+•I ncreasing or decreasing the number of
+Deskryn’s mortal minions.
+•I ncreasing or decreasing the number of
+townsfolk affected by Deskryn’s domination.
+•A dd vampire spawn under Deskryn’s thrall.
+•I ncreasing or decreasing Deskryn’s relative
+strength.
+To tailor the encounter to specific groups of different
+levels, refer to Table 4-1 in the D
+UNGEON MASTER’s Guide. 
+The adventure is set in a tiny and remote commu-
+nity located in a temperate forest, but easily adapts to
+any similarly isolated locale or region in existing cam-
+paigns. A map of a community and graveyard suitable
+for this adventure is available for download at
+<
+http://www.wizards.com/dnd/images/mapofweek
+/TheSecretGraveyard.jpg>. If y ou require a
+broader geographic setting for the community, a map
+of such an area is available at
+<
+http://www.wizards.com/dnd/images/mapofweek
+/TheJourney.jpg>. These maps are reprinted here for
+your convenience.
+INTRODUCTION
+Twin Oaks is a tiny, sleepy little thorp located just
+within the sheltering eaves of a great forest. Home to
+an extended family clan of farmers and woodcutters,
+the community was founded within living memory
+and since its creation the inhabitants have known only
+peace and prosperity . But just as the gentle breezes of
+late summer can transform rapidly into the deadly
+storms of autumn, dark times have come suddenly to
+Twin Oaks, in the person of Deskryn, a vampire who
+finds himself on the run from deadly enemies. 
+Just two nights ago, as the good folk of Twin Oaks
+prepared for the annual harvest, Deskryn’s castle home
+was invaded by an intrepid band of adventurers led by a
+noble paladin. Although the party did not achieve its
+goal of slaying the vampire himself, they managed to
+drive him from his lair and force him to flee into the
+night with only the barest fraction of his former
+resources in tow. Unfortunately for the good folk of
+Twin Oaks, theirs was the community onto which the

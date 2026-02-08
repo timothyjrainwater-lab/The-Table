@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "d6ec6bcc6c9d:meta",
+    "sourceId": "d6ec6bcc6c9d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Book of Hallowed Might/The Book of Hallowed Might 1.pdf",
+    "title": "The Book of Hallowed Might 1",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T20:13:52.783569+00:00",
+  "meta": {
+    "sourceId": "d6ec6bcc6c9d",
+    "title": "The Book of Hallowed Might 1",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Book of Hallowed Might/The Book of Hallowed Might 1.pdf",
+    "pages": 63,
+    "extractedAt": "2026-02-03T20:13:52.488594+00:00"
+  },
+  "enqueued_extractPages": 32
+}

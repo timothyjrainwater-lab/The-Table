@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0280",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 280,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:25:10.714278+00:00"
+  },
+  "doneAt": "2026-02-05T18:07:29.034192+00:00",
+  "citation": "DMG (pdf p.0280)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Core Mechanic (d20)",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Medium feet (the character need notapproach too closely). Once control is (PHB 7–28)"
+  ]
+}

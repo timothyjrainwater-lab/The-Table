@@ -1,0 +1,128 @@
+ 
+ 142 
+an attack with a natural weapon) while holding a charge. In this 
+case, you aren’t considered armed and you provoke attacks of 
+opportunity as normal for the attack. (If your unarmed attack or 
+natural weapon attack doesn’t provoke attacks of opportunity, 
+neither does this attack.) If the attack hits, you deal normal damage 
+for your unarmed attack or natural weapon and the spell discharges. 
+If the attack misses, you are still holding the charge. 
+Dismiss a Spell: Dismissing an active spell (such as alter self) is a 
+standard action that doesn’t provoke attacks of opportunity. 
+ 
+Activate Magic Item 
+Many magic items don’t need to be activated—magic weapons, 
+magic armor, gauntlets of Dexterity , and so forth. However, certain 
+magic items need to be activated, especially potions, scrolls, wands, 
+rods, and staffs. Activating a magic item is a standard action (unless 
+the item description indicates otherwise). 
+Spell Completion Items:  Activating a spell completion item, 
+such as a scroll, is the equivalent of casting a spell. It requires con-
+centration and provokes attacks of opportunity. You lose the spell if 
+your concentration is broken, and you can attempt to activate the 
+item while on the defensive, as with casting a spell (see Casting on 
+the Defensive, above). 
+Spell Trigger, Command Word, or Use-Activated Items:  
+Activating any of these kinds of items does not require concentra-
+tion and does not provoke attacks of opportunity. The Dungeon 
+Master’s Guide has much more information on magic items. 
+ 
+Use Special Ability 
+Using a special ability is usually a standard action, but whether it is a 
+standard action, a full-round action, or not an action at all is defined 
+by the ability (see Special Abilities, page 180). 
+Spell-Like Abilities: Using a spell-like ability (such as a paladin 
+calling her special mount) works like casting a spell in that it 
+requires concentration and provokes attacks of opportunity. Spell-
+like abilities can be disrupted. If your concentration is broken, the 
+attempt to use the ability fails, but the attempt counts as if you had 
+used the ability. The casting time of a spell-like ability is 1 standard 
+action, unless the ability description notes otherwise. 
+Using a Spell-Like Ability on the Defensive:  You may attempt to use a 
+spell-like ability on the defensive, just as with casting a spell. If the 
+Concentration check (DC 15 + spell level) fails, you can’t use the 
+ability, but the attempt counts as if you had used the ability. 
+Supernatural Abilities:  Using a supernatural ability (such as a 
+cleric’s turn or rebuke undead ability) is usually a standard action 
+(unless defined otherwise by the ability’s description). Its use cannot 
+be disrupted, does not require concentration, and does not provoke 
+attacks of opportunity. 
+Extraordinary Abilities: Using an extraordinary ability (such as 
+a barbarian’s uncanny dodge ability) is usually not an action because 
+most extraordinary abilities automatically happen in a reactive 
+fashion. Those extraordinary abilities that are actions are usually 
+standard actions that cannot be disrupted, do not require concen-
+tration, and do not provoke attacks of opportunity. 
+Total Defense 
+You can defend yourself as a standard action. You get a +4 dodge 
+bonus to your AC for 1 round. Your AC improves at the start of this 
+action, so it helps you against any attacks of opportunity you incur 
+during the round. You can’t combine total defense with fighting 
+defensively or with the benefit of the Combat Expertise feat (since 
+both of those require you to declare an attack or full attack). You 
+can’t make attacks of opportunity while using total defense. 
+ 
+Start/Complete Full-Round Action 
+The “start full-round action” standard action lets you start under-
+taking a full-round action, which you can complete in the following 
+round by using another standard action. For instance, if you are 
+limited to taking only a standard action each turn, you can shoot a 
+heavy crossbow every 3 rounds, needing 2 rounds to load it (a full-
+round action) and 1 round to shoot it. Also, if you want to cast a spell 
+whose casting time is 1 full round, you can start the casting in one 
+round and complete it in the following round, for example. You 
+can’t use this action to start or complete a full attack, charge, run, or 
+withdraw. 
+ 
+MOVE ACTIONS 
+With the exception of specific movement-related skills, most move 
+actions don’t require a check. 
+ 
+Move 
+The simplest move action is moving your speed. If you take this 
+kind of move action during your turn, you can’t also take a 5-foot 
+step. 
+Many nonstandard modes of movement are covered under this 
+category, including climbing (up to one-quarter of your speed) and 
+swimming (up to one-quarter of your speed). 
+Accelerated Climbing: You can climb one-half your speed as a 
+move action by accepting a –5 penalty on your Climb check. 
+Crawling: You can crawl 5 feet as a move action. Crawling incurs 
+attacks of opportunity from any attackers who threaten you at any 
+point of your crawl. 
+ 
+Draw or Sheathe a Weapon 
+Drawing a weapon so that you can use it in combat, or putting it 
+away so that you have a free hand, requires a move action. This 
+action also applies to weapon-like objects carried in easy reach, such 
+as wands. If your weapon or weapon-like object is stored in a pack or 
+otherwise out of easy reach, treat this action as retrieving a stored 
+item. 
+If y ou have  a base  attack bonus of +1 or  hig he r , y ou m ay  dr aw a 
+weapon as a free action combined with a regular move. If you have 
+the Two-Weapon Fighting feat (page 102), you can draw two light or 
+one-handed weapons in the time it would normally take you to draw 
+one. 
+Drawing ammunition for use with a ranged weapon (such as 
+arrows, bolts, sling bullets, or shuriken) is a free action. 
+ 
+Ready or Loose a Shield 
+Strapping a shield to your arm to gain its shield bonus to your AC, or 
+unstrapping and dropping a shield so you can use your shield hand 
+for another purpose, requires a move action. If you have a base attack 
+SPEEDING UP COMBAT 
+You can use a few tricks to make combat run faster. 
+Attack and Damage:  Roll your attack die and damage die (or dice) at 
+the same time. If you miss, you can ignore the damage, but if you hit,
+your friends don’t have to wait for you to make a second roll for damage.
+Multiple Attacks:  U s e  d ic e  o f  d if f e re nt c o l o rs  s o  y o u  c a n m a k e  y o u r
+attack rolls all at once instead of one at a time. Designate which attack is
+which color before you roll. 
+Dice as Counters: Use dice to keep track of how many rounds a short-
+duration magical effect has been active. Each round, turn the die to the 
+next number until the effect ends. 
+Concealment Rolls: If you know what your chance to miss is because 
+of your target’s concealment, you can roll it along with your attack roll. I f 
+the concealment roll indicates a miss, just ignore the attack roll. 
+CHAPTER 8: 
+COMBAT 

@@ -1,0 +1,142 @@
+Their magic certainly does not spring from adivine
+source, as the Vistani pay homage to no deities.
+Nor does it resemble arcane spellcasting, as the
+Vistani have noneed forcomponents orspellbooks.
+The magic of the Vistani seems to be a natural part
+of their being, even more so for them than for
+sorcerers. A sorcerermustcastspells, whilea Vistana
+simply acts, and lets the magic take its own course.
+
+Racial Craits
+
+Although the Vistani are humans, they are a
+very different breed of human. Full-blood Vistani
+have all the racial traits of humans, with the
+following exceptions. Vistani receive a +4 bonus to
+their Wisdom score and a +2 bonus to their Cha-
+risma score. They do not receive any ability score
+penalties. They do not receive an extra feat at first
+level, instead receiving the various powers de-
+scribed below.
+
+Full-blood Vistani are not recommended as a
+player character race.
+
+ 
+
+Curses
+Vistani curses are legendary. Everyone fears
+the Vistani for their power to curse their foes, and
+no one crosses them lightly.
+
+ 
+
+Vistani lay curses using the rules in Chapter
+Three. Vistani curses are especially effective; all
+full-blood Vistani receive the Voice of Wrath feat
+as a bonus feat.
+
+ 
+
+The Vistani favor certain types of curses over
+others. The most common Vistani curse is a Scar,
+an embarrassing or frustrating curse that serves as a
+constant reminder of the folly of injuring the
+Vistani. Scars are tailored to the individual. For
+example, a man who prides himself on his wit, and
+uses it against a Vistana, might find his tongue
+swelling any time he attempts to be humorous.
+
+Other common Vistani curses include the
+Poisoned Carrot, a curse that compels the target to
+pursue something and at the same time renders the
+goal impossible to enjoy, and the Doombringer,
+which causes misfortune to follow the victim ev-
+erywhere. The most feared Vistani curse is the
+mishamel, which literally causes the target to melt!
+The mishamel is reserved for the most heinous
+It is a lethal curse that at first causes only
+perspiration for four days. The sweating is mild on
+the first day but quickly worsens and becomes
+profuse and repugnant by the fourth. After the
+fourth day, the victim can no longer recover hit
+points naturally and must make a DC 20 Fortitude
+
+ 
+
+crime:
+
+ 
+
+ 
+
+save each day or suffer 1 point each of permanent
+Strength, Dexterity and Constitution drain. When
+the victim’s Constitution finally reaches 0, she
+melts intoa puddle of water and cannot be restored
+to life by any means.
+
+The Vistani can render their curses even more
+effective if they possess a focus item. A focus item
+isan item belonging to the target, suchas an article
+of clothing; a part of the target’s body, such as hair
+or nail clippings; an item the target has handled
+within the last day; or an effigy or representation of
+the target. A focus item gives the Vistani a bonus
+to their curse check. The size of the bonus depends
+on the quality of the item. A piece of the target’s
+body is worth +4 to the check, while an item
+belonging to the target is worth +3. An item
+handled by the target is worth +2, while an effigy is
+worth only +1.
+
+The Vistani can withdraw their curses at will
+but almost never choose to do so. However, they
+typically include an escape clause within the curse,
+as it renders the curse more effective. Besides, they
+believe few giorgio are clever enough to make use of
+escape clauses anyway.
+
+The Evil Gye
+
+A form of curse unique to the Vistani isthe evil
+eye. Any Vistana can invoke this extraordinary
+power against an enemy, but females are more
+adept at this power. A Vistana can use this power
+up to three times a day.
+
+Evil Eye (Ex): The evil eye is treated as a gaze
+attack, except that the Vistana must take a stan-
+dard action to employ it, and those merely looking
+at the Vistana are unaffected. The evil eye has one
+of the following effects, chosen by the Vistana. All
+saves against these effects are against DC (10 + 1/
+2 the Vistana’s Hit Dice + the Vistana’s Charisma
+
+ 
+
+ 
+
+ 
+
+modifier if the Vistana is a male, or 12 + 1/2 the
+
+Vistana’s Hit Dice + the Vistana’s Charisma modi-
+fier if the Vistana is a female).
+
+Paralysis: The target must make a Will save
+Those who fail are paralyzed for 1d4+1 rounds.
+Targets who fail their saves by more than 4 are
+paralyzed for 2 rounds then go into convulsions
+that last for 3 rounds. These convulsions cause 1d8
+points of damage each round. After the convul-
+sions stop, the target must make a DC 15 Fortitude
+save. Success means the target falls unconscious,
+though this state more closely resembles sleep; the
+target can be awakened easily. Failure means the
+target dies immediately.
+
+ 
+
+ 
+

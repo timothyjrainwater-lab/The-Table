@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "7302bba4adb9:meta",
+    "sourceId": "7302bba4adb9",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Secret College of Necromancy.pdf",
+    "title": "Secret College of Necromancy",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T17:33:45.947940+00:00",
+  "meta": {
+    "sourceId": "7302bba4adb9",
+    "title": "Secret College of Necromancy",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Secret College of Necromancy.pdf",
+    "pages": 114,
+    "extractedAt": "2026-02-03T17:33:45.438270+00:00"
+  },
+  "enqueued_extractPages": 57
+}

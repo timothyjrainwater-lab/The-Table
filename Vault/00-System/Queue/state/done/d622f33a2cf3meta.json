@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "d622f33a2cf3:meta",
+    "sourceId": "d622f33a2cf3",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 17/The Thunder Below.pdf",
+    "title": "The Thunder Below",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:28:46.987219+00:00",
+  "meta": {
+    "sourceId": "d622f33a2cf3",
+    "title": "The Thunder Below",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 17/The Thunder Below.pdf",
+    "pages": 67,
+    "extractedAt": "2026-02-04T00:28:46.675819+00:00"
+  },
+  "enqueued_extractPages": 34
+}

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "f8852ab515b2:meta",
+    "sourceId": "f8852ab515b2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Manual-Extraction/Eldritch Sorcery Download.pdf",
+    "title": "Eldritch Sorcery Download",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T09:50:31.286967+00:00",
+  "meta": {
+    "sourceId": "f8852ab515b2",
+    "title": "Eldritch Sorcery Download",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Manual-Extraction/Eldritch Sorcery Download.pdf",
+    "pages": 7,
+    "extractedAt": "2026-02-03T09:50:31.244944+00:00"
+  }
+}

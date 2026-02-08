@@ -1,0 +1,69 @@
+{
+  "bookCode": "PHB",
+  "sourceId": "681f92bc94ff",
+  "citationPrefix": "PHB",
+  "tableLabelPrefix": "PHB",
+  "pageMap": "00-System/SourceMaps/PHB.page_map.json",
+  "passA_targets": {
+    "Rule — Core Mechanic (d20)": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "MOC — Combat", "Rule — Action Types", "Rule — Saving Throws", "Rule — Movement", "Rule — Armor Class"]
+    },
+    "Rule — Saving Throws": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "Rule — Core Mechanic (d20)", "Rule — Armor Class", "Rule — Initiative", "Condition — Stunned", "Condition — Grappled"]
+    },
+    "Rule — Action Types": {
+      "moc": "MOC — Combat",
+      "links": ["MOC — Combat", "Rule — The Combat Round", "Rule — Initiative", "Rule — Movement", "Rule — Attacks of Opportunity", "Rule — Armor Class"]
+    },
+    "Rule — Movement": {
+      "moc": "MOC — Combat",
+      "links": ["MOC — Combat", "Rule — Action Types", "Rule — The Combat Round", "Rule — Attacks of Opportunity", "Condition — Prone", "Condition — Grappled"]
+    },
+    "Rule — Attacks of Opportunity": {
+      "moc": "MOC — Combat",
+      "links": ["MOC — Combat", "Rule — Action Types", "Rule — Movement", "Condition — Flat-Footed", "Condition — Grappled", "Rule — Armor Class"]
+    },
+    "Rule — Armor Class": {
+      "moc": "MOC — Combat",
+      "links": ["MOC — Combat", "Rule — Core Mechanic (d20)", "Rule — Saving Throws", "Rule — Movement", "Condition — Flat-Footed", "Condition — Prone"]
+    },
+    "Condition — Prone": {
+      "moc": "MOC — Conditions",
+      "links": ["MOC — Conditions", "MOC — Combat", "Rule — Armor Class", "Rule — Attacks of Opportunity", "Rule — Movement", "Rule — Action Types"]
+    },
+    "Condition — Grappled": {
+      "moc": "MOC — Conditions",
+      "links": ["MOC — Conditions", "MOC — Combat", "Subsystem — Grapple", "Rule — Armor Class", "Rule — Movement", "Rule — Action Types"]
+    },
+    "Condition — Flat-Footed": {
+      "moc": "MOC — Conditions",
+      "links": ["MOC — Conditions", "MOC — Combat", "Rule — Armor Class", "Rule — Initiative", "Rule — Attacks of Opportunity", "Rule — Action Types"]
+    },
+    "Rule — Strength": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "Skill — Climb", "Skill — Jump", "Skill — Swim", "Rule — Armor Class", "Rule — Core Mechanic (d20)"]
+    },
+    "Rule — Dexterity": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "Rule — Armor Class", "Rule — Initiative", "Skill — Hide", "Skill — Move Silently", "Rule — Core Mechanic (d20)"]
+    },
+    "Rule — Constitution": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "Rule — Saving Throws", "Skill — Concentration", "Rule — Core Mechanic (d20)", "MOC — Combat", "Rule — The Combat Round"]
+    },
+    "Rule — Intelligence": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "Skill — Knowledge", "Skill — Search", "Skill — Spellcraft", "Rule — Core Mechanic (d20)", "MOC — Skills & Feats"]
+    },
+    "Rule — Wisdom": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "Rule — Saving Throws", "Skill — Spot", "Skill — Listen", "Rule — Core Mechanic (d20)", "MOC — Skills & Feats"]
+    },
+    "Rule — Charisma": {
+      "moc": "MOC — Core Rules",
+      "links": ["MOC — Core Rules", "Skill — Bluff", "Skill — Diplomacy", "Skill — Intimidate", "Rule — Core Mechanic (d20)", "MOC — Skills & Feats"]
+    }
+  }
+}

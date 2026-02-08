@@ -1,0 +1,128 @@
+rr
+
+ 
+
+  
+
+Skills: Ancient Dead receive a +8 racial bo-
+nuson the skills Climb, Hide, Listen, Move Silently
+and Spot.
+Feats: Same as base character, plus gains the
+Alertness and Toughness feats.
+Environment: The ancient dead are rarely
+found away from the site of their burial.
+Organization: Solitary or pack (2-6)
+Challenge Rating: Refer to Table 5-6.
+Treasure: Double standard.
+Alignment: Always evil, usually lawful.
+Advancement: By character class.
+
+Galient Powers
+
+The ancient dead frequently havesalient pow-
+ers of their own. The typical ancient dead has a
+number of salient powers equal to its rank - 1,
+though some might have more or fewer. Salient
+powers can be chosen from the following list:
+
+Alternate Form (Su): The ancient can change
+its physical appearance at willas if it were under the
+effects of the alter self spell. The changes last as long
+as the ancient wills.
+
+Animal Command (Su): The ancient is able to
+exert control over one specific species of animal
+Common animals are cats, eagles, jackals, mon-
+keys, rats, vultures and wolves. The ancient can
+rebuke or command animals of this species just as
+an evil cleric can rebuke or command undead. This
+ability takes effect as ifused by acleric of level equal
+to the ancient’s Hit Dice.
+
+Cable 5-6: Ancient Dead Rank Modifiers
+Ability Score Modifiers
+
+Rank Str Dex Int Wis Cha Speed
+
+One +6 -4 -4 +2 +2 -10 S/silver
+Two +8 -2 -2 +4 +4 -10 S/magic
+Three +10 +0 +0 +6 +4 +0 10/magic
+Four +12 +0 +2 +8 +6 +0 15/magic
+Five +14 +2 +4 +10 +8 +10 20/magic
+
+Dmg Red Turn Resist
+
++0
++2
++4
++6
++8
+
+ 
+
+Animate Object (Su): The ancient can cast an
+animate object spell once per day. The spell takes
+effect as if cast by a sorcerer of level equal to the
+ancient’s Hit Dice, save that the duration is equal
+to the ancient’s rank in hours.
+
+Curse of Vengeance (Su): The ancient is able to
+curse its opponents as described in Chapter Three,
+but with greater ease than normal. The ancient
+receives a bonus on its Charisma check when
+cursing. The bonus is equal to 4 + the ancient’s
+rank.
+
+Command Undead: The ancient gains the abil-
+ity to rebuke or command undead as if it were a
+cleric of level equal to its Hit Dice. If the ancient
+already has this ability (and many were clerics in
+life), then it may add 4 to its effective level when
+rebuking.
+
+Delay Disease (Su): The ancient is able to
+lengthen the incubation period of its disease power
+if it wishes, making it difficult for the afflicted to
+tell exactly when or how they contracted the
+illness. The ancient can lengthen the incubation
+by up toas muchas its rank in days. The ancient can
+use this ability each time it infects a new victim.
+
+Domination (Su): The ancient has a dominat-
+ing gaze identical to a vampire’s, save that the
+ancient’s takes effect as if cast by a sorcerer of level
+equal to the ancient’s Hit Dice.
+
+Elemental Affinity (Su): This ability can be
+taken only by ancients who have cleric levels. The
+ancient gains one of the four elemental cleric
+domains (Air, Earth, Fire or Water). It receives the
+
+ 
+
+ 
+
+Imm/Res AC CR
+
+vo +6 +1
+vo +8 +2
+Ww +10 +3
+2/0 +12 +4
+2 +14 +5,
+
+Speed: The modification, in feet, made to the base character's speed
+Dig Red: The ancient receives damage reduction as listed above.
+Turn Resist: The ancient receives turn resistance at the value listed.
+Imm/Res: The number before the slash represents the number of energy types to which the ancient dead is immune. The
+number after the slash represents the number of energy types to which the ancient dead is resistant
+
+AC: The bonus the base character receives to its natural Armor Class.
+
+CR: The modification made to the base character’s Challenge Rating.
+
+eee aaa ee ~ aed
+
+ 
+
+ 
+

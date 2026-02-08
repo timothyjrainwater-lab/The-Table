@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "2c8880cb91be:meta",
+    "sourceId": "2c8880cb91be",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Legacy of The Forge.pdf",
+    "title": "Legacy of The Forge",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:11:22.680146+00:00",
+  "meta": {
+    "sourceId": "2c8880cb91be",
+    "title": "Legacy of The Forge",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Legacy of The Forge.pdf",
+    "pages": 66,
+    "extractedAt": "2026-02-03T13:11:22.672194+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

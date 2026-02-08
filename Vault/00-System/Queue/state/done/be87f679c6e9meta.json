@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "be87f679c6e9:meta",
+    "sourceId": "be87f679c6e9",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Kobolds.pdf",
+    "title": "The Slayer's Guide To Kobolds",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:47:45.869835+00:00",
+  "meta": {
+    "sourceId": "be87f679c6e9",
+    "title": "The Slayer's Guide To Kobolds",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Kobolds.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T23:47:45.700205+00:00"
+  },
+  "enqueued_extractPages": 18
+}

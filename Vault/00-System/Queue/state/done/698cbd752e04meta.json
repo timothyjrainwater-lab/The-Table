@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "698cbd752e04:meta",
+    "sourceId": "698cbd752e04",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/Wreck Ashore.pdf",
+    "title": "Wreck Ashore",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T03:48:04.598199+00:00",
+  "meta": {
+    "sourceId": "698cbd752e04",
+    "title": "Wreck Ashore",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/Wreck Ashore.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-04T03:48:04.538911+00:00"
+  },
+  "enqueued_extractPages": 6
+}

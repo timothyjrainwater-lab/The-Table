@@ -1,0 +1,19 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0049",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 49,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:20:08.053487+00:00"
+  },
+  "doneAt": "2026-02-05T16:23:50.395659+00:00",
+  "citation": "DMG (pdf p.0049)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table — Encounter Numbers to determine the (PHB 3–1)",
+    "Table — Urban (PHB 3–28)"
+  ]
+}

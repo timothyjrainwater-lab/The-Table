@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "37edddc2bd51:meta",
+    "sourceId": "37edddc2bd51",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/The Burning Plague.pdf",
+    "title": "The Burning Plague",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:27:53.528879+00:00",
+  "meta": {
+    "sourceId": "37edddc2bd51",
+    "title": "The Burning Plague",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/The Burning Plague.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-03T20:27:53.521693+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

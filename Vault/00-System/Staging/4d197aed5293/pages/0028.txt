@@ -1,0 +1,113 @@
+ 
+ 27
+are known to worship Erythnul (the god of slaughter), though few 
+will admit to it. In any event, bards spend so much time on the road 
+that, while they may be devoted to a deity, they are rarely devoted to 
+any particular temple. 
+Background: An apprentice bard learns his skills from a 
+single experienced bard, whom he follows and serves until he is 
+ready to strike out on his own. Many bards were once young run-
+aways or orphans, befriended by wandering bards who became 
+their mentors. Since bards occasionally congregate in informal 
+“colleges,” the apprentice bard may 
+meet many of the more prominent 
+bards in the area. Still, the bard has no 
+strong allegiance to bards as a whole. 
+In fact, some bards are highly 
+competitive with other bards, jealous 
+of their reputations and defensive 
+about their territories. 
+Races: Bards are commonly 
+human, gnome, elf, or half-elf. 
+Humans take well to the wander-
+ing life and adapt easily to new 
+lands and customs. Gnomes 
+have a sense of humor and 
+trickery that lends itself to a 
+bardic career. Elves are talented 
+in music and magic, so 
+the career of the bard 
+comes naturally to them. 
+A bard’s wandering ways 
+suit many half-elves, who 
+often feel like strangers 
+even when at home. 
+Half-orcs, even those raised 
+among humans, find themselves 
+ill suited to the demands of a 
+bard’s career. There are no bardic 
+traditions among dwarves, 
+or halflings, though 
+occasional individuals of these races 
+find teachers to train them in the ways 
+of the bard. 
+Bards are exceedingly rare among the savage humanoids, except 
+among centaurs. Centaur bards sometimes train the children of 
+humans or other humanoids. 
+Other Classes:  A bard works well 
+with companions of other classes. He 
+often serves as the spokesman of the 
+party, using his social skills for the 
+party’s benefit. In a party without a 
+wizard or sorcerer, the bard con-
+tributes his magic. In a party 
+without a rogue, he uses his skills. 
+A bard is curious about the ways 
+of more focused or dedicated 
+adventurers, so he often tries to 
+pick up pointers from 
+fighters, sorcerers, and 
+rogues. 
+Role: The bard is perhaps the 
+ultimate generalist. In most 
+adventuring groups, he works best 
+in a supporting role. He can’t usually 
+match the stealth of the ranger or 
+the rogue, the spellcasting 
+power of the cleric or the 
+wizard, or the combat prowess 
+of the barbarian or the fighter. 
+However, he makes all the 
+other characters better at what 
+they do, and he can often fill in 
+for another character when needed. 
+For a typical group of four 
+characters, the bard is perhaps 
+the most useful fifth character to 
+consider adding, and he can make a 
+great team leader. 
+ 
+GAME RULE INFORMATION 
+Bards have the following game statistics. 
+Abilities: Charisma determines how 
+powerful a spell a bard can cast, how many 
+spells he can cast per day, and how hard 
+ 
+Table 3–4: The Bard 
+ Base Fort Ref Will  ––—— Spells per Day ——–— 
+Level Attack Bonus Save Save Save Special 0 1st 2nd 3rd 4th 5th 6th 
+ 1st +0 +0 +2 +2 Bardic music, bardic knowledge, 2 — — — — — — 
+      c o u n t e r s o n g ,  fascinate, inspire courage +1 
+ 2nd +1 +0 +3 +3  3 0 — — — — — 
+ 3rd +2 +1 +3 +3 Inspire competence 3 1 — — — — — 
+ 4th +3 +1 +4 +4  3 2 0 — — — — 
+ 5th +3 +1 +4 +4  3 3 1 — — — — 
+ 6th +4 +2 +5 +5 Suggestion 3 3 2 — — — — 
+ 7th +5 +2 +5 +5  3 3 2 0 — — — 
+ 8th +6/+1 +2 +6 +6 Inspire courage +2 3 3 3 1 — — — 
+ 9th +6/+1 +3 +6 +6 Inspire greatness 3 3 3 2 — — — 
+10th +7/+2 +3 +7 +7  3 3 3 2 0 — — 
+11th +8/+3 +3 +7 +7  3 3 3 3 1 — — 
+12th +9/+4 +4 +8 +8 Song of freedom 3 3 3 3 2 — — 
+13th +9/+4 +4 +8 +8  3 3 3 3 2 0 — 
+14th +10/+5 +4 +9 +9 Inspire courage +3 4 3 3 3 3 1 — 
+15th +11/+6/+1 +5 +9 +9 Inspire heroics 4 4 3 3 3 2 — 
+16th +12/+7/+2 +5 +10 +10  4 4 4 3 3 2 0 
+17th +12/+7/+2 +5 +10 +10  4 4 4 4 3 3 1 
+18th +13/+8/+3 +6 +11 +11 Mass suggestion 4 4 4 4 4 3 2 
+19th +14/+9/+4 +6 +11 +11  4 4 4 4 4 4 3 
+20th +15/+10/+5 +6 +12 +12 Inspire courage +4 4 4 4 4 4 4 4 
+Illus. by W. Reynolds 
+Gimble
+CHAPTER 3: 
+CLASSES 

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "745bb590b46e:meta",
+    "sourceId": "745bb590b46e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Power of Faerun.pdf",
+    "title": "Power of Faerun",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T16:16:03.247250+00:00",
+  "meta": {
+    "sourceId": "745bb590b46e",
+    "title": "Power of Faerun",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Power of Faerun.pdf",
+    "pages": 159,
+    "extractedAt": "2026-02-03T16:16:03.239920+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,145 @@
+a op ne
+
+    
+
+   
+
+refuted prediction might rise to +10 or even +20.
+The use of arcane props such as a crystal ball or a
+tarokka deck gives a +2 circumstance bonus on the
+Bluff check.
+
+Seduction: Most commonly associated with
+the act of physical seduction, this skill can also
+include a carnival barker delivering a spiel to draw
+patrons into her tent or a crime boss trying to lure
+aconstable onto her payroll. Seduction is the art of
+manipulating a target by sensing her desires and
+promising to deliver on them. With a successful
+Seduction check, you can convince a target to
+perform a small service for you — perhaps follow-
+ing you to a secluded locale or paying a few coins.
+
+The DM should apply acircumstance modifier
+based on how well the promise matches the target's
+desires, how demanding the requested service is
+and whether the seducer can deliver on the prom-
+ise. An impoverished family man may be resistant
+to physical enticement but willing to accept a few
+coins, for example. Likewise, a randy sailor may
+respond well to attentions of a lady, but he might
+balk if asked to follow her into an acrid-smelling,
+web-choked cellar. Use the example circumstances
+listed in the D&D Player’s Handbook asa guideline.
+
+Seduction cannot rob a target of her free will.
+Ifan NPC attempts to seduce a PC, the PC is not
+charmed. Instead, the DM should present the NPC
+and her offer in an enticing light. If a seduction
+check fails, the target realizes the seducer is at-
+tempting to manipulate him — but in the right
+circumstances, he may still find the offer appealing.
+
+Craft
+
+The alchemy specialization is used to make
+gunpowder. Craft also includes two new specializa-
+tions: clockmaking and gunsmithing.
+
+Craft (alchemy): You can create gunpowder
+with a successful DC 15 Craft (alchemy) check. It
+costs 5 sp to prepare 1 ounce of gunpowder. Youcan
+save time by creating multiple ounces in a single
+batch, but if you fail the Craft (alchemy) check by
+5 ormore, you accidentally ignite the entire batch.
+This deals 1 point of fire damage per ounce to
+everything within 5 feet. Those caught within the
+blast radius can make a DC 20 Reflex save to take
+half damage.
+
+Craft (clockmaking) : This skill is used to create
+mechanical clockworks, ranging from ponderous
+clock towers to delicate pocket watches.
+
+Craft (gunsmithing): This skill is used to craft
+gunpowder weapons and bullets. If you have 5 or
+
+ 
+
+ 
+
+ 
+
+ia = cen Cee
+5 Oe, th
+
+     
+ 
+ 
+ 
+
+i 16} 4
+= ,?
+more ranks in clockmaking, you enjoy a +2 synergy
+bonus on gunsmithing checks when building or
+repairing wheel-lock weapons. The clockmaking
+skill is uncommon in domains below CuL 7 (Medi-
+eval); gunsmithing first appears at Cul 8
+(Chivalric).
+
+If you fail a craft check by 5 or more points
+when crafting a bomb (see Equipment), the bomb
+explodes.
+
+Randle Hnimal
+
+If you attempt to handle an animal under the
+influence of a darklord, the animal adds the
+darklord’s Charisma bonus to the DC of your
+check. (See Enchantment in Chapter Three for
+more details.) If the darklord is not trying to oppose
+your handling of the animal, the DM may rule that
+this penalty does not currently apply.
+
+Knowledge
+
+The fields of study available to characters in
+Ravenloft require some commentary.
+
+Monster Lore: A character who wishes to learn
+about the things that stalk the Realm of Dread must
+pursue different areas of knowledge depending on
+the type of monster in question. Knowledge (arcana)
+covers constructs, dragonsand magical beasts; Knowl-
+edge (dungeoneering) covers aberrations and oozes;
+Knowledge (local) covers humanoids; Knowledge
+(nature) covers animals, fey, giants, monstrous hu-
+manoids, plants and vermin; Knowledge (religion)
+covers undead; and Knowledge (the planes) covers
+outsiders and elementals. These skills can be used to
+evaluate a character’s knowledge of the habits or
+weaknesses of that creature type.
+
+Knowledge (the planes): By its very nature, the Land
+of Mists clouds the minds of those who dwell within. In
+Ravenloft, Knowledge (the planes) focuses on the plane
+ofthe Realm of Dread specifically, as well as on outsiders,
+elementals and magic relating to it. This represents an
+understandingoftheplanarfabric ofthe RealmofDread,
+including the Mists, the nature of domains, closed
+borders, darklords and so on.
+
+This is an extremely rare skill, known only by
+a handful of arcane scholars, most of whom are
+darklords. It is considered a cross-class skill for all
+classes unless noted explicitly otherwise in
+Ravenloft material. No player character may begin
+the game with ranks in Knowledge (the planes),
+and must be able to back up its purchase during a
+campaign with experience in the subject and “in
+game” research.
+
+  
+
+ 
+

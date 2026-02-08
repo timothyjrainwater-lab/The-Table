@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "cdfe4f0ee640:meta",
+    "sourceId": "cdfe4f0ee640",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Character Sheet - Back.pdf",
+    "title": "Character Sheet - Back",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T07:19:50.665671+00:00",
+  "meta": {
+    "sourceId": "cdfe4f0ee640",
+    "title": "Character Sheet - Back",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Character Sheet - Back.pdf",
+    "pages": 1,
+    "extractedAt": "2026-02-03T07:19:50.649407+00:00"
+  }
+}

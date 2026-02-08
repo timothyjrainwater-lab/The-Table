@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "1a9cf797abf7:meta",
+    "sourceId": "1a9cf797abf7",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 15/Lord of the Iron Fortress.pdf",
+    "title": "Lord of the Iron Fortress",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:30:47.423704+00:00",
+  "meta": {
+    "sourceId": "1a9cf797abf7",
+    "title": "Lord of the Iron Fortress",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 15/Lord of the Iron Fortress.pdf",
+    "pages": 53,
+    "extractedAt": "2026-02-03T13:30:47.415347+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

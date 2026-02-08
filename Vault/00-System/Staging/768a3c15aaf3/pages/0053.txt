@@ -1,0 +1,118 @@
+y
+
+4
+5
+
+ 
+
+ 
+
+en
+
+ 
+
+ 
+
+Dread Companions
+
+Some classes call upon the world for a steadfast animal companion, and the world responds.
+In Ravenloft, it falls to the Dark Powers to heed this call. Their response is the dread companion.
+
+The dread companion is a template that should be added to any familiar or paladin’s mount
+summoned within Ravenloft. A dread companion uses all the base creature's s 's and special
+abilities except as noted here. The creature’s type changes to magical beast (if it isnot one already).
+
+Dread companions share their master’s ethical alignment, but their moral alignment is always
+evil. Do not be mistaken; they are not mindlessly malicious, nor are they dedicated to their master’s
+destruction. Indeed, they are utterly loyal to their masters — to a fault.
+
+Dread companions share an empathic link with their masters. Through this link, they are privy
+toall their master’s innermost thoughts and desires. Their masters may understand why some wishes
+are best left unspoken, but dread companions lack a conscience. They cannot grasp why their
+master’s desires should be repressed, no matter how dark or selfish. If the master desires an object,
+the companion may try to steal it; if a rival causes its master harm of any kind, the companion may
+seek revenge. The dread companion of a scrupulous master knows that its master does not want to
+acknowledge her unspoken desires, and may act in secret. In psychological terms, when a character
+calls for a familiar or paladin’s mount in Ravenloft, she receives her own id in flesh and blood.
+
+When the master is at low levels, a dread companion has a rather dull mind (see the respective
+sidebars in the D&D Player's Handbook). As the master gains power, however, the intellect of her
+dread companion follows suit. The dread familiar of a neophyte wizard may just seem mischievous;
+at higher levels, that same dread familiar is capable of devious and cunning plots.
+
+When a dread companion is faced with a situation that would call fora Fear, Horror or Madness
+save, it does so independently of its master. Indeed, some of the most stalwart dread companions
+are inured to the terrors that send their masters fleeing. Note also that a dread companion toa good
+or neutral character has different modifiers to these checks, due to its own inherently evil
+
+ 
+
+ 
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+alignment. Special cohorts (see the D&D Dunge.
+
+on Master’s Guide) are treated the same way.
+
+Familiars and other companions brought in from other realms (that is, not native to the
+
+Ravenloft world) do not become dread compani
+other traits.
+
+ 
+
+as me
+they react appropriately. Paladins blinded by hu-
+bris quickly become servants of the Dark Powers.
+The divine forces that grant a paladin her
+special abilities are as faceless as the Dark Powers
+themselves, in fact, they may well be the Dark
+Powers. Evidence exists, however, that paladins
+are an aberration in the grand tapestry the Dark
+Powers have woven for themselves. Paladins pos-
+sess extensive, powerful gifts in their personal
+life-quests against the forces of evil, but in many
+ways, the deck seems stacked against them. The
+Dark Powers may seek to destroy paladins in their
+realm, or it may be that the Dark Powers are
+enraptured with the potential paladins hold, and
+they simply provide them with fitting challenges
+Paladins native to Ravenloft usually ascribe
+their divine powers to the prevailing deities of their
+homeland. They almost never adventure simply
+for the pursuit of lucre or personal gain: they seek
+
+ 
+
+ions. They retain their original alignments and
+
+out and battle evil because they know it is the right
+thing to do. It is the rare paladin indeed who dies
+of old age in Ravenloft; many become fatalistic as
+they proceed through life, knowing that the ex-
+amples they leave after theirdeaths are as important
+as the actions they took in life.
+
+Altered Class features
+
+* Detect Evil (Sp): No mortal magic can
+detect moral alignment in the Realm of Dread. In
+Ravenloft, this ability usually duplicates the effects
+of the spell detect chaos. In two cases, however, the
+paladin’s spiritual purity allows her to come close
+to defying the edicts of the Dark Powers. First, a
+paladin can use this ability to detect Innocents (see
+Powers Checks in Chapter Three). Atthe extreme
+opposite of the moral spectrum, a paladin can also
+use this ability to sense the true nature of evil
+outsiders.
+

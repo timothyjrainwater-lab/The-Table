@@ -1,0 +1,176 @@
+   
+   
+  
+
+      
+
+Another legend tells of Lady Artis, an evil but brave
+knight who drove off a rampaging red dragon thar had
+terrorized the region, not from any beneficence toward the
+inhabitants but to win the fame of defeating a foe no one
+else dared face
+
+Organizations
+Knights often band together into orders of knighthood, and
+many of these organizations have storied histories. Knightly
+orders typically allow their members to spend much of their
+time on individual quests, requiring only thar the knight
+live by the code of the order and be willing to rerurn to the
+order's headquarters when called upon, Knightly orders
+have a proud tradition of using heraldic symbols to identify
+themselves, and knights who belong to the order often
+carry these symbols on their shields and armor to identify
+their affiliation.
+
+ 
+
+NPC Reactions
+
+Individuals react 1o knights based on their previous int
+tions with other members of the class, A heroic knight meets
+stony silence and suspicion in a land where evil knights
+oppress the poor. By the same token, a villainous knight
+finds that folk who assume knights are chivalrous, fair,
+and honorable are quick to trust her and willing to believe
+the best about her. Such trust might indeed bring out the
+best in her, or it might lead swiftly co disaster, depending
+on the knight.
+
+‘A knight who has retired from adventuring typically
+acquires some position of authority, with commensurate
+political power, whether as general, king's champion, or ruler
+af some city or outpost. People's opinions of knights are thus
+often the same as their views of authority in general.
+
+KNIGHT LORE
+
+Characters with ranks in Knowledge (nobility and royalty)
+can research knights to learn more about them. When a char-
+acter makes a skill check, read or paraphrase the following,
+including the information from lower L
+
+DC 10: Knights are skilled mounted fighters who special-
+ize in defensive combat.
+
+ 
+
+ 
+
+ 
+
+ 
+
+DC 15: Knights are combat-oriented characters adept at
+protecting their companions and stopping foes from getting
+past them. They follow a strict code of honor.
+
+DC 20: Knights are masters of armor and shield use. They
+can lure foes into one-on-one combat through sheer force
+of will
+
+KNIGHTS IN THE GAME
+
+Because of their obvious place in real-world history, knights
+fit well into any campaign with a medieval setting, The class
+can be available to characters of almost any race or origin
+or you can tie the class to a specific kingdom or group of
+cultures in your campaign world, Either way, the knight
+provides an exciting option for players interested in a melee-
+oriented character capable of holding a line of combat and
+really protecting her allies, as well as challenging monsters
+in single combat,
+
+   
+   
+    
+    
+   
+   
+  
+  
+  
+   
+   
+ 
+ 
+
+   
+
+Adaptation
+This class can fit in a campaign in many ways—to serve a
+specific plot need, you can tie its history toa race or add a con-
+nection to a mysterious organization. The class description
+assumes that many races and cultures produce knights, but in
+your world perhaps only lawful societies might field knights
+as part of their armed forces, creating an instantand flavorful
+difference between lawful and chaotic culture groups. If you
+take this route, create a chaotic-oriented group of hexblades,
+rangers, or scouts who oppose the order of knights,
+
+ 
+
+ 
+
+Sample Encounter
+A knight can be encountered anywhere her quest for glory
+might take her: at the head of an enemy army, on a lone
+mission into the underground, or simply wandering the
+countryside looking for suitable challenges. A knight often
+appears partnered with an arcane or divine spellcaster, since
+the knight's class features work best in conjunction with an
+unarmored or lightly armored partner.
+EL7: Lady Sorta adheres to the code of knighthood for one
+son; it seems the fastest way to gain power in a world where
+those of common birth lack opportunity. She could make a
+temporary ally or suitable antagonist for any adventuring
+group, perhaps first appearing as an ally in one adventure and
+then again later in another as an antagonist. In the latter case,
+she is likely to be found serving as the personal bodyguard
+of a powerful evil spellcaster.
+
+ 
+ 
+
+re:
+
+Lapy SorRA
+Female human knight 7
+LE Medium humanoid
+Init +5; Senses Listen +0, Spot +0
+Languages Common
+AC 21, touch 12, flat-footed 20; shield bloc!
+hp 65 (7 HD)
+Fort +7, Ref +4, Will +8
+Speed 30 ft. (6 squares)
+Melee +1 longsword +11/+6 (1d8+4/19-20)
+Base Atk +7; Grp +10
+Atk Options Cleave, Power Attack, fighting challenge* +2,
+ettle
+16, Dex 13, Con 14, Int 8, Wis 10, Cha 12
+SQ armor mastery, knight's challenge* 4/day, knight's
+code®, shield ally*, vigilant defender*, wall of steel*
+Feats Cleave, Great Fortitude", Improved Initiative, Iron Will
+Mounted Combat®, Power Attack
+Skills Handle Animal +11, Intimidate +11
+Possessions +1 breastplate, +] heavy shield, +1 longsword,
+cloak of resistance +1, ring of protection +7
+*Class features described on pages 25-28
+
+EX-KNIGHTS
+
+A knight who is no longer lawful loses the benefits of her
+knight's challenge ability. As a result, she cannot use class
+features that require her to expend uses of the knight's
+challenge ability, such as fighting challenge, test of mettle
+and call to battle, She no longer takes penalties for violating
+her code of conducr.
+
+CR7
+
+ 
+
+ 
+
+A knight can regain her status by returning to a lawful
+alignment
+

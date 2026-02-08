@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "4e953f262ca1:meta",
+    "sourceId": "4e953f262ca1",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Fury In The Wastelands - The Orcs of Tellene.pdf",
+    "title": "Fury In The Wastelands - The Orcs of Tellene",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T11:03:54.818633+00:00",
+  "meta": {
+    "sourceId": "4e953f262ca1",
+    "title": "Fury In The Wastelands - The Orcs of Tellene",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Fury In The Wastelands - The Orcs of Tellene.pdf",
+    "pages": 164,
+    "extractedAt": "2026-02-03T11:03:54.810836+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

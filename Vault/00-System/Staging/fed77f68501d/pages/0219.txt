@@ -1,0 +1,230 @@
+ 
+  
+  
+  
+  
+  
+  
+  
+ 
+
+  
+       
+
+   
+
+TABLE 7—6: SHIELD SPECIAL ABILITIES
+
+Minor Medium Major Special Ability Base Price Modifier
+01-20 01-10 01-05 Arrow catching +1 bonus?
+21-40 11-20 06-08 _ Bashing +] bonus"
+41-50 21-25 09-10 Blinding +1 bonus! |
+51-75 26-40. 11-15. Fortification, light +1 bonus |
+76-92 41-50 16-20 Arrow deflection +2 bonus! |
+193-97 51-57 21-25. Animated +2 bonus! |
+98-99 58-59 — Spell resistance (13) +2 bonus’ |
+— 60-63 26-28 Acid resistance +18,000 gp_|
+— 64-67 29-31 Cold resistance +18,000 gp
+— 68-71 32-34 _ Electricity resistance +18,000 gp
+— 7278 35-37 Fire resistance +18,000 gp
+— 76-79 38-40 Sonic resistance +18,000 gp
+— 80-85 41-46 Ghost touch +3 bonust
+
+— 86-95 47-56 _ Fortification, moderate +3 bonus!
+— 96-98 57-58 Spell resistance (15) +3 bonus?
+— 99 59 Wild +3 bonus" |
+) — = 64 Acid resistance, improved +42,000 gp
+lL. —__ 65-69 Cold resistance, improved __+42,000 gp |
+
+- — 70-74 Electricity resistance, improved +42,000 gp
+
+= — 75-79 Fire resistance, improved +42,000 gp
+= — 80-84 Sonic resistance, improved +42,000 gp
+— __ —__85-86__ Spell resistance (17) +4 bonus’
+— = 87 _ Undead controlling +49,000 gp
+— — __ 88-91 Fortification, heavy +5 bonus’
+—  — 92-93 Reflecting +5 bonus?
+
+| — 9 Spell resistance (19) +5 bonus!
+
+= = 95 Acid resistance, greater +66,000 gp
+— _— ___ 96 Cold resistance, greater +66,000 gp.
+= =- 97 Electricity resistance, greater +66,000 gp
+— __—__98_ Fire resistance, greater +66,000 gp
+- =- 99 Sonic resistance, greater
+
+H +66,000 gp
+
+1.100.100. 100 _ Roll twice again? =
+
+1 Add to enhancement bonus on Table.7-2: Armorand Shields to
+determine total market price.
+
+2 If you roll.a special ability twice, only.one counts. If you.coll two.
+versions of the same special ability, use the better.
+
+Acid Resistance, Greater: As acid resistance, except it absorbs |
+
+the first 30 points of acid damage per.attack.
+
+Moderate abjuration; CL 11th; Craft Magic Arms and Armor,
+
+resist energy; Price +66,000 gp.
+
+Animated: Upon command, an animated shield floats within 2
+feet of the wielder, protecting her ai if she were using it herself
+bur freeing up both her hands. Only one shield can protect a char-
+acter at.a.time. A character with an animated shield still takes any
+
+jpenalties associated with shield use, such as armor check penalty,
+jarcane spell failure chance, and nonproficiency.
+
+Strong transmutation; CL 12th; Craft Magic Arms and Armor,
+
+\animate objects; Price +2 bonus.
+
+Arrow Catching: A shield with this ability attracts ranged
+weapons to it It has.a deflection bonus of +1 against ranged
+weapons because projectiles and thrown weapons veer toward it.
+Additionally, any projectile or thrown weapon aimed at a target
+within 5 feet of the shield’s wearer diverts from its original rarget
+and targets the shield's bearer instead. (If the wielder has total
+cover relative to the attacker, the projectile or thrown sveapon is
+not diverted.) Additionally, those attacking the wearer with
+
++Fanged weapons ignore any miss. chances that would normally
+sapply. Projectiles and thrown weapons that have an enhance-
+pment bonus higher than the shield’s base AC bonus are nor
+{diverted to the wearer (but the shield’s increased AC bonus still
+japplies against these weapons). The wielder can activate or deac-
+tivate this ability with a. command word.
+
+Moderate abjuration; CL sth; Craft Magic Arms and Armor, en- |
+tropic shield; Price +1 bonus
+
+   
+   
+   
+   
+  
+   
+  
+ 
+    
+ 
+  
+  
+    
+   
+     
+  
+   
+   
+  
+  
+   
+ 
+  
+   
+  
+  
+ 
+  
+   
+  
+ 
+   
+   
+
+Arrow Deflection: This shield protects the wielder as ifhe had,
+the Deflect Arrows feat. Once per round when he would normally
+be struck by a ranged weapon, he can make a DC 20 Reflex save. If
+the ranged weapon has an enhancement bonus, the DC increases,
+by that amount, If he succeeds, the shield deflects the weapon. He
+
+[must be aware of the attack and not flat-footed. Attempting to
+
+\deflect a ranged weapon doesnt count as an action, Exceptional
+ranged weapons, such as boulders hurled by giants.or Melf’s acid
+arrows, cant be deflected,
+
+Faint abjuration; CL sth; Craft Magic Arms and Armor, shicld;,
+[Price +2 bonus. }
+
+Bashing: A shield with this special ability is designed to per-
+form a shield bash. A bashing shield deals damage-as if it were a
+weapon of two size categories larger (a Medium light shield thus ,
+deals 1d6 points of damage and a Medium heavy shield deals 1ds
+points of damage), The shield acts as a +1 weapon when_used to
+-bash. (Only light and heavy shields can have this ability.)
+
+|. Moderate transmutation; CL 8th; Craft Magic Arms and Armor,
+bull's strength; Price +1 bonus.
+
+Blinding: A shield with this ability flashes with a brilliant light
+up to twice per day upon command of the wielder. Anyone within
+20 feet except the wielder must make a DC 14 Reflex save.or be.
+blinded for 1d¢ rounds.
+
+Moderate evocation; CL 7th; Craft Magic Arms and Armor, sear
+ing light; Price +1 bonus.
+
+Cold Resistance: A suit of armor or a shield with this property
+normally has a bluish, icy hue or is adorned with furs. and shaggy |
+pelts, The armor.absorbs the first 10 points of cold damage per)
+attack that the wearer would normally take (similar to.the resist|
+energy spell).
+
+Faint abjuration; CL 3rd; Craft Magic Arms and Armor, resist,
+energy; Price +18,000 gp.
+
+Cold Resistance, Improved: As cold resistance, except it,
+absorbs the first 20 points of cold damage per attack.
+
+Moderate abjuration; CL 7th; Craft Magic Arms and Armor,
+resist energy; Price +42,000 gp.
+
+Cold Resistance, Greater: As cold resistance. except it absorbs
+the first 30 points of cold damage per attack.
+
+Moderate abjuration; CL 111h; Craft Magic Arms and Armor,
+resist energy; Price +66,000 gp.
+
+Electricity Resistance; _A suit of armor ora shield with this
+property normally has a bluish hue and often bears a storm or
+lightning motif: The armorabsorbs the first 10 points of electricity
+damage per attack that the wearer would normally take (similar to
+the resist energy spell),
+
+Faint abjuration; CL 3rd; Craft Magic Arms and Armor, resist
+energy; Price +18,000 gp.
+
+Electricity Resistance, Improved: As electricity resistance,
+except it absorbs the first 20 points of electricity damage per attack.
+
+Moderate abjuration; CL 7th; Craft Magic Arms and Armor,
+resist energy: Price +42,000 gp.
+
+Electricity Resistance, Greater: As electricity resistance,
+exceptit absorbs the first 30 points of electricity damage per attack.
+
+Moderate abjuration; CL 11th; Craft Magic Arms and Armor,
+resist. energy; Price +66,000 gp.
+
+Etherealness: On command, this ability allows the wearer of the
+armor to become ethereal (as the ethereal jaunt spell) once per day.
+‘The character can remain ethereal for as long as desired, but once he
+returns to normal, he cannot become ethereal again that day,
+
+Strong transmutation; CL 13th; Craft Magic Anms.and Armor,
+ethereal jaunt; Price +49,000 gp.
+
+Fire Resistance: A suit of armor with this ability normally has
+a reddish hue and often is decorated with a draconic motif. The |
+armor absorbs the first 10 points of fire damage per attack thar the
+
+{wearer would normally take (similar to the resist energy spell).
+
+Faint abjuration; CL 3rd; Craft Magic Arms and Armor, resist
+energy; Price +18,000 gp.
+

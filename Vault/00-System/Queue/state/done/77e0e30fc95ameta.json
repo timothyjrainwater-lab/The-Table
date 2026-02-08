@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "77e0e30fc95a:meta",
+    "sourceId": "77e0e30fc95a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/City Works.pdf",
+    "title": "City Works",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T07:32:42.865097+00:00",
+  "meta": {
+    "sourceId": "77e0e30fc95a",
+    "title": "City Works",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/City Works.pdf",
+    "pages": 174,
+    "extractedAt": "2026-02-03T07:32:42.038580+00:00"
+  }
+}

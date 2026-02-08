@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "bd15885ef6d8:meta",
+    "sourceId": "bd15885ef6d8",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Five Nations.pdf",
+    "title": "Five Nations",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:38:42.609741+00:00",
+  "meta": {
+    "sourceId": "bd15885ef6d8",
+    "title": "Five Nations",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Five Nations.pdf",
+    "pages": 162,
+    "extractedAt": "2026-02-03T10:38:42.605591+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "4d197aed5293:reextract:0012",
+    "sourceId": "4d197aed5293",
+    "kind": "reextractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/Player's Handbook.pdf",
+    "pageStart": 12,
+    "pageEnd": 12,
+    "force": true,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:24:24.738982+00:00"
+  },
+  "doneAt": "2026-02-03T04:29:23.139197+00:00",
+  "wrote": [
+    "00-System/Staging/4d197aed5293/pages/0012.txt"
+  ],
+  "method": {
+    "12": "pypdf"
+  }
+}

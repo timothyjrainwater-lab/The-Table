@@ -1,0 +1,234 @@
+{
+  "main": {
+    "id": "a718afaa66aea84c",
+    "type": "split",
+    "children": [
+      {
+        "id": "d12a028f577e360e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "569dfbfdb5450acf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Table — Weapons, page 116). Any attack from a (PHB 7–5).md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Table — Weapons, page 116). Any attack from a (PHB 7–5)"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "69887173c4d65584",
+    "type": "split",
+    "children": [
+      {
+        "id": "d38cbfe6c7461761",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "af19b6e153b32fa5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": true
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "6570e34e44384028",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "ca3dad671988a282",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b5f48295d2a953dd",
+    "type": "split",
+    "children": [
+      {
+        "id": "cc4e8ea6b65a00b6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4c898d53fbb015e1",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Table — Armor Class Modifiers (PHB 8–1).md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Table — Armor Class Modifiers (PHB 8–1)"
+            }
+          },
+          {
+            "id": "3154a07511164462",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Table — Armor Class Modifiers (PHB 8–1).md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Table — Armor Class Modifiers (PHB 8–1)"
+            }
+          },
+          {
+            "id": "ae994ac3c5b757a0",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "2290fa11dfb47c30",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "a4ad4acf7dabc3c4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Table — Armor Class Modifiers (PHB 8–1).md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Table — Armor Class Modifiers (PHB 8–1)"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "569dfbfdb5450acf",
+  "lastOpenFiles": [
+    "Rule — Charisma.md",
+    "00-System/LOCK.compileWake",
+    "00-System/Queue/state/done/681f92bc94ffcompile0090.json",
+    "Table — Attack Roll Modifiers, page 151) (PHB 8–5).md",
+    "Table — Hampered (PHB 9–4).md",
+    "Table — Armor and (PHB 7–6).md",
+    "00-System/Queue/state/done/681f92bc94ffcompile0089.json",
+    "00-System/LOCK.compile",
+    "00-System/Queue/state/done/9bc337f82986pages0011-0012.json",
+    "00-System/Staging/9bc337f82986/pages/0012.txt",
+    "00-System/Staging/9bc337f82986/pages/0011.txt",
+    "00-System/Queue/state/claimed/9bc337f82986pages0011-0012.lock",
+    "00-System/Queue/state/done/9bc337f82986pages0009-0010.json",
+    "00-System/Queue/state/done/9bc337f82986pages0009-0010.json.tmp",
+    "Table — Experience and Level-Dependent (PHB 3–2).md",
+    "Table — Deities and described (PHB 3–7).md",
+    "MOC — Tables.md",
+    "Table — The Cleric ...................................... 31 (PHB 3–6).md",
+    "Rule — Armor Class.md",
+    "Rule — Strength.md",
+    "Table — Ability Modifiers and Bonus Spells, page 8.) If the entry is (PHB 1–1).md",
+    "Table — Armor Class Modifiers (PHB 8–1).md",
+    "MOC — Adventures.md",
+    "MOC — Campaign Settings.md",
+    "MOC — Conditions.md",
+    "MOC — Monsters.md",
+    "MOC — Equipment.md",
+    "MOC — Skills & Feats.md",
+    "MOC — Magic.md",
+    "MOC — Combat.md",
+    "MOC — Character Creation.md",
+    "MOC — Core Rules.md",
+    "03-Adventures/Level 02/Something's Cooking/images/page-5-img-1.png",
+    "03-Adventures/Level 02/Something's Cooking/images/page-4-img-1.png",
+    "03-Adventures/Level 02/Something's Cooking/images/page-3-img-1.png",
+    "03-Adventures/Level 02/Something's Cooking/images/page-2-img-1.png",
+    "03-Adventures/Level 02/Something's Cooking/images/page-1-img-2.png",
+    "03-Adventures/Level 02/Something's Cooking/images/page-1-img-1.png",
+    "03-Adventures/Level 02/Something's Cooking/output.md",
+    "03-Adventures/Level 02/Bitter Waters/images/page-10-img-15.png",
+    "03-Adventures/Level 02/Bitter Waters/images/page-10-img-14.png",
+    "03-Adventures/Level 02/Bitter Waters/images/page-10-img-13.png",
+    "03-Adventures/Level 02/Bitter Waters/images/page-10-img-12.png",
+    "03-Adventures/Level 02/Bitter Waters/output.md",
+    "03-Adventures/Level 01/Wreck Ashore/output.md"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "a3c7ba3adcf2:meta",
+    "sourceId": "a3c7ba3adcf2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Kin And Kinsmen.pdf",
+    "title": "Kin And Kinsmen",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:52:00.623317+00:00",
+  "meta": {
+    "sourceId": "a3c7ba3adcf2",
+    "title": "Kin And Kinsmen",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Kin And Kinsmen.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T12:52:00.615593+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

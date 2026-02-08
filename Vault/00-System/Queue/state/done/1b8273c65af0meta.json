@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "1b8273c65af0:meta",
+    "sourceId": "1b8273c65af0",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Rules Laywers.pdf",
+    "title": "The Slayer's Guide To Rules Laywers",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:01:12.231777+00:00",
+  "meta": {
+    "sourceId": "1b8273c65af0",
+    "title": "The Slayer's Guide To Rules Laywers",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Rules Laywers.pdf",
+    "pages": 35,
+    "extractedAt": "2026-02-04T00:01:12.058252+00:00"
+  },
+  "enqueued_extractPages": 18
+}

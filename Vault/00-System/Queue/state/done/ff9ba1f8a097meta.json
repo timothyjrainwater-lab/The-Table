@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "ff9ba1f8a097:meta",
+    "sourceId": "ff9ba1f8a097",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Manual-Extraction/Expanded Psionics Handbook.pdf",
+    "title": "Expanded Psionics Handbook",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:12:08.997826+00:00",
+  "meta": {
+    "sourceId": "ff9ba1f8a097",
+    "title": "Expanded Psionics Handbook",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Manual-Extraction/Expanded Psionics Handbook.pdf",
+    "pages": 224,
+    "extractedAt": "2026-02-03T10:12:08.005356+00:00"
+  }
+}

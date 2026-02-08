@@ -1,0 +1,37 @@
+D&D - Cliffhangers - A Giant Ransom - Episode Three: Thin Ice
+marching above. Not bulettes of the sort to allow a meal to walk by, they burrow up to the PCs 
+and attack.
+Bulettes (2): hp 90, 100; see Monster Manual page 28
+Walking on Thin Ice (EL 8) 
+Once the bulettes are defeated, the PCs will discover another danger: the tunneling of the 
+bulettes has weakened the ice beneath their feet, and it is about to give way! Read or 
+paraphrase the following text:
+You sigh with relief as the last of the landsharks slumps motionless to the ice. Before you can 
+begin your next thought, however, the ice beneath your feet shifts, nearly throwing you to the 
+ground. You see cracks and crevices begin to appear on the surface of the ice, and the small rifts 
+begin to spread, becoming larger, as if the glacier were opening a gaping maw to swallow you up!
+The PCs have very little time before the ice gives way. Have each PC roll for initiative, and begin 
+a round. At initiative 10, the ice gives way. Any PC still within 30 feet of the bulettes will fall into 
+the sinkhole with the ice. A PC that falls into the sinkhole must make a Reflex saving throw (DC 
+15). Success means the PC has managed to stay atop the ice as she falls, failure indicates that 
+the PC will be buried.
+Treat this situation as a cave-in (see Dungeon Masters Guide page 114). A PC that succeeded 
+his first saving throw will need to make another Reflex save (DC 15), or sustain 3d6 points of 
+damage and become pinned in the ice. Any PC that failed his first saving throw will be buried, 
+and will take 8d6 points of damage, or half that if another Reflex saving throw (DC 15) is 
+successful, and is pinned beneath the ice.
+Pinned characters take 1d6 points of subdual damage per minute while pinned. Buried 
+characters are under 1d6 feet of ice, and digging them out will require moving 500 pounds per 
+foot of depth, or about one minute per foot of depth for the average PC working alone. Velg, with 
+his 29 Strength, can dig down about 14 feet in one minute, if he is there. See the Dungeon 
+Masters Guide, page 114, for rules on cave-ins and digging. Characters who are not buried, but 
+still pinned, can free themselves with a Strength check (DC 25), or can break free in one minute 
+with some assistance.
+The Ice Canyons
+After the characters dig themselves out of the sinkhole, they should continue west, toward the 
+dragon's den. The relatively smooth surface of the glacier slowly gives way to a network of 
+interweaving Ice Canyons. The walls of the canyons rise nearly one hundred feet above the 
+canyon floors, which vary from twenty to thirty feet wide.
+The canyon floors are covered with a layer of ice dust, and there are some tracks in the snow. A 
+Wilderness Lore check (DC 18) by a PC with the Track feat will reveal a set of large wolf-tracks 
+http://om.wizards.com/dnd/article.asp?x=dnd/ch/ch20010723a,0 (2 of 3) [9/10/2001 5:29:48 PM]

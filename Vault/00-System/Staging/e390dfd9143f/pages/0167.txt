@@ -1,0 +1,162 @@
+Lammasu Golden Protector (Celestial Half-Dragon Lammasu)
+Large Magical Beast Large Dragon
+
+Hit Dice: 7d10+21 (59 hp) 10d12+60 (125 hp)
+
+Initiative: +1 +3
+
+Speed: 30 ft. (6 squares), fly 60 ft.(average) 30 ft. (6 squares), fly 60 ft.(average)
+
+Armor Class: 20 (~1 size, +1 Dex, +10 natural), 29 (~1 size, +3 Dex, +14 natural, +2 bracers of armor +2, +1 ring of
+touch 10, flat-footed 19 protection +1), touch 13, flar-foored 26
+
+Base Attack/Grapple: +7/+17 +10/+23
+
+Attack: Claw. +12 melee (1d6+6) Claw +19 melee (1d6+9)
+
+Full Attack: 2 claws +12 melee (1d6+6) Claw +19 melee (1d6+9) and bite +13 melee (1d8+4)
+
+Space/Reach: 10 ft./5 ft, 10 ft./s ft,
+
+Special Attacks: Pounce, rake 1d6+3, spells Breath weapon, pounce, smite evil, rake 1d6+4, spells
+
+Special Qualities: Darkvision 60 ft., low-light vision, Damage reduction 5/magic, darkvision 60 ft., immunity to fire, sleep,
+magic circleagainst evil, spell-like and paralysis, low-light vision, magic circle against evil, resistance to
+abilities acid 10, cold 10, and electricity 10, spell-like abilities, spell resistance 15
+
+Saves: Fort +8, Ref +8, Will +7 Fort +13, Ref +12, Will +10
+
+Abilities: Str 23, Dex.12, Con.17, Str 28, Dex 17, Con 22,
+Int 16, Wis 17, Cha 14 Int 18, Wis 20, Cha 18
+
+Skills: Concentration +13, Diplomacy +4, Concentration +19, Diplomacy +19, Knowledge (arcana) +17,
+Knowledge (arcana) +13, Listen +13, Knowledge (the planes) +17, Listen +18, Search +17, Sense Motive +18,
+Sense Motive +13, Spot +15 Spelleraft +19, Spot +20, Survival +18 (+20 other planes and tracking)
+
+Feats: Blind-Fight, Iron Will, Blind-Fight, Iron Will, Lightning Reflexes,
+
+ 
+
+Lightning Reflexes Weapon Focus (claw)
+‘Temperate deserts Seven Mounting Heavens of Celestia
+Solitary Solitary
+
+Challenge Rating: 8 B
+
+Treasure; Standard Standard
+
+Alignment: Always lawful good Always lawful good
+
+Advancement: 8-10 HD (Large); 11-21 HD (Huge) 11-30 HD (Huge)
+
+| Level Adjustment; +5 +10
+
+GOLDEN PROTECTOR
+
+ELESTIAL HALF-DRAGON LAMMASU)
+
+Child of a celestial lammasu and a gold dragon, the golden pro-
+tector has migrated to the Material Plane to more actively
+
+combat evil.
+
+Combat
+
+The golden protector’s natural weapons are treated as magic weap-|
+
+ons for the purpose of overcoming damage reduction.
+
+Breath Weapon (Su): 30-foot cone, 1/day, damage 6d8 fite,!
+
+Reflex DC 21 half.
+
+Smite Evil (Su): Once per day. golden protector can make a
+normal melee attack to deal an extra 10 points of damage against
+
+an evilopponent.
+Typical Cleric Spells Prepared (6/7/5/4/3; save DC 15 + spell level):
+
+O—detect. magic, guidance (2), light, read_magic, resistance; 1st—bless
+
+A lich is a gaunt and skeletal humanoid with withered flesh
+stretched tight across horribly visible bones. Its eyes have long ago
+been lost to decay, but bright pinpoints of crimson light burn on
+in the empty sockets. Even the least of these creatures was a pow-
+erful person in life, so they often are draped in once-grand cloth-
+ing. Multiclass fighters or clerics may still bear the armor of a war-
+rior. Like its body, however, the garb of a lich shows all too well the
+weight of years. Decay and corruption are its constant companion
+
+Liches speak Common plus any_other languages they knew in
+life
+
+SAMPLE LICH
+
+This skeletal creature wears the rotting, rich robes of @ mighty wizard long
+dead. Hateful crimson light dances in its empty eye sockets.
+
+This example uses an 11th-level human wizard as the character,
+
+{(2), detect evil, divine favor (2), entropic shield, protection from evil®;
+
+2nd—aid",
+
+curse; 4th—dismissal, holy.smite®, neutralize poison,
+“Domain spell Domains: Good and Healing.
+Rake (Ex): Attack bonus +19 melee, damage 1d6+4.
+
+Possessions: Bracers of armor +2, ring of protection +1. (Different
+
+golden protectors may have different possessions.)
+
+, bear's endurance, bull's strength, lesser restoration, resist
+energy, 3rd—daylight, dispel magic, magic circle against evil, remove
+
+Lich, 11th-Level Human Wizard.
+
+Medium Undead (Augmented Humanoid)
+
+Hit Dice: 11d12+3 (74 hp)
+
+Initiative: +3
+
+Speed: 30 ft. (6 squares)
+
+Armor Class; 23 (+3 Dex, +5 natural, +4 bracers of armor.+4,
++1 ring of protection), touch 14, flat-footed 20
+
+Base Attack/Grapple: +5/+5 }
+
+Attack: Touch +5 melee (1d8+5 negative energy plus paralysis) or |
+quarterstaff +5 melee (1d6) or dagger +5 melee (1d4/19-20).or |
+
+ 
+
+ 
+
+<A lich is an undead spellcaster, usually a wizard or sorcerer but
+sometimes a cleric or other spelicaster, who has used its magical
+}powers to unnaturally extend its life.
+
+4 Asa rule, these creatures are scheming and, some say, insane.
+\ They hunger for ever greater power, long-forgotten knowledge,
+and the most terrible of arcane secrets. Because the shadow of
+
+death does not hang over them, they often conceive plans taking |
+
+years, decades, or even centuries to come to fruition.
+
+masterwork light crossbow +9 ranged (1d8/19-20)
+
+,Full Attack; Touch +5 melee (1d8+5 negative energy plus paraly-
+
+sis).or quarterstaff +5 melee (1d6) or dagger +5 melee (1d4/
+19-20) or masterwork light crossbow +9 ranged (1d8/19~20)
+Space/Reach: 5 ft/s ft.
+
+|Special Attacks; Damaging touch, fear aura, paralyzing touch,
+
+spells
+
+Special Qualities; +4 turn resistance, damage reduction
+

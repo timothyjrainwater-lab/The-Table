@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "e94cce379694:meta",
+    "sourceId": "e94cce379694",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/No Mercy.pdf",
+    "title": "No Mercy",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:22:53.346224+00:00",
+  "meta": {
+    "sourceId": "e94cce379694",
+    "title": "No Mercy",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/No Mercy.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T15:22:53.338335+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "00dfa92777bb:meta",
+    "sourceId": "00dfa92777bb",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Lesser of Two Evils.pdf",
+    "title": "Lesser of Two Evils",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:17:49.734074+00:00",
+  "meta": {
+    "sourceId": "00dfa92777bb",
+    "title": "Lesser of Two Evils",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Lesser of Two Evils.pdf",
+    "pages": 50,
+    "extractedAt": "2026-02-03T13:17:49.726218+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

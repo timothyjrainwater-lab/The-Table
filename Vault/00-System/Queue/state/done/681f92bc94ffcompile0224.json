@@ -1,0 +1,19 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0224",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 224,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:39:31.685596+00:00"
+  },
+  "doneAt": "2026-02-03T09:42:59.030027+00:00",
+  "citation": "PHB (pdf p.0224)",
+  "printedGuess": "223",
+  "touched": [
+    "Rule — Core Mechanic (d20)",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

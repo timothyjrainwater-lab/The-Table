@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0159",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 159,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:38:32.721985+00:00"
+  },
+  "doneAt": "2026-02-03T09:38:50.415309+00:00",
+  "citation": "PHB (pdf p.0159)",
+  "printedGuess": "158",
+  "touched": [
+    "Condition — Prone",
+    "Rule — Armor Class"
+  ],
+  "createdTables": [
+    "Table — Common Armor, Weapon, and Shield (PHB 8–8)",
+    "Table — Common Armor, Weapon, and Shield Hardness and Hit (PHB 8–8)"
+  ]
+}

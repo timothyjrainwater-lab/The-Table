@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "b33e2b78648b:meta",
+    "sourceId": "b33e2b78648b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Enemies And Allies.pdf",
+    "title": "Enemies And Allies",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:01:18.228845+00:00",
+  "meta": {
+    "sourceId": "b33e2b78648b",
+    "title": "Enemies And Allies",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Enemies And Allies.pdf",
+    "pages": 65,
+    "extractedAt": "2026-02-03T10:01:17.916476+00:00"
+  }
+}

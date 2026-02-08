@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "88a6057053dd:meta",
+    "sourceId": "88a6057053dd",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Planes/Manual of The Planes.pdf",
+    "title": "Manual of The Planes",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:56:34.993133+00:00",
+  "meta": {
+    "sourceId": "88a6057053dd",
+    "title": "Manual of The Planes",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Planes/Manual of The Planes.pdf",
+    "pages": 225,
+    "extractedAt": "2026-02-03T13:56:34.966259+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

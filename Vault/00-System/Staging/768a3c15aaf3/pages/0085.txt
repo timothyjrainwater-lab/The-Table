@@ -1,0 +1,147 @@
+ 
+
+  
+  
+  
+     
+
+The character is enraged a number of rounds
+equal to 3 + the character's (heightened) Consti-
+tution modifier. The character regains control of
+her actions afterward, but she is fatigued in the
+same manner as a barbarian once his rage ends (si
+
+ 
+
+the D&D Player's Handbook).
+
+Revulsion: Works as aversion, except thatthe
+character is shaken if exposed to anything that
+merely reminds her of the horror scene. A charac-
+terhorrified bya vampire attack may suffer repulsion
+upon seeing a large swarm of bats or hearing the
+conversational mention ofa vampire, for example.
+
+Major Dorror Gffects
+
+Fascination: The character develops a morbid
+fascination with the scene. This obsession be-
+comes so overpowering that it warps the character’s
+personality. In the fascinated character's mind, the
+source of the horror effect becomes increasingly
+powerful. The fascinated character may eventually
+believe that the source is omnipotent; she may
+even revere it. As an example, a character who
+becomes fascinated after witnessinga vampire drain-
+ing the blood from a victim may seek out that
+vampire and offer her servitude. As the fascinated
+character warps herself into a willing slave of her
+own horror, she suffers a cumulative loss of | point
+of Wisdom and Charisma damage each week. If
+either score drops below 3, the character becomes
+a lost one (see Additional Failures under Madness
+Saves).
+
+Once the character recovers from fascination,
+the lost Wisdom and Charisma points return at the
+rate of 1 each per day.
+
+Haunted: Witnessing the hortific scene shat-
+ters the character's ability to see any good in the
+world. She suffers the obsession effect and suffers
+1d6+1 points of Charisma damage as her spirit
+becomes hardened and withdrawn. Once the char-
+acter recovers from the haunted effect, lost
+Constitution and Charisma points return at the
+rate of 1 each per day.
+
+Mental Shock: The character’s mind simply
+shuts down, unable to comprehend what it is wit-
+nessing. While suffering from mental shock, the
+character can take no actions and is considered
+flat-footed. She walks if dragged along but cannot
+run.
+
+Mental shock lasts 3 rounds. At the end of that
+duration, the character must make another Horror
+save at the same DC to escape the effects. If she
+fails, the effects persist, but she can retry the saving
+
+ 
+
+ 
+
+————— ee KX,
+
+ 
+ 
+
+‘ (2)
+throw once every 3 rounds until she succeeds. If the
+horrific scene is no longer present, the character
+gains a cumulative +1 morale bonus to each retry
+until she succeeds.
+
+System Shock: The shock proves to be too
+much for the character’s heart; she must make an
+immediate Fortitude save against the same DC
+suffer 3d6 points of Constitution damage.
+
+Additional failures
+
+Some Horror effects (such as enraged or men-
+tal shock) have outburst durations that can be
+measured in rounds, but all Horror effects actually
+linger for days. (See Recovering from Horror for
+long-term durations.)
+
+ 
+
+ 
+
+ 
+
+A character can carry only a single Horror
+effect at a time. If a subsequent failed Horror save
+indicates a result of equal or lesser severity, use
+another outburst of the existing effect. If a failed
+Horror save indicates a result of greater severity,
+replace the existing effect with the greater one.
+Horror effects do not stack
+
+  
+
+Examples: Radford fails a Horror save, becom-
+ing enraged (a moderate effect with a duration of
+two weeks). During these two weeks, any addi-
+tional failed Horror saves indicating a minor or
+moderate effect automatically default to his be-
+coming enraged again. If Radford’s player fails a
+Horror save indicating a major result, then deter-
+mine it as normal. In this case, a d4 roll comes up
+with haunted. The enraged effect is then removed,
+and haunted becomes the new Horror effect tor-
+menting him.
+
+Horror effect durations superimpose; the dura-
+tion is measured from the time of the latest failed
+Horror save.
+
+Recovering from Horror
+
+Minor Horror effects last one week. Moderate
+effects last two weeks. Major effects last thirty days.
+At the end of this duration, the character rolls a
+recovery check (a Horror save). Use the DC of the
+original Horror save with a—2 morale bonus, since
+time and distance heal all wounds. If the character
+succeeds at this check, the Horror effect is re-
+moved. If she fails, the Horror effect persists for
+another duration period. A character can retry
+failed Horror recovery checks each time she reaches
+the end of a duration period. The -2 DC modifier
+is cumulative with each attempt.
+
+Example: George makes a DC 18 Hortor save,
+with histesulta 14: a failure. Since George failed by
+

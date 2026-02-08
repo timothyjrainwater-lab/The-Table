@@ -1,0 +1,12 @@
+# Table — Armor and Shields. Refer to the appropriate line on (PHB 7–6)
+
+## Source
+- PHB (pdf p.0124)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

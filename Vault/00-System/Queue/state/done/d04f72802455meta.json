@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "d04f72802455:meta",
+    "sourceId": "d04f72802455",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Artificer - Power Class.pdf",
+    "title": "Artificer - Power Class",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:14:05.178259+00:00",
+  "meta": {
+    "sourceId": "d04f72802455",
+    "title": "Artificer - Power Class",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Artificer - Power Class.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T05:14:05.131327+00:00"
+  }
+}

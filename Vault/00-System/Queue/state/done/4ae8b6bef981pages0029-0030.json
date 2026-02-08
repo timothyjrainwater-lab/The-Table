@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "4ae8b6bef981:pages:0029-0030",
+    "sourceId": "4ae8b6bef981",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Grimtooth's/Grimtooth's Dungeon of Doom.pdf",
+    "pageStart": 29,
+    "pageEnd": 30,
+    "status": "pending",
+    "createdAt": "2026-02-03T11:45:18.830902+00:00"
+  },
+  "doneAt": "2026-02-04T07:02:06.619396+00:00",
+  "wrote": [
+    "00-System/Staging/4ae8b6bef981/pages/0029.txt",
+    "00-System/Staging/4ae8b6bef981/pages/0030.txt"
+  ],
+  "method": {
+    "29": "ocr",
+    "30": "ocr"
+  }
+}

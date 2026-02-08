@@ -1,0 +1,23 @@
+{
+  "system": "dnd35",
+  "max_per_note": 5,
+  "allowed": [
+    "ability",
+    "combat",
+    "movement",
+    "action-economy",
+    "condition",
+    "table",
+    "magic",
+    "spell",
+    "monster",
+    "skill",
+    "feat",
+    "class",
+    "race",
+    "item",
+    "subsystem",
+    "core"
+  ],
+  "notes": "Controlled vocabulary for optional tags in canonical notes. Tags are optional; when present they must be from this allowlist. Do not use tags as free-form prose or synonyms; use aliases/frontmatter for that."
+}

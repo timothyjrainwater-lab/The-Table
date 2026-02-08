@@ -1,0 +1,16 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0147",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 147,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:37:13.997564+00:00"
+  },
+  "doneAt": "2026-02-03T09:37:47.834686+00:00",
+  "citation": "PHB (pdf p.0147)",
+  "printedGuess": "146",
+  "touched": [],
+  "createdTables": []
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "e791169a4389:meta",
+    "sourceId": "e791169a4389",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 14/Stone Dead.pdf",
+    "title": "Stone Dead",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:34:28.124565+00:00",
+  "meta": {
+    "sourceId": "e791169a4389",
+    "title": "Stone Dead",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 14/Stone Dead.pdf",
+    "pages": 15,
+    "extractedAt": "2026-02-03T19:34:28.117482+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

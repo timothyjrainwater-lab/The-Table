@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "847303f3f62b:meta",
+    "sourceId": "847303f3f62b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/Feast of the Gobbler.pdf",
+    "title": "Feast of the Gobbler",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:36.179992+00:00",
+  "meta": {
+    "sourceId": "847303f3f62b",
+    "title": "Feast of the Gobbler",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/Feast of the Gobbler.pdf",
+    "pages": 29,
+    "extractedAt": "2026-02-03T10:36:36.172728+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

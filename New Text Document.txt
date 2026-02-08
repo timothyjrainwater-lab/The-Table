@@ -1,0 +1,5033 @@
+
+AI DM
+/
+Analyze all the files you have access to to generate a full and complete action plan, as it currently stands based on all the files you have access to.
+
+4:17 PM
+I'll analyze all the project files to generate a comprehensive action plan for the AI-driven D&D 3.5e DM system.
+
+
+Reading the project directory to see all available files
+DECOMPOSE
+After reviewing all 12 documents, the project represents an evolving specification with multiple revisions. The core sub-problems are:
+
+Consolidate overlapping specifications - Multiple versions exist with incremental improvements
+Identify the canonical architecture - What's the final agreed-upon structure?
+Map completion status - What's implemented vs. specified vs. missing?
+Generate unified action plan - Merge all insights into a single executable roadmap
+SOLVE
+Analysis of Document Evolution
+Confidence: 0.95
+
+The documents show clear progression:
+
+Early versions: Basic master plans (Ai_Dm_Master_Action_Plan.docx)
+Mid versions: Added Rule Atom Matrix concept (V2)
+Latest versions: Comprehensive Phase 3.6-3.9 with DM Decision Policy (Action_Plan 3__3_.docx)
+Supporting docs: DM Decision Model, Combat mechanics audit, Deterministic mechanics catalog
+Most authoritative document: Action_Plan___Deterministic_D_d_3__3_.docx (24K, most comprehensive)
+
+Core Architecture (Synthesized from All Sources)
+Confidence: 0.90
+
+The system consists of:
+
+Deterministic Rules Engine (quantifiable mechanics only)
+DM Decision Policy Layer (AI-driven choice selection)
+Combat Execution Contract (state machine)
+Resolution Function Library (pure operators)
+Knowledge Base (rules ingestion + citations)
+Voice Interface (speech-to-intent-to-narration)
+Minimal Visualization (non-numerical representation)
+Critical Innovations Identified
+Confidence: 0.92
+
+Rule Atom Matrix - Single source of truth mapping rules → modules → tests
+HP Opacity Policy - Exact tracking internal; descriptive bands for players
+Conservative Belief Update - AI learns enemy capabilities without over-fitting to variance
+Authoritative Legality Checker - Single source of truth for valid actions
+Guardrails + Fairness Telemetry - Prevents "gotcha DM" while maintaining danger
+VERIFY
+Logical gaps identified:
+
+Phase numbering inconsistency (some docs have Phase 3.6-3.9, others have Phase 0-10)
+Rule Atom Matrix implementation details missing
+Integration between voice pipeline and rules engine underspecified
+No concrete implementation technology choices (Python? Rust? TypeScript?)
+Bias check:
+
+Heavy focus on combat; exploration/social mechanics less detailed
+Assumes local LLM capability exists (no fallback strategies)
+Performance targets stated but not validated against real models
+SYNTHESIZE
+AI-Driven D&D 3.5e DM System — Unified Action Plan
+Core Principle (Non-Negotiable)
+LLM proposes intent. Engine disposes outcome.
+
+Engine: sole authority on legality, dice, state mutation, rules
+LLM: scene framing, legal option selection, narration using engine facts only
+Phase 0: Foundations & Determinism
+Objective
+Create replay-able, testable, deterministic core infrastructure.
+
+Deliverables
+Seeded RNG abstraction (seed + stream index)
+Event-sourced logging (append-only, immutable)
+Replay runner (reconstruct state from events)
+Deterministic ordering guarantees
+Lock Criteria
+✓ Identical seeds → identical outcomes
+✓ Full combat replay byte-for-byte identical
+✓ Event log can be diffed and validated
+
+Status: SPECIFIED (needs implementation)
+Phase 0.5: Rules Ingestion & Knowledge Base
+Objective
+Ingest D&D 3.5e source material into searchable, cite-able archive.
+
+Deliverables
+A) Structured Rules DB (Engine-Usable)
+Canonical entities: spells, feats, conditions, skills, actions
+Normalized fields (bonus types, durations, triggers, stacking)
+Combat procedures as state machines
+B) Research Archive (LLM-Readable)
+Chunked text blocks with book+page citations
+Tables as JSON + markdown
+Hybrid search (BM25 + embeddings)
+C) Rule Atom Matrix (Critical Innovation)
+Single table binding rules → modules → tests:
+
+RuleAtomID	RuleAtomText	Subsystem	ModuleOwner	KeyFunctions	Invariants	TestIDs	Citations	Status
+Granularity standard: Small enough to expose all exceptions (e.g., "dodge bonuses stack; other typed bonuses don't")
+
+Ingestion Pipeline
+Extract pages (text + layout + tables)
+Normalize (de-hyphenate, clean headers/footers)
+Segment atomic units (rule/table/definition/procedure)
+Add metadata (source, pages, tags, anchors)
+Build indexes (BM25 + vector) + reranking
+QA gates (coverage %, link integrity, table fidelity)
+Lock Criteria
+✓ All retrieved snippets include correct citations
+✓ Tables structurally faithful and retrievable
+✓ Core mechanics resolvable via structured entries (no free-text parsing)
+✓ Rule Atom Matrix covers all deterministic subsystems
+
+Status: SPECIFIED (needs implementation + source materials)
+Phase 1: Canonical Game State
+Objective
+Define single source of truth for world data.
+
+Data Models
+WorldState
+Entities (PCs, NPCs, monsters, summons)
+Map/Grid/Terrain
+Initiative order, round counter, turn index
+Effects (buffs/debuffs/durations/stacking)
+Resources (HP, spell slots, ammo, charges)
+Ruleset version + house rules
+Entity Model
+Stats (abilities, BAB, saves, AC breakdown)
+Inventory (equipped vs. carried)
+Conditions (with mechanical effects)
+Senses (vision types, ranges)
+Tags (type, subtype, size)
+Lock Criteria
+✓ Full state serializable/reloadable without loss
+✓ No mechanic reads data outside WorldState
+✓ Migration path for state schema evolution
+
+Status: SPECIFIED (needs implementation)
+Phase 2: Deterministic Rules Engine
+Objective
+Execute all quantifiable mechanics with zero LLM involvement.
+
+Architecture
+Input: Typed Intent (schema-validated)
+Output: Resolved Events + Trace (full audit trail)
+Core Modules
+A) Validation
+Legality checks (prerequisites, range, LoS/LoE, components)
+Authoritative Legality Checker is single source of truth
+B) Resolution
+Attacks (melee/ranged/touch, iteratives, AoOs)
+Saves (Fort/Ref/Will, no auto-fail on nat 1 in RAW)
+Skills (concentration, tumble, stealth, etc.)
+Opposed checks (grapple, trip, disarm, etc.)
+C) Spell System
+Range/AoE validation
+SR checks (d20 + CL vs SR)
+Save resolution
+Duration tracking
+Concentration disruption
+D) Movement & Pathfinding
+Terrain costs (difficult, squeezing, elevation)
+AoO trigger detection
+Legal path validation
+E) Combat Manager
+Initiative tracking
+Round/turn state machine
+Action economy enforcement (standard/move/full/swift/immediate)
+Ready/delay initiative mutation
+F) Modifier Engine
+Type-based stacking (only highest of each type)
+Exception handling (dodge stacks, circumstance stacks if different)
+Rounding (always down unless specified)
+Multipliers (combine additively: 2× then 2× = 3×)
+Lock Criteria
+✓ Engine rejects illegal intents before resolution
+✓ All outcomes explainable via traces
+✓ Deterministic with seeded RNG
+✓ Unit tests cover all operators
+
+Status: SPECIFIED (needs implementation)
+Phase 3: Combat System (Phases 3.6-3.9 Consolidated)
+Phase 3.6: Combat Engine Specification
+Formal Definition
+Combat = (WorldState₀, InitiativeOrder, TurnLoop, ResolutionOperators, EndConditions)
+
+Combat State Model (Four Layers)
+A) Spatial State
+
+Position (grid/distance), size, occupied space
+Reach and threatened squares
+Movement modes (land/fly/swim/burrow/climb)
+Terrain interaction (difficult, elevation, squeezing)
+LoS/LoE, cover/concealment categories
+B) Temporal State
+
+Initiative order (mutable via ready/delay)
+Round count
+Start/end-of-turn hooks
+Duration tracking (rounds/minutes/hours)
+C) Entity State (DM-Canonical)
+
+HP (current/max/temp) — exact values DM-only
+AC breakdown (normal/touch/flat-footed)
+Saves (Fort/Ref/Will)
+Attack routines and damage expressions
+Conditions and status flags
+Action economy usage (slots consumed)
+Resources (spells, charges, rage, etc.)
+D) Information State
+
+Public vs. private boundaries
+Hidden creatures/traps/zones
+Uncertainty gates (concealment, miss chance, SR)
+Canonical Combat Algorithm
+Combat Start:
+
+Establish positions
+Determine surprise/awareness
+Resolve surprise round (standard OR move only)
+Roll initiative
+Lock initiative order
+Per Round Loop: Repeat until EndCondition met
+
+Per Turn (Strict Order):
+
+Apply start-of-turn effects
+Determine legal actions (condition/restriction checks)
+Select action package (standard/move/full/etc.)
+Resolve movement (costs, AoO triggers)
+Resolve primary action (attack/spell/maneuver)
+Apply secondary gates (SR/concealment/crit confirm/immunity)
+Apply damage/effects
+Update state (HP/conditions/positions/resources)
+Apply end-of-turn effects
+Decrement durations
+Resolution Ordering Contract
+Target legality (range/LoS/LoE/type)
+Primary roll (attack/save/opposed)
+Immunity checks
+Concealment or miss chance
+Spell Resistance (if applicable)
+Damage/effect calculation
+Mitigation (DR/ER/hardness)
+Reaction triggers (AoOs/readied/immediates)
+State update and duration tick
+HP Presentation Policy
+Exact HP tracked internally only
+Players receive descriptive bands: fresh/scratched/bloodied/staggering
+No numeric HP or health bars exposed
+End Conditions
+All hostiles neutralized
+Surrender or flight
+Objective achieved
+TPK or escape
+Phase 3.7: DM Decision Policy Engine
+Purpose
+Implement non-rules combat DMing: enemy action selection while maintaining:
+
+Rules-legality (validated by engine)
+Fiction-consistency (monster doctrine)
+Fun/fairness (agency + telegraphing + guardrails)
+Policy Layer Architecture
+This sits ABOVE the Rules Engine. It never changes math—only selects among legal actions.
+
+Decision Inputs (Feature Set)
+A) Encounter-Level:
+
+Purpose (tutorial/tax/boss/chase/puzzle/narrative)
+Win conditions (kill/delay/escape/protect/disrupt/hold)
+Target rounds
+Reinforcement triggers
+Environment topology
+B) Side-Level:
+
+Action economy (after control effects)
+Threat distribution
+Resource posture (observed bands)
+Morale posture (disciplined/cowardly/fanatical/cunning)
+C) Per-PC (Belief-Based):
+
+Defense profile (AC/save bands) — beliefs, not ground truth
+Vulnerability flags (low save, immobility, no ranged)
+Offense profile (DPR band, control potency)
+Mobility profile (flight/teleport/escape)
+Role signature (striker/controller/support/tank/scout)
+D) Per-Monster:
+
+Doctrine/goal (protect leader, kill healer, delay, steal, escape)
+Burst potential + cooldown tracking
+Control suite (stun/grapple/fear/trip)
+Survivability (AC/DR/ER/SR + escape tools)
+Position leverage (reach/AoOs/flight)
+E) Local Tactical:
+
+Distances + reachable squares
+Threatened squares + AoO risk
+LoS/LoE availability
+Cover/concealment vs. key attackers
+Flank opportunities and choke points
+Buff/debuff timers
+Objectives (Utility Function)
+U = w₁·Danger + w₂·Agency + w₃·Pace + w₄·RulesIntegrity + w₅·FictionIntegrity
+
+Weights shift by encounter purpose.
+
+Quantifiable Proxies:
+
+Danger: PC drop probability (1-2 rounds), TPK risk, resource burn rate, action denial risk
+Agency: Counterplay availability, telegraphing strength, outcome sensitivity
+Pace: Decision density, swing moments frequency, resolution latency
+Candidate Generation (Legal Action Enumerator)
+Generate only rules-legal candidates:
+
+Damage line (focus fire/burst)
+Control line (deny actions, forced movement)
+Reposition line (cover, break LoE, flanks, choke)
+Objective line (interact/escape/trigger hazard)
+Defensive line (withdraw, total defense, heal, buff)
+Exit line (flee/surrender/bargain/hostage) when morale triggers
+Authoritative Legality Checker Contract:
+
+Single source of truth for valid actions
+Policy suggests; legality checker validates
+Must enumerate legal actions, validate prerequisites, targeting, movement
+Reject illegal with explicit reasons
+If all high-scoring options illegal → re-score remaining legal set
+Scoring (Per-Action Evaluation)
+For each candidate action a:
+
+P_success(a) — discrete d20 math (exact counts)
+EV_damage(a) or EV_effect(a) — including mitigation/miss gates
+ΔActionEconomy(a) — actions denied/preserved next round
+ΔPositionLeverage(a) — cover/flanks/AoO advantage/LoE denial
+ΔSurvival(a) — monster survival probability change
+Counterplay(a) — meaningful responses remaining?
+Complexity(a) — adjudication time penalty
+FictionFit(a) — doctrine/intelligence/morale constraints
+Composite Score: Score(a) = α·EV(a) + β·Leverage + γ·Survival − δ·Unfairness − ε·Complexity
+
+Probability Notes (Engine Contract):
+
+Attack rolls: nat 1/20 bounds apply (auto-miss/hit)
+Saves: NO auto-fail/succeed on 1/20 in RAW — compute discretely
+Crits: P_crit = P_threat × P_confirm (concealment can cancel)
+Selection Policy (Controlled Randomness)
+Argmax when clearly dominant
+Softmax over top-k when close (temperature/"spice" parameter)
+Personality affects temperature and aggression/caution balance
+Produces variety without breaking fairness.
+
+Belief & Uncertainty Update (Conservative Learning)
+Problem: Unknown HP/saves/DR/ER/SR initially
+
+Solution: Maintain belief distributions, update conservatively
+
+Conservative Update Rules:
+
+Evidence thresholds: Don't shift after single unusual result (variance)
+Weight by likelihood: Surprising outcomes update more (bounded)
+Decay/smoothing: Early observations don't permanently lock
+Sample size tracking: Fire resistance belief requires ≥2-3 observations
+High-variance signals down-weighted: Crits, concealment misses, failed confirmations
+Example Updates:
+
+Fire spell repeatedly deals reduced damage across multiple casts → increase fire resistance belief
+Will saves repeatedly fail across multiple effects → lower Will band belief
+Beliefs influence scoring but never override RAW legality.
+
+Guardrails (Explicit Social Contract + Fairness Telemetry)
+Hard Constraints (MUST NOT VIOLATE):
+
+No repeated hard-lock loops without counterplay (unless apex encounter)
+No un-telegraphed lethal spikes (default policy)
+Always preserve ≥1 viable response when feasible
+Soft Penalties (discourage but allow when justified):
+
+Penalize action denial reducing player turns for multiple rounds
+Penalize focus fire producing early drops (non-apex)
+Penalize high-complexity lines if pacing budget tight
+Fairness Telemetry (tracked inputs):
+
+Early-drop risk (≥2 PCs down within first N rounds)
+Counterplay deficit (no viable responses)
+Variance spike (extreme crit streaks)
+Confusion signal (repeated clarifications)
+Ease-Off Mechanisms (fiction-consistent):
+
+Morale breaks/tactical retreat
+Target switching (monster intelligence-consistent)
+Overconfidence/believable misplays
+Shift from denial to pressure (zone control, reposition, objective)
+Guardrails are explicit penalties/constraints in scoring—not optional advice.
+
+DM Policy API
+Input:
+
+state (combat state)
+intent (encounter + monster goals)
+options (validated legal actions)
+Output:
+
+chosen_action
+score_breakdown (danger/agency/pace/rules/fiction + key terms)
+telegraph_hints (narration for fairness)
+Phase 3.8: Combat Data Schemas
+Core Principles
+No hidden math in narration layers
+HP opacity by policy (exact internal, descriptive external)
+Pure-state transitions (schemas mutated only by validated functions)
+Replayability (identical inputs → identical outcomes)
+Primary Schemas
+CreatureState:
+
+id, name, type/subtype, size
+position (tile, elevation), facing (optional)
+movement_modes (speed, maneuverability)
+senses (vision, blindsight, etc.)
+AC_breakdown (normal/touch/flat-footed)
+saves (Fort/Ref/Will)
+HP {current, max, temp} [DM-only]
+defenses {DR, ER, immunities, SR}
+attack_routines, damage_expressions
+action_economy {standard, move, swift, immediate, AoO_remaining}
+conditions[] (source + remaining duration)
+resources (slots, charges, limited-use)
+morale_state/doctrine
+ConditionState:
+
+condition_id
+mechanical_effects (mods to AC/attacks/actions/saves/speed)
+stacking_rules
+start_trigger/end_trigger
+duration_remaining
+EffectState:
+
+source (spell/ability/item)
+targets
+save_DC/attack_bonus
+duration model
+ongoing_damage or modifiers
+MapTile/Zone:
+
+terrain_type
+movement_cost
+cover/concealment flags
+hazards
+elevation
+CombatState:
+
+round_number
+initiative_order
+active_turn_index
+encounter_tags (apex/tutorial/chase/etc.)
+reinforcement_timers
+environment_flags
+Information Partitioning
+Public view: positions, visible conditions, descriptive health
+Private DM view: exact HP, beliefs, hidden enemies, secret DCs
+Engine view: full deterministic state
+Phase 3.9: Resolution Function Library
+Design Rules
+Functions are pure: (state, intent, rng) → (new_state, events, traces)
+
+Every resolution emits:
+
+events (what happened)
+traces (math audit: inputs → rolls → modifiers → outcomes)
+RNG always seeded and passed explicitly. No function bypasses legality.
+
+Core Operator Modules
+A) Dice & Probability
+
+roll_d20(rng), roll_damage(expr, rng)
+Discrete probability helpers (no save auto-1/20)
+B) Modifiers & Stacking
+
+collect_modifiers(entity, context)
+apply_stacking(mods) — bonus type rules
+apply_rounding(value) — always down
+apply_multipliers(mults) — combine additively
+C) Attack Resolution
+
+compute_attack_bonus(attacker, weapon, context)
+compute_ac(defender, ac_type, context)
+resolve_attack(state, attack_intent, rng)
+Includes: crit threat→confirm, concealment/miss gates, DR/ER mitigation
+D) Saving Throw Resolution
+
+compute_save_bonus(defender, save_type, context)
+compute_dc(source, effect)
+resolve_save(state, save_intent, rng)
+E) Skill & Opposed Checks
+
+resolve_skill_check(state, skill_intent, rng)
+resolve_opposed_check(state, opposed_intent, rng)
+F) Movement & Positioning
+
+validate_path(state, mover, path) — delegates to legality checker
+resolve_movement(state, move_intent)
+Includes: terrain costs, squeezing, elevation, AoO triggers
+G) AoO + Threat Modeling
+
+compute_threatened_squares(entity, state)
+detect_aoo_triggers(state, movement_or_action)
+resolve_aoo(state, aoo_intent, rng)
+H) Special Maneuvers
+
+Grapple: start_grapple, maintain_grapple, escape_grapple, pin
+Trip/Disarm/Sunder/BullRush/Overrun: resolve_maneuver(...)
+I) Spell & Effect Resolution
+
+validate_targeting(state, spell_intent) — legality
+resolve_sr_check(state, sr_intent, rng)
+resolve_area_of_effect(state, aoe_intent)
+apply_effect(state, effect_intent, rng)
+Save, SR, duration creation, ongoing effects
+J) Condition & Duration Engine
+
+apply_condition(state, condition_id, source, duration)
+remove_condition(state, condition_id)
+tick_durations(state, phase) — start/end of turn
+K) Damage, Death, Stabilization
+
+apply_damage(state, target, amount, damage_type)
+check_dying_death(state, target)
+resolve_stabilization(state, target, rng)
+L) Environment Operators (plug-in)
+
+apply_environmental_effects(state, phase)
+Hooks: falling, wind, underwater, visibility
+Event + Trace Format (Auditability)
+Canonical Trace Schema (Required):
+
+trace_id
+timestamp
+operator_type (attack/save/move/spell/etc.)
+entities_involved (ids)
+inputs (AB, AC, DC, save bonus, modifiers)
+rolls (die type, result, RNG seed offset)
+modifier_stack (bonuses/penalties with RuleAtomIDs)
+gates (SR, concealment, immunity, crit confirm)
+outcome (hit/miss/save/damage/conditions)
+state_diff (before/after deltas)
+Invariant: Any trace must be machine-comparable across operators.
+
+Phase 3.X: Secondary Systems Audit & Hardening
+Performance Budgeting (Real-Time Voice Constraint)
+Targets:
+
+Legality check per action: < 5 ms
+Resolution function: < 10 ms average
+Full monster turn (policy + legality + resolution): < 50 ms
+Strategies:
+
+Precompute/cache: attack bonuses, AC variants, threatened squares
+Avoid recomputation in policy scoring (cached probability bands)
+Defer expensive trace serialization until after turn resolution
+Allow "fast-path" operators for common cases
+Missing System Confirmations
+Readied/delayed action state mutation (initiative reshuffle)
+Concentration disruption operators (caster-first-class)
+Illusion disbelief resolution traces (information-state effects)
+Object/structure HP + hardness operators
+Mounted combat linkage schema (rider/steed dependency)
+Environmental tick ordering (wind/falling/fire/visibility)
+Reaction windows (immediate actions, contingencies)
+Lock Criteria (Phase 3 Complete)
+✓ All operators emit canonical traces
+✓ Performance targets met in profiling
+✓ Rule Atom Matrix expansion workflow documented
+✓ Replay determinism across ≥10 varied combat scenarios
+✓ DM policy produces varied, fair, fiction-consistent choices
+✓ Guardrails prevent "gotcha DM" behavior
+
+Status: SPECIFIED (needs implementation)
+Phase 4: Voice-Driven Interaction Layer
+Objective
+Natural speech interaction with intent validation.
+
+Components
+A) Speech-to-Intent Pipeline
+SpeechTranscriber: audio → text (local ASR)
+IntentParser: text → structured intent (schema-validated)
+B) Intent Validation & Routing
+IntentValidator: Schema checks, prerequisite validation
+IntentRouter: Route to appropriate subsystem (combat/exploration/social)
+Design Principles
+Players describe intent verbally
+System parses and validates against legal actions
+No UI controls for actions — voice-first design
+Ambiguous intents trigger clarification (minimal, contextual)
+Lock Criteria
+✓ Intent schema covers all player action types
+✓ Parser handles natural variations (synonyms, phrasing)
+✓ Invalid intents fail gracefully with helpful feedback
+✓ Latency < 200ms for intent parsing
+
+Status: SPECIFIED (needs implementation + ASR model selection)
+Phase 5: Narrative & Output Layer
+Objective
+Transform engine outputs into engaging narration while preserving accuracy.
+
+Components
+A) Narrative Adapter
+TextTemplateEngine: Structured outcomes → narrative abstractions
+NarrativeFormatter: Prompt construction + safety constraints
+B) Voice Output
+VoiceSynthController: Text → audio (local TTS)
+VoiceProfileManager: Persistent profiles per NPC
+Design Principles
+LLM narrates using engine output only (no invented numbers)
+Descriptive health states instead of HP numbers
+Telegraph upcoming threats (fairness)
+Maintain dramatic pacing without sacrificing accuracy
+Constraints on LLM Narration
+Never invent: Damage numbers, AC values, save DCs, HP totals
+Always preserve: Engine-determined outcomes, legal action boundaries
+Template enforcement: Use templates for mechanical outcomes, creativity for flavor
+Lock Criteria
+✓ LLM cannot leak numeric HP or hidden stats
+✓ Narration templates cover all common resolution types
+✓ Voice output latency < 500ms
+✓ NPC voice profiles persistent across sessions
+
+Status: SPECIFIED (needs LLM prompt engineering + TTS selection)
+Phase 6: Visualization (Non-Numerical)
+Objective
+Minimal, situational-awareness UI without exposing mechanics.
+
+Components
+A) Map Renderer
+Grid/hex display with terrain
+Named tokens (no HP bars)
+Movement paths and ranges
+B) Effect Overlay
+AoE templates (cones, bursts, lines)
+Hazard zones
+Condition indicators (prone, invisible, etc.)
+Design Rules
+No HP bars or damage numbers
+Named tokens only (e.g., "Goblin Warrior 1")
+Visual effects reflect outcomes qualitatively (bloodied appearance, status icons)
+Minimal UI chrome — focus on play, not interface
+Lock Criteria
+✓ All combat-relevant spatial info visible
+✓ Zero numeric mechanical data exposed
+✓ Render at 30+ fps for smooth grid updates
+✓ Accessible design (colorblind-safe indicators)
+
+Status: SPECIFIED (needs renderer implementation)
+Phase 7: NPC Persistence & Memory
+Objective
+Ensure NPC consistency and world coherence across sessions.
+
+Memory Architecture
+A) Campaign Memory (LLM-Readable)
+NPCs (personality, relationships, goals)
+Locations (descriptions, inhabitants, secrets)
+Factions (power dynamics, conflicts)
+Session summaries
+Canonical facts ledger (immutable established truths)
+B) Rules Memory (Engine-Only)
+Encoded mechanics
+No live LLM access (prevent contamination)
+NPC State Model
+Personality traits (vector embeddings)
+Relationship sentiment (per PC)
+Event-based memory (interactions, outcomes)
+Update-only-via-events (no retroactive changes)
+Lock Criteria
+✓ LLM cannot alter canonical facts without event
+✓ Lore contradictions detectable and flagged
+✓ NPCs remember past interactions consistently
+✓ Memory retrieval < 50ms
+
+Status: SPECIFIED (needs vector DB + retrieval system)
+Phase 8: Game Loop & Orchestration
+Integration Flow
+Player Voice 
+  → Intent Parser 
+  → Legality Checker 
+  → Rules Engine 
+  → World State Update 
+  → DM Policy (if NPC turn) 
+  → Narrative Adapter 
+  → Voice Output 
+  → Visual Update 
+  → Event Log
+Components
+A) Session Manager
+Save/load game state
+Session history tracking
+Resource accounting (XP, treasure, time)
+B) Game Loop Controller
+Turn order management
+Phase transitions (combat ↔ exploration ↔ social)
+Time passage tracking
+Lock Criteria
+✓ Full session save/load without data loss
+✓ Rewind/replay capability for debugging
+✓ State diff viewer for inspecting changes
+✓ Crash recovery (auto-save checkpoints)
+
+Status: SPECIFIED (needs orchestration implementation)
+Phase 9: Safety Rails & Anti-Hallucination
+Objective
+Make hallucination structurally impossible.
+
+Mechanisms
+Schema-Validated Intents Only
+LLM output must parse to valid intent schema
+Invalid output fails closed (no execution)
+Engine-Generated Legal Menus
+LLM selects from pre-computed legal options
+Never invents actions or numbers
+Deterministic Replay
+Every session fully replayable from event log
+Divergence = bug (detectable)
+Fail-Closed Behavior
+Ambiguous input → clarification, not guess
+Missing prerequisites → rejection, not workaround
+Explanation Trees
+Every outcome traceable to inputs + rules
+Audit trail for debugging/verification
+Lock Criteria
+✓ System never resolves ambiguous actions silently
+✓ LLM cannot bypass legality checker
+✓ All dice rolls logged with RNG seed
+✓ Divergence detection automated in test suite
+
+Status: SPECIFIED (needs validation layer implementation)
+Phase 10: Testing & Validation
+Test Categories
+A) Unit Tests (Per Module)
+Resolution operators (attack, save, skill, etc.)
+Modifier stacking
+Condition application
+Duration tracking
+B) Property-Based Tests
+Stacking rules (commutativity, associativity)
+Rounding consistency
+Multiplier combination
+RNG determinism
+C) Replay Tests
+Golden transcripts (known-good sessions)
+Byte-for-byte replay validation
+State snapshots at key decision points
+D) Integration Tests
+Full combat scenarios (start → finish)
+Multi-session campaign continuity
+Voice pipeline end-to-end
+Memory retrieval accuracy
+E) Performance Tests
+Latency budgets (voice, legality, resolution)
+Memory usage under load
+Concurrent session capacity
+Lock Criteria
+✓ ≥90% code coverage in core modules
+✓ All Rule Atoms mapped to tests
+✓ Golden transcripts replay identically
+✓ Performance targets met in profiling
+✓ Zero hallucination in 100-turn stress test
+
+Status: SPECIFIED (needs test implementation)
+Phase 11: Incremental Expansion Strategy
+Objective
+Scale system complexity without collapse.
+
+Expansion Order (Priority Sequence)
+Core Combat Loop (Phase 3)
+Basic attacks, AC, HP, conditions
+Initiative and action economy
+Positioning & AoO (Phase 3 extension)
+Grid movement, threatened squares
+AoO triggers and resolution
+Conditions & Status Effects (Phase 3 extension)
+Mechanical effects per condition
+Duration tracking and removal
+Spells & Saves (Phase 3 extension)
+Spell resolution pipeline
+SR, saves, AoE, duration
+Skills & Exploration (New Phase)
+Skill checks and DCs
+Exploration mode encounters
+Items & Equipment (New Phase)
+Inventory management
+Magic items and activation
+Crafting & Economy (New Phase)
+Item creation
+Wealth and purchasing
+Social Interaction (New Phase)
+Diplomacy, intimidate, bluff
+Attitude shifts and reputation
+Expansion Rule
+No mechanic added without:
+
+Rule Atoms defined
+Module binding documented
+Tests written and passing
+Deterministic replay validated
+Integration with existing systems verified
+Status: GUIDING PRINCIPLE (ongoing)
+Critical Path Dependencies
+Phase 0 (Determinism) 
+  → Phase 0.5 (Rules KB) 
+  → Phase 1 (State Model) 
+  → Phase 2 (Rules Engine) 
+  → Phase 3 (Combat System)
+     ↓
+Phase 4 (Voice) + Phase 5 (Narration) + Phase 6 (Viz)
+     ↓
+Phase 7 (Memory) + Phase 8 (Orchestration)
+     ↓
+Phase 9 (Safety) + Phase 10 (Testing)
+     ↓
+Phase 11 (Expansion)
+Technology Stack Recommendations (Unspecified)
+Core Engine
+Python or Rust (determinism, performance)
+Dataclasses/Pydantic for schemas (Python)
+Serde for serialization (Rust)
+Knowledge Base
+Vector DB: ChromaDB, Qdrant, or Weaviate (local)
+Full-Text Search: BM25 via Whoosh or Tantivy
+Tables: SQLite for structured data
+LLM
+Local Models: Llama 3 70B, Mistral 7B, or Qwen (via llama.cpp)
+Inference: llama.cpp, vLLM, or Ollama
+Prompt Engineering: LangChain or custom templates
+Voice
+ASR: Whisper (local), Vosk, or Mozilla DeepSpeech
+TTS: Coqui TTS, Piper, or XTTS (local voice cloning)
+Visualization
+2D Rendering: Pygame, LÖVE, or Godot (lightweight)
+Web UI: React + Canvas for browser-based option
+Infrastructure
+Event Store: Append-only logs (JSON or binary)
+State Persistence: MessagePack, Protobuf, or JSON
+Testing: pytest (Python), cargo test (Rust)
+Open Questions & Decisions Needed
+Target Platform: Desktop (Windows/Mac/Linux)? Mobile? Web?
+LLM Size/Performance Trade-off: 7B (fast) vs 70B (smart)?
+Grid System: Square grid, hex, or abstract distance?
+Multiclassing: Full 3.5e support or simplified?
+Content Scope: Core books only or supplements included?
+Voice Cloning: Pre-generated NPC voices or real-time synthesis?
+Multiplayer: Single-player only or support for multiple players?
+Estimated Development Effort
+Conservative Estimate (Full Implementation):
+
+Phase 0-0.5: 3-4 months (foundations + rules ingestion)
+Phase 1-2: 4-6 months (state model + rules engine)
+Phase 3: 6-8 months (combat system complete)
+Phase 4-6: 3-4 months (voice + narration + viz)
+Phase 7-8: 2-3 months (memory + orchestration)
+Phase 9-10: 2-3 months (safety + testing)
+Total: 20-28 months (aggressive, single experienced developer)
+
+Parallelization Opportunities:
+
+Rules ingestion can proceed alongside state model design
+Voice/narration/viz can develop in parallel with combat engine
+Testing infrastructure can be built incrementally
+Success Metrics
+Technical
+✓ Deterministic replay of 100-turn combat
+✓ < 50ms average monster turn decision time
+✓ Zero rule hallucinations in stress testing
+✓ 100% Rule Atom coverage in tests
+
+User Experience
+✓ Players never see numeric HP/AC/DCs
+✓ Combat feels dangerous but fair
+✓ NPCs remember past interactions
+✓ Voice interaction feels natural (< 1s latency)
+
+Completeness
+✓ Full campaign playable start-to-finish
+✓ All core 3.5e combat mechanics implemented
+✓ Spells, skills, feats from PHB functional
+✓ Persistent world across multiple sessions
+
+Final Status Summary
+Phase	Specification	Implementation	Testing	Status
+0: Determinism	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+0.5: Rules KB	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+1: State Model	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+2: Rules Engine	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+3: Combat System	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+4: Voice Input	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+5: Narration	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+6: Visualization	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+7: Memory	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+8: Orchestration	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+9: Safety Rails	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+10: Testing	✓ Complete	✗ Not Started	✗ Not Started	SPECIFIED
+11: Expansion	✓ Principle Defined	—	—	GUIDING
+Confidence Level: 0.88
+High Confidence Areas (0.95+):
+Combat system architecture is comprehensive and sound
+Separation of concerns (engine/policy/narration) is well-designed
+Rule Atom Matrix concept addresses completeness gaps
+Safety mechanisms prevent hallucination structurally
+Medium Confidence Areas (0.80-0.90):
+Performance targets achievable but need validation
+LLM prompt engineering for narration will require iteration
+Voice latency depends on hardware/model choices
+Belief update conservatism needs tuning
+Lower Confidence Areas (0.70-0.80):
+Rules ingestion automation (table parsing complexity)
+NPC memory retrieval accuracy at scale
+Full D&D 3.5e edge case coverage (massive scope)
+Key Caveats
+Scope is enormous: Full D&D 3.5e is exceptionally complex; expect 2+ years for complete implementation
+LLM dependency: Local LLM quality varies; may need cloud fallback for best experience
+Source material: Legal access to D&D 3.5e content required for rules ingestion
+Performance: Real-time voice requirements demand careful optimization
+Edge cases: D&D has countless interactions; 100% coverage unrealistic—prioritize common paths
+This unified action plan consolidates all project documentation into a single, executable roadmap. The system is fully specified across all phases but not yet implemented. The next step is to select implementation technologies and begin Phase 0 (Determinism foundations).
+
+LLM size / performance trade-off: 7B vs 70B
+Dimension7B class models70B class modelsLatency / throughputVery fast; high tokens/sec; low tail latencySlower; higher latency; lower throughputHardware costRuns on consumer GPUs / modest serversRequires multi-GPU or high-VRAM serversReasoning depthShallow–moderate; brittle on long chainsDeeper, more consistent multi-step reasoningInstruction followingGood for narrow, well-scaffolded tasksStronger adherence under ambiguityHallucination rateHigher without guardrailsLower (but not zero)Context integrationLimited synthesis across many signalsBetter global coherenceBest use casesParsing, routing, classification, templating, fast narrationPlanning, synthesis, policy reasoning, complex analysis
+Practical rule of thumb
+* Use 7B when the task is well-constrained, latency-sensitive, and externally verified (e.g., deterministic engines, validators, narrators).
+* Use 70B when the task requires judgment under uncertainty, multi-objective trade-offs, or long-horizon reasoning.
+Architecture insight (what actually scales best)
+Hybrid > monolithic:
+* 7B handles fast paths (intent parsing, legality checks, narration).
+* 70B is invoked sparingly for slow paths (policy decisions, synthesis, exception handling).
+This dominates both cost and reliability versus “70B everywhere.”
+Clear answer: 7B models are fast and cheap but cognitively shallow; 70B models are slower and expensive but materially better at complex reasoning. The optimal setup is a hybrid that reserves 70B for hard decisions and uses 7B for everything else.
+Confidence level: 0.93
+Key caveats (≤3):
+1. Model quality varies by training, not just parameter count.
+2. Quantization and fine-tuning can narrow the gap.
+3. Poor task decomposition negates any size advantage.
+Use a square grid as the canonical engine representation.Expose it minimally or not at all to players (tokens + qualitative distance language), but keep squares internally for legality, AoOs, reach, and spell geometry.
+Multiclassing: Full 3.5e support
+Content Scope: Core books only With the ability to continually progress the project by adding this support elements
+Use a hybrid system.
+* Pre-generate: NPC greetings, signatures, emotional anchors.
+* Real-time synth: improvised dialogue and narration.
+* Lock voice profiles per NPC to prevent drift.
+* Fallback gracefully to pre-generated clips if synthesis stalls.
+This preserves immersion without sacrificing determinism or flow.
+
+Show more
+4:27 PM
+Updated Action Plan: Technology Decisions Integrated
+Critical Design Decisions — LOCKED
+1. LLM Architecture: Hybrid 7B/70B System
+Decision: Implement a two-tier LLM architecture that optimizes for both speed and reasoning quality.
+
+7B Model Responsibilities (Fast Path)
+Intent Parsing: Player speech → structured intent schemas
+Narration Templating: Engine outcomes → descriptive text (templated)
+Legality Pre-filtering: Quick rejection of obviously invalid actions
+Dialogue Routing: NPC personality selection and emotional state
+Turn-by-turn narration: Combat outcomes, skill check results
+Performance Target: < 100ms per inference
+
+70B Model Responsibilities (Slow Path)
+DM Policy Decisions: Monster action selection (Phase 3.7)
+Complex Synthesis: Multi-turn planning, encounter design
+Exception Handling: Edge cases not covered by templates
+Campaign Planning: Session pacing, narrative arc development
+Ambiguity Resolution: When intent parsing is uncertain
+Performance Target: < 2s per inference (acceptable for behind-the-scenes decisions)
+
+Hybrid Orchestration Contract
+python
+# Conceptual API
+class LLMOrchestrator:
+    def route_task(self, task_type, complexity_signals):
+        if task_type in ["parse_intent", "narrate_outcome", "simple_dialogue"]:
+            return self.llm_7b.infer(task)
+        
+        if complexity_signals["uncertainty"] > 0.7 or \
+           complexity_signals["variables"] > 5 or \
+           task_type in ["dm_policy", "planning", "synthesis"]:
+            return self.llm_70b.infer(task)
+        
+        # Default: try 7B with 70B fallback
+        result_7b = self.llm_7b.infer(task)
+        if result_7b.confidence < 0.8:
+            return self.llm_70b.infer(task)
+        return result_7b
+```
+
+#### **Benefits**
+- **Latency:** 7B handles 80-90% of requests at < 100ms
+- **Quality:** 70B ensures DM decisions are coherent and strategic
+- **Cost:** Minimal hardware requirements (7B on single GPU, 70B batched/queued)
+
+**Confidence: 0.91**
+
+---
+
+### **2. Grid System: Square Grid (Internal) + Qualitative Distance (External)**
+
+**Decision:** Use **square grid internally** for all mechanical calculations; expose **qualitative distance language** to players.
+
+#### **Internal Representation (Engine)**
+- **5-foot squares** (canonical D&D 3.5e)
+- All positioning, reach, AoO, spell AoE computed on grid
+- Diagonal movement: standard 3.5e rules (1st diagonal = 5ft, 2nd = 10ft)
+- LoS/LoE computed via grid raycasting
+
+#### **External Representation (Players)**
+```
+Engine: "Goblin is at (12, 8), 35 feet from you"
+Player sees: "The goblin archer is across the room, beyond your immediate reach"
+
+Engine: "Your fireball affects squares (10,10) through (14,14)"
+Player sees: "Your fireball engulfs the cluster of enemies near the doorway"
+```
+
+#### **Visualization Layer Mapping**
+- **Token display:** Show named tokens on grid (optional grid lines)
+- **Movement feedback:** "You can move [here] or [there]" with highlighted zones
+- **Range indicators:** Qualitative bands (melee reach, close, medium, far)
+- **No numeric distances** unless player explicitly asks for measurement
+
+#### **Benefits**
+- **Mechanical precision:** No ambiguity in legality checks
+- **Immersion:** Players think narratively, not tactically (unless they want to)
+- **Compatibility:** Full 3.5e RAW support for all grid-based rules
+
+**Confidence: 0.94**
+
+---
+
+### **3. Multiclassing: Full 3.5e Support**
+
+**Decision:** Implement **complete multiclassing rules** from PHB, including XP penalties, favored classes, and cross-class skills.
+
+#### **Required Engine Components**
+- **BAB Stacking:** Sum BAB from all classes
+- **Save Stacking:** Sum saves from all classes
+- **Skill Points:** Track class skills vs cross-class per level
+- **XP Penalty Calculation:** Based on level spread (optional rule toggle)
+- **Favored Class Tracking:** Per race, affects XP penalty
+- **Spell Progression:** Independent per caster class
+- **Class Feature Acquisition:** Correct levels for each class
+
+#### **Rule Atom Examples**
+```
+RuleAtom_MC_001: "BAB from all classes stacks (sum rounded down)"
+RuleAtom_MC_002: "Saves from all classes stack"
+RuleAtom_MC_003: "XP penalty: -20% if any class > 1 level behind highest (except favored)"
+RuleAtom_MC_004: "Skill max ranks = (character level + 3) for class skills"
+RuleAtom_MC_005: "Skill max ranks = (character level + 3)/2 for cross-class skills"
+Implementation Priority
+Phase 2 (Rules Engine): Core multiclass math
+Phase 10 (Testing): Multiclass edge cases (triple-class, prestige classes)
+Phase 11 (Expansion): Prestige class support
+Confidence: 0.89
+
+4. Content Scope: Core Books + Modular Expansion
+Decision: Initial release focuses on PHB + DMG + MM (core) with architecture supporting incremental content addition.
+
+Phase 0.5 Ingestion Priorities
+Tier 1 (Required for MVP):
+
+Player's Handbook (PHB)
+Dungeon Master's Guide (DMG)
+Monster Manual (MM)
+Tier 2 (Post-MVP Expansion):
+
+Monster Manual II, III, IV, V
+Expanded Psionics Handbook
+Complete series (Adventurer, Arcane, Divine, Warrior, etc.)
+Spell Compendium
+Magic Item Compendium
+Tier 3 (Long-term):
+
+Campaign settings (Forgotten Realms, Eberron, etc.)
+Specialty books (Races of Stone, Libris Mortis, etc.)
+Expansion Architecture
+python
+class ContentRegistry:
+    """Allows incremental content addition without core engine changes"""
+    
+    def register_spell(self, spell_data, source_book):
+        # Validate against spell schema
+        # Add to spell database with citation
+        # Update spell search index
+        pass
+    
+    def register_feat(self, feat_data, source_book):
+        # Validate prerequisites
+        # Add to feat database
+        # Update feat chains
+        pass
+    
+    def register_monster(self, monster_data, source_book):
+        # Validate stat block
+        # Add to monster database
+        # Update encounter tables
+        pass
+Rule Atom Matrix: Expansion Protocol
+When adding new content:
+
+Extract rule atoms from new book
+Check for conflicts with existing atoms (duplication, contradiction)
+Add new atoms to matrix with source citation
+Bind to existing or new modules
+Add tests for new rule atoms
+Validate determinism still holds
+Benefits
+Manageable initial scope: Core books = ~2,000 spells + 400 feats + 1,000 monsters
+Future-proof: Can add content without refactoring engine
+Community contribution potential: Content packs as add-ons
+Confidence: 0.92
+
+5. Voice Synthesis: Hybrid Pre-generated + Real-time
+Decision: Use pre-generated voice clips for anchors + real-time synthesis for improvisation with locked NPC voice profiles.
+
+Architecture
+python
+class VoiceManager:
+    def __init__(self):
+        self.pregenerated_clips = {}  # NPC_ID -> {greeting, signature_phrases, emotions}
+        self.voice_profiles = {}       # NPC_ID -> voice_model_params (frozen)
+        self.realtime_synthesizer = CoquiTTS()  # Or Piper, XTTS
+    
+    def speak_npc(self, npc_id, text, emotion="neutral"):
+        # Check if pre-generated clip exists
+        clip = self.pregenerated_clips.get(npc_id, {}).get(text)
+        if clip:
+            return clip  # Instant playback, zero latency
+        
+        # Otherwise synthesize in real-time using locked profile
+        profile = self.voice_profiles[npc_id]
+        return self.realtime_synthesizer.speak(text, profile, emotion)
+    
+    def lock_voice_profile(self, npc_id, reference_audio):
+        """One-time voice cloning; profile never drifts"""
+        self.voice_profiles[npc_id] = self.train_voice_clone(reference_audio)
+Pre-generation Strategy
+Generate ahead of time:
+
+NPC greetings: "Welcome to my shop, traveler"
+Signature catchphrases: "By Moradin's beard!" (dwarf cleric)
+Quest-giving intros: "I need your help with something"
+Common responses: "Yes", "No", "I don't know", "Follow me"
+Emotional anchors: laugh, sigh, scream (for mixing)
+Synthesize in real-time:
+
+Improvised dialogue (player asks unexpected question)
+Combat narration (dynamic based on rolls)
+Exploration descriptions (procedurally generated)
+Voice Profile Management
+python
+# Example: Dwarf Innkeeper "Thrain"
+voice_profiles["thrain"] = {
+    "base_model": "male_deep_gruff",
+    "pitch_shift": -20,  # Deeper
+    "speaking_rate": 0.9,  # Slower
+    "accent": "scottish",
+    "frozen": True  # Never re-train
+}
+Benefits:
+
+Low latency: Common phrases instant (< 10ms)
+Consistency: Voice profiles locked, no drift across sessions
+Flexibility: Can still handle unexpected player creativity
+Immersion: Each NPC has distinct, memorable voice
+Fallback Strategy
+If real-time synthesis stalls (> 500ms):
+
+Play generic "hmm..." filler clip
+Generate synthesis in background
+Resume speech when ready
+Cache result for future use
+Confidence: 0.88
+
+Updated Phase Breakdown with Technology Stack
+Phase 0: Determinism Foundation
+Technology Choices
+Language: Python 3.11+ (rapid prototyping, rich ecosystem)
+Serialization: MessagePack (fast, compact, deterministic)
+RNG: NumPy with explicit seeding
+Event Store: Append-only JSON-lines format (human-readable debugging)
+Implementation
+python
+# rng.py
+class DeterministicRNG:
+    def __init__(self, seed: int):
+        self.rng = np.random.Generator(np.random.PCG64(seed))
+        self.call_count = 0
+    
+    def d20(self) -> int:
+        self.call_count += 1
+        return self.rng.integers(1, 21)
+    
+    def damage(self, num_dice: int, die_size: int) -> int:
+        self.call_count += 1
+        return self.rng.integers(num_dice, num_dice * die_size + 1)
+
+# event_log.py
+class EventLog:
+    def __init__(self, filepath: Path):
+        self.file = open(filepath, 'a')
+    
+    def append(self, event: dict):
+        self.file.write(json.dumps(event) + '\n')
+        self.file.flush()  # Ensure immediate write
+
+# replay.py
+def replay_from_log(log_path: Path, seed: int) -> WorldState:
+    rng = DeterministicRNG(seed)
+    state = WorldState.initial()
+    
+    for line in open(log_path):
+        event = json.loads(line)
+        state = apply_event(state, event, rng)
+    
+    return state
+Status: Ready to implement
+
+Phase 0.5: Rules Ingestion
+Technology Choices
+PDF Parsing: PyMuPDF (high-quality text extraction)
+Table Extraction: Camelot or pdfplumber
+Vector DB: ChromaDB (easy setup, good performance)
+Full-Text Search: Whoosh (pure Python, no dependencies)
+LLM for Structuring: 7B model for parsing tables into JSON
+Implementation Pipeline
+python
+# ingest_pipeline.py
+class RulesIngestionPipeline:
+    def __init__(self):
+        self.vector_db = chromadb.Client()
+        self.search_index = whoosh.index.create_in("index_dir", schema)
+        self.llm_7b = load_model("mistral-7b-instruct")
+    
+    def ingest_book(self, pdf_path: Path, book_metadata: dict):
+        # Stage 1: Extract
+        pages = extract_pages(pdf_path)
+        
+        # Stage 2: Segment
+        chunks = segment_into_rules(pages)
+        
+        # Stage 3: Extract tables
+        tables = extract_tables(pdf_path)
+        
+        # Stage 4: Structure with LLM
+        for chunk in chunks:
+            if is_table(chunk):
+                structured = self.llm_7b.structure_table(chunk)
+            else:
+                structured = self.llm_7b.extract_rule_atoms(chunk)
+            
+            # Stage 5: Store with citation
+            self.vector_db.add(
+                documents=[structured["text"]],
+                metadatas=[{
+                    "book": book_metadata["title"],
+                    "page": chunk["page"],
+                    "rule_atom_ids": structured["atoms"]
+                }]
+            )
+            self.search_index.add_document(structured)
+        
+        # Stage 6: QA
+        self.validate_coverage(book_metadata)
+Rule Atom Matrix Schema
+python
+# rule_atom.py
+@dataclass
+class RuleAtom:
+    atom_id: str  # e.g., "MOD_STACK_001"
+    text: str  # "Typed bonuses of the same type don't stack"
+    subsystem: str  # "Modifiers"
+    module_owner: str  # "src/rules/modifiers.py"
+    key_functions: List[str]  # ["apply_stacking", "collect_modifiers"]
+    invariants: List[str]  # ["max_of_type(bonuses) == applied"]
+    test_ids: List[str]  # ["test_stacking_001", "test_stacking_002"]
+    citations: List[Citation]  # [Citation(book="PHB", page=21)]
+    status: str  # "Planned" | "Implemented" | "Verified"
+Status: Ready to implement (pending source PDFs)
+
+Phase 1-2: State Model + Rules Engine
+Technology Choices
+Schema Validation: Pydantic v2 (fast, type-safe)
+State Transitions: Pure functions (no side effects)
+Testing: pytest + hypothesis (property-based testing)
+Example Schema
+python
+# schemas.py
+from pydantic import BaseModel, Field
+
+class CreatureState(BaseModel):
+    id: str
+    name: str
+    type: str  # "humanoid", "undead", etc.
+    size: str  # "Small", "Medium", "Large", etc.
+    position: Tuple[int, int]  # Grid coordinates
+    hp_current: int = Field(ge=0)  # DM-only
+    hp_max: int = Field(gt=0)
+    hp_temp: int = Field(ge=0, default=0)
+    ac_normal: int
+    ac_touch: int
+    ac_flatfooted: int
+    saves: Dict[str, int]  # {"fort": 5, "ref": 3, "will": 2}
+    conditions: List[Condition] = Field(default_factory=list)
+    # ... rest of fields
+
+class WorldState(BaseModel):
+    creatures: Dict[str, CreatureState]
+    map_data: MapData
+    combat_state: Optional[CombatState]
+    time_elapsed: int  # seconds since campaign start
+    rng_seed: int
+    rng_calls: int  # Determinism tracking
+Status: Ready to implement
+
+Phase 3: Combat System (Complete)
+Technology Choices
+7B Model for Narration: Mistral-7B-Instruct v0.3 (fast, good instruction following)
+70B Model for Policy: Llama-3.1-70B or Qwen-72B (superior reasoning)
+Inference: llama.cpp with Metal/CUDA acceleration
+DM Policy Implementation
+python
+# dm_policy.py
+class DMPolicyEngine:
+    def __init__(self):
+        self.llm_70b = load_model("llama-3.1-70b-instruct", quantization="Q4_K_M")
+        self.feature_extractor = FeatureExtractor()
+        self.scorer = ActionScorer()
+    
+    def select_action(
+        self,
+        state: CombatState,
+        monster_id: str,
+        encounter_context: EncounterContext
+    ) -> MonsterAction:
+        # Extract features (Phase 3.7.1)
+        features = self.feature_extractor.extract(state, monster_id, encounter_context)
+        
+        # Generate legal candidates (Phase 3.7.3)
+        legal_actions = self.legality_checker.enumerate_actions(state, monster_id)
+        
+        # Score each candidate (Phase 3.7.4)
+        scored_actions = []
+        for action in legal_actions:
+            score = self.scorer.score_action(action, features, encounter_context)
+            scored_actions.append((action, score))
+        
+        # Selection policy with controlled randomness (Phase 3.7.5)
+        if len(scored_actions) == 1:
+            return scored_actions[0][0]  # Only one legal action
+        
+        # Use 70B for complex decisions
+        if features["complexity"] > 0.7 or encounter_context.is_apex:
+            prompt = self.build_policy_prompt(features, scored_actions, encounter_context)
+            response = self.llm_70b.generate(prompt, temperature=0.7)
+            chosen_action = self.parse_action_selection(response, scored_actions)
+        else:
+            # Softmax selection for variety
+            chosen_action = self.softmax_select(scored_actions, temperature=0.5)
+        
+        # Belief update (Phase 3.7.6)
+        self.update_beliefs(state, monster_id, chosen_action)
+        
+        return chosen_action
+Performance Optimization:
+
+Cache feature extraction (recompute only on state change)
+Batch 70B inference if multiple monsters decide simultaneously
+Pre-score common action patterns (attack weakest, focus healer, etc.)
+Status: Specified, ready to implement
+
+Phase 4-5: Voice Pipeline
+Technology Choices
+ASR: Faster-Whisper (optimized Whisper, 2-3x faster)
+TTS: Coqui TTS with XTTS v2 (voice cloning support)
+7B Intent Parsing: Mistral-7B-Instruct (< 100ms latency)
+Audio Processing: Soundfile + NumPy
+Implementation
+python
+# voice_pipeline.py
+class VoicePipeline:
+    def __init__(self):
+        self.asr = load_faster_whisper("large-v3")
+        self.tts = CoquiTTS.api.TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+        self.intent_parser = load_model("mistral-7b-instruct")
+        self.voice_manager = VoiceManager()
+    
+    async def process_player_speech(self, audio_bytes: bytes) -> Intent:
+        # Transcribe (streaming for low latency)
+        text = await self.asr.transcribe_async(audio_bytes)
+        
+        # Parse intent with 7B
+        intent_json = self.intent_parser.generate(
+            f"Parse this player intent into JSON schema:\n{text}",
+            max_tokens=200
+        )
+        intent = Intent.parse_obj(json.loads(intent_json))
+        
+        return intent
+    
+    async def narrate_outcome(
+        self,
+        outcome: EngineOutcome,
+        narrator_voice: str = "dm"
+    ) -> bytes:
+        # Use 7B for narration templating
+        narrative_text = self.llm_7b.generate(
+            f"Narrate this outcome: {outcome.to_description()}",
+            max_tokens=150
+        )
+        
+        # Check for pre-generated clip
+        audio = self.voice_manager.speak_npc(narrator_voice, narrative_text)
+        
+        return audio
+Latency Budget:
+
+ASR: 200-400ms (streaming)
+Intent parsing (7B): 50-100ms
+Legality check: < 5ms
+Narration (7B): 80-120ms
+TTS (cached): < 10ms OR (synthesized): 300-500ms
+Total end-to-end: 700ms - 1.2s (acceptable for conversational flow)
+Status: Specified, ready to implement
+
+Phase 6: Visualization
+Technology Choices
+Rendering: Pygame (simple, fast, cross-platform)
+Grid Display: 2D orthographic, 64x64px tiles
+Asset Pipeline: SVG tokens (scalable) + procedural shaders
+Implementation
+python
+# visualizer.py
+class CombatVisualizer:
+    def __init__(self, screen_width=1920, screen_height=1080):
+        pygame.init()
+        self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.tile_size = 64
+        self.camera = Camera(0, 0)
+    
+    def render_combat(self, state: CombatState):
+        self.screen.fill((30, 30, 30))  # Dark background
+        
+        # Render grid
+        for x in range(state.map_data.width):
+            for y in range(state.map_data.height):
+                tile = state.map_data.get_tile(x, y)
+                self.draw_tile(x, y, tile)
+        
+        # Render tokens (NO HP BARS)
+        for creature in state.creatures.values():
+            if creature.visible_to_players:
+                self.draw_token(creature)
+                self.draw_health_indicator(creature)  # Qualitative only
+        
+        # Render AoE templates if active
+        if state.active_spell_targeting:
+            self.draw_aoe_template(state.active_spell_targeting)
+        
+        pygame.display.flip()
+    
+    def draw_health_indicator(self, creature: CreatureState):
+        # Map exact HP to qualitative band
+        hp_percent = creature.hp_current / creature.hp_max
+        if hp_percent > 0.75:
+            color = (0, 255, 0)  # Green glow (fresh)
+        elif hp_percent > 0.50:
+            color = (255, 255, 0)  # Yellow (scratched)
+        elif hp_percent > 0.25:
+            color = (255, 165, 0)  # Orange (bloodied)
+        else:
+            color = (255, 0, 0)  # Red (staggering)
+        
+        # Draw subtle glow, not a bar
+        pygame.draw.circle(
+            self.screen,
+            color,
+            creature.screen_position,
+            radius=5,
+            width=2
+        )
+Status: Specified, ready to implement
+
+Phase 7-8: Memory + Orchestration
+Technology Choices
+Vector DB: ChromaDB (same as rules KB, consistent tooling)
+Event Sourcing: Custom append-only log
+Session Management: SQLite for metadata (saves, timestamps, summaries)
+NPC Memory Implementation
+python
+# npc_memory.py
+class NPCMemoryManager:
+    def __init__(self):
+        self.vector_db = chromadb.Client()
+        self.npc_profiles = {}
+    
+    def remember_interaction(
+        self,
+        npc_id: str,
+        pc_id: str,
+        event: InteractionEvent
+    ):
+        """Store interaction in vector DB with timestamp"""
+        memory_text = f"{pc_id} {event.action} at {event.location}. {event.outcome}"
+        
+        self.vector_db.add(
+            collection=f"npc_{npc_id}_memories",
+            documents=[memory_text],
+            metadatas=[{
+                "pc_id": pc_id,
+                "timestamp": event.timestamp,
+                "sentiment": event.sentiment_delta,
+                "importance": event.importance
+            }],
+            ids=[event.event_id]
+        )
+        
+        # Update relationship sentiment
+        self.update_sentiment(npc_id, pc_id, event.sentiment_delta)
+    
+    def recall_relevant_memories(
+        self,
+        npc_id: str,
+        query: str,
+        top_k: int = 5
+    ) -> List[str]:
+        """Retrieve most relevant past interactions"""
+        results = self.vector_db.query(
+            collection=f"npc_{npc_id}_memories",
+            query_texts=[query],
+            n_results=top_k
+        )
+        return results["documents"][0]
+```
+
+**Status:** Specified, ready to implement
+
+---
+
+## **Revised Development Timeline (with Technology Stack)**
+
+### **Phase 0 (Determinism):** 2-3 weeks
+- Implement RNG abstraction
+- Event log system
+- Replay mechanism
+- **Deliverable:** Deterministic dice rolling with replay validation
+
+### **Phase 0.5 (Rules Ingestion):** 8-12 weeks
+- PDF extraction pipeline
+- Table structuring with 7B LLM
+- Vector DB setup (ChromaDB)
+- Rule Atom Matrix population (PHB + DMG + MM)
+- **Deliverable:** Searchable, cite-able rules KB covering core books
+
+### **Phase 1 (State Model):** 3-4 weeks
+- Pydantic schemas for all entities
+- Serialization/deserialization
+- State validation
+- **Deliverable:** Complete WorldState schema with tests
+
+### **Phase 2 (Rules Engine):** 10-14 weeks
+- Core resolution operators (attack, save, skill, opposed)
+- Modifier engine with stacking
+- Condition system
+- Spell resolution pipeline
+- **Deliverable:** All core mechanics resolvable deterministically
+
+### **Phase 3 (Combat System):** 12-16 weeks
+- Combat state machine (3.6)
+- DM Policy Engine with 70B (3.7)
+- Combat schemas (3.8)
+- Resolution function library (3.9)
+- **Deliverable:** Complete combat system with AI DM decisions
+
+### **Phase 4 (Voice Input):** 4-6 weeks
+- Faster-Whisper integration
+- Intent parsing with 7B
+- Schema validation
+- **Deliverable:** Speech-to-intent pipeline < 500ms
+
+### **Phase 5 (Narration):** 4-6 weeks
+- Narration templates
+- 7B narration generation
+- Outcome description formatting
+- **Deliverable:** Engine outcomes → narrative text
+
+### **Phase 6 (Voice Output):** 6-8 weeks
+- Coqui TTS setup
+- Pre-generate common NPC clips
+- Voice profile management
+- Real-time synthesis with fallback
+- **Deliverable:** Text → audio with NPC voice consistency
+
+### **Phase 7 (Visualization):** 4-6 weeks
+- Pygame setup
+- Grid renderer
+- Token display (no HP bars)
+- Qualitative health indicators
+- **Deliverable:** Minimal combat visualization
+
+### **Phase 8 (Memory):** 4-6 weeks
+- NPC memory ChromaDB setup
+- Interaction logging
+- Retrieval system
+- **Deliverable:** Persistent NPC memory across sessions
+
+### **Phase 9 (Orchestration):** 3-4 weeks
+- Game loop controller
+- Session save/load
+- State management
+- **Deliverable:** End-to-end campaign playable
+
+### **Phase 10 (Safety + Testing):** 6-8 weeks
+- Schema enforcement
+- Fail-closed validation
+- Hallucination prevention
+- Test suite (unit + integration + replay)
+- **Deliverable:** Zero hallucination guarantee with 90%+ test coverage
+
+### **Phase 11 (Expansion):** Ongoing
+- Add Monster Manual II, III, etc.
+- Add Complete series books
+- Prestige classes
+- Campaign settings
+
+---
+
+## **Total Timeline: 16-20 months** (single experienced developer, full-time)
+
+### **Parallelization Opportunities:**
+- Phases 0.5 + 1 (rules ingestion + state model design)
+- Phases 4 + 5 + 6 (voice pipeline can develop independently)
+- Phase 7 (visualization) can proceed alongside Phase 8 (memory)
+- Testing (Phase 10) ongoing throughout all phases
+
+### **Critical Path:**
+```
+Phase 0 → Phase 0.5 → Phase 2 → Phase 3 → Phase 9 → Phase 10
+  ↓          ↓           ↓          ↓          ↓
+(3 weeks) (10 weeks) (12 weeks) (14 weeks) (4 weeks) (7 weeks)
+= 50 weeks critical path + 10-20 weeks parallelizable = 60-70 weeks total
+Hardware Requirements
+Development Machine
+GPU: NVIDIA RTX 4090 (24GB VRAM) or equivalent
+7B models: 4-6GB VRAM (Q4 quantization)
+70B models: 20-24GB VRAM (Q4 quantization)
+CPU: 8+ cores for parallel ingestion/testing
+RAM: 32GB minimum, 64GB recommended
+Storage: 1TB SSD (rules KB + model weights + event logs)
+Production Deployment (Local)
+GPU: NVIDIA RTX 3090 (24GB) or RTX 4080 (16GB)
+Can run 70B offloaded to RAM if needed
+RAM: 64GB (for 70B model offloading)
+Storage: 500GB SSD
+Cloud Alternative (if needed)
+RunPod / Vast.ai: ~$0.40-0.80/hour for 70B inference
+Reserve for DM policy decisions only (cost-effective hybrid)
+Model Selection (Final Recommendations)
+7B Fast Path
+Choice: Mistral-7B-Instruct v0.3
+
+Excellent instruction following
+Fast (50-80ms on RTX 4090)
+Good at structured output (JSON)
+Use cases: Intent parsing, narration templating, dialogue routing
+70B Slow Path
+Choice: Llama-3.1-70B-Instruct (Q4_K_M quantization)
+
+Superior reasoning and planning
+Better at multi-objective optimization (DM policy)
+Acceptable latency (1-2s) for behind-the-scenes decisions
+Use cases: DM policy, encounter design, complex synthesis
+ASR
+Choice: Faster-Whisper large-v3
+
+2-3x faster than OpenAI Whisper
+Excellent accuracy
+Streaming support for low latency
+TTS
+Choice: Coqui XTTS v2
+
+Voice cloning support (NPC consistency)
+Fast synthesis (300-500ms)
+Good quality
+Local inference
+Updated Success Metrics
+Technical
+✓ Deterministic replay of 100-turn combat
+✓ < 50ms monster turn decision time (7B narration)
+✓ < 2s monster policy decision (70B reasoning)
+✓ Zero rule hallucinations in stress testing
+✓ 100% Rule Atom coverage in tests
+✓ Voice pipeline < 1s end-to-end latency
+
+User Experience
+✓ Players never see numeric HP/AC/DCs
+✓ Combat feels dangerous but fair
+✓ NPCs remember past interactions
+✓ Voice interaction feels natural
+✓ Grid optional (can play "theater of mind" with qualitative distance)
+
+Content Coverage
+✓ PHB + DMG + MM fully ingested
+✓ All core combat mechanics implemented
+✓ Spells, skills, feats from PHB functional
+✓ Multiclassing fully supported
+✓ Architecture ready for content expansion
+
+Final Status Summary (with Technology Stack)
+Phase	Specification	Tech Choices	Implementation	Status
+0: Determinism	✓	Python, MessagePack, NumPy RNG	✗	READY
+0.5: Rules KB	✓	ChromaDB, PyMuPDF, Mistral-7B	✗	READY
+1: State Model	✓	Pydantic v2	✗	READY
+2: Rules Engine	✓	Pure Python functions	✗	READY
+3: Combat	✓	Llama-70B (policy), Mistral-7B (narration)	✗	READY
+4: Voice Input	✓	Faster-Whisper, Mistral-7B	✗	READY
+5: Narration	✓	Mistral-7B	✗	READY
+6: Voice Output	✓	Coqui XTTS v2	✗	READY
+7: Visualization	✓	Pygame	✗	READY
+8: Memory	✓	ChromaDB	✗	READY
+9: Orchestration	✓	Custom event loop	✗	READY
+10: Safety + Tests	✓	pytest, hypothesis	✗	READY
+11: Expansion	✓	Modular content registry	—	ONGOING
+Confidence Level: 0.92
+High Confidence (0.95+):
+Hybrid 7B/70B architecture is optimal for cost/quality
+Square grid internal + qualitative external is best of both worlds
+Technology stack is proven and well-supported
+Core architecture is sound and implementable
+Medium Confidence (0.85-0.92):
+Timeline estimates (depends on developer experience)
+Voice latency targets achievable but need tuning
+70B performance on consumer hardware (quantization quality matters)
+Key Caveats:
+Timeline assumes experienced developer: Junior dev may need 1.5-2x longer
+Model performance varies: Specific model versions matter (test before committing)
+Source material access: Legal D&D 3.5e content required for rules ingestion
+Hardware availability: RTX 4090 supply constrained; alternatives exist but slower
+This action plan is now complete, comprehensive, and immediately actionable. Ready to begin Phase 0 implementation.
+
+Analyze the entire action plan from start to finish and do an in-depth secondary analytical evaluation to find any missing details to highlight any questions that you should propose to me to add caveat to find any missing steps to look for information that needs to be addressed more in depthly. Let's find ways to improve this overall action plan with betters process steps, more in depth information and highlighting more details. So as the plan is followed, that no misunderstandings can occur throughout the program process.
+
+4:32 PM
+
+Viewed 2 files
+COMPREHENSIVE SECONDARY ANALYTICAL EVALUATION
+DECOMPOSE
+This analysis examines the action plan across seven critical dimensions:
+
+Specification Completeness — Missing details, ambiguities, edge cases
+Implementation Feasibility — Technical blockers, unclear steps, integration points
+Testing & Validation — Coverage gaps, verification strategies, regression risks
+Process Flow — Dependencies, ordering issues, parallelization errors
+Risk Assessment — Technical debt, scope creep, performance hazards
+Knowledge Gaps — Unspecified domain knowledge, tooling requirements
+Documentation Quality — Clarity, actionability, maintainability
+SOLVE
+I. SPECIFICATION COMPLETENESS ANALYSIS
+A) Phase 0: Determinism Foundation — Missing Details
+Critical Gap 1: RNG State Management Across Phases
+Problem: Action plan specifies seeded RNG but doesn't address:
+
+How RNG state is shared/isolated between concurrent subsystems (7B narration vs 70B policy)
+How to handle non-deterministic async operations (voice I/O, network requests if added later)
+RNG fork/merge strategy for "what-if" scenarios (player asks "what would happen if...?")
+Questions for You:
+
+Should each subsystem (combat, exploration, social) have isolated RNG streams?
+Do you want replay to support branching ("rewind to turn 5, try different action")?
+How should we handle external randomness sources (microphone noise in VAD, etc.)?
+Proposed Addition:
+
+python
+# rng_manager.py
+class RNGManager:
+    """Hierarchical RNG with subsystem isolation and replay branching"""
+    
+    def __init__(self, master_seed: int):
+        self.master_seed = master_seed
+        self.streams = {
+            "combat": DeterministicRNG(derive_seed(master_seed, "combat")),
+            "exploration": DeterministicRNG(derive_seed(master_seed, "exploration")),
+            "social": DeterministicRNG(derive_seed(master_seed, "social")),
+            "loot": DeterministicRNG(derive_seed(master_seed, "loot")),
+        }
+        self.forks = {}  # For branching timelines
+    
+    def fork_timeline(self, fork_id: str) -> "RNGManager":
+        """Create independent RNG branch for 'what-if' scenarios"""
+        fork = copy.deepcopy(self)
+        self.forks[fork_id] = fork
+        return fork
+    
+    def get_stream(self, subsystem: str) -> DeterministicRNG:
+        return self.streams[subsystem]
+Critical Gap 2: Event Log Format Specification
+Problem: "Append-only JSON-lines" is mentioned but critical details missing:
+
+Schema versioning strategy (what if event format changes?)
+Compression strategy (events accumulate fast — 100-turn combat = 1000+ events)
+Indexing for fast replay/search (how to jump to "round 15" without replaying all?)
+Corruption recovery (what if power loss mid-write?)
+Questions for You:
+
+What's acceptable event log size for a 100-session campaign? (1GB? 10GB?)
+Should replays be resumable from checkpoints (every 10 rounds)?
+Do you want event log search/query capability ("show me all crits rolled")?
+Proposed Addition:
+
+python
+# event_log_spec.py
+@dataclass
+class EventLogEntry:
+    """Versioned event with schema migration support"""
+    schema_version: str = "1.0.0"  # Semver
+    event_id: str  # UUID
+    timestamp: float  # Unix epoch
+    subsystem: str  # "combat" | "exploration" | "social"
+    event_type: str  # "attack" | "save" | "movement" | etc.
+    rng_calls: int  # RNG call count at time of event (determinism tracking)
+    data: dict  # Event-specific payload
+    checksum: str  # For corruption detection
+
+class EventLog:
+    def __init__(self, filepath: Path):
+        self.file = open(filepath, 'ab')  # Binary append mode
+        self.checkpoints = {}  # round_num -> file_offset
+        self.compressor = zstandard.ZstdCompressor()  # Real-time compression
+    
+    def append(self, event: EventLogEntry):
+        # Serialize + compress + write + flush
+        serialized = msgpack.packb(event.to_dict())
+        compressed = self.compressor.compress(serialized)
+        self.file.write(len(compressed).to_bytes(4, 'little'))  # Length prefix
+        self.file.write(compressed)
+        self.file.flush()
+        os.fsync(self.file.fileno())  # Force OS write (crash safety)
+    
+    def create_checkpoint(self, label: str, state: WorldState):
+        """Fast-forward point for replay"""
+        offset = self.file.tell()
+        self.checkpoints[label] = {
+            "offset": offset,
+            "state_snapshot": state.to_dict(),
+            "rng_calls": state.rng_calls
+        }
+Critical Gap 3: Determinism Verification Strategy
+Problem: "Identical inputs → identical outputs" stated but not operationalized:
+
+How to detect non-determinism in development (floating-point errors, dict ordering, etc.)?
+What's the testing protocol? (Run same scenario N times, compare checksums?)
+How to track down non-determinism when it occurs?
+Proposed Addition:
+
+python
+# determinism_validator.py
+class DeterminismValidator:
+    """Continuous verification during development"""
+    
+    def validate_operator(self, operator_fn, test_cases: List[dict], runs: int = 100):
+        """Run operator N times, ensure byte-identical results"""
+        for test_case in test_cases:
+            results = []
+            for run in range(runs):
+                rng = DeterministicRNG(test_case["seed"])
+                result = operator_fn(test_case["inputs"], rng)
+                results.append(hashlib.sha256(str(result).encode()).hexdigest())
+            
+            # All results must be identical
+            if len(set(results)) != 1:
+                raise NonDeterminismError(
+                    f"Operator {operator_fn.__name__} is non-deterministic:\n"
+                    f"Got {len(set(results))} unique outputs in {runs} runs"
+                )
+    
+    def trace_divergence(self, log1: Path, log2: Path) -> dict:
+        """Compare two logs, find first divergence point"""
+        events1 = list(read_event_log(log1))
+        events2 = list(read_event_log(log2))
+        
+        for i, (e1, e2) in enumerate(zip(events1, events2)):
+            if e1 != e2:
+                return {
+                    "divergence_index": i,
+                    "event1": e1,
+                    "event2": e2,
+                    "likely_cause": analyze_difference(e1, e2)
+                }
+Confidence: 0.89 (high impact, medium complexity)
+
+B) Phase 0.5: Rules Ingestion — Critical Ambiguities
+Critical Gap 4: Table Extraction Accuracy Requirements
+Problem: "Extract tables with Camelot/pdfplumber" but no accuracy threshold specified:
+
+What's acceptable error rate for table extraction? (95%? 99%? 100%?)
+How to handle complex multi-page tables?
+How to handle tables with merged cells, nested headers, footnotes?
+Questions for You:
+
+Are you willing to manually correct 5% of tables, or must extraction be 100% automated?
+Should there be a human-in-the-loop verification step for critical tables (spell lists, damage dice)?
+What's the plan for tables that span multiple pages?
+Proposed Addition:
+
+python
+# table_extraction_protocol.py
+class TableExtractionPipeline:
+    """Multi-strategy extraction with quality validation"""
+    
+    def extract_table(self, pdf_page, table_bbox) -> pd.DataFrame:
+        # Try multiple extraction strategies
+        strategies = [
+            ("camelot_lattice", lambda: camelot.read_pdf(pdf_page, flavor='lattice')),
+            ("camelot_stream", lambda: camelot.read_pdf(pdf_page, flavor='stream')),
+            ("pdfplumber", lambda: extract_with_pdfplumber(pdf_page)),
+            ("tabula", lambda: tabula.read_pdf(pdf_page, area=table_bbox)),
+        ]
+        
+        results = []
+        for name, extractor in strategies:
+            try:
+                df = extractor()
+                quality = self.assess_quality(df)
+                results.append((name, df, quality))
+            except Exception as e:
+                logger.warning(f"{name} failed: {e}")
+        
+        # Pick best result
+        best = max(results, key=lambda x: x[2]["score"])
+        
+        if best[2]["score"] < 0.90:  # Quality threshold
+            return self.human_verification_required(pdf_page, table_bbox, best[1])
+        
+        return best[1]
+    
+    def assess_quality(self, df: pd.DataFrame) -> dict:
+        """Score table extraction quality"""
+        return {
+            "score": (
+                0.3 * self.check_header_consistency(df) +
+                0.3 * self.check_data_types(df) +
+                0.2 * self.check_completeness(df) +
+                0.2 * self.check_formatting(df)
+            ),
+            "issues": self.identify_issues(df)
+        }
+Critical Gap 5: Rule Atom Granularity Inconsistency Risk
+Problem: "Rule atoms must be small enough to expose exceptions" but no concrete examples for complex cases:
+
+How granular for spell descriptions with 5+ effects?
+How to handle feats that modify multiple unrelated subsystems?
+What about rules that reference other rules ("as per the grapple rules...")?
+Questions for You:
+
+Should a single spell like Polymorph have 20+ rule atoms (one per mechanical change)?
+How do we handle forward/backward references between atoms?
+Should atoms include negative constraints ("does NOT stack with X")?
+Proposed Addition:
+
+markdown
+# RULE ATOM GRANULARITY GUIDE
+
+## Decomposition Rules
+
+### Level 1: Atomic Effects (Cannot be subdivided)
+- Single numeric modifier: "Haste grants +1 dodge bonus to AC"
+- Single duration: "Haste lasts 1 round/level"
+- Single action permission: "Haste grants extra attack at full BAB"
+
+### Level 2: Composite Rules (Multiple atoms logically bundled)
+- Condition application: "Entangled = -2 attack, -4 Dex, half move, concentration DC 15"
+  → Decomposes to 4 atoms but often applied together
+
+### Level 3: Procedural Rules (Sequential steps)
+- Grapple initiation: 
+  1. Make melee touch attack (ATOM_GRAPPLE_001)
+  2. If hit, make opposed grapple check (ATOM_GRAPPLE_002)
+  3. If win, apply grappled condition (ATOM_GRAPPLE_003)
+
+### Cross-Reference Protocol
+When Atom A references Atom B:
+- A.dependencies = [B.atom_id]
+- Include direct copy of B's logic in A's test suite (detect changes)
+
+### Exception Handling
+Each exception creates a NEW atom:
+- Base: "Typed bonuses don't stack" (ATOM_STACK_001)
+- Exception: "Dodge bonuses DO stack" (ATOM_STACK_002, negates ATOM_STACK_001 for dodge)
+- Exception: "Circumstance bonuses stack if different" (ATOM_STACK_003, conditional negation)
+Critical Gap 6: Citation Ambiguity for Errata
+Problem: D&D 3.5e has extensive errata that supersedes printed text:
+
+How to handle conflicts between PHB printing and official errata?
+How to track which version of rules is canonical?
+How to update Rule Atom Matrix when errata changes rules?
+Questions for You:
+
+Should the system use "as printed" or "as errata'd" rules by default?
+Should there be a configuration toggle for different rule interpretations?
+How do we version the rules database when errata is applied?
+Proposed Addition:
+
+python
+# citation.py
+@dataclass
+class Citation:
+    book: str  # "PHB", "DMG", "MM"
+    page: int
+    section: str  # e.g., "Chapter 8: Combat"
+    printing: str  # "First Printing 2003" vs "Revised 2012"
+    errata: Optional[ErrataReference] = None
+    
+@dataclass
+class ErrataReference:
+    date: str  # "2007-01-15"
+    url: str  # Link to official errata PDF
+    change_description: str
+    supersedes: List[Citation]  # What this errata replaces
+
+class RulesDatabase:
+    def __init__(self, errata_mode: str = "latest"):
+        """
+        errata_mode:
+          - "latest": Use most recent errata
+          - "as_printed": Use original text
+          - "custom": User-specified configuration
+        """
+        self.errata_mode = errata_mode
+    
+    def resolve_rule(self, atom_id: str) -> RuleAtom:
+        atom = self.get_atom(atom_id)
+        if self.errata_mode == "latest" and atom.errata:
+            return atom.errata.updated_version
+        return atom
+Confidence: 0.87 (moderate impact, high complexity)
+
+C) Phase 2-3: Rules Engine & Combat — Implementation Details
+Critical Gap 7: Modifier Stacking Edge Cases
+Problem: Current spec says "only highest of each type applies" but many edge cases:
+
+What about bonuses that become penalties? (E.g., -2 size modifier to AC for Large size — does this "stack" with armor bonus?)
+How to handle "untyped bonuses from same source" (spell stacks with itself if cast twice?)
+Negative typed bonuses (penalties) — do they stack or only worst applies?
+Questions for You:
+
+Should the system track bonus polarity (positive vs negative) separately for stacking?
+What about zero-valued bonuses (do they block stacking of same type)?
+Should there be a debug mode that shows "what bonuses were suppressed by stacking"?
+Proposed Addition:
+
+python
+# modifier_engine_spec.py
+class ModifierEngine:
+    """Complete stacking logic with all edge cases"""
+    
+    STACKING_RULES = {
+        # Type -> (polarity, stacking_behavior)
+        "armor": ("positive", "max_only"),
+        "shield": ("positive", "max_only"),
+        "enhancement": ("positive", "max_only"),
+        "dodge": ("positive", "always_stack"),
+        "circumstance": ("positive", "stack_if_different_source"),
+        "morale": ("positive", "max_only"),
+        "luck": ("positive", "max_only"),
+        "size": ("signed", "always_apply"),  # Can be + or -
+        "untyped": ("signed", "stack_unless_same_source"),
+        "penalty": ("negative", "always_stack"),  # All penalties stack
+    }
+    
+    def apply_stacking(self, modifiers: List[Modifier]) -> int:
+        """Apply stacking rules and return total modifier"""
+        by_type = defaultdict(list)
+        for mod in modifiers:
+            by_type[mod.type].append(mod)
+        
+        total = 0
+        suppressed = []  # For debugging
+        
+        for mod_type, mods in by_type.items():
+            rule = self.STACKING_RULES.get(mod_type, ("signed", "stack_unless_same_source"))
+            polarity, behavior = rule
+            
+            if behavior == "always_stack":
+                total += sum(m.value for m in mods)
+            elif behavior == "max_only":
+                applied = max(mods, key=lambda m: m.value)
+                total += applied.value
+                suppressed.extend([m for m in mods if m != applied])
+            elif behavior == "stack_if_different_source":
+                sources = {}
+                for m in mods:
+                    if m.source not in sources:
+                        sources[m.source] = m
+                        total += m.value
+                    else:
+                        suppressed.append(m)
+            # ... handle other behaviors
+        
+        return total, suppressed
+Critical Gap 8: Spell Resistance Resolution Ambiguity
+Problem: SR check specified as "d20 + CL ≥ SR" but many edge cases:
+
+What if multiple spells are cast simultaneously (readied action)? Do you roll SR once or per spell?
+What about ongoing spell effects — is SR checked once at cast or every round?
+What about AoE spells — one SR roll vs all creatures or per creature?
+Questions for You:
+
+Should SR be rolled when spell is cast or when effect is applied (different for delayed effects)?
+For ongoing effects (e.g., Wall of Fire), is SR checked every round or only on entry?
+Should there be a "SR check cache" to avoid redundant rolls in same round?
+Proposed Addition:
+
+python
+# spell_resistance_spec.py
+class SpellResistanceEngine:
+    """SR resolution with temporal and targeting logic"""
+    
+    def check_sr(
+        self,
+        caster: CreatureState,
+        target: CreatureState,
+        spell: Spell,
+        context: SpellContext,
+        rng: DeterministicRNG
+    ) -> SRResult:
+        """
+        SR check logic:
+        1. Check if spell is SR: Yes
+        2. Check if target has SR
+        3. Determine check timing (immediate vs ongoing)
+        4. Roll d20 + CL vs SR
+        5. Cache result if needed
+        """
+        
+        # Early exits
+        if not spell.sr_applies:
+            return SRResult(bypassed=True, reason="spell is SR: No")
+        
+        if target.sr == 0:
+            return SRResult(bypassed=True, reason="target has no SR")
+        
+        # Determine timing
+        if context.is_ongoing_effect:
+            # Check cache for this round
+            cache_key = (spell.id, target.id, context.round_num)
+            if cache_key in self.sr_cache:
+                return self.sr_cache[cache_key]
+        
+        # Roll check
+        roll = rng.d20()
+        caster_level = caster.get_caster_level(spell.school)
+        total = roll + caster_level
+        
+        result = SRResult(
+            roll=roll,
+            caster_level=caster_level,
+            total=total,
+            target_sr=target.sr,
+            success=(total >= target.sr),
+            bypassed=(total >= target.sr)
+        )
+        
+        # Cache if ongoing
+        if context.is_ongoing_effect:
+            self.sr_cache[cache_key] = result
+        
+        return result
+    
+    def check_aoe_sr(
+        self,
+        caster: CreatureState,
+        targets: List[CreatureState],
+        spell: Spell,
+        rng: DeterministicRNG
+    ) -> Dict[str, SRResult]:
+        """One SR check per target in AoE (per RAW)"""
+        return {
+            target.id: self.check_sr(caster, target, spell, SpellContext(), rng)
+            for target in targets
+        }
+Critical Gap 9: Grapple State Machine Incomplete
+Problem: Grapple is notoriously complex, but current spec only lists high-level steps:
+
+What about grappling multiple opponents?
+What about being grappled by multiple opponents?
+What about grappling while you're already grappling someone else?
+Size modifiers, special abilities (Freedom of Movement), escape artist vs grapple check?
+Questions for You:
+
+Should we implement full 3.5e grapple RAW (very complex) or a simplified version?
+What's the priority? (Low priority = implement later; High priority = core feature)
+Should we have a "grapple complexity toggle" for different table preferences?
+Proposed Addition:
+
+python
+# grapple_state_machine.py
+class GrappleState(Enum):
+    NOT_GRAPPLING = "not_grappling"
+    INITIATING = "initiating"  # Touch attack made, opposed check pending
+    GRAPPLING = "grappling"  # Successfully grappling
+    GRAPPLED = "grappled"  # Being grappled
+    PINNING = "pinning"  # Upgraded grapple
+    PINNED = "pinned"  # Being pinned
+
+@dataclass
+class GrappleRelationship:
+    """Represents a grapple between two creatures"""
+    grappler_id: str
+    target_id: str
+    state: GrappleState
+    initiated_round: int
+    grapple_modifier_grappler: int  # Cached for opposed checks
+    grapple_modifier_target: int
+
+class GrappleEngine:
+    def __init__(self):
+        self.active_grapples: Dict[str, List[GrappleRelationship]] = {}
+    
+    def initiate_grapple(
+        self,
+        state: CombatState,
+        grappler_id: str,
+        target_id: str,
+        rng: DeterministicRNG
+    ) -> GrappleResult:
+        """
+        Step-by-step grapple initiation:
+        1. Provokes AoO from target
+        2. Make melee touch attack
+        3. If hit, make opposed grapple check
+        4. If success, apply grappled condition to both
+        """
+        
+        grappler = state.get_creature(grappler_id)
+        target = state.get_creature(target_id)
+        
+        # Step 1: AoO
+        if target.can_take_aoo():
+            aoo_result = self.resolve_aoo(state, target, grappler, rng)
+            if aoo_result.killed_grappler:
+                return GrappleResult(success=False, reason="killed by AoO")
+        
+        # Step 2: Touch attack
+        touch_result = self.resolve_attack(
+            state, grappler, target, attack_type="touch", rng=rng
+        )
+        if not touch_result.hit:
+            return GrappleResult(success=False, reason="touch attack missed")
+        
+        # Step 3: Opposed grapple check
+        grappler_mod = self.compute_grapple_modifier(grappler)
+        target_mod = self.compute_grapple_modifier(target)
+        
+        grappler_roll = rng.d20() + grappler_mod
+        target_roll = rng.d20() + target_mod
+        
+        if grappler_roll > target_roll:
+            # Success: apply grappled to both
+            self.apply_grappled_condition(state, grappler_id, target_id)
+            relationship = GrappleRelationship(
+                grappler_id=grappler_id,
+                target_id=target_id,
+                state=GrappleState.GRAPPLING,
+                initiated_round=state.round_num,
+                grapple_modifier_grappler=grappler_mod,
+                grapple_modifier_target=target_mod
+            )
+            self.active_grapples.setdefault(grappler_id, []).append(relationship)
+            return GrappleResult(success=True, relationship=relationship)
+        else:
+            return GrappleResult(success=False, reason="lost opposed check")
+    
+    def compute_grapple_modifier(self, creature: CreatureState) -> int:
+        """Grapple modifier = BAB + Str + size modifier + special"""
+        return (
+            creature.bab +
+            creature.get_ability_modifier("str") +
+            self.SIZE_MODIFIERS[creature.size] +
+            sum(creature.get_bonuses("grapple"))
+        )
+    
+    SIZE_MODIFIERS = {
+        "Fine": -16, "Diminutive": -12, "Tiny": -8, "Small": -4,
+        "Medium": 0, "Large": 4, "Huge": 8, "Gargantuan": 12, "Colossal": 16
+    }
+Confidence: 0.83 (high complexity, moderate coverage)
+
+D) Phase 3.7: DM Policy Engine — Decision Quality Concerns
+Critical Gap 10: Utility Function Calibration
+Problem: Policy specifies U = w₁·Danger + w₂·Agency + w₃·Pace + w₄·Rules + w₅·Fiction but:
+
+How are weights determined initially? (Manual tuning? Learning from human DM logs?)
+How do weights change by encounter type? (Tutorial vs boss vs chase)
+How do we validate that weights produce "good DM" behavior?
+Questions for You:
+
+Should weights be:
+Hardcoded per encounter type?
+Learned from human DM gameplay logs?
+User-configurable (slider for "difficulty" adjusts danger weight)?
+What's the testing/validation protocol for DM behavior?
+Should there be a "DM personality" system (weights as presets: "Merciful DM", "Brutal DM", "Tactical DM")?
+Proposed Addition:
+
+python
+# dm_personality.py
+@dataclass
+class DMPersonality:
+    """Weight presets for different DM styles"""
+    name: str
+    description: str
+    weights: Dict[str, float]
+    
+    # Behavior modifiers
+    telegraphing_strength: float  # 0.0-1.0, how obvious threats are
+    forgiveness_factor: float  # Ease-off threshold multiplier
+    tactical_aggression: float  # Likelihood of optimal plays
+
+PERSONALITIES = {
+    "merciful": DMPersonality(
+        name="Merciful DM",
+        description="Prioritizes fun over challenge, lots of warning",
+        weights={
+            "danger": 0.15,
+            "agency": 0.35,
+            "pace": 0.25,
+            "rules": 0.15,
+            "fiction": 0.10
+        },
+        telegraphing_strength=0.9,
+        forgiveness_factor=1.5,  # Eases off earlier
+        tactical_aggression=0.4
+    ),
+    "balanced": DMPersonality(
+        name="Balanced DM",
+        description="Standard difficulty, fair challenge",
+        weights={
+            "danger": 0.25,
+            "agency": 0.25,
+            "pace": 0.20,
+            "rules": 0.20,
+            "fiction": 0.10
+        },
+        telegraphing_strength=0.7,
+        forgiveness_factor=1.0,
+        tactical_aggression=0.6
+    ),
+    "brutal": DMPersonality(
+        name="Brutal DM",
+        description="High lethality, punishes mistakes",
+        weights={
+            "danger": 0.40,
+            "agency": 0.15,
+            "pace": 0.15,
+            "rules": 0.20,
+            "fiction": 0.10
+        },
+        telegraphing_strength=0.4,
+        forgiveness_factor=0.6,  # Rarely eases off
+        tactical_aggression=0.9
+    ),
+    "narrative": DMPersonality(
+        name="Narrative DM",
+        description="Story-focused, dramatic moments over tactics",
+        weights={
+            "danger": 0.15,
+            "agency": 0.20,
+            "pace": 0.30,
+            "rules": 0.10,
+            "fiction": 0.25
+        },
+        telegraphing_strength=0.8,
+        forgiveness_factor=1.3,
+        tactical_aggression=0.3
+    )
+}
+
+class DMPolicyEngine:
+    def __init__(self, personality: str = "balanced"):
+        self.personality = PERSONALITIES[personality]
+    
+    def score_action(self, action, features, context) -> float:
+        """Apply personality-weighted utility function"""
+        w = self.personality.weights
+        
+        danger_score = self.compute_danger(action, features)
+        agency_score = self.compute_agency(action, features)
+        pace_score = self.compute_pace(action, features, context)
+        rules_score = self.compute_rules_integrity(action)
+        fiction_score = self.compute_fiction_fit(action, context)
+        
+        return (
+            w["danger"] * danger_score +
+            w["agency"] * agency_score +
+            w["pace"] * pace_score +
+            w["rules"] * rules_score +
+            w["fiction"] * fiction_score
+        )
+Critical Gap 11: Belief Update Over-Learning Risk
+Problem: Conservative update rules specified but no concrete algorithm:
+
+What's the mathematical form of the update? (Bayesian? Moving average? Kalman filter?)
+How to prevent overfitting to lucky/unlucky streaks?
+How to decay old beliefs over time?
+Questions for You:
+
+Should beliefs be:
+Hard categories ("low AC" vs "high AC") updated with thresholds?
+Continuous distributions (Gaussian over AC range) updated with Bayes?
+Simple counters (hits/misses tracked, infer AC band)?
+How quickly should beliefs converge? (After 3 attacks? 10 attacks?)
+Should beliefs persist across encounters or reset each combat?
+Proposed Addition:
+
+python
+# belief_engine.py
+class BeliefEngine:
+    """Conservative Bayesian belief updating"""
+    
+    def __init__(self):
+        self.beliefs = {}  # creature_id -> {parameter -> Distribution}
+    
+    def initialize_beliefs(self, creature_id: str, creature_type: str):
+        """Initialize priors based on creature type"""
+        # Example: AC priors for "goblin" might be Normal(15, 3)
+        priors = CREATURE_TYPE_PRIORS.get(creature_type, DEFAULT_PRIORS)
+        self.beliefs[creature_id] = {
+            "ac": GaussianBelief(mean=priors["ac_mean"], std=priors["ac_std"]),
+            "fort_save": GaussianBelief(mean=priors["fort_mean"], std=priors["fort_std"]),
+            "ref_save": GaussianBelief(mean=priors["ref_mean"], std=priors["ref_std"]),
+            "will_save": GaussianBelief(mean=priors["will_mean"], std=priors["will_std"]),
+            "fire_resistance": CategoricalBelief(["none", "5", "10", "20", "immune"]),
+        }
+    
+    def update_ac_belief(
+        self,
+        creature_id: str,
+        attack_bonus: int,
+        roll: int,
+        hit: bool
+    ):
+        """Update AC belief based on attack outcome (conservative Bayes)"""
+        belief = self.beliefs[creature_id]["ac"]
+        
+        # Likelihood: P(hit | AC) or P(miss | AC)
+        # For each possible AC, compute likelihood of observed outcome
+        likelihoods = []
+        for ac in range(5, 50):  # Reasonable AC range
+            prob_hit = max(0.05, min(0.95, (21 + attack_bonus - ac) / 20))
+            if hit:
+                likelihoods.append(prob_hit)
+            else:
+                likelihoods.append(1 - prob_hit)
+        
+        # Bayesian update (with conservatism factor)
+        posterior = belief.update(likelihoods, conservatism=0.7)
+        self.beliefs[creature_id]["ac"] = posterior
+        
+        # Decay old observations (prevent lock-in)
+        belief.decay(factor=0.95)
+    
+    def get_ac_estimate(self, creature_id: str) -> Tuple[float, float]:
+        """Return (mean_estimate, confidence_interval)"""
+        belief = self.beliefs[creature_id]["ac"]
+        return belief.mean, belief.std * 1.96  # 95% CI
+
+@dataclass
+class GaussianBelief:
+    mean: float
+    std: float
+    sample_count: int = 0
+    
+    def update(self, likelihoods: List[float], conservatism: float) -> "GaussianBelief":
+        """Conservative Bayesian update"""
+        # Apply conservatism: interpolate between prior and full update
+        posterior_mean = self.mean  # Simplified for illustration
+        posterior_std = self.std
+        
+        # Actual update math would go here (conjugate prior for Gaussian)
+        
+        return GaussianBelief(
+            mean=conservatism * self.mean + (1 - conservatism) * posterior_mean,
+            std=conservatism * self.std + (1 - conservatism) * posterior_std,
+            sample_count=self.sample_count + 1
+        )
+    
+    def decay(self, factor: float):
+        """Increase uncertainty over time"""
+        self.std *= (1 / factor)
+Critical Gap 12: Guardrail Triggering Conditions Vague
+Problem: Guardrails specified ("no repeated hard-locks", "telegraph lethal spikes") but triggering conditions unclear:
+
+What constitutes "repeated"? (2 rounds? 3 rounds?)
+How is "lethal spike" defined? (>50% HP damage? Instant-kill threat?)
+What's the intervention mechanism? (Block action entirely? Penalize score?)
+Questions for You:
+
+Should guardrails be:
+Hard blocks (action becomes illegal)?
+Soft penalties (action heavily penalized but still selectable)?
+Warnings (log violations but allow)?
+What level of micro-management is acceptable? (Check every action? Every turn? Every round?)
+Should players be able to toggle guardrails ("Hardcore mode: disable guardrails")?
+Proposed Addition:
+
+python
+# guardrails.py
+class CombatGuardrails:
+    """Explicit fairness and fun constraints"""
+    
+    def __init__(self, mode: str = "balanced"):
+        self.mode = mode
+        self.violation_log = []
+        
+        # Configurable thresholds
+        self.config = {
+            "max_consecutive_action_denial": 2,  # rounds
+            "max_early_pc_drops": 2,  # PCs down in first 3 rounds
+            "lethal_spike_threshold": 0.6,  # 60% of PC max HP
+            "min_counterplay_options": 1,  # must leave ≥1 response
+            "telegraph_window": 1,  # rounds before lethal action
+        }
+    
+    def check_action_denial_limit(
+        self,
+        state: CombatState,
+        pc_id: str,
+        rounds_denied: int
+    ) -> GuardrailResult:
+        """Prevent extended hard-locks"""
+        limit = self.config["max_consecutive_action_denial"]
+        
+        if rounds_denied >= limit:
+            return GuardrailResult(
+                violated=True,
+                violation_type="repeated_action_denial",
+                severity="high",
+                intervention="block_further_denial",
+                message=f"{pc_id} has been denied actions for {rounds_denied} rounds (limit: {limit})"
+            )
+        
+        return GuardrailResult(violated=False)
+    
+    def check_early_drop_risk(
+        self,
+        state: CombatState,
+        round_num: int
+    ) -> GuardrailResult:
+        """Prevent TPK cascades in early combat"""
+        if round_num > 3:
+            return GuardrailResult(violated=False)  # Past early-game
+        
+        pcs_down = sum(1 for pc in state.pcs if pc.hp_current <= 0)
+        limit = self.config["max_early_pc_drops"]
+        
+        if pcs_down >= limit:
+            return GuardrailResult(
+                violated=True,
+                violation_type="early_cascade_risk",
+                severity="critical",
+                intervention="ease_off",
+                message=f"{pcs_down} PCs down in round {round_num} (limit: {limit})"
+            )
+        
+        return GuardrailResult(violated=False)
+    
+    def check_lethal_spike_telegraphing(
+        self,
+        state: CombatState,
+        monster_id: str,
+        intended_action: MonsterAction,
+        target_pc_id: str
+    ) -> GuardrailResult:
+        """Ensure lethal actions are telegraphed"""
+        expected_damage = self.estimate_damage(intended_action)
+        target_pc = state.get_creature(target_pc_id)
+        
+        is_lethal = (expected_damage / target_pc.hp_max) > self.config["lethal_spike_threshold"]
+        
+        if is_lethal:
+            telegraph_history = self.get_telegraph_history(state, monster_id, intended_action)
+            
+            if len(telegraph_history) < self.config["telegraph_window"]:
+                return GuardrailResult(
+                    violated=True,
+                    violation_type="untelegraphed_lethal",
+                    severity="high",
+                    intervention="require_telegraph",
+                    message=f"Lethal action ({expected_damage} dmg, {target_pc.hp_max} max HP) not telegraphed"
+                )
+        
+        return GuardrailResult(violated=False)
+    
+    def apply_intervention(
+        self,
+        violation: GuardrailResult,
+        candidates: List[MonsterAction]
+    ) -> List[MonsterAction]:
+        """Filter/modify actions based on violation"""
+        if violation.intervention == "block_further_denial":
+            # Remove all action-denial options
+            return [a for a in candidates if not a.denies_actions]
+        
+        elif violation.intervention == "ease_off":
+            # Penalize aggressive options, favor defensive/retreat
+            for action in candidates:
+                if action.category in ["damage", "control"]:
+                    action.score *= 0.3
+                elif action.category in ["defensive", "retreat"]:
+                    action.score *= 1.5
+            return candidates
+        
+        elif violation.intervention == "require_telegraph":
+            # Force narrative telegraph before allowing action
+            return [self.wrap_with_telegraph(candidates[0])]
+        
+        return candidates
+Confidence: 0.81 (moderate complexity, high user-facing impact)
+
+E) Phase 4-6: Voice Pipeline — Latency & Quality Concerns
+Critical Gap 13: Voice Activity Detection (VAD) Not Specified
+Problem: ASR pipeline starts with "audio → text" but missing:
+
+How to detect when player starts/stops speaking? (VAD algorithm?)
+How to handle background noise, multiple speakers, interruptions?
+What's the latency budget for VAD? (If VAD is slow, whole pipeline suffers)
+Questions for You:
+
+Should VAD be:
+Simple energy-based (fast but error-prone)?
+ML-based (Silero VAD, more accurate but adds latency)?
+Push-to-talk button (zero false positives, requires UI)?
+How to handle multi-player scenarios? (Multiple microphones? Speaker diarization?)
+What's acceptable false positive rate for VAD? (10%? 1%?)
+Proposed Addition:
+
+python
+# vad.py
+class VoiceActivityDetector:
+    """Hybrid VAD with fallback strategies"""
+    
+    def __init__(self, method: str = "hybrid"):
+        if method == "energy":
+            self.detector = EnergyVAD(threshold_db=-30)
+        elif method == "ml":
+            self.detector = SileroVAD()
+        elif method == "hybrid":
+            self.detector = HybridVAD()
+        else:
+            raise ValueError(f"Unknown VAD method: {method}")
+    
+    def detect_speech(self, audio_stream: AudioStream) -> List[AudioSegment]:
+        """Segment audio into speech chunks"""
+        segments = []
+        buffer = []
+        
+        for frame in audio_stream:
+            is_speech, confidence = self.detector.is_speech(frame)
+            
+            if is_speech:
+                buffer.append(frame)
+            elif buffer:
+                # Speech ended
+                segment = AudioSegment(
+                    audio=np.concatenate(buffer),
+                    start_time=buffer[0].timestamp,
+                    end_time=buffer[-1].timestamp,
+                    confidence=np.mean([self.detector.is_speech(f)[1] for f in buffer])
+                )
+                segments.append(segment)
+                buffer = []
+        
+        return segments
+
+class HybridVAD:
+    """Combine fast energy-based with ML fallback"""
+    
+    def __init__(self):
+        self.energy_vad = EnergyVAD(threshold_db=-30)
+        self.ml_vad = SileroVAD()
+        self.ml_check_interval = 10  # Frames between ML checks
+        self.frame_count = 0
+    
+    def is_speech(self, frame: AudioFrame) -> Tuple[bool, float]:
+        """Fast path: energy check; slow path: ML verification"""
+        energy_result, energy_conf = self.energy_vad.is_speech(frame)
+        
+        # High-confidence energy detection → trust it
+        if energy_conf > 0.9:
+            return energy_result, energy_conf
+        
+        # Low confidence → use ML every Nth frame
+        self.frame_count += 1
+        if self.frame_count % self.ml_check_interval == 0:
+            ml_result, ml_conf = self.ml_vad.is_speech(frame)
+            return ml_result, ml_conf
+        
+        # Otherwise trust energy (fast path)
+        return energy_result, energy_conf
+Critical Gap 14: Intent Parsing Failure Handling
+Problem: "7B parses intent" but no failure protocol:
+
+What if 7B output is malformed JSON?
+What if parsed intent doesn't match any schema?
+What if intent is ambiguous ("I attack him" — which enemy?)?
+Questions for You:
+
+Should the system:
+Ask clarifying questions? ("Which goblin do you want to attack?")
+Make best guess and confirm? ("Attacking Goblin 1, correct?")
+Reject and ask for rephrasing?
+How many clarification rounds before giving up?
+Should there be a fallback "command mode" (structured voice commands like "Attack target 1")?
+Proposed Addition:
+
+python
+# intent_parser.py
+class IntentParser:
+    """LLM-based intent parsing with robust error handling"""
+    
+    def __init__(self):
+        self.llm_7b = load_model("mistral-7b-instruct")
+        self.schema_validator = IntentSchemaValidator()
+        self.ambiguity_resolver = AmbiguityResolver()
+    
+    def parse(
+        self,
+        text: str,
+        context: GameContext,
+        max_retries: int = 2
+    ) -> ParseResult:
+        """Parse with fallback strategies"""
+        
+        for attempt in range(max_retries):
+            # Attempt LLM parse
+            raw_output = self.llm_7b.generate(
+                self.build_parse_prompt(text, context),
+                max_tokens=200,
+                temperature=0.1  # Low temp for structured output
+            )
+            
+            # Try to extract JSON
+            try:
+                intent_json = self.extract_json(raw_output)
+                intent = Intent.parse_obj(intent_json)
+                
+                # Validate against schema
+                validation_result = self.schema_validator.validate(intent, context)
+                
+                if validation_result.is_valid:
+                    return ParseResult(success=True, intent=intent)
+                else:
+                    # Schema invalid → check if resolvable
+                    if validation_result.is_ambiguous:
+                        clarification = self.ambiguity_resolver.resolve(
+                            intent, validation_result, context
+                        )
+                        return ParseResult(
+                            success=False,
+                            needs_clarification=True,
+                            clarification_question=clarification
+                        )
+            
+            except (json.JSONDecodeError, pydantic.ValidationError) as e:
+                logger.warning(f"Parse attempt {attempt+1} failed: {e}")
+                if attempt == max_retries - 1:
+                    # Final failure → ask for rephrasing
+                    return ParseResult(
+                        success=False,
+                        error="parse_failed",
+                        fallback_question="I didn't understand that. Could you rephrase?"
+                    )
+        
+        return ParseResult(success=False, error="max_retries_exceeded")
+    
+    def extract_json(self, llm_output: str) -> dict:
+        """Extract JSON from LLM output (handles common formatting issues)"""
+        # Try direct parse
+        try:
+            return json.loads(llm_output)
+        except json.JSONDecodeError:
+            pass
+        
+        # Try stripping markdown code fences
+        if "```json" in llm_output:
+            json_str = llm_output.split("```json")[1].split("```")[0].strip()
+            return json.loads(json_str)
+        
+        # Try finding JSON object
+        import re
+        match = re.search(r'\{.*\}', llm_output, re.DOTALL)
+        if match:
+            return json.loads(match.group())
+        
+        raise json.JSONDecodeError("No JSON found", llm_output, 0)
+
+class AmbiguityResolver:
+    """Generate clarifying questions for ambiguous intents"""
+    
+    def resolve(
+        self,
+        intent: Intent,
+        validation_result: ValidationResult,
+        context: GameContext
+    ) -> str:
+        """Generate natural language clarification question"""
+        
+        if validation_result.ambiguity_type == "target_unclear":
+            # Multiple possible targets
+            targets = context.get_possible_targets(intent.action_type)
+            if len(targets) <= 3:
+                target_names = [t.name for t in targets]
+                return f"Which one: {', '.join(target_names)}?"
+            else:
+                return "Which target? (Say their name or number)"
+        
+        elif validation_result.ambiguity_type == "spell_slot_unclear":
+            return f"Cast {intent.spell_name} at what level?"
+        
+        elif validation_result.ambiguity_type == "movement_path_unclear":
+            return "Where do you want to move? (Describe location or give direction)"
+        
+        return "Could you clarify what you want to do?"
+Critical Gap 15: TTS Voice Consistency Across Sessions
+Problem: "Lock voice profiles" mentioned but not how:
+
+How are voice profiles stored? (Model weights? Speaker embeddings?)
+What if TTS model updates and old profiles become incompatible?
+How to ensure same NPC sounds identical across 6-month campaign?
+Questions for You:
+
+Should voice profiles be:
+Stored as speaker embeddings (small, portable, but TTS-version-dependent)?
+Stored as fine-tuned model checkpoints (large, but most stable)?
+Pre-generated and cached (zero runtime cost, but inflexible)?
+What's the migration strategy if TTS engine changes?
+Should players be able to edit NPC voices ("make the dwarf sound deeper")?
+Proposed Addition:
+
+python
+# voice_profile_manager.py
+class VoiceProfileManager:
+    """Versioned voice profile storage with migration"""
+    
+    PROFILE_VERSION = "1.0"
+    
+    def __init__(self, profile_dir: Path):
+        self.profile_dir = profile_dir
+        self.profiles = self.load_all_profiles()
+        self.tts_engine_version = self.get_tts_version()
+    
+    def create_profile(
+        self,
+        npc_id: str,
+        reference_audio: Path,
+        metadata: dict
+    ) -> VoiceProfile:
+        """Create voice profile from reference audio"""
+        
+        # Extract speaker embedding
+        embedding = self.tts_engine.extract_speaker_embedding(reference_audio)
+        
+        # Store profile
+        profile = VoiceProfile(
+            npc_id=npc_id,
+            version=self.PROFILE_VERSION,
+            tts_engine_version=self.tts_engine_version,
+            speaker_embedding=embedding.tolist(),  # JSON-serializable
+            reference_audio_hash=hash_file(reference_audio),
+            metadata=metadata,
+            created_at=datetime.now().isoformat()
+        )
+        
+        self.save_profile(profile)
+        self.profiles[npc_id] = profile
+        
+        return profile
+    
+    def load_profile(self, npc_id: str) -> VoiceProfile:
+        """Load profile with automatic migration if needed"""
+        profile = self.profiles.get(npc_id)
+        
+        if not profile:
+            raise ValueError(f"No profile found for {npc_id}")
+        
+        # Check version compatibility
+        if profile.tts_engine_version != self.tts_engine_version:
+            logger.warning(f"Profile {npc_id} was created with different TTS version")
+            profile = self.migrate_profile(profile)
+        
+        return profile
+    
+    def migrate_profile(self, old_profile: VoiceProfile) -> VoiceProfile:
+        """Migrate profile to new TTS engine version"""
+        
+        # Try to re-generate embedding from reference audio
+        ref_audio_path = self.profile_dir / f"{old_profile.npc_id}_reference.wav"
+        
+        if ref_audio_path.exists():
+            logger.info(f"Regenerating profile for {old_profile.npc_id}")
+            new_embedding = self.tts_engine.extract_speaker_embedding(ref_audio_path)
+            old_profile.speaker_embedding = new_embedding.tolist()
+            old_profile.tts_engine_version = self.tts_engine_version
+            self.save_profile(old_profile)
+        else:
+            logger.warning(f"Cannot migrate {old_profile.npc_id}, reference audio missing")
+            # Use old embedding, may sound different
+        
+        return old_profile
+    
+    def synthesize_with_profile(
+        self,
+        npc_id: str,
+        text: str,
+        emotion: str = "neutral"
+    ) -> np.ndarray:
+        """Synthesize audio using locked profile"""
+        profile = self.load_profile(npc_id)
+        
+        # Apply profile to TTS
+        audio = self.tts_engine.synthesize(
+            text=text,
+            speaker_embedding=np.array(profile.speaker_embedding),
+            emotion=emotion
+        )
+        
+        return audio
+    
+    def save_profile(self, profile: VoiceProfile):
+        """Save profile to disk"""
+        profile_path = self.profile_dir / f"{profile.npc_id}.json"
+        with open(profile_path, 'w') as f:
+            json.dump(profile.to_dict(), f, indent=2)
+Confidence: 0.85 (moderate complexity, high user experience impact)
+
+F) Phase 7-8: Memory & Orchestration — Scalability Concerns
+Critical Gap 16: Vector DB Query Performance at Scale
+Problem: "ChromaDB for memory retrieval" but no performance characterization:
+
+What's query latency for 1,000 NPC memories? 10,000? 100,000?
+How does performance degrade with campaign length?
+What's the indexing strategy?
+Questions for You:
+
+What's the target campaign length? (10 sessions? 100 sessions? 500+ hours?)
+What's acceptable memory retrieval latency? (< 50ms? < 100ms?)
+Should old memories be archived/compressed/forgotten?
+Proposed Addition:
+
+python
+# memory_performance_spec.py
+class MemoryManager:
+    """Scalable memory with tiered retrieval"""
+    
+    def __init__(self):
+        self.hot_memory = ChromaDB(collection="recent_memories")  # Last 100 memories
+        self.cold_memory = ChromaDB(collection="archived_memories")  # Older memories
+        self.importance_threshold = 0.7  # Memories below this can be forgotten
+    
+    def remember(self, memory: Memory):
+        """Store memory with automatic tiering"""
+        
+        # Always store in hot memory
+        self.hot_memory.add(memory)
+        
+        # If hot memory exceeds size limit, archive
+        if self.hot_memory.count() > 1000:
+            self.archive_old_memories()
+    
+    def recall(
+        self,
+        query: str,
+        npc_id: str,
+        recency_weight: float = 0.5,
+        top_k: int = 5
+    ) -> List[Memory]:
+        """Hybrid retrieval: recent + relevant"""
+        
+        # Query hot memory (fast)
+        recent_results = self.hot_memory.query(
+            query_texts=[query],
+            where={"npc_id": npc_id},
+            n_results=top_k
+        )
+        
+        # If insufficient results, query cold memory
+        if len(recent_results) < top_k:
+            cold_results = self.cold_memory.query(
+                query_texts=[query],
+                where={"npc_id": npc_id},
+                n_results=top_k - len(recent_results)
+            )
+            results = recent_results + cold_results
+        else:
+            results = recent_results
+        
+        # Re-rank by recency + relevance
+        scored_results = [
+            (
+                m,
+                recency_weight * m.recency_score() +
+                (1 - recency_weight) * m.relevance_score
+            )
+            for m in results
+        ]
+        scored_results.sort(key=lambda x: x[1], reverse=True)
+        
+        return [m for m, score in scored_results[:top_k]]
+    
+    def archive_old_memories(self):
+        """Move old, low-importance memories to cold storage"""
+        
+        all_memories = self.hot_memory.get_all()
+        
+        # Sort by (recency, importance)
+        sorted_memories = sorted(
+            all_memories,
+            key=lambda m: (m.timestamp, m.importance)
+        )
+        
+        # Archive bottom 20%
+        to_archive = sorted_memories[:len(sorted_memories) // 5]
+        
+        for memory in to_archive:
+            if memory.importance < self.importance_threshold:
+                self.cold_memory.add(memory)
+                self.hot_memory.delete(memory.id)
+        
+        logger.info(f"Archived {len(to_archive)} memories to cold storage")
+Critical Gap 17: Session Save/Load State Explosion
+Problem: "Full session save/load" but no size management:
+
+A 100-session campaign could have 10GB+ of state (events + memories + world state)
+Loading entire state on startup could take minutes
+Incremental saves could corrupt if interrupted
+Questions for You:
+
+Should saves be:
+Full snapshots (simple, but large)?
+Incremental deltas (complex, but efficient)?
+Hybrid (checkpoints + deltas)?
+What's acceptable save time? (< 1s? < 10s?)
+Should there be cloud backup support?
+Proposed Addition:
+
+python
+# session_manager.py
+class SessionManager:
+    """Efficient save/load with checkpointing"""
+    
+    CHECKPOINT_INTERVAL = 10  # Create checkpoint every 10 rounds
+    
+    def __init__(self, campaign_dir: Path):
+        self.campaign_dir = campaign_dir
+        self.checkpoints = self.load_checkpoint_index()
+        self.current_checkpoint = None
+    
+    def save_session(self, state: WorldState, force_checkpoint: bool = False):
+        """Incremental save with periodic checkpoints"""
+        
+        # Always append events to log
+        for event in state.pending_events:
+            self.event_log.append(event)
+        
+        # Checkpoint if needed
+        if force_checkpoint or state.round_num % self.CHECKPOINT_INTERVAL == 0:
+            self.create_checkpoint(state)
+        else:
+            # Just save delta
+            self.save_delta(state)
+    
+    def create_checkpoint(self, state: WorldState):
+        """Full state snapshot"""
+        checkpoint_id = f"checkpoint_{state.session_id}_{state.round_num}"
+        checkpoint_path = self.campaign_dir / "checkpoints" / f"{checkpoint_id}.msgpack"
+        
+        # Serialize entire state
+        serialized = msgpack.packb(state.to_dict())
+        compressed = zstandard.compress(serialized, level=10)
+        
+        with open(checkpoint_path, 'wb') as f:
+            f.write(compressed)
+        
+        self.checkpoints[checkpoint_id] = {
+            "path": checkpoint_path,
+            "round_num": state.round_num,
+            "timestamp": time.time(),
+            "size_bytes": len(compressed)
+        }
+        
+        self.current_checkpoint = checkpoint_id
+        logger.info(f"Created checkpoint {checkpoint_id} ({len(compressed) / 1024:.1f} KB)")
+    
+    def load_session(self, session_id: str) -> WorldState:
+        """Load with fast-forward from nearest checkpoint"""
+        
+        # Find most recent checkpoint
+        checkpoint = self.find_latest_checkpoint(session_id)
+        
+        if checkpoint:
+            logger.info(f"Loading from checkpoint {checkpoint['checkpoint_id']}")
+            state = self.load_checkpoint(checkpoint['path'])
+            
+            # Fast-forward from checkpoint using event log
+            events_after = self.event_log.get_events_after(checkpoint['round_num'])
+            for event in events_after:
+                state = apply_event(state, event)
+        else:
+            # No checkpoint, replay from beginning
+            logger.info("No checkpoint found, replaying from start")
+            state = self.replay_full_log(session_id)
+        
+        return state
+    
+    def save_delta(self, state: WorldState):
+        """Save only changed entities (lightweight)"""
+        delta_path = self.campaign_dir / "deltas" / f"delta_{state.round_num}.msgpack"
+        
+        delta = {
+            "round_num": state.round_num,
+            "changed_creatures": [
+                c.to_dict() for c in state.creatures.values() if c.has_changed
+            ],
+            "new_effects": [e.to_dict() for e in state.new_effects],
+            "expired_effects": [e.id for e in state.expired_effects]
+        }
+        
+        with open(delta_path, 'wb') as f:
+            f.write(msgpack.packb(delta))
+Critical Gap 18: NPC State Consistency Across Conversations
+Problem: "NPCs remember past interactions" but what about:
+
+NPC personality drift over time (embeddings shift, LLM outputs vary)
+Contradictory statements across sessions ("I hate adventurers" → "I love adventurers")
+Forgotten canonical facts
+Questions for You:
+
+Should NPCs have:
+Immutable personality core (can never change certain traits)?
+Gradual evolution (can change opinions based on events)?
+Explicit character arcs (quest-locked personality changes)?
+How to detect/prevent contradictions?
+Should there be a "fact-checking" layer before NPC dialogue is finalized?
+Proposed Addition:
+
+python
+# npc_consistency.py
+class NPCConsistencyEngine:
+    """Prevent personality drift and contradictions"""
+    
+    def __init__(self):
+        self.canonical_facts = {}  # npc_id -> {fact_id -> Fact}
+        self.personality_cores = {}  # npc_id -> PersonalityCore
+    
+    def establish_canonical_fact(
+        self,
+        npc_id: str,
+        fact: CanonicalFact
+    ):
+        """Lock in immutable truth about NPC"""
+        if npc_id not in self.canonical_facts:
+            self.canonical_facts[npc_id] = {}
+        
+        self.canonical_facts[npc_id][fact.id] = fact
+        logger.info(f"Established canonical fact for {npc_id}: {fact.text}")
+    
+    def validate_dialogue(
+        self,
+        npc_id: str,
+        proposed_dialogue: str,
+        context: DialogueContext
+    ) -> ValidationResult:
+        """Check for contradictions before allowing NPC to speak"""
+        
+        # Check against canonical facts
+        facts = self.canonical_facts.get(npc_id, {})
+        for fact_id, fact in facts.items():
+            if fact.is_contradicted_by(proposed_dialogue):
+                return ValidationResult(
+                    valid=False,
+                    reason=f"Contradicts established fact: {fact.text}",
+                    suggested_revision=fact.correct_dialogue(proposed_dialogue)
+                )
+        
+        # Check against personality core
+        core = self.personality_cores.get(npc_id)
+        if core and not core.is_consistent_with(proposed_dialogue):
+            return ValidationResult(
+                valid=False,
+                reason=f"Out of character for {npc_id}",
+                suggested_revision=core.adjust_to_personality(proposed_dialogue)
+            )
+        
+        # Check against recent memory (avoid repetition)
+        recent_dialogue = context.get_recent_dialogue(npc_id, limit=10)
+        similarity = self.compute_similarity(proposed_dialogue, recent_dialogue)
+        if similarity > 0.85:
+            return ValidationResult(
+                valid=False,
+                reason="Too similar to recent dialogue",
+                suggested_revision=self.rephrase_for_variety(proposed_dialogue)
+            )
+        
+        return ValidationResult(valid=True)
+    
+    def detect_drift(
+        self,
+        npc_id: str,
+        window_sessions: int = 10
+    ) -> DriftReport:
+        """Analyze personality changes over time"""
+        
+        past_dialogues = self.get_dialogue_history(npc_id, window_sessions)
+        embeddings = [self.embed_dialogue(d) for d in past_dialogues]
+        
+        # Compute variance over time
+        drift_score = np.std([
+            cosine_similarity(embeddings[i], embeddings[i+1])
+            for i in range(len(embeddings) - 1)
+        ])
+        
+        if drift_score > 0.3:  # Threshold
+            return DriftReport(
+                drifted=True,
+                severity=drift_score,
+                recommendation="Consider re-establishing personality core"
+            )
+        
+        return DriftReport(drifted=False)
+
+@dataclass
+class CanonicalFact:
+    """Immutable truth about an NPC"""
+    id: str
+    npc_id: str
+    text: str  # "Thrain hates goblins"
+    established_session: int
+    contradictions: List[str]  # Phrases that would contradict this
+    
+    def is_contradicted_by(self, dialogue: str) -> bool:
+        """Check if proposed dialogue contradicts fact"""
+        # Simple keyword check (could be enhanced with NLI model)
+        for contradiction in self.contradictions:
+            if contradiction.lower() in dialogue.lower():
+                return True
+        return False
+
+@dataclass
+class PersonalityCore:
+    """Immutable personality traits"""
+    npc_id: str
+    traits: Dict[str, float]  # {"friendliness": 0.3, "honesty": 0.8, ...}
+    speech_patterns: List[str]  # ["uses lots of metaphors", "speaks slowly"]
+    forbidden_actions: List[str]  # ["would never betray allies"]
+    
+    def is_consistent_with(self, dialogue: str) -> bool:
+        """Check if dialogue matches personality"""
+        # Could use LLM to score consistency
+        # For now, simple heuristic
+        return True
+Confidence: 0.79 (high complexity, moderate impact)
+
+G) Phase 10: Testing & Validation — Coverage Gaps
+Critical Gap 19: Golden Transcript Provenance
+Problem: "Golden transcripts for replay testing" but:
+
+Where do golden transcripts come from? (Human DM sessions? AI DM sessions?)
+How are they vetted for correctness?
+What if multiple valid interpretations exist (DM judgment calls)?
+Questions for You:
+
+Should golden transcripts be:
+Expert DM sessions transcribed (gold standard but expensive)?
+Community-contributed (diverse but variable quality)?
+AI-generated then manually verified (scalable but needs validation)?
+How to handle edge cases where RAW is ambiguous?
+Should there be "canonical rulings" for disputed cases?
+Proposed Addition:
+
+python
+# golden_transcript_spec.py
+@dataclass
+class GoldenTranscript:
+    """Reference scenario for regression testing"""
+    id: str
+    name: str
+    description: str
+    source: str  # "expert_dm" | "community" | "generated"
+    verification_status: str  # "verified" | "disputed" | "unverified"
+    rng_seed: int
+    initial_state: dict  # Serialized WorldState
+    actions: List[dict]  # Player intents
+    expected_outcomes: List[dict]  # Expected engine outcomes
+    
+    # Metadata
+    rule_atoms_tested: List[str]
+    edge_cases_covered: List[str]
+    known_ambiguities: List[str]
+    canonical_rulings: Dict[str, str]  # For disputed cases
+    
+    def verify(self, actual_outcome: dict, step: int) -> VerificationResult:
+        """Compare actual vs expected outcome"""
+        expected = self.expected_outcomes[step]
+        
+        # Exact match for deterministic parts
+        deterministic_match = (
+            actual_outcome["hp_changes"] == expected["hp_changes"] and
+            actual_outcome["conditions_applied"] == expected["conditions_applied"]
+        )
+        
+        # Fuzzy match for narrative (allowed variance)
+        narrative_similarity = compute_similarity(
+            actual_outcome["narrative"],
+            expected["narrative"]
+        )
+        
+        if not deterministic_match:
+            return VerificationResult(
+                passed=False,
+                failure_type="deterministic_mismatch",
+                details=diff(actual_outcome, expected)
+            )
+        
+        if narrative_similarity < 0.7:
+            return VerificationResult(
+                passed=False,
+                failure_type="narrative_divergence",
+                details=f"Similarity: {narrative_similarity:.2f}"
+            )
+        
+        return VerificationResult(passed=True)
+
+class GoldenTranscriptManager:
+    """Curated test scenario library"""
+    
+    def __init__(self):
+        self.transcripts = self.load_all_transcripts()
+        self.by_rule_atom = self.index_by_rule_atoms()
+    
+    def create_transcript_from_session(
+        self,
+        session_id: str,
+        verification_method: str = "manual"
+    ) -> GoldenTranscript:
+        """Convert real session into golden transcript"""
+        
+        # Load session
+        session_data = self.load_session(session_id)
+        
+        # Extract key decision points
+        decision_points = self.extract_decision_points(session_data)
+        
+        # For each decision point, record:
+        # - State before
+        # - Player intent
+        # - Engine outcome
+        # - Narrative
+        
+        transcript = GoldenTranscript(
+            id=f"gt_{session_id}",
+            name=f"Session {session_id}",
+            source="real_session",
+            verification_status="unverified",
+            # ... populate fields
+        )
+        
+        if verification_method == "manual":
+            transcript = self.manual_verification_workflow(transcript)
+        elif verification_method == "auto":
+            transcript = self.auto_verify_deterministic_parts(transcript)
+        
+        return transcript
+    
+    def test_engine_against_transcript(
+        self,
+        transcript: GoldenTranscript
+    ) -> TranscriptTestResult:
+        """Run engine through transcript, compare outcomes"""
+        
+        # Initialize engine with transcript's RNG seed
+        rng = DeterministicRNG(transcript.rng_seed)
+        state = WorldState.from_dict(transcript.initial_state)
+        
+        failures = []
+        
+        for i, action in enumerate(transcript.actions):
+            # Run engine
+            actual_outcome = self.engine.resolve_action(state, action, rng)
+            
+            # Verify against expected
+            verification = transcript.verify(actual_outcome, i)
+            
+            if not verification.passed:
+                failures.append({
+                    "step": i,
+                    "action": action,
+                    "verification": verification
+                })
+        
+        return TranscriptTestResult(
+            transcript_id=transcript.id,
+            passed=(len(failures) == 0),
+            failures=failures
+        )
+Critical Gap 20: Property-Based Test Coverage
+Problem: "Property-based tests for stacking, rounding, etc." but no concrete properties specified:
+
+What properties should be tested?
+How to generate valid test cases (constraints are complex)?
+How to shrink failing cases to minimal reproducer?
+Questions for You:
+
+Which properties are highest priority to test?
+Should property tests be exhaustive (slow) or sampled (fast)?
+What's acceptable test runtime? (< 1 minute? < 10 minutes? < 1 hour?)
+Proposed Addition:
+
+python
+# property_tests.py
+from hypothesis import given, strategies as st
+
+class RulesEngineProperties:
+    """Property-based tests for rules engine invariants"""
+    
+    # ========================================
+    # PROPERTY 1: Modifier Stacking Commutativity
+    # ========================================
+    @given(
+        modifiers=st.lists(
+            st.builds(
+                Modifier,
+                value=st.integers(-10, 10),
+                type=st.sampled_from(["armor", "shield", "dodge", "enhancement"]),
+                source=st.text(min_size=1, max_size=10)
+            ),
+            min_size=2,
+            max_size=10
+        )
+    )
+    def test_stacking_is_commutative(self, modifiers):
+        """Order of applying modifiers should not matter"""
+        import random
+        
+        # Apply in original order
+        result1 = apply_stacking(modifiers)
+        
+        # Apply in random order
+        shuffled = modifiers.copy()
+        random.shuffle(shuffled)
+        result2 = apply_stacking(shuffled)
+        
+        assert result1 == result2, \
+            f"Stacking not commutative: {modifiers} → {result1} vs {shuffled} → {result2}"
+    
+    # ========================================
+    # PROPERTY 2: Attack Roll Determinism
+    # ========================================
+    @given(
+        attack_bonus=st.integers(-5, 40),
+        ac=st.integers(5, 50),
+        seed=st.integers(0, 2**31 - 1)
+    )
+    def test_attack_roll_determinism(self, attack_bonus, ac, seed):
+        """Same inputs + seed → same outcome"""
+        
+        rng1 = DeterministicRNG(seed)
+        result1 = resolve_attack(attack_bonus, ac, rng1)
+        
+        rng2 = DeterministicRNG(seed)
+        result2 = resolve_attack(attack_bonus, ac, rng2)
+        
+        assert result1 == result2, \
+            f"Non-deterministic attack: seed={seed}, AB={attack_bonus}, AC={ac}"
+    
+    # ========================================
+    # PROPERTY 3: Damage Cannot Be Negative
+    # ========================================
+    @given(
+        damage_dice=st.integers(1, 10),
+        die_size=st.sampled_from([4, 6, 8, 10, 12]),
+        bonus=st.integers(-20, 20),
+        dr=st.integers(0, 30),
+        seed=st.integers(0, 2**31 - 1)
+    )
+    def test_damage_never_negative(self, damage_dice, die_size, bonus, dr, seed):
+        """Damage after DR is always ≥ 0"""
+        
+        rng = DeterministicRNG(seed)
+        raw_damage = sum(rng.integers(1, die_size + 1) for _ in range(damage_dice))
+        final_damage = max(0, raw_damage + bonus - dr)
+        
+        assert final_damage >= 0, \
+            f"Negative damage: {damage_dice}d{die_size}+{bonus} - DR {dr} = {final_damage}"
+    
+    # ========================================
+    # PROPERTY 4: HP Monotonicity (HP only decreases or stays same during damage)
+    # ========================================
+    @given(
+        current_hp=st.integers(1, 100),
+        damage=st.integers(0, 100)
+    )
+    def test_hp_monotonic_decrease(self, current_hp, damage):
+        """Applying damage cannot increase HP"""
+        
+        new_hp = max(0, current_hp - damage)
+        
+        assert new_hp <= current_hp, \
+            f"HP increased after damage: {current_hp} - {damage} = {new_hp}"
+    
+    # ========================================
+    # PROPERTY 5: Crit Multiplier Correctness
+    # ========================================
+    @given(
+        base_damage=st.integers(1, 50),
+        multiplier=st.sampled_from([2, 3, 4]),
+        extra_dice=st.integers(0, 20)
+    )
+    def test_crit_multiplier(self, base_damage, multiplier, extra_dice):
+        """Crit multiplies base damage but not extra dice"""
+        
+        total_damage = base_damage * multiplier + extra_dice
+        
+        # Check: base portion multiplied correctly
+        assert total_damage >= base_damage * multiplier
+        assert total_damage == base_damage * multiplier + extra_dice
+    
+    # ========================================
+    # PROPERTY 6: Rounding Always Rounds Down
+    # ========================================
+    @given(
+        numerator=st.integers(-100, 100),
+        denominator=st.integers(1, 20)  # Avoid division by zero
+    )
+    def test_rounding_always_down(self, numerator, denominator):
+        """Fractional results round down (floor)"""
+        
+        result = numerator // denominator  # Python // is floor division
+        
+        assert result <= numerator / denominator, \
+            f"Rounding not down: {numerator}/{denominator} = {result}"
+    
+    # ========================================
+    # PROPERTY 7: Spell DC Consistency
+    # ========================================
+    @given(
+        spell_level=st.integers(0, 9),
+        ability_mod=st.integers(-5, 10),
+        misc_bonus=st.integers(0, 5)
+    )
+    def test_spell_dc_formula(self, spell_level, ability_mod, misc_bonus):
+        """DC = 10 + spell_level + ability_mod + misc"""
+        
+        expected_dc = 10 + spell_level + ability_mod + misc_bonus
+        computed_dc = compute_spell_dc(spell_level, ability_mod, misc_bonus)
+        
+        assert computed_dc == expected_dc, \
+            f"Spell DC formula error: expected {expected_dc}, got {computed_dc}"
+Critical Gap 21: Performance Regression Detection
+Problem: "Performance targets" stated but no monitoring/alerting:
+
+How to detect when latency regresses?
+What's the CI/CD integration for performance tests?
+How to track performance over time?
+Questions for You:
+
+Should performance tests be:
+Blocking (CI fails if too slow)?
+Non-blocking (warning only)?
+Tracked over time (dashboard)?
+What's tolerance for variability? (±10%? ±20%?)
+Should there be synthetic benchmarks or real-scenario profiling?
+Proposed Addition:
+
+python
+# performance_tests.py
+import pytest
+import time
+
+class PerformanceTests:
+    """Performance regression detection"""
+    
+    LATENCY_BUDGETS = {
+        "legality_check": 5,  # ms
+        "resolve_attack": 10,  # ms
+        "dm_policy_7b": 100,  # ms
+        "dm_policy_70b": 2000,  # ms
+        "intent_parse": 100,  # ms
+        "narrate": 120,  # ms
+        "tts_cached": 10,  # ms
+        "tts_synthesize": 500,  # ms
+        "memory_recall": 50,  # ms
+    }
+    
+    TOLERANCE = 1.2  # Allow 20% over budget
+    
+    @pytest.mark.performance
+    def test_legality_check_latency(self, benchmark):
+        """Legality check must be < 5ms"""
+        
+        # Setup
+        state = create_test_combat_state()
+        intent = create_test_intent()
+        
+        # Benchmark
+        result = benchmark(lambda: check_legality(state, intent))
+        
+        # Assert
+        budget_ms = self.LATENCY_BUDGETS["legality_check"]
+        assert benchmark.stats["mean"] * 1000 < budget_ms * self.TOLERANCE, \
+            f"Legality check too slow: {benchmark.stats['mean']*1000:.1f}ms (budget: {budget_ms}ms)"
+    
+    @pytest.mark.performance
+    def test_dm_policy_latency(self, benchmark):
+        """DM policy (7B) must be < 100ms"""
+        
+        state = create_test_combat_state()
+        context = create_test_encounter_context()
+        
+        result = benchmark(lambda: dm_policy_engine.select_action(state, "monster_1", context))
+        
+        budget_ms = self.LATENCY_BUDGETS["dm_policy_7b"]
+        assert benchmark.stats["mean"] * 1000 < budget_ms * self.TOLERANCE
+    
+    @pytest.mark.performance
+    def test_full_monster_turn_latency(self, benchmark):
+        """Full monster turn (policy + legality + resolution) must be < 150ms"""
+        
+        state = create_test_combat_state()
+        
+        def full_turn():
+            # Policy
+            action = dm_policy_engine.select_action(state, "monster_1", context)
+            # Legality
+            assert check_legality(state, action)
+            # Resolution
+            outcome = resolve_action(state, action, rng)
+            return outcome
+        
+        result = benchmark(full_turn)
+        
+        budget_ms = 150
+        assert benchmark.stats["mean"] * 1000 < budget_ms * self.TOLERANCE
+    
+    @pytest.mark.performance
+    @pytest.mark.slow
+    def test_memory_scaling(self):
+        """Memory retrieval should scale sub-linearly"""
+        
+        results = []
+        
+        for memory_count in [100, 500, 1000, 5000, 10000]:
+            # Setup
+            memory_manager = setup_memory_with_n_entries(memory_count)
+            
+            # Measure query time
+            start = time.perf_counter()
+            results = memory_manager.recall("test query", "npc_1", top_k=5)
+            latency_ms = (time.perf_counter() - start) * 1000
+            
+            results.append((memory_count, latency_ms))
+            
+            # Assert reasonable scaling
+            if memory_count <= 1000:
+                assert latency_ms < 50, f"Slow at {memory_count} memories: {latency_ms:.1f}ms"
+            elif memory_count <= 10000:
+                assert latency_ms < 100, f"Slow at {memory_count} memories: {latency_ms:.1f}ms"
+        
+        # Log scaling data for trend analysis
+        logger.info(f"Memory scaling: {results}")
+
+class PerformanceTracker:
+    """Track performance over time for regression detection"""
+    
+    def __init__(self, db_path: Path):
+        self.db = sqlite3.connect(db_path)
+        self.setup_schema()
+    
+    def record_benchmark(
+        self,
+        test_name: str,
+        latency_ms: float,
+        commit_hash: str,
+        timestamp: str
+    ):
+        """Store benchmark result for historical tracking"""
+        self.db.execute(
+            """
+            INSERT INTO benchmarks (test_name, latency_ms, commit_hash, timestamp)
+            VALUES (?, ?, ?, ?)
+            """,
+            (test_name, latency_ms, commit_hash, timestamp)
+        )
+        self.db.commit()
+    
+    def detect_regression(
+        self,
+        test_name: str,
+        current_latency_ms: float,
+        window_commits: int = 10
+    ) -> bool:
+        """Check if current latency is significantly worse than recent history"""
+        
+        recent = self.db.execute(
+            """
+            SELECT AVG(latency_ms), STDDEV(latency_ms)
+            FROM (
+                SELECT latency_ms FROM benchmarks
+                WHERE test_name = ?
+                ORDER BY timestamp DESC
+                LIMIT ?
+            )
+            """,
+            (test_name, window_commits)
+        ).fetchone()
+        
+        if not recent[0]:
+            return False  # No history
+        
+        avg, stddev = recent
+        threshold = avg + 2 * stddev  # 2 sigma
+        
+        if current_latency_ms > threshold:
+            logger.warning(
+                f"Performance regression detected: {test_name}\n"
+                f"Current: {current_latency_ms:.1f}ms\n"
+                f"Recent avg: {avg:.1f}ms\n"
+                f"Threshold: {threshold:.1f}ms"
+            )
+            return True
+        
+        return False
+Confidence: 0.86 (moderate complexity, high confidence in approach)
+
+VERIFY
+Completeness Check Against Original Plan
+Phase	Original Coverage	Gaps Found	Proposed Additions
+0: Determinism	Basic RNG + replay	RNG isolation, event log format, verification	3 critical gaps addressed
+0.5: Rules KB	Ingestion pipeline	Table extraction accuracy, atom granularity, errata handling	3 critical gaps addressed
+2-3: Rules Engine	Core operators	Modifier edge cases, SR ambiguities, grapple state machine	3 critical gaps addressed
+3.7: DM Policy	Decision framework	Utility calibration, belief update math, guardrail triggers	3 critical gaps addressed
+4-6: Voice	ASR + TTS + narration	VAD specification, intent parsing failures, voice consistency	3 critical gaps addressed
+7-8: Memory	Vector DB + session management	Query scaling, save/load explosion, NPC consistency	3 critical gaps addressed
+10: Testing	Test categories listed	Golden transcript provenance, property test coverage, performance regression	3 critical gaps addressed
+Total: 21 critical gaps identified and addressed
+
+Risk Assessment Summary
+High-Risk Areas (require immediate clarification):
+
+✅ Event log format and corruption handling (Gap 2)
+✅ Modifier stacking edge cases (Gap 7)
+✅ DM policy utility function calibration (Gap 10)
+✅ Voice activity detection for multiplayer (Gap 13)
+✅ Session save/load state explosion (Gap 17)
+Medium-Risk Areas (clarify during implementation): 6. ✅ Table extraction accuracy requirements (Gap 4) 7. ✅ Spell resistance timing edge cases (Gap 8) 8. ✅ Belief update algorithm specifics (Gap 11) 9. ✅ Intent parsing failure handling (Gap 14) 10. ✅ Memory query performance at scale (Gap 16)
+
+Lower-Risk Areas (can be resolved iteratively): 11. ✅ Rule atom granularity examples (Gap 5) 12. ✅ Grapple complexity level (Gap 9) 13. ✅ Guardrail intervention mechanisms (Gap 12) 14. ✅ TTS voice profile storage (Gap 15) 15. ✅ NPC consistency checking (Gap 18)
+
+SYNTHESIZE
+CRITICAL QUESTIONS FOR IMMEDIATE CLARIFICATION
+Category A: System Architecture
+Q1: RNG Isolation Strategy
+Should the system use:
+
+Option A: Single global RNG with stream IDs (simpler, potential for subsystem interference)
+Option B: Hierarchical RNG with isolated subsystems (complex, perfect isolation)
+Option C: Hybrid (global seed, fork per major subsystem)
+Recommendation: Option C (hierarchical with master seed)
+
+Q2: Event Log Corruption Recovery
+Acceptable data loss in case of crash:
+
+Option A: Zero tolerance (fsync every event, slow but safe)
+Option B: Last N events (periodic fsync, faster but risky)
+Option C: Checkpoint recovery (fsync only on checkpoints, fast but loses progress)
+Recommendation: Option A for critical events (state changes), Option B for narration
+
+Q3: Replay Branching Support
+Should the system support "what-if" branching?
+
+Yes: Adds complexity but enables experimentation
+No: Simpler, linear replay only
+Recommendation: Phase 2 feature (not MVP)
+
+Category B: Rules & Content
+Q4: Table Extraction Accuracy
+How much manual correction is acceptable?
+
+Option A: 100% automated (may require custom ML training)
+Option B: 95% automated, 5% human verification (pragmatic)
+Option C: 80% automated, 20% human verification (faster to MVP)
+Recommendation: Option B (95% automated with verification UI)
+
+Q5: Grapple Complexity Level
+Implementation priority:
+
+High: Full 3.5e RAW grapple (very complex, core combat feature)
+Medium: Simplified grapple (easier, sufficient for most gameplay)
+Low: Defer to Phase 11 expansion
+Recommendation: Medium (simplified for MVP, full RAW in expansion)
+
+Q6: Errata Handling
+Rules version to use:
+
+Option A: Latest errata always (most balanced)
+Option B: As-printed with errata toggle (flexible but complex)
+Option C: User-configurable (maximum flexibility)
+Recommendation: Option A (latest errata) with Option C as stretch goal
+
+Category C: AI/ML Decisions
+Q7: DM Personality System
+Should DM behavior be:
+
+Fixed: Hardcoded weights per encounter type (simple)
+Configurable: User-adjustable sliders (medium complexity)
+Learned: Train on human DM logs (complex, best quality)
+Recommendation: Start with Fixed (MVP), add Configurable (Phase 2), Learned (Phase 3+)
+
+Q8: Belief Update Algorithm
+Mathematical approach:
+
+Option A: Simple counters (hits/misses tracked, fast but coarse)
+Option B: Bayesian update with conjugate priors (principled, moderate complexity)
+Option C: Kalman filtering (handles trends, complex)
+Recommendation: Option B (Bayesian with conservatism parameter)
+
+Q9: Guardrail Enforcement
+When guardrails trigger:
+
+Hard block: Action becomes illegal (safest, may feel restrictive)
+Soft penalty: Action heavily penalized in scoring (flexible, may be ignored)
+Warning only: Log violation but allow (permissive, for testing)
+Recommendation: Hard block for critical (action denial loops), soft penalty for others
+
+Category D: Voice & UX
+Q10: Voice Activity Detection
+VAD approach:
+
+Energy-based: Simple, fast, error-prone (10-20% false positives)
+ML-based (Silero): Accurate, adds 20-50ms latency
+Push-to-talk: Zero false positives, requires button
+Hybrid: Energy pre-filter + ML confirmation
+Recommendation: Hybrid (fast path for obvious cases, ML for uncertain)
+
+Q11: Intent Parsing Fallback
+When 7B fails to parse:
+
+Ask for rephrasing: Simple, may frustrate users
+Clarifying questions: Better UX, adds complexity
+Command mode fallback: Reliable but less natural
+Recommendation: Clarifying questions (Phase 1), command mode (Phase 2 fallback)
+
+Q12: Voice Profile Storage
+NPC voice consistency:
+
+Speaker embeddings: Small (100KB), TTS-version-dependent
+Fine-tuned checkpoints: Large (500MB), most stable
+Pre-generated clips only: Zero runtime cost, inflexible
+Recommendation: Speaker embeddings with reference audio backup for migration
+
+Category E: Performance & Scale
+Q13: Target Campaign Length
+Expected scale:
+
+Short: 10-20 sessions (50-100 hours)
+Medium: 50-100 sessions (250-500 hours)
+Long: 200+ sessions (1000+ hours)
+Impacts: Memory architecture, save file size, testing scope
+
+Q14: Memory Retrieval Latency Budget
+Acceptable delay:
+
+Real-time: < 50ms (feels instant)
+Responsive: < 100ms (acceptable for most UX)
+Tolerable: < 200ms (noticeable but not breaking)
+Recommendation: < 50ms for hot memory, < 100ms for cold memory
+
+Q15: Session Save Time
+Acceptable save duration:
+
+Instant: < 1s (auto-save every turn)
+Quick: < 5s (auto-save every 5 turns)
+Manual: < 30s (explicit save command)
+Recommendation: < 1s incremental, < 5s checkpoint
+
+Category F: Testing & Quality
+Q16: Golden Transcript Sources
+How to generate test scenarios:
+
+Expert DM sessions: High quality, expensive to produce
+Community-contributed: Diverse, variable quality
+AI-generated + verified: Scalable, needs validation
+Recommendation: Start with expert DM (10-20 scenarios), scale with community + AI
+
+Q17: Property Test Coverage
+Testing approach:
+
+Exhaustive: Test all edge cases (slow, thorough)
+Sampled: Test representative cases (fast, may miss edge cases)
+Critical-path only: Test most common scenarios
+Recommendation: Exhaustive for core mechanics (stacking, attack, saves), sampled for edge cases
+
+Q18: Performance CI Integration
+Performance test failures:
+
+Blocking: CI fails if too slow (strict, may slow development)
+Warning: CI warns but passes (permissive, regressions slip through)
+Tracked: Performance dashboard only
+Recommendation: Blocking for critical path (< 2x budget), warning for others
+
+IMPLEMENTATION PRIORITY MATRIX
+Phase 0 (Immediate):
+Q2 (Event log corruption recovery)
+Q3 (Replay branching: defer to Phase 2)
+Q1 (RNG isolation: implement hierarchical)
+Phase 0.5 (Before Rules Ingestion):
+Q4 (Table extraction: 95% automated)
+Q6 (Errata handling: latest by default)
+Phase 2-3 (Rules & Combat):
+Q5 (Grapple: simplified for MVP)
+Q8 (Belief updates: Bayesian)
+Q9 (Guardrails: hard block for critical)
+Phase 4-6 (Voice):
+Q10 (VAD: hybrid approach)
+Q11 (Intent fallback: clarifying questions)
+Q12 (Voice profiles: embeddings + reference backup)
+Phase 7-8 (Memory & Scale):
+Q13 (Campaign length: design for medium, 50-100 sessions)
+Q14 (Memory latency: < 50ms hot, < 100ms cold)
+Q15 (Save time: < 1s incremental)
+Phase 10 (Testing):
+Q16 (Golden transcripts: expert DM + community)
+Q17 (Property tests: exhaustive for core, sampled for edge)
+Q18 (Performance CI: blocking for critical path)
+UPDATED DEVELOPMENT TIMELINE WITH CLARIFICATIONS
+Phase 0 (3 weeks → 4 weeks)
+Added 1 week for RNG isolation + event log hardening
+
+Phase 0.5 (10 weeks → 12 weeks)
+Added 2 weeks for table extraction QA + errata integration
+
+Phase 2 (12 weeks → 14 weeks)
+Added 2 weeks for belief engine + modifier edge cases
+
+Phase 3 (14 weeks → 16 weeks)
+Added 2 weeks for guardrail implementation + DM personality system
+
+Phase 4-6 (14 weeks → 16 weeks)
+Added 2 weeks for VAD integration + intent fallback logic
+
+Phase 7-8 (8 weeks → 10 weeks)
+Added 2 weeks for memory tiering + NPC consistency engine
+
+Phase 10 (7 weeks → 9 weeks)
+Added 2 weeks for property test suite + performance tracking
+
+Revised Total: 60-70 weeks → 72-84 weeks (18-21 months)
+
+Confidence Level: 0.91
+High Confidence (0.95+):
+Identified gaps are real and important
+Proposed solutions are technically sound
+Questions are actionable and answerable
+Medium Confidence (0.85-0.92):
+Timeline estimates include buffer
+Technology stack remains valid
+Prioritization
+Claude reached its max length for this message.
+
+
+Continue
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+
+
+## DECOMPOSE
+
+You’re flagging six “spec holes” that will otherwise leak non-determinism or make the system non-auditable:
+
+1. **RNG state** across subsystems + future async + “what-if” forks
+2. **Event log**: versioning, size, indexing, crash safety
+3. **Determinism verification**: how we *detect* and *localize* divergence
+4. **Table extraction QA**: measurable thresholds + multi-page + merged cells
+5. **Rule Atom granularity**: concrete decomposition rules + xrefs + negative constraints
+6. **Errata policy**: canonical ruleset selection + versioning + toggles
+
+(These directly strengthen Phase 0/0.5 and the Rule Atom Matrix spine already described in the action plan.  )
+
+---
+
+## SOLVE
+
+### 1) RNG state management (streams, forks, async, external noise)
+
+**Recommendation (default): hierarchical RNG with isolated streams + deterministic substreams per entity/action.**
+
+* **One master seed per session**.
+* **Subsystem streams**: `combat`, `exploration`, `social`, `loot`, plus `policy_spice` (LLM/policy-only stochasticity) *that never affects mechanics*.
+* **Within combat**: derive *substreams* by `(combat_id, round, turn_index, event_seq, entity_id, atom_id)` so that reordering unrelated operations cannot perturb rolls.
+
+**Forking (“what-if”)**: support it as *branch replays* by snapshotting `(WorldState, RNG call counters/keys, log offset)` and continuing on a new branch id. Do **not** “deepcopy RNG objects” as the authority; the authority is the **derived key schedule + counters**.
+
+**Async / voice I/O**: treat as **non-authoritative inputs** that must be *captured then replayed*, never sampled live during resolution.
+
+* Example: VAD/mic noise cannot enter mechanics. It can only influence *UI/UX* (e.g., when you decide the player finished speaking). Log the resulting **final transcript + timestamps** as inputs, not the audio randomness.
+
+**Answer to your questions (defaults):**
+
+* **Isolated RNG per subsystem?** Yes. (Prevents narration/policy variance from contaminating mechanics.)
+* **Replay branching?** Yes, but only as “branch from checkpoint” with explicit branch ids.
+* **External randomness sources?** They are outside mechanics; record their outcomes as deterministic inputs for replay.
+
+**Confidence: 0.90**
+
+---
+
+### 2) Event log format (versioning, compression, indexing, crash recovery)
+
+**Recommendation (default): append-only chunked binary log + sidecar index + periodic checkpoints.**
+JSONL is readable but becomes expensive at scale and fragile for partial writes.
+
+**Format:**
+
+* **Record envelope**: `[magic][schema_ver][record_len][record_bytes][crc32/xxh3]`
+* **record_bytes**: msgpack (or protobuf) encoding of a typed event payload
+* **Compression**: zstd *per block* (e.g., group 256 events into one compressed block). This keeps random access feasible.
+
+**Indexing / fast seek:**
+
+* Sidecar `*.idx` mapping: `{event_id -> file_offset}`, plus `{round/turn -> file_offset}`, plus optional `{tag -> offsets}`.
+* Checkpoints every **N turns or M events**: store compressed `WorldState` snapshot + RNG counters + offset.
+
+**Crash safety:**
+
+* Write record → flush → (optional) fsync.
+* On load, scan from last known good offset; drop trailing partial record(s).
+* CRC per record catches corruption early.
+
+**Answer to your questions (defaults):**
+
+* **Acceptable size for 100-session campaign?** Plan for **~1–5 GB** comfortably local; design should scale past that via compression + checkpoints.
+* **Resumable from checkpoints?** Yes: every **10 rounds** (combat) and every **major scene boundary** (non-combat).
+* **Search/query capability?** Yes, but implemented via **derived indexes** (don’t burden the hot path).
+
+**Confidence: 0.88**
+
+---
+
+### 3) Determinism verification (detection + localization)
+
+**Recommendation (default): “determinism CI” = golden replay + hash chaining + divergence bisect tooling.**
+
+Key tactics that prevent false negatives:
+
+* **Canonical serialization**: deterministic ordering for maps/sets; never hash Python `dict` string forms.
+* **No floats in mechanics** (prefer rationals/ints); if unavoidable, quantize and document rounding rules.
+* **Hash chain**: `H_n = hash(H_{n-1} || canonical(event_n))` stored periodically. Lets you pinpoint the first divergence quickly.
+
+Testing protocol:
+
+* For each scenario: run **2–N replays** and compare:
+
+  * final `WorldState` canonical hash
+  * full log hash chain checkpoints
+* On failure: run **binary search** using checkpoint offsets to find first mismatching event, then emit:
+
+  * operator name
+  * inputs + RNG key/counter at that point
+  * differing outputs + minimal repro seed
+
+**Confidence: 0.91**
+
+---
+
+### 4) Table extraction accuracy requirements
+
+**Recommendation (default): define tiered QA targets + human-in-loop only for “critical tables.”**
+
+Targets:
+
+* **Tier A (critical)**: combat modifiers tables, conditions summaries, spell parameter tables used by engine
+
+  * **Required:** ≥ **99.5% cell accuracy** OR manual verification queue
+* **Tier B (important)**: equipment tables, common reference tables
+
+  * **Target:** ≥ **97%**
+* **Tier C (nice-to-have)**: flavor lists, examples
+
+  * **Target:** ≥ **95%**
+
+Multi-page / merged headers:
+
+* Represent tables as a **TableNote** with:
+
+  * `header_rows`, `column_spans`, `footnotes`, `page_ranges`
+  * raw “table image cutout” pointer for audit
+* Merge strategy: normalize to a **rectangular canonical form** with explicit span metadata (don’t lose structure).
+
+**Confidence: 0.84**
+
+---
+
+### 5) Rule Atom granularity inconsistency risk
+
+**Recommendation (default): enforce a decomposition standard + dependency graph + negative constraints as first-class atoms.**
+
+Concrete policies:
+
+* **A spell/feat can have many atoms**. For Polymorph-scale complexity, *expect* 20+ atoms. That’s not overhead; it’s what keeps exceptions testable.
+* **Negative constraints** (“does NOT stack…”, “cannot be used if…”) must be atoms, because they are legality gates.
+* **Cross references**: atoms declare `dependencies[]` and tests must pin the dependency behavior (so refactors don’t silently change semantics).
+
+Pragmatic bundling rule:
+
+* Bundle only when the rules are *applied as an inseparable package in resolution* (e.g., a condition’s modifier bundle), but keep each mechanical statement separately addressable.
+
+**Confidence: 0.86**
+
+---
+
+### 6) Citation + errata ambiguity
+
+**Recommendation (default): errata-applied canonical ruleset, with a hard toggle + explicit ruleset versioning.**
+
+Defaults:
+
+* `ruleset = "3.5_core_latest_errata"` (PHB/DMG/MM + latest official errata you ingest)
+* Toggle: `as_printed` vs `latest_errata` vs `custom_pack` (house rules)
+
+Versioning:
+
+* Every Rule Atom and TableNote carries:
+
+  * `source_citation` (book/page/section/printing if known)
+  * `ruleset_version`
+  * optional `errata_ref` that supersedes prior text
+* The engine binds to a **specific ruleset build id** (hash of the rules DB). This is what makes replays stable across later errata ingestion.
+
+**Confidence: 0.83**
+
+---
+
+## VERIFY
+
+* **Logical gap check:** The biggest failure mode is allowing narration/policy randomness to touch mechanics. Isolated RNG streams + “mechanics-only RNG keys” closes that.
+* **Consistency with your docs:** This concretizes Phase 0 determinism + Phase 0.5 citations/QA and strengthens the Rule Atom → Module → Test spine you already specified.  
+* **Bias/perspective:** Defaults lean toward “engineering determinism first” (auditability over convenience). That matches your non-negotiables.
+
+---
+
+## SYNTHESIZE
+
+**Adopt these defaults into Phase 0 / 0.5 immediately:**
+
+1. **RNG:** hierarchical stream isolation; mechanics RNG derived by keys; branching via checkpoints + branch ids; async randomness logged as inputs, never sampled in mechanics.
+2. **Event log:** chunked binary + zstd blocks + per-record checksum + sidecar index + periodic checkpoints.
+3. **Determinism verification:** canonical serialization + hash chaining + replay CI + divergence bisect tool.
+4. **Tables QA:** tiered accuracy thresholds; critical tables go to human verification if below threshold; multi-page tables preserve span metadata.
+5. **Atoms:** negative constraints are atoms; heavy decomposition for complex spells/feats is expected; dependency graph + pinned tests.
+6. **Errata:** default to latest errata ruleset; stable ruleset build ids; toggle for as-printed/custom.
+
+---
+
+# Clear answer
+
+Your proposed gaps are real; the fixes above are the minimum spec to prevent determinism drift, enable fast replay/rewind/branching, make logs scalable/searchable, and keep Rule Atom coverage auditable under errata.
+
+**Confidence level:** 0.87
+
+**Key caveats (max 3):**
+
+1. If you allow *any* non-mechanics subsystem to consume mechanics RNG (even indirectly), determinism will eventually break.
+2. Table extraction “100% automated” is unrealistic for some merged/multi-page tables; you need a critical-table verification queue.
+3. Errata handling requires freezing a ruleset build id per campaign to keep old replays valid after later ingestion updates.
+
+Below is a **direct advisory response** to your questions, scoped to **Phase 2–3 (Rules Engine & Combat)** and **Phase 3.7 (DM Policy Engine)**. I am not rewriting your spec; I am **deciding the ambiguities** so implementation can proceed without drift.
+
+---
+
+## Critical Gap 7 — Modifier Stacking Edge Cases
+
+### DECOMPOSE
+
+Key ambiguities:
+
+1. Signed vs typed bonuses (bonuses turning into penalties).
+2. Whether penalties follow the same stacking rules as bonuses.
+3. Same-source untyped stacking.
+4. Whether zero values interfere with stacking.
+5. Debuggability of suppressed modifiers.
+
+### SOLVE
+
+**1) Track polarity explicitly (YES).**
+Use *signed values*, not “bonus vs penalty” buckets.
+
+Rule:
+
+* Stacking is decided by **type + source**, not sign.
+* Polarity only affects arithmetic, not eligibility.
+
+> Example:
+> Large size gives **–1 AC (size)**.
+> Armor gives **+6 AC (armor)**.
+> They stack because they are **different types**, regardless of sign.
+
+**Confidence: 0.95**
+
+---
+
+**2) Typed penalties do NOT all stack (contrary to your draft).**
+RAW principle: *“Bonuses of the same type don’t stack unless noted; penalties follow the same rule unless explicitly stated otherwise.”*
+
+Therefore:
+
+* Typed penalties → **max magnitude only** (worst penalty applies).
+* Dodge penalties still stack (because dodge always stacks).
+* Untyped penalties stack **unless same source**.
+
+Your current `"penalty": always_stack` is **incorrect**.
+
+**Confidence: 0.9**
+
+---
+
+**3) Untyped bonuses from same source do NOT stack.**
+Correct RAW behavior:
+
+* Same spell cast twice → does **not** stack unless explicitly says it does.
+* Different sources → stack.
+
+Your `stack_unless_same_source` is correct.
+
+**Confidence: 0.95**
+
+---
+
+**4) Zero-valued modifiers**
+
+* Zero values **do not block stacking**.
+* Zero should be ignored during max/min selection.
+* Zero should **not suppress** non-zero modifiers.
+
+**Confidence: 0.85**
+
+---
+
+**5) Debug visibility (YES, REQUIRED).**
+You absolutely want:
+
+```python
+return total, applied_modifiers, suppressed_modifiers
+```
+
+Reason:
+
+* Modifier bugs are silent and catastrophic.
+* This is essential for audit logs, replay, and test assertions.
+
+**Confidence: 0.95**
+
+---
+
+### SYNTHESIZE (Decision)
+
+✔ Track **signed values**
+✔ Stack by **type + source**, not sign
+✔ Typed penalties: **worst only**
+✔ Untyped: stack unless same source
+✔ Zero ignored
+✔ Mandatory debug output
+
+**Final Answer:**
+Your ModifierEngine concept is correct, but **remove `penalty: always_stack`** and make penalties obey the same stacking semantics as bonuses unless explicitly exempt (dodge, circumstance-by-different-source).
+
+---
+
+## Critical Gap 8 — Spell Resistance Resolution
+
+### DECOMPOSE
+
+Ambiguities:
+
+1. Timing of SR checks.
+2. AoE vs single-target.
+3. Ongoing effects.
+4. Redundant rolling.
+
+### SOLVE
+
+**1) SR is checked when the spell first affects the creature.**
+
+* Instant spells: at resolution.
+* Delayed spells: when effect triggers.
+* Ongoing areas: **only when entering or first affected**, not every round.
+
+RAW-consistent and prevents SR becoming a per-round tax.
+
+**Confidence: 0.95**
+
+---
+
+**2) AoE spells → SR is checked per creature.**
+Your implementation is correct.
+
+**Confidence: 1.0**
+
+---
+
+**3) Ongoing effects**
+Rule:
+
+* SR is checked **once per creature per spell instance**.
+* Cache forever for that spell-target pair.
+* Do **not** re-roll each round.
+
+Wall of Fire example:
+
+* SR when entering or being created on you.
+* No rechecks unless spell is recast.
+
+**Confidence: 0.9**
+
+---
+
+**4) SR cache (YES)**
+Your cache key is correct.
+I would make it:
+
+```python
+(spell_instance_id, target_id)
+```
+
+—not round-based.
+
+**Confidence: 0.85**
+
+---
+
+### SYNTHESIZE
+
+✔ Check SR on **first application**
+✔ Cache per spell instance
+✔ AoE = per target
+✔ No per-round rerolls
+
+Your SR engine is solid with a **slight cache-scope adjustment**.
+
+---
+
+## Critical Gap 9 — Grapple State Machine
+
+### DECOMPOSE
+
+Questions:
+
+1. Full RAW vs simplified.
+2. Priority.
+3. Multiple grapples.
+4. Complexity management.
+
+### SOLVE
+
+**1) Priority: MEDIUM-HIGH**
+Grapple:
+
+* Is common.
+* Interacts with action denial, AoOs, movement, spells.
+* Directly affects fairness telemetry.
+
+But it is also **not Phase-blocking**.
+
+**Confidence: 0.8**
+
+---
+
+**2) Recommendation: Two-tier grapple system**
+
+**Tier 1 (Core / Default):**
+
+* One-to-one grapples only.
+* No multi-creature dogpiles.
+* Escape Artist OR grapple check allowed.
+* Freedom of Movement = auto-escape.
+* Pin allowed only if size ≤ one category difference.
+
+**Tier 2 (Advanced / Toggle):**
+
+* Multiple grapplers.
+* Aid Another grapple checks.
+* True pin stacks.
+* Size asymmetry exploitation.
+
+This matches your “complexity toggle” idea.
+
+**Confidence: 0.9**
+
+---
+
+**3) Your state machine is correct**
+But:
+
+* `GRAPPLING` vs `GRAPPLED` must be **perspective-relative**, not absolute.
+* A creature can be both grappling A and grappled by B.
+
+Represent grapples as **edges**, not states on creatures.
+
+**Confidence: 0.85**
+
+---
+
+### SYNTHESIZE
+
+✔ Implement grapple as **relationship graph**
+✔ Ship Tier-1 first
+✔ Gate Tier-2 behind a toggle
+✔ Do not block Phase 3 on full RAW grapple
+
+---
+
+## Critical Gap 10 — DM Utility Calibration
+
+### DECOMPOSE
+
+Questions:
+
+1. Where weights come from.
+2. Adaptation by encounter.
+3. Validation.
+4. Personality presets.
+
+### SOLVE
+
+**1) Weights should be preset + user-configurable**
+Not learned initially.
+
+Learning requires:
+
+* Logged outcomes
+* Human evaluation labels
+* Long-horizon reward shaping
+
+That’s Phase 5+ work.
+
+**Confidence: 0.9**
+
+---
+
+**2) Encounter type → weight override**
+Yes. Hardcoded mapping is correct.
+
+Example:
+
+* Tutorial → Agency ↑, Danger ↓
+* Boss → Danger ↑, Telegraphing ↓
+* Chase → Pace ↑
+
+**Confidence: 0.95**
+
+---
+
+**3) Validation protocol**
+You validate DM behavior by **invariants**, not “fun”:
+
+* No illegal actions.
+* No repeated denial > N rounds.
+* No untelegraphed lethal spike unless tagged.
+* Encounter resolves within expected rounds.
+
+**Confidence: 0.85**
+
+---
+
+**4) DM personalities (YES)**
+Your design is correct and valuable.
+They act as:
+
+* Weight presets
+* Telegraphing modifiers
+* Aggression caps
+
+This is a **major UX win**.
+
+**Confidence: 0.95**
+
+---
+
+### SYNTHESIZE
+
+✔ Hardcode first
+✔ Expose sliders
+✔ Validate via guardrails, not subjective fun
+✔ Personality presets are correct
+
+---
+
+## Critical Gap 11 — Belief Update Over-Learning
+
+### DECOMPOSE
+
+Issues:
+
+* Update speed.
+* Dice variance.
+* Persistence.
+
+### SOLVE
+
+**1) Use distributions, not buckets**
+Your Gaussian belief approach is correct.
+
+But:
+
+* AC inference must remain **wide for a long time**.
+* Never collapse std below a floor.
+
+**Confidence: 0.85**
+
+---
+
+**2) Convergence speed**
+Rule of thumb:
+
+* <3 observations → barely move.
+* 5–7 → usable bias.
+* 10+ → confident.
+
+**Confidence: 0.9**
+
+---
+
+**3) Persistence**
+Beliefs:
+
+* Reset each combat.
+* Species priors persist across encounters.
+
+**Confidence: 0.95**
+
+---
+
+### SYNTHESIZE
+
+✔ Bayesian-ish, conservative
+✔ High variance tolerance
+✔ Reset per combat, not per campaign
+
+---
+
+## Critical Gap 12 — Guardrail Triggering
+
+### DECOMPOSE
+
+Need clarity on:
+
+* Thresholds.
+* Enforcement.
+* Player control.
+
+### SOLVE
+
+**1) Guardrails must be SOFT by default**
+Hard blocks only for:
+
+* Illegal actions
+* Infinite denial loops
+
+Everything else = scoring penalty or forced telegraph.
+
+**Confidence: 0.95**
+
+---
+
+**2) Intervention granularity**
+Check:
+
+* Every action selection.
+* Aggregate telemetry per round.
+
+Not every micro-roll.
+
+**Confidence: 0.85**
+
+---
+
+**3) Player toggles**
+YES:
+
+* Hardcore mode
+* Narrative mode
+* Simulation mode
+
+Guardrails reflect *table contract*.
+
+**Confidence: 0.9**
+
+---
+
+### SYNTHESIZE
+
+✔ Guardrails = penalties + nudges
+✔ Hard blocks only for degenerate loops
+✔ Table-configurable
+
+---
+
+## FINAL ANSWER
+
+You are asking the **right questions**. The architecture is sound. The key corrections:
+
+* Penalties follow stacking rules unless explicitly exempt.
+* SR is checked once per spell-target instance.
+* Grapple should be relationship-based with a complexity toggle.
+* DM behavior must be validated by invariants, not vibes.
+* Belief updates must stay uncertain longer than feels intuitive.
+* Guardrails should steer, not strangle.
+
+**Confidence: 0.86**
+
+### Key Caveats
+
+1. Grapple RAW is a time sink—don’t block Phase 3 on it.
+2. Modifier stacking bugs are silent—debug visibility is non-optional.
+3. Belief over-confidence is the fastest way to make the DM feel “cheaty.”
+## DECOMPOSE — what you actually need to decide
+
+1. **VAD strategy** (start/stop detection, noise, interruptions) + **latency/quality budgets**
+2. **Intent parse failure protocol** (malformed JSON, schema mismatch, ambiguity)
+3. **TTS voice identity persistence** (6-month consistency, engine upgrades, user edits)
+4. **Memory performance envelope** (vector DB scaling, latency targets, archiving)
+5. **Save/load size management** (snapshots vs deltas, corruption resistance, startup time)
+6. **NPC consistency** (drift, contradictions, canonical facts, evolution rules)
+
+(These map cleanly onto your Phase 4–8 architecture and non-negotiables: engine is authoritative; fail-closed; no silent ambiguity.) 
+
+---
+
+## SOLVE — recommended specs + concrete defaults (with confidence)
+
+### 1) VAD: hybrid endpointing with an explicit “PTT override”
+
+**Recommendation:** **Hybrid VAD** (fast energy gate + periodic ML verification) *plus* optional **push-to-talk** as an override for noisy environments and multiplayer.
+**Why:** You want natural speech **most of the time**, but need a deterministic “escape hatch” when acoustics are bad.
+
+**Budgets (practical):**
+
+* **Frame size:** 10–20 ms frames
+* **Decision latency:** ≤ **30 ms** per frame (fast path)
+* **End-of-utterance hangover:** **200–350 ms** silence to close a segment (prevents chopping)
+* **Target false positives:** **≤ 1% of segments** (not frames), because segment-level FP is what hurts UX
+
+**Noise / interruptions:**
+
+* Run **AGC + high-pass + noise suppression** *before* VAD (deterministic DSP stage).
+* Add a **barge-in policy**: if player starts speaking during TTS, either (a) duck TTS volume, or (b) stop TTS and accept new speech after 100–150 ms sustained speech.
+
+**Multi-player:**
+
+* Best path: **per-mic channels** (one VAD per stream) + explicit “speaker_id” assigned by device.
+* If single mixed mic: diarization becomes nontrivial; treat it as **Phase 8+** and rely on **PTT / name-prefix** (“Tim attacks…”) as the stable workaround.
+
+**Confidence:** 0.86
+
+---
+
+### 2) Intent parsing failures: “repair → validate → disambiguate → command-mode fallback”
+
+Your current parser is close, but you need **deterministic escalation** and **bounded clarification**.
+
+**Protocol (fail-closed, one loop):**
+
+1. **Parse attempt** (low-temp JSON)
+2. **JSON repair** (strip fences, extract object, minimal corrections)
+3. **Schema validate + legality precheck** (must reference current legal menu IDs when applicable)
+4. If **ambiguous** → ask a **single** clarification question that presents **numbered options**
+5. If still ambiguous or user free-speaks again → drop into **Command Mode**:
+
+**Command Mode (voice-friendly):**
+
+* “**Option 2**” / “**Target 1**” / “**Cast spell 3 at level 2**”
+* Always backed by the engine’s **legal menu** (so the user is selecting, not inventing)
+
+**Clarification limit:** **1 round** per decision point. After that: require numbered selection.
+**Why:** Otherwise voice UX spirals into conversational repair loops.
+
+**Additional hardening:**
+
+* Add `parse_trace`: raw_output hash, extracted_json, validation errors, ambiguity_type.
+* Require `intent.references = {menu_id, option_id}` when the system has already presented a menu this turn.
+
+**Confidence:** 0.84
+
+---
+
+### 3) TTS voice consistency: versioned profiles + reference audio + cache
+
+**Recommendation:** store **(a) speaker embedding + (b) short reference audio + (c) engine/version metadata + (d) optional “style knobs”**.
+Do **not** rely on embeddings alone if you care about 6-month identity: the reference audio is your migration anchor.
+
+**Profile format (minimum):**
+
+* `npc_id`
+* `tts_engine_id`, `tts_engine_version`
+* `embedding` (float array)
+* `reference_audio_hash` + store the WAV alongside the profile
+* `style`: `{pitch, rate, timbre, accent, intensity}` (bounded ranges)
+* `created_at`, `migrated_from`
+
+**Migration strategy:**
+
+* If engine version changes: **re-extract embedding from reference audio** (preferred)
+* If ref audio missing: mark profile “**degraded**” and warn once; continue best-effort.
+
+**Runtime latency control:**
+
+* Cache synthesized lines by `(npc_id, text_hash, style_hash)` to disk.
+* For long narration: stream TTS in chunks; allow barge-in.
+
+**Player edits:**
+
+* Allow “**make dwarf deeper**” as a bounded edit that maps to a knob change + A/B preview line.
+* Lock edits behind a “voice edit mode” to avoid accidental drift.
+
+**Confidence:** 0.82
+
+---
+
+### 4) Memory retrieval performance: tiering + scope + compaction
+
+**Recommendation:** Treat “memory” as **tiered stores** and make retrieval **scoped** (npc_id, scene_id, session window). Don’t let generic similarity search roam the entire campaign.
+
+**Targets:**
+
+* **Recall latency budget:** **≤ 100 ms** p95 for “hot” queries; ≤ 250 ms p95 including cold tier
+* **Campaign length planning:** assume **500+ hours** eventually, so design now for **100k+ memory rows**
+
+**Mechanics:**
+
+* **Hot store:** last N sessions / last K facts per NPC (fast)
+* **Cold store:** archived embeddings + summaries (slower)
+* **Compression:** periodic summarization into “episode capsules” (immutable) + keep raw logs as audit trail
+
+**Indexing:**
+
+* Prefer ANN index (HNSW-style) with metadata filters (`npc_id`, `time_range`, `location_id`).
+* Always retrieve **top_k small** then rerank with `(relevance + recency + importance)`.
+
+**Confidence:** 0.80
+
+---
+
+### 5) Save/load: checkpoint + delta + append-only log, with atomic writes
+
+**Recommendation:** **Hybrid** is the only viable long-campaign approach:
+
+* Append-only **event log** (audit + replay)
+* Periodic **checkpoints** (fast load)
+* Between checkpoints: **deltas** (fast saves)
+
+**Operational constraints:**
+
+* **Save time:** ≤ **1s** typical; ≤ 5s worst-case checkpoint
+* **Load time:** ≤ **3s** from latest checkpoint + replay tail
+
+**Corruption resistance:**
+
+* Write temp file → fsync → atomic rename
+* Keep a rolling “last known good” checkpoint index
+* Each delta includes `prev_hash` (chain) so corruption is detectable immediately
+
+**Confidence:** 0.83
+
+---
+
+### 6) NPC state consistency: immutable core + allowed evolution + contradiction gate
+
+**Recommendation:** split NPC memory into:
+
+* **Immutable Core** (traits, forbidden actions, foundational facts)
+* **Mutable Attitudes** (opinions, relationships) that change only via logged events
+* **Canonical Facts Ledger** (facts with provenance + timestamps)
+
+**Contradiction prevention:**
+
+* Before emitting dialogue: run a **consistency gate**:
+
+  * hard check against canonical facts
+  * soft check vs personality core
+  * contradiction detector (heuristic now; small NLI model later)
+
+**Drift control:**
+
+* Track drift metric over rolling window; if drift exceeds threshold:
+
+  * re-anchor prompt with core traits + 3 canonical facts + 1 recent attitude change
+
+**Confidence:** 0.79
+
+---
+
+## VERIFY
+
+* **Logical gaps:** main risk is treating diarization as required; it’s not—**per-mic isolation + command mode** covers multiplayer early.
+* **Outdated facts:** none required; these are architectural choices, not time-sensitive claims.
+* **Missing perspective:** UX failure modes are the real driver (false endpointing, repeated clarifications, voice drift). The spec above explicitly bounds them (segment FP target, 1 clarification round, PTT override, caching).
+
+---
+
+## SYNTHESIZE — what I would “lock” into the action plan
+
+1. **VAD default = hybrid**, with explicit latency + hangover + **segment-level FP target ≤1%**, plus **PTT override** and **barge-in rules**.
+2. **Intent parser escalation** = repair→validate→**single** clarification with numbered options→**command mode**.
+3. **Voice identity** = embedding + reference audio + versioned migration + synthesis cache; bounded player-edit knobs.
+4. **Memory** = scoped tiered retrieval with clear p95 latency targets and archive/summarize policy.
+5. **Persistence** = checkpoint+deltas+append-only log with atomic writes and hash chaining.
+6. **NPC consistency** = immutable core + canonical facts ledger + pre-dialogue consistency gate + drift telemetry.
+
+Clear answer: Adopt the above six “lock” decisions as your Phase 4–8 specifications; they are the smallest set that prevents voice UX collapse while preserving your deterministic/fail-closed constraints.
+Confidence level: 0.83
+Key caveats: (1) Mixed-audio multiplayer without per-mic channels will remain brittle until diarization is added. (2) VAD quality depends heavily on pre-processing (noise suppression/AGC) and room acoustics. (3) Voice consistency across TTS engine swaps is only reliable if you retain reference audio per NPC.
+## DECOMPOSE
+
+You have three decision points inside Phase 10 testing:
+
+1. **Golden transcript provenance + vetting**
+2. **Property-based test scope + generators/shrinkers + runtime budget**
+3. **Performance regression detection policy (CI gating, tolerance, tracking)**
+
+These interact with your non-negotiables: **engine is authoritative**, **replay determinism**, **fail-closed**, and **no numeric leaks**.   
+
+---
+
+## SOLVE
+
+### 1) Golden transcripts: where they come from, and how “judgment” is handled (Confidence: 0.88)
+
+**Recommendation: a 3-tier transcript library with explicit “determinism surface” vs “judgment surface.”**
+
+**Tier A — Engine-Canonical (must-pass)**
+
+* Source: **engine-generated** from scripted intents + fixed seed + fixed initial state.
+* Goal: regression protection for **pure mechanics** (legality, math, ordering, state mutation).
+* Verification: **automatic** (exact event-log equivalence).
+* Interpretation variance: **none** tolerated (because this tier explicitly excludes ambiguous DM calls).
+
+**Tier B — Curated RAW Scenarios (should-pass with gating)**
+
+* Source: **expert DM or rules-editor authored “case files”** that are *already reduced* to: initial_state + intent sequence + expected event traces, with citations.
+* Goal: cover **edge-case RAW** where humans know what rule applies, but still yields deterministic outcomes once specified.
+* Verification: exact on deterministic surfaces; judgment surfaces tagged.
+
+**Tier C — Community / Fuzz-Derived (non-blocking, signal)**
+
+* Source: community or AI-generated sessions, but **not trusted**.
+* Goal: discover new edge cases, broaden coverage.
+* Verification: “triage” pipeline; only promoted to Tier B after review.
+
+**Key mechanism: Explicit Ambiguity Annotations**
+Instead of trying to make a single “gold” outcome for disputed RAW, make the transcript step carry:
+
+* **Required outcomes**: invariant facts that must hold (e.g., “AoO was generated,” “target became prone,” “HP decreased by X”)
+* **Allowed outcomes**: a set or predicate when RAW permits multiple interpretations *or* when your system intentionally implements a house toggle.
+
+That means your `GoldenTranscript.verify()` should support **verifier modes**:
+
+* `STRICT_EXACT`: byte-for-byte event log equality (Tier A)
+* `STRICT_DETERMINISTIC + FLEX_JUDGMENT`: exact for all deterministic fields, but judgment fields validated by predicates/sets (Tier B)
+* `INVARIANTS_ONLY`: safety + legality invariants, used for Tier C smoke validation
+
+**Handling RAW ambiguity**
+Do **not** bury ambiguity inside “expected_outcomes.” Create a separate artifact:
+
+* `RulingRecord`: a versioned, citeable decision that resolves an ambiguity *for this engine build*.
+* Transcripts reference rulings by ID, and the engine build declares which rulingset it implements.
+
+This gives you:
+
+* reproducibility,
+* auditability,
+* and a clean way to run the same transcript under multiple rulingsets when you want.
+
+Minimal schema addition:
+
+```python
+@dataclass
+class RulingRecord:
+    id: str                 # stable, e.g. "RUL-CRIT-CONCEAL-001"
+    title: str
+    question: str           # what is ambiguous
+    decision: str           # the engine's ruling
+    citations: list[str]    # PHB/DMG anchors when available
+    tags: list[str]         # "crit", "concealment", "timing"
+    status: str             # "active" | "deprecated"
+    introduced_in: str      # ruleset version
+```
+
+Then in `GoldenTranscript`:
+
+* replace `canonical_rulings: Dict[str,str]` with `rulings: List[str]` referencing `RulingRecord.id`
+* add `verification_mode` per transcript or per step
+
+This aligns with your “freeze then implement” process and keeps the legality checker authoritative.  
+
+---
+
+### 2) Property-based tests: highest value properties + how to generate valid cases (Confidence: 0.84)
+
+**Priority order (highest leverage first):**
+
+1. **Determinism & replay invariants**
+
+* Same seed + same initial state + same intents ⇒ identical event log (or identical deterministic subset if narration separated).
+* RNG stream isolation (combat vs narration) if you implement streams.
+
+2. **Legality monotonicity / fail-closed**
+
+* If legality checker rejects an intent, resolver must not mutate state.
+* If a required precondition is absent, intent cannot become legal by reordering modifiers.
+
+3. **Modifier stacking algebra**
+
+* Commutativity: order of application doesn’t change final bonus breakdown.
+* Idempotence for same source where rules say “doesn’t stack.”
+* Typed max/min behavior: “highest bonus / worst penalty” depending on your stacking rule definition.
+
+4. **Resolution ordering contract**
+
+* Your combat spec already asserts a strict order (legality → roll → gates → mitigation → reactions → update). Property tests should ensure **no operator reads post-update state** earlier than permitted, and triggers occur only at their defined stage. 
+
+5. **Bounds / conservation**
+
+* HP never exceeds max via “damage events.”
+* Damage after mitigation ≥ 0.
+* Duration ticking never goes negative.
+* AoO counters never exceed allowed limits.
+
+**Generating valid test cases**
+Don’t try to generate “full D&D state” immediately. Generate **small, typed microstates** per subsystem:
+
+* `ModifierSet` generator: produces (type, value, source, duration_tag) with constraints.
+* `AttackScenario` generator: AB/AC bands, concealment flags, crit threat range, DR.
+* `MovementScenario` generator: reach/threatened squares, AoO availability, path legality.
+
+Then create a **“state builder”** that embeds those microstates into a minimal `WorldState` slice that passes schema validation.
+
+**Shrinking**
+Hypothesis shrinkers work best when your strategies are compositional and your objects are simple. Two pragmatic rules:
+
+* Keep generated objects **small** (lists 0–6, not 0–50).
+* Prefer enums + bounded ints over free text (your `source=st.text()` will create noisy failures; use a small symbol set).
+
+**Runtime budget**
+Set two lanes:
+
+* `pytest -m quick`: sampled properties, < **60s** total
+* `pytest -m slow`: deeper sampling / bigger ranges, < **10m** (nightly)
+
+That’s enough to catch regressions without paralyzing iteration.
+
+---
+
+### 3) Performance regression detection: what to gate and how (Confidence: 0.82)
+
+**Recommendation: 3-level enforcement**
+
+1. **Hard budgets (CI blocking)**
+
+* legality check
+* core resolution primitives (attack/damage/save)
+* full “monster turn micro-loop” (policy+legality+resolution) *only for deterministic policy modes / local models you actually ship*
+
+2. **Soft budgets (warn-only)**
+
+* narration latency
+* TTS synthesis latency (because it’s hardware/model dependent)
+
+3. **Trend tracking (always record)**
+
+* record benchmarks with commit hash and machine fingerprint
+* evaluate regression against rolling baseline (your 2-sigma idea is fine, but only meaningful if the runner is stable)
+
+**Tolerance**
+
+* For blocking budgets: **+15%** over baseline on stable runners (dedicated CI machine)
+* For local/dev runners: **+25%** warning only
+
+**Synthetic vs real scenarios**
+Use both:
+
+* **Synthetic microbenchmarks** for module primitives (tight, stable).
+* **One or two real “golden” combat scenes** for end-to-end latency (captures integration cost).
+
+This matches your requirement that the system be real-time voice playable and that legality/resolution remain fast.  
+
+---
+
+## VERIFY
+
+* **Logical gaps**: Your current `GoldenTranscript.verify()` mixes “deterministic facts” and “narrative similarity.” That risks making narrative drift a mechanical test failure. Better: treat narration as a separate, non-blocking test suite unless you’re verifying “no numeric leaks / no invented facts.”
+* **Ambiguity handling**: “canonical rulings for disputed cases” should not live inside transcripts; they should be versioned rulings referenced by transcripts (otherwise you’ll fork transcripts endlessly).
+* **Bias / missing perspective**: Community transcripts are valuable for discovering weirdness, but letting them gate CI will create churn and false failures.
+
+---
+
+## SYNTHESIZE
+
+Implement a **Transcript Ladder** (Tier A/B/C) + a **Rulingset** abstraction. Make Tier A byte-for-byte deterministic and CI-blocking; make Tier B deterministic-with-judgment predicates and CI-blocking only once reviewed; make Tier C triage-only. For property tests, focus first on determinism, legality fail-closed, modifier algebra, and ordering contract, with a quick lane (<60s) and nightly lane (<10m). For performance, gate the primitives + one end-to-end combat microloop on stable runners, warn on the rest, and always record trend data.
+
+---
+
+### Clear answer
+
+* **Golden transcripts** should be primarily **engine-generated** (Tier A) for must-pass regression, supplemented by **expert-authored RAW case files** (Tier B) and **community/AI fuzz** (Tier C) for discovery.
+* Handle RAW ambiguity via a **versioned `RulingRecord` / rulingset**, referenced by transcripts, and verify disputed steps using **allowed-outcome predicates** instead of forcing a single “gold” outcome.
+* Property tests: prioritize **determinism**, **fail-closed legality**, **modifier stacking algebra**, and **resolution ordering**; generate **microstates**, not full worlds; run in **quick (<60s)** and **nightly (<10m)** lanes.
+* Performance: **block CI** on core primitive latency + one end-to-end combat microloop (stable runner), **warn** on model/tts/narration, and **track trends** over commits.
+
+Confidence level: **0.85**
+
+Key caveats (max 3):
+
+1. If you later introduce true concurrency (multiple subsystems consuming RNG), you must lock down RNG stream isolation or Tier A will become flaky.
+2. CI performance gating is only meaningful on stable, dedicated runners; otherwise use warn-only + trend.
+3. Some “RAW ambiguities” are actually “table practice divergences”; keep them as rulingset toggles rather than pretending one canonical answer exists.
+

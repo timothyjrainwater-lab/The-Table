@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "75ef4e08b061:meta",
+    "sourceId": "75ef4e08b061",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Way Of/The Way of The Ratling.pdf",
+    "title": "The Way of The Ratling",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T01:17:47.692838+00:00",
+  "meta": {
+    "sourceId": "75ef4e08b061",
+    "title": "The Way of The Ratling",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Way Of/The Way of The Ratling.pdf",
+    "pages": 146,
+    "extractedAt": "2026-02-04T01:17:47.674149+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

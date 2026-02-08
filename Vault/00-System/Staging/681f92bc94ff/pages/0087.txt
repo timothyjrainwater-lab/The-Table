@@ -1,0 +1,134 @@
+ 
+ 86 
+Emulate a Class Feature:  Sometimes you need to use a class feature 
+to activate a magic item. In this case, your effective level in the 
+emulated class equals your Use Magic Device check result minus 20.  
+For example, Lidda finds a magic chalice that turns regular water 
+into holy water when a cleric or an experienced paladin channels 
+positive energy into it as if turning undead. She attempts to activate 
+the item by emulating the cleric’s undead turning ability. Her 
+effective cleric level is her check result minus 20. Since a cleric can 
+turn undead at 1st level, she needs a Use Magic Device check result 
+of 21 or higher to succeed. 
+This skill does not let you actually use the class feature of another 
+class. It just lets you activate items as if you had that class feature. 
+If the class whose feature you are emulating has an alignment 
+requirement, you must meet it, either honestly or by emulating an 
+appropriate alignment with a separate Use Magic Device check (see 
+above). 
+Emulate a Race:  Some magic items work only for members of 
+certain races, or work better for members of those races. You can use 
+such an item as if you were a race of your choice. For example, 
+Lidda, a halfling, could attempt to use a dwarven thrower  (see page 
+226 of the Dungeon Master’s Guide) as if she were a dwarf. If she failed 
+her Use Magic Device check, the hammer would work for her as it 
+normally would for a halfling, but if she succeeded, it would work 
+for her as if she were a dwarf. You can emulate only one race at a 
+time. 
+Use a Scroll:  If you are casting a spell from a scroll, you have to 
+decipher it first. Normally, to cast a spell from a scroll, you must 
+have the scroll’s spell on your class spell list. Use Magic Device 
+allows you to use a scroll as if you had a particular spell on your class 
+spell list. The DC is equal to 20 + the caster level of the spell you are 
+trying to cast from the scroll. For instance, to cast web (a 2nd-level 
+wizard spell) from a scroll, you would need a Use Magic Device 
+check result of 23 or better, since the minimum caster level for web 
+is 3rd level. See the Dungeon Master’s Guide  for more information on 
+scrolls. 
+In addition, casting a spell from a scroll requires a 
+minimum score (10 + spell level) in the appropriate 
+ability. If you don’t have a sufficient score in 
+that ability, you must emulate the 
+ability score with a separate Use Magic 
+Device check (see above). 
+This use of the skill also applies to other 
+spell completion magic items. The 
+Dungeon Master’s Guide  has more 
+information on such items. 
+Use a Wand: Normally, to use a wand, you must have 
+the wand’s spell on your class spell list. This use of 
+the skill allows you to use a wand as if you had a 
+particular spell on your class spell list. 
+This use of the skill also applies to other spell 
+trigger magic items, such as staffs. The Dungeon 
+Master’s Guide has more information on such 
+items. 
+Action: None. The Use Magic Device 
+check is made as part of the action (if 
+any) required to activate the magic 
+item. (See Activate Magic Item, 
+page 142, and the Dungeon Master’s Guide  for discussions of how 
+magic items are normally activated.) 
+Try Again: Yes, but if you ever roll a natural 1 while attempting to 
+activate an item and you fail, then you can’t try to activate that item 
+again for 24 hours. 
+Special: You cannot take 10 with this skill. 
+You can’t aid another on Use Magic Device checks. Only the user 
+of the item may attempt such a check. 
+If you have the Magical Aptitude feat, you get a +2 bonus on Use 
+Magic Device checks. 
+Synergy: If you have 5 or more ranks in Spellcraft, you get a +2 
+bonus on Use Magic Device checks related to scrolls. 
+If you have 5 or more ranks in Decipher Script, you get a +2 
+bonus on Use Magic Device checks related to scrolls. 
+If you have 5 or more ranks in Use Magic Device, you get a +2 
+bonus to Spellcraft checks made to decipher spells on scrolls. 
+ 
+USE ROPE (DEX) 
+With this skill, you can make firm knots, undo tricky knots, and 
+bind prisoners with ropes. 
+Check: Most tasks with a rope are relatively simple. The DCs for 
+various tasks utilizing this skill are summarized on the table below. 
+ 
+Use Rope DC Task 
+ 10 Tie a firm knot 
+ 10 1 Secure a grappling hook 
+ 15 Tie a special knot, such as one that slips, slides 
+  slowly, or loosens with a tug 
+ 15 Tie a rope around yourself one-handed 
+ 15 Splice two ropes together 
+ Varies Bind a character 
+1 Add 2 to the DC for every 10 feet the hook is thrown; see below.  
+ 
+Secure a Grappling Hook:  Securing a grappling hook requires a Use 
+Rope check (DC 10, +2 for every 10 feet of distance the grappling 
+hook is thrown, to a maximum DC of 20 at 50 feet). Failure by 4 or 
+less indicates that the hook fails to catch and falls, allowing you to 
+try again. Failure by 5 or more indicates that the grappling hook 
+initially holds, but comes loose after 1d4 rounds of supporting 
+weight. Your DM should make this check secretly, so that you don’t 
+know whether the rope will hold your weight. 
+Bind a Character:  When you bind another character with a rope, 
+any Escape Artist check that the bound 
+character makes is opposed by your Use 
+Rope check. You get a +10 bonus on this 
+check because it is easier to bind 
+someone than to escape from bonds. 
+You don’t even make your Use Rope 
+check until someone tries to escape. 
+Action: Varies. Throwing a grappling 
+hook is a standard action that provokes an 
+attack of opportunity. Tying a knot, tying a 
+special knot, or tying a rope around 
+yourself one-handed is a full-round 
+action that provokes an attack of 
+opportunity. Splicing two ropes together 
+takes 5 minutes. Binding a character takes 1 
+minute. 
+Special: A silk rope (page 127) gives you a +2 cir-
+cumstance bonus on Use Rope checks. If you cast 
+an animate rope  spell on a rope, you get a +2 
+circumstance bonus on any Use Rope checks 
+you make when using that rope. These 
+bonuses stack. 
+If you have the Deft Hands feat, you get a +2 bonus 
+on Use Rope checks. 
+Synergy: If you have 5 or more ranks in Use Rope, you get a +2 
+bonus on Climb checks made to climb a rope, a knotted rope, or a 
+rope-and-wall combination. 
+If you have 5 or more ranks in Use Rope, you get a +2 bonus on 
+Escape Artist checks when escaping from rope bonds. 
+If you have 5 or more ranks in Escape Artist, you get a +2 bonus 
+on checks made to bind someone. 
+CHAPTER 4: 
+SKILLS 

@@ -1,0 +1,144 @@
+ 
+ 240 
+You create the ghostly image of a hand, 
+which you can send to find a creature 
+within 5 miles. The hand then beckons to 
+that creature and leads it to you if the crea-
+ture is willing to follow. 
+When the spell is cast, the hand appears 
+in front of you. You then specify a person 
+(or any creature) by physical description, 
+which can include race, gender, and 
+appearance but not ambiguous factors such 
+as level, alignment, or class. When the 
+description is complete, the hand streaks 
+off in search of a subject that fits the 
+description. The amount of time it takes to 
+find the subject depends on how far away 
+she is. 
+ 
+Distance Time to Locate 
+100 ft. or less 1 round 
+1,000 ft. 1 minute 
+1 mile 10 minutes 
+2 miles 1 hour 
+3 miles 2 hours 
+4 miles 3 hours 
+5 miles 4 hours  
+ 
+Once the hand locates the subject, it beck-
+ons the creature to follow it. If the subject 
+does so, the hand points in your direction, 
+indicating the most direct feasible route. 
+The hand hovers 10 feet in front of the 
+subject, moving before it at a speed of as 
+much as 240 feet per round. Once the 
+hand leads the subject back to you, it 
+disappears. 
+The subject is not compelled to follow 
+the hand or act in any particular way to-
+ward you. If the subject chooses not to 
+follow, the hand continues to beckon for 
+the duration of the spell, then disappears. 
+If the spell expires while the subject is en 
+route to you, the hand disappears; 
+the subject must then rely on her 
+own devices to locate you. 
+If more than one sub-
+ject in a 5-mile 
+radius meets the description, the hand 
+locates the closest creature. If that creature 
+refuses to follow the hand, the hand does 
+not seek out a second subject. 
+If, at the end of 4 hours of searching, the 
+hand has found no subject that matches 
+the description within 5 miles, it returns to 
+you, displays an outstretched palm (indica-
+ting that no such creature was found), and 
+disappears. 
+The ghostly hand has no physical form. 
+It is invisible to anyone except you and a 
+potential subject. It cannot engage in com-
+bat or execute any other task aside from 
+locating a subject and leading it back to 
+you. The hand can’t pass through solid 
+objects but can ooze through small cracks 
+and slits. The hand cannot travel more 
+than 5 miles from the spot it appeared 
+when you cast the spell. 
+ 
+Heroes’ Feast 
+Conjuration [Creation] 
+Level: Brd 6, Clr 6 
+Components: V, S, DF 
+Casting Time: 10 minutes 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Effect: Feast for one creature/level 
+Duration: 1 hour plus 12 hours; see text 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You bring forth a great feast, including a 
+magnificent table, chairs, service, 
+and food and drink. The feast takes 1 hour 
+to consume, and the beneficial effects do 
+not set in until this hour is over. Every 
+creature partaking of the feast is cured of 
+all diseases, sickness, and nausea; becomes 
+immune to poison for 12 hours; and gains 
+1d8 temporary hit points +1 point per two 
+caster levels (maximum +10) after imbi-
+bing the nectar-like beverage that is part of 
+the feast. The ambrosial food that is con-
+sumed grants each creature that partakes a 
++1 morale bonus on attack rolls and Will 
+saves and immunity to fear effects for 12 
+hours. 
+If the feast is interrupted for any reason, 
+the spell is ruined and all effects of the 
+spell are negated. 
+ 
+Heroism 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Brd 2, Sor/Wiz 3 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature touched 
+Duration: 10 min./level 
+Saving Throw:  Will ne-
+gates (harmless) 
+Spell Resistance:  Yes (harm-
+less) 
+ 
+This spell imbues a 
+single creature with great 
+bravery and morale in 
+battle. The target gains a +2 
+morale bonus on attack 
+rolls, saves, and skill 
+checks. 
+ 
+Heroism, Greater 
+Enchantment (Compulsion) 
+[Mind-Affecting] 
+Level: Brd 5, Sor/Wiz 6 
+Duration: 1 min./level 
+ 
+This spell functions like 
+heroism, except the crea-
+ture gains a +4 morale 
+bonus on attack rolls, 
+saves, and skill 
+checks, immunity to 
+fear effects, and tem-
+porary hit points 
+equal to your caster 
+level (maximum 20). 
+ 
+ 
+Jozan casts holy smite 
+against a succubus. 
+CHAPTER 11: 
+SPELLS 

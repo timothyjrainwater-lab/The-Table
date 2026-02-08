@@ -1,0 +1,132 @@
+ 
+ 58 
+Elf Wizard Starting Package 
+Armor: None (speed 30 ft.). 
+Weapons: Quarterstaff (1d6/1d6, crit ×2, 4 lb., two-handed, 
+bludgeoning). 
+Light crossbow (1d8, crit 19–20/×2, range inc. 80 ft., 4 lb., 
+piercing). 
+Skill Selection: Pick a number of skills equal to 2 + Int modifier. 
+ 
+Skill Ranks Ability Armor Check Penalty 
+Spellcraft 4 Int — 
+Concentration 4 Con — 
+Knowledge (arcana) 4 Int — 
+Decipher Script 4 Int — 
+Hide (cc) 2 Dex 0 
+Move Silently (cc) 2 Dex 0 
+Search (cc) 2 Int — 
+Spot (cc) 2 Wis —  
+ 
+Feat: Toughness. 
+School Specialization: None. 
+Spellbook: All 0-level spells; plus charm person, summon monster I, 
+and sleep; plus one of these spells of your choice per point of 
+Intelligence bonus (if any): cause fear , color spray , magic missile , and 
+silent image. 
+Gear: Backpack with waterskin, one day’s trail rations, bedroll, 
+sack, and flint and steel. Ten candles, map case, three pages of 
+parchment, ink, inkpen. Spell component pouch, spellbook. Case 
+with 10 crossbow bolts. 
+Gold: 3d6 gp. 
+ 
+EXPERIENCE AND LEVELS 
+Experience points (XP) measure how much your character has 
+learned and how much he or she has grown in personal power. Your 
+character earns XP by defeating monsters and other opponents. The 
+DM assigns XP to the characters at the end of each adventure based 
+on what they have  accomplished. Characters accumulate XP from 
+one adventure to another. When a character earns enough XP, he or 
+she attains a new character level (see Table 3–2: Experience and 
+Level-Dependent Benefits, page 22). 
+Advancing a Level: When your character’s XP total reaches at 
+least the minimum XP needed for a new character level (see Table 
+3–2), he or she “goes up a level.” For example, when Tordek obtains 
+1,000 or more XP, he becomes a 2nd-level character. As soon as he 
+accumulates a total of 3,000 XP or higher (2,000 more than he had 
+when he gained 2nd level), he reaches 3rd level. Going up a level 
+provides the character with several immediate benefits (see below). 
+A character can advance only one level at a time. If, for some 
+extraordinary reason, a character’s XP reward from a single 
+adventure would be enough to advance two or more levels at once, 
+he or she instead advances one level and gains just enough XP to be 
+1 XP short of the next level. Any excess experience points are not 
+retained. For example, if Tordek has 5,000 XP (1,000 points short of 
+4th level) and gains 6,000 more, he would normally be at 11,000 
+XP—enough for 5th level. Instead he attains 4th level, and his XP 
+total stands at 9,999. 
+Training and Practice: Characters spend time between adventures 
+training, studying, or otherwise practicing their skills. This work 
+consolidates what they learn on adventures and keeps them in top 
+form. If, for some reason, a character can’t practice or train for an 
+extended time, the DM may reduce XP awards or even cause the 
+character to lose experience points. 
+ 
+ 
+ 
+LEVEL ADVANCEMENT 
+Each character class description includes a table that shows how the 
+class features and statistics increase as a member of that class 
+advances in level. When your character attains a new level, make 
+these changes. 
+1. Choose Class: A typical character has only one class, and when 
+he or she attains a new level, it is a new level in that class. If your 
+character has more than one class or wants to acquire a new class, 
+you choose which class goes up one level. The other class or classes 
+stay at the previous level. (See Multiclass Characters, page 59.) 
+2. Base Attack Bonus:  The base attack bonus for fighters, 
+barbarians, rangers, and paladins increase by 1 every level. The base 
+attack bonus for other characters increases at a slower rate. If your 
+character’s base attack bonus changes, record it on your character 
+sheet. 
+3. Base Save Bonuses:  Like base attack bonuses, base save 
+bonuses improve at varying rates as characters increase in level. 
+Check your character’s base save bonuses for the class that has 
+advanced in level to see if any of them have increased by 1. Some 
+base save bonuses increase at every even-numbered level; others 
+increase at every level divisible by three. 
+4. Ability Score: If your character has just attained 4th, 8th, 12th, 
+16th, or 20th character level, choose one of his or her ability scores 
+and raise it by 1 point. (It’s okay for a score to go above 18.) It’s the 
+overall character level, not the class level, that counts for this 
+adjustment. 
+If your character’s Constitution modifier increases by 1 (see Table 
+1–1: Ability Modifiers and Bonus Spells, page 8), add +1 to his or her 
+hit point total for every character level below the one just attained. 
+For example, if you raise your character’s Constitution from 11 to 12 
+at 4th level, he or she gets +3 hit points (one each for 1st, 2nd, and 
+3rd levels). Add these points before rolling for hit points (the next 
+step). 
+5. Hit Points:  Roll a Hit Die, add your character’s Constitution 
+modifier, and add the total roll to his or her hit points. Even if the 
+character has a Constitution penalty and the roll was so low as to 
+yield a result of 0 or fewer hit points, always add at least 1 hip point 
+upon gaining a new level. 
+6. Skill Points:  Each character gains skill points to spend on 
+skills as detailed in the appropriate class description. For class skills, 
+each skill point buys 1 rank, and a character’s maximum rank in the 
+skill is his or her character level +3. For cross-class skills, each skill 
+point only buys 1/2 rank, and the maximum rank in the skill is one-
+half that of a class skill (don’t round up or down). See Table 3–2: 
+Experience and Level-Dependent Benefits, page 22. 
+If you have been “maxing out” a skill (putting as many skill points 
+into it as possible), you don’t have to worry about calculating your 
+maximum rank with it. At each new level, you can always assign 1 
+skill point—and just 1—to any skill that you’re maxing out. (If it’s a 
+cross-class skill, this point buys 1/2 rank.) 
+Remember that you buy skills based on the class you have 
+advanced in, so that only those skills given as class skills for that 
+class can be purchased as class skills for this level, regardless of what 
+other classes you may have levels in. 
+Your character’s Intelligence modifier affects the number of skill 
+points he or she gets at each level (see Table 1–1: Ability Modifiers 
+and Bonus Spells, page 8). This rule represents an intelligent 
+character’s ability to learn faster over time. Use your character’s 
+current Intelligence score, including all permanent changes (such as 
+inherent bonuses, ability drains, or an Intelligence increase gained 
+at step 4, above) but not any temporary changes (such as ability 
+damage, or enhancement bonuses gained from spells or magic 
+items, such as a headband of intellect ), to determine the number of 
+skill points you gain. 
+CHAPTER 3: 
+CLASSES 

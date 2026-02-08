@@ -1,0 +1,136 @@
+- —  s
+
+ 
+
+ 
+
+tive +4 insight bonus on all subsequent Fear, Hor-
+ror and Madness save:
+
+Hallucinations: The character perceivessome-
+thing in the world that simply does not exist. In a
+sense, hallucinations can be considered the exter-
+nal companion to the internal delusions effect. As
+with delusions, the nature of the hallucination is
+usually related to the event that prompted the
+failed Madness check.
+
+Examples: A character might believe that she
+can see ghosts, that biting insects have infested her
+armor or that mind-flayers visit her at night. She
+might even occasionally encounter an NPC who
+exists only in her mind.
+
+Inasense, a hallucination can be thought of as
+a phantasm spell on the level of a major image, but
+one where the insane character is both caster and
+subject. As with illusions, the DM should present
+hallucinatory episodes as real events when they
+first manifest. Menacing hallucinations may pro-
+voke Fear or Horror saves (DC depends on the
+specific scene; see the respective sections on deter-
+mining DC). Hallucinations can even attack the
+character, though they deal only nonlethal dam-
+age, as the character merely believes she is being
+harmed.
+
+ 
+
+ 
+
+Characters have little mental defense against
+their own inner demons. Thus, a hallucinating
+character suffers a -2 morale penalty on all Fear
+and Horror saves provoked by her own visions.
+
+If a character somehow becomes aware that
+her hallucinations are just that, she must still
+concentrate to convince herself that the visions
+are not real. This works just like disbelieving illu-
+sions; to dispel a hallucination, the character must
+make a Will save at DC (13 + character's Wisdom
+modifier). Unlike with illusions, however, the re-
+assurances of allies cannot grant a hallucinating
+character any bonus on her Will save. An attempt
+to disbelieve a hallucination is a standard action
+and can be retried each round.
+
+Ifa character successfully disbelieves a hallu-
+cination, the episode continues for another 1d4
+rounds. That hallucination can no longer provoke
+Fear or Horror saves, however, nor can it deal
+nonlethal damage.
+
+DM Tips: One way to present hallucinations
+is to inform the other players in secret about the
+nature of the character’s madness. Later, once
+those players know that the episode the DM de-
+scribed won’t be real, the DM can present the
+episode to the group as a real event, and only the
+
+hallucinating character reacts as ifthe threat is real
+— adding to the insane character’s confusion.
+
+The DM can then enhance this “rubber real-
+ity” by letting the hallucinating character see areal
+threat that mimics a recurring vision. As an ex-
+ample, a character who hallucinates about
+monstrous wolves might be on watch alone, when
+she spots teal pack of dire wolves skulking around
+the campsite. The other characters would then
+have to guess whether she was merely “crying wolf”
+again.
+
+ 
+
+Paranoia: The character believes that she
+exists at the center of a conspiracy dedicated to her
+destruction. No amount of rational argument can
+convince her otherwise. Although the character's
+madness does not extend to actual hallucinations,
+the DM should present all NPCs and conversations
+with other characters ina menacing light. The DM
+might drop subtle visual clues that other characters
+are inhuman, or thread vague, easily misinter-
+preted threats into NPC dialogue.
+
+As with hallucinations, the DM may want to
+give the other players secret signals that the scene
+is not being presented quite as it actually exists, or
+the DM may want to focus on the paranoid
+character’s interaction with NPCs only when sepa-
+rated from other PCs. This avoids the extra work of
+explaining what's really happening to the other
+players.
+
+The paranoid character must succeed ata Will
+save with a DC equal to that of the failed Madness
+save to place any trust in other characters. If the
+character fails the Will save, she must refuse all
+offers of help as being obvious traps.
+
+  
+
+If a paranoid character ever does come upon
+actual evidence that she has been betrayed or that
+others are conspiring against her, she must make an
+immediate Horror save (at DC 12 + character’s
+Wisdom modifier).
+
+Major Madness Effects
+
+Amnesia: A much more disabling form of the
+blackout effect, amnesia is the result of an affected
+mind’s desperate attempt to shield itself from the
+memory that provoked the failed Madness save.
+Throwing the baby out with the bathwater, the
+amnesiac character immediately blocks out all
+memory of the maddening event — along with
+many of the months or years that came before it.
+
+If a failed Madness save results in an amnesia
+effect, the DM should roll d%. Multiply this per-
+centage times the character’s total levels (rounding
+
+ 
+

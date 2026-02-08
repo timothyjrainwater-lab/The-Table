@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "5307ce659e0b:meta",
+    "sourceId": "5307ce659e0b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Path of/Path of Faith.pdf",
+    "title": "Path of Faith",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:36:23.043849+00:00",
+  "meta": {
+    "sourceId": "5307ce659e0b",
+    "title": "Path of Faith",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Path of/Path of Faith.pdf",
+    "pages": 175,
+    "extractedAt": "2026-02-03T15:36:22.111691+00:00"
+  },
+  "enqueued_extractPages": 88
+}

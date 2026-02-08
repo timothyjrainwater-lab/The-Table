@@ -1,0 +1,165 @@
+ 
+
+Special Qualities: A half-celestial has all the special qualities of
+the base creature, plus the following special qualities.
+
+—Darkvision out to 60 feet.
+
+—Immunity to disease,
+
+—Resistance to acid 10, cold 10, and electricity 10. 4
+
+—Damage reduction: 5/magic (if HD 11 or less) or 10/magic (if)
+HD 12 or more). +
+| —A half-celestial’s natural weapons are treated as magic weap-
+[ons for the purpose of overcoming damage reduction. |
+
+—Spell resistance equal to creature's HD + 10 (maximum 35).)
+
+— +4 racial bonus on Fortitude saves against poison.
+
+Abilities: Increase from the base creature as follows: Str +4,
+Dex +2, Con +4, Int +2, Wis +4,Cha +4.
+
+Skills: A half-celestial gains skill points as an outsider and has
+skill points equal to (8 + Int modifier) x (HD +3). Do not include
+Hit Dice from class levels in this calculation—the half-celestial
+,gains.outsider skill points only for its racial Hit Dice, and gains the
+jnormal amount of skill points for its class levels. Treat skills from |
+\the base creature's list as class skills, and other skills as cross-class.)
+
+Challenge Rating: HD 5 or less, as base creature +1; HD 6 fo,
+10, as base creature +2; HD 11 or more, as base creature +3.
+
+Alignment: Always good (any).
+
+Level Adjustment: Same as base creature +4.
+
+HALF-CELESTIAL CHARACTERS
+Half-celestial humanoids often have a character class, preferring
+bard, cleric, fighter, and paladin. Nonhumanoids are also some-
+[times clerics or paladins, Half-celestial clerics serve good deities
+jsuch as Ehlonna, Heironeous, Kord, or Pelor.
+
+A dragon's magical nature allows it to breed with virtually any
+creature, Conception usually occurs while the dragon has
+changed its shape; it then abandons the crossbreed offspring.
+Half-dragon creatures are always more formidable than others
+of their kind that do not have dragon blood, and their appearance.
+betrays their nature—scales, elongated features, reptilian eyes,
+and exaggerated teeth and claws, Sometimes they have wings.|
+
+SAMPLE HALF-DRAGON
+This powerful humanoid has black, scaled skin, sharp. claws and fangs,
+and a pair of forward-curving homs.above its eyes.
+
+Here is an example of a half-dragon using a 4th-level human
+fighter as the base creature and.a black dragon as the nonhuman
+parent,
+
+|Half-Black Dragon 4th-Level Human Fighter
+Medium Dragon (Augmented Humanoid)
+Hit Dice: 4d10+16 (43 hp)
+Initiative: +1
+Speed: 20 fr. in full plate armor (4 squares); base speed 30 ft.
+Armor Class; 24 (+1 Dex, +4 natural, +9 +4 full plate armor),
+touch 1, flat-footed 23.
+Base Attack/Grapple: +4/+10
+Attack: Masterwork two-bladed sword +12 melee
+(1d8+11/19-20) or javelin +5 ranged (1d6+6)
+Full Attack: Masterwork two-bladed sword +10 melee/+10
+melee (1d8+8/19-20, 1d8+5/19-20) and bite +5 melee (1d6+3),
+or 2.claws +10 melee (1d4+6) and bite +5 melee (1d6+3); or
+javelin +5 ranged (1d6+6)
+\Space/Reach: 5 ft./s ft
+Special Attacks; Breath weapon
+Special Qualities; Darkvision 60 ft., immunity to acid, sleep, and
+paralysis, low-light vision |
+Saves: Fort +8, Ref +2, Will +4 }
+
+Abilities: Str 22, Dex 13, Con 18, Int 10, Wis 12, Cha 12
+Skills: Climb +5, Intimidate +4, Jump —1, Listen +3, Spot +4.
+Feats: Exotic Weapon Proficiency (two-bladed sword), Iron Will, |
+Power Attack, Two Weapon Fighting, Weapon Focus (two-
+
+| bladed sword), Weapon Specialization (two-bladed sword)
+Environment; Temperate plains
+
+(Organization: Solitary
+
+Challenge Rating: 6
+
+Treasure: Standard
+
+Alignment: Often chaotic evil
+
+Advancement: By character class
+
+Level Adjustment: +3
+
+This half-dragon is based on a 4th-level human fighter with the
+following ability scores: Str 14, Dex 13, Con 16, Int 8, Wis 12,
+Cha 10.
+
+Combat
+\Half-black dragon fighters use two-handed (often exotic) weap-,
+Tons. Aggressive and temperamental, they're usually itching for a
+battle. They often lead other evil warriors, bur fight as individuals,
+Breath Weapon (Su): 30-foot line, once per day, damage 6d8
+acid, Reflex DC 14 half. The save DC is Constiturion-based.
+Possessions: +4 full plate armor, masterwork two-bladed sword, 2
+javelins,
+
+CREATING A HALF-DRAGON {
+
+{“Half-dragon’ is an inherited remplate that.can be added to any}
+
+living, corporeal creature (referred to hereafter asthe base crea-|
+
+ture). ;
+A half-dragon uses all the base creature's statistics and special |
+abilities except as noted here.
+
+Size and Type: The creature's type changes to dragon. Size is
+unchanged. Do not recalculate base attack bonus or saves.
+
+Hit Dice: Increase base creature's racial HD by one die size, 10.
+maximum of di2. Do not increase class HD.
+
+Speed: A half-dragon that is Large or larger has wings and can
+fly at twice its base land speed (maximum 120 ft.) with average
+maneuverability. A half-dragon that is Medium or smaller does
+not have wings,
+
+‘Armor Class: Natural armor improves by +4
+
+Attack: A half-dragon has nwo claw attacks and a bite attack,
+and the claws are the primary natural weapon. If the base crea-
+ture can.use weapons, the half-dragon retains this ability. A half-
+dragon fighting without weapons uses 2 claw when making an
+attack action. When it has a weapon, it usually uses the weapon
+instead,
+
+Full Attack: A half-dragon fighting without weapons uses both
+claws and its bite when making a full attack. Lf armed with a
+weapon, it usually uses the weapon as its primary attack and its
+bite as a natural secondary attack, If it has a hand free, it uses a
+claw as an additional natural secondary attack.
+
+Damage: Half-dragons have bite and claw attacks. If the base
+creature does not have these attack forms, use the damage values
+in.the table below. Otherwise, use the values below or the base
+creature's damage values, whichever are greater.
+
+Bite Claw.
+Size Damage Damage
+Fine 1 =
+Diminutive 1d2 1
+Tiny 1d3 1d2 J
+Small. id4 143 4
+Medium 146 1d4
+Large 168 1d6
+Huge 2d6 ids
+Gargantuan, 3d6 2d6
+Colossal 4d6 3d6
+

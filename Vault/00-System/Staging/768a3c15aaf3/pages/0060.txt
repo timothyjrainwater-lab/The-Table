@@ -1,0 +1,132 @@
+   
+
+ster hunter gains the ability to wriggle free from
+magical effects that would otherwise control or
+compel him. If a monster hunter with slippery
+mind is affected by an enchantment spell or effect
+and fails his saving throw, he can attempt it again
+1 round later at the same DC. He gets only this one
+extra chance to succeed on his saving throw.
+
+Monster Hunter Spell List
+
+Monster hunters choose their spells from the
+following list. Note that some of the monster
+hunter's first level spells incorporate 0 level sor-
+cerer/wizard spells.
+
+Ist level—alarm, chill touch, detect magic, de-
+tect secret doors, detect undead, disrupt undead, hold
+portal, light, protection from (chaos, evil, good, law) ,
+read magic, resistance.
+
+2nd level—arcane lock, continual flame,
+darkwision, daze monster, expeditious retreat, knock,
+magic weapon, see invisibility.
+
+3rd level—daylight, diminish undead, dispel
+magic, gentle repose, halt undead, magic circle against
+(chaos, evil, good, law), tongues.
+
+4th level—break enchantment, detect scrying,
+heroism, locate creature, remove curse, suppress ly-
+canthropy.
+
+Specialty Hunter Prestige
+Classes
+
+Specialty prestige classes are available after a
+character has followed the path of the monster
+hunter. Each focuses on one of the different arche-
+typal monster sorts in Ravenloft:
+
+Beast-hunter (Bhr) — lycanthropes, skin-
+changers.
+
+Demon-hunter (Dhr) — Extraplanar crea-
+tures.
+
+Ghost-hunter (Ghr) —incorporeal creatures.
+
+Vampire-hunter (Vhr) — vampires, ghouls,
+intelligent corporeal undead.
+
+Witch-hunter (Whr) — hags, sorcerers,
+spellcasters, fey creatures.
+
+Hit Die: d6
+
+Requirements
+Skills: Intimidate 10 ranks, Knowledge (the
+planes) 5 ranks, Knoledge (relevant monster type)
+10 ranks, Sense Motive 10 ranks.
+Class Requirement: Must have at least 3
+levels of monster hunter.
+
+ 
+
+ 
+
+Class Skills
+The specialty hunter's class skills (and the key
+ability for each skill) are Concentration (Con), Craft
+(alchemy) (Int), DecipherScript (Int), Gather Informa-
+tion (Cha), Hide (Dex), Intimidate (Cha), Knowledge
+(arcana) (Int), Knowledge (dungeoneering) (Int),
+Knowledge (local) (Int), Knowledge (nature) (Int),
+Knowledge (religion) (Int), Knowledge (the planes)
+(Int), Listen (Wis), Move Silently (Dex), Search (Int),
+Sense Motive (Wis), Spot (Wis), Survival (Wis).
+Skill Points at Each Level: 4 + Int modifier.
+
+ 
+
+Class features (common)
+
+Weapon and Armor Proficiency: A specialty
+hunter is proficient with all simple weapons, light
+armor and medium armor.
+
+Spells: Spell progression continues from the
+character’s monster hunter levels. These supersede
+rather than adding to the spells he received as a
+monster hunter. Any spells noted as 0 means that
+the hunter receives only bonus spells at that level.
+Note that ifa monster hunter chooses to become a
+specialist before attaining 5th level, his spellsshould
+be reduced to reflect what he had accordingly.
+
+Studied Foe (Ex): Continue to pick a studied
+foe as before, but it must be of the hunting specialty
+(vampire, ghost, witch, lycanthrope, demon).
+Again, studied foes are chosen at Ist, 3rd and 5th
+level. Each time, the bonus on Sense Motive,
+attack rolls and saving throws against the chosen
+foe increase by +1. Thus, if a monster hunter with
+a +4 bonus against vampires chooses to specialize
+in vampires, his bonus rises to +5 at 1st level, +6 at
+3rd and +7 at 5th level as a specialist.
+
+Improved Critical (Ex): At 3rd level, the
+hunter gains the Improved Critical feat against a
+monster of the chosen type, even if that monster
+cannot normally suffer a critical.
+
+Smite Enemy (Su): At 5th level, the hunter gains
+theability tosmite his chosen foe once perday. Add your
+Intelligence bonus (ifany) to your attack roll and deal 1
+extra point of damage per character level. If the hunter
+hasmore than one chosen foe, he can smite any of them,
+but can still use the ability only once per day.
+
+Class features specific to each specialty
+are as follows.
+
+ 
+
+Beast-bunter
+
+Lycanthrope Resistant (Su): Beast-hunters
+get a +1 bonus on saves against lycanthropy. This
+increases by +1 at each level thereafter.
+

@@ -1,0 +1,176 @@
+  
+    
+  
+  
+  
+  
+  
+ 
+  
+   
+  
+ 
+ 
+    
+  
+ 
+
+   
+  
+   
+  
+ 
+       
+
+foe at a time; it lasts for the duration of the encounter or
+until you switch targets, Lf you designate a new target for
+this ability (by attempting a new Intimidate check against
+a different creature), the previous target no longer takes the
+penalty on his attack rolls against you. Opponents that are
+immune to the effects of the Intimidate skill, such as mind-
+less creatures and those with immunity to fear, are immune
+to this maneuver.
+Special: A fighter
+fighter bonus feats.
+
+EINHANDER
+
+You excel at wielding a one-handed weapon while carrying
+nothing in your off hand
+
+Prerequisites; Tumble 6 ranks, base attack bonus
+
+Benefit: If you are fighting with a one-handed weapon
+ora light weapon and carrying nothing in your off hand,
+the Einhander feat grants you access to three special tacti-
+cal maneuvers.
+
+Narrow Profile: You can tuck your arm behind your back
+and offer a narrow profile when you concentrate on
+defense rather than offense, You gain an additional +2 dodge
+bonus to AC when fighting defensively or using the total
+defense action,
+
+Off-Hand Balance: You use your off hand to balance yourself
+while performing acrobatic maneuvers. After you success-
+fully strike an opponent, you gain a +2 bonus on Tumble
+checks to avoid his attacks of opportunity until the start of
+your next turn, When you flip and roll out of harm's way,
+you use one hand to keep your balance and your other hand
+to keep your weapon trained on your foe
+
+Off-Hand Swap: With a flourish, you flip your weapon into
+the air, catch it in your off hand, and continue to ptess the
+attack. When you use this maneuver, you must first take a
+full attack action to strike an opponent at least twice. On
+your next turn, you can make a special feint as a free action,
+using Sleight of Hand rather than Bluff. Your opponent uses
+the standard rules for resisting a feint. Once you use this
+maneuver against a particular opponent, whether it succeeds
+or fails, you cannot use it against him again,
+
+Special: A fighter can select Einhander as one of his fighter
+bonus feats,
+
+MAD ALCHEMIST
+
+You are an expert at using alchemical items. Through
+experimentation, research, and your careful study of the art
+of alchemy, you have learned to make the most of items such
+as alchemist's fire.
+
+Prerequisites: Craft (alchemy) 6 ranks, Grenadier
+
+Benefit: The Mad Alchemist feat grants you access to three
+special tactical maneuvers.
+
+Distracting Blast: If you ready an action to throw a thunder-
+stone at the square an opponent occupies, you can disrupt his
+actions. The sudden bang from the stone's detonation ruins
+
+ 
+
+an select Combat Panache as one of his
+
+ 
+
+ 
+
+ 
+
+   
+
+your foe's concentration, possibly spoiling his attack or his
+attempt to cast a spell. If the target of this blast was casting
+a spell when you threw the thunderstone, he must make a
+Concentration check opposed by your Craft (alchemy) check.
+If you succeed on this check, his spell is ruined, If the target
+was not casting a spell, he must make a Will save opposed by
+your Craft (alchemy) check or take a-2 penalty on attack rolls,
+checks, and saves until the beginning of your next turn.
+
+Fiery Blaze: To use this maneuver, you must first strike a
+creature with a container of lantern oil or alchemist's fire.
+On your next turn, you must strike the creature with a spell
+or weapon attack that deals fire damage. If you do so, the
+creature takes an extra tdé points of fire damage and catches
+on fire if it is not already in flames.
+
+Tanglefoot Defense: By tearing open a tanglefoot bag and
+spreading its contents acrossan area, you can create a vexing
+barrier that hinders an opponent's approach, As a standard
+action, you can transform a single square of clear terrain into
+difficult terrain through the use of a tanglefoot bag. This
+effect persists for 10 minutes before the tanglefoot bag loses
+its potency.
+
+SHADOW STRIKER
+
+You melt into the shadows, hiding from your enemies until
+the time is right. Your cunning, guile, and stealth allow you
+to pick the most opportune moment to strike.
+
+Prerequisites: Hide 12 ranks, Move Silently 12 ranks.
+
+Benefit: The Shadow Striker feat grants you access to three
+special tactical maneuvers.
+
+Evade Notice: If both you and an ally threaten an opponent,
+you can attempt to slip beneath your opponent's notice. On
+your turn, if you take no hostile actions, such as attacking,
+casting an offensive spell, and so forth, you can make a Hide
+check opposed by the threatened foe's Spot check. If you
+succeed on this check, your foe cannot attack you on his next
+turn as long as he threatens another active opponent. If you
+attack your foe for any reason before or during his next turn,
+you lose this maneuver's benefit.
+
+Fade Away: To use this maneuver, you must first attack an
+opponent as a standard action, then move away and attempt
+a Hide check as part of your move action for the turn. If your
+attack hits, it creates a momentary diversion, granting you a
++5 bonus on this Hide check.
+
+Ghost Strike: You use an ally’s distraction and your talent to
+move noiselessly and slip out of your opponent's field of vision
+fora single, crucial moment. To use this maneuver, both you
+and an ally must threaten a single foe, As a standard action,
+you make a Move Silently check opposed by your foe's Listen
+check. If you succeed on this check, you gain this maneuver's
+benefit. On the next round, your target loses his Dexterity
+bonus to AC against your first attack of the round so long as
+your ally still threatens him,
+
+Special: A fighter can select Shadow Striker as one of his
+fighter bonus feats.
+
+ 
+
+ 
+
+ 
+
+ 
+
+  
+

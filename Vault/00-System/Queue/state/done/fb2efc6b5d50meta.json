@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "fb2efc6b5d50:meta",
+    "sourceId": "fb2efc6b5d50",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Munchkin/Munchkin Master's Guide.pdf",
+    "title": "Munchkin Master's Guide",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:09:43.777802+00:00",
+  "meta": {
+    "sourceId": "fb2efc6b5d50",
+    "title": "Munchkin Master's Guide",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Munchkin/Munchkin Master's Guide.pdf",
+    "pages": 49,
+    "extractedAt": "2026-02-03T15:09:43.770771+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

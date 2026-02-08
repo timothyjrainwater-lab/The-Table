@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "3bba747de226:meta",
+    "sourceId": "3bba747de226",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Speaker In Dreams.pdf",
+    "title": "The Speaker In Dreams",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:14:55.262848+00:00",
+  "meta": {
+    "sourceId": "3bba747de226",
+    "title": "The Speaker In Dreams",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Speaker In Dreams.pdf",
+    "pages": 47,
+    "extractedAt": "2026-02-04T00:14:55.026364+00:00"
+  },
+  "enqueued_extractPages": 24
+}

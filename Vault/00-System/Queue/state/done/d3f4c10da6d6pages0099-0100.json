@@ -1,0 +1,15 @@
+{
+  "task": {
+    "taskId": "d3f4c10da6d6:pages:0099-0100",
+    "sourceId": "d3f4c10da6d6",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Dragonlance/Age of Mortals.pdf",
+    "pageStart": 99,
+    "pageEnd": 100,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:51:21.802106+00:00"
+  },
+  "doneAt": "2026-02-04T11:28:07.582312+00:00",
+  "wrote": [],
+  "skipped_disallowed": true
+}

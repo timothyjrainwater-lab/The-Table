@@ -1,0 +1,127 @@
+Unapproachable EastWeb Enhancement
+7
+from the next encounter called The “Orc” Cleric and allow them to
+be an early warning system for the cleric.)
+DD Banedead (8): Medium-Size undead; CR 3; HD 6d12; 40 hp;
+Init +4; Spd 30; AC 16, touch 10, flat-footed 16; Atk +4 melee
+(1d4+1 plus 1 point Dex damage, 2 claws) and –2 melee (1d6, bite);
+SA Dexterity damage; SQ DR 15/+1, undead traits; SV Fort +2, Ref
++2, Wil +6; AL LE; Str 13, Dex 10, Con —, Int 10, Wis 12, Cha 15. 
+Skills and Feats:Hide +8, Listen +9, Move Silently +8, Spot +9,
+Search +5, Knowledge (religion) +3; Improved Initiative, Multiattack.
+Undead Traits: A banedead is immune to mind-affecting effects,
+poison, sleep,paralysis, stunning, disease, death effects, necromantic
+effects, and any effect that requires a Fortitude save unless it also
+works on objects or is harmless. It is not subject to critical hits, subd-
+ual damage, ability damage, ability drain, energy drain, or death from
+massive damage. A banedead cannot be raised, and resurrection works
+only if it is willing. The creature has darkvision (60-foot range).
+DD Baneguard (10): Medium-Size undead; CR 2; HD 4d12; 25 hp;
+Init +0; Spd 30; AC 13, touch 10, flat-footed 13; Atk +3 melee
+(1d8+1, longsword), or +3 melee (1d4+1, 2 claws); SA magic missile;
+SQ blink, undead traits, immunities (cold, half damage from pierc-
+ing, slashing weapons); SV Fort +1, Ref +1, Wil +5; AL LE; Str 12,
+Dex 11, Con —, Int 9, Wis 12, Cha 13. 
+Skills and Feats:Hide +7, Listen +8, Move Silently +7, Spot +8,
+Search +4; Blind-Fight.
+Magic Missile (Sp):Once every 3 rounds, a baneguard can use
+magic missile(caster level 4th). Each use creates two missiles that
+deal 1d4+1 points of damage each.
+Blink (Sp):Once every 10 minutes, a baneguard can use a blink
+spell (caster level 4th; duration 4 rounds).
+Immunities: Baneguards have cold immunity. They take only half
+damage from piercing or slashing weapons.
+Undead Traits: A baneguard is immune to mind-affecting effects,
+poison, sleep,paralysis, stunning, disease, death effects, necromantic
+effects, and any effect that requires a Fortitude save unless it also
+works on objects or is harmless. It is not subject to critical hits, sub-
+dual damage, ability damage, ability drain, energy drain, or death
+from massive damage. A baneguard cannot be raised, and resurrec-
+tion works only if it is willing. The creature has darkvision (60-foot
+range).
+Tactics: The baneguards pepper the group with magic missiles,
+then blink in for melee attacks, while the banedead simply wade
+through the ranks of the heroes.
+The “Orc” Cleric (EL 11) (H3)
+The group finally sees what they’re up against. If the previous
+encounter fired up their suspicions, those suspicions will be con-
+firmed here.
+If the PCs allow the cleric to speak, they learn or see the following.
+You can also allow some interaction with the cleric, but this is what
+should result in the order it should occur:
+• “You shouldn’t have come,” he says, and his voice is surprisingly
+not like an orc’s in timbre. In fact, it’s a rather cultured voice.
+“This was none of your business. You should have left well enough
+alone and remained content with guarding caravans, exploring old
+ruins, then drinking a few ales.” He sighs and shakes his head.
+“Now, it’s too late. You can’t be allowed to return. You can’t be
+allowed to tell others what you see. You cannot be permitted to
+interfere with the plans of Zhentil Keep.”
+• The orc cleric doffs his headgear and his features twist and change
+into a human male in his forties. His clothing changes to armor,
+with a holy symbol of Bane displayed prominently.
+• Once the cleric reveals himself, four armored men peek out from
+behind the debris, bows at the ready, and let fly with arrows.
+D Thule Orveth: Male human Cleric 10 of Bane; CR 10;
+Medium-size humanoid; HD 10d8+30; hp 75; Init +2; Spd 20 ft.; AC
+19, touch 12, flat-footed 17; Atk +12/+7 melee (1d8+6, +2 morn-
+ingstar); SA rebuke undead 11/day; AL LE; SV Fort +10, Ref +5,
+Will +12; Str 17, Dex 14, Con 17, Int 15, Wis 20, Cha 18.  
+Skills and Feats:Bluff +11, Concentration +13, Diplomacy +8,
+Gather Information +6, Heal +6, Intimidate +6, Knowledge (arcana)
++13, Knowledge (religion) +13, Ride (horse) +3, Sense Motive +10,
+Spellcraft +12; Power Attack, Cleave, Extra Turning, Leadership,
+Street Smart.
+Cleric Spells Prepared (6/7/6/5/5/4; save DC 15 + spell level): 0—
+light(2), purify food and drink(2), read magic(2); 1st—bane, cause
+fear, command*(2), random action, summon monsterI (2); 2nd—
+bull’s strength, darkness, enthrall* (2), hold person, summon monster
+II; 3rd—magic circle against chaos*, negative energy protection,
+remove disease, speak with dead, summon monster III; 4th—discern
+lies*, dismissal, lesser planar ally, restoration, summon monster IV;
+5th—circle of doom, dispel chaos*, flame strike(2). 
+* Domain spell. Domains: Law (cast law spells at +1 caster level), Tyranny
+(+2 to save DC of compulsion spells).
+Possessions: +2 breastplate, +2 morningstar, potion of gaseous form,
+hat of disguise, scroll ofword of recall, holy symbol of Bane, 3 vials
+unholy water, purse with 10 pp, 25 gp.
+Thule is a 45-year-old priest of Bane, and he is part of the Zhen-
+til Keep contingent. He is witty, charming, urbane, and unflappable.
+He enjoys dressing up as an orc priest and playing the part, knowing
+that his efforts will create an instant army for the Keep.
+DD Zhentarim Fighters (2): Male and female human Fighter 7;
+CR 7; Medium-size humanoid; HD 7d10+28; hp 66; Init +6; Spd 20
+ft.; AC 19, touch 12, flat-footed 17; Atk +13/+8 melee
+(1d8+7/19–20, +1 longsword); or +9/+4 ranged (1d6/[TS]3, short-
+bow); AL N; SV Fort +9, Ref +4, Will +3; Str 18, Dex 14, Con 18,
+Int 12, Wis 12, Cha 12.  
+Skills and Feats:Handle Animal +7, Intimidate +5, Jump +7,
+Ride (horse) +9, Swim +14, Wilderness Lore +5; Cleave, Denied,
+Improved Initiative, Mounted Combat, Power Attack, Quick Draw ,
+Ride-By Attack, Weapon Focus (longsword).
+Possessions: +2 chainmail, +1 longsword, shortbow,potion of cure
+moderate wounds, holy symbol of Bane, light warhorse, purse with
+50 sp.
+Tactics: The fighters hit the group with arrows, though they first
+attack clerics and spellcasters. Thule’s spells are used mostly to take
+out individuals and finish each one off before moving onto the next
+person.
+If the battle goes badly, the fighters do their best to cover Thule’s
+escape. The cleric is a good recurring villain and can use his scroll
+and the word of recallspell on it to send himself back to Zhentil
+Keep if matters go badly.
+Concluding the Adventure
+Although the group may have halted Thule’s plans for now, the
+Zhents will not stop in their efforts to get the orcs rallied back to
+their cause. The Black Network has agents all over Thesk, and
+they’re just waiting for another chance to strike. For now, though,
+if the PCs succeeded in stopping Thule, the orc community is unaf-
+fected by the events. In fact, if it is made known to the sergeant
+exactly what happened, it will strengthen many of the orcs’ resolve
+to live in peace with the humans and humanoids of Phent.
+A big bonfire blazes in the center of a circular depression 90 feet
+in diameter, and it has been cleared of most rocks and debris. The
+borders of the depression are choked with debris; rocks, boulders,
+deadfalls. A small wooden hut stands off to one side at the edge
+of the circle farthest away from you. Between the hut and the fire
+stands an orc cleric.

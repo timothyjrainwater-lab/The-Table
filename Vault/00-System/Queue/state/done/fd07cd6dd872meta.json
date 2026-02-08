@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fd07cd6dd872:meta",
+    "sourceId": "fd07cd6dd872",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Last Defender.pdf",
+    "title": "The Last Defender",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:41:11.569202+00:00",
+  "meta": {
+    "sourceId": "fd07cd6dd872",
+    "title": "The Last Defender",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Last Defender.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T21:41:11.502892+00:00"
+  },
+  "enqueued_extractPages": 5
+}

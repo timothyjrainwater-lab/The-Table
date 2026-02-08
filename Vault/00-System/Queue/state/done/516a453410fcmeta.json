@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "516a453410fc:meta",
+    "sourceId": "516a453410fc",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Bad Light.pdf",
+    "title": "Bad Light",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:20:19.207636+00:00",
+  "meta": {
+    "sourceId": "516a453410fc",
+    "title": "Bad Light",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Bad Light.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T05:20:19.147173+00:00"
+  }
+}

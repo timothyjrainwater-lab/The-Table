@@ -1,0 +1,75 @@
+ 
+ 152 
+Total Cover:  If you don’t have line of effect to your target (for 
+instance, if he is completely behind a high wall), he is considered to 
+have total cover from you. You can’t make an attack against a target 
+that has total cover. 
+Varying Degrees of Cover:  In some cases, cover may provide a 
+greater bonus to AC and Reflex saves. For instance, a character 
+peering around a corner or through an arrow slit has even better 
+cover than a character standing behind a low wall or an obstacle. In 
+such situations, the DM can double the normal cover bonuses to AC 
+and Reflex saves (to +8 and +4, respectively). A creature with this 
+improved cover effectively gains improved evasion against any 
+attack to which the Reflex save bonus applies (see the improved 
+evasion ability in the rogue class description, page 51). Furthermore, 
+improved cover provides a +10 bonus on Hide checks. 
+The DM may impose other penalties or restrictions to attacks 
+depending on the details of the cover. For example, to strike effec-
+tively through a narrow opening, you need to use a long piercing 
+weapon, such as an arrow or a spear. A battleaxe or a pick just isn’t 
+going to get through an arrow slit. 
+ 
+CONCEALMENT 
+Besides cover, another way to avoid attacks is to make it hard for 
+opponents to know where you are. Concealment encompasses all 
+circumstances where nothing physically blocks a blow or shot but 
+where something interferes with an attacker’s accuracy. 
+Concealment gives the subject of a successful attack a chance that 
+the attacker missed because of the concealment. 
+Typically, concealment is provided by fog, smoke, a shadowy area, 
+darkness, tall grass, foliage, or magical effects that make it difficult to 
+pinpoint a target’s location. 
+To determine whether your target has concealment from your 
+ranged attack, choose a corner of your square. If any line from this 
+corner to any corner of the target’s square passes through a square or 
+border that provides concealment, the target has concealment. 
+When making a melee attack against an adjacent target, your 
+target has concealment if his space is entirely within an effect that 
+grants concealment (such as a cloud of smoke). When making a 
+melee attack against a target that isn’t adjacent to you (for instance, 
+with a reach weapon), use the rules for determining concealment 
+from ranged attacks. 
+In addition, some magical effects (such as the blur and displace-
+ment spells) provide concealment against all attacks, regardless of 
+whether any intervening concealment exists. 
+Concealment Miss Chance: Concealment gives the subject of a 
+successful attack a 20% chance that the attacker missed because of 
+the concealment. If the attacker hits, the defender must make a miss 
+chance percentile roll to avoid being struck. (To expedite play, make 
+both rolls at the same time). Multiple concealment conditions (such 
+as a defender in a dog and under the effect of a blur spell) do not 
+stack. 
+Concealment and Hide Checks:  You can use concealment to 
+make a Hide check. Without concealment, you usually need cover 
+to make a Hide check. 
+Total Concealment: If you have line of effect to a target but not 
+line of sight (for instance, if he is in total darkness or invisible, or if 
+you’re blinded), he is considered to have total concealment from 
+you. You can’t attack an opponent that has total concealment, 
+though you can attack into a square that you think he occupies. A 
+successful attack into a square occupied by an enemy with total 
+concealment has a 50% miss chance (instead of the normal 20% miss 
+chance for an opponent with concealment). 
+You can’t execute an attack of opportunity against an opponent 
+with total concealment, even if you know what square or squares the 
+opponent occupies. 
+Ignoring Concealment: Concealment isn’t always effective. For 
+instance, a shadowy area or darkness doesn’t provide any conceal-
+ment against an opponent with darkvision. Remember also that 
+characters with low-light vision can see clearly for a greater distance 
+with the same light source than other characters. A torch, for 
+example, lets an elf see clearly for 40 feet in all directions from the 
+torch, while a human can see clearly for only 20 feet with the same 
+CHAPTER 8: 
+COMBAT 

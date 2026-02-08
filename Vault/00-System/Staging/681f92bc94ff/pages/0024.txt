@@ -1,0 +1,134 @@
+ 
+ 23
+For multiclass characters, feats and ability score increases are 
+gained according to character level, not class level. Thus, a 3rd-level 
+wizard/1st-level fighter is a 4th-level character overall and eligible 
+for her first ability score boost. 
+ 
+CLASS DESCRIPTIONS 
+The rest of this chapter, up to the section on multiclass characters, 
+describes the character classes in alphabetical order. Each descrip-
+tion begins with a general discussion in “game world” terms, the sort 
+of description that characters in the world could understand and the 
+way such a character might describe himself or herself. This 
+information is followed by brief advice on such a character’s typical 
+role in a group of adventurers. These descriptions are general; 
+individual members of a class may differ in their attitudes, outlooks, 
+and other aspects. 
+ 
+GAME RULE INFORMATION 
+Following the general class description comes game rule informa-
+tion. Not all of the following categories apply to every class. 
+Abilities: The Abilities entry tells you which abilities are most 
+important for a character of that class. Players are welcome to “play 
+against type,” but a typical character of that class will have his or her 
+highest ability scores where they’ll do the most good (or, in game 
+world terms, be attracted to the class that most suits his or her 
+talents or for which he or she is best qualified). 
+Alignment: A few classes restrict a character’s possible align-
+ments. For example, a bard must have a nonlawful alignment. An 
+entry of “Any” means that characters of this class are not restricted 
+in alignment. 
+Hit Die:  The type of Hit Die used by characters of the class 
+determines the number of hit points gained per level. 
+ 
+HD Type Class 
+ d4 Sorcerer, wizard 
+ d6 Bard, rogue 
+ d8 Cleric, druid, monk, ranger 
+ d10 Fighter, paladin 
+ d12 Barbarian  
+ 
+A character rolls one Hit Die 
+each time he or she gains a 
+new level, then applies any 
+Constitution modifier to the 
+roll, and adds the result to his or 
+her hit point total. Thus, a 
+character has the same number 
+of Hit Dice as levels. For his or 
+her first Hit Die, a 1st-level 
+character gets the maximum 
+hit points rather than rolling 
+(although Constitution modi-
+fiers, positive or negative, still 
+apply). 
+For example, Vadania gets a d8 
+Hit Die because she’s a druid. At 1st 
+level, she gets 8 hit points instead 
+of rolling. Since she has a 
+Constitution score of 13, she 
+applies a +1 bonus, raising her hit points to 9. When she 
+reaches 2nd level (and every level thereafter), Vadania’s 
+player rolls a d8, adds 1 (for her Constitution bonus), and then adds 
+the total to Vadania’s hit points. 
+If your character has a Constitution penalty and gets a result of 0 
+or lower after the penalty is applied to the Hit Die roll, ignore the 
+roll and add 1 to your character’s hit point total anyway. It is not 
+possible to lose hit points (or not receive any) when gaining a level, 
+even for a character with a rotten Constitution score. 
+Class Table: This table details how a character improves as he or 
+she gains levels in the class. Some of this material is repeated from 
+Table 3–1: Base Save and Base Attack Bonuses, but with more detail 
+on how the numbers apply to that class. Class tables typically 
+include the following: 
+Level: The character’s level in that class. 
+Base Attack Bonus:  The character’s base attack bonus and number 
+of attacks. 
+Fort Save:  The base save bonus on Fortitude saving throws. The 
+character’s Constitution modifier also applies. 
+Ref Save: The base save bonus on Reflex saving throws. The char-
+acter’s Dexterity modifier also applies. 
+Will Save: The base save bonus on Will saving throws. The char-
+acter’s Wisdom modifier also applies. 
+Special: Level-dependent class abilities, each explained in the Class 
+Features section that follows. 
+Spells per Day:  How many spells of each spell level the character 
+can cast each day. If the entry is “—” for a given level of spells, the 
+character may not cast any spells of that level. If the entry is “0,” the 
+character may cast spells of that level only if he or she is entitled to 
+bonus spells because of a high ability score tied to spellcasting. 
+(Bonus spells for wizards are based on Intelligence; bonus spells for 
+clerics, druids, paladins, and rangers are based on Charisma. See 
+Table 1–1: Ability Modifiers and Bonus Spells, page 8.) If the entry is 
+a number other than 0, the character may cast that many spells plus 
+any bonus spells each day. 
+A character can always choose to prepare a lower-level spell to fill 
+a higher-level slot (see Spell Slots, page 178). 
+Class Skills:  This section of a class description gives the class’s 
+list of class skills, the number of skill points the character starts with 
+at 1st level, and the number of skill points gained each level 
+thereafter. A character gets some number of skill points each level, 
+such depending on the class in question, such as 6 for a ranger 
+or 8 for a rogue. To this number, apply the character’s 
+Intelligence modifier (and 1 bonus point, if the character 
+is human) to determine the total skill points gained each 
+level (but always at least 1 skill point per level, even for a 
+character with an Intelligence penalty). A 1st-level char-
+acter starts with four times this number of skill points. 
+Since the maximum ranks in a class skill for a character is 
+the character’s level + 3, at 1st level you can buy as many as 4 
+ranks in any class skill, at a cost of 1 skill point per rank. 
+For example, Vadania is a half-elf druid, so she gets 4 
+skill points per level. She has a +1 Intelligence modi-
+fier, so that goes up to 5 skill points per 
+level. At 1st level, she gets four 
+times that amount, or 20 skill 
+points. Her maximum 
+rank for a class skill at 
+1st level is 4, so she 
+could, for example, 
+divvy up her 20 
+points among five class 
+skills with 4 ranks each. 
+(It’s more useful to 
+have a higher 
+score in a few 
+skills than a 
+lower score in many.) 
+You can also buy skills from other classes’ skill lists, but each skill 
+point only buys 1/2 rank in these cross-class skills, and you can buy 
+only half the maximum ranks a class skill would have (thus, the 
+maximum rank for a cross-class skill at 1st level is 2). 
+CHAPTER 3: 
+CLASSES 

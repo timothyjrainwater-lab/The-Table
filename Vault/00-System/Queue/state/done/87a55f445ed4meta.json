@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "87a55f445ed4:meta",
+    "sourceId": "87a55f445ed4",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Champions of Ruin.pdf",
+    "title": "Champions of Ruin",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T07:05:50.980078+00:00",
+  "meta": {
+    "sourceId": "87a55f445ed4",
+    "title": "Champions of Ruin",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Champions of Ruin.pdf",
+    "pages": 162,
+    "extractedAt": "2026-02-03T07:05:50.247131+00:00"
+  }
+}

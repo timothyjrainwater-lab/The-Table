@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0026",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 26,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:20:07.920452+00:00"
+  },
+  "doneAt": "2026-02-05T16:21:58.460591+00:00",
+  "citation": "DMG (pdf p.0026)",
+  "printedGuess": null,
+  "touched": [
+    "Condition — Grappled",
+    "Rule — Armor Class",
+    "Rule — Core Mechanic (d20)"
+  ],
+  "createdTables": []
+}

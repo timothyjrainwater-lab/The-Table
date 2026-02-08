@@ -1,0 +1,96 @@
+ 
+ 163
+Table 9–4: Hampered Movement 
+  Additional 
+Condition Example Movement Cost  
+Difficult terrain Rubble, undergrowth, steep ×2 
+ slope, ice, cracked and pitted surface, 
+ uneven floor 
+Obstacle1 Low wall, deadfall, broken pillar ×2 
+Poor visibility Darkness or fog ×2 
+Impassable Floor-to-ceiling wall, closed door, — 
+ blocked passage 
+1 May require a skill check 
+ 
+/rhombus4 Local, for exploring an area, measured in feet per minute. 
+/rhombus4 Overland, for getting from place to place, measured in miles per 
+hour or miles per day. 
+ 
+Modes of Movement: While moving at the different move-
+ment scales, creatures generally walk, hustle, or run. 
+Walk: A walk represents unhurried but purposeful move-
+ment at 3 miles per hour for an unencumbered human. 
+Hustle: A hustle is a jog at about 6 miles per hour for an 
+unencumbered human. A character moving his or her 
+speed twice in a single round, or moving that speed in 
+the same round that he or she performs a standard 
+action or another move action is hustling when he or 
+she moves. 
+Run (×3): Moving three times speed is a running pace 
+for a character in heavy armor. It represents about 9 
+miles per hour for a human in full plate. 
+Run (×4): Moving four times speed is a running pace 
+for a character in light, medium, or no armor. It repre-
+sents about 12 miles per hour for an unencumbered 
+human, or 8 miles per hour for a human in chainmail. 
+ 
+TACTICAL MOVEMENT 
+Use tactical movement for combat, as detailed on 
+page 147. Characters generally don’t walk during 
+combat—they hustle or run. A character who 
+moves his or her speed and takes some action, 
+such as attacking or casting a spell, is hustling for 
+about half the round and doing something 
+else the other half. 
+Hampered Movement: Difficult ter-
+rain, obstacles, or poor visibility can 
+hamper movement. When movement is 
+hampered, each square moved into usu-
+ally counts as two squares, effectively 
+reducing the distance that a character 
+can cover in a move. For example, a 
+character moving through difficult 
+terrain (such as undergrowth) pays 2 
+squares of movement per square 
+moved into (double the normal cost). 
+If more than one condition applies, 
+multiply together all additional costs 
+that apply. (This is a specific exception 
+to the normal rule for doubling; 
+see page 304.) For instance, a 
+character moving through diffi-
+cult terrain in darkness would 
+pay 4 squares of movement per 
+square moved into (double cost 
+times double cost is quadruple 
+cost). 
+In some situations, your movement may be so 
+hampered that you don’t have sufficient speed even to move 5 
+feet (1 square). In such a case, you may use a full-round action to 
+move 5 feet (1 square) in any direction, even diagonally. Even 
+though this looks like a 5-foot step, it’s not, and thus it provokes 
+attacks of opportunity normally. (You can’t take advantage of this 
+rule to move through impassable terrain or to move when all 
+movement is prohibited to you, such as while paralyzed.) 
+You can’t run or charge through any square that would hamper 
+your movement. 
+ 
+LOCAL MOVEMENT 
+Characters exploring an area use local movement, measured in feet 
+per minute. 
+Walk: A character can walk without a problem on the local scale. 
+Hustle: A character can hustle without a problem on the local 
+scale. See Overland Movement, below, for movement measured in 
+miles per hour. 
+Run: A character with a Constitution score of 9 or higher can run 
+for a minute without a problem. Generally, a character can run for a 
+minute or two before having to rest for a minute (see Run, page 
+144). 
+ 
+ 
+Adventurers prepare for their 
+next challenge. 
+ 
+Illus. by J. Jarvis 
+CHAPTER 9: 
+ADVENTURING 

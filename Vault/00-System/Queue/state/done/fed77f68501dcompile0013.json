@@ -1,0 +1,19 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0013",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 13,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-04T06:18:54.743455+00:00"
+  },
+  "doneAt": "2026-02-04T08:11:15.457231+00:00",
+  "citation": "DMG (pdf p.0013)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Core Mechanic (d20)",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "b541f086c298:meta",
+    "sourceId": "b541f086c298",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Fiend Folio.pdf",
+    "title": "Fiend Folio",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:40.965949+00:00",
+  "meta": {
+    "sourceId": "b541f086c298",
+    "title": "Fiend Folio",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Fiend Folio.pdf",
+    "pages": 241,
+    "extractedAt": "2026-02-03T10:36:39.885578+00:00"
+  },
+  "enqueued_extractPages": 121
+}

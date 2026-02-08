@@ -1,0 +1,196 @@
+      
+  
+  
+   
+    
+   
+   
+    
+   
+  
+   
+ 
+  
+    
+  
+  
+  
+  
+  
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+
+Benefit: Choose one arcane spell that you can cast to be your
+thesis spell. When casting that spell, you do so at +2 caster level
+When you apply a metamagic feat other than Heighten Spell
+to that spell, the enhanced spell uses up a spell slot one level
+lower than normal. For example, an empowered thesis spell
+
+ 
+
+ 
+
+uses up a spell slot one level higher than the spells actual slot
+rather than the normal two levels higher)
+
+Special: You can gain this feat multiple times. Its effects
+do not stack. Each time you take the feat, it applies to a
+
+new spell
+
+ARCANE TOUGHNESS
+
+You draw upon the power of your magic to sustain yourself
+allowing you to continue fighting long after your physical
+body has failed you.
+
+Prerequisites: Toughness, arcane caster level 3rd
+
+Benefit; You can expend a prepared spell or spell slot as
+an immediate action when you are reduced to 0 or fewer hit
+points. You heal a number of points of damage equal to the
+level of the spell or spell slot used in this manner, You cannot
+use this ability to negate effects that disable you without
+causing hit point damage, such as a medusa’s ability to turn
+you to stone, Even if this healing does not bring you above
+negative hit points, it still stabi
+
+Using a 0-level spell with this feat grants no benefit
+
+ARMOR SPECIALIZATION
+
+Through long wear and hours of combat, you have trained
+your body to believe in its armor. Where others flinch, you
+confront. When the sword falls, your instincts, born of
+bruises and rent flesh, present your cuirass, cuisse, helm, or
+gorget to meet the blade at the perfect angle, causing it to
+skitter off harmlessly
+
+Prerequisites: Proficiency with selected armor type, base
+attack bonus +12
+
+Benefit: Choose one type of medium or heavy armor with
+
+  
+
+Ze YOU.
+
+ 
+
+which you are proficient. When wearing masterwork armor
+(including magic armor) of that type, you gain damage reduc
+tion 2/—. Any time you lose your Dexterity bonus to Armor
+Class, you lose the benefit of this feat, because you cannot
+properly deflect the blows of the enemy,
+
+Special: You can gain this feat multiple times, Its effects
+do not stack. Each time you take the feat, it applies to a
+new type of armor,
+
+A fighter can select Armor Specialization as one of
+
+ 
+
+ 
+
+his fighter bonus feats
+
+BATTLE DANCER
+
+You strike at your foes in time with the music you
+sing or in cadence with an oration you deliver. The
+magical power of your bardic performance drives you
+forward and improves your fighting ability.
+Prerequisites; Base attack bonus +2, bardic music
+Benefit: During a round in which you grant any ally a
+bonus on attack rolls, damage rolls, or saves with one of
+your bardic music abilities, you gain a +2 morale bonus
+on your attack rolls if you move at least one square
+before attacking, You lose this benefit for the remaining
+
+duration of your current use of bardic music if you do not
+move or if you do not attack on your turn. If you stand still
+and attack (or move without attacking), you do not gain this
+feat’s benefit, but this ability's duration continues.
+
+Special: A fighter can select Battle Dancer as one of his
+hter bonus feats.
+
+BONDED FAMILIAR
+
+You enjoy a stronger than normal magical bond with your
+
+ 
+
+ 
+
+ 
+
+familiar, granting you access to two special abilities
+
+Prerequisite: Familiar
+
+Benefit: As long as your familiar is within 30 feet of you,
+the two of you can share the damage from a single deadly
+attack. Once per day, if an attack would drop your familiar
+to Oor fewer hit points, you can instead choose to accept that
+damage. In addition, once per day, your familiar can choose
+to take the damage from a single attack or effect that would
+reduce you to 0 or fewer hit points. This ability applies only
+
+ 
+
+ 
+
+to attacks or effects that deal hit point damage. You or your
+familiar could not absorb the effect of a spell such as flesh
+to stone
+
+BOUNDING ASSAULT
+You can move and attack with superior speed and power,
+Prerequisites: Dex 13, Dodge, Mobility, Spring Attack
+base attack bonus +12
+
+ 
+
+ 
+
+yuruy 2 <q -supty
+
+ 
+
+Benefit: When using the Spring Attack feat, you designate
+two foes rather than one. Your movement does not provoke
+attacks of opportunity from either of these foes. While using
+an attack action with the Spring Attack feat, you can
+make a second attack with a -5 penalty, You can
+use both attacks against one of the opponents
+targeted with this feat, or split your ateacks
+between them.
+
+ 
+
+Accompaniment channels magical energy into G
+
+    
+

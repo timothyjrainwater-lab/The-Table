@@ -1,0 +1,24 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0060",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 60,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:02:07.505847+00:00"
+  },
+  "doneAt": "2026-02-03T08:01:06.201293+00:00",
+  "citation": "PHB (pdf p.0060)",
+  "printedGuess": "59",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Base Save and Base (PHB 3–1)",
+    "Table — Experience (PHB 3–2)",
+    "Table — Experience and Level Dependent Benefits, (PHB 3–2)",
+    "Table — Experience and Level-Dependent Benefits (page (PHB 3–2)",
+    "Table — Feats, page 90). The character (PHB 5–1)"
+  ]
+}

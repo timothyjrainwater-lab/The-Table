@@ -1,0 +1,82 @@
+ 
+ 
+116 
+However, you can shoot, but not load, a light crossbow with one 
+hand at a –2 penalty on attack rolls. You can shoot a light crossbow 
+with each hand, but you take a penalty on attack rolls as if attacking 
+with two light weapons (see Table 8–10: Two-Weapon Fighting 
+Penalties, page 160). This penalty is cumulative with the penalty for 
+one-handed firing. 
+Crossbow, Repeating: The repeating crossbow (whether heavy 
+or light) holds 5 crossbow bolts. As long as it holds bolts, you can 
+reload it by pulling the reloading lever (a free action). Loading a new 
+case of 5 bolts is a full-round action that provokes attacks of 
+opportunity. 
+You can fire a repeating crossbow with one hand or fire a repeat-
+ing crossbow in each hand in the same manner as you would a 
+normal crossbow of the same size. However, you must fire the 
+weapon with two hands in order to use the reloading lever, and you 
+must use two hands to load a new case of bolts. 
+Dagger: The dagger is a common secondary weapon. You get a +2 
+bonus on Sleight of Hand checks made to conceal a dagger on your 
+body (see the Sleight of Hand skill, page 81). 
+Dagger, Punching:  This dagger puts more force from your 
+punch behind it, making it capable of deadly strikes. 
+Dart: A dart is the size of a large arrow and has a weighted head. 
+Essentially, it is a small javelin. 
+Table 7–5: Weapons 
+Simple Weapons Cost Dmg (S) Dmg (M) Critical Range Increment Weight 1 Type 2 
+Unarmed Attacks 
+Gauntlet 2 gp 1d2 1d3 ×2 — 1 lb. Bludgeoning 
+Unarmed strike — 1d2 3 1d33 ×2 — — Bludgeoning 
+Light Melee Weapons 
+Dagger 2 gp 1d3 1d4 19–20/×2 10 ft. 1 lb. Piercing or slashing 
+Dagger, punching 2 gp 1d3 1d4 ×3 — 1 lb. Piercing 
+Gauntlet, spiked 5 gp 1d3 1d4 ×2 — 1 lb. Piercing 
+Mace, light 5 gp 1d4 1d6 ×2 — 4 lb. Bludgeoning 
+Sickle 6 gp 1d4 1d6 ×2 — 2 lb. Slashing 
+One-Handed Melee Weapons 
+Club — 1d4 1d6 ×2 10 ft. 3 lb. Bludgeoning 
+Mace, heavy 12 gp 1d6 1d8 ×2 — 8 lb. Bludgeoning 
+Morningstar 8 gp 1d6 1d8 ×2 — 6 lb. Bludgeoning and piercing 
+Shortspear 1 gp 1d4 1d6 ×2 20 ft. 3 lb. Piercing 
+Two-Handed Melee Weapons 
+Longspear4 5 gp 1d6 1d8 ×3 — 9 lb. Piercing 
+Quarterstaff5 — 1d4/1d4 1d6/1d6 ×2 — 4 lb. Bludgeoning 
+Spear 2 gp 1d6 1d8 ×3 20 ft. 6 lb. Piercing 
+Ranged Weapons 
+Crossbow, heavy 50 gp 1d8 1d10 19–20/×2 120 ft. 8 lb. Piercing 
+Bolts, crossbow (10) 1 gp — — — — 1 lb. — 
+Crossbow, light 35 gp 1d6 1d8 19–20/×2 80 ft. 4 lb. Piercing 
+Bolts, crossbow (10) 1 gp — — — — 1 lb. — 
+Dart 5 sp 1d3 1d4 ×2 20 ft. 1/2 lb. Piercing 
+Javelin 1 gp 1d4 1d6 ×2 30 ft. 2 lb. Piercing 
+Sling — 1d3 1d4 ×2 50 ft. 0 lb. Bludgeoning 
+Bullets, sling (10) 1 sp — — — — 5 lb. — 
+ 
+Martial Weapons Cost Dmg (S) Dmg (M) Critical Range Increment Weight
+1 Type 2 
+Light Melee Weapons 
+Axe, throwing 8 gp 1d4 1d6 ×2 10 ft. 2 lb. Slashing 
+Hammer, light 1 gp 1d3 1d4 ×2 20 ft. 2 lb. Bludgeoning 
+Handaxe 6 gp 1d4 1d6 ×3 — 3 lb. Slashing 
+Kukri 8 gp 1d3 1d4 18–20/×2 — 2 lb. Slashing 
+Pick, light 4 gp 1d3 1d4 ×4 — 3 lb. Piercing 
+Sap 1 gp 1d43 1d63 ×2 — 2 lb. Bludgeoning 
+Shield, light special 1d2 1d3 ×2 — special Bludgeoning 
+Spiked armor special 1d4 1d6 ×2 — special Piercing 
+Spiked shield, light special 1d3 1d4 ×2 — special Piercing 
+Sword, short 10 gp 1d4 1d6 19–20/×2 — 2 lb. Piercing 
+One-Handed Melee Weapons 
+Battleaxe 10 gp 1d6 1d8 ×3 — 6 lb. Slashing 
+Flail 8 gp 1d6 1d8 ×2 — 5 lb. Bludgeoning 
+Longsword 15 gp 1d6 1d8 19–20/×2 — 4 lb. Slashing 
+Pick, heavy 8 gp 1d4 1d6 ×4 — 6 lb. Piercing 
+Rapier 20 gp 1d4 1d6 18–20/×2 — 2 lb. Piercing 
+Scimitar 15 gp 1d4 1d6 18–20/×2 — 4 lb. Slashing 
+Shield, heavy special 1d3 1d4 ×2 — special Bludgeoning 
+Spiked shield, heavy special 1d4 1d6 ×2 — special Piercing 
+Trident 15 gp 1d6 1d8 ×2 10 ft. 4 lb. Piercing 
+Warhammer 12 gp 1d6 1d8 ×3 — 5 lb. Bludgeoning 
+CHAPTER 7: 
+EQUIPMENT 

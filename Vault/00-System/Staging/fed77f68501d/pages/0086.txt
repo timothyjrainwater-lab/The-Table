@@ -1,0 +1,463 @@
+Ghouls (3): CR 1; Medium undead; HD 2d12;
+Init +2; Spd 30 ft; AC 14, touch 12, flat-footed 12; Base Atk +1; Grp
+Atk +2 melee (1d6+1 plus paralysis, bite); Full Ack +2 mi
+1d6+1 plus paralysis, bite) and +0/+O.melee (143 plus paralysis, 2
+claws); Space/Reach.s ft,/s ft.; SA ghor lysis; SQ +2
+turn resistance, undead traits; AL CE; SV Fort +0
+Str13, Dex 15, Con —, Int 13, Wis 14, Cha
+
+Skills and Feats: Balance +6,
+Climb +5, Hide +6, Jump +5.
+Move Silently +6, Spot_+7;
+Multiattack (see page 304 of
+the Monster Manual
+
+Ghoul Fever (Su): Those hit
+by a ghoul’s bite must succeed
+on a DC 12 Fortitude save
+succumb to ghoul fever (incu:
+bation period 1 day, damage
+1d3_ Con and 1d3 Dex), A
+humanoid who dies of ghou!
+fever rises
+
+ 
+
+  
+
+     
+
+  
+
+    
+
+ 
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+a.ghoul ar
+
+ 
+
+night of the next day (see page
+118 of the Monst 1
+
+  
+
+for
+
+ 
+
+Paralysis (Ex): Those hit by a
+ghoul’s bite or claw attack
+must succeed on a DC 12 For
+titude save or be para
+
+id4+t
+
+for
+
+  
+
+nutes. Elves are
+
+ 
+
+to this p
+
+ 
+
+ 
+
+ad Traits: Darkvision
+unity to
+
+    
+
+poison, magic sleep
+paralysis, si
+and death effects. Not subject
+to critical hits, nonlethal
+amage, ability drain, or
+‘gy_drain. Immunity to
+fect that requires a Forti:
+
+tude save (u:
+
+ 
+
+unning, disease,
+
+ 
+
+ 
+
+any ef
+
+   
+ 
+    
+
+‘o works a cts or is
+
+harmless). Nor at risk_of death from massive damage, but
+reduced to.0 hit points or lowe: ected by
+
+iad of reincarnate spells or abilities
+
+STATIST
+
+acter and creature in the D&D game has a number
+eristics. A creature’ statistics block
+ributes,
+
+ 
+
+     
+
+destroyed wh
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+stat block” for short) summarizes those at
+At the end of the sample advent
+provided for the spiders and the ghouls that the PCs encounter.
+This in x¢ Mons! for
+those crea in an abbreviated form. Ma
+stat blocks for the creatures
+
+   
+
+ 
+
+ics blocks
+
+   
+
+ure above, stati
+
+ 
+
+  
+
++ Manual entries
+
+   
+
+formation is taken from t
+sand presented |
+published adventures cont
+as a convenience, preventing you from needing to look up infor
+mation from one of the core rulebooks (usually the Monster
+Manual) in ie adventu
+Some stat blocks are less de
+because those characters or creatures. a
+
+monets or oth
+
+     
+
+ 
+
+der to run th
+
+     
+
+Jed than others, sometimes
+only “bit players” (com:
+her unimportant NPCs) and sometimes because only
+
+ 
+
+ 
+
+certain aspects of a creature’ abilities are relevant to the adventure
+
+For instance, the stat block for.a gold dr ed
+to. mention.that.th
+where its encountered includes a body of water large enough for
+this ability to be potential
+
+Following is a summary of the main elements of a statistics
+ry ate discussed in mon
+
+ 
+
+gon would only n
+
+ 
+
+ 
+
+¢ dragon can breathe underwater if the place
+
+ 
+
+   
+
+usefu
+
+ 
+
+block. All the terms used in this summ
+
+ 
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+detail elsewhere in the rules, For examples
+character stat blocks, see the sample NPCs in Chapter 4. For exam-|
+ples of stat blocks describing various kinds of creatures, see Famil-
+iars on pages 200-204.
+Name: The word or phrase.that identifies the
+Race and Class: Provided only fi s with levels.
+CR: The Challenge Rating of an individual creature of this kind
+Size and Type: The creature's
+size category.and its type (and
+
+    
+
+various types
+
+ 
+
+ 
+
+eature
+
+        
+
+   
+
+ 
+
+ 
+
+subtype.or subtypes, if applic,
+cable
+
+HD: The creature's Hit
+and any hit points it g:
+
+ 
+
+ 
+
+loses because of its.C
+
+ 
+
+tion modifier).
+
+hp: The creature's. full
+rmal hit point total (usually
+average rolls on each Hit
+
+Init: The creature's modifier
+on initiative checks.
+
+Spd: The creature's base land
+speed, followed by speeds for
+other modes of movement if
+applicable.
+
+AC: The creature's Armor
+ss_against_most regular
+attacks, followed by its AC
+ag
+disregard armor) and its AC
+lat-foored (or at_any
+
+   
+
+ie
+
+ 
+
+ 
+
+nst. touch attacks (which |
+
+ 
+
+ 
+
+  
+
+when
+me when denied
+AC
+
+Base Atk: The creature's base
+
+       
+
+Dexterity bonus tc
+
+ 
+
+attack bonus without any.modi
+fiers.
+
+Grp: The creature's grapple
+bonus (base attack + size modi
+fier + Strbo
+
+Atk: Th
+creature makes when taking
+er the att
+
+ 
+
+  
+ 
+  
+ 
+
+ 
+
+ 
+
+single attack the
+
+ 
+
+ 
+
+ 
+
+attack action (modi
+
+     
+
+much damage the attack
+
+ 
+
+melee or ranged, how
+weapon used for the attack
+Full Ark: All the physical attacks the creature can make when
+taking a full attack action (often the same as the Atk entry
+Space/Reach: How large a square the creature takes up on the
+battle grid and ids. The vast majority
+of creatur reach of 5 ft,/S ft; as such, a stat b|
+might omit this entry unless it's different from the “default
+SA: The cr attacks (some of which may be de
+scribed in more detai neath the Skills and
+SQ: The creature's special qualities (some of which may be de
+scribed in more detail beneath the Skills and Feats paragraph
+AL: The one- or two-letter abbreviation denoting the creature's
+
+ 
+
+natural reach exte
+
+    
+
+      
+
+a spac ck
+
+ 
+
+eature’s speci
+
+ 
+
+        
+
+ts parag
+
+ 
+
+ 
+
+alignment
+
+SV: The creature's saving throw bonuses.
+
+Ability Scores; The creature's ability scores in ¢
+order (Str, Dex, Con, Int, Wis, Cha
+
+Skill ts: In. a. new paragraph, a list of all the creature's skill
+paragrap!
+
+ 
+
+e customary
+
+  
+
+ 
+
+ 
+
+modifis
+Details; Special attacks.and spe
+
+explanation are.covered next
+Spells Known: For sorcerers and members of other
+
+not prepare spells.
+
+For wizards, clerics, and members of other classes
+
+1 ’s stat block also includes the domains
+
+spells asterisked in the list of pr
+
+ 
+
+ies that need furthe:
+
+   
+
+I quali
+
+ 
+
+sses that do!
+
+   
+
+   
+
+Spells Prepare
+that prepare sp
+
+he has access.to (with dom:
+
+Ach
+
+   
+
+ 
+
+   
+
+ 
+

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "32e03988ebba:meta",
+    "sourceId": "32e03988ebba",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Silver Marches.pdf",
+    "title": "Silver Marches",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:46:32.665402+00:00",
+  "meta": {
+    "sourceId": "32e03988ebba",
+    "title": "Silver Marches",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Silver Marches.pdf",
+    "pages": 168,
+    "extractedAt": "2026-02-03T18:46:32.658273+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

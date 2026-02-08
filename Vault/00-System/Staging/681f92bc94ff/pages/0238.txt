@@ -1,0 +1,206 @@
+ 
+ 237
+Material Component:  You trace the glyph 
+with incense, which must first be sprin-
+kled with powdered diamond worth at 
+least 200 gp. 
+ 
+Glyph of Warding, Greater 
+Abjuration 
+Level: Clr 6 
+ 
+This spell functions like glyph of warding , 
+except that a greater blast glyph  deals up to 
+10d8 points of damage, and a greater spell 
+glyph can store a spell of 6th level or lower. 
+Material Component:  You trace the glyph 
+with incense, which must first be sprin-
+kled with powdered diamond worth at 
+least 400 gp. 
+ 
+Goodberry 
+Transmutation 
+Level: Drd 1 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Targets: 2d4 fresh berries touched 
+Duration: One day/level 
+Saving Throw: None 
+Spell Resistance: Yes 
+ 
+Casting goodberry upon a handful of freshly 
+picked berries makes 2d4 of them magical. 
+You (as well as any other druid of 3rd or 
+higher level) can immediately discern 
+which berries are affected. Each trans-
+muted berry provides nourishment as if it 
+were a normal meal for a Medium creature. 
+The berry also cures 1 point of damage 
+when eaten, subject to a maximum of 8 
+p o i n t s  o f  s u c h  c u r i n g  i n  a n y  2 4 - h o u r  
+period. 
+ 
+Good Hope 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Brd 3 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Targets: One living creature/level, no two 
+of which may be more than 30 ft. apart 
+Duration: 1 min./level 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+This spell instills powerful hope in the 
+subjects. Each affected creature gains a +2 
+morale bonus on saving throws, attack 
+rolls, ability checks, skill checks, and 
+weapon damage rolls. 
+Good hope  counters and dispels crushing 
+despair. 
+ 
+Grease 
+Conjuration (Creation) 
+Level: Brd 1, Sor/Wiz 1 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target or Area: One object or a 10-ft. 
+square 
+Duration: 1 round/level (D) 
+Saving Throw: See text 
+Spell Resistance: No 
+ 
+A grease spell covers a solid surface with a 
+layer of slippery grease. Any creature in 
+the area when the spell is cast must make a 
+successful Reflex save or fall. This save is 
+repeated on your turn each round that the 
+creature remains within the area. A crea-
+ture can walk within or through the area of 
+grease at half normal speed with a DC 10 
+Balance check. Failure means it can’t move 
+that round (and must then make a Reflex 
+save or fall), while failure by 5 or more 
+means it falls (see the Balance skill for 
+details). 
+The DM should adjust saving throws by 
+circumstance. For example, a creature 
+charging down an incline that is suddenly 
+greased has little chance to avoid the effect, 
+but its ability to exit the affected area is 
+almost assured (whether it wants to or 
+not). 
+The spell can also be used to create a 
+greasy coating on an item—a rope, ladder 
+rungs, or a weapon handle, for instance. 
+Material objects not in use are always af-
+fected by this spell, while an object 
+wielded or employed by a creature receives 
+a Reflex saving throw to avoid the effect. If 
+the initial saving throw fails, the creature 
+immediately drops the item. A saving 
+throw must be made in each round that 
+the creature attempts to pick up or use the 
+greased item. A creature wearing greased 
+armor or clothing gains a +10 circumstance 
+bonus on Escape Artist checks and on 
+grapple checks made to resist or escape a 
+grapple or to escape a pin. 
+Material Component: A bit of pork rind or 
+butter. 
+ 
+Greater (Spell Name) 
+Any spell whose name begins with greater 
+is alphabetized in this chapter according to 
+the second word of the spell name. Thus, 
+the description of a greater spell appears 
+near the description of the spell on which 
+it is based. Spell chains that have greater 
+spells in them include those based on the 
+spells arcane sight , command, dispel magic , 
+glyph of warding , invisibility, magic fang , 
+magic weapon , planar ally , planar binding , 
+prying eyes , restoration, scrying, shadow 
+conjuration, shadow evocation , shout, and 
+teleport. 
+ 
+Guards and Wards 
+Abjuration 
+Level: Sor/Wiz 6 
+Components: V, S, M, F 
+Casting Time: 30 minutes 
+Range: Anywhere within the area to be 
+warded 
+Area: Up to 200 sq. ft./level (S) 
+Duration: 2 hours/level (D) 
+Saving Throw: See text 
+Spell Resistance: See text 
+ 
+This powerful spell is primarily used to 
+defend your stronghold. The ward protects 
+200 square feet per caster level. The 
+warded area can be as much as 20 feet high, 
+and shaped as you desire. You can ward 
+several stories of a stronghold by dividing 
+the area among them; you must be 
+somewhere within the area to be warded to 
+cast the spell. The spell creates the fol-
+lowing magical effects within the warded 
+area. 
+Fog: Fog fills all corridors, obscuring all 
+sight, including darkvision, beyond 5 feet. 
+A creature within 5 feet has concealment 
+(attacks have a 20% miss chance). Creatures 
+farther away have total concealment (50% 
+miss chance, and the attacker cannot use 
+sight to locate the target). Saving Throw: 
+None. Spell Resistance: No. 
+Arcane Locks:  All doors in the warded 
+area are arcane locked. Saving Throw: None. 
+Spell Resistance: No. 
+Webs: Webs fill all stairs from top to 
+bottom. These strands are identical with 
+those created by the web spell, except that 
+they regrow in 10 minutes if they are 
+b u r n e d  o r  t o r n  a w a y  w h i l e  t h e  guards and 
+wards spell lasts. Saving Throw: Reflex 
+negates; see text for web. Spell Resistance: 
+No. 
+Confusion: Where there are choices in 
+direction—such as a corridor intersection 
+or side passage—a minor confusion-type 
+effect functions so as to make it 50% 
+probable that intruders believe they are 
+going in the opposite direction from the 
+one they actually chose. This is an en-
+chantment, mind-affecting effect. Saving 
+Throw: None. Spell Resistance: Yes. 
+Lost Doors:  One door per caster level is 
+covered by a silent image  to appear as if it 
+were a plain wall. Saving Throw: Will dis-
+belief (if interacted with). Spell Resistance: 
+No. 
+In addition, you can place your choice 
+of one of the following five magical effects. 
+1. Dancing lights  in four corridors. You 
+can designate a simple program that causes 
+the lights to repeat as long as the guards and 
+wards spell lasts. Saving Throw: None. 
+Spell Resistance: No. 
+2. A magic mouth  in two places. Saving 
+Throw: None. Spell Resistance: No. 
+3. A stinking cloud  in two places. The 
+vapors appear in the places you designate; 
+they return within 10 minutes if dispersed 
+by wind while the guards and wards  spell 
+lasts. Saving Throw: Fortitude negates; see 
+text for stinking cloud. Spell Resistance: No. 
+4. A gust of wind in one corridor or room. 
+Saving Throw: Fortitude negates. Spell 
+Resistance: Yes. 
+CHAPTER 11: 
+SPELLS 

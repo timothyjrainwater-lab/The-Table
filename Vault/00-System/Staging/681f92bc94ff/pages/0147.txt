@@ -1,0 +1,137 @@
+ 
+ 146 
+him conscious and disabled. Healing that raises his hit points to 1 or 
+more makes him fully functional again, just as if he’d never been 
+reduced to 0 or lower. A spellcaster retains the spellcasting capa-
+bility she had before dropping below 0 hit points. 
+A stable character who has been tended by a healer or who has 
+been magically healed eventually regains consciousness and re-
+covers hit points naturally. If the character has no one to tend him, 
+however, his life is still in danger, and he may yet slip away. 
+Recovering with Help: One hour after a tended, dying character 
+becomes stable, roll d%. He has a 10% chance of becoming con-
+scious, at which point he is disabled (as if he had 0 hit points). If he 
+remains unconscious, he has the same chance to revive and become 
+disabled every hour. Even if unconscious, he recovers hit points 
+naturally. He is back to normal when his hit points rise to 1 or 
+higher. 
+Recovering without Help:  A severely wounded character left 
+alone usually dies. He has a small chance, however, of recovering on 
+his own. Even if he seems as though he’s pulling through, he can 
+still finally succumb to his wounds hours or days after originally 
+taking damage. 
+A character who becomes stable on his own (by making the 10% 
+roll while dying) and who has no one to tend to him still loses hit 
+points, just at a slower rate. He has a 10% chance each hour of 
+becoming conscious. Each time he misses his hourly roll to become 
+conscious, he loses 1 hit point. He also does not recover hit points 
+through natural healing. 
+Even once he becomes conscious and is disabled, an unaided 
+character still does not recover hit points naturally. Instead, each 
+day he has a 10% chance to start recovering hit points naturally 
+(starting with that day); otherwise, he loses 1 hit point. 
+Once an unaided character starts recovering hit points naturally, 
+he is no longer in danger of naturally losing hit points (even if his 
+current hit point total is negative). 
+ 
+HEALING 
+After taking damage, you can recover hit points through natural 
+healing or through magical healing. In any case, you can’t regain hit 
+points past your full normal hit point total. 
+Natural Healing:  With a full night’s rest (8 hours of sleep or 
+more), you recover 1 hit point per character level. For example, a 
+5th-level fighter recovers 5 hit points with a night of rest. Any sig-
+nificant interruption (such as combat or the like) during your rest 
+prevents you from healing that night. 
+If you undergo complete bed rest for an entire day and night, you 
+recover twice your character level in hit points. A 5th-level fighter 
+recovers 10 hit points per 24 hours of bed rest. 
+Magical Healing:  Various abilities and spells, such as a cleric’s 
+cure spells or a paladin’s lay on hands ability,  can restore hit points. 
+Healing Limits: You can never recover more hit points than you 
+lost. Magical healing won’t raise your current hit points higher than 
+your full normal hit point total. 
+Healing Ability Damage:  Ability damage is temporary, just as 
+hit point damage is. Ability damage returns at the rate of 1 point per 
+night of rest (8 hours) for each affected ability score. Complete bed 
+rest restores 2 points per day (24 hours) for each affected ability 
+score. 
+ 
+TEMPORARY HIT POINTS 
+Certain effects, such as the aid spell, give a character temporary hit 
+points. When a character gains temporary hit points, note his cur-
+rent hit point total. When the temporary hit points go away, such as 
+at the end of the aid spell’s duration, the character’s hit points drop 
+to his current hit point total. If the character’s hit points are below 
+his current hit point total at that time, all the temporary hit points 
+have already been lost and the character’s hit point total does not 
+drop further. 
+When temporary hit points are lost, they cannot be restored as 
+real hit points can be, even by magic. 
+Increases in Constitution Score and Current Hit Points:  An 
+increase in a character’s Constitution score, even a temporary one, 
+can give her more hit points (an effective hit point increase), but 
+these are not temporary hit points. They can be restored, such as 
+with cure light wounds , and they are not lost first as temporary hit 
+points are. For example, Krusk (now a 3rd-level barbarian) gains +4 
+to his Constitution score and +6 hit points when he rages, raising his 
+hit points from 31 to 37. If Krusk takes damage dropping him to 32 
+hit points, Jozan can cure those lost points and get him back to 37. If 
+Krusk is so wounded at the end of his rage that he only has 5 hit 
+points left, then when he loses his 6 extra hit points, he drops to –1 
+hit points and is dying. 
+ 
+NONLETHAL DAMAGE 
+Sometimes you get roughed up or weakened, such as by getting 
+clocked in a fistfight or tired out by a forced march. This sort of 
+trauma won’t kill you, but it can knock you out or make you faint. 
+If you take sufficient nonlethal damage, you fall unconscious, but 
+you don’t die. Nonlethal damage goes away much faster than lethal 
+damage does. 
+Dealing Nonlethal Damage:  Certain attacks deal nonlethal 
+damage, such as a normal human’s unarmed strike (a punch, kick, or 
+head butt). Other effects, such as heat or being exhausted, also deal 
+nonlethal damage. When you take nonlethal damage, keep a 
+running total of how much you’ve accumulated. Do not deduct the 
+nonlethal damage number from your current hit points . It is not “real” 
+damage. Instead, when your nonlethal damage equals your current 
+hit points, you’re staggered, and when it exceeds your current hit 
+points, you fall unconscious. It doesn’t matter whether the nonlethal 
+damage equals or exceeds your current hit points because the 
+nonlethal damage has gone up or because your current hit points 
+have gone down. 
+Nonlethal Damage with a Weapon that Deals Lethal Damage:  You can 
+use a melee weapon that deals lethal damage to deal nonlethal 
+damage instead, but you take a –4 penalty on your attack roll 
+because you have to use the flat of the blade, strike at nonvital areas, 
+or check your swing. 
+Lethal Damage with a Weapon that Deals Nonlethal Damage:  You can 
+use a weapon that deals nonlethal damage, including an unarmed 
+strike, to deal lethal damage instead, but you take a –4 penalty on 
+your attack roll because you have to strike only in the most 
+vulnerable areas to inflict lethal damage. 
+Staggered and Unconscious:  When your nonlethal damage 
+equals your current hit points, you’re staggered. You’re so roughed 
+up that you can only take a standard action or a move action in each 
+round. You cease being staggered when your current hit points once 
+again exceed your nonlethal damage. 
+When your nonlethal damage exceeds your current hit points, 
+you fall unconscious. While unconscious, you are helpless (see 
+Helpless Defenders, page 153). 
+Spellcasters who fall unconscious retain any spellcasting ability 
+they had before going unconscious. 
+Healing Nonlethal Damage:  You heal nonlethal damage at the 
+rate of 1 hit point per hour per character level. For example, a 7th-
+level wizard heals 7 points of nonlethal damage each hour until all 
+the nonlethal damage is gone. 
+When a spell or a magical power cures hit point damage, it also 
+removes an equal amount of nonlethal damage. 
+ 
+MOVEMENT, POSITION, 
+AND DISTANCE 
+Few characters in a fight stand around motionless. Enemies appear 
+and charge the party. The heroes reply, advancing to take on new 
+foes after they down their first opponents. Wizards remain outside 
+the fight, looking for the best place to use their magic. Rogues 
+CHAPTER 8: 
+COMBAT 

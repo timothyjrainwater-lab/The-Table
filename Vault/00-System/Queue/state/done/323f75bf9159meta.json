@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "323f75bf9159:meta",
+    "sourceId": "323f75bf9159",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Dungeons & Dragons For Dummies.pdf",
+    "title": "Dungeons & Dragons For Dummies",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:27:48.742857+00:00",
+  "meta": {
+    "sourceId": "323f75bf9159",
+    "title": "Dungeons & Dragons For Dummies",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Dungeons & Dragons For Dummies.pdf",
+    "pages": 434,
+    "extractedAt": "2026-02-03T09:27:46.839345+00:00"
+  }
+}

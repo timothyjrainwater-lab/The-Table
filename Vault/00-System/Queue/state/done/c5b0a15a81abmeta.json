@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "c5b0a15a81ab:meta",
+    "sourceId": "c5b0a15a81ab",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/The Big List of RPG Plots.pdf",
+    "title": "The Big List of RPG Plots",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T20:07:10.749530+00:00",
+  "meta": {
+    "sourceId": "c5b0a15a81ab",
+    "title": "The Big List of RPG Plots",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/The Big List of RPG Plots.pdf",
+    "pages": 6,
+    "extractedAt": "2026-02-03T20:07:10.741724+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

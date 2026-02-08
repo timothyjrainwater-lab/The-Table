@@ -1,0 +1,172 @@
+level, then the community also has two 3rd-level fighters and four
+tstlevel fighters.
+
+Do the same for NPC classes, but leave.out the final stage that
+would generate the number of 1st-level individuals. Instead, take
+the remaining population after all other characters are generated ,
+and divide it up so.that 91% are commoners, 5% are warriors, 3%,
+are experts, and the remaining 1% is equally divided between aris:
+tocrats and adepts (0.5%.each). All these characters are 1st level. |
+
+| Using these guidelines and the tables in the previous section,.
+the breakdown by class and level for. the population of a typical
+hamlet of nwo hundred people looks like this:
+
+One tst-level aristocrat (mayor)
+
+One 3rd-level warrior (constable)
+
+Nine ist-level warriors (two guards, seven militia members)
+One 3rd-level expert smith (militia member)
+
+Seven tst-level expert crafters and professionals of various sorts
+One tst-level adept 4
+One 3rd-level commoner barkeep (militia member)
+
+One hundred sixty-six tst-level commoners (one is a militia
+member)
+
+One 3rd-level fighter
+
+‘Two 1st-level fighters
+
+One tst-level wizard
+
+One 3rd-level cleric
+
+Two tst-level clerics
+
+One ist-level druid
+
+One 3rd-level rogue
+
+Two tst-level rogues
+
+One tst-level bard
+
+One 1st-level monk
+
+Community MopiFiers
+
+Community Size Community Modifier
+Thorp 3!
+
+Hamlet =
+
+Village =
+
+Small town. +0
+
+Large town. +3
+
+Small city +6,(roll twice)?
+
+Large city, +9 (roll three times)?
+Metropolis +12 {roll four.times)?
+
+1 On a d% roll of 96-100, a thorp or a hamlet adds +10 to the
+modifier when determining the level of a.ranger or druid.
+
+2 Cities this large can. have more than.one high-level NPC per class,
+each.of whom. generates lower-level characters.of the same class, as
+described below.
+
+HicHest-Levet Locats
+
+Class, Character Level
+
+Adept 1d6 + community modifier
+Aristocrat 1d4 + community modifier
+Barbarian’ 1d4 + community modifier
+Bard 1d6 + community modifier
+Cleric 1d6 + community modifier
+Commoner 4d4_+ community modifier
+Druid 1d6 + community modifier
+Expert 3d4 + community modifier
+Fighter 1d8 + community modifier
+Monk' 14+ community. modifier
+Paladin 1d3 + community modifier
+| Ranger. ]d3.+. community modifier
+| Rogue 148 + community modifier
+| Sorcerer ]d4.+ community modifier
+Warrior 2d4 + community modifier
+Wizard, 1d4 + community modifier
+
+| Where these classes are more common, level is 1d8 + modifier.
+
+In addition to the residents you generate using the system,
+described above, you might decide that a community has some,
+sort.of special resident, such as the single, out-of-place 1Sth-level |
+sorcerer who lives just outside a thorp of fifty people, or the secret.
+
+jassassins’ guild brimming swith high-level characters hidden in a
+{small town. Residents such as these that you create “on the fly” do
+\not count against the highest-level characters who are actually
+part of the community.
+
+Racial Demographics. ;
+{The racial mix of a community depends on whether the community}
+is isolated (little traffic.and interaction with other races and places),
+mixed (moderate traffic and interaction with other races. and places),
+or integrated (lots of interaction with other races.and places).
+
+Raciat Mix OF COMMUNITIES
+
+Isolated Mixed Integrated
+96% human 79% human 37% human
+2% halfling 996 halfling 20% halfling
+11% elf 5% elf 18% elf
+196 other races 3% dwarf 10% dwarf.
+2% gnome 79% gnome
+196.half-elf 56 half-elf
+196 half-ore 3% half-ore
+
+If the area's dominant race is other than human, place that race
+in the top spot, put humans in the #2 rank, and push each other.
+race down one rank. For example, in a dwarven town, the popula-
+tion is 96% dwarf, 2% human, 1% halfling, and 1% other races. (All)
+dwarven communities are isolated.) You may_also change the
+figures slightly ro reflect various racial preferences, For example,a
+mixed elven village is 29% elf, 9% human, 5% halfling, 3% dwarf.
+2% gnome and 2% half-elf (with no half-ores). You might decide to.
+switch the percentages of gnomes and dwarves for an_elven
+community.
+
+ECONOMICS
+
+Although treasure is what's important to PCs, you should have a
+fair grasp of the economic system that surrounds the treasure they
+earn, as well as the prices charged for services, equipment, and
+magic items. Economics in your campaign doesnt have to be con-
+voluted or tedious, but it should at least be internally consistent. If
+the price of a broadsword in Thorris is 20 gp, it shouldnt suddenly
+shoot up to 200 gp without some.explanation, such as the flow of
+metal or ore being cut off, the only smiths in 100 miles all being
+killed in aterrible accident, or something equally bizarre
+
+Coinage
+The economic system in the D&D game is based on the silver
+piece (sp). A common laborer earns 1 sp a day. That's just enough
+to allow his family ro survive, assuming that this income is sup-
+plemented with food his family grows to eat, homemade clothing,
+and a.reliance.on self-sufficiency for most tasks (personal groom-
+ing, health, animal tending, and so.on),
+
+In your campaign, however, the PCs will deal primarily with
+gold pieces. The gold piece (gp) is a larger, more substantial unit of.
+currency, The main reason why PCs typically receive and spend.
+gold pieces is thar, as adventurers, they take much larger risks
+than.common folk andearn much larger rewards if they survive. |
+
+Many.of the people with whom adventurers interact also deal }
+primarily in gold. Weaponsmiths, armorsmiths, and spellcasters.all |
+make more. money (sometimes far more money).than commons
+people. Spellcasters willing to make magic items or cast spells for |
+
+shire can make a lor of money, although expenditures of personal
+poswer (experience points) are often involved, and the demand for
+isuch expensive items.is unsteady at best and can be depended on
+only in large cities. Nobles with whom the PCs might interact also
+
+ 
+

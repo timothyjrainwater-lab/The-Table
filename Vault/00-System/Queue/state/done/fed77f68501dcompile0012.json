@@ -1,0 +1,16 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0012",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 12,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-04T06:18:54.737933+00:00"
+  },
+  "doneAt": "2026-02-04T08:11:15.416795+00:00",
+  "citation": "DMG (pdf p.0012)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": []
+}

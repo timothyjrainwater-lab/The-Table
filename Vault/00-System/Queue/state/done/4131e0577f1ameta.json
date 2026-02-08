@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "4131e0577f1a:meta",
+    "sourceId": "4131e0577f1a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Midnight's Terror.pdf",
+    "title": "Midnight's Terror",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T14:22:51.679025+00:00",
+  "meta": {
+    "sourceId": "4131e0577f1a",
+    "title": "Midnight's Terror",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Midnight's Terror.pdf",
+    "pages": 84,
+    "extractedAt": "2026-02-03T14:22:51.670877+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

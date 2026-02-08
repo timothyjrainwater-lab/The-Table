@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "6c81286d54e4:meta",
+    "sourceId": "6c81286d54e4",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Munchkin/Munchkin Monster Manual.pdf",
+    "title": "Munchkin Monster Manual",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:09:43.877846+00:00",
+  "meta": {
+    "sourceId": "6c81286d54e4",
+    "title": "Munchkin Monster Manual",
+    "path_mnt": "/mnt/f/DnD-3.5/Miscellaneous/Munchkin/Munchkin Monster Manual.pdf",
+    "pages": 49,
+    "extractedAt": "2026-02-03T15:09:43.859126+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,106 @@
+ 
+ 176 
+to the limit of its range or until it strikes a barrier that blocks line of 
+effect. A line-shaped spell affects all creatures in squares that the line 
+passes through. Example: lightning bolt. 
+A sphere-shaped spell expands from its point of origin to fill a 
+spherical area. Spheres may be bursts, emanations, or spreads. 
+Example: globe of invulnerability. 
+Creatures: A spell with this kind of area affects creatures directly 
+(like a targeted spell), but it affects all creatures in an area of some 
+kind rather than individual creatures you select. The area might be a 
+spherical burst (such as sleep), a cone-shaped burst (such as fear), or 
+some other shape. 
+Many spells affect “living creatures,” which means all creatures 
+other than constructs and undead. The sleep spell, for instance, 
+affects only living creatures. If you cast sleep in the midst of gnolls 
+and skeletons, the sleep spell ignores the skeletons and affects the 
+gnolls. The skeletons do not count against the creatures affected. 
+Objects: A spell with this kind of area affects objects within an area 
+you select (as Creatures, but affecting objects instead). 
+Other: A spell can have a unique area, as defined in its description. 
+(S) Shapeable:  If an Area or Effect entry ends with “(S),” you can 
+shape the spell. A shaped effect or area can have no dimension 
+smaller than 10 feet. Many effects or areas are given as cubes to ma-
+ke it easy to model irregular shapes. Three-dimensional volumes are 
+most often needed to define aerial or underwater effects and areas. 
+Line of Effect:  A line of effect is a straight, unblocked path that 
+indicates what a spell can affect. A line of effect is canceled by a solid 
+barrier. It’s like line of sight for ranged weapons, except that it’s not 
+blocked by fog, darkness, and other factors that limit normal sight. 
+You must have a clear line of effect to any target that you cast a 
+spell on or to any space in which you wish to create an effect (such 
+as conjuring a monster). You must have a clear line of effect to the 
+point of origin of any spell you cast, such as the center of a fireball. A 
+burst, cone, cylinder, or emanation spell affects only an area, 
+creatures, or objects to which it has line of effect from its origin (a 
+spherical burst’s center point, a cone-shaped burst’s starting point, a 
+cylinder’s circle, or an emanation’s point of origin). 
+An otherwise solid barrier with a hole of at least 1 square foot 
+through it does not block a spell’s line of effect. Such an opening 
+means that the 5-foot length of wall containing the hole is no longer 
+considered a barrier for purposes of a spell’s line of effect. 
+ 
+DURATION 
+A spell’s Duration entry tells you how long the magical energy of the 
+spell lasts. 
+Timed Durations:  Many durations are measured in rounds, 
+minutes, hours, or some other increment. When the time is up, the 
+magic goes away and the spell ends. If a spell’s duration is variable 
+(power word stun, for example) the DM rolls it secretly. 
+Instantaneous: The spell energy comes and goes the instant the 
+spell is cast, though the consequences might be long-lasting. For 
+example, a cure light wounds  spell lasts only an instant, but the 
+healing it bestows never runs out or goes away. 
+Permanent: The energy remains as long as the effect does. This 
+means the spell is vulnerable to dispel magic.  Example: secret page. 
+Concentration: The spell lasts as long as you concentrate on it. 
+Concentrating to maintain a spell is a standard action that does not 
+provoke attacks of opportunity. Anything that could break your 
+concentration when casting a spell can also break your con-
+centration while you’re maintaining one, causing the spell to end. 
+You can’t cast a spell while concentrating on another one. Some-
+times a spell lasts for a short time after you cease concentrating. For 
+example, the spell hypnotic pattern has a duration of concentration + 2 
+rounds. In such a case, the spell keeps going for the given length of 
+time after you stop concentrating, but no longer. Otherwise, you 
+must concentrate to maintain the spell, but you can’t maintain it for 
+more than a stated duration in any event. If a target moves out of 
+range, the spell reacts as if your concentration had been broken. 
+Subjects, Effects, and Areas:  If the spell affects creatures 
+directly (for example, charm person ), the result travels with the sub-
+jects for the spell’s duration. If the spell creates an effect, the effect 
+lasts for the duration. The effect might move (for example, a sum-
+moned monster might chase your enemies) or remain still. Such an 
+effect can be destroyed prior to when its duration ends (for example, 
+fog cloud  can be dispersed by wind). If the spell affects an area, as 
+silence does, then the spell stays with that area for its duration. 
+Creatures become subject to the spell when they enter the area and 
+are no longer subject to it when they leave. 
+Touch Spells and Holding the Charge:  In most cases, if you 
+don’t discharge a touch spell on the round you cast it, you can hold 
+the charge (postpone the discharge of the spell) indefinitely. You 
+can make touch attacks round after round. If you cast another spell, 
+the touch spell dissipates. 
+Some touch spells, such as teleport and water walk , allow you to 
+touch multiple targets as part of the spell. You can’t hold the charge 
+of such a spell; you must touch all targets of the spell in the same 
+round that you finish casting the spell. 
+Discharge: Occasionally a spells lasts for a set duration or until 
+triggered or discharged. For instance, magic mouth  waits until trig-
+gered, and the spell ends once the mouth has said its message. 
+(D) Dismissible:  If the Duration line ends with “(D),” you can 
+dismiss the spell at will. You must be within range of the spell’s 
+effect and must speak words of dismissal, which are usually a mod-
+ified form of the spell’s verbal component. If the spell has no verbal 
+component, you can dismiss the effect with a gesture. Dismissing a 
+spell is a standard action that does not provoke attacks of opportu-
+nity. A spell that depends on concentration is dismissible by its very 
+nature, and dismissing it does not take an action, since all you have 
+to do to end the spell is to stop concentrating on your turn. 
+ 
+SAVING THROW 
+Usually a harmful spell allows a target to make a saving throw to 
+avoid some or all of the effect. The Saving Throw entry in a spell 
+CHAPTER 10: 
+MAGIC 

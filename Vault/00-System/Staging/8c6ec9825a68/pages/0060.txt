@@ -1,0 +1,158 @@
+attacks as possible to down the target, then withdraw without
+being seen
+
+Of course, ina conflict when you support a larger party of
+adventurers, you do not withdraw, but instead rely on your
+comrades to keep the foe or foes from attacking you directly.
+In return, you concentrate your fire against foes most danger
+ous to your party.
+
+You developed your field skills on your own, or perhaps you
+were trained ina military detachment of the king's guard or
+ina special unit fielded by a large mercenary company.
+
+World Traveler: You've seen itall. Well, you've seen a lor
+in your travels, and you don't mind audibly comparing the
+place where you currently find yourself with other places
+you've allegedly traveled to. Even when you haven't physi
+cally traveled toa locale you like to brag about, you indicate
+(if pinned down) that you've read all about the locale in
+question; after all, a scout has to keep on top of these sorts
+of things.
+
+“The way this tower 1s laid out reminds me of Tarmind Spire.
+Tarmind—the spire was named after the sorcerer who built it—was
+a demonbinder. Tarmind Spire was where he caged all the demons
+kre bound. Anyway, keep an eye out for demons.”
+
+“This waterfall puts me im mind of the Falls of Shandarm.
+Those falls plunge a hundred fevt in a roaring cascade of white
+whose thunder can be heard for miles, Local tribes cast coins, gems,
+even magic items into it, thinking that their sacrifice will grant
+them fortune and long life. { don't know if that's true, but there's
+a fortune hidden below the cataract. Maybe we should search the
+basin here?"
+
+“Whenever 1 travel through a mine, I think of the Mines of
+Minwray. The dwarves found the Minwray mine—they didn't
+delve it themselves. It was a great barrow of interconnected pas-
+sages, following the vein of some mysterious mineral, delved by a
+vanished race. By the time the dwarves found it, the mineral was
+completely exhausted. But the dwarves expanded the dig, hoping
+to find some trace of what the mysterious Minwray had mined
+so assiduously.”
+
+“T hate these deep ravines—did I ever tell you about the Skarvos
+Ravine? Twenty miles long and halfa mile deep, the ravine shelters
+a sprawling citadel of crude dark stone in the deepest, darkest root
+of the fissure. No one’s ever returned from the citadel who explored
+if, so no one knows what ts inside.”
+
+DUNGEON SPECIALIST
+
+The scout's mobility gives her a significant advantage over
+foes in combat. While any scout can hold her own in an
+underground setting, some specifically train for the dark,
+enclosed spaces found in dungeon environments. Lf you
+select the dungeon specialist alternative class feature, you
+give up some of your speed to turn the dungeon intoa three
+dimensional combat environment. You'll shine in small
+rooms and tight corridors, though area spells become a bit
+more dangerous for you.
+
+Level: 3rd.
+
+Replaces: By choosing the dungeon specialist alternative
+class feature, you give up both fast movement {normally
+gained at 3rd level and improved at 11th level) and evasion
+(normally gained at sth level).
+
+Benefit: At 3rd level, you gain a climb speed equal to one-
+half your base land speed (rounded down to the next 5-foot
+increment), and you can attack with a light weapon normally
+while climbing. At 11th level, your climb speed improves to
+equal your base land speed.
+
+Having a climb speed grants you a +8 racial bonus on
+Climb checks and allows you to take 10 on Climb checks
+even if rushed or threatened, You also retain your Dexterity
+bonus to AC while climbing, and enemies gain no special
+bonus on attacks against you while you are climbing. See
+Movement Modes, MM 311, for more details.
+
+At Sth level, you learn to use confining areas to your
+advantage. Whenever you are standing on the ground and
+adjacent to a wall, you gain a +2 bonus to AC and opponents
+gain no bonus on their attack rolls when flanking you.
+
+This is an extraordinary ability. You lose both of these
+benefits when wearing medium or heavy armor or when
+carrying a medium or heavy load.
+
+STARTING PACKAGES
+
+Package 1: The Archer
+Halfling Scout
+
+Ability Scores: Str 12, Dex 17, Con 12, Int 10, Wis 13,
+Cha 8
+
+Skills: Climb, Disable Device, Hide, Listen, Move Silently,
+Open Lock, Search, Spot.
+
+Feat: Point Blank Shot.
+
+Weapons: Spear (1d6/x3), dagger (1d3/19-20), shortbow
+with 20 arrows (1d4/x3, 60 ft.)
+
+Armor: Studded leather (+3 AC).
+
+Other Gear; Standard adventurer's kit, thieves’ tools,
+20 gp
+
+ 
+
+ 
+
+Package 2: The Hunter
+Elf Scout
+
+Ability Scores: Str 14, Dex 17, Con 10, Int 10, Wis 13,
+Chas,
+
+Skills: Disable Device, Hide, Listen, Move Silently, Open
+Lock, Search, Spot, Survival.
+
+Feat: Track.
+
+Weapons: Spear (1d8/x3), throwing axe (1d6, 10 ft,}, short-
+bow with 20 arrows (1d6/x3, 100 ft.)
+
+Armor; Studded leather (+3 AC)
+
+Other Gear: Standard adventurer’s kit, thieves’ tools,
+15 gp.
+
+ 
+
+Package 3: The Skirmisher
+Human Seoul
+
+Ability Scores: Str 14, Dex 15, Con 12, Int 10, Wis 13,
+Cha 8
+
+Skills: Disable Device, Hide, Jump, Listen, Move Silently,
+Open Lock, Search, Spot, Tumble.
+
+Feats: Dodge, Two-Weapon Fighting.
+
+Weapons; Two short swords (1d6/19~20), 5 javelins (td6,
+30 ft.).
+
+Armor: Studded leather (+3 AC).
+
+Other Gear: Standard adventurer's kit, thieves’ tools,
+30gp
+
+ 
+

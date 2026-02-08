@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "e7dad1ecfce8:meta",
+    "sourceId": "e7dad1ecfce8",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Lost King.pdf",
+    "title": "The Lost King",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:47:54.405566+00:00",
+  "meta": {
+    "sourceId": "e7dad1ecfce8",
+    "title": "The Lost King",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Lost King.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T21:47:54.339560+00:00"
+  },
+  "enqueued_extractPages": 5
+}

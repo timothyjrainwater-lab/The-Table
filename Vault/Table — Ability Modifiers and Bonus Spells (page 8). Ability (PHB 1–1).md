@@ -1,0 +1,12 @@
+# Table — Ability Modifiers and Bonus Spells (page 8). Ability (PHB 1–1)
+
+## Source
+- PHB (pdf p.0007)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "8f0bc5354be7:meta",
+    "sourceId": "8f0bc5354be7",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Environmental Impact.pdf",
+    "title": "Environmental Impact",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:01:18.288588+00:00",
+  "meta": {
+    "sourceId": "8f0bc5354be7",
+    "title": "Environmental Impact",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Environmental Impact.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T10:01:18.246199+00:00"
+  }
+}

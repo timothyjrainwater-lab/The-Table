@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0218",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 218,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:23:50.939557+00:00"
+  },
+  "doneAt": "2026-02-05T17:06:42.045265+00:00",
+  "citation": "DMG (pdf p.0218)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table — Armor Special Abilities, Acid Resistance: A suit of armor ora shield with this property (PHB 7–5)",
+    "Table — Armor and Shields to (PHB 7–2)",
+    "Table — Armor and Shields, and then detailed below, Armor or a shield with a special ability must have (PHB 7–2)",
+    "Table — Random Armor Type or Table 7-4; Random at least a +1. enhancement bonus (PHB 7–3)",
+    "Table — Shield Special Abilities, Table 7-2: Specific Armors, normally has a dull gray appearance. The armor absorbs the first (PHB 7–6)"
+  ]
+}

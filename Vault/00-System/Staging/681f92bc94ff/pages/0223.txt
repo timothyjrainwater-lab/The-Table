@@ -1,0 +1,202 @@
+ 
+ 222 
+Targets: One creature/level, no two of 
+which can be more than 30 ft. apart 
+Duration: Concentration, up to 1 
+round/level 
+Saving Throw: Will negates 
+Spell Resistance: No 
+ 
+Each round, you concentrate on one sub-
+ject, who must be within range. You know 
+if the subject deliberately and knowingly 
+speaks a lie by discerning disturbances in 
+its aura caused by lying. The spell does not 
+reveal the truth, uncover unintentional 
+inaccuracies, or necessarily reveal evasions. 
+Each round, you may concentrate on a 
+different subject. 
+ 
+Discern Location 
+Divination 
+Level: Clr 8, Knowledge 8, Sor/Wiz 8 
+Components: V, S, DF 
+Casting Time: 10 minutes 
+Range: Unlimited 
+Target: One creature or object 
+Duration: Instantaneous 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+A discern location  spell is among the most 
+powerful means of locating creatures or 
+objects. Nothing short of a mind blank spell 
+or the direct intervention of a deity keeps 
+you from learning the exact location of a 
+single individual or object. Discern location  
+circumvents normal means of protection 
+from scrying or location. The spell reveals 
+the name of the creature or object’s 
+location (place, name, business name, 
+building name, or the like), community, 
+county (or similar political division), 
+country, continent, and the plane of 
+existence where the target lies. 
+To find a creature with the spell, you 
+must have seen the creature or have some 
+item that once belonged to it. To find an 
+object, you must have touched it at least 
+once. 
+ 
+Disguise Self 
+Illusion (Glamer) 
+Level: Brd 1, Sor/Wiz 1, Trickery 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 10 min./level (D) 
+ 
+You make yourself—including clothing, 
+armor, weapons, and equipment—look 
+different. You can seem 1 foot shorter or 
+taller, thin, fat, or in between. You cannot 
+change your body type. For example, a hu-
+man caster could look human, humanoid, 
+or like any other human-shaped bipedal 
+creature. Otherwise, the extent of the 
+apparent change is up to you. You could 
+add or obscure a minor feature or look like 
+an entirely different person. 
+The spell does not provide the abilities 
+or mannerisms of the chosen form, nor 
+does it alter the perceived tactile (touch) or 
+audible (sound) properties of you or your 
+equipment.  A battleaxe made to look like a 
+dagger still functions as a battleaxe. 
+If you use this spell to create a disguise, 
+you get a +10 bonus on the Disguise check. 
+A creature that interacts with the glamer 
+gets a Will save to recognize it as an 
+illusion. For example, a creature that 
+touched you and realized that the tactile 
+sensation did not match the visual one 
+would be entitled to such a save. 
+ 
+Disintegrate 
+Transmutation 
+Level: Destruction 7, Sor/Wiz 6 
+Components: V, S, M/DF 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Effect: Ray 
+Duration: Instantaneous 
+Saving Throw: Fortitude partial (object) 
+Spell Resistance: Yes 
+ 
+A thin, green ray springs from your point-
+ing finger. You must make a successful 
+ranged touch attack to hit. Any creature 
+struck by the ray takes 2d6 points of 
+damage per caster level (to a maximum of 
+40d6). Any creature reduced to 0 or fewer 
+hit points by this spell is entirely disinte-
+grated, leaving behind only a trace of fine 
+dust. A disintegrated creature’s equipment 
+is unaffected. 
+When used against an object, the ray 
+simply disintegrates as much as one 10- 
+foot cube of nonliving matter. Thus, the 
+spell disintegrates only part of any very 
+large object or structure targeted. The ray 
+affects even objects constructed entirely of 
+force, such as Bigby’s forceful hand  or a wall 
+of force , but not magical effects such as a 
+globe of invulnerability or an antimagic field. 
+A creature or object that makes a suc-
+cessful Fortitude save is partially affected, 
+taking only 5d6 points of damage. If this 
+damage reduces the creature or object to 0 
+or fewer hit points, it is entirely disinte-
+grated. 
+Only the first creature or object struck 
+can be affected; that is, the ray affects only 
+one target per casting. 
+Arcane Material Component:  A lodestone 
+and a pinch of dust. 
+ 
+Dismissal 
+Abjuration 
+Level: Clr 4, Sor/Wiz 5 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+ 
+Target: One extraplanar creature 
+Duration: Instantaneous 
+Saving Throw: Will negates; see text 
+Spell Resistance: Yes 
+ 
+This spell forces an extraplanar creature 
+back to its proper plane if it fails a special 
+Will save (DC = spell’s save DC – creature’s 
+HD + your caster level). If the spell is 
+successful, the creature is instantly 
+whisked away, but there is a 20% chance of 
+actually sending the subject to a plane 
+other than its own. 
+ 
+Dispel Chaos 
+Abjuration [Lawful] 
+Level: Clr 5, Law 5, Pal 4 
+ 
+This spell functions like dispel evil , except 
+that you are surrounded by constant, blue, 
+lawful energy, and the spell affects chaotic 
+creatures and spells rather than evil ones. 
+ 
+Dispel Evil 
+Abjuration [Good] 
+Level: Clr 5, Good 5, Pal 4 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Target or Targets: You and a touched evil 
+creature from another plane; or you and 
+an enchantment or evil spell on a 
+touched creature or object 
+Duration: 1 round/level or until 
+discharged, whichever comes first 
+Saving Throw: See text 
+Spell Resistance: See text 
+ 
+Shimmering, white, holy energy sur-
+rounds you. This power has three effects. 
+First, you gain a +4 deflection bonus to 
+AC against attacks by evil creatures. 
+Second, on making a successful melee 
+touch attack against an evil creature from 
+another plane, you can choose to drive that 
+creature back to its home plane. The 
+creature can negate the effects with a suc-
+cessful Will save (spell resistance applies). 
+This use discharges and ends the spell. 
+Third, with a touch you can automati-
+cally dispel any one enchantment spell 
+cast by an evil creature or any one evil 
+spell. Exception: Spells that can’t be dis-
+pelled by dispel magic also can’t be dispelled 
+by dispel evil . Saving throws and spell 
+resistance do not apply to this effect. This 
+use discharges and ends the spell. 
+ 
+Dispel Good 
+Abjuration [Evil] 
+Level: Clr 5, Evil 5 
+ 
+This spell functions like dispel evil , except 
+that you are surrounded by dark, wavering, 
+unholy energy, and the spell affects good 
+creatures and spells rather than evil ones. 
+CHAPTER 11: 
+SPELLS 

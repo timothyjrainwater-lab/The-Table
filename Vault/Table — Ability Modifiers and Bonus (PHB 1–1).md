@@ -1,0 +1,12 @@
+# Table — Ability Modifiers and Bonus (PHB 1–1)
+
+## Source
+- PHB p.8 (pdf p.0008)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

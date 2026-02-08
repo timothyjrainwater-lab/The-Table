@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "2fe8308e08b4:meta",
+    "sourceId": "2fe8308e08b4",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Complete Exotic Arms Guide.pdf",
+    "title": "The Complete Exotic Arms Guide",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:34:29.665003+00:00",
+  "meta": {
+    "sourceId": "2fe8308e08b4",
+    "title": "The Complete Exotic Arms Guide",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Complete Exotic Arms Guide.pdf",
+    "pages": 98,
+    "extractedAt": "2026-02-03T20:34:29.657638+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

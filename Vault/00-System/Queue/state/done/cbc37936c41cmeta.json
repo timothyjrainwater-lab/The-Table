@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "cbc37936c41c:meta",
+    "sourceId": "cbc37936c41c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/d20/Stronghold Builders Guidebook (WE).pdf",
+    "title": "Stronghold Builders Guidebook (WE)",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:42:16.253347+00:00",
+  "meta": {
+    "sourceId": "cbc37936c41c",
+    "title": "Stronghold Builders Guidebook (WE)",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/d20/Stronghold Builders Guidebook (WE).pdf",
+    "pages": 7,
+    "extractedAt": "2026-02-03T19:42:16.211635+00:00"
+  },
+  "enqueued_extractPages": 4
+}

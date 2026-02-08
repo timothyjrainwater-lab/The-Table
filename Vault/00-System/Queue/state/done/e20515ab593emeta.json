@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "e20515ab593e:meta",
+    "sourceId": "e20515ab593e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Dozens Sampler.pdf",
+    "title": "Dozens Sampler",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:58:33.412901+00:00",
+  "meta": {
+    "sourceId": "e20515ab593e",
+    "title": "Dozens Sampler",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Dozens Sampler.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T08:58:33.360253+00:00"
+  }
+}

@@ -1,0 +1,153 @@
+Sample 10th-Level NPC Cleric; Human Clr 10; CR 10; Me-
+dium humanoid; HD 10d8+20; hp 68; Init =1; Spd 20 ft; AC 22,
+touch 10, flat-footed 22; Base Atk +7; Grp +8; Atk +8 melee (1d8+2,
++1 morningstar) or +6 ranged (1d8+1/19-20, light. crossbow with +1
+crossbow bolts); Full Atk +8/+3 melee (1d8+2, +1 morningstar) or +6)
+ranged (1d8+1/19-20, light crossbow with +1 crosshow bolts); SA
+turn undead 4/day; SQ—; ALNG; SV Fort +9, Ref +4, Will +11; Str}
+
+\13, Dex 8, Con 14, Int 10, Wis 19, Cha 12.
+
+Skills and Feats: Concentration +15, Listen +17, Spellcraft +13;)
+Brew. Potion, Combat Casting, Lightning Reflexes, Scribe Scroll,.,
+Weapon Focus (morningstar).
+
+Cleric Spells Prepared (6/6/6/5/S/3; save DC 14 + spell level): o—
+detect magic, guidance (2), light, resistance (2); 1st—bane (2), bless (2),
+sanctuary”, shield of faith; 2nd—aid, bull's strength (2), cure moderate
+wounds*, hold person, sound burst; 3rd—dispel magic (2), magic circle
+against evil, protection from energy, searing light; 4th—divine power,
+
+ greater.magic weapon, restoration (2), spell immunity®; Sth—flame
+Strike, spell resistance®, true seeing.
+
+*Domain spell. Domains; Healing (cast healing spells at +1 caster,
+level), Protection (protective ward grants +10 resistance bonus on}
+next save, 1/day).
+
+Possessions: +4 full plate, +1 heavy steel shield, ring of protection +1,
+periapt of Wisdom +2, masterwork morningstar, light crossbow,
+
+Taste 4—14: NPC Creric
+
+Skill Pts./
+Level hp AC Melee Ranged —F/R/W Feats
+Ist 10 17 42 =i +4) 44 sy
+and 16 188 +0 +5/-1+5. 10/1
+3d 23198 4 45/40/45 12/2
+4th 29 1945 +2 +6/+0/+7 14/2
+Sth 36 19 45 +42 +6/40/+7 16/2
+6th 42 20 46 3 7/41 [48 18/3
+wth 49° 20 «47 +4 +7/¥1j48 20/3
+Bh 55 2 +8/3 +5/0 +8/+1/+9 22/3
+%h 62-2283 +5/0 $8/+2)/49 24/4
+10th 68 2249/4 +6/1 +9/4+2/411 26/4
+Nth 7 22 +10/5 +7/2 +9/+2/411 28/4
+12th 81 «2341/6, +8/3 +10/+3/+13___30/5
+Bth 88 24 +11/6 19/4 +10/+4/413 32/5
+Vth 94 24 412/77 +10/5 +11fs4fe15 34/5
+Sth 101-24 «= -413/8/3. 11/6/14 T1/45/415 36/6
+16th 107 26 +14/9/4 +12/7/2 +12/+5/+16 = 38/6
+Wth 114-26 $14 /9/4—412/7/2 12/45/17 40/6
+18th 120. 26 +15/10/5 — +13/8/3 +13/+6/+18_ 42/7
+ith 8612726 +16/11/6 = +14/9/4 +13/+6/418 44/7
+20th 13326 +17/12/7  +1S/10/5  +14/+6/+20. 46/7
+
+10 bolts, 2 scrolls of cure light wounds, wooden holy symbol, 6]
+torches,
+
+NPC DRUID |
+Starting Ability Scores; Str 10, Dex 14, Con 13, Int 12, Wis 15,
+4Cha 8.
+Increased Ability Scores; 4th, Wis 16; 8th, Wis 17; 11th, Wis
+17 (19); 12th, Wis 18.(20); 14th, Wis 18 (22); 16th, Wis 19 (23);
+17th, Wis 19 (25); 20th, Wis 20 (26
+
+ 
+
+ 
+
+Sample sth-Level NPC Druid: Lizardfolk Drd 5; CR 6;)
+Medium humanoid (reptilian); HD 748+14; hp 50; Init +2; Spd 30
+ft.; AC 19, touch 12, flat-footed 17; Base Atk +3; Grp. +4; Atk +5
+melee (1d¢+1, 2 claws) and +3 melee (1d4, bite); or +6 melee,
+(1d6+2/18-20, +1 scimitar); or +7 ranged (1d6, masterwork sling)
+Full Atk +5/+5 melee (1d4+1, 2 claws) and +3 melee (1d4, bite); or
+_6.melee (1d6+2/18-20, +1 scimitar); or +7 ranged (1d6, master-
+work sling); SA —; SQ animal companion, hold breath, link with
+companion, nature sense, resist nature's lure, share spells, trackless _
+step, wild empathy, wild shape (Small or Medium animal 1/day),
+woodland stride; AL N; SV Fort +6, Ref +6, Will +7; Str 12, Dex 14,
+n 15, Int 10, Wis 16, Cha 8,
+
+Skills and Feats: Balance +6, Concentration +6, Handle Animal
+
+ 
+
+Spells
+
+per Day* Gear
+
+3/3 Splint mail, heavy stee! shield, mwk melee,
+mundane ranged, 300 gp
+
+4/4 Half-plate, heavy steel shield. mwk melee,
+mundane ranged, 1,000 gp
+
+4/473 Full plate, heavy steel shield, mwk melee,
+mundane ranged, 600 gp
+
+5/5/4 As 3rd level, except 1,400 gp.
+
+5/5/43 As 3rd level, except 2,500 gp
+
+5/5/5/4 +1 full plate, heavy steel shield, mwk melee,
+mundane ranged, 3,600 gp
+
+6/6/5/4/2 As 6th level, except 4,200 gp
+
+6/6/5/5/3 +1 full plate, +1 heavy steel shield, muwk
+melee, mundane ranged, 6,200 gp
+
+6/6/6/5/3/2 +1 full plote, +1 heavy steel shield, ring of
+protection +1, mwk melee, mundane ranged,
+7,000 gp
+
+6/6/6/5/5/3 +1 full plate, +1 heavy stee! shield, ring +1,
+mwk melee, mundane ranged, periapt of
+Wisdom +2, 11,500 gp
+
+6/7/6/6/5/3/2 ‘As 10th level, except 20,000 gp
+
+6/8/6/6/5/5/3 +1 full plate,.+1 heavy steel shield, amulet of
+natural armor +1, ring +1, +1 melee, mundane
+ranged, periapt +2, 14,000 gp
+
+6/8/7/6/6/5/3/2 +1 full plate, +1 heavy steel shield, amulet +1,
+ring +1, +1 melee, mundane ranged, gloves of
+Dexterity +2, periapt +2, 18,000 gp
+
+6/8/8/6/6/5/5/3 +1 full plate, +1 heavy stee! shield, amulet +1,
+ring 0+ 1, +1 melee, mundane ranged, gloves
++2, periapt +4, 16,000 gp
+
+6/8/8/7/6/6/5/3/2 As 14th level, except 30,000 gp
+
+6/8/8/7/6/6/5/4/3___ +2 full plate, +2 heavy steel shield, amulet +1.
+ring +1,+1 melee, mundane ranged, gloves
++2, perigpt +4, 41,000 gp
+
+6/8/8/8/7/6/6/5/3/2 +2 full plate, +2 heavy steel shield, amulet +1,
+ring +1, +1 melee, mundane ranged, gloves
++2, periapt +6, 44,000 gp
+
+6/8/8/8/7/6/6/5/4/3__ As 17th level, except 74,000 gp
+
+6/8/8/8/7/7/6/6/4/4 As 17th level, except 114,000 gp
+
+6/8/8/8/8/7/6/6/6/5 As 17th level, except 164,000 gp
+
+“Includes domain spells. You must choose one spell per spell level from the appropriate domains.
+
+ 
+

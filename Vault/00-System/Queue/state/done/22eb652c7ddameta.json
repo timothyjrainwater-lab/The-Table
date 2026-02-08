@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "22eb652c7dda:meta",
+    "sourceId": "22eb652c7dda",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Minotaurs.pdf",
+    "title": "The Slayer's Guide To Minotaurs",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:54:35.290474+00:00",
+  "meta": {
+    "sourceId": "22eb652c7dda",
+    "title": "The Slayer's Guide To Minotaurs",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Minotaurs.pdf",
+    "pages": 28,
+    "extractedAt": "2026-02-03T23:54:35.162102+00:00"
+  },
+  "enqueued_extractPages": 14
+}

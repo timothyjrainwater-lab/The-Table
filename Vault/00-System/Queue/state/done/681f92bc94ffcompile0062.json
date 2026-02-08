@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0062",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 62,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:07:20.377135+00:00"
+  },
+  "doneAt": "2026-02-03T08:03:15.768258+00:00",
+  "citation": "PHB (pdf p.0062)",
+  "printedGuess": null,
+  "touched": [
+    "Rule — Core Mechanic (d20)"
+  ],
+  "createdTables": [
+    "Table — Skills (PHB 4–2)"
+  ]
+}

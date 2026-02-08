@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "df61871bcb5a:meta",
+    "sourceId": "df61871bcb5a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Book of Fiends - Volume 1.pdf",
+    "title": "Book of Fiends - Volume 1",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T06:18:23.212776+00:00",
+  "meta": {
+    "sourceId": "df61871bcb5a",
+    "title": "Book of Fiends - Volume 1",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Book of Fiends - Volume 1.pdf",
+    "pages": 66,
+    "extractedAt": "2026-02-03T06:18:22.900586+00:00"
+  }
+}

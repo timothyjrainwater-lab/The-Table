@@ -1,0 +1,114 @@
+ALAMENTATI
+
+hold a size advantage. Their skirmishes
+with the bugbears have taught them the
+value of using large numbers to over-
+whelm a superior enemy. The goblins
+attempt to swarm any attackers and
+wrestle them into submission. Refer to
+the rules for Grappling in the PHB if the
+goblins try to overbear the heroes. In the
+event of a major battle, five warriors rush
+up the spiral staircase and into the tower
+to defend the king.
+
+Goblins (64): CR 1/4; hp 4 each; see
+the MM.
+
+Possessions: light mace, 6 darts, small
+studded leather armor, small wooden
+shield.
+
+G1. Messy Landing
+
+Ifany goblins fled the battle to protect
+their king, they meet the PCs on this
+landing amidst heaps of trash and build-
+ing supplies. The Rynogs have decorated
+this area with garish graffiti and other “artwork,” and the
+floor is strewn with all manners of crude weapons and
+tools. A narrow rope ladder is attached to the opening
+in the floor, permitting access to the lower chamber.
+
+Ga. The Goblin King (EL 5)
+
+Once the living quarters of the Skree, this area now
+serves as the throne room for Thrats Ironbar, Mighty Ruler
+Favored of the Beetle Gods and King of the Rynogs. An
+assortment of coarse tapestries hangs on the wall, and the
+floor is covered in hand-woven rugs of questionable beauty.
+A throne made of logs stands to one side, anda repugnant
+stench fills the room. If warned of the PCs’ presence, King
+Ironbar hides beneath a mound of soiled rags, hoping to
+catch the invaders unawares and slay them with his “flame
+of the Beetle Gods.” Ironbar wields a visionband that has
+been fitted with a special control coupling, permitting the
+light to be focused as a narrow, deadly beam. A strike from
+the beam deals 3d10 points of heat damage and drains 3
+charges from the visionband. Ironbar has also found and
+learned to use a skreestick. He’s managed to make a suit of
+red crystal plate mail that renders him all but invincible in
+combat against his bugbear enemies.
+
+King Thrats Ironbar, Male Goblin Ftr4: CR 5; SZ S (4
+ft. tall); HD 4d10+4; hp 35; Init +5 (Dex, Improved
+Initiative); Spd 30 ft.; AC 37 (+1 size, +1 Dex, +25 red
+crystal full plate); BAB/Grap +4/+4; Atk +6 melee (1d8,
+morningstar) or +6 ranged (3d10, focused visionband,
+touch); Full Atk +6 melee (1d8, morningstar) or +6
+ranged (3d10, focused visionband, touch); SQ darkvision
+(60 ft.); AL NE; SV Fort +5, Ref +2, Will +1; Str 10, Dex
+13, Con 12, Int 13, Wis 11, Cha 11.
+
+Skills: Climb +7, Craft (red crystal) +2, Hide +6, Jump
++7, Listen +2, Move Silently +5, Spot +2, Swim +4. Feats:
+Alertness, Dodge, Exotic Weapon Proficiency (visionband),
+Improved Initiative, Weapon Focus (morningstar).
+
+Possessions: morning star, red crystal full plate, focused
+visionband (30 charges), skreestick (12 charges). The red
+crystal material of Ironbar’s plate mail has no hit points or
+
+ON OF THIEVES
+
+   
+    
+
+hardness value, as it is
+impervious to physical
+damage. However, each suc-
+cessful strike by a skreestick reduces
+
+Ironbar’s AC by 5 points, until the armor
+
+completely falls away after 5 strikes.
+
+Treasure: The PCs may search the chamber as soon as
+they dispatch Ironbar. A successful Search check (DC 20)
+through the refuse around the throne uncovers a grimy
+satchel fastened with a simple lock (Open Locks [DC 12]).
+Inside the satchel are several inoperable Skree tools and a
+few shiny stones that caught Ironbar’s eye, as well as a
+bleached human skull and a scroll case made of varnished
+sandalwood. Inside the case isa single sheet of paper nearly
+3-feet long when unrolled. This is the Paragraph Poetica.
+The skull is all that remains of the ranger Arak after
+Ironbar’s minions were through with him. Also behind the
+throne are two blocks of red crystal that Ironbar was
+intending to use as armor for his personal bodyguards. Each
+block is a 1-foot cube, weighing 50 Ibs., enough to manu-
+facture a like weight of plate armor.
+
+The true treasure, secreted under the floor, is found on
+a Search check (DC 22). Ironbar was unaware of this
+trapdoor in the floor of his throne room, beneath which is
+a shallow niche holding the enshrouded bodies of two
+adult Skree, their biological systems held in abeyance by a
+spell similar to temporal stasis. If revived via dispel magic
+with a successful Caster Level check (DC 20) or similar
+methods, the Skree slowly return to life and readily engage
+
+45
+
+ 
+

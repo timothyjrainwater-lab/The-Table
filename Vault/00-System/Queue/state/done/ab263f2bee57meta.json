@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "ab263f2bee57:meta",
+    "sourceId": "ab263f2bee57",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/The Horror of Lannock Hill.pdf",
+    "title": "The Horror of Lannock Hill",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:27:33.682818+00:00",
+  "meta": {
+    "sourceId": "ab263f2bee57",
+    "title": "The Horror of Lannock Hill",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/The Horror of Lannock Hill.pdf",
+    "pages": 7,
+    "extractedAt": "2026-02-03T21:27:33.629722+00:00"
+  },
+  "enqueued_extractPages": 4
+}

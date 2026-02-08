@@ -1,0 +1,134 @@
+ALAMENTATION OF THIEVES
+
+Ifhe has been warned of the PCs’ arrival, Oojisho hides
+under the pile of sleeping rags. He waits until one of the
+heroes begins to investigate the rags, then launches a
+surprise attack, trying to catch his prey flat-footed. Oojisho
+is armed with a strange weapon of his own creation. Made
+from a modified bellows, the weapon is filled with fluid
+which is sprayed through a nozzle at the target by squeezing
+the dual handles. Oojisho has filled the weapon with a
+living gray ooze.
+
+Creatures: Oojisho uses his bellows for his initial at-
+tack, then discards the weapon and resorts to spellcasting.
+Once discharged from the bellows, the gray ooze attacks
+normally.
+
+Oojisho, Male Human Clr4 (Jubilex): CR 4; SZ M (6-
+ft. 1-in. tall); HD 4d8+8; hp 26; Init +7 (Dex, Improved
+Initiative); Spd 30 ft; AC 18 (+3 Dex, +5 chainmail);
+BAB/Gra +3/+2; Atk +3 melee (1d6, quarterstaff) or +3
+ranged (gray ooze, bellows, range 10 ft. up to 50 ft.); Full
+Atk +3 melee (1d6, quarterstaff) or +3 ranged (gray ooze,
+bellows, range 10 ft. up to 50ft.); SA bellows; SQ darkvision
+(60ft.), disease immunity, poison immunity, rebuke undead,
+spontaneous casting; AL CE; SV Fort +6, Ref +4, Will +5;
+Str 9, Dex 16, Con 14, Int 17, Wis 13, Cha 7.
+
+Skills: Concentration +9, Craft (alchemy) +6, Craft
+(poison) +10, Heal +7, Knowledge (toxicology) +7, Listen
++0, Spellcraft +10, Spot +0. Feats: Exotic Weapon Profi-
+ciency (bellows), Great Fortitude, Improved Initiative.
+
+SA: First attack uses bellows filled with gray ooze (see
+below).
+
+SQ: As a follower of Juiblex, Oojisho has been granted
+darkvision, as well as full immunity toall natural poisons and
+diseases.
+
+Divine Spells Prepared (5/3/2; save DC 11 + spell level) : O—
+detect magic, guidance, cure minor wounds (x2), resistance;
+1st—cause fear, doom, protection from law; 2nd—darkness,
+silence.
+
+Domain Spells (special - extradomain abilities included above) :
+Ist-obscuring mist; 2nd-fog cloud.
+
+Possessions: green and black chain mail armor, bel-
+lows, quarterstaff, bloodstone ring (75 gp), pouch
+containing 25 gp.
+
+Gray Ooze: CR 4; hp 29; see the MM.
+
+Treasure: The PCs may investigate the room after
+dealing with Oojisho. Hidden in the sleeping rags is a
+single piece of unworked alexandrite (300 gp), discovered
+on a successful Search check (DC 15). The worktable is
+cluttered with bottles, beakers, and other such equipment,
+valued at 200 gp if sold to an alchemist. One of the vials
+contains a dose of black adder venom, while a tightly
+sealed glass dish holds two doses of malyss root paste. Refer
+to the section on Poisons in the DMG for details of these
+poisons. Also on the table are the raw ingredients for
+brewing a variety of toxins; at the DM’s option, a PC with
+the Heal skill has a 50% chance of finding any particular
+herb here. On a successful Search check (DC 21), the
+heroes discover a sliding panel in the side of the altar.
+Hidden within the altar is the small cache that Oojisho has
+
+accumulated: 400 gp, an alabaster statuette of Juiblex (150
+gp), and a black-bladed dagger with a pommel cast in the
+shape of a skull. This is actually a dagger of venom. The
+Murk Trader’s journal is also here, in which he writes of his
+experiments with human bodies and his plans to adulter-
+ate the Swordport water supply. Optionally, the journal
+contains specific information on the headquarters of the
+Murk Traders, should the DM decide to continue this
+storyline in the future.
+
+Finally, unsealing one of the casks reveals 50 gallons of
+contaminated drinking water. Oojisho has infected each
+of these barrels with a plague agent that enters the body
+through contact with the skin. Anyone touching the
+befouled water must make a Fortitude save (DC 15) or
+suffer severe chest cramps resulting in the loss of 2d4
+Strength points. A second successful Fortitude save (DC
+15) prevents an additional loss of 2d4 hit points. Anyone
+drinking this water must make the same saving throws,
+albeit at DC 20.
+
+Continuing the Adventure
+
+Ifthe PCs are successful in cleaning out the sewers, they
+earn the gratitude of the city officials, forming alliances
+that might pave the way for future employment on behalf
+of Swordport. Additionally, Oojisho’s journal contains
+vital information concerning the mysterious Murk Trad-
+ers, an organization bent upon poisoning the world in
+order to make it habitable for their fell deity, so that he
+might one day swim up out of the infernal cesspool and
+finally lay claim to the Domain of Hawkmoon. Optionally,
+the book mentions the imprisonment of Juiblex’s avatar
+within a distant mountain known as the Devil’s Finger.
+Refer to the Necromancer Games module Chaos Rising for
+more information on the Slime Lord’s current predica-
+ment.
+
+An interesting adventure could develop if the PCs
+discovered the locket around the ghoul’s neck in Area 4.
+In life, this man’s name was Marsten. He was the beloved
+of a woman called Rayalia DeFae, who was said to be as
+beautiful as the dawn. That was one year ago. Since the day
+Marsten disappeared (he was assistant guildmaster of the
+Sewermen’s Guild, killed one morning during a routine
+inspection of the city drainage system), Rayalia has be-
+come a recluse, locked away in her manor house. If the PCs
+inspect the locket, they find inscribed upon it in tiny
+letters the name of the craftsman who made it. If they track
+down and question the craftsman, they learn that the
+locket was custom made for a woman named DeFae.
+Asking around leads the heroes to Rayalia’s dilapidated
+home; though once renowned for her elegant lawn parties,
+Rayalia no longer receives visitors. Though still shadowed
+with grief, Rayalia is grateful for the PCs’ efforts and glad
+to know at last what become of her lover. Over the course
+of the next few weeks, she begins to draw from her malaise,
+until she one day resumes her place in society. Aware each
+PC a bonus of 300 XP.
+
+27
+
+ 
+

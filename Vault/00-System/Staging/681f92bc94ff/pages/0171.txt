@@ -1,0 +1,137 @@
+ 
+ 170 
+them as she can. She moves to a spot that puts three centipedes 
+within 15 feet of her, but none next to her, so they can’t attack her 
+while she is casting casting. She chooses a direction and casts her 
+spell. A cone of magical flame shoots out 15 feet, catching the three 
+centipedes in its area. Mialee’s player rolls 1d4 to see how much 
+damage each centipede takes and gets a result of 3. The DM makes a 
+Reflex save (DC 13 for one of Mialee’s 1st-level spells) for each 
+centipede, and only one succeeds. Two centipedes take 3 points of 
+damage each and drop. The lucky one takes half damage (1 point) 
+and survives. 
+Casting a spell can be a straightforward process, such as when 
+Jozan casts cure light wounds  to remove some of the damage that 
+Tordek has taken, or it can be complicated, such as when Jozan is 
+attempting to aim an insect plague by ear at a group of nagas who have 
+hidden themselves in a deeper darkness spell, all the while avoiding 
+the attacks of the nagas’ troglodyte servants. 
+ 
+CHOOSING A SPELL 
+First you must choose which spell to cast. If you’re a cleric, druid, 
+experienced paladin, experienced ranger, or wizard, you select from 
+among spells prepared earlier in the day and not yet cast (see Prepar-
+ing Wizard Spells, page 177, and Preparing Divine Spells, page 179). 
+If you’re a bard or sorcerer, you can select any spell you know, pro-
+vided you are capable of casting spells of that level or higher. 
+To cast a spell, you must be able to speak (if the spell has a verbal 
+component), gesture (if it has a somatic component), and manipu-
+late the material components or focus (if any). Additionally, you 
+must concentrate to cast a spell—and it’s hard to concentrate in the 
+head of battle. (See below for details.) 
+If a spell has multiple versions, you choose which version to use 
+when you cast it. You don’t have to prepare (or learn, in the case of a 
+bard or sorcerer) a specific version of the spell. For example, resist 
+energy protects a creature from fire, cold, or other energy types. You 
+choose when you cast the spell which energy type it will protect the 
+subject from. 
+Once you’ve cast a prepared spell, you can’t cast it again until you 
+prepare it again. (If you’ve prepared multiple copies of a single spell, 
+you can cast each copy once.) If you’re a bard or sorcerer, casting a 
+spell counts against your daily limit for spells of that spell level, but 
+you can cast the same spell again if you haven’t reached your limit. 
+ 
+CONCENTRATION 
+To cast a spell, you must concentrate. If something interrupts your 
+concentration while you’re casting, you must make a Concentration 
+check or lose the spell. The more distracting the interruption and 
+the higher the level of the spell you are trying to cast, the higher the 
+DC is (More powerful spells require more mental effort.) If you fail 
+the check, you lose the spell just as if you had cast it to no effect. 
+Injury: Getting hurt or being affected by hostile magic while 
+trying to cast a spell can break your concentration and ruin the spell. 
+If while trying to cast a spell you take damage, you must make a 
+Concentration check (DC 10 + points of damage taken + the level of 
+the spell you’re casting). If you fail the check, you lose the spell 
+without effect. The interrupting event strikes during spellcasting if 
+it comes between when you start and when you complete a spell (for 
+a spell with a casting time of 1 full round or more) or if it comes in 
+response to your casting the spell (such as an attack of opportunity 
+provoked by the spell or a contingent attack, such as a readied 
+action). 
+If you are taking continuous damage, such as from Melf’s acid 
+arrow, half the damage is considered to take place while you are 
+casting a spell. You must make a Concentration check (DC 10 + 1/2 
+the damage that the continuous source last dealt + the level of the 
+spell you’re casting). If the last damage dealt was the last damage 
+that the effect could deal (such as the last round of a Melf’s acid 
+arrow), then the damage is over, and it does not distract you. 
+Repeated damage, such as from a spiritual weapon, does not count as 
+continuous damage. 
+Spell: If you are affected by a spell while attempting to cast a spell 
+of your own, you must make a Concentration check or lose the spell 
+you are casting. If the spell affecting you deals damage, the DC is 10 
++ points of damage + the level of the spell you’re casting. If the spell 
+interferes with you or distracts you in some other way, the DC is the 
+spell’s saving throw DC + the level of the spell you’re casting. For a 
+spell with no saving throw, it’s the DC that the spell’s saving throw 
+would have if a save were allowed. 
+Grappling or Pinned:  The only spells you can cast while grap-
+pling or pinned are those without somatic components and whose 
+material components (if any) you have in hand. Even so, you must 
+make a Concentration check (DC 20 + the level of the spell you’re 
+casting) or lose the spell. 
+Vigorous Motion: If you are riding on a moving mount, taking a 
+bouncy ride in a wagon, on a small boat in rough water, below-decks 
+in a storm-tossed ship, or simply being jostled in a similar fashion, 
+you must make a Concentration check (DC 10 + the level of the spell 
+you’re casting) or lose the spell. 
+Violent Motion:  If you are on a galloping horse, taking a very 
+rough ride in a wagon, on a small boat in rapids or in a storm, on 
+deck in a storm-tossed ship, or being tossed roughly about in a 
+similar fashion, you must make a Concentration check (DC 15 + the 
+level of the spell you’re casting) or lose the spell. 
+Violent Weather: You must make a Concentration check if you 
+try to cast a spell in violent weather. If you are in a high wind 
+carrying blinding rain or sleet, the DC is 5 + the level of the spell 
+you’re casting. If you are in wind-driven hail, dust, or debris, the DC 
+is 10 + the level of the spell you’re casting. In either case, you lose 
+the spell if you fail the Concentration check. If the weather is caused 
+by a spell, use the rules in the Spell subsection above. 
+Casting Defensively:  If you want to cast a spell without pro-
+voking any attacks of opportunity, you need to dodge and weave. 
+You must make a Concentration check (DC 15 + the level of the 
+spell you’re casting) to succeed. You lose the spell if you fail. 
+Entangled: If you want to cast a spell while entangled in a net or 
+by a tanglefoot bag (page 128) or while you’re affected by a spell with 
+similar effects (such as entangle), you must make a DC 15 Concen-
+tration check to cast the spell. You lose the spell if you fail. 
+ 
+COUNTERSPELLS 
+It is possible to cast any spell as a counterspell. By doing so, you are 
+using the spell’s energy to disrupt the casting of the same spell by 
+another character. Counterspelling works even if one spell is divine 
+and the other arcane. 
+How Counterspells Work:  To use a counterspell, you must 
+select an opponent as the target of the counterspell. You do this by 
+choosing the ready action (page 160). In doing so, you elect to wait 
+to complete your action until your opponent tries to cast a spell. 
+(You may still move your speed, since ready is a standard action.) 
+If the target of your counterspell tries to cast a spell, make a 
+Spellcraft check (DC 15 + the spell’s level). This check is a free 
+action. If the check succeeds, you correctly identify the opponent’s 
+spell and can attempt to counter it. If the check fails, you can’t do 
+either of these things. 
+To complete the action, you must then cast the correct spell. As a 
+general rule, a spell can only counter itself. For example, a fireball 
+spell is effective as a counter to another fireball spell, but not to any 
+other spell, no matter how similar. Fireball cannot counter delayed 
+blast fireball o r  v i c e  v e r s a .  I f  y o u  a r e  a b l e  t o  c a s t  t h e  s a m e  s p e l l  a n d  
+you have it prepared (if you prepare spells), you cast it, altering it 
+slightly to create a counterspell effect. If the target is within range, 
+both spells automatically negate each other with no other results. 
+Counterspelling Metamagic Spells:  Metamagic feats are not 
+taken into account when determining whether a spell can be 
+countered. For example, a normal fireball can counter a maximized 
+CHAPTER 10: 
+MAGIC 

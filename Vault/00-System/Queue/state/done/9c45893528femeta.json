@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "9c45893528fe:meta",
+    "sourceId": "9c45893528fe",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Roleplaying In The Emerald Empire.pdf",
+    "title": "Roleplaying In The Emerald Empire",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T17:20:30.545955+00:00",
+  "meta": {
+    "sourceId": "9c45893528fe",
+    "title": "Roleplaying In The Emerald Empire",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Roleplaying In The Emerald Empire.pdf",
+    "pages": 258,
+    "extractedAt": "2026-02-03T17:20:30.538761+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

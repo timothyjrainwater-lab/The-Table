@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "6a2860b35d6d:meta",
+    "sourceId": "6a2860b35d6d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Tome of Magic.pdf",
+    "title": "Tome of Magic",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:07:53.424196+00:00",
+  "meta": {
+    "sourceId": "6a2860b35d6d",
+    "title": "Tome of Magic",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Tome of Magic.pdf",
+    "pages": 290,
+    "extractedAt": "2026-02-04T02:07:52.165920+00:00"
+  },
+  "enqueued_extractPages": 145
+}

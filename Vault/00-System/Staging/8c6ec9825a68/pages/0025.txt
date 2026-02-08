@@ -1,0 +1,184 @@
+   
+  
+ 
+ 
+  
+ 
+
+       
+
+Ifas a friend, Yele could join with the adventurers to search
+for some lost piece of arcane lore or because their quest
+strikes him as likely to prove an interesting challenge for
+his talents
+
+YELE
+Male elf duskblade 7
+NG Medium humanoid
+Init +6
+Senses low-light vision; Listen +2, Spot +2
+Languages Common, Elven, Gnoll, Sylvan
+
+AC 21, touch 13, flat-footed 19
+hp 35 (7 HD)
+Immune sleep
+
+Fort +6, Ref +7, Will +6 (+8 against enchantments)
+
+Speed 20 ft. (4 squares)
+
+Melee +1 longsword +11/+6 (1d8+4/19-20)
+Base Atk +7; Grp +10
+
+Atk Options arcane channeling®, quick cast*
+
+Abilities Str 16, Dex 14, Con 11, Int 14, Wis 10, Cha 8
+SQ able to notice secret or concealed doors, armored
+mage*, spell power*
+Spell-Like Abilities (CL 7th)
+5/day—dancing lights, detect magic, flare, ghost sound,
+read magic
+Duskblade Spells Known (CL 7th):
+2nd (6/day)—ghoul touch (+10 melee touch, DC 14),
+scorching ray (+9 ranged touch), swift fly
+Ist (7/day)—ray of enfeeblement (+9 ranged touch),
+resist energy, shocking grasp (+10 melee touch), swift
+expeditious retreat, true strike
+0 (6/day)—acid splash, disrupt undead, ray of frost (+9
+ranged touch), touch of fatigue (+10 melee touch,
+DC 12)
+Feats Combat Casting*, Combat Expertise, Improved
+Initiative, Lightning Reflexes
+Skills Concentration +10 (+14 casting defensively),
+Knowledge (arcana) +12, Knowledge (the planes) +12,
+Listen +2, Sense Motive +10, Spot +2
+Possessions +7 breastplate, +1 light shield, +1 longsword,
+cloak of resistance +1, ring of protection +1
+*Class features described on page 20
+
+CR7
+
+ 
+
+ 
+
+Duskblade Spell List
+
+The duskblade's spell list appears below, Spells printed in
+this book are marked with an asterisk.
+
+0 Level: acid splash, disrupt undead, ray of frost, touch of
+fatigue.
+
+ist Level: Bigby’s tripping hand®, blade of blood®, burning
+hands, cause fear, chill touch, color spray, jump, Kelgove's fire bolt
+lesser deflect”, magic weapon, obscuring mist, ray of enfeeblement,
+
+ 
+
+ 
+
+ 
+
+SWIFT EXPEDITIOUS RETREAT, SWIFT FLY,
+AND SWIFT INVISIBILITY
+
+Three spells on the duskblade’s spell list—swift expeditious re-
+treat, swifi fly, and swift invisibilityp—appear in Spell Compendium.
+Ifyou do not have that book, treat these spells as their nonswift
+versions, except that their casting time is 1 swift action and the
+duration of each spell is 1 round.
+
+ 
+
+    
+   
+    
+  
+    
+     
+   
+    
+    
+   
+  
+  
+
+   
+
+resist energy, rouse®, shocking grasp, stand”, swift expeditious retreat,
+true strike,
+
+2nd Level: animalistic power®, bear's endurance, Bighy’s strik-
+ing fist®, bull's strength, cat's grace, darkvision, deflect®, dimension
+hop®, ghoul touch, Melf's acid arrow, scorching vay, see invisibility,
+secking ray*, spider climb, stretch weapon”, sure strike*, swift fly,
+swift invisibility, touch of idiocy.
+
+3rd Level: crown of might*
+touch®, doom scavabs®, ene
+
+ 
+
+crown of protection”, dispelling
+Y aegis®, energy surge”, greater magic
+weapon, halt®, keen edge, protection from energy, ray of exhaustion,
+
+ 
+
+regroup”, vampiric touch,
+
+4th Level: Bighy's interposing hand, channeled pyroburst®,
+dimension door, dispel magic, enervate, fire shield, phantasmal
+killer, shout, toxie weapon®.
+
+sth Level: Bigby’s clenched fist, chain lightning, disintegrate,
+hold monster, polar vay, slashing dispel®, sonic shield", waves
+of fatigue.
+
+KNIGHT
+
+“1 offer you surrender or an honorable death in battle. The choice
+is yours.”
+
+—Archibold the Impetuous
+
+A knight is a proud, skilled melee combatant who fights in
+the name of honor and chivalry, A knight relies on more
+than a sharp sword and a stout suit of armor to defeat her
+foes. Her drive, determination, and fighting spirit allow her
+to control the battlefield in ways that others cannot match.
+Aknight can challenge an opponent to a duel, calling upon
+the foe's pride and ego to force his hand. The knight's talent
+with heavy armor, shields, and defensive tactics grant her
+the ability to disrupt her foe's plans. Only the most talented
+rogues and monks can slip past a knight's defenses to strike at
+her allies, An adventuring group with wizards, sorcerers, and
+other lightly armored members thrives with the assistance
+ofa knight. While the knight keeps enemies occupied, her
+allies can use their talents and abilities without fear of attack
+or harassment.
+
+The knight class is a great choice if you want to play a tough,
+durable melee combatant whose strong personality allows you
+to manipulate your foes. Weaker foes cower in fear before you,
+while stronger foes move to strike you rather than your allies
+when you play on their egos and challenge them to duels.
+Your expertise in using armor and carrying a shield allows
+you to form an impregnable defensive line. Once you engage
+a foe, he has difficulty moving away to threaten your allies,
+If you want to be a front-line melee combatant who defends
+the rest of the party and manipulates opponents, the knight
+isa good choice
+
+MAKING A KNIGHT
+
+A low-level knight is similar to a cross between fighter and
+a bard. You have many hit points, a high Armor Class, and
+an ability similar to bardic music (the knight's challenge
+class feature). You can pick a single foe, usually the one who
+poses the most dangerous physical threat, and gain a bonus
+on attack rolls and damage rolls against that opponent. You
+
+ 
+

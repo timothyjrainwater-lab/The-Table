@@ -1,0 +1,190 @@
+Small Monstrous Humanoid
+
+Hit Dice: 3d8+3 (16 hp)
+
+Initiative: +6
+
+Speed: 20 ft, (4 squares)
+
+Armor Class; 19 (+1 size, +2 Dex, +2 natural, +3 studded leather
+
+|—armor, +1 buckler), touch 13, flacfooted 17
+
+Base Attack/Grapple: +3/=1
+
+Attack; Short sword +4 melee.(id4/19-20) or repeating light
+crossbow +6 ranged (1d6/19-20 plus poison)
+
+(Full Attack: Short sword +4 melee (1d4/19-20) or repeating
+light crossbow +6 ranged (1d6/19-20 plus poison’
+
+Space/Reach: s ft./5 ff.
+
+Special Attacks: Poison use, spell-like abilities, sneak attack
++idé
+
+Special Qualities; Madness, spell resistance 15 vulnerability to
+sunlight
+
+Saves: Fort +2, Ref +5, Will +6
+
+Abilities: Str 11, Dex 14, Con 13, Int 10, Wis 5*, Cha 16*
+
+Skills: Bluff +5, Hide +10, Listen +1, Move Silently +8
+
+Feats: Blind-Fight, Improved Initiative
+
+Environment: Underground
+
+Organization: Team (2-4), squad (5-8 plus 1 3rd-level sorcerer),
+or band (11-20 plus 30% noncombatants plus 3 3rd-level
+sorcerers and 1 sorcerer of Sth-8th level)
+
+Challenge Rating: 3
+
+Treasure: Standard coins; double goods; standard items
+
+Alignment; Usually chaotic evil
+
+Advancement; By character class
+
+Level Adjustment; — (+2 if sane)
+
+ 
+
+A small, stocky dwarflike creature in studded leather armor titters and
+mumbles to himself, His skin is a pale blue-white color, and his bulbous
+white eyes have no irises or pupils. His hair is coarse and white, and a long
+mustache droops past his chin.
+
+Derro are degenerate and evil creatures of the underground, cre-|
+ated from dwarf and human stock by some nameless deity of dark-|
+ness and madness. Incredibly cruel and murderously insane, they |
+enjoy taking slaves and sorturing surface dwellers (especially ,
+humans) to death.
+
+Derro are afflicted by a form of racial madness, which most often
+manifests as delusions of grandeur coupled with an overpower-
+ing urge to inflict rorment on other crearures. Derro are capable
+of holding their murderous impulses in check for short periods of
+time in order to cooperate with creatures of other races, but such
+arrangements rarely last more than.afew.weeks, Of course, no
+
+|derro is capable of recognizing that he is out of his mind.
+
+COMBAT
+Derro are stealthy and bloodthirsty, They like to carefully arrange
+cruel traps and deadly ambushes, and strike savagely from hiding.
+They delight in taking captives who can be tortured to death later,
+and favor traps and poisons.that disable without killing.
+
+Madness (Ex): Derro.use their Charisma modifier on Will
+saves instead of their Wisdom modifier,.and have immunity to
+confusion and insanity effects. A. detro cannot be restored to sanity
+by any means short of a mimcle or wish spell.
+
+“The racial madness.of the derro provides a +6 bonus.to their
+Charisma scores and. a—6 penalty to their Wisdom scores, A
+jderro restored to sanity gains 6 points of Wisdom and loses 6
+
+\points.of Charisma.
+
+Poison Use (Ex); Dero typically carry.2d4 doses of greenblood
+oil or Medium monstrous spider venom (see Poison, page 296 of
+
+the Dungeon Master's Guide), applying it to their crossbow bolts.|
+Derxo are nor at risk of poisoning themselves when handling,
+
+poison. ;
+
+‘Sneak Attack (Ex): Any time a derro’s opponent is denied his |
+Dexterity bonus to AC, or if a derro flanks his opponent, he deals |
+an_extra 146 points.of damage. This ability is just like the rogues,
+jsneak attack and subject to the same limitations.
+
+Spell-Like Abilities: At will—darkness, ghost sound; 1/day—
+\daze (DC 13), sound burst (DC 15), Caster level 3rd. The save DCs
+are Charisma-based.
+
+Vulnerability to Sunlight (Ex): A derro takes 1 point of Con-
+,stitution damage for every hour it is exposed to sunlight, and it,
+dies if its Constitution score reaches 0. Lost Constitution points |
+are recovered at the rate of 1 per every 24-hour period spent
+underground or otherwise sheltered from the sun.
+
+Skills: Derro have a +4 racial bonus on Hide and Move Silently |
+checks,
+
+QERRO CHARACTERS
+{Most derro revere Diirinka, a chaotic deity of magic and cruelty,
+4Nery few derro are clerics, but those who follow this path can,
+.choose two of the following domains: Chaos, Destruction, Evil,
+or Trickery, ;
+The leaders of the derro are spellcasters called savants, whom.
+other derro follow fanatically. Derro savants are at least Sth-
+level sorcerers; they have one to three Knowledge skills (usu-
+ally arcana and other esoteric fields), A savant is accompanied
+by two lower-level students. Savants use their spells to confuse
+and frustrate rather than kill, preferring to make slaves of
+defeated foes.
+
+Large Aberration
+
+Hit Dice: 8d8+24 (60 hp)
+
+Initiative: +5
+
+Speed: 30 ft. (6 squares)
+
+Armor Class: 18 (~1 size, +1 Dex, +8 natural), ouch 10,
+flat-footed 17
+
+Base Attack/Grapple: +6/+14
+
+Attack: Claw +9 melee (1d6+4)
+
+Full Attack: 2 claws +9 melee (1dé+4)
+
+Space/Reach: 10 ft/s ft.
+
+Special Attacks: Destructive harmonics
+
+Special Qualities: Blindsight 100 ft,, immunities, protection
+from sonics
+
+Saves: Fort +5, Ref +5, Will +10
+
+Abilities; Str 18, Dex 12, Con 16, Int 12, Wis 18, Cha 12
+
+Skills; Hide +8, Listen +25, Move Silently +7, Survival +9
+
+Feats: Dodge, Improved Initiative, Lightning Reflexes
+
+Environment: Underground
+
+Organization: Solitary or pack (3-5)
+
+Challenge Rating: §
+
+Treasure: None
+
+Alignment: Usually neutral evil
+
+Advancement; 9-16 HD (Large); 17-24 HD (Huge)
+
+Level Adjustment: —
+
+The creature shambles forward on thick, taloned legs. Vaguely reptilian in.
+form, its large, stooped frame ends in a mostly featureless head dominated ,
+by large ear structures and a gaping, toothless mouth
+
+; The dungeon-dwelling destrachan looks like some bizarre, nonin-|
+telligent beast, bur it's an incredibly evil and crafty sadist. 4
+A destrachan has a pair of complex, three-part ears thar it can |
+adjust to be more or less sensitive to various sounds. It is blind,
+jyet_ hunts with a sense of hearing more precise than most crea-
+tures’ sight.
+From its tubular mouth a destrachan emits carefully focused har-
+
+ 
+

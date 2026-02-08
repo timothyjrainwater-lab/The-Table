@@ -1,0 +1,49 @@
+   Module Workshop  A Dead Man’s Party - Page 25 
+ 
+ 
+ Nigel Blackheart, the wizard wraith: Wraith Wiz4 (necromancer): CR 9; Medium Undead 
+(Incorporeal, 5 ft. 6 in. tall); HD 5d12 + 4d4 (40 hp); Init +7 (+3 Dex, Improved Initiative); Spd 
+30 ft., Fly 60 ft. (good); AC 15 (+3 Dex, +2 deflection); Atk +7 melee (1d4 dmg and 1d6 
+permanent Constituition drain, Incorporeal Touch); SA Spells, Constitution Drain, Create 
+Spawn; SQ Undead, Incorporeal, +2 Turn Resistance, Unnatural Aura, Daylight Powerlessness; 
+AL LE; SV Fort +2, Ref +5, Will +10; Str -, Dex 16, Con -, Int 17, Wis 14, Cha 15. 
+Skills: Concentration +7, Hide +11, Intimidate +10, Intuit Direction +6, Knowledge (arcane) 
++10, Listen +12, Search +10, Sense Motive +8, Scry +10, Spellcraft +10, Spot +12. 
+Feats: Alertness, Blind-Fight, Combat Casting, Combat Reflexes, Improved Initiative, Spell 
+Mastery (ray of enfeeblement, scare, vampiric touch). 
+Special Abilities: Constitution Drain(Su): Living creatures hit by a wraith’s incorporeal touch 
+attack must succeed at a Fort Save (DC 14) or suffer 1d6 points of permanent Constitution drain. 
+Create Spawn(Su): Any humanoid slain by a wraith becomes a wight in 1d4 rounds. Spawn are 
+under command of the wraith that created them.  
+Special Qualities: Undead: Immune to mind-influencing effects, poison, sleep, paralysis, 
+stunning and disease. Not subject to critical hits, subdual damage, ability damage, energy drain, 
+or death from massive damage. Incorporeal: Can be harmed only by other incorporeal creatures, 
++1 or better magic weapons, or magic, with a 50% chance to ignore any damage from a 
+corporeal source. Can pass through solid objects at will, and own attacks pass through armor. 
+Always moves silently. Unnatural Aura(Su): Both wild and domesticated animals can sense the 
+unnatural presence of the wraith at 30 ft. They will not willingly approach nearer than that and 
+panic if forced to do so. Daylight Powerlessness(Ex): Wraiths are utterly powerless in natural 
+sunlight (not merely a Daylight spell) and flee from it. 
+Possessions: Spellbook (0
+th level – all. 1st level – cause fear, chill touch, detect undead, identify, 
+mage armor, magic missile, ray of enfeeblement, sleep. 2nd level – darkness, melf’s acid arrow, 
+scare, spectral hand. 3rd level – lightning bolt, vampiric touch) 
+Spells Memorized: 0th level(DC 13) – daze, mage hand, open/close, ray of frost. 1st level (DC 14) 
+– cause fear, chill touch, mage armor, magic missile, ray of enfeeblement. 2nd level (DC 15) – 
+darkness, melf’s acid arrow, scare, spectral hand. 
+Description: The wraith is the restless spirit of the evil necromancer, Nigel Blackheart. He 
+appears as a shadowy outline of his former self, with burning red eyes. Because of his close ties 
+with the Negative Elemental Plane, he retained some of his spellcasting power when he died, 
+although much of his power was lost when he became a wraith. He has regained possession of 
+his most basic spellbook (it was taken from him when he was imprisoned here). His other books, 
+with his higher-level spells are lost, and Nigel believes them destroyed. But he also believes that 
+he will draw far greater power from the rift anyway. 
+Tactics: Nigel’s madness makes him only marginally aware of the living on this plane. He will 
+not attack them unless provoked (see Area 23 for details) or perhaps if the rift has been closed by 
+the PCs (see CONCLUDING THE ADVENTURE for details). If he does fight, he prefers to use 
+his spells in combat, casting defensively if he is engaged. He will first cast mage armor to 
+protect himself, and then use offensive spells. If he runs out, or his spells are proving ineffective, 
+he is not averse to attacking with his powerful wraith touch. Once he begins attacking, nothing 
+will stop Nigel until he is destroyed. He will travel through walls to get to his target. 
+ 
+ 

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0091",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 91,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:41:02.423902+00:00"
+  },
+  "doneAt": "2026-02-03T08:32:21.197635+00:00",
+  "citation": "PHB (pdf p.0091)",
+  "printedGuess": "90",
+  "touched": [
+    "Condition — Grappled",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Feats (PHB 5–1)"
+  ]
+}

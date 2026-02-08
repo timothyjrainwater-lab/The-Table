@@ -1,0 +1,70 @@
+TABLE 7-23: ARCANE SPELL SCROLLS 89-90 summon monster | 25 gp 3rd-Level Arcane Spells
+_O-Level Arcane Spells 91-93 Tenser’s floating disk 25 gp d% — Spell Market Price
+4% Spell Market Price 94-95 _trve strike 25 gp 01-02 arcane sight 375 gp
+01-04 acid splash 12gp5sp 96 undetectable alignment SO gp 03-04 _ blink 375 gp
+05-08 arcane mark 12 gp 5 sp 97-98 unseen servant 25 gp 05-06 clairaudience/
+09-13 dancing lights 12. gp 5 sp 99-100 ventriloquism 25 gp clairvoyance 375 gp
+14-17 daze 12 gp 5 sp. 07__cure serious wounds 525 gp
+18-24 detect magic 12 gp S sp 2nd-Level Arcane Spells 08-10 daylight 525 gp
+25-28 detect poison 12 gp sp d% __ Spell Market Price 11=12__ deep slumber 375 gp. |
+29-32 disrupt undead 12 gp S sp 01 animal messenger 200 gp 13-15 dispel magic 375 ep
+33-37 flare 12.gp.5sp. 02___ animal trance 200 gp 16-17. displacement 375.gp.
+38-42 ghost sound 12. gp 5 sp 03 arcane lock 175 gp 18 explosive runes 375 ep
+43-44 know direction 12 gp 5sp 04-06 bear's endurance 150 gp 19-20 _ fireball 375 gp
+45-50 light 12 gp5sp 07-08 blindness/deafness 150 gp 21-22 flame arrow 375 gp
+51-52 lullaby 12 gp Ssp 09-10 blur 150 gp 23-25 _fly 375 gp
+53-57 mage hand 12 gp5 sp 11-13 bull's strength 150 gp 26-27 gaseous form 375 gp
+58-62 mending 12 gp Ssp 14 __ calm emotions 200 gp 28-29 _ gentle repose 375 gp
+63-67 message 12 gp 5sp 15-17 cat's grace 150 gp 30 plibness 525 ep
+68-72 _ open/close 12 gp 5.sp. 18-19 command undead 150 gp 31___good hope 525 gp
+73-77 prestidigitation 12 gp 5sp 20 continual flame 200 gp 32-33 halt undead 375 gp
+78-81__ ray of frost l2.gp.5.sp 21 cure mederate wounds 200 gp. 34-36 haste 375 gp
+82-87 read magic 12 gp5sp 22 — darkness 150 gp 37-38 heroism 375 gp
+88-94 resistance l2gp.5.sp, 23-25 _ darkvision 150 gp 39-40 _ hold person 375 gp
+95-96 summon instrument 12 gp S sp 26 daze monster 150 gp 41 illusory script 425 gp
+97-100 _towch of fatigue 12 gp 5.sp. 27 delay poison 200 gp. 42-44 _ invisibility sphere. 375. gp
+| 28-29 detect thoughts 150 gp 45-47 keen edge 375 gp
+Ist-Level Arcane Spells x 30-31 disguise self 150 gp 48-49 _Leomund's timy hut. 375 gp
+d% Spell Market Price 32-34 eagle's splendor 150 gp 50-51 lightning bolt 375 gp
+01-03 alarm 25 ep 35. enthroll 200 gp. 52-39 _magic.circle. against chaos/ 375 gp
+04-05 _ animate rope 25.p 36-37 false life 150 gp evil/good law
+06-07 burning hands 25 ep 38-39 flaming sphere 150 gp 60-62 mogic weapon, greater 375 gp
+08-09 cause fear 25 gp 40 fogcloud 150 gp 63-64 _ major image 375 gp
+10-12 charm person 25 gp 41-43 _fox’s cunning 150 gp. 65-66 nondetection 425 gp
+13-14 chill touch 25. gp. 44 ghoul touch 150 gp 67-68 phantom steed 375 gp
+15-16 color spray 25 ep 45-46 glitterdust 150.gp 69-71 protection from energy 375 gp.
+17-19 comprehend languages 25 gp. 47 gust of wind 150 gp 72-73 rage 375 gp
+20 confusion, lesser 50 gp 48-49 hypnotic pattern 150.gp 74-75 ray of exhaustion 375 gp
+21 cure light wounds 50.gp 50-52 invisibility 150 gp 76 sculpt sound 525 gp
+22-24 detect secret doors 25 gp 53-55_ knock 150 gp 77 secret page 375 gp
+25-26 detect undead 2S gp 56 Leomund’s trap 200 gp 78 sepia snake sigil 875 gp
+27-29 disguise self 25 gp 57-S8_ levitate 150 gp 73 shrink item 375 gp
+30-32__endure elements 25. gp 59 locate object 150 gp 80-81 sleet storm 375 gp
+33-35 enlarge person 25 gp 60 magic. mouth 160 gp 82-83 slow 375 gp
+36-37_ erase 25 gp 61-62 Melf's acid arrow 150 gp 84 speak with animals 525 gp
+| 38-40. expeditious retreat 25 gp 63 _ minor image 150 gp 85-86 stinking cloud 375 gp
+41 feather fall 25 gp 64-65 mirror image 150 gp 87-88 suggestion 375 gp
+42-43 grease 25 gp 66 __ misdirection 150 gp 89-90 summon monster Ill 375 gp
+44-45 hold portal 25 gp 67 obscure object 150 gp 91-93 tongues 375 gp
+46-47 hypnotism 25 ep 68-70 _ow!'s wisdom 150 gp 94-95 vampiric touch 375 gp
+48-49 identify 125 gp 7I-73 protection from arrows 150 gp 96-98 water breathing 375.gp.
+50-5) jump 25 ep 74-75 pyrotechnics 150 gp 99-100 wind wall 375 gp
+52-54 mage armor. 25 gp 76-78 resist energy 150 gp
+55-56 magic missile 25 gp 79 rope trick 150 gp 4th-Level Arcane Spells
+57-59 __ magic weapon 25.gp 80 scare 150 gp 4% Spell Market Price
+| 60-62 mount 25 gp 81-82__ scorching ray 150 gp 01-02 animate dead 1,050 gp
+_.53-64 _ Nystul’s magic aura. 25 gp 83-85 sce invisibility 150 gp 03-05 arcane eye 700 gp
+| 65-66 obscuring mist 25 gp 86 shatter 150. gp 06-07 bestow curse 700 gp
+67-74 _ protection from chaos/ 25. gp 87 silence 200 gp 08-10 _ charm monster 700 gp
+evil/good/low 88 sound burst 200 gp 11-13 confusion 700 gp
+75-76 ray of enfeeblement 25 gp 89 spectral hand 150 gp 14-15 _ contagion. 700 gp
+77-78_ reduce person 25 gp 90-91 spider climb 150 gp 16-17 crushing despair 700 gp
+79-80 remove fear 50 gp 92-93 summon monster II 150. gp 18___ cure critical wounds 1,000 gp
+81-82__ shield. 25 gp 94-95 summon swarm 150 gp 19 detect serying 700 gp
+83-84 shocking grasp 25 gp 96 Tasha's hideous laughter 150 gp 20-23 dimension door 700 gp
+85-86 _ silent imoge 25 gp 97 _ touch of idiocy 150 gp 24-26 dimensional anchor 700 gp
+87-88 sleep 25 ep 98-99 web 150. gp 27-28 _enervation 700 gp
+100. whispering wind 150 gp 29-30 enlarge person, mass 700 gp
+
+ 
+

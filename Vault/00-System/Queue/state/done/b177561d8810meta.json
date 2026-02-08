@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "b177561d8810:meta",
+    "sourceId": "b177561d8810",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Libris Mortis.pdf",
+    "title": "Libris Mortis",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:24:14.378332+00:00",
+  "meta": {
+    "sourceId": "b177561d8810",
+    "title": "Libris Mortis",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Libris Mortis.pdf",
+    "pages": 207,
+    "extractedAt": "2026-02-03T13:24:13.379344+00:00"
+  },
+  "enqueued_extractPages": 104
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "ca2374a39111:meta",
+    "sourceId": "ca2374a39111",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/Tower of Deception.pdf",
+    "title": "Tower of Deception",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:22:34.642927+00:00",
+  "meta": {
+    "sourceId": "ca2374a39111",
+    "title": "Tower of Deception",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/Tower of Deception.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-04T02:22:34.562776+00:00"
+  },
+  "enqueued_extractPages": 5
+}

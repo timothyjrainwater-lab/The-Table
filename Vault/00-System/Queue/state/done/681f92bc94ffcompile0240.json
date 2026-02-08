@@ -1,0 +1,19 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0240",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 240,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:39:31.767607+00:00"
+  },
+  "doneAt": "2026-02-03T09:43:36.475517+00:00",
+  "citation": "PHB (pdf p.0240)",
+  "printedGuess": "239",
+  "touched": [
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

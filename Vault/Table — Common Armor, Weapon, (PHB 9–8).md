@@ -1,0 +1,12 @@
+# Table — Common Armor, Weapon, (PHB 9–8)
+
+## Source
+- PHB (pdf p.0167)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

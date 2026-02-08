@@ -1,0 +1,188 @@
+ 
+
+Trip (Ex); A werewolf in animal form that hits with a bite attack
+can attempt to trip the opponent (+2 check modifier) as a free ac-
+tion without making a touch attack or provoking an.attack of op-
+portunity. If the attempt fails, the opponent cannot react to trip
+the werewolf.
+
+Wolf Empathy (Ex): Communicate with wolves and dire)
+wolves, and +4 racial bonus on Charisma-based checks against,
+wolves and dire wolves,
+
+Skills: °A werewolf in hybrid or wolf form gains a +4 racial]
+
+_bonus on Survival checks when tracking by scent
+
+|The werewolf presented here is based on a tst-level human war-
+.tior and natural lycanthrope, using the following base ability
+scores: Str 13, Dex 11, Con 12, Int 10, Wis 9, Cha 8
+
+LYCANTHROPE, WEREWOLF LORD
+Feral.and powerful, this humanoid is covered in gray fur and armed with
+\sharp.claws.and teeth, It stands as tall as an ogre, and it has a wolflike |
+muzzle and hateful eyes. |
+
+Stronger, hardier, and more deadly than its lesser fellows, the were-|
+wolf lord is a murderous beast thar delights in wreaking havoc.
+
+The werewolf lord presented here is a 10th-level human fighter
+and natural lycanthrope, using the following base ability scores:
+Str 16, Dex 14, Con 14, Int 10, Wis 10, Cha.12.
+
+Weretiger, Human Form
+Medium Humanoid
+(Human, Shapechanger)
+
+Hit Dice: 1d8+1 plus 6d8+18 (50 bp)
+
+Initiative: +4
+
+Speed: 20 ft. in breastplate (4 squares);
+base speed 30 ft.
+
+Armor Class: 17 (+2 natural, +5 breastplate)
+
+touch 10, flat-footed 17
+
+Base Attack/Grapple: +5/+6
+
+Attack: Glaive +6 melee (1d10¢1/x3) or
+composite longbow (+1 Str bonus)
++5 ranged (1d8+1/x3)
+
+Combat__.
+
+Werewolf lords can assume a hybrid form as well as an animal
+form. In dire wolf form, they can trip just as normal wolves do, In.
+hybrid form, they can.wield weapons or fight with their claws.
+
+Alternate Form (Su); A werewolf lord can assume a bipedal
+
+ 
+
+ 
+
+thybrid form or the form ofa dire wolf.
+
+Curse of Lycanthropy (Su); Any humanoid or giant hit by a
+werewolf lord's bite attack in wolf or hybrid form must succeed on,
+a DC 15 Fortitude save or. contract lycanthropy,
+
+‘Trip (Ex): A werewolf lord in dire wolf form that hits with a bite,
+attack can attempt to trip the opponent (+15 check modifier) asa}
+free action without making a touch attack or provoking an attack of
+opportunity. If the attempt fails, the opponent cannot react to trip
+the werewolf lord,
+
+Wolf Empathy (Ex): Communicate with wolves and dire
+wolves, and +4 racial bonus on Charisma-based checks against
+
+wolves and dire wolves.
+
+Skills: °A werewolf lord in hybrid or wolf form gains a +4 racial
+jbonus on Survival checks when tracking by scent.
+
+Possessions: +2 mithnal chain shirt, +3 heavy shield, +2 bastand sword,
+gauntlets of ogre power, cloak of resistance +2, masterwork composite.
+longbow (+4 Str bonus). (Different werewolf lords may have dif-
+
+ferent possessions.)
+
+HILL GIANT DIRE WEREBOAR
+
+This giant is covered in.short, bristly fur ond has sharp claws, Its head is,
+piglike, with jutting tusks and small, angry red eyes.
+
+Weretiger, Tiger Form
+‘Large Humanoid
+(Human, Shapechanger)
+1d8+1 plus 6d8+18 (50 hp)
++6
+
+40 ft. (8 squares)
+
+16 (—1 size, +2 Dex, +5 natural),
+touch 11, flat-footed 14
+
++5/+16
+
+Claw +11 melee (1d8+7)
+
+Full Attack: Glaive +6 melee (1d10+1/x3) or 2 claws +11 melee (1d8+7) and
+composite longbow (+1 Str bonus) bite +6 melee (2d6+3)
++5 ranged (1d8+1/%3)
+Space/Reach: 5 ft/s ft. (10 ft. with glaive) 10 ft/s ft
+Special Attacks:  — Pounce, improved grab, rake,
+curse of lycanthropy
+Special Qualities; Alternate form, tiger empathy, Alternate form, tiger empathy,
+low-light vision, scent damage reduction 10/silver,
+low-light vision, scent
+Saves: Fort +8, Ref +5, Will +4 Fort +10, Ref +7, Will +4
+Abilities: Str 13, Dex 11, Con 12 Str 25, Dex 15,.Con 16
+Int 10, Wis 11, Cha 8 Int 10, Wis 11, Cha 8
+Skills: Balance +0, Climb +1, Handle Balance +6, Climb +12, Handle
+Animal +3, Hide +0, Listen +6, Animal +3, Hide +2°, Listen +6,
+Move Silently +0, Spot +6 Move Silently +12, Spot +6
+Feats: Alertness", Combat Reflexes, Improved (same as human form)
+Initiative, Improved Natural Attack
+(bite, claw), Iron Will”
+Environment: ‘Warm forests ‘Warm forests
+Organization: Solitary or pair (same as human form)
+Challenge Rating: 5 5
+‘Treasure: Standard Standard
+Alignment: Always neutral Always neutral
+Advancement: By character class By character class
+
+Level Adjustment: +3
+
+3B
+
+Weretiger, Hybrid Form
+Large Humanoid
+(Human, Shapechanger)
+1d8+1 plus 6d8+18 (50 hp)
++6
+
+30 ft. (6 squares)
+
+16 (—1 size, +2 Dex, +5 natural),
+touch 11, flat-footed 14
++5/H16
+
+Claw.+11 melee (1d8+7)
+
+2 claws +11 melee (1d8+7) and
+bite +6 melee (2d6+3)
+
+10 ft./10 fr.
+Curse of lycanthropy
+
+Alternate form, tiger empathy,
+damage reduction 10/silver,
+low-light vision, scent
+
+Fort +10, Ref +7, Will +4
+
+Str 25, Dex 15, Con 16
+
+Int 10, Wis 11, Cha 8
+
+Balance +6, Climb +12, Handle
+Animal +3, Hide +2, Listen +6,
+Move Silently +12, Spot +6
+(same as human form)
+
+‘Warm forests
+
+(same as human form)
+s
+
+Standard
+
+Always neutral
+
+By character class
+
+3
+

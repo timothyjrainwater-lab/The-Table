@@ -1,0 +1,137 @@
+ 
+ 48 
+influencing an animal in this way takes 1 minute, but, as with 
+influencing people, it might take more or less time. 
+The ranger can also use this ability to influence a magical beast 
+with an Intelligence score of 1 or 2 (such as a basilisk or a girallon), 
+but he takes a –4 penalty on the check. 
+Combat Style (Ex): At 2nd level, a ranger must select one of two 
+combat styles to pursue: archery or two-weapon combat. This choice 
+affects the character’s class features but does not restrict his 
+selection of feats or special abilities in any way. 
+If the ranger selects archery, he is treated as having the Rapid 
+Shot feat, even if he does not have the normal prerequisites for that 
+feat. 
+If the ranger selects two-weapon combat, he is treated as having 
+the Two-Weapon Fighting feat, even if he does not have the normal 
+prerequisites for that feat. 
+The benefits of the ranger’s chosen style apply only when he 
+wears light or no armor. He loses all benefits of his combat style 
+when wearing medium or heavy armor. 
+Endurance: A ranger gains Endurance (see page 93) as a bonus 
+feat at 3rd level. 
+Animal Companion (Ex):  At 4th level, a ranger gains an animal 
+companion selected from the following list: badger, camel, dire rat, 
+dog, riding dog, eagle, hawk, horse (light or heavy), owl, pony, snake 
+(Small or Medium viper), or wolf. If the DM’s campaign takes place 
+wholly or partly in an aquatic environment, the DM may add the 
+following creatures to the ranger’s list of options: crocodile, 
+porpoise, Medium shark, and squid. This animal is a loyal 
+companion that accompanies the ranger on his adventures as 
+appropriate for its kind. (For instance, an aquatic creature can’t 
+adventure with a ranger on land and shouldn’t be selected by a 
+nonaquatic character without extenuating circumstances). In most 
+cases, the animal companion functions as a mount, sentry, scout, or 
+hunting animal, rather than as a protector. 
+This ability functions like the druid ability of the same name (see 
+page 35), except that the ranger’s effective druid level is one-half his 
+ranger level. For example, the animal companion of a 4th-level 
+ranger would be the equivalent of a 2nd-level druid’s animal 
+companion. A ranger may select from the alternative lists of animal 
+companions just as a druid can, though again his effective druid 
+level is half his ranger level. Thus, he must be at least an 8th-level 
+ranger to select from the druid’s list of 4th-level animal companions, 
+and if he chooses one of those animals, his effective druid level 
+would be reduced by 3, to 1st level. Like a druid, a ranger cannot 
+select an alternative animal if the choice would reduce his effective 
+druid level below 1st. 
+Spells: Beginning at 4th level, a ranger gains the ability to cast a 
+small number of divine spells (the same type of spells available to 
+the cleric, druid, and paladin), which are drawn from the ranger 
+spell list (page 191). A ranger must choose and prepare his spells in 
+advance (see below). 
+To prepare or cast a spell, a ranger must have a Wisdom score 
+equal to at least 10 + the spell level (Wis 11 for 1st-level spells, Wis 
+12 for 2nd-level spells, and so forth). The Difficulty Class for a saving 
+throw against a ranger’s spell is 10 + the spell level + the ranger’s 
+Wisdom modifier. 
+Like other spellcasters, a ranger can cast only a certain number of 
+spells of each spell level per day. His base daily spell allotment is 
+given on Table 3–13: The Ranger. In addition, he receives bonus 
+spells per day if he has a high Wisdom score (see Table 1–1: Ability 
+Modifiers and Bonus Spells, page 8). When Table 3–13 indicates that 
+the ranger gets 0 spells per day of a given spell level (for instance, 
+1st-level spells for a 4th-level ranger), he gains only the bonus spells 
+he would be entitled to based on his Wisdom score for that spell 
+level. The ranger does not have access to any domain spells or 
+granted powers, as a cleric does. 
+A ranger prepares and casts spells the way a cleric does, though he 
+cannot lose a prepared spell to cast a cure spell in its place. A ranger 
+may prepare and cast any spell on the ranger spell list, provided that 
+he can cast spells of that level, but he must choose which spells to 
+prepare during his daily meditation. 
+Through 3rd level, a ranger has no caster level. At 4th level and 
+higher, his caster level is one-half his ranger level. 
+Improved Combat Style (Ex): At 6th level, a ranger’s aptitude in 
+his chosen combat style (archery or two-weapon combat) improves. 
+If he selected archery at 2nd level, he is treated as having the 
+Manyshot feat (page 97), even if he does not have the normal 
+prerequisites for that feat. 
+If the ranger selected two-weapon combat at 2nd level, he is 
+treated as having the Improved Two-Weapon Fighting feat (page 
+96), even if he does not have the normal prerequisites for that feat. 
+As before, the benefits of the ranger’s chosen style apply only 
+when he wears light or no armor. He loses all benefits of his combat 
+style when wearing medium or heavy armor. 
+Woodland Stride (Ex):  Starting at 7th level, a ranger may move 
+through any sort of undergrowth (such as natural thorns, briars, 
+overgrown areas, and similar terrain) at his normal speed and 
+without taking damage or suffering any other impairment. 
+However, thorns, briars, and overgrown areas that are enchanted or 
+magically manipulated to impede motion still affect him. 
+Swift Tracker (Ex):  Beginning at 8th level, a ranger can move at 
+his normal speed while following tracks without taking the normal 
+–5 penalty. He takes only a –10 penalty (instead of the normal –20) 
+when moving at up to twice normal speed while tracking. 
+Evasion (Ex):  At 9th level, a ranger can avoid even magical and 
+unusual attacks with great agility. If he makes a successful Reflex 
+saving throw against an attack that normally deals half damage on a 
+successful save (such as a red dragon’s fiery breath or a fireball), he 
+instead takes no damage. Evasion can be used only if the ranger is 
+wearing light armor or no armor. A helpless ranger (such as one who 
+is unconscious or paralysed) does not gain the benefit of evasion. 
+Combat Style Mastery (Ex):  At 11th level, a ranger’s aptitude in 
+his chosen combat style (archery or two-weapon combat) improves 
+again. If he selected archery at 2nd level, he is treated as having the 
+Improved Precise Shot feat (page 96), even if he does not have the 
+normal prerequisites for that feat. 
+If the ranger selected two-weapon combat at 2nd level, he is 
+treated as having the Greater Two-Weapon Fighting feat (page 95), 
+even if he does not have the normal prerequisites for that feat. 
+As before, the benefits of the ranger’s chosen style apply only 
+when he wears light or no armor. He loses all benefits of his combat 
+style when wearing medium or heavy armor. 
+Camouflage (Ex):  A ranger of 13th level or higher can use the 
+Hide skill in any sort of natural terrain, even if the terrain doesn’t 
+grant cover or concealment. 
+Hide in Plain Sight (Ex):  While in any sort of natural terrain, a 
+ranger of 17th level or higher can use the Hide skill even while 
+being observed. 
+ 
+Elf Ranger Starting Package 
+Armor: Studded leather (+3 AC, armor check penalty –1, speed 
+30 ft., 20 lb.). 
+Weapons: Longsword (1d8, crit 19–20/×2, 4 lb., one-handed, 
+slashing). 
+Short sword, off hand (1d6, crit 19–20/×2, 2 lb., light, piercing). 
+Note: When striking with both swords, the ranger takes a –4 
+penalty with his longsword and a –8 penalty with his short sword. If 
+he has a Strength bonus, add only one-half of it to his damage roll 
+with the short sword, which is in his off hand, but add the full 
+Strength bonus to his damage roll with the longsword. 
+Longbow (1d8, crit ×3, range inc. 100 ft., 3 lb., piercing). 
+Skill Selection: Pick a number of skills equal to 6 + Int modifier. 
+ 
+ 
+CHAPTER 3: 
+CLASSES 

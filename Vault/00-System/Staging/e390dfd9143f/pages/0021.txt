@@ -1,0 +1,277 @@
+5
+2
+<
+i
+x
+
+ 
+
+An elder arrowhawk (41
+to 75 years old) is about 20
+feet long with a wingspan
+of 30 feet and aweight
+of about 800 pounds
+
+Arrowhawks speak
+Auran, but they are
+not usually talkative
+creat
+
+COMBAT
+Arrowhawks are extremely
+territorial and always hungry
+They attack almost any. other crea
+ture they meet, seeking a meal or
+trying to drive away a rival, The pri
+mary_mode of attack is anelectricity
+ray, fired from the tail. The creature
+also bites, but it prefers to stay out
+of reach.
+
+Electricity Ray (Su): An
+arrowhawk can fire this
+ray once per round
+with a range of
+
+50 feet
+
+  
+  
+  
+    
+  
+  
+ 
+ 
+  
+   
+  
+  
+ 
+  
+  
+  
+ 
+  
+   
+  
+ 
+ 
+    
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+  
+   
+   
+ 
+ 
+  
+ 
+ 
+
+Arrowhawk
+
+ 
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+Large Plant
+Hit Dice: 4d8+12 (30 hp)
+Initiative: +0
+
+ 
+
+ 
+
+Speed: 5 ft. (1 square’
+Armor Class: 15 (—1 size, +6 natural), ouch 9, flat-footed 15
+Base Attack/Grapple; +3/+12
+
+ 
+
+ 
+
+Attack: Slam +7 melee (1d6+7,
+
+Full Attack: Slam +7 melee (1d6+7,
+
+Space/Reach: 10 ft./10 ft. (20 ft. with
+vine
+
+Special Attacks: Constrict 1d6+7,
+entangle, improved grab
+
+Special Qualities: Blindsighr 30 ft.,
+camouflage, immunity to electricity,
+low-light vision, plant traits, re
+ance to-cold 10 and fire 10
+
+Saves; Fort +7, Ref +1, Will
+
+Abilities: Str 20, Dex 10, Con 16,
+Int —, Wis 13, Cha 9
+
+Environment; Temperate
+forests
+
+Organization: Solitary or
+patch (2-4
+
+Challenge Rating: 3
+
+Treasure: 1/10th coins; 50%
+
+goods; 50% items
+
+Alignment; Always neutral.
+
+Advancement: 5-16 HD (Huge:
+17-32 HD (Gargantuan); 33+ HD
+Colossal
+
+Level Adjustment:
+
+ 
+
+ 
+
+is:
+
+        
+
+ 
+
+ 
+
+ 
+
+This vine has @ fibrous stem covered with
+brown, stringy bark and as thick as a human's
+\forearm, Its leaves are shaped like human hands.
+
+ 
+
+The assassin vine is a semimobile plant that collects its own
+grisly fertilizer by grabbing and crushing animals and depositing
+the carcasses near its roots
+
+  
+
+ 
+
+Assassin vine
+
+‘Amature plant consists of a main vine, about 20 feet long,
+Smaller vines up to 5 feet long branch off from the main vine
+about every 6 inches. These small vines bear clusters of
+leaves, and in late summer they produce bunches of
+small fruits that resemble wild grapes, The
+fruitis tough and has a hearty but bitter
+flavor, Assassin vine berries make a
+heady wine.
+
+An assassin vine can move about, albeit
+very slowly, but usually stays put unless it
+needs to seek prey in.a new vicinity.
+A subterranean version of the
+assassin vine grows near hot springs.
+volcanic vents, and other sources
+of thermal en:
+ergy. These
+plants_haye
+thin, wiry stems
+and gray leaves shot
+through with silver, brown, and
+white veins so that they resemble
+mineral deposits, An assassin vine
+growing underground usually
+generates enough offal rc
+supporta thriving colony of
+mushrooms. and other fungi
+which spring up around the plant
+
+and help conceal it
+
+ 
+
+  
+
+COMBAT
+An assassin vine uses simpl,
+tics: It lies still until prey comes within reach, ther
+entangle ability both to catch prey and to deter counterattacks.
+Constrict (Ex): An assassin vine deals 1d6+7 points of dam
+with a successful grapple check.
+Entangle (Su): An assassin vine
+can animate plants within 30 feet of
+itself as a free action (Ref DC 13 par
+tial) The effect lasts until the vine
+dies or decides to end it (also a
+free action), The save DC is
+Wisdom-based, The ability is
+otherwise similar to en
+(caster level 4th,
+Improved Grab (Ex): To
+use this ability, an assassin
+vine must hit with its slam at
+tack. It can then attempt to start
+agrapple as a free action without
+provoking an attack of opportu:
+nity.If it wins the grapple
+check, it establishes a hold
+® and can constrict
+Blindsight (Ex): Assassin
+vines hav
+but can ascertain all foes within
+30 feet using sound, scent, and
+vibration.
+
+Camouflage (Ex); Since an assas~
+sin vine looks like a normal plant
+when at rest, it takes a DC 20 Spot
+check to notice it before it attacks.
+Anyone with ranks in Survival or.
+Knowledge (nature) can use one of
+those skills instead of Spot to notice
+the plant. Dwarves can use stonecunning to
+notice the subterranean version.
+
+ 
+
+attacks, Ir uses
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+no visual organs
+
+ 
+

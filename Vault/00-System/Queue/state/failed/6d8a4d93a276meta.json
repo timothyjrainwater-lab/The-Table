@@ -1,0 +1,14 @@
+{
+  "task": {
+    "taskId": "6d8a4d93a276:meta",
+    "sourceId": "6d8a4d93a276",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Murder of The Seven Points.pdf",
+    "title": "The Murder of The Seven Points",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "failedAt": "2026-02-03T22:00:54.433561+00:00",
+  "error": "AttributeError(\"'NullObject' object has no attribute 'get'\")"
+}

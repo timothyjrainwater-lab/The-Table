@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "a12e48d6475c:meta",
+    "sourceId": "a12e48d6475c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Exorcist - Power Class.pdf",
+    "title": "Exorcist - Power Class",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:12:06.621024+00:00",
+  "meta": {
+    "sourceId": "a12e48d6475c",
+    "title": "Exorcist - Power Class",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Power Classes/Exorcist - Power Class.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-03T10:12:06.529022+00:00"
+  }
+}

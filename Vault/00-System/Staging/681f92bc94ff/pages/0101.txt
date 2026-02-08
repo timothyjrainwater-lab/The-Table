@@ -1,0 +1,134 @@
+ 
+ 100 
+base price, you must expend the material component or pay the XP 
+when scribing the scroll. 
+ 
+SELF-SUFFICIENT [GENERAL] 
+You can take care of yourself in harsh environments and situations. 
+Benefit: You get a +2 bonus on all Heal checks and Survival 
+checks. 
+ 
+SHIELD PROFICIENCY [GENERAL] 
+You are proficient with bucklers, small shields, and large shields. 
+Benefit: You can use a shield and take only the standard penalties 
+(see Table 7–6: Armor and Shields, page 123). 
+Normal: When you are using a shield with which 
+you are not proficient, you take the shield’s 
+armor check penalty on attack rolls and 
+on all skill checks that involve 
+moving, including Ride checks. 
+Special: Barbarians, bards, 
+clerics, druids, fighters, paladins, 
+and rangers automatically have 
+Shield Proficiency as a bonus feat. 
+They need not select it. 
+ 
+SHOT ON THE RUN 
+[GENERAL] 
+You are highly trained in skirmish 
+ranged weapon tactics. 
+Prerequisites: Dex 13, Dodge, 
+Mobility, Point Blank Shot, base attack 
+bonus +4. 
+Benefit: When using the attack action 
+with a ranged weapon, you can move both 
+before and after the attack, provided that 
+your total distance moved is not greater 
+than your speed. 
+Special: A fighter may select Shot on the Run as one of his 
+fighter bonus feats (see page 38). 
+ 
+SILENT SPELL [METAMAGIC] 
+You can cast spells silently. 
+Benefit: A silent spell can be cast with no verbal components. 
+Spells without verbal components are not affected. A silent spell 
+uses up a spell slot one level higher than the spell’s actual level. 
+Special: Bard spells cannot be enhanced by this metamagic feat. 
+ 
+SIMPLE WEAPON PROFICIENCY [GENERAL] 
+You understand how to use all types of simple weapons in combat 
+(see Table 7–5: Weapons, page 116, for a list of simple weapons). 
+Benefit: You make attack rolls with simple weapons normally. 
+Normal: When using a weapon with which you are not 
+proficient, you take a –4 penalty on attack rolls. 
+Special: All characters except for druids, monks, rogues, and 
+wizards are automatically proficient with all simple weapons. They 
+need not select this feat. 
+A sorcerer or wizard who casts the spell Tenser’s transformation on 
+himself or herself gains proficiency with all simple weapons for the 
+duration of the spell. 
+ 
+SKILL FOCUS [GENERAL] 
+Choose a skill, such as Move Silently. You have a special knack with 
+that skill. 
+Benefit: You get a +3 bonus on all checks involving that skill. 
+Special: You can gain this feat multiple times. Its effects do not 
+stack. Each time you take the feat, it applies to a new skill. 
+SNATCH ARROWS [GENERAL] 
+You are adept at grabbing incoming arrows, as well as crossbow 
+bolts, spears, and other projectile or thrown weapons. 
+Prerequisites: Dex 15, Deflect Arrows, Improved Unarmed 
+Strike. 
+Benefit: When using the Deflect Arrows feat (page 93), you may 
+catch the weapon instead of just deflecting it. Thrown weapons, 
+such as spears or axes, can immediately be thrown back at the 
+original attacker (even though it isn’t your turn) or kept for later use. 
+You must have at least one hand free (holding nothing) to use this 
+feat. 
+Special: A fighter may select Snatch Arrows as one of his fighter 
+bonus feats (see page 38). 
+ 
+SPELL FOCUS [GENERAL] 
+Choose a school of magic, such as 
+illusion. Your spells of that school are 
+more potent than normal. 
+Benefit: Add +1 to the Difficulty 
+Class for all saving throws against 
+spells from the school of magic you 
+select. 
+Special: You can gain this feat 
+multiple times. Its effects do not stack. 
+Each time you take the feat, it applies 
+to a new school of magic. 
+ 
+SPELL MASTERY [SPECIAL] 
+You are so intimately familiar with certain 
+spells that you don’t need a spellbook to 
+prepare them anymore. 
+Prerequisite: Wizard level 1st. 
+Benefit: Each time you take this feat, 
+choose a number of spells equal to your 
+Intelligence modifier that you already know. From that point on, 
+you can prepare these spells without referring to a spellbook. 
+Normal: Without this feat, you must use a spellbook to prepare 
+all your spells, except read magic. 
+ 
+SPELL PENETRATION [GENERAL] 
+Your spells are especially potent, breaking through spell resistance 
+more readily than normal. 
+Benefit: You get a +2 bonus on caster level checks (1d20 + caster 
+level) made to overcome a creature’s spell resistance. 
+ 
+SPIRITED CHARGE [GENERAL] 
+You are trained at making a devastating mounted charge. 
+Prerequisites: Ride 1 rank, Mounted Combat, Ride-By Attack. 
+Benefit: When mounted and using the charge action, you deal 
+double damage with a melee weapon (or triple damage with a lance). 
+Special: A fighter may select Spirited Charge as one of his fighter 
+bonus feats (see page 38). 
+ 
+SPRING ATTACK [GENERAL] 
+You are trained in fast melee attacks and fancy footwork. 
+Prerequisites: Dex 13, Dodge, Mobility, base attack bonus +4. 
+Benefit: When using the attack action with a melee weapon, you 
+can move both before and after the attack, provided that your total 
+distance moved is not greater than your speed. Moving in this way 
+does not provoke an attack of opportunity from the defender you 
+attack, though it might provoke attacks of opportunity from other 
+creatures, if appropriate. You can’t use this feat if you are wearing 
+heavy armor. 
+You must move at least 5 feet both before and after you make your 
+attack in order to utilize the benefits of Spring Attack. 
+Illus. by W. Reynolds 
+CHAPTER 5: 
+FEATS 

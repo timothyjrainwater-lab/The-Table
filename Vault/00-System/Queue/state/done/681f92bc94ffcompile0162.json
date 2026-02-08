@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0162",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 162,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:38:32.739763+00:00"
+  },
+  "doneAt": "2026-02-03T09:38:51.012194+00:00",
+  "citation": "PHB (pdf p.0162)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table — Armor and Shields, page 123) defines his or her (PHB 7–6)",
+    "Table — Armor and Shields, this armor cuts his maximum (PHB 7–6)",
+    "Table — Carrying (PHB 9–2)",
+    "Table — Carrying Capacity. Depending on how the (PHB 9–1)",
+    "Table — Carrying Loads. A medium or heavy load (PHB 9–2)"
+  ]
+}

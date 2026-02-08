@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "12f0fcced176:meta",
+    "sourceId": "12f0fcced176",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/The Queen With Burning Eyes.pdf",
+    "title": "The Queen With Burning Eyes",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T22:07:36.517419+00:00",
+  "meta": {
+    "sourceId": "12f0fcced176",
+    "title": "The Queen With Burning Eyes",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/The Queen With Burning Eyes.pdf",
+    "pages": 18,
+    "extractedAt": "2026-02-03T22:07:36.510276+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

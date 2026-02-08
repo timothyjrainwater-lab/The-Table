@@ -1,0 +1,207 @@
+ 
+ 215
+Casting Time: 10 minutes 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Effect: Food and water to sustain three 
+humans or one horse/level for 24 
+hours 
+Duration: 24 hours; see text 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+The food that this spell creates is simple 
+fare of your choice—highly nourishing, if 
+rather bland. Food so created decays and 
+becomes inedible within 24 hours, 
+although it can be kept fresh for another 
+24 hours by casting a purify food and water  
+spell on it. The water created by this spell 
+is just like clean rain water, and it doesn’t 
+go bad as the food does. 
+ 
+Create Greater Undead 
+Necromancy [Evil] 
+Level: Clr 8, Death 8, Sor/Wiz 8 
+ 
+This spell functions like create undead, 
+except that you can create more powerful 
+and intelligent sorts of undead: shadows, 
+wraiths, spectres, and devourers (see the 
+Monster Manual  for more information on 
+all types of undead). The type or types of 
+undead you can create is based on your 
+caster level, as shown on the table below. 
+ 
+Caster Level Undead Created 
+15th or lower Shadow 
+16th–17th Wraith 
+18th–19th Spectre 
+20th or higher Devourer
+ 
+ 
+Create Undead 
+Necromancy [Evil] 
+Level: Clr 6, Death 6, Evil 6, Sor/Wiz 6 
+Components: V, S, M 
+Casting Time: 1 hour 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One corpse 
+Duration: Instantaneous 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+A much more potent spell than animate 
+dead, this evil spell allows you to create 
+more powerful sorts of undead: ghouls, 
+ghasts, mummies, and mohrgs (see the 
+Monster Manual  for more information on 
+all types of undead). The type or types of 
+undead you can create is based on your 
+caster level, as shown on the table below. 
+ 
+Caster Level Undead Created 
+11th or lower Ghoul 
+12th–14th Ghast 
+15th–17th Mummy 
+18th or higher Mohrg
+ 
+ 
+You may create less powerful undead than 
+your level would allow if you choose. For 
+example, at 16th level you could decide to 
+create a ghoul or a ghast instead of a 
+mummy. Doing this may be a good idea, 
+because created undead are not automati-
+cally under the control of their animator. 
+If you are capable of commanding undead, 
+you may attempt to command the undead 
+creature as it forms (see Turn or Rebuke 
+Undead, page 159). 
+This spell must be cast at night. 
+Material Component:  A clay pot filled 
+with grave dirt and another filled with 
+brackish water. The spell must be cast on a 
+dead body. You must place a black onyx 
+gem worth at least 50 gp per HD of the 
+undead to be created into the mouth or eye 
+socket of each corpse. The magic of the 
+spell turns these gems into worthless 
+shells. 
+ 
+Create Water 
+Conjuration (Creation) [Water] 
+Level: Clr 0, Drd 0, Pal 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Effect: Up to 2 gallons of water/level 
+Duration: Instantaneous 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+This spell generates wholesome, drinkable 
+water, just like clean rain water. Water can 
+be created in an area as small as will 
+actually contain the liquid, or in an area 
+three times as large—possibly creating a 
+downpour or filling many small recep-
+tacles. 
+Note: Conjuration spells can’t create 
+substances or objects within a creature. 
+Water weighs about 8 pounds per gallon. 
+One cubic foot of water contains roughly 8 
+gallons and weighs about 60 pounds. 
+ 
+Creeping Doom 
+Conjuration (Summoning) 
+Level: Drd 7 
+Components: V, S 
+Casting Time: 1 round 
+Range: Close (25 ft. + 5 ft./2 levels)/ 100 
+ft.; see text 
+Effect: One swarm of centipedes per two 
+levels 
+Duration: 1 min./level 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+When you utter the spell of creeping doom, 
+you call forth a mass of centipede swarms 
+(one per two caster levels, to a maximum of 
+ten swarms at 20th level), which need not 
+appear adjacent to one another. (See the 
+Monster Manual  for details on centipede 
+swarms.) 
+You may summon the centipede swarms 
+so that they share the area of other crea-
+tures. The swarms remain stationary, 
+attacking any creatures in their area, unless 
+you command the creeping doom to move 
+(a standard action). As a standard action, 
+you can command any number of the 
+swarms to move toward any prey within 
+100 feet of you. You cannot command any 
+swarm to move more than 100 feet away 
+from you, and if you move more than 100 
+feet from any swarm, that swarm remains 
+stationary, attacking any creatures in its 
+area (but it can be commanded again if you 
+move within 100 feet). 
+ 
+Crushing Despair 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Brd 3, Sor/Wiz 4 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: 30 ft. 
+Area: Cone-shaped burst 
+Duration: 1 min./level 
+Saving Throw: Will negates 
+Spell Resistance: Yes 
+ 
+An invisible cone of despair causes great 
+sadness in the subjects. Each affected 
+creature takes a –2 penalty on attack rolls, 
+saving throws, ability checks, skill checks, 
+and weapon damage rolls. 
+Crushing despair  counters and dispels 
+good hope. 
+Material Component: A vial of tears. 
+ 
+Cure Critical Wounds 
+Conjuration (Healing) 
+Level: Brd 4, Clr 4, Drd 5, Healing 4 
+ 
+This spell functions like cure light wounds , 
+except that it cures 4d8 points of damage 
++1 point per caster level (maximum +20). 
+ 
+Cure Critical Wounds, Mass 
+Conjuration (Healing) 
+Level: Clr 8, Drd 9, Healing 8 
+ 
+This spell functions like mass cure light 
+wounds, except that it cures 4d8 points of 
+damage +1 point per caster level (max-
+imum +40). 
+ 
+Cure Light Wounds 
+Conjuration (Healing) 
+Level: Brd 1, Clr 1, Drd 1, Healing 1, Pal 1, 
+Rgr 2 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature touched 
+Duration: Instantaneous 
+Saving Throw: Will half (harmless); see 
+text 
+Spell Resistance: Yes (harmless); see text 
+ 
+When laying your hand upon a living 
+creature, you channel positive energy that 
+cures 1d8 points of damage +1 point per 
+caster level (maximum +5). 
+CHAPTER 11: 
+SPELLS 

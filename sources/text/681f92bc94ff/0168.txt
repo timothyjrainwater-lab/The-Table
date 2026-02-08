@@ -1,0 +1,76 @@
+ 
+ 167
+Magic items always get saving throws. A magic item’s Fortitude, 
+Reflex, and Will save bonuses are equal to 2 + one-half its caster 
+level. An attended magic item either makes saving throws as its 
+owner or uses its own saving throw bonus, whichever is better. 
+(Caster levels of magic items are covered in the Dungeon Master’s 
+Guide.) 
+Example of Breaking an Object: Lidda, a rogue, can’t pick the lock on 
+the big treasure chest that Mialee, the elf, just found behind a secret 
+door, so Krusk, the barbarian, volunteers to open it in a more 
+straightforward manner. The chest, made of wood, has hardness 5, 
+so the chest takes only 5 points of damage from his attack. The wood 
+is 1 inch thick, so it had 10 hit points. Now it has 5. Krusk has 
+gouged the wood but not yet broken the chest open. On his second 
+attack, he deals 4 points of damage. That’s lower than the chest’s 
+hardness, so the chest takes no damage at all—a glancing blow. His 
+third blow, however, deals 12 points of damage (which means the 
+chest takes 7), and the chest breaks open. 
+Animated Objects:  Animated objects (see the Monster Manual ) 
+count as creatures for purposes of determining their Armor Class 
+(do not treat them as inanimate objects). 
+ 
+Breaking Items 
+When a character tries to break something with sudden force rather 
+than by dealing damage, use a Strength check (rather than an attack 
+roll and damage roll, as with the sunder special attack) to see 
+whether he or she succeeds. The DC depends more on the 
+construction of the item than on the material. For instance, an iron 
+door with a weak lock can be forced open much more easily than it 
+can be hacked down. 
+If an item has lost half or more of its hit points, the DC to break it 
+drops by 2. 
+Larger and smaller creatures get size bonuses and size penalties 
+on Strength checks to break open doors as follows: Fine –16, 
+Diminutive –12, Tiny –8, Small –4, Large +4, Huge +8, Gargantuan 
++12, Colossal +16. 
+A crowbar (page 126) or portable ram (page 127) improves a 
+character’s chance of breaking open a door. 
+ 
+MARCHING ORDER 
+The characters in a party need to decide what their matching order 
+is. Marching order is the relative position of the characters to each 
+other while they are moving (who is in front of or next to whom). 
+Arrange your miniature figures on the battle grid to represent the 
+PC’s relative locations. You can change the marching order as the 
+party enters different areas, as characters get wounded, or at other 
+times for any reason. 
+In a marching order, the sturdiest characters, such as barbarians, 
+fighters, and paladins, usually go in front. Wizards, sorcerers, and 
+bards often find a place in the middle or back of the party, where 
+they are protected from direct attack. Clerics and druids are good 
+choices for rear guard. They’re tough enough to withstand a rear 
+attack, and they’re important enough as healers that it’s risky to put 
+them in the front line. Rogues, rangers, and monks might serve as 
+stealthy scouts, though they have to be careful if they’re away from 
+the safety of the party. 
+If the characters are not far apart, they can protect each other, but 
+they’re more vulnerable to many spells when they cluster together, 
+so sometimes it pays to spread out a little. 
+ 
+TREASURE 
+When characters undertake adventures, they usually end up with 
+some amount of silver, gold, gems, or other treasure. These rewards 
+might be ancient treasures that they have unearthed, the hoards of 
+the villains they have conquered, or pay from a patron who hired 
+them to go on the adventure. 
+Splitting Treasure:  Split treasure evenly among the characters 
+who participated. Some characters may be of higher level than 
+others, or some might happen to have done more on a particular 
+adventure than others did, but the simplest, fastest, and best policy 
+is to split treasure up evenly. 
+Illus. by J. Foster 
+Lidda savors the rewards of opening the treasure chest.
+CHAPTER 9: 
+ADVENTURING 

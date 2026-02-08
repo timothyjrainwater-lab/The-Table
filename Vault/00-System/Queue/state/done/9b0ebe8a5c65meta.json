@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "9b0ebe8a5c65:meta",
+    "sourceId": "9b0ebe8a5c65",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Crucible of Freya.pdf",
+    "title": "The Crucible of Freya",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:34:31.175624+00:00",
+  "meta": {
+    "sourceId": "9b0ebe8a5c65",
+    "title": "The Crucible of Freya",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/The Crucible of Freya.pdf",
+    "pages": 50,
+    "extractedAt": "2026-02-03T20:34:31.168468+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

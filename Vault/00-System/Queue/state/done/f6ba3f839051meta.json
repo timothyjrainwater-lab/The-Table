@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "f6ba3f839051:meta",
+    "sourceId": "f6ba3f839051",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/Unearthing The Past.pdf",
+    "title": "Unearthing The Past",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:56:49.539518+00:00",
+  "meta": {
+    "sourceId": "f6ba3f839051",
+    "title": "Unearthing The Past",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/Unearthing The Past.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-04T02:56:49.479858+00:00"
+  },
+  "enqueued_extractPages": 6
+}

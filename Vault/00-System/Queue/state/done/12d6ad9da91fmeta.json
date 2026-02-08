@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "12d6ad9da91f:meta",
+    "sourceId": "12d6ad9da91f",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Quintessential/The Quintessential Elf.pdf",
+    "title": "The Quintessential Elf",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T22:21:49.498097+00:00",
+  "meta": {
+    "sourceId": "12d6ad9da91f",
+    "title": "The Quintessential Elf",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Quintessential/The Quintessential Elf.pdf",
+    "pages": 134,
+    "extractedAt": "2026-02-03T22:21:48.909838+00:00"
+  },
+  "enqueued_extractPages": 67
+}

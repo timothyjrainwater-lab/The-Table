@@ -1,0 +1,128 @@
+ 
+ 56 
+Half-elf wizards feel both the elf’s attraction to magic and the 
+human’s drive to conquer and understand. Some of the most pow-
+erful wizards are half-elves. 
+Dwarf and halfling wizards are rare because their societies don’t 
+encourage the study of magic. Half-orc wizards are rare because few 
+half-orcs have the brains necessary for wizardry. 
+Drow (evil, subterranean elves) often take up wizardry, 
+but wizards are quite rare among the savage humanoids. 
+Other Classes:  Wizards prefer to work with 
+members of other classes. They love to cast their 
+spells from behind strong fighters, to “magic up” 
+rogues and send them out to scout, and to rely on 
+the divine healing of clerics. They may find 
+members of certain classes (such as sorcerers, 
+rogues, and bards) to be not quite serious 
+enough, but they’re not judgmental. 
+Role: The wizard’s role depends somewhat on 
+her spell selection, but most wizards share certain 
+similarities in function. They are among the most 
+offensively minded of the spellcasting classes, with a 
+broad range of options available for neutralizing 
+enemies. Some wizards provide great support to 
+their comrades by way of their spells, while others 
+may focus on divination or other facets of 
+wizardry. 
+ 
+GAME RULE 
+INFORMATION 
+Wizards have the following game 
+statistics. 
+Abilities: Intelligence deter-
+mines how powerful a spell a 
+wizard can cast, how many spells 
+she can cast, and how hard 
+those spells are to resist (see Spells, below). A 
+high Dexterity score is helpful for a wizard, who 
+typically wears little or no armor, because it 
+provides her with a bonus to Armor Class. A 
+good Constitution score gives a wizard extra 
+hit points, a resource that she is otherwise 
+very low on. 
+Alignment: Any. 
+Hit Die: d4. 
+ 
+Class Skills 
+The wizard’s class skills (and the key ability for each skill) are 
+Concentration (Con), Craft (Int), Decipher Script (Int), Knowledge 
+(all skills, taken individually) (Int), Profession (Wis), and Spellcraft 
+(Int). See Chapter 4: Skills for skill 
+descriptions. 
+Skill Points at 1st Level:  (2 + Int 
+modifier) × 4. 
+Skill Points at Each Additional 
+Level: 2 + Int modifier. 
+ 
+Class Features 
+All of the following are class features 
+of the wizard. 
+Weapon and Armor Proficiency:  
+Wizards are proficient with the club, 
+dagger, heavy crossbow, light crossbow, 
+and quarterstaff, but not with any type of 
+armor or shield. Armor of any type 
+interferes with a wizard’s movements, 
+which can cause her spells with somatic 
+components to fail. 
+Spells: A wizard casts arcane spells (the 
+same type of spells available to sorcerers 
+and bards), which are drawn from the sor-
+cerer/wizard spell list (page 192). A wizard 
+must choose and prepare her spells ahead 
+of time (see below). 
+To learn, prepare, or cast a spell, the 
+wizard must have an Intelligence score 
+equal to at least 10 + the spell level (Int 10 for 
+0-level spells, Int 11 for 1st-level spells, and 
+so forth). The Difficulty Class for 
+a saving throw against a wizard’s 
+spell is 10 + the spell level + the 
+wizard’s Intelligence modifier. 
+Like other spellcasters, a wizard 
+can cast only a certain number of 
+spells of each spell level per day. 
+Her base daily spell allotment 
+is given on Table 3–18: The 
+Wizard. In addition, she 
+receives bonus spells per day if she 
+has a high Intelligence score (see Table 1–1: 
+Ability Modifiers and Bonus Spells, page 8). 
+ARCANE SPELLS AND ARMOR 
+Wizards and sorcerers do not know how to wear armor effectively. I f
+desired, they can wear armor anyway (though they’ll be clumsy in it), or
+they can gain training in the proper use of armor (with the various Armor
+Proficiency feats—light, medium, and heavy—and the Shield Proficiency
+feat), or they can multiclass to add a class that grants them armor
+proficiency (see Multiclass Characters later in this chapter). Even if a 
+wizard or sorcerer is wearing armor with which he or she is proficient,
+however, it might still interfere with spellcasting. 
+Most characters have a difficult time casting arcane spells while
+wearing armor or carrying shields (see Arcane Spell Failure, page 122).
+The armor restricts the complicated gestures that a wizards or sorcerer
+must make while casting any spell that has a somatic component (most
+do). To find the arcane spell failure chance for a wizard or sorcerer
+wearing a certain type of armor, see Table 7–6: Armor and Shields (page
+123). 
+By contrast, bards not only know how to wear light armor effectively, 
+but they can also ignore the arcane spell failure chance for such armor. 
+However, they too wear heavier armor ineffectively and must either learn 
+to wear heavier armor via the appropriate Armor Proficiency feat 
+(medium or heavy) or add a class (such as fighter) that grants them such 
+proficiency as a class feature. A bard wearing armor heavier than light or 
+using any type of shield incurs the normal arcane spell failure chance, 
+even if he becomes proficient with that armor. 
+If a spell doesn’t have a somatic component, an arcane spellcaster can 
+cast it with no problem while wearing armor. Such spells can also be cast 
+even if the caster’s hands are bound or if he or she is grappling 
+(although Concentration checks still apply normally). Also, the 
+metamagic feat Still Spell allows a spellcaster to prepare or cast a spell at 
+one spell level higher than normal without the somatic component. This 
+also provides a way to cast a spell while wearing armor without risking 
+arcane spell failure. See Chapter 5: Feats for more about metamagic feats 
+such as Still S
+pell.
+Mialee 
+CHAPTER 3: 
+CLASSES 

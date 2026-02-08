@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "87b6d6c0249a:meta",
+    "sourceId": "87b6d6c0249a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Pharoah.pdf",
+    "title": "Pharoah",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:51:05.916138+00:00",
+  "meta": {
+    "sourceId": "87b6d6c0249a",
+    "title": "Pharoah",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Pharoah.pdf",
+    "pages": 54,
+    "extractedAt": "2026-02-03T15:51:05.909001+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

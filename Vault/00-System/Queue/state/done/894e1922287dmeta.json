@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "894e1922287d:meta",
+    "sourceId": "894e1922287d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Dungeon Craft.pdf",
+    "title": "Dungeon Craft",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:15:46.105868+00:00",
+  "meta": {
+    "sourceId": "894e1922287d",
+    "title": "Dungeon Craft",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Dungeon Craft.pdf",
+    "pages": 174,
+    "extractedAt": "2026-02-03T09:15:45.338120+00:00"
+  }
+}

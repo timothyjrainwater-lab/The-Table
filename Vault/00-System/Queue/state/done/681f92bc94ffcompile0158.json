@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0158",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 158,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:38:32.716069+00:00"
+  },
+  "doneAt": "2026-02-03T09:38:50.199556+00:00",
+  "citation": "PHB (pdf p.0158)",
+  "printedGuess": "157",
+  "touched": [
+    "Condition — Grappled",
+    "Condition — Prone",
+    "Rule — Armor Class"
+  ],
+  "createdTables": []
+}

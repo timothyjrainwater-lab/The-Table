@@ -1,0 +1,213 @@
+  
+
+HOVER [GENERAL]
+The creature can come toa halt in midait.
+Prerequisite: Fly speed.
+Benefit: When flying, the creature can halt its forward motion
+
+less of its maneuverability.
+
+appendages it could use in,a full attack, The creature can instead
+\use.a breath weapon or cast a spell instead of making physical
+attacks, if it could normally do so.
+
+Ifa creature of Large size or latger hovers within 20 feet of the
+ground in an area with lots of loose debris, the draft from its wings
+creates a hemispherical cloud with a radius of 60 feet. The winds
+so generated can snuff torches, small campfires, exposed lanterns,
+
+have total concealment (50% miss chance, and opponents cannot
+use sight to locate the creature).
+
+Those caught in the cloud must succeed on a Concentration
+check (DC 10 + 1/2 creature's HD) to cast a spell.
+
+Normal: Without this feat, a creature must keep moving while
+flying unless it has perfect maneuverability.
+
+IMPROVED NATURAL ARMOR [GENERAL]
+|The creature's natural armor is thicker and harder than that of
+jothers of its kind,
+
+Prerequisites: Natural armor, Con 13,
+
+Benefit: The creature's natural armor bonus increases by 1.
+
+Special: A creature can gain this feat multiple times. Each time
+ithe crearure takes the feat, its natural armor bonus increases by
+another point.
+
+IMPROVED NATURAL ATTACK [GENERAL]
+The creature's natural attacks are more dangerous than its size and.
+type would otherwise dictate,
+
+Prerequisite: Natural weapon, base attack bonus +4, }
+
+Benefit: Choose one of the creature's natural attack forms, The.
+damage for this natural weapon increases by one step, as if the
+creature's size had increased by one category: 1d2, 1d3, 1d4, 1d6,
+1d8, 246, 3d6, +d6, 6d6, 8d6, 12d6. A weapon or attack that deals
+1d10 points of damage increases as follows: 1410, 2d8, 3d8, 4d8,
+6ds, Sds, 12d,
+
+MULTIATTACK [GENERAL]
+{The creature is adept at using all its natural weapons at once.
+| Prerequisite: Three or more natural attacks,
+Benefit: The creature's secondary attacks with natural weapons
+take only a~-2 penalty,
+Normal; Without this feat, the creature's secondary attacks
+with natural weapons take aS penalty.
+
+MULTIWEAPON FIGHTING [GENERAL]
+
+A creature with three or more hands can fight with a. weapon in
+each hand, The creature can make one extra.attack each round
+with each extra weapon,
+Prerequisites: Dex 13, three or more hands,
+
+,— Benefit: Penalties for fighting with multiple weapons are reduced
+jby.2.with the primary hand and reduced by.6 with off hands,
+|Normal: A creature without this feat takes a—6 penalty on
+jattacks made with its primary hand and a—10 penalty.on attacks
+made with its off hands, (It has one primary hand, and all the
+others are.off hands,) See Two-Weapon Fighting, page 160 of the
+Player's Handbook.
+
+and hover in place as a move action. It can then fly in any direc-,
+tion, including straight down or straight up, at half speed, regard
+
+Ifa creature begins its turn hovering, it can hover in place for,
+{the turn and take a full-round action. A hovering creature cannot}
+smake wing attacks, but it can attack with all other limbs and
+
+{and other small, open flames of nonmagical origin. Clear vision}
+lwithin the cloud is limited to 10 feet. Creatures have concealment,
+lat 15 to 20 feet (20% miss chance). At 25 feet or more, creatures |
+
+    
+  
+    
+  
+  
+  
+  
+   
+  
+   
+  
+  
+   
+  
+  
+   
+  
+  
+   
+  
+ 
+    
+  
+ 
+ 
+ 
+ 
+ 
+    
+  
+  
+  
+   
+  
+   
+  
+   
+   
+   
+  
+   
+  
+       
+
+Special: This feat replaces the Two-Weapon Fighting feat for)
+creatures with more than two arms,
+
+QUICKEN SPELL-LIKE ABILITY [GENERALI
+The creature can employ.a spelllike ability with a moment's thought
+
+Prerequisite: Spell-like ability at caster level 10th or higher.
+
+Benefit: Choose one of the creature's spell-like abilities, subject
+to the restrictions described below. The creature can.use that abil-
+ity as a quickened spell-like ability three times per day (or less, if,
+the ability is normally. usable only once ortwvice. per day).
+
+Using a quickened spell-like ability is a free action that does. not |
+provoke an attack of opportunity. The creature can perform an:
+other action—including the use of another spell-like ability—in.
+the same round that it uses a quickened spell-like ability, The crea:
+ture may_use only one quickened spell-like ability per round.,
+
+The creature can only select a spell-like ability duplicating a
+spell with a level less than or equal to half its caster level (round
+
+idown) 4. For a summary, see the table below. For example, a crea-
+sture that uses its spell-like abilities as a 15th-level caster can only,
+
+[quicken spell-like abilities duplicating spells of 3rd level or lower,
+In addition, a spell-like ability chat duplicates a. spell with acasting
+time greater than 1 full round cannot be quickened,
+
+Normal: Normally the use ofa spell-like ability requires a standard
+action and provokes an attack of opportunity unless noted otherwise.
+
+Special: This feat can be taken multiple times, Each time it is
+oe the.creature can apply it to a different one of its spell-like
+abilities,
+
+EMPOWER AND QUICKEN SPELL-LIKE ABILITY
+
+Spell Caster Level Caster Level
+Level to Empower to Quicken
+0 4th 8th
+Ist 6th 10th
+2nd 8th Vath
+3rd 10th 14th
+4th Vath 6th
+Sth 14th 18th.
+6th 16th 20th
+7th 18th. —
+8th 20th -
+9th = -
+
+SNATCH [GENERAL]
+The. creature can grab opponents much smaller than itself and
+hold them in its mouth or claw,
+
+Prerequisite: Size Huge or larger.
+
+Benefits; The creature can choose to start a grapple when it hits
+with a claw or bite attack, as though it had the improved grab special
+attack. If the creature gets a hold on a creature three or more sizes
+smaller, it squeezes each round for automatic bite or claw damage. A
+snatched opponent held in the creature's mouth is not allowed a
+Reflex save against the creature's breath weapon, if it has one.
+
+The creature can drop a creature it has snatched as a free action
+or.use a standard action.to fling it aside, A flung creature travels
+1d6x10 feet, and takes 16 points of damage per 10 feet traveled, If
+the creature flings a snatched opponent while flying, the oppo-
+nent takes this amount or falling damage, whichever is greater.
+
+WINGOVER [GENERAL]
+The creature can change direction quickly while flying.
+
+Prerequisite: Fly speed,
+
+Benefits; A flying creature with this feat can change direction |
+quickly once each round asa free action. This feat allows it to turn |
+up.to 180 degrees regardless of its maneuverability, in addition to
+
+jany.other turns it is normally allowed. A creature cannot gain alri-
+vtude during around when it executes a wingover, but it can dive.
+‘The change of direction consumes 10 feet of flying movement
+

@@ -1,0 +1,23 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0041",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 41,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T06:53:33.827426+00:00"
+  },
+  "doneAt": "2026-02-03T07:35:20.132171+00:00",
+  "citation": "PHB (pdf p.0041)",
+  "printedGuess": "40",
+  "touched": [
+    "Condition — Flat-Footed",
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Small or Large Monk Unarmed Damage for Small or Large monks (PHB 3–11)",
+    "Table — The Monk (PHB 3–10)"
+  ]
+}

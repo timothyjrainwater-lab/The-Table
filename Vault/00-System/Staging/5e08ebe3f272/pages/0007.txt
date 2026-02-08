@@ -1,0 +1,125 @@
+SPELL LEVEL CHANGES (CONT.)
+Old New Deleted Added
+Level Level Level Level SpellName
+Rgr1 Endure Elements
+Clr5 Clr7 Ethereal Jaunt
+Clr6 Clr9 Etherealness
+Travel1 Expeditious Retreat
+Brd6 Find the Path
+Brd4 Freedom of Movement
+Wiz4 Good Hope
+Wiz3 Wiz2 Brd3 Drd2 Gust of Wind
+Drd7 Harm
+Clr8 Clr9 Drd9 Heal, Mass
+Brd6 Heroes’ Feast
+Rgr1 Hide from Animals
+Luck 8 Holy Aura
+Drd5 Drd4 Ice Storm
+Drd1, Rgr1 Jump
+Brd3 Keen Edge
+Brd0 Know Direction
+Brd2 Levitate
+Brd1 Mage Armor
+Pal3 Magic Circle against Chaos
+Brd2 Brd1 Magic Mouth
+Drd1 Magic Stone
+Brd1 Magic Weapon
+Brd3 Magic Weapon, Greater
+Pal4 Mark of Justice
+Brd1,Wiz1Brd0,Wiz0 Message
+Drd6 Move Earth
+Brd1, Magic 1 Nystul’s Magic Aura
+Brd2 Brd1 Obscure Object
+Brd6 Otto’s Irresistible Dance
+Brd6 Plane Shift
+Wiz8 Wiz7 Power Word Blind
+Wiz7 Wiz8 Power Word Stun
+Drd2 Drd1 Produce Flame
+Wiz6 Wiz7 Project Image
+Brd1 Pal1(chaos) Protection from Chaos/Evil/Good/Law
+Drd4 Drd3 Quench
+Brd3,Wiz4Brd2,Wiz3 Rage
+Clr1 Brd1 Random Action
+Drd9 Regenerate
+Pal3 Remove Curse
+Brd3 Remove Disease
+Brd1 Remove Fear
+Brd4, Rgr3 Remove Paralysis
+Brd6 Repulsion
+Pal4 Restoration
+Pal1 Restoration, Lesser
+Brd3 Secret Page
+Brd2 Brd3 See Invisibility
+Brd5 Seeming
+Wiz6 Wiz9 Shades
+Brd4 Shadow Conjuration
+Wiz5 Wiz7 Shadow Conjuration, Greater
+Brd5 Shadow Evocation
+Wiz6 Wiz8 Shadow Evocation, Greater
+Wiz7 Wiz6 Brd5 Shadow Walk
+Rgr2 Sleep
+Drd4 Drd3 Sleet Storm
+Drd2 Drd1 Clr2 Brd3 Speak with Animals
+Clr3 Brd4 Speak with Plants
+Wiz1 Wiz2 Drd2 Spider Climb
+Clr4 Clr2 Status
+Drd5 Stoneskin
+Drd9 Storm of Vengeance
+Animal 4 Summon Nature’s Ally IV
+Animal 8 Summon Nature’s Ally VIII
+SPELL LEVEL CHANGES (CONT.)
+Old New Deleted Added
+Level Level Level Level SpellName
+Clr8,Wiz8 Clr6,Wiz6 Symbol of Fear
+Clr8,Wiz8 Clr5,Wiz5 Symbol of Pain
+Clr8,Wiz8 Clr6,Wiz6 Symbol of Persuasion
+Clr8,Wiz8 Clr5,Wiz5 Symbol of Sleep
+Clr8,Wiz8 Clr7,Wiz7 Symbol of Stunning
+Brd2 Brd1 Tasha’s Hideous Laughter
+Wiz9 Wiz8 Temporal Stasis
+Healing 9 True Resurrection
+Brd2 Brd1 Undetectable Alignment
+Wiz5 Wiz6 Wall of Iron
+Rgr4 Rgr2 Brd3 Drd3 Wind Wall
+Pal2 Zone of Truth 
+DUNGEON MASTER’S GUIDE
+This book experienced a dramatic reorganization. The focus on
+the revision was on user-friendly and useful text. A great deal of
+new material was added. Other areas of the book underwent
+review and revision.
+Material new to the book includes information on the planes,
+details on and rules for different terrain types and environments.
+You’ll find rules covering everything from visiting the Elemental
+Plane of Fire to fighting on staircases.
+The Leadership feat and cohort section now bases its informa-
+tion on the level adjustment and Effective Character Level infor-
+mation.
+Information on creating and pricing traps is much more
+detailed.
+The book now includes a much wider assortment of prestige
+classes.
+Magic items pricing was refined, the items were repriced, and
+new items were added. Intelligent items experienced substantial
+revision.
+We expanded and revised the random wilderness encounter
+tables to match the new Monster Manual.
+MONSTER MANUAL
+The most substantial and wide-reaching change is the way that
+monsters calculate skill points and feats.
+Skills are a function of creature type and intelligence. They’re
+calculated just like player character’s are, with monsters receiving
+four times their per level amount with their first Hit Die.
+Feats acquisition follows the player character’s standard progres-
+sion of one feat at 1st level and an additional feat at every third level.
+Some creature types went away: no more beast or shapechanger.
+The creatures formerly beasts or shapechangers changed type.
+Beast is gone entirely, but shapechanger became a subtype. We’ve
+also added the swarm type which first appeared in the Fiend Folio.
+Damage reduction underwent a full revision. The old ##/+1
+(such as 30/+3) is gone. Instead, we have damage reduction
+bypassed by magic, aligned weapons, and/or different types of
+metals. It has become a much more varied tool for DMs.
+Many creatures’ spellcasting or spell-like abilities changed,
+often becoming more streamlined. Sample spells prepared or spells
+known lists accompany spellcasting monsters.
+7

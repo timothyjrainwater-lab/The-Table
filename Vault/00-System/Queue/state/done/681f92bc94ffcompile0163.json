@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0163",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 163,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:38:32.745594+00:00"
+  },
+  "doneAt": "2026-02-03T09:38:51.206462+00:00",
+  "citation": "PHB (pdf p.0163)",
+  "printedGuess": "162",
+  "touched": [],
+  "createdTables": [
+    "Table — Car- (PHB 9–1)",
+    "Table — Carrying Capacity (PHB 9–1)",
+    "Table — Carrying Loads (PHB 9–2)",
+    "Table — Movement and Distance (PHB 9–3)"
+  ]
+}

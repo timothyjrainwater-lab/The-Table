@@ -1,0 +1,25 @@
+{
+  "task": {
+    "taskId": "4d197aed5293:compile:0023",
+    "sourceId": "4d197aed5293",
+    "kind": "compileChunk",
+    "page": 23,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T04:39:59.015599+00:00"
+  },
+  "doneAt": "2026-02-03T05:14:08.373050+00:00",
+  "citation": "PHB (pdf p.0023)",
+  "printedGuess": "22",
+  "touched": [
+    "Rule — Core Mechanic (d20)",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table —  (PHB 3–2)",
+    "Table —  (PHB 4–2)",
+    "Table — Base Save (PHB 3–1)",
+    "Table — Base Save and Base Attack Bonuses (PHB 3–1)",
+    "Table — Experience and Level-Dependent Benefits (PHB 3–2)"
+  ]
+}

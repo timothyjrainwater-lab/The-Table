@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "99cc877f972e:meta",
+    "sourceId": "99cc877f972e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Steam Dragon's Revenge.pdf",
+    "title": "Steam Dragon's Revenge",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:34:27.992663+00:00",
+  "meta": {
+    "sourceId": "99cc877f972e",
+    "title": "Steam Dragon's Revenge",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Steam Dragon's Revenge.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-03T19:34:27.985283+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

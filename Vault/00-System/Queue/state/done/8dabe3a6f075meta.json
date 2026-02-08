@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "8dabe3a6f075:meta",
+    "sourceId": "8dabe3a6f075",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 02/The Daisho And The Ninja.pdf",
+    "title": "The Daisho And The Ninja",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:41:10.524821+00:00",
+  "meta": {
+    "sourceId": "8dabe3a6f075",
+    "title": "The Daisho And The Ninja",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 02/The Daisho And The Ninja.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T20:41:10.474619+00:00"
+  },
+  "enqueued_extractPages": 5
+}

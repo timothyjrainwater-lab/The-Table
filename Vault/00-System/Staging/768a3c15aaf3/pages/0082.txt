@@ -1,0 +1,134 @@
+Cable 3-1: Fear Save Modifiers
+
+ 
+
+Modifier Condition
+
++4 Character or ally possesses a weapon, form of magic or bit of lore that has proven tobe useful against
+the threat.
+
+#2 Character or ally possesses a weapon, form of magic or bit of lore that is believed to be useful against
+the threat,
+
++4 A loved one is endangered.
+
+#2 A friend or ally is endangered.
+
++1 An Innocent is endangered.
+
++1 Character has defeated a similar threat in the past
+
++ Character is in close quarters (no place to run),
+
+Character has faced and been defeated by a similar threat within the past 24 hours.
+
+zi Character has faced and been defeated by a similar threat in the past (but not within the past day).
+
+ei Character is alone.
+
+st Character has lost more than half of his or her maximum hit points.
+
+ 
+
+acter can use special abilities, including spells, to
+flee; indeed, she must use such means if they are the
+only way to escape.
+
+Major Effect: Panicked. The character suffers
+a —2 morale penalty on skill and ability saving
+throws and must flee. She drops what she’s holding,
+chooses her path randomly (as long as she escapes
+from immediate danger), and flees any other dan-
+gers that confront her. If cornered, she cowers. A
+panicked character may use aspecial ability or spell
+to escape.
+
+If the character fails the Fear save by 16+
+points, she is panicked and must make an immedi-
+ate Horror save (DC = failed Fear save DC - 5).
+
+Additional Failures: Fear effects stack. A
+shaken character who fails another Fear save be-
+comes frightened. A frightened character who fails
+another Fear save becomes panicked.
+
+ 
+
+ 
+
+Recovering from fear
+
+Fear effects last 5d6 rounds. Certain spell
+
+effects (such as modify memory or remove fear) can
+remove all Fear effects.
+
+Rorror Saves
+
+Most Ravenloft campaigns include scenes in
+which the heroes witness scenes of terrible cruelty
+or behold events that simply should not be. Horror
+is a broader emotion than fear, and yet, more
+intimate. Horror often permanently colors a
+character’s view of the world, be it through the
+shock of realizing that such merciless events are
+
+possible or the paralyzing dismay of discovering (
+
+a
+
+See!
+
+f
+
+y _ 2 ye :
+
+iii ici aS cecal i
+
+some monstrous trait within oneself. Horror is the
+murderer of innocence.
+
+Possible examples of scenes that might require
+a Horror save include seeing someone torn limb
+from limb, watching a fiend transform into 4
+hideous monster or learning that you slew an
+innocent bystander while possessed by an evil
+spirit.
+
+Determining the Horror Save DC
+
+Horror saves are typically prompted by un-
+usual, unique situations rather than by creatures, so
+unlike Fear saves there’s no quick formula to deter-
+mine the DC. Instead, the DM should use her best
+judgment to apply a DC to the scene. Asa rule, the
+more gruesome, abnormal or insane the scene, the
+higher the DC should be. A few examples are listed
+in Table 3-2.
+
+q
+j
+* Table 3-2: Horror Save Criggers
+oc Horrific Scene
+£5 Signs of violence (a drying pool of
+‘ blood, a splintered doar and so on)
+8 A decaying body
+} 10 Ascene of pain or suffering (abeggar
+x ravaged by disease; a doctor sewing
+‘ wounds shut)
+£12 A freshly slain corpse
+Ns Ascene of terrible agony (torture,
+involuntary transformation)
+
+20 A scene of evil, cruelty and madness
+(Finding dismembered bodies that
+have been turned into marionettes)
+
+25 Malign paradigm shift (see below)
+
+See ee
+
+¥
+
+ 
+

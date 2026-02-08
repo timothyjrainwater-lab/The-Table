@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0065",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 65,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:07:20.395450+00:00"
+  },
+  "doneAt": "2026-02-03T08:07:09.673598+00:00",
+  "citation": "PHB (pdf p.0065)",
+  "printedGuess": "64",
+  "touched": [],
+  "createdTables": [
+    "Table — Difficulty Class Examples (PHB 4–3)",
+    "Table — Example Opposed Checks (PHB 4–4)",
+    "Table — Skills (PHB 4–2)"
+  ]
+}

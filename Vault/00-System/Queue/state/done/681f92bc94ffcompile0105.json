@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0105",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 105,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:52:35.308510+00:00"
+  },
+  "doneAt": "2026-02-03T08:42:47.946370+00:00",
+  "citation": "PHB (pdf p.0105)",
+  "printedGuess": "104",
+  "touched": [],
+  "createdTables": [
+    "Table — Creature, Race, and Class Alignments (PHB 6–1)"
+  ]
+}

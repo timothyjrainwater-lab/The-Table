@@ -1,0 +1,226 @@
+ 
+
+(Oozes are amorphous creatures that live only to eat. They inhabit
+underground areas throughout the world, scouring caverns, ruins,
+and dungeons in search of organic matter—living or dead,
+
+COMBAT
+
+Qoves attack any creatures
+
+ 
+
+ey encounter. They lash outwith
+pseudopods or simply engulf opponents with their bodies, which
+secrete acids that help them catch or digest their prey
+Blindsight (Ex): An oozes entire body is a primitive sensory
+organ that can ascertain prey by scent and vibration within 60 feet
+
+   
+ 
+
+BLACK PUDDING
+This creature resembles nothing so much as a roundish blob of inky
+black goo
+
+rain
+
+ 
+
+Black puddings slither and undulate along underground t
+seeking sustenance.
+
+The typical black pudding measures 15 feet across and 2 feet
+thick. Ir weighs about 18,000 pounds.
+
+Dat
+A black pudding attacks by grab-
+bing and squeezing their prey
+Acid (Ex); The creature se-
+cretes a digestive acid that
+dissolves.or material
+al quickly, but does
+not affect. stone, Any
+melee hit or constrict
+attack deals acid dam:
+age, and the opponent's
+armor and clothing dis-
+solve and become use-
+less imme
+they succeed on DC 21 Re
+flex saves. A metal or wooden
+hat strikes a
+
+ 
+
+ 
+
+and
+
+ 
+
+ately unless
+
+ 
+
+ 
+
+weapon
+k pudding also
+issolves imm
+
+    
+
+ate:
+ly unless it succeeds on
+
+Black Pudding
+
+Huge Ooze
+Hit Dice: 10d10+60 (115 hp)
+Initiative: 5
+Speed: 20 ft. (4 squares), climb 20
+Armor Class: 3 (~2 size, 5 Dex), touch 3, 3
+Base Attack/Grapple: +7/+18
+Artack: Slam +8 melee (2d6+4 plus 2d6 acid:
+Full Attack: Slam +8 melee (2d6+4 plus 2d6 acid)
+Space/Reach: 15 ft./10 ft
+Special Attacks: Acid, constrict 2d6+4 plus 2d6 acid, improved grab
+
+Special Qualities: Blindsight 60 ft., split, ooze traits
+Saves: Fort +9, Ref—2, Will -2
+
+ 
+
+Abilities: Str 17, Dex 1, Con 22,
+Int —, Wis 1. 1
+Skills: Climb +114
+Feats
+Environment: Underground
+Organization: Solitary
+Challenge Rating: 7
+Treasure None
+Alignment: Always neutral
+Advancement: 11-15 HD (Huge); 16-30 HD (Gargantuan
+
+Level Adjustment: _
+
+    
+  
+ 
+
+a DC 21 Reflex save. The save DCs are Constitution-based,
+
+The pudding’s acidic touch deals 21 points of damage per round
+to. wooden or metal objects, but the ooze must
+with the object for 1 full round to deal this damage.
+
+Constrict (Ex): A black pudding deals automatic
+damage with a successful grapple check. The opponent's clothing
+and armor take a4. penalty on Reflex saves against the acid.
+
+Improved Grab (Ex): To.use this ability, a black pudding must
+hit with its slam attack. It.can then attempt to start a grapple asa
+free action without provoking an attack of opportunity. If it wins
+the grapple check, it establishes a hold and can constrict
+
+Split (Ex): Slashing and piercing weapons deal no damage.to.a
+black pudding. Instead the creature splits into two identical pud:
+dings, each with half of the original's current hit points (round
+down), A pudding with 10 hit points or less cannot be further split
+and dies if reduced to 0 hit points.
+
+Skills: A black pudding has a +8 racial bonus on Climb checks
+and can always choose to take 10 on a Climb check, even if rushed
+or threatened.
+
+ELDER BLACK PUDDING
+
+The most ancient black puddings are vast pools of inky
+
+ 
+
+lam and acid
+
+      
+
+ 
+
+ 
+
+  
+
+ 
+
+ 
+
+ 
+
+Combat
+The save DC for the elder
+black pudding’s acid attack.
+DC 29) is adjusted for i
+
+ 
+
+  
+
+higher Constitution score.
+
+GELATINOUS CUBE
+Huge Ooze
+Hit Dice: 4d10+32 (54 hp
+Initiative: -5
+Speed: 15 ft, (3 squares
+Armor Class: 3 (=2 size, -5
+Dex), touch 3, flat-footed 3
+Base Attack/Grapple:
++3/+41
+Attack: Slam +1 melee (1d6
+plus 1dé acid’
+
+Elder Black Pudding
+
+Gargantuan Ooze
+
+20d10+180 (290 hp)
+
+20 ft. (4 squares), climb 20 ft.
+
+1(—+4 size, ~5 Dex), touch 1, flat-footed 1
++15/435
+
+Slam +19 melee (3d6+12 plus 3d6 acid
+Slam +19 melee (3d6+12 plus 3d6 acid)
+20 ft,/20 ft
+
+Acid, constrict 2d8+12 plus 2dé acid, improved grab
+Blindsight 60 ft, split, ooze traits
+
+Fort +15, Ref +1, Will +1
+
+Str 26, Dex 1, Con 28,
+
+Int —, Wis 1, Chat
+
+Climb +16
+
+Underground
+Solitary
+
+12
+
+None
+
+Always neutral
+
+ain in.contact|
+
+additional Hit Dice and
+
+:
+3
+i
+
+ 
+

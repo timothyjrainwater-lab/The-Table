@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fa6f49dc50cc:meta",
+    "sourceId": "fa6f49dc50cc",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/The Ogre City of Drahk'suhl.pdf",
+    "title": "The Ogre City of Drahk'suhl",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T22:00:54.546695+00:00",
+  "meta": {
+    "sourceId": "fa6f49dc50cc",
+    "title": "The Ogre City of Drahk'suhl",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/The Ogre City of Drahk'suhl.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T22:00:54.496724+00:00"
+  },
+  "enqueued_extractPages": 5
+}

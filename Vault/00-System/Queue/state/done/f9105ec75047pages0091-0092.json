@@ -1,0 +1,15 @@
+{
+  "task": {
+    "taskId": "f9105ec75047:pages:0091-0092",
+    "sourceId": "f9105ec75047",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/A Guidebook to Races/Aasimar and Tiefling - Guidebook to the Planetouched.pdf",
+    "pageStart": 91,
+    "pageEnd": 92,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:46:05.706454+00:00"
+  },
+  "doneAt": "2026-02-04T08:50:54.633678+00:00",
+  "wrote": [],
+  "skipped_disallowed": true
+}

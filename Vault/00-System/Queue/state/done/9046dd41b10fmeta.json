@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "9046dd41b10f:meta",
+    "sourceId": "9046dd41b10f",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Quintessential/The Quintessential Sorcerer.pdf",
+    "title": "The Quintessential Sorcerer",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T22:47:05.744731+00:00",
+  "meta": {
+    "sourceId": "9046dd41b10f",
+    "title": "The Quintessential Sorcerer",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Quintessential/The Quintessential Sorcerer.pdf",
+    "pages": 125,
+    "extractedAt": "2026-02-03T22:47:05.202542+00:00"
+  },
+  "enqueued_extractPages": 63
+}

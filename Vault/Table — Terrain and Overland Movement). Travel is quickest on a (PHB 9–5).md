@@ -1,0 +1,12 @@
+# Table — Terrain and Overland Movement). Travel is quickest on a (PHB 9–5)
+
+## Source
+- PHB (pdf p.0165)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

@@ -1,0 +1,85 @@
+ 
+
+ 
+
+ 
+
+Eight-Headed Hydra Nine-Headed Hydra Ten-Headed Hydra
+Huge Magical Beast Huge Magical Beast Huge Magical Beast
+Hit Dice: 8d10+43 (87 hp) 9d10+48 (97 hp) 10d10+53 (108 hp)
+Initiative: +1 +1 +1
+Speed: 20 ft. (4 squares), swim 20 ft 20 ft. (4 squares), swim 20 fi. 20 ft. (4 squares), swim 20 ft.
+Armor Class: 18 (—2 size, +1 Dex, +9 natural), 19 (~2 size, +1 Dex, +10 natural), 20(-2 size, +1 Dex, +11 natural),
+touch 9, flat-footed 17 touch 9, flat-footed 18 touch 9, flat-footed 19
+Base Attack/Grapple: +8/+20 +9/422 +10/+23
+Attack: 8 bites +11 melee (1d10+4) 9 bites +13 melee (1d10+5) 10 bites +14 melee (1d10+5)
+Full Attack: 8 bites +11 melee (1d10+4) 9 bites +13 melee (1d10+5) 10 bites +14 melee (1d10+5)
+Space/Reach; 15 ft,/10 ft. 15 ft./10 ft, 15 ft,/10 ft
+Special Attacks: _ = -
+Special Qualities:  Darkvision 60 ft,, fast healing 18, _Darkvision 60 ft., fast healing 19, Darkvision. 60 ft., fast healing 20,
+low-light vision, scent low-light visionscent low-light vision, scent
+Saves: Fort +11, Ref +7, Will +4 Fort +11, Ref +7, Will +5 Fort +12, Ref +8, Will +3
+Abilities: Str 19, Dex 12, Con 20, Str 21, Dex 12, Con 20, Str 21, Dex 12, Con 20,
+Int 2, Wis 10, Cha 9 Int 2, Wis 10, Cha 9 Int 2, Wis 10, Cha 9.
+Skills: Listen +7, Spot +8, Swim +12 Listen +8, Spot +8, Swim +13 Listen +8, Spot +9, Swim +13
+Feats: Combat Reflexes®, Iron Will, Blind-Fight, Combat Reflexes*, Iron __Blind-Fight, Combat Reflexes®, Iron
+‘Toughness, Weapon Focus (bite) Will, Toughness, Weapon Focus (bite) _ Will, Toughness, Weapon Focus (bite)
+Environment: Temperate marshes ‘Temperate marshes Temperate marshes
+(Pyro: Warm marshes) (Pyro: Warm marshes) (Pyro: Warm marshes)
+(Cryo: Cold marshes) (Cryo: Cold marshes) (Cryo: Gold marshes)
+Organization: Solitary Solitary Solitary
+Challenge Rating: —_7 (normal); 9 (pyro- or cryo-) 8 (normal); 10 (pyro- or cryo-} 9 (normal); 11 (pyro- or eryo-)
+‘Treasure: 1/10 coins; 50% goods; 50% items 1/10 coins, 50% goods; 50% items 1/10 coins; 50% goods; 50% items
+Alignment: Usually neutral Usually neutral Usually neutral
+Advancement; _ = _
+Level Adjustment; © — _ oo
+Eleven-Headed Hydra ‘Twelve-Headed Hydra
+Huge Magical Beast Huge Magical Beast
+Hit Dice: 11d10+58 (118 bp) 12d10+63 (129 hp)
+Initiative: +H +1
+Speed: 20 ft, (4 squares), swim 20 ff. 20 ft. (4 squares), swim 20 ft
+Armor Class: 21 (-2 size, +1 Dex, +12 natural), 22 (-2 size, +1 Dex, +13 natural),
+touch 9, flar-footed 20 touch 9, flat-footed 21
+Base Attack/Grapple: +11/+25 +12/+26
+Attack: 11 bites +16 melee (1d10+6) 12 bites +17 melee (2d8+6)
+Full Attack: 11 bites +16 melee (1d10+6) 12 bites +17 melee (2d8+6)
+Space/Reach: 15 ft./10 ft. 15 fr./10 fr.
+Special Attacks: — -
+Special Qualities: Darkvision 60 ft,, fast healing 21, Darkvision 60 ft., fast healing 22,
+Jow-light vision,scent low-light vision,scent
+Saves: Fort +12, Ref +8, Will +s Fort +13, Ref +9, Will +6
+Abilities: Str 23, Dex 12, Con 20, Int 2, Wis 10, Cha 9 Str 23, Dex 12, Con 20, Int 2, Wis 10, Cha 9
+Skills: Listen +9, Spot +9, Swim +14 Listen +9, Spot +10, Swim +14
+Feats: Blind-Fight, Combat Reflexes’, Blind-Fight, Combat Reflexes* , Improved Natural
+Iron Will, Toughness, Weapon Focus (bite) Attack (bite), Iron Will, Toughness, Weapon Focus (bite)
+Environment: ‘Temperate marshes ‘Temperate marshes
+(Pyro; Warm marshes) (Pyro: Warm marshes)
+(Cryo: Cold marshes) (Cryo: Cold marshes)
+Organization: Solitary Solitary
+Challenge Rating: 10 (normal); 12 (pyro- or cryo-) 11 (normal), 13 (pyro- or cryo-)
+‘Treasure: 1/10 coins; 50% goods; 50% items 1/10 coins; 50% goods; 50% items
+Alignment: Usually neutral Usually neutral
+Advancement: _ =
+Level Adjustment: = — _
+
+Fire attacks cannot prevent a pyrohydras stump from growing
+ynew. heads (since a pyrohydra has immunity to fire), but_5 points
+of cold damage does.
+
+CRYOHYDRA
+Huge Magical Beast (Cold)
+‘These purplish hydras can breathe jets of frost 10 feet high, 10 feet
+
+wide, and 20 feet long. All heads breathe once every 14 rounds,
+Each jet deals 3d6 points of cold damage per head. A successful
+Reflex save halves the damage. The save DC is 10+ 1/2 hydra’s
+original number of heads + hydra’s Con modifier.
+
+Cold attacks cannot prevent a cryohydra’s stump from growing
+
+{new heads (since a cryohydra has immunity to cold), but 5 points
+
+of fire damage does.
+
+ 
+

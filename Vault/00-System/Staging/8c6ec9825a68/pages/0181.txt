@@ -1,0 +1,185 @@
+    
+ 
+   
+  
+  
+ 
+   
+   
+   
+   
+
+SUN FANE
+
+Symbol: The symbol of the Sun Fane is the same as that of
+
+Pelor: a shining sun.
+
+Background, Goals, and Dreams: The Sun Fane is a pow-
+erful Pelorite temple. A cyclopean golden dome, representing
+the sun, rests atop colossal blue marble walls, representing
+the sky, and both are supported by golden flying buttresses,
+completing the tableau by representing the sun's rays shining
+down on the earth,
+
+The goal of the temple is to witness for Pelor and spread the
+glory of its merciful diety. All members of the temple turn a
+stern eye on those who disparage Pelor as a “part-time god"
+who only works half the day.
+
+The prelates, canons, and bishops of the Sun Fane are all
+ardent in their worship of Pelor, but this does not stop them
+from engaging in heated internal politics. The One Sun is
+the archcanon of the temple, and when a leader steps down
+or passes away into the sun's brilliant radiance, the infighting
+is fierce.
+
+Members: Most of the Sun Fane's members are clerics,
+and only a cleric can rise to become the One Sun. Paladins,
+rogue scholars, and a few druids also climb the ecclesiastical
+ladder of the Sun Fane's hierarchy
+
+In keeping with its merciful teachings, the Sun Fane holds
+no grudge against those who leave its ranks, The temple is
+notoriously persistent, however, in trying to win back souls,
+and those who leave the Sun Fane hierarchy can expect many
+old friends to come calling with news of brilliant grace and
+blessed light.
+
+Type: Temple.
+
+Scale: 12 (kingdom)
+
+Affiliation Score Criteria: The Sun Fane is open only to
+those of non-evil alignment.
+
+ 
+
+ 
+
+Criterion Affiliation Score Modifier
+Character level 41/2 PC's level
+5 or more ranks in Heal +1
+Can cast divine spells of 3rd level or higher 4
+
+Can cast divine spells of Sth level or higher*
+Undertakes missionary voyage
+
+Converts creature to Pelor's faith (convert
+must remain a believer)
+
++1 per voyage
+
++] per convert
+
+Raises or resurrects an innocent soul with own funds +2
+Donates 15% or more of treasure to Sun Fane +2
+Cannot cast divine spells 2
+Sells spells to neutral creature =4
+Sells spells to evil creature for nonevil purpose 6
+
+Acts against alignment 10 ,and cannot improve
+affiliation score until
+undergoing atonement
+
+* Overlaps (does not stack with) the bonus for casting
+
+divine spells of 3rd level or higher.
+
+Titles, Benefits, and Duties: As you advance in the
+ranks of the Pelorite priesthood, you learn to win converts
+to your faith, to spread the healing light of your faith, and to
+scourge the undead (along with, some would say, rivals for
+the archbishopric).
+
+  
+  
+  
+  
+  
+   
+  
+ 
+ 
+  
+ 
+   
+  
+  
+  
+  
+ 
+
+Affiliation
+
+Score Title: Benefits and Duties
+
+3 or lower No affiliation.
+
+4-10 Lay Worshiper: The Sun Fane welcomes you
+as a faithful member of the congregation,
+
+11-20 Ordained: +2 competence bonus on
+Knowledge (religion) checks when
+consulting the Sun Fane's library.
+
+21-29 Canon: +] competence bonus on Diplomacy
+checks
+
+30 or higher Archbishop: The Sun Fane broach, vestment
+
+of your office (does not take up space on,
+the body) grants you a +2 bonus on turning
+checks.
+
+Executive Powers: Crusade, excommunicate, holiday.
+
+THE THUNDER SAIL ARGOSY
+
+Symbol: The symbol of the Argosy is emblazoned on the
+sails of all three brigantines: a gold lightning bolt on sable.
+
+Background, Goals, and Dreams: The gentle heaving of
+the deck underfoot slows, then stops. The gulls overhead quiet,
+and the only sound is the rhythmic lapping of the suddenly
+becalmed salt sea at the hull. A peal of thunder cracks overthe
+horizon, and clouds come scudding across the sky only a few
+knots slower than the bolt-on-sable Thunder Sails,
+
+Captain Jons Jakes commands an outlaw fleet of three
+brigantines: the Rain Hawk, the Red Lightning, and the flagship
+Maelstrom Aria. Few of the current pirates in his fleet were
+with him when he started, and those few who have been in his
+quarters wonder about the strange crystal sphere kept there,
+Slightly larger than the glass buoys used by fisherfolk, the
+sphere containsa swirling turquoise mist, and it rests clutched
+near the captain’s bedstand in a preserved and upended harpy's
+talon, During battle, Captain Jakes hauls the crystal sphere and
+harpy-leg monopod onto the aft deck, where he sits on a closed
+locker, hunches over the sphere, and strokes it possessively
+while barking orders to his mates and crew. He appears quite
+mad, but the Thunder Sail Argosy has survived, and the crew
+doesn't care whether that is due to cunning ot luck as long
+as the gold is good and the grog is thick
+
+Members: Most members of the Argosy are fighter/rogues
+or swashbucklers, and many take levels in duelist. A few
+important officers are sorcerers or druids, and they function
+as artillery and environmental control. Finally, like every
+sailing ship, each Thunder Sail vessel has at least one bard, to
+sing shanties in time with the hauling of ropes and alleviate
+the thirsty, languorous days between plunderings.
+
+The Argosy is not concerned about those who leave its
+ranks—and in fact it frequently asks men to leave the
+crew (often at the end of a plank after they have crossed
+the captain).
+
+Secrets; When you rise to a captaincy, Captain Jakes
+informs you of the Thunder Sail Argosy's hidden power and
+purpose. Once a prominent plantation owner in a southern
+kingdom, Jonas Jakes saw his daughter, a powerful druid
+who helped him tend his crops, polymorphed into a green
+mist by a chaotic, mad archmage who rode his horse through
+town one day and casually sowed destruction in his wake. By
+

@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0164",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 164,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:38:32.751292+00:00"
+  },
+  "doneAt": "2026-02-03T09:38:51.372146+00:00",
+  "citation": "PHB (pdf p.0164)",
+  "printedGuess": "163",
+  "touched": [],
+  "createdTables": [
+    "Table — Hampered Movement (PHB 9–4)"
+  ]
+}

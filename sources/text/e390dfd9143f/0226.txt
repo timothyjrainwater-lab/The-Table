@@ -1,0 +1,263 @@
+SOMBAT
+
+Full Attack: Bite +3 melee (1d4)
+
+Space/Reach: 5 ft./5 ft
+
+Special Attacks: Stunning shock, lethal shock
+
+Special Qualities: Darkvision 60 ft. electricity sense, immunity
+to electricity, low-light.vision
+
+Saves: Fort +4, Ref +5, Will +1
+
+Abilities: Str 10, Dex 15, Con 13, Int 2, Wis 12, Cha 6
+
+Skills: Climb +11, Hide +11, Jump +7, Listen +4, Spot +4,
+Swim +10
+
+Feats: Improved Initiative
+
+Environment: Warm marshes
+
+Organization: Solitary, pair, clutch (3—5), or colony (6-11
+
+Challenge Rating: 2
+
+‘Treasure: 1/10 coins; 50% good
+items
+
+Alignment: Always neutral
+
+Advancement: 3-4 HD (Small.
+HD (Medium:
+
+Level Adjustment: —
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+  
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+   
+  
+ 
+    
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+
+ 
+
+ 
+
+This little lizard is. about the size of a terrier, It has
+a bullet-shaped head sporting a large pair of homs that
+sweep back from the sides like spiky ears. A similar struc
+ture appears on the tip of the tail
+
+The shocker lizard is a sleek reptilelike creature whose body
+can generate intense electrical shocks
+
+Ashocker lizard has a pale gray or blue underside, shading
+ker hu its back. It has blue-black marking:
+along its back and tail.
+
+Shocker lizards prefer warm and damp
+conditions, and often lurk in swamps,
+shaded riverbanks, and water-filled
+caves, They hunt fish, reptiles, and
+small animals, but also scavenge or take
+larger prey from time to time. They spend most
+of their time hiding and wait
+happen by.
+
+Ashocker lizard is about 1 foot tall at the shoulder
+and weighs about 25 pounds.
+
+  
+
+   
+
+ng for prey to
+
+Unless it is very hungry, a shocker lizard dislikes fight
+ing creatures larger than itself and usually tries to
+warn off intruders by emitting a series of rapid
+clicks, The sound is actually a low:
+n
+
+a
+
+ 
+
+power electrical discharge
+living creatures within 10 feet
+can feel the current tick
+ling their skins and
+scalps, If the warning fails,
+the lizard raises its horns.and tail to adminis
+
+ter stunning shocks.
+
+A shocker lizard relies on its electricity abilities in combat. A
+lizard tends to bite only.after its shock has rendered an opponent
+unconscious or when the shock seems to have no effect at all. A
+solitary lizard flees once it delivers its shocks, butif other shocker
+lizards are nearby, they all home in on their comrade's discharges
+and attempt to administer their shocks to the foe.
+
+Stunning Shock (Su): Once per-round, a shocker lizard can
+deliver an electrical shock to single opponent within 5 feet. This
+attack deals 2d8 points of nonlethal damage to living opponents
+
+Reflex DC 12 half). The save DC is Constitution-based
+
+Lethal Shock (Su); Whenever two or more shocker lizards
+are within 20 feet of each other, they can work together to create
+a lethal shock. This effect has a radius of 20 feet, centered on any
+one contributing lizard. The shock deals 2d8 points of electricity
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+damage for each lizard contributing to it, to a maximum of 1248.
+A Reflex save (DC 10 + number of lizards contributing) reduces
+the damage by half.
+
+Electricity Sense (Ex): Shocker lizards automatically detect
+any electrical discharges svithin 100 feet
+
+Skills: Shocker lizards have a +4 racial bonus on Hide checks
+due to their coloration. Shocker lizards have a +2 racial bonus on
+Listen and Spot checks.
+
+Shocker lizards use their Dexterity modifier instead of their
+Strength modifier for Climb and Jump checks.
+
+A shocker lizard has a +8 racial bonus on Climb checks and can
+always choose to take 10 on a Climb check, even if rushed or
+threatened.
+
+Ashocker lizard has a +8 racial bonus on any Swim check to per
+form some special action or avoid a hazard. It can always choose to
+take 10 on a Swim check, even if distracted or
+endangered. It can use the run action while swim
+ming, provided it swims in a straight line.
+
+ 
+
+ 
+
+This creature appears. to. be nothing
+By but a. set of animated. bones. Pin:
+points of red_light smolder. in_ its
+empty eye sackets.
+
+ 
+
+Skeletons are the animated
+bones of the dead, mindless,
+automatons that obey the
+orders of their evil masters,
+
+A skeleton is seldom.
+garbed in anything more
+than the rotting remnants
+of any clothing or armor it
+
+was wearing when slain
+
+A skeleton does only what it
+
+is ordered to do. In can draw no
+conclusions of its own and takes no
+initiative. Because of this limitation,
+its instructions must always be
+simple, such as “Kill anyone
+who enters this chamber.
+
+Skeleton
+
+skeleton attacks
+
+ 
+
+until destroyed, for
+that is what it
+was created to
+do. The threat
+
+posed by a
+
+group of
+skeletons depends
+\ primarily on its size
+
+CREATING A SKELETON
+‘Skeleton” is an acquired template that can be added to any cor
+poreal creature (other than an undead) thar has a skeletal system
+referred to hereafter as the base creature
+
+Size and Type: The creature's type changes to undead. It
+retains any subtype except for alignment subtypes (such as good
+and subtypes that indicate kind (such as goblinoid or reptilian),
+It does not gain.the augmented subtype. It uses all the base crea:
+ture's statistics and special abilities except.as noted here.
+
+Hit Dice: Drop any Hit Dice gained from class levels (to a}
+minimum of 1) and raise remaining Hit Dice to.di2s, If the crea:
+ture has more than 20 Hit Dice, it cant be made into a skeleton
+by.the animate dead spell.
+
+Speed: Winged skeletons cant use their wings to fly. If the
+base creature flew magically, so.can the skeleton.
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+

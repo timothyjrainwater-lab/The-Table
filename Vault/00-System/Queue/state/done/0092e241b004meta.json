@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "0092e241b004:meta",
+    "sourceId": "0092e241b004",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Blades Of The Quori.pdf",
+    "title": "Blades Of The Quori",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:42:17.486013+00:00",
+  "meta": {
+    "sourceId": "0092e241b004",
+    "title": "Blades Of The Quori",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Blades Of The Quori.pdf",
+    "pages": 3,
+    "extractedAt": "2026-02-03T05:42:17.459824+00:00"
+  }
+}

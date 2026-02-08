@@ -1,0 +1,130 @@
+ 
+
+TABLE 5-5: MODERN Era WEAPONS
+
+Exotic Weapons (Firearms) Dmg (5) Dmg (M) Critical Range Increment Weight Damage Type
+One-Handed Ranged Weapons
+Pistol, automatic 244 2d6 x2 40 ft. 3b. Piercing
+Revolver 2d6 2d8 x2 30 ft. 3 lb. Piercing
+Two-Handed Ranged Weapons
+Rifle, hunting 248 2410 x2 80. ft. Bib. Piercing
+Rifle, automatic 246 2d8 x2 80 ft 8b. Piercing
+Shotgun 2d6 208 2 30 ft. 7b. Piercing
+Grenade launcher , — 70 ft 7.Ib. ~
+1 Fires fragmentation grenades or smoke grenades; see the Explosive Weapons table, below.
+
+Explosive Weapons! Damage Blast Radius Range Increment Weight Damage Type
+Dynamite 306? 52 lof. Vib, Bludgeoning
+Grenade, fragmentation 4d6 20 ft. 10 ft. 1b. Slashing
+Grenade, smoke Smoke 20 ft. 10 ft. 2b. =-
+
+1 Dynamite and grenades require no proficiency to. use.
+2 See description.
+TasLe 5—6: Futuristic WEAPONS
+Exotic Weapons (Firearms) Ding (5) Omg (M) Critical Range Increment Weight Damage Type
+(One-Handed Ranged Weapons
+Laser pistol 304 3d6 x2 40 ft. 2Ib, -
+Two-Handed Ranged Weapons
+Antimatter rifle &d6 648 2 120 ft. 10 Ib. -
+Flamer 34’ 306! - 20 f. Bib. Fire
+Laser rifle 3d6 308, 2 100 ft. 7b. -
+
+|1.See description.
+
+The d20 Manxan* Roleplaying Game, a D&D-compatible role-
+tplaying game for present-day adventures, contains a much more
+\extensive treatment of firearms and other high-tech gear.
+
+Modern Era Firearms: Firearms should be treated like other
+\ranged projectile weapons. The Exotic Weapon Proficiency
+
+(firearms) feat gives a creature proficiency with.all firearms; other-
+wise, a—4 penalty is assessed on all attack rolls.
+
+Ammunition; Modern era firearms use bullets essentially similar
+to those used in Remaissance firearms. Ten bullets weigh 1 pound,_
+and a magazine that holds bullets for an automatic weapon weighs |
+1/2 pound. 4
+
+The new weapons on Table 5-5; Modern Era Weapons are.
+detailed below.
+
+Pistol, Automatic: An automatic pistol can fire fifteen times
+before reloading and can be used to attack mote than once per
+round if the user has the ability to make multiple attacks. Releas-
+ing an empty magazine and inserting a new one is a move action.
+
+Pistol, Revolver: A revolver can fire six times before it needs
+,teloading (which requires a full-round action).
+
+Rifle, Hunting: A hunting rifle can fire five times before it needs
+}teloading (which requires a full-round action)
+
+Rifle, Automatic: An automatic rifle can fire thirty times before it
+needs reloading. Releasing an empty magazine and inserting a
+new one is a move action..As an_attack, an automatic rifle can
+instead spray a space 10 feet across with ten bullets, If the attacker
+succeeds on an attack roll against AC 10, everyone in that space
+must make a DC 15 Reflex save or take the weapon's damage.
+
+Shotgun: A shotgun is mosteffective at close range; on any suc-
+cessful attack, a—1 penalty is applied to the damage rolll for each
+range increment of the attack, It can fire six times before it needs
+
+jreloading (which requires a full-round action), The weapon uses
+:shotgun shells, cylindrical cartridges thar have a built-in firing cap
+jat their base. They are packed with amixture of gunpowder and.
+jsmall lead pellets.
+
+Grenade Launcher: A grenade launcher can fire fragmentation or.
+smoke grenades using its range increment, but must be reloaded
+each time it fires, requiring a standard action. A grenade launcher}
+isa tube set on a metal tripod and equipped with a sighting mech-|
+
+anism. A single smoke grenade or fragmentation grenade easily
+slips into the rube.
+
+Modern Era Explosive Weapons: These explosive grenade-
+like weapons work just like Renaissance grenadelike weapons (see |
+above). for determining how attacks are made and what happens if.
+the weapon misses its target.
+
+Dynamite: This short, thin cylinder of explosive material has a
+fuse that must be lit before ir is thrown or set. Lighting a stick of
+dynamite is a move action, and the dynamite goes off in the same
+round or up to several minutes later (depending on how long the
+fuse is). The explosive has.a blast radius of 5 feet and deals 246
+points of bludgeoning damage. Anyone caught within the blast
+radius can make a DC 15 Reflex save to take half damage.
+
+Ir's possible to bind together several sticks of dynamite so they
+ignite and explode at the same.time. Each additional stick in-
+creases the damage by 1dé (maximum damage 10d6) and the burst
+radius by 5 feet (maximum burst radius 20 feet).
+
+Grenade, Fragmentation: A fragmentation grenade looks like a
+large egg, sometimes mounted on a 1-foot-long stick with small
+fins. If thrown, it uses its range increment, but if launched from a
+gtenade launcher, it uses that weapon's range increment. Frag-
+mentation grenades are advanced antipersonnel explosives that
+deal slashing damage in a 20-foot radius. Anyone caught within
+the blast.radius. can make.a DC15 Reflex save to take half damage.
+
+Grenade, Smoke; A smoke grenade looks like a squat cylinder,
+sometimes mounted on a 1-foot-long stick with small fins, If
+thrown, it uses its range increment, but if launched from a
+grenade launcher, it uses that weapon's range increment. One
+round after it lands or hits its target, this nondamaging explosive ,
+emits a cloud of smoke (as the fog cloud spell) in # 20-foot radius. A}
+moderate wind (11+ mph) disperses the smoke in 4 rounds; a
+strong wind (21+ mph) disperses the fog in 1 round. 4
+
+Futuristic Weapons; Futuristic weapons are like other ranged |
+projectile weapons, though the type of damage they deal is special. |
+\The Exotic Weapon Proficiency (fururistic) feat gives a creature
+
+jproficiency with all fururistic weapons; otherwise, a—4 penalty is
+jassessed on all attack rolls.
+
+The new weapons on Table 5-6: are detailed below.
+

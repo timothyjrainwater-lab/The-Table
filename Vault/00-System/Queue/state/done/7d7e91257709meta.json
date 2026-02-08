@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "7d7e91257709:meta",
+    "sourceId": "7d7e91257709",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Eberron Campaign Setting.pdf",
+    "title": "Eberron Campaign Setting",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:33:47.585308+00:00",
+  "meta": {
+    "sourceId": "7d7e91257709",
+    "title": "Eberron Campaign Setting",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Eberron Campaign Setting.pdf",
+    "pages": 326,
+    "extractedAt": "2026-02-03T09:33:46.127954+00:00"
+  }
+}

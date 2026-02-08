@@ -1,0 +1,152 @@
+ 
+
+combined HD cannot exceed your caster level. If
+you choose to entomb any creatures, the tomb ward
+animates themas Ist-rank ancient dead if the curse
+is triggered, using them as guardians.
+
+It is customary to inscribe the specific effect of
+the tomb ward on the entrance of the tomb as a
+warning, though this isnot necessary to the casting
+of the spell.
+
+Casting this spell requires a powers check, plus
+a powers check for each humanoid buried alive.
+
+Zone of Deception
+
+Enchantment (Compulsion) [Mind-Affecting]
+
+Level: Cir 2
+
+This spell creates an area that prevents sub-
+
+jects within range from telling the truth. As zone of
+truth, except that creatures within the emanation
+immediately become aware that they cannot in-
+tentionally speak the truth. Creatures are not
+required to speak and can phrase their statements
+as they choose, but every statement they make
+must bea lie. Questions, suppositions and exclama-
+tions are not statements and thus are not affected.
+
+Altered Magic Items
+
+The Dark Powershold magic itemsin Ravenloft
+to the same changes and limitations as the spells
+above. If a magic item has a power that duplicates
+a spell effect, it suffers the same alterations as that
+spell. This section details a few additional changes
+that apply only to magic items.
+
+Special Abilities
+Any aspect of a D&D Dungeon Master's Guide
+
+special ability not listed here performs normally in
+Ravenloft.
+
+ 
+
+ 
+
+Disruption: Undead creatures get a +2 bonus
+on their Fortitude save.
+
+Etherealness: See Ethereal.
+
+Ghost Touch: This ability performs normally
+in Ravenloft. As a note, fusing material objects to
+their own ethereal resonance creates these items.
+
+Spell Storing: Storing a spell incurs the same
+chance of failing a powers check as casting it.
+
+ 
+
+Unholy: Crafting these items requires a pow-
+ers check.
+
+Intelligent Items
+Intelligent magic items can be a powerful
+source of evil in Ravenloft. Many evil artifacts
+possess at least some manner of rudimentary cun-
+ning, allowing them to appeal to the base nature of
+
+ 
+
+ 
+
+their possessors. Evil items in Ravenloft get a +5
+bonus to their Ego score. If an evil item succeeds at
+dominating its possessor, there is a 50% chance
+that the item presents itself to the nearest darklord,
+seeking a more worthy owner.
+
+Cursed Items
+
+When someone creates a magic item while
+under the influence of powerful emotions, or with
+dark intentions — as with a vengeful wizard who
+crafts a weapon to slay those who wronged her —
+she may unwittingly lay a curse into her own
+creation. The DM should judge the character's
+intent just as if she had crafted a curse of vengeance
+(see Curses, earlier in this chapter); in this case, the
+character lays the curse through an item, not words.
+
+Cursed items are powerful and dangerous in
+Ravenloft. The severity of an item’s curse grants an
+unholy bonus on all its saving throws:
+
+  
+
+Curse Severity Saving Throw Bonus
+Embarrassing 0
+
+Frustrating +1
+
+Troublesome +2
+
+Dangerous 8
+
+Lethal +6
+
+Also, a new form of curse is common in
+Ravenloft:
+
+Power for a Price: The item does not have a
+set number of charges. Instead, the user can build
+up charges by using the item to perform a specific
+act. This act — the “price” paid for the item’s
+powers — is typically related to the effect of the
+desired power and always requires a powers check.
+Anexample isa sword with powers that can be used
+only after its blade has taken a humanoid life.
+
+In some cases, these items may have reduced
+effects. As an example, a cursed gauntlet might be
+enchanted to cast remove disease with a touch.
+Rather than simply eliminating the disease, the
+cursed gauntlet draws the sickness into itself. The
+next time the gauntlet is used, its touch acts as a
+contagion spell. The gauntlet cannot be used to
+remove disease again until the disease has been
+“discharged” into a victim.
+
+Magic Items in Ravenloft
+
+Using any item that simply mirrors a specific
+spell effect (as with scrolls, wands and items such as
+brooms of flying) warrants a powers check just as if
+the spell had been cast. This section lists additional
+magic items from the D&D Dungeon Master's Guide
+that suffer specific changes.
+
+ 
+
+s
+
+ 
+
+ 
+

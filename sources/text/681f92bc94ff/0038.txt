@@ -1,0 +1,138 @@
+ 
+ 37
+Resist Nature’s Lure (Ex):  Starting at 4th level, a druid gains a 
++4 bonus on saving throws against the spell-like abilities of fey (such 
+as dryads, pixies, and sprites). 
+Wild Shape (Su):  At 5th level, a druid gains the ability to turn 
+herself into any Small or Medium animal and back again once per 
+day. Her options for new forms include all creatures with the animal 
+type (see the Monster Manual ). This ability functions like the p oly-
+morph spell, except as noted here. The effect lasts for 1 hour per 
+druid level, or until she changes back. Changing form (to animal or 
+back) is a standard action and doesn’t provoke an attack of 
+opportunity. 
+The form chosen must be that of an animal the druid is familiar 
+with. For example, a druid who has never been outside a temperate 
+forest could not become a polar bear. 
+A druid loses her ability to speak while in animal form because 
+she is limited to the sounds that a normal, untrained animal can 
+make, but she can communicate normally with other animals of the 
+same general grouping as her new form. (The normal sound a wild 
+parrot makes is a squawk, so changing to this form does not permit 
+speech.) 
+A druid can use this ability more times per day at 6th, 7th, 10th, 
+14th, and 18th level, as noted on Table 3–8: The Druid. In addition, 
+she gains the ability to take the shape of a Large animal at 8th level, a 
+Tiny animal at 11th level, and a Huge animal at 15th level. The new 
+form’s Hit Dice can’t exceed the character’s druid level. For instance, 
+a druid can’t take the form of a dire bear (a Large creature that always 
+has at least 12 HD) until 12th level, even though she can begin 
+taking Large forms at 8th level. 
+At 12th level, a druid becomes able to use wild shape to change 
+into a plant creature, such as a shambling mound, with the 
+same size restrictions as for animal forms. (A druid can’t use 
+this ability to take the form of a plant that isn’t a creature, 
+such as a tree or a rose bush.) 
+At 16th level, a druid becomes able to use wild shape 
+to change into a Small, Medium, or Large elemental 
+(air, earth, fire, or water) once per day. These 
+elemental forms are in addition to her normal wild 
+shape usage. In addition to the normal effects of 
+wild shape, the druid gains all the elemental’s 
+extraordinary, supernatural, and spell-like abilities. 
+She also gains the elemental’s feats for as long as 
+she maintains the wild shape, but she retains her 
+own creature type (humanoid, in most cases). 
+At 18th level, a druid becomes able to assume 
+elemental form twice per day, and at 20th level 
+she can do so three times per day. At 20th 
+level, a druid may use this wild shape ability 
+to change into a Huge elemental. 
+Venom Immunity (Ex):  At 9th level, a 
+druid gains immunity to all poisons.  
+A Thousand Faces (Su):  At 13th level, a 
+druid gains the ability to change 
+her appearance at will, as if using 
+the alter self  spell (page 197), but 
+only while in her normal form. 
+Timeless Body (Ex):  After 
+attaining 15th level, a druid no 
+longer takes ability score 
+penalties for aging (see Table 
+6–5: Aging Effects, page 109) and 
+cannot be magically aged. Any penalties 
+she may have already incurred, however, remain in place. Bonuses 
+still accrue, and the druid still dies of old age when her time is up. 
+ 
+Ex-Druids 
+A druid who ceases to revere nature, changes to a prohibited 
+alignment, or teaches the Druidic language to a nondruid loses all 
+spells and druid abilities (including her animal companion, but not 
+including weapon, armor, and shield proficiencies). She cannot 
+thereafter gain levels as a druid until she atones (see the atonement 
+spell description, page 201). 
+ 
+Half-Elf Druid Starting Package 
+Armor: Hide (+3 AC, armor check penalty –3, speed 20 ft., 25 lb.). 
+Heavy wooden shield (+2 AC, armor check penalty –2, 10 lb.). 
+Weapons: Scimitar (1d6, crit 18–20/×2, 4 lb., one-handed, 
+slashing). 
+Club (oaken cudgel): (1d6, crit ×2, 10 ft., 3 lb., one-handed, 
+bludgeoning). 
+Sling (1d4, crit ×2, rang inc. 50 ft., 0 lb., Medium, Bludgeoning). 
+Skill Selection: Pick a number of skills equal to 4 + Int modifier. 
+ 
+Skill Ranks Ability Armor Check Penalty 
+Spellcraft 4 Int — 
+Concentration 4 Con — 
+Survival 4 Wis — 
+Heal 4 Wis — 
+Handle Animal 4 Cha — 
+Knowledge (nature) 4 Int — 
+Listen 4 Wis — 
+Spot 4 Wis —  
+ 
+Feat: Scribe Scroll. 
+Gear: Backpack with waterskin, one day’s trail rations, bedroll, 
+sack, and flint and steel. Pouch with 10 sling bullets. Holly and 
+mistletoe. Three torches. 
+Animal Companion: Wolf (see the Monster 
+Manual for details). 
+Gold: 1d6 gp. 
+ 
+FIGHTER 
+The questing knight, the conquering 
+overlord, the king’s champion, the 
+elite foot soldier, the hardened 
+mercenary, and the bandit king—
+all are fighters. Fighters can be 
+stalwart defenders of those in 
+need, cruel marauders, or gutsy 
+adventurers. Some are among 
+the land’s best souls, willing to 
+face death for the greater good. 
+Others are among the worst, with 
+no qualms about killing for private 
+gain, or even for sport. Fighters 
+who are not actively adventuring 
+may be soldiers, guards, 
+bodyguards, champions, or 
+criminal enforcers. An adven-
+turing fighter might call himself a warrior, a 
+mercenary, a thug, or simply an adventurer. 
+Adventures: Most fighters see adven-
+tures, raids, and dangerous missions as 
+their job. Some have patrons who pay 
+them regularly. Others prefer to live 
+like prospectors, taking great risks in 
+hopes of the big haul. Some fighters are more 
+civic-minded and use their combat skills to protect endangered 
+people who cannot defend themselves. Whatever their initial 
+motivations, however, fighters often wind up living for the thrill of 
+combat and adventure. 
+Characteristics: Of all classes, fighters have the best all-around 
+fighting capabilities (hence the name). Fighters are familiar with all 
+the standard weapons and armors. In addition to general fighting 
+Tordek 
+CHAPTER 3: 
+CLASSES 

@@ -1,0 +1,142 @@
+ 
+
+CHAPTER TWO: CAVES
+
+These are actually pieces of Skree currency, given to the yeti by
+the bugbears of Shilmagar.
+
+5. Mudslide
+
+The passage before you slopes noticeably downward
+into even deeper degrees of darkness. Oddly enough,
+there is a strange and unexpected warmth seeping
+through the ground here. Within a few steps, you are
+standing in 6 inches of red-black mud. Pink water
+drips from the ceiling, adding to the mire.
+
+‘This passage is a natural trap. A small underground hot spring
+provides the warmth that melts the ice. Unfortunately, the
+spring has created a muddy bog. The uncertain footing requires
+anyone who steps in the mud to make a Reflex save (DC 15) to
+avoid slipping, hitting the ground, and sliding down the steeply
+angled passage in a wave of red mud. Beyond the reach of the
+heated spring, the passage is once again slick with ice and
+continues downward until it empties into a deep sinkhole.
+Anyone who fails a second Reflex save (DC 20) slides over the
+rim of the pit and falls 40 feet to the bottom. The mud provides
+abit ofa cushion, so that anyone who falls takes only 346 points
+of damage.
+
+The bottom of thesinkhole is beyond the heatingeffects ofthe
+springand thustheicy chill quickly freezes the fresh red mud. The
+mud solidifies in 2 rounds, effectively trapping anyone still
+standing in the bottom of the pit. A Strength check (DC 20) is
+required to break free once the mud freezes, or the PC may “take
+20” to chip away at the mud. The slick walls are extremely
+difficult to Climb (DC 30).
+
+Midway up the pit is a rough-hewn tunnel leading to area 9,
+difficult to see from the top or bottom of the pit (Spot check [DC
+22), but easily detected ifa PC is climbing the pit wall.
+
+6.Echoesof the Past
+
+The end of this passage contains the remnants of a campsite.
+The PCs find the bones ofa small fowl, a few scraps of jerky, and
+a whetstone left behind by the tunnel’s former occupant. Other
+than these few items, the only thing of note about the tunnel is
+its uncanny acoustical effect; even a soft whisper is greatly
+amplified, ringing off the walls for the extent of the tunnel.
+
+7.FurandFury(EL1o, ELw/Remorhazes)
+"Thetutinel leading down from thepitin Area 1 slopesstexply
+downward until it opens into the cavern described below.
+
+The river has carved another wide chamber from the
+mountain. The floor is of rippled red ice and rises at a
+slight incline until it nearly touches the ceiling at the far
+end ofthe room. Directly across from you stands a 15-foot
+wall builtentirely of rust-redice. Itlooksas ifrough blocks
+of ice have been mined from the earth and stacked to
+form a barrier. At various intervals, the wall seems to
+havemelted. What heat source could melt so largea wall,
+youcannotguess, but ithas succeeded in piercing the wall
+at the southern end, where a gaping hole waits.
+
+   
+
+The wall was built by the yeti that inhabit this cave, to protect
+themselves from the pair of mated remorhazes in Area 8. If the
+PCs inspect the wall, read the following:
+
+AND THE HIDDEN VALE
+
+There are actually two walls here, another having
+been built behind the first. This wall is also pierced
+with unnatural openings, allowing access to the north.
+The two walls forma hallway running to the west and
+opening to another cavern. Covering the ground
+midway along this hall, the ice on the floor appears
+irregular, as if overgrown with thick, ruddy lichen.
+
+Upon closer inspection, the patch of irregular ice is revealed
+to be a pelt of some type. This pelt once belonged to a yeti, the
+tough, apelike creatures of northern legend. The resident yeti
+family uses this hide to cover the crude pit trap they hope catchs
+their tormentors, the remorhazes. The PCs should have little
+trouble discerning the trap through investigation (Search check
+[DC 12]), butas soon as their attention is focused on the pit, the
+yeti attack from a pile of rocks on the south side of their lair.
+
+Trap: The pit trap is simple and poorly concealed, but if
+anyoneshouldfallintothe pitduringthe battle with the yeti, they
+take 2d6 points ofdamage. Anyone in danger ofbeingforced into
+the pit should make a Reflex save (DC 15) toavoid it. Ifthe PCs
+engage the yeti in combat, the remorhazes come to inspect the
+sounds of combat and arrive after 4 rounds If the PCs defeat the
+yeti, they can inspect the lair, which serves as both living and
+sleeping quarters for the yeti.
+
+Creatures: The 8 yeti are a small family consisting of | male,
+3 females, and 4 young. They are always vigilant, for fear the fiery
+beasts may attack them at any time. The yeti stand behind the
+rocky barricade they have built (75% cover provides +7 AC
+bonus and +3 to all Reflex saves), hurling icy rocks at their
+enemies. After 3 rounds, their rocks are depleted and they leap
+over the wall onto any remaining opponents, trying to position
+themselves to use their gaze attack (see below). For statistical
+purposes, a yeti is similar to a standard ape, with the addition of
+a paralyzing gaze and resistance to cold. Their abundant fur is
+deep red rather than white, the result of years of genetic
+adaptation to this area.
+
+Yeti (8): CR 4; hp 26 each; see the Tome of Horrors by
+Necromancer Games.
+
+Treasure: Though yeti do not put value in gold and other
+treasure, searching the chamber reveals many items taken from
+otheradventurers, including virtually every type of climbing and
+spelunking implement. There is also 90 feet of rope, though
+anything found here has a 50% chance of being in such a state
+of disrepairas tobe useless. Because of its extraordinary insulating
+properties, a yeti pelt is worth 300 gp to the right buyer.
+
+8, FireintheHole(ELo)
+
+This tunnel is smooth and round, as if it has been bored
+into the ice by some fiery mole. The ground isslick and the
+footing is treacherous. The tunnel follows no logical
+course as it winds its way deeper into the mountain,
+opening intoachambercontainingseveral large eggs. The
+walls tremble with the sounds of distant running water.
+
+This chamber belongs to the remorhazes and has been
+hollowed out by the intense heat of these exothermic creatures.
+The remorhazes have carved many such tunnels, one of them
+leading to Area 11.
+
+Creatures: Though remorhazes are by nature solitary beasts,
+these two recently mated, and the male has not yet left the lair.
+
+36
+

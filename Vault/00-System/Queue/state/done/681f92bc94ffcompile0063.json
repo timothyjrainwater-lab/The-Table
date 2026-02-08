@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0063",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 63,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:07:20.383159+00:00"
+  },
+  "doneAt": "2026-02-03T08:03:52.260542+00:00",
+  "citation": "PHB (pdf p.0063)",
+  "printedGuess": "62",
+  "touched": [],
+  "createdTables": [
+    "Table — Skill Points per Level (PHB 4–1)",
+    "Table — Skill Points per Level. For example, Lidda is a (PHB 4–1)",
+    "Table — Skills shows all the skills and indicates which are class (PHB 4–2)"
+  ]
+}

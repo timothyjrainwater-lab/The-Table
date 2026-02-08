@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "07d50d4a8997:meta",
+    "sourceId": "07d50d4a8997",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Mistress of the Rose PrC.pdf",
+    "title": "Mistress of the Rose PrC",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T14:29:32.753511+00:00",
+  "meta": {
+    "sourceId": "07d50d4a8997",
+    "title": "Mistress of the Rose PrC",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Mistress of the Rose PrC.pdf",
+    "pages": 3,
+    "extractedAt": "2026-02-03T14:29:32.725642+00:00"
+  },
+  "enqueued_extractPages": 2
+}

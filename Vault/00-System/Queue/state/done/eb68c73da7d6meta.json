@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "eb68c73da7d6:meta",
+    "sourceId": "eb68c73da7d6",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Eberron Character Sheet.pdf",
+    "title": "Eberron Character Sheet",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:44:44.419837+00:00",
+  "meta": {
+    "sourceId": "eb68c73da7d6",
+    "title": "Eberron Character Sheet",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Eberron Character Sheet.pdf",
+    "pages": 4,
+    "extractedAt": "2026-02-03T09:44:44.394998+00:00"
+  }
+}

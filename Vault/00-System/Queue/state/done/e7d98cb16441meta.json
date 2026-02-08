@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "e7d98cb16441:meta",
+    "sourceId": "e7d98cb16441",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/The Trials of Academia.pdf",
+    "title": "The Trials of Academia",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:43:29.784654+00:00",
+  "meta": {
+    "sourceId": "e7d98cb16441",
+    "title": "The Trials of Academia",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/The Trials of Academia.pdf",
+    "pages": 2,
+    "extractedAt": "2026-02-04T00:43:29.777318+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

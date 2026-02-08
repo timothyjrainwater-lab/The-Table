@@ -1,0 +1,196 @@
+ 
+  
+  
+   
+ 
+
+    
+   
+  
+ 
+ 
+ 
+ 
+    
+  
+ 
+    
+  
+ 
+ 
+
+       
+
+breath weapons deal 2d6 points of damage, plus an extra 1d6
+points of damage for every two additional class levels (346 at
+6th level, 4dé6 at 8th level, and so forth). A successful Reflex
+save halves the damage dealt; rhe save DC is equal to 10 +
+1/2 your dragon shaman level + your Con modifier. Just like
+a true dragon, once you breathe you must wait 1d4 rounds
+before you can use your breath weapon again.
+
+Cone-shaped breath weapons extend out to 15 feet at 4th
+level, increasing to 30 feet at 12th level and to 60 feet at
+20th level. Line-shaped breath weapons are 30 feet long at
+4th level, increasing to 60 feet at 12th level and to 120 feet
+at 20th level.
+
+Draconic Resolve (Ex): Ar 4th level, you gain immunity
+to paralysis and sleep effects. You also become immune to
+the frightful presence of dragons
+
+Touch of Vitality (Su): At 6th level, you can heal the
+wounds of living creatures (your own or those of others) by
+touch. Each day you can heal a number of points of damage
+equal to twice your class level x your Charisma bonus, For
+example, a 7th-level dragon shaman with a Charisma score of
+14 (+2 bonus) can heal 28 points of damage. You can choose
+to divide your healing among multiple recipients, and you
+don't have to use ir all ar once. Using your tauch of vitality
+is a standard action. It has no effect on undead
+
+Beginning at 11th level, you can choose to spend some
+of the healing bestowed by your touch of vitality to remove
+other harmful conditions affecting the target
+
+For every 5 points of your healing ability you expend,
+you can cure 1 point of ability damage or remove the dazed,
+fatigued, or sickened condition from one individual.
+
+For every 10 points of your healing ability you expend, you
+can remove the exhausted, nauseated, poisoned, or stunned
+condition from one individual
+
+For every 20 points of your healing ability you expend
+you can remove a negative level or the blinded, deafened, or
+diseased condition from one individual,
+
+  
+
+ 
+
+  
+
+ 
+
+You can remove a condition (or more than one condi-
+tion) and heal damage with the same touch, so long as you
+expend the required number of points. For example, if you
+wanted to heal 12 points of damage and remove the blinded
+and exhausted conditions from a target, you would have to
+expend 42 points (12 hit points restored plus 20 points for
+blinded plus 10 points for exhausted).
+
+Natural Armor (Ex): At 7th level, your skin thickens.
+developing faint s
+by 1. At 12th level, this improvement increases to +2, and at
+17th level to +3,
+
+Energy Immunity (Ex): At 9th level, you gain immu:
+nity to the energy type of the breath weapon you gained
+at 4th level
+
+Commune with Dragon Spirit (Sp): At 14th level, you
+gain the ability to contact your dragon totem directly to ask
+questions of it. This is the equivalent of casting a commune
+spell, except that it has no material component, focus, ot XP
+cost and allows only one question per three class levels. After
+
+ 
+
+cales, Your natural armor bonus improves
+
+using this ability, you cannot use it again for seven days.
+Draconic Wings (Ex): At 19th level, you grow a pair of
+wings that resemble those of your totem dragon. They allow
+
+ 
+
+   
+
+flight at a speed of 60 feet (good maneuverability). You can
+even fly while carrying a medium load, though your fly speed
+drops to 40 feet in this case.
+
+If you already have wings, you can choose whether these
+draconic wings replace your own.
+
+PLAYING A DRAGON SHAMAN
+
+Asa dragon shaman, you believe the acquisition of power is
+a worthy end in itself, By having power, you can effect your
+will in the world, be it beneficent or malign. Those who have
+or seek power deserve your respect, while those who have
+power but fail to use it earn your derision.
+
+Your strength comes from devoting yourself to dragons,
+the primal embodiment of the principle of power, but you
+worship dragons in the abstract, honoring them much as a
+cleric might honor light as symbol of purity and goodness.
+Dragons gather power to themselves simply by living and
+aging, but you must actively seek the influence and might
+you desire. As a dragon hungers for flesh to feed itself or for
+treasure to enlarge its hoard, so you hunger for power.
+
+You ad uit of a desire to test yourself and prove
+your worth; whatever the specific inducement, the urge t0
+gain more power underlies every quest. Drawn by your power,
+others follow your lead, and you are happy to command them.
+Being a great leader is just one of the many ways you can
+manifest your power.
+
+ 
+
+ 
+
+   
+
+neure
+
+ 
+
+Religion
+Dragon shamans can worship any deity, but most worship
+divine powers that encourage thelr worshipers to he prosc-
+tive in pursuit of the deiry’s goals. Dragon shamans often
+worship Erythnul, Gruumsh, Heironeous, Hextor, Kord, or
+St. Cuthbert, as well as dragon deities such as Bahansut and
+Tiamat, They tarely find much to admire in more passive
+
+ob, Ehlonna, Fharlanghn,
+
+ 
+
+ 
+
+ 
+
+of protective deities such as Boc
+and Yondalla
+
+ 
+
+Dragon shamans from more primitive societies sometimes
+worship true dragons. These savage dragon shamans might
+worship all true dragons, assigning each color or metallic
+hue its own place in a crude pantheon of totemic spirits. Or
+they might worship a single color or meral as the best among
+all the true dragons, finding it the most representative of
+pure power. In rare cases, a dragon shaman worships and
+serves a particular true dragon. How the dragon reacts to
+such worship depends on that individual dragon; even good
+dragons might take advantage of a dragon shaman’s worship
+to achieve their own aims.
+
+Other Classes
+
+You work well with melee-oriented allies such as fighters,
+duskblades, barbarians, rogues, and even druids. Those
+characters value the benefits a dragon shaman can grant them
+and rarely make an issue of their source. Clerics, paladins,
+monks, and knights are often suspicious of your moral out-
+look unless you have dedicated yourself to a kind of dragon
+that associates itself with a code of ethics similar to their own.
+Wizards, bards, and beguilers view you indifferently, whereas
+sorcerers might seek you out to learn more of the source of
+

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "95ba2eb8b173:meta",
+    "sourceId": "95ba2eb8b173",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Quintessential/The Quintessential Temptress.pdf",
+    "title": "The Quintessential Temptress",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T22:47:06.356099+00:00",
+  "meta": {
+    "sourceId": "95ba2eb8b173",
+    "title": "The Quintessential Temptress",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Classes/Quintessential/The Quintessential Temptress.pdf",
+    "pages": 97,
+    "extractedAt": "2026-02-03T22:47:05.894169+00:00"
+  },
+  "enqueued_extractPages": 49
+}

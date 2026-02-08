@@ -1,0 +1,137 @@
+ALAMENTATION OF THEIVES
+
+three A.M., they find the museum closed. Otherwise, the
+doors stand open, revealing the parlor.
+
+Ironbound Wooden Door: 3 in. thick; Hardness 8; hp
+20; Break (DC 28); Open Lock (DC 28). Failure to
+successfully pick the lock releases a small mallet within the
+door. The mallet strikes a bell, the sound of which is heard
+bby thosedncthe upper level ona iamucherk (DC 203, and
+by those in the lower level (DC 28). The mallet may be
+detected (Search check [DC 18]) and removed (Disable
+Device [DC 20]).
+
+Keyed Locations
+
+1. Parlor (EL7)
+
+Beyond the double doors is a small, comfortable room,
+the floor covered entirely in a well-worn red carpet, the
+walls hung with mirrors of various designs. Behind a
+large teak desk sits a woman so thin and pale that she
+appears likely to shrivel and turn to dust. Her dull
+brown hair hangs listlessly in her face, and her corpselike
+features are twisted into a parody of a smile. One hand
+holds a quill pen, the other rests on a large open book.
+The woman stares straight ahead, her eyes without
+luster—and then you realize that this woman is made
+of wax! A clever sculpture she is indeed, right down to
+the fine white hairs on her arms. As you're examining
+the lifelike lashes on her dead eyes, a door in the south
+wall opens, and through it steps a middle-aged man in
+an ill-fitting black suit. A pair of spectacles perches
+upon his wrinkled nose. “Well met,” he says. “I am
+called Risvane, and it is my sincerest pleasure to
+welcome you to the tomb of wax cadavers and the
+courtroom of wax kings, Fellspar’s House of Wax,
+menagerie of the misshapen, hall of the hideous.”
+
+As he stated, this is Risvane, elder tour guide and
+Fellspar’s accomplice in matters both noble and nefarious.
+Though he isn’t aware of the full extent of his employer's
+plan, Risvane knows that a band of brave souls is needed
+to recover the Bell of Heaven. Once the heroes state the
+purpose of their visit, Risvane asks them to sign in, as all
+visitors must do, though he waives the usual fee of 1 cp for
+entering the museum. After all, the heroes aren’t here for
+a tour! Signing in involves taking the quill from the wax
+dummy’s hand, an experience, which is harmless, but
+perhaps a little disconcerting. After everyone has
+autographed the ledger, Risvane conducts him or her
+through the south door.
+
+Alert: Risvane sleeps in this room on a cot he keeps in
+the closet. If he hears an intruder, he hurries off to inform
+Elias Fellspar. If caught unawares, he fights rather than
+runs, but continuously shouts out a warning.
+
+Creature: Not only does Risvane attack and raise the
+general alarm, but he also shouts through the doorway into
+the street, hoping to rouse passersby into bringing help. He
+afterwards explains to the constables that he and his
+employer were subject to a brutal and unprovoked assault
+at the hands of the PCs.
+
+Risvane, Male Human Ftr7: CR 7; SZ M (6 ft., 5 in.
+tall); HD 7d10+21; hp 59; Init +4 (Improved initiative);
+Spd 30 ft.; AC 10; BAB/Grap +7/+11; Atk +13/+8 melee
+(1d8+8, +2 longsword, 19-20/x2); Full Atk +13/+8 melee
+(1d8+8, +2 longsword, 19-20/x2); AL LE; SV Fort +8, Ref
++2, Will +3; Str 18, Dex 10, Con 16, Int 8, Wis 12, Cha 12.
+
+Skills: Appraise +1, Handle Animal +5, Knowledge
+(arcana) +2, Listen +9, Spot +3. Feats: Alertness, Blind-
+Fight, Combat Reflexes, Improved Initiative, Leadership,
+Quick Draw, Weapon Focus (longsword), Weapon Spe-
+cialization (longsword).
+
+Possessions: +2 longsword, pouch containing 52 gp and a
+love letter from a woman named Rosalind.
+
+Personality: Risvane is cold and austere, businesslike at
+all times. He is a slave to money, and his loyalty is thus
+firmly in Fellspar’s possession. He is unaware that Fellspar
+is actually a bhuta.
+
+2. Closet
+
+This small room contains Risvane’s cot, as well as
+various cleaning supplies and a stock of spare candles,
+torches and the like.
+
+3. Privy
+
+This narrow, smelly place serves as the only latrine in
+the building. Though a clay pot of incense burns here, the
+fumes do little to conceal the stench.
+
+Alert: The incense isn’t burning, and the subsequent
+odor is nearly overpowering. Anyone who spends more
+than a minute here must make a Fortitude save (DC 15) or
+become nauseous and suffer a—1 penalty to all rolls for the
+next 1d4+1 minutes.
+
+4. Waiting Room
+
+This roomis lined with chairs and benches. Visitors wait
+here before entering the Grand Showroom. During busi-
+ness hours, this room is occupied by 2d4 common townfolk,
+at least half of whom are children. One of the children,
+Turvin, is fascinated with the heroes, intrigued by their
+strange gear and clothes. Turvin peppers the PCs with all
+manners of childlike questions concerning their weapons,
+quests, and of course whether or not they’ve seen any
+dragons. If the PCs take the museum tour, Turvin follows
+them, constantly chattering away. If Risvane has led the
+PCs here, he asks them to wait for a few moments while he
+speaks with the museum’s owner. He enters the Office
+(Area 5), closing the door behind him. Five minutes later,
+he returns to conduct them into the Office for their parley
+with Elias Fellspar. Refer to The Meeting, below.
+
+Alert: Every day after locking up the museum, Risvane
+sets a ward in this room in the form a tripwire across the
+curtained threshold to Area 7. The tripwire is so fine as to
+be noticed only a Spot check (DC 22), or located on a
+Search check (DC 20). The tripwire runs through the floor
+to the Waxworks below, sounding a series of chimes that
+are heard throughout the facility on a Listen check (DC
+12). The tripwire may either be stepped over or removed
+
+(Disable Device [DC 15]).
+
+49
+
+ 
+

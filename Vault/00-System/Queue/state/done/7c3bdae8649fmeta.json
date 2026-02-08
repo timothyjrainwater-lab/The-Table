@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "7c3bdae8649f:meta",
+    "sourceId": "7c3bdae8649f",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Demonology - The Dark Road.pdf",
+    "title": "Demonology - The Dark Road",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T08:41:06.737788+00:00",
+  "meta": {
+    "sourceId": "7c3bdae8649f",
+    "title": "Demonology - The Dark Road",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Demonology - The Dark Road.pdf",
+    "pages": 72,
+    "extractedAt": "2026-02-03T08:41:06.389638+00:00"
+  }
+}

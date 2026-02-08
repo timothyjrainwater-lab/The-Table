@@ -1,0 +1,156 @@
+ 
+ 
+   
+   
+
+Domain format
+
+The domain descriptions in this chapter ad-
+here to the format outlined below.
+
+Cultural Level: The Cultural Level of a do-
+main describes the degree of technological and
+social advancement that dominates the local soci-
+ety. This in turn dictates what kinds of goods and
+services can be obtained in the domain. Some
+domains may have more than one Cultural Level
+because of or an unusual society. See Chapter
+One for descriptions of Cultural Levels and Chap-
+ter Two for guidelines on how to implement them.
+
+Landscape: Each domain has an ecology rat-
+ing, which determines how certain summoning
+spells function (see Chapter Three). Appropriate
+climate and terrain categories referenced in the
+D&D Dungeon Master’s Guide and Monster Manual
+are also included. The bulk of this section provides
+a description of the domain’s topography, vegeta-
+tion, bodies of water, climate, architecture and
+other notable features.
+
+ 
+
+   
+
+Major Settlements: The most importantsettle-
+ments in the domain are listed in alphabetical
+order with their populations. Assets and gold piece
+limits can be derived using the town ratings pre-
+sented in Chapter 4 of the D&D Dungeon Master's
+Guide. Other settlements may exist in large do-
+mains but generally are of insignificant size.
+
+The Folk: The domain’s approximate total
+population is given, with a breakdown by race.
+Unless otherwise noted, “dwarves” are hill dwarves,
+“elves” are high elves, “gnomes” are rock gnomes,
+and “halflings” are lightfoot halflings. “Other” in-
+dicates a mixture of standard nonhuman races
+(calibans, dwarves, elves, gnomes, half-elves, half-
+Vistani and halflings) that are not explicitly cited,
+as well as a smattering of living, intelligent mon-
+sters that can pass for human (such as lycanthropes
+and doppelgangers). Undead are not included in
+population statistics, except in special cases; nei
+ther are full-blooded Vistani. Other special
+populations may be listed if they are significant
+(suchas the goblyns of Forlorn). The languages and
+religions of the domain are both listed in descend-
+ing order of popularity. The official or dominant
+language(s) and religion(s), ifany, are labeled with
+an asterisk. The rest of this section describes the
+physical appearance of native humans, local dress,
+and the general demeanor and customs of the
+domain’s inhabitants.
+
+The Law: This section includes the domain’s
+form of government, its current ruler, and a de-
+
+ 
+
+SO
+
+ 
+
+ 
+
+5
+
+t
+t
+7
+
+\
+
+C= corwcs cs <s i
+
+ 
+ 
+
+“@hat Domain Hre You From?”
+
+The term “domain” is used throughout
+this chapter for the sake of convenience. Here
+it refers to an area in the Land of Mists that is
+controlled by an imprisoned darklord. It is
+worth noting, however, that the word does not
+carry the same meaning for Ravenloft’s inhab-
+itants. Although they may refer toa particular
+domain asa such, folk may also call ita realm,
+barony, kingdom, nation and so forth. Con-
+versely, some domains are regarded merely as
+wild or haunted regions without well-defined
+borders ot any political identity.
+
+It is essential to remember that the na-
+tives of Ravenloft are “inside the black box.”
+Unlike you, gentle reader, they do not have
+the privilege of perusing a book that presents
+the truth about their world. They aren’t aware
+that the geographical and political divisions of
+their world are enforced by faceless, menacing
+powers. They don’t understand that their real-
+ity operates according to principles that would
+be deemed mad on other worlds. And they
+certainly don’t use such terms as “domain,”
+“darklord,” or “Ravenloft,” at least in the same
+sense that Ravenloft players and DMs do.
+
+ 
+
+ 
+
+scription of how fear order is maintained. Not
+all domains have a centralized authority, and some
+have no formal government at all.
+
+Trade and Diplomacy: This section lists the
+domain’s important resources, including foodstuffs,
+raw materials, crafted items and other more un-
+usual assets, such as knowledge or culture. The
+names of local coin denominations, if any, are
+listed here as well. A description of the domain’s
+relationships with other domains follows, includ-
+ing political, military and economic alliances and
+rivalries.
+
+Realm Magic Rating: The magic rating given
+to a realm usually shows a range of the most
+appropriate rating for that area. The magic rating
+may determine how likely it is that spellcasters
+exist in or hail from within that domain as well as
+the availability of spells and magic items and the
+frequency of supernatural foes encountered.
+
+Characters: This section provides guidelines
+for designing characters native to the domain. The
+classes, skills and feats that are listed here are
+
+ 
+
+SG
+
+eae
+
+ee
+

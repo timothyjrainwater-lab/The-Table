@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "4d197aed5293:compile:0028",
+    "sourceId": "4d197aed5293",
+    "kind": "compileChunk",
+    "page": 28,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T04:41:27.044846+00:00"
+  },
+  "doneAt": "2026-02-03T05:19:54.038987+00:00",
+  "citation": "PHB (pdf p.0028)",
+  "printedGuess": "27",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — The Bard (PHB 3–4)"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "da4ea38d70f2:meta",
+    "sourceId": "da4ea38d70f2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 12/Short Adventures - Black Water.pdf",
+    "title": "Short Adventures - Black Water",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:39:52.025589+00:00",
+  "meta": {
+    "sourceId": "da4ea38d70f2",
+    "title": "Short Adventures - Black Water",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 12/Short Adventures - Black Water.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T18:39:52.018512+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

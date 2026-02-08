@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "f5039199588c:meta",
+    "sourceId": "f5039199588c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Campaign Settings/Eberron/Blades Of The Quori.pdf",
+    "title": "Blades Of The Quori",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:48:29.097448+00:00",
+  "meta": {
+    "sourceId": "f5039199588c",
+    "title": "Blades Of The Quori",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Campaign Settings/Eberron/Blades Of The Quori.pdf",
+    "pages": 3,
+    "extractedAt": "2026-02-03T05:48:29.055378+00:00"
+  }
+}

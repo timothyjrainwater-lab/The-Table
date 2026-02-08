@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "893fcd1c893b:meta",
+    "sourceId": "893fcd1c893b",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Map of Khorvaire.pdf",
+    "title": "Map of Khorvaire",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T14:10:05.469029+00:00",
+  "meta": {
+    "sourceId": "893fcd1c893b",
+    "title": "Map of Khorvaire",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Map of Khorvaire.pdf",
+    "pages": 1,
+    "extractedAt": "2026-02-03T14:10:05.461382+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

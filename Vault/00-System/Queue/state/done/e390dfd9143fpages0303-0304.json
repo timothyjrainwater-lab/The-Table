@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "e390dfd9143f:pages:0303-0304",
+    "sourceId": "e390dfd9143f",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/Monster Manual.pdf",
+    "pageStart": 303,
+    "pageEnd": 304,
+    "status": "pending",
+    "createdAt": "2026-02-03T14:35:55.246502+00:00"
+  },
+  "doneAt": "2026-02-04T05:38:22.568647+00:00",
+  "wrote": [
+    "00-System/Staging/e390dfd9143f/pages/0303.txt",
+    "00-System/Staging/e390dfd9143f/pages/0304.txt"
+  ],
+  "method": {
+    "303": "ocr",
+    "304": "ocr"
+  }
+}

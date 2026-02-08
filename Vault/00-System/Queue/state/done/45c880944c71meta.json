@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "45c880944c71:meta",
+    "sourceId": "45c880944c71",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Serpent Kingdoms.pdf",
+    "title": "Serpent Kingdoms",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:07:03.223029+00:00",
+  "meta": {
+    "sourceId": "45c880944c71",
+    "title": "Serpent Kingdoms",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Serpent Kingdoms.pdf",
+    "pages": 202,
+    "extractedAt": "2026-02-03T18:07:03.215593+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

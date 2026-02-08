@@ -1,0 +1,129 @@
+ 
+ 78 
+KNOWLEDGE (INT; TRAINED ONLY) 
+Like the Craft and Profession skills, Knowledge actually encom-
+passes a number of unrelated skills. Knowledge represents a study of 
+some body of lore, possibly an academic or even scientific discipline. 
+Below are listed typical fields of study. With your DM’s approval, 
+you can invent new areas of knowledge. 
+/rhombus4 Arcana (ancient mysteries, magic traditions, arcane symbols, 
+cryptic phrases, constructs, dragons, magical beasts) 
+/rhombus4 Architecture and engineering (buildings, aqueducts, bridges, 
+fortifications) 
+/rhombus4 Dungeoneering (aberrations, caverns, oozes, spelunking) 
+/rhombus4 Geography (lands, terrain, climate, people) 
+/rhombus4 History (royalty, wars, colonies, migrations, founding of cities) 
+/rhombus4 Local (legends, personalities, inhabitants, laws, customs, tradi-
+tions, humanoids) 
+/rhombus4 Nature (animals, fey, giants, monstrous humanoids, plants, 
+seasons and cycles, weather, vermin) 
+/rhombus4 Nobility and royalty (lineages, heraldry, family trees, mottoes, 
+personalities) 
+/rhombus4 Religion (gods and goddesses, mythic history, ecclesiastic tradi-
+tion, holy symbols, undead) 
+/rhombus4 The planes (the Inner Planes, the Outer Planes, the Astral Plane, 
+the Ethereal Plane, outsiders, elementals, magic related to the 
+planes) 
+Check: Answering a question within your field of study has a DC 
+of 10 (for really easy questions), 15 (for basic questions), or 20 to 30 
+(for really tough questions). 
+In many cases, you can use this skill to identify monsters and 
+their special powers or vulnerabilities. In general, the DC of such a 
+check equals 10 + the monster’s HD. A successful check allows you 
+to remember a bit of useful information about that monster. For 
+every 5 points by which your check result exceeds the DC, you 
+recall another piece of useful information. 
+Action: Usually none. In most cases, making a Knowledge check 
+doesn’t take an action—you simply know the answer or you don’t. 
+Try Again:  No. The check represents what you know, and 
+thinking about a topic a second time doesn’t let you know 
+something that you never learned in the first place. 
+Synergy: If you have 5 or more ranks in Knowledge (arcana), you 
+get a +2 bonus on Spellcraft checks. 
+If you have 5 or more ranks in Knowledge (architecture and 
+engineering), you get a +2 bonus on Search checks made to find 
+secret doors or hidden compartments. 
+If you have 5 or more ranks in Knowledge (geography), you get a 
++2 bonus on Survival checks made to keep from getting lost or to 
+avoid natural hazards. 
+If you have 5 or more ranks in Knowledge (history), you get a +2 
+bonus on bardic knowledge checks (see page 28). 
+If you have 5 or more ranks in Knowledge (local), you get a +2 
+bonus on Gather Information checks. 
+If you have 5 or more ranks in Knowledge (nature), you get a +2 
+bonus on Survival checks made in aboveground natural environ-
+ments (aquatic, desert, forest, hill, marsh, mountains, or plains). 
+If you have 5 or more ranks in Knowledge (nobility and royalty), 
+you get a +2 bonus on Diplomacy checks. 
+If you have 5 or more ranks in Knowledge (religion), you get a +2 
+bonus on turning checks against undead (see page 159). 
+If you have 5 or more ranks in Knowledge (the planes), you get a 
++2 bonus on Survival checks made while on other planes. 
+If you have 5 or more ranks in Knowledge (dungeoneering), you 
+get a +2 bonus on Survival checks made while underground. 
+If you have 5 or more ranks in Survival, you get a +2 bonus on 
+Knowledge (nature) checks. 
+Untrained: An untrained Knowledge check is simply an Intel-
+ligence check. Without actual training, you know only common 
+knowledge (DC 10 or lower). 
+ 
+LISTEN (WIS) 
+Use this skill to hear approaching enemies, to detect someone 
+sneaking up on you from behind, or to eavesdrop on someone else’s 
+conversation. 
+Check: Your Listen check is either made against a DC that 
+reflects how quiet the noise is that you might hear, or it is opposed 
+by your target’s Move Silently check. 
+Your DM may decide to make the Listen check for you, so that 
+you don’t know whether not hearing anything means that nothing 
+is there, or that you failed the check. 
+ 
+Listen DC Sound 
+–10 A battle 
+ 0 People talking 1 
+ 5 A person in medium armor walking at a slow pace 
+  (10 ft./round) trying not to make any noise. 
+ 10 An unarmored person walking at a slow pace 
+  (15 ft./round) trying not to make any noise 
+ 15 A 1st-level rogue using Move Silently to sneak past the 
+  listener 
+ 15 People whispering 1 
+ 19 A cat stalking 
+ 30 An owl gliding in for a kill 
+1 If you beat the DC by 10 or more, you can make out what’s being said, 
+assuming that you understand the language. 
+ 
+Listen DC Modifier Condition 
+ +5 Through a door 
+ +15 Through a stone wall 
+ –1 Per 10 feet of distance 
+ –5 Listener distracted
+ 
+ 
+In the case of people trying to be quiet, the DCs given on the table 
+could be replaced by Move Silently checks, in which case the 
+PLAYER KNOWLEDGE VERSUS 
+CHARACTER KNOWLEDGE 
+It’s pretty simple to measure a character’s knowledge of things the player
+doesn’t know. That’s what a Knowledge skill check represents—for 
+instance, the player of a character with many ranks in Knowledge
+(geography) isn’t required to memorize all the geographic data about the
+campaign world to use his character’s skill ranks. 
+The opposite case, however, is harder to ad judicate cleanly. What
+happens when a player knows something that his or her character does
+not have any reason to know? For instance, while most veteran players
+know that black dragons breathe acid, it’s entirely likely that most
+inexperienced characters don’t know that fact. 
+Generally speaking, it’s impossible to separate completely your 
+personal knowledge (also called player knowledge) from your character’s 
+knowledge. Ultimately, the decision on how (or if) to divide player 
+knowledge from character knowledge must be made between the players 
+and the DM. Some DMs encourage knowledgeable players to use their 
+experience to help their characters succeed. Others prefer that characters 
+display only the knowledge represented by their skill ranks and other
+game statistics. Most fall somewhere between those two extremes. 
+I f  i n  d o u b t ,  a s k  y o u r  D M  h o w  h e  o r  s h e  p r e f e r s  t o  h a n d l e  s u c h  
+situations. The Dungeon Master’s Guide  has more information on this 
+topic. 
+CHAPTER 4: 
+SKILLS 

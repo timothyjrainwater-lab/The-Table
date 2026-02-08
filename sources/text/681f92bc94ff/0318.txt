@@ -1,0 +1,281 @@
+ 317
+pattern (subschool of illusion) 
+173 
+perfect self (monk) 42 
+Perform 79 
+personality (of characters) 110 
+Persuasive 98 
+phantasm (subschool of 
+illusion) 173 
+Plane of Shadow 265, 276, 277 
+Plant domain 188 
+platinum piece 112 
+player knowledge 78 
+Point Blank Shot 98 
+point of origin (of a spell) 175, 
+176 
+positive energy 159, 160 
+Power Attack 98 
+practically impossible tasks 65 
+preparing divine spells 179 
+preparing wizard spells 177 
+Precise Shot 98 
+prerequisites (of feats) 87 
+Profession 80 
+projectile weapons 113 
+Protection domain 188 
+purity of body (monk) 41 
+Quick Draw 98 
+Quicken Spell 98 
+quivering palm (monk) 42 
+race, choosing 11 
+rage (barbarian) 25 
+range (of a spell) 174 
+range increment 114 
+range penalty 134 
+ranged attacks 139 
+ranged touch attack 158, 175 
+ranged weapons 112 
+ranger 46 
+spells 47, 191 
+Rapid Reload 99 
+Rapid Shot 99 
+ray (spell effect) 175 
+reach weapons 112, 137 
+ready (action) 160 
+ready or loose a shield (action) 
+142 
+rebuke undead 159 
+recovering hit points 146 
+Reflex saving throws 136 
+cover bonus 151 
+religion 106 
+remove disease (paladin) 44 
+resist nature's lure (druid) 37 
+restricted activity 139 
+rewards, other 168 
+Ride 80 
+Ride-By Attack 99 
+rogue 49 
+round (combat) 138 
+Run (feat) 99 
+run (action) 144 
+run (movement mode) 163 
+saving throws 136 
+and illusions 173 
+for objects 166 
+against spells 176 
+school specialization 75 
+schools of magic 172 
+Scribe Scroll 99 
+(wizard) 57 
+scrying (subschool of 
+divination) 173 
+Search 81 
+Self-Sufficient 100 
+selling loot 112 
+Sense Motive 81 
+shadow (subschool of illusion) 
+173 
+shapeable spells 176 
+shield bonus 122 
+Shield Proficiency 100 
+Shot on the Run 100 
+Silent Spell 100 
+silver piece 112 
+Simple Weapon Proficiency 
+100 
+simple weapons 112 
+size (of creatures) 149, 150 
+(of weapons) 113 
+size modifiers 134, 136 
+for grappling 156 
+skill checks 63 
+time 64 
+Skill Focus 100 
+skill mastery (rogue) 51 
+skills 61, 63 
+access to 64 
+synergy 66 
+sleeping in armor 122 
+Sleight of Hand 81 
+slippery mind (rogue) 51 
+slow fall (monk) 41 
+Small characters 20 
+smite evil (paladin) 44 
+Snatch Arrows 100 
+sneak attack (rogue) 50 
+somatic component 174 
+song of freedom (bard) 29 
+sorcerer 51 
+readying of spells 179 
+spells 54, 179, 192 
+space (of a creature) 149 
+speak (free action) 144 
+Speak Language 82 
+special attacks 154 
+special mount (paladin) 44 
+special substances and items 
+128 
+specialist wizards 57 
+speed 136 
+and armor 122 
+bonuses to 147 
+tactical 147 
+spell chains 181 
+spell completion items 142 
+Spell Focus 100 
+Spell Mastery 100 
+Spell Penetration 100 
+spell preparation 177, 179 
+spell resistance 177 
+spell slots 178, 180 
+spell trigger items 142 
+spell version 170 
+spellbooks 57, 178 
+spellcasting and services 132 
+Spellcraft 82 
+spell-like abilities 142, 180 
+on the defensive 142 
+spells, metamagic 88 
+sphere (spell area) 175 
+Spirited Charge 100 
+splash weapons 128, 158 
+spontaneous casting 180 
+(cleric) 32 
+(druid) 35 
+and metamagic feats 88 
+Spot 83 
+spread (spell effect or area) 175 
+Spring Attack 100 
+squeezing movement 148, 149 
+stable characters and recovery 
+145 
+stacking effects 171 
+stand up (action) 143 
+standard action 138 
+start/complete full-round 
+action (action) 142 
+starting gold 111 
+starting packages 24, 111 
+Stealthy 101 
+still mind (monk) 41 
+Still Spell 101 
+Strength 8 
+modifier 134 
+tremendous 162 
+Strength domain 188 
+Stunning Fist 101 
+suggestion (bard) 29 
+summoning (subschool of 
+conjuration) 173 
+Sun domain 188 
+sunder (special attack) 158 
+supernatural abilities 142, 180 
+surprise 137 
+Survival 83 
+swift tracker (ranger) 48 
+Swim 84 
+synergy (of skills) 66 
+tactical movement 147 
+take 5-foot step (free action) 
+144 
+taking 10 65 
+taking 20 65 
+target (of a spell) 175 
+teleportation (subschool of 
+conjuration) 173 
+temporary hit points 146 
+terrain and obstacles 148 
+thousand faces, a (druid) 37 
+threatened squares 137 
+threat range 114, 140 
+throw splash weapon (special 
+attack) 158 
+thrown weapons 113, 158 
+improvised 113 
+timeless body (druid) 37 
+(monk) 42 
+tireless rage (barbarian) 26 
+tongue of the sun and moon 
+(monk) 42 
+tools and skill kits 129 
+total defense (action) 142 
+touch attacks 136, 141 
+touch spells 176 
+in combat 140 
+Toughness 101 
+Tower Shield Proficiency 101 
+Track 101 
+(ranger) 47 
+trackless step (druid) 36 
+trade goods 112 
+Trample 101 
+transmutation (school) 57, 174 
+transport 132 
+trap sense (barbarian) 26 
+(rogue) 50 
+trapfinding (rogue) 50 
+traps 73 
+Travel domain 188 
+treasure 167 
+Trickery domain 189 
+trip (special attack) 158 
+trying again (on skill check) 64 
+Tumble 84 
+turn or rebuke undead (special 
+attack) 159 
+(cleric) 33 
+(paladin) 44 
+turning checks 159 
+two-handed weapons 113 
+Two-Weapon Defense 102 
+Two-Weapon Fighting 102 
+two-weapon fighting (special 
+attack) 160 
+unarmed attacks 139 
+unarmed strike (monk) 41 
+unaware combatants 137 
+uncanny dodge (barbarian) 26 
+(rogue) 50 
+unconscious 146 
+universal (spell category) 57 
+untrained skill checks 64 
+use feat (action) 145 
+Use Magic Device 85 
+Use Rope 86 
+use skill (action) 145 
+use special ability (action) 142 
+use-activated items 142 
+venom immunity (druid) 37 
+verbal component 174 
+version (of a spell) 170 
+vision and light 164 
+vital statistics 109 
+walk (movement mode) 163 
+War domain 189 
+Water domain 189 
+wealth and money 112 
+Weapon Finesse 102 
+Weapon Focus 102 
+Weapon Specialization 102 
+weapons 112 
+size of 113 
+types of 114 
+weight (of characters) 109 
+(of gear) 161 
+Whirlwind Attack 102 
+wholeness of body (monk) 42 
+Widen Spell 102 
+wild empathy (druid) 35 
+(ranger) 47 
+wild shape (druid) 37 
+Will saving throws 136 
+Wisdom 9, 10 
+withdraw (action) 143 
+wizard 55 
+preparing spells 177 
+spells 56, 177, 192 
+woodland stride (druid) 36 
+(ranger) 48 
+XP cost (spell component) 174 

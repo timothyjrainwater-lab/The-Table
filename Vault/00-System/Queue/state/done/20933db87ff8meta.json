@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "20933db87ff8:meta",
+    "sourceId": "20933db87ff8",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Tomb of The Overseers.pdf",
+    "title": "Tomb of The Overseers",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:00:53.998672+00:00",
+  "meta": {
+    "sourceId": "20933db87ff8",
+    "title": "Tomb of The Overseers",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Tomb of The Overseers.pdf",
+    "pages": 12,
+    "extractedAt": "2026-02-04T02:00:53.940026+00:00"
+  },
+  "enqueued_extractPages": 6
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "bfae469d7280:meta",
+    "sourceId": "bfae469d7280",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 14/Ill Wind In Friezford.pdf",
+    "title": "Ill Wind In Friezford",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:32:00.195813+00:00",
+  "meta": {
+    "sourceId": "bfae469d7280",
+    "title": "Ill Wind In Friezford",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 14/Ill Wind In Friezford.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T12:32:00.187668+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

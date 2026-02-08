@@ -1,0 +1,184 @@
+    
+  
+ 
+ 
+ 
+ 
+   
+ 
+
+  
+  
+       
+
+Each package specifies race, ability scores (which include
+racial modifiers), skills, feats, gear, and if appropriate, spells
+and class features, The skills all have maximum ranks—4
+ranks in each class skill and 2 ranks in each cross-class skill.
+(Cross-class skills are designated by the letters “cc.") Spells in
+parentheses are available only if your character's key abiliry
+core for spellcasting is high enough to grant a bonus tstlevel
+spell (or, if the character is a wizard, her Intelligence bonus
+is high enough to grant bonus spells in her spellbook), The
+class features section appears only for characters who have
+optional class features available ar 1st level, such as clerics
+(domains), druids (animal companions), and sorcerers and
+wizards (familiars)
+
+You can use these starting packages in any way you like, You
+are welcome to swap one skill for another, one feat for another
+(provided that your character meets the prerequisites), one
+spell for another, or one piece of gear for another of roughly
+equivalent value (within 5 gp). With a couple of exceptions,
+the starting packages in this book use only information
+available in the Player's Handbook. Thus, if you have ac
+to other rulebooks, you might want to swap out a few feats
+or weapons for options provided in those publications, The
+class features are likewise customizable.
+
+Most packages include the standard adventurer's kit—
+backpack, belt pouch, bedroll, flint and steel, two sunrods,
+ten days worth of trail rations, 50 feet of hempen rope, and
+waterskin. (Monks don't get the sunrods because they have
+too few gp at 1st level.)
+
+—___ BEGUILER
+
+“You know me. I'm as good as my word, and my life s an open book
+said with a straight face by Anastria Nailo,
+half-elf beguiler
+
+ 
+
+ 
+
+ 
+
+ess
+
+ 
+
+Some hold truth to be the greatest virtue, but it can do
+more damage than fiction. Everyone lives in a constant
+state of deception. White lies, false smiles, and secret
+thoughts keep society running smoothly. Honesty is a virtue
+only up toa certain point. Beguilers understand these ideas
+better than anyone, and they use deception, misunderstand.
+
+   
+
+MAKING A BEGUILER
+
+As a beguiler, you possess many useful skills and spells.
+If your adventuring group lacks a rogue, you make a great
+substitute for all but the rogue’s melee combat strengths. If
+the group lacks a wizard or other arcane caster, you can also
+fill that role with your command of illusions and enchant
+
+ments, although you lack a wizard's array of spells that deal
+damage and you possess less spellcasting versatility. Your
+main strategy should be to control enemies, bolster your
+allies, and take command of the battlefield.
+
+Abilities: Beguilers have quick wits, deft hands, and
+compelling personalities. You need a high Intelligence to
+get the most from your spells and skills. A high Charisma
+helps you be more convincing in your deceptions, while a
+high Dexterity helps you with the sneaky tasks you are likely
+to pursue. Don't neglect Constitution; although you have the
+same Hit Die as a rogue, your Constitution scote influences
+your ability to cast defensively and thus how well you can
+use your surprise casting class feature.
+
+Races: Beguilers can be found among any race, but gnomes
+and half-elves seem to most appreciate the beguilers' flexible
+philosophy about truth. Being tricksters and inquisitive by
+nature, gnomes gravitate to the beguiler class due to the
+interesting deeds it allows them to accomplish. Half-elves,
+trapped as they are between the worlds of elves and humans,
+find that a beguiler’s abilities help them better exist in both
+Humans, elves, and halflings also foster beguilers in their
+midst, but dwarves and half-orcs rarely become members of
+the class. Dwarves tend to dislike dissembling, and halFores
+typically lack the mental discipline and likable personality
+required to make a good beguiler.
+
+Alignment: The beguilers’ outlook about truth is neither
+good nor evil, and beguilers of all alignments walk the world
+Nevertheless, those well practiced in the arts of deception and
+manipulation rarely put much stock in others’ laws, and they
+often display a self-centered attitude, Lawful good beguilers
+are like lawful good necromancers—rare and foreign even
+to their fellows.
+
+Starting Gold: 6d4x10 gp (150 gp).
+
+Starting Age: As wizard (PH 109).
+
+ 
+
+ 
+
+ 
+
+ing, and secrets as skillfully as a soldier employs weapons CLASS FEATURES
+
+of war.
+
+Beguilers see lying and manipulation as tools. Just as a
+hammer can be used to build a house or crack a skull, deceit
+and the ability to control others can be used for good or ill
+A lie whispered in the right ear can ruin lives, but a dishon:
+est smile and honeyed words can open doors, turn foes into
+friends, and even end wars, Beguilers have reputations as
+rakes, thieves, spies, and puppet masters, but they can also
+be diplomats, peacemakers, or heroic leaders who give hope
+in desperate situations.
+
+If you delight in manipulating others, either to their
+disadvantage or for their own good, then the beguiler is the
+class for you, More than any other kind of character, you rely
+on Charisma-based skills to change the reactions of others,
+while your other class abilities enable you to
+guard with devastating spell-based attacks.
+
+ 
+
+ich others off
+
+ 
+
+Your spells and skills make you well suited to espionage and
+dungeon delving. In addition to being able to find and disarm
+traps your group might encounter, you can charm and con-
+found guards, rurning what could be dangerous encounters
+into simple steps toward your goal. In combat, you can use
+your spells to trick and outmaneuver foes
+
+Weapon and Armor Proficiency: Beguilers are proficient
+with all simple weapons plus the hand crossbow, rapier,
+shortbow, and short sword. Beguilers are proficient with light
+armor, but not with shields
+
+Spells: A beguiler casts arcane spells, which are drawn
+from the beguiler spell list on page 11. When you gain
+access to a new level of spells, you automatically know all
+the spells for that level on the beguiler’s spell list. You can
+cast any spell you know without preparing it ahead of time.
+Essentially, your spell list is the same as your spells known
+
+ 
+   
+   
+  
+ 
+ 
+ 
+ 
+    
+  
+ 
+ 
+    
+  
+

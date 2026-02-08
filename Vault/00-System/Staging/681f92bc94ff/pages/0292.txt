@@ -1,0 +1,130 @@
+ 
+ 291
+Note: Magic traps such as symbol of per-
+suasion are hard to detect and disable. A 
+rogue (only) can use the Search skill to 
+find a symbol of persuasion  and Disable De-
+vice to thwart it. The DC in each case is 25 
++ spell level, or 31 for symbol of persuasion. 
+Material Component:  Mercury and phos-
+phorus, plus powdered diamond and opal 
+with a total value of at least 5,000 gp. 
+ 
+Symbol of Sleep 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Clr 5, Sor/Wiz 5 
+Saving Throw: Will negates 
+ 
+This spell functions like symbol of death , 
+except that all creatures of 10 HD or less 
+within 60 feet of the symbol of sleep  instead 
+fall into a catatonic slumber for 3d6×10 
+minutes. Unlike with the sleep spell, 
+sleeping creatures cannot be awakened by 
+nonmagical means before this 
+time expires. 
+Unlike symbol of death , 
+symbol of sleep has no hit point 
+limit; once triggered, a symbol 
+of sleep  simply remains active 
+for 10 minutes per caster level. 
+Note: Magic traps such as 
+symbol of sleep  are hard to detect 
+and disable. A rogue (only) can use 
+the Search skill to find a symbol of 
+sleep and Disable Device to thwart it. 
+The DC in each case is 25 + spell level, 
+or 30 for symbol of sleep. 
+Material Component: Mercury and 
+phosphorus, plus powdered dia-
+mond and opal with a total value of 
+at least 1,000 gp. 
+ 
+Symbol of Stunning 
+Enchantment 
+(Compulsion) [Mind-
+Affecting] 
+Level: Clr 7, Sor/Wiz 7 
+Saving Throw: Will 
+negates 
+ 
+This spell functions like symbol 
+of death, except that all creatures 
+within 60 feet of a symbol of 
+stunning instead become stun-
+ned for 1d6 rounds. 
+Note: Magic traps such 
+as symbol of stunning are hard 
+to detect and disable. A rogue 
+(only) can use the Search skill to 
+find a symbol of stunning  and 
+Disable Device to thwart it. The 
+DC in each case is 25 + spell level, 
+or 32 for symbol of stunning. 
+Material Component:  Mercury and phos-
+phorus, plus powdered diamond and opal 
+with a total value of at least 5,000 gp. 
+ 
+Symbol of Weakness 
+Necromancy 
+Level: Clr 7, Sor/Wiz 7 
+ 
+This spell functions like symbol of death , 
+except that every creature within 60 feet of 
+a symbol of weakness  instead suffers 
+crippling weakness that deals 3d6 points of 
+Strength damage. 
+Unlike symbol of death , symbol of weakness 
+has no hit point limit; once triggered, a 
+symbol of weakness simply remains active for 
+10 minutes per caster level. 
+Note: Magic traps such as symbol of 
+weakness are hard to detect and disable. A 
+rogue (only) can use the Search skill to 
+find a symbol of weakness  and Disable 
+Device to thwart it. The DC in each 
+case is 25 + spell level, or 32 for 
+symbol of weakness. 
+Material Component:  Mercury 
+and phosphorus, plus powdered 
+diamond and opal with a total 
+value of at least 5,000 gp. 
+ 
+Sympathetic 
+Vibration 
+Evocation [Sonic] 
+Level: Brd 6 
+Components: V, S, F 
+Casting Time: 10 minutes 
+Range: Touch 
+Target: One freestanding structure 
+Duration: Up to 1 round/level 
+Saving Throw: None; see text 
+Spell Resistance: Yes 
+ 
+By attuning yourself to a freestanding 
+structure such as a building, bridge, 
+or dam, you can create a damaging 
+vibration within it. Once it begins, 
+the vibration deals 2d10 points of 
+damage per round to the target 
+structure. (Hardness has no effect 
+on the spell’s damage.) You can 
+choose at the time of casting to 
+limit the duration of the spell; 
+otherwise it lasts for 1 round/ 
+level. If the spell is cast upon a 
+target that is not freestanding 
+the surrounding stone dissipates 
+the effect and no damage occurs. 
+Sympathetic vibration  cannot 
+affect creatures (including con-
+structs). Since a structure is an 
+unattended object, it gets no 
+saving throw to resist the 
+effect. 
+Focus: A tuning fork. 
+ Jozan casts symbol of pain.
+CHAPTER 11: 
+SPELLS 

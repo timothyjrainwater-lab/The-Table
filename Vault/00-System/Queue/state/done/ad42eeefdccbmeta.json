@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "ad42eeefdccb:meta",
+    "sourceId": "ad42eeefdccb",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Player's Guide to Eberron.pdf",
+    "title": "Player's Guide to Eberron",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T16:03:30.170078+00:00",
+  "meta": {
+    "sourceId": "ad42eeefdccb",
+    "title": "Player's Guide to Eberron",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Player's Guide to Eberron.pdf",
+    "pages": 159,
+    "extractedAt": "2026-02-03T16:03:30.162956+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "fe845521e71e:meta",
+    "sourceId": "fe845521e71e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Way Of/The Way of The Dragon.pdf",
+    "title": "The Way of The Dragon",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T01:04:01.173401+00:00",
+  "meta": {
+    "sourceId": "fe845521e71e",
+    "title": "The Way of The Dragon",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Way Of/The Way of The Dragon.pdf",
+    "pages": 107,
+    "extractedAt": "2026-02-04T01:04:01.149409+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

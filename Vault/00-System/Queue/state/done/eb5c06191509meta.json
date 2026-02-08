@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "eb5c06191509:meta",
+    "sourceId": "eb5c06191509",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Book of Eldritch Might/Book of Eldritch Might 3 - The Nexus.pdf",
+    "title": "Book of Eldritch Might 3 - The Nexus",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T06:04:52.707224+00:00",
+  "meta": {
+    "sourceId": "eb5c06191509",
+    "title": "Book of Eldritch Might 3 - The Nexus",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Book of Eldritch Might/Book of Eldritch Might 3 - The Nexus.pdf",
+    "pages": 98,
+    "extractedAt": "2026-02-03T06:04:52.235779+00:00"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "a799a6dcd01a:meta",
+    "sourceId": "a799a6dcd01a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Faiths And Pantheons.pdf",
+    "title": "Faiths And Pantheons",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:28:13.944088+00:00",
+  "meta": {
+    "sourceId": "a799a6dcd01a",
+    "title": "Faiths And Pantheons",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Faiths And Pantheons.pdf",
+    "pages": 225,
+    "extractedAt": "2026-02-03T10:28:12.916856+00:00"
+  }
+}

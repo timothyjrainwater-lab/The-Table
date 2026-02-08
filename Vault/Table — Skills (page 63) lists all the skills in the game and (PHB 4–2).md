@@ -1,0 +1,12 @@
+# Table — Skills (page 63) lists all the skills in the game and (PHB 4–2)
+
+## Source
+- PHB (pdf p.0007)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

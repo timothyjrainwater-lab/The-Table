@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "810a7ffb57be:meta",
+    "sourceId": "810a7ffb57be",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/A Harvest of Evil.pdf",
+    "title": "A Harvest of Evil",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T04:33:50.584163+00:00",
+  "meta": {
+    "sourceId": "810a7ffb57be",
+    "title": "A Harvest of Evil",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/A Harvest of Evil.pdf",
+    "pages": 7,
+    "extractedAt": "2026-02-03T04:33:50.522107+00:00"
+  }
+}

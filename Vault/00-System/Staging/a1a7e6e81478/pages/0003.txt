@@ -1,0 +1,126 @@
+Unapproachable EastWeb Enhancement
+3
+20 ft.; AC 16, touch 12, flat-footed 14; Atk +9 melee (1d6+7/18–20,
++1 scimitar); SQ darkvision 60 ft.; AL LE; SV Fort +7, Ref +3, Will
++2; Str 18, Dex 14, Con 16, Int 10, Wis 12, Cha 8.  
+Skills and Feats:Climb +4, Intimidate +1, Ride (horse) +7, Spot
++2; Cleave, Dodge, Mounted Combat, Power Attack, Ride-By Attack.
+Possessions:Masterwork scale mail, +1 scimitar, 6 javelins, potion
+of cure light wounds (3), potion of cure moderate wounds, 50 gp in
+pouch, light warhorse.
+D Light Warhorse: CR 1; Large animal; HD 3d8+9; hp 22; Init
++1; Spd 60 ft.; AC 14, touch 10, flat-footed 13; Atk +4 melee (1d4+3,
+2 hooves) and –1 melee (1d3+1, bite); Face/Reach 5 ft. by 10 ft./5
+ft.; SQ low-light vision, scent; AL N; SV Fort +6, Ref +4, Will +2;
+Str 16, Dex 13, Con 17, Int 2, Wis 13, Cha 6.  
+Skills and Feats:Hide –3, Listen +7, Spot +7.
+Scent (Ex): A light warhorse can detect approaching enemies,
+sniff out hidden foes, and track by sense of smell.
+DCaravan Guards (6): War 3; hp 18; see D
+UNGEONMASTER’s
+Guide.
+Tactics: The orcs focus on eliminating the caravan guards first,
+unless they see evidence that the party is quite proficient; spell-
+throwing characters are noticed particularly. If the orc group loses
+half its number, the remaining members make a retreat into the
+hills, but they do notgo back to the prophet. Rather, they attempt
+to go deeper into the mountains in hopes of shaking off pursuit.
+Development: The merchant is named Boren (NG male human
+Exp5), and his son is Baderan (NG male human Exp2), and they had
+set out from Phent with intentions to reach Tammar. Should the
+party rescue them, they are most effusive in their gratitude and prom-
+ise the group some excellent bargains the next time they are in Phent.
+If all the caravan guards are dead, Boren asks the heroes to escort
+him and his son to Tammar, and he offers 3 gp per day of travel
+(plus food and drink) to each adventurer in exchange for guardian
+services rendered. Should the group do this, roll normal chances of
+encounters during the trip.
+In any event, Boren gives the party one very crucial piece of
+information: Rumors abound of the orc population in Phent getting
+restless, and some orcs are always at the Resthaven Inn, in Phent,
+arguing orc politics and such. Boren believes that the restlessness is
+causing the orcs in Phent to resort to banditry such as they have
+seen, though if confronted by the fact that the orcs are actually
+half-orcs, he gets puzzled and wonders aloud if a plot is afoot to rile
+up the folk in Phent so that they get angry at the orcs there.
+If the PCs decide to head for Phent to discover more about these
+rumors, they have to cover ten miles of the Golden Way to hit the
+Resthaven Inn, which is one of the larger inns right off the Golden
+Way in Phent. DMs can roll for random encounters as the PCs cover
+the terrain to Phent.
+At the Resthaven Inn
+The Resthaven Inn is one of the larger inns that the PCs see when coming
+into town via the Golden Way. The group can get some idea about what’s
+going on in Phent. This is an excellent place to pick up rumors.
+The Resthaven has nice rooms for 2 gp per night, though some
+lesser facilities are available for 5 sp per evening. The place is run
+by Golvas Winterhaven (NG male human War5/Exp2), a huge man
+with a laughing manner about him.
+A few hours of drinks and chatting with the locals earns each PC
+doing so a chance to make a Gather Information check. The follow-
+ing table presents some information and the DCs for the Gather
+Information check to discover that information. In each case, suc-
+cess at beating a DC usually grants that DC’s information and all
+the information provided by succeeding at any lower DC. DMs
+might award slightly more information than what is provided
+depending on how much a player’s roll exceeds a given DC. If a bard
+is in the group and performing for the patrons successfully (as in
+having an “enjoyable” or better performance as listed under the Per-
+form skill in the Player’s Handbook), decrease the DC listed below
+by –5. Additionally, each bit of information notes whether it is true
+or not beside it. 
+G ATHER INFORMATION
+DC Information
+5 Bandit raids on the road have been on the rise (true).
+10 A new Thayan enclave may be opening in town soon (true).
+Agents of Cyric have been spotted lurking about town (false).
+The bandit raids consist primarily of orcs these days, it seems
+(true).
+15 Recently, orcs have been heading off to the nearby hills for
+some odd nightly meetings (true). The more established bandit
+gangs are getting upset over the fact that orcs are taking their
+plunder (true).
+20 An actual temple of Mask is due to be constructed here soon, so
+strong is the power of the Shadowmasters that it now can be
+done out in the open (false). One bandit gang in particular, the
+Tarnished Blades, is watching the town closely and trying to use
+the information they gain by doing so to get a jump on caravans
+before the orc bandits do (true). Some say that the bandit orcs
+aren’t local orcs (true).
+25 Some believe that the Tarnished Blades are one step away from
+seeking out and confronting the orc bandit leader (true).
+The orc looking at the party is Sergeant Kraansh, leader of the town
+watch. If the PCs show a strong interest in getting to the bottom of
+the bandit raids, he eventually approaches the PCs and asks their
+business—all politely done, of course. If asked about orc raids, he
+frowns and appears concerned. The sergeant does his best to keep the
+orcs from getting too rowdy, and, in fact, he has a dilemma.
+According to the good sergeant, meetings take place almost
+nightly in the hills just outside of town. Local orcs attend these
+meetings, and some say that a prophet has come from the wilds—a
+prophet of Gruumsh, talking “crazy talk.” Kraansh himself refuses
+to go. But if the party is interested in what’s going on up there, and
+if it has some bearing on the raids, then Kraansh can tell the group
+where the meetings are. He does advise, though, that the party be
+somehow disguised or invisible. (If the party has no way to remain
+hidden or invisible, he can make some potions available, but they’ll
+need to be used wisely, and he’ll barter for them—they certainly
+aren’t free, but possibly discounted if used for the meeting.)
+Kraansh tells the interested heroes that the meetings are usually
+held an hour after midnight in a small ravine in the foothills to the
+southeast, which is about an hour’s walk or half-hour’s ride. He
+advises them to be careful and not to repeat any of it to anyone. If
+the PCs decide to head out to see this meeting, the encounter called
+A Nightly Meeting covers the events of this meeting.
+DD Sergeant Kraansh: Male orc Fighter 9; CR 9; Medium-size
+humanoid; HD 9d10+45; hp 94; Init +6; Spd 30 ft.; AC 18, touch
+12, flat-footed 16; Atk +16/+11 melee (1d8+9, +2 morningstar);
+SQ darkvision 60 ft., light sensitivity; AL N; SV Fort +11, Ref +5,
+Will +5; Str 20, Dex 14, Con 20, Int 15, Wis 14, Cha 17. Height
+5 ft. 10 in.
+The inn is a two-story stone building with a stable out back, an
+interior common room with a bar, and stairs leading up to rooms.
+The innkeeper and his staff bustle about serving patrons. The
+place is full of people, and most give you only a passing glance.
+At one table, a particularly tough orc watches you with an
+appraising eye.

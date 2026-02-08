@@ -1,0 +1,138 @@
+ 
+ 39
+Table 3–9: The Fighter 
+ Base Fort Ref Will 
+Level Attack Bonus Save Save Save Special 
+ 1st +1 +2 +0 +0 Bonus feat 
+ 2nd +2 +3 +0 +0 Bonus feat 
+ 3rd +3 +3 +1 +1  
+ 4th +4 +4 +1 +1 Bonus feat 
+ 5th +5 +4 +1 +1  
+ 6th +6/+1 +5 +2 +2 Bonus feat 
+ 7th +7/+2 +5 +2 +2  
+ 8th +8/+3 +6 +2 +2 Bonus feat 
+ 9th +9/+4 +6 +3 +3  
+10th +10/+5 +7 +3 +3 Bonus feat 
+11th +11/+6/+1 +7 +3 +3  
+12th +12/+7/+2 +8 +4 +4 Bonus feat 
+13th +13/+8/+3 +8 +4 +4  
+14th +14/+9/+4 +9 +4 +4 Bonus feat 
+15th +15/+10/+5 +9 +5 +5  
+16th +16/+11/+6/+1 +10 +5 +5 Bonus feat 
+17th +17/+12/+7/+2 +10 +5 +5  
+18th +18/+13/+8/+3 +11 +6 +6 Bonus feat 
+19th +19/+14/+9/+4 +11 +6 +6  
+20th +20/+15/+10/+5 +12 +6 +6 Bonus feat
+ 
+ 
+Skill Ranks Ability Armor Check Penalty 
+Climb 4 Str –6 
+Jump 4 Str –6 
+Ride 4 Dex — 
+Swim 4 Str –12 
+Intimidate 4 Cha — 
+Listen (cc) 2 Wis — 
+Search (cc) 2 Int — 
+Spot (cc) 2 Wis —  
+ 
+Feat: Weapon Focus (dwarven waraxe). 
+Bonus Feat (Fighter):  If Strength is 13 or higher, Power Attack; 
+if Strength is 12 or lower, Improved Initiative instead. 
+Gear: Backpack with waterskin, one day’s trail rations, bedroll, 
+sack, flint and steel, quiver with 20 arrows. 
+Gold: 4d4 gp. 
+ 
+Human Fighter Starting Package 
+Armor: Scale mail (+4 AC, armor check penalty –4, speed 20 ft., 
+30 lb.). 
+Weapons: Greatsword (2d6, crit 19–20/×2, 8 lb., two-handed, 
+slashing). 
+Shortbow (1d6, crit ×3, 60 ft., 2 lb., piercing). 
+Skill Selection: Pick a number of skills equal to 3 + Int modifier. 
+ 
+Skill Ranks Ability Armor Check Penalty 
+Climb 4 Str –4 
+Jump 4 Str –4 
+Ride 4 Dex — 
+Swim 4 Str –8 
+Intimidate 4 Cha — 
+Listen (cc) 2 Wis — 
+Search (cc) 2 Int — 
+Spot (cc) 2 Wis —  
+ 
+Feat: Weapon Focus (greatsword). 
+Bonus Feat (Fighter):  If Strength is 13 or higher, Power Attack; 
+if Strength is 12 or lower, Improved Initiative instead. 
+Bonus Feat (Human): Blind-Fight. 
+Gear: Backpack with waterskin, one day’s trail rations, bedroll, 
+sack, flint and steel, quiver with twenty arrows. 
+Gold: 2d4 gp. 
+ 
+MONK 
+Dotted across the landscape are monasteries—small, walled cloisters 
+inhabited by monks who pursue personal perfection through action 
+as well as contemplation. They train themselves to be versatile 
+warriors skilled at fighting without weapons or armor. The 
+inhabitants of monasteries headed by good masters serve as 
+protectors of the people. Ready for battle even when barefoot and 
+dressed in peasant clothes, monks can travel unnoticed among the 
+populace, catching bandits, warlords, and corrupt nobles unawares. 
+In contrast, the residents of monasteries headed by evil masters rule 
+the surrounding lands through fear, as an evil warlord and his 
+entourage might. Evil monks make ideal spies, infiltrators, and 
+assassins. 
+The individual monk is unlikely to care passionately about 
+championing commoners or amassing wealth. She cares primarily 
+for the perfection of her art and, thereby, her personal perfection. 
+Her goal is to achieve a state that is beyond the mortal realm.  
+Adventures: A monk approaches an adventure as if it were a 
+personal test. While not prone to showing off, monks are willing to 
+try their skills against whatever obstacles confront them. They are 
+not greedy for material wealth, but they eagerly seek that which can 
+help them perfect their art. 
+Characteristics: The key feature of the monk is her ability to 
+fight unarmed and unarmored. Thanks to her rigorous training, she 
+can strike as hard as if she were armed and strike faster than a 
+warrior with a sword. 
+Though a monk casts no spells, she has a magic of her own. She 
+channels a subtle energy, called ki, which allows her to perform 
+amazing feats. The monk’s best-known feat is her ability to stun an 
+opponent with an unarmed blow. A monk also has a preternatural 
+awareness that allows her to dodge an attack even if she is not con-
+sciously aware of it. 
+As the monk gains experience and power, her mundane and ki-
+oriented abilities grow, giving her more and more power over her-
+self and, sometimes, over others. 
+Alignment: A monk’s training requires strict discipline. Only 
+those who are lawful at heart are capable of undertaking it. 
+Religion: A monk’s training is her spiritual path. She is inner-
+directed and capable of a private, mystic connection to the spiritual 
+world, so she needs neither clerics nor gods. Certain lawful gods, 
+however, may appeal to monks, who may meditate on the gods’ 
+likenesses and attempt to emulate their deeds. The three most likely 
+candidates for a monk’s devotion are Heironeous (god of valor), St. 
+Cuthbert (god of retribution), and Hextor (god of tyranny). 
+Background: A monk typically trains in a monastery. Most 
+monks were children when they joined the monastery, sent to live 
+there when their parents died, when there wasn’t enough food to 
+support them, or in return for some kindness that the monastery 
+had performed for the family. Life in the monastery is so focused 
+that by the time a monk sets off on her own, she feels little con-
+nection to her former family or village. 
+In larger cities, master monks have set up monk schools to teach 
+their arts to those who are interested and worthy. The monks who 
+study at these academies often see their rural cousins from the 
+monasteries as backward. 
+A monk may feel a deep connection to her monastery or school, 
+to the monk who taught her, to the lineage into which she was 
+trained, or to all of these. Some monks, however, have no sense of 
+connection other than to their own path of personal development. 
+Monks recognize each other as a select group set apart from the 
+rest of the populace. They may feel kinship, but they also love to 
+compete with each other to see whose ki is strongest. 
+Races: Monasteries are found primarily among humans, who 
+have incorporated them into their ever-evolving culture. Thus, 
+many monks are humans, and many are half-orcs and half-elves who 
+live among humans. Elves are capable of single-minded, long-term 
+CHAPTER 3: 
+CLASSES 

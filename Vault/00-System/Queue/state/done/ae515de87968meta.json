@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "ae515de87968:meta",
+    "sourceId": "ae515de87968",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Nymphology - Blue Magic.pdf",
+    "title": "Nymphology - Blue Magic",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:29:25.907492+00:00",
+  "meta": {
+    "sourceId": "ae515de87968",
+    "title": "Nymphology - Blue Magic",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Encyclopaedia Arcane/Nymphology - Blue Magic.pdf",
+    "pages": 52,
+    "extractedAt": "2026-02-03T15:29:25.633499+00:00"
+  },
+  "enqueued_extractPages": 26
+}

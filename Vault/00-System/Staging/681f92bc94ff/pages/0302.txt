@@ -1,0 +1,200 @@
+ 
+ 301
+Waves of Exhaustion 
+Necromancy 
+Level: Sor/Wiz 7 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 60 ft. 
+Area: Cone-shaped burst 
+Duration: Instantaneous 
+Saving Throw: No 
+Spell Resistance: Yes 
+ 
+Waves of negative energy cause all living 
+creatures in the spell’s area to become ex-
+hausted. This spell has no effect on a crea-
+ture that is already exhausted. 
+ 
+Waves of Fatigue 
+Necromancy 
+Level: Sor/Wiz 5 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 30 ft. 
+Area: Cone-shaped burst 
+Duration: Instantaneous 
+Saving Throw: No 
+Spell Resistance: Yes 
+ 
+Waves of negative energy render all living 
+creatures in the spell’s area fatigued. This 
+spell has no effect on a creature that is 
+already fatigued. 
+ 
+Web 
+Conjuration (Creation) 
+Level: Sor/Wiz 2 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Effect: Webs in a 20-ft.-radius spread 
+Duration: 10 min./level (D) 
+Saving Throw: Reflex negates; see text 
+Spell Resistance: No 
+ 
+Web creates a many-layered mass of strong, 
+sticky strands. These strands trap those 
+caught in them. The strands are similar to 
+spider webs but far larger and tougher. 
+These masses must be anchored to two or 
+more solid and diametrically opposed 
+points—floor and ceiling, opposite walls, 
+or the like—or else the web collapses upon 
+itself and disappears. Creatures caught 
+within a web become entangled among the 
+gluey fibers. Attacking a creature in a web 
+won’t cause you to become entangled. 
+Anyone in the effect’s area when the 
+spell is cast must make a Reflex save. If this 
+save succeeds, the creature is entangled, 
+but not prevented from moving, though 
+moving is more difficult than normal for 
+being entangled (see below). If the save 
+fails, the creature is entangled and can’t 
+move from its space, but can break loose by 
+spending 1 round and making a DC 20 
+Strength check or a DC 25 Escape Artist 
+check. Once loose (either by making the 
+initial Reflex save or a later Strength check 
+or Escape Artist check), a creature remains 
+entangled, but may move through the web 
+very slowly. Each round devoted to mov-
+ing allows the creature to make a new 
+Strength check or Escape Artist check. The 
+creature moves 5 feet for each full 5 points 
+by which the check result exceeds 10. 
+If you have at least 5 feet of web be-
+tween you and an opponent, it provides 
+c o v e r .  I f  y o u  h a v e  a t  l e a s t  2 0  f e e t  o f  w e b  
+between you, it provides total cover (see 
+Cover, page 150). 
+The strands of a web spell are flammable. 
+A magic flaming sword can slash them away 
+as easily as a hand brushes away cobwebs. 
+Any fire—a torch, burning oil, a flaming 
+sword, and so forth—can set the webs 
+alight and burn away 5 square feet in 1 
+round. All creatures within flaming webs 
+take 2d4 points of fire damage from the 
+flames. 
+Web can be made permanent with a per-
+manency spell. A permanent web that is 
+damaged (but not destroyed) regrows in 10 
+minutes. 
+Material Component: A bit of spider web. 
+ 
+Weird 
+Illusion (Phantasm) [Fear, Mind- 
+Affecting] 
+Level: Sor/Wiz 9 
+Targets: Any number of creatures, no 
+two of which can be more than 30 ft. 
+apart 
+ 
+This spell functions like phantasmal killer , 
+except it can affect more than one creature. 
+Only the affected creatures see the 
+phantasmal creatures attacking them, 
+though you see the attackers as shadowy 
+shapes. 
+If a subject’s Fortitude save succeeds, it 
+still takes 3d6 points of damage and is 
+stunned for 1 round. The subject also takes 
+1d4 points of temporary Strength damage. 
+ 
+Whirlwind 
+Evocation [Air] 
+Level: Air 8, Drd 8 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Long (400 ft. + 40 ft./level) 
+Effect: Cyclone 10 ft. wide at base, 30 ft. 
+wide at top, and 30 ft. tall 
+Duration: 1 round/level (D) 
+Saving Throw: Reflex negates; see text 
+Spell Resistance: Yes 
+ 
+This spell creates a powerful cyclone of 
+raging wind that moves through the air, 
+along the ground, or over water at a speed 
+of 60 feet per round. You can concentrate 
+on controlling the cyclone’s every 
+movement or specify a simple program., 
+such as move straight ahead, zigzag, circle, 
+or the like. Directing the cyclone’s 
+movement or changing its programmed 
+movement is a standard action for you. The 
+cyclone always moves during your turn. If 
+the cyclone exceeds the spell’s range, it 
+moves in a random, uncontrolled fashion 
+for 1d3 rounds—possibly endangering you 
+or your allies—and then dissipates. (You 
+can’t regain control of the cyclone, even if 
+comes back within range.) 
+Any Large or smaller creature that 
+comes in contact with the spell effect must 
+succeed on a Reflex save or take 3d6 points 
+of damage. A Medium or smaller creature 
+that fails its first save must succeed on a 
+second one or be picked up bodily by the 
+cyclone and held suspended in its 
+powerful winds, taking 1d8 points of 
+damage each round on your turn with no 
+save allowed. You may direct the cyclone 
+to eject any carried creatures whenever 
+you wish, depositing the hapless souls 
+wherever the cyclone happens to be when 
+they are released. 
+ 
+Whispering Wind 
+Transmutation [Air] 
+Level: Brd 2, Sor/Wiz 2 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 1 mile/level 
+Area: 10-ft.-radius spread 
+Duration: No more than 1 hour/level or 
+until discharged (destination is 
+reached) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You send a message or sound on the wind 
+to a designated spot. The whispering wind  
+travels to a specific location within range 
+that is familiar to you, provided that it can 
+find a way to the location. (It can’t pass 
+through walls, for instance.) A whispering 
+wind is as gentle and unnoticed as a zephyr 
+until it reaches the location. It then 
+delivers its whisper-quiet message or other 
+sound. Note that the message is delivered 
+regardless of whether anyone is present to 
+hear it. The wind then dissipates. You can 
+prepare the spell to bear a message of no 
+more than twenty-five words, cause the 
+spell to deliver other sounds for 1 round, 
+or merely have the whispering wind seem to 
+be a faint stirring of the air. You can 
+likewise cause the whispering wind to move 
+as slowly as 1 mile per hour or as quickly as 
+1 mile per 10 minutes. When the spell 
+reaches its objective, it swirls and remains 
+in place until the message is delivered. As 
+with magic mouth , whispering wind  cannot 
+speak verbal components, use command 
+words, or activate magical effects. 
+ 
+CHAPTER 11: 
+SPELLS 

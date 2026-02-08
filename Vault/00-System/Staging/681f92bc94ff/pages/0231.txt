@@ -1,0 +1,203 @@
+ 
+ 230 
+Saving Throw: Will negates; see text 
+Spell Resistance: Yes 
+ 
+If the target creature fails a Will saving 
+throw, its Intelligence and Charisma 
+scores each drop to 1, giving it roughly the 
+intellect of a lizard. The affected creature is 
+unable to use Intelligence- or Charisma-
+based skills, cast spells, understand 
+language, or communicate coherently. 
+Still, it knows who its friends are and can 
+follow them and even protect them. The 
+subject remains in this state until a heal, 
+limited wish, miracle, or wish spell is used to 
+cancel the effect of the feeblemind. A 
+creature that can cast arcane spells, such as 
+a sorcerer or a wizard, takes a –4 penalty on 
+its saving throw. 
+Material Component:  A handful of clay, 
+crystal, glass, or mineral spheres. 
+ 
+Find the Path 
+Divination 
+Level: Brd 6, Clr 6, Drd 6, Knowledge 6, 
+Travel 6 
+Components: V, S, F 
+Casting Time: 3 rounds 
+Range: Personal or touch 
+Target: You or creature touched 
+Duration: 10 min./level 
+Saving Throw: None or Will negates 
+(harmless) 
+Spell Resistance: No or Yes (harmless) 
+ 
+The recipient of this spell can find the 
+shortest, most direct physical route to a 
+specified destination, be it the way into or 
+out of a locale. The locale can be outdoors, 
+underground, or even inside a maze spell. 
+Find the path  works with respect to lo-
+cations, not objects or creatures at a locale. 
+Thus, the subject could not find the way to 
+“a forest where a green dragon lives” or “a 
+hoard of platinum pieces,” but it could find 
+the exit to a labyrinth. The location must 
+be on the same plane as you are at the time 
+of casting. 
+The spell enables the subject to sense 
+the correct direction that will eventually 
+lead it to its destination, indicating at ap-
+propriate times the exact path to follow or 
+physical actions to take. For example, the 
+spell enables the subject to sense trip wires 
+or the proper word to bypass a glyph of 
+warding. The spell ends when the desti-
+nation is reached or the duration expires, 
+whichever comes first. Find the path can be 
+used to remove the subject and its com-
+panions from the effect of a maze spell in a 
+single round. 
+This divination is keyed to the recipient, 
+not its companions, and its effect does not 
+predict or allow for the actions of creatures 
+(including guardians). 
+Focus: A set of divination counters of the 
+sort you favor—bones, ivory counters, 
+sticks, carved runes, or the like. 
+Find Traps 
+Divination 
+Level: Clr 2 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 min./level 
+ 
+You gain intuitive insight into the work-
+ings of traps. You can use the Search skill 
+to detect traps just as a rogue can. In addi-
+tion, you gain an insight bonus equal to 
+one-half your caster level (maximum +10) 
+on Search checks made to find traps while 
+the spell is in effect. 
+Note that find traps  grants no ability to 
+disable the traps that you may find. 
+ 
+Finger of Death 
+Necromancy [Death] 
+Level: Drd 8, Sor/Wiz 7 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One living creature 
+Duration: Instantaneous 
+Saving Throw: Fortitude partial 
+Spell Resistance: Yes 
+ 
+You can slay any one living creature within 
+range. The target is entitled to a Fortitude 
+saving throw to survive the attack. If the 
+save is successful, the creature instead 
+takes 3d6 points of damage +1 point per 
+caster level (maximum +25). The subject 
+might die from damage even if it succeeds 
+on its saving throw. 
+ 
+Fire Seeds 
+Conjuration (Creation) [Fire] 
+Level: Drd 6, Fire 6, Sun 6 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Touch 
+Targets: Up to four touched acorns or up 
+to eight touched holly berries 
+Duration: 10 min./level or until used 
+Saving Throw: None or Reflex half; see 
+text 
+Spell Resistance: No 
+ 
+Depending on the version of fire seeds you 
+choose, you turn acorns into splash 
+weapons that you or another character can 
+throw, or you turn holly berries into 
+bombs that you can detonate on command. 
+Acorn Grenades:  As many as four acorns 
+turn into special splash weapons that can 
+be hurled as far as 100 feet. A ranged touch 
+attack roll is required to strike the 
+intended target. Together, the acorns are 
+capable of dealing 1d6 points of fire 
+damage per caster level (maximum 20d6), 
+divided up among the acorns as you wish. 
+For example, a 20th-level druid could 
+create one 20d6 missile, two 10d6 missiles, 
+one 11d6 and three 3d6 missiles, or any 
+other combination totalling up to four 
+acorns and 20d6 points of damage. 
+Each acorn explodes upon striking any 
+hard surface. In addition to its regular fire 
+damage, it deals 1 point of splash damage 
+per die, and it ignites any combustible 
+materials within 10 feet. A creature within 
+this area that makes a successful Reflex 
+saving throw takes only half damage; a 
+creature struck directly is not allowed a 
+saving throw. 
+Holly Berry Bombs:  You turn as many as 
+eight holly berries into special bombs. The 
+holly berries are usually placed by hand, 
+since they are too light to make effective 
+thrown weapons (they can be tossed only 5 
+feet). If you are within 200 feet and speak a 
+word of command, each berry instantly 
+bursts into flame, causing 1d8 points of 
+fire damage +1 point per caster level to 
+every creature in a 5-foot-radius burst and 
+igniting any combustible materials within 
+5 feet. A creature in the area that makes a 
+successful Reflex saving throw takes only 
+half damage. 
+Material Component:  The acorns or holly 
+berries. 
+ 
+Fire Shield 
+Evocation [Fire or Cold] 
+Level: Fire 5, Sor/Wiz 4, Sun 4 
+Components: V, S, M/DF 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 round/level (D) 
+ 
+This spell wreathes you in flame and 
+causes damage to each creature that attacks 
+you in melee. The flames also protect you 
+from either cold-based or fire-based attacks 
+(your choice). 
+Any creature striking you with its body 
+or a handheld weapon deals normal 
+damage, but at the same time the attacker 
+takes 1d6 points of damage +1 point per 
+caster level (maximum +15). This damage 
+is either cold damage (if the shield protects 
+against fire-based attacks) or fire damage (if 
+the shield protects against cold-based 
+attacks). If the attacker has spell resistance, 
+it applies to this effect. Creatures wielding 
+weapons with exceptional reach are not 
+subject to this damage if they attack you. 
+When casting this spell, you appear to 
+immolate yourself, but the flames are thin 
+and wispy, giving off light equal to only 
+half the illumination of a normal torch (10 
+feet). The color of the flames is determined 
+randomly (50% chance of either color)—
+blue or green if the chill shield is cast, violet 
+or blue if the warm shield is employed. The 
+special powers of each version are as 
+follows. 
+CHAPTER 11: 
+SPELLS 

@@ -1,0 +1,205 @@
+ 
+ 227
+spell cannot be used to crush a creature by 
+increasing its size. 
+All equipment worn or carried by a 
+creature is similarly enlarged by the spell. 
+Melee and projectile weapons affected by 
+this spell deal more damage (see Table 2–2 
+in the Dungeon Master’s Guide ). Other mag-
+ical properties are not affected by this 
+spell. Any enlarged item that leaves an 
+enlarged creature’s possession (including a 
+projectile or thrown weapon) instantly 
+returns to its normal size. This means that 
+thrown weapons deal their normal 
+damage, and projectiles deal damage based 
+on the size of the weapon that fired them. 
+Magical properties of enlarged items are not 
+increased by this spell—an enlarged +1 
+sword still has only a +1 enhancement 
+bonus, a staff-sized wand is still only 
+capable of its normal functions, a giant-
+sized potion merely requires a greater fluid 
+intake to make its magical effects operate, 
+and so on. 
+Multiple magical effects that increase 
+size do not stack, which means (among 
+other things) that you can’t use a second 
+casting of this spell to further increase the 
+size of a humanoid that’s still under the 
+effect of the first casting. 
+Enlarge person  counters and dispels 
+reduce person. 
+Enlarge person  can be made permanent 
+with a permanency spell. 
+Material Component:  A pinch of pow-
+dered iron. 
+ 
+Enlarge Person, Mass 
+Transmutation 
+Level: Sor/Wiz 4 
+Target: One humanoid creature/level, no 
+two of which can be more than 30 ft. 
+apart 
+ 
+This spell functions like enlarge person , 
+except that it affects multiple creatures. 
+ 
+Entangle 
+Transmutation 
+Level: Drd 1, Plant 1, Rgr 1 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Long (400 ft. + 40 ft./level) 
+Area: Plants in a 40-ft.-radius spread 
+Duration: 1 min./level (D) 
+Saving Throw: Reflex partial; see text 
+Spell Resistance: No 
+ 
+Grasses, weeds, bushes, and even trees 
+wrap, twist, and entwine about creatures in 
+the area or those that enter the area, 
+holding them fast and causing them to 
+become entangled. The creature can break 
+free and move half its normal speed by 
+using a full-round action to make a DC 20 
+Strength check or a DC 20 Escape Artist 
+check. A creature that succeeds on a Reflex 
+save is not entangled but can still move at 
+only half speed through the area. Each 
+round on your turn, the plants once again 
+attempt to entangle all creatures that have 
+avoided or escaped entanglement. 
+Note: The DM may alter the effects of 
+the spell somewhat, based on the nature of 
+the entangling plants. 
+ 
+Enthrall 
+Enchantment (Charm) [Language 
+Dependent, Mind-Affecting, Sonic] 
+Level: Brd 2, Clr 2 
+Components: V, S 
+Casting Time: 1 round 
+Range: Medium (100 ft. + 10 ft./level) 
+Targets: Any number of creatures 
+Duration: 1 hour or less 
+Saving Throw: Will negates; see text 
+Spell Resistance: Yes 
+ 
+If you have the attention of a group of 
+creatures, you can use this spell to hold 
+them spellbound. To cast the spell, you 
+must speak or sing without interruption 
+for 1 full round. Thereafter, those affected 
+give you their undivided attention, ignor-
+ing their surroundings. They are consid-
+ered to have an attitude of friendly while 
+under the effect of the spell (see the Dun-
+geon Master’s Guide  for information about 
+NPC attitudes). Any potentially affected 
+creature of a race or religion unfriendly to 
+yours gets a +4 bonus on the saving throw. 
+A creature with 4 or more HD or with a 
+Wisdom score of 16 or higher remains 
+aware of its surroundings and has an atti-
+tude of indifferent. It gains a new saving 
+throw if it witnesses actions that it 
+opposes. 
+The effect lasts as long as you speak or 
+sing, to a maximum of 1 hour. Those 
+enthralled b y  y o u r  w o r d s  t a k e  n o  a c t i o n  
+while you speak or sing and for 1d3 rounds 
+thereafter while they discuss the topic or 
+performance. Those entering the area 
+during the performance must also 
+successfully save or become enthralled. The 
+speech ends (but the 1d3-round delay still 
+applies) if you lose concentration or do 
+anything other than speak or sing. 
+If those not enthralled have unfriendly 
+or hostile attitudes toward you, they can 
+collectively make a Charisma check to try 
+to end the spell by jeering and heckling. 
+For this check, use the Charisma bonus of 
+the creature with the highest Charisma in 
+the group; others may make Charisma 
+checks to assist (as described in Aid 
+Another, page 65). The heckling ends the 
+spell if this check result beats your 
+Charisma check result. Only one such 
+challenge is allowed per use of the spell. 
+If any member of the audience is at-
+tacked or subjected to some other overtly 
+hostile act, the spell ends and the previ-
+ously enthralled members become imme-
+diately unfriendly toward you. Each crea-
+ture with 4 or more HD or with a Wisdom 
+score of 16 or higher becomes hostile. 
+ 
+Entropic Shield 
+Abjuration 
+Level: Clr 1, Luck 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 min./level (D) 
+ 
+A magical field appears around you, glow-
+ing with a chaotic blast of multicolored 
+hues. This field deflects incoming arrows, 
+rays, and other ranged attacks. Each ranged 
+attack directed at you for which the 
+attacker must make an attack roll (in-
+cluding arrows, magic arrows, Melf’s acid 
+arrow, ray of enfeeblement, and so forth) has a 
+20% miss chance (similar to the effects of 
+concealment). Other attacks that simply 
+work at a distance, such as a dragon’s 
+breath weapon, are not affected. 
+ 
+Erase 
+Transmutation 
+Level: Brd 1, Sor/Wiz 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One scroll or two pages 
+Duration: Instantaneous 
+Saving Throw: See text 
+Spell Resistance: No 
+ 
+Erase removes writings of either magical or 
+mundane nature from a scroll or from one 
+or two pages of paper, parchment, or 
+similar surfaces. With this spell, you can 
+remove explosive runes, a glyph of warding , a 
+sepia snake sigil , or an arcane mark , but not 
+illusory script  or a symbol spell. Nonmagical 
+writing is automatically erased if you touch 
+it and no one else is holding it. Otherwise, 
+the chance of erasing nonmagical writing 
+is 90%. 
+Magic writing must be touched to be 
+erased, and you also must succeed on a 
+caster level check (1d20 + caster level) 
+against DC 15. (A natural 1 or 2 is always a 
+failure on this check.) If you fail to erase 
+explosive runes , a glyph of warding , or a sepia 
+snake sigil , you accidentally activate that 
+writing instead. 
+ 
+Ethereal Jaunt 
+Transmutation 
+Level: Clr 7, Sor/Wiz 7 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 round/level (D) 
+ 
+You become ethereal, along with your 
+equipment. For the duration of the spell, 
+CHAPTER 11: 
+SPELLS 

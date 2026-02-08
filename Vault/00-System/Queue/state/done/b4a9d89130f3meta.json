@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "b4a9d89130f3:meta",
+    "sourceId": "b4a9d89130f3",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Demons.pdf",
+    "title": "The Slayer's Guide To Demons",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:21:18.286863+00:00",
+  "meta": {
+    "sourceId": "b4a9d89130f3",
+    "title": "The Slayer's Guide To Demons",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Demons.pdf",
+    "pages": 132,
+    "extractedAt": "2026-02-03T23:21:17.716481+00:00"
+  },
+  "enqueued_extractPages": 66
+}

@@ -1,0 +1,192 @@
+Mus, by R. Spencer
+
+ 
+  
+    
+  
+ 
+ 
+  
+   
+  
+     
+
+, the object you donned last becomes functional and
+the other object does not work.
+
+While wearing a trophy, you gain a +2 bonus on Intimidate
+checks per trophy against creatures of the same type as the
+trophy, except for outsiders and humanoids. In these two
+cases, the target must share the same subtype as the creature
+from which you crafted the trophy. You take a —4 penalty
+on Diplomacy checks against creatures of the
+same type or subtype as one or more of your
+worn trophies.
+
+For each trophy you wear,
+you gain a +1 bonus on
+saves against fear ef-
+fects. Once per day,
+you gain a morale bo-
+nus on a single Will
+save equal to the num
+ber of trophies you wear.
+In this case, you draw
+upon the memories of past
+victories to strengthen your re-
+solve, If you choose to take
+this morale bonus on a
+save against a fear ef
+fect, it stacks with
+the usual +t bonus
+
+ac
+
+ 
+
+on saves per tro-
+phy worn
+Specia
+can only craft 7
+trophies from cor-
+poreal creatures that
+you actively helped de-
+fear. You cannot craft
+trophies from oozes.
+
+TUMBLING FEINT
+
+When you move near an opponent, your acrobatic ma-
+neuvers leave him confused and unable to properly defend
+himself
+
+Prerequisites: Bluff + ranks, Tumble + ranks
+
+Benefit: As a swift action at the start of your turn, you
+designate a single opponent as the target of this feat. If you
+successfully use your Tumble skill to avoid provoking an
+attack of opportunity from that opponent, you gain a-+5 bonus
+on your next Bluff check to feint against him. You must use
+this benefit on or before your next turn.
+
+For example, Lidda designates a nearby ogre as the target
+of this feat. She tumbles into the ogre’s threatened area and
+continues to tumble past the creature, moving to a square
+from which she plans to make a melee attack against the ogre
+Lidda succeeds on her Tumble check to avoid provoking an
+
+ 
+
+You
+
+ 
+
+attack of opportunity from the ogre, and she moves into her
+destination square. She can now use a standard action to feint
+the ogre, applying the benefit of this feat on her Bluff check,
+or she can take any other sort of standard action, including
+t the ogre. Li'she chooses
+
+ 
+
+making anormal melee attack aga
+
+tches a red slaad twice
+ing Tu
+
+    
+  
+   
+  
+   
+   
+  
+   
+  
+    
+   
+
+   
+
+not to feint immediately, she can wait until her next turn
+and still gain this fear's benefit
+
+Special: A fighter can select Tumbling Feint as one of his
+fighter bonus feats
+
+   
+  
+   
+   
+  
+ 
+ 
+  
+  
+   
+
+TWO-WEAPON
+POUNCE
+When you charge an
+opponent while wield-
+ing two weapons,
+ws you can make rwo
+ai sig quick attacks. You
+aos trade the momen-
+ae tum and power of
+the charge for the
+opportunity to use your sec
+ond weapon.
+Prerequisites: Dex 15,
+Two-Weapon Fighting, base
+attack bonus +6
+Benefit: When you are
+making a charge and wield.
+ing weapons in both hands,
+you can attack with both of
+your weapons. If you do so,
+you lose the bonus on attack rolls
+normally granted by a charge. The
+2 penalty to AC from charging
+still applies
+Normal: When making a
+charge, you get a single attack at
+the end of your movement.
+Special: A fighter can
+select Two-Weapon Pounce
+as one of his fighter bonus feats
+A ranger who has chosen the two-
+weapon combat style can select Two-Weapon
+Pounce as long as he has a base attack bonus of +6 and is
+wearing light armor or no armor
+
+TWO-WEAPON REND
+
+You wield two weapons with an artisan’s precision, Each
+strike builds on the next, allowing you to deal more damag
+
+Prerequisites: Dex 15, Two-Weapon Fighting, base attack
+bonus +11
+
+o-Weapan Rend
+
+   
+
+Benefit: If you successfully hit an opponent with both
+of the weapons you wield, you deal extra damage equal to
+ide + 1-1/2 times your Strength bonus. This extra damage
+is treated as the same type that your off-hand weapon deals
+normally for the purpose of overcoming damage reduction
+and other effects related to damage type. You can gain this
+extra damage once per round against a given opponent.
+
+Special: A fighter can select Two-Weapon Rend as one of
+his fighter bonus fears. A ranger who has chosen the rwo-
+weapon combat style can select Two-Weapon Rend as long as
+he has a base attack bonus of +11 and is wearing light armor
+or no armor.
+
+ 
+
+ 
+

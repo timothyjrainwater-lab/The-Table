@@ -1,0 +1,195 @@
+  
+   
+    
+ 
+  
+  
+  
+  
+   
+   
+    
+  
+  
+ 
+  
+  
+
+ 
+ 
+  
+  
+  
+   
+   
+  
+ 
+   
+     
+
+Scale: 13 (multiregional/kingdom and vassal states).
+
+Criterion Affiliation Score Modifier
+Character level 41/2 PC's level
+Base attack bonus +5 or higher 4
+Base attack bonus +10 or higher* 42
+5 or more ranks in Survival +1
+10 or more ranks in Survival +2
+Trophy Hunter feat +1
+Can cast contro! weather 8
+
+Defeat animal or magical beast
+of your level or higher one-on-one _+1/4 creature's HD
+
+Defeat a clan champion one-on-one +2 per win
+No ranks in Survival 2
+Has lived in city of
+Does not accept a —6, and cannot improve affiliation
+challenge to combat score until challenge is accepted
+Member of a civilized affiliation —4 per affiliation
+
+* Overlaps (does not stack with) the modifier for a base
+attack bonus of +5 or higher.
+
+Titles, Benefits, and Duties: As you learn the v of the
+Merata, you learn to make these smoke signals yourself as you
+increase your survival skills and become closer to nature.
+
+ 
+
+ 
+
+ 
+ 
+
+Affiliation
+
+Score Title:
+
+3 or lower No affi
+
+4-10 Lowborn: The Merata Kon hold less
+contempt for you than for most.
+
+1-20 Setaf Kon: +2 competence bonus on
+
+Diplomacy checks involving your clanmates
+and a +2 competency bonus on Survival
+checks made when traveling with clanmates.
+
+21-29 Trebor Kon: Become a subchief and have a
+3rd-level adept to assist you. By a system
+of bonfires and smoke, you can transmit
+signals 200 miles across the Stalking Plains
+im 1d2 days.
+
+30 orhigher Clan Chief: You are accompanied by four
+chief's men (6th-level barbarians), and your
+counsel is a 4th-level cleric/4th-level bard.
+
+Executive Powers: Harvest, raid, terrorize,
+
+THE ONE AND THE FIVE
+
+Symbol: The symbol of the One and the Five is six black,
+hooded figures on a violet starburst field.
+
+Background, Goals, and Dreams: A secret ring of six
+wizards and sorcerers is at the heart of this cabal, Arcane
+casters vexed by a lack of resources find this group's support
+exceptionally useful for purchasing spellbooks, researching
+new spells, and perfecting metamagic techniques.
+
+Enemies and Allies: The cabal has strained relations with
+most other organizations, Its secretive core, the six wizards
+and sorcerers known as the titular One and the Five, frustrate
+the attempts of spy rings and thieves guilds to penetrate and
+gather information, while their subsidization of spell books,
+research, and material components irks arcane colleges and
+many business guilds.
+
+Members: Most of the members are human, but the One
+and the Five welcome all to their cabal, and in addition to
+
+ 
+
+    
+
+half-ores, dwarves, and gnomes, two centaurs and one gyno-
+sphinx are known to be associated with the affiliation.
+
+No one knows what happens if you try to leave the One
+and the Five, For some reason, no one ever has—or at least,
+no one is talking about it.
+
+Secrets: Once you reach an affiliation score of 30, you
+must defeat one of the current One and Five ina mortal spell
+duel. After killing your opponent, you are inducted into the
+heart of the cabal, where you learn that the order is devoted
+to Vecna, and that the One represents his Eye, and the Five
+represent the fingers of his severed hand,
+
+You need not worry about converting to worship of Vecna
+at this point—when you first attained an affiliation score of
+25 or higherand the subtle wooings of the inner cabal did not
+persuade you to convert to the service of the Maimed Lord,
+EL 14 assault squads of summoned monsters and golems are
+sent to kill you before you learn the cabal's secret.
+
+‘Type: Cabal.
+Scale: 10 (regional/march).
+
+Criterion Affiliation Score Modifier
+Character level 41/2 PC's level
+5 or more ranks in Knowledge (arcana) +1
+Can prepare arcane spells 4
+Can cast arcane spells of 3rd level or higher 4
+Can cast divination spells of Sth level or higher 42
+Has over 2,500 gp in magic items +1
+Donates magic item valued at 1,000 gp
+
+or more to the cabal +] per item, max six/year
+
+Shares Sth-level or higher-level spell with other
+wizards at cabal Grand Convocation, held twice/year +2
+Completes mission for the leaders of the
+
+cabal, the One and the Five +2 per mission
+Can cast divine spells 6
+Divulges identities of members or
+
+other secrets of the cabal -4
+Is known to investigate -10, and an EL 12 coterie of
+the identities or the nature sorcerer wraiths is sent
+of the One and the Five to dissuade or dispose of you
+Is a member of a spy ring -6
+
+Titles, Benefits, and Duties: As you advance in the cabal, your
+knowledge of the arcane increases. You also gain access to spells
+and discounted components, paraphernalia, and research.
+
+Affiliation
+
+Score Title: Benefits and Duties
+
+3 or lower No affiliation.
+
+4-10 Of the Many: The cabal is aware of your
+presence and judging you.
+
+11-20 Of tthe Mind: When you gain a wizard level,
+automatically learn three spells rather than
+two.
+
+21-29 Of the Body: When you craft a magic item,
+
+pay only 909% the gp cost.
+
+30 orhigher Ofthe One and the Five: Three times per
+year, you can borrow any wondrous item in
+the Dungeon Master's Guide of 10,000 gp
+value or less for up to 1 week. You may not
+borrow a charged item in this manner.
+
+Executive Powers: Craft, research, shadow war.
+

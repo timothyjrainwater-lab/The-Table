@@ -1,0 +1,156 @@
+Class Features The increase in Constitution increases the barbarian’s hit points
+by 2 points per level, but these hit points go away at the end of the
+rage when his Constitution score drops back to normal. (These extra
+hit points are not lost first the way temporary hit points are; see
+Temporary Hit Points, page 146.) While raging, a barbarian
+cannot use any Charisma-, Dexterity-, or Intelligence-based
+skills (except for Balance, Escape Artist, Intimidate, and
+Ride), the Concentration skill, or any abilities that require
+patience or concentration, nor can he cast spells or activate
+magic items that require a command word, a
+spell trigger (such as a wand), or spell comple-
+tion (such as a scroll) to function. He can use
+any feat he has except Combat Expertise, item
+creation feats, and  metamagic
+feats. A fit of rage lasts for a
+number of rounds equal to 3 +
+the character's (newly
+improved) Constitution
+modifier. A barbarian
+may prematurely end his
+rage. At the end of the
+rage, the barbarian loses
+the rage modifiers and restric-
+tions and becomes fatigued (-2
+penalty to Strength, -2 penalty to Dex-
+terity, can't charge or run) for the
+duration of the current encounter
+(unless he is a 17th-level barbarian, at
+which point this limitation no longer
+applies; see below).
+
+A barbarian can fly into a rage
+only once per encounter. At 1st
+level he can use his rage ability
+
+once per day. At 4th level and
+every four levels there-
+
+after, he can use it
+one additional time
+per day (to a maximum
+
+All of the following are class features of the barbarian.
+
+Weapon and Armor Proficiency: A barbarian is proficient with
+all simple and martial weapons, light armor, medium armor, and
+shields (except tower shields).
+
+Fast Movement (Ex): A barbarian’s land
+speed is faster than the norm for his race by
++10 feet. This benefit applies only when he is
+wearing no armor, light armor, or medium
+armor and not carrying a heavy load. Apply
+this bonus before modifying the barbarian's
+speed because of any load carried or
+armor worn. For example, a human
+barbarian has a speed of 40 feet,
+rather than 30 feet, when wearing
+light or no armor. When wearing
+medium armor or carrying a
+medium load, his speed drops to
+30 feet. A halfling barbarian has a
+speed of 30 feet, rather than 20
+feet, in light or no armor. When
+wearing medium armor or
+carrying a medium load, his
+speed drops to 20 feet.
+
+Illiteracy: Barbarians are the
+only characters who do not
+automatically know how to read
+and write. A barbarian may spend 2
+skill points to gain the ability to read and write all
+languages he is able to speak.
+
+A barbarian who gains a level in any other
+class automatically gains literacy. Any other
+character who gains a barbarian level does not
+lose the literacy he or she already had.
+
+Rage (Ex): A barbarian can fly into a
+screaming blood frenzy a certain number
+of times per day. In a rage, a barbarian
+gains phenomenal strength and dura- of six times per day at
+bility but becomes reckless and less > » 20th level). Entering a rage
+able to defend himself. He tempo- 4 5 ; GO takes no time itself, bur a
+
+ 
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+  
+  
+ 
+ 
+ 
+  
+  
+
+ 
+
+rarily gains a +4 bonus to Strength, a barbarian can do it only during
++4 bonus to Constitution, and a +2 morale his action (see Initiative, page 136), not in response to some-
+bonus on Will saves, but he takes a —2 penalty to Armor Class. one else's action. A barbarian can't, for example, fly into a rage when
+TABLE 3—3: THE BARBARIAN
+Base Fort Ref will
+Level Attack Bonus Save Save Save Special
+Ist #1 42 +0 +0 Fast movernent, illiteracy, rage 1/day
+and +2 +3 +0 +0 Uncanny dodge
+3rd +3 +3 4 #1 Trap sense +1
+4th +4 +4 + 41 Rage 2/day
+Sth +5 +4 4 #1 Improved uncanny dodge
+6th +6/+1 +5 +2 42 Trap sense +2
+7th 47/42 +5 +2 #2 Damage reduction 1/—
+8th $8 /43 +6 +2 42 Rage 3/day
+9th 49/44 +6 +3 43 Trap sense +3
+loth +10/45 +7 +3 43 Damage reduction 2/—
+th +11/46/+1 +7 +3 #3 Greater rage
+12th $12/47/42 +8 +4 +4 Rage 4/day, trap sense +4
+13th +13 /48/+3 +8 +4 +4 Damage reduction 3/—
+14th $14 /49/44 +9 +4 +4 Indomitable will
+15th +15 /+10/45 +9 +5 45 Trap sense +5
+16th +16 /+11/+6/+1 +10 +5 45 Damage reduction 4/—, rage 5/day
+17th 417/412 /47/42 +10 +5 45 Tireless rage
+18th $18 /413/48/43 +1 +6 +6 Trap sense +6
+19th 4+19/414/49/44 +1 +6 +6 Damage reduction 5/—
+20th +20/415/+10/45 +12 +6 +6 Mighty rage, rage 6/day
+te 4 aie SS . a es
+hen a . Teer r
+‘ Gs 7 - ee) o . =
+
+ 
+

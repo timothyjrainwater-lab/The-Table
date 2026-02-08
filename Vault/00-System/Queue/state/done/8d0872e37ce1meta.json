@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "8d0872e37ce1:meta",
+    "sourceId": "8d0872e37ce1",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Ghosts of Aniel.pdf",
+    "title": "The Ghosts of Aniel",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:14:19.362398+00:00",
+  "meta": {
+    "sourceId": "8d0872e37ce1",
+    "title": "The Ghosts of Aniel",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Ghosts of Aniel.pdf",
+    "pages": 5,
+    "extractedAt": "2026-02-03T21:14:19.304865+00:00"
+  },
+  "enqueued_extractPages": 3
+}

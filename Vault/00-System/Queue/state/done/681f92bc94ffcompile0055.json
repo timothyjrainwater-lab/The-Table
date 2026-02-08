@@ -1,0 +1,25 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0055",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 55,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:02:07.475782+00:00"
+  },
+  "doneAt": "2026-02-03T07:56:53.004207+00:00",
+  "citation": "PHB (pdf p.0055)",
+  "printedGuess": "54",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table —  (PHB 3–17)",
+    "Table — Ability (PHB 1–1)",
+    "Table — Sorcerer Spells (PHB 3–17)",
+    "Table — Sorcerer Spells Known (PHB 3–17)",
+    "Table — The (PHB 3–16)",
+    "Table — The Sorcerer. In addition, he receives bonus (PHB 3–16)"
+  ]
+}

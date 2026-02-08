@@ -1,0 +1,186 @@
+inhabit a Huge creature). The swarm.can abandon the body at any
+time, although doing this takes 1 full round. Any attack against
+the host deals half damage to the hellwasp swarm as well,
+although the swarm’s resistances and immunities may negate
+some or all of this damage.
+
+If a hellwasp swarm inhabits a dead body, it can restore anima-
+tion to the creature and control its movements, effectively trans-}
+forming it into a zombie of the appropriate size for as long as the
+swarm remains inside. If a hellwasp swarm inhabits a living |
+victim, it.can neutralize the effects of its.own poison and control)
+the victim's movement and actions as if using dominate monster on
+
+ithe victim, The hellwasps quickly consume a living victim, dealing
+2d4 points of Constitution damage per hour they inhabit a body. A
+body reduced to Constitution 0 is dead.
+
+A hellwasp-inhabited creature is relatively easy to spot, since its
+skin crawls with the forms of insects inside. The swarm is intelli-
+
+,gent.enough to attempt to hide beneath loose clothing or a large
+
+cloak to keep its presence from being detected. The swarm can}
+\attempt.a_Disguise check to conceal its inhabitation of a host, with}
+a—4 penalty if currently inhabiting a Small host. }
+
+A remove disease or heal spell cast on an inhabited victim forces
+the hellwasp swarm to abandon its host.
+
+Poison (Ex): Injury, Fortitude DC 18, initial and secondary
+damage 1d6 Dex. The save DC is Constitution-based.
+
+Hive Mind (Ex): Any hellwasp swarm with at least 1 hit point
+per Hit Die (or-12 hit points, for a standard hellwasp swarm) forms
+
+jahive mind, giving it an Intelligence of 6. Whenahellwasp swarm
+lis reduced below this hit point threshold, it becomes mindless.
+
+LOCUST SWARM
+Diminutive Vermin (Swarm)
+\Hit Dice: 6d8-6 (21 hp)
+Initiative: ++
+Speed: 10 ft. (2 squares), fly 30 ft. (poor)
+Armor Class: 18 (+4 size, +4 Dex), touch 18, flat-footed 14
+Base Attack/Grapple: +4/—
+Attack: Swarm (2d6)
+Full Attack: Swarm (2d6)
+Space/Reach: 10 ft,/0 ft.
+Special Attacks: Distraction
+Special Qualities: Darkvision 60 ft.,.immune to weapon
+damage, swarm traits, vermin traits
+Saves; Fort +4, Ref +6, Will +2
+Abilities: Str1, Dex 19, Con 8,.Int—, Wis 10, Cha 2
+Skills; Listen +4, Spot ++
+Feat:
+Environment: Temperate plains
+Organization: Solitary, cloud (2-7 swarms),.or plague (11-20
+|__swarms)
+Challenge Rating: 3
+Treasure: None
+Alignment: Always neutral
+Advancement: None
+Level Adjustment: —
+
+ 
+
+ 
+ 
+
+ 
+
+A whirling, clacking cloud of voracious, grasshopperlike insects flutters
+closer, filing the air with a high-pitched buzz.
+
+A locust swarm is a cloud of thousands of winged vermin that
+devours any organic material in its path.
+
+Combat
+\A Jocust swarm surrounds and attacks any living prey it encoun-
+\ters. A swarm deals 2dé points of damage to any creature whose
+space.it.occupies at the end of its move.
+Distraction (Ex): Any living creature that begins its turn with |
+a locust swarm in its space must succeed on a DC 12 Fortitude save |
+
+or be nauseated for 1 round. The save DC is Constitution-based.|
+Skills: A locust swarm has a +4 racial bonus on Listen and Spot |
+checks. = 4
+
+RAT SWARM
+
+_Tiny Animal (Swarm)
+
+Hit Dice: 4d8 (13 hp)
+
+Initiative: +2
+
+Speed: 15 ft. (3 squares), climb 15 ft. 4
+
+Armor Class: 14 (+2 size, +2 Dex), touch 14, flat-footed 12 ;
+
+Base Attack/Grapple: +3/—
+
+Attack: Swarm (1d6 plus disease)
+
+Full Attack: Swarm (1d6 plus disease)
+
+Space/Reach: 10 ft,/0 ft
+
+Special Attacks; Disease, distraction
+
+Special Qualities: Half damage from slashing and piercing,
+low-light vision, scent, swarm traits
+
+{Saves: Fort +4, Ref +6, Will +2
+
+Abilities: Str 2, Dex 15, Con 10, Int_2, Wis 12, Cha 2
+
+|Skills; Balance +10, Climb +10, Hide +14, Listen +6, Spot +7,
+Swim +10
+
+Feats: Alertness, W,
+
+Environment: Any
+
+Organization: Solitary, pack (2—4 swarms), or infestation (7-12
+swarms)
+
+Challenge Rating: 2
+
+Treasure: None
+
+Alignment: Always neutral
+
+Advancement: None
+
+Level Adjustment: —
+
+on Finesse
+
+ 
+
+A squirming, squeaking horde of feral rats surges closer, teeth glistening in.
+their slavering jaws. ;
+
+A rat swarm is a mass of teeming, famished, disease-ridden rats. A
+swarm is composed of individuals very much like the ratdescribed
+on page 278, but in such great numbers, rats can become implaca-
+ble hunters capable of killing a human with hundreds of bites.
+
+A mat swarm sometimes can be found in the sewers and founda-
+tions of human cities.
+
+Combat.
+A rat swarm seeks to surround and attack any warm-blooded prey
+it encounters. A swarm deals 1dé points of damage to any creature
+whose space it occupies at the end of its move.
+
+Disease (Ex); Filth fever—swarm attack, Fortitude DC 12,
+incubation period 1d3 days, damage 1d3 Dex and 1d3 Con. The
+save DC is Constitution-based.
+
+Distraction (Ex): Any living creature that begins its turn with
+a swarm in its square must succeed.on.a DC 12 Fortitude save or be
+nauseated for { round. The save DC is Constitution-based.
+
+Skills: A rat swarm has a +4 racial bonus on Hide and Move
+Silently checks, and a+8 racial bonus on Balance, Climb, and
+Swim checks. A rat swarm can always choose to take 10 on all
+Climb checks, even if rushed or threatened.
+
+A rat swarm uses its Dexterity modifier instead of its Strength
+modifier for Climb and Swim checks.
+
+‘A rat swarm hasa +8 racial bonus on any Swim check to perform
+some special action or avoid a hazard. It can always choose to take |
+10 ona Swim check, even if distracted or endangered. Itcan.use the.
+run action while swimming, provided it swims ina straight line |
+
+SPIDER SWARM 4
+Diminutive Vermin (Swarm)
+|Hit Dice: 248 (9 hp)
+Initiative: +3.
+Speed: 20 ft. (4 squares), climb 20 ft.
+
+ 
+

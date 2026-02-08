@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "927ee56b1b7d:meta",
+    "sourceId": "927ee56b1b7d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/A Guidebook to Races/Wrath and Rage - Guidebook to Orcs and Half-Orcs.pdf",
+    "title": "Wrath and Rage - Guidebook to Orcs and Half-Orcs",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T03:48:04.456750+00:00",
+  "meta": {
+    "sourceId": "927ee56b1b7d",
+    "title": "Wrath and Rage - Guidebook to Orcs and Half-Orcs",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/A Guidebook to Races/Wrath and Rage - Guidebook to Orcs and Half-Orcs.pdf",
+    "pages": 82,
+    "extractedAt": "2026-02-04T03:48:04.078834+00:00"
+  },
+  "enqueued_extractPages": 41
+}

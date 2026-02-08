@@ -1,0 +1,12 @@
+# Table — The Cleric (PHB 3–6)
+
+## Source
+- PHB (pdf p.0032)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

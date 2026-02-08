@@ -1,0 +1,62 @@
+{
+  "ts": "2026-02-04T07:57:57.827769+00:00",
+  "sourceId": "fed77f68501d",
+  "title": "Dungeon Master's Guide",
+  "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/Dungeon Master's Guide.pdf",
+  "expected_pages": 322,
+  "staged_pages_present": 322,
+  "staged_pages_nonempty": 322,
+  "progress_pct": 100.0,
+  "prev_ts": "2026-02-04T07:52:08.714175+00:00",
+  "pages_added_since_last": 0,
+  "minChars": 30,
+  "zero_or_tiny_pages_total": 2,
+  "zero_or_tiny_pages_first20": [
+    {
+      "page": 1,
+      "size": 9,
+      "attempts": 3,
+      "exempt": true,
+      "justification": "Front matter / cover-like page; extractor consistently returns tiny output",
+      "needs_review_later": true
+    },
+    {
+      "page": 314,
+      "size": 6,
+      "attempts": 3,
+      "exempt": true,
+      "justification": "Scan artifact / illustration-only page; extractor consistently returns tiny output",
+      "needs_review_later": true
+    }
+  ],
+  "tiny_pages_exempt_total": 2,
+  "tiny_pages_exempt_first20": [
+    {
+      "page": 1,
+      "size": 9,
+      "attempts": 3,
+      "exempt": true,
+      "justification": "Front matter / cover-like page; extractor consistently returns tiny output",
+      "needs_review_later": true
+    },
+    {
+      "page": 314,
+      "size": 6,
+      "attempts": 3,
+      "exempt": true,
+      "justification": "Scan artifact / illustration-only page; extractor consistently returns tiny output",
+      "needs_review_later": true
+    }
+  ],
+  "tiny_pages_blocking_total": 0,
+  "tiny_pages_blocking_first20": [],
+  "exception_policy": {
+    "kind": "source_scoped_page_allowlist",
+    "sourceId": "fed77f68501d",
+    "allowlisted_pages": [
+      1,
+      314
+    ]
+  },
+  "PASS_STAGING_COMPLETE": true
+}

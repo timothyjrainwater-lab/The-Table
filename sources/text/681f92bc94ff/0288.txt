@@ -1,0 +1,214 @@
+ 
+ 287
+Summon Monster VI 
+Conjuration (Summoning) [see text for 
+summon monster I] 
+Level: Brd 6, Clr 6, Sor/Wiz 6 
+Effect: One or more summoned crea-
+tures, no two of which can be more 
+than 30 ft. apart 
+ 
+This spell functions like summon monster I, 
+except you can summon one creature from 
+the 6th-level list, 1d3 creatures of the same 
+kind from the 5th-level list, or 1d4+1 crea-
+tures of the same kind from a lower-level 
+list. 
+ 
+ 
+Summon Monster 
+ 
+1st Level 
+Celestial dog LG 
+Celestial owl LG 
+Celestial giant fire beetle NG 
+Celestial porpoise
+1 NG 
+Celestial badger CG 
+Celestial monkey CG 
+Fiendish dire rat LE 
+Fiendish raven LE 
+Fiendish monstrous centipede, NE 
+Medium 
+Fiendish monstrous scorpion, NE 
+Small 
+Fiendish hawk CE 
+Fiendish monstrous spider, Small CE 
+Fiendish octopus1 CE 
+Fiendish snake, Small viper CE 
+ 
+2nd Level 
+Celestial giant bee LG 
+Celestial giant bombardier beetle NG 
+Celestial riding dog NG 
+Celestial eagle CG 
+Lemure (devil) LE 
+Fiendish squid1 LE 
+Fiendish wolf LE 
+Fiendish monstrous centipede, NE 
+Large 
+Fiendish monstrous scorpion, NE 
+Medium 
+Fiendish shark, Medium1 NE 
+Fiendish monstrous spider, CE 
+Medium 
+Fiendish snake, Medium viper CE 
+ 
+3rd Level 
+Celestial black bear LG 
+Celestial bison NG 
+Celestial dire badger CG 
+Celestial hippogriff CG 
+Elemental, Small (any) N 
+Fiendish ape LE 
+Fiendish dire weasel LE 
+Hell hound LE 
+Fiendish snake, constrictor LE  
+Fiendish boar NE 
+Fiendish dire bat NE 
+Fiendish monstrous centipede, NE 
+Huge 
+Fiendish crocodile CE 
+Dretch (demon) CE  
+Summon Monster VII 
+Conjuration (Summoning) [see text for 
+summon monster I] 
+Level: Clr 7, Sor/Wiz 7 
+Effect: One or more summoned crea-
+tures, no two of which can be more 
+than 30 ft. apart 
+ 
+This spell functions like summon monster I, 
+except that you can summon one creature 
+from the 7th-level list, 1d3 creatures of the 
+same kind from the 6th-level list, or 1d4+1 
+creatures of the same kind from a lower-
+level list. 
+ 
+ 
+ 
+Fiendish snake, Large viper CE 
+Fiendish wolverine CE 
+ 
+4th Level 
+Archon, lantern LG 
+Celestial giant owl LG 
+Celestial giant eagle CG 
+Celestial lion CG 
+Mephit (any) N 
+Fiendish dire wolf LE 
+Fiendish giant wasp LE 
+Fiendish giant praying mantis NE 
+Fiendish shark, Large1 NE 
+Yeth hound NE 
+Fiendish monstrous spider, Large CE 
+Fiendish snake, Huge viper CE 
+Howler CE 
+ 
+5th Level 
+Archon, hound LG 
+Celestial brown bear LG 
+Celestial giant stag beetle NG 
+Celestial sea cat
+1 NG 
+Celestial griffon CG 
+Elemental, Medium (any) N 
+Achaierai LE 
+Devil, bearded LE 
+Fiendish deinonychus LE 
+Fiendish dire ape LE 
+Fiendish dire boar NE 
+Fiendish shark, Huge NE 
+Fiendish monstrous scorpion, NE 
+Large 
+Shadow mastiff NE 
+Fiendish dire wolverine CE 
+Fiendish giant crocodile CE 
+Fiendish tiger CE 
+ 
+6th Level 
+Celestial polar bear LG 
+Celestial orca whale1 NG 
+Bralani (eladrin) CG 
+Celestial dire lion CG 
+Elemental, Large (any) N 
+Janni (genie) N 
+Chaos beast CN 
+Devil, chain LE 
+Xill LE 
+Fiendish monstrous centipede, NE 
+Gargantuan 
+Fiendish rhinoceros NE 
+Fiendish elasmosaurus1 CE
+ 
+Summon Monster VIII 
+Conjuration (Summoning) [see text for 
+summon monster I] 
+Level: Clr 8, Sor/Wiz 8 
+Effect: One or more summoned crea-
+tures, no two of which can be more 
+than 30 ft. apart 
+ 
+This spell functions like summon monster I, 
+except that you can summon one creature 
+from the 8th-level list, 1d3 creatures of the 
+same kind from the 7th-level list, or 1d4+1 
+creatures of the same kind from a lower-
+level list. 
+ 
+ 
+ 
+Fiendish monstrous spider, Huge CE 
+Fiendish snake, giant constrictor CE 
+ 
+7th Level 
+Celestial elephant LG 
+Avoral (guardinal) NG 
+Celestial baleen whale1 NG 
+Djinni (genie) CG 
+Elemental, Huge (any) N 
+Invisible stalker N 
+Slaad, red CN 
+Devil, bone LE 
+Fiendish megaraptor LE 
+Fiendish monstrous scorpion, Huge NE 
+Babau (demon) CE 
+Fiendish giant octopus1 CE 
+Fiendish girallon CE 
+ 
+8th Level 
+Celestial dire bear LG 
+Celestial cachalot whale1 NG 
+Celestial triceratops NG 
+Lillend CG 
+Elemental, greater (any) N 
+Slaad, blue CN 
+Fiendish giant squid1 LE 
+Hellcat LE 
+Fiendish monstrous centipede, NE 
+Colossal 
+Fiendish dire tiger CE 
+Fiendish monstrous spider, CE 
+Gargantuan 
+Fiendish tyrannosaurus CE 
+Vrock (demon) CE 
+ 
+9th Level 
+Couatl LG 
+Leonal (guardinal) NG 
+Celestial roc CG 
+Elemental, elder (any) N 
+Slaad, green CN 
+Devil, barbed LE 
+Fiendish dire shark1 NE 
+Fiendish monstrous scorpion, NE 
+Gargantuan 
+Night hag NE 
+Bebilith (demon) CE 
+Fiendish monstrous spider, Colossal CE 
+Hezrou (demon) CE 
+ 
+1 May be summoned only into an aquatic or 
+watery environment. 
+CHAPTER 11: 
+SPELLS 

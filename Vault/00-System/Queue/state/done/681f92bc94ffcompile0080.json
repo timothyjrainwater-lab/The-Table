@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0080",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 80,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:09:32.006579+00:00"
+  },
+  "doneAt": "2026-02-03T08:24:22.161334+00:00",
+  "citation": "PHB (pdf p.0080)",
+  "printedGuess": "79",
+  "touched": [
+    "Rule — Core Mechanic (d20)"
+  ],
+  "createdTables": []
+}

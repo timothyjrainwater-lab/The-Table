@@ -1,0 +1,209 @@
+Conj
+
+Ench
+Evoc
+
+Ilus
+
+Trans
+
+Dimension Shuffle: Teleport multiple creatures
+short distances within line of sight
+
+Luminous Assassin: As lesser luminous assassin, but
+the assassin is more powerful.
+
+Toxic Weapon: Coats weapon with poison
+
+Incite Riot: Subjects attack nearest creature.
+Electric Vengeance, Greater: As clectric vengeance, but
+sd8 damage +1/level (max +15) and daze subject.
+Radiance: Creates daylight that dazzles undead
+Sonic Shield: +4 deflection bonus to AC; 1d8 sonic
+damage and push back creatures that hit you in melee.
+Friend to Foe: Make subject creature believe its
+allies are its enemies
+
+Dance of Blades: A weapon attacks on its own.
+Etherealness, Swift: Subject momentarily becomes
+ethereal
+
+6th-Level Sorcerer/Wizard Spells
+
+7th-Level Sorcerer/Wizard Spells
+
+Conj
+Necro
+
+Trans
+
+Luminous Assassin, Greater: As luminous assassin,
+but the assassin is more powerful.
+Pulse of Hate: Nearby enemies ta
+round
+
+Animalistic Power, Mass: As animalistic power, but
+multiple subjects.
+
+As the Frost: Transform into a creature of cold.
+
+ 
+
+ 
+
+e 2d6 damage/
+
+8th-Level Sorcerer/Wizard Spells
+
+Abjur
+Necro
+
+Trans
+
+Chain Dispel: Dispel multiple magical effects in
+multiple creatures,
+
+Plague: One creature/level contracts quickly termi-
+nal disease
+
+Celerity, Greater: Take a full-round action immedi-
+ately, but be dazed for a round.
+
+9th-Level Sorcerer/Wizard Spells
+
+Ench Overwhelm: Nonlethal damage knocks out subject. Conj
+Evoc Thunder Field: Creatures in area take 1d8 sonic
+damage/round, knocked prone. Evoc
+Trans Chasing Perfection": Subject gains +4 to all abilities.
+Energy Surge, Greater: As energy surge, but 3d6 Trans
+
+damage.
+
+Summon Golem: Summon a clay, flesh, iron, or
+stone golem from a small amount of like material.
+Detonate: Slays subject and creates 20-ft.-radius
+explosion that deals td6 damage/level (max 20d6).
+Dragonshape: You take on the form and abilities of
+a Huge red dragon.
+
+Alter Fortune
+Divination
+Level: Bard 3, cleric 3, druid 3, sorcerer/
+
+wizard 3
+Components: V, X
+Casting Time: t immediate action
+Range: Close (25 ft. + 5 ft./2 levels)
+
+  
+
+Target: One creature
+Duration: Instantaneous
+Saving Throw: None
+Spell Resistance: No
+
+Witha single utterance, you create a momen-
+tary distortion that engulfs and confounds
+your foe.
+
+You change the flow of chance, causing
+the subject to immediately reroll any
+die roll it just made. It must abide by
+the second roll
+
+XP Cost: 200 XP.
+
+ 
+
+Animalistic Power
+Transmutation
+Level: Cleric 2, druid 2, duskblade 2,
+ranger 2, sorcerer/wizard 2
+Components: V, S, M
+Casting Time: 1 standard action
+Range: Touch
+‘Target: Creature touched
+Duration: 1 minute/level
+Saving Throw: Will negates (harmless)
+
+ 
+
+Spell Resistance: Yes (harmless)
+
+A sparkling nimbus of green light
+appears around the creature. As the light
+fades, the creature seems a shade larger
+and assumes a more animalistic, even
+feral countenance
+
+You imbue the subject with an aspect
+of the natural world. The subject gains
+a +2 enhancement bonus to Strength,
+Dexterity, and Constitution.
+
+Material Component: A bit of animal
+fur, feathers, or skin.
+
+Animalistic Power, Mass
+Transmutation
+Level: Cleric 7, druid 7, sorcerer/
+wizard 7
+Range: Close (25 ft. + 5 ft./2 levels)
+Targets: One creature/level, no two of
+which are more than 30 ft. apart
+
+This spell functions like animalistic
+power, except that it affects multiple
+creature.
+
+As the Frost
+Transmutation [Cold]
+Level: Druid 7, sorcerer/wizard 7
+Components: V, S, M
+Casting Time; 1 standard action
+
+ 
+
+Range: Personal
+Target: You
+Duration: 1 round/level
+
+With a crystalline tinkling, your body
+transforms into a figure of ice and cold,
+your equipment melding into your new
+form. Your skin becomes brilliant blue
+and transparent, with glimpses of liquid
+beneath. Frost forms across your hands
+and arms, dripping down to form knife-
+like icicles. Your breath hisses white in the
+bitterly cold air surrounding you, Snow
+swirls about you as your presence freezes
+the air’s moisture. Ice crystals spread from
+your footprints
+
+ 
+
+ 
+
+Your creature type changes to out-
+sider. Unlike other outsiders, you
+can be brought back to life if you die
+in this form.
+You gain the following qualities and
+
+abilities:
+
+* Immunity to cold.
+
++ Damage reduction 10/magic and
+piercing.
+
+At the beginning of your action, crea-
+tures within 15 feet of you take 2d6
+points of cold damage per round. A
+creature that takes damage from this
+effect must make a Fortitude save
+DC 17 + your key ability modifier)
+
+ 
+

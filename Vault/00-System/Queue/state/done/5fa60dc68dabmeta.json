@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "5fa60dc68dab:meta",
+    "sourceId": "5fa60dc68dab",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Epic Level Handbook.pdf",
+    "title": "Epic Level Handbook",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:01:19.898631+00:00",
+  "meta": {
+    "sourceId": "5fa60dc68dab",
+    "title": "Epic Level Handbook",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Epic Level Handbook.pdf",
+    "pages": 320,
+    "extractedAt": "2026-02-03T10:01:18.468054+00:00"
+  }
+}

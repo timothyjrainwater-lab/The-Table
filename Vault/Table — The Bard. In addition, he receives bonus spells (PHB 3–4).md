@@ -1,0 +1,12 @@
+# Table — The Bard. In addition, he receives bonus spells (PHB 3–4)
+
+## Source
+- PHB (pdf p.0029)
+
+## Table
+(To be extracted.)
+
+## Citations
+
+## Links
+- Appears in [[MOC — Tables]]

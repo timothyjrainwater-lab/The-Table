@@ -1,0 +1,194 @@
+   
+  
+   
+  
+  
+ 
+
+  
+       
+
+Duties (affiliation score 21 or higher, or 15 or higher for
+racial affiliations)
+
+Good judgment—make DC 20 Appraise check once per
+month; failure indicates loss of 200 gp and affiliation
+score reduced by 1
+
+Must recruit one new member per month or reduce
+affiliation score by 1
+
+Must defeat a CR 9 creature in single combat
+
+Must donate 10% of treasure to affiliation
+
+Duties (affiliation score 30 or higher)
+
+Assassination attempts—if you fail to uncover a plot each
+month with a DC 30 Gather Information check, then you
+must face a CR 12 assassin (can be simplified: make DC
+15 Fort save or die)
+
+Great judgment—make DC 20 Appraise check once per
+month; failure indicates affiliation loses 1 capital
+
+Must defeat a CR 13 creature in single combat
+
+Mutiny—succeed on DC 15 Diplomacy check once per month
+or face mob/challenger (EL. 12)
+
+EXECUTIVE POWERS
+
+Affiliation leaders wield executive powers to accomplish
+many tasks ona grand scale. Generally, a leader must have an
+affiliation score of 30 or higher in order to gain the authority
+necessary to exercise these powers.
+
+Choose three executive powers for your affiliation from
+among those described below. The executive power descrip-
+tions limit certain powers to certain affiliation types. This
+was done to balance our the value of the various types. You are
+free to ignore those restrictions if your campaign or storyline
+dictates otherwise.
+
+Some of the abilities encompassed by executive powers are
+only used if you are playing with dynamic affiliations (using
+the rules for capital, violence checks, espionage checks, and
+negotiation checks)
+
+Assassinate: Your affiliation can retain the services of an
+assassin (or send one of its own). The level of the assassin is
+equal to 1/2 the affiliation’s scale (minimum 1; maximum 10
++ 1/2 its scale). Because it takes time to prepare a strike, an
+assassin can be assigned one mission each three months, You
+could resolve the results of an assassin strike using normal
+D&D rules, or you might decide to resolve things “offstage
+In the latter case, make an opposed espionage check against
+the victim's affiliation (or against the victim's Spot check, if
+
+ 
+
+he has no affiliation). If you succeed, the assassin penetrates
+your target's counterinfiltration measures and strikes. The
+victim must succeed on a Fortitude save against the normal
+DC for the assassin’s death attack or perish.
+
+Cabals, druid circles, governments, spy rings, temples, and
+thieves’ guilds can retain assassins
+
+Beatify: The deeds of a saint are to those of an ordinary
+man as the clouds are to the earth. Serene, high, and aloof,
+the saints move through our world, and yet seem not wholly
+apart of it. Your affiliation has the power to declare someone
+a potential saint; someone who is beatified gains the title
+Blessed or Hallowed. A living creature who is beatified gains
+a+2 sacred bonus on Bluff, Diplomacy, and Intimidate checks
+when dealing with other members of her faith. When she
+casts a cure spell on a member of her own faith, she adds her
+
+ 
+
+  
+
+ 
+
+   
+
+    
+  
+   
+ 
+ 
+   
+ 
+   
+   
+   
+  
+  
+   
+   
+ 
+ 
+  
+ 
+
+Wisdom bonus to the amount cured (maximum bonus equal
+to the spell’s level).
+
+Druid circles and temples can beatify a creature.
+
+Craft: Hammers ring on anvils, saws hum through wood,
+and kraken-ink quills scratch on half-petrified calf vellum
+at your affiliation’s headquarters. Your affiliation is adept
+at producing valuable items. It can craft any masterwork
+item or magic item from the Dungeon Master's Guide with a
+market price of up to 2,000 « the affiliation’s scale. This item
+belongs to the affiliation, but you can borrow it according
+to the benefits of your title in the affiliation description
+Mobilizing the affiliation in this way is a big job; to do so
+requires either an expenditure of 1 capital or a successful
+negotiation check (DC 15 +1 per 2,000 gp value of the item
+to bargain with supply and labor vendors. The process of
+crafting is not quick; you must wait 1-2 months to receive
+the item, During this time your affiliation is free to engage
+in other actions.
+
+Businesses, cabals, druid circles, colleges, temples, and
+tribes can craft items
+
+Crusade: Your affiliation can declare a crusade. You des-
+ignate an enemy and attempt a Diplomacy check (DC 20 +
+le of target affiliation, or DC 20 + level of target creature).
+If you succeed, your followers martial their resources and
+travel any distance to attack the offending blasphemer. If the
+target isan affiliation, make opposing violence checks. If your
+affiliation is successful, an opposing affiliation loses 1 capital.
+If the target is an individual, he must make a Fortitude save
+(DC equal to your violence check result). If the target fails,
+he perishes under your affiliation’s righteous onslaught.
+
+If you wronged an enemy affiliation by prying out the ruby
+eyes of its sacred idol, selling the head of its demon guardian
+at auction, or rescuing a screaming sacrifice from its altar,
+your rival might retaliate by targeting your character with
+an unholy crusade. Your DM might set aside the normal
+Fortitude save and choose to play out an encounter. In that
+case, you will be set upon by creatures appropriate to the
+rival affiliation, with an EL equal to 10 + your opponent's
+violence bonus.
+
+Each month that it crusades, an affiliation loses 2 capital
+due to the cost of the ongoing operations.
+
+Fighting companies, temples, and tribes can crusade. A
+crusade can target an individual, business, college, fighting
+company, government, temple, or tribe. Spy rings, druid
+circles, cabals, and thieves’ guilds are too elusive for such
+punishment.
+
+Excommunicate: You might instruct your affiliation
+to shun an individual or an entire group. No cleric of your
+affiliation will help an excommunicated creature or a member
+of an excommunicated affiliation. If the excommunicated
+creature fails a Will save (DC 10+ the scale of your affilia-
+tion), your edict is so strong that for a period of 1 year, the
+subject cannot benefit from a divine spell cast by anyone
+with an alignment descriptor in common with those of your
+church. For example, ifa lawful good church of Heironeous
+excommunicates a creature and it fails its save, the creature
+cannot benefit from divine spel
+lawful or good
+
+ 
+
+ 
+
+ 
+
+    
+
+ 
+
+rom a caster who is either
+

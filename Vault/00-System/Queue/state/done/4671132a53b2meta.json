@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "4671132a53b2:meta",
+    "sourceId": "4671132a53b2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Raven Mine.pdf",
+    "title": "Raven Mine",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T16:51:39.593459+00:00",
+  "meta": {
+    "sourceId": "4671132a53b2",
+    "title": "Raven Mine",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/Raven Mine.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T16:51:39.586607+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

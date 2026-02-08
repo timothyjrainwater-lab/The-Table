@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "27205031e9af:meta",
+    "sourceId": "27205031e9af",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Centaurs.pdf",
+    "title": "The Slayer's Guide To Centaurs",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:21:16.933897+00:00",
+  "meta": {
+    "sourceId": "27205031e9af",
+    "title": "The Slayer's Guide To Centaurs",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Centaurs.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T23:21:16.772128+00:00"
+  },
+  "enqueued_extractPages": 18
+}

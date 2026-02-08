@@ -1,0 +1,101 @@
+   Module Workshop  A Dead Man’s Party - Page 10 
+ 
+The backside of the hill is very steep. 
+Conceivably, the group of PCs may have 
+climbed the backside of the hill and gained 
+entrance to the sanitarium this way. The hill 
+is nearly vertical here for 50 ft., and a Climb 
+check (DC 15) is required to scale up the 
+back way. 
+ 
+Anyone can make a Listen check (DC 6) 
+near the door to Area 6 to hear the “music” 
+and “dancing” coming from inside. 
+ 
+Development: The doorman ghoul from 
+Area 1 usually waits in here, near the 
+southern double doors. He will notice any 
+creature coming in though either set of 
+double doors. If the doorman let in the 
+zombies and skeletons from Area 1 and the 
+party did not attack them, then they will 
+slowly shamble into Area 6, opening the 
+door to the room to do so. 
+ 
+3. Pipe Room
+ 
+ 
+This is an empty room except for a series of 
+iron pipes along the north wall that run from 
+ceiling to floor. The pipes are used to funnel 
+blood and waste from the rooms above to 
+the drainage rooms in the basement. This 
+fact is not immediately obvious unless the 
+PCs attempt to burst open the pipes. There 
+are three pipes, each are 6 inches in diameter 
+and have a break DC 24, hardness 10, and 
+20 hp. If broken open, blood will begin for 
+flow out into this room from the breach. 
+ 
+The grated drains from the floor above all 
+flow into these pipes. The pipes are far too 
+small for a character to pass through, unless 
+they somehow become extremely small or 
+gaseous. Any drain will lead either to Area 
+19, 21, or 22 (determine randomly). 
+ 
+There is also a barred window in this room 
+overlooking the western slope of the hill. 
+ 
+4. Small Bedroom (EL 3)
+ 
+ 
+As you enter this room, a figure sitting 
+on a bed raises its head, which was 
+cupped in its hands. It is obviously not 
+human… or at least, human no longer. 
+Its flesh is leathery and its teeth are long 
+and pointed. It looks at you with angry, 
+insane eyes. 
+ 
+This is a wight that was once one of the 
+sanitarium’s healers. Now it hates all living 
+things. If the party is disguised as zombies, 
+make a Spot check for the wight opposed by 
+the worst character’s disguise rating. If it 
+does not see through the disguise, it will 
+lower its head and ignore the PCs unless 
+provoked. If it recognizes living creatures, it 
+will attack them mercilessly until destroyed. 
+ 
+ Wight 
+CR 3; Medium Undead; HD 4d12 (32 hp); Init +1 
+(Dex); Spd 30ft.; AC 15 (+1 Dex, +4 natural); Atks 
+Slam melee +3 (1d4+1 dmg and energy drain); 
+Face/Reach 5ft. by 5ft./5ft.; SA Energy Drain, Create 
+Spawn; SQ Undead; AL LE; SV Fort +1, Ref +2, 
+Will +5; Str 12 Dex 12 Con – Int 11 Wis 13 Cha 15. 
+Skills: Climb +5, Hide +8, Listen +8, Move Silently 
++16, Search +7, Spot +8. 
+Feats: Blind-Fight 
+SA-Energy Drain(Su): Living creatures hit by a 
+wight’s slam attack receive one negative level. The 
+Fortitude save to remove the negative level is DC 14. 
+Create Spawn(Su): Any humanoid slain by a wight 
+becomes a wight in 1d4 rounds. Spawn are under 
+command of the wight that created them. 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Tactics: The wight will attack the nearest 
+PC and won’t stop until that character is 
+dead. 
+ 
+5. Large Bedroom
+ 
+ 
+This is a simple room with two beds and a 
+chest. The bed sheets are bloody, but have 
+no other trace of the former occupants. The 

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0129",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 129,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:34:17.558345+00:00"
+  },
+  "doneAt": "2026-02-03T09:35:27.161477+00:00",
+  "citation": "PHB (pdf p.0129)",
+  "printedGuess": "128",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Goods and Services (PHB 7–8)"
+  ]
+}

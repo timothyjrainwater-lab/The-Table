@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0094",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 94,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T07:41:02.441745+00:00"
+  },
+  "doneAt": "2026-02-03T08:35:40.649175+00:00",
+  "citation": "PHB (pdf p.0094)",
+  "printedGuess": "93",
+  "touched": [
+    "Condition — Flat-Footed",
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

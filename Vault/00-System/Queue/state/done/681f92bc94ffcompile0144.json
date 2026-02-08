@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0144",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 144,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:35:36.396661+00:00"
+  },
+  "doneAt": "2026-02-03T09:35:59.973162+00:00",
+  "citation": "PHB (pdf p.0144)",
+  "printedGuess": "143",
+  "touched": [
+    "Condition — Prone"
+  ],
+  "createdTables": [
+    "Table — Actions in Combat (PHB 8–2)"
+  ]
+}

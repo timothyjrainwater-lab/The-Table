@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "6dd80546dd01:meta",
+    "sourceId": "6dd80546dd01",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Forgotten Realms Dungeon Master's Screen.pdf",
+    "title": "Forgotten Realms Dungeon Master's Screen",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:50:34.266660+00:00",
+  "meta": {
+    "sourceId": "6dd80546dd01",
+    "title": "Forgotten Realms Dungeon Master's Screen",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Forgotten Realms/Forgotten Realms Dungeon Master's Screen.pdf",
+    "pages": 42,
+    "extractedAt": "2026-02-03T10:50:34.259307+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

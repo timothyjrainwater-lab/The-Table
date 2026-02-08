@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fdf4a0f4564a:meta",
+    "sourceId": "fdf4a0f4564a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/What Evil Lurks.pdf",
+    "title": "What Evil Lurks",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T03:33:41.163770+00:00",
+  "meta": {
+    "sourceId": "fdf4a0f4564a",
+    "title": "What Evil Lurks",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/What Evil Lurks.pdf",
+    "pages": 47,
+    "extractedAt": "2026-02-04T03:33:40.939272+00:00"
+  },
+  "enqueued_extractPages": 24
+}

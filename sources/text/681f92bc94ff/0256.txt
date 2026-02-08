@@ -1,0 +1,199 @@
+ 
+ 255
+other types of divination magic ( augury, 
+detect thoughts , clairaudience/clairvoyance, 
+and the like). 
+ 
+Mislead 
+Illusion (Figment, Glamer) 
+Level: Brd 5, Luck 6, Sor/Wiz 6, 
+Trickery 6 
+Components: S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target/Effect: You/one illusory double 
+Duration: 1 round/level (D) and 
+concentration + 3 rounds; see text 
+Saving Throw: None or Will disbelief (if 
+interacted with); see text 
+Spell Resistance: No 
+ 
+You become invisible (as improved invisi-
+bility, a glamer), and at the same time, an 
+illusory double of you (as major image , a 
+figment) appears. You are then free to go 
+elsewhere while your double moves away. 
+The double appears within range but 
+thereafter moves as you direct it (which 
+requires concentration beginning on the 
+first round after the casting). You can make 
+the figment appear superimposed perfectly 
+over your own body so that observers don’t 
+notice an image appearing and you turning 
+invisible. You and the figment can then 
+move in different directions. The double 
+moves at your speed and can talk and 
+gesture as if it were real, but it cannot 
+attack or cast spells, though it can pretend 
+to do so. 
+The illusory double lasts as long as you 
+concentrate upon it, plus 3 additional 
+rounds. After you cease concentration, the 
+illusory double continues to carry out the 
+same activity (for instance, fleeing down a 
+hallway) until the duration expires. The 
+improved invisibility  lasts for 1 round per 
+level, regardless of concentration. 
+ 
+Modify Memory 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Brd 4 
+Components: V, S 
+Casting Time: 1 round; see text 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One living creature 
+Duration: Permanent 
+Saving Throw: Will negates 
+Spell Resistance: Yes 
+ 
+You reach into the subject’s mind and 
+modify as many as 5 minutes of its memo-
+ries in one of the following ways. 
+/rhombus4 Eliminate all memory of an event the 
+subject actually experienced. This spell 
+cannot negate charm, geas/quest, sugges-
+tion, or similar spells. 
+/rhombus4 Allow the subject to recall with perfect 
+clarity an event it actually experienced. 
+For instance, it could recall every word 
+from a 5-minute conversation or every 
+detail from a passage in a book. 
+/rhombus4 Change the details of an event the sub-
+ject actually experienced. 
+/rhombus4 Implant a memory of an event the sub-
+ject never experienced. 
+ 
+Casting the spell takes 1 round. If the sub-
+ject fails to save, you proceed with the spell 
+by spending as much as 5 minutes (a 
+period of time equal to the amount of 
+memory time you want to modify) visual-
+izing the memory you wish to modify in 
+the subject. If your concentration is dis-
+turbed before the visualization is complete, 
+or if the subject is ever beyond the spell’s 
+range during this time, the spell is lost. 
+A modified memory does not neces-
+sarily affect the subject’s actions, particu-
+larly if it contradicts the creature’s natural 
+inclinations. An illogical modified mem-
+ory, such as the subject recalling how 
+much it enjoyed drinking poison, is dis-
+missed by the creature as a bad dream or a 
+memory muddied by too much wine. 
+More useful applications of modify memory 
+include implanting memories of friendly 
+encounters with you (inclining the subject 
+to act favorably toward you), changing the 
+details of orders given to the subject by a 
+superior, or causing the subject to forget 
+that it ever saw you or your party. The DM 
+reserves the right to decide whether a 
+modified memory is too nonsensical to 
+significantly affect the subject. 
+ 
+Moment of Prescience 
+Divination 
+Level: Luck 8, Sor/Wiz 8 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 hour/level or until 
+discharged 
+ 
+This spell grants you a powerful sixth 
+sense in relation to yourself. Once during 
+the spell’s duration, you may choose to use 
+its effect. This spell grants you an insight 
+bonus equal to your caster level (maximum 
++25) on any single attack roll, opposed 
+ability or skill check, or saving throw. 
+Alternatively, you can apply the insight 
+bonus to your AC against a single attack 
+(even if flat-footed). Activating the effect 
+doesn’t take an action; you can even 
+activate it on another character’s turn if 
+needed. You must choose to use the 
+moment of prescience  before you make the 
+roll it is to modify. Once used, the spell 
+ends. 
+You can’t have more than one moment of 
+prescience active on you at the same time. 
+ 
+Mordenkainen’s Disjunction 
+Abjuration 
+Level: Magic 9, Sor/Wiz 9 
+Components: V 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Area: All magical effects and magic items 
+within a 40-ft.-radius burst 
+Duration: Instantaneous 
+Saving Throw: Will negates (object) 
+Spell Resistance: No 
+ 
+All magical effects and magic items within 
+the radius of the spell, except for those that 
+y o u  c a r r y  o r  t o u c h ,  a r e  d i s j o i n e d .  T h a t  i s ,  
+spells and spell-like effects are separated 
+into their individual components (ending 
+the effect as a dispel magic spell does), and 
+each permanent magic item must make a 
+successful Will save or be turned into a 
+normal item. An item in a creature’s 
+possession uses its own Will save bonus or 
+its possessor’s Will save bonus, whichever 
+is higher. 
+You also have a 1% chance per caster 
+level of destroying an antimagic field. If the 
+antimagic field  survives the disjunction, no 
+items within it are disjoined. 
+Even artifacts are subject to disjunction, 
+though there is only a 1% chance per caster 
+level of actually affecting such powerful 
+items. Additionally, if an artifact is des-
+troyed, you must make a DC 25 Will save 
+or permanently lose all spellcasting abili-
+ties. (These abilities cannot be recovered 
+by mortal magic, not even miracle or wish.) 
+Note: Destroying artifacts is a dangerous 
+business, and it is 95% likely to attract the 
+attention of some powerful being who has 
+an interest in or connection with the 
+device. 
+ 
+Mordenkainen’s Faithful Hound 
+Conjuration (Creation) 
+Level: Sor/Wiz 5 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Effect: Phantom watchdog 
+Duration: 1 hour/caster level or until 
+discharged, then 1 round/caster level; 
+see text 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You conjure up a phantom watchdog that 
+is invisible to everyone but yourself. It 
+then guards the area where it was conjured 
+(it does not move). The hound 
+immediately starts barking loudly if any 
+Small or larger creature approaches within 
+30 feet of it. (Those within 30 feet of the 
+hound when it is conjured may move 
+CHAPTER 11: 
+SPELLS 

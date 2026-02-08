@@ -1,0 +1,142 @@
+ 
+
+   
+
+  
+  
+  
+ 
+    
+   
+   
+   
+ 
+    
+   
+  
+   
+  
+ 
+
+ 
+
+ 
+
+ 
+
+   
+   
+   
+ 
+   
+
+ 
+
+Animated Object, Large Animated Object, Huge Animated Object, Gargantuan
+Large Construct Huge Construct Gargantuan Construct
+Hit Dice: 4d10+30 (52 hp) 8d10+40 (84 hp) 16d10+60 (148 hp)
+Initiative: +0 =i =2
+Speed: 20 ft. (4 squares); 30 ft. legs, 20 ft. (4 squares); 30 ft. legs, 10 ft. (2 squares); 20 ft. legs,
+40 ft. multiple legs, 60 ft. wheels 40 ft. multiple legs, 60 ft. wheels 30 ft. multiple legs, 50 ft. wheels
+Armor Class: 14 (~1 size, +5 natural),touch 9, 13 (—2 size, ~1 Dex, +6 natural), 12(—+size, -2 Dex, +8 natural),
+flar-foored 14 touch 7, flat-footed 13 touch 4, flat-footed 12
+Base Attack/Grapple: +3/+10 46/419 $12/431
+Attack: Slam.+5 melee (1d8+4) Slam +9 melee (2d6+7) Slam +15 melee (2d8+10)
+Full Attack: Slam +5 melee (1d8+4) Slam +9 melee (2d6+7) Slam +15 melee (2d8+10)
+Space/Reach: 10 ft,/5 ft. (long) 15 ft./10 ft. (long) 20 ft./15 ff. (long)
+10 ft,/10 fr, (tall) 15 ft./15 ft, (tall) 20 ft,/20 fi, (tall)
+Special Attacks: See text See text See text
+Special Qualities: Construct traits, darkvision 60 ft., Construct traits, darkvision 60 ft., Construct traits, darkvision 60.ft..
+low-light vision; also see text low-light vision; also see text low-light vision; also see text
+Saves: Fort +1, Ref+1, Will 4 Fort +2, Ref +1, Will 3 Fort +5, Ref +3, Will +0
+Abilities: Str 16, Dex 10, Con—, Str 20, Dex 8, Con—, Str 24, Dex 6, Con —,.
+Int—, Wis 1, Cha 1 Int —, Wis 1, Cha 1 Int —, Wis 1, Chat
+Skills: - —_— -
+Feats: — — a
+Environment: Any Any Any
+Organization: Solitary Solitary Solitary
+Challenge Rating: 3 5 7
+‘Treasure: None None None
+Alignment: Always neutral Always neutral Always neutral
+Advancement; — — -
+Level Adjustment: = — = a
+Animated Object, Colossal A NKHEG
+Colossal Construct Large Magical Beast
+Hit Dice: 32d10+80 (256 hp) Hit Dice: 3d10+12 (28 hp)
+Initiative: —% Initiative: +0
+Speed: 10 ft. (2 squares}; 20 fr. legs, Speed: 30 ft. (6 squares), burrow 20 ft
+30 ft. multiple legs, 50 ft. wheels Armor Class: 18 (1 size, +9 natural), touch 9, flat-footed 18
+Armor Class; 11 (-8 size, -3 Dex, +12 natural), Base Attack/Grapple: +3/+12
+
+touch 1, flat-footed 11
+Base Attack/Grapple: +24/+49
+
+Attack: Slam +25 melee (4d6+13)
+Full Attack: Slam +25 melee (4d6+13)
+Space/Reach: 30 ft,/20 ft. (long)
+30 ft./30 ft. (tall)
+Special Attacks: See text
+Special Qualities; ___ Construct traits, darkvision 60 ft,
+Jow-light vision; also see text
+Saves: Fort +10, Ref +7, Will +5
+Abilities: Str 28, Dex 4, Con—
++ Int—, Wis 1,Cha 1
+, Skills:
+Feats; a
+Environment: Any
+Organization: Solitary.
+Challenge Rating: 10
+Treasure; None.
+Alignment: Always neutral
+Advancement: _
+Level Adjustment: =—
+
+make attacks of opportunity against the object can attempt Reflex
+jsaves.(DC 10 + 1/2 object's HD + object's Str modifier) to halve the
+\damage.
+
+Attack: Bite +7 melee (2d6+7 plus 1d4 acid)
+
+Full Attack: Bite +7 melee (2d6+7 plus 1d4 acid)
+
+Space/Reach: 10 ft,/s ft.
+
+Special Attacks: Improved grab, spit acid
+
+Special Qualities: Darkvision 60 ff,,.low-light vision, tremor
+sense 60 ft
+
+Saves; Fort +6, Ref +3, Will+2
+
+Abilities: Str21, Dex 10, Con 17, Int 1, Wis 13, Cha 6
+
+Skills: Climb +8, Listen +6, Spor +3
+
+Feats: Alertness, Toughness
+
+Environment: Warm plains
+
+Organization: Solitary or cluster (2-4)
+
+Challenge Rating: 3
+
+Treasure: None
+
+Alignment: Always neutral
+
+Advancement; 4 HD (Large), 5-9 HD (Huge)
+
+Level Adjustment; —
+
+A huge segmented insect with slender legs, each ending in a sharp claw,
+emerges fromthe ground in, a. burst of rock and dirt. A tough chisinous
+brown shell covers its entire body, and glistening black eyes stare out from
+above powerful mandibles.
+
+The ankheg isa burrowing monster with.a taste for fresh meat.
+Anankheg has six legs, and some specimens are yellow.
+
+rather than brown, It is about 10 feet long and weighs about
+
+$00 pounds,
+

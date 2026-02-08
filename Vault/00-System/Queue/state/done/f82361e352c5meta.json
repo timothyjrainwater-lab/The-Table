@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "f82361e352c5:meta",
+    "sourceId": "f82361e352c5",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/The Root of All Evil.pdf",
+    "title": "The Root of All Evil",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:01:28.229897+00:00",
+  "meta": {
+    "sourceId": "f82361e352c5",
+    "title": "The Root of All Evil",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/The Root of All Evil.pdf",
+    "pages": 68,
+    "extractedAt": "2026-02-03T23:01:28.222727+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

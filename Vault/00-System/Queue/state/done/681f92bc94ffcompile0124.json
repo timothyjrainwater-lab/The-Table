@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0124",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 124,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:32:35.090358+00:00"
+  },
+  "doneAt": "2026-02-03T09:33:28.954333+00:00",
+  "citation": "PHB (pdf p.0124)",
+  "printedGuess": "123",
+  "touched": [],
+  "createdTables": [
+    "Table —  (PHB 7–7)",
+    "Table — Armor and Shields (PHB 7–6)",
+    "Table — Armor and Shields. Refer to the appropriate line on (PHB 7–6)",
+    "Table — Donning Armor (PHB 7–7)"
+  ]
+}

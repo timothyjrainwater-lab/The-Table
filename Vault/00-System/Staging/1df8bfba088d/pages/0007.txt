@@ -1,0 +1,94 @@
+7
+be affected again by the same lesser vargouille’s
+shriek for 24 hours. The shriek is a mind-affecting
+fear effect.
+Outsider Traits: A lesser vargouille cannot be
+raised or resurrected (though a wish or miracle spell can
+restore life).
+Tactics: The lesser vargouille screams during the
+first round of combat, then attacks the nearest foe still
+standing. If all the PCs are paralyzed, it moves and
+attacks each of them once, then repeats the process. As
+soon as someone recovers, the lesser vargouille
+concentrates its attacks on that character.
+Treasure: Within the now-headless sarcophagus is
+a pile of dust and a translator’s ring (see Appendix).
+8. THE DARK KNIGHT (EL 2)
+Read or paraphrase the following when the characters
+enter this chamber.
+DD The Dark Knight: Male bugbear zombie, 42 hp;
+see Monster Manual, page 267.
+Possessions: Light wooden shield, morningstar,
+javelin, masterwork weapon*.
+Tactics: On the first round of combat, the dark
+knight throws his javelin, even though that action
+doesn’t make much sense tactically. After that, he
+charges to melee range and attacks the most obvious
+foe each round thereafter. Usually he chooses
+whichever PC dealt him the most damage in melee
+during the previous round.
+If the Dark Knight is disarmed or his weapon is
+sundered, he switches to his secondary weapon, which
+is slung on his back.
+Treasure: The morningstar that the Dark Knight
+is using is cracked and nearly worthless, and his other
+gear (including armor) is in no better condition. *But
+he does have a secondary weapon—a masterwork
+weapon of a type used by one or more of the PCs. (You
+can choose a weapon for a combat-based character who
+doesn’t already have a masterwork weapon, or you can
+determine randomly which of the PCs’ weapons the
+dark knight carries.) This weapon is worth 300 gp plus
+its base cost.
+Also within the chamber are 250 gp, scattered about
+loose on the floor.
+CONCLUDING THE
+ADVENTURE
+The adventure is over when the Dark Knight has been
+defeated and all the other monsters have been cleared
+out of the tor. Once those conditions have been met,
+the storm outside lessens and gradually blows itself out.
+FURTHER ADVENTURES
+The tribe of bugbears that sent out the two warriors
+encountered in area 4 is still interested in turning the
+tor into a base of operations. More bugbears arrive
+within the next few days, carrying supplies and tools
+with which they intend to alter the interior to suit
+their purposes. If the bugbears are not stopped, they
+establish a base within 2 weeks and begin raiding the
+surrounding countryside.
+Furthermore, once the bugbears discover that their
+honored ancestor, the Dark Knight, has been slain by
+the PCs, they send occasional parties of warriors after
+them to seek revenge. Up to three of these parties are
+sent out before the tribe gives up its quest for
+vengeance.
+APPENDIX: 
+NEW MAGIC ITEMS
+This adventure features a few very minor new magic
+items. Each is described fully in this section.
+Translator’ s Ring:This ring grants the wearer
+the ability to understand two specific languages in
+addition to those she already knows. If the character
+wearing the ring is literate, she also gains literacy in
+the new languages as long as she wears the ring.
+For the purpose of this adventure, the ring offers
+access to two languages that none of the PCs speak,
+but that might prove useful in future adventures.
+Appropriate choices include Abyssal, Aquan, Auran,
+Draconic, Dwarven, Giant, Goblin, Ignan, Infernal,
+Orc, and Terran.
+Faint divination; CL 1st; Forge Ring, comprehend
+languages; Price: 400 gp.
+Headband of the Stout Heart:This simple
+leather headband is studded with small iron rivets. It
+grants its wearer a +1 resistance bonus on all Will saves.
+A long, stone table dominates the center of this
+chamber, and bright bits of gold wink from
+within the dust that covers the floor. Upon the
+table lies the well-preserved corpse of a tall
+humanoid wearing the tabard and belts of a
+knight. Suddenly, the corpse sits up, lifting an
+old, rusted morningstar in one hand and a javelin
+in the other. As it climbs off the table, its mouth
+opens to loose an eerie moan.

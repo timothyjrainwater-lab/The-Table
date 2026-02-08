@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "f65406cd9ad5:meta",
+    "sourceId": "f65406cd9ad5",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Castle Zadrian.pdf",
+    "title": "Castle Zadrian",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T06:39:30.305115+00:00",
+  "meta": {
+    "sourceId": "f65406cd9ad5",
+    "title": "Castle Zadrian",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Castle Zadrian.pdf",
+    "pages": 13,
+    "extractedAt": "2026-02-03T06:39:30.233687+00:00"
+  }
+}

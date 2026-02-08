@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0169",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 169,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:39:31.398385+00:00"
+  },
+  "doneAt": "2026-02-03T09:39:34.915801+00:00",
+  "citation": "PHB (pdf p.0169)",
+  "printedGuess": "168",
+  "touched": [],
+  "createdTables": [
+    "Table — Goods and Services, page 128. A cleric must be at least 9th (PHB 7–8)"
+  ]
+}

@@ -1,0 +1,91 @@
+3
+BEGINNING THE 
+ADVENTURE
+A Dark and Stormy Knight is primarily a site-based
+adventure, though it begins with a storm of legendary
+proportions. Once the PCs seek shelter in Hightower,
+the action continues there.
+THE STORM
+The adventure can begin at any time of day. Read or
+paraphrase the following when the storm hits.
+Any character who makes a successful DC 10 bardic
+knowledge check or DC 15 Knowledge (architecture
+and engineering, dungeoneering, local, history, or
+nobility and royalty) check can identify this tor as
+Hightower and recall its history as given in the
+Adventure Background. 
+If PCs balk at heading for the tor, bring the weather
+rules (see page 93 in the Dungeon Master’s Guide) into
+play. Once the hail gets bad enough to deal lethal
+damage, the characters may become more willing to
+run for cover.
+HIGHTOWER
+The following sections describe the tor and the tombs
+within. Unless otherwise noted, all areas are unlit, and
+the walls, floors, and ceilings are made of worked
+stone.
+1. HIGHTOWER MAIN ENTRANCE
+Read or paraphrase the following when the PCs come
+within 20 feet of Hightower.
+Any character who makes a DC 12 Search or
+Knowledge (architecture and engineering) check can
+determine that the stonework of the doorway and the
+surrounding area is indeed very strong. A dwarf can
+determine the same information via stonecunning. 
+A DC 15 Spot check reveals the broken remains 
+of an immense, round stone scattered across the
+ground near the entrance. This stone once blocked
+the doorway, but it was blasted apart by lightning
+some weeks ago.
+The door is heavy but well counterweighted. It is
+unlocked and opens easily, and it swings shut of its
+own accord unless propped open.
+2. HIGHTOWER MAIN HALL
+Read or paraphrase the following once the PCs have
+entered Hightower.
+Each of the three doors is locked, and the DC for the
+required Open Lock check is high enough to be
+beyond the capabilities of even a talented 1st-level
+character. If the PCs arrive at different times, let them
+all get to this point before moving on to encounter 3.
+If they seem interested in talking, let them introduce
+themselves and perhaps set up camp in this chamber.
+Proceed to encounter 3 when they are ready to go on.
+ss Doors: 4 in. thick, hardness 8, hp 60, break DC
+28, Open Lock 30.
+The stone chamber beyond the entrance meas-
+ures at least ten paces square. Peeling paint and
+broken scrollwork suggest that it was once deco-
+rated with some care, but now only dust remains.
+Three massive stone doors—one each to the left
+and right, and one directly across from the
+entrance—lead deeper into the tor.
+The massive tor towers above the surrounding
+country. A few narrow ledges offer scant protec-
+tion from the elements, but a closer inspection
+reveals a massive, arched entryway at least 20 feet
+tall and 10 feet wide, set into the side of the hill.
+The ground just outside it slopes away from the
+doorway, directing the falling water out and
+away. Given this fact and the sturdy nature of the
+hill, whatever space lies beyond the door should
+be both dry and safe from lightning and hail. The
+construction seems quite sturdy, so the likeli-
+hood of collapse, even in severe conditions such
+as these, is remote.
+The sky has been slowly darkening all day, and
+the smell of rain has been thick in the air. Now it
+has finally begun to fall, accompanied by loud
+peals of thunder that seem to roll across the land-
+scape. The sun is hidden behind massive storm-
+clouds, and a cold wind blows from the north. As
+bolts of lightning begin to slam from cloud to
+ground and pieces of hail begin to strike the
+earth, the need for shelter becomes obvious.
+Ahead in the distance, a large tor rises from the
+ground, its form illuminated by the occasional
+lightning bolt. It seems rocky and solid, and
+though climbing it in this weather would be
+folly, it might have some outcropping that would
+provide safety from the storm. The only alterna-
+tive is to endure the weather.

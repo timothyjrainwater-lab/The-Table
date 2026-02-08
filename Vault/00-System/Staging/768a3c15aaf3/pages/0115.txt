@@ -1,0 +1,150 @@
+Le
+
+Dismissal: See Abjuration and Extraplanar. If
+the extraplanar creature fails its saving throw,
+there isa 50% chance that the creature is teleported
+toa random location in Ravenloft. Otherwise, the
+spell has no effect.
+
+Dispel Evil: See Abjuration. The spell does
+dispel enchantments cast by evil creatures and evil
+spells. However, it is generally ineffective against
+curses of vengeance (see “Curses”).
+
+Dispel Good: As dispel evil.
+
+Dispel Magic: See Closed Domain Borders.
+This spell cannot dispel curses of vengeance.
+
+Dispel Magic, Greater: See Closed Domain
+Borders. This spell cannot dispel curses of ven-
+geance.
+
+2)
+
+Disrupting Weapon: If weapon that has this
+spell cast upon it destroys an undead creature
+important to the realm’s darklord, the darklord
+becomes aware of the loss of his minion and knows
+the general whereabouts of the wielder of the
+weapon.
+
+Divination: The base chance of a correct
+divination remains unchanged, but you are not
+made aware if the dice roll fails. Instead, the Dark
+Powers provide an answer that is purposefully mis-
+leading and possibly malicious.
+
+Dominate Animal: See Enchantment, Mind-
+Affecting.
+
+Dominate Monster: See Enchantment, Mind-
+Affecting.
+
+Dominate Person: See Enchantment, Mind-
+Affecting.
+
+Drawmij’s Instant Summons: The item can-
+not be summoned through closed domain borders.
+
+Elemental Swarm: See Conjuration (Sum-
+moning). At the end of the spell’s duration, each
+summoned dread elemental must makea Will save.
+If the save is successful, you no longer have any
+control over that creature; it may run amok or even
+attack you. If the dread elemental fails its save, it
+vanishes without incident, returning to the Mists.
+
+Energy Drain: As enervation, except that any
+person killed by this spell must succeed at a Will
+save or become an undead creature (of the DM’s
+choice) with as many HD as the victim had levels.
+
+Enervation: For each negative level the sub-
+ject gains, she also takes 1 point of permanent hit
+point damage unless a cleric casts lesser restoration
+on the subject within one day, restoration within
+one week, or greater restoration within thirty days.
+
+ 
+
+ 
+
+In Ravenloft, the maximum number of tempo-
+rary hitpoints this spell can give an undead creature
+is 50. Casting this spell requires a powers check.
+
+Enlarge Person: See Transmutation.
+
+Enlarge Person, Mass: See Transmutation.
+
+Ethereal Jaunt: See Ethereal.
+
+Etherealness: See Ethereal.
+
+ 
+
+Eyebite: Because this spell uses the power of
+evil energy, casting it requires a powers check.
+
+Find the Path: This spell cannot find loca-
+tions outside the domain in which iris cast. If Mists
+surround the domain, you can focus on them to
+reach the border.
+
+The Realm of Dread contains a few physical
+portals to other worlds. If such an exit is within the
+domain, this spell can guide you to it, provided you
+know what you're looking for. As some portals
+appear only under specific conditions, find the path
+s no effect if the portal is not present when the
+spell is cast.
+
+Finger of Death: Three days after being killed
+by this spell, the victim’s body automatically ani-
+mates as a zombie. This new zombie retains its
+Intelligence score and has as many Hit Dice as the
+victim had levels. If you are present when this
+happens, the zombie must make a Will save. Fail-
+ure means that the zombie falls under your control;
+success means that it becomes free willed. A free-
+willed zombie despises you and seeks you out,
+hoping to wreak its vengeance. If you are not
+present when the zombie animates, it automati-
+cally becomes free willed. Casting this spell requires
+a powers check.
+
+Flesh to Stone: See Transmutation.
+
+Forbiddance: See Abjuration, Detecting
+Alignment and Extraplanar.
+
+Freedom: See Closed Domain Borders. This
+spell cannot free a darklord from his domain.
+
+Freedom of Movement: See Closed Domain
+Borders.
+
+ 
+
+   
+
+ 
+
+Gaseous Form: See Transmutation.
+
+Gate: The gate created by this spell is one-way
+only, leading into but not out of Ravenloft. This
+spell can be used in two ways:
+
+Planar Travel: See Teleportation.
+
+Calling Creatures: See Conjuration (Calling).
+If you know the true name of a specific outsider or
+elemental creature already within Ravenloft, you
+can use this spell to summon it and demand a
+service. Trying to conjure an evil creature with this
+spell requires a powers check.
+
+ 
+

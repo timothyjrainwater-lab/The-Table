@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "465b05ae98c3:meta",
+    "sourceId": "465b05ae98c3",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Gazetteer Volume 1.pdf",
+    "title": "Gazetteer Volume 1",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T11:15:47.064873+00:00",
+  "meta": {
+    "sourceId": "465b05ae98c3",
+    "title": "Gazetteer Volume 1",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Ravenloft/Gazetteer Volume 1.pdf",
+    "pages": 155,
+    "extractedAt": "2026-02-03T11:15:47.056865+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

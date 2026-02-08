@@ -1,0 +1,101 @@
+   Module Workshop  A Dead Man’s Party - Page 15 
+ 
+opponents close distance, it is not smart 
+enough to back up or otherwise maneuver 
+intelligently.  
+ 
+14. The Feast (EL 4)
+ 
+ 
+Once the PCs open either door to this room, 
+read the following: 
+ 
+When you open the door, you see four 
+figures crowded around a raised table. 
+There is a body on the table and the four 
+figures are obviously tearing off chunks 
+of the body and eating it. One of them 
+looks up in your direction, surveying 
+you all with burning eyes. 
+ 
+Have the ghoul make a Spot check opposed 
+by the worst character’s Disguise. If it fails, 
+the ghouls continue their dinner, ignoring 
+the characters. If it succeeds, it hisses and 
+attacks the PCs, followed closely by its 
+companions. 
+ 
+The room is obviously a surgical room, but 
+is has been stripped on anything useful to 
+the PCs. 
+ 
+ Ghouls (4) 
+CR 1 each; Medium Undead; HD 2d12 (20, 17, 13, 8 
+hp); Init +2 (Dex); Spd 30ft.; AC 14 (+2 Dex, +2 
+natural); Atks Bite +3 melee (1d6+1 dmg and 
+paralysis), 2 claws +0 melee (1d3 dmg and paralysis); 
+Face/Reach 5ft. by 5ft./5ft.; SA Paralysis, Create 
+Spawn; SQ Undead, +2 turn resistance; AL CE; SV 
+Fort +0, Ref +2, Will +5; Str 13 Dex 15 Con – Int 13 
+Wis 14 Cha 16. 
+Skills: Climb +6, Escape Artist +7, Hide +7, Intuit 
+Direction +3, Jump +6, Listen +7, Move Silently +7, 
+Search +6, Spot +7. 
+Feats: Multiattack, Weapon Finesse(bite) 
+SA- Paralysis(Ex): Those hit by a ghoul must make a 
+Fort Save (DC 14) or be paralyzed for 1d6+2 
+minutes. Elves are immune to this paralysis. 
+Create Spawn(Su): Any being slain by a ghoul and 
+not eaten by the creature will rise as a ghoul in 1d4 
+days. Casting Protection from Evil on the body 
+prevents this. 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Tactics: The ghouls are ravenous for fresh 
+meat, so they will attack the characters 
+mercilessly and pursue them if they try to 
+flee. If the PCs stand and fight, the ghouls 
+will fight in pairs, each pair picking a 
+character and trying to flank that person in 
+combat. 
+ 
+15. Basement Corridors (EL 4)
+ 
+ 
+This area represents most of the basement, 
+as there are many winding corridors and 
+doorways that intertwine the basement. Any 
+other area is labeled with a different number. 
+ 
+The basement is dark and dingy, cut from 
+the same dark granite blocks. Torches on the 
+walls are less frequent down here, but there 
+are still enough to provide adequate, if rather 
+dim, illumination. 
+ 
+Any character listening outside the door to 
+Area 17 has a chance (Listen DC 13) to hear 
+the sounds of clacking and shuffling. 
+Listening outside Area 18 (Listen DC 23) 
+could reveal the sounds of slight bumping 
+noises. If the characters make a successful 
+check (Listen DC 12) outside the door to 
+Area 19 will hear the ghouls inside laughing 
+and talking, though they will not be able to 
+distinguish actual words from out in the 
+corridor. 
+ 
+A ghoul ogre wanders these corridors. The 
+PCs have a 50% chance to encounter him 
+every minute spent in any part of Area 15. 
+The ogre was once an inhabitant in the 
+nearby forest until his untimely death at the 
+hands of a pack of ghouls. Now, he has been 
+raised as a ghoul and the rift has drawn him 
+here. 
+ 
+Unlike most ghouls, he is neither 
+particularly intelligent nor cunning. His job, 

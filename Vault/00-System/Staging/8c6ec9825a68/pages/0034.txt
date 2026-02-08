@@ -1,0 +1,171 @@
+monster, a nature spirit, or an ancestor. Your tribal shaman
+convinced you that the application of such a painful and
+encompassing (and disfiguring!) tattoo would allow you to
+more easily contact the spirit world and gain the power of
+the spirit or animal represented by the mask. Alternatively,
+you were shunned or cast out by your tribe. The tattoo cover-
+ing your face forever marks you as an outcast to your tribe,
+unworthy to associate with the people of your birth
+
+Naga: Instead of snakes spiraling up your arms, you have
+tattooed human-headed nagas! The nagas represent anarchy
+and indicate to others who understand the symbol that you
+follow no law but your own, civilization be damned.
+
+Snake: Tattooed snakes coil around your upper arms, simple
+but colorful. Their heads point toward your head, imparting
+their wisdom to you in spirit, if not in voice.
+
+Spider: On the palm of one of your hands, hidden in normal
+dealings with strangers, the tattoo of a night-dark spider lurks
+with five of its legs extending up onto the undersides of your
+fingers. To you (and others familiar with the symbology), the
+spider represents trickery and even death, though others
+might say treachery instead of trickery. When engaged in
+trickery (or treachery), it is your habit to reveal your open
+palm to the victim of your trick (or double-cross) as the nature
+of your action becomes apparent to them.
+
+Sun Rays: On the backs of your hands are tattooed the long
+rays of the golden sun. Just like you can count on the sun rising
+daily, people can count on you, as this tattoo signifies.
+
+Toad: You believe that this minor tattoo you wear on one
+shoulder helps protect you from witchcraft, evil spells, and
+demonic influences.
+
+BERSERKER STRENGTH
+
+The decision of when to rage is one of the toughest faced by
+a barbarian. Selecting the berserker strength class feature
+in place of rage removes the need for this often complicated
+tactical decision, replacing it with an automatically activated
+boost to your combat prowess and durability, In short, when
+the going gets tough, you get tougher.
+
+Level: 1st.
+
+Replaces: If you select this class feature, you do not gain
+rage (or any later improvements to that class feature).
+
+ 
+
+  
+
+ 
+
+ 
+
+ 
+
+BARBARIAN BATTLECRIES
+
+Below are a few battle cries you enjoy screaming out to mark
+the beginning of a conflict, or into an enemy's face in the midst
+of battle
+
+[a shriek like a high-pitched yowl of a wildcat}
+Blood for the Blood God!
+
+Break the bones, hew the flesh!
+
+Death to the city dwellers!
+
+For the North! [or your tribe name]
+
+Scream your last!
+
+Your guts for a garter!
+
+Your skin for a shawl!
+
+Your skull for a cup!
+
+ 
+
+Benefit: Whenever your current hit point total is below $
+our barbarian level, your berserker strength automatically
+activates. You gain a +4 bonus to your Strength score, a +2
+bonus on saves, damage reduction 2/—, and a -2 penalty to
+your AC. The damage reduction granted by berserker strength
+stacks with any similar kind of damage reduction.
+
+There is no limit to the number of times per day your
+berserker strength can activate. While berserker strength is
+active, you have the same limitation on actions as a barbarian
+in rage (PH 25). You cannot voluntarily end your berserker
+strength, although you automatically drop out of it while
+unconscious, helpless, or (most likely) when you receive heal-
+ing to bring your current hit points above the threshold.
+
+Ar 1ith level (or if you would gain the greater rage class
+feature from any class), your berserker strength improves
+instead. The bonus to your Strength score improves to +6,
+your bonus on saves improves to +3, and you gain damage
+reduction 3/— (or your existing damage reduction of the
+same kind improves by 3).
+
+At 20th level (or if you would gain the mighty rage class
+feature from any class), your berserker strength instead
+improves again. The bonus to your Strength score improves to
++8, your bonus on saves improves ta +4, and you gain damage
+reduction 4/— (or your existing damage reduction of the same
+kind improves by 4),
+
+Any effect that would normally apply only during your
+rage applies whenever your berserker strength is active.
+
+STARTING PACKAGES
+
+Package 1: The Destroyer
+
+Half-Ore Barbarian
+Ability Scores: Str 17, Dex 13, Con 14, Inr 8, Wis 12, Cha 6.
+skills: Climb, Jump, Swim
+Feat: Power Attack.
+Weapons: Greataxe (1d12/x3), five javelins (1d6, 30 ft.).
+Armor: Scale mail (+4 AC)
+Other Gear: Standard adventurer's kit, 9 gp.
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+ 
+
+Package 2: The Hunter
+Elf Barbarian
+Abilily Scores: Str 15, Dex 16, Con 10, Int 10, Wis 13, Cha 8.
+Shills: Climb, Handle Animal, Listen, Survival
+Feat: Track,
+Weapons: Battleaxe (1d8/x3), shortbow with 20 arrows
+(1d6/19—20, 60 ft).
+Armor: Studded leather (+3 AC), heavy steel shield
+(+2 AC
+Other Gear: Standard adventurer's kit, 1 gp.
+
+ 
+
+Package 3: The Whirlwind
+Human Barbarian
+Ability Scores: Str 14, Dex 15, Con 13, Int 10, Wis 12, Cha 8.
+Skills: Climb, Intimidate, Jump, Listen, Swim.
+Feat: Two-Weapon Fighting, Weapon Focus (kukri).
+Weapons: Two kukris (1d4/18-20), five javelins (1d6, 30 ft.).
+Armor: Scale mail (+4 AC).
+Other Gear: Standard adventurer's kit, 4 gp.
+
+ 
+
+ 
+

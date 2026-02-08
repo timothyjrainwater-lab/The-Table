@@ -1,0 +1,150 @@
+¥y
+
+5 Madness Effect
+a Minor Moderate Major
+
+x Blackout Delusions Amnesia
+
+<< Denial Depression Multiple Personalities
+
+j Horrified Hallucinations Schizophrenia
+
+: Unhinged Paranoia Suicidal Thoughts >
+€ /
+eh — ~ _ _
+
+ 
+
+ 
+
+All Madness effects described below are in
+addition to the ability point loses detailed above.
+Asanote, minor Madness effects tend to be forgi
+ing and pass within a few hours. Moderate effects
+can be troubling, but PCs can usually continue to
+function. Characters suffering from major Madness
+effects often pose adanger to themselvesand others
+and require close supervision.
+
+Minor Madness Gffects
+
+Blackout: The character is shaken at first
+However, she does not recall anything in the time
+between (and including) the scene that prompted
+the Madness save and when she regains the last of
+her decreased ability scores.
+
+ 
+
+ 
+
+ 
+
+If the character is alone, the DM may simply
+cut to when she “comes to,” wandering and alone,
+with no memory of how she came to be in her
+current location. Some spells, such as modify
+memory, can restore lost memories.
+
+Denial: The character’s mind refuses to ac-
+cept the existence of the threat that prompted the
+Madness save. Until she regains all lost ability
+score points, she acts as if this threat simply does
+not exist. Denial provides the character with an
+effective +4 insight bonus on any Will saves against
+that threat’s attacks but otherwise offers no protec-
+tion. When all ability scores are regained, the
+character once again acknowledges the existence
+of the threat (but loses the insight bonus).
+
+Horrified: The character suffers a moderate
+Horror effect (determined randomly). This Horror
+effect’s duration lasts only until the character re-
+gains all lost ability score points, rather than the
+usual two weeks.
+
+Unhinged: The portion of the character's mind
+that should have gone mad simply shuts down in-
+stead. This leaves the character able to function but
+affects her personality. She receives an effective +2
+morale bonus on all Fear and Horror saves, but her
+alignment temporarily changes (roll 1d8 to ran-
+domlyselectanewalignment, omitting the character's
+
+ 
+
+ 
+
+ 
+
+original alignment from the options). A DC 20
+Sense Motive check can reveal that the Unhinged
+character is not quite herself, assuming it isn’t obvi-
+ous. The character regains her normal alignment
+(but loses the morale bonus) when all lost ability
+score points are restored.
+
+An alignment change due to this Madness
+effect does not cause an additional Madness check.
+
+ 
+
+Moderate Madness Gffects
+
+Delusions: The character believes something
+about herself that is simply not true. The nature of
+this delusion is usually tied into the event that
+provoked the Madness save. Examples might in-
+clude a character who believes she has endles:
+wealth (paying for services with pebbles she insists
+are tubies), believes she transforms into a wolf
+under the light of the full moon (and insists she
+must be caged), or believes that she is a specific
+NPC (“Lam Count Strahd! Bow before me!”). The
+character can perform actions only if she can
+rationalize them within the context of her delu-
+sion. For example, a character who believes she is
+actually a vampire would not be willing to expose
+herself to sunlight.
+
+ 
+
+ 
+
+ 
+
+ 
+
+If a character ever performs an action that
+should be impossible within the context of her
+delusion (in other words, if the player cannot
+immediately provide a rationalization for the ac-
+tion), the character must make an immediate DC
+15 Horror check.
+
+Depression: The character is overcome by a
+deep melancholy, sapping away her will to live and
+her interest in the world around her. Such a char-
+acter just wants to be left alone; she does not
+suggest ideas, give commands or otherwise direct
+other characters. In fact, in any given situation, the
+character must make a Will save at the same DC as
+the failed Madness save to take any action whatso-
+ever. If the character fails this Will save, she does
+nothing at all, even in dangerous situations. In a
+combat situation, she cannot take any actions and
+is considered flat-footed.
+
+Even if the character is motivated to act, she
+does so listlessly and reluctantly. She can follow
+the instructions ofallies, but she suffers an effective
+-4 morale penalty on all attack rolls, loses any
+Dexterity bonus to AC and on Reflex saves and
+cannot take attacks of opportunity. On the other
+hand, the character's utter lack of interest in her
+surroundings actually provides her with an effec-
+
+ 
+
+ 
+

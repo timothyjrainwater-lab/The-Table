@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "9bc337f82986:pages:0007-0008",
+    "sourceId": "9bc337f82986",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/A Dead Man's Party.pdf",
+    "pageStart": 7,
+    "pageEnd": 8,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:28:33.421782+00:00"
+  },
+  "doneAt": "2026-02-03T08:30:55.877658+00:00",
+  "wrote": [
+    "00-System/Staging/9bc337f82986/pages/0007.txt",
+    "00-System/Staging/9bc337f82986/pages/0008.txt"
+  ],
+  "method": {}
+}

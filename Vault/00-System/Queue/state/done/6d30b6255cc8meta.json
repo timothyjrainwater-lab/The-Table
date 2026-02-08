@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "6d30b6255cc8:meta",
+    "sourceId": "6d30b6255cc8",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Feats.pdf",
+    "title": "Feats",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:38.579087+00:00",
+  "meta": {
+    "sourceId": "6d30b6255cc8",
+    "title": "Feats",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Feats.pdf",
+    "pages": 145,
+    "extractedAt": "2026-02-03T10:36:38.571351+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,367 @@
+  
+   
+ 
+  
+ 
+   
+ 
+   
+   
+ 
+  
+   
+   
+  
+   
+  
+  
+    
+ 
+   
+  
+  
+  
+  
+    
+  
+  
+  
+   
+    
+   
+  
+   
+   
+   
+  
+ 
+ 
+   
+  
+  
+  
+  
+       
+
+Medium Undead (Incorporeal)
+
+Hit Dice: 7d12 (45 hp,
+
+Initiative: +
+
+Speed: 40 fr. (8 squares), fly 80 ft. (pe
+
+Armor Class; 15 (+3 Dex, +2
+
+Base Attack/Grapple: +3,
+
+Attack: Incorporeal touch +6 melee (1d8 plus energy drain
+
+Full Attack: Incorporeal touch +6 melee (1d8 plus energy drain
+
+Space/Reach: § ft./5 ft
+
+Special Attacks: Energy drain, create spawn
+
+Special Qualities: Darkvision 60 ft., incorporeal traits, +2 tum
+resistance, sunlight powerlessness, undead traits, unnatural aura
+
+Saves: Fort +2, Ref +5, Will
+
+Abilities: Str —, Dex 16,Con —, Int 14, Wi
+
+Skills: Hide +13, Intimidate +12, Knowledge (re +12,
+Listen +14, Search +12, Spot +14, Survival +2 (+4 followi
+tracks)
+
+Feats; Alertness, Blind-Fight, Improved Initiative
+
+Environment: Any land and underground
+
+Organization: Solitary, gang (2-4), or
+
+m (6-11
+
+Challenge Rating: 7
+
+Treasure: None
+
+Alignment; Always lawful evil
+
+Advancement: 8-14 HD
+(Medium:
+
+Level Adjustment:
+
+ 
+
+  
+
+   
+
+ 
+
+ 
+
+  
+ 
+  
+ 
+  
+  
+ 
+  
+ 
+ 
+  
+  
+  
+ 
+ 
+  
+   
+   
+    
+
+ 
+
+ 
+
+swa
+
+ 
+
+This entity looks like a human,
+but with a diaphanous and faint.
+ly Juminous body.
+
+Spectres are incorporeal u
+dead often mistaken
+
+ghosts, They haunt the places
+where they died, retaining their
+
+ 
+
+sentience but now hating all living
+things.
+
+ 
+
+pectre looks much as it did in lif
+
+and can be easily recognized by those who
+
+knew the individual or have seen the individ
+
+ual's face ina painting ora drawing. In many cases, the
+
+evidence of a violent death is visible on its body. The chill of death
+
+lingers in the air around spectres and in the places they haunt
+A spectre is roughly human-sized and is weightless.
+
+ 
+
+ 
+
+ 
+
+ 
+
+COMBAT
+Un close combat a spectre attacks with its numbing, life-d
+touch It makes full use of its incorporeal nature, moving thi
+walls, ceilings, and floors as it attacks,
+
+Energy Drain (Su); Living creatures hit by a spectre’s incorpo-
+real touch attack gain two negative levels, The DC is 15 for the For
+titude save to remoye.a negative level. The save DC is Charisma
+based. For each such negative level bestowed, the spectre gains $
+temporary hit points
+
+Create Spawn (Su): Any humanoid slain by a spectre becor
+a spectre in id¢ rounds, Spawn are.under the command of the
+spectre that created them and remain enslaved until its death
+
+(They.do not possess any of the abilities they had in life
+|—Unnatural Aura (Su); Animals, whether wild or domesticated,
+ican sense the unnatural presence of a spectre at a distance of 30
+feet, They do not willingly approach nearer than that and panic if
+forced to do so; they remain panicked as long as they are within
+that range.
+
+ 
+
+aining
+
+ 
+
+   
+
+ough
+
+ 
+
+ 
+
+  
+
+ 
+
+ 
+
+   
+
+RE
+
+flection), touch 15, flat-footed 13)
+
+Sunlight Powerlessness (Ex): Spectres are powerless in natu
+ral sunlight (not merely a daylight spell) and flee from it. A spectre
+caught in sun! d only a single move |
+
+ 
+
+ 
+
+t.cannot attack and can t
+orattack action in around.
+
+    
+
+—__ ——— ——SPBINX
+
+Sphinxes are enigmatic creatures with great, feathery wings and
+leonine bodies. All sphinxes are territorial, but the more intelli
+gent ones can differentiate between deliberate intrusion and tem:
+porary or inadvertent trespass.
+A typical sphinx is about
+pounds.
+Sphinxes speak Sphinx, Common, and Draconic
+
+     
+
+ 
+
+ 
+
+et long and
+
+ 
+
+eighs abour 800
+
+ 
+
+Most sphinxes fight on the ground, using their wings to hel
+|them pounce much as lions do. If outnumbered by earthbound
+kes wing and attacks on the fly
+
+ircan make a
+full attack, including two rake attacks,
+
+Rake (Ex): A sphinx that pounces onto a
+creature.can make two rake attacks with its
+hind legs. Each sphinx’s description pro:
+vides its attack bonus and damage.
+
+ANDROSI
+
+Large Magical Beast
+
+Hit Dice: 12d10+48 (114 hp
+
+Initiative:
+
+Speed: 50 ft. (10 squares), fly 80 ft
+poor
+
+Armor Class: 22 (~1 size, +13 nat:
+ral), rouch 9, flat-footed : 22
+
+Base Attack/Grapple: +12/+23
+
+Attack: Claw +18 melee (2d4+7
+
+Full Attack: 2 claws +18 melee
+
+     
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Space/Reach: 10 f./5 ft
+Special Attacks: Pounce, rake 2d4+3, roar
+spells
+Special Qualities: Darkvision 60 f
+vision
+Saves: Fort Ref +8, Will +7
+Abilities: Str 25, Dex 10, Con 19, Int 16, Wis 17, Cha 17
+Skills; Intimidate
+Spot +18, Survival +18
+Feats: Alertness, Cleave, Great Cleave, Flyby Attack, Power
+Attack, Track
+Environment: Warm deserts
+Organization: Solitary
+Challenge Rating: 9
+Treasure; Standard.
+Alignment: Always chaotic good
+Advancement: 13-18 HD (Large); 19-36 HD (Huge
+Level Adjustment: +5 (cohort
+
+ 
+
+low-light
+
+  
+
+   
+
+ 
+
++18, Listen +18,
+
+ 
+
+Knowledge (any 0
+
+ 
+
+This creature is bigger than a ridin
+
+falcon wings, and a humanoid face
+
+  
+
+horse ond has a tawny lion body, great
+
+ 
+
+These sphinxes are always male. Androsphin:
+generally good-natured, bu can be savage.
+
+Though ourwardly gruff and bad-tempered, androsphinxes
+have noble hearts, and are a litrle bit shy. They appreciate smal
+courtesies, but seldom admit it, and praise ma
+uncomfortable.
+
+ 
+
+    
+
+ 
+
+s them feel
+
+ 
+

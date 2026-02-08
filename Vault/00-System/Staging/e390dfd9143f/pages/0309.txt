@@ -1,0 +1,213 @@
+     
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+   
+   
+    
+   
+  
+ 
+ 
+ 
+    
+  
+    
+  
+   
+  
+   
+    
+  
+    
+  
+ 
+    
+
+many celestials have damage reduction 10/evil. A creature sith an
+alignment subtype (chaotic, evil, good, or lawful) can overcome
+this type of damage reduction with its natural weapons and weap-
+ons it wields as if the weapons or natural weapons had an align-
+
+|weapons were evil-aligned and lawful-aligned.
+When a damage reduction entry has.adash (-) after the slash,
+.no.weapon negates the damage reduction.
+
+‘A few creatures are harmed by more than one kind of weapon. |
+(The babau demon, for example, has damage reduction 10/cold
+iron or good. Either kind of weapon—cold iron or good—over-
+comes its damage reduction.
+
+A few other creatures require combinations of different types of
+attacks to overcome their damage reduction. The ghaele eladrin has
+(damage reduction 10/evil and cold iron, meaning that a weapon must
+
+least a +1 enhancement bonus deal full damage to it. A weapon that
+falls into one category but not the other is of no help in overcoming
+the creature's damage reduction—a magic sword or a nonmagical
+‘mace is no better at harming a lich than any other weapon.
+
+Dragon Type: A dragon is a reptilelike creature, usually
+\winged, with magical or unusual abilities,
+| __Features: A dragon has the following fearures.
+
+—12-sided Hit Dice.
+
+—Base attack bonus equal to total Hit Dice (as fighter).
+|. —Good Fortitude, Reflex, and Will saves,
+
+—Skill points equal to (6 + Int modifier, minimum. 1) per Hit
+|Die, with quadruple skill points for the first Hit Die,
+
+Traits: A dragon possesses the following traits (unless otherwise
+noted in the description of a particular kind).
+
+—Darkvision out to 60 feet and low-light vision.
+
+—Immunity.to magic sleep effects and paralysis effects.
+
+entry.
+—Proficient with no armor
+—Dragons eat, sleep, and breathe,
+
+Earth Subtype: This subtype usually is used for elementals and
+outsiders with a connection to the Elemental Plane of Earth, Earth
+creatures usually have burrow speeds, and most earth creatures
+can burrow through solid rock.
+
+Effective Character Level (ECL); This number represents a
+icreature's overall power relative to that of a character from the
+Player’s Handbook, A creature with an ECL of 10 is roughly equiva-
+lent to a 10th-level character. A creature's ECL is the sum of its Hit
+Dice (including class levels) and level adjustment. For instance, a
+minotaur has 6 HD and a +2 level adjustment, Ir is the equivalent
+of an 8th-level character.
+
+Eladrin Subtype: Eladrins are a race of celestials, or good out-
+siders, native to the the Olympian Glades of Arborea,
+
+Traits: An eladrin possesses the following traits (unless other-
+wise noted in.a.creature’s entry),
+|_—Darkvision out to 60 feet and low-light vision,
+| —Immunity.to electricity and petrification,
+|_—=Resistance.to.cold 10 and fire 10.
+
+—Tongues (Su); All eladrins can speak with any creature thar
+
+has a language,.as though using a tongues spell (caster level 14th). |
+This ability is always active.
+
+ment (or alignments) that match the subtype(s) of the creature, A.
+bearded devil, for instance, has the evil and lawful subtypes, and,
+thus can overcome damage reduction as if its weapons and natural |
+
+‘be made of cold-forged iron and be evil-aligned in order to overcome ,
+| the ghaele's damage reduction. A lich has damage reduction 15/bludg-|
+|eoning and magic, meaning that only bludgeoning weapons with at
+
+—Proficient with its natural weapons only unless humanoid in,
+form (or capable of assuming humanoid form), in which case pro.
+ficient with all simple weapons and any weapons mentioned in its.
+
+Elemental Type: An elemental is a being composed of one of
+the four classical elements: air, earth, fire, or water.
+Features: An elemental has the following features.
+—S-sided Hit Dice.
+—Base attack bonus equal.to 3/4 total Hit Dice (as cleric),
+—Good saves depend on the elemenr: Fortitude (earth, water)
+yor Reflex (air, fire),
+—Skill points equal ro (2.4 Int modifier, minimum.1) per Hit
+Die, with quadruple skill points for the first Hit Die.
+‘Tmits: An elemental possesses the following traits (unless. other-|
+wise noted in a creature's entry).
+—Darkvision out to 60 feet
+—Immunity to poison, sleep effects, paralysis. and stunning.
+—Not subject to critical hits or flanking.
+—Unlike most other living creatures, an.clemental does not!
+have a dual nature—its soul and body form oneunit, Whenan ele-
+mental is slain, no soul is set loose. Spells that restore souls to their
+
+—Proficient with natural weapons only. unless generally hu-
+manoid in form, in which case proficient with all simple weapons
+and any weapons mentioned in its entry.
+
+—Proficient with whatever type of armor (light, medium, or
+heavy) thar it is described as wearing, as well as all lighter types.
+Elementals not indicated as wearing armor. are. not proficient with
+
+  
+
+Lbodies, such as raise dead, reincarnate, and resurrection, don't work on ,
+jan.elemenral. Ir takes a different magical effect, such as limited ,
+Lwish, wish, miracle, or true resurrection, to restore it to life.
+
+armor. Elementals are proficient with shields if they are proficient,
+
+with any form of armor.
+—Elementals do not eat, sleep, or breathe.
+
+Energy Drain (Su); This attack saps a living opponent's vital,
+
+energy and happens automatically when a melee or ranged attack.
+hits. Each successful energy drain bestows one or more negative
+levels (the creature's description specifies how many). If an attack
+that includes an energy drain scores a critical hit, it drains twice.
+the given amount. Unless otherwise specified in the creature's
+description, a draining creature gains 5 temporary_hit points (10
+on acritical hit) for each negative level it bestows on an opponent.
+These temporary hit points last for a maximum of 1 hour.
+
+An affected opponent takes.a—1 penalty on all skill checks and
+ability checks, attack rolls, and saving throws, and loses one effective
+level or Hit Die (whenever level is used in a die roll or calculation)
+for each negative level, A spellcaster loses one spell slot of the high-
+est level of spells she can.cast.and (if applicable) one prepared spell of
+that level; this loss persists until the negative level is removed.
+
+Negative levels remain until 24 hours have passed or until they
+are removed with a spell, such as restoration, If a negative level is
+not removed before 24 hours have passed, the affected creature
+must attempt a Fortitude save (DC 10 + 1/2 draining creature's
+racial HD + draining creature's Cha modifier; the exact DC is given
+in the creature's descriptive text)..On a success, the negative level
+goes away with no harm to the creature. On a failure, the negative
+Jevel goes away, but the creature's level is also reduced by one. A
+separate saving throw is required for each negative level.
+
+Environment: This entry in a statistics block describes the
+type of climate and terrain where the creature is typically found.
+This is a preference, but is not exclusionary. Note that these envi-
+ronments can also exist in portions of dungeons due. to magical
+effects or other supernatural interference, or as features in dun-
+
+geons or other environment areas, Chapter 5 of the Dungeon,
+
+Master's Guide has details on climate and terrain types.
+
+Evil Subtype: A subtype usually applied only to outsiders |
+
+inative.to the evil-aligned Outer Planes. Evil outsiders are also
+\called fiends, Most creatures that have this subtype also have evil
+
+alignments; however, if their alignments change, they still retain
+
+  
+

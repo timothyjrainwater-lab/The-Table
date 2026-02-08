@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0141",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 141,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:35:36.377940+00:00"
+  },
+  "doneAt": "2026-02-03T09:35:59.467181+00:00",
+  "citation": "PHB (pdf p.0141)",
+  "printedGuess": "140",
+  "touched": [
+    "Rule — Armor Class",
+    "Rule — Core Mechanic (d20)"
+  ],
+  "createdTables": [
+    "Table —  (PHB 7–5)",
+    "Table — Weapon, page 116). Damage (PHB 7–5)"
+  ]
+}

@@ -1,0 +1,133 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+his chapter begins with the spell lists of the spellcasting 
+classes and the list of cleric domains and the spells associ-
+ated with each domain. An 
+M or F appearing at the end of a 
+spell’s name in the spell lists denotes a spell with a material or 
+focus component, respectively, that is not normally included 
+in a spell component pouch. An X denotes a spell with an XP 
+component paid by the caster. 
+The remainder of the chapter contains spell descriptions in 
+alphabetical order by spell name. 
+Spell Chains: Some spells reference other spells that they are 
+based upon. (For instance, cure light wounds  is the spell upon which 
+all other cure spells are based, and lesser planar ally  is the spell upon 
+which planar ally and greater planar ally are based.) Only information 
+about a spell elsewhere in the spell chain that is different from the 
+base spell is covered in the spell being described. Spell description 
+entries and descriptive text that are the same as the base spell are not 
+repeated. 
+Order of Presentation:  In the spell lists and the spell descrip-
+tions that follow them, the spells are presented in alphabetical order 
+by name except for those belonging to certain spell chains. When a 
+spell’s name begins with “lesser,” “greater,” or “mass,” the spell 
+description is alphabetized under the second word of the spell name 
+instead. For instance, the spell mass suggestion is entered in the lists 
+as “Suggestion, Mass,” and its description can be found immediately 
+following the description for suggestion. 
+Hit Dice:  The term “Hit Dice” is used synonymously with 
+“character levels” for effects that affect a number of Hit Dice of 
+creatures. Creatures with Hit Dice only from their race, not from 
+classes, have character levels equal to their Hit Dice. 
+Caster Level:  A spell’s power often depends on caster level, 
+which is defined as the caster’s class level for the purpose of casting a 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+particular spell. A creature with no classes has a caster level equal 
+to its Hit Dice unless otherwise specified. The word “level” in the 
+spell lists that follow always refers to caster level. 
+Spell Effects and Conditions:  If a spell causes its subject or 
+subjects to be affected by one or more conditions (such as 
+blinded, incorporeal, invisible, or stunned), refer to the glossary 
+for details of how that condition affects the subject. Chapter 8 
+of the Dungeon Master’s Guide  has more information on the 
+various conditions. 
+Creatures and Characters:  The words “creature” and 
+“character” are used synonymously in the spell descriptions. 
+ 
+BARD SPELLS 
+ 
+0-LEVEL BARD SPELLS (CANTRIPS) 
+Dancing Lights: Creates torches or other lights. 
+Daze: Humanoid creature of 4 HD or less loses next 
+action. 
+Detect Magic: Detects spells and magic items within 
+60 ft. 
+Flare: Dazzles one creature (–1 on attack rolls). 
+Ghost Sound: Figment sounds. 
+Know Direction: You discern north. 
+Light: Object shines like a torch. 
+Lullaby: Makes subject drowsy; –5 on Spot and Listen checks, 
+–2 on Will saves against sleep. 
+Mage Hand: 5-pound telekinesis. 
+Mending: Makes minor repairs on an object. 
+ 181

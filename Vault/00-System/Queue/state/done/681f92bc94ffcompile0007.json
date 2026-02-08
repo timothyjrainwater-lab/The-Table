@@ -1,0 +1,24 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0007",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 7,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T06:22:46.498026+00:00"
+  },
+  "doneAt": "2026-02-03T06:35:24.026349+00:00",
+  "citation": "PHB (pdf p.0007)",
+  "printedGuess": "6",
+  "touched": [
+    "Rule — Armor Class",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Ability Modifiers and Bonus Spells (page 8). Ability (PHB 1–1)",
+    "Table — Feats (page 90) (PHB 5–1)",
+    "Table — Racial Ability Adjustments (page 12) (PHB 2–1)",
+    "Table — Skills (page 63) lists all the skills in the game and (PHB 4–2)"
+  ]
+}

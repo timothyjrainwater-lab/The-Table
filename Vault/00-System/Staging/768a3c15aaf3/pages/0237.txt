@@ -1,0 +1,124 @@
+ 
+
+ 
+
+like abilities, which can be any 0- or Ist-level spells
+from the druid or sorcerer/wizard spell lists. Hags
+prefer spells that command or corrupt the natural
+world or that enable them to harm or hamper living
+creatures. Likely choices include charm person, danc-
+ing lights, ghost sound, obscuring mist, summon monster
+I, pass without trace, ray of enfeeblement and sleep. The
+spell-like abilities gained can be used at will
+
+Medium Magic: Whenever the hag receives a
+Medium Magic power as a result of aging, it receives
+the listed number of spell-like abilities. These spell-
+like abilities can be any 2nd- or 3rd-level spells from
+the druid or sorcerer/wizard spell lists. Likely choices
+include animal trance, fog cloud, hold person, invisibil-
+ity, scare, speak with animals, summon monster III,
+tongues and water breathing. The spell-like abilities
+gained can be used three times per day.
+
+Major Magic: Whenever the hag receives a Major
+Magic power as a result of aging, it receives the listed
+number of spell-like abilities. These spell-like abilities
+can be any 4th- or 5th-level spells from the druid or
+sorcerer/wizard spell lists. Likely choices include animal
+growth, animate dead, insect plague, solid fog, summon
+monster V, tree stride and wall of thoms. The spell-like
+abilities gained can be used once per day.
+
+Supernatural Ability: Whenever the hag re-
+ceives a supernatural ability as a result of aging, it
+may select one special ability from the list below.
+Saves to resist these powers are at DC (10 + 1/2 the
+hag’s Hit Dice + the hag’s Charisma modifier)
+
+Corruptive Aura: Hags disrupt the natural world
+with their very presence. Within a certain radius of
+a hag, the natural world ceases to function as it
+should. Weather patterns become incongruous, with
+rain falling during the summer or the sun shining
+brightly during winter. Animals behave oddly, with
+predators becoming timid and herbivores becoming
+aggressive. The older the hag, the wider the radius of
+this corruptive aura, as shown on Table 5-11. The
+effects of the corruptive aura are mostly cosmetic,
+unless the DM rules otherwise. However, a hag’s
+corruptive aura does count as a sinkhole of evil.
+
+Cursed Glare (Su): This power is identical to
+the sea hag special ability evil eye, except for the
+Fortitude save DC, which is determined as above.
+
+Horrific Appearance (Su): This power is iden-
+tical to the sea hag special ability, except for the
+Fortitude save DC, which is determined as above.
+
+Soothing Song (Su): Three times per day the hag
+can singa soothing Lullaby that puts nearby creatures
+tosleep. The radius for this poweris 60 feet. Allliving
+creatures within that radius (except for any hags,
+
+whoare immune) must succeed ata Will save. Those
+who fail fall asleep as if a sleep spell had been cast on
+them byasorcerer of level equal to the hag’s Hit Dice,
+or of 8th level, whichever is greater.
+
+Weakening Touch (Su): This power is identical
+to the green hag power weakness, except for the
+Fortitude save DC, which is determined as above.
+
+Coveys
+Hags in Ravenloft form coveys just as standard
+hags do, and gain identical powers when part of a
+covey, except that the spells cast by a hag covey
+take effect at a level equal to the Hit Dice of the
+oldest hag + 2, or at 9th level, whichever is higher.
+
+  
+
+Advancement
+
+Hags can continue to gain levels as they did before
+the Change. They prefer to gain levels in physically
+oriented classes such as fighter or rogue, as they believe
+theirnaturally gained magical abilitiesaresuperiortoany
+forms ofmagic they mightlearn. Hagscannot gain levels
+as druids, as the nature of their magic is antithetical to
+druidic tenets. Hag clerics lose the ability to tum undead
+but gain an equivalent ability to rebuke undead. Hag
+clerics have access to the Destruction, Evil, Plant and
+Trickery domains.
+
+fighting hags
+
+Hags, like fiends, are insidious creatures, corrupting
+the land they claim as their own. Most hags seem to do
+evilfortheirown mysterious purposes, though some may
+serve more powerful masters. Battling hags takes a
+concerted effort, because these creatures are not only
+powerful and dangerous, but they enjoy working in
+groups, a tactic that augments their power.
+
+Discovering the Dag
+
+Many of the damaging effects of hags are also
+indicators of other monsters. Hunters coming across
+signs of devastated and ruined lands, cowed and
+frightened people and strange variations in nature,
+should first rule out the presence of other creatures
+such as fiends, vampires or other intelligent mon-
+sters. Close observation of the nature of the blight
+may reveal a cyclical nature or may provide evidence
+indicating the presence of a hag or a covey of hags.
+
+Variations in nature might includean odd warp-
+ing of the landscape, strange fogs that come and go
+and seem toassume solid form, oversized-animals, an
+abundance of monsters uncommon to the territory,
+plagues of insects and other indications that a hag’s
+powers over the natural world are on display.
+

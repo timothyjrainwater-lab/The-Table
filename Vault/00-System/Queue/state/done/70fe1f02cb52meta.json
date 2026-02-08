@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "70fe1f02cb52:meta",
+    "sourceId": "70fe1f02cb52",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/Self-Fulfilling Prophecy.pdf",
+    "title": "Self-Fulfilling Prophecy",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:00:15.609496+00:00",
+  "meta": {
+    "sourceId": "70fe1f02cb52",
+    "title": "Self-Fulfilling Prophecy",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 11/Self-Fulfilling Prophecy.pdf",
+    "pages": 13,
+    "extractedAt": "2026-02-03T18:00:15.602371+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

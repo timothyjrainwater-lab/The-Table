@@ -1,0 +1,234 @@
+□ Appraise I int
+□ Balance I dex*
+□ Bluff I cha
+□ Climb I str*
+□ Concentration I con
+□ Craft I ( _______________) int
+□ Craft I ( _______________) int
+□ Craft I ( _______________) int
+□ Decipher Script int
+□ Diplomacy I cha
+□ Disable Device int
+□ Disguise I cha
+□ Escape Artist I dex*
+□ Forgery I int
+□ Gather Information I cha
+□ Handle Animal cha
+□ Heal I wis
+□ Hide I dex*
+□ Intimidate I cha
+□ Jump I str*
+□ Knowledge ( ___________) int
+□ Knowledge ( ___________) int
+□ Knowledge ( ___________) int
+□ Knowledge ( ___________) int
+□ Knowledge ( ___________) int
+□ Listen I wis
+□ Move Silently I dex*
+□ Open Lock dex
+□ Perform (______________) cha
+□ Perform (______________) cha
+□ Perform (______________) cha
+□ Profession ( ___________) wis
+□ Profession ( ___________) wis
+□ Ride I dex
+□ Search I int
+□ Sense Motive I wis
+□ Sleight of Hand dex*
+□ Spellcraft int
+□ Spot I wis
+□ Survival I wis
+□ Swim I str*
+□ Tumble dex*
+□ Use Magic Device cha
+□ Use Rope I dex
+□ ______________________ ____
+□ ______________________ ____
+□ ______________________ ____
+character name
+class race
+height weight eyes hair
+player
+alignment deity
+level size age gender
+STRstrength
+DEXdexterity
+CONconstitution
+INTintelligence
+WISwisdom
+CHAcharisma
+ABILITY
+SCORE
+ABILITY
+MODIFIER
+TEMPORARY
+SCORE
+TEMPORARY
+MODIFIER
+TOTAL BASE
+SAVE
+ABILITY
+MODIFIER
+MAGIC
+MODIFIER
+MISC.
+MODIFIER
+TEMPORARY
+MODIFIER
+ABILITY NAME
+SAVING THROWS
+=
+=
+=
++
++
++
++
++
++
++
++
++
++
++
++
+conditional modifiers
+CHARACTER RECORD SHEET
+®
+©2003 Wizards of the Coast, Inc.Permission granted to photocopy for personal use only.
+I Denotes a skill that can be used untrained.
+□ Mark this box with an X if the skill is a class skill for the character. 
+* Armor check penalty, if any, applies. (Double penalty for Swim.)
+FORTITUDE(constitution)
+REFLEX(dexterity)
+WILL(wisdom)
+HPhit points
+ACarmor class
+TOTAL
+TOTAL ARMOR
+BONUS
+SHIELD
+BONUS
+DEX
+MODIFIER
+SIZE
+MODIFIER
+NATURAL
+ARMOR
+10+ + + + +=
+SPEED
+INITIATIVEmodifier
+TOTAL MISC
+MODIFIER
+DEX
+MODIFIER
+=+
+NONLETHAL 
+DAMAGEWOUNDS/CURRENT HP
+MISC
+MODIFIER
++ DAMAGE REDUCTION
+BASE ATTACK BONUS
+GRAPPLEmodifier
+TOTAL STRENGTH
+MODIFIER
+BASE ATTACK 
+BONUS
+=+
+SIZE
+MODIFIER
++
+MISC
+MODIFIER
++
+ATTACK BONUS DAMAGE CRITICAL
+RANGE TYPE NOTES
+ATTACK
+SKILL
+MODIFIER
+CLASS SKILL?
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+______ = ______+______+______
+SKILL NAME
+KEY 
+ABILITY
+ABILITY
+MODIFIER RANKS MISC
+MODIFIER
+SKILLS /MAX RANKS
+(CLASS/CROSS-CLASS)
+_____________________________________________ ______________________________________________
+character name player
+_____________________________________________ ________________ ______________ ______________
+class and level race alignment deity
+__________ __________ __________ ____________ __________ ___________ ___________ ___________
+size age gender height weight eyes hair skin
+AMMUNITION  ___________________________  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  
+ATTACK BONUS DAMAGE CRITICAL
+RANGE TYPE NOTES
+ATTACK
+AMMUNITION  ___________________________  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  
+ATTACK BONUS DAMAGE CRITICAL
+RANGE TYPE NOTES
+ATTACK
+AMMUNITION  ___________________________  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  
+ATTACK BONUS DAMAGE CRITICAL
+RANGE TYPE NOTES
+ATTACK
+AMMUNITION  ___________________________  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  
+ATTACK BONUS DAMAGE CRITICAL
+RANGE TYPE NOTES
+ATTACK
+AMMUNITION  ___________________________  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  □□□□□  
+TOUCHarmor class FLAT-FOOTEDarmor class
+SPELL
+RESISTANCE
+DEFLECTION
+MODIFIER
++
+620_17524_001_PHBRev3a.qxk  4/21/03  10:42 AM  Page 318

@@ -1,0 +1,23 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0135",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 135,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:34:17.594168+00:00"
+  },
+  "doneAt": "2026-02-03T09:35:28.219436+00:00",
+  "citation": "PHB (pdf p.0135)",
+  "printedGuess": "134",
+  "touched": [
+    "Rule — Armor Class",
+    "Rule — Core Mechanic (d20)"
+  ],
+  "createdTables": [
+    "Table — Size Modifiers (PHB 8–1)",
+    "Table — Weapons, page 116) determines the amount of (PHB 7–5)",
+    "Table — Weapons, page 116). Any attack from a (PHB 7–5)"
+  ]
+}

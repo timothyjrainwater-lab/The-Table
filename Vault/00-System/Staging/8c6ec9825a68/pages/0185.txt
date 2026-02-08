@@ -1,0 +1,234 @@
+  
+  
+  
+   
+  
+   
+   
+   
+
+City of Brass on the Elemental Plane of Fire, and the cabal’s
+scale might be explained by the fact that it is extremely
+secretive and almost unheard by the general population on
+its home plane.
+
+You must have the Leadership feat to found an affiliation.
+If you do so, it normally begins at scale 1. Campaign circum-
+stances might dictate otherwise, however, so you should
+consult with your Dungeon Master.
+
+TABLE 7—1: AFFILIATION SCALE
+
+Scale Scope of Influence
+1 Neighborhood
+2 Neighborhoods
+3 City quarter
+
+Examples
+
+Bakery, druid hermit
+Crossroads tavern
+Small abbey, small
+nomadic tribe
+
+Bank, slaughterhouse,
+barbarian trading post
+
+4 City quarter
+
+5 City Arena, pirate ship,
+
+githzerai rrakma
+6 City City watch, wild elf tree tribe
+7 City and outliers Large college, tyrant wizard
+
+in tower, death slaad
+
+commanding a populous
+
+gnoll tribe
+
+Frontier fort, druid sect
+
+Small castle, established
+
+church
+
+Minor nobility, powerful guild
+
+Nobility, established knightly
+
+order, dread pirate fleet
+
+12 Multiregional/kingdom Standing army, orc hordes
+
+led by legendary chieftain
+
+13. Multiregional/kingdom Vast army raised to fight off
+and vassal states the tarrasque
+
+14 ~~ Continental/ Centuries-old large kingdom,
+seafaring kingdom illithid underground nation
+
+15 Continental/empire — Emperor and his legions,
+
+circle of archmages
+
+Imperial legions with arcane
+
+and divine support
+
+Ancient order of epic-level
+
+knights
+
+Githyanki incursion force
+
+Armies in the Blood War
+
+between demons and devils
+
+Epic-level affiliations.
+
+hero-deities
+
+City/county
+Regional/barony
+
+1D 00
+
+10 Regional/march
+11 Multiregional/duchy
+
+16 = Multicontinental/
+empire
+
+17 Global
+
+18 Astral Plane
+19 Multiplanar
+
+20 Cosmos
+
+AFFILIATION SCORE CRITERIA
+
+Affiliations measure a member's value by a number of fac-
+tors. Some are baseline: If a character is not of the proper
+religion, nationality, race, alignment, class, or other nature,
+his affiliation score is irrelevant (absent special dispensation
+from the leadership). First, decide if your affiliation enforces
+any such prerequisites.
+
+Other than baseline criteria, numerous other aspects of a
+character are considered when awarding benefits and status
+in a group. For your affiliation, choose up to thirteen of the
+criteria listed on Table 7-2.
+
+A social affiliation can (and usually does) have some nega-
+tive criteria—characteristics or accomplishments that reduce
+a character's affiliation score instead of increasing it. As a
+tule of thumb, select one negative criterion for every positive
+
+   
+
+   
+   
+  
+  
+   
+  
+   
+  
+  
+    
+   
+  
+ 
+   
+  
+  
+ 
+
+criterion beyond the fifth one you choose (six positive and
+one negative, seven positive and two negative, eight positive
+and three negative, or nine positive and four negative)
+
+For the most part, racial affiliations do not have negative
+criteria; once you're in a racial affiliation, you have to do
+something pretty outrageous to lower your status in the
+group—and such lowering is usually accomplished by simply
+kicking you out of the group.
+
+Because itis easier to move up in the ranks of a smaller affili-
+ation than a larger one, the base modifiers given on Table 7-2
+must be adjusted according to the affiliation’s scale. The base
+modifiers given are for affiliations with a scale of 1 to 7. For
+affiliations of scale 8 to 14, divide the modifiers given by 2. For
+affiliations of scale 15 to 20, divide the modifiers given by 4. The
+minimum impact of a criterion after modification is 1/2.
+
+ 
+
+  
+
+ 
+
+TABLE 7-2: AFFILIATION SCORE CRITERIA
+
+Posi Criteria Affiliation Score Modifier
+Expertise and power +1/2 character levels
+Is a member of a favored race +1
+Charisma 13 or higher 4
+Base attack bonus of +5 or higher +
+Base attack bonus of +10 or higher +2
+5 or more ranks in an appropriate skill +1
+10 or more ranks in an appropriate skill 42
+Has a feat that is significant to the affiliation +1
+Can cast arcane or divine spells +
+Can cast 3rd- to 4th-level spells +2
+Can cast Sth- or higher-level spells 3
+Has/does not have a familiar +2
+Member of a prestige class important to
+
+the affiliation +2
+
+Possesses a magic item significant
+
+to the affiliation +1/10,000 gp value
+
+Wealth +1/20,000 gp value
+Landowner +2
+Noble title +2
+Lives in a favored region +1
+Parents or siblings in the affiliation +2
+Marries into a family whose head is an
+
+affiliation member +2
+Recruits a new member into the affiliation *
+Spends ten or more years in the affiliation +2
+In the thrall of a member of the affiliation 42
+Recommendation of a member who has an
+
+affiliation score of 21 or higher +2
+Saves the life of a member who has an
+
+affiliation score of 21 or higher 43
+Adventures with a member of the affiliation +1
+Completes a mission assigned by the affiliation +2
+Makes a discovery important to the affiliation +2
+Humiliates an enemy of the affiliation +2
+
+Defeats a violent enemy of the affiliation in combat
+
+(the foe's CR must be equal to or or greater
+
+than the character's level) +1/4 the creature's CR
+Destroys an artifact anathema to the affiliation +4
+Razes a stronghold of one of the affiliation’s enemies +8
+Makes a pilgrimage or journey important
+
+to the affiliation +2
+Donates money or magic items to the affiliation (a
+maximum per year might be set, after which donations
+accrue no additional bonus) +1/1,000 gp donated
+

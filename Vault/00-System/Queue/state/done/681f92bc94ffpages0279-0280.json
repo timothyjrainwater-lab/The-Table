@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:pages:0279-0280",
+    "sourceId": "681f92bc94ff",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Core Rulebooks/Player's Handbook.pdf",
+    "pageStart": 279,
+    "pageEnd": 280,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:18:08.307277+00:00"
+  },
+  "doneAt": "2026-02-03T05:45:02.180323+00:00",
+  "wrote": [
+    "00-System/Staging/681f92bc94ff/pages/0279.txt",
+    "00-System/Staging/681f92bc94ff/pages/0280.txt"
+  ],
+  "method": {}
+}

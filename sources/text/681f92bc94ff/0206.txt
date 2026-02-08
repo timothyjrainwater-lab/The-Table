@@ -1,0 +1,204 @@
+ 
+ 205
+The binding spell has six versions. 
+Choose one of the following versions 
+when you cast the spell. 
+Chaining: The subject is confined by 
+restraints that generate an antipathy spell 
+affecting all creatures who approach the 
+subject, except you. The duration is one 
+year per caster level. The subject of this 
+form of binding is confined to the spot it 
+occupied when it received the spell. 
+Slumber: This version causes the subject 
+to become comatose for as long as one year 
+per caster level. The subject does not need 
+to eat or drink while slumbering, nor does it 
+age. This form of binding is more difficult 
+to cast than chaining, making it slightly 
+easier to resist. Reduce the spell’s save DC 
+by 1. 
+Bound Slumber:  This combination of 
+chaining and slumber lasts for as long as one 
+month per caster level. Reduce the save 
+DC by 2. 
+Hedged Prison: The subject is transported 
+to or otherwise brought within a confined 
+area (such as a labyrinth) from which it 
+cannot wander by any means. The effect is 
+permanent. Reduce the save DC by 3. 
+Metamorphosis: The subject assumes 
+gaseous form, except for its head or face. It 
+is held harmless in a jar or other container, 
+which may be transparent if you so choose. 
+The creature remains aware of its 
+surroundings and can speak, but it cannot 
+leave the container, attack, or use any of its 
+powers or abilities. The binding is per-
+manent. The subject does not need to 
+breathe, eat, or drink while metamorphosed, 
+nor does it age. Reduce the save DC by 4. 
+Minimus Containment:  The subject is 
+shrunk to a height of 1 inch or even less 
+and held within some gem, jar, or similar 
+object. The binding is permanent. The 
+subject does not need to breathe, eat, or 
+drink while contained, nor does it age. 
+Reduce the save DC by 4. 
+You can’t dispel a binding spell with 
+dispel magic  or a similar effect, though an 
+antimagic field  or Mordenkainen’s disjunction  
+affects it normally. A bound extraplanar 
+creature cannot be sent back to its home 
+plane due to dismissal, banishment, or a 
+similar effect. 
+Components: The components for a 
+binding spell vary according to the version 
+of the spell, but they always include a 
+continuous chanting utterance read from 
+the scroll or spellbook page containing the 
+spell, somatic gestures, and materials 
+appropriate to the form of binding used. 
+These components can include such items 
+as miniature chains of special metals 
+(silver for lycanthropes, cold iron for 
+demons, and so forth), soporific herbs of 
+the rarest sort (for slumber bindings), a bell 
+jar of the finest crystal, and the like. 
+In addition to the specially made props 
+suited to the specific type of binding (cost 
+500 gp), the spell requires opals worth at 
+least 500 gp for each HD of the target and a 
+vellum depiction or carved statuette of the 
+subject to be captured. 
+ 
+Blade Barrier 
+Evocation [Force] 
+Level: Clr 6, Good 6, War 6 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Effect: Wall of whirling blades up to 20 ft. 
+long/ level, or a ringed wall of whirling 
+blades with a radius of up to 5 ft. per two 
+levels; either form 20 ft. high 
+Duration: 1 min./level (D) 
+Saving Throw: Reflex half or Reflex 
+negates; see text 
+Spell Resistance: Yes 
+ 
+An immobile, vertical curtain of whirling 
+blades shaped of pure force springs into 
+existence. Any creature passing through 
+the wall takes 1d6 points of damage per 
+caster level (maximum 15d6), with a Reflex 
+save for half damage. 
+If you evoke the barrier so that it ap-
+pears where creatures are, each creature 
+takes damage as if passing through the 
+wall. Each such creature can avoid the wall 
+(ending up on the side of its choice) and 
+thus take no damage by making a 
+successful Reflex save. 
+A blade barrier provides cover (+4 bonus 
+to AC, +2 bonus on Reflex saves) against 
+attacks made through it. 
+ 
+Blasphemy 
+Evocation [Evil, Sonic] 
+Level: Clr 7, Evil 7 
+Components: V 
+Casting Time: 1 standard action 
+Range: 30 ft. 
+Area: Nonevil creatures in a 40-ft.-radius 
+spread centered on you 
+Duration: Instantaneous 
+Saving Throw: None or Will negates; see 
+text 
+Spell Resistance: Yes 
+ 
+Any nonevil creature within the area of a 
+blasphemy spell suffers the following ill 
+effects. 
+ 
+HD Effect 
+Equal to caster level Dazed 
+Up to caster level –1 Weakened, dazed 
+Up to caster level –5 Paralyzed, 
+ weakened, dazed 
+Up to caster level –10 Killed, paralyzed, 
+ weakened, dazed
+ 
+ 
+The effects are cumulative and concurrent. 
+No saving throw is allowed against these 
+effects. 
+Dazed: The creature can take no actions 
+for 1 round, though it defends itself nor-
+mally. 
+Weakened: The creature’s Strength score 
+decreases by 2d6 points for 2d4 rounds. 
+Paralyzed: The creature is paralyzed and 
+helpless for 1d10 minutes. 
+Killed: Living creatures die. Undead 
+creatures are destroyed. 
+Furthermore, if you are on your home 
+plane when you cast this spell, nonevil 
+extraplanar creatures within the area are 
+instantly banished back to their home 
+planes. Creatures so banished cannot re-
+turn for at least 24 hours. This effect takes 
+place regardless of whether the creatures 
+hear the blasphemy. The banishment effect 
+allows a Will save (at a –4 penalty) to 
+negate. 
+Creatures whose Hit Dice exceed your 
+caster level are unaffected by blasphemy. 
+ 
+Bless 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Clr 1, Pal 1 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: 50 ft. 
+Area: The caster and all allies within a 50-
+ft. burst, centered on the caster 
+Duration: 1 min./level 
+Saving Throw: None 
+Spell Resistance: Yes (harmless) 
+ 
+Bless fills your allies with courage. Each ally 
+gains a +1 morale bonus on attack rolls and 
+on saving throws against fear effects. 
+Bless counters and dispels bane. 
+ 
+Bless Water 
+Transmutation [Good] 
+Level: Clr 1, Pal 1 
+Components: V, S, M 
+Casting Time: 1 minute 
+Range: Touch 
+Target: Flask of water touched 
+Duration: Instantaneous 
+Saving Throw: Will negates (object) 
+Spell Resistance: Yes (object) 
+ 
+This transmutation imbues a flask (1 pint) 
+of water with positive energy, turning it 
+into holy water (page 128). 
+Material Component:  5 pounds of pow-
+dered silver (worth 25 gp). 
+ 
+Bless Weapon 
+Transmutation 
+Level: Pal 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Weapon touched 
+Duration: 1 min./level 
+Saving Throw: None 
+Spell Resistance: No 
+CHAPTER 11: 
+SPELLS 

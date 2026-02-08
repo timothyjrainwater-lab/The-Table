@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "026cfaf00312:meta",
+    "sourceId": "026cfaf00312",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Red Isle.pdf",
+    "title": "The Red Isle",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T22:53:39.139000+00:00",
+  "meta": {
+    "sourceId": "026cfaf00312",
+    "title": "The Red Isle",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Red Isle.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T22:53:39.088927+00:00"
+  },
+  "enqueued_extractPages": 5
+}

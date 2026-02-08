@@ -1,0 +1,159 @@
+DESERT TERRAIN
+Desert terrain exists in warm, temperate, and cold climates, bur all
+deserts share one common trait: little rain. The three categories of
+desert terrain are tundra (cold deserts), rocky desert (often tem-
+perate), and sandy desert (often warm).
+
+DESERT TERRAIN FEATURES.
+
+—— Desert Category ——
+Tundra Rocky Sandy
+Light undergrowth 15% 5% 5%
+Ice sheet 25%. ~ —
+Light rubble 5% 30% 10%
+Dense rubble me 30% 5%
+Sand dunes — = 50%
+
+Sampce Warm Desert ENCOUNTER TABLE (EL 7)
+
+d%___Encounter ‘Average EL
+, 01-07 1 androsphinx 9
+|08-15___1.gynosphinx 3
+16-23 143 lamias 8
+24-3) 1d3 basilisks 7
+32-41 1 criosphinx 7
+42-49 Sthelevel human monk NPC 7
+and Sth-level human bard NPC
+50-57 1 flesh golem 7
+58-69 _1d3 hieracosphinxes 7
+, 70-80 1 Huge monstrous scorpion (vermin) 7
+|_81-88____1d3 jann (genie) 6
+89-96 1d4¢2 Large monstrous scorpions (vermin) 6
+197-100 1. mummy 5
+
+Tundra differs from the other desert categories in two impor-
+stant ways. Because snow and ice cover much of the landscape, it's
+easy to find water. And during the height of summer, the per-
+mafrost. thaws to a. depth of a foot orso, turning the landscape into
+a vast field of mud. The muddy tundra affects movement and skill
+use.as.the shallow bogs described in marsh terrain, although
+there's little standing water.
+
+The table above describes terrain elements found in each of the |
+three desert categories. The percentages are intended to guide.
+your map-drawing; dont roll for each square, The terrain ele-
+ments on this table are mutually exclusive; for instance, a square.
+of tundra may contain either light undergrowth or an ice sheet,
+but nor both.
+
+Light Undergrowth: Consisting of scrubby, hardy bushes
+and cacti, light undergrowth functions as described for other ter-
+rain types,
+
+Ice Sheet: The ground is covered with slippery ice. It costs 2
+squares of movement to enter.a square.covered by an ice sheet, and
+the DC of Balance and Tumble checks there increases by 5. A DC
+10 Balance check is required to run_or.charge across an ice sheet.
+
+Light Rubble: Small rocks are strewn across the ground,
+making nimble movement more difficult more difficult. The DC
+of Balance and Tumble checks increases by 2
+
+Dense Rubble: This terrain feature consists of more and larger
+stones, It costs 2 squares of movement to enter a square with dense
+rubble. The DC of Balance and Tumble checks increases by 5, and
+the DC of Move Silently checks increases by 2.
+
+Sand Dunes: Created by the action of wind on sand, sand
+
+.dunes function as hills that move, If the wind is strong and con-
+
+sistent, a sand dune can move several hundred feet in a week's
+jtime. Sand dunes can cover hundreds of squares. They always have
+jagentle slope pointing in the direction of the prevailing wind and
+jasteep slope on the leeward side.
+
+Other Desert Terrain Features: Tundra is sometimes bor-
+dered by forests, and the occasional tree isn't out of place in the
+cold wastes. Rocky deserts have towers and mesas consisting of,
+
+flat. ground surrounded on all sides by cliffs and steep slopes (de-
+scribed in Mountain Terrain, above). Sandy deserts sometimes.
+have quicksand; this functions as described in Marsh Terrain, |
+above, although desert quicksand is a waterless mixture of fine)
+jsand and dust. All desert terrain is crisscrossed with dry
+istreambeds (treatas.trenches $ 10.15 feet wide) that fill with water
+jon the rare occasions when rain falls.
+
+Stealth and Detection in the Desert: In general, the maxi-
+mum distance in desert terrain at which a Spot check for detect-
+jing the nearby presence of others can succeed is 6d6x20 feet,
+beyond this distance, elevation changes and heat distortion in
+warm deserts makes spotting impossible. The presence of dunes
+in sandy deserts limits spotting distance to 6d6x10 feet.
+
+The desert imposes neither bonuses nor penalties on Listen or,
+Spot checks. The scarcity of undergrowth or other elements that
+offer concealment or cover makes hiding more difficult.
+
+Sandstorms
+JA sandstorm reduces visibility to 1d10x5 feet and provides a. =}
+,penalty on Listen, Search, and Spot checks. A sandstorm deals 1d3,
+points of nonlethal damage per hour to any creatures caught in
+the open, and leaves a thin coating of sand in its.wake. Driving |
+sand creeps in. through all but the most secure seals and seams, 10
+chafe skin and contaminate.carried gear.
+
+PLAINS TERRAIN
+
+Plains are where most civilizations flourish, so they.are often set-
+tled. Plains come.in three categories: farms, grasslands, and battle-
+fields, Farms are comman in settled areas, of course, while grass-;
+lands represent untamed plains. The battlefields where large
+armies clash are temporary places, usually reclaimed by natural
+vegetation or the farmer's plow. Battlefields represent a third ter-
+rain category because adventurers tend to spend alot of time
+there, not because they're particularly prevalent.
+
+The table below shows the proportions of terrain elements in
+the different categories of plains. On a farm, light undergrowth
+represents most mature grain crops, so farms growing vegetable
+crops will have less light undergrowth, as will all farms during the
+time between harvest and a few months after planting.
+
+The terrain elements in.the.table below are mutually exclusive.
+
+PLAINS TERRAIN FEATURES. =
+
+—— Plains Category ——
+Farm Grassland _ Battlefield
+Light undergrowth 40% 20% 10%
+Heavy undergrowth = 10% =
+Light rubble = = 10%
+Trench 5% — 5%
+Berm —- - 5%
+
+Undergrowth: Whether they're crops or natural vegetation,
+the tall grasses of the plains function like light undergrowth in a
+forest. Particularly.thick bushes form patches of heavy under-
+growth thar dot the landscape in grasslands.
+
+Light Rubble: On the battlefield, light rubble usually repre-
+sents something that was destroyed: the ruins of a building or the
+scattered remnants.of a stone wall, for example. It functions as,
+described in the desert terrain section above.
+
+Trench: Often dug before a battle to protect soldiers, a. trench |
+functions as alow wall, except that it provides no cover against |
+adjacent foes. It. costs 2 squares. of movement to leave a.trench, bur)
+it costs nothing extra to.enter one. Creatures outside a mench who
+make a melee attack against.a creature inside the trench gain a +11
+bonus on melee attacks because they have higher ground.
+
+In farm terrain, trenches are generally irrigation ditches.
+
+Berm: A common defensive structure, a berm is a low, earthen
+wall that slows moyement and provides a measure of cover. Put a
+
+ 
+

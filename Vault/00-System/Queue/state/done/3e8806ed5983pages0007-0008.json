@@ -1,0 +1,15 @@
+{
+  "task": {
+    "taskId": "3e8806ed5983:pages:0007-0008",
+    "sourceId": "3e8806ed5983",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 07/Aberrations.pdf",
+    "pageStart": 7,
+    "pageEnd": 8,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:46:05.899900+00:00"
+  },
+  "doneAt": "2026-02-04T08:54:46.563951+00:00",
+  "wrote": [],
+  "skipped_disallowed": true
+}

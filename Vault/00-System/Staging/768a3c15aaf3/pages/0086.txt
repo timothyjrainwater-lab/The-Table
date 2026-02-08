@@ -1,0 +1,138 @@
+ 
+
+four points (18 — 14 = 4), this results in a minor
+effect. After one week, he can make a recovery
+check at DC 16 (DC 18-2) to shake off the effects.
+If George fails this save, he can try again in another
+week at DC 14 (DC 18 - 4), and so on, until he
+succeeds.
+
+Numerous spells and magical effects (such as
+modify memory or remove fear) can also remove all
+Horror effec
+
+Madness Saves
+
+Failed Madness saves can cripple a character;
+fortunately, they're also the least common type of
+effect. Make a Madness save in the following three
+situations:
+
+ 
+
+¢ The character makes mental contact (using
+spells, special abilities and so on) with any
+darklord, aberration, elemental, ooze, out-
+sider, plant, or insane mind (any creature
+suffering froma Madness effect). Druids and
+clerics with the Plant domain are exempt
+from making Madness saves when contact-
+ing plants.
+
+© The character is the victim of “gaslighting:”
+a purposeful attempt by another party to
+drive her insane.
+
+The character suffers a total catastrophe.
+This can include witnessing the brutal de-
+struction of the rest of the party, leaving the
+character to face the threat alone; a paladin
+being stripped of her powers; suffering an
+involuntary alignment change; or being sub-
+jected to a horrific physical transformation
+(such as being turned into a broken one).
+
+Determining the Madness Save DC
+
+A Madness save’s DC is determined on a case-
+by-case basis.
+
+Mental Contact: Ifa Madnesssave isprompted
+by contact with an alien or insane mind, the DC is
+10 + 1/2 the contacted creature’s HD + contacted
+creature’s Wisdom modifier.
+
+Gaslighting: Gaslighting comes in two variet-
+ies. If an opponent tries to drive a character mad
+witha spell or other magical effect (such as bestow
+curse or wish), then default to the saving throw
+indicated by that spell (typically a Willsave). That
+saving throw stands in for the Madness save.
+
+ 
+
+ 
+
+One character can also gaslight another
+through nonmagical means. To do this, the perpe-
+trator must gain the victim’s trust and remain in
+
+ 
+
+close proximity to the victim for thirty days, using
+that time to slowly convince the victim that her
+sanity is slipping away.
+
+At the end of the thirty days, the perpetrator
+must make an opposed Bluff check against the
+victim’s Sense Motive check. If the victim fails this
+check, she has been driven mad; as with other
+Madness saves, the degree of failure determines the
+result (subtract the victim’s Sense Motive result
+from the perpetrator’s Bluff result). The perpetra-
+tor can select a specific Madness effect from the
+selected category if he wishes.
+
+If the victim’s Sense Motive check defeats the
+perpetrator’s Bluff check, she is unaffected. If she
+succeeds by 10 or more points, she immediately
+becomes aware of the perpetrator’s failed gaslighting
+attempt. If the perpetrator is not detected, he can
+try again (with each attempt taking another thirty
+days)
+
+Total Catastrophe: Madness saves prompted
+by personal catastrophes can be considered a par-
+ticularly shattering form of Horror save. The DM
+should use the recommended DCs and modifiers
+listed under Horror saves, though this often re-
+quires the DM to make a judgment call.
+
+ 
+
+ 
+
+failure Results
+
+Failed Madness saves can quickly hinder or
+cripple a character. As with Horror saves, the
+player should roll 1d4 and compare it to the failure
+category (see below) toselect an effect. In addition
+to the listed Madness effects below, all failed Mad-
+ness checks cause effective ability decreases to
+Intelligence, Wisdom and Charisma. (Roll sepa-
+rately for each ability score.)
+
+Acharacter with a minor Madness effect takes
+1d6 points of damage per ability score. The charac-
+ter regains | point in each ability score per hour.
+
+A character with a moderate Madness effect
+also takes 1d6 points per ability, but these points
+cannot be regained without effort. See Recovering
+from Madness below.
+
+A character with a major Madness effect takes
+1d10 points of damage per ability score. As with
+moderate effects, these points cannot he regained
+without effort.
+
+If a character fails a Madness save by 16+
+points, her mind is shattered. Unable to function,
+she immediately drops to—I hit points and starts to
+die. If she survives this shock to the system, she
+suffers a major Madness effect and takes 1d12
+points per ability score.
+
+ 
+

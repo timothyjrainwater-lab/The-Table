@@ -1,0 +1,19 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0109",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 109,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:20:08.386975+00:00"
+  },
+  "doneAt": "2026-02-05T16:24:00.593925+00:00",
+  "citation": "DMG (pdf p.0109)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table — Abil- (PHB 1–1)",
+    "Table — The Adept. In addition, she receives bonus (PHB 4–2)"
+  ]
+}

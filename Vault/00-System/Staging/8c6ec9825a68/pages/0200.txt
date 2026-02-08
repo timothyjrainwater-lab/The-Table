@@ -1,0 +1,147 @@
+character's effective character level is the same as it was before
+the rebuilding occurred. You can choose the levels lost from
+all those that the character has, regardless of the order in
+which they were gained.
+
+Racial Hit Dice: Adding or subtracting racial Hit Dice is
+perhaps the most complicated part of character rebuilding,
+Work with your DM to ensure that he approves of this degre
+of change and that you're doing it correctly,
+
+If your character’s original race had any racial Hit Dice,
+you must remove all the benefits they granted. This process is
+similar to removing class levels (see Class Level Rebuilding,
+page 197). Next, replace these racial Hit Dice with class levels
+of your choice until the character's effective character level
+is the same as it was before the rebuilding occurred.
+
+If your character's new race has any racial Hit Dice, you
+must subtract class levels until his effective character level
+is the same as it was before the rebuilding occurred. You
+can choose the lost levels from all those the character has,
+regardless of the order in which they were gained
+
+TEMPLATE REBUILDING
+Admit it—when fighting lycanthropes, you've been tempted
+at least once to let your character get bitten, in hopes that the
+wound infects him, Such a desire is perfectly normal—it's
+hard to look at the hybrid form ability modifiers for, say, a
+werebear and not imagine the sheer devastation that your
+character could wreak if he had that cemplate.
+
+Lycanthropy isn't the easiest template to pick up during an
+adventuring career, but it's certainly not the only interesting
+option. Whether you've dreamed of playing a celestial dwarf,
+ahalf-dragon elf, or a vampire halfling (don't worry, we won't
+tell), templates offer the promise of a tantalizingly different
+character thar can't be created from mere class levels.
+
+Adding a template can represent a pretty big change for
+your character, so make sure your choice is acceptable to your
+DM before proceeding. Afterall, transforming your chaotic
+good elf wizard into a vampire might not be appropriate for
+the style of play the DM has in mind. On the other hand,
+“realizing” your character's celestial heritage by adding that
+template represents a much smaller overall shift in identity
+and would probably cause no problem ar all.
+
+To utilize this rebuild, your character must be able to adopt
+the template you want to gain. For example, a warforged fighter
+(aliving construct from the EstRxon campaign setting) can't
+become a vampire, since thar template can be applied only
+to humanoids and monstrous humanoids.
+
+This rebuilding option also works reasonably well for
+a character who picks up a template during play (from a
+
+iger's bite, for example), if the DM wants the character's
+effective character level to remain consistent with the rest of
+the party. If difference in effective character level isn't an
+issue, don't worry about these rules—just add the template
+and move on with your game.
+
+ 
+
+ 
+
+ 
+
+The Process
+Each time your character completes a rebuild quest, you can
+add, subtract, or replace one template. For example, a dwarf
+paladin could gain the celestial template, a half-dragon elf
+
+ 
+
+fighter could lose the halfdragon template, or a celestial
+human rogue could replace his celestial remplate with the
+fiendish template.
+
+Adding a template is a lot like changing your character's
+race, except that he usually doesn't lose many (if any) existing
+racial abilities. Follow the guidelines presented in the Race
+Rebuilding section above, paying special attention to the
+information on gaining or losing Hit Dice and level adjust-
+ment. If the character's Hit Die size changes (for instance,
+from transformation into a vampire), use the Hit Points entry
+in the Class Rebuilding section above to determine the new
+hit point toral.
+
+Removing an existing template, on the other hand, requires
+youto eliminate any of the template’s effects and benefits, which
+might include special attacks, special qualities, skill modifiers,
+ability modifiers, bonus feats, and a variety of other bits and
+pieces, Use the guidelines in the Race Rebuilding and Class
+Rebuilding sections to rework your character's statistics,
+
+Note: This section addresses the DM and is intended primarily
+for his or her eyes.
+
+A quest to rebuild a character should excite and frighten
+players. I's an adventure few characters would willingly
+embark upon and fewer still could survive. To make rebuild-
+ing an option ar all levels of play, however, the degree of
+challenge must change according to the PCs' level.
+
+‘The two example locations below outline ideas for rebuild
+quest objectives, each of which is suitable fora range of character
+levels. You can use them as described, modify them to suit
+your needs, or devise your own rebuild quest objectives.
+
+Each objective represents the final encounter before a
+character can undergo rebuilding. The PCs might need ro
+embark on a perilous overland journey or a long dungeon
+crawl to getto this encounter, or they might take a short break
+from an ongoing adventure to teleport there and have one or
+more encounters before returning. Set up the preliminary
+adventures in whatever way best fits your game and your
+players’ desires
+
+REBUILD QUESTS IN THE GAME
+
+The rebuild quest objectives described here are designed to
+allow any type of character rebuild, but in your game, each
+might allow only particular kinds of rebuilds. Creating dif
+ferent quests for different rebuilds not only makes each one
+seem more significant, but it also helps to curtail unplanned
+rebuilding by players who are largely satished with their
+characters. (“Well, as long as he’s here, Gravar Ore-Killer is
+going to turn into a half-celestial umber hulk.") Below are
+some suggestions for making these locations serve particular
+needs that suit their ambiance
+
+The Gates of Dawn: Character rebuilds relating to divine
+magic and fey would be particularly appropriate for this
+location, as would any kind of rebuild thar could be viewed
+as redemption (for example, exchanging rogue or ninja levels
+for fighter levels, changing fighter levels into paladin levels,
+or increasing Wisdom:
+
+ 
+
+ 
+
+ 
+
+ 
+

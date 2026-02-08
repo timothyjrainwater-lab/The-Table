@@ -1,0 +1,18 @@
+{
+  "task": {
+    "taskId": "a1a7e6e81478:pages:0005-0006",
+    "sourceId": "a1a7e6e81478",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/A Call to Arms.pdf",
+    "pageStart": 5,
+    "pageEnd": 6,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:23:24.855063+00:00"
+  },
+  "doneAt": "2026-02-03T08:26:12.359479+00:00",
+  "wrote": [
+    "00-System/Staging/a1a7e6e81478/pages/0005.txt",
+    "00-System/Staging/a1a7e6e81478/pages/0006.txt"
+  ],
+  "method": {}
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "1740950462bc:meta",
+    "sourceId": "1740950462bc",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/The Harbinger.pdf",
+    "title": "The Harbinger",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T21:20:50.878652+00:00",
+  "meta": {
+    "sourceId": "1740950462bc",
+    "title": "The Harbinger",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/The Harbinger.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T21:20:50.812668+00:00"
+  },
+  "enqueued_extractPages": 5
+}

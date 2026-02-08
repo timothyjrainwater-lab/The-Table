@@ -1,0 +1,201 @@
+ 
+ 225
+If you don’t spend at least 1 round con-
+centrating on the spell each day, the sub-
+ject receives a new saving throw to throw 
+off the domination. 
+Protection from evil  or a similar spell can 
+prevent you from exercising control or 
+using the telepathic link while the subject 
+is so warded, but such an effect neither 
+prevents the establishment of domination 
+nor dispels it. 
+ 
+Doom 
+Necromancy [Fear, Mind-Affecting] 
+Level: Clr 1 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Target: One living creature 
+Duration: 1 min./level 
+Saving Throw: Will negates 
+Spell Resistance: Yes 
+ 
+This spell fills a single subject with a feel-
+ing of horrible dread that causes it to 
+become shaken. 
+ 
+Drawmij’s Instant Summons 
+Conjuration (Summoning) 
+Level: Sor/Wiz 7 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: See text 
+Target: One object weighing 10 lb. or 
+less whose longest dimension is 6 ft. 
+or less 
+Duration: Permanent until discharged 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You call some nonliving item from virtu-
+ally any location directly to your hand. 
+First, you must place your arcane mark  
+(page 201) on the item. Then you cast this 
+spell, which magically and invisibly 
+inscribes the name of the item on a sap-
+phire worth at least 1,000 gp. Thereafter, 
+you can summon the item by speaking a 
+special word (set by you when the spell is 
+cast) and crushing the gem. The item 
+appears instantly in your hand. Only you 
+can use the gem in this way. 
+If the item is in the possession of 
+another creature, the spell does not work, 
+but you know who the possessor is and 
+roughly where that creature is located 
+when the summons occurs. 
+The inscription on the gem is invisible. 
+It is also unreadable, except by means of a 
+read magic spell, to anyone but you. 
+The item can be summoned from an-
+other plane, but only if no other creature 
+has claimed ownership of it. 
+Material Component: A sapphire worth at 
+least 1,000 gp. 
+ 
+ 
+ 
+Dream 
+Illusion (Phantasm) [Mind-Affecting] 
+Level: Brd 5, Sor/Wiz 5 
+Components: V, S 
+Casting Time: 1 minute 
+Range: Unlimited 
+Target: One living creature touched 
+Duration: See text 
+Saving Throw: None 
+Spell Resistance: Yes 
+ 
+You, or a messenger touched by you, sends 
+a phantasmal message to others in the 
+form of a dream. At the beginning of the 
+spell, you must name the recipient or 
+identify him or her by some title that 
+leaves no doubt as to identity. The mes-
+senger then enters a trance, appears in the 
+intended recipient’s dream, and delivers 
+the message. The message can be of any 
+length, and the recipient remembers it 
+perfectly upon waking. The communi-
+cation is one-way. The recipient cannot ask 
+questions or offer information, nor can the 
+messenger gain any information by 
+observing the dreams of the recipient. 
+Once the message is delivered, the mes-
+senger’s mind returns instantly to its body. 
+The duration of the spell is the time 
+required for the messenger to enter the 
+recipient’s dream and deliver the message. 
+If the recipient is awake when the spell 
+begins, the messenger can choose to wake 
+up (ending the spell) or remain in the 
+trance. The messenger can remain in the 
+trance until the recipient goes to sleep, 
+then enter the recipient’s dream and de-
+liver the message as normal. A messenger 
+that is disturbed during the trance comes 
+awake, ending the spell. 
+Creatures who don’t sleep (such as elves, 
+but not half-elves) or don’t dream cannot 
+be contacted by this spell. 
+The messenger is unaware of its own 
+surroundings or of the activities around it 
+while in the trance. It is defenseless both 
+physically and mentally (always fails any 
+saving throw) while in the trance. 
+ 
+Eagle’s Splendor 
+Transmutation 
+Level: Brd 2, Clr 2, Pal 2, Sor/Wiz 2 
+Components: V, S, M/DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature touched 
+Duration: 1 min./level 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes 
+ 
+The transmuted creature becomes more 
+poised, articulate, and personally forceful. 
+The spell grants a +4 enhancement bonus 
+to Charisma, adding the usual benefits to 
+Charisma-based skill checks and other uses 
+of the Charisma modifier. Sorcerers and 
+bards (and other spellcasters who rely on 
+Charisma) affected by this spell do not 
+gain any additional bonus spells for the 
+increased Charisma, but the save DCs for 
+spells they cast while under this spell’s 
+effect do increase. 
+Arcane Material Component:  A few feath-
+ers or a pinch of droppings from an eagle. 
+ 
+Eagle’s Splendor, Mass 
+Transmutation 
+Level: Brd 6, Clr 6, Sor/Wiz 6 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One creature/level, no two of 
+which can be more than 30 ft. apart 
+ 
+This spell functions like eagle’s splendor , 
+except that it affects multiple creatures. 
+ 
+Earthquake 
+Evocation [Earth] 
+Level: Clr 8, Destruction 8, Drd 8, Earth 7 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Long (400 ft. + 40 ft./level) 
+Area: 80-ft.-radius spread (S) 
+Duration: 1 round 
+Saving Throw: See text 
+Spell Resistance: No 
+ 
+When you cast earthquake, an intense but 
+highly localized tremor rips the ground. 
+The shock knocks creatures down, col-
+lapses structures, opens cracks in the 
+ground, and more. The effect lasts for 1 
+round, during which time creatures on the 
+ground can’t move or attack. A spellcaster 
+on the ground must make a Concentration 
+check (DC 20 + spell level) or lose any spell 
+he or she tries to cast. The earthquake 
+affects all terrain, vegetation, structures, 
+and creatures in the area. The specific 
+effect of an earthquake spell depends on the 
+nature of the terrain where it is cast. 
+Cave, Cavern, or Tunnel:  The spell col-
+lapses the roof, dealing 8d6 points of blud-
+geoning damage to any creature caught 
+under the cave-in (Reflex DC 15 half ) and 
+pinning that creature beneath the rubble 
+(see below). An earthquake cast on the roof 
+of a very large cavern could also endanger 
+those outside the actual area but below the 
+falling debris. 
+Cliffs: Earthquake causes a cliff to crum-
+ble, creating a landslide that travels hori-
+zontally as far as it fell vertically. An earth-
+quake cast at the top of a 100-foot cliff 
+would sweep debris 100 feet outward from 
+the base of the cliff. Any creature in the 
+path takes 8d6 points of bludgeoning 
+damage (Reflex DC 15 half ) and is pinned 
+beneath the rubble (see below). 
+Open Ground:  Each creature standing in 
+the area must make a DC 15 Reflex save or 
+CHAPTER 11: 
+SPELLS 

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0172",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 172,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:39:31.413678+00:00"
+  },
+  "doneAt": "2026-02-03T09:39:35.420083+00:00",
+  "citation": "PHB (pdf p.0172)",
+  "printedGuess": "171",
+  "touched": [
+    "Rule — Armor Class",
+    "Rule — Core Mechanic (d20)",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Armor and Shields, page 123) (PHB 7–6)"
+  ]
+}

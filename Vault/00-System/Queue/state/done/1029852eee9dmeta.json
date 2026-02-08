@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "1029852eee9d:meta",
+    "sourceId": "1029852eee9d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Kingdoms of Kalamar Player's Guide.pdf",
+    "title": "Kingdoms of Kalamar Player's Guide",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:58:41.107550+00:00",
+  "meta": {
+    "sourceId": "1029852eee9d",
+    "title": "Kingdoms of Kalamar Player's Guide",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Kingdoms of Kalamar Player's Guide.pdf",
+    "pages": 281,
+    "extractedAt": "2026-02-03T12:58:41.099543+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

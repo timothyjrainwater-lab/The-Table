@@ -1,0 +1,15 @@
+{
+  "task": {
+    "taskId": "a8d5c02fedc6:pages:0007-0008",
+    "sourceId": "a8d5c02fedc6",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 12/A Question of Ethics.pdf",
+    "pageStart": 7,
+    "pageEnd": 8,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:33:51.591462+00:00"
+  },
+  "doneAt": "2026-02-04T08:18:21.881447+00:00",
+  "wrote": [],
+  "skipped_disallowed": true
+}

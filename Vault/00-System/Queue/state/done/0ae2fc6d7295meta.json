@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "0ae2fc6d7295:meta",
+    "sourceId": "0ae2fc6d7295",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/Tower In The Ice.pdf",
+    "title": "Tower In The Ice",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:15:22.518799+00:00",
+  "meta": {
+    "sourceId": "0ae2fc6d7295",
+    "title": "Tower In The Ice",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/Tower In The Ice.pdf",
+    "pages": 12,
+    "extractedAt": "2026-02-04T02:15:22.460321+00:00"
+  },
+  "enqueued_extractPages": 6
+}

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "6b74118c167c:meta",
+    "sourceId": "6b74118c167c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Unicorn.pdf",
+    "title": "Secrets of The Unicorn",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:00:15.559152+00:00",
+  "meta": {
+    "sourceId": "6b74118c167c",
+    "title": "Secrets of The Unicorn",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Secrets Of The/Secrets of The Unicorn.pdf",
+    "pages": 96,
+    "extractedAt": "2026-02-03T18:00:15.551825+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

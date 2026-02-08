@@ -1,0 +1,102 @@
+   Module Workshop  A Dead Man’s Party - Page 13 
+ 
+Bite +4 melee (1d8+1 dmg and paralysis), 2 claws +1 
+melee (1d4 dmg and paralysis); Face/Reach 5ft. by 
+5ft./5ft.; SA Stench, Paralysis, Create Spawn; SQ 
+Undead, +2 turn resistance; AL CE; SV Fort +1, Ref 
++3, Will +6; Str 13 Dex 15 Con – Int 13 Wis 14 Cha 
+16. 
+Skills: Climb +6, Escape Artist +8, Hide +8, Intuit 
+Direction +3, Jump +6, Listen +8, Move Silently +7, 
+Search +6, Spot +8. 
+Feats: Multiattack, Weapon Finesse(bite) 
+SA-Stench(Ex): Those within 10 ft. of a ghast must 
+make a Fort Save (DC 15) or suffer a -2 circumstance 
+penalty to all attack, saves, and skill checks for 
+1d6+5 minutes. 
+Paralysis(Ex): Those hit by a ghoul must make a Fort 
+Save (DC 15) or be paralyzed for 1d6+2 minutes. 
+Even elves are vulnerable to this paralysis. 
+Create Spawn(Su): Any being slain by a ghast and 
+not eaten by the creature will rise as a ghast in 1d4 
+days. Casting Protection from Evil on the body 
+prevents this. 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Tactics: The ghast will wait until a 
+character gets too close and becomes 
+affected by its stench. It will then attack any 
+character that looks like they are being 
+affected by the stench. Disguises will not 
+fool it because it knows its stench does not 
+affect zombies. 
+ 
+9D has no body in it (it did contain the one 
+that the ghouls in Area 14 are currently 
+feasting on). 
+ 
+10. Surgical Room
+ 
+ 
+This was perhaps some sort of surgery or 
+healing room. A surgical table sits in the 
+center of the room, covered in small 
+cutting tools and vials. There are rinse 
+basins along the east wall. Grated drains 
+are set in the floor, and the floor itself is 
+slightly angled so that liquid would flow 
+from the table to the drains. 
+ 
+ Treasure: If a character makes a 
+successful Search (DC 10) and a Healing 
+check (DC 10) then they can find enough 
+small materials, bandages, and salves to 
+make a one-use healing kit. 
+ 
+11. Poltergeist (EL 2)
+ 
+ 
+This room has the same description as Area 
+10. However, a ghost resides in this room. It 
+will not attack the players directly, but it 
+will use its telekinetic power to animate 
+several small scalpels from the surgery table 
+to attack the characters. The ghost will have 
+the scalpels attack anything that comes into 
+the room, regardless of whether or not it 
+believes the PCs to be zombies. Treat the 
+scalpels as Tiny animated objects. The ghost 
+has learned to use its power in this unusual 
+way. 
+ 
+The ghost itself will remain in the wall, so it 
+will be imperceptible, unless a character 
+uses a spell such as Detect Undead. The 
+ghost is scared of the PCs and will not, 
+under any circumstances, enter the room and 
+confront them. 
+ 
+If the characters flee the room, the scalpels 
+and the ghost will not follow. If the PCs 
+defeat the scalpels, the ghost will disappear 
+through the outer wall and not come back 
+into the room until the PCs leave. 
+ 
+The stats for the ghost itself are not listed 
+because it will retreat rather than face the 
+PCs itself. 
+ 
+ Animated Objects - Scalpels (4) 
+CR 1/2 each; Tiny Construct; HD ½d10 (1 hp each); 
+Init +2 (Dex); Spd fly 40ft.(perfect); AC 14 (+2 Dex, 
++2 size); Atks Thrust +1 melee (1d3-1 dmg); 
+Face/Reach 2½ft. by 2½ft./ 0ft.; SQ Construct, 
+Hardness 10; AL N; SV Fort +0, Ref +2, Will -5; Str 
+8 Dex 14 Con – Int – Wis 1 Cha 1. 
+SQ-Construct: Immune to mind-influencing effects, 
+poison, disease, and similar effects. Not subject to 
+critical hits, subdual damage, ability damage, energy 
+drain, or death from massive damage. 

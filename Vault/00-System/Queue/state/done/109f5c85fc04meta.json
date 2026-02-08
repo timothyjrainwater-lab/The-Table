@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "109f5c85fc04:meta",
+    "sourceId": "109f5c85fc04",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Tuggarth Gauntlet.pdf",
+    "title": "The Tuggarth Gauntlet",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:50:15.329199+00:00",
+  "meta": {
+    "sourceId": "109f5c85fc04",
+    "title": "The Tuggarth Gauntlet",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Tuggarth Gauntlet.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-04T00:50:15.256855+00:00"
+  },
+  "enqueued_extractPages": 5
+}

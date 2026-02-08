@@ -1,0 +1,176 @@
+Draconic Aura (Su): You can channel the mighty powers
+of dragonkind to project an aura that grants you and nearby
+allies a special benefir
+
+Projecting an aura is a swift action (see page 4), and youcan
+only project one draconic aura at a time, An aura remains in
+effect until you use a free action to dismiss it or you activare
+another aura in its place. You can have a draconic aura active
+continually; thus, an aura can be in effect at the start of an
+encounter even before you take your first turn.
+
+Unless otherwise noted, your draconic aura affects all
+allies within 30 feet (including yourself) with line of effect
+to you, Your aura is dismissed if you become unconscious or
+are slain, but otherwise it remains in effect even if you are
+incapable of acting.
+
+‘The bonus granted by your aura beginsat +1 and increases
+to +2 at Sth level, +3 ar 10th level, +4 at 15th level, and +5 at
+20th level. As a istlevel dragon shaman, you know how to
+project three auras chosen from the list below. At every odd-
+numbered level after that, you learn one additional draconic
+aura of your choice, until all seven auras are known at 9th
+level. Each time you activate a draconic aura, you can choose
+from any of the auras that you know.
+
+Energy Shield; Any creature striking you or your ally with
+anatural attack ora nonreach melee weapon is dealt 2 points
+of energy damage for each point of your aura bonus. The
+energy type is that of your totem dragon's damage-dealing
+breath weapon (see below),
+
+Power: Bonus on melee damage rolls equal to your aura bonus.
+
+Presence: Bonus on Bluff, Diplomacy, and Intimidate checks
+equal to your aura bonus.
+
+Resistance: Resistance to your totem dragon's energy type
+equal to 5 x your aura bonus,
+
+Senses: Bonus on Listen and Spot checks, as well as on
+initiative checks, equal to your aura bonus.
+
+‘Toughness: DR 1/magic for each point of your aura bonus
+(up to 5/magic at 20th level)
+
+Vigor: Fast healing 1 for each point of your aura bonus, but
+only affects characters at or below one-half their full normal
+hit points.
+
+Totem Dragon: You must choose a totem dragon from
+among the true dragons appearing in the Monster Manual (black,
+blue, brass, bronze, copper, gold, green, red, silver, or white)
+
+You must choose a dragon whose alignment is within one
+step of yours, as described in the following table. You gain
+additional class skills and a particular sort of breath weapon
+based on the dragon you select as your totem.
+
+Skill Focus: Ar 2nd level, you gain Skill Focus as a bonus
+feat. You must apply the feat to one of the three class skills
+granted by your chosen totem dragon. For example, a blue
+dragon shaman can select Skill Focus (Bluff), Skill Focus
+(Hide), or Skill Focus (Spellcraft).
+
+At 8th level, and again at t6th level, you gain Skill Focus
+in another of the class skills granted by your chosen totem
+dragon. If you already have Skill Focus in all three of the skills
+associated with your totem dragon, you gain Skill Focus in
+any other dragon shaman class skill.
+
+Draconic Adaptation (Ex or Sp): At 3rd level, you take
+on an aspect of your totem dragon. Some adaptations are
+
+ 
+
+ 
+
+Totem Acceptable Breath Weapon
+Dragon Alignment — Class Skills Energy Type
+Black  NE,CE,CN Hide, Move Line of acid
+
+Silently, Swim
+
+Blue NE, LE,LN Bluff, Hide, Line of electricity
+
+Spellcraft
+
+Brass NG,CG,CN Bluff,Gather —_Line of fire
+Information, Survival
+
+Bronze NG,LG,LN Disguise, Line of electricity
+Survival, Swim
+
+Copper NG,CG,CN Bluff, Hide, Line of acid
+Jump
+
+Gold NG,LG,LN Disguise, Heal, Cone of fire
+Swim
+
+Green NE,LE,LN Bluff, Hide, Cone of acid
+Move Silently
+
+Red NE,CE,CN Appraise, Bluff, Cone of fire
+Jump
+
+Silver NG,LG,LN Bluff, Disguise, Cone of cold
+Jump
+
+White NE,CE,CN Hide, Move Cone of cold
+
+Silently, Swim
+
+extraordinary abilities that are always active; others are spell-
+like abilities that you can activate at will. Spell-like abilities
+have a caster level equal to your class level and a save DC
+equal to 10 + spell level + Cha modifier.
+
+Black—Water Breathing (Ex): You can breathe underwater
+indefinitely and can freely use spells and other abilities
+underwater (always active).
+
+Blue—Ventriloquism (Sp): As the spell (at will).
+
+Brass—Endure Elements (Sp): As the spell, except you can
+only target yourself (at will).
+
+Bronze—Water Breathing (Ex): You can breathe underwater
+indefinitely and can freely use spells and other abilities
+underwater (always active).
+
+Copper—Spider Climb (Sp): As the spell, except you can
+only target yourself (at will).
+
+Gold—Warer Breathing (Ex): You can breathe underwater
+indefinitely and can freely use spells and other abilities
+underwater (always active).
+
+Green—Water Breathing (Ex): You can breathe underwater
+indefinitely and can freely use spells and other abilities
+underwater (always active
+
+Red—Treasure Seeker (Ex): You gain a +5 competence bonus
+on Appraise and Search checks (always active).
+
+Silver—Feather Fall (Sp): As the spell, except you can only
+target yourself (at will),
+
+White—Icewalker (Ex); You can walk across icy surfaces
+without reducing your speed or making Balance checks
+(always active).
+
+At 13th level, you can choose as a swift action (see page 4)
+to share the effect of your draconic adaptation with any or
+all allies within 30 feet. In the case of spell-like abilities, you
+must make this decision when you activate the ability, The
+benefir lasts until you spend a free action to rescind it or (if
+the effect has a limited duration) the effect ends, whichever
+comes first.
+
+Breath Weapon (Su): At 4th level, you gain a breath
+weapon corresponding to your totem dragon. Regardless of
+the area one affects or the type of energy damage it deals, all
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+

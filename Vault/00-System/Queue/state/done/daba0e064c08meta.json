@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "daba0e064c08:meta",
+    "sourceId": "daba0e064c08",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Dungeon Master's Guide II.pdf",
+    "title": "Dungeon Master's Guide II",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T09:22:32.278099+00:00",
+  "meta": {
+    "sourceId": "daba0e064c08",
+    "title": "Dungeon Master's Guide II",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Dungeon Master's Guide II.pdf",
+    "pages": 286,
+    "extractedAt": "2026-02-03T09:22:30.957687+00:00"
+  }
+}

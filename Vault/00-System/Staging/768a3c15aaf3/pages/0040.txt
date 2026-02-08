@@ -1,0 +1,111 @@
+ 
+
+Ravenloft’s inhuman creatures, from elves to
+gnomes to vampires to lycanthropes, are all merely
+facets of the human soul, placed in the world by
+nameless deities to reflect against humanity’s light.
+Most nonhumans scoff at this, for their cultural
+traits are not ironclad. Nonhumans may have ten-
+dencies, but like any other mortal, they are
+responsible for their own fates.
+
+With the exception of a very few domains,
+such as Darkon and Sithicus, nonhumans face a
+cold reception when they roam in the lands of men.
+In some lands, nonhumans are simply considered
+unnatural — freaks of nature to be pitied or ridi-
+culed. In other lands, humans may react with
+deeply rooted, superstitious fear. Nonhumans who
+visit a few domains, such as Falkovnia and Tepest,
+may even be risking their lives.
+
+Caliban
+
+Ores are unknown in Ravenloft, even as crea-
+tures of legend. For this reason, no half-ores are
+native to the Land of Mists. However, creatures do
+exist that fill the half-ore’s role: calibans. Thank-
+fully rare, calibans are twisted humans exposed to
+curses or foul magic while still in the womb. The
+birth of a caliban in a community is often seen as a
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+ 
+
+ 
+
+‘Outcast Ratings
+
+% Most of Ravenloft’s folk live and die within a score of miles from their birthplace and can
+. spend their entire lives without ever knowingly encountering the supernatural. When com-
+; bined with cultures rich in suspicion and superstition, the result is xenophobia. This is expressed
+€ as an Outcast Rating (OR), which may modify the Difficulty Classes of social skill checks
+$ performed by any character who appears unnatural or out of place.
+
+& Her race, social standing, physical deformities or even the gear she carries can modify a
+y character’s Outcast Rating. As a character’s OR rises, NPC reactions toward her turn from
+\ standoffish to fearful.
+
+An Outcast Rating applies as a circumstance penalty on Bluff, Diplomacy, Gather
+
+ 
+
+ 
+
+7 Information and Perform checks, but it applies as a bonus on Intimidate checks. Outcast Rating
+
+¢ modifiers never apply when dealing with friends or allies, such as other PCs, or others who share
+Qe the source of your OR modifiers, such as other members of your own race.
+
+z Example: Elves have a base Outcast Rating of 3. If they interact with nonelves, they suffer
+
+¢ a-3 penalty on Bluff, Diplomacy, Gather Information and Perform checks but enjoy a +3 bonus
+é on Intimidate checks.
+% Outcast Rating reflects only first reactions; it is possible to improve one’s standing. For each
+3 good deed a character performs (stopping a crime, defeating a monster preying on the
+af community, helping a farmer harvest crops and so on), that individual dispels some of the
+\ surrounding community's fear; her OR drops in that community by 1 point, toa minimum of 0.
+3 Some domains may impose their own OR modifiers; see Chapter Four for more details.
+

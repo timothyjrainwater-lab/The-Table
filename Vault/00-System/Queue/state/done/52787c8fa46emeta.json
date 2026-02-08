@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "52787c8fa46e:meta",
+    "sourceId": "52787c8fa46e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/The Crumbling Hall of The Frost Giant Jarl.pdf",
+    "title": "The Crumbling Hall of The Frost Giant Jarl",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T20:41:09.933224+00:00",
+  "meta": {
+    "sourceId": "52787c8fa46e",
+    "title": "The Crumbling Hall of The Frost Giant Jarl",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/The Crumbling Hall of The Frost Giant Jarl.pdf",
+    "pages": 9,
+    "extractedAt": "2026-02-03T20:41:09.857758+00:00"
+  },
+  "enqueued_extractPages": 5
+}

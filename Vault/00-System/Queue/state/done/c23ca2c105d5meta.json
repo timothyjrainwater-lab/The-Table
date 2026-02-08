@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "c23ca2c105d5:meta",
+    "sourceId": "c23ca2c105d5",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Five Nations.pdf",
+    "title": "Five Nations",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:41.129682+00:00",
+  "meta": {
+    "sourceId": "c23ca2c105d5",
+    "title": "Five Nations",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Five Nations.pdf",
+    "pages": 162,
+    "extractedAt": "2026-02-03T10:36:41.122534+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "0e2ac25648cd:meta",
+    "sourceId": "0e2ac25648cd",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Heroes of High Favor - Elves.pdf",
+    "title": "Heroes of High Favor - Elves",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:19:31.238803+00:00",
+  "meta": {
+    "sourceId": "0e2ac25648cd",
+    "title": "Heroes of High Favor - Elves",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Heroes of High Favor - Elves.pdf",
+    "pages": 84,
+    "extractedAt": "2026-02-03T12:19:30.803980+00:00"
+  },
+  "enqueued_extractPages": 42
+}

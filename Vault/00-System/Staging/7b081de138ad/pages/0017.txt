@@ -1,0 +1,139 @@
+ 
+
+CHAPTER ONE: FOUR ROADS TO RICHES
+
+PCs to believe that she is not telling the entire truth.
+Actually, she was in Leopold’s room (Area 17), giving
+him a massage. Astute PCs remember that Areth the
+servant also claimed to be in the kitchen at the time
+Yugin was killed ... so were Areth and Marion both in the
+kitchen, or is one of them lying?
+
+Invis and Marion, Female Humans Com1: CR 1/2;
+SZM (5 ft., 5 in. tall); HD 1d4-1; hp 3 each; Init -1; Spd
+30 ft.; AC 9 (-1 Dex); BAB/Grap +0/+1; Atk +1 melee
+(1d3+1 nonlethal, unarmed); Full Atk (1d3+1 nonle-
+thal, unarmed); AL LG; SV Fort -1, Ref -1, Will +2; Str
+12, Dex 8, Con 8, Int 11, Wis 15, Cha 11.
+
+Skills: Bluff +2, Handle Animal +4, Jump +3, Knowl-
+edge (local) +1, Listen +3, Profession (seamstress [Invis],
+masseuse [Marion]) +4, Spot +2. Feats: Run, Skill Focus
+(Handle Animal).
+
+Possessions: 2d4 sp each.
+
+Personality: Invis is prim and businesslike, while
+Marion is a starry-eyed romantic. Invis firmly believes
+she’ll be a chambermaid or serving wench until the day
+she dies, while Marion dreams of being swept off her
+feet and taken away to an enchanted land to live out
+her days amid elven song, sweet wine, and peppermint-
+scented breezes.
+
+14. Shalindra’s Room
+
+Shalindra is a tall, elegant woman with lustrous black
+skin and haunted eyes. Exceedingly beautiful, Shalindra
+is actually a duchess from a foreign land, here at Darkstar
+Hall to set up trade relations with Rathen (Area 18).
+She has a great storm of hair, woven with beads and
+silver threads, and is almost always seen in diaphanous
+gowns of pale blue silk. She refuses to vouchsafe knowl-
+edge of her noble heritage or details of her mission. Only
+if one of the PCs is of particularly stately bearing does
+Shalindra openly converse of the murder. She otherwise
+remains aloof. At the time that Yugin Vooshae was
+slain, Shalindra and Rathen happened to be conducting
+asecret assignation in the Privacy Chamber on the third
+floor (Area 25). As their trade alliance would under-
+mine certain powerful individuals in the Domain (namely
+Sivian Ulphar, who has tentacles in the shipping indus-
+try), neither Shalindra nor Rathen readily come forth
+with the truth, even if it’s the only means of establishing
+an alibi. If the PCs interview Shalindra, on a successful
+Spot check (DC 12) they notice that her earring is an
+intricate affair of onyx and platinum, but she’s only
+wearing one of them. She doesn’t realize that she lost the
+other one (it can be found in Area 25).
+
+Shalindra, Female Human, Ari9: CR 8; SZ M (5 ft.,
+6 in. tall); HD 948; hp 41; Init +5 (Dex, Improved
+Initiative); Spd 30 ft.; AC 13 (+1 Dex, +2 ring); BAB/
+Grap +6/+7; Atk +7 melee or +7 ranged; Full Atk +7/+2
+melee or +7/+2 ranged; AL N; SV Fort +3, Ref +4, Will
++7; Str 13, Dex 13, Con 11, Int 10, Wis 13, Cha 18.
+
+Skill: Diplomacy +12, Disguise +9, Forgery +7, Handle
+Animal +15, Intimidate +12, Knowledge (geography)
++3, Knowledge (heraldry) +10, Listen +3, Perform (harp)
++9, Sense Motive +10, Spot +3. Feats: Alertness, Im-
+
+proved Initiative, Leadership, Skill Focus (Handle Ani-
+mal), Skill Focus (Intimidate).
+
+Possessions: 1,300 gp in assorted gemstones in silk
+pouch, 3,200 gp in jewelry, potions of charisma and detect
+thoughts, and a +2 ring of protection.
+
+Personality: As previously noted, Shalindra is proud of
+her noble birth and guarded with her secrets. Ever since
+her husband died, she’s been entrusted with the welfare
+of her small duchy. Though she would truly welcome any
+allies to her cause, she is not forthcoming with her trust.
+Only a PC of cultured upbringing and courtly deport-
+ment has a chance of scaling the walls she’s constructed
+around her heart. Shalindra longs for a hero.
+
+15. Branke’s Room (EL 3)
+
+When the PCs finally get around to searching Branke’s
+room, it’s important to remember that the halfling is a
+skilled actor—he appears quite frightened by all of this
+grisly murder business. Though he secretly acts to im-
+pede the investigation in whatever way he can, he
+otherwise plays the part of a halfling afraid for his life.
+After all, the killer is still at large, right? It’s only right
+that he be terrified. Branke claims to be a bard; appar-
+ently he is a poet who travels around telling stories. He’s
+weaving just such a tale in front of the fireplace on the
+day the heroes arrive at the inn. After the murder, he is
+skittish, and he has a habit of holding on to the pantleg
+of the largest PC. Branke claims to have been composing
+anew story at the time of the murder. He shows the PCs
+a few pages of this unfinished tale, which is entitled,
+“Arsinikus and the Dragon of Gale.” He asks if the PCs
+would mind telling him a little of their adventures, so
+that he could use their experiences as material for the
+story.
+
+Branke’s room is a mess, a fact for which he apologizes
+profusely. He admits to being a disheveled soul, and he
+can’t help the fact that he strews his belongings about
+with little care for where they fall. Actually, the clutter
+helps him conceal his important possessions. Sifting
+through all the clothes, trinkets, toys, and traveling gear
+requires a Search check (DC 13), with success indicat-
+ing that the searcher has found what appears to be a
+hand-carved whalebone flute. Ifsomeone attempts to air
+a tune on the instrument, nothing happens, as the flute
+is stuffed with a tightly rolled scroll. The scroll contains
+extensive notes, written in Branke’s squiggly penman-
+ship, detailing Yugin Vooshae’s orders to acquire the
+Star on behalf of Sivian Ulphar of the Hawkmoon
+thieves’ guild.
+
+Branke hid a few more objects within one of the
+bedposts, discovered on a Search check (DC 12). After
+hollowing out the post, he filled it with his lockpicks, a
+small sack of 4 pearls (20 gp each), and two bottles, one
+of which is empty. The other bottle contains a potion of
+enlarge (caster level 5), and is labeled as such. Branke has
+used potions like these throughout his career to make up
+for the disadvantages of his small stature.
+
+Creature: If Branke is present when the PCs find the
+items in the flute and bedpost, he holds his ground and
+
+16
+

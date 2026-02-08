@@ -1,0 +1,70 @@
+  
+
+-
+
+   
+
+     
+
+golems may rampage across the countryside or may,
+in some cases, attempt to create for themselves a
+life of their own, mimicking the real life they come
+so close to and so ardently crave.
+
+Signs of a Golem
+
+Often, the hunt for a golem does not begin as
+such. A party of adventurers may be drawn into the
+investigation of a string of inexplicable and seem-
+ingly random murders. Querying the townsfolk
+may lead to rumors of a reclusive wizard or noble-
+man who lives in the castle on the hill and is said
+to conduct weird experiments of an unknown
+nature. Tales such as this may bring adventurers to
+the conclusion that the murderer is no less than a
+construct.
+
+Sometimes the creator himself may leave notes
+and documents touting his creation. If a party of
+heroes discovers these writings in the course of
+other adventures, they may wish to pursue the
+possibility that a golem may be loose in the realm.
+Evidence of massive physical destruction, such as
+uprooted trees, destroyed buildings and great holes
+in the earth may lend credence to the theory that
+a golem is nearby.
+
+xX ¥
+}
+4 Table 5—5: Spells and Cheir Effects on Constructs
+Spell Name Effect
+~‘ Acid Fog This spell may slow down a golem by obscuringits vision. If acid harms the golem’s physical component,
+‘ it takes damage normally from the acid vapors.
+3 Animate dead Even flesh golems are unaffected by this spell.
+z Animate object Apriest or bard casting this spell may sometimes gain partial control over the construct
+q Charm spells These spells have no effect on constructs.
+> Contagion Constructs are immune to diseases.
+&\ Detect magic Most constructs do not register as magical creatures for purposes of this spell
+5 Dispel magic This spell affects some golems but not others
+8 Earthquake Agolemwithin the area of effect may be trapped or damaged by the physical effects of the earthquake.
+S Energy drain This spell not only does not harm constructs; it gives them additional strength, adding | HD
+s permanently to the creature.
+j ESP This spell is ineffective on constructs
+< Evard’s black tentacles This spell can affect constructs since it does not provide for saving throws or spell resistance.
+< Iksion/phantasmspells These spells have no effect on constructs, with the exception of spells that confer invisibility on the
+§ caster (see below).
+d Invisibility spells. Constructs do not seem to be able to see invisible persons or objects.
+f Magic circle against evil This spell offers some protection from evil constructs but does not keep them entirely at bay.
+x Melf’s acid arrow __ Constructs susceptible to acid damage can be harmed.
+é Polymorph spells These spells do not affect golems, due to their immunity to spells that allow saving throws.
+: Protection from evil See magic circle against evil, above
+Rusting grasp This spell is effective against iron golems.
+Solid Fog This spell can impede or slow a golem’s movement.
+Stone to flesh This spell can change a stone golem to a flesh golem and vice versa.
+
+a Nae wares whys
+hy, Ve eee he ealiggua re
+
+ 
+ 
+

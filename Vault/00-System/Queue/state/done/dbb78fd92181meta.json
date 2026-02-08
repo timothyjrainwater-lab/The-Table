@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "dbb78fd92181:meta",
+    "sourceId": "dbb78fd92181",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Shoals of Intrigue.pdf",
+    "title": "Shoals of Intrigue",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:33:18.976641+00:00",
+  "meta": {
+    "sourceId": "dbb78fd92181",
+    "title": "Shoals of Intrigue",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Shoals of Intrigue.pdf",
+    "pages": 13,
+    "extractedAt": "2026-02-03T18:33:18.969509+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

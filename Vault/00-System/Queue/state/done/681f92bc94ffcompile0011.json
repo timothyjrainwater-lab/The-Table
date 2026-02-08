@@ -1,0 +1,24 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0011",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 11,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T06:39:22.850905+00:00"
+  },
+  "doneAt": "2026-02-03T06:41:05.021398+00:00",
+  "citation": "PHB (pdf p.0011)",
+  "printedGuess": "10",
+  "touched": [
+    "Condition — Prone",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — Aging Effects (page 109) (PHB 6–5)",
+    "Table — Feats, page 90) (PHB 5–1)",
+    "Table — Racial Ability Adjustments, (PHB 2–1)",
+    "Table — Skills, page (PHB 4–2)"
+  ]
+}

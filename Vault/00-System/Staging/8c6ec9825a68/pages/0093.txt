@@ -1,0 +1,193 @@
+ 
+ 
+   
+  
+ 
+ 
+ 
+  
+
+       
+
+IMBUED SUMMONING
+
+Your summoning spells gain an element of surprise. You can
+summon creatures that come into existence with the benefit
+of a spell such as invisibility or bull's strength.
+Prerequisites: Augment Summoning, Spell Focus
+(conjuration)
+
+ 
+
+Benefit: When you cast a spell from the summoning
+subschool, you can choose to grant the summoned creature
+the benefit of any spell of 3rd level or lower you can cast that
+has a range of touch. You cast the spell you wish to grant the
+creature (using a prepared spell or a spell slot) at the same
+time you cast your summoning spell, The creature gains the
+benefit of the spell when it appears.
+
+Animbued summoning spell uses up a spell slot one level
+higher than the spell’s actual level.
+
+SMITING SPELL
+
+You can channel the energy of a touch spell into a weapon,
+causing the spell to discharge when you strike an opponent
+
+Prerequisites: Base attack bonus +1, caster level 1st
+
+Benefit: You can alter a spell with a range of touch to
+transfer its energy from your hand to a weapon that you
+hold. The next time you strike an opponent with that
+weapon, the spell discharges. The target takes the normal
+damage and effects of a successful attack in addition to
+the spell’s effect. Once you place a spell into a weapon,
+you must discharge it within 1 minute, or its energy dis-
+sipates harmlessly.
+
+You can place a smiting spell on a piece of ammunition or a
+projectile, such asa sling bullet, an arrow, ora crossbow bolt.
+In such a case, the spell dissipates if the attack misses. The
+spell cannot be placed on a bow, crossbow, sling, or similar
+weapon thar uses ammunition.
+
+‘A smiting spell uses up a spell slot one level higher than
+the spell's actual level
+
+  
+
+Taste 3-6; METAMAGiC Feats
+Feat
+Blistering Spell
+Earthbound Spell
+Flash Frost Spell
+imbued Summoning
+
+ 
+
+Augment Summoning,
+Spell Focus (conjuration)
+Smiting Spell
+
+TABLE 3-7: TACTICAL FEATS
+Feat
+Blood-Spiked Charger
+
+Prerequisites
+
+Str 13, proficiency with armor spikes
+and shield spikes, Power Attack,
+Weapon Focus (armor spikes),
+Weapon Focus (shield spikes),
+
+base attack bonus +6
+
+Dex 15, Int 13, Combat Expertise,
+Dodge, base attack bonus +6
+Bluff 8 ranks, intimidate 8 ranks,
+Perform 8 ranks
+
+Combat Cloak Expert
+Combat Panache
+Einhander
+
+Mad Alchemist
+Shadow Striker
+
+Grenadier, Craft (alchemy) 6 ranks
+
+Base attack bonus +1, caster level Ist
+
+Tumble 6 ranks, base attack bonus +6
+
+Hide 12 ranks, Move Silently 12 ranks
+
+   
+
+TACTICAL FEATS
+
+Tactical fears allow characters to perform a number of power-
+ful maneuvers.
+
+If you are playing a character who has one or more tactical
+feats, you are responsible for keeping track of the actions
+needed to set up the feat’s maneuver. It's also a good idea
+to briefly mention to the DM that you're working toward a
+tactical maneuver—a remark along the lines of “I'm using
+my spiked rebuke maneuver this round. I'll let you know if |
+gain my attack bonus against any opponents who attack and
+miss me” is appropriate.
+
+Some descriptions of tactical feats refer to the first round,
+second round, and so on. These terms are related to the timing
+of the maneuver, not the encounter as a whole, For instance,
+if you have the Combat Cloak Expert feat, you don't have to
+move adjacent to an opponent in the first round of combat
+to utilize the cloaked strike maneuver during that combat
+Any round when you move adjacent to an opponent for the
+
+ 
+
+purpose of utilizing this maneuver is considered the first
+round of the maneuver.
+
+The six feats described below are tactical feats. Their pre-
+requisites and benefits are summarized on Table 3-7.
+
+BLOOD-SPIKED CHARGER
+
+You throw yourself into the fray, using your spiked armor
+and spiked shield to tear your opponents to pieces
+
+Prerequisites: Str 13, proficiency with spiked armor and
+spiked shields, Power Attack, Weapon Focus (spiked armor),
+Weapon Focus (spiked shield), base attack bonus +6.
+
+Benefit: The Blood-Spiked Charger feat grants you access
+to three special tactical maneuvers.
+
+Spiked Avalanche: When you are using the charge action
+while wearing spiked armor and carrying either a spiked
+shield or nothing in your hands, you throw yourself into the
+air, transforming yourself into a deadly, spiked projectile.
+A successful atrack with either your spiked shield or your
+
+Benefit
+
+Fire spells cause ~2 penalty for 1 turn on failed save
+Cast spell into ground as a trap
+
+Cold spells coat area of effect with slippery ice
+Summoned creature arrives with beneficial spell
+
+Place touch spell in weapon
+
+Benefit
+Gain armor and shield spike maneuvers
+
+Gain cloak maneuvers
+Gain charismatic combat maneuvers
+Gain one-handed weapon combat maneuvers
+
+Gain thrown item combat maneuvers
+Gain stealthy combat maneuvers
+
+ 
+  
+  
+  
+  
+  
+   
+  
+   
+  
+   
+  
+   
+  
+ 
+ 
+ 
+

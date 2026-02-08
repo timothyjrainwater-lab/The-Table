@@ -1,0 +1,131 @@
+ 309
+creatures without the normal miss chance associated with incor-
+poreality. 
+Fortitude save:  A type of saving throw, related to a character’s 
+ability to withstand damage thanks to his physical stamina. 
+free action:  Free actions consume a negligible amount of time, 
+and one or more such actions can be performed in conjunction with 
+actions of other types. 
+frightened: Fearful of a creature, situation, or object. A fright-
+ened creature flees from the source of its fear as best it can. If unable 
+to flee, it may fight. A frightened creature takes a –2 penalty on all 
+attack rolls, saving throws, skill checks, and ability checks. A 
+frightened creature can use special abilities, including spells, to flee; 
+indeed, the creature must use such means if they are the only way to 
+escape. 
+full normal hit points:  An individual character’s maximum hit 
+points when undamaged. 
+full-round attack:  Full-round actions consume all of a charac-
+ter’s effort during a round. The only movement possible in con-
+junction with a full-round action is a 5-foot step, which can occur 
+before, after, or during the action. Some full-round actions (as 
+specified in their descriptions) do not allow even this much 
+movement. When using a full-round action to cast a spell whose 
+casting is 1 round, the spell is not completed until the beginning of 
+the caster’s next turn. 
+Gargantuan: A Gargantuan creature is between 32 and 64 feet in 
+height or length and weighs between 32,000 and 250,000 pounds. 
+gold piece (gp):  The primary unit of currency used by adven-
+turers. 
+grab: The initial attack required to start a grapple. To grab a target, 
+the character must make a successful melee touch attack. 
+granted power: The special ability a cleric gain from each of his 
+selected domains. 
+grapple check: An opposed check that determines a character’s 
+ability to struggle in a grapple. Grapple check = 1d20 + base attack 
+modifier + Strength modifier + special size modifier. (+4 for every 
+size category larger than Medium or –4 for every size category 
+smaller than Medium). 
+grappling: Engaged in wrestling or some other form of hand-to-
+hand struggle with one or more attackers. A grappling character can 
+undertake only a limited number of actions. He does not threaten 
+any squares, and loses his Dexterity bonus to AC (if any) against 
+opponents he isn’t grappling. For creatures, grappling can also mean 
+trapping opponents in any number of ways (in a toothy maw, under 
+a huge paw, and so on). 
+half speed: When restricted to moving at half speed, count each 
+square moved into as 2 squares, and every square of diagonal 
+movement as 3 squares. If you are restricted to half speed, you can’t 
+run or charge, nor can you take a 5-foot step. 
+hardness: A measure of an object’s ability to resist damage. Only 
+damage in excess of the object’s hardness is actually deducted from 
+the object’s hit points upon a successful attack. 
+helpless: Paralyzed, held, bound, sleeping, unconscious, or oth-
+erwise completely at an opponent’s mercy. A helpless target is 
+treated as having a Dexterity of 0 (–5 modifier). Melee attacks 
+against a helpless target get a +4 bonus. An attacker can use a coup 
+de grace against a helpless target. 
+hit: Make a successful attack roll. 
+Hit Die/Dice (HD): In the singular form, a die rolled to generate 
+hit points. In the plural form, a measure of relative power that is 
+synonymous with character level for the sake of spells, magic items, 
+and magical effects that affect a certain number of Hit Dice of 
+creatures. 
+hit points (hp):  A measure of a character’s health or an object’s 
+integrity. Damage decreases current hit points, and lost hit points 
+return with healing or natural recovery. A character’s hit point total 
+increases permanently with additional experience and/or perma-
+nent increases in Constitution, or temporarily through the use of 
+various special abilities, spells, magic items, or magical effects (see 
+temporary hit points and effective hit point increase). 
+Huge: A Huge creature is typically between 16 and 32 feet in 
+height or length and weighs between 4,000 and 32,000 pounds. 
+incorporeal: Having no physical body. Incorporeal creatures are 
+immune to all nonmagical attack forms. They can be harmed only by 
+other incorporeal creatures, +1 or better magic weapons, spells, 
+spell-like effects, or supernatural effects. Even when struck by spells, 
+magical effects, or magic weapons, however, they have a 50% chance 
+to ignore any damage from a corporeal source. In addition, rogues 
+cannot employ sneak attacks against incorporeal beings, since such 
+opponents have no vital areas to target. An incorporeal creature has 
+no armor or natural armor bonus (or loses any armor or natural 
+armor bonus it may have when corporeal), but it gains a deflection 
+bonus equal to its Charisma modifier or +1, whichever is greater. 
+Such creatures can move in any direction and even pass through 
+solid objects at will, but not through force effects. Therefore, their 
+attacks negate the bonuses provided by natural armor, armor, and 
+shields, but deflection bonuses and force effects (such as mage 
+armor) work normally against them. Incorporeal creatures have no 
+weight, do not leave footprints, have no scent and make no noise, so 
+they cannot be heard with Listen checks unless they wish it. 
+Incorporeal creatures cannot fall or take falling damage. 
+inflict spell:  A spell with the word “inflict” in its name, such as 
+inflict light wounds , inflict moderate wounds , or mass inflict critical 
+wounds. 
+inherent bonus:  A bonus to an ability score resulting from 
+powerful magic, such as a wish. Inherent bonuses cannot be dis-
+pelled. A character is limited to a total inherent bonus of +5 to any 
+ability score. Multiple inherent bonuses to a particular ability score 
+do not stack, so only the best one applies. 
+initiative: A system of determining the order of actions in battle. 
+Before the first round of combat, each combatant makes a single 
+initiative check. Each round, the participants act in order from the 
+highest initiative result to the lowest. 
+initiative check: A check used to determine a creature’s place in 
+the initiative order for a combat. An initiative check is 1d20 + Dex 
+modifier + other modifiers. 
+initiative count: The result of an initiative check, expressed as a 
+number that indicates when a character’s turn comes up. 
+initiative modifier: A bonus or penalty to initiative checks. 
+Inner Plane: One of several portions of the planar landscape that 
+contain the primal forces—those energies and elements that make 
+up the building blocks of reality. The Elemental Planes and the 
+Energy Planes are Inner Planes. 
+insight bonus:  An insight bonus improves performance of a 
+given activity by granting the character an almost precognitive 
+knowledge of what might occur. Multiple insight bonuses on the 
+same character or object do not stack. Only the highest insight 
+bonus applies. 
+Intelligence (Int):  The ability that determines how well a 
+character learns and reasons. 
+invisible: Visually undetectable. An invisible creature gains a +2 
+bonus on attack rolls against sighted opponents, and ignores its 
+opponents’ Dexterity bonus to AC (if any). (Invisibility has no effect 
+against blinded or otherwise nonsighted creatures.) An invisible 
+creature’s location cannot be pinpointed by visual means. It has total 
+concealment; even if an attacker correctly guesses the invisible 
+creature’s location, the attacker has a 50% miss chance in combat. 
+An invisible creature gains a +40 bonus on Hide checks if 
+immobile, or a +20 bonus on Hide checks if moving. Locating the 
+square an invisible creature occupies requires a Spot check (DC 40 if 
+the creature is immobile, DC 20 if the creature moved during its last 

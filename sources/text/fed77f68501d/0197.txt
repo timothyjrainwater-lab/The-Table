@@ -1,0 +1,207 @@
+ 
+
+ 
+ 
+
+defensive roll. If she is in a situation that would deny her any Dex-
+terity bonus to AC, she cant attempt a defensive roll.
+
+Improved Uncanny Dodge (Ex): At Sth level, a shadowdancer
+can no longer be flanked, since she can react to opponents on
+opposite sides of her as easily as she can react to a single attacker,
+‘This defense denies rogues the ability to use flank attacks to sneak
+attack the shadowdancer. The exception to this defense is thata
+rogue at least four levels higher than the shadowdancer can flank.
+her (and thus sneak attack her).
+
+Ifa character gains uncanny dodge (see above) from a second.
+class (such as barbarian or rogue), the character automatically gains.
+improved uncanny dodge, and the levels from those classes stack to
+determine the minimum rogué level required to flank
+
+the character.
+
+Slippery Mind (Ex): This ability, gained at 7th
+level, represents a shadowdancer’s ability to
+wriggle free from magical effects that would
+otherwise control or compel her. Ifa shadow-
+dancer is affected by an enchantment and
+fails her saving throw, 1 round later she can
+attempt her saving throw again. She only
+gets this one extra chance to succeed at her
+ving throw. If it fails as well, the spell’s
+effects occur normally,
+
+Improved Evasion (Ex): This abil-
+ity. gained at 10th level, works like eva:
+sion (see above). A shadowdancer
+jtakes no. damage at all on suc-
+cessful saving throws against
+lattacks that allow a Reflex saving
+throw for half damage (breath
+weapon, fireball, and so on). What's
+more, she takes only half damage
+leven if she fails her saving throw,
+since her reflexes allow her to
+get out of harm's way with
+incredible speed
+
+THAUMATURGIST
+The thaumaturgist reaches
+out with divine power to
+other planes of existence, call-
+ing creatures there to do his
+bidding. Evil thaumaturgists
+conspire with demons and devils
+to gain power on the Material
+Plane, while good thaumaturgists send
+powerful angels or eladrins on holy quests.
+
+In combat, thaumaturgists often summon creatures from the
+Outer Planes to fight on their behalf, These creatures fade away as
+soon.as the bartle is over, but thaumaturgists also make agree-
+ments with more powerful creatures for long-term service. The
+planar ally of a thaumaturgist is utterly devoted to furthering the
+thaumaturgist'’s goals (or the goals of a deity, if the thaumaturgist
+worships one).
+
+Almost all thaumaturgists were once clerics, because the first step
+on the path of thaumaturgy is making an agreement with a denizen
+of the Outer Planes by use of the lesser planar ally spell. But many of
+
+    
+   
+ 
+ 
+ 
+ 
+ 
+     
+ 
+
+Tage 6-17: THE THAUMATURGIST
+
+Base Fort Ref will
+Level Attack Bonus Save Save Save
+Ist +0 +0 +0 +2
+2nd +1 +0 +0 3
+ard +) aa + 3
+4th +2 +1 +1 +4
+Sth #2 “ 4 +4
+
+  
+  
+ 
+ 
+ 
+  
+ 
+     
+   
+   
+   
+  
+    
+    
+    
+ 
+     
+    
+    
+ 
+ 
+  
+ 
+
+the class abilities are useful to arcane spellcasters, so multiclass
+cleric/wizards and the occasional cleric/sorcerer arent unheard of
+
+A.thaumaturgist is keenly aware that his unparalleled conjura-
+tions are just tools in service of his overall philosophy or deity.
+Thus, thaumaturgists often. undertake quests to advance a cause
+
+‘using their abilities to conjure up a strike force of summoned and
+
+called creatures at a moment's notice.
+Hit Die: dé,
+
+Requirements
+
+‘To qualify to become a thaumaturgist, a character must fulfill all
+the following criteria,
+
+Feats: Spell Focus (conjuration
+
+Spells: Able to cast leser planar ally
+
+« Class Skills
+The thaumaturgist’s class skills (and the key ability
+for each skill) are Concentration (Con), Craft
+(Int), Diplomacy (Cha), Knowledge (religion,
+S (Int), Knowledge (the planes) (Int), Pro-
+fession (Wis), Sense Motive (Wis), Speak
+Language (none), and Spellcraft (Int). See
+Chapter 4 of the Player's Handbook for skill
+descriptions.
+Skill Points at Each Level: 2 + Int modi
+
+ 
+
+fier.
+
+Class Features
+All of the following are features.of the thau-
+maturgist prestige class
+Weapon and Armor Proficiency: Thau-
+maturgists gain no proficiency with
+any Weapon or armor.
+Spells per Day: Whena
+new thaumaturgist level
+is gained, the charac
+ter gains new. spells
+per day as if he had
+also gained a level
+in whatever spell-
+casting class he be-
+longed to before he
+added the prestige
+class, He does not, how-
+ever, gain any other benefit
+a character of that class would have
+gained (bonus metamagic or item creation
+feats, bard or assassin abilities, and so on), This essentially means
+that he adds the level of thaumaturgist to the level of whatever
+other spellcasting class the character has, then determines spells
+per day and caster level accordingly.
+
+If a character had more than one spelicasting class before he
+became. thaumaturgist, he must decide to which class he adds each
+level of thaumaturgist for the purpose of determining spells per day.
+
+Improved Ally: A thaumaturgist is adept at convincing crea
+tures from other planes to do his bidding. When a thaumaturgist
+casts a planarally spell (including the lesser and greater versions), he
+kes a Diplomacy check to convince the creature to aid him for
+
+A thanmaturgist
+
+ 
+
+Spells per Day
+
++1 level of existing spelicasting class
++1 level of existing spellcasting class
++1 level of existing spelicasting class
++1 level of existing spelicasting class.
+
+Special
+Improved ally
+
+Augment Summoning
+Extended summoning
+Contingent conjuration
+
+Planar cohort +1 level of existing spelicasting class
+ee: em
+ae ee ee eee Rt 2
+

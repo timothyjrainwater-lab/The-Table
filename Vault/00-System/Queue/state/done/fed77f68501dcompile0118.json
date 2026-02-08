@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0118",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 118,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:20:08.436279+00:00"
+  },
+  "doneAt": "2026-02-05T16:24:02.344204+00:00",
+  "citation": "DMG (pdf p.0118)",
+  "printedGuess": null,
+  "touched": [
+    "Condition — Flat-Footed",
+    "Rule — Armor Class",
+    "Rule — Core Mechanic (d20)",
+    "Rule — Saving Throws"
+  ],
+  "createdTables": []
+}

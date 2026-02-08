@@ -1,0 +1,150 @@
+ 
+
+TaBLe 7-17: POTIONS AND OILS.
+
+Minor Medium Major Potion or Oil Market Price
+01-10 =—  — — Cure light wounds (potion) 50 gp
+11-13 —  — _ Endure elements (potion) 50 gp
+1415 —  — Hide from animals (potion) 50 gp .
+170 — — Hide from undead (potion) 50 gp.
+1819 = —  — jump (potion) 50 gp,
+| 20-22 — — — Mage armor (potion) SOgp
+23-25. —  — Magic fang (potion) 50. gp
+26. — — —_ Magic stone {il) 50.gp..
+27-29. = —  — — Magicweapon (oil) 50 gp
+130, _ — __Pass.without trace (potion) 50 gp
+31-32, —  — Protection from (alignment) (potion) 50 gp
+33-34 —  —_ Remove fear (pation) 50 gp
+35 —  — Sanctuary (potion) 50 gp
+36-38 —___ —_ Shield of faith +2 (potion) 50 gp
+39 — — — _ Shillelagh (oil) 50 gp
+40-4]__01-02 _— __ Bless weapon (oil) 100 gp |
+42-44 03-04 — — Enlarge person (potion) 250 gp .
+4s 05  — _—_Reduce person (potion) 250 gp |
+46-47 06 + — Aid (potion) 300 gp -
+48-50 07 — _Barkskin +2 (potion) 300 gp
+51-53 08-10 — — Bear's endurance (potion) 300 gp
+54-56 11-13 01-02. Blur (potion) 300 gp
+57-59 14-16 — Bull's strength (potion) 300 gp
+60-62 17-19 — Cat's grace {potion) 300 gp
+| 63-67 20-27 03-07 Cure moderate wounds (potion) 300 gp
+|_68. 28 — _ Darkness (oil) 300 gp
+69-71 29-30 08-09 Darkvision (potion) 300 gp
+72-74 3]____— _ Delay poison (potion). 300 gp
+75-76 32-33 — — Eagle's splendor (potion) 300 gp
+77-78 34-35 —_ Fox's cunning (potion), 300 gp
+79-81 36-37 10-11 Invisibility (potion or oil) 300 gp
+82-84 38 12. Lesser restoration (potion) 300 gp
+85-86 39  — Levitate (potion or oil) 300 gp
+87 40. — _ Misdirection (potion) 300 gp.
+88-89 41-42 — Owl's wisdom (potion) 300 gp
+90-9143 — Protection from arrows 300 gp.
+10/magic (potion) |
+92-93 44 13. Remove paralysis (potion) 300 gp
+
+94-96 45-46 — Resist energy (type) 10 (potion) ___300.gp
+97 47-48-14 Shield of faith +3 (potion) 300 gp
+98-99 49 _— Spider climb {potion) 300 gp
+100 50. -—-15._—-Undetectable alignment (potion) 300 gp
+—__51__16_Barkskin +3 (potion) 600 gp
+— $2. 17-18 Shield of faith +4 (potion) 600 gp
+
+Ring Descriptions
+Rings are some of the most coveted and generally useful magic
+jitems. Standard rings are described below.
+. Animal Friendship; On command, this ring affects an animal
+as if the wearer had cast charm animal.
+Faint enchantment;.CL 3rd; Forge Ring, charm animal; Price
+10,800 gp,
+Blinking: On command, this ring makes the wearer blink, as
+with the blink spell
+Moderate transmutation; CL 7th; Forge Ring, blink; Price 27,000 gp.
+Chameleon Power: Asa free action, the wearer of this ring can
+gain the ability to magically blend in with the surroundings. This
+provides a +10 competence bonus on her Hide checks. As a stan-
+dard action, she can also command the ring to utilize the spell dis-
+\guisexelf as. often as she wants.
+| _ Faint illusion; CL 3rd; Forge Ring, disguise lf, invisibility; Price
+412,200 gp.
+Climbing: This ring is actually a magic leather cord that ties
+around a finger. It continually grants the wearer a +5 competence.
+bonus on Climb checks
+
+—___53-55_19-20 Resist energy (type) 20 (potion) 700 gp.
+
+— 56-60 21-28 Cure serious wounds (potion) 750 gp
+- 6129 Daylight (oil) 750 gp
+— 62-64 30-32 Displacement (potion) 750 gp
+= 65 33 Flame arrow (oil) 750 gp
+— 66-68 34-38. Fly (potion) 750 gp
+— 68 39 Gaseous form (potion) 750 gp
+— 10-71 — — Greater magic fang +1 (potion) 750 gp
+— 72-73 — Greater magic weapon +1 (oil) 750 gp
+— 74-75. 40-41 Haste (potion) 750 gp ,
+— 76-78 42-44 Heroism (potion) 250 gp.
+— 73-80 45-46 Keen edge (oil) 750 gp
+= 81 47 Magic circle against (alignment) 750 gp.
+(potion) }
+— 82-83. — — Magic vestment +1 (oil) 750-gp ,
+— 84-86 48-50 Neutralize poison (potion) 750.gp
+— 87-88 51-S2__Nondetection (potion) 750 gp
+— 83-9] 53-54 Protection from energy (type) 750 gp
+{potion) |
+— 92-93 55 Rage (potion) 750 gp
+= 94 56 __ Remove blindness/deafness 750 gp
+(potion)
+= 95 57 _—_-Remove curse (potion) 750 gp
+— 9658 Remove disease (potion) 750 gp
+- 97 59_Tongues (potion) 750 gp
+— __98-99 60 Water breathing (potion) 750 gp.
+— 100 61_— Water walk (potion) 750 gp
+— — 62-63 _ Barkskin +4 (potion) 900 gp,
+= — 64 Shield of faith +5 (potion) 900 gp.
+— — 65 Good hope (potion) 1,050.g9 |
+- — 66-68 Resist energy (type) 30 (potion) 1,100 gp,
+— = 69 Barkskin +5 (potion) 1,200 gp.
+— = 70-73 Greater magic fang +2 (potion) 1,200 gp
+— — 74-77 Greater mogic weapon +2 (oil) 1,200 gp
+= — 7881 Magic vestment +2 (oil) 1,200 gp
+_ - 82 Protection from arrows 1,500. gp
+15/magic (potion)
+= — 83-85 Greater magic fang +3 (potion) 1,800 gp
+— — 86-88 Greater magic weapon +3 (oll) 1,800 gp
+- — 89-91 Magic vestment +3 (oil) 1,800 gp
+—  — 92-93 Greater magic fang +4 (potion) 2,400 gp
+- — 94-95 Greater magic weapon +4 (oll) 2,400 gp
+— — 96-97 _ Magic vestment +4 (oil) 2,400 gp
+= - 98 Greater magic fang +5 (potion) 3,000 gp
+— — 99 Greater magic weapon +5 (oil) 3,000 gp
+— = 100 = Magic vestment +5 (oil) 3,000 gp
+
+Faint transmutatation; CL sth; Forge Ring, creator must have 5
+ranks in the Climb skill; Price 2,500 gp.
+
+Climbing, Improved: As climbing, except it grants a +10 com-
+petence bonus on its wearer's Climb checks.
+
+Faint transmutation; CL Sth; Forge Ring, creator must have 10
+ranks in the Climb skill; Price 10,000 gp.
+
+Counterspells: This ring might seem to be a ring of spell stor-
+ing-upon first. examination. However, while it allows a single
+spell of 1st through éth level to be cast into it, thar spell cannot
+be cast out of the ring again, Instead, should that spell ever be,
+cast upon the wearer, the spell is immediately countered, as a,
+counterspell action, requiring no action (or even knowledge) on}
+the wearer's part. Once so used, the spell cast within the ring is |
+
+.gone. A new spell (or the same one as before) may_be placed in.
+
+it again. ;
+Moderate evocation; CL 11th; Forge Ring, imbue with spell abil-|
+
+sity; Price 4,000 gp.
+
+Djinni Calling: One of the many rings of fable, this “genie”
+
+[ring is most useful indeed. It serves as a special gate by means of
+
+which a specific djinni can be called from the Elemental Plane of
+

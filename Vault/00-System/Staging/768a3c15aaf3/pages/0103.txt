@@ -1,0 +1,143 @@
+  
+
+For example, for a cleric, the prerequisites for
+crafting a hand of glory include animate dead, a 3rd-
+level spell, and 288 XP. The cleric’s chance of
+failing a powers check for creating a hand of glory is
+thus 31% (3% + 28%). Creating some magic items
+can incur a powers check with a chance of failure
+well over 100%; consider crafting such an item to
+be an Act of Ultimate Darkness.
+
+As when casting profane spells, if a character
+uses a metamagic feat to augment a spell thar
+requires a powers check when crafting a magic
+item, the spell’s augmented spell level determines
+the chance of failing a powers check. Characters
+who use feats are going out of their way to make
+something happen; using them to aid heinous
+sorceries is all the more noticeable to the Dark
+Powers.
+
+Che Effects of failure
+
+No person is born evil. All player characters
+are assumed to enter a Ravenloft campaign with
+clean souls — they have never failed any powers
+checks, and the forces of corruption have no claim
+on their spirits. If the player wants, and if her
+character meets the prerequisites, a hero can enter
+the campaign with her Innocence intact (see
+sidebar). Alternatively, ifthe playerand DM agree,
+
+ 
+
+‘
+§
+§
+|
+
+'
+
+aplayercharactercouldenterthe campaign having \
+
+already failed one or more powers checks. Such a
+character might be struggling against some dark
+inner nature, or she might now be on a quest for
+redemption from the mistakes of her earlier years.
+(See Heroes of Light for more information on
+Innocents and Champions of Darkness for addi-
+tional information on characters who are struggling
+to redeem themselves.)
+
+If a character fails a powers check, the Dark
+Powers respond with gifts of darkness — and the
+character moves one stage toward corruption. At
+each stayd, tht conupicd character receives at
+oogule boon and ati sevomparying cue The ellts
+and curses bestowed by the Dark Powers are inexo-
+rably tied: arogue who gains low-light vision might
+also suffer from light sensitivity, suffering -1 pen-
+alties to attack rolls in bright daylight; a monk who
+receives a bonus on her natural armor might grow
+a thick, scaly hide. As with the curses offered
+earlier in this chapter, these curses apply OR modi-
+fiers whenever their effects are noticed. Curse
+arising from failed powers checks should manifest
+at least as often as the accompanying gift comes
+into play.
+
+ 
+
+   
+
+A
+
+   
+
+The Dark Powers tailor all their gifts and
+curses to the victim. As a rule, the Dark Powers’
+gifts tend to make it easier fora corrupted character
+to repeat her transgressions but harder to conceal
+her crimes.
+
+ 
+
+In the initial stages of corruption, when re-
+demption is still at hand, both the gifts and the
+curses bestowed by the Dark Powers tend to be
+minor and easily concealed. In later stages, how-
+ever, the trap starts to close. The curses gain
+strength, forcing the corrupted character to rely
+more heavily on her dark gifts — abilities that
+often require more powers checks to use.
+
+Innocence
+
+Innocence representsasoul completely
+free of the taint of evil. Any character can
+choose to be Innocent at Ist level as long as
+she meets the prerequisites. Innocence is a
+supernatural quality. It is not a feat, be-
+cause it is easily lost. Indeed, although all
+people are born Innocent, most lose their
+purity long before they leave childhood.
+
+Prerequisites: You must be humanoid
+and of good alignment and must have never
+committed any act worthy of a powers
+check, regardless of the success or failure of
+that check.
+
+Sa
+
+Benefits: Your inner light repels Evil
+You get a +3 divine bonus on all saving
+throws against any spell effect or super-
+natural ability that either requires a powers ;
+check or is used by an evil creature.
+
+Drawbacks: Your naiveté leaves you
+with a —2 competence penalty on Horror
+saves and Sense Motive checks. Evil clerics
+can turn — but never destroy — you just as
+they would rebuke undead. Spells in
+Ravenloft cannot directly target moral
+alignment, but some can target Innocence.
+
+Losing Innocence: You immediately
+lose all effects of Innocence if you ever fail
+to meet the above prerequisites or if you
+ever suffer a moderate or major Horror or
+Madness effect. You may also voluntarily
+lose your Innocence st anytime: Once lost,
+however, Innocence can never be regained. ;
+
+aa
+
+wee ee
+
+ 
+
+ 
+

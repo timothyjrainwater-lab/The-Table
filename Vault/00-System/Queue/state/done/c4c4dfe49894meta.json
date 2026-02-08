@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "c4c4dfe49894:meta",
+    "sourceId": "c4c4dfe49894",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Judges Guild -  Player's Guide to the Wilderlands.pdf",
+    "title": "Judges Guild -  Player's Guide to the Wilderlands",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:45:07.999691+00:00",
+  "meta": {
+    "sourceId": "c4c4dfe49894",
+    "title": "Judges Guild -  Player's Guide to the Wilderlands",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Settings/Judges Guild -  Player's Guide to the Wilderlands.pdf",
+    "pages": 138,
+    "extractedAt": "2026-02-03T12:45:07.992236+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

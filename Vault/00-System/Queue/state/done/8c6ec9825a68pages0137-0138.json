@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "8c6ec9825a68:pages:0137-0138",
+    "sourceId": "8c6ec9825a68",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Player's Handbook II.pdf",
+    "pageStart": 137,
+    "pageEnd": 138,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:18:09.675798+00:00"
+  },
+  "doneAt": "2026-02-03T06:25:42.172638+00:00",
+  "wrote": [
+    "00-System/Staging/8c6ec9825a68/pages/0137.txt",
+    "00-System/Staging/8c6ec9825a68/pages/0138.txt"
+  ],
+  "method": {
+    "137": "ocr",
+    "138": "ocr"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0011",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 11,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-04T06:18:54.732479+00:00"
+  },
+  "failedAt": "2026-02-04T07:59:14.936825+00:00",
+  "error": "ValueError('Pass A compiler configured for 681f92bc94ff; got fed77f68501d')"
+}

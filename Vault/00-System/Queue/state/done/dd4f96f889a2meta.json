@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "dd4f96f889a2:meta",
+    "sourceId": "dd4f96f889a2",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 16/Black Rain.pdf",
+    "title": "Black Rain",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:42:17.387713+00:00",
+  "meta": {
+    "sourceId": "dd4f96f889a2",
+    "title": "Black Rain",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 16/Black Rain.pdf",
+    "pages": 11,
+    "extractedAt": "2026-02-03T05:42:17.315478+00:00"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "e94a96315613:meta",
+    "sourceId": "e94a96315613",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Dragons.pdf",
+    "title": "The Slayer's Guide To Dragons",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:27:53.042150+00:00",
+  "meta": {
+    "sourceId": "e94a96315613",
+    "title": "The Slayer's Guide To Dragons",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Dragons.pdf",
+    "pages": 138,
+    "extractedAt": "2026-02-03T23:27:52.443864+00:00"
+  },
+  "enqueued_extractPages": 69
+}

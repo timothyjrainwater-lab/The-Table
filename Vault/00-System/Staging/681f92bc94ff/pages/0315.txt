@@ -1,0 +1,132 @@
+ 314 
+supernatural ability (Su):  A magical power that produces a 
+particular effect, as opposed to a natural, extraordinary, or spell-like 
+ability. Using a supernatural ability generally does not provoke an 
+attack or opportunity. Supernatural abilities are not subject to 
+dispelling, disruption or spell resistance. However, they do not 
+function in areas where magic is suppressed or negated, such as 
+inside an antimagic field. 
+suppress: Cause a magical effect to cease functioning without 
+actually ending it. When the supression ends, the spell effect is 
+returns, provided it has not expired in the meantime. 
+surprise: A special situation that occurs at the beginning of a 
+battle if some (but not all) combatants are unaware of their oppo-
+nents’ presence. In this case, a surprise round happens before 
+regular rounds begin. In initiative order (highest to lowest), those 
+combatants who started the battle aware of their opponents each 
+take a partial action during the surprise round. Creatures unaware of 
+opponents are flat-footed through the entire surprise round and do 
+not enter the initiative cycle until the first regular combat round.  
+take damage: Be affected by damage (either lethals or nonlethal) 
+from a successful attack. Damage dealt by an opponent does not 
+necessarily equal damage taken, as various special defenses may 
+reduce or negate damage from certain kinds of attacks. 
+take 10: To reduce the chances of failure on certain skill checks 
+by assuming an average die roll result (10 on a d20 roll). You can’t 
+take 10 if distracted or threatened, such as during combat. 
+take 20: To assume that a character makes sufficient retries to 
+obtain the maximum possible check result (as if a 20 were rolled on 
+d20). Taking 20 takes as much time as making twenty separate skill 
+checks (usually at least 2 minutes). Taking 20 assumes that the 
+character fails many times before succeeding, and thus can’t be used 
+if failure carries negative consequences. 
+target: The intended recipient of an attack, spell, supernatural 
+ability, extraordinary ability, or magical effect. If a targeted spell is 
+successful, its recipient is known as the subject of the spell. 
+temporary hit points:  Hit points gained for a limited time 
+through certain spells (such as aid) and magical effects. When a 
+character with temporary hit points is dealt damage, deduct the 
+damage from temporary hit points first, then deduct any remaining 
+damage (if any) to the character’s actual (nontemporary) hit points. 
+Temporary hit points can cause a character’s hit point total to exceed 
+its normal maximum. 
+threat: A possible critical hit. 
+threat range: All natural die roll results that constitute in a threat 
+when rolled for an attack roll. For most weapons, the threat range is 
+20, but some weapons have threat ranges of 19–20 or even 18–20. 
+Any attack roll that does not result in a hit is not a threat, whether or 
+not it lies within the weapon’s threat range. 
+threaten: To be able to attack in melee without moving from 
+your current space. A creature typically threatens all squares within 
+its natural reach, even when it is not its turn to take an action. For 
+Medium or Small creature this usually includes all squares adjacent 
+to its space. Larger creatures threaten more squares, while smaller 
+creatures may not threaten any squares except their own. 
+threatened square:  A square within an opponent’s reach. Gen-
+erally, characters threaten all adjacent squares, though reach 
+weapons can alter this range. Certain actions provoke attack of 
+opportunity when taken within a threatened square. 
+thrown weapon: A ranged weapon that a character hurls at an 
+enemy, such as a spear, as opposed to a projectile weapon. 
+Tiny: A Tiny creature is typically between 1 and 2 feet in height 
+or length and weighs between 1 and 8 pounds. 
+total concealment:  Attacks against a target with total conceal-
+ment have a 50% miss chance. Total concealment blocks line of 
+sight. See concealment. 
+ 
+total cover:  Attacks against a target that has total cover auto-
+matically fail. Total cover blocks line of sight and line of effect. See 
+cover. 
+touch attack: An attack in which the attacker must connect with 
+an opponent, but does not need to penetrate armor. Touch attacks 
+may be either melee or ranged. The target’s armor bonus, shield 
+bonus, and natural armor bonus (including any enhancement 
+bonuses to those values) do not apply to AC against a touch attack. 
+touch spell:  A spell that delivers its effect when the caster 
+touches a target creature or object. Touch spells are delivered to 
+unwilling targets by touch attacks. 
+trained: Having at least 1 rank in a skill. Many skills can be used 
+untrained by making a successful skill check using 0 skill ranks. 
+O t h e r s ,  s u c h  a s  S p e l l c r a f t ,  c a n  b e  u s e d  o n l y  b y  c h a r a c t e r s  w h o  a r e  
+trained in that skill. 
+transitive plane: A plane of existence often used to travel from 
+one place (or plane) to another. The Astral Plane, the Ethereal Plane, 
+and the Plane of Shadow are all transitive planes. 
+turn: The point in the round at which you take your action(s). On 
+your turn, you may perform one or more actions, as dictated by your 
+current circumstances. 
+turn undead:  The supernatural ability to drive off or destroy 
+undead by channeling positive energy. 
+turned: Affected by a turn undead attempt. Turned undead flee 
+for 10 rounds (1 minute) by the best and fastest means available to 
+them. If they cannot flee, they cower. 
+turning check: A roll of 1d20 + Charisma modifier to determine 
+how much positive or negative energy is able to be channeled when 
+attempting to turn or rebuke undead. 
+turning damage:  The number of Hit Dice of undead that are 
+turned or rebuked with a particular turning check. Turning damage 
+= 2d6 + cleric level + Charisma modifier. 
+two-handed weapon: A weapon designed for use in two hands, 
+such as a greatsword. A two-handed weapon is considered to be an 
+object of the same size as its designated wielder (for example, a 
+Medium greatsword is a Medium object). 
+type: See creature type. 
+unarmed attack: A melee attack made with no weapon in hand. 
+unarmed strike:  A successful blow, typically dealing nonlethal 
+damage, from a character attacking without weapons. A monk can 
+deal lethal damage with an unarmed strike, but others deal 
+nonlethal damage. 
+unconscious: Knocked out and helpless. Unconsciousness can 
+result from having current hit points between –1 and –9, or from 
+nonlethal damage in excess of current hit points. A character who is 
+unconscious as a result of having current hit points between –1 and 
+–9 who becomes stable has a 10% chance every hour to become 
+conscious. A character who is unconscious as a result of having 
+nonlethal damage in excess of current hit points has a 10% chance 
+every minute to wake up and be staggered. 
+untrained: Having no ranks in a skill. Many skills can be used 
+untrained by making a successful skill check using 0 skill ranks and 
+including all other modifiers as normal. Other skills can be used 
+only by characters who are trained in that skill. 
+use-activated item:  A magic item that activates upon typical 
+usage for a normal item of its type. For example, a character can 
+activate a potion by drinking it, a magic sword by swinging it, a lens 
+by looking through it, or a cloak by wearing it. Characters do not 
+learn what a use-activated item does just by wearing or using it 
+unless the benefit occurs automatically with use. 
+Will save: A type of saving throw, related to a character’s ability 
+to withstand damage thanks to his mental toughness. 
+Wisdom (Wis): The ability that describes a character’s willpower, 
+common sense, perception, and intuition. 
+wizard (Wiz): A class made up of characters who are schooled in 
+the arcane arts. 

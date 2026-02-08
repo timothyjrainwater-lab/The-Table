@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0125",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 125,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:32:35.096909+00:00"
+  },
+  "doneAt": "2026-02-03T09:33:29.140708+00:00",
+  "citation": "PHB (pdf p.0125)",
+  "printedGuess": "124",
+  "touched": [
+    "Condition — Grappled"
+  ],
+  "createdTables": [
+    "Table — Armor and Shields are (PHB 7–6)",
+    "Table — Weapons) on (PHB 7–5)"
+  ]
+}

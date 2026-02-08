@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "07d9668ca3b3:meta",
+    "sourceId": "07d9668ca3b3",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Twisted Lore.pdf",
+    "title": "Twisted Lore",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T02:36:13.535364+00:00",
+  "meta": {
+    "sourceId": "07d9668ca3b3",
+    "title": "Twisted Lore",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Twisted Lore.pdf",
+    "pages": 66,
+    "extractedAt": "2026-02-04T02:36:13.224821+00:00"
+  },
+  "enqueued_extractPages": 33
+}

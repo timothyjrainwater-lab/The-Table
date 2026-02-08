@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "9ed9ae3150ae:meta",
+    "sourceId": "9ed9ae3150ae",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Shadows of The Last War.pdf",
+    "title": "Shadows of The Last War",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:07:03.439530+00:00",
+  "meta": {
+    "sourceId": "9ed9ae3150ae",
+    "title": "Shadows of The Last War",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Shadows of The Last War.pdf",
+    "pages": 34,
+    "extractedAt": "2026-02-03T18:07:03.432753+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

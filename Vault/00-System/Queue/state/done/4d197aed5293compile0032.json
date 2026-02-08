@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "4d197aed5293:compile:0032",
+    "sourceId": "4d197aed5293",
+    "kind": "compileChunk",
+    "page": 32,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T04:41:27.071854+00:00"
+  },
+  "doneAt": "2026-02-03T05:21:13.193249+00:00",
+  "citation": "PHB (pdf p.0032)",
+  "printedGuess": "31",
+  "touched": [
+    "Rule — Saving Throws"
+  ],
+  "createdTables": [
+    "Table — The Cleric (PHB 3–6)"
+  ]
+}

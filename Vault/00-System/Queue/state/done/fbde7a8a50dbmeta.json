@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "fbde7a8a50db:meta",
+    "sourceId": "fbde7a8a50db",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Grimtooth's/Grimtooth's Traps.pdf",
+    "title": "Grimtooth's Traps",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T11:45:19.522693+00:00",
+  "meta": {
+    "sourceId": "fbde7a8a50db",
+    "title": "Grimtooth's Traps",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Grimtooth's/Grimtooth's Traps.pdf",
+    "pages": 66,
+    "extractedAt": "2026-02-03T11:45:19.169632+00:00"
+  },
+  "enqueued_extractPages": 33
+}

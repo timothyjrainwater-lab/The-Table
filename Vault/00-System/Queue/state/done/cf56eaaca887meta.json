@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "cf56eaaca887:meta",
+    "sourceId": "cf56eaaca887",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/Tarus's Banquet (Libris Mortis WE).pdf",
+    "title": "Tarus's Banquet (Libris Mortis WE)",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:48:46.064298+00:00",
+  "meta": {
+    "sourceId": "cf56eaaca887",
+    "title": "Tarus's Banquet (Libris Mortis WE)",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 10/Tarus's Banquet (Libris Mortis WE).pdf",
+    "pages": 16,
+    "extractedAt": "2026-02-03T19:48:46.057226+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

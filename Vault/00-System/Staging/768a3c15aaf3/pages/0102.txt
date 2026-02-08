@@ -1,0 +1,97 @@
+ 
+
+ 
+
+Bearing an Evil Magic Item: Some magic
+
+  
+
+ 
+
+her pos
+
+s are so infused with evil that a character runs
+of corruption merely by keeping the item in
+ion. This is most often the case with
+
+intelligent evil items or those with powers that are
+continually in effect, such as a darkskull. A charac-
+ter with this item in her possession must make a
+powers check once a week. The chance of failure is
+equal to that of the item’s highest-level spell effect.
+
+Crafting an Evil Magic Item: Magic items
+hold the potential to be powerful tools of evil. An
+
+Table 3-6: Recommended Powers Checks
+
+evil spell is cast once and is then gone, like a bee
+losing its sting. A magic item with evil abilities can
+sting again and again, spreading evil long after its
+creator is gone. Only calling on evil forces can
+create these items. Powers checks for crafting evil
+magic items often carry significant chances of
+failure. First, add the total chance of failure for all
+prerequisite spells. If the magic item is reusable (as
+opposed to one-use items such as scrolls, potions or
+magic arrows), add 10% of the prerequisite experi-
+ence cost.
+
+  
+
+Crimes or Evil NPCs Neutral NPCs Good NPCs PCs, Famil
+Acts of Violence or Monsters: or Strangers or Friendsor Innocents
+Assault, Unprovoked . 1% 2% 3%
+Assault, Grievous 1% 2% 4% 6%
+Betrayal, Major 1% 3% 6% 1%
+Betrayal, Minor : 1% 3% 6%
+Extortion : 2% 5% 8%
+Lying - - 7 1%
+Murder, Brutal 3% 6% 10% =
+Murder, Premeditated 2% 3% 6% 10%
+or Nonbrutal
+Theft, Grave Robbing * 1% 5% Th
+Theft, Major * 1% 4% 1%
+Theft, Minor a . 3% 6%
+Threats of Violence Bs 7 1% 2%
+Torture, Routine A% 1% a3 =
+Torture, Sadistic 10% = ar =
+Unholy Acts Evil Faith Neutral Faith Good Faith Own Faith
+Breaking a Tenet 1% 2% 5%
+Breaking an Oath a 2h 5% 10%
+Breaking a Vow . 5% 10% =
+Defilement ~ 4% 8% S
+Desecration i 8% a a
+Supernatural Evil
+
+Embarrassing Frustrating Troublesome Dangerous Lethal
+Laying a Curse 1% 2% 4% 8% 16%
+
+Casting an Evil orNecromantic Spell
+Casting an Evil and Necromantic Spell
+Using an Evil Magic Item
+
+Bearing an Evil Magic Item
+
+Crafting an Evil Magic Item
+
+1% per effective spell level
+2% per effective spell level
+as casting equivalent spell
+
+as using item’s most powerful ability
+
+total percentage chance of prerequisite spells, plus 10% of XP cost
+
+* This act does not warrant a powers check.
+
+** Act of Ultimate Darkness. The offender automatically fails the powers check.
+
+Seer
+
+ 
+
+ 
+
+ 
+

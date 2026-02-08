@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "e4e1aa769cd8:meta",
+    "sourceId": "e4e1aa769cd8",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/d20/Complete Series/Complete Divine.pdf",
+    "title": "Complete Divine",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T07:50:45.047747+00:00",
+  "meta": {
+    "sourceId": "e4e1aa769cd8",
+    "title": "Complete Divine",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/d20/Complete Series/Complete Divine.pdf",
+    "pages": 205,
+    "extractedAt": "2026-02-03T07:50:43.997113+00:00"
+  }
+}

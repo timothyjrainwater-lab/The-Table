@@ -1,0 +1,128 @@
+ 
+ 135
+COMBAT BASICS 
+This section summarizes the rules and details concerning combat. 
+ 
+THE BATTLE GRID 
+Use a battle grid (such as the one in the Dungeon Master’s Guide ) to 
+visualize combat situations. On a battle grid, each 1-inch square 
+represents a 5-foot square in the game world. 
+ 
+ROUNDS 
+Combat occurs in rounds. In every round, each combatant gets to do 
+something. A round represents 6 seconds in the game world. 
+ 
+INITIATIVE 
+Before the first round, each player makes an initiative check for his 
+or her character. The DM makes initiative checks for the opponents. 
+An initiative check is a Dexterity check (1d20+Dexterity modifier). 
+Characters act in order from highest initiative result to lowest, with 
+the check applying to all rounds of the combat. 
+A character is flat-footed until he or she takes an action. 
+ 
+ACTIONS 
+Every round, on your character’s turn, you may take a standard 
+action and a move action (in either order), two move actions, or one 
+full-round action. You may also perform one or more free actions 
+along with any other action, as your DM allows. 
+ 
+ATTACKS 
+In combat, the most prevalent standard action is an attack. You can 
+move your speed and make an attack in a round (a move action and a 
+standard action). Experienced characters can attack more than once, 
+but only if they don’t move (a full-round action). Making a ranged 
+attack provokes attacks of opportunity from opponents that threaten 
+you (see below). 
+ 
+Attack Roll 
+To score a hit that deals damage on your attack roll, your result must 
+equal or exceed the target’s Armor Class (AC). 
+Melee Attack Roll: 1d20 + base attack bonus + Strength modifier 
++ size modifier. 
+Ranged Attack Roll:  1d20 + base attack bonus + Dexterity 
+modifier + size modifier + range penalty. 
+ 
+Damage 
+If you score a hit, roll damage and deduct it from the target’s current 
+hit points. Add your Strength modifier on damage rolls involving 
+melee and thrown weapons. If you’re using a weapon in your off 
+hand, add one-half your Strength modifier (if it’s a bonus). If you’re 
+wielding a weapon with both hands, add one and a half times your 
+Strength modifier (if it’s a bonus.) 
+ 
+Armor Class 
+A character’s Armor Class (AC) is the result you need to get on your 
+attack roll to hit that character in combat. 
+Armor Class:  10 + armor bonus + shield bonus + Dexterity 
+modifier + size modifier. 
+ 
+Hit Points 
+Hit points represent how much damage a character can take before 
+falling unconscious or dying. 
+ 
+SPELLS 
+In most cases, you can move your speed and cast a spell in the same 
+round (a move action and a standard action). Casting a spell 
+provokes attacks of opportunity from opponents that threaten your 
+(see below). 
+ 
+SAVING THROWS 
+When you are subject to an unusual or magical attack, you generally 
+get a saving throw to negate or reduce its effect. To succeed on a 
+saving throw, you need a result equal to or higher than its Difficulty 
+Class. 
+Fortitude Saving Throw: 1d20 + base save bonus + Constitution 
+modifier 
+Reflex Saving Throw:  1d20 + base save bonus + Dexterity 
+modifier 
+Will Saving Throw: 1d20 + base save bonus + Wisdom modifier 
+ 
+MOVEMENT 
+Each character has a speed measured in feet. You can move that 
+distance as a move action. You can take a move action before or after 
+a standard action on your turn in a round. 
+You can instead forego a standard action and take two move 
+actions in a round, which lets you move double your speed. Or you 
+can run, which lets you move quadruple your speed but takes all of 
+your actions for the round. 
+ 
+ATTACKS OF OPPORTUNITY 
+During combat, you threaten all squares adjacent to yours, even 
+when it’s not your turn. An opponent that takes certain actions 
+while in a threatened square provokes an attack of opportunity from 
+you. An attack of opportunity is a free melee attack that does not use 
+up any of your actions. You can make one attack of opportunity per 
+round. Actions that provoke attacks of opportunity include moving 
+(except as noted below), casting a spell, and attacking with a ranged 
+weapon. 
+You provoke an attack of opportunity when you move out of a 
+threatened square, except: 
+/rhombus4 If you withdraw (a full-round action), opponents don’t get attacks 
+of opportunity when you move from your initial square. If you 
+move into another threatened square, however, opponents get 
+attacks of opportunity when you leave that square. 
+/rhombus4 If your entire move for the round is 5 feet (a 5-foot step), oppo-
+nents  don’t get attacks of opportunity when you move. 
+ 
+DEATH, DYING, AND HEALING 
+Your hit points represent how much damage you can take before 
+being disabled, knocked unconscious, or killed. 
+1 or More Hit Points:  As long as you have 1 or more hit points, 
+you remain fully functional. 
+0 Hit Points:  If your hit points drop to 0, you are disabled. You 
+can only take one move action or standard action per turn, and you 
+take 1 point of damage after completing an action. 
+–1 to –9 Hit Points:  If your hit points drop to from –1 to –9 hit 
+points, you’re unconscious and dying, and you lose 1 hit point per 
+round. Each round, before losing that hit point, you have a 10% 
+chance of becoming stable. While stable, you’re still unconscious. 
+Each hour you have a 10% chance to regain consciousness, and if 
+you don’t, you lose 1 hit point instead. 
+–10 Hit Points: If your hit points fall to –10 or lower, you’re dead. 
+Healing: You can stop a dying character’s loss of hit points with a 
+DC 15 Heal check or with even 1 point of magical healing. If 
+healing raises a character’s hit points to 1 or more, the character can 
+resume acting as normal. 
+ 
+CHAPTER 8: 
+COMBAT 

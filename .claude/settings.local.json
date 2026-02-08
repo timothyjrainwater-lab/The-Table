@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(if [ -d \".claude\" ])",
+      "Bash(then echo \"Directory exists\")",
+      "Bash(else mkdir -p \".claude\")",
+      "Bash(fi)",
+      "Bash(python -m pytest:*)",
+      "Bash(python:*)",
+      "Bash(for sid in 681f92bc94ff fed77f68501d e390dfd9143f)",
+      "Bash(do cp -r \"Vault/00-System/Staging/$sid/pages\" \"sources/text/$sid\")",
+      "Bash(done)",
+      "Bash(pytest:*)",
+      "Bash(grep:*)",
+      "Bash(xargs basename:*)",
+      "Bash(dir /b /s f:DnD-3.5*.py)",
+      "Bash(findstr:*)",
+      "Bash(pip install:*)",
+      "Bash(python3:*)",
+      "Bash(unzip:*)",
+      "Read(//f/DnD-3.5/**)",
+      "Bash(powershell -Command \"$word = New-Object -ComObject Word.Application; $word.Visible = $false; $doc = $word.Documents.Open\\(''F:\\\\DnD-3.5\\\\Research\\\\MergeResult_2026_02_08_03_46_48.docx''\\); $doc.Content.Text; $doc.Close\\(\\); $word.Quit\\(\\)\")",
+      "Bash(wc:*)",
+      "Read(//c/Users/Thunder/Downloads/**)",
+      "Bash(copy \"C:\\\\Users\\\\Thunder\\\\Downloads\\\\CP18_COMPLETION_CHECKLIST.md\" \"f:\\\\DnD-3.5\\\\docs\\\\cp18\\\\CP18_COMPLETION_CHECKLIST.md\")",
+      "Bash(copy \"C:\\\\Users\\\\Thunder\\\\Downloads\\\\CP18_GATE_VIOLATION_SENTINELS.md\" \"f:\\\\DnD-3.5\\\\docs\\\\cp18\\\\CP18_GATE_VIOLATION_SENTINELS.md\")",
+      "Bash(copy \"C:\\\\Users\\\\Thunder\\\\Downloads\\\\CP18_DETERMINISM_RISK_CHECKLIST.md\" \"f:\\\\DnD-3.5\\\\docs\\\\cp18\\\\CP18_DETERMINISM_RISK_CHECKLIST.md\")",
+      "Bash(copy \"C:\\\\Users\\\\Thunder\\\\Downloads\\\\CP18_TEST_COVERAGE_MATRIX.md\" \"f:\\\\DnD-3.5\\\\docs\\\\cp18\\\\CP18_TEST_COVERAGE_MATRIX.md\")",
+      "Bash(copy \"C:\\\\Users\\\\Thunder\\\\Downloads\\\\CP18_DETERMINISM_CANARY_TESTS.md\" \"f:\\\\DnD-3.5\\\\docs\\\\cp18\\\\CP18_DETERMINISM_CANARY_TESTS.md\")",
+      "Bash(copy \"C:\\\\Users\\\\Thunder\\\\Downloads\\\\CP18_REVIEW_PAMPHLET_FOR_CLOG.md\" \"f:\\\\DnD-3.5\\\\docs\\\\cp18\\\\CP18_REVIEW_PAMPHLET.md\")",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\ndocs: finalize CP-19, add CP-20 design, governance and audit artifacts\n\nCP-19 Documentation \\(6 files\\):\n- CP19B_FAILURE_PATH_HAZARDS_INSTRUCTION_PACKET.md\n- CP19_IMPLEMENTATION_PACKET_FINAL.md\n- CP19_ACCEPTANCE_RECORD_FINAL.md\n- CP19_PROGRESS_REPORT.md\n- CP19_FEEDBACK_REPORT.md\n- CP19_ENVIRONMENT_TERRAIN_DECISIONS.md\n\nCP-20 Documentation \\(3 files\\):\n- CP20_ENVIRONMENTAL_DAMAGE_DECISIONS.md\n- CP20_IMPLEMENTATION_PACKET.md\n- CP20_TEST_CASE_CATALOG.md\n\nCP-21 Documentation \\(1 file\\):\n- CP21_FEASIBILITY_ANALYSIS.md\n\nSKR Kernel Documentation \\(3 files\\):\n- SKR-005_RELATIONAL_CONDITIONS_DESIGN.md\n- SKR-005_FAILURE_MODE_ANALYSIS.md\n- SKR_DEPENDENCY_GRAPH.md\n\nGovernance Artifacts \\(7 files\\):\n- CLAW_EXECUTION_INSTRUCTION_PACKET.md\n- DETERMINISM_THREAT_PATTERNS.md\n- DETERMINISM_AUDIT_PLAYBOOK.md\n- RULES_COVERAGE_LEDGER.md\n- GATE_PRESSURE_MAP.md\n- RAW_FIDELITY_AUDIT.md\n- DOCUMENTATION_AUTHORITY_INDEX.md\n\nCP-19 is FROZEN pending CP-19B merge.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git config:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat\\(cp-20\\): implement discrete environmental damage resolution\n\nAdds contact hazard resolution per CP-20 design doc:\n- Fire squares \\(1d6 fire\\)\n- Acid pools \\(1d6 acid\\)\n- Lava edges \\(2d6 fire\\)\n- Spiked pits \\(falling + 1d6 piercing\\)\n\nG-T1 compliant: no persistence, no durations, no relational state.\nRNG: \"combat\" stream only.\nOrdering: AoO → Movement → Hazard → Environmental damage.\n\n21 new tests, all 751 tests pass in <2s.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\ndocs: adopt design doctrine layer, freeze philosophy, add execution roadmap v3\n\nDESIGN LAYER FROZEN - 2026-02-09\n\nAdded core design documents \\(ADOPTED\\):\n- SESSION_ZERO_RULESET_AND_BOUNDARY_CONFIG.md\n- CHARACTER_SHEET_UI_CONTRACT.md  \n- VOICE_INTENT_AND_CLARIFICATION_PROTOCOL.md\n- LLM_ENGINE_BOUNDARY_CONTRACT.md\n- LOCAL_RUNTIME_PACKAGING_STRATEGY.md\n- SOLO_FIRST_PREPARATORY_DM_MODEL.md\n\nStrategic alignment:\n- Solo-first experience target\n- Campaign preparation as first-class phase\n- Voice-first UI with theatre-of-the-mind default\n- Contextual grid \\(combat only\\)\n- LLM cage doctrine \\(creative freedom, mechanical authority\\)\n- Fully local, offline-capable execution\n\nAdded execution roadmap v3.0:\n- 7-phase implementation plan\n- Detailed task breakdown \\(~80 tasks\\)\n- Dependency graph\n- Hardware requirements\n- Success criteria\n\nAdded governance artifacts:\n- Post-CP20 decision analysis\n- Tier-1 exhaustion analysis\n- CP-21 disqualification criteria\n- CP freeze & closure playbook\n- SKR-005 gate opening decision memo\n- SKR-005 impact map\n- SKR-005 audit readiness checklist\n- CP completion review template\n- Edge case traceability index\n\nUpdated documentation authority index with design doctrine section.\n\nSupersedes: AIDM_PROJECT_ACTION_PLAN_V2.md\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)"
+    ],
+    "additionalDirectories": [
+      "f:\\DnD-3.5\\docs\\cp19"
+    ]
+  }
+}

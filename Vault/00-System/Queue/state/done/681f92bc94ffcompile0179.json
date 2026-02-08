@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0179",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 179,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:39:31.449798+00:00"
+  },
+  "doneAt": "2026-02-03T09:40:49.256977+00:00",
+  "citation": "PHB (pdf p.0179)",
+  "printedGuess": "178",
+  "touched": [],
+  "createdTables": [
+    "Table — Ability Modifiers and Bonus Spells, page 8) (PHB 1–1)",
+    "Table — The (PHB 3–18)",
+    "Table — The Wizard, page 55). Her high Intelligence (PHB 3–18)"
+  ]
+}

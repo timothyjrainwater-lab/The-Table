@@ -1,0 +1,269 @@
+free and the golem goes berserk. The uncontrolled golem goes on
+a rampage, attacking the nearest living creature or smashing some
+object smaller than itself if no creature is within reach, then
+moving on to spread more destruction. Once a clay golem goes
+berserk, no known method can reestablish control.
+
+Cursed Wound (Ex): The damage a clay golem deals doesnt
+heal naturally and resists healing spells. A character attempting to
+cast.a conjuration (healing) spell on a creature damaged by a.clay
+golem m k, or the spell has
+no effect on the injured character.
+
+Immunity to Magic (Ex): A clay golem is immune to any spell
+or spell-like ability that allows spell resistance. In addition, certain
+spells and effects function differently against the creature, as
+noted below
+
+A move earth spell drives
+the golem back 120 feet and
+deals 3d12 points of damage
+tit
+
+A disintegmate spell slows
+the golem (as the slow
+spell) for 1d6é_rounds
+and deals 1d12 points
+of damage.
+
+An earthquake
+spell cast directly
+ata clay golem stops
+it from moving on its
+next turn_and deals
+5d10 points of dam
+age. The golem gets
+no saving throw
+against any of these
+effects.
+
+Any magical attack
+against.a_clay golem
+that deals acid damage
+heals 1 point of damage
+for every 3 points of
+damage it would other
+wise deal. If the amount
+of healing would cause
+
+ 
+
+ 
+
+ust succeed on a DC 26 caster level chec
+
+ 
+
+ 
+
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+  
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+   
+
+ 
+
+ 
+
+the golem to exceed its
+full normal hit points, it gains
+any excess as temporary. hit points.
+For example, a clay golem hit by
+the breath weapon of a black
+dragon heals.7 points of dam
+age if the attack would have
+dealt 22 points of damage. A
+clay_golem golem gets no
+saving throw against magi
+cal attacks that deal acid
+damage.
+
+Haste (Su): After
+it has engaged in at
+least 1 round of combat
+clay golem can haste itself once per day asa free action. The effect
+lasts 3 rounds and is otherwise the same as the spell.
+
+ 
+
+ 
+
+   
+
+onstruction
+A clay golems body must be sculpted from a single block of clay
+weighing atleast 1,000 pounds, treated with rare oils and powders
+svorth 1,500 gp. Creating the body requires a DC 15 Craft (sculpt
+ing) check ora DC_15 Craft (pottery) check.
+
+CL 11th; Craft Construct (see page 303), animate objects, com
+mune,.resurrection, caster must be at least 11th level; Price 40,000.
+gp; Cost 21,500 gp + 1,540 XP.
+
+ 
+
+ 
+
+ 
+
+FLESH GOLEM
+Large Construct
+Hit Dice: 9d10+30 (79 hp’
+Initiative: —1
+Speed: 30 ft. (6 squares,
+Armor Class: 18 (~1 size,
+flat-footed 18
+Base Attack/Grapple:
+Attack: Slam +10 melee (2d8+5.
+Full Attack: 2 slams +10 melee (2d8+5
+Space/Reach: 10 ft,/10 ft
+pecial Attacks: Berserk
+Special Qualities: Construct traits, damage reduction
+5/adamantine, darkvision 60 ft., immunity to magic,
+
+1.Dex, +10 natural), touch 8,
+
+ 
+
+ 
+
+ 
+
+w-light
+
+ 
+
+vision
+Saves: Fort +3, Ref +2, Will +3
+Abilities: Str 21, Dex 9, Con —, Int —, Wis 11,.Chat
+Skills:
+Feats: —
+Environment: Any
+Organization: Solitary or gang (2-4
+Challenge Rating: 7
+‘Treasure: None
+Alignment: Always neutral
+Advancement: 10-18 HD (Large); 19-27
+HD (Huge)
+Level Adjustment; —
+
+ 
+
+This automaton looks as though. it_was
+constructed from a grisly. assortment of
+decaying human body_parts, stitched
+and bolted together into.o form
+than a living man. It smells faintly. of
+
+ 
+
+r
+
+ 
+
+freshly dug earth and dead flesh
+
+ 
+
+A flesh golem is a ghoulish collec:
+tion of stolen humanoid body
+parts, stitched together into a
+single composite form.
+
+No natural animal will
+ingly tracks a flesh golem.
+The golem wears whatever
+
+clothing its c
+
+  
+
+ 
+
+tor de
+
+ 
+
+Flesh golem _sires, usually just a ragged
+pair of trousers. It has no
+
+pons. Its
+8 feet tall and weighs almost 500
+
+ 
+
+possessions and no w
+
+ 
+
+pounds.
+A flesh golem golem cannot speak,
+although it can emit a hoarse roar of
+sorts. It walks and moves with a
+stiff-joi s if nor in
+complete control of its
+body
+
+ 
+
+  
+
+Wah2ee0
+
+‘ombat
+Flesh golems often fare poorly in combat thanks to their fairly low
+Armor Class, though they can easily crush foes that lack adaman:
+tine weaponry. A flesh golem supported by an ally thar can launch
+electricity attacks is fearsome indeed.
+
+Berserk (Ex): When a flesh golem enters combat, there is a
+cumulative 1% chance each round that its elemental spirit breaks
+free and the golem goes berserk. The uncontrolled golem goes.on.
+arampage, attacking the nearest living creature or smashing some
+object smaller than itself if no creature is within reach, then
+moving on to spread more destruction. The golem’s creator, if
+within 60 feet, can try to regain control by speaking firmly and
+
+   
+ 
+
+ 
+
+ 
+

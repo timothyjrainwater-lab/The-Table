@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "57e025f461bf:meta",
+    "sourceId": "57e025f461bf",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Bloodspeakers.pdf",
+    "title": "Bloodspeakers",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T05:55:07.408710+00:00",
+  "meta": {
+    "sourceId": "57e025f461bf",
+    "title": "Bloodspeakers",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Bloodspeakers.pdf",
+    "pages": 98,
+    "extractedAt": "2026-02-03T05:55:06.953647+00:00"
+  }
+}

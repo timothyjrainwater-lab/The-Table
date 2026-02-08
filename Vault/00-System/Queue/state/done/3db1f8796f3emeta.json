@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "3db1f8796f3e:meta",
+    "sourceId": "3db1f8796f3e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Fane Of The Drow.pdf",
+    "title": "Fane Of The Drow",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:35.462969+00:00",
+  "meta": {
+    "sourceId": "3db1f8796f3e",
+    "title": "Fane Of The Drow",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 04/Fane Of The Drow.pdf",
+    "pages": 20,
+    "extractedAt": "2026-02-03T10:36:35.455862+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

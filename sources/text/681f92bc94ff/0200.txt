@@ -1,0 +1,204 @@
+ 
+ 199
+This spell turns the bones or bodies of 
+dead creatures into undead skeletons or 
+zombies that follow your spoken com-
+mands. The undead can follow you, or they 
+can remain in an area and attack any 
+creature (or just a specific kind of creature) 
+entering the place. They remain animated 
+until they are destroyed. (A destroyed 
+skeleton or zombie can’t be animated 
+again.) 
+Regardless of the type of undead you 
+create with this spell, you can’t create more 
+HD of undead than twice your caster level 
+with a single casting of animate dead. (The 
+desecrate spell doubles this limit; see page 
+218.) 
+The undead you create remain under 
+your control indefinitely. No matter how 
+many times you use this spell, however, 
+you can control only 4 HD worth of 
+undead creatures per caster level. If you 
+exceed this number, all the newly created 
+creatures fall under your control, and any 
+excess undead from previous castings 
+become uncontrolled. (You choose which 
+creatures are released.) If you are a cleric, 
+any undead you might command by virtue 
+of your power to command or rebuke 
+undead do not count toward the limit. 
+Skeletons: A skeleton can be created only 
+from a mostly intact corpse or skeleton. 
+The corpse must have bones, so creating a 
+skeleton from a purple worm, for example, 
+is not possible. If a skeleton is made from a 
+corpse, the flesh falls off the bones. The 
+statistics for a skeleton depend on its size; 
+they do not depend on what abilities the 
+creature may have had while alive. The 
+Monster Manual  has game statistics for 
+skeletons. 
+Zombies: A zombie can be created only 
+from a mostly intact corpse. The corpse 
+must be that of a creature with a true 
+anatomy, so a dead gelatinous cube, for 
+example, cannot be animated as a zombie. 
+The statistics for a zombie depend on its 
+size, not on what abilities the creature may 
+have had while alive. The Monster Manual  
+has game statistics for zombies. 
+Material Component:  You must place a 
+black onyx gem worth at least 25 gp per 
+Hit Die of the undead into the mouth or 
+eye socket of each corpse you intend to 
+animate. The magic of the spell turns these 
+gems into worthless, burned-out shells. 
+ 
+Animate Objects 
+Transmutation 
+Level: Brd 6, Chaos 6, Clr 6 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Targets: One Small object per caster level; 
+see text 
+Duration: 1 round/level 
+Saving Throw: None 
+Spell Resistance: No 
+You imbue inanimate objects with mobil-
+ity and a semblance of life. Each such ani-
+mated object then immediately attacks 
+whomever or whatever you initially des-
+ignate. An animated object can be of any 
+nonmagical material—wood, metal, stone, 
+fabric, leather, ceramic, glass, or the like.. 
+You may animate one Small or smaller 
+object (such as a chair) or an equivalent 
+number of larger objects per caster level. A 
+Medium object (such as a coat rack) counts 
+as two Small or smaller objects, a Large 
+object (such as a table) as four, a Huge 
+object as eight, a Gargantuan object as 
+sixteen, and a Colossal object as thirty-two. 
+You can change the designated target or 
+targets as a move action, as if directing an 
+active spell. 
+The Monster Manual  has game statistics 
+for animated objects. 
+This spell cannot animate objects car-
+ried or worn by a creature. 
+Animate objects  can be made permanent 
+with a permanency spell. 
+ 
+Animate Plants 
+Transmutation 
+Level: Drd 7, Plant 7 
+Components: V 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Targets: One Large plant per three caster 
+levels or all plants within range; see text 
+Duration: 1 round/level or 1 hour/level; 
+see text 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You imbue inanimate plants with mobility 
+and a semblance of life. Each animated 
+plant then immediately attacks whomever 
+or whatever you initially designate as 
+though it were an animated object of the 
+appropriate size category. You may ani-
+mate one Large or smaller plant (such as a 
+tree), or an equivalent number of larger 
+plants, per three caster levels. A Huge 
+plant counts as two Large or smaller plants, 
+a Gargantuan plant as four, and a Colossal 
+plant as eight. You can change the 
+designated target or targets as a move 
+action, as if directing an active spell. 
+Use the statistics for animated objects 
+found in the Monster Manual , except that 
+plants smaller than Large don’t have hard-
+ness unless the DM rules otherwise for a 
+given case. 
+Animate plants  cannot affect plant crea-
+tures (such as treants), nor does it affect 
+nonliving vegetable material (such as a 
+cotton tunic or hempen rope). 
+Entangle: Alternatively, you may imbue 
+all plants within range with a degree of 
+mobility, which allows them to entwine 
+around creatures in the area. This usage of 
+the spell duplicates the effect of an entangle 
+spell. Spell resistance does not keep crea-
+tures from being entangled. This effect 
+lasts 1 hour per caster level. 
+ 
+Animate Rope 
+Transmutation 
+Level: Brd 1, Sor/Wiz 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Target: One ropelike object, length up to 
+50 ft. + 5 ft./level; see text 
+Duration: 1 round/level 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You can animate a nonliving ropelike 
+object, such as string, yarn, cord, line, rope, 
+or even a cable. The maximum length 
+assumes a rope with a 1-inch diameter. 
+Reduce the maximum length by 50% for 
+every additional inch of thickness, and 
+increase it by 50% for each reduction of the 
+rope’s diameter by half. 
+The possible commands are “coil” (form 
+a neat, coiled stack), “coil and knot,” “loop,” 
+“loop and knot,” “tie and knot,” and the 
+opposites of all of the above (“uncoil,” and 
+so forth). You can give one command each 
+round as a move action, as if directing an 
+active spell. 
+The rope can enwrap only a creature or 
+an object within 1 foot of it—it does not 
+snake outward—so it must be thrown near 
+the intended target. Doing so requires a 
+successful ranged touch attack roll (range 
+increment 10 feet). A typical 1-inch-
+diameter hempen rope has 2 hit points, AC 
+10, and requires a DC 23 Strength check to 
+burst it. The rope does not deal damage, 
+but it can be used as a trip line or to cause a 
+single opponent that fails a Reflex saving 
+throw to become entangled. A creature 
+capable of spellcasting that is bound by 
+this spell must make a DC 15 Concen-
+tration check to cast a spell. An entangled 
+creature can slip free with a DC 20 Escape 
+Artist check. 
+The rope itself and any knots tied in it 
+are not magical. 
+This spell grants a +2 bonus on any Use 
+Rope checks you make when using the 
+transmuted rope. 
+The spell cannot animate objects carried 
+or worn by a creature. 
+ 
+Antilife Shell 
+Abjuration 
+Level: Animal 6, Clr 6, Drd 6 
+Components: V, S, DF 
+Casting Time: 1 round 
+Range: 10 ft. 
+Area: 10-ft.-radius emanation, centered on 
+you 
+Duration: 10 min./level (D) 
+Saving Throw: None 
+Spell Resistance: Yes 
+CHAPTER 11: 
+SPELLS 

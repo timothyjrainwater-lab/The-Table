@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "36f28a1682d1:meta",
+    "sourceId": "36f28a1682d1",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Siege of Durgam's Folly.pdf",
+    "title": "The Siege of Durgam's Folly",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:14:49.936023+00:00",
+  "meta": {
+    "sourceId": "36f28a1682d1",
+    "title": "The Siege of Durgam's Folly",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 06/The Siege of Durgam's Folly.pdf",
+    "pages": 42,
+    "extractedAt": "2026-02-03T23:14:49.750192+00:00"
+  },
+  "enqueued_extractPages": 21
+}

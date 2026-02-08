@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "1a6ad0fe6f1e:meta",
+    "sourceId": "1a6ad0fe6f1e",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Game Masters.pdf",
+    "title": "The Slayer's Guide To Game Masters",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:34:29.618793+00:00",
+  "meta": {
+    "sourceId": "1a6ad0fe6f1e",
+    "title": "The Slayer's Guide To Game Masters",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Game Masters.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-03T23:34:29.456681+00:00"
+  },
+  "enqueued_extractPages": 18
+}

@@ -1,0 +1,73 @@
+Tapie 2-5: Dirricucty Class EXAMPLES
+
+ 
+
+DC __ Example Roll (Key Ability) Who Could Do It
+-10 Hear the sounds of a pitched battle Listen (Wis) A commoner on the other side of a stone wall
+0 ____ Track ten hill giants across a muddy field Search (Int) The village fool hustling at full speed at night
+5 Climb a knotted rope Climb (Str) An average human carrying a 75-pound pack
+5 Hear people talking on the other side of a door Listen (Wis) An absent-minded sage being distracted by allies
+10 Runor charge down steep stairs Balance (Dex) A Istlevel rogue
+10 Follow tracks of fifteen orcs across firm ground Search (Int) A Ist-level commoner
+10 Ransack a chest full of junk to find a map Search (Int) A Ist-level commoner
+10 __Tiea firm knot Use Rope (Dex) A }st-level commoner
+10 Find out the current gossip Gather Information (Cha) A Tst-level commoner
+11'__ Avoid being tripped by a wolf — {Str or Dex) A Ist-level commoner
+12 Assess the value of a silver necklace Appraise (Int) A lstdevel rogue
+13° __ Resist the command spell Will save (Wis) A \st-level wizard or a low-level fighter
+13 Bash open simple wooden door — (Str) A fighter
+15 Make a dying friend stable Heal (Wis) A Istlevel cleric
+15 Make indifferent people friendly Diplomacy (Cha) A Ist-evel paladin
+15 Jump 10 feet (with a running start) Jump (Str) A Ist-level fighter
+15 Tumble pasta foe Tumble (Dex) A low-level monk
+15' Get a minor lie past a canny guard Bluff (Cha) A Ist-level rogue
+16 identify a Ist-level spell as it is being cast Spelicraft (Int) Awwizard (but not anyone untrained In spells)
+177 _ Resist a 10th-level vampire’s dominating gaze Will save (Wis) A low-level monk or a high-level fighter
+18 Bash open a strong wooden door — (Str) ‘An enraged half-ore barbarian
+18 Cast fireball while being shot with an arrow Concentration (Con) A low-level wizard
+20 Notice a typical secret door Search (Int) A smart, 1st-level half-elf rogue
+20___Notice a scrying sensor — (Int) A low-level wizard with Int 12 or higher
+20 Notice an invisible creature moving nearby Spot (Wis) A low-level ranger
+20___Pick a very simple lock Open Lock (Dex) A dexterous, 1st-level halfling rogue (but not anyone
+untrained at picking locks)
+20 Find out what sorts of crimes the baron’s Gather Information (Cha) A low-level bard
+daughter has gotten away with
+20 __ Avoid falling into a pit trap Reflex save (Dex) A mid-level rogue or a high-level paladin
+20 Walk a tightrope Balance (Dex) A low-level rogue
+21 Raise a dire wolf cub Handle Animal (Cha) A mid-level ranger
+21" Sneak quietly past a hellcat 50 feet away Move Silently (Dex) A low-level rogue
+22' Escape from an owlbear's clutches Escape Artist (Dex) A low-level rogue
+23’ Grab a guard’s spear and wrest it out of his hands —- Melee attack (Str) A mid-level fighter
+24 Resist the wail of the banshee spell Fortitude save (Con) A high-level fighter
+24% Shoot an armored guard through an arrow stit Ranged attack (Dex) A high-level fighter
+25 Notice that something's wrang with a friend Sense Motive (Wis) A mid-level rogue
+who's under a vampire's control
+25 Persuade the dragon that has captured you Diplomacy (Cha) A high-level bard
+that it would be a good idea to let you go
+25 _ Find out from-a city’s inhabitants who the Gather Information (Cha) A high-level bard.
+power behind the throne Is
+26 jump over an ore’s head (with a running start) Jump (Str) A 20th-level ranger wearing light armor or a mid-level
+barbarian wearing light armor (who really only needs
+a 22 because his speed is higher)
+28___ Disable a glyph of warding Disable Device (Int) A high-level rogue (but not anyone of another class)
+30 Notice a well-hidden secret door Search (Int) A high-level rogue
+28____Bash open an iron door — (Str) A fire giant
+23° Calma hostile owlbear Wild empathy (Cha) A high-level druid (and only a druid o ranger)
+30 Hurriedly climb a slick brick wall Climb (Str) A high-level barbarian
+30 Read a letter written in ancient Draconic Decipher Script (int) A high-level wizard
+30 Pick a good lock Open Lock (Dex). A high-level rogue
+43 Track a goblin that passed over hard rocks Survival (Wis) A 20th-level ranger who has maxed out his Survival
+a week ago, and it snowed yesterday skill and has been fighting goblinoids as his
+favored enemy since 1st level
+1 This number is actually the average roll on the opponent's opposed but sometimes a saving throw, an ability check, or even.an_attack |
+check rather than a fixed number. roll, The.ability that modifies the roll is in parentheses. A. “—" inthis)
+2. Actual DC may be highet or lower depending on the caster.or ability column.means that the.check is an ability check and.no skill ranks.
+} user. base save bonuses,.or base attack bonuses apply.
+3 This is the target's adjusted Armor Class. Who Could Do It: An example of a character that would have about
+DC: The number a character needs to roll to succeed. 5026 chance to succeed, When this entry names a character by class,
+Example: An example of a task with that DC. 4 \_it.assumes that the character has the skill in question. (Other
+
+Roll (Key Ability): The roll the character makes, usually a skill check, _. characters. might have a better or worse chance to succeed.)
+
+ 
+

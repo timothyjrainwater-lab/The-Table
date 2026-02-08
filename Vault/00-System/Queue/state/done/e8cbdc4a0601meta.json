@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "e8cbdc4a0601:meta",
+    "sourceId": "e8cbdc4a0601",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Tide of Years.pdf",
+    "title": "The Tide of Years",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:35:45.712066+00:00",
+  "meta": {
+    "sourceId": "e8cbdc4a0601",
+    "title": "The Tide of Years",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 05/The Tide of Years.pdf",
+    "pages": 50,
+    "extractedAt": "2026-02-04T00:35:45.467531+00:00"
+  },
+  "enqueued_extractPages": 25
+}

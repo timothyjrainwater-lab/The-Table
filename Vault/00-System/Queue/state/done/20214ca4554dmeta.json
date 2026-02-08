@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "20214ca4554d:meta",
+    "sourceId": "20214ca4554d",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Sharn, City Of Towers - Errata.pdf",
+    "title": "Sharn, City Of Towers - Errata",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T18:19:58.995187+00:00",
+  "meta": {
+    "sourceId": "20214ca4554d",
+    "title": "Sharn, City Of Towers - Errata",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Eberron/Sharn, City Of Towers - Errata.pdf",
+    "pages": 1,
+    "extractedAt": "2026-02-03T18:19:58.988094+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "1ed57357a181:meta",
+    "sourceId": "1ed57357a181",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Amazons.pdf",
+    "title": "The Slayer's Guide To Amazons",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-03T23:14:50.331786+00:00",
+  "meta": {
+    "sourceId": "1ed57357a181",
+    "title": "The Slayer's Guide To Amazons",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/The Slayer's Guide To/The Slayer's Guide To Amazons.pdf",
+    "pages": 40,
+    "extractedAt": "2026-02-03T23:14:50.154108+00:00"
+  },
+  "enqueued_extractPages": 20
+}

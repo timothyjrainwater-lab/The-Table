@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "7b081de138ad:pages:0023-0024",
+    "sourceId": "7b081de138ad",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Multilevel Advetnures/A Lamentation of Thieves.pdf",
+    "pageStart": 23,
+    "pageEnd": 24,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:33:51.121651+00:00"
+  },
+  "doneAt": "2026-02-03T09:46:10.828872+00:00",
+  "wrote": [
+    "00-System/Staging/7b081de138ad/pages/0023.txt",
+    "00-System/Staging/7b081de138ad/pages/0024.txt"
+  ],
+  "method": {
+    "23": "ocr",
+    "24": "ocr"
+  }
+}

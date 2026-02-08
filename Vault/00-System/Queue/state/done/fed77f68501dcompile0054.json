@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "fed77f68501d:compile:0054",
+    "sourceId": "fed77f68501d",
+    "kind": "compileChunk",
+    "page": 54,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-05T16:20:08.082455+00:00"
+  },
+  "doneAt": "2026-02-05T16:23:50.616959+00:00",
+  "citation": "DMG (pdf p.0054)",
+  "printedGuess": null,
+  "touched": [],
+  "createdTables": [
+    "Table — Treasure (PHB 3–5)",
+    "Table — Treasure and roll once for (PHB 3–5)",
+    "Table — Treasure. Instructions for using that table appear in (PHB 3–5)"
+  ]
+}

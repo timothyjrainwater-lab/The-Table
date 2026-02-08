@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "094ca176f1ec:meta",
+    "sourceId": "094ca176f1ec",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/A Guidebook to Races/Fang and Fury - Guidebook to Vampires.pdf",
+    "title": "Fang and Fury - Guidebook to Vampires",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T10:36:36.046726+00:00",
+  "meta": {
+    "sourceId": "094ca176f1ec",
+    "title": "Fang and Fury - Guidebook to Vampires",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/A Guidebook to Races/Fang and Fury - Guidebook to Vampires.pdf",
+    "pages": 83,
+    "extractedAt": "2026-02-03T10:36:35.666160+00:00"
+  },
+  "enqueued_extractPages": 42
+}

@@ -1,0 +1,182 @@
+  
+  
+    
+   
+  
+
+ 
+   
+
+CHAPTER 4:
+IMPROVING MONSTERS
+
+Each of the monster entries in Chapters 1 through 3 describes a typ-
+
+ical creature of its kind. However, there are several methods by
+
+which extraordinary or unique monsters can be created using a typi:
+\cal creature as the foundation: by adding character classes, increasing |
+\amonster's Hit Dice, or by adding a template to a monster. These,
+,methods are not mutually exclusive—it's possible fora monster with.
+jatemplate (a half-dragon lammasu, for example) to be improved by
+jboth increasing its Hit Dice and adding character class levels.
+
+Class Levels: Intelligent creatures that are reasonably human-
+oid in shape most commonly advance by adding class levels. Crea-
+tures that fall into.this category have an entry of “By character
+class" in their Advancement line. When a monster adds a class
+
+level, that level usually represents an increase in experience and
+learned skills and capabilities.
+
+|_Increased Hit Dice: Intelligent creatures that are not human-|
+joidin shape, and nonintelligent monsters, can advance by increas-|
+ing their Hit Dice, Creatures with increased Hit Dice are usually
+superior specimens of their race, bigger and more powerful than
+their run-of-the-mill fellows.
+
+‘Templates: Both intelligent and nonintelligent creatures with an
+unusual heritage (such as draconic or fiendish blood) or an inflicted
+change in their essential nature (undeath or lycanthropy) may be
+modified with a template. Templates usually result in. tougher mon-
+
+|sters with capabilities that differ from those of their common kin.
+
+Each of these three methods for improving monsters is dis-
+
+\cussed in more detail below.
+
+\Monsters are assumed to have completely average (or standard)
+ability scores—a.10 or an 11 in each ability, as modified by their
+racial bonuses. However, improved monsters are individuals and
+often have better than normal ability scores, and usually make use
+of either the elite array or the nonelite array of ability scores..
+
+Monsters who improve by adding a template, and monsters,
+who improve by increasing their Hit Dice, may use any of the
+three arrays (standard, nonelite, or elite). Any monster unique
+enough to be improved could easily be considered elite.
+
+Elite Array: The elite array is.15,.14, 13, 12, 10, 8, These num-
+bers result in. modifying the standard scores by +4, +4, +2, +2, +0,
+and ~2, While the monster has one weakness compared to a typi-
+
+TaBLe 4-1: CREATURE IMPROVEMENT BY TYPE
+
+Hit Die Attack Bonus
+Aberration 8 HD 33/4 (as cleric)
+Animal 48 HD x3/4 (as cleric)
+Construct 10 HD x3/4 (as cleric)
+Dragon. diz HO (as fighter)
+Elemental ds HD x3/4 (as cleric)
+Fey 46 HD x1/2 (as wizard)
+Giant 38 HD x3/4 (as cleric)
+Humanoid 38 HD 3/4 (as cleric)
+Magical beast a0 HD (as fighter)
+Monstrous humanoid 8 HD (as fighter)
+Ooze 410 HD 3/4 (as cleric)
+Outsider a HD (as fighter)
+Plant 8 HD x3/4 (as cleric)
+Undead diz HD x1/2 (as wizard)
+Vermin 48 HD x3/4 (as cleric)
+
+All types have a number of feats equal to 1 + 1 per 3 Hit Dice.
+
+     
+  
+ 
+    
+  
+   
+  
+ 
+ 
+   
+   
+ 
+
+cal member of its race, it is significantly better overall. The elite
+array is most appropriate for monsters who add levels in a player
+character.class_A player who wants to play a monster out of this
+book as a player. character but doesn't want to roll its ability scores
+jshould use the elite array,
+
+Nonelite Array: The nonelite array is 13, 12, 11, 10, 9, 8. These
+numbers result in modifying the standard scores by.+2, +2, +0, +0,
+~2, and -2. The nonelite array. does not necessarily make a monster
+better than normal, but it does customize the monster as an indi
+
+vidual with strengths and weaknesses compared to.a typical,
+member of its race. The nonelite array is most appropriate for mon-,
+stets who add class levels in 2 NPC class such as warrior or adept.
+
+Ability Score Improvement: Whenever a monster reaches a
+number of Hit Dice divisible by 4, it improves.one ability score. by.
+1 point. For example, a lammasu of 7 Hit Dice increased to 14 Hit
+Dice gains an ability score improvement at 8 HD and another one
+
+jat12 HD. Monsters do not gain ability score increases for levels
+they “already reached” with their racial Hir Dice, since these
+jadjustments are included in their basic.ability scores.
+
+ 
+
+   
+
+Ifa creature acquires a character class, it follows the rules for multi-
+class characters described on pages 59-60 of the Players Handbook,
+The creature's Hit Dice equal the number of class levels it has plus
+its racial Hit Dice. For example, an ogre normally has 4 HD. If it
+picks up one level of barbarian, it becomes a.creature of 5 Hit Dice:
+4d8 HD for its ogre levels, plus 1d12 HD for its barbarian level. A)
+creature’ “monster class’ is always a favored class, and the creature }
+never takes XP penalties for having it. Additional Hit Dice gained,
+from taking levels in a character class never affect a.creature's size..
+
+Humanoids and Class Levels: Creatures with Lor less HD
+replace their monster levels with their character levels, For
+example, a goblin sorcerer loses its humanoid attack bonus, saving
+throw bonuses, skills, and feats, and gains the attack bonus, save
+bonuses, skills, feats, and other class abilities of a 1st-level sorcerer,
+
+Level Adjustment and Effective Character Level; To deter-
+mine the effective character level (ECL) of a monster character, add
+its level adjustment to its racial Hit Dice and character class levels,
+The monster is considered to have experience points equal to the
+minimum needed to be.a character of its ECL. For example, a 4th-
+Jevel minotaur barbarian hasan ECL of 12 (6 for its minotaur HD, 4
+for its class levels, and 2 for its level adjustment). As the equivalent
+ofa 12th-level character, it has 66,000.XB, and must reach a otal of
+78,000 XP to become 13th level and add another class level
+
+Good Saving Throws Skill Points*
+
+will 2+ Int mod per HO
+Fort, Ref (and sometimes Will) 2+ Int mod per HD
+~ 2+ Int mod per HO**
+Fort, Ref, Will 6 + int mod per HD
+Ref (Air, Fire), or 2+ Int mod per HD
+Fort (Earth, Water)
+
+Ref, Will 6 + Int mod per HO
+Fort 2+ Int mod per HD
+Varies (any one) 2+ Int mod per HD
+
+Fort, Ref 2+ Int mod per HD
+Ref, Will 2+ Int mod per HD
+~ 2+ Int mod per HD**
+Fort, Ref, Will 8 + Int mod per HD
+Fort 2+ Int mod per HD**
+will 4+ Int mod per HD**
+Fort 2+ Int mod per HD**
+
+* As long as a creature has an Intelligence of at least 1, it gains a minimum of 1 skill point per Hit Die.
+
+ 
+
+** Creatures with an Intelligence score of *
+
+    
+
+gain no skill points or feats.
+

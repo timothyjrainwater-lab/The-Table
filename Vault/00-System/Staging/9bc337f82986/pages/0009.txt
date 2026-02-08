@@ -1,0 +1,106 @@
+   Module Workshop  A Dead Man’s Party - Page 9 
+ 
+ 
+The main iron doors are not locked, 
+although there is an iron bar, which the 
+doorman may use to bar the door from the 
+inside. The doors are break DC 28, hardness 
+10, and have hp 60. 
+ 
+If the PCs get by the doorman ghoul without 
+a fight, award the XP as if they defeated the 
+ghoul (not including the zombies and 
+skeletons). If they later fight the doorman, 
+they do not get this award. 
+ 
+ Doorman Ghoul 
+CR 1; Medium Undead; HD 2d12 (19 hp); Init +2 
+(Dex); Spd 30ft.; AC 14 (+2 Dex, +2 natural); Atks 
+Bite +3 melee (1d6+1 dmg and paralysis), 2 claws +0 
+melee (1d3 dmg and paralysis); Face/Reach 5ft. by 
+5ft./5ft.; SA Paralysis, Create Spawn; SQ Undead, +2 
+turn resistance; AL CE; SV Fort +0, Ref +2, Will +5; 
+Str 13 Dex 15 Con – Int 13 Wis 14 Cha 16. 
+Skills: Climb +6, Escape Artist +7, Hide +7, Intuit 
+Direction +3, Jump +6, Listen +7, Move Silently +7, 
+Search +6, Spot +7. 
+Feats: Multiattack, Weapon Finesse(bite) 
+SA- Paralysis(Ex): Those hit by a ghoul must make a 
+Fort Save (DC 14) or be paralyzed for 1d6+2 
+minutes. Elves are immune to this paralysis. 
+Create Spawn(Su): Any being slain by a ghoul and 
+not eaten by the creature will rise as a ghoul in 1d4 
+days. Casting Protection from Evil on the body 
+prevents this. 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+ 
+ Zombies (4) 
+CR 1/2 each; Medium Undead; HD 2d12+3 (19, 16, 
+16, 14 hp); Init –1 (Dex); Spd 30ft.; AC 11 (-1 Dex, 
++2 natural); Atks Slam +2 melee (1d6+1 dmg); 
+Face/Reach 5ft. by 5ft./5ft.; SQ Undead, partial 
+actions only; AL N; SV Fort +0, Ref –1, Will +3; Str 
+13 Dex 8 Con – Int – Wis 10 Cha 1. 
+Feats: Toughness 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Partial Actions Only(Ex): Zombies have poor 
+reflexes and can perform only partial actions. Thus 
+they can move or attack, but can only do both if they 
+charge (a partial charge). 
+ 
+ Skeletons (6) 
+CR 1/3 each; Medium Undead; HD 1d12 (10, 7, 6, 6, 
+6, 5 hp); Init +5 (+1 Dex, +4 Improv. Init.); Spd 30ft.; 
+AC 13 (+1 Dex, +2 natural); Atks 2 claws melee +0 
+(1d4 dmg); Face/Reach 5ft. by 5ft./5ft.; SQ Undead, 
+immunities; AL N; SV Fort +0, Ref +1, Will +2; Str 
+10 Dex 12 Con – Int – Wis 10 Cha 11. 
+Feats: Improved Initiative 
+SQ-Undead: Immune to mind-influencing effects, 
+poison, sleep, paralysis, stunning, and disease. Not 
+subject to critical hits, subdual damage, ability 
+damage, energy drain, or death from massive 
+damage. 
+Immunities(Ex): Skeletons have cold immunity. They 
+also take half damage from piercing and slashing 
+weapons.
+ 
+ 
+Tactics: The zombies will obey the orders 
+of the ghoul. The doorman is rather 
+intelligent and will rally the forces to his 
+best advantage. 
+ 
+2. Main Hallway
+ 
+ 
+The PCs would have first entered through 
+the main front doors or the back doors on 
+the north side of the sanitarium: 
+ 
+You step into the inside of the 
+sanitarium and see that a large brazier in 
+the hallway lights the place, as well as 
+several torches on the wall. The walls 
+inside are made from the same dark 
+granite blocks you saw from the outside.  
+ 
+The stairway in the northwest corner of the 
+hallway leads down to the basement corridor 
+(Area 15) and the stairway in the southeast 
+corner leads to the second floor corridor 
+(Area 8). 
+ 
+The double doors in the north wall lead 
+outside to a small terrace that overlooks the 
+backside of the hill. The doors are made of 
+iron and are identical to the main entrance 
+doors, but these are never locked or barred. 

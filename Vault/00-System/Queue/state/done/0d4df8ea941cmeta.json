@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "0d4df8ea941c:meta",
+    "sourceId": "0d4df8ea941c",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Way Of/The Way of The Naga.pdf",
+    "title": "The Way of The Naga",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T01:10:50.371978+00:00",
+  "meta": {
+    "sourceId": "0d4df8ea941c",
+    "title": "The Way of The Naga",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/The Way Of/The Way of The Naga.pdf",
+    "pages": 128,
+    "extractedAt": "2026-02-04T01:10:50.347607+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

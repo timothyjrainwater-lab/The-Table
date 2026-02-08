@@ -1,0 +1,134 @@
+ 
+
+ 
+
+Each hit will reduce the targets Initiative by 20% and WS
+by 10%. Cumulative in the same battle. Recovering is
+almost immediate (within 2 hours) after the battle ends.
+Unless the squids win, in which case, you’re lunch.
+
+Page 25: Blind Barracuda
+
+Use the following Statistics in Warhammer:
+M WS BS S$ T W I A Dex LD Int CL WP FEL
+10 25 0 6 6 6 501 O01 NAIS5 80 20 15
+
+The blindness of these barracuda is not much of a handicap
+to them. They are quite at home finding their meals by
+detecting the motions that the tidbits make as they move
+around in the water.
+
+Page 25: Giant Crystal Sea Snakes
+
+Use the Giant Rattlers, as per the Warhammer Bestiary,
+modified for aquatic habits. These snakes are 30 feet long,
+so they should be fairly tough. Further, the toxicity of their
+venom should be the maximum allowable under the rules.
+
+Page 28: Pila
+
+These dwarven forged Pila (sing. Pilum, short, flexible
+thrusting spears) are +10 WS spears, which may be sold at
+10 times the normal value of spears.
+
+Page 29: Giant Albino Squid
+Use the Bog Octopus as found in the Warhammer Bestiary,
+modified for the squids habits.
+
+Page 33: Giant Glass Catfish
+
+Use the following Statistics in Warhammer:
+M WS BS S T WI A DexLD Int CL WP FEL
+4 4 0 6 6 6 601 O01 NAI5 55 20 15
+
+Page 33,34: Cat’s Eye Staff
+This staff will work as described. The Statistics of the tiger
+form are as follows:
+M WS BS S T WI A DexLD Int CL WP FEL
+8 7% O 7 4 8 40[3(5)]01 10 20 55 50 NA
+For an explanation of the statistic in brackets see the
+Warhammer Bestiary under Cat, Wild.
+
+Page 36: Darts
+These short, metal spikes will have an ES of 5 asa trap. In
+the hands of anormal man, however they act as normal darts.
+
+Page 40: Magic Armor
+
+This malevolent full Suit of Plate Armor has 3 AP’s of
+defense in each body area. However, when the demon pops
+in, the delvers will be in for a nasty surprise as any members
+of their party who may be wearing any part of the armor will
+become possessed by it. The victims will have 3 times their
+strength, toughness, and wounds.
+
+DUNGEON
+SSO
+
+DOOM
+Page 44: Killer Bees
+
+Treat as a venomous swarm as per the Warhammer
+Bestiary. There will be 1 swarm per statue shattered.
+
+ 
+
+Page 53: Dwarven Steel Spears
+These finely cast dwarven spears will have +15 WS, and
+will be worth 15 times the normal value of spears.
+
+Page 56: Flame Elemental
+Treat this character as a flame elemental of size 6.
+
+Page 57: Giant ball of Stone
+
+When this giant ball of stone slices the air toward you it is
+best to be out of it’s way. Makea Save based on Intelligence
+to survive, otherwise death is the reward.
+
+Page 60: 400d6 explosion
+
+When the particulates explode, characters who are in the
+room will die outright. Characters who are in the tube will
+take wounds based on how many characters are ahead of
+them in the tunnel. The first one will take 15 wounds. The
+next will take 13, the third 9, the next 5, the next 1, and the
+rest nothing, the damage having been dissipated.
+
+Page 62: Water Dogs
+
+Treat as Water Elementals of Size 8 as found in the
+Warhammer Bestiary.
+
+Page 64: Fire Cats
+Treat as Fire Elementals of Size 8 as found in the
+Warhammer Bestiary.
+
+Page 64: Flame conversion
+
+The flame will add +6 damage to any weapon that can
+survive the flame damage. This includes hand to hand
+damage. Of course, this will puta damper on this characters
+social life, as nobody will want to get too close to him, for
+fear of third degree burns.
+
+Page 65: 55d6 explosion
+
+These Fire Cats and Water Dogs will both annihilate each
+other in a Blast that is the equal of a Blast Spell at 2 times
+normal effectiveness.
+
+Page 69: Earth Elemental
+Treat as Earth Elemental of Size 10 as found in the
+Warhammer Bestiary.
+
+Page 69: 18d6 sword
+This sword will be +5 Damage for the Elemental, but only
++2 Damage for normal mortals.
+
+Page 68,70,71 Statistics
+When the characteristics absorbed exceeds 216 points, the
+trap will go into operation.
+
+Page 77
+

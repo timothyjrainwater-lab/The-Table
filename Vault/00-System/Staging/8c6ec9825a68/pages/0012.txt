@@ -1,0 +1,187 @@
+the beguileris, since disguises and hidden spellcasting come
+easily to such a character,
+
+EL 9: Unlike many half-elves, Anastria Nailo always found
+it easy to live in either human or elf communities. Quick-
+witted, perceptive, and naturally empathetic, she could slip
+from an elf’s detached interest toa human's focused drive as
+easily as she could switch speaking their languages. Always a
+mischievous charmer, Anastria found the beguiler's abilities
+came easily to her and allowed her to do more than play at
+being a human or elf. With the spells she learned, she could
+pretend to be anyone and anything from a dwarf miner toa
+goblin shaman. Fora time she lived asa gadabout, adopting
+the lives of the wealthy while they were away or impersonat-
+ing loyal retainers to gain the patronage of important people
+After foiling the plans of an ore warlord and the plot of a
+mind flayer accidentally while in the guise of a famous bard,
+Anastria has gained a taste for heroics, and now she's looking
+to make a name for herself by helping people—even if she's
+the one who pur those people in trouble in the first place.
+
+ 
+
+ 
+
+ANasTRIA NaILo
+Female half-elf beguiler 9
+CN Medium humanoid (elf)
+Init +2
+Senses low-light vision; Listen +6, Spot +7
+Languages Common, Dwarven, Elv
+
+AC 18, touch 12, fl joted
+(+2 Dex, +6 armor)
+
+hp 43 (9 HD)
+
+Immune sleep
+
+Fort +5, Ref +6, Will +7 (+9 against enchantments)
+
+Speed 30 ft. (6 squares)
+
+Melee +1 rapier +7 (1d6/18-20) or
+
+Melee touch +6 (spell)
+
+Ranged mwk light crossbow +7 (1d8/19-20)
+
+Base Atk +4; Grp +3
+
+Atk Options Combat Expertise, Improved Feint, Still Spell,
+surprise casting*
+
+Combat Gear potion of bless weapon, potion of shield of
+faith +3
+
+Beguiler Spells Known (CL 9th):
+4th (5/day)—Chosen from beguiler spell list
+3rd (7/day) —Tasha’s hideous laughter, plus others chosen
+
+from beguiler spell list
+2nd (7/day)—Chosen from beguiler spell list
+Ist (7/day)—Nystul’s magic aura, plus others chosen
+from beguiler spell list
+
+0 (6/day)— Chosen from beguiler spell list
+
+Abilities Str 8, Dex 14, Con 12, Int 18, Wis 10, Cha 14
+
+SQ advanced learning* (Nystul’s magic aura, Tasha’s hideous
+laughter), armored mage*, cloaked casting®, trapfinding*
+
+Feats Combat Expertise, Improved Feint, Silent Spell’, Spell
+Focus (enchantment), Weapon Finesse
+
+Skills Balance +3, Bluff +14, Concentration +13, Diplamacy
++20, Disguise +13 (+15 acting), Gather Information +11,
+Handle Animal +3, intimidate +4, Jump +5, Listen +6,
+Search +9, Sense Motive +10, Sleight of Hand +9, Spot
++7, Tumble +15
+
+Possessions combat gear plus +2 chain shirt, +1 rapier,
+masterwork light crossbow with 20 bolts, cloak of
+resistance +1, headband of intellect +2, disguise kit
+
+*Class features described on page 7
+
+CRO
+
+Orc
+
+ 
+
+ 
+
+  
+
+BEGUILER SPELL LIST
+
+The beguiler's spell list appears below. Spells printed in this
+book are marked with an asterisk.
+
+OLevel: dancing lights, daze, detect magic, ghost sound, message,
+openjclose, read magic ;
+
+1st Level: charm person, color spray, comprehend languages,
+detect secret doors, disguise self, expeditious retreat, hypnotism, mage
+armor, obscuring mist, rouse®, silent image, sleep, undetectable
+alignment, whelm®
+
+2nd Level: blinding color surge*, blur, daze monster,
+thoughts, fog cloud, glitterdust, hypnotic pattern, invisibility,
+Knock, minor image, mirror image, misdirection, see invisibility,
+silence, spider climb, stay the hand®, touch of idiocy, vertigo”,
+whelming burst®
+
+3rd Level: arcane sight, clairaudience/clairvoyance, crown of
+veils®, deep slumber, dispel magic, displacement, glibness, halt*,
+haste, hesitate*, hold person, mevitable defeat®, invisibility sphere,
+legion of sentinels*, major image, nondetection, slow, suggestion,
+vertigo field®, zone of silence
+
+ 
+
+detect
+
+ 
+
+ 
+
+  
+ 
+
+4th Level: charm monster, confusion, crushing despair,
+freedom of movement, greater invisibility, greater mirror image®,
+locate creature, mass whelm®, phantom battle*, rainbow pattern,
+solid fog.
+
+sth Level: break enchantment, dominate person, feeblemind,
+friend to foe*, hold monster, incite riot®, mind fog, Rary’s telepathic
+bond, seeming, sending, swift etherealness*,
+
+6th Level: greater dispel magic, mass suggestion, mislead,
+overwhelm®, remdsion, shadow walk, true seeing, veil.
+
+7th Level: ethereal jaunt, greater arcane sight, mass hold person,
+mass invisibility, phase door, power word blind, project image,
+spell turning.
+
+8th Level: demand, discern location, mind blank, moment of
+prescience, power word stun, scintillating pattern, sereen.
+
+9th Level: dominate monster, etherealness, foresight, mass hold
+monster, pawer word kill, time stop.
+
+  
+
+“T possess a dragon's power. Beware lest you awaken that
+dragon's wrath.”
+—Kalia, last and greatest dragon shaman
+
+of the Blackspear tribe
+
+Empires crumble, eons pass, and even gods wither and
+die, but dragons remain. Mortal but eternal, the races of
+true dragons weather the roll of the ages because of their
+unsurpassed might. Few creatures can match a dragon in
+its full fury, whether in a combat of arms or battle of wits.
+Dragon shamans recognize this fact and see true dragons as,
+more than powerful beings. Toa dragon shaman, the passing
+shadow of a dragon flying overhead isn't a sign that invokes
+fear; it’s a blessing that reveals you to be in the presence
+of greatness
+
+Dragon shamans respect true dragons as power incarnate.
+Some worship dragons, but most simply aspire to gain dragon
+powers for themselves. In assuming the abilities and the
+likeness of a dragon, a dragon shaman seeks to emulate that
+might and embody that power within himself,
+
+ 
+
+ 
+
+ 
+

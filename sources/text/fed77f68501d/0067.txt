@@ -1,0 +1,139 @@
+ 
+
+Shifting stones and walls are generally constructed as traps (see
+page 67), with triggers and Search and Disable Device DCs, How-
+ever they dont have Challenge Ratings because they're inconven-
+iences, not deadly in and of themselves.
+
+‘Teleporters: Sometimes useful, sometimes devious, places in a}
+dungeon rigged with a teleportation effect (such asa teleportation |
+circle) transport characters to. some other location in the dungeon}
+
+jorsomeplace far away, They.can be traps, teleporting the unwary,
+linto dangerous situations, or they can be an easy mode of trans-}
+sport forthose who built or live in the dungeon, good for bypassing |
+barriers and traps or simply to get around
+more quickly. Devious dungeon designers
+might place a teleporter in a room that rans-
+ports characters to another seemingly identi-
+cal room so that_they don't even know
+they've been teleported. A detect magic spell
+will provide.a clue to. the presence of a tele-
+yporter, but direct experimentation or other
+jresearch is the only way to discover where
+\the teleporter leads.
+
+Altars: Temples—particularly to dark
+gods—often exist underground, Usu-
+ally taking the form of a stone block, an
+altar is the main fixture and central focus
+of such a temple. Sometimes all the other
+trappings of the temple are long gone,
+
+lost to theft, age, and decay, but the altar
+\survives. Some altars have traps or pow-
+jerful magic within them. Most take up.
+lone. or two squares on the grid and provide cover to creatures
+tbehind them.
+
+Analtar
+dedicated to
+an evil deity
+
+ 
+ 
+ 
+     
+   
+ 
+  
+  
+ 
+ 
+  
+ 
+
+CAVE-INS AND COLLAPSES (CR 8)
+
+Cave-ins and collapsing tunnels are extremely dangerous, Notonly |
+do dungeon explorers face the danger of being crushed by. tons of
+falling rock, even if they survive they may be buried beneath apile.
+sof rubble or cut off from the only known exit. A cave-in buries
+lanyone in the middle of the collapsing area, and then sliding debris
+damages anyone in the periphery of the collapse. A typical corridor
+subject to a cave-in.mighr have a bury zone with a15-foor radius.
+and a 10-foot-radius slide zone extending beyond the bury zone.,
+
+A weakened ceiling can be spotted with a DC 20 Knowledge,
+(architecture and engineering) or DC 20 Craft (stonemasonry))
+check. Remember that Craft checks can be made_untrained as In-
+telligence checks. A dwarf can make such a check if he simply.
+passes within 10 feet of a weakened ceiling. ,
+A weakened ceiling may collapse when subjected to a. major}
+impact or concussion. A character can cause a caye-in by destroy-
+ing half the pillars holding the ceiling up. If you want to create a
+
+room where a collapse is a real possibility, include a number of
+pillars that have already toppled before the PCs arrive. (The
+presence of broken pillars is an obvious clue to a weakened
+ceiling, even for characters with no particular knowledge.
+
+Characters in the bury zone of acave-in take 8d6 points of.
+damage, or half that amount if they make a DC 15 Reflex
+save, They are subsequently buried. Characters in the slide
+zone. take 3d6 points of damage, or no damage at all if they
+make a DC 15 Reflex save. Characters in the slide zone who.
+
+fail their saves are buried.
+
+Characters take 1d6 points of nonlethal damage per
+minute while buried. If such a character falls unconscious, he }
+must make a DC 15 Constitution check. If it fails, he takes 106
+points of lethal damage each minute thereafter until freed or dead, |
+
+Taste 3-12: 32___ Discarded weapons } 66 Paper
+MINOR FEATURES AND FURNISHINGS 33 Dishes 67 Pillows
+
+d% Feature/Furnishing 34 Dripping water 68 Pipe (smoking pipe)
+01 Anvil 35. Drum 69 Pole
+02 Ash 136 Dust 70 Pot
+03 Backpack 37 Engraving 7) Pottery shard
+04 Bale (straw) 38. Equipment (broken) 72 Pouch
+05 Bellows 39 Equipment (usable) 73 Puddle (water)
+
+1.06 Belt. 40 Flask 74 Rags
+
+107. Bits of fur 41. Flint and tinder 75 Razor
+
+08. Blanket 42 Foodstuffs (spoiled) 76 Rivulet
+
+09 Bloodstain 43 Foodstuffs (edible) 77 ‘Ropes
+
+(10 Bones (humanoid) 44 Fungus 78 Runes
+11 Bones (nonhumanoid) 48 Grinder 79 Sack
+12. Books 46 Hook 80 Scattered stones
+13 Boots 47 Horn 81 Scorch marks
+14 Bottle 48 Hourglass $2__ Scroll (nonmagical)
+15 Box 49 Insects 83 Scroll case (empty)
+16 Branding iron. 50 Jar $4 Skull
+17 Broken glass ST Keg 85 Slime
+18. Bucket 52 Key 86 _ Sound (unexplained)
+19 Candle 53 Lamp 87 Spices
+
+120. Candelabra 54 Lantern 88__ Spike
+
+121 Cards (playing cards) $5 Markings 89 Teeth
+
+422. Chains. 56 Mold 90 Tongs
+23° Claw marks 57 Mud 91 Tools
+24. Cleaver $8 Mug 92 Torch (stub)
+25 Clothing 59 Musical instrument 93 Tray
+26 Cobwebs. 60 Mysterious stain 94 Trophy
+27 Cold spot 61 Nest (animal) 95 Twine
+28 Corpse (adventurer) 62 Odor (unidentifiable) 96 Urn
+29° Corpse (monster) 63 Oil (fuel) 97 Utensils
+30__ Cracks 64 Oil (scented) 98 Whetstone
+31 Dice 65 Paint 99 Wood (scraps)
+
+100 Words (scrawled)
+

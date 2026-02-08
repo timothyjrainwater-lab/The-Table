@@ -1,0 +1,39 @@
+D&D - Cliffhangers - A Giant Ransom - Episode Five: The Wyrms Go Out
+the statue. Use your best judgement. 
+Whildenstrank will not leave to hunt until the statue is fully encased. But the PCs should have an 
+hour or two to break it free and leave. Of course, the theft will be noticed the moment the dragon 
+returns, and he will proceed to hunt down the PCs, using his winter wolf allies to track the 
+thieves.
+Whildenstrank, Male Mature Adult White Dragon: Male white dragon; CR 11; Huge dragon; 
+HD 21d12+105; hp 241; Init +4; Spd 60 ft., burrow 30 ft., fly 200 ft. (poor); AC 28 (touch 8, flat-
+footed 28); Atk +27 melee (2d8+8, bite), +22 melee (2d6+4, 2 claws), +22 melee (1d8+4, 2 
+wings), +22 melee (1d8+12, tail slap); Face/Reach 10 ft. [TS] 20 ft./10 ft.; SA breath weapon 
+(cone of cold, 50 ft., 7d6, save DC 25), Crush, frightful presence, spell-like abilities; SQ 
+blindsight 210 ft., cold subtype, damage reduction 10/+1, dragon traits, Icewalking, spell 
+resistance 20; AL CE; SV Fort +17, Ref +12, Will +13; Str 27, Dex 10, Con 21, Int 12, Wis 13, 
+Cha 12. 
+Skills and Feats: Appraise +13, Bluff +13, Diplomacy +21, Hide -8, Intimidate +17, Intuit 
+Direction +12, Listen +27, Search +18, Sense Motive +18, Spot +27; Alertness, Cleave, Flyby 
+Attack, Improved Initiative, Power Attack, Wingover
+SA -- Frightful Presence (Ex): Any creature within 210 feet and with fewer hit dice than the 
+dragon must succeed at a Will save (DC 21) whenever the dragon attacks, charges, or flies 
+overhead. On a failure, creatures with 4 or fewer HD become panicked for 4d6 rounds and those 
+with 5 or more HD become shaken for 4d6 rounds. A creature that succeeds the save is immune 
+to that dragon's frightful presence for one day.
+SA -- Breath Weapon (Su): A cone of cold that inflict 7d6 points of cold damage, Reflex save 
+half (DC 25).
+SA -- Crush: As a standard action the dragon can leap or land on an opponent up to size Small. 
+Opponents struck must succeed a Reflex save (DC 25) or become pinned and take 2d8+12 
+points of crushing damage each round they are pinned.
+SA -- Spell-Like Abilities: 3/day -- gust of wind, fog cloud.
+SQ -- Blindsight (Ex): A dragon can ascertain creatures by nonvisual means (mostly hearing and 
+scent, but also by noticing vibration and other environmental clues).
+Tactics: Whildenstrank begins by casting fog cloud, which fills the room. His blindsight makes 
+him unaffected by the fog. He will then position himself to get the most opponents in the cone of 
+his cold breath. After that he will move through the fog, attacking one character for a round or 
+two, then moving to another character to attack. If his fog cloud is dispelled, Whildenstrank will 
+try to avoid a flanked position, and will focus his attacks on one PC at a time. If he is reduced to 
+50 hp or fewer, he will attempt to flee.
+Treasure: In addition to the golden lion statue (approximate value 1,500 gp), Whildenstrank's 
+hoard is frozen in the columns of ice around the grotto. It will take some time, but the PCs could 
+http://om.wizards.com/dnd/article.asp?x=dnd/ch/ch20010806a,0 (3 of 4) [9/10/2001 5:30:42 PM]

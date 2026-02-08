@@ -1,0 +1,134 @@
+ALAMENTATION OF THIEVES
+
+improved uncanny dodge, improved evasion; AL N; SV
+Fort +3, Ref +13, Will +5; Str 12, Dex 18, Con 11, Int 15,
+Wis 14, Cha 10.
+
+Skills: Appraise + 14, Balance +13, Bluff +12, Escape Artist
++14, Hide +19, Listen +14, Perform (story telling) +13,
+Profession (innkeeper) +14, Search +15, Sense Motive +14,
+Spot +15, Use Magic Device + 13. Feats: Alertness, Lightning
+Reflexes, Point Blank Shot, Skill Focus (Hide), Track.
+
+Possessions: Light crossbow, masterwork short sword, master-
+work light bolts (x19); +3 dirk (dagger), potions of cat’s grace,
+levitate, sneaking, and hiding, and a ring of chameleon power.
+
+Personality: Eron is a passive individual who spends his
+free time reading, preferring adventuresome travelogues
+and epic poetry. Non-aggressive by nature, Eron spent his
+career as a rogue serving as a counter-thief; he used his
+skills of stealth and locksmithing to bait and capture other
+thieves. He is quiet but astute. He keeps a sharp eye out for
+potential burglars.
+
+Lady Zan, Female Human Mnk9: CR 9; SZ M (5 ft., 3
+in. tall); HD 9d8-9; hp 29; Init +1; Spd 60 ft.; AC 18 (+1
+Dex, +2 Wis, +1 Mnk, +3 bracers, +1 ring); BAB/Grap +6/
++6; Atk +10 melee (1d6+3, +3 nunchaku), or +6/+3 melee
+(1d10, unarmed); Full Atk +10/+7 melee (1d6+3, +3
+nunchaku), or +6/+6/+1 melee (1d10, unarmed); SA flurry
+of blows, unarmed strike, ki strike (magic); SQ evasion,
+still mind, slow fall (40 ft.), purity of body, wholeness of
+body; ALLN; SV Fort +7, Ref +7, Will +8; Str 10, Dex 12,
+Con 9, Int 10, Wis 14, Cha 11.
+
+Skills: Hide +10, Jump +7, Knowledge (nobility) +4,
+Listen +12, Move Silently +12, Open Lock +5, Perform
+(story telling) +9, Spot +4. Feats: Alertness, Combat
+Reflexes, Deflect Arrows’, Great Fortitude, Improved Trip’,
+Stunning Fist*, Two-Weapon Fighting, Weapon Focus
+(nunchaku).
+
+Possessions: +3 nunchaku, +3 bracers of armor, gloves of
+arrow snaring, +1 ring of protection, and potions of cure light
+wounds, alter self, spider climb, and aid.
+
+Personality: Lady Zan has a regal bearing. She is swift of
+thought and action, the result of her martial training.
+Seldom does she mingle with guests of the inn, and this has
+given heran undeserved reputation for being unapproach-
+able. Contrary to popular opinion, she is a willing
+conversationalist—if the topic interests her. She enjoys
+discussing philosophy, spirituality, and the role of human-
+kind in the cosmos. She hasa natural instinct for protecting
+her home, and she does so with fearsome precision.
+
+t; 10 gp / bottle
+
+2 ap | alas 20 gp / bottle
+
+Laughing Noble port
+Goat's milk and bread ie
+
+Hinda’s fill-me-up st
+Fresh venison and po
+
+ 
+
+Adventure Synopsis
+
+The morning after the heroes arrive at Darkstar Hall, a
+mutilated body is found in the privy. A chamber maid
+discovers the corpse of one, traveling sorcerer, a Yugin
+Vooshae, slumped in the latrine on the second floor, a good
+portion of hishead caved in likea rotten melon. Yugin wears
+only a bloody bathrobe. Apparently at some point in the
+middle of the night, he was attacked and killed.
+
+With no official constabulary on which to call to solve
+this crime, Eron finds himself at a loss. He stands there
+staring at the body, wringing his hands. Lady Zan, how-
+ever, is more decisive. Shortly after the body is discovered,
+she orders Lors, the inn’s silent custodian, to set up a vigil
+outside to ensure that no one leaves the property. Lors
+begins patrolling the grounds, turning away all travelers
+and keeping everyone else from leaving. Lady Zan spreads
+the word that she expects cooperation from all patrons in
+seeing this matter to an expeditious conclusion. In other
+words, the patrons may wander the innas they like, so long
+as they remain calm and do nothing to impede her inves-
+tigation. To placate them, she declares that all food and
+drink are free of charge until further notice. The inn’s staff
+sets to work preparing a continuous flow of refreshments.
+
+Lady Zan then proceeds to conduct her own inquiry into
+the matter. If left unassisted, she'll provoke the killer’s ire
+and be dead by noon. Only by performing their own
+investigation and thus deflecting the killer’s attention can
+the PCs prevent Lady Zan from being murdered.
+
+Solving the Crime
+
+At the time of the murder, there are over 20 people
+staying in Darkstar Hall. This includes Eron, Lady Zan, six
+staff members, 11 patrons, and the PCs (making a total of
+19 plus the heroes). If the PCs decide that everyone is a
+suspect, then that leaves them with 19 people to interview.
+A daunting task indeed! Meanwhile, Lady Zan carries out
+her own investigation. She considers the PCs to be sus-
+pectsalong with everyone else. They must provide sufficient
+alibis to account for themselves at the time of the killing.
+If they are unable to do so to Lady Zan’s satisfaction, they
+must track down the murderer while simultaneously de-
+fending their own innocence. The best place for them to
+start their investigation is at the murder scene (Area 11),
+where the killer left behind a few clues. Armed with this
+evidence, the PCs should explore Darkstar Hall, combing
+the building for clues and interviewing as many of the 19
+possible suspects as they deem necessary.
+
+The truth of the matter is this: a halfling thief named
+Branke murdered Yugin Vooshae. His motive? He discov-
+ered that Yugin was working for Master Thief Sivian
+Ulphar and had been under orders to steal the mysterious
+Star; Branke desires the Star for himself. His means? Yugin
+Vooshae was nearly six feet tall and was obviously struck
+from behind and slightly above, indicating that the mur-
+derer was at least as tall as the victim; Branke imbibed a
+potion of enlarge and struck Yugin with a mace he stole from
+the room ofa priest named Toomba. Branke hopes that by
+setting up Toomba to take the fall, he’ll get away clean.
+
+ 
+

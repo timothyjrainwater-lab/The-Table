@@ -1,0 +1,135 @@
+ 
+ 194 
+ Stoneskin M: Ignore 10 points of damage per attack. 
+Conj Dimension Door: Teleports you short distance. 
+ Evard’s Black Tentacles:  Tentacles grapple all within 15 ft. 
+spread. 
+ Leomund’s Secure Shelter:  Creates sturdy cottage. 
+ Minor Creation:  Creates one cloth or wood object. 
+ Solid Fog:  Blocks vision and slows movement. 
+ Summon Monster IV:  Calls extraplanar creature to fight 
+for you. 
+Div Arcane Eye: Invisible floating eye moves 30 ft./round. 
+ Detect Scrying:  Alerts you of magical eavesdropping. 
+ Locate Creature:  Indicates direction to familiar creature. 
+ Scrying F: Spies on subject from a distance. 
+Ench Charm Monster: Makes monster believe it is your ally. 
+ Confusion:  Subjects behave oddly for 1 round/level. 
+ Crushing Despair:  Subjects take –2 on attack rolls, damage 
+rolls, saves, and checks. 
+ Geas, Lesser:  Commands subject of 7 HD or less. 
+Evoc Fire Shield:  Creatures attacking you take fire damage; 
+you’re protected from heat or cold. 
+ Ice Storm:  Hail deals 5d6 damage in cylinder 40 ft. across. 
+ Otiluke’s Resilient Sphere:  Force globe protects but traps 
+one subject. 
+ Shout:  Deafens all within cone and deals 5d6 sonic damage. 
+ Wall of Fire:  Deals 2d4 fire damage out to 10 ft. and 1d4 out 
+to 20 ft. Passing through wall deals 2d6 damage +1/level. 
+ Wall of Ice:  Ice plane  creates wall with 15 hp +1/level, or 
+hemisphere can trap creatures inside. 
+Illus Hallucinatory Terrain:  Makes one type of terrain appear 
+like another (field into forest, or the like). 
+ Illusory Wall:  Wall, floor, or ceiling looks real, but 
+anything can pass through. 
+ Invisibility, Greater:  As invisibility, but subject can attack 
+and stay invisible. 
+ Phantasmal Killer:  Fearsome illusion kills subject or deals 
+3d6 damage. 
+ Rainbow Pattern:  Lights fascinate 24 HD of creatures. 
+ Shadow Conjuration:  Mimics conjuration below 4th level, 
+but only 20% real. 
+Necro Animate Dead M: Creates undead skeletons and zombies. 
+ Bestow Curse:  –6 to an ability score; –4 on attack rolls, 
+saves, and checks; or 50% chance of losing each action. 
+ Contagion:  Infects subject with chosen disease. 
+ Enervation:  Subject gains 1d4 negative levels. 
+ Fear:  Subjects within cone flee for 1 round/level. 
+Trans Enlarge Person, Mass: Enlarges several creatures. 
+ Polymorph:  Gives one willing subject a new form. 
+ Rary’s Mnemonic Enhancer F: Wizard only. Prepares extra 
+spells or retains one just cast. 
+ Reduce Person, Mass:  Reduces several creatures. 
+ Stone Shape:  Sculpts stone into any shape. 
+ 
+5TH-LEVEL SORCERER/WIZARD SPELLS 
+Abjur Break Enchantment:  Frees subjects from enchantments, 
+alterations, curses, and petrification. 
+ Dismissal:  Forces a creature to return to native plane. 
+ Mordenkainen’s Private Sanctum:  Prevents anyone from 
+viewing or scrying an area for 24 hours. 
+Conj Cloudkill: Kills 3 HD or less; 4–6 HD save or die, 6+ HD 
+take Con damage. 
+ Leomund’s Secret Chest F: Hides expensive chest on 
+Ethereal Plane; you retrieve it at will. 
+ Major Creation:  As minor creation, plus stone and metal. 
+ Mordenkainen’s Faithful Hound:  Phantom dog can 
+guard, attack. 
+ Planar Binding, Lesser:  Traps extraplanar creature of 6 HD 
+or less until it performs a task. 
+ Summon Monster V:  Calls extraplanar creature to fight for 
+you. 
+ Teleport:  Instantly transports you as far as 100 miles/level. 
+ Wall of Stone:  Creates a stone wall that can be shaped. 
+Div Contact Other Plane:  Lets you ask question of extraplanar 
+entity. 
+ Prying Eyes:  1d4 +1/level floating eyes scout for you. 
+ Rary’s Telepathic Bond:  Link lets allies communicate. 
+Ench Dominate Person: Controls humanoid telepathically. 
+ Feeblemind:  Subject’s Int and Cha drop to 1. 
+ Hold Monster:  As hold person, but any creature. 
+ Mind Fog:  Subjects in fog get –10 to Wis and Will checks. 
+ Symbol of Sleep M: Triggered rune puts nearby creatures 
+into catatonic slumber. 
+Evoc Bigby’s Interposing Hand:  Hand provides cover against 
+one opponent. 
+ Cone of Cold:  1d6/level cold damage. 
+ Sending:  Delivers short message anywhere, instantly. 
+ Wall of Force:  Wall is immune to damage. 
+Illus Dream: Sends message to anyone sleeping. 
+ False Vision M: Fools scrying with an illusion. 
+ Mirage Arcana:  As hallucinatory terrain, plus structures. 
+ Nightmare:  Sends vision dealing 1d10 damage, fatigue. 
+ Persistent Image:  As major image , but no concentration 
+required. 
+ Seeming:  Changes appearance of one person per two levels. 
+ Shadow Evocation:  Mimics evocation below 5th level, but 
+only 20% real. 
+Necro Blight: Withers one plant or deals 1d6/level damage to 
+plant creature. 
+ Magic Jar F: Enables possession of another creature. 
+ Symbol of Pain M: Triggered rune wracks nearby creatures 
+with pain. 
+ Waves of Fatigue:  Several targets become fatigued. 
+Trans Animal Growth: One animal/two levels doubles in size. 
+ Baleful Polymorph:  Transforms subject into harmless 
+animal. 
+ Fabricate:  Transforms raw materials into finished items. 
+ Overland Flight:  You fly at a speed of 40 ft. and can hustle 
+over long distances. 
+ Passwall:  Creates passage through wood or stone wall. 
+ Telekinesis:  Moves object, attacks creature, or hurls object 
+or creature. 
+ Transmute Mud to Rock:  Transforms two 10-ft. cubes per 
+level. 
+ Transmute Rock to Mud:  Transforms two 10-ft. cubes per 
+level. 
+Univ Permanency X: Makes certain spells permanent. 
+ 
+6TH-LEVEL SORCERER/WIZARD SPELLS 
+Abjur Antimagic Field: Negates magic within 10 ft. 
+ Dispel Magic, Greater:  As dispel magic, but +20 on check. 
+ Globe of Invulnerability:  As lesser globe of invulnerability , 
+plus 4th-level spell effects. 
+ Guards and Wards:  Array of magic effects protect area. 
+ Repulsion:  Creatures can’t approach you. 
+Conj Acid Fog: Fog deals acid damage. 
+ Planar Binding:  As lesser planar binding, but up to 12 HD. 
+ Summon Monster VI:  Calls extraplanar creature to fight 
+for you. 
+ Wall of Iron M: 30 hp/four levels; can topple onto foes. 
+Div Analyze Dweomer F: Reveals magical aspects of subject. 
+ Legend Lore M F : Lets you learn tales about a person, place, 
+or thing. 
+CHAPTER 11: 
+SPELLS 

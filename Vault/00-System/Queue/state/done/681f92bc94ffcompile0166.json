@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0166",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 166,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:38:32.763112+00:00"
+  },
+  "doneAt": "2026-02-03T09:38:51.767418+00:00",
+  "citation": "PHB (pdf p.0166)",
+  "printedGuess": "165",
+  "touched": [
+    "Rule — Armor Class"
+  ],
+  "createdTables": [
+    "Table —  (PHB 9–8)",
+    "Table — Light Sources and Illumination (PHB 9–7)",
+    "Table — Substance Hardness and Hit Points; and Table 9–11: (PHB 9–9)"
+  ]
+}

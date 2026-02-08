@@ -1,0 +1,135 @@
+ 
+ 
+20 
+gnomes and making themselves valuable and welcome. Since 
+human society changes faster than the societies of the longer-lived 
+races, it is human society that most frequently offers halflings 
+opportunities to exploit, and halflings are most often found in or 
+around human lands. 
+Alignment: Halflings tend to be neutral. While they are com-
+fortable with change (a chaotic trait), they also tend to rely on intan-
+gible constants, such as clan ties and personal honor (a lawful trait). 
+Halfling Lands:  Halflings have no lands of their own. Instead, 
+they live in the lands of other races, where they can benefit from 
+whatever resources those lands have to offer. Halflings often form 
+tight-knit communities in human or dwarven cities. While they 
+work readily with others, they often make friends only their own 
+kind. Halflings also settle into secluded places where they set up 
+self-reliant villages. Halfling communities, however, are known for 
+picking up and moving en masse to some place that offers a new 
+opportunity, such as a new mine that has just opened, or to a land 
+where a devastating war has made skilled workers hard to find. If 
+these opportunities are temporary, the community may pick up and 
+move again once the opportunity is gone, or once a better one 
+presents itself. Some halfling communities, on the other hand, take 
+to traveling as a way of life, driving wagons or guiding boats from 
+place to place, and maintaining no permanent 
+home. 
+Religion: The chief halfling deity is 
+Yondalla, the Blessed One, protector 
+of the halflings. Yondalla promises 
+blessings and protection to those 
+who heed her guidance, defend their 
+clans, and cherish their families. 
+Halflings also recognize countless 
+small gods, which they say rule over 
+individual villages, forests, rivers, 
+lakes, and so on. They pay homage to 
+these deities to ensure safe journeys 
+as they travel from place to place. 
+Language: Halflings speak their 
+own language, which uses the 
+Common script. They write very little 
+in their own language so, unlike 
+dwarves, elves, and gnomes, they don’t 
+have a rich body of written work. The halfling 
+oral tradition, however, is very strong. While the 
+Halfling language isn’t secret, halflings are loath 
+to share it with others. Almost all halflings speak 
+Common, since they use it to deal with the 
+people in whose land they are living or through which they 
+are traveling. 
+Names: A halfling has a given name, a family name, and 
+possibly a nickname. It would seem 
+that family names are nothing 
+more than nicknames that stuck 
+so well they have been passed 
+down through the generations. 
+Male Names: Alton, Beau, Cade, 
+Eldon, Garret, Lyle, Milo, Osborn, 
+Roscoe, Wellby. 
+Female Names:  Amaryllis, 
+Charmaine, Cora, Euphemia, Jillian, Lavinia, Lidda, Merla, Portia, 
+Seraphina, Verna. 
+Family Names: Brushgather, Goodbarrel, Greenbottle, Highhill, 
+Hilltopple, Leagallow, Tealeaf, Thorngage, Tosscobble, Underbough. 
+Adventurers: Halflings often set out on their own to make their 
+way in the world. Halfling adventurers are typically looking for a 
+way to use their skills to gain wealth or status. The distinction 
+between a halfling adventurer and a halfling out on her own looking 
+for “a big score” can get blurry. For a halfling, adventuring is less of a 
+career than an opportunity. While halfling opportunism can 
+sometimes look like larceny or fraud to others, a halfling adventurer 
+who learns to trust her fellows is worthy of trust in return. 
+ 
+HALFLING RACIAL TRAITS 
+/rhombus4 +2 Dexterity, –2 Strength: Halflings are quick, agile, and good 
+with ranged weapons, but they are small and therefore not as 
+strong as other humanoids. 
+/rhombus4 Small: As a Small creature, a halfling gains a +1 size bonus to 
+Armor Class, a +1 size bonus on attack rolls, and a +4 size bonus 
+on Hide checks, but she uses smaller weapons than humans use, 
+and her lifting and carrying limits are three-quarters of those of a 
+Medium character. 
+/rhombus4 Halfling base land speed is 20 feet. 
+/rhombus4 +2 racial bonus on Climb, Jump, and Move Silently 
+checks: Halflings are agile, surefooted, and 
+athletic. 
+/rhombus4 +1 racial bonus on all saving throws: Halflings 
+are surprisingly capable of avoiding mishaps. 
+/rhombus4 +2 morale bonus on saving throws against 
+fear. This bonus stacks with the halfling’s 
++1 bonus on saving throws in general. 
+/rhombus4 +1 racial bonus on attack rolls with a 
+thrown weapon and slings: Throwing and 
+slinging stones is a universal sport among 
+halflings, and they develop especially 
+good aim. 
+/rhombus4 +2 racial bonus on Listen checks: 
+Halflings have keen ears. 
+/rhombus4 Automatic Languages: Common 
+and Halfling. Bonus Languages: 
+Dwarven, Elven, Gnome, Goblin, 
+and Orc. Smart halflings learn 
+the languages of their friends 
+and enemies. 
+/rhombus4 Favored Class: Rogue. A multiclass 
+halfling’s rogue class does not count when 
+determining whether she take an 
+experience point penalty for 
+multiclassing (see XP for 
+Multiclass Characters, page 60). 
+Halflings have long had to rely 
+on stealth, wit, and skill, and 
+the vocation of rogue comes 
+naturally to them. 
+SMALL CHARACTERS 
+A Small character gets a +1 size bonus to Armor Class, a +1 size bonus
+on attack rolls, and a +4 size bonus on Hide checks. The bonus on
+attacks results from the fact that it’s really relative size that matters in
+determining attack chances. It’s no harder for a halfling to hit another
+halfling than it is for a human to hit another human, because the
+attacking halfling’s bonus on attack rolls counteracts the defending 
+halfling’s bonus to Armor Class. Likewise, a halfling has an easy time
+hitting a human, 
+just as a human has an easy time hitting an ogre, and 
+an ogre has an easy time hitting a giant. 
+A Small character’s carrying capacity is three-quarters of that of a 
+Medium character (see Bigger and Small Creatures, page 162). 
+A Small character generally moves about two-thirds as fast as a 
+Medium character. 
+A Small character must use smaller weapons than a Medium char-
+acter (see Weapon Size, page 113). 
+Illus. by T. Lockwood 
+CHAPTER 2: 
+RACES 

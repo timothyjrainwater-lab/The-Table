@@ -1,0 +1,137 @@
+ 
+ 172 
+act simultaneously, and if one ends first, the other one continues to 
+operate for the remainder of its duration. Likewise, two haste spells 
+do not make the creature doubly fast. 
+More generally, two bonuses of the same type don’t stack even if 
+they come from different spells (or from effects other than spells; 
+see Bonus Types, above). For example, the enhancement bonus to 
+Strength from a bull’s strength  spell and the enhancement bonus to 
+Strength from a divine power  spell don’t stack. You use whichever 
+bonus gives you the better Strength score. In the same way, a belt of 
+giant Strength  gives you an enhancement bonus to Strength, which 
+does not stack with the bonus you get from a bull’s strength spell. 
+Different Bonus Names:  The bonuses or penalties from two dif-
+ferent spells stack if the modifiers are of different types. For 
+example, bless provides a +1 morale bonus on saves against fear 
+effects, and protection from evil  provides a +2 resistance bonus on 
+saves against spells cast by evil creatures. A character under the 
+influence of spells gets a +1 bonus against all fear effects, a +2 bonus 
+against spells cast by evil beings, and a +3 bonus against fear spells 
+cast by evil creatures. 
+A bonus that isn’t named (just a “+2 bonus” rather than a “+2 
+resistance bonus”) stacks with any bonus. 
+Same Effect More than Once in Different Strengths:  In cases when two 
+or more identical spells are operating in the same area or on the 
+same target, but at different strengths, only the best one applies. For 
+example, if a character takes a –4 penalty to Strength from a ray of 
+enfeeblement spell and then receives a second ray of enfeeblement spell 
+that applies a –6 penalty, he or she takes only the –6 penalty. Both 
+spells are still operating on the character, however. If one ray of 
+enfeeblement spell is dispelled or its duration runs out, the other spell 
+remains in effect, assuming that its duration has not yet expired. 
+Same Effect with Differing Results:  The same spell can sometimes 
+produce varying effects if applied to the same recipient more than 
+once. For example, a series of polymorph spells might turn a creature 
+into a mouse, a lion, and then a snail. In this case, the last spell in the 
+series trumps the others. None of the previous spells are actually 
+removed or dispelled, but their effects become irrelevant while the 
+final spell in the series lasts. 
+One Effect Makes Another Irrelevant:  Sometimes, one spell can 
+render a later spell irrelevant. For example, if a wizard is using a 
+shapechange spell to take the shape of an eagle, a polymorph spell 
+could change her into a goldfish. The shapechange spell is not 
+negated, however, and since the polymorph spell has no effect on the 
+recipient’s special abilities, the wizard could use the shapechange 
+effect to take any form the spell allows whenever she desires. If a 
+creature using a shapechange effect becomes petrified by a flesh to 
+stone spell, however, it turns into a mindless, inert statue, and the 
+shapechange effect cannot help it escape. 
+Multiple Mental Control Effects:  Sometimes magical effects that 
+establish mental control render each other irrelevant. For example, a 
+hold person effect renders any other form of mental control irrelevant 
+because it robs the subject of the ability to move. Mental controls 
+that don’t remove the recipient’s ability to act usually do not 
+interfere with each other. For example, a person who has received a 
+geas/quest spell can also be subjected to a charm person  spell. The 
+charmed person remains committed to fulfilling the quest, however, 
+and resists any order that interferes with that goal. In this case, the 
+geas/quest spell doesn’t negate charm person , but it does reduce its 
+effectiveness, just as nonmagical devotion to a quest would. If a 
+creature is under the mental control of two or more creatures, it 
+tends to obey each to the best of its ability, and to the extent of the 
+control each effect allows. If the controlled creature receives 
+conflicting orders simultaneously, the competing controllers must 
+make opposed Charisma checks to determine which one the 
+creature obeys. 
+Spells with Opposite Effects: Spells with opposite effects apply 
+normally, with all bonuses, penalties, or changes accruing in the 
+order that they apply. Some spells negate or counter each other. This 
+is a special effect that is noted in a spell’s description. 
+Instantaneous Effects: Two or more spells with instantaneous 
+durations work cumulatively when they affect the same target. For 
+example, when two fireballs strike a same creature, the target must 
+attempt a saving throw against each fireball and takes damage from 
+each according to the saving throws’ results. If a creature receives 
+two cure light wounds spells in a single round, both work normally. 
+ 
+SPELL DESCRIPTIONS 
+The spells available to characters are listed and described in Chapter 
+11: Spells. The description of each spell is presented in a standard 
+format. Each category of information is explained and defined 
+below. 
+ 
+NAME 
+The first line of every spell description gives the name by which the 
+spell is generally known. 
+ 
+SCHOOL (SUBSCHOOL) 
+Beneath the spell name is a line giving the school of magic (and the 
+subschool, if appropriate) that the spell belongs to. 
+Almost every spell belongs to one of eight schools of magic. A 
+school of magic is a group of related spells that work in similar ways. 
+A small number of spells ( arcane mark, limited wish, permanency, pres-
+tidigitation, and wish) are universal, belonging to no school. 
+ 
+Abjuration 
+Abjurations are protective spells. They create physical or magical 
+barriers, negate magical or physical abilities, harm trespassers, or 
+even banish the subject of the spell to another plane of existence. 
+Representative spells include protection from evil , dispel magic , 
+antimagic field, and banishment. 
+If one abjuration spell is active within 10 feet of another for 24 
+hours or more, the magical fields interfere with each other and 
+create barely visible energy fluctuations. The DC to find such spells 
+with the Search skill drops by 4. 
+If an abjuration creates a barrier that keeps certain types of 
+creatures at bay, that barrier cannot be used to push away those 
+creatures. If you force the barrier against such a creature, you feel a 
+discernible pressure against the barrier. If you continue to apply 
+pressure, you end the spell. 
+ 
+Conjuration 
+Each conjuration spell belongs to one of five subschools. Con-
+jurations bring manifestations of objects, creatures, or some form of 
+energy to you (the summoning subschool), actually transport 
+creatures from another plane of existence to your plane (calling), 
+heal (healing), transport creatures or objects over great distances 
+(teleportation), or create objects or effects on the spot (creation). 
+Creatures you conjure usually, but not always, obey your commands. 
+Representative spells include the various summon monster spells, cure 
+light wounds, raise dead, teleport, and wall of iron. 
+A creature or object brought into being or transported to your 
+location by a conjuration spell cannot appear inside another creature 
+or object, nor can it appear floating in an empty space. It must arrive 
+in an open location on a surface capable of supporting it. The 
+creature or object must appear within the spell’s range, but it does 
+not have to remain within the range. 
+Calling: A calling spell transports a creature from another plane 
+to the plane you are on. The spell grants the creature the one-time 
+ability to return to its plane of origin, although the spell may limit 
+the circumstances under which this is possible. Creatures who are 
+called actually die when they are killed; they do not disappear and 
+reform, as do those brought by a summoning spell (see below). The 
+duration of a calling spell is instantaneous, which means that the 
+called creature can’t be dispelled. 
+CHAPTER 10: 
+MAGIC 

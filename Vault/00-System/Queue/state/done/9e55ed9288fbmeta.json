@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "9e55ed9288fb:meta",
+    "sourceId": "9e55ed9288fb",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Empire.pdf",
+    "title": "Empire",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T09:56:00.207693+00:00",
+  "meta": {
+    "sourceId": "9e55ed9288fb",
+    "title": "Empire",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Empire.pdf",
+    "pages": 130,
+    "extractedAt": "2026-02-03T09:55:59.598521+00:00"
+  }
+}

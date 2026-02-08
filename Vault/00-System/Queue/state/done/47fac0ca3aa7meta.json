@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "47fac0ca3aa7:meta",
+    "sourceId": "47fac0ca3aa7",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Temple of The Iron Codex.pdf",
+    "title": "Temple of The Iron Codex",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:55:10.487541+00:00",
+  "meta": {
+    "sourceId": "47fac0ca3aa7",
+    "title": "Temple of The Iron Codex",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/Temple of The Iron Codex.pdf",
+    "pages": 10,
+    "extractedAt": "2026-02-03T19:55:10.480350+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

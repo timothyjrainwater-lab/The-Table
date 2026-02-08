@@ -1,0 +1,162 @@
+must pay close attention to the knight's code of conduct,
+since it forbids you from taking advantage of several tactically
+useful situations.
+
+You excel in combat in a manner similar to a fighter—but
+while a fighter can slay a monster, your primary talent is
+your ability to keep that monster away from your allies
+while you battle it. Ir might take you longer to win the
+day, but your many hit points and strong defensive abiliies
+help preserve you. Best of all, your defense enables your
+allies to function at full capacity without being subject to
+the monster's attacks. Any sorcerer or wizard in the party
+thrives when you are there to absorb attacks and hold back
+your mutual foes
+
+As you advance in level, you gain the ability to dictate
+a foe's actions, forcing him to attack you instead of other
+targets. Weaker opponents, which typically appear in num-
+bers too large for you to hold them all back, quail in terror
+when you menace them. Even if they slip past you, they
+take penalties when they attack your allies. Your knight's
+challenge and shield block class features combine to let
+you excel in one-on-one melee, granting you a bonus on
+attack rolls, damage rolls, and Armor Class against a single
+foe of your choice. If the group faces a mighty villain or a
+single, overwhelming physical threat, it's up to you to keep
+the monster occupied while your allies cast their spells or
+maneuver for position
+
+Abilities: You benefit from a high Charisma score, since
+it determines how often you can use some of your abilities
+and the save DC of those abilities. A high Constitution allows
+you to increase your already impressive hit point toral, thus
+bolstering your capacity to defend your allies. Strength
+improves your combat abilities, making you more effective
+as a front-line character.
+
+Races: The majority of knights are dwarves, humans, and
+halfelves. The dwarf's tendency toward order, combined
+with that race's militaristic bent, gives rise to fighting orders
+dedicated to upholding justice and obeying an honorable code
+Dwarf knights also serve as wandering dispensers of justice
+between isolated settlements who enforce the rule of law
+and protect small clanholds. Humanity, with its sprawling
+kingdoms and empires, produces many knights who fight
+as much for king and country as for personal honor and
+monetary rewards. Some half-elves enter into such service as
+well and can rise to high ranks within such orders. Gnomes
+and halflings rarely become knights, since the knight's
+straightforward code of conduct runs counter to the small
+races’ reliance on trickery and clever planning, Few half-ores
+have the opportunity to become knights, but when they do
+their natural strength serves them well. Elf knights are rare,
+since elves prefer freedom and flexibility over the rigid code
+of honor all knights must follow.
+
+Alignment: Knights are always lawful, Their dedication
+to a code of conduct is but one expression of their devotion
+to order. Most knightly orders arise as institutions forged to
+protect a kingdom from invaders or to enforce the law against
+chaos from within.
+
+While knights value order, they tend in equal numbers
+toward good, evil, and neutrality. Lawful good knights see
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+order as a tool ro protect the innocent and weak from evil
+Lawful evil knights believe that the social order serves to
+reward the strong, Lawful neutral knights abhor the destruc-
+tion and suffering that chaos can bring and so uphold order
+for its own sake.
+
+Starting Gold: 6d4x10 gp (150 gp).
+
+Starting Age: As paladin (PH 109)
+
+CLASS FEATURES
+
+Your class features involve mastering the use of armor and
+shields and learning how to manipulate your foes so that
+melee combat takes place on your terms, not theirs,
+
+Weapon and Armor Proficiency: Knights are profi-
+cient with all simple and martial weapons and with all
+armor (heavy, medium, and light) and all shields (except
+tower shields).
+
+Knight's Challenge: Your dauntless fighting spirit plays.a
+majorrole in your fighting style, as importantas the strength
+of your arm or the sharpness of your blade. In battle, you
+use the force of your personality to challenge your enemies.
+You can call out a foe, shouting a challenge that boosts his
+confidence, or issue a general challenge thar strikes fear into
+weak opponents and compels strong opponents to seek you
+out for personal combar. By playing on your enemies’ ego,
+you can manipulate your foes.
+
+You can use this ability a number of times per day equal to
+
+2 your class level + your Charisma bonus (minimum once
+per day). As you gain levels, you gain a number of options
+that you can use in conjunction with this ability.
+
+Even if you and your foes lack a shared language, you can
+still effectively communicate through body language, tone,
+and certain oaths and challenges you learn from a variety of
+different tongues.
+
+Fighting Challenge (Ex): As a swift action, you can issue a
+challenge againsta single opponent. The target of this ability
+must have an Intelligence of § or higher, have a language of
+some sort, and have a CR greater than or equal to your char-
+acter level minus 2. If it does not meet these requirements,
+ause of this ability is expended without effect
+
+If the target does meet the conditions given above, you
+gain a +1 morale bonus on Will saves anda +1 morale bonus
+on attack rolls and damage rolls against the target of this
+ability. You fight with renewed vigor and energy by placing
+your honor and reputation on the line. If your chosen foe
+reduces you to 0 or fewer hit points, you lose two uses of your
+knight's challenge ability for the day because of the blow to
+your ego and confidence from this defeat,
+
+The effect of a fighting challenge lasts for a number of
+rounds equal to 5 + your Charisma bonus (if any)
+
+If you are capable of issuing a knight's challenge more
+than once per day, you can use this ability more than once
+ina single encounter. If your first chosen foe is defeated
+or flees the area, you can issue a new challenge to a dif
+ferent foe. You cannot switch foes if your original target is
+still active.
+
+At7th level, the bonus you gain from this ability increases
+to +2, At 13th level, it rises to +3, At 19th level, it increases
+to +4
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+
+ 
+

@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "4f8d4e4df622:meta",
+    "sourceId": "4f8d4e4df622",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Harvest of Darkness.pdf",
+    "title": "Harvest of Darkness",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:02:35.151612+00:00",
+  "meta": {
+    "sourceId": "4f8d4e4df622",
+    "title": "Harvest of Darkness",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Kingdoms Of Kalamar/Harvest of Darkness.pdf",
+    "pages": 68,
+    "extractedAt": "2026-02-03T12:02:35.142954+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

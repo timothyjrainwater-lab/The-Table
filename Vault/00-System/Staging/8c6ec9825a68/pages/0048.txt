@@ -1,0 +1,175 @@
+Besides, it’s useful to keep a few tricks up your sleeve; you
+never know when a surprise hex might be the only way to
+save your skin.
+
+You rarely get worked up over the opposition, because to
+you, it’s all business, Ogres rampaging through the province?
+You can fix that, Demons murdering the priests of Pelor?
+You'll adjust your rates and take your best shot at stopping
+them. You need a record for reliability and success if you're
+going to make any real money.
+
+Others might view you as cold or heartless, but you know
+that it’s wisest co avoid emotional entanglements. You can't
+stand it when people start acting against their self-interest in
+the name of a nebulous “cause,” and you detest deal-breakers
+When dealing with potential employers, look them right in
+the eye and state your terms.
+
+“What's in it for me?"
+
+“I'm not getting paid to do that.”
+
+"The dragon wasn't in the contract, If you want the dragon taken
+re of, you're going to have to up your offer.”
+
+“Nothing personal. It's just business.”
+
+“Sounds like you have a real problem. It’s going to cost you,"
+Tormented Champion: Dark powers manipulate you.
+People you love get hurt, causes you support founder and
+collapse, and places you visit fall into ruin. You have been
+marked for a tortured and restless existence, and your fate
+is to be a harbinger of doom and woe.
+
+You swing from morose depression to desperate acts of
+blazing anger. Most of the time, you struggle with despo:
+dency and gloom. Make dark pronouncements and dire
+predictions about things you observe, and point out flaws
+in your your allies’ plans.
+
+Sometimes you are moved to rail against your fate and lash
+out with blind, unreasoning anger at whatever obstacle or
+foe frustrates you. You might leap headlong into a throng of
+enemies, heedless of your safety. Or you might shake your
+fist at the gods and curse them bitterly.
+
+“The vampire's been watching us the whole time. We'
+exactly what he wants."
+
+“Some of us aren't getting out of this alive.”
+
+"You'll get halfway across, the rope will break, and you'l fall
+into the river there and be swept away into some black, airless
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+doing
+
+ 
+
+cavern where you'll die trying to claw your way through cold,
+hard stone.
+“Is that all you've got?”
+
+DARK COMPANION
+
+By mixing arcane spells with martial talents, the hexblade
+blurs the traditional line between fighter and sorcerer.
+Replacing the familiar—a link to traditional forms of arcane
+magic—with a unique fighting companion helps establish
+the hexblade's difference from the sorcerer.
+
+In combat, adark companion functions like a floating hex
+that you can place upon your foes, By weakening the defenses
+of enemies, your dark companion makes your spells and
+attacks (and those of your allies) more powerful,
+
+Level: 4th
+
+Replaces: If you select this class feature, you do not gain
+a familiar.
+
+ 
+
+Benefit: At 4th level, you can create an illusory companion
+resembling a panther, spun from the darkness of the night.
+Doing so takes 24 hours and uses up magic materials that cost
+100 gp. Once created, your dark companion stands with you
+in bartle, hindering your enemies’ defenses
+
+Any enemy adjacent to your dark companion takes a—2
+penalty on its saves and to its AC. Your companion’s speed
+is equal to yours (including all modes of movement you
+possess) and it acts during your turn each round. It follows
+your mental commands perfectly—in effect, it is merely an
+extension of your will
+
+Your dark companion has no real substance, and thus
+can't attack or otherwise affect creatures or objects. It
+occupies a 5-foot space. Even though any creature can
+enter a dark companion's 5-foot space without restriction,
+it must occupy its own space in order to have any effect
+on enemies. It is immune to any damage or other effects
+that might harm creatures, though it can be dispelled or
+suppressed just like a spell effect. Your dark companion is
+treated as a spell whose level is equal to 1/4 your hexblade
+level. If it is dispelled, it automatically reforms at your side
+24 hours later.
+
+ 
+
+A dark companion can't create flanking situations, nor
+does it provoke attacks of opportunity from movement,
+because enemies automatically recognize it as an illusion.
+If it is more than 120 feet from you at the start of your turn,
+or if you ever lose line of effect to ir, it instantly reappears
+adjacent to you.
+
+STARTING PACKAGES
+Package 1: The Defender
+Gnome Hexblade
+Ability Scores: Str 13, Dex 13, Con 14, Int 10, Wis 8, Cha 14.
+Skills: Bluff, Spellcrafr.
+Feat: Armor Proficiency (medium).
+Weapons: Greatsword (1d8/19-20), short bow with 20 arrows
+(id4/x3, 60 ft.)
+Armor: Scale mail {+4 AC).
+Other Gear; Standard adventurer's kit, 4 gp.
+
+ 
+
+ 
+
+   
+
+ 
+
+Package 2: The Destroyer
+
+Human Hexblade
+Ability Scores: Str 15, Dex 13, Con 12, Int 10, Wis 8, Cha 14.
+Skills: Concentration, Intimidate, Spelleraft
+Feat: Power Attack, Cleave,
+Weapons: Greataxe (1d12/x3), five javelins (1d6, 30 ft.).
+Armor: Chain shirt (+4 AC).
+Other Gear: Standard adventurer’s kit, 10 gp.
+
+ 
+
+Package 3; The Skirmisher
+Elf Hexblade
+bility Scores: Str 15, Dex 15, Con 10, Lnt 10, Wis 8, Cha 14.
+Skills: Diplomacy, Knowledge (arcana)
+Feat: Dodge.
+Weapons: Glaive (1d10/x3), warhammer (1d8/x3), longbow
+with 20 arrows (1d8/x3, 100 ft.).
+Armor: Studded leather (+3 AC).
+Other Gear: Standard adventurer's kit, 14 gp.
+
+ 
+
+   
+
+ 
+
+ 
+

@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "8ea1ca97fd27:meta",
+    "sourceId": "8ea1ca97fd27",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Lords of Madness.pdf",
+    "title": "Lords of Madness",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T13:30:49.022868+00:00",
+  "meta": {
+    "sourceId": "8ea1ca97fd27",
+    "title": "Lords of Madness",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Lords of Madness.pdf",
+    "pages": 224,
+    "extractedAt": "2026-02-03T13:30:47.895059+00:00"
+  },
+  "enqueued_extractPages": 112
+}

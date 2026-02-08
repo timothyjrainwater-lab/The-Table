@@ -1,0 +1,24 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0160",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 160,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T09:38:32.728034+00:00"
+  },
+  "doneAt": "2026-02-03T09:38:50.617876+00:00",
+  "citation": "PHB (pdf p.0160)",
+  "printedGuess": "159",
+  "touched": [
+    "Condition — Prone",
+    "Rule — Armor Class",
+    "Rule — Core Mechanic (d20)"
+  ],
+  "createdTables": [
+    "Table — Turning (PHB 8–9)",
+    "Table — Turning Undead (PHB 8–9)",
+    "Table — Turning Undead is (PHB 8–9)"
+  ]
+}

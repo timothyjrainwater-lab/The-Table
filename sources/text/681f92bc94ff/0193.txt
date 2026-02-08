@@ -1,0 +1,132 @@
+ 
+ 192 
+Protection from Energy:  Absorb 12 points/level of damage from 
+one kind of energy. 
+Snare: Creates a magic booby trap. 
+Speak with Plants:  You can talk to normal plants and plant crea-
+tures. 
+Spike Growth: Creatures in area take 1d4 damage, may be slowed. 
+Summon Nature’s Ally II: Calls animal to fight for you. 
+Wind Wall: Deflects arrows, smaller creatures, and gases. 
+ 
+3RD-LEVEL RANGER SPELLS 
+Command Plants: Sway the actions of one or more plant creatures. 
+Cure Moderate Wounds: Cures 2d8 damage +1/level (max +10). 
+Darkvision: See 60 ft. in total darkness. 
+Diminish Plants: Reduces size or blights growth of normal plants. 
+Magic Fang, Greater:  One natural weapon of subject creature gets 
++1/three caster levels on attack and damage rolls (max +5). 
+Neutralize Poison:  Immunizes subject against poison, detoxifies 
+venom in or on subject. 
+Plant Growth: Grows vegetation, improves crops. 
+Reduce Animal: Shrinks one willing animal. 
+Remove Disease: Cures all diseases affecting subject. 
+Repel Vermin: Insects, spiders, and other vermin stay 10 ft. away. 
+Summon Nature’s Ally III: Calls animal to fight for you. 
+Tree Shape: You look exactly like a tree for 1 hour/level. 
+Water Walk: Subject treads on water as if solid. 
+ 
+4TH-LEVEL RANGER SPELLS 
+Animal Growth: One animal/two levels doubles in size. 
+Commune with Nature: Learn about terrain for 1 mile/level. 
+Cure Serious Wounds: Cures 3d8 damage +1/level (max +15). 
+Freedom of Movement:  Subject moves normally despite imped-
+iments. 
+Nondetection M: Hides subject from divination, scrying. 
+Summon Nature’s Ally IV: Calls animal to fight for you. 
+Tree Stride: Step from one tree to another far away. 
+ 
+SORCERER/WIZARD SPELLS 
+ 
+0-LEVEL SORCERER/WIZARD SPELLS 
+(CANTRIPS) 
+Abjur Resistance: Subject gains +1 on saving throws. 
+Conj Acid Splash: Orb deals 1d3 acid damage. 
+Div Detect Poison:  Detects poison in one creature or small 
+object. 
+ Detect Magic: Detects spells and magic items within 60 ft. 
+ Read Magic: Read scrolls and spellbooks. 
+Ench Daze: Humanoid creature of 4 HD or less loses next action. 
+Evoc Dancing Lights: Creates torches or other lights. 
+ Flare:  Dazzles one creature (–1 on attack rolls). 
+ Light:  Object shines like a torch. 
+ Ray of Frost:  Ray deals 1d3 cold damage. 
+Illus Ghost Sound: Figment sounds. 
+Necro Disrupt Undead: Deals 1d6 damage to one undead. 
+ Touch of Fatigue:  Touch attack fatigues target. 
+Trans Mage Hand: 5-pound telekinesis. 
+ Mending:  Makes minor repairs on an object. 
+ Message:  Whispered conversation at distance. 
+ Open/Close:  Opens or closes small or light things. 
+Univ Arcane Mark:  Inscribes a personal rune (visible or invis-
+ible). 
+ Prestidigitation:  Performs minor tricks. 
+1ST-LEVEL SORCERER/WIZARD SPELLS 
+Abjur Alarm: Wards an area for 2 hours/level. 
+ Endure Elements:  Exist comfortably in hot or cold envi-
+ronments. 
+ Hold Portal:  Holds door shut. 
+ Protection from Chaos/Evil/Good/Law:  +2 to AC and 
+saves, counter mind control, hedge out elementals and 
+outsiders. 
+ Shield:  Invisible disc gives +4 to AC, blocks magic missiles. 
+Conj Grease: Makes 10-ft. square or one object slippery. 
+ Mage Armor:  Gives subject +4 armor bonus. 
+ Mount:  Summons riding horse for 2 hours/level. 
+ Obscuring Mist:  Fog surrounds you. 
+ Summon Monster I:  Calls extraplanar creature to fight for 
+you. 
+ Unseen Servant:  Invisible force obeys your commands. 
+Div Comprehend Languages:  You understand all spoken and 
+written languages. 
+ Detect Secret Doors:  Reveals hidden doors within 60 ft. 
+ Detect Undead:  Reveals undead within 60 ft. 
+ Identify M: Determines properties of magic item. 
+ True Strike:  +20 on your next attack roll. 
+Ench Charm Person: Makes one person your friend. 
+ Hypnotism:  Fascinates 2d4 HD of creatures. 
+ Sleep:  Puts 4 HD of creatures into magical slumber. 
+Evoc Burning Hands: 1d4/level fire damage (max 5d4). 
+ Magic Missile:  1d4+1 damage; +1 missile per two levels 
+above 1st (max 5). 
+ Shocking Grasp:  Touch delivers 1d6/level electricity 
+damage (max 5d6). 
+ Tenser’s Floating Disk:  Creates 3-ft.-diameter horizontal 
+disk that holds 100 lb./level. 
+Illus Color Spray: Knocks unconscious, blinds, and/or stuns 1d6 
+weak creatures. 
+ Disguise Self:  Changes your appearance. 
+ Nystul’s Magic Aura:  Alters object’s magic aura. 
+ Silent Image:  Creates minor illusion of your design. 
+ Ventriloquism:  Throws voice for 1 min./level. 
+Necro Cause Fear:  One creature of 5 HD or less flees for 1d4 
+rounds. 
+ Chill Touch:  One touch/level deals 1d6 damage and 
+possibly 1 Str damage. 
+ Ray of Enfeeblement:  Ray deals 1d6 +1 per two levels Str 
+damage. 
+Trans Animate Rope: Makes a rope move at your command. 
+ Enlarge Person:  Humanoid creature doubles in size. 
+ Erase:  Mundane or magical writing vanishes. 
+ Expeditious Retreat:  Your speed increases by 30 ft. 
+ Feather Fall:  Objects or creatures fall slowly. 
+ Jump:  Subject gets bonus on Jump checks. 
+ Magic Weapon:  Weapon gains +1 bonus. 
+ Reduce Person:  Humanoid creature halves in size. 
+ 
+2ND-LEVEL SORCERER/WIZARD SPELLS 
+Abjur Arcane Lock M: Magically locks a portal or chest. 
+ Obscure Object:  Masks object against scrying. 
+ Protection from Arrows:  Subject immune to most ranged 
+attacks. 
+ Resist Energy:  Ignores first 10 (or more) points of 
+damage/attack from specified energy type. 
+Conj Fog Cloud: Fog obscures vision. 
+ Glitterdust:  Blinds creatures, outlines invisible creatures. 
+ Melf’s Acid Arrow:  Ranged touch attack; 2d4 damage for 1 
+round +1 round/three levels. 
+ Summon Monster II:  Calls extraplanar creature to fight 
+for you. 
+ 
+CHAPTER 11: 
+SPELLS 

@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "681f92bc94ff:compile:0114",
+    "sourceId": "681f92bc94ff",
+    "kind": "compileChunk",
+    "page": 114,
+    "status": "pending",
+    "pass": "A",
+    "createdAt": "2026-02-03T08:06:00.357062+00:00"
+  },
+  "doneAt": "2026-02-03T08:43:02.950691+00:00",
+  "citation": "PHB (pdf p.0114)",
+  "printedGuess": "113",
+  "touched": [
+    "Rule — Armor Class"
+  ],
+  "createdTables": [
+    "Table — Size and Armor Class of Objects, page (PHB 9–10)"
+  ]
+}

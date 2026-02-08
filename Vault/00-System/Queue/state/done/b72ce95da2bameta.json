@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "b72ce95da2ba:meta",
+    "sourceId": "b72ce95da2ba",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/The Sunless Citadel.pdf",
+    "title": "The Sunless Citadel",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.675Z"
+  },
+  "doneAt": "2026-02-04T00:21:58.050967+00:00",
+  "meta": {
+    "sourceId": "b72ce95da2ba",
+    "title": "The Sunless Citadel",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 01/The Sunless Citadel.pdf",
+    "pages": 36,
+    "extractedAt": "2026-02-04T00:21:57.866039+00:00"
+  },
+  "enqueued_extractPages": 18
+}

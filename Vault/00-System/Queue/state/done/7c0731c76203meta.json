@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "7c0731c76203:meta",
+    "sourceId": "7c0731c76203",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Spell Compendium.pdf",
+    "title": "Spell Compendium",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.674Z"
+  },
+  "doneAt": "2026-02-03T19:14:38.325470+00:00",
+  "meta": {
+    "sourceId": "7c0731c76203",
+    "title": "Spell Compendium",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Magic/Spell Compendium.pdf",
+    "pages": 286,
+    "extractedAt": "2026-02-03T19:14:37.089590+00:00"
+  },
+  "enqueued_extractPages": 143
+}

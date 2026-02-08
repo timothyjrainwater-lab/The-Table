@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "4bde3a13ab96:meta",
+    "sourceId": "4bde3a13ab96",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/River of Blood.pdf",
+    "title": "River of Blood",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T17:07:20.730218+00:00",
+  "meta": {
+    "sourceId": "4bde3a13ab96",
+    "title": "River of Blood",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 08/River of Blood.pdf",
+    "pages": 50,
+    "extractedAt": "2026-02-03T17:07:20.723156+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

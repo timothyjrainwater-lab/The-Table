@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "ce7a6c0a401a:meta",
+    "sourceId": "ce7a6c0a401a",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Oriental Adventures.pdf",
+    "title": "Oriental Adventures",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T15:36:18.579457+00:00",
+  "meta": {
+    "sourceId": "ce7a6c0a401a",
+    "title": "Oriental Adventures",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Campaign Settings/Legend Of The Five Rings/Oriental Adventures.pdf",
+    "pages": 256,
+    "extractedAt": "2026-02-03T15:36:18.570569+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

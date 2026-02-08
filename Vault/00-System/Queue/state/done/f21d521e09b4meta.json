@@ -1,0 +1,21 @@
+{
+  "task": {
+    "taskId": "f21d521e09b4:meta",
+    "sourceId": "f21d521e09b4",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Monster.pdf",
+    "title": "Monster",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T14:29:34.712525+00:00",
+  "meta": {
+    "sourceId": "f21d521e09b4",
+    "title": "Monster",
+    "path_mnt": "/mnt/f/DnD-3.5/Supplements/Races/Monsters/Monster.pdf",
+    "pages": 154,
+    "extractedAt": "2026-02-03T14:29:33.954986+00:00"
+  },
+  "enqueued_extractPages": 77
+}

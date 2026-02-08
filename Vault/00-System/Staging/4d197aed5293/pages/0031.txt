@@ -1,0 +1,133 @@
+ 
+ 30 
+long as the ally hears the bard sing and for up to 5 rounds thereafter. 
+Inspire heroics is a mind-affecting ability. 
+Mass Suggestion (Sp):  This ability functions like suggestion, above, 
+except that a bard of 18th level or higher with 21 or more ranks in a 
+Perform skill can make the suggestion simultaneously to any number 
+of creatures that he has already fascinated (see above). Mass suggestion 
+is an enchantment (compulsion), mind-affecting, language-depen-
+dent ability. 
+ 
+Ex-Bards 
+A bard who becomes lawful in alignment cannot progress in levels 
+as a bard, though he retains all his bard abilities. 
+ 
+Gnome Bard Starting Package 
+Armor: Studded leather (+3 AC, armor check penalty –1, arcane 
+spell failure chance n/a, speed 20 ft., 10 lb.). 
+Weapons: Longsword (1d6, crit 19–20/×2, 2 lb., one-handed, 
+slashing). 
+Light crossbow (1d6, crit 19–20/×2, range inc. 80 ft., 2 lb., pierc-
+ing). 
+Skill Selection: Pick a number of skills equal to 6 + Int modifier. 
+ 
+Skill Ranks Ability Armor Check Penalty 
+Perform (string instruments) 4 Cha — 
+Spellcraft 4 Int — 
+Use Magic Device 4 Cha — 
+Gather Information 4 Cha — 
+Listen 4 Wis — 
+Decipher Script 4 Int — 
+Diplomacy 4 Cha — 
+Knowledge (any one) 4 Int — 
+Sleight of Hand 4 Dex –1 
+Disguise 4 Cha —  
+ 
+Feat: If Dexterity is 13 or higher, Dodge; if Dexterity is 12 or 
+lower, Improved Initiative instead. 
+Spells Known: 0 level—detect magic, ghost sound, light, read magic. 
+Gear: Backpack with waterskin, one day’s trail rations, bedroll, 
+sack, and flint and steel. Three torches. Case with 10 crossbow bolts. 
+Lute (common). Spell component pouch. 
+Gold: 2d4 gp. 
+ 
+CLERIC 
+The handiwork of the gods is everywhere—in places of natural 
+beauty, in mighty crusades, in soaring temples, and in the hearts of 
+worshipers. Like people, gods run the gamut from benevolent to 
+malicious, reserved to intrusive, simple to inscrutable. The gods, 
+however, work mostly through intermediaries—their clerics. Good 
+clerics heal, protect, and avenge. Evil clerics pillage, destroy, and 
+sabotage. A cleric uses the power of his god to make his god’s will 
+manifest. And if a cleric uses his god’s power to improve his own lot, 
+that’s to be expected, too. 
+Adventures: Ideally, a cleric’s adventures support his god’s 
+causes, at least in a general way. A good cleric, for example, helps 
+those in need. If, through noble acts, he can improve the reputation 
+to his god or temple, that’s even better. An evil cleric seeks to 
+increase his own power and that of his deity, so that others will 
+respect and fear both. 
+Clerics sometimes receive orders, or at least suggestions, from 
+their ecclesiastical superiors, directing them to undertake missions 
+for the church. The clerics and their companions are compensated 
+fairly for these missions, and the church may be especially generous 
+with the casting of needed spells or divine magic items as payment. 
+Of course, clerics are people, too, and they may have any or all the 
+more common motivations for adventuring. 
+Characteristics: Clerics are masters of divine magic, which is 
+especially good at healing. Even an inexperienced cleric can bring 
+people back from the brink of death, and an experienced cleric can 
+bring back people who have crossed over that brink. 
+As channelers of divine energy, clerics can affect undead crea-
+tures. A good cleric can turn away or even destroy undead; an evil 
+cleric can bring undead under his control. 
+Clerics have some combat training. They can use simple weapons, 
+and they are trained in the use of armor, since armor does not 
+interfere with divine spells the way it does with arcane spells. 
+Alignment: Like the gods they serve, clerics can be of any 
+alignment. Because people more readily worship good deities than 
+neutral or evil ones, there are more good than evil clerics. Clerics 
+also tend toward law instead of chaos, since lawful religions tend to 
+be more structured and better able to recruit and train clerics than 
+chaotic ones. 
+Typically, a cleric is the same alignment as his deity, though some 
+clerics are one step away from their respective deities in alignment. 
+For example, most clerics of Heironeous, the god of valor (who is 
+lawful good) are lawful good, but some are lawful neutral or neutral 
+good. Additionally, a cleric may not be neutral (that is, neutral on 
+both the good–evil axis and the lawful–chaotic axis) unless his deity 
+is neutral. 
+Religion: Every reasonably well-known deity has clerics devoted 
+to him or her, so clerics can be of any religion. The deity most 
+common worshiped by human clerics in civilized lands is Pelor (god 
+of the sun). The majority of nonhuman clerics are devoted to the 
+chief god of the appropriate racial pantheon. Most clerics are 
+officially ordained members of religious organizations, commonly 
+called churches. Each has sworn to uphold the ideals of his church. 
+Some clerics devote themselves not to a god but to a cause or a 
+source of divine power. These characters wield magic the way clerics 
+devoted to individual gods do, but they are not associated with any 
+religious institution or any particular practice of worship. A cleric 
+devoted to good and law, for example, may be on friendly terms with 
+the clerics of lawful and good deities and may extol the virtues of a 
+good and lawful life, but he is not a functionary in a church 
+hierarchy. 
+Background: Most clerics join their churches as young adults, 
+though some are devoted to a god’s service from a young age, and a 
+few feel the call later in life. While some clerics are tightly bound to 
+their churches’ activities on a daily basis, others have more freedom 
+to conduct their lives as they please, as long as they do so in 
+accordance with their gods’ wishes. 
+Clerics of a given religion are all supposed to get along, though 
+schisms within a church are often more bitter than conflicts 
+between religions. Clerics who share some basic ideals, such as 
+goodness or lawfulness, may find common cause with each other 
+and see themselves as part of an order or body that supersedes any 
+given religion. Clerics of opposed goals, however, are sworn ene-
+mies. In civilized lands, open warfare between religions occurs only 
+during civil wars and similar social upheavals, but vicious 
+politicking between opposed churches is common. 
+Races: All the common races are represented in this class, since 
+the need for religion and divine magic is universal. The clerics of 
+most races, however, are too focused on their religious duties to 
+undertake an adventurer’s life. Crusading, adventuring clerics most 
+often come from the human and dwarf races. 
+Among the savage humanoids, clerics are less common. The 
+exception is troglodytes, who take well to divine magic and are often 
+led by priests, who make a practice of sacrificing and devouring 
+captives. 
+Other Classes: In an adventuring party, the cleric is everybody’s 
+friend and often the glue that holds the party together. As the one 
+CHAPTER 3: 
+CLASSES 

@@ -1,0 +1,256 @@
+ 
+    
+  
+   
+  
+  
+ 
+ 
+ 
+   
+
+damage. If this damage kills the crea
+ture, it explodes as described above.
+Detonate has no effect on creatures
+thar have immunity to fire.
+Material Component: A tindertwig
+and a piece of string.
+
+ 
+
+Dimension Hop
+Conjuration (Teleportation)
+Level; Duskblade 2, sorcerer/wizard 2
+Components: V
+Casting Time: 1 standard action
+Range: Touch
+Target: Creature touched
+Duration: Instantaneous
+Saving Throw: Will negates
+Spell Resistance: Yes
+
+ 
+
+Pale motes of light dance and swirl about
+your fingertips. When you touch the crea
+ture, it disappears, leaves a cloud of mates
+
+ 
+
+in its wake, and reappears somewhere
+nearby,
+
+You instantly teleport the subject
+creature a distance of 5 feet per two
+caster levels. The destination must
+be an unoccupied space within line
+of sight
+
+   
+
+Dimension Shuffle
+Conjuration (Teleportation)
+Level: Sorceret/wizard 5
+Components: V
+Casting Time: 1 standard action
+Range: Close (25 ft. + 5 {t./2 levels)
+Targets: One creature/level, no two of
+
+which are more than 30 ft. apart
+
+Duration: Instantaneous
+Saving Throw: Will negates; see text
+Spell Resistance: Yes
+
+ 
+
+ 
+
+ 
+
+With a slight blue shimmer of energy and
+an audible pop, a number of creatures
+around you disappear and reappear in
+new positions
+
+You instantly transfer any subject
+crearure from its current location to
+any other spot within 30 feet. You must
+have line of sight to its new location.
+Anunwillingcrearure can makea Will
+saving throw to negate this effect. The
+creature mustbe placed on solid ground
+capable of supporting its weight. If you
+attempt to place a creature within a solid
+object or into a space where it cannot
+
+fit, the spell fails
+
+ 
+
+Dimension Step
+Conjuration (Teleportation)
+Level: Sorceret/wizard 3
+Component: V,S
+Casting Time: 1 standard action
+Range: Close (25 ft. + 5 ft./2 levels)
+Targets: One willing crearure/3 levels,
+no two of which are more than 30
+ft. apart
+Duration: [nstantaneous
+Saving Throw: Fortitude negates
+harmless
+Spell Resistance: Yes (harmless
+
+ 
+
+All the creatures you target with this spell
+gain a dark, shimmering pattern of runes
+on their shoes and feet, The runes blaze
+with arcane light fora moment, Less than a
+second later, the targets have shifted position
+one the battlefield.
+
+This spell allows your allies to make a
+short teleport. All creatures targeted by
+this spell can teleport a distance equal
+to their base land speed, A target can
+teleport to any square within its line of
+sight. This movement does not provoke
+attacks of opportunity. A creature can
+teleport up to a ledge, down to the base
+of a flight of stairs, and so forth as long
+
+ 
+
+as it observes the restrictions and limits
+given above.
+
+Dispelling Touch
+Abjuration
+Level: Duskblade 3, sorcerer/wizard 2
+Components: V, $
+Casting Time: | standard action
+Range: Touch
+Target: One touched creature, object,
+or spell effect
+Duration: Instantaneous
+Saving Throw: None
+Spell Resistance: No
+
+Your touch causes one spell to rip free of its
+source and dissipate into nothingness.
+
+You can use dispelling touch to end an
+ongoing spell that has been cast ona
+creature or abject, or a spell that has a
+noticeable ongoing effect. You make
+a dispel check (1d20 + your caster
+level, maximum +10) against the
+spell effect with the highest caster
+level. If that check fails, you make
+dispel checks against progressively
+weaker spells until you dispel one
+
+    
+
+      
+    
+  
+ 
+    
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+ 
+
+spell or until you fail all your checks,
+Magic items carried by a creature are
+not affected
+
+Divine Retaliation
+Evocation [Force]
+Level: Cleric 3, paladin 4
+Component: V, S, DF
+Casting Time: | swift action
+Range: 0 ft
+Effect; Magic weapon of force
+Duration: 1 round
+Saving Throw; None
+Spell Resistance: No
+
+  
+
+  
+
+    
+
+Asp force
+energy springs into existence next fo you.
+Each time a foe strikes you, the weapon
+
+springs into action, chopping into your foe
+
+al weapon composed of pul
+
+and dealing a grievous wound,
+
+This spell creates a divine weapon that
+mimics your deity's favored weapon:
+Any time you are struck for damage
+by a melee attack, this weapon strikes
+at your foe. It has a base attack bonus
+equal to your caster level + your Str
+modifier or Wis modifier (your choice}
+It deals damage as per your deity
+fayored weapon, and is of a size equal
+to your current size. The weapon gains
+a bonus on damage rolls equal to 1-
+times your Str modifier or Wis modifier
+(your choice).
+
+   
+
+ 
+
+ 
+
+There is no limit to the number of
+attacks that this weapon can make:
+If a hydra bites ar and hits you six
+times, this weapon in turn strikes
+at the hydra six times. The weapon
+has reach or range appropriate to its
+type. It shares a space with you, If
+you are Large or larger, it counts as
+occupying each square of the space
+you fill
+
+Doom Scarabs
+Conjuration/Necromancy
+Level: Duskblade 3, sorcerer/wizard 4
+Components: V, §
+Casting Time: | standard action
+Range: 60 ft.
+Area: Cone-shaped burst
+Duration: Instantaneous
+Saving Throw: Will half
+Spell Resistance: See text
+
+  
+
+A swarm of scarabs surges from your
+outstretched hand, Th
+
+ 
+
+¢ insects rip and
+

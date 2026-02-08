@@ -1,0 +1,159 @@
+ 
+
+is used when the creature makes.a grapple attack or when someone
+tries to grapple the creature, The grapple bonus includes all modi-
+fiers that apply to the creature’ grapple checks (base attack bonus,
+Strength modifier, special size modifier, and any other applicable
+modifier, such as a racial bonus on grapple checks). }
+
+Attack 4
+(This line shows the single attack the creature makes with an attack |
+laction. In most cases, this is also the attack the creature uses when |
+-making.an attack of opportunity.as well. The attack line provides |
+ithe weapon used (natural or manufactured), attack bonus, and
+{form of attack (melee or ranged). The attack bonus given includes
+.modifications for size and Strength (for melee attacks) or Dexter
+
+ity (for ranged attacks). A creature with the Weapon Finesse fear
+can use its Dexterity modifier on melee attacks.
+
+If the creature uses natural attacks, the natural weapon given
+jhere is the creature's primary natural weapon (see the Glossary).
+}—Ifthe creature has several different weapons at its disposal, the |
+
+jalternatives are shown, with each different attack separated bythe)
+
+\svord “or” }
+
+Accreature can use one of its secondary natural weapons (see the
+Glossary) when making an attack action, but if ir does it takes an
+attack penalty, as noted in the Full Attack section below,
+
+The damage that each attack deals is noted parenthetically.
+Damage from an attack is always at least 1 point, even if a subtrac-
+tion from a die roll reduces the result to.0.or lower.
+
+Full Attack
+{This line shows all the physical attacks the creature makes when it
+uuses a full-round action to make a full attack. It gives the number of
+jattacks along with the weapon, attack bonus,and form of amack (melee
+\orranged). The first entry is for the creature's primary.weapon, with an
+jattack bonus including modifications for size and Suength (for melee
+sattacks) or Dexterity (for ranged attacks). A creature with the Weapon
+Finesse feat. can use its Dexterity modifier.on melee attacks.
+
+The remaining weapons are secondary, and attacks with them
+are made swith a5 penalty to the attack roll, no matter how many.
+there are. Crearures with the Multiattack feat (see page 304) take,
+only a2 penalty on secondary attacks. = |
+
+The damage that each attack deals is noted parenthetically. |
+Damage from an attack is always at least 1 point, even if a subtrac-,
+tion from a die roll reduces the result to 0 or lower.
+
+A creature's primary attack damage includes its full Strength
+modifier (1-1/2 times its Strength bonus if the attack is with the
+creature's sole natural weapon) and is given first, Secondary
+attacks add only 1/2 the creature's Strength bonus and are given
+second in the parentheses,
+
+If any attacks also have some special effect other than damage,
+(poison, disease, energy drain, and so forth), that information is,
+given here. _ 1
+
+Unless noted otherwise, creatures using natural weapons deal)
+
+|double damage on critical hits.
+
+_ Manufactured Weapons; Creatures that use swords, bows,
+[spears, and the like follow the same rules as characters do, The
+bonus for attacks with two-handed weapons is 1-1/2 times the
+creature's Strength modifier (if it is a bonus), and is given first. Off-,
+hand weapons add only 1/2 the Strength bonus and are. given,
+second in the parentheses.
+
+Space/Reach
+
+This line describes how much space the creature.takes up.on.the,
+bartle grid and thereby needs to fight effectively, as well as how.
+close it has to be to threaten an opponent, The number before the
+slash is the creature's space, or how many feet one side of the crea-
+Jture occupies (refer to the Dungeon Master's Guide for additional ,
+idetails), For example,.a creature with aspace of 15 feet occupies a_
+{3-square-by-3-square space on the battle grid. The number after
+the slash is the creature's natural reach. If the creature has excep-
+tional reach due to a weapon, tentacle, or the like, the extended,
+reach and its source are noted in parentheses atthe end of the line.
+
+Special Attacks and Special Qualities
+
+Many creatures have unusual abilities, which can include special
+attack forms, resistance or vulnerability to certain types of;
+jdamage, and enhanced senses, among others. A monster entry.|
+breaks these abilities into special attacks and special qualities. The}
+latter caregory includes defenses, vulnerabilities, and other special |
+abilities that are not modes of attack. A special ability is either)
+extraordinary (Ex), spell-like (Sp), or supernatural (Su). See.the}
+Glossary for definitions of special abilities, Additional informa-|
+tion (when needed) is provided in the creature's descriptive text.
+
+When a special ability allows a saving throw, the kind of save
+and the save DC is noted in the descriptive text. Most saving
+throws against special abilities have DCs calculated as follows; 10
++ 1/2 the attacker's racial Hit Dice + the relevant ability modifier
+The save DC is given in the creature's description along with the
+ability on which the DC is based.
+
+Saves
+
+This line gives the creature's Fortitude, Reflex, and Will save modifiers.
+
+Abilities
+
+This line lists the creature's ability scores, in the customary order:
+Str, Dex, Con, Int, Wis, Cha. Except where noted otherwise, each
+
+ 
+
+ 
+
+WHY A REVISION?
+
+The new Dunceons & Deacons game debuted in 2000. In the three years
+since the d20 game system energized the RPG industry, we've gathered
+tons of data on how the game is being played. We consider D&D to be
+a living game that constantly evolves as it is played, Using the gathered
+feedback, we've retooled the game from the ground up and incorpo-
+rated everyone's suggestions to improve the game and this product.
+
+If this is your first experience with D&D, we welcome you to a
+wonderful world of adventure and imagination, If you played the
+prior version of this book, rest assured that this revision is a testa-
+ment to our dedication to continuous product improvement and
+innovation. We've updated errata, clarified rules, polished the pres-
+entation, and made the game better than it was. This is an upgrade
+of the 420 System, not a new edition of the game. This revision is
+compatible with existing products, and these products can be used
+with the revision with only minor adjustments.
+
+What's new in the revised Monster Manual? The entire book has been
+
+polished and refined, all in response to your feedback and to reflect the
+way the game Is actually being played. We've reorganized the group
+monster entries into easier-to-use, single-entry formats. New monsters
+have been added to this larger book. Advanced versions of some
+monsters have been included to challenge higher-level characters. New
+monster feats have been added, and all monster abilities are detailed in
+the glossary for easy reference. Monsters that can be used as player
+characters have level adjustments and other information to expedite
+such play, and we've reworked all monsters so that they gain feats and
+skills the same way that player characters do. We've added extensive
+information on how to advance, customize, and design monsters. And
+there are other improvernents throughout, such as first-glance descrip-
+tions of monsters, typical spell lists for spelicasting monsters, addi-
+tional statistics to speed up play (including grapple bonus and full
+attack routines), and ready-to-play entries for all monster types.
+
+Take a look, play the game. We think you'll like how everything
+turned out.
+

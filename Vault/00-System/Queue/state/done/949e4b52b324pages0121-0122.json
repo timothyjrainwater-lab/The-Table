@@ -1,0 +1,15 @@
+{
+  "task": {
+    "taskId": "949e4b52b324:pages:0121-0122",
+    "sourceId": "949e4b52b324",
+    "kind": "extractPages",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/04-Supplements/Age of Mortals.pdf",
+    "pageStart": 121,
+    "pageEnd": 122,
+    "status": "pending",
+    "createdAt": "2026-02-03T04:51:24.016461+00:00"
+  },
+  "doneAt": "2026-02-04T12:46:24.845341+00:00",
+  "wrote": [],
+  "skipped_disallowed": true
+}

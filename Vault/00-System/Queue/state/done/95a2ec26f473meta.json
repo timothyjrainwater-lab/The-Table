@@ -1,0 +1,22 @@
+{
+  "task": {
+    "taskId": "95a2ec26f473:meta",
+    "sourceId": "95a2ec26f473",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/Icy Heart.pdf",
+    "title": "Icy Heart",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.673Z"
+  },
+  "doneAt": "2026-02-03T12:32:00.166582+00:00",
+  "meta": {
+    "sourceId": "95a2ec26f473",
+    "title": "Icy Heart",
+    "path_mnt": "/mnt/f/DnD-3.5/Vault__backup_2026-02-03_1205/03-Adventures/Icy Heart.pdf",
+    "pages": 7,
+    "extractedAt": "2026-02-03T12:32:00.158462+00:00"
+  },
+  "enqueued_extractPages": 0,
+  "skipped_disallowed": true
+}

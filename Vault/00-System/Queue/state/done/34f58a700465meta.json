@@ -1,0 +1,20 @@
+{
+  "task": {
+    "taskId": "34f58a700465:meta",
+    "sourceId": "34f58a700465",
+    "kind": "extractMeta",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/Cave of The Spiders.pdf",
+    "title": "Cave of The Spiders",
+    "status": "pending",
+    "priority": 5,
+    "createdAt": "2026-02-03T04:11:07.672Z"
+  },
+  "doneAt": "2026-02-03T06:39:30.369813+00:00",
+  "meta": {
+    "sourceId": "34f58a700465",
+    "title": "Cave of The Spiders",
+    "path_mnt": "/mnt/f/DnD-3.5/Dungeon Master Tools/Adventures/Level 09/Cave of The Spiders.pdf",
+    "pages": 8,
+    "extractedAt": "2026-02-03T06:39:30.325056+00:00"
+  }
+}
