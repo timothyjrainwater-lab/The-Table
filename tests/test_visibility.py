@@ -49,11 +49,13 @@ def test_visibility_profile_serialization():
 
 
 def test_visibility_block_reason_enum():
-    """VisibilityBlockReason should have all required values."""
+    """VisibilityBlockReason should have all required values (merged from targeting.py)."""
     assert VisibilityBlockReason.LOS_BLOCKED.value == "los_blocked"
     assert VisibilityBlockReason.LOE_BLOCKED.value == "loe_blocked"
     assert VisibilityBlockReason.OUT_OF_VISION_RANGE.value == "out_of_vision_range"
     assert VisibilityBlockReason.TARGET_NOT_VISIBLE.value == "target_not_visible"
+    assert VisibilityBlockReason.OUT_OF_RANGE.value == "out_of_range"
+    assert VisibilityBlockReason.NOT_IN_LINE.value == "not_in_line"
 
 
 def test_tile_visibility_default():

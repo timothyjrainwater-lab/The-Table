@@ -32,12 +32,14 @@ CP-18 SCOPE:
 - Condition application from maneuvers (Prone, Grappled)
 """
 
+from copy import deepcopy
 from typing import List, Dict, Any, Optional, Union, Tuple, Literal
 from dataclasses import dataclass
 
 from aidm.core.event_log import Event, EventLog
 from aidm.core.state import WorldState
 from aidm.schemas.doctrine import MonsterDoctrine
+from aidm.schemas.entity_fields import EF
 from aidm.core.tactical_policy import evaluate_tactics, TacticalPolicyResult
 from aidm.schemas.attack import AttackIntent, Weapon, StepMoveIntent
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
@@ -104,11 +106,11 @@ def resolve_monster_combat_intent(
     if not target_ids:
         actor_entity = world_state.entities.get(actor_id)
         if actor_entity:
-            actor_team = actor_entity.get("team", "monsters")
+            actor_team = actor_entity.get(EF.TEAM, "monsters")
             # Find all entities on different team
             for entity_id, entity in world_state.entities.items():
                 if entity_id != actor_id:
-                    entity_team = entity.get("team", "unknown")
+                    entity_team = entity.get(EF.TEAM, "unknown")
                     if entity_team != actor_team and entity_team != "unknown":
                         target_ids.append(entity_id)
 
@@ -120,7 +122,7 @@ def resolve_monster_combat_intent(
     for tid in sorted_targets:
         if tid in world_state.entities:
             entity = world_state.entities[tid]
-            if not entity.get("defeated", False):
+            if not entity.get(EF.DEFEATED, False):
                 target_id = tid
                 break
 
@@ -332,7 +334,7 @@ def execute_turn(
 
             # Validate: target must not be defeated
             target = world_state.entities[combat_intent.target_id]
-            if target.get("defeated", False):
+            if target.get(EF.DEFEATED, False):
                 events.append(Event(
                     event_id=current_event_id,
                     event_type="intent_validation_failed",
@@ -403,7 +405,7 @@ def execute_turn(
 
             # Validate: target must not be defeated
             target = world_state.entities[combat_intent.target_id]
-            if target.get("defeated", False):
+            if target.get(EF.DEFEATED, False):
                 events.append(Event(
                     event_id=current_event_id,
                     event_type="intent_validation_failed",
@@ -462,11 +464,11 @@ def execute_turn(
             if world_state.active_combat is not None:
                 aoo_used = list(world_state.active_combat.get("aoo_used_this_round", []))
                 aoo_used.extend(aoo_result.aoo_reactors)
-                active_combat_updated = world_state.active_combat.copy()
+                active_combat_updated = deepcopy(world_state.active_combat)
                 active_combat_updated["aoo_used_this_round"] = aoo_used
                 world_state = WorldState(
                     ruleset_version=world_state.ruleset_version,
-                    entities=world_state.entities.copy(),
+                    entities=deepcopy(world_state.entities),
                     active_combat=active_combat_updated
                 )
 
@@ -586,12 +588,10 @@ def execute_turn(
             current_event_id += 1
 
             # Update mount position in world state
-            entities = world_state.entities.copy()
+            entities = deepcopy(world_state.entities)
             mount_id = combat_intent.mount_id
             if mount_id in entities:
-                updated_mount = entities[mount_id].copy()
-                updated_mount["position"] = combat_intent.to_pos.to_dict()
-                entities[mount_id] = updated_mount
+                entities[mount_id][EF.POSITION] = combat_intent.to_pos.to_dict()
                 world_state = WorldState(
                     ruleset_version=world_state.ruleset_version,
                     entities=entities,
@@ -756,12 +756,12 @@ def execute_turn(
     current_event_id += 1
 
     # State mutation: store turn counter in active_combat metadata
-    active_combat = world_state.active_combat.copy() if world_state.active_combat else {}
+    active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
     active_combat["turn_counter"] = turn_ctx.turn_index + 1
 
     updated_state = WorldState(
         ruleset_version=world_state.ruleset_version,
-        entities=world_state.entities.copy(),
+        entities=deepcopy(world_state.entities),
         active_combat=active_combat
     )
 

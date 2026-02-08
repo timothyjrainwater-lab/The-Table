@@ -36,6 +36,7 @@ from aidm.core.state import WorldState
 from aidm.schemas.attack import AttackIntent, GridPosition, StepMoveIntent
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
 from aidm.core.rng_manager import RNGManager
+from aidm.schemas.entity_fields import EF
 
 
 @dataclass
@@ -94,7 +95,7 @@ def get_threatened_squares(
         return []
 
     # Get reactor position
-    pos_dict = entity.get("position")
+    pos_dict = entity.get(EF.POSITION)
     if pos_dict is None:
         return []
 
@@ -184,7 +185,7 @@ def check_aoo_triggers(
         # Get provoker position for threat calculation
         provoker = world_state.entities.get(provoker_id)
         if provoker:
-            pos_dict = provoker.get("position")
+            pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
                 from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
 
@@ -196,7 +197,7 @@ def check_aoo_triggers(
         target_id = intent.target_id
         provoker = world_state.entities.get(provoker_id)
         if provoker:
-            pos_dict = provoker.get("position")
+            pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
                 from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
 
@@ -208,7 +209,7 @@ def check_aoo_triggers(
         target_id = intent.target_id
         provoker = world_state.entities.get(provoker_id)
         if provoker:
-            pos_dict = provoker.get("position")
+            pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
                 from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
 
@@ -220,7 +221,7 @@ def check_aoo_triggers(
         target_id = intent.target_id
         provoker = world_state.entities.get(provoker_id)
         if provoker:
-            pos_dict = provoker.get("position")
+            pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
                 from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
 
@@ -232,7 +233,7 @@ def check_aoo_triggers(
         target_id = intent.target_id
         provoker = world_state.entities.get(provoker_id)
         if provoker:
-            pos_dict = provoker.get("position")
+            pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
                 from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
 
@@ -244,7 +245,7 @@ def check_aoo_triggers(
         target_id = intent.target_id
         provoker = world_state.entities.get(provoker_id)
         if provoker:
-            pos_dict = provoker.get("position")
+            pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
                 from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
 
@@ -263,7 +264,7 @@ def check_aoo_triggers(
     if provoker is None:
         return []
 
-    provoker_team = provoker.get("team", "unknown")
+    provoker_team = provoker.get(EF.TEAM, "unknown")
 
     # Get initiative order and AoO usage tracking
     active_combat = world_state.active_combat
@@ -285,14 +286,14 @@ def check_aoo_triggers(
         if target is None:
             return []
 
-        if target.get("defeated", False):
+        if target.get(EF.DEFEATED, False):
             return []
 
-        target_team = target.get("team", "unknown")
+        target_team = target.get(EF.TEAM, "unknown")
         if target_team == provoker_team or target_team == "unknown":
             return []
 
-        target_pos_dict = target.get("position")
+        target_pos_dict = target.get(EF.POSITION)
         if target_pos_dict is None:
             return []
 
@@ -319,16 +320,16 @@ def check_aoo_triggers(
                 continue
 
             # Skip if defeated
-            if reactor.get("defeated", False):
+            if reactor.get(EF.DEFEATED, False):
                 continue
 
             # Skip if same team
-            reactor_team = reactor.get("team", "unknown")
+            reactor_team = reactor.get(EF.TEAM, "unknown")
             if reactor_team == provoker_team or reactor_team == "unknown":
                 continue
 
             # Get reactor position
-            reactor_pos_dict = reactor.get("position")
+            reactor_pos_dict = reactor.get(EF.POSITION)
             if reactor_pos_dict is None:
                 continue
 
@@ -444,8 +445,8 @@ def resolve_aoo_sequence(
 
         # Extract attack bonus and weapon from entity
         # TODO CP-15: This is a temporary hack - proper attack params should come from doctrine/equipment
-        attack_bonus = reactor.get("attack_bonus", 0)
-        weapon_data = reactor.get("weapon")
+        attack_bonus = reactor.get(EF.ATTACK_BONUS, 0)
+        weapon_data = reactor.get(EF.WEAPON)
 
         if weapon_data is None:
             # No weapon data available, skip AoO
@@ -487,7 +488,7 @@ def resolve_aoo_sequence(
 
         # Check if provoker was defeated
         provoker = world_state.entities.get(trigger.provoker_id)
-        if provoker and provoker.get("defeated", False):
+        if provoker and provoker.get(EF.DEFEATED, False):
             provoker_defeated = True
             break  # Stop processing further AoOs
 

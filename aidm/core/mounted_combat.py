@@ -19,6 +19,7 @@ OUT OF SCOPE:
 All state changes are event-sourced. RNG uses "combat" stream only.
 """
 
+from copy import deepcopy
 from dataclasses import dataclass
 from typing import Tuple, List, Optional, Dict, Any
 from aidm.core.state import WorldState
@@ -215,18 +216,14 @@ def resolve_mount(
     ))
 
     # Update world state
-    entities = world_state.entities.copy()
+    entities = deepcopy(world_state.entities)
 
     # Update rider
-    updated_rider = entities[intent.rider_id].copy()
-    updated_rider[EF.MOUNTED_STATE] = mounted_state.to_dict()
+    entities[intent.rider_id][EF.MOUNTED_STATE] = mounted_state.to_dict()
     # Position is derived from mount, so we don't store it on rider
-    entities[intent.rider_id] = updated_rider
 
     # Update mount
-    updated_mount = entities[intent.mount_id].copy()
-    updated_mount[EF.RIDER_ID] = intent.rider_id
-    entities[intent.mount_id] = updated_mount
+    entities[intent.mount_id][EF.RIDER_ID] = intent.rider_id
 
     world_state = WorldState(
         ruleset_version=world_state.ruleset_version,
@@ -347,20 +344,16 @@ def resolve_dismount(
     ))
 
     # Update world state
-    entities = world_state.entities.copy()
+    entities = deepcopy(world_state.entities)
 
     # Update rider - remove mounted state, set position
-    updated_rider = entities[intent.rider_id].copy()
-    if EF.MOUNTED_STATE in updated_rider:
-        del updated_rider[EF.MOUNTED_STATE]
-    updated_rider[EF.POSITION] = dismount_pos.to_dict()
-    entities[intent.rider_id] = updated_rider
+    if EF.MOUNTED_STATE in entities[intent.rider_id]:
+        del entities[intent.rider_id][EF.MOUNTED_STATE]
+    entities[intent.rider_id][EF.POSITION] = dismount_pos.to_dict()
 
     # Update mount - remove rider reference
-    updated_mount = entities[mount_id].copy()
-    if EF.RIDER_ID in updated_mount:
-        del updated_mount[EF.RIDER_ID]
-    entities[mount_id] = updated_mount
+    if EF.RIDER_ID in entities[mount_id]:
+        del entities[mount_id][EF.RIDER_ID]
 
     world_state = WorldState(
         ruleset_version=world_state.ruleset_version,
@@ -492,10 +485,10 @@ def trigger_forced_dismount(
     ))
 
     # Update world state
-    entities = world_state.entities.copy()
+    entities = deepcopy(world_state.entities)
 
     # Update rider
-    updated_rider = entities[rider_id].copy()
+    updated_rider = entities[rider_id]
     if EF.MOUNTED_STATE in updated_rider:
         del updated_rider[EF.MOUNTED_STATE]
     if dismount_pos:
@@ -507,14 +500,10 @@ def trigger_forced_dismount(
     if updated_rider[EF.HP_CURRENT] <= 0:
         updated_rider[EF.DEFEATED] = True
 
-    entities[rider_id] = updated_rider
-
     # Clear rider_id from mount if mount exists
     if mount is not None and mount_id in entities:
-        updated_mount = entities[mount_id].copy()
-        if EF.RIDER_ID in updated_mount:
-            del updated_mount[EF.RIDER_ID]
-        entities[mount_id] = updated_mount
+        if EF.RIDER_ID in entities[mount_id]:
+            del entities[mount_id][EF.RIDER_ID]
 
     world_state = WorldState(
         ruleset_version=world_state.ruleset_version,

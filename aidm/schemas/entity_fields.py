@@ -87,6 +87,12 @@ class _EntityFields:
     STABILITY_BONUS = "stability_bonus"  # +4 for dwarves, quadrupeds, etc.
     GRAPPLE_SIZE_MODIFIER = "grapple_size_modifier"  # Special scale for grapple checks
 
+    # --- Attack (CP-10 / CP-18) ---
+    ATTACK_BONUS = "attack_bonus"        # Melee/ranged attack bonus
+    BAB = "bab"                          # Base Attack Bonus
+    TEMPORARY_MODIFIERS = "temporary_modifiers"  # Transient buff/debuff dict
+    WEAPON = "weapon"                    # Weapon data dict
+
     # --- Environment & Terrain (CP-19) ---
     ELEVATION = "elevation"              # Current elevation in feet (for higher ground)
 

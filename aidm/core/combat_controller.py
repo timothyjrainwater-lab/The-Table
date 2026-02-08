@@ -9,6 +9,7 @@ Wrapper layer that orchestrates combat rounds by:
 Preserves CP-09/CP-12 execute_turn() API.
 """
 
+from copy import deepcopy
 from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 
@@ -18,6 +19,7 @@ from aidm.core.play_loop import execute_turn, TurnContext, TurnResult
 from aidm.core.initiative import roll_initiative_for_all_actors, InitiativeRoll
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.doctrine import MonsterDoctrine
+from aidm.schemas.entity_fields import EF
 
 
 @dataclass
@@ -101,7 +103,7 @@ def start_combat(
 
     updated_state = WorldState(
         ruleset_version=world_state.ruleset_version,
-        entities=world_state.entities.copy(),
+        entities=deepcopy(world_state.entities),
         active_combat=active_combat
     )
 
@@ -170,7 +172,7 @@ def execute_combat_round(
             # Actor no longer exists (defeated and removed), skip
             continue
 
-        actor_team = entity.get("team", "unknown")
+        actor_team = entity.get(EF.TEAM, "unknown")
 
         # Create turn context (action_type defaults to None for CP-09/CP-12 compat)
         turn_ctx = TurnContext(
@@ -228,14 +230,14 @@ def execute_combat_round(
         world_state = turn_result.world_state
 
     # Update active_combat with new round index, flat-footed set, and AoO usage
-    active_combat = world_state.active_combat.copy()
+    active_combat = deepcopy(world_state.active_combat)
     active_combat["round_index"] = current_round
     active_combat["flat_footed_actors"] = list(flat_footed_actors)  # Convert set to list for serialization
     active_combat["aoo_used_this_round"] = aoo_used_this_round  # CP-15: Reset for next round
 
     updated_state = WorldState(
         ruleset_version=world_state.ruleset_version,
-        entities=world_state.entities.copy(),
+        entities=deepcopy(world_state.entities),
         active_combat=active_combat
     )
 

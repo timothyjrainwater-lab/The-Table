@@ -5,7 +5,7 @@ This file is MANDATORY READING for all agents before writing code on this projec
 It documents hard-won lessons from audits, discovered bugs, and architectural patterns
 that MUST be followed to maintain project integrity.
 
-LAST UPDATED: Post-Audit Corrections (594 tests, CP-17, CP-18A-T&V, SKR-002 Phase 3)
+LAST UPDATED: Plan B Remediation (1225 tests, CP-20, FIX-04/12/16)
 -->
 
 # Agent Development Guidelines

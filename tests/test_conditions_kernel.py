@@ -40,7 +40,15 @@ from aidm.schemas.conditions import (
     create_stunned_condition,
     create_dazed_condition,
     create_shaken_condition,
-    create_sickened_condition
+    create_sickened_condition,
+    create_frightened_condition,
+    create_panicked_condition,
+    create_nauseated_condition,
+    create_fatigued_condition,
+    create_exhausted_condition,
+    create_paralyzed_condition,
+    create_staggered_condition,
+    create_unconscious_condition
 )
 
 
@@ -534,3 +542,110 @@ def test_condition_overwrite_same_type():
     assert len(goblin["conditions"]) == 1
     assert goblin["conditions"]["shaken"]["source"] == "fear_spell"
     assert goblin["conditions"]["shaken"]["applied_at_event_id"] == 5
+
+
+# ==============================================================================
+# PHASE 2 CONDITION TESTS (FIX-12)
+# ==============================================================================
+
+def _make_world_state():
+    """Helper: minimal world state with one goblin."""
+    return WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "goblin": {
+                "ac": 15, "hp_current": 6, "hp_max": 6, "team": "monsters"
+            }
+        }
+    )
+
+
+def test_frightened_condition_modifiers():
+    """Frightened: -2 attack, -2 all saves (PHB p.310)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_frightened_condition("fear_aura", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.attack_modifier == -2
+    assert mods.fort_save_modifier == -2
+    assert mods.ref_save_modifier == -2
+    assert mods.will_save_modifier == -2
+
+
+def test_panicked_condition_modifiers():
+    """Panicked: -2 all saves, loses Dex to AC (PHB p.311)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_panicked_condition("dragon_breath", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.fort_save_modifier == -2
+    assert mods.ref_save_modifier == -2
+    assert mods.will_save_modifier == -2
+    assert mods.loses_dex_to_ac is True
+
+
+def test_nauseated_condition_modifiers():
+    """Nauseated: actions prohibited, no numeric penalties (PHB p.311)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_nauseated_condition("stinking_cloud", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.actions_prohibited is True
+    assert mods.attack_modifier == 0
+    assert mods.ac_modifier == 0
+
+
+def test_fatigued_condition_modifiers():
+    """Fatigued: -2 DEX, -1 attack from STR penalty (PHB p.311)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_fatigued_condition("forced_march", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.dex_modifier == -2
+    assert mods.attack_modifier == -1
+
+
+def test_exhausted_condition_modifiers():
+    """Exhausted: -6 DEX, -3 attack from STR penalty (PHB p.311)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_exhausted_condition("double_fatigue", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.dex_modifier == -6
+    assert mods.attack_modifier == -3
+
+
+def test_paralyzed_condition_modifiers():
+    """Paralyzed: helpless, -4 AC, loses Dex, no actions/movement (PHB p.311)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_paralyzed_condition("hold_person", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.ac_modifier == -4
+    assert mods.loses_dex_to_ac is True
+    assert mods.auto_hit_if_helpless is True
+    assert mods.actions_prohibited is True
+    assert mods.movement_prohibited is True
+
+
+def test_staggered_condition_modifiers():
+    """Staggered: no numeric penalties, action restriction only (PHB p.311)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_staggered_condition("hp_zero", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.ac_modifier == 0
+    assert mods.attack_modifier == 0
+    assert mods.damage_modifier == 0
+
+
+def test_unconscious_condition_modifiers():
+    """Unconscious: helpless, -4 AC, loses Dex, no actions/movement (PHB p.311)."""
+    ws = _make_world_state()
+    ws = apply_condition(ws, "goblin", create_unconscious_condition("knockout", 0))
+    mods = get_condition_modifiers(ws, "goblin")
+    assert mods.ac_modifier == -4
+    assert mods.loses_dex_to_ac is True
+    assert mods.auto_hit_if_helpless is True
+    assert mods.actions_prohibited is True
+    assert mods.movement_prohibited is True
+
+
+def test_all_condition_types_have_factories():
+    """Every ConditionType enum member should have a corresponding creator function."""
+    from aidm.core.save_resolver import CONDITION_FACTORIES
+    for ct in ConditionType:
+        assert ct.value in CONDITION_FACTORIES, f"Missing factory for {ct.value}"

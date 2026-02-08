@@ -387,7 +387,14 @@ class RuntimeSession:
 
             if updates is None:
                 # Player retracted
-                return self.retract_intent(intent), None
+                retracted_intent = self.retract_intent(intent)
+                # Build a proper EngineResult so return type matches signature
+                builder = EngineResultBuilder(intent_id=retracted_intent.intent_id)
+                result = builder.build(
+                    status=EngineResultStatus.FAILURE,
+                    failure_reason="action_retracted",
+                )
+                return result, "action_retracted"
 
             # Apply updates
             self.update_intent(intent, updates)

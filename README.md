@@ -263,7 +263,7 @@ pytest tests/test_rule_lookup.py::test_rule_lookup_basic_hit
 pytest --cov=aidm
 ```
 
-All tests run in under 2 seconds (538 tests total) and require no external dependencies beyond pytest and the source layer files.
+All tests run in under 4 seconds (1331 tests total) and require no external dependencies beyond pytest and the source layer files.
 
 ## Development Workflow
 

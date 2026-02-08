@@ -8,6 +8,9 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Literal, Any, Tuple
 from enum import Enum
 
+# Re-export canonical VisibilityBlockReason from targeting.py (FIX-02: single source of truth)
+from aidm.schemas.targeting import VisibilityBlockReason  # noqa: F401
+
 
 # Light levels
 LightLevel = Literal["bright", "dim", "dark"]
@@ -29,22 +32,6 @@ OcclusionTag = Literal[
     "heavy_obscurement",
     "light_obscurement"
 ]
-
-
-class VisibilityBlockReason(Enum):
-    """Reasons why visibility/targeting is blocked."""
-
-    LOS_BLOCKED = "los_blocked"
-    """Line of sight blocked by opaque terrain"""
-
-    LOE_BLOCKED = "loe_blocked"
-    """Line of effect blocked (spells, ranged attacks)"""
-
-    OUT_OF_VISION_RANGE = "out_of_vision_range"
-    """Target beyond vision range for current mode"""
-
-    TARGET_NOT_VISIBLE = "target_not_visible"
-    """Target invisible or heavily obscured"""
 
 
 @dataclass

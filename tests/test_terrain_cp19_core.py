@@ -579,3 +579,52 @@ class TestTerrainDeterminism:
 
         for i in range(1, 10):
             assert results[i] == results[0], f"Run {i} differs from run 0"
+
+
+# ==============================================================================
+# FIX-09: _is_between() soft cover geometry tests
+# ==============================================================================
+
+class TestIsBetween:
+    """Tests for the _is_between() soft cover geometry function."""
+
+    def test_creature_on_diagonal_line(self):
+        """Creature at (1,1) between (0,0) and (2,2) provides soft cover."""
+        from aidm.core.terrain_resolver import _is_between
+        assert _is_between(0, 0, 2, 2, 1, 1) is True
+
+    def test_creature_off_line_not_soft_cover(self):
+        """Creature at (0,1) between (0,0) and (2,0) does NOT provide soft cover (horizontal line)."""
+        from aidm.core.terrain_resolver import _is_between
+        # (0,1) is not on the horizontal line from (0,0) to (2,0)
+        assert _is_between(0, 0, 2, 0, 0, 1) is False
+
+    def test_creature_on_horizontal_line(self):
+        """Creature at (1,0) between (0,0) and (3,0) provides soft cover."""
+        from aidm.core.terrain_resolver import _is_between
+        assert _is_between(0, 0, 3, 0, 1, 0) is True
+
+    def test_creature_on_vertical_line(self):
+        """Creature at (0,2) between (0,0) and (0,4) provides soft cover."""
+        from aidm.core.terrain_resolver import _is_between
+        assert _is_between(0, 0, 0, 4, 0, 2) is True
+
+    def test_creature_at_endpoint_excluded(self):
+        """Creatures at attacker/defender positions should not count."""
+        from aidm.core.terrain_resolver import _is_between
+        # At attacker position
+        assert _is_between(0, 0, 3, 3, 0, 0) is False
+        # At defender position
+        assert _is_between(0, 0, 3, 3, 3, 3) is False
+
+    def test_creature_far_from_line(self):
+        """Creature far from the line does not provide soft cover."""
+        from aidm.core.terrain_resolver import _is_between
+        assert _is_between(0, 0, 4, 4, 0, 4) is False
+
+    def test_creature_near_diagonal_line(self):
+        """Creature near (but not on) a long diagonal can provide soft cover."""
+        from aidm.core.terrain_resolver import _is_between
+        # (2,1) is near the line from (0,0) to (4,3) — cross product = 4*1 - 3*2 = -2, |cross| = 2
+        # seg_len = max(4,3) = 4, 2 <= 4, so yes
+        assert _is_between(0, 0, 4, 3, 2, 1) is True

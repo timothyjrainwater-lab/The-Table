@@ -16,6 +16,7 @@ from aidm.schemas.policy import (
 from aidm.schemas.policy_config import PolicyVarietyConfig
 from aidm.core.state import WorldState
 from aidm.core.rng_manager import DeterministicRNG
+from aidm.schemas.entity_fields import EF
 
 
 # Feature extraction constants (distance bands in feet, assuming 5ft grid)
@@ -53,8 +54,8 @@ def extract_features(world_state: WorldState, actor_id: str) -> Dict[str, Any]:
     actor = world_state.entities[actor_id]
 
     # Actor HP band (internal DM-only)
-    hp_current = actor.get("hp_current", 0)
-    hp_max = actor.get("hp_max", 1)
+    hp_current = actor.get(EF.HP_CURRENT, 0)
+    hp_max = actor.get(EF.HP_MAX, 1)
     hp_ratio = hp_current / hp_max if hp_max > 0 else 0
 
     if hp_ratio >= 0.75:
@@ -67,14 +68,14 @@ def extract_features(world_state: WorldState, actor_id: str) -> Dict[str, Any]:
         features["actor_hp_band"] = "critical"
 
     # Actor conditions restricting actions
-    conditions = actor.get("conditions", [])
+    conditions = actor.get(EF.CONDITIONS, [])
     features["actor_stunned"] = "stunned" in conditions
     features["actor_prone"] = "prone" in conditions
     features["actor_frightened"] = "frightened" in conditions
     features["actor_grappled"] = "grappled" in conditions
 
     # Actor position
-    actor_pos = actor.get("position", {})
+    actor_pos = actor.get(EF.POSITION, {})
     actor_x = actor_pos.get("x", 0)
     actor_y = actor_pos.get("y", 0)
 
@@ -85,13 +86,13 @@ def extract_features(world_state: WorldState, actor_id: str) -> Dict[str, Any]:
     features["allies_in_engagement"] = 0
     features["allies_close_range"] = 0
 
-    actor_team = actor.get("team", "unknown")
+    actor_team = actor.get(EF.TEAM, "unknown")
 
     for entity_id, entity in world_state.entities.items():
         if entity_id == actor_id:
             continue
 
-        entity_pos = entity.get("position", {})
+        entity_pos = entity.get(EF.POSITION, {})
         entity_x = entity_pos.get("x", 0)
         entity_y = entity_pos.get("y", 0)
 
@@ -100,7 +101,7 @@ def extract_features(world_state: WorldState, actor_id: str) -> Dict[str, Any]:
         dy = entity_y - actor_y
         distance_feet = ((dx * dx) + (dy * dy)) ** 0.5
 
-        entity_team = entity.get("team", "unknown")
+        entity_team = entity.get(EF.TEAM, "unknown")
         is_enemy = entity_team != actor_team and entity_team != "unknown"
         is_ally = entity_team == actor_team and entity_team != "unknown"
 

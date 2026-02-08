@@ -5,7 +5,7 @@ This file tells new agents EXACTLY what to read, in what order, and what to veri
 before writing a single line of code. It exists because the project has 9+ root-level
 .md files and agents waste context reading them in the wrong order or skipping critical ones.
 
-LAST UPDATED: Post-Audit Corrections (594 tests, CP-17, CP-18A-T&V, SKR-002 Phase 3)
+LAST UPDATED: Post-Audit Remediation COMPLETE (1331 tests, FIX-01 through FIX-18)
 -->
 
 # Agent Onboarding Checklist
@@ -41,8 +41,8 @@ python -m pytest tests/ -v --tb=short
 ```
 
 **Expected result:**
-- 594+ tests passing
-- Runtime under 2 seconds
+- 1331+ tests passing
+- Runtime under 5 seconds
 - Zero failures, zero errors
 
 If this doesn't pass, STOP. Do not proceed. Report the failure.
@@ -145,7 +145,7 @@ Every completion packet follows this process:
 3. Write tests second (at least Tier-1 stubs before implementation)
 4. Implement (fill in logic to make tests pass)
 5. Run full test suite (`python -m pytest tests/ -v --tb=short`)
-6. Verify 594+ tests still pass in under 2 seconds
+6. Verify 1225+ tests still pass in under 5 seconds
 7. Update `PROJECT_STATE_DIGEST.md` (test counts, module inventory, CP history)
 8. Update `AGENT_DEVELOPMENT_GUIDELINES.md` if new patterns or pitfalls were discovered
 9. Use `CP_TEMPLATE.md` for the standard CP decisions document format

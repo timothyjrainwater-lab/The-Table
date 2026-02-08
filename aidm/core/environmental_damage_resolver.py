@@ -21,6 +21,7 @@ ORDERING CONTRACT (preserved from CP-19):
 RNG STREAM: "combat" (environmental damage dice only)
 """
 
+from copy import deepcopy
 from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
@@ -260,8 +261,8 @@ def resolve_environmental_damage(
         current_timestamp += 0.01
 
         # Update entity HP
-        entities = world_state.entities.copy()
-        updated_entity = entities[entity_id].copy()
+        entities = deepcopy(world_state.entities)
+        updated_entity = entities[entity_id]
         updated_entity[EF.HP_CURRENT] = hp_after
         entities[entity_id] = updated_entity
 

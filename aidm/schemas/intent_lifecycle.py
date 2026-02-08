@@ -247,15 +247,20 @@ class IntentObject:
 
         return missing
 
-    def transition_to(self, new_status: IntentStatus) -> None:
+    def transition_to(self, new_status: IntentStatus, timestamp: Optional[datetime] = None) -> None:
         """Attempt to transition to a new status.
 
         Validates transition is legal per lifecycle rules:
-        - PENDING → CLARIFYING, CONFIRMED
-        - PENDING → CLARIFYING, CONFIRMED, RETRACTED
-        - CLARIFYING → CONFIRMED, RETRACTED
-        - CONFIRMED → RESOLVED (only)
+        - PENDING -> CLARIFYING, CONFIRMED
+        - PENDING -> CLARIFYING, CONFIRMED, RETRACTED
+        - CLARIFYING -> CONFIRMED, RETRACTED
+        - CONFIRMED -> RESOLVED (only)
         - RESOLVED, RETRACTED are terminal
+
+        Args:
+            new_status: The status to transition to
+            timestamp: Optional timestamp for deterministic replay.
+                       If None, uses current UTC time.
 
         Raises:
             IntentTransitionError: If transition is not allowed
@@ -276,7 +281,7 @@ class IntentObject:
 
         # Set status first, then freeze (order matters for __setattr__ check)
         self.status = new_status
-        self.updated_at = datetime.utcnow()
+        self.updated_at = timestamp or datetime.utcnow()
 
         # Freeze after CONFIRMED status is set
         if new_status == IntentStatus.CONFIRMED:
@@ -379,6 +384,7 @@ def create_intent_from_input(
     actor_id: str,
     source_text: str,
     action_type: ActionType,
+    created_at: Optional[datetime] = None,
     **kwargs: Any,
 ) -> IntentObject:
     """Factory function to create a new IntentObject from player input.
@@ -387,15 +393,22 @@ def create_intent_from_input(
         actor_id: The entity performing the action
         source_text: Original player input text
         action_type: Category of action
+        created_at: Optional timestamp for deterministic replay.
+                    If None, uses current UTC time (dataclass default).
         **kwargs: Additional fields (target_id, method, etc.)
 
     Returns:
         New IntentObject in PENDING status
     """
+    extra: Dict[str, Any] = {}
+    if created_at is not None:
+        extra["created_at"] = created_at
+        extra["updated_at"] = created_at
     return IntentObject(
         actor_id=actor_id,
         source_text=source_text,
         action_type=action_type,
         status=IntentStatus.PENDING,
+        **extra,
         **kwargs,
     )

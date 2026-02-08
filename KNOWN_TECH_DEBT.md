@@ -5,7 +5,7 @@ This file documents known issues that are INTENTIONALLY DEFERRED. They are not b
 to be fixed — they are design decisions or blocked work items. Agents that "helpfully"
 fix these items waste context, break tests, and introduce regressions.
 
-LAST UPDATED: Post-Audit Corrections (594 tests, CP-17, CP-18A-T&V, SKR-002 Phase 3)
+LAST UPDATED: Plan B Remediation (1225 tests, CP-20, FIX-04/12/16)
 -->
 
 # Known Technical Debt
@@ -71,27 +71,13 @@ LAST UPDATED: Post-Audit Corrections (594 tests, CP-17, CP-18A-T&V, SKR-002 Phas
 ---
 
 ### TD-004: Existing Code Uses Bare String Literals Instead of EF.* Constants
-**Status:** DEFERRED — safe to fix incrementally, but not required
-**Scope:** 14 violations across 6 files
+**Status:** CLOSED (2026-02-09) — fixed in audit remediation
 
-**Violations by file:**
-| File | Field | Count |
-|------|-------|-------|
-| `aidm/core/play_loop.py` | `"team"`, `"defeated"` | 3 |
-| `aidm/core/combat_controller.py` | `"team"` | 1 |
-| `aidm/core/tactical_policy.py` | `"team"`, `"position"` | 2 |
-| `aidm/core/conditions.py` | `"conditions"` | 6 |
-| `aidm/core/aoo.py` | `"position"` | 1 |
-| `aidm/core/targeting_resolver.py` | `"position"` | 1 |
+**Resolution (FIX-08):** Added missing EF.* constants (ATTACK_BONUS, BAB, TEMPORARY_MODIFIERS, WEAPON) to entity_fields.py and replaced ~40+ bare string accesses with EF.* constants across 8 files:
+- targeting_resolver.py, aoo.py, conditions.py, maneuver_resolver.py
+- play_loop.py, combat_controller.py, attack_resolver.py, save_resolver.py, tactical_policy.py
 
-**Why this exists:** The `EF` constants class was created after these modules were written. Existing code was not retroactively updated.
-
-**Why NOT to fix now (unless asked):**
-- The bare strings currently match the EF constants (no actual mismatch bug)
-- Mass find-replace across 6 files risks introducing import errors or test failures
-- Each file would need `from aidm.schemas.entity_fields import EF` added to imports
-
-**Correct behavior for agents:** ALL NEW CODE must use `EF.*` constants. If you're already modifying one of these files for other reasons, migrating that file's bare strings to `EF.*` is acceptable as part of the change.
+All entity field accesses now use canonical constants from entity_fields.py.
 
 ---
 
@@ -172,10 +158,66 @@ LAST UPDATED: Post-Audit Corrections (594 tests, CP-17, CP-18A-T&V, SKR-002 Phas
 | TD-001 | Three GridPoint types | HIGH | Deferred | NO — needs own CP |
 | TD-002 | Replay runner coverage | HIGH | By design | NO — re-execution strategy |
 | TD-003 | play_loop.py monolith | MEDIUM | Deferred | NO — wait for CP-18A |
-| TD-004 | Bare string entity fields | MEDIUM | Deferred | YES — incrementally when touching file |
+| TD-004 | Bare string entity fields | MEDIUM | CLOSED | N/A — fixed in audit remediation |
 | TD-005 | AoO incomplete | MEDIUM | Blocked | NO — blocked by other CPs |
 | TD-006 | Temp modifier stub | LOW | Blocked | NO — needs dedicated CP |
 | TD-007 | AC/HP recalc stubs | LOW | Blocked | NO — needs dedicated CP |
 | TD-008 | Stale manifest | LOW | Informational | YES — but low value |
 | TD-009 | Hard-coded range | LOW | Informational | NO — needs weapon schema |
 | TD-010 | Target candidate stubs | LOW | Informational | NO — needs bridge layer |
+| TD-011 | process_input() return type | HIGH | CLOSED | N/A — fixed in audit remediation |
+| TD-012 | Duplicate VisibilityBlockReason | MEDIUM | CLOSED | N/A — fixed in audit remediation |
+| TD-013 | Soft cover line-of-sight | MEDIUM | CLOSED | N/A — fixed in audit remediation |
+| TD-014 | Narration templates hardcoded | LOW | CLOSED | N/A — fixed in audit remediation |
+| TD-015 | Shallow copy in conditions.py | MEDIUM | CLOSED | N/A — fixed in audit remediation |
+
+---
+
+## Category 4: Audit Findings — Plan A Scope (2025 Audit)
+
+Items discovered during the comprehensive audit. These are assigned to Plan A
+("Engine & Combat Corrections") and should NOT be fixed under Plan B.
+
+### TD-011: process_input() Return Type Mismatch
+**Status:** CLOSED (2026-02-09) — fixed in audit remediation
+**File:** `aidm/runtime/session.py:390`
+
+**Resolution (FIX-01):** Retraction path now properly constructs an EngineResult with status=FAILURE and failure_reason="action_retracted". All return paths now return consistent `Tuple[EngineResult, str]` type. Test coverage added in test_runtime_session.py::test_process_retraction_returns_engine_result.
+
+---
+
+### TD-012: Duplicate VisibilityBlockReason Enum
+**Status:** CLOSED (2026-02-09) — fixed in audit remediation
+**File:** `aidm/schemas/targeting.py` and `aidm/schemas/visibility.py`
+
+**Resolution (FIX-02):** Merged into single canonical definition in targeting.py with 6 members (los_blocked, loe_blocked, out_of_range, not_in_line, target_not_visible, out_of_vision_range). visibility.py now re-exports from targeting.py. Test coverage updated in test_visibility.py.
+
+---
+
+### TD-013: Soft Cover Line-of-Sight Algorithm Simplified
+**Status:** CLOSED (2026-02-09) — fixed in audit remediation
+**File:** `aidm/core/terrain_resolver.py:278-363`
+
+**Resolution (FIX-09):** Replaced incorrect bounding-box _is_between() algorithm with cross-product proximity test that correctly handles horizontal, vertical, and diagonal lines while excluding endpoints. Added 7 comprehensive tests in test_terrain_cp19_core.py::TestIsBetween.
+
+**Correct behavior for agents:** Leave as-is unless Plan A explicitly addresses FIX-09.
+
+---
+
+### TD-014: Narration Templates Hardcoded
+**Status:** CLOSED (2026-02-09) — fixed in audit remediation
+**File:** `aidm/narration/narrator.py`
+
+**Resolution (FIX-10):** Expanded narration templates from 24 to 55 templates organized by category (attack, maneuver, save, environmental, mounted). Templates remain hardcoded but coverage is now comprehensive for all current combat mechanics.
+
+---
+
+### TD-015: Shallow Copy in conditions.py Entity Updates
+**Status:** CLOSED (2026-02-09) — fixed in audit remediation
+**File:** Multiple files across `aidm/core/`
+
+**Resolution (FIX-11):** Replaced all shallow .copy() with deepcopy() across 9 resolver/controller files to prevent nested dict aliasing bugs:
+- conditions.py, maneuver_resolver.py, play_loop.py, combat_controller.py
+- attack_resolver.py, save_resolver.py, environmental_damage_resolver.py, mounted_combat.py, terrain_resolver.py
+
+All state mutation functions now use copy.deepcopy() for entity and world state modifications.

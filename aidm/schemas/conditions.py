@@ -32,6 +32,16 @@ class ConditionType(str, Enum):
     SHAKEN = "shaken"
     SICKENED = "sickened"
 
+    # Phase 2 conditions (PHB p.310-311, needed for saves/spells)
+    FRIGHTENED = "frightened"
+    PANICKED = "panicked"
+    NAUSEATED = "nauseated"
+    FATIGUED = "fatigued"
+    EXHAUSTED = "exhausted"
+    PARALYZED = "paralyzed"
+    STAGGERED = "staggered"
+    UNCONSCIOUS = "unconscious"
+
 
 @dataclass
 class ConditionModifiers:
@@ -375,4 +385,165 @@ def create_sickened_condition(source: str, applied_at_event_id: int) -> Conditio
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Sickened: -2 attack, damage, and saving throws"
+    )
+
+
+# ==============================================================================
+# PHASE 2 CONDITION DEFINITIONS (PHB 3.5e p.310-311)
+# ==============================================================================
+
+def create_frightened_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Frightened condition instance.
+
+    PHB p.310: "A frightened creature flees from the source of its fear as best
+    it can. If unable to flee, it may fight. A frightened creature takes a -2
+    penalty on all attack rolls, saving throws, skill checks, and ability checks."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.FRIGHTENED,
+        source=source,
+        modifiers=ConditionModifiers(
+            attack_modifier=-2,
+            fort_save_modifier=-2,
+            ref_save_modifier=-2,
+            will_save_modifier=-2,
+            movement_prohibited=False  # Must flee, but CAN move
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Frightened: -2 attacks, saves; must flee from source"
+    )
+
+
+def create_panicked_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Panicked condition instance.
+
+    PHB p.311: "A panicked creature must drop anything it holds and flee at top
+    speed from the source of its fear. It can't take any other actions. A panicked
+    creature takes a -2 penalty on all saving throws, skill checks, and ability checks."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.PANICKED,
+        source=source,
+        modifiers=ConditionModifiers(
+            fort_save_modifier=-2,
+            ref_save_modifier=-2,
+            will_save_modifier=-2,
+            loses_dex_to_ac=True  # Cannot defend effectively while fleeing
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Panicked: drops items, flees, -2 saves, loses Dex to AC"
+    )
+
+
+def create_nauseated_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Nauseated condition instance.
+
+    PHB p.311: "Creatures with the nauseated condition experience stomach
+    distress. Nauseated creatures are unable to attack, cast spells, concentrate
+    on spells, or do anything else requiring attention. The only action such a
+    character can take is a single move action per turn."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.NAUSEATED,
+        source=source,
+        modifiers=ConditionModifiers(
+            actions_prohibited=True  # Can only take move action
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Nauseated: cannot attack/cast, only move action per turn"
+    )
+
+
+def create_fatigued_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Fatigued condition instance.
+
+    PHB p.311: "A fatigued character can neither run nor charge and takes a -2
+    penalty to Strength and Dexterity."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.FATIGUED,
+        source=source,
+        modifiers=ConditionModifiers(
+            attack_modifier=-1,  # -2 STR → -1 melee attack (from STR penalty)
+            dex_modifier=-2  # -2 DEX affects AC, Reflex, ranged
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Fatigued: -2 STR/DEX, can't run or charge"
+    )
+
+
+def create_exhausted_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Exhausted condition instance.
+
+    PHB p.311: "An exhausted character moves at half speed and takes a -6 penalty
+    to Strength and Dexterity."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.EXHAUSTED,
+        source=source,
+        modifiers=ConditionModifiers(
+            attack_modifier=-3,  # -6 STR → -3 melee attack (from STR penalty)
+            dex_modifier=-6  # -6 DEX affects AC, Reflex, ranged
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Exhausted: -6 STR/DEX, half speed"
+    )
+
+
+def create_paralyzed_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Paralyzed condition instance.
+
+    PHB p.311: "A paralyzed character is frozen in place and unable to move or
+    act. A paralyzed character has effective Dexterity and Strength scores of 0
+    and is helpless."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.PARALYZED,
+        source=source,
+        modifiers=ConditionModifiers(
+            ac_modifier=-4,  # Effective Dex 0 + helpless
+            loses_dex_to_ac=True,
+            auto_hit_if_helpless=True,
+            actions_prohibited=True,
+            movement_prohibited=True
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Paralyzed: STR/DEX 0, helpless, cannot move or act"
+    )
+
+
+def create_staggered_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Staggered condition instance.
+
+    PHB p.311: "A staggered character may only take a single move action or
+    standard action each round (but not both, nor can she take full-round actions)."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.STAGGERED,
+        source=source,
+        modifiers=ConditionModifiers(),  # No numeric penalties, action restriction only
+        applied_at_event_id=applied_at_event_id,
+        notes="Staggered: only one move or standard action per round"
+    )
+
+
+def create_unconscious_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Unconscious condition instance.
+
+    PHB p.311: "An unconscious character is helpless. Unconsciousness can result
+    from having current hit points between -1 and -9, or from nonlethal damage
+    in excess of current hit points."
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.UNCONSCIOUS,
+        source=source,
+        modifiers=ConditionModifiers(
+            ac_modifier=-4,
+            loses_dex_to_ac=True,
+            auto_hit_if_helpless=True,
+            actions_prohibited=True,
+            movement_prohibited=True
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Unconscious: helpless, cannot move or act"
     )

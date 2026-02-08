@@ -26,6 +26,10 @@ class Weapon:
     critical_multiplier: int = 2
     """Critical hit damage multiplier (×2, ×3, ×4). Default ×2 per D&D 3.5e PHB p.140."""
 
+    critical_range: int = 20
+    """Minimum d20 roll that threatens a critical hit. Default 20 per PHB p.140.
+    Examples: 20 (most weapons), 19 (longsword, rapier 19-20), 18 (keen longsword 18-20)."""
+
     def __post_init__(self):
         """Validate weapon data."""
         if not self.damage_dice:
@@ -44,6 +48,11 @@ class Weapon:
         # Validate critical multiplier
         if self.critical_multiplier not in {2, 3, 4}:
             raise ValueError(f"critical_multiplier must be 2, 3, or 4, got {self.critical_multiplier}")
+
+        # Validate critical range (PHB p.140: threat range is 20 for most,
+        # 19-20 for longswords/rapiers, 18-20 for keen weapons)
+        if not (1 <= self.critical_range <= 20):
+            raise ValueError(f"critical_range must be 1-20, got {self.critical_range}")
 
 
 @dataclass

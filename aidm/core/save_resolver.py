@@ -9,6 +9,7 @@ Implements deterministic saving throw resolution:
 All state mutations are event-driven only.
 """
 
+from copy import deepcopy
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
 
@@ -17,6 +18,7 @@ from aidm.core.state import WorldState
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.saves import SaveContext, SaveType, SaveOutcome, EffectSpec, SRCheck
 from aidm.core.conditions import get_condition_modifiers, apply_condition
+from aidm.schemas.entity_fields import EF
 from aidm.schemas.conditions import (
     create_prone_condition,
     create_flat_footed_condition,
@@ -25,7 +27,15 @@ from aidm.schemas.conditions import (
     create_stunned_condition,
     create_dazed_condition,
     create_shaken_condition,
-    create_sickened_condition
+    create_sickened_condition,
+    create_frightened_condition,
+    create_panicked_condition,
+    create_nauseated_condition,
+    create_fatigued_condition,
+    create_exhausted_condition,
+    create_paralyzed_condition,
+    create_staggered_condition,
+    create_unconscious_condition
 )
 
 
@@ -38,7 +48,15 @@ CONDITION_FACTORIES = {
     "stunned": create_stunned_condition,
     "dazed": create_dazed_condition,
     "shaken": create_shaken_condition,
-    "sickened": create_sickened_condition
+    "sickened": create_sickened_condition,
+    "frightened": create_frightened_condition,
+    "panicked": create_panicked_condition,
+    "nauseated": create_nauseated_condition,
+    "fatigued": create_fatigued_condition,
+    "exhausted": create_exhausted_condition,
+    "paralyzed": create_paralyzed_condition,
+    "staggered": create_staggered_condition,
+    "unconscious": create_unconscious_condition
 }
 
 
@@ -128,7 +146,7 @@ def check_spell_resistance(
         # Target disappeared; treat as SR passed (effect continues)
         return (True, events)
 
-    sr = target.get("sr", 0)
+    sr = target.get(EF.SR, 0)
     if sr == 0:
         # No SR; bypass check
         return (True, events)
@@ -315,7 +333,7 @@ def apply_save_effects(
 
         target = world_state.entities.get(save_context.target_id)
         if target:
-            hp_before = target.get("hp_current", 0)
+            hp_before = target.get(EF.HP_CURRENT, 0)
             hp_after = hp_before - final_damage
 
             # Emit hp_changed event
@@ -335,8 +353,8 @@ def apply_save_effects(
             current_timestamp += 0.01
 
             # Apply HP change to state
-            entities = {eid: e.copy() for eid, e in world_state.entities.items()}
-            entities[save_context.target_id]["hp_current"] = hp_after
+            entities = deepcopy(world_state.entities)
+            entities[save_context.target_id][EF.HP_CURRENT] = hp_after
             world_state = WorldState(
                 ruleset_version=world_state.ruleset_version,
                 entities=entities,
@@ -360,8 +378,8 @@ def apply_save_effects(
                 current_timestamp += 0.01
 
                 # Mark entity as defeated
-                entities = {eid: e.copy() for eid, e in world_state.entities.items()}
-                entities[save_context.target_id]["defeated"] = True
+                entities = deepcopy(world_state.entities)
+                entities[save_context.target_id][EF.DEFEATED] = True
                 world_state = WorldState(
                     ruleset_version=world_state.ruleset_version,
                     entities=entities,

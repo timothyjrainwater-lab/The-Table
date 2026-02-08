@@ -12,9 +12,11 @@ CP-16 MINIMAL SCOPE (OPTION A):
 Conditions describe mechanical truth but do NOT enforce legality.
 """
 
+from copy import deepcopy
 from typing import Dict, Any, Optional, List
 from aidm.core.state import WorldState
 from aidm.schemas.conditions import ConditionInstance, ConditionModifiers
+from aidm.schemas.entity_fields import EF
 
 
 def get_condition_modifiers(
@@ -49,7 +51,7 @@ def get_condition_modifiers(
         # Fail-closed: missing entity returns zero modifiers
         return ConditionModifiers()
 
-    conditions_data = entity.get("conditions", {})
+    conditions_data = entity.get(EF.CONDITIONS, {})
     if not conditions_data:
         # No conditions: return zero modifiers
         return ConditionModifiers()
@@ -132,18 +134,18 @@ def apply_condition(
         raise ValueError(f"Cannot apply condition: actor {actor_id} not found in world state")
 
     # Deep copy entities
-    entities = world_state.entities.copy()
-    entity = entities[actor_id].copy()
+    entities = deepcopy(world_state.entities)
+    entity = entities[actor_id]
 
     # Get or create conditions dict
-    conditions = entity.get("conditions", {}).copy()
+    conditions = entity.get(EF.CONDITIONS, {})
 
     # Use condition type as key (overwrites existing condition of same type)
     condition_id = condition.condition_type.value
     conditions[condition_id] = condition.to_dict()
 
     # Update entity
-    entity["conditions"] = conditions
+    entity[EF.CONDITIONS] = conditions
     entities[actor_id] = entity
 
     return WorldState(
@@ -175,18 +177,18 @@ def remove_condition(
         raise ValueError(f"Cannot remove condition: actor {actor_id} not found in world state")
 
     # Deep copy entities
-    entities = world_state.entities.copy()
-    entity = entities[actor_id].copy()
+    entities = deepcopy(world_state.entities)
+    entity = entities[actor_id]
 
     # Get conditions dict
-    conditions = entity.get("conditions", {}).copy()
+    conditions = entity.get(EF.CONDITIONS, {})
 
     # Remove condition if present (no error if not present)
     if condition_type in conditions:
         del conditions[condition_type]
 
     # Update entity
-    entity["conditions"] = conditions
+    entity[EF.CONDITIONS] = conditions
     entities[actor_id] = entity
 
     return WorldState(
@@ -215,5 +217,5 @@ def has_condition(
     if entity is None:
         return False
 
-    conditions = entity.get("conditions", {})
+    conditions = entity.get(EF.CONDITIONS, {})
     return condition_type in conditions

@@ -30,6 +30,8 @@ RNG CONSUMPTION ORDER (per maneuver):
 - Grapple: AoO rolls → touch attack → attacker grapple check → defender grapple check
 """
 
+import logging
+from copy import deepcopy
 from typing import List, Dict, Any, Optional, Tuple, Union
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
@@ -46,6 +48,8 @@ from aidm.schemas.conditions import (
 )
 from aidm.core.conditions import apply_condition
 
+logger = logging.getLogger(__name__)
+
 
 # ==============================================================================
 # HELPER FUNCTIONS
@@ -55,6 +59,7 @@ def _get_entity_field(world_state: WorldState, entity_id: str, field: str, defau
     """Get entity field with default. Fail-closed: returns default if entity missing."""
     entity = world_state.entities.get(entity_id)
     if entity is None:
+        logger.warning("Entity '%s' not found; returning default for field '%s'", entity_id, field)
         return default
     return entity.get(field, default)
 
@@ -84,9 +89,10 @@ def _get_bab(world_state: WorldState, entity_id: str) -> int:
     """Get entity's Base Attack Bonus. Defaults to attack_bonus field if available."""
     entity = world_state.entities.get(entity_id)
     if entity is None:
+        logger.warning("Entity '%s' not found; defaulting BAB to 0", entity_id)
         return 0
     # Use attack_bonus as BAB proxy (actual BAB would need character level system)
-    return entity.get("attack_bonus", entity.get("bab", 0))
+    return entity.get(EF.ATTACK_BONUS, entity.get(EF.BAB, 0))
 
 
 def _get_touch_ac(world_state: WorldState, entity_id: str) -> int:
@@ -325,15 +331,11 @@ def resolve_bull_rush(
         }
 
         # Update world state with new positions
-        entities = world_state.entities.copy()
+        entities = deepcopy(world_state.entities)
         if target_id in entities:
-            defender_entity = entities[target_id].copy()
-            defender_entity[EF.POSITION] = new_defender_pos
-            entities[target_id] = defender_entity
+            entities[target_id][EF.POSITION] = new_defender_pos
         if attacker_id in entities:
-            attacker_entity = entities[attacker_id].copy()
-            attacker_entity[EF.POSITION] = new_attacker_pos
-            entities[attacker_id] = attacker_entity
+            entities[attacker_id][EF.POSITION] = new_attacker_pos
         world_state = WorldState(
             ruleset_version=world_state.ruleset_version,
             entities=entities,

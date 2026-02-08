@@ -26,6 +26,7 @@ ORDERING CONTRACT (T-19-03, extended by CP-20):
 4. Environmental damage resolved (fire, acid, lava, spiked pits)
 """
 
+from copy import deepcopy
 from typing import List, Dict, Any, Optional, Tuple
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
@@ -328,22 +329,39 @@ def _check_soft_cover(
 
 
 def _is_between(ax: int, ay: int, dx: int, dy: int, ex: int, ey: int) -> bool:
-    """Check if point (ex, ey) is between (ax, ay) and (dx, dy).
+    """Check if point (ex, ey) is between (ax, ay) and (dx, dy) on the grid line.
 
-    Uses bounding box check for simplicity.
+    Uses cross-product proximity test: the point must be close to the line
+    segment AND within the segment's extent (exclusive of endpoints).
+
+    For grid-based combat, a creature provides soft cover if it lies on or
+    adjacent to the line segment between attacker and defender.
     """
-    min_x = min(ax, dx)
-    max_x = max(ax, dx)
-    min_y = min(ay, dy)
-    max_y = max(ay, dy)
+    # Handle collinear cases (horizontal/vertical lines) first
+    if ax == dx:
+        # Vertical line: x must match, y must be strictly between
+        if ex != ax:
+            return False
+        return min(ay, dy) < ey < max(ay, dy)
+    if ay == dy:
+        # Horizontal line: y must match, x must be strictly between
+        if ey != ay:
+            return False
+        return min(ax, dx) < ex < max(ax, dx)
 
-    # Point must be within bounding box (exclusive of endpoints)
-    if ex <= min_x or ex >= max_x:
+    # General case: point must be inside bounding box (exclusive of endpoints)
+    if ex <= min(ax, dx) or ex >= max(ax, dx):
         return False
-    if ey <= min_y or ey >= max_y:
+    if ey <= min(ay, dy) or ey >= max(ay, dy):
         return False
 
-    return True
+    # Cross product to check proximity to line segment
+    # If |cross| <= half the segment length, the point is close enough
+    # to the line for grid-based soft cover (within ~1 square)
+    cross = abs((dx - ax) * (ey - ay) - (dy - ay) * (ex - ax))
+    seg_len = max(abs(dx - ax), abs(dy - ay))
+
+    return cross <= seg_len
 
 
 # ==============================================================================
@@ -679,8 +697,8 @@ def resolve_falling(
         current_timestamp += 0.01
 
         # Update entity HP
-        entities = world_state.entities.copy()
-        updated_entity = entities[entity_id].copy()
+        entities = deepcopy(world_state.entities)
+        updated_entity = entities[entity_id]
         updated_entity[EF.HP_CURRENT] = hp_after
         entities[entity_id] = updated_entity
 

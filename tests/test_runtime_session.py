@@ -460,6 +460,30 @@ class TestProcessInput:
         assert "target_id" in clarification_calls[0]
         assert result.status == EngineResultStatus.SUCCESS
 
+    def test_process_retraction_returns_engine_result(self):
+        """Retraction during clarification should return (EngineResult, str)."""
+        state = create_test_state()
+        session = RuntimeSession.create(
+            initial_state=state,
+            master_seed=42,
+            engine_resolver=mock_engine_resolver,
+        )
+
+        def retract_clarification(missing: List[str]) -> None:
+            return None  # Player retracts
+
+        result, narration = session.process_input(
+            actor_id="fighter_1",
+            source_text="I attack",
+            action_type=ActionType.ATTACK,
+            get_clarification=retract_clarification,
+        )
+
+        assert isinstance(result, EngineResult)
+        assert result.status == EngineResultStatus.FAILURE
+        assert result.failure_reason == "action_retracted"
+        assert narration == "action_retracted"
+
 
 # =============================================================================
 # Replay Tests

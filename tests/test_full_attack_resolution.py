@@ -655,3 +655,161 @@ def test_full_attack_events_serialize_to_jsonl():
         assert json_str
         parsed = json.loads(json_str)
         assert isinstance(parsed, dict)
+
+
+# ==============================================================================
+# CRITICAL RANGE TESTS (FIX-04)
+# ==============================================================================
+
+def test_weapon_critical_range_19_20_threatens_on_19():
+    """Weapon with critical_range=19 should threaten on rolls of 19 and 20 (PHB p.140)."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 100}
+        }
+    )
+
+    # Longsword: 19-20/×2
+    intent = FullAttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        base_attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing",
+                      critical_multiplier=2, critical_range=19)
+    )
+
+    threat_on_19_found = False
+    threat_on_20_found = False
+    no_threat_on_18_found = False
+
+    for seed in range(5000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_full_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+        attack_events = [e for e in events if e.event_type == "attack_roll"]
+
+        if attack_events:
+            first = attack_events[0]
+            d20 = first.payload["d20_result"]
+
+            if d20 == 19:
+                assert first.payload["is_threat"] is True
+                threat_on_19_found = True
+            elif d20 == 20:
+                assert first.payload["is_threat"] is True
+                threat_on_20_found = True
+            elif d20 == 18:
+                assert first.payload["is_threat"] is False
+                no_threat_on_18_found = True
+
+        if threat_on_19_found and threat_on_20_found and no_threat_on_18_found:
+            break
+
+    assert threat_on_19_found, "Could not find d20=19 in 5000 seeds"
+    assert threat_on_20_found, "Could not find d20=20 in 5000 seeds"
+    assert no_threat_on_18_found, "Could not find d20=18 in 5000 seeds"
+
+
+def test_weapon_critical_range_18_20_threatens_on_18():
+    """Weapon with critical_range=18 should threaten on rolls of 18, 19, and 20."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 100}
+        }
+    )
+
+    # Keen longsword: 18-20/×2
+    intent = FullAttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        base_attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing",
+                      critical_multiplier=2, critical_range=18)
+    )
+
+    threat_on_18_found = False
+    no_threat_on_17_found = False
+
+    for seed in range(5000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_full_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+        attack_events = [e for e in events if e.event_type == "attack_roll"]
+
+        if attack_events:
+            first = attack_events[0]
+            d20 = first.payload["d20_result"]
+
+            if d20 == 18:
+                assert first.payload["is_threat"] is True
+                threat_on_18_found = True
+            elif d20 == 17:
+                assert first.payload["is_threat"] is False
+                no_threat_on_17_found = True
+
+        if threat_on_18_found and no_threat_on_17_found:
+            break
+
+    assert threat_on_18_found, "Could not find d20=18 in 5000 seeds"
+    assert no_threat_on_17_found, "Could not find d20=17 in 5000 seeds"
+
+
+def test_weapon_default_critical_range_20_only():
+    """Default critical_range=20 should only threaten on natural 20."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 100}
+        }
+    )
+
+    intent = FullAttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        base_attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing")
+        # critical_range defaults to 20
+    )
+
+    no_threat_on_19_found = False
+
+    for seed in range(5000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_full_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+        attack_events = [e for e in events if e.event_type == "attack_roll"]
+
+        if attack_events:
+            first = attack_events[0]
+            d20 = first.payload["d20_result"]
+
+            if d20 == 19:
+                assert first.payload["is_threat"] is False
+                no_threat_on_19_found = True
+                break
+
+    assert no_threat_on_19_found, "Could not find d20=19 in 5000 seeds"
+
+
+def test_weapon_critical_range_validation():
+    """Weapon critical_range must be between 1 and 20."""
+    import pytest as pt
+
+    # Valid ranges
+    Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=20)
+    Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=19)
+    Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=18)
+    Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=1)
+
+    # Invalid ranges
+    with pt.raises(ValueError):
+        Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=0)
+
+    with pt.raises(ValueError):
+        Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=21)
+
+    with pt.raises(ValueError):
+        Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=-1)
+

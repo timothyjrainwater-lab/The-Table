@@ -48,17 +48,18 @@ All instruction packets must conform to this doctrine. Deviations require explic
 
 ### 3. Test Runtime Invariant
 
-**Rule**: Full test suite MUST complete in **< 2 seconds**.
+**Rule**: Full test suite MUST complete in **< 5 seconds** (≤ 4ms per test average).
 
 **Rationale**: Fast tests enable rapid iteration and prevent test suite bloat.
+The threshold scales with test count: original 435 tests at ~1.5s → ~3.4ms/test.
 
 **Enforcement**:
 - Monitor test runtime in CI
-- Reject patches that slow test suite below threshold
+- Reject patches that slow per-test average above 4ms
 - Use mocking/stubbing for slow external dependencies
 - Keep unit tests focused and isolated
 
-**Current Status**: 435 tests in ~1.5 seconds ✅
+**Current Status**: 1225 tests in ~3.7 seconds (~3.0ms/test) ✅
 
 ### 4. Deterministic Hashing (Not Cryptographic)
 

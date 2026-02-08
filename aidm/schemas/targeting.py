@@ -26,6 +26,8 @@ class VisibilityBlockReason(str, Enum):
     """Reasons why targeting might be blocked.
 
     CP-18A-T&V contract: Every failed targeting check MUST emit exactly one primary reason.
+
+    CANONICAL DEFINITION — all modules MUST import from here (or via visibility.py re-export).
     """
 
     LOS_BLOCKED = "los_blocked"
@@ -42,6 +44,9 @@ class VisibilityBlockReason(str, Enum):
 
     TARGET_NOT_VISIBLE = "target_not_visible"
     """Target is not visible (general catch-all)"""
+
+    OUT_OF_VISION_RANGE = "out_of_vision_range"
+    """Target beyond vision range for current mode"""
 
 
 @dataclass

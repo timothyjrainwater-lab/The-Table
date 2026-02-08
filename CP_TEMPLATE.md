@@ -4,7 +4,7 @@ CP TEMPLATE — Standard format for Completion Packet decision documents.
 Copy this file to docs/CP{XX}_{NAME}_DECISIONS.md and fill in the sections.
 Do not skip sections — write "N/A" if a section doesn't apply.
 
-LAST UPDATED: Post-Audit Corrections (594 tests)
+LAST UPDATED: Plan B Remediation (1225 tests)
 -->
 
 # CP-{XX}: {Feature Name} — Design Decisions

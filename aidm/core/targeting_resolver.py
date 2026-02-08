@@ -6,8 +6,10 @@ All functions are pure: (state, params) → (result)
 No RNG access, no state mutation.
 """
 
+import logging
 from typing import List, Set
 from aidm.core.state import WorldState
+from aidm.schemas.entity_fields import EF
 from aidm.schemas.targeting import (
     VisibilityState,
     TargetingLegalityResult,
@@ -15,6 +17,8 @@ from aidm.schemas.targeting import (
     RuleCitation,
     GridPoint
 )
+
+logger = logging.getLogger(__name__)
 
 
 # PHB citation for targeting rules
@@ -52,9 +56,10 @@ def get_entity_position(world_state: WorldState, entity_id: str) -> GridPoint:
     if entity is None:
         raise ValueError(f"Entity not found: {entity_id}")
 
-    pos = entity.get("position")
+    pos = entity.get(EF.POSITION)
     if pos is None:
         # Default position for backward compatibility with pre-CP-18A-T&V tests
+        logger.warning("Entity '%s' has no position field; defaulting to (0, 0)", entity_id)
         return GridPoint(0, 0)
 
     if isinstance(pos, dict):

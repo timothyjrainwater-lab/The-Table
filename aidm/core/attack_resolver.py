@@ -23,6 +23,7 @@ CP-19 INTEGRATION:
 All state mutations are event-driven only.
 """
 
+from copy import deepcopy
 from typing import List, Tuple
 
 from aidm.core.event_log import Event
@@ -314,7 +315,7 @@ def apply_attack_events(world_state: WorldState, events: List[Event]) -> WorldSt
         Updated world state (new instance)
     """
     # Deep copy entities
-    entities = {eid: e.copy() for eid, e in world_state.entities.items()}
+    entities = deepcopy(world_state.entities)
 
     for event in events:
         if event.event_type == "hp_changed":
@@ -331,5 +332,5 @@ def apply_attack_events(world_state: WorldState, events: List[Event]) -> WorldSt
     return WorldState(
         ruleset_version=world_state.ruleset_version,
         entities=entities,
-        active_combat=world_state.active_combat.copy() if world_state.active_combat else None
+        active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None
     )

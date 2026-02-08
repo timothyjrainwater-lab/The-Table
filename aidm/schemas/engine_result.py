@@ -357,12 +357,15 @@ class EngineResultBuilder:
         self,
         status: EngineResultStatus = EngineResultStatus.SUCCESS,
         failure_reason: Optional[str] = None,
+        resolved_at: Optional[datetime] = None,
     ) -> EngineResult:
         """Build the final immutable EngineResult.
 
         Args:
             status: Resolution status
             failure_reason: Reason for failure (if status != SUCCESS)
+            resolved_at: Optional timestamp for deterministic replay.
+                         If None, uses current UTC time.
 
         Returns:
             Immutable EngineResult
@@ -378,7 +381,7 @@ class EngineResultBuilder:
         object.__setattr__(result, "result_id", str(uuid.uuid4()))
         object.__setattr__(result, "intent_id", self.intent_id)
         object.__setattr__(result, "status", status)
-        object.__setattr__(result, "resolved_at", datetime.utcnow())
+        object.__setattr__(result, "resolved_at", resolved_at or datetime.utcnow())
         object.__setattr__(result, "events", self.events)
         object.__setattr__(result, "rolls", self.rolls)
         object.__setattr__(result, "state_changes", self.state_changes)

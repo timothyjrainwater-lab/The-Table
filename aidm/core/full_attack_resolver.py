@@ -12,7 +12,7 @@ RNG CONSUMPTION ORDER (deterministic):
 3. IF hit: Damage roll (XdY)
 
 NO MECHANICS BEYOND CP-11 SCOPE:
-- No expanded threat range (19-20, 18-20) - always 20 only
+- Threat range uses weapon.critical_range (default 20, can be 19-20, 18-20, etc.)
 - No two-weapon fighting
 - No attacks of opportunity
 - No DR/resistance/conditions
@@ -97,7 +97,7 @@ def resolve_single_attack_with_critical(
 
     RNG consumption order:
     1. Attack roll (d20)
-    2. IF threat (natural 20): Confirmation roll (d20)
+    2. IF threat (d20 >= weapon.critical_range): Confirmation roll (d20)
     3. IF hit: Damage roll (XdY)
 
     Args:
@@ -123,7 +123,7 @@ def resolve_single_attack_with_critical(
     total = d20_result + attack_bonus
 
     # Determine threat and hit
-    is_threat = (d20_result == 20)  # CP-11: Only natural 20 threatens (no 19-20 yet)
+    is_threat = (d20_result >= weapon.critical_range)  # PHB p.140: threat range from weapon
     is_natural_1 = (d20_result == 1)
 
     # Initial hit determination (before confirmation)
