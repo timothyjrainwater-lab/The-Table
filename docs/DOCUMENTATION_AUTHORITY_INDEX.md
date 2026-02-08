@@ -5,6 +5,7 @@
 **Document Type:** Governance / Documentation Control
 **Status:** ACTIVE
 **Audience:** Project Authority, Implementers, Auditors
+**Last Updated:** 2026-02-09
 
 ---
 
@@ -25,33 +26,64 @@ If two documents conflict, **this index determines which one wins**.
 
 ## 2. AUTHORITY RULES (BINDING)
 
-1. **Acceptance Records override all other docs**
-2. **Implementation Packets override Design Decisions**
-3. **Design Decisions override Progress / Feedback**
-4. **Governance docs override local comments**
-5. **Rules Coverage Ledger overrides assumptions**
+1. **Design Doctrine overrides all other docs** (for their respective domains)
+2. **Acceptance Records override Implementation Packets**
+3. **Implementation Packets override Design Decisions**
+4. **Design Decisions override Progress / Feedback**
+5. **Governance docs override local comments**
+6. **Rules Coverage Ledger overrides assumptions**
 
 If uncertainty remains → escalate.
 
 ---
 
-## 3. CORE RULES & MECHANICS
+## 3. DESIGN DOCTRINE (FROZEN)
+
+The design layer is **FROZEN** as of 2026-02-09.
 
 | Topic | Authoritative Document |
-|-----|------------------------|
-| Combat maneuvers | `docs/cp18/CP18_COMBAT_MANEUVERS_DECISIONS.md` |
+|-------|------------------------|
+| Campaign initialization | `docs/design/SESSION_ZERO_RULESET_AND_BOUNDARY_CONFIG.md` |
+| Character sheet UI contract | `docs/design/CHARACTER_SHEET_UI_CONTRACT.md` |
+| Voice input & clarification | `docs/design/VOICE_INTENT_AND_CLARIFICATION_PROTOCOL.md` |
+| LLM–Engine authority | `docs/design/LLM_ENGINE_BOUNDARY_CONTRACT.md` |
+| Local runtime & packaging | `docs/design/LOCAL_RUNTIME_PACKAGING_STRATEGY.md` |
+| Solo-first experience | `docs/design/SOLO_FIRST_PREPARATORY_DM_MODEL.md` |
+
+Changes to these documents require formal decision records.
+
+---
+
+## 4. PROJECT PLANNING & ROADMAP
+
+| Topic | Authoritative Document |
+|-------|------------------------|
+| Execution roadmap | `docs/AIDM_EXECUTION_ROADMAP_V3.md` |
+| Post-CP20 decision analysis | `docs/POST_CP20_DECISION_ANALYSIS.md` |
+| Tier-1 exhaustion analysis | `docs/TIER1_EXHAUSTION_ANALYSIS.md` |
+| CP-21 disqualification | `docs/CP21_DISQUALIFICATION_CRITERIA.md` |
+
+**Note:** `AIDM_PROJECT_ACTION_PLAN_V2.md` is superseded by `AIDM_EXECUTION_ROADMAP_V3.md`.
+
+---
+
+## 5. CORE RULES & MECHANICS
+
+| Topic | Authoritative Document |
+|-------|------------------------|
+| Combat maneuvers | `docs/CP18_COMBAT_MANEUVERS_DECISIONS.md` |
 | Environment & terrain | `docs/cp19/CP19_ENVIRONMENT_TERRAIN_DECISIONS.md` |
 | Environmental damage | `docs/cp20/CP20_ENVIRONMENTAL_DAMAGE_DECISIONS.md` |
-| Conditions (simple) | `docs/cp16/CP16_CONDITIONS_DECISIONS.md` |
+| Conditions (simple) | `docs/CP16_CONDITIONS_DECISIONS.md` |
 | Forced movement | `docs/cp18/` + `docs/cp19/` |
 | Falling damage | `docs/cp19/CP19_ENVIRONMENT_TERRAIN_DECISIONS.md` |
 
 ---
 
-## 4. IMPLEMENTATION AUTHORITY
+## 6. IMPLEMENTATION AUTHORITY
 
 | Topic | Document |
-|-----|----------|
+|-------|----------|
 | CP-19 implementation | `docs/cp19/CP19_IMPLEMENTATION_PACKET_FINAL.md` |
 | CP-19 acceptance | `docs/cp19/CP19_ACCEPTANCE_RECORD_FINAL.md` |
 | CP-20 implementation | `docs/cp20/CP20_IMPLEMENTATION_PACKET.md` |
@@ -59,41 +91,38 @@ If uncertainty remains → escalate.
 
 ---
 
-## 5. GOVERNANCE & SAFETY
+## 7. GOVERNANCE & SAFETY
 
 | Topic | Document |
-|-----|----------|
-| Capability gates | `CAPABILITY_GATE_ESCALATION_PLAYBOOKS.md` |
+|-------|----------|
+| Capability gates | `docs/CAPABILITY_GATE_ESCALATION_PLAYBOOKS.md` |
 | Gate pressure | `docs/GATE_PRESSURE_MAP.md` |
 | Determinism audit | `docs/DETERMINISM_AUDIT_PLAYBOOK.md` |
 | Determinism threats | `docs/DETERMINISM_THREAT_PATTERNS.md` |
 | RAW alignment | `docs/RAW_FIDELITY_AUDIT.md` |
 | Coverage status | `docs/RULES_COVERAGE_LEDGER.md` |
+| CP freeze process | `docs/CP_FREEZE_AND_CLOSURE_PLAYBOOK.md` |
+| CP completion template | `docs/CP_COMPLETION_REVIEW_TEMPLATE.md` |
+| Edge case traceability | `docs/EDGE_CASE_TRACEABILITY_INDEX.md` |
 
 ---
 
-## 6. KERNEL DESIGN AUTHORITY
+## 8. KERNEL DESIGN AUTHORITY
 
 | Kernel | Document |
-|------|----------|
-| Relational Conditions | `docs/skr/SKR-005_RELATIONAL_CONDITIONS_DESIGN.md` |
+|--------|----------|
+| Relational Conditions (SKR-005) | `docs/skr/SKR-005_RELATIONAL_CONDITIONS_DESIGN.md` |
 | SKR-005 risk analysis | `docs/skr/SKR-005_FAILURE_MODE_ANALYSIS.md` |
+| SKR-005 gate opening | `docs/skr/SKR-005_GATE_OPENING_DECISION_MEMO.md` |
+| SKR-005 impact map | `docs/skr/SKR-005_IMPACT_MAP.md` |
+| SKR-005 audit readiness | `docs/skr/SKR-005_AUDIT_READINESS_CHECKLIST.md` |
 | Kernel dependencies | `docs/skr/SKR_DEPENDENCY_GRAPH.md` |
 
 No kernel may be implemented without explicit authorization.
 
 ---
 
-## 7. PLANNING & ROADMAP
-
-| Topic | Document |
-|-----|----------|
-| CP-21 feasibility | `docs/cp21/CP21_FEASIBILITY_ANALYSIS.md` |
-| Test scope (CP-20) | `docs/cp20/CP20_TEST_CASE_CATALOG.md` |
-
----
-
-## 8. CONFLICT RESOLUTION EXAMPLE
+## 9. CONFLICT RESOLUTION EXAMPLE
 
 **Question:**
 "Soft cover geometry seems different in code vs comments."
@@ -108,18 +137,19 @@ If still unclear → escalate.
 
 ---
 
-## 9. MAINTENANCE RULE
+## 10. MAINTENANCE RULE
 
 - Update this index whenever:
   - A CP is finalized
   - A kernel is approved
   - A governance document is added
+  - A design document is adopted
 - Do not remove historical entries
 - Broken links are treated as defects
 
 ---
 
-## 10. CONCLUSION
+## 11. CONCLUSION
 
 This index is the **map of the project's truth**.
 
