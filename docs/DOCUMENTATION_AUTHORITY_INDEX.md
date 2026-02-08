@@ -41,8 +41,11 @@ If uncertainty remains → escalate.
 
 The design layer is **FROZEN** as of 2026-02-09.
 
+See `docs/design/DESIGN_LAYER_ADOPTION_RECORD.md` for the formal freeze declaration.
+
 | Topic | Authoritative Document |
 |-------|------------------------|
+| Design freeze declaration | `docs/design/DESIGN_LAYER_ADOPTION_RECORD.md` |
 | Campaign initialization | `docs/design/SESSION_ZERO_RULESET_AND_BOUNDARY_CONFIG.md` |
 | Character sheet UI contract | `docs/design/CHARACTER_SHEET_UI_CONTRACT.md` |
 | Voice input & clarification | `docs/design/VOICE_INTENT_AND_CLARIFICATION_PROTOCOL.md` |
@@ -50,7 +53,7 @@ The design layer is **FROZEN** as of 2026-02-09.
 | Local runtime & packaging | `docs/design/LOCAL_RUNTIME_PACKAGING_STRATEGY.md` |
 | Solo-first experience | `docs/design/SOLO_FIRST_PREPARATORY_DM_MODEL.md` |
 
-Changes to these documents require formal decision records.
+Changes to these documents require formal decision records (DR-XXX).
 
 ---
 
@@ -58,12 +61,13 @@ Changes to these documents require formal decision records.
 
 | Topic | Authoritative Document |
 |-------|------------------------|
-| Execution roadmap | `docs/AIDM_EXECUTION_ROADMAP_V3.md` |
+| Execution roadmap (M0-M4) | `docs/AIDM_EXECUTION_ROADMAP_V3.md` |
+| Execution packet (PM) | `docs/NEXT_STEPS_EXECUTION_PACKET_PM.md` |
 | Post-CP20 decision analysis | `docs/POST_CP20_DECISION_ANALYSIS.md` |
 | Tier-1 exhaustion analysis | `docs/TIER1_EXHAUSTION_ANALYSIS.md` |
 | CP-21 disqualification | `docs/CP21_DISQUALIFICATION_CRITERIA.md` |
 
-**Note:** `AIDM_PROJECT_ACTION_PLAN_V2.md` is superseded by `AIDM_EXECUTION_ROADMAP_V3.md`.
+**Superseded:** `AIDM_PROJECT_ACTION_PLAN_V2.md` → use `AIDM_EXECUTION_ROADMAP_V3.md`
 
 ---
 
