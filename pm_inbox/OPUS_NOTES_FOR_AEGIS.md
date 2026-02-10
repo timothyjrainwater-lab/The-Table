@@ -40,7 +40,16 @@ Removed 17 superseded docs (6,775 lines) + fixed 58 stale cross-references acros
 - `ad30e50` — M1 infrastructure checkpoint (338 files, 57K insertions)
 - `53cadee` — Documentation spring cleaning (17 files deleted)
 - `88e0457` — Reference fixes + scratch cleanup (58 refs, 3 scratch files)
-- Next commit pending: boundary law docs + projectInstructions update
+- `ec8bda8` — Agent infrastructure hardened + Sonnet WO staging (16 files)
+- Next commit pending: root cleanup + Sonnet-C WO-M1-06 IPC test fixes
+
+**6. Sonnet-C WO-M1-06 Delivered — IPC Runtime Integration**
+
+Sonnet-C completed WO-M1-06: 13 integration tests proving runtime schemas are IPC-compatible. Also fixed 2 pre-existing test failures (DiceRoll→RollResult, BL-020 assertion import). Test suite: 1725 passed, 0 failed. Deliverable in `pm_inbox/reviewed/SONNET-C_WO-M1-06_ipc_runtime_integration.md`.
+
+**7. Root Cleanup Completed**
+
+Deleted `Torrent downloaded from Demonoid.com.txt` and `Usage.txt` (PDF collection readme files, not project artifacts). Moved `REUSE_DECISION.json` (451KB Vault manifest) from root to `config/`.
 
 ---
 

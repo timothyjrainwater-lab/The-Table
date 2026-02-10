@@ -195,7 +195,7 @@ class TestIPCEngineResultSerialization:
 
     def test_t_ipc_rt_06_engine_result_with_rolls_preserved(self):
         """T-IPC-RT-06: EngineResult with rolls preserves all roll data."""
-        from aidm.schemas.engine_result import DiceRoll, RollType
+        from aidm.schemas.engine_result import RollResult
 
         result = EngineResult(
             result_id="result-rt-06",
@@ -204,23 +204,26 @@ class TestIPCEngineResultSerialization:
             resolved_at=datetime(2025, 1, 1, 17, 0, 0),
         )
 
-        # Add dice rolls
-        result.rolls.append(
-            DiceRoll(
-                roll_type=RollType.ATTACK,
-                natural_roll=18,
-                modifier=5,
-                total=23,
-            )
+        # Add dice rolls (must use object.__setattr__ because EngineResult is frozen)
+        roll1 = RollResult(
+            roll_type="attack",
+            dice="1d20",
+            natural_roll=18,
+            modifiers=5,
+            total=23,
+            rng_offset=0,
+            context={},
         )
-        result.rolls.append(
-            DiceRoll(
-                roll_type=RollType.DAMAGE,
-                natural_roll=7,
-                modifier=3,
-                total=10,
-            )
+        roll2 = RollResult(
+            roll_type="damage",
+            dice="1d8",
+            natural_roll=7,
+            modifiers=3,
+            total=10,
+            rng_offset=1,
+            context={},
         )
+        object.__setattr__(result, "rolls", [roll1, roll2])
 
         # IPC roundtrip
         payload = result.to_dict()
@@ -230,10 +233,12 @@ class TestIPCEngineResultSerialization:
 
         # Rolls preserved
         assert len(restored_result.rolls) == 2
-        assert restored_result.rolls[0].roll_type == RollType.ATTACK
+        assert restored_result.rolls[0].roll_type == "attack"
         assert restored_result.rolls[0].natural_roll == 18
-        assert restored_result.rolls[1].roll_type == RollType.DAMAGE
+        assert restored_result.rolls[0].modifiers == 5
+        assert restored_result.rolls[1].roll_type == "damage"
         assert restored_result.rolls[1].natural_roll == 7
+        assert restored_result.rolls[1].modifiers == 3
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -269,6 +274,8 @@ class TestIPCWorldStateSerialization:
 
     def test_t_ipc_rt_08_frozen_world_state_view_at_boundary(self):
         """T-IPC-RT-08: FrozenWorldStateView enforces immutability at IPC boundary."""
+        from aidm.core.state import WorldStateImmutabilityError
+
         ws = WorldState(
             ruleset_version="RAW_3.5",
             entities={"wizard": {"hp": 30, "mp": 15}},
@@ -277,8 +284,8 @@ class TestIPCWorldStateSerialization:
         # Create frozen view (non-engine boundary)
         frozen = FrozenWorldStateView(ws)
 
-        # Frozen view prevents mutation
-        with pytest.raises(AttributeError):
+        # Frozen view prevents mutation (raises WorldStateImmutabilityError, not AttributeError)
+        with pytest.raises(WorldStateImmutabilityError):
             frozen.entities = {}
 
         # Frozen view can be serialized

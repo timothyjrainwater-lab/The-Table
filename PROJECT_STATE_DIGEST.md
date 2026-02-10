@@ -8,8 +8,8 @@ UPDATE RULES:
 - Paste this file to refresh any agent completely
 - Format: Markdown with stable section ordering
 
-LAST UPDATED: M1 Infrastructure (1712 tests passing in ~7s)
-NOTE: M1 work orders WO-M1-01 through WO-M1-05 complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, pm_inbox workflow. Documentation spring cleaning removed 17 superseded files (6,775 lines). All 1712 tests passing with zero regressions.
+LAST UPDATED: M1 Infrastructure (1725 tests passing in ~7s)
+NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, IPC runtime integration, pm_inbox workflow. Documentation spring cleaning removed 17 superseded files (6,775 lines). Root cleanup: torrent remnants deleted, REUSE_DECISION.json moved to config/. All 1725 tests passing with zero regressions.
 -->
 
 # Project State Digest
