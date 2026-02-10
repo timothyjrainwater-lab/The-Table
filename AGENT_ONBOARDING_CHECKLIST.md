@@ -166,4 +166,67 @@ Every completion packet follows this process:
 
 ---
 
+## Step 8: PM Review Inbox
+
+When you complete a deliverable that needs PM (Aegis) review — work order output, design doc, spec, audit report, or any artifact the PM should evaluate — copy the output to `pm_inbox/` as a markdown file.
+
+**Naming convention:** `{AGENT}_{WO-id}_{short_description}.md`
+**Examples:**
+- `SONNET-C_WO-M1-01_event_reducer_impl.md`
+- `SONNET-A_WO-M1-02_deterministic_ids.md`
+- `OPUS_WO-M1-01_event_reducer_spec.md`
+
+**Required header block** (first lines of every deliverable file):
+```
+# [Work Order ID]: [Short Title]
+**Agent:** [Your agent identifier, e.g. Sonnet-C, Sonnet-A, Opus]
+**Work Order:** [WO-M1-01, WO-M1-02, etc.]
+**Date:** [YYYY-MM-DD]
+**Status:** [Complete | Partial | Blocked]
+
+## Summary
+[2-3 sentence summary of what was done]
+
+## Details
+[Full deliverable content below]
+```
+
+Thunder will drag-and-drop these files to the PM (Aegis/GPT) for review. After review, files are moved to `pm_inbox/reviewed/` or deleted.
+
+**What goes to pm_inbox:**
+- Completed work order deliverables
+- Design decision documents
+- Spec proposals that need PM sign-off
+- Audit reports or analysis results
+
+**What does NOT go to pm_inbox:**
+- Code files (those stay where they belong in the source tree)
+- Test files
+- Intermediate scratch work
+
+---
+
+## Step 9: Agent Notes (Flagging Observations)
+
+If you notice something during implementation that doesn't belong in a commit or test — a judgment call you made, an ambiguity you resolved, a possible bug outside your scope, a pattern violation in nearby code — append an entry to `pm_inbox/SONNET_AGENT_NOTES.md`.
+
+**Entry format:**
+```
+### [DATE] — [AGENT LETTER] — [SHORT TITLE]
+**Context:** What you were working on
+**Observation:** What you noticed or decided
+**Action taken:** What you did (or "none — flagging only")
+```
+
+Opus reads this file at the start of each session and triages entries. This is how you communicate observations upstream without needing to stop work or ask Thunder to relay a message.
+
+**When to write here:**
+- You made a judgment call that could have gone either way
+- You found something that looks like a bug but isn't in your scope
+- You hit an ambiguity in a work order and chose an interpretation
+- You noticed a pattern violation in existing code while working nearby
+- You have a suggestion for a future work order
+
+---
+
 **You are now ready to begin work. Follow the CP workflow for all implementation tasks.**

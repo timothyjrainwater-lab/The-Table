@@ -176,14 +176,14 @@ class TestCampaignManifest:
 
     def test_create_default(self):
         """Should create manifest with defaults."""
-        manifest = CampaignManifest(title="Test Campaign")
+        manifest = CampaignManifest(campaign_id="test-manifest-001", title="Test Campaign")
 
         assert manifest.title == "Test Campaign"
         assert manifest.engine_version == "0.1.0"
         assert manifest.master_seed == 0
         assert isinstance(manifest.session_zero, SessionZeroConfig)
         assert isinstance(manifest.paths, CampaignPaths)
-        assert len(manifest.campaign_id) == 36  # UUID format
+        assert manifest.campaign_id == "test-manifest-001"
 
     def test_manifest_with_session_zero(self):
         """Should embed session zero config."""
@@ -193,6 +193,7 @@ class TestCampaignManifest:
         )
 
         manifest = CampaignManifest(
+            campaign_id="deep-campaign-001",
             title="Deep Campaign",
             master_seed=42,
             session_zero=sz,
@@ -230,11 +231,13 @@ class TestCampaignManifest:
         assert restored.session_zero.optional_rules == ["flanking"]
         assert restored.tool_versions == {"python": "3.11"}
 
-    def test_manifest_unique_ids(self):
-        """Each manifest should get unique campaign_id."""
-        m1 = CampaignManifest(title="A")
-        m2 = CampaignManifest(title="B")
+    def test_manifest_preserves_injected_ids(self):
+        """Injected campaign_ids must be preserved exactly."""
+        m1 = CampaignManifest(campaign_id="campaign-aaa", title="A")
+        m2 = CampaignManifest(campaign_id="campaign-bbb", title="B")
 
+        assert m1.campaign_id == "campaign-aaa"
+        assert m2.campaign_id == "campaign-bbb"
         assert m1.campaign_id != m2.campaign_id
 
 

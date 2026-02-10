@@ -25,7 +25,7 @@ from typing import Tuple, List, Optional, Dict, Any
 from aidm.core.state import WorldState
 from aidm.core.event_log import Event
 from aidm.core.rng_manager import RNGManager
-from aidm.schemas.attack import GridPosition
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.mounted_combat import (
     MountedState, MountedMoveIntent, DismountIntent, MountIntent, SaddleType
 )
@@ -36,7 +36,7 @@ from aidm.schemas.entity_fields import EF
 # POSITION DERIVATION
 # ============================================================================
 
-def get_entity_position(entity_id: str, world_state: WorldState) -> Optional[GridPosition]:
+def get_entity_position(entity_id: str, world_state: WorldState) -> Optional[Position]:
     """Get entity position, accounting for mounted state.
 
     If entity is a mounted rider, returns MOUNT's position.
@@ -50,7 +50,7 @@ def get_entity_position(entity_id: str, world_state: WorldState) -> Optional[Gri
         world_state: Current world state
 
     Returns:
-        GridPosition or None if position unavailable
+        Position or None if position unavailable
     """
     entity = world_state.entities.get(entity_id)
     if entity is None:
@@ -63,13 +63,13 @@ def get_entity_position(entity_id: str, world_state: WorldState) -> Optional[Gri
         if mount is not None:
             pos_dict = mount.get(EF.POSITION)
             if pos_dict is not None:
-                return GridPosition.from_dict(pos_dict)
+                return Position.from_dict(pos_dict)
         # Mount missing - fall through to rider's own position (dismounted)
 
     # Not mounted or mount missing - return entity's own position
     pos_dict = entity.get(EF.POSITION)
     if pos_dict is not None:
-        return GridPosition.from_dict(pos_dict)
+        return Position.from_dict(pos_dict)
 
     return None
 
@@ -239,9 +239,9 @@ def resolve_mount(
 # ============================================================================
 
 def _find_adjacent_empty(
-    center_pos: GridPosition,
+    center_pos: Position,
     world_state: WorldState
-) -> Optional[GridPosition]:
+) -> Optional[Position]:
     """Find an empty adjacent square for dismounting.
 
     Args:
@@ -249,7 +249,7 @@ def _find_adjacent_empty(
         world_state: Current world state
 
     Returns:
-        First available adjacent GridPosition, or None if all occupied
+        First available adjacent Position, or None if all occupied
     """
     # Check all 8 adjacent squares
     for dx in [-1, 0, 1]:
@@ -257,14 +257,14 @@ def _find_adjacent_empty(
             if dx == 0 and dy == 0:
                 continue
 
-            candidate = GridPosition(x=center_pos.x + dx, y=center_pos.y + dy)
+            candidate = Position(x=center_pos.x + dx, y=center_pos.y + dy)
 
             # Check if any entity occupies this square
             occupied = False
             for entity_id, entity in world_state.entities.items():
                 pos_dict = entity.get(EF.POSITION)
                 if pos_dict is not None:
-                    entity_pos = GridPosition.from_dict(pos_dict)
+                    entity_pos = Position.from_dict(pos_dict)
                     if entity_pos == candidate:
                         occupied = True
                         break
@@ -273,7 +273,7 @@ def _find_adjacent_empty(
                 return candidate
 
     # All squares occupied - return first adjacent as fallback
-    return GridPosition(x=center_pos.x + 1, y=center_pos.y)
+    return Position(x=center_pos.x + 1, y=center_pos.y)
 
 
 def resolve_dismount(
@@ -315,14 +315,14 @@ def resolve_dismount(
     if mount_pos_dict is None:
         return world_state, events
 
-    mount_pos = GridPosition.from_dict(mount_pos_dict)
+    mount_pos = Position.from_dict(mount_pos_dict)
 
     # Determine landing position
     dismount_pos = intent.dismount_to
     if dismount_pos is None:
         dismount_pos = _find_adjacent_empty(mount_pos, world_state)
     if dismount_pos is None:
-        dismount_pos = GridPosition(x=mount_pos.x + 1, y=mount_pos.y)
+        dismount_pos = Position(x=mount_pos.x + 1, y=mount_pos.y)
 
     # Fast dismount requires Ride check (deferred - skill system)
     action_type = "free_action" if intent.fast_dismount else "move_action"
@@ -410,7 +410,7 @@ def trigger_forced_dismount(
     if mount is not None:
         pos_dict = mount.get(EF.POSITION)
         if pos_dict is not None:
-            mount_pos = GridPosition.from_dict(pos_dict)
+            mount_pos = Position.from_dict(pos_dict)
 
     # Roll Ride check (DC 15 for soft fall)
     # Placeholder: Assume +5 Ride modifier (skill system not implemented)
@@ -463,7 +463,7 @@ def trigger_forced_dismount(
     if mount_pos is not None:
         dismount_pos = _find_adjacent_empty(mount_pos, world_state)
         if dismount_pos is None:
-            dismount_pos = GridPosition(x=mount_pos.x + 1, y=mount_pos.y)
+            dismount_pos = Position(x=mount_pos.x + 1, y=mount_pos.y)
 
     # Emit dismount event
     events.append(Event(

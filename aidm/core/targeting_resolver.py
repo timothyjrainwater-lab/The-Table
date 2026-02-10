@@ -10,12 +10,12 @@ import logging
 from typing import List, Set
 from aidm.core.state import WorldState
 from aidm.schemas.entity_fields import EF
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.targeting import (
     VisibilityState,
     TargetingLegalityResult,
     VisibilityBlockReason,
-    RuleCitation,
-    GridPoint
+    RuleCitation
 )
 
 logger = logging.getLogger(__name__)
@@ -35,7 +35,7 @@ PHB_RANGE_CITATION = RuleCitation(
 )
 
 
-def get_entity_position(world_state: WorldState, entity_id: str) -> GridPoint:
+def get_entity_position(world_state: WorldState, entity_id: str) -> Position:
     """Get entity's grid position.
 
     Args:
@@ -43,7 +43,7 @@ def get_entity_position(world_state: WorldState, entity_id: str) -> GridPoint:
         entity_id: Entity ID
 
     Returns:
-        GridPoint position
+        Position instance
 
     Raises:
         ValueError: If entity not found
@@ -60,24 +60,27 @@ def get_entity_position(world_state: WorldState, entity_id: str) -> GridPoint:
     if pos is None:
         # Default position for backward compatibility with pre-CP-18A-T&V tests
         logger.warning("Entity '%s' has no position field; defaulting to (0, 0)", entity_id)
-        return GridPoint(0, 0)
+        return Position(0, 0)
 
     if isinstance(pos, dict):
-        return GridPoint.from_dict(pos)
-    elif isinstance(pos, GridPoint):
+        return Position.from_dict(pos)
+    elif isinstance(pos, Position):
         return pos
     else:
         raise ValueError(f"Invalid position format for {entity_id}: {type(pos)}")
 
 
-def bresenham_line(start: GridPoint, end: GridPoint) -> List[GridPoint]:
+def bresenham_line(start: Position, end: Position) -> List[Position]:
     """Bresenham's line algorithm for grid raycast.
 
     Returns all grid points from start to end (inclusive).
 
     Args:
-        start: Starting grid point
-        end: Ending grid point
+        start: Starting position
+        end: Ending position
+
+    Returns:
+        List of positions along the line
 
     Returns:
         List of grid points along line (including start and end)
@@ -93,7 +96,7 @@ def bresenham_line(start: GridPoint, end: GridPoint) -> List[GridPoint]:
     x, y = start.x, start.y
 
     while True:
-        points.append(GridPoint(x, y))
+        points.append(Position(x, y))
 
         if x == end.x and y == end.y:
             break
@@ -109,7 +112,7 @@ def bresenham_line(start: GridPoint, end: GridPoint) -> List[GridPoint]:
     return points
 
 
-def is_terrain_opaque(world_state: WorldState, pos: GridPoint) -> bool:
+def is_terrain_opaque(world_state: WorldState, pos: Position) -> bool:
     """Check if terrain at position blocks LoS/LoE.
 
     Args:
@@ -218,7 +221,7 @@ def check_range(
         True if within range, False otherwise
 
     CP-18A-T&V constraints:
-    - Uses GridPoint.distance_to() (implements CP-14 diagonal constraints)
+    - Uses Position.distance_to() (implements 1-2-1-2 diagonal math per PHB p.148)
     - No range increment penalties (deferred)
     """
     observer_pos = get_entity_position(world_state, observer_id)

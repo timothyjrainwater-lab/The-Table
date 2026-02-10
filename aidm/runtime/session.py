@@ -53,7 +53,7 @@ class IntentEntry:
 
     intent: IntentObject
     result: Optional[EngineResult]
-    logged_at: datetime = field(default_factory=datetime.utcnow)
+    logged_at: datetime
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize for logging."""
@@ -66,11 +66,9 @@ class IntentEntry:
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "IntentEntry":
         """Deserialize from log."""
-        logged_at = data.get("logged_at")
+        logged_at = data["logged_at"]
         if isinstance(logged_at, str):
             logged_at = datetime.fromisoformat(logged_at)
-        else:
-            logged_at = datetime.utcnow()
 
         return cls(
             intent=IntentObject.from_dict(data["intent"]),
@@ -95,7 +93,7 @@ class SessionLog:
 
     entries: List[IntentEntry] = field(default_factory=list)
     session_id: str = ""
-    started_at: datetime = field(default_factory=datetime.utcnow)
+    started_at: Optional[datetime] = None
     master_seed: int = 0
 
     def append(self, entry: IntentEntry) -> None:
@@ -121,7 +119,7 @@ class SessionLog:
             header = {
                 "_type": "session_header",
                 "session_id": self.session_id,
-                "started_at": self.started_at.isoformat(),
+                "started_at": self.started_at.isoformat() if self.started_at else "",
                 "master_seed": self.master_seed,
             }
             json.dump(header, f, sort_keys=True)
@@ -217,16 +215,27 @@ class RuntimeSession:
         actor_id: str,
         source_text: str,
         action_type: ActionType,
+        intent_id: str,
+        timestamp: datetime,
         **kwargs: Any,
     ) -> IntentObject:
         """Create a new intent from player input.
 
         The intent starts in PENDING status.
+
+        Args:
+            actor_id: Entity performing the action
+            source_text: Original player input text
+            action_type: Category of action
+            intent_id: Unique ID (BL-017: must be injected)
+            timestamp: Creation timestamp (BL-018: must be injected)
         """
         intent = create_intent_from_input(
             actor_id=actor_id,
             source_text=source_text,
             action_type=action_type,
+            intent_id=intent_id,
+            created_at=timestamp,
             **kwargs,
         )
         self._current_intent = intent
@@ -240,12 +249,14 @@ class RuntimeSession:
         self,
         intent: IntentObject,
         updates: Dict[str, Any],
+        timestamp: datetime,
     ) -> IntentObject:
         """Update intent with clarification responses.
 
         Args:
             intent: The intent to update
             updates: Field updates from player
+            timestamp: Current timestamp (BL-018: must be injected)
 
         Returns:
             Updated intent (same object, mutated in place)
@@ -257,14 +268,15 @@ class RuntimeSession:
             if hasattr(intent, key):
                 setattr(intent, key, value)
 
-        intent.updated_at = datetime.utcnow()
+        intent.updated_at = timestamp
         return intent
 
-    def confirm_intent(self, intent: IntentObject) -> IntentObject:
+    def confirm_intent(self, intent: IntentObject, timestamp: datetime) -> IntentObject:
         """Confirm intent, freezing it for resolution.
 
         Args:
             intent: The intent to confirm
+            timestamp: Current timestamp (BL-018: must be injected)
 
         Returns:
             Confirmed (frozen) intent
@@ -274,14 +286,15 @@ class RuntimeSession:
                 f"Cannot confirm intent with missing fields: {intent.get_missing_fields()}"
             )
 
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=timestamp)
         return intent
 
-    def retract_intent(self, intent: IntentObject) -> IntentObject:
+    def retract_intent(self, intent: IntentObject, timestamp: datetime) -> IntentObject:
         """Retract an intent (player cancellation).
 
         Args:
             intent: The intent to retract
+            timestamp: Current timestamp (BL-018: must be injected)
 
         Returns:
             Retracted intent
@@ -289,19 +302,20 @@ class RuntimeSession:
         if intent.is_frozen:
             raise IntentTransitionError("Cannot retract frozen intent")
 
-        intent.transition_to(IntentStatus.RETRACTED)
+        intent.transition_to(IntentStatus.RETRACTED, timestamp=timestamp)
 
         # Log retracted intents for debugging
-        entry = IntentEntry(intent=intent, result=None)
+        entry = IntentEntry(intent=intent, result=None, logged_at=timestamp)
         self.log.append(entry)
 
         return intent
 
-    def resolve(self, intent: IntentObject) -> Tuple[EngineResult, str]:
+    def resolve(self, intent: IntentObject, timestamp: datetime) -> Tuple[EngineResult, str]:
         """Resolve a confirmed intent through the engine.
 
         Args:
             intent: Confirmed intent to resolve
+            timestamp: Current timestamp (BL-018: must be injected)
 
         Returns:
             Tuple of (EngineResult, narration_token)
@@ -319,14 +333,14 @@ class RuntimeSession:
 
         # Update intent with result reference
         intent.result_id = result.result_id
-        intent.resolved_at = datetime.utcnow()
+        intent.resolved_at = timestamp
         intent.status = IntentStatus.RESOLVED
 
         # Update world state
         self.world_state = new_state
 
         # Log the entry
-        entry = IntentEntry(intent=intent, result=result)
+        entry = IntentEntry(intent=intent, result=result, logged_at=timestamp)
         self.log.append(entry)
 
         # Return result and narration token
@@ -338,6 +352,8 @@ class RuntimeSession:
         actor_id: str,
         source_text: str,
         action_type: ActionType,
+        intent_id: str,
+        timestamp: datetime,
         get_clarification: Optional[Callable[[List[str]], Dict[str, Any]]] = None,
         **initial_fields: Any,
     ) -> Tuple[EngineResult, str]:
@@ -355,6 +371,8 @@ class RuntimeSession:
             actor_id: Entity performing the action
             source_text: Original player input
             action_type: Type of action
+            intent_id: Unique ID for this intent (BL-017: must be injected)
+            timestamp: Current timestamp (BL-018: must be injected)
             get_clarification: Callback to get clarification responses
             **initial_fields: Initial field values
 
@@ -366,6 +384,8 @@ class RuntimeSession:
             actor_id=actor_id,
             source_text=source_text,
             action_type=action_type,
+            intent_id=intent_id,
+            timestamp=timestamp,
             **initial_fields,
         )
 
@@ -380,30 +400,33 @@ class RuntimeSession:
 
             # Transition to CLARIFYING
             if intent.status == IntentStatus.PENDING:
-                intent.transition_to(IntentStatus.CLARIFYING)
+                intent.transition_to(IntentStatus.CLARIFYING, timestamp=timestamp)
 
             # Get clarification
             updates = get_clarification(missing)
 
             if updates is None:
                 # Player retracted
-                retracted_intent = self.retract_intent(intent)
+                retracted_intent = self.retract_intent(intent, timestamp=timestamp)
                 # Build a proper EngineResult so return type matches signature
+                import uuid as _uuid
                 builder = EngineResultBuilder(intent_id=retracted_intent.intent_id)
                 result = builder.build(
+                    result_id=str(_uuid.uuid4()),
+                    resolved_at=timestamp,
                     status=EngineResultStatus.FAILURE,
                     failure_reason="action_retracted",
                 )
                 return result, "action_retracted"
 
             # Apply updates
-            self.update_intent(intent, updates)
+            self.update_intent(intent, updates, timestamp=timestamp)
 
         # 3. Confirm
-        self.confirm_intent(intent)
+        self.confirm_intent(intent, timestamp=timestamp)
 
         # 4-6. Resolve (includes logging)
-        return self.resolve(intent)
+        return self.resolve(intent, timestamp=timestamp)
 
 
 @dataclass

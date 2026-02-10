@@ -133,8 +133,10 @@ class TestEngineResultImmutability:
     def test_result_is_frozen_after_creation(self):
         """EngineResult should be frozen immediately after creation."""
         result = EngineResult(
+            result_id="test-result-001",
             intent_id="intent_123",
             status=EngineResultStatus.SUCCESS,
+            resolved_at=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         # Attempt to modify should raise
@@ -144,7 +146,10 @@ class TestEngineResultImmutability:
     def test_cannot_modify_any_field(self):
         """No field on EngineResult can be modified."""
         result = EngineResult(
+            result_id="test-result-002",
             intent_id="intent_123",
+            status=EngineResultStatus.SUCCESS,
+            resolved_at=datetime(2025, 1, 1, 12, 0, 0),
             narration_token="attack_hit",
         )
 
@@ -165,7 +170,7 @@ class TestEngineResultBuilder:
         """Builder should create valid EngineResult."""
         builder = EngineResultBuilder(intent_id="intent_456")
 
-        result = builder.build()
+        result = builder.build(result_id="test-result-003", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert result.intent_id == "intent_456"
         assert result.status == EngineResultStatus.SUCCESS
@@ -179,7 +184,7 @@ class TestEngineResultBuilder:
         builder.add_event({"type": "attack_roll", "hit": True})
         builder.add_event({"type": "damage_dealt", "amount": 8})
 
-        result = builder.build()
+        result = builder.build(result_id="test-result-004", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert len(result.events) == 2
         assert result.events[0]["type"] == "attack_roll"
@@ -204,7 +209,7 @@ class TestEngineResultBuilder:
             total=8,
         )
 
-        result = builder.build()
+        result = builder.build(result_id="test-result-005", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert len(result.rolls) == 2
         assert result.rolls[0].rng_offset == 10
@@ -223,7 +228,7 @@ class TestEngineResultBuilder:
             new_value=2,
         )
 
-        result = builder.build()
+        result = builder.build(result_id="test-result-006", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert len(result.state_changes) == 1
         assert result.state_changes[0].entity_id == "goblin_1"
@@ -235,7 +240,7 @@ class TestEngineResultBuilder:
 
         builder.set_narration_token("critical_hit")
 
-        result = builder.build()
+        result = builder.build(result_id="test-result-007", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert result.narration_token == "critical_hit"
 
@@ -246,7 +251,7 @@ class TestEngineResultBuilder:
         builder.add_metadata("actor", "fighter_1")
         builder.add_metadata("target", "goblin_1")
 
-        result = builder.build()
+        result = builder.build(result_id="test-result-008", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert result.metadata == {"actor": "fighter_1", "target": "goblin_1"}
 
@@ -254,7 +259,7 @@ class TestEngineResultBuilder:
         """Builder should create failure result."""
         builder = EngineResultBuilder(intent_id="intent_mno")
 
-        result = builder.build_failure("Target not found")
+        result = builder.build_failure("Target not found", result_id="test-result-009", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert result.status == EngineResultStatus.FAILURE
         assert result.failure_reason == "Target not found"
@@ -263,7 +268,7 @@ class TestEngineResultBuilder:
         """Builder should create aborted result."""
         builder = EngineResultBuilder(intent_id="intent_pqr")
 
-        result = builder.build_aborted("Defeated by AoO")
+        result = builder.build_aborted("Defeated by AoO", result_id="test-result-010", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert result.status == EngineResultStatus.ABORTED
         assert result.failure_reason == "Defeated by AoO"
@@ -272,7 +277,7 @@ class TestEngineResultBuilder:
         """Builder should reject modifications after build()."""
         builder = EngineResultBuilder(intent_id="intent_stu")
 
-        builder.build()
+        builder.build(result_id="test-result-011", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         with pytest.raises(ValueError, match="Cannot modify"):
             builder.add_event({"type": "late_event"})
@@ -284,10 +289,10 @@ class TestEngineResultBuilder:
         """Builder should reject second build() call."""
         builder = EngineResultBuilder(intent_id="intent_vwx")
 
-        builder.build()
+        builder.build(result_id="test-result-012", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         with pytest.raises(ValueError, match="only be called once"):
-            builder.build()
+            builder.build(result_id="test-result-012b", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
     def test_builder_chaining(self):
         """Builder methods should support chaining."""
@@ -298,7 +303,7 @@ class TestEngineResultBuilder:
             .add_state_change("goblin_1", "hp", 10, 5)
             .set_narration_token("attack_hit")
             .add_metadata("critical", False)
-            .build()
+            .build(result_id="test-result-013", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
         )
 
         assert len(result.events) == 1
@@ -314,7 +319,7 @@ class TestEngineResultSerialization:
         """to_dict should include all required fields."""
         builder = EngineResultBuilder(intent_id="intent_serial")
         builder.add_roll("attack", "1d20", 17, 3, 20)
-        result = builder.build()
+        result = builder.build(result_id="test-result-014", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         data = result.to_dict()
 
@@ -327,7 +332,7 @@ class TestEngineResultSerialization:
     def test_to_dict_omits_none_fields(self):
         """to_dict should omit None optional fields."""
         builder = EngineResultBuilder(intent_id="intent_minimal")
-        result = builder.build()
+        result = builder.build(result_id="test-result-015", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         data = result.to_dict()
 
@@ -343,7 +348,7 @@ class TestEngineResultSerialization:
         builder.add_state_change("goblin_1", "hp", 15, 7)
         builder.set_narration_token("attack_hit")
         builder.add_metadata("critical", False)
-        result = builder.build()
+        result = builder.build(result_id="test-result-016", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         json_str = json.dumps(result.to_dict(), sort_keys=True)
         restored = EngineResult.from_dict(json.loads(json_str))
@@ -361,7 +366,7 @@ class TestEngineResultSerialization:
     def test_roundtrip_preserves_immutability(self):
         """Deserialized EngineResult should be frozen."""
         builder = EngineResultBuilder(intent_id="intent_frozen")
-        result = builder.build()
+        result = builder.build(result_id="test-result-017", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         json_str = json.dumps(result.to_dict())
         restored = EngineResult.from_dict(json.loads(json_str))
@@ -372,7 +377,7 @@ class TestEngineResultSerialization:
     def test_roundtrip_failure_result(self):
         """Failed EngineResult should roundtrip correctly."""
         builder = EngineResultBuilder(intent_id="intent_fail")
-        result = builder.build_failure("Invalid target")
+        result = builder.build_failure("Invalid target", result_id="test-result-018", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         json_str = json.dumps(result.to_dict())
         restored = EngineResult.from_dict(json.loads(json_str))
@@ -392,7 +397,7 @@ class TestEngineResultDeterminism:
         builder.add_roll("damage", "1d8", 6, 2, 8)
         builder.add_roll("damage", "1d6", 4, 0, 4)
 
-        result = builder.build()
+        result = builder.build(result_id="test-result-019", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert result.rng_initial_offset == 100
         assert result.rng_final_offset == 103
@@ -401,12 +406,12 @@ class TestEngineResultDeterminism:
         assert result.rolls[2].rng_offset == 102
 
     def test_result_id_uniqueness(self):
-        """Each EngineResult should have unique result_id."""
+        """Each EngineResult should preserve injected result_id."""
         builder1 = EngineResultBuilder(intent_id="intent_1")
         builder2 = EngineResultBuilder(intent_id="intent_2")
 
-        result1 = builder1.build()
-        result2 = builder2.build()
+        result1 = builder1.build(result_id="result-unique-1", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
+        result2 = builder2.build(result_id="result-unique-2", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
-        assert result1.result_id != result2.result_id
-        assert len(result1.result_id) == 36  # UUID format
+        assert result1.result_id == "result-unique-1"
+        assert result2.result_id == "result-unique-2"

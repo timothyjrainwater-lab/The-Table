@@ -5,7 +5,7 @@ This file documents known issues that are INTENTIONALLY DEFERRED. They are not b
 to be fixed — they are design decisions or blocked work items. Agents that "helpfully"
 fix these items waste context, break tests, and introduce regressions.
 
-LAST UPDATED: Plan B Remediation (1225 tests, CP-20, FIX-04/12/16)
+LAST UPDATED: CP-001 Phase 2 Complete (1393 tests, Position Type Unification - Internal Migration)
 -->
 
 # Known Technical Debt
@@ -19,20 +19,30 @@ LAST UPDATED: Plan B Remediation (1225 tests, CP-20, FIX-04/12/16)
 ## Category 1: Intentionally Deferred (Blocked by Design)
 
 ### TD-001: Three Duplicate Grid Position Types
-**Status:** DEFERRED — requires coordinated refactor
-**Files:**
-- `aidm/schemas/intents.py` → `GridPoint` (bare x/y, no methods)
-- `aidm/schemas/targeting.py` → `GridPoint` (has `distance_to()` with 1-2-1-2 diagonal math)
-- `aidm/schemas/attack.py` → `GridPosition` (has `is_adjacent_to()` for AoO checks)
+**Status:** RESOLVED (2026-02-10) — CP-001 Position Type Unification Phase 2 complete
 
-**Why three types exist:** They were built in separate CPs (voice intents, targeting, combat) before a canonical type was planned. Each has different methods needed by its consumers.
+**Resolution (CP-001 Phase 2):** Created canonical `Position` type at `aidm/schemas/position.py` with full 1-2-1-2 diagonal distance calculation (PHB p.148), adjacency checks, serialization, and immutability. All core systems migrated to use canonical Position:
 
-**Why NOT to fix now:**
-- Unifying them requires updating every import and every test that touches grid coordinates
-- The unified type needs `distance_to()`, `is_adjacent_to()`, `to_dict()`, `from_dict()`, and `__eq__()`
-- This should be its own CP with dedicated tests, not a drive-by fix
+**Phase 1 (Type Creation):**
+- Created canonical Position type with 34 unit tests
+- Implemented correct 1-2-1-2 diagonal math (returns feet, not squares)
+- Frozen dataclass (immutable, hashable)
 
-**Correct behavior for agents:** Use the type documented in `AGENT_DEVELOPMENT_GUIDELINES.md` Section 3 for your context (targeting vs AoO vs voice). Do not create a fourth type.
+**Phase 2 (Internal Migration - COMPLETE):**
+- Migrated [aidm/core/interaction.py](aidm/core/interaction.py): Updated commit_point() to accept Position instead of GridPoint
+- Migrated [aidm/core/targeting_resolver.py](aidm/core/targeting_resolver.py): All position operations now use Position.distance_to() with 1-2-1-2 math
+- Migrated [aidm/schemas/terrain.py](aidm/schemas/terrain.py): Removed local GridPosition class, TerrainCell now uses Position
+- Migrated [aidm/core/terrain_resolver.py](aidm/core/terrain_resolver.py): FallingResult uses Position
+- Updated test files: [tests/test_terrain_cp19_core.py](tests/test_terrain_cp19_core.py), [tests/test_targeting_resolver_unit.py](tests/test_targeting_resolver_unit.py)
+- Fixed all distance test expectations to match 1-2-1-2 math in feet (e.g., 3 diagonal squares = 20 feet, not 4 squares)
+
+**Phase 3 (Deprecation - PENDING CP-002):**
+Legacy types still exist but deprecated:
+- `aidm/schemas/intents.py` → `GridPoint` (DEPRECATED)
+- `aidm/schemas/targeting.py` → `GridPoint` (DEPRECATED)
+- `aidm/schemas/attack.py` → `GridPosition` (DEPRECATED)
+
+All 1393 tests pass. Zero regressions. Ready for Phase 3 (legacy type removal) in CP-002.
 
 ---
 

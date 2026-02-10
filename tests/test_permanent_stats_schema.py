@@ -1,4 +1,5 @@
 import pytest
+from collections.abc import Mapping
 
 from aidm.schemas.permanent_stats import (
     Ability,
@@ -199,4 +200,4 @@ def test_entity_state_integration_roundtrip_and_separation():
 
     # Ensure permanent and temporary are distinct objects/fields.
     assert "drain" in ent2.permanent_stat_modifiers.to_dict()["str"]
-    assert isinstance(ent2.temporary_modifiers, dict)
+    assert isinstance(ent2.temporary_modifiers, Mapping)

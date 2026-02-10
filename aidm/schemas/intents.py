@@ -5,6 +5,10 @@ Defines structured, JSON-serializable intents accepted from voice layer (ASR/NLU
 
 from dataclasses import dataclass, asdict
 from typing import Optional, List, Dict, Any, Literal
+import warnings
+
+# CP-001: Canonical position type (replaces legacy GridPoint below)
+from aidm.schemas.position import Position
 
 
 class IntentParseError(Exception):
@@ -14,10 +18,23 @@ class IntentParseError(Exception):
 
 @dataclass
 class GridPoint:
-    """2D grid coordinate."""
+    """2D grid coordinate.
+
+    DEPRECATED: Use aidm.schemas.position.Position instead.
+    This class will be removed in CP-002.
+    """
 
     x: int
     y: int
+
+    def __post_init__(self):
+        """Validate and warn about deprecation."""
+        warnings.warn(
+            "GridPoint in intents.py is deprecated. Use aidm.schemas.position.Position instead. "
+            "This class will be removed in CP-002.",
+            DeprecationWarning,
+            stacklevel=2
+        )
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -76,7 +93,7 @@ class MoveIntent:
     """Intent to move to a location."""
 
     type: Literal["move"] = "move"
-    destination: Optional[GridPoint] = None
+    destination: Optional[Position] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
@@ -93,7 +110,7 @@ class MoveIntent:
 
         destination = None
         if "destination" in data and data["destination"] is not None:
-            destination = GridPoint.from_dict(data["destination"])
+            destination = Position.from_dict(data["destination"])
 
         return cls(destination=destination)
 

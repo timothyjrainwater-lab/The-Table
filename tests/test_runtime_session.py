@@ -9,6 +9,7 @@ Tests the IPC_CONTRACT.md execution model:
 
 import pytest
 import json
+import uuid
 import tempfile
 from pathlib import Path
 from datetime import datetime
@@ -133,15 +134,15 @@ def mock_engine_resolver(
         else:
             builder.set_narration_token("attack_miss")
 
-        return builder.build(), state
+        return builder.build(result_id=str(uuid.uuid4()), resolved_at=datetime(2025, 1, 1, 12, 0, 0)), state
 
     elif intent.action_type == ActionType.END_TURN:
         builder.add_event({"type": "turn_ended", "actor": intent.actor_id})
         builder.set_narration_token("turn_ended")
-        return builder.build(), state
+        return builder.build(result_id=str(uuid.uuid4()), resolved_at=datetime(2025, 1, 1, 12, 0, 0)), state
 
     else:
-        return builder.build_failure(f"Unsupported action: {intent.action_type}"), state
+        return builder.build_failure(f"Unsupported action: {intent.action_type}", result_id=str(uuid.uuid4()), resolved_at=datetime(2025, 1, 1, 12, 0, 0)), state
 
 
 # =============================================================================
@@ -154,18 +155,22 @@ class TestIntentEntry:
     def test_create_entry(self):
         """Should create entry with intent and result."""
         intent = IntentObject(
+            intent_id="test-intent-001",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
         builder = EngineResultBuilder(intent_id=intent.intent_id)
-        result = builder.build()
+        result = builder.build(result_id="test-result-001", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
-        entry = IntentEntry(intent=intent, result=result)
+        entry = IntentEntry(intent=intent, result=result, logged_at=datetime(2025, 1, 1, 12, 0, 0))
 
         assert entry.intent.actor_id == "fighter_1"
         assert entry.result is not None
@@ -174,19 +179,23 @@ class TestIntentEntry:
     def test_entry_serialization_roundtrip(self):
         """IntentEntry should survive JSON roundtrip."""
         intent = IntentObject(
+            intent_id="test-intent-002",
             actor_id="fighter_1",
             source_text="attack goblin",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="sword",
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
         builder = EngineResultBuilder(intent_id=intent.intent_id)
         builder.add_event({"type": "test"})
-        result = builder.build()
+        result = builder.build(result_id="test-result-002", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
-        entry = IntentEntry(intent=intent, result=result)
+        entry = IntentEntry(intent=intent, result=result, logged_at=datetime(2025, 1, 1, 12, 0, 0))
 
         json_str = json.dumps(entry.to_dict())
         restored = IntentEntry.from_dict(json.loads(json_str))
@@ -208,13 +217,17 @@ class TestSessionLog:
         log = SessionLog()
 
         intent = IntentObject(
+            intent_id="test-intent-003",
             actor_id="fighter_1",
             source_text="attack",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
-        entry = IntentEntry(intent=intent, result=None)
+        entry = IntentEntry(intent=intent, result=None, logged_at=datetime(2025, 1, 1, 12, 0, 0))
         log.append(entry)
 
         assert len(log) == 1
@@ -224,29 +237,37 @@ class TestSessionLog:
         log = SessionLog()
 
         intent = IntentObject(
+            intent_id="test-intent-004",
             actor_id="fighter_1",
             source_text="attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
         # Still PENDING
 
-        entry = IntentEntry(intent=intent, result=None)
+        entry = IntentEntry(intent=intent, result=None, logged_at=datetime(2025, 1, 1, 12, 0, 0))
 
         with pytest.raises(ValueError, match="CONFIRMED, RESOLVED, or RETRACTED"):
             log.append(entry)
 
     def test_jsonl_roundtrip(self):
         """SessionLog should survive JSONL roundtrip."""
-        log = SessionLog(session_id="test-session", master_seed=12345)
+        log = SessionLog(session_id="test-session", master_seed=12345, started_at=datetime(2025, 1, 1, 12, 0, 0))
 
         intent = IntentObject(
+            intent_id="test-intent-005",
             actor_id="fighter_1",
             source_text="end turn",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
-        entry = IntentEntry(intent=intent, result=None)
+        entry = IntentEntry(intent=intent, result=None, logged_at=datetime(2025, 1, 1, 12, 0, 0))
         log.append(entry)
 
         with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as f:
@@ -292,6 +313,8 @@ class TestRuntimeSession:
             actor_id="fighter_1",
             source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-006",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         assert intent.actor_id == "fighter_1"
@@ -306,6 +329,8 @@ class TestRuntimeSession:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-007",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         assert session.needs_clarification(intent) is True
@@ -324,12 +349,14 @@ class TestRuntimeSession:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-008",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         session.update_intent(intent, {
             "target_id": "goblin_1",
             "method": "longsword",
-        })
+        }, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
         assert intent.target_id == "goblin_1"
         assert intent.method == "longsword"
@@ -343,11 +370,13 @@ class TestRuntimeSession:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-009",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
 
-        session.confirm_intent(intent)
+        session.confirm_intent(intent, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
         assert intent.status == IntentStatus.CONFIRMED
         assert intent.is_frozen is True
@@ -361,10 +390,12 @@ class TestRuntimeSession:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-010",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         with pytest.raises(Exception, match="missing fields"):
-            session.confirm_intent(intent)
+            session.confirm_intent(intent, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
     def test_retract_intent(self):
         """Should retract and log intent."""
@@ -375,9 +406,11 @@ class TestRuntimeSession:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-011",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
         )
 
-        session.retract_intent(intent)
+        session.retract_intent(intent, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
         assert intent.status == IntentStatus.RETRACTED
         assert len(session.log) == 1
@@ -395,12 +428,14 @@ class TestRuntimeSession:
             actor_id="fighter_1",
             source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-012",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
 
-        session.confirm_intent(intent)
-        result, narration = session.resolve(intent)
+        session.confirm_intent(intent, timestamp=datetime(2025, 1, 1, 12, 0, 0))
+        result, narration = session.resolve(intent, timestamp=datetime(2025, 1, 1, 12, 0, 0))
 
         assert result.status == EngineResultStatus.SUCCESS
         assert intent.status == IntentStatus.RESOLVED
@@ -424,6 +459,8 @@ class TestProcessInput:
             actor_id="fighter_1",
             source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-013",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
@@ -453,6 +490,8 @@ class TestProcessInput:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-014",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             get_clarification=get_clarification,
         )
 
@@ -476,6 +515,8 @@ class TestProcessInput:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-015",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             get_clarification=retract_clarification,
         )
 
@@ -506,6 +547,8 @@ class TestReplaySession:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-016",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
@@ -535,6 +578,8 @@ class TestReplaySession:
             actor_id="fighter_1",
             source_text="attack 1",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-017",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="sword",
         )
@@ -542,6 +587,8 @@ class TestReplaySession:
             actor_id="fighter_1",
             source_text="attack 2",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-018",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="sword",
         )
@@ -560,7 +607,7 @@ class TestVerify10xReplay:
     """Tests for 10× replay verification."""
 
     def test_10x_replay_success(self):
-        """10× replay should succeed for deterministic session."""
+        """10x replay should succeed for deterministic session."""
         state = create_test_state()
         session = RuntimeSession.create(
             initial_state=state,
@@ -572,6 +619,8 @@ class TestVerify10xReplay:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-019",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
@@ -587,7 +636,7 @@ class TestVerify10xReplay:
         assert len(result.divergences) == 0
 
     def test_10x_replay_detects_nondeterminism(self):
-        """10× replay should detect non-deterministic behavior."""
+        """10x replay should detect non-deterministic behavior."""
         state = create_test_state()
         session = RuntimeSession.create(
             initial_state=state,
@@ -599,6 +648,8 @@ class TestVerify10xReplay:
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            intent_id="test-intent-020",
+            timestamp=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
@@ -622,7 +673,7 @@ class TestVerify10xReplay:
                 combat_rng.randint(1, 20)  # Extra roll on even calls
             attack = combat_rng.randint(1, 20)
             builder.add_roll("attack", "1d20", attack, 0, attack)
-            return builder.build(), state
+            return builder.build(result_id=str(uuid.uuid4()), resolved_at=datetime(2025, 1, 1, 12, 0, 0)), state
 
         result = verify_10x_replay(
             session_log=session.log,

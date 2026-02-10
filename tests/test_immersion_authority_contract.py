@@ -143,6 +143,7 @@ class TestImportBoundary:
 # Non-Mutation Tests
 # =============================================================================
 
+@pytest.mark.immersion_fast
 class TestNonMutation:
     """Verify immersion functions never mutate engine state objects."""
 
@@ -250,6 +251,7 @@ class TestNonMutation:
 # Output Isolation Tests
 # =============================================================================
 
+@pytest.mark.immersion_fast
 class TestOutputIsolation:
     """Verify immersion outputs cannot leak into engine state."""
 

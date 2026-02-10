@@ -43,13 +43,17 @@ class TestSessionLogEntry:
     def test_create_entry(self):
         """Should create entry with intent and result."""
         intent = IntentObject(
+            intent_id="test-intent-001",
             actor_id="fighter_1",
-            source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="I attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         builder = EngineResultBuilder(intent_id=intent.intent_id)
-        result = builder.build()
+        result = builder.build(result_id="test-result-001", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         entry = SessionLogEntry(intent=intent, result=result)
 
@@ -59,10 +63,13 @@ class TestSessionLogEntry:
     def test_entry_with_no_result(self):
         """Should allow entry without result (retracted intent)."""
         intent = IntentObject(
+            intent_id="test-intent-002",
             actor_id="fighter_1",
-            source_text="I attack",
             action_type=ActionType.ATTACK,
             status=IntentStatus.RETRACTED,
+            source_text="I attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         entry = SessionLogEntry(intent=intent, result=None)
@@ -73,15 +80,19 @@ class TestSessionLogEntry:
     def test_entry_serialization(self):
         """Entry should serialize correctly."""
         intent = IntentObject(
+            intent_id="test-intent-003",
             actor_id="fighter_1",
-            source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="I attack the goblin",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
         )
 
         builder = EngineResultBuilder(intent_id=intent.intent_id)
         builder.set_narration_token("attack_hit")
-        result = builder.build()
+        result = builder.build(result_id="test-result-003", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         entry = SessionLogEntry(intent=intent, result=result)
         data = entry.to_dict()
@@ -94,13 +105,17 @@ class TestSessionLogEntry:
     def test_entry_roundtrip(self):
         """Entry should survive JSON roundtrip."""
         intent = IntentObject(
+            intent_id="test-intent-004",
             actor_id="wizard_1",
-            source_text="I cast fireball",
             action_type=ActionType.CAST_SPELL,
+            status=IntentStatus.PENDING,
+            source_text="I cast fireball",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         builder = EngineResultBuilder(intent_id=intent.intent_id)
-        result = builder.build()
+        result = builder.build(result_id="test-result-004", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         entry = SessionLogEntry(intent=intent, result=result)
 
@@ -126,13 +141,17 @@ class TestSessionLog:
         log = SessionLog(master_seed=12345)
 
         intent = IntentObject(
+            intent_id="test-intent-005",
             actor_id="fighter_1",
-            source_text="attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
 
         builder = EngineResultBuilder(intent_id=intent.intent_id)
-        result = builder.build()
+        result = builder.build(result_id="test-result-005", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         log.append(intent, result)
 
@@ -146,18 +165,24 @@ class TestSessionLog:
         intent1 = IntentObject(
             intent_id="intent_aaa",
             actor_id="fighter_1",
-            source_text="attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
         intent2 = IntentObject(
             intent_id="intent_bbb",
             actor_id="wizard_1",
-            source_text="cast",
             action_type=ActionType.CAST_SPELL,
+            status=IntentStatus.PENDING,
+            source_text="cast",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
 
-        log.append(intent1, EngineResultBuilder(intent_id="intent_aaa").build())
-        log.append(intent2, EngineResultBuilder(intent_id="intent_bbb").build())
+        log.append(intent1, EngineResultBuilder(intent_id="intent_aaa").build(result_id="test-result-006a", resolved_at=datetime(2025, 1, 1, 12, 0, 0)))
+        log.append(intent2, EngineResultBuilder(intent_id="intent_bbb").build(result_id="test-result-006b", resolved_at=datetime(2025, 1, 1, 12, 0, 0)))
 
         found = log.get_by_intent_id("intent_bbb")
         assert found is not None
@@ -171,11 +196,15 @@ class TestSessionLog:
         log = SessionLog(master_seed=42, initial_state_hash="abc123")
 
         intent = IntentObject(
+            intent_id="test-intent-007",
             actor_id="fighter_1",
-            source_text="attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
-        log.append(intent, EngineResultBuilder(intent_id=intent.intent_id).build())
+        log.append(intent, EngineResultBuilder(intent_id=intent.intent_id).build(result_id="test-result-007", resolved_at=datetime(2025, 1, 1, 12, 0, 0)))
 
         with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as f:
             path = Path(f.name)
@@ -205,10 +234,13 @@ class TestSessionLog:
             intent = IntentObject(
                 intent_id=f"intent_{i}",
                 actor_id=f"actor_{i}",
-                source_text=f"action {i}",
                 action_type=ActionType.END_TURN,
+                status=IntentStatus.PENDING,
+                source_text=f"action {i}",
+                created_at=datetime(2025, 1, 1, 12, 0, 0),
+                updated_at=datetime(2025, 1, 1, 12, 0, 0),
             )
-            log.append(intent, EngineResultBuilder(intent_id=f"intent_{i}").build())
+            log.append(intent, EngineResultBuilder(intent_id=f"intent_{i}").build(result_id=f"test-result-008-{i}", resolved_at=datetime(2025, 1, 1, 12, 0, 0)))
 
         with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as f:
             path = Path(f.name)
@@ -234,12 +266,12 @@ class TestVerifyResultMatch:
         builder1 = EngineResultBuilder(intent_id="test", rng_offset=0)
         builder1.add_roll("attack", "1d20", 15, 5, 20)
         builder1.add_state_change("goblin", "hp", 10, 5)
-        result1 = builder1.build()
+        result1 = builder1.build(result_id="test-result-009a", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         builder2 = EngineResultBuilder(intent_id="test", rng_offset=0)
         builder2.add_roll("attack", "1d20", 15, 5, 20)
         builder2.add_state_change("goblin", "hp", 10, 5)
-        result2 = builder2.build()
+        result2 = builder2.build(result_id="test-result-009b", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         matches, details = verify_result_match(result1, result2)
         assert matches is True
@@ -247,8 +279,8 @@ class TestVerifyResultMatch:
 
     def test_status_mismatch(self):
         """Different status should not match."""
-        result1 = EngineResultBuilder(intent_id="test").build()
-        result2 = EngineResultBuilder(intent_id="test").build_failure("reason")
+        result1 = EngineResultBuilder(intent_id="test").build(result_id="test-result-010a", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
+        result2 = EngineResultBuilder(intent_id="test").build_failure("reason", result_id="test-result-010b", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         matches, details = verify_result_match(result1, result2)
         assert matches is False
@@ -258,12 +290,12 @@ class TestVerifyResultMatch:
         """Different RNG offsets should not match."""
         builder1 = EngineResultBuilder(intent_id="test", rng_offset=0)
         builder1.add_roll("attack", "1d20", 15, 5, 20)
-        result1 = builder1.build()
+        result1 = builder1.build(result_id="test-result-011a", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         builder2 = EngineResultBuilder(intent_id="test", rng_offset=0)
         builder2.add_roll("attack", "1d20", 15, 5, 20)
         builder2.add_roll("damage", "1d8", 5, 2, 7)  # Extra roll
-        result2 = builder2.build()
+        result2 = builder2.build(result_id="test-result-011b", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         matches, details = verify_result_match(result1, result2)
         assert matches is False
@@ -273,11 +305,11 @@ class TestVerifyResultMatch:
         """Different roll values should not match."""
         builder1 = EngineResultBuilder(intent_id="test", rng_offset=0)
         builder1.add_roll("attack", "1d20", 15, 5, 20)
-        result1 = builder1.build()
+        result1 = builder1.build(result_id="test-result-012a", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         builder2 = EngineResultBuilder(intent_id="test", rng_offset=0)
         builder2.add_roll("attack", "1d20", 12, 5, 17)  # Different natural
-        result2 = builder2.build()
+        result2 = builder2.build(result_id="test-result-012b", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
         matches, details = verify_result_match(result1, result2)
         assert matches is False
@@ -318,13 +350,17 @@ class TestReplayHarness:
 
         # Create an intent
         intent = IntentObject(
+            intent_id="test-intent-013",
             actor_id="fighter_1",
-            source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="I attack the goblin",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
             method="longsword",
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=datetime(2025, 1, 1, 12, 0, 1))
 
         # Resolve it
         original_result = resolver(intent, world, rng)
@@ -351,12 +387,16 @@ class TestReplayHarness:
 
         for i in range(5):
             intent = IntentObject(
+                intent_id=f"test-intent-014-{i}",
                 actor_id="fighter_1",
-                source_text=f"attack {i}",
                 action_type=ActionType.ATTACK,
+                status=IntentStatus.PENDING,
+                source_text=f"attack {i}",
+                created_at=datetime(2025, 1, 1, 12, 0, 0),
+                updated_at=datetime(2025, 1, 1, 12, 0, 0),
                 target_id="goblin_1",
             )
-            intent.transition_to(IntentStatus.CONFIRMED)
+            intent.transition_to(IntentStatus.CONFIRMED, timestamp=datetime(2025, 1, 1, 12, 0, 1))
             result = resolver(intent, world, rng)
             log.append(intent, result)
 
@@ -384,10 +424,13 @@ class TestReplayHarness:
 
         # Add a retracted intent (no result)
         retracted = IntentObject(
+            intent_id="test-intent-015",
             actor_id="fighter_1",
-            source_text="I attack",
             action_type=ActionType.ATTACK,
             status=IntentStatus.RETRACTED,
+            source_text="I attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
         )
         log.append(retracted, None)
 
@@ -412,9 +455,13 @@ class TestCreateTestResolver:
         rng = RNGManager(12345)
 
         intent = IntentObject(
+            intent_id="test-intent-016",
             actor_id="fighter_1",
-            source_text="attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
         )
 
@@ -433,9 +480,13 @@ class TestCreateTestResolver:
         )
 
         intent = IntentObject(
+            intent_id="test-intent-017",
             actor_id="fighter_1",
-            source_text="attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            source_text="attack",
+            created_at=datetime(2025, 1, 1, 12, 0, 0),
+            updated_at=datetime(2025, 1, 1, 12, 0, 0),
             target_id="goblin_1",
         )
 

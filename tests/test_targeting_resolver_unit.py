@@ -11,15 +11,15 @@ Direct tests for every public function in the targeting resolver:
   - evaluate_target_legality
 
 All tests are pure (no RNG, no I/O).  WorldState fixtures use entities
-with dict-style and GridPoint-style positions so both code paths are
+with dict-style and Position-style positions so both code paths are
 exercised.
 """
 
 import pytest
 from aidm.core.state import WorldState
 from aidm.schemas.entity_fields import EF
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.targeting import (
-    GridPoint,
     VisibilityBlockReason,
     VisibilityState,
     TargetingLegalityResult,
@@ -71,19 +71,19 @@ class TestGetEntityPosition:
     """Tests for get_entity_position()."""
 
     def test_dict_position_returns_gridpoint(self):
-        """Entity with a dict position should return a GridPoint."""
+        """Entity with a dict position should return a Position."""
         ws = _make_state({"goblin": _entity(position={"x": 3, "y": 7})})
         pos = get_entity_position(ws, "goblin")
-        assert isinstance(pos, GridPoint)
+        assert isinstance(pos, Position)
         assert pos.x == 3
         assert pos.y == 7
 
     def test_gridpoint_position_returns_same(self):
-        """Entity with a GridPoint position should return it as-is."""
-        gp = GridPoint(5, 9)
+        """Entity with a Position position should return it as-is."""
+        gp = Position(5, 9)
         ws = _make_state({"orc": _entity(position=gp)})
         pos = get_entity_position(ws, "orc")
-        assert isinstance(pos, GridPoint)
+        assert isinstance(pos, Position)
         assert pos.x == 5
         assert pos.y == 9
 
@@ -94,10 +94,10 @@ class TestGetEntityPosition:
             get_entity_position(ws, "nonexistent")
 
     def test_no_position_defaults_to_origin(self):
-        """Entity without a position key should default to GridPoint(0, 0)."""
+        """Entity without a position key should default to Position(0, 0)."""
         ws = _make_state({"zombie": _entity()})  # no position kwarg
         pos = get_entity_position(ws, "zombie")
-        assert isinstance(pos, GridPoint)
+        assert isinstance(pos, Position)
         assert pos.x == 0
         assert pos.y == 0
 
@@ -111,7 +111,7 @@ class TestBresenhamLine:
 
     def test_horizontal_line(self):
         """Horizontal line should include all points along x-axis."""
-        points = bresenham_line(GridPoint(0, 0), GridPoint(4, 0))
+        points = bresenham_line(Position(0, 0), Position(4, 0))
         xs = [p.x for p in points]
         ys = [p.y for p in points]
         assert xs == [0, 1, 2, 3, 4]
@@ -119,7 +119,7 @@ class TestBresenhamLine:
 
     def test_vertical_line(self):
         """Vertical line should include all points along y-axis."""
-        points = bresenham_line(GridPoint(0, 0), GridPoint(0, 3))
+        points = bresenham_line(Position(0, 0), Position(0, 3))
         ys = [p.y for p in points]
         xs = [p.x for p in points]
         assert ys == [0, 1, 2, 3]
@@ -127,7 +127,7 @@ class TestBresenhamLine:
 
     def test_diagonal_line(self):
         """Diagonal line from (0,0) to (3,3) should have 4 points."""
-        points = bresenham_line(GridPoint(0, 0), GridPoint(3, 3))
+        points = bresenham_line(Position(0, 0), Position(3, 3))
         assert len(points) == 4
         # Start and end must be included
         assert points[0].x == 0 and points[0].y == 0
@@ -135,13 +135,13 @@ class TestBresenhamLine:
 
     def test_same_point(self):
         """Start == end should return a single-element list."""
-        points = bresenham_line(GridPoint(5, 5), GridPoint(5, 5))
+        points = bresenham_line(Position(5, 5), Position(5, 5))
         assert len(points) == 1
         assert points[0].x == 5 and points[0].y == 5
 
     def test_negative_direction(self):
         """Line going in negative direction should still work."""
-        points = bresenham_line(GridPoint(3, 0), GridPoint(0, 0))
+        points = bresenham_line(Position(3, 0), Position(0, 0))
         xs = [p.x for p in points]
         assert xs[0] == 3
         assert xs[-1] == 0
@@ -149,7 +149,7 @@ class TestBresenhamLine:
 
     def test_includes_start_and_end(self):
         """Both endpoints must always be present."""
-        start, end = GridPoint(1, 2), GridPoint(6, 4)
+        start, end = Position(1, 2), Position(6, 4)
         points = bresenham_line(start, end)
         assert points[0].x == start.x and points[0].y == start.y
         assert points[-1].x == end.x and points[-1].y == end.y
@@ -165,27 +165,27 @@ class TestIsTerrainOpaque:
     def test_no_terrain_map_returns_false(self):
         """Without _terrain entity, every position is transparent."""
         ws = _make_state({})
-        assert is_terrain_opaque(ws, GridPoint(5, 5)) is False
+        assert is_terrain_opaque(ws, Position(5, 5)) is False
 
     def test_blocks_loe_returns_true(self):
         """Position flagged with blocks_loe should be opaque."""
         ws = _make_state(terrain_map={"3,4": {"blocks_loe": True}})
-        assert is_terrain_opaque(ws, GridPoint(3, 4)) is True
+        assert is_terrain_opaque(ws, Position(3, 4)) is True
 
     def test_blocks_los_returns_true(self):
         """Position flagged with blocks_los should be opaque."""
         ws = _make_state(terrain_map={"7,2": {"blocks_los": True}})
-        assert is_terrain_opaque(ws, GridPoint(7, 2)) is True
+        assert is_terrain_opaque(ws, Position(7, 2)) is True
 
     def test_position_without_blocking_returns_false(self):
         """Position present in map but without blocking flags is transparent."""
         ws = _make_state(terrain_map={"1,1": {"difficult": True}})
-        assert is_terrain_opaque(ws, GridPoint(1, 1)) is False
+        assert is_terrain_opaque(ws, Position(1, 1)) is False
 
     def test_unlisted_position_returns_false(self):
         """Position not in terrain map should be transparent."""
         ws = _make_state(terrain_map={"0,0": {"blocks_loe": True}})
-        assert is_terrain_opaque(ws, GridPoint(99, 99)) is False
+        assert is_terrain_opaque(ws, Position(99, 99)) is False
 
 
 # ==============================================================================
@@ -298,7 +298,8 @@ class TestCheckRange:
             "archer": _entity(position={"x": 0, "y": 0}),
             "target": _entity(position={"x": 3, "y": 0}),
         })
-        assert check_range(ws, "archer", "target", max_range=5) is True
+        # 3 squares = 15 feet (3 × 5)
+        assert check_range(ws, "archer", "target", max_range=15) is True
 
     def test_out_of_range(self):
         """Target exceeding max_range -> False."""
@@ -306,7 +307,8 @@ class TestCheckRange:
             "archer": _entity(position={"x": 0, "y": 0}),
             "target": _entity(position={"x": 10, "y": 0}),
         })
-        assert check_range(ws, "archer", "target", max_range=5) is False
+        # 10 squares = 50 feet (10 × 5)
+        assert check_range(ws, "archer", "target", max_range=25) is False
 
     def test_exact_range(self):
         """Target at exactly max_range -> True (<=)."""
@@ -314,8 +316,8 @@ class TestCheckRange:
             "archer": _entity(position={"x": 0, "y": 0}),
             "target": _entity(position={"x": 4, "y": 0}),
         })
-        # Straight-line distance is 4 squares
-        distance = GridPoint(0, 0).distance_to(GridPoint(4, 0))
+        # Straight-line distance is 4 squares = 20 feet (4 × 5)
+        distance = Position(0, 0).distance_to(Position(4, 0))
         assert check_range(ws, "archer", "target", max_range=distance) is True
 
     def test_same_position_always_in_range(self):
@@ -413,7 +415,8 @@ class TestEvaluateTargetLegality:
             "fighter": _entity(position={"x": 0, "y": 0}),
             "goblin": _entity(position={"x": 3, "y": 0}),
         })
-        result = evaluate_target_legality("fighter", "goblin", ws, max_range=10)
+        # 3 squares = 15 feet
+        result = evaluate_target_legality("fighter", "goblin", ws, max_range=15)
         assert isinstance(result, TargetingLegalityResult)
         assert result.is_legal is True
         assert result.failure_reason is None
@@ -463,10 +466,10 @@ class TestEvaluateTargetLegality:
         assert result.failure_reason == VisibilityBlockReason.LOE_BLOCKED
 
     def test_default_max_range_is_100(self):
-        """Default max_range should be 100 squares (large enough for most spells)."""
+        """Default max_range should be 100 feet (covers 20 squares)."""
         ws = _make_state({
             "a": _entity(position={"x": 0, "y": 0}),
-            "b": _entity(position={"x": 50, "y": 0}),
+            "b": _entity(position={"x": 19, "y": 0}),  # 19 squares = 95 feet
         })
         result = evaluate_target_legality("a", "b", ws)
         assert result.is_legal is True
@@ -510,20 +513,20 @@ class TestEdgeCases:
     def test_bresenham_symmetry_cardinal(self):
         """Bresenham line on cardinal/diagonal axes is symmetric."""
         # Horizontal
-        a, b = GridPoint(0, 0), GridPoint(5, 0)
+        a, b = Position(0, 0), Position(5, 0)
         fwd = {(p.x, p.y) for p in bresenham_line(a, b)}
         bwd = {(p.x, p.y) for p in bresenham_line(b, a)}
         assert fwd == bwd
 
         # Diagonal
-        a, b = GridPoint(0, 0), GridPoint(4, 4)
+        a, b = Position(0, 0), Position(4, 4)
         fwd = {(p.x, p.y) for p in bresenham_line(a, b)}
         bwd = {(p.x, p.y) for p in bresenham_line(b, a)}
         assert fwd == bwd
 
     def test_bresenham_endpoints_always_match(self):
         """Forward and reverse Bresenham always share endpoints."""
-        a, b = GridPoint(1, 1), GridPoint(7, 4)
+        a, b = Position(1, 1), Position(7, 4)
         fwd = bresenham_line(a, b)
         bwd = bresenham_line(b, a)
         # Both must start and end at the correct endpoints
@@ -535,16 +538,17 @@ class TestEdgeCases:
         assert len(fwd) == len(bwd)
 
     def test_gridpoint_distance_to_used_by_check_range(self):
-        """check_range must use GridPoint.distance_to (CP-14 diagonal rule)."""
-        # Diagonal: 3 squares => cost = 3 + 3//2 = 4 (1-2-1 pattern)
+        """check_range must use Position.distance_to (1-2-1-2 diagonal rule)."""
+        # Diagonal: 3 squares using 1-2-1-2 math (PHB p.148)
+        # 1st diagonal: 5 feet, 2nd: 10 feet, 3rd: 5 feet = 20 feet total
         ws = _make_state({
             "a": _entity(position={"x": 0, "y": 0}),
             "b": _entity(position={"x": 3, "y": 3}),
         })
-        expected_dist = GridPoint(0, 0).distance_to(GridPoint(3, 3))
-        assert expected_dist == 4  # sanity check on diagonal math
-        assert check_range(ws, "a", "b", max_range=4) is True
-        assert check_range(ws, "a", "b", max_range=3) is False
+        expected_dist = Position(0, 0).distance_to(Position(3, 3))
+        assert expected_dist == 20  # 3 diagonals = 5 + 10 + 5 = 20 feet
+        assert check_range(ws, "a", "b", max_range=20) is True
+        assert check_range(ws, "a", "b", max_range=15) is False
 
     def test_wall_between_two_entities_blocks_all_checks(self):
         """A wall midway should block LoE, LoS, visibility, and legality."""

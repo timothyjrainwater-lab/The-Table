@@ -7,8 +7,8 @@ from aidm.schemas.intents import (
     MoveIntent,
     DeclaredAttackIntent,
     RestIntent,
-    GridPoint
 )
+from aidm.schemas.position import Position
 from aidm.core.state import WorldState
 
 
@@ -103,7 +103,7 @@ def test_commit_point_clears_pending_and_emits_event():
     assert pending is not None
 
     # Commit with point
-    point = GridPoint(x=10, y=15)
+    point = Position(x=10, y=15)
     new_state, events = engine.commit_point(
         world_state=world_state,
         pending_action=pending,
@@ -143,7 +143,7 @@ def test_move_intent_commits_immediately_with_destination():
     engine = InteractionEngine()
     world_state = WorldState(ruleset_version="3.5")
 
-    move = MoveIntent(destination=GridPoint(x=5, y=5))
+    move = MoveIntent(destination=Position(x=5, y=5))
 
     new_state, pending, events = engine.start_intent(
         world_state=world_state,
@@ -247,7 +247,7 @@ def test_commit_point_wrong_pending_kind_raises_error():
         engine.commit_point(
             world_state=world_state,
             pending_action=pending,
-            point=GridPoint(x=1, y=1),
+            point=Position(x=1, y=1),
             next_event_id=1,
             timestamp=2.0
         )

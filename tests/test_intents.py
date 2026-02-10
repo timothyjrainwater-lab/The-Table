@@ -8,10 +8,10 @@ from aidm.schemas.intents import (
     DeclaredAttackIntent,
     BuyIntent,
     RestIntent,
-    GridPoint,
     IntentParseError,
     parse_intent
 )
+from aidm.schemas.position import Position
 
 
 def test_cast_spell_requires_point_for_aoe():
@@ -55,7 +55,7 @@ def test_move_intent_destination_optional():
     assert move_pending.type == "move"
 
     # With destination
-    move_complete = MoveIntent(destination=GridPoint(x=5, y=10))
+    move_complete = MoveIntent(destination=Position(x=5, y=10))
 
     assert move_complete.destination is not None
     assert move_complete.destination.x == 5
@@ -74,7 +74,7 @@ def test_intent_serialization_roundtrip():
     assert spell_restored.target_mode == "point"
 
     # MoveIntent with destination
-    move = MoveIntent(destination=GridPoint(x=3, y=7))
+    move = MoveIntent(destination=Position(x=3, y=7))
     move_dict = move.to_dict()
     move_json = json.dumps(move_dict, sort_keys=True)
     move_restored = MoveIntent.from_dict(json.loads(move_json))
@@ -177,13 +177,13 @@ def test_intent_type_mismatch_raises_error():
 
 
 def test_gridpoint_serialization():
-    """GridPoint should serialize deterministically."""
-    point = GridPoint(x=10, y=20)
+    """Position should serialize deterministically."""
+    point = Position(x=10, y=20)
     point_dict = point.to_dict()
 
     assert point_dict == {"x": 10, "y": 20}
 
-    point_restored = GridPoint.from_dict(point_dict)
+    point_restored = Position.from_dict(point_dict)
     assert point_restored.x == 10
     assert point_restored.y == 20
 

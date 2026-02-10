@@ -7,10 +7,10 @@ import pytest
 from aidm.core.state import WorldState
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.entity_fields import EF
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.terrain import (
     TerrainCell, TerrainTag, CoverType,
     ElevationDifference, FallingResult, CoverCheckResult,
-    GridPosition,
 )
 from aidm.core.terrain_resolver import (
     get_terrain_cell,

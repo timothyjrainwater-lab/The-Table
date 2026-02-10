@@ -261,10 +261,6 @@ class ReplayHarness:
         Returns:
             ReplayVerificationResult
         """
-        import time
-
-        start_time = time.perf_counter()
-
         rng = RNGManager(self.master_seed)
         current_state = deepcopy(self.initial_state)
 
@@ -287,7 +283,6 @@ class ReplayHarness:
                     entries_checked=i,
                     divergence_index=i,
                     divergence_details=f"Resolver exception: {e}",
-                    replay_time_ms=(time.perf_counter() - start_time) * 1000,
                 )
 
             # Verify match
@@ -299,7 +294,6 @@ class ReplayHarness:
                     entries_checked=i + 1,
                     divergence_index=i,
                     divergence_details=details,
-                    replay_time_ms=(time.perf_counter() - start_time) * 1000,
                 )
 
             # Apply state changes if requested
@@ -308,12 +302,9 @@ class ReplayHarness:
                     if sc.entity_id in current_state.entities:
                         current_state.entities[sc.entity_id][sc.field] = sc.new_value
 
-        elapsed_ms = (time.perf_counter() - start_time) * 1000
-
         return ReplayVerificationResult(
             verified=True,
             entries_checked=len(session_log.entries),
-            replay_time_ms=elapsed_ms,
         )
 
     def verify_10x(
@@ -347,6 +338,8 @@ def create_test_resolver():
     Real resolvers would implement actual game logic.
     """
     from aidm.schemas.engine_result import EngineResultBuilder
+    import uuid
+    from datetime import datetime
 
     def test_resolver(
         intent: IntentObject,
@@ -412,6 +405,9 @@ def create_test_resolver():
             # Default: just mark as resolved
             builder.set_narration_token("action_complete")
 
-        return builder.build()
+        return builder.build(
+            result_id=str(uuid.uuid4()),
+            resolved_at=datetime.utcnow(),
+        )
 
     return test_resolver

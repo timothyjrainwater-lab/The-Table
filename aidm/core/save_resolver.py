@@ -82,19 +82,22 @@ def get_save_bonus(
     if entity is None:
         raise ValueError(f"Actor not found in world state: {actor_id}")
 
-    # Get base save
-    save_key = f"save_{save_type.value}"
-    base_save = entity.get(save_key, 0)
+    # Get base save using EF constants
+    save_key_map = {
+        SaveType.FORT: EF.SAVE_FORT,
+        SaveType.REF: EF.SAVE_REF,
+        SaveType.WILL: EF.SAVE_WILL,
+    }
+    base_save = entity.get(save_key_map[save_type], 0)
 
     # Get ability modifier (mapped to save type)
     # PHB p. 177: Fort = CON, Ref = DEX, Will = WIS
     ability_map = {
-        SaveType.FORT: "con_mod",
-        SaveType.REF: "dex_mod",
-        SaveType.WILL: "wis_mod"
+        SaveType.FORT: EF.CON_MOD,
+        SaveType.REF: EF.DEX_MOD,
+        SaveType.WILL: EF.WIS_MOD,
     }
-    ability_key = ability_map[save_type]
-    ability_mod = entity.get(ability_key, 0)
+    ability_mod = entity.get(ability_map[save_type], 0)
 
     # Get condition modifiers
     condition_mods = get_condition_modifiers(world_state, actor_id)

@@ -15,7 +15,6 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Literal, Optional
 import hashlib
 import json
-import uuid
 
 
 # ---------------------------------------------------------------------------
@@ -193,8 +192,9 @@ class CampaignManifest:
     deterministic replay verification.
     """
 
-    campaign_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    """Unique campaign identifier."""
+    # Required fields — no defaults (BL-017: inject-only)
+    campaign_id: str
+    """Unique campaign identifier (BL-017: must be injected by caller)."""
 
     title: str = ""
     """Human-readable campaign title."""
@@ -241,7 +241,7 @@ class CampaignManifest:
         paths = CampaignPaths.from_dict(data.get("paths", {}))
 
         return cls(
-            campaign_id=data.get("campaign_id", str(uuid.uuid4())),
+            campaign_id=data["campaign_id"],
             title=data.get("title", ""),
             engine_version=data.get("engine_version", "0.1.0"),
             config_schema_version=data.get("config_schema_version", "1.0"),

@@ -3,7 +3,15 @@
 Implements the INTENT_LIFECYCLE.md contract:
 - IntentStatus: PENDING → CLARIFYING → CONFIRMED → RESOLVED | RETRACTED
 - IntentObject: Wraps action intents with lifecycle state
-- Immutability enforcement after CONFIRMED
+
+BOUNDARY LAW (BL-014): Once _frozen is set to True (on CONFIRMED), it
+cannot be set back to False. Attempting to unfreeze raises IntentFrozenError.
+After freeze, only resolution fields (status, result_id, resolved_at,
+updated_at) may be modified.
+
+WHY: Confirmed intents are the basis for resolution. If they can be silently
+modified after confirmation, the resolution operates on different data than
+what the player confirmed — this is a correctness violation.
 
 Reference: docs/runtime/INTENT_LIFECYCLE.md
 """
@@ -12,7 +20,6 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, Optional, Union
-import uuid
 
 from aidm.schemas.intents import (
     Intent,
@@ -24,6 +31,7 @@ from aidm.schemas.intents import (
     GridPoint,
     parse_intent,
 )
+from aidm.schemas.position import Position
 
 
 class IntentStatus(Enum):
@@ -110,18 +118,18 @@ class IntentObject:
         resolved_at: When resolution completed
     """
 
-    # Required fields
-    intent_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    actor_id: str = ""
-    action_type: ActionType = ActionType.END_TURN
-    status: IntentStatus = IntentStatus.PENDING
-    source_text: str = ""
-    created_at: datetime = field(default_factory=datetime.utcnow)
-    updated_at: datetime = field(default_factory=datetime.utcnow)
+    # Required fields — no defaults (BL-017, BL-018: inject-only)
+    intent_id: str
+    actor_id: str
+    action_type: ActionType
+    status: IntentStatus
+    source_text: str
+    created_at: datetime
+    updated_at: datetime
 
     # Optional fields
     target_id: Optional[str] = None
-    target_location: Optional[GridPoint] = None
+    target_location: Optional[Position] = None
     method: Optional[str] = None
     parameters: Optional[Dict[str, Any]] = None
     declared_goal: Optional[str] = None
@@ -136,8 +144,12 @@ class IntentObject:
 
     def __setattr__(self, name: str, value: Any) -> None:
         """Enforce immutability after CONFIRMED status."""
-        # Allow setting _frozen itself
+        # Allow setting _frozen to True only (never unfreeze)
         if name == "_frozen":
+            if getattr(self, "_frozen", False) and not value:
+                raise IntentFrozenError(
+                    "Cannot unfreeze a confirmed intent"
+                )
             object.__setattr__(self, name, value)
             return
 
@@ -247,7 +259,7 @@ class IntentObject:
 
         return missing
 
-    def transition_to(self, new_status: IntentStatus, timestamp: Optional[datetime] = None) -> None:
+    def transition_to(self, new_status: IntentStatus, timestamp: datetime) -> None:
         """Attempt to transition to a new status.
 
         Validates transition is legal per lifecycle rules:
@@ -259,8 +271,7 @@ class IntentObject:
 
         Args:
             new_status: The status to transition to
-            timestamp: Optional timestamp for deterministic replay.
-                       If None, uses current UTC time.
+            timestamp: Timestamp for this transition (BL-018: must be injected)
 
         Raises:
             IntentTransitionError: If transition is not allowed
@@ -281,7 +292,7 @@ class IntentObject:
 
         # Set status first, then freeze (order matters for __setattr__ check)
         self.status = new_status
-        self.updated_at = timestamp or datetime.utcnow()
+        self.updated_at = timestamp
 
         # Freeze after CONFIRMED status is set
         if new_status == IntentStatus.CONFIRMED:
@@ -323,19 +334,17 @@ class IntentObject:
         """Create IntentObject from dictionary.
 
         Note: Frozen state is restored based on status (CONFIRMED+ means frozen).
+        All required fields (intent_id, created_at, updated_at) must be present
+        in the data — no fallback generation (BL-017, BL-018).
         """
-        # Parse datetime fields
-        created_at = data.get("created_at")
+        # Parse datetime fields — must be present
+        created_at = data["created_at"]
         if isinstance(created_at, str):
             created_at = datetime.fromisoformat(created_at)
-        elif created_at is None:
-            created_at = datetime.utcnow()
 
-        updated_at = data.get("updated_at")
+        updated_at = data["updated_at"]
         if isinstance(updated_at, str):
             updated_at = datetime.fromisoformat(updated_at)
-        elif updated_at is None:
-            updated_at = datetime.utcnow()
 
         resolved_at = data.get("resolved_at")
         if isinstance(resolved_at, str):
@@ -344,7 +353,7 @@ class IntentObject:
         # Parse target_location if present
         target_location = None
         if "target_location" in data and data["target_location"] is not None:
-            target_location = GridPoint.from_dict(data["target_location"])
+            target_location = Position.from_dict(data["target_location"])
 
         # Parse action_data if present
         action_data = None
@@ -352,11 +361,11 @@ class IntentObject:
             action_data = parse_intent(data["action_data"])
 
         # Parse enums
-        status = IntentStatus(data.get("status", "pending"))
-        action_type = ActionType(data.get("action_type", "end_turn"))
+        status = IntentStatus(data["status"])
+        action_type = ActionType(data["action_type"])
 
         intent = cls(
-            intent_id=data.get("intent_id", str(uuid.uuid4())),
+            intent_id=data["intent_id"],
             actor_id=data.get("actor_id", ""),
             action_type=action_type,
             status=status,
@@ -384,7 +393,8 @@ def create_intent_from_input(
     actor_id: str,
     source_text: str,
     action_type: ActionType,
-    created_at: Optional[datetime] = None,
+    intent_id: str,
+    created_at: datetime,
     **kwargs: Any,
 ) -> IntentObject:
     """Factory function to create a new IntentObject from player input.
@@ -393,22 +403,20 @@ def create_intent_from_input(
         actor_id: The entity performing the action
         source_text: Original player input text
         action_type: Category of action
-        created_at: Optional timestamp for deterministic replay.
-                    If None, uses current UTC time (dataclass default).
+        intent_id: Unique identifier (BL-017: must be injected)
+        created_at: Timestamp for creation (BL-018: must be injected)
         **kwargs: Additional fields (target_id, method, etc.)
 
     Returns:
         New IntentObject in PENDING status
     """
-    extra: Dict[str, Any] = {}
-    if created_at is not None:
-        extra["created_at"] = created_at
-        extra["updated_at"] = created_at
     return IntentObject(
+        intent_id=intent_id,
         actor_id=actor_id,
         source_text=source_text,
         action_type=action_type,
         status=IntentStatus.PENDING,
-        **extra,
+        created_at=created_at,
+        updated_at=created_at,
         **kwargs,
     )

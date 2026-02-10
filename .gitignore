@@ -1,1 +1,13 @@
 /artifacts/
+__pycache__/
+*.pyc
+*.pyo
+
+# Temp/scratch files
+inbox/temp_extract/
+test_audio_queue_results.txt
+*.backup
+*.bak
+
+# User Profile Configuration (local-only, never commit)
+config/user_profile.yaml

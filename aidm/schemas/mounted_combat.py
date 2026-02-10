@@ -18,7 +18,7 @@ OUT OF SCOPE:
 
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Any, List
-from aidm.schemas.attack import GridPosition
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 
 
 class MountType:
@@ -112,13 +112,13 @@ class MountedMoveIntent:
     mount_id: str
     """Entity actually moving (derived from rider's mounted_state)."""
 
-    from_pos: GridPosition
+    from_pos: Position
     """Starting position of mount."""
 
-    to_pos: GridPosition
+    to_pos: Position
     """Destination position of mount."""
 
-    path: Optional[List[GridPosition]] = None
+    path: Optional[List[Position]] = None
     """Intermediate squares if provided (for AoO checking along path)."""
 
     is_charge: bool = False
@@ -153,7 +153,7 @@ class DismountIntent:
     fast_dismount: bool = False
     """True to attempt DC 20 fast dismount (free action)."""
 
-    dismount_to: Optional[GridPosition] = None
+    dismount_to: Optional[Position] = None
     """Target square for dismount. If None, system chooses adjacent."""
 
     def __post_init__(self):

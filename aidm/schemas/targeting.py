@@ -20,6 +20,10 @@ OUT OF SCOPE (Deferred):
 from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
 from enum import Enum
+import warnings
+
+# CP-001: Canonical position type (replaces legacy GridPoint below)
+from aidm.schemas.position import Position
 
 
 class VisibilityBlockReason(str, Enum):
@@ -177,6 +181,9 @@ class TargetingLegalityResult:
 class GridPoint:
     """2D grid position (used for LoS/LoE calculations).
 
+    DEPRECATED: Use aidm.schemas.position.Position instead.
+    This class will be removed in CP-002.
+
     Note: This is a minimal representation. Full spatial system deferred to CP-19+.
     """
 
@@ -185,6 +192,12 @@ class GridPoint:
 
     def __post_init__(self):
         """Validate grid point."""
+        warnings.warn(
+            "GridPoint in targeting.py is deprecated. Use aidm.schemas.position.Position instead. "
+            "This class will be removed in CP-002.",
+            DeprecationWarning,
+            stacklevel=2
+        )
         if not isinstance(self.x, int) or not isinstance(self.y, int):
             raise ValueError("x and y must be integers")
 

@@ -9,12 +9,19 @@ A silent bug was found where permanent_stats.py used "current_hp" while
 every other module used "hp_current". Using constants prevents this class
 of mismatch bugs entirely.
 
+BOUNDARY LAW: If you add a new entity field, add the constant HERE FIRST.
+Any code using bare string literals for entity field keys is a latent bug
+waiting to happen. The audit found three such bugs (CRIT-01, CRIT-02, D1).
+
 RULES FOR ADDING NEW FIELDS:
 1. Add the constant here FIRST, before using it in any module.
 2. Use the constant in all code that reads/writes the field.
 3. Document which CP introduced the field.
 4. Never rename a constant after tests depend on it — add a new one
    and deprecate the old one explicitly.
+
+SINGLE SOURCE OF TRUTH for: Entity dict field names.
+CANONICAL OWNER: aidm.schemas.entity_fields (this file).
 
 Usage:
     from aidm.schemas.entity_fields import EF
@@ -56,8 +63,8 @@ class _EntityFields:
     CHA_MOD = "cha_mod"
 
     # --- Saves (CP-17) ---
-    SAVE_FORT = "save_fort"
-    SAVE_REF = "save_ref"
+    SAVE_FORT = "save_fortitude"
+    SAVE_REF = "save_reflex"
     SAVE_WILL = "save_will"
 
     # --- Position (CP-14 / CP-15 / CP-18A-T&V) ---

@@ -1,0 +1,410 @@
+# Spark Model Registry
+# Configuration file for swappable LLM model loading
+#
+# This file defines available LLM models and their hardware requirements.
+# Models are automatically selected based on detected hardware tier.
+#
+# Reference: SPARK_ADAPTER_ARCHITECTURE.md, SPARK_PROVIDER_CONTRACT.md
+# Status: M2 Preparation (Design-Only)
+# Date: 2026-02-10
+
+spark:
+  # Default model (used if user doesn't override)
+  default: "mistral-7b-instruct-4bit"
+
+  # Available models (user-selectable)
+  models:
+    # ═════════════════════════════════════════════════════════════════
+    # HIGH TIER: 14B Models (requires ≥8 GB VRAM)
+    # ═════════════════════════════════════════════════════════════════
+
+    - id: "mistral-14b-instruct-4bit"
+      name: "Mistral 14B Instruct (4-bit)"
+      provider: "llamacpp"
+      path: "models/mistral-14b-instruct-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 2048
+      max_context_window: 8192
+      min_vram_gb: 8.0
+      min_ram_gb: 16.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "HIGH"
+      fallback_model: "mistral-7b-instruct-4bit"
+      presets:
+        narration:
+          temperature: 0.8
+          max_tokens: 150
+          stop_sequences: ["</narration>", "\n\n"]
+        query:
+          temperature: 0.3
+          max_tokens: 50
+          stop_sequences: []
+      description: "High-quality narration for systems with ≥8 GB VRAM"
+
+    - id: "qwen2.5-14b-instruct"
+      name: "Qwen 2.5 14B Instruct"
+      provider: "llamacpp"
+      path: "models/qwen2.5-14b-instruct-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 2048
+      max_context_window: 8192
+      min_vram_gb: 8.0
+      min_ram_gb: 16.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "HIGH"
+      fallback_model: "qwen2.5-7b-instruct"
+      presets:
+        narration:
+          temperature: 0.8
+          max_tokens: 150
+        query:
+          temperature: 0.3
+          max_tokens: 50
+      description: "Alternative high-tier model with strong reasoning"
+
+    # ═════════════════════════════════════════════════════════════════
+    # MEDIUM TIER: 7B Models (requires 6-8 GB VRAM)
+    # ═════════════════════════════════════════════════════════════════
+
+    - id: "mistral-7b-instruct-4bit"
+      name: "Mistral 7B Instruct v0.2 (4-bit)"
+      provider: "llamacpp"
+      path: "models/mistral-7b-instruct-v0.2.Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 2048
+      max_context_window: 8192
+      min_vram_gb: 6.0
+      min_ram_gb: 16.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "MEDIUM"
+      fallback_model: "phi-3b-instruct-4bit"
+      presets:
+        narration:
+          temperature: 0.8
+          max_tokens: 150
+          stop_sequences: ["</narration>", "\n\n"]
+        query:
+          temperature: 0.3
+          max_tokens: 50
+          stop_sequences: []
+      description: "Balanced performance for mid-range GPUs (6-8 GB VRAM)"
+
+    - id: "qwen2.5-7b-instruct"
+      name: "Qwen 2.5 7B Instruct"
+      provider: "llamacpp"
+      path: "models/qwen2.5-7b-instruct-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 2048
+      max_context_window: 8192
+      min_vram_gb: 6.0
+      min_ram_gb: 16.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "MEDIUM"
+      fallback_model: "qwen2.5-3b-instruct"
+      presets:
+        narration:
+          temperature: 0.8
+          max_tokens: 150
+        query:
+          temperature: 0.3
+          max_tokens: 50
+      description: "Alternative medium-tier model with good instruction following"
+
+    - id: "llama-3-7b-instruct"
+      name: "LLaMA 3 7B Instruct"
+      provider: "llamacpp"
+      path: "models/llama-3-7b-instruct-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 2048
+      max_context_window: 8192
+      min_vram_gb: 6.0
+      min_ram_gb: 16.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "MEDIUM"
+      fallback_model: "phi-3b-instruct-4bit"
+      presets:
+        narration:
+          temperature: 0.9
+          max_tokens: 150
+        query:
+          temperature: 0.3
+          max_tokens: 50
+      description: "Meta's LLaMA 3 for narrative generation"
+
+    # ═════════════════════════════════════════════════════════════════
+    # FALLBACK TIER: 3B Models (CPU-compatible or low VRAM)
+    # ═════════════════════════════════════════════════════════════════
+
+    - id: "phi-3b-instruct-4bit"
+      name: "Phi-3 Mini 4K Instruct (4-bit)"
+      provider: "llamacpp"
+      path: "models/phi-3-mini-4k-instruct-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 1024
+      max_context_window: 4096
+      min_vram_gb: 3.0
+      min_ram_gb: 4.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "FALLBACK"
+      fallback_model: "qwen2.5-3b-instruct"
+      offload_config:
+        gpu_layers: 32
+        offload_layers: 16
+        min_gpu_layers: 8
+      presets:
+        narration:
+          temperature: 0.9
+          max_tokens: 100
+          stop_sequences: ["</narration>"]
+        query:
+          temperature: 0.3
+          max_tokens: 30
+      description: "Minimum spec model for low VRAM (<6 GB) or CPU-only"
+
+    - id: "qwen2.5-3b-instruct"
+      name: "Qwen 2.5 3B Instruct"
+      provider: "llamacpp"
+      path: "models/qwen2.5-3b-instruct-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 1024
+      max_context_window: 4096
+      min_vram_gb: 3.0
+      min_ram_gb: 4.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "FALLBACK"
+      fallback_model: "template-narration"
+      offload_config:
+        gpu_layers: 32
+        offload_layers: 16
+        min_gpu_layers: 8
+      presets:
+        narration:
+          temperature: 0.9
+          max_tokens: 100
+        query:
+          temperature: 0.3
+          max_tokens: 30
+      description: "Alternative fallback model with good quality on minimal hardware"
+
+    - id: "stablelm-3b-4e1t"
+      name: "StableLM 3B 4E1T"
+      provider: "llamacpp"
+      path: "models/stablelm-3b-4e1t-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 1024
+      max_context_window: 4096
+      min_vram_gb: 3.0
+      min_ram_gb: 4.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "FALLBACK"
+      fallback_model: "template-narration"
+      offload_config:
+        gpu_layers: 32
+        offload_layers: 16
+        min_gpu_layers: 8
+      presets:
+        narration:
+          temperature: 0.9
+          max_tokens: 100
+        query:
+          temperature: 0.3
+          max_tokens: 30
+      description: "StabilityAI's compact model for resource-constrained systems"
+
+    # ═════════════════════════════════════════════════════════════════
+    # TEMPLATE FALLBACK: No LLM (M0 Template-Based Narration)
+    # ═════════════════════════════════════════════════════════════════
+
+    - id: "template-narration"
+      name: "Template-Based Narration (No LLM)"
+      provider: "template"
+      path: null
+      quantization: null
+      max_tokens: null
+      max_context_window: null
+      min_vram_gb: 0.0
+      min_ram_gb: 0.0
+      supports_streaming: false
+      supports_json_mode: false
+      backend: "template"
+      tier: "FALLBACK"
+      fallback_model: null
+      description: "Ultimate fallback - uses M0 template system (no model loading)"
+
+# ═════════════════════════════════════════════════════════════════════
+# Tier Selection Rules
+# Automatic model selection based on detected hardware
+# ═════════════════════════════════════════════════════════════════════
+
+tier_selection:
+  HIGH:
+    min_vram_gb: 8.0
+    preferred_model: "mistral-14b-instruct-4bit"
+    alternatives:
+      - "qwen2.5-14b-instruct"
+    description: "High-end GPUs (RTX 3060 12GB, RTX 3090, RTX 4080)"
+
+  MEDIUM:
+    min_vram_gb: 6.0
+    preferred_model: "mistral-7b-instruct-4bit"
+    alternatives:
+      - "qwen2.5-7b-instruct"
+      - "llama-3-7b-instruct"
+    description: "Mid-range GPUs (RTX 2060, GTX 1070, RX 6600 XT)"
+
+  FALLBACK:
+    min_vram_gb: 0.0
+    preferred_model: "phi-3b-instruct-4bit"
+    alternatives:
+      - "qwen2.5-3b-instruct"
+      - "stablelm-3b-4e1t"
+    description: "Low VRAM (<6 GB) or CPU-only systems"
+
+  TEMPLATE:
+    min_vram_gb: 0.0
+    preferred_model: "template-narration"
+    alternatives: []
+    description: "Ultimate fallback when all models fail (no LLM required)"
+
+# ═════════════════════════════════════════════════════════════════════
+# Offload Configuration
+# CPU offload strategies when VRAM is insufficient
+# ═════════════════════════════════════════════════════════════════════
+
+offload_strategy:
+  # Full GPU loading (VRAM >= model requirements)
+  full_gpu:
+    condition: "vram_available >= model.min_vram_gb"
+    gpu_layers: "max"
+    offload_layers: 0
+    description: "Load entire model on GPU"
+
+  # Partial offload (VRAM >= 50% of requirements)
+  partial_offload:
+    condition: "vram_available >= (model.min_vram_gb * 0.5)"
+    gpu_layers: "auto"
+    offload_layers: "auto"
+    quantization: "8bit"
+    description: "Offload some layers to CPU, use 8-bit quantization"
+
+  # Full CPU offload (VRAM < 50% of requirements or no GPU)
+  full_cpu:
+    condition: "vram_available < (model.min_vram_gb * 0.5) OR no_gpu"
+    gpu_layers: 0
+    offload_layers: 999
+    device_map: "cpu"
+    description: "Run entirely on CPU (slow but functional)"
+
+# ═════════════════════════════════════════════════════════════════════
+# Provider Configuration
+# Backend-specific settings
+# ═════════════════════════════════════════════════════════════════════
+
+providers:
+  llamacpp:
+    backend: "llama-cpp-python"
+    version: ">=0.2.77"
+    supports_streaming: true
+    supports_json_mode: false
+    supports_tool_calling: false
+    supports_seeded_generation: true
+    supports_batch_inference: false
+    supports_stop_sequences: true
+    default_settings:
+      n_ctx: 8192
+      n_batch: 512
+      n_threads: null  # Auto-detect CPU cores
+      use_mlock: true
+      use_mmap: true
+
+  transformers:
+    backend: "transformers"
+    version: ">=4.38.0"
+    supports_streaming: true
+    supports_json_mode: false
+    supports_tool_calling: false
+    supports_seeded_generation: true
+    supports_batch_inference: true
+    supports_stop_sequences: true
+    default_settings:
+      device_map: "auto"
+      torch_dtype: "auto"
+      low_cpu_mem_usage: true
+
+  template:
+    backend: "aidm.narration.narrator"
+    version: "M0"
+    supports_streaming: false
+    supports_json_mode: false
+    description: "M0 template-based narration (no model loading)"
+
+# ═════════════════════════════════════════════════════════════════════
+# Validation Rules
+# Runtime validation checks for model registry
+# ═════════════════════════════════════════════════════════════════════
+
+validation:
+  required_fields:
+    - "id"
+    - "name"
+    - "provider"
+    - "tier"
+    - "min_vram_gb"
+    - "min_ram_gb"
+
+  error_handling:
+    missing_model_file: "skip_model"
+    invalid_schema: "use_default_config"
+    circular_fallback: "reject_chain"
+    provider_unavailable: "warn_and_skip"
+
+  startup_checks:
+    - "validate_schema"
+    - "check_model_files_exist"
+    - "verify_provider_installed"
+    - "check_fallback_chain_acyclic"
+    - "validate_tier_rules"
+
+# ═════════════════════════════════════════════════════════════════════
+# Notes
+# ═════════════════════════════════════════════════════════════════════
+
+notes: |
+  This configuration file enables swappable LLM backends without code changes.
+
+  Model Selection Process:
+  1. Hardware detector (Agent B) determines tier (HIGH/MEDIUM/FALLBACK)
+  2. Spark adapter reads this file and selects preferred_model for tier
+  3. If model load fails, adapter tries fallback_model
+  4. Fallback chain terminates at template-narration (always succeeds)
+
+  User Overrides:
+  - Environment: AIDM_SPARK_MODEL=phi-3b-instruct-4bit
+  - CLI: aidm-cli --spark-model phi-3b-instruct-4bit
+  - Runtime: /settings spark-model phi-3b-instruct-4bit
+
+  Model File Provisioning:
+  - Models referenced here are NOT included in repository
+  - Users must download models separately (see INSTALLATION.md)
+  - Model paths are relative to AIDM installation directory
+
+  Reference Documentation:
+  - SPARK_ADAPTER_ARCHITECTURE.md: Design specification
+  - SPARK_PROVIDER_CONTRACT.md: Interface contract
+  - HARDWARE_DETECTION_SYSTEM.md: Tier detection logic

@@ -8,6 +8,9 @@ Implements CHARACTER_SHEET_UI_CONTRACT.md:
 
 This is a v0 minimal implementation for the solo vertical slice.
 
+BL-020: Character sheet is a non-engine boundary consumer — receives read-only
+        FrozenWorldStateView instead of mutable WorldState.
+
 Reference: docs/design/CHARACTER_SHEET_UI_CONTRACT.md
 """
 
@@ -15,7 +18,7 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from datetime import datetime
 
-from aidm.core.state import WorldState
+from aidm.core.state import FrozenWorldStateView
 
 
 # ==============================================================================
@@ -219,8 +222,8 @@ class CharacterData:
         )
 
 
-# Type alias for state change callback
-StateChangeCallback = Callable[[WorldState], None]
+# Type alias for state change callback (BL-020: uses FrozenWorldStateView)
+StateChangeCallback = Callable[[FrozenWorldStateView], None]
 
 
 class CharacterSheetUI:
@@ -241,7 +244,7 @@ class CharacterSheetUI:
         self._callbacks: List[StateChangeCallback] = []
         self._last_update: Optional[datetime] = None
 
-    def update(self, world_state: WorldState) -> None:
+    def update(self, world_state: FrozenWorldStateView) -> None:
         """Update character data from world state.
 
         Called when world state changes.
@@ -391,7 +394,7 @@ class PartySheet:
         if entity_id in self._sheets:
             del self._sheets[entity_id]
 
-    def update_all(self, world_state: WorldState) -> None:
+    def update_all(self, world_state: FrozenWorldStateView) -> None:
         """Update all character sheets from world state."""
         for sheet in self._sheets.values():
             sheet.update(world_state)

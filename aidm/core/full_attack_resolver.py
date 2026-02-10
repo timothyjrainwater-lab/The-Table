@@ -28,6 +28,7 @@ from aidm.core.state import WorldState
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.attack import AttackIntent
 from aidm.core.attack_resolver import parse_damage_dice, roll_dice
+from aidm.schemas.entity_fields import EF
 
 
 @dataclass
@@ -90,7 +91,8 @@ def resolve_single_attack_with_critical(
     rng: RNGManager,
     next_event_id: int,
     timestamp: float,
-    attack_index: int
+    attack_index: int,
+    str_modifier: int = 0
 ) -> Tuple[List[Event], int]:
     """
     Resolve a single attack with critical hit logic.
@@ -161,7 +163,7 @@ def resolve_single_attack_with_critical(
             "total": total,
             "target_ac": target_ac,
             "hit": hit,
-            "is_natural_20": is_threat,
+            "is_natural_20": (d20_result == 20),
             "is_natural_1": is_natural_1,
             "is_threat": is_threat,
             "is_critical": is_critical,  # CP-11: New field (backward compatible with default False)
@@ -178,7 +180,8 @@ def resolve_single_attack_with_critical(
 
         # Roll base damage
         damage_rolls = roll_dice(num_dice, die_size, rng)
-        base_damage = sum(damage_rolls) + weapon.damage_bonus
+        # PHB p.113: STR modifier applies to melee damage
+        base_damage = sum(damage_rolls) + weapon.damage_bonus + str_modifier
 
         # Apply critical multiplier if critical hit
         if is_critical:
@@ -198,6 +201,7 @@ def resolve_single_attack_with_critical(
                 "damage_dice": weapon.damage_dice,
                 "damage_rolls": damage_rolls,
                 "damage_bonus": weapon.damage_bonus,
+                "str_modifier": str_modifier,  # PHB p.113
                 "base_damage": base_damage,  # CP-11: New field (backward compatible)
                 "critical_multiplier": weapon.critical_multiplier if is_critical else 1,  # CP-11: New field
                 "damage_total": damage_total,
@@ -254,8 +258,12 @@ def resolve_full_attack(
 
     # Get target AC and HP
     target = world_state.entities[intent.target_id]
-    target_ac = target.get("ac", 10)
-    hp_current = target.get("hp_current", 0)
+    target_ac = target.get(EF.AC, 10)
+    hp_current = target.get(EF.HP_CURRENT, 0)
+
+    # PHB p.113: STR modifier applies to melee damage
+    attacker = world_state.entities[intent.attacker_id]
+    str_modifier = attacker.get(EF.STR_MOD, 0)
 
     # Calculate iterative attacks
     attack_bonuses = calculate_iterative_attacks(intent.base_attack_bonus)
@@ -289,7 +297,8 @@ def resolve_full_attack(
             rng=rng,
             next_event_id=current_event_id,
             timestamp=timestamp + 0.5 * attack_index,
-            attack_index=attack_index
+            attack_index=attack_index,
+            str_modifier=str_modifier
         )
 
         events.extend(attack_events)
@@ -369,12 +378,12 @@ def apply_full_attack_events(world_state: WorldState, events: List[Event]) -> Wo
         if event.event_type == "hp_changed":
             entity_id = event.payload["entity_id"]
             if entity_id in entities:
-                entities[entity_id]["hp_current"] = event.payload["hp_after"]
+                entities[entity_id][EF.HP_CURRENT] = event.payload["hp_after"]
 
         elif event.event_type == "entity_defeated":
             entity_id = event.payload["entity_id"]
             if entity_id in entities:
-                entities[entity_id]["defeated"] = True
+                entities[entity_id][EF.DEFEATED] = True
 
     # Return new WorldState
     return WorldState(

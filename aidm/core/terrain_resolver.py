@@ -32,10 +32,10 @@ from aidm.core.event_log import Event
 from aidm.core.state import WorldState
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.entity_fields import EF
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.terrain import (
     TerrainCell, TerrainTag, CoverType,
     ElevationDifference, FallingResult, CoverCheckResult,
-    GridPosition,
 )
 
 
@@ -651,7 +651,7 @@ def resolve_falling(
         damage_dice=damage_dice,
         damage_rolls=damage_rolls,
         total_damage=total_damage,
-        landing_position=GridPosition.from_dict(landing_position) if landing_position else None,
+        landing_position=Position.from_dict(landing_position) if landing_position else None,
         is_into_water=is_into_water,
         water_depth=water_depth,
         is_intentional=is_intentional,

@@ -6,16 +6,19 @@ Provides:
 Grid is visible only during active combat.
 Entity positions extracted from world state entities.
 Deterministic: same inputs always produce same output.
+
+BL-020: Contextual grid is a non-engine boundary consumer — receives read-only
+        FrozenWorldStateView instead of mutable WorldState.
 """
 
 from typing import Dict, List, Optional
 
-from aidm.core.state import WorldState
+from aidm.core.state import FrozenWorldStateView
 from aidm.schemas.immersion import GridEntityPosition, GridRenderState
 
 
 def compute_grid_state(
-    world_state: WorldState,
+    world_state: FrozenWorldStateView,
     previous: Optional[GridRenderState] = None,
 ) -> GridRenderState:
     """Compute grid render state from world state.
@@ -35,7 +38,7 @@ def compute_grid_state(
     Grid dimensions computed from max x/y of positioned entities.
 
     Args:
-        world_state: Current world state
+        world_state: Current world state (read-only view, BL-020)
         previous: Previous grid state (for transition detection)
 
     Returns:
@@ -83,7 +86,7 @@ def compute_grid_state(
     )
 
 
-def _extract_positions(world_state: WorldState) -> List[GridEntityPosition]:
+def _extract_positions(world_state: FrozenWorldStateView) -> List[GridEntityPosition]:
     """Extract entity positions from world state.
 
     Looks for entities with a "position" dict containing x, y coords.

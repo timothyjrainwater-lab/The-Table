@@ -8,6 +8,10 @@ CP-15: Added StepMoveIntent for AoO trigger detection.
 
 from dataclasses import dataclass
 from typing import Optional, Dict, Any
+import warnings
+
+# CP-001: Canonical position type (replaces legacy GridPosition below)
+from aidm.schemas.position import Position
 
 
 @dataclass
@@ -81,13 +85,26 @@ class AttackIntent:
 
 @dataclass
 class GridPosition:
-    """2D grid position for movement and positioning."""
+    """2D grid position for movement and positioning.
+
+    DEPRECATED: Use aidm.schemas.position.Position instead.
+    This class will be removed in CP-002.
+    """
 
     x: int
     """X coordinate (grid square)"""
 
     y: int
     """Y coordinate (grid square)"""
+
+    def __post_init__(self):
+        """Validate and warn about deprecation."""
+        warnings.warn(
+            "GridPosition in attack.py is deprecated. Use aidm.schemas.position.Position instead. "
+            "This class will be removed in CP-002.",
+            DeprecationWarning,
+            stacklevel=2
+        )
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -129,10 +146,10 @@ class StepMoveIntent:
     actor_id: str
     """Entity performing the move"""
 
-    from_pos: GridPosition
+    from_pos: Position
     """Starting position (must be current entity position)"""
 
-    to_pos: GridPosition
+    to_pos: Position
     """Destination position (must be adjacent to from_pos)"""
 
     def __post_init__(self):

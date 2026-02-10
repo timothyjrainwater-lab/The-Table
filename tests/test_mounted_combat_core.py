@@ -19,7 +19,7 @@ Tier-2 (SHOULD PASS):
 import pytest
 from aidm.core.state import WorldState
 from aidm.core.rng_manager import RNGManager
-from aidm.schemas.attack import GridPosition
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.mounted_combat import (
     MountedState, MountType, SaddleType,
     MountedMoveIntent, DismountIntent, MountIntent
@@ -90,8 +90,8 @@ def test_position_derivation_mounted_rider():
     rider_pos = get_entity_position("fighter", world_state)
     mount_pos = get_entity_position("warhorse_1", world_state)
 
-    assert rider_pos == GridPosition(x=5, y=5)
-    assert mount_pos == GridPosition(x=5, y=5)
+    assert rider_pos == Position(x=5, y=5)
+    assert mount_pos == Position(x=5, y=5)
     assert rider_pos == mount_pos
 
 
@@ -109,7 +109,7 @@ def test_position_derivation_unmounted_entity():
     )
 
     pos = get_entity_position("fighter", world_state)
-    assert pos == GridPosition(x=3, y=7)
+    assert pos == Position(x=3, y=7)
 
 
 def test_is_mounted_check():
@@ -600,8 +600,8 @@ def test_condition_rider_unconscious_checks_fall():
 
 def test_mounted_move_intent_validation():
     """Tier 2: MountedMoveIntent validates required fields."""
-    from_pos = GridPosition(x=5, y=5)
-    to_pos = GridPosition(x=7, y=5)
+    from_pos = Position(x=5, y=5)
+    to_pos = Position(x=7, y=5)
 
     intent = MountedMoveIntent(
         rider_id="fighter",
@@ -624,8 +624,8 @@ def test_mounted_move_intent_rejects_empty_rider():
         MountedMoveIntent(
             rider_id="",
             mount_id="warhorse_1",
-            from_pos=GridPosition(x=5, y=5),
-            to_pos=GridPosition(x=6, y=5)
+            from_pos=Position(x=5, y=5),
+            to_pos=Position(x=6, y=5)
         )
 
 

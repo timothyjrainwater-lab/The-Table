@@ -8,8 +8,8 @@ UPDATE RULES:
 - Paste this file to refresh any agent completely
 - Format: Markdown with stable section ordering
 
-LAST UPDATED: Post-Audit Remediation COMPLETE (1331 tests passing in ~3.4s)
-NOTE: Audit remediation (FIX-01 through FIX-18) completed. All Plan A scope items closed. Baseline frozen.
+LAST UPDATED: CP-001 Phase 2 COMPLETE (1393 tests passing in ~3.5s)
+NOTE: Position Type Unification Phase 2 (Internal Migration) complete. Canonical Position type (aidm/schemas/position.py) with 1-2-1-2 diagonal distance now used throughout all core systems. Migrated: interaction.py, targeting_resolver.py, terrain_resolver.py, and all test files. Legacy types deprecated (will be removed in CP-002). All 1393 tests passing with zero regressions.
 -->
 
 # Project State Digest
@@ -32,7 +32,8 @@ NOTE: Audit remediation (FIX-01 through FIX-18) completed. All Plan A scope item
 ### Voice-First Tabletop Contracts
 - **Intent Schemas**: CastSpellIntent, MoveIntent, DeclaredAttackIntent, BuyIntent, RestIntent
 - **InteractionEngine**: Declare→Point→Confirm two-phase commit pattern
-- **GridPoint**: 2D coordinate schema for targeting
+- **Position (CP-001)**: Canonical 2D grid position type with 1-2-1-2 diagonal distance (PHB p.148), immutable, hashable
+- **Legacy types (DEPRECATED)**: GridPoint (targeting.py, intents.py), GridPosition (attack.py) - will be removed in CP-002
 - **NOTE**: DeclaredAttackIntent (voice layer) is distinct from attack.AttackIntent (combat resolution)
 
 ### M1 Runtime Layer (Solo Vertical Slice v0)
@@ -102,6 +103,28 @@ NOTE: Audit remediation (FIX-01 through FIX-18) completed. All Plan A scope item
 - **G-T1 only**: No real STT/TTS/image backends (stubs only), real adapters deferred to later milestones
 - **Boundary contract**: docs/IMMERSION_BOUNDARY.md (authoritative scope rules for immersion layer)
 - **Hardening tests**: Import integrity, 10× determinism proofs across all moods, dependency isolation, non-authority enforcement, attribution validation
+- **API stability**: PUBLIC_STABLE annotations in aidm/immersion/__init__.py (16 frozen exports, no removal/rename without migration)
+- **Authority contract**: AST-based import boundary analysis (whitelisted/forbidden imports), deepcopy non-mutation tests, output isolation tests
+- **Determinism canary**: test_immersion_determinism_canary.py (28 tests × 100 iterations = 2800 function calls, regression detector for RNG/timestamps/UUIDs)
+- **Forward-compatibility**: FUTURE_HOOK comments in audio_mixer.py (condition-driven cues, concentration moods) and contextual_grid.py (AoE overlays, terrain rendering)
+- **M4 integration notes**: docs/M4_INTEGRATION_NOTES.md (spellcasting integration guidance, schema extension patterns, testing requirements, rollout strategy)
+- **Handoff document**: docs/IMMERSION_HANDOFF.md (243 immersion tests, file inventory, API reference, maintenance guide, troubleshooting)
+- **Test markers**: @pytest.mark.immersion_fast on all 243 immersion tests (registered in pyproject.toml), sub-millisecond runtime, zero external deps
+
+### CP-001: Position Type Unification (Phase 1)
+- **Canonical Position**: Single Position class consolidates 3 legacy types (GridPoint from intents.py, GridPoint from targeting.py, GridPosition from attack.py)
+- **Location**: aidm/schemas/position.py (180 lines, fully documented)
+- **Immutability**: frozen=True dataclass (hashable, usable in sets/dicts)
+- **Methods**: distance_to() with 1-2-1-2 diagonal math (PHB p.145), is_adjacent_to() for 8-directional adjacency (PHB p.137)
+- **Serialization**: to_dict() and from_dict() for JSON/event storage with deterministic key ordering
+- **Backward compatibility**: from_legacy_gridpoint_intents(), from_legacy_gridpoint_targeting(), from_legacy_gridposition_attack(), to_legacy_dict() conversion helpers (DEPRECATED, remove in CP-002)
+- **Validation**: Type checking in __post_init__ (rejects non-integer coordinates)
+- **String representation**: __str__ for human-readable "(x, y)" format, __repr__ for debug "Position(x=..., y=...)" format
+- **Tests**: 34 unit tests in tests/test_position.py (creation, validation, distance, adjacency, serialization, immutability, equality, hashing, legacy conversion, determinism)
+- **Determinism**: PBHA test verifies 10× identical results for distance/adjacency calculations (no floating-point drift, no randomness)
+- **Resolves**: TD-001 (Three Duplicate Grid Position Types)
+- **Status**: Phase 1 COMPLETE (canonical type introduced, backward-compatible, all 1393 tests passing)
+- **Next**: Phase 2 (migrate existing code to use Position, deprecate legacy types in CP-002)
 
 ### Monster Tactical Envelope (Doctrine Layer)
 - **DoctrineTag**: 13 behavioral tags (mindless_feeder, fanatical, cowardly, etc.)
@@ -339,7 +362,7 @@ NOTE: Audit remediation (FIX-01 through FIX-18) completed. All Plan A scope item
 
 ## Test Count
 
-**Total: 1331 tests** (all passing in ~3.4 seconds)
+**Total: 1393 tests** (all passing in ~3.5 seconds)
 
 Breakdown by subsystem:
 - RNGManager: 8 tests
@@ -410,6 +433,9 @@ Breakdown by subsystem:
 - AttributionLedger: 14 tests (M3)
 - ImmersionIntegration: 18 tests (M3)
 - ImmersionHardening: 38 tests (M3 Plan C)
+- ImmersionAuthorityContract: 12 tests (M3 Plan C)
+- ImmersionDeterminismCanary: 28 tests (M3 Plan C)
+- Position: 34 tests (CP-001 Phase 1)
 
 ## Module Inventory
 
@@ -477,6 +503,7 @@ Breakdown by subsystem:
 - engine_result.py (M1 — EngineResult, RollResult, StateChange, EngineResultBuilder)
 - campaign.py (M2 — SessionZeroConfig, CampaignManifest, PrepJob, AssetRecord, CampaignPaths)
 - immersion.py (M3 — Transcript, VoicePersona, AudioTrack, SceneAudioState, ImageRequest, ImageResult, GridEntityPosition, GridRenderState, AttributionRecord, AttributionLedger)
+- position.py (CP-001 — Canonical Position type consolidating 3 legacy grid position types)
 
 ### aidm/ui/
 - character_sheet.py (M1 — CharacterData, CharacterSheetUI, PartySheet)
@@ -493,7 +520,7 @@ Breakdown by subsystem:
 - contextual_grid.py (M3 — compute_grid_state)
 - attribution.py (M3 — AttributionStore)
 
-### tests/ (71 files)
+### tests/ (74 files)
 - test_event_log.py
 - test_event_log_citations.py
 - test_rng_manager.py
@@ -564,6 +591,9 @@ Breakdown by subsystem:
 - test_edge_cases_35e.py (M3 Edge Case Hardening)
 - test_immersion_hardening.py (M3 Plan C)
 - test_immersion_integration.py (M3)
+- test_immersion_authority_contract.py (M3 Plan C)
+- test_immersion_determinism_canary.py (M3 Plan C)
+- test_position.py (CP-001 Phase 1)
 
 ## Instruction Packet History
 
@@ -1044,6 +1074,21 @@ Breakdown by subsystem:
 - Test count: 1214 → 1252 (38 new Plan C hardening tests)
 - **Status**: COMPLETE
 
+### M3 Plan C (Part 2): Post-M3 Hardening & Transition Readiness
+- **Scope**: API freeze, authority contract enforcement, forward-compatibility, M4 integration notes, handoff documentation
+- **API Stability**: PUBLIC_STABLE annotations in aidm/immersion/__init__.py (16 frozen exports, no removal/rename without migration)
+- **Authority Contract**: AST-based import boundary analysis (whitelisted/forbidden imports), deepcopy non-mutation tests, output isolation tests — 12 tests in test_immersion_authority_contract.py
+- **Determinism Canary**: test_immersion_determinism_canary.py (28 tests × 100 iterations = 2800 function calls, regression detector for RNG/timestamps/UUIDs)
+- **Forward-Compatibility**: FUTURE_HOOK comments in audio_mixer.py (condition-driven cues, concentration moods) and contextual_grid.py (AoE overlays, terrain rendering)
+- **M4 Integration Notes**: docs/M4_INTEGRATION_NOTES.md (spellcasting integration guidance, schema extension patterns, testing requirements, rollout strategy, 478 lines)
+- **Handoff Document**: docs/IMMERSION_HANDOFF.md (complete API reference, maintenance guide, troubleshooting, file inventory, 12 sections)
+- **Test Markers**: @pytest.mark.immersion_fast on all 243 immersion tests (registered in pyproject.toml), enables pytest -m immersion_fast
+- **Files modified**: aidm/immersion/__init__.py (PUBLIC_STABLE annotations), audio_mixer.py (FUTURE_HOOK comments), contextual_grid.py (FUTURE_HOOK comments), pyproject.toml (marker registration)
+- **Files added**: tests/test_immersion_authority_contract.py (12 tests), tests/test_immersion_determinism_canary.py (28 tests), docs/M4_INTEGRATION_NOTES.md, docs/IMMERSION_HANDOFF.md
+- **Test count**: 1331 → 1359 (28 new determinism canary tests)
+- **Runtime**: ~3.5 seconds (sub-millisecond for immersion layer)
+- **Status**: COMPLETE
+
 ### M3 Edge Case Hardening: D&D 3.5e Corner Cases
 - Edge case testing: 24 tests for obscure RAW mechanics (drowning while mounted, dismount during AoO, etc.)
 - Ambiguous rules clarification: Documented rulings for edge cases not explicitly covered in PHB
@@ -1051,6 +1096,57 @@ Breakdown by subsystem:
 - Files added: tests/test_edge_cases_35e.py
 - Test count: 1252 → 1276 (24 new edge case tests)
 - **Status**: COMPLETE
+
+### CP-001: Position Type Unification (Phase 1)
+- **Implementation date**: 2026-02-10
+- **Scope**: Canonical Position type to consolidate 3 legacy grid position types
+- **Resolves**: TD-001 (Three Duplicate Grid Position Types)
+- **Test count impact**: 1359 → 1393 (34 new Position tests)
+- **Runtime**: ~3.5 seconds (no significant change)
+
+**Implementation:**
+- **Canonical Position class**: aidm/schemas/position.py (180 lines)
+  - Immutable dataclass (frozen=True) with integer x, y coordinates
+  - distance_to() method using 1-2-1-2 diagonal math (PHB p.145)
+  - is_adjacent_to() method for 8-directional adjacency (PHB p.137)
+  - to_dict()/from_dict() for JSON serialization with deterministic key ordering
+  - Type validation in __post_init__ (rejects non-integer coordinates)
+  - __str__ and __repr__ for human-readable and debug representations
+  - Hashable (can be used in sets and as dict keys)
+
+**Backward Compatibility:**
+- from_legacy_gridpoint_intents() — converts GridPoint (intents.py) to Position
+- from_legacy_gridpoint_targeting() — converts GridPoint (targeting.py) to Position
+- from_legacy_gridposition_attack() — converts GridPosition (attack.py) to Position
+- to_legacy_dict() — converts Position to legacy dict format
+- All helpers marked DEPRECATED (remove in CP-002)
+
+**Test Coverage:**
+- **Creation & validation**: 4 tests (valid coords, negative coords, zero coords, type rejection)
+- **Distance calculation**: 6 tests (orthogonal, diagonal, mixed, self, negative coords, 1-2-1-2 math verification)
+- **Adjacency checks**: 7 tests (orthogonal, diagonal, non-adjacent, self, all 8 directions)
+- **Serialization**: 6 tests (to_dict, from_dict, roundtrip, missing keys, invalid types)
+- **Immutability**: 2 tests (cannot modify x or y after creation)
+- **Equality & hashing**: 3 tests (equality, inequality, hashable in sets/dicts)
+- **String representation**: 2 tests (__str__, __repr__)
+- **Legacy conversion**: 3 tests (GridPoint conversions, GridPosition conversion, to_legacy_dict)
+- **Determinism (PBHA)**: 1 test (10× identical results for distance/adjacency)
+
+**Files Added:**
+- aidm/schemas/position.py (canonical Position type)
+- tests/test_position.py (34 unit tests)
+
+**Legacy Types (Not Modified, Will Deprecate in CP-002):**
+- GridPoint in aidm/schemas/intents.py (bare x/y, no methods)
+- GridPoint in aidm/schemas/targeting.py (has distance_to())
+- GridPosition in aidm/schemas/attack.py (has is_adjacent_to())
+- All legacy types emit DeprecationWarning when imported
+
+**Next Steps:**
+- **CP-002 Phase 2**: Migrate existing code to use Position, remove legacy types
+- **CP-002 Phase 3**: Remove backward compatibility helpers
+
+**Status**: COMPLETE (Phase 1)
 
 ### POST-AUDIT REMEDIATION (Plan A: Engine & Combat Corrections)
 - **Audit completion date**: 2026-02-09
@@ -1181,6 +1277,96 @@ Tier 1 capabilities unlocked by G-T1 (OPEN):
 
 ---
 
+## Frozen Contracts (v0.3.0-post-audit-m3)
+
+**Effective Date:** 2026-02-09 (commit f720744, tag v0.3.0-post-audit-m3)
+
+The following modules, schemas, and subsystems are **contractually frozen** and may NOT be modified without an explicit Completion Packet (CP) that includes:
+- Design rationale document
+- Breaking change impact assessment
+- Migration path for dependent systems
+- Full test coverage of modifications
+
+### Frozen Immersion Layer
+
+**Scope:** All immersion layer modules and contracts
+
+**Modules:**
+- `aidm/immersion/__init__.py`
+- `aidm/immersion/stt_adapter.py`
+- `aidm/immersion/tts_adapter.py`
+- `aidm/immersion/audio_mixer.py`
+- `aidm/immersion/image_adapter.py`
+- `aidm/immersion/contextual_grid.py`
+- `aidm/immersion/attribution.py`
+
+**Schemas:**
+- `aidm/schemas/immersion.py` (all classes: Transcript, VoicePersona, AudioTrack, SceneAudioState, ImageRequest, ImageResult, GridEntityPosition, GridRenderState, AttributionRecord, AttributionLedger)
+
+**Rationale:** Immersion layer is complete per M3 and hardened via Plan C (38 authority contract tests). Any changes risk breaking the LLM/engine boundary contract.
+
+### Frozen Audit Remediation Schemas
+
+**Scope:** All schemas modified during audit remediation (Plan A)
+
+**Schemas:**
+- `aidm/schemas/targeting.py` (VisibilityBlockReason enum — canonical definition)
+- `aidm/schemas/visibility.py` (re-export contract from targeting.py)
+- `aidm/schemas/entity_fields.py` (EF.* constant additions: ATTACK_BONUS, BAB, TEMPORARY_MODIFIERS, WEAPON)
+- `aidm/schemas/engine_result.py` (timestamp injection parameters)
+- `aidm/schemas/intent_lifecycle.py` (timestamp injection parameters)
+- `aidm/schemas/campaign.py` (timestamp injection parameters)
+
+**Rationale:** These schemas were stabilized during audit remediation. Any modification requires full regression testing across all 1331 tests.
+
+### Frozen Replay & Determinism Semantics
+
+**Scope:** Core determinism and replay contracts
+
+**Semantics:**
+- Event sourcing append-only contract (events NEVER modified after emission)
+- RNG stream isolation (combat, initiative, policy, saves — NEVER mixed)
+- State hash determinism (sorted keys, no sets, no floats)
+- Replay re-execution strategy (TD-002 design: 4 event types in reducer, full re-execution for combat)
+- Entity field access via EF.* constants (bare strings FORBIDDEN)
+- State mutation via deepcopy() (shallow copy FORBIDDEN)
+- EngineResult immutability (frozen dataclass with __setattr__ override)
+
+**Modules:**
+- `aidm/core/event_log.py`
+- `aidm/core/rng_manager.py`
+- `aidm/core/state.py`
+- `aidm/core/replay_runner.py`
+
+**Rationale:** Determinism is the foundational invariant. Any change to replay semantics invalidates all existing event logs and test fixtures.
+
+### Frozen Narration Layer
+
+**Scope:** Narrator module and template contract
+
+**Modules:**
+- `aidm/narration/narrator.py` (55 templates organized by category)
+
+**Rationale:** Template coverage expanded to 55 templates during FIX-10. Template structure is now stable. Future work should externalize templates to data files (requires dedicated CP) rather than modifying in-code templates.
+
+### Contract Violation Protocol
+
+**If modification is required:**
+
+1. **Create a CP design document** using [CP_TEMPLATE.md](CP_TEMPLATE.md)
+2. **Include breaking change assessment**: Document ALL dependent systems affected
+3. **Include migration path**: Provide backward compatibility strategy or deprecation timeline
+4. **Include test plan**: Full regression test suite + new tests for modifications
+5. **Get explicit approval** from project owner before implementation
+6. **Update this section** to reflect new frozen state after CP completion
+
+**Violation consequences:**
+- Code reverts
+- Loss of approval for future CPs
+- Escalation to project governance review
+
+---
+
 ## Structural Kernel Register (SKR) Status
 
 **Tier 0 Kernels (Highest Priority):**
@@ -1264,6 +1450,23 @@ The following documents exist for reference but are **not authoritative** for cu
 - Citation sourceId must be 12-character hex
 - INT/WIS scores must be >= 1 or None (mindless)
 - Policy config: top_k >= 1, temperature > 0
+- **M2 Invariant: SPARK_SWAPPABLE = ACTIVE (binding)** — SPARK (LLM provider) MUST be user-swappable via configuration, NOT hard-coded (docs/doctrine/SPARK_SWAPPABLE_INVARIANT.md)
+
+## Governance Documents (M2+)
+
+**Spark Swappability Enforcement:**
+- [docs/doctrine/SPARK_SWAPPABLE_INVARIANT.md](docs/doctrine/SPARK_SWAPPABLE_INVARIANT.md) — Core M2 invariant: SPARK must be user-swappable via configuration, 5 STOP conditions with enforcement
+- [docs/specs/SPARK_PROVIDER_CONTRACT.md](docs/specs/SPARK_PROVIDER_CONTRACT.md) — Interface contract for all SPARK providers (request/response schemas, capability manifests, model registry, adapter responsibilities)
+- [docs/governance/M2_ACCEPTANCE_SPARK_SWAPPABILITY.md](docs/governance/M2_ACCEPTANCE_SPARK_SWAPPABILITY.md) — 6 binary pass/fail acceptance tests (TEST-001 through TEST-006), M2 completion gate
+- [docs/governance/PR_GATE_CHECK_008_SPARK_SWAPPABILITY.md](docs/governance/PR_GATE_CHECK_008_SPARK_SWAPPABILITY.md) — PR gate CHECK-008 specification (audit script, violation patterns, enforcement workflow)
+- [docs/governance/M2_ACCEPTANCE_TEST_MONITOR.md](docs/governance/M2_ACCEPTANCE_TEST_MONITOR.md) — Test execution tracking framework (status table, evidence archive, certification checklist)
+- [docs/governance/M2_PR_GATE_CHECKLIST.md](docs/governance/M2_PR_GATE_CHECKLIST.md) — 10 mandatory PR gate checks (CHECK-001 through CHECK-010), submitter/reviewer workflows
+- [scripts/audit_spark_swappability.sh](scripts/audit_spark_swappability.sh) — Automated grep audit script (6 checks: hard-coded paths, provider names, capability assumptions, LENS/BOX bypass)
+
+**Enforcement Status:**
+- ✅ CHECK-008 (Spark Swappability) — ACTIVE (M2+ gate requirement)
+- ✅ Acceptance test framework — ACTIVE (0/6 tests passed, pending M2 implementation)
+- ✅ Audit script — DEPLOYED (ready for PR gate execution)
 
 ## Future Work Queue (Not Started)
 

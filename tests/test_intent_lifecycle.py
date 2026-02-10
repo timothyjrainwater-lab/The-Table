@@ -19,7 +19,16 @@ from aidm.schemas.intent_lifecycle import (
     IntentTransitionError,
     create_intent_from_input,
 )
-from aidm.schemas.intents import GridPoint, CastSpellIntent
+from aidm.schemas.intents import CastSpellIntent
+from aidm.schemas.position import Position
+
+# ---------------------------------------------------------------------------
+# Shared test fixture timestamps
+# ---------------------------------------------------------------------------
+_TS_CREATED = datetime(2025, 1, 1, 12, 0, 0)
+_TS_UPDATED = datetime(2025, 1, 1, 12, 0, 0)
+_TS_TRANSITION = datetime(2025, 1, 1, 12, 0, 1)
+_TS_TRANSITION_2 = datetime(2025, 1, 1, 12, 0, 2)
 
 
 class TestIntentStatus:
@@ -49,19 +58,22 @@ class TestIntentObjectCreation:
     """Tests for IntentObject creation and initialization."""
 
     def test_create_basic_intent(self):
-        """Should create intent with default values."""
+        """Should create intent with explicitly provided values."""
         intent = IntentObject(
+            intent_id="test-basic-001",
             actor_id="fighter_1",
             source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.actor_id == "fighter_1"
         assert intent.source_text == "I attack the goblin"
         assert intent.action_type == ActionType.ATTACK
         assert intent.status == IntentStatus.PENDING
-        assert intent.intent_id is not None
-        assert len(intent.intent_id) == 36  # UUID format
+        assert intent.intent_id == "test-basic-001"
 
     def test_create_intent_factory(self):
         """create_intent_from_input should create PENDING intent."""
@@ -69,6 +81,8 @@ class TestIntentObjectCreation:
             actor_id="wizard_1",
             source_text="I cast fireball",
             action_type=ActionType.CAST_SPELL,
+            intent_id="test-factory-001",
+            created_at=_TS_CREATED,
             method="fireball",
         )
 
@@ -78,7 +92,15 @@ class TestIntentObjectCreation:
 
     def test_intent_has_timestamps(self):
         """Intent should have created_at and updated_at timestamps."""
-        intent = IntentObject(actor_id="test", source_text="test")
+        intent = IntentObject(
+            intent_id="test-timestamps-001",
+            actor_id="test",
+            source_text="test",
+            action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
+        )
 
         assert isinstance(intent.created_at, datetime)
         assert isinstance(intent.updated_at, datetime)
@@ -90,9 +112,13 @@ class TestRequiredFieldValidation:
     def test_attack_requires_target_and_method(self):
         """ATTACK action requires target_id and method."""
         intent = IntentObject(
+            intent_id="test-attack-001",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.has_required_fields() is False
@@ -112,23 +138,31 @@ class TestRequiredFieldValidation:
     def test_move_requires_target_location(self):
         """MOVE action requires target_location."""
         intent = IntentObject(
+            intent_id="test-move-001",
             actor_id="fighter_1",
             source_text="I move north",
             action_type=ActionType.MOVE,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.has_required_fields() is False
         assert "target_location" in intent.get_missing_fields()
 
-        intent.target_location = GridPoint(x=5, y=10)
+        intent.target_location = Position(x=5, y=10)
         assert intent.has_required_fields() is True
 
     def test_use_ability_requires_method_and_parameters(self):
         """USE_ABILITY action requires method and parameters."""
         intent = IntentObject(
+            intent_id="test-ability-001",
             actor_id="rogue_1",
             source_text="I use sneak attack",
             action_type=ActionType.USE_ABILITY,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.has_required_fields() is False
@@ -142,9 +176,13 @@ class TestRequiredFieldValidation:
     def test_end_turn_requires_nothing(self):
         """END_TURN action has no additional requirements."""
         intent = IntentObject(
+            intent_id="test-endturn-001",
             actor_id="fighter_1",
             source_text="I end my turn",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.has_required_fields() is True
@@ -153,8 +191,13 @@ class TestRequiredFieldValidation:
     def test_requires_actor_id(self):
         """All intents require actor_id."""
         intent = IntentObject(
+            intent_id="test-noactor-001",
+            actor_id="",
             source_text="attack",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.has_required_fields() is False
@@ -167,114 +210,145 @@ class TestStatusTransitions:
     def test_pending_to_clarifying(self):
         """PENDING can transition to CLARIFYING."""
         intent = IntentObject(
+            intent_id="test-trans-001",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
-        intent.transition_to(IntentStatus.CLARIFYING)
+        intent.transition_to(IntentStatus.CLARIFYING, timestamp=_TS_TRANSITION)
         assert intent.status == IntentStatus.CLARIFYING
 
     def test_pending_to_confirmed(self):
         """PENDING can transition to CONFIRMED (freezes intent)."""
         intent = IntentObject(
+            intent_id="test-trans-002",
             actor_id="fighter_1",
             source_text="I attack the goblin with my sword",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             target_id="goblin_1",
             method="longsword",
         )
 
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
         assert intent.status == IntentStatus.CONFIRMED
         assert intent.is_frozen is True
 
     def test_clarifying_to_confirmed(self):
         """CLARIFYING can transition to CONFIRMED."""
         intent = IntentObject(
+            intent_id="test-trans-003",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
             status=IntentStatus.CLARIFYING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         # Add missing fields
         intent.target_id = "goblin_1"
         intent.method = "longsword"
 
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
         assert intent.status == IntentStatus.CONFIRMED
 
     def test_clarifying_to_retracted(self):
         """CLARIFYING can transition to RETRACTED."""
         intent = IntentObject(
+            intent_id="test-trans-004",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
             status=IntentStatus.CLARIFYING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
-        intent.transition_to(IntentStatus.RETRACTED)
+        intent.transition_to(IntentStatus.RETRACTED, timestamp=_TS_TRANSITION)
         assert intent.status == IntentStatus.RETRACTED
 
     def test_confirmed_to_resolved(self):
         """CONFIRMED can transition to RESOLVED."""
         intent = IntentObject(
+            intent_id="test-trans-005",
             actor_id="fighter_1",
             source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             target_id="goblin_1",
             method="longsword",
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
 
-        intent.transition_to(IntentStatus.RESOLVED)
+        intent.transition_to(IntentStatus.RESOLVED, timestamp=_TS_TRANSITION_2)
         assert intent.status == IntentStatus.RESOLVED
 
     def test_invalid_transition_raises_error(self):
         """Invalid transitions should raise IntentTransitionError."""
         intent = IntentObject(
+            intent_id="test-trans-006",
             actor_id="fighter_1",
             source_text="test",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         # PENDING cannot go directly to RESOLVED
         with pytest.raises(IntentTransitionError, match="Cannot transition"):
-            intent.transition_to(IntentStatus.RESOLVED)
+            intent.transition_to(IntentStatus.RESOLVED, timestamp=_TS_TRANSITION)
 
         # RETRACTED is now a valid transition from PENDING (player cancellation)
         # Test a different invalid transition instead - CLARIFYING cannot go to PENDING
         clarifying_intent = IntentObject(
+            intent_id="test-trans-007",
             actor_id="fighter_1",
             source_text="test",
             action_type=ActionType.ATTACK,
             status=IntentStatus.CLARIFYING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
         with pytest.raises(IntentTransitionError, match="Cannot transition"):
-            clarifying_intent.transition_to(IntentStatus.PENDING)
+            clarifying_intent.transition_to(IntentStatus.PENDING, timestamp=_TS_TRANSITION)
 
     def test_terminal_states_cannot_transition(self):
         """RESOLVED and RETRACTED are terminal states."""
         resolved_intent = IntentObject(
+            intent_id="test-terminal-001",
             actor_id="fighter_1",
             source_text="test",
             action_type=ActionType.END_TURN,
             status=IntentStatus.RESOLVED,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         with pytest.raises(IntentTransitionError):
-            resolved_intent.transition_to(IntentStatus.PENDING)
+            resolved_intent.transition_to(IntentStatus.PENDING, timestamp=_TS_TRANSITION)
 
         retracted_intent = IntentObject(
+            intent_id="test-terminal-002",
             actor_id="fighter_1",
             source_text="test",
             action_type=ActionType.END_TURN,
             status=IntentStatus.RETRACTED,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         with pytest.raises(IntentTransitionError):
-            retracted_intent.transition_to(IntentStatus.CONFIRMED)
+            retracted_intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
 
 
 class TestImmutability:
@@ -283,13 +357,17 @@ class TestImmutability:
     def test_freeze_prevents_field_modification(self):
         """Frozen intent should reject field modifications."""
         intent = IntentObject(
+            intent_id="test-freeze-001",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             target_id="goblin_1",
             method="longsword",
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
 
         with pytest.raises(IntentFrozenError, match="Cannot modify field"):
             intent.target_id = "goblin_2"
@@ -303,17 +381,21 @@ class TestImmutability:
     def test_frozen_allows_resolution_fields(self):
         """Frozen intent should allow resolution fields."""
         intent = IntentObject(
+            intent_id="test-freeze-002",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             target_id="goblin_1",
             method="longsword",
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
 
         # These should NOT raise
         intent.result_id = "result_123"
-        intent.resolved_at = datetime.utcnow()
+        intent.resolved_at = datetime(2025, 1, 1, 12, 0, 5)
 
         assert intent.result_id == "result_123"
         assert intent.resolved_at is not None
@@ -321,11 +403,15 @@ class TestImmutability:
     def test_frozen_status_only_to_resolved(self):
         """Frozen intent status can only change to RESOLVED."""
         intent = IntentObject(
+            intent_id="test-freeze-003",
             actor_id="fighter_1",
             source_text="test",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
 
         with pytest.raises(IntentFrozenError, match="only transition to RESOLVED"):
             intent.status = IntentStatus.PENDING
@@ -337,9 +423,13 @@ class TestImmutability:
     def test_not_frozen_before_confirmed(self):
         """Intent should not be frozen before CONFIRMED."""
         intent = IntentObject(
+            intent_id="test-freeze-004",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.is_frozen is False
@@ -358,16 +448,20 @@ class TestSerialization:
     def test_to_dict_includes_required_fields(self):
         """to_dict should include all required fields."""
         intent = IntentObject(
+            intent_id="test-serial-001",
             actor_id="fighter_1",
             source_text="I attack the goblin",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             target_id="goblin_1",
             method="longsword",
         )
 
         data = intent.to_dict()
 
-        assert data["intent_id"] == intent.intent_id
+        assert data["intent_id"] == "test-serial-001"
         assert data["actor_id"] == "fighter_1"
         assert data["action_type"] == "attack"
         assert data["status"] == "pending"
@@ -380,9 +474,13 @@ class TestSerialization:
     def test_to_dict_omits_none_optional_fields(self):
         """to_dict should omit None optional fields."""
         intent = IntentObject(
+            intent_id="test-serial-002",
             actor_id="fighter_1",
             source_text="I end my turn",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         data = intent.to_dict()
@@ -396,9 +494,13 @@ class TestSerialization:
     def test_roundtrip_serialization(self):
         """Intent should survive JSON roundtrip."""
         intent = IntentObject(
+            intent_id="test-serial-003",
             actor_id="fighter_1",
             source_text="I attack the goblin with my sword",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             target_id="goblin_1",
             method="longsword",
             declared_goal="defeat the enemy",
@@ -420,12 +522,16 @@ class TestSerialization:
         assert restored.parameters == {"flanking": True}
 
     def test_roundtrip_with_grid_point(self):
-        """Intent with GridPoint should survive roundtrip."""
+        """Intent with Position should survive roundtrip."""
         intent = IntentObject(
+            intent_id="test-serial-004",
             actor_id="fighter_1",
             source_text="I move north",
             action_type=ActionType.MOVE,
-            target_location=GridPoint(x=5, y=10),
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
+            target_location=Position(x=5, y=10),
         )
 
         json_str = json.dumps(intent.to_dict())
@@ -437,11 +543,15 @@ class TestSerialization:
     def test_roundtrip_preserves_frozen_state(self):
         """CONFIRMED intent should be frozen after deserialization."""
         intent = IntentObject(
+            intent_id="test-serial-005",
             actor_id="fighter_1",
             source_text="test",
             action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
 
         json_str = json.dumps(intent.to_dict())
         restored = IntentObject.from_dict(json.loads(json_str))
@@ -458,11 +568,15 @@ class TestSerialization:
         spell_intent = CastSpellIntent(spell_name="Fireball", target_mode="point")
 
         intent = IntentObject(
+            intent_id="test-serial-006",
             actor_id="wizard_1",
             source_text="I cast fireball at the center",
             action_type=ActionType.CAST_SPELL,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             method="fireball",
-            target_location=GridPoint(x=10, y=10),
+            target_location=Position(x=10, y=10),
             action_data=spell_intent,
         )
 
@@ -481,9 +595,13 @@ class TestIsValid:
     def test_valid_intent(self):
         """Properly constructed intent should be valid."""
         intent = IntentObject(
+            intent_id="test-valid-001",
             actor_id="fighter_1",
             source_text="I attack",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.is_valid() is True
@@ -491,8 +609,13 @@ class TestIsValid:
     def test_invalid_without_intent_id(self):
         """Intent without intent_id should be invalid."""
         intent = IntentObject(
+            intent_id="placeholder",
             actor_id="fighter_1",
             source_text="test",
+            action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
         intent.intent_id = ""
 
@@ -501,7 +624,13 @@ class TestIsValid:
     def test_invalid_without_source_text(self):
         """Intent without source_text should be invalid."""
         intent = IntentObject(
+            intent_id="test-valid-003",
             actor_id="fighter_1",
+            source_text="",
+            action_type=ActionType.END_TURN,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
         )
 
         assert intent.is_valid() is False
@@ -513,13 +642,17 @@ class TestLogFormat:
     def test_log_entry_format(self):
         """to_dict output should match log entry format spec."""
         intent = IntentObject(
+            intent_id="test-log-001",
             actor_id="fighter_1",
             source_text="I attack the goblin with my sword",
             action_type=ActionType.ATTACK,
+            status=IntentStatus.PENDING,
+            created_at=_TS_CREATED,
+            updated_at=_TS_UPDATED,
             target_id="goblin_3",
             method="longsword",
         )
-        intent.transition_to(IntentStatus.CONFIRMED)
+        intent.transition_to(IntentStatus.CONFIRMED, timestamp=_TS_TRANSITION)
 
         data = intent.to_dict()
 

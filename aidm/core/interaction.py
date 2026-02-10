@@ -5,7 +5,8 @@ Models tabletop interaction where voice declares intent and UI supplies points/s
 
 from dataclasses import dataclass
 from typing import Optional, List, Dict, Any, Literal, Tuple
-from aidm.schemas.intents import Intent, CastSpellIntent, MoveIntent, DeclaredAttackIntent, GridPoint
+from aidm.schemas.intents import Intent, CastSpellIntent, MoveIntent, DeclaredAttackIntent
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.core.state import WorldState
 from aidm.core.event_log import Event
 
@@ -173,7 +174,7 @@ class InteractionEngine:
         self,
         world_state: WorldState,
         pending_action: PendingAction,
-        point: GridPoint,
+        point: Position,
         next_event_id: int,
         timestamp: float
     ) -> Tuple[WorldState, List[Event]]:

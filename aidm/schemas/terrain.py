@@ -8,11 +8,15 @@ CP-19 EXTENSION:
 - ElevationDifference: Query result for elevation comparison
 - FallingResult: Result of a falling event
 - CoverCheckResult: Result of checking cover between entities
+
+CP-001: Position Type Unification
+- Migrated from local GridPosition to canonical Position type
 """
 
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any, Literal
 from enum import Enum
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 
 
 class TerrainTag(Enum):
@@ -96,26 +100,6 @@ class TraversalRequirement:
 # ==============================================================================
 
 @dataclass
-class GridPosition:
-    """Simple 2D grid position (x, y coordinates).
-
-    Note: This is a local definition for terrain module independence.
-    Identical to attack.GridPosition but avoids circular imports.
-    """
-    x: int
-    y: int
-
-    def to_dict(self) -> Dict[str, int]:
-        """Convert to dictionary."""
-        return {"x": self.x, "y": self.y}
-
-    @classmethod
-    def from_dict(cls, data: Dict[str, int]) -> "GridPosition":
-        """Create from dictionary."""
-        return cls(x=data["x"], y=data["y"])
-
-
-@dataclass
 class TerrainCell:
     """Terrain properties for a single grid cell.
 
@@ -123,8 +107,8 @@ class TerrainCell:
     Per CP-19: Read-only terrain (no mutations during play).
     """
 
-    position: GridPosition
-    """Grid coordinates of this cell."""
+    position: Position
+    """Grid coordinates of this cell (CP-001: uses canonical Position type)."""
 
     elevation: int = 0
     """Elevation in feet above base level (0 = ground floor)."""
@@ -168,7 +152,7 @@ class TerrainCell:
     def from_dict(cls, data: Dict[str, Any]) -> "TerrainCell":
         """Create from dictionary."""
         return cls(
-            position=GridPosition.from_dict(data["position"]),
+            position=Position.from_dict(data["position"]),
             elevation=data.get("elevation", 0),
             movement_cost=data.get("movement_cost", 1),
             terrain_tags=data.get("terrain_tags", []),
@@ -241,7 +225,7 @@ class FallingResult:
     total_damage: int = 0
     """Total damage dealt (filled after rolling)."""
 
-    landing_position: Optional[GridPosition] = None
+    landing_position: Optional[Position] = None
     """Position where entity lands (if applicable)."""
 
     is_into_water: bool = False

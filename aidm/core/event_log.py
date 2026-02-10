@@ -1,4 +1,13 @@
-"""Append-only event log with JSONL serialization."""
+"""Append-only event log with JSONL serialization.
+
+BOUNDARY LAW (BL-008): EventLog enforces monotonic event IDs. Out-of-order
+or duplicate IDs are rejected with ValueError. This ordering guarantee is
+required for deterministic replay — events must be applied in the same order
+they were emitted.
+
+SINGLE SOURCE OF TRUTH for: Game event recording and ordering.
+CANONICAL OWNER: aidm.core.event_log (this file).
+"""
 
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional

@@ -7,16 +7,19 @@ Provides:
 
 Scene audio state is atmospheric only — never mechanical authority.
 Deterministic: same inputs always produce same output.
+
+BL-020: Audio mixer is a non-engine boundary consumer — receives read-only
+        FrozenWorldStateView instead of mutable WorldState.
 """
 
 from typing import Dict, List, Optional, Protocol, runtime_checkable
 
-from aidm.core.state import WorldState
+from aidm.core.state import FrozenWorldStateView
 from aidm.schemas.immersion import AudioTrack, SceneAudioState
 
 
 def compute_scene_audio_state(
-    world_state: WorldState,
+    world_state: FrozenWorldStateView,
     scene_card: Optional[Dict] = None,
     previous: Optional[SceneAudioState] = None,
 ) -> SceneAudioState:
@@ -33,7 +36,7 @@ def compute_scene_audio_state(
     Tracks transition_reason when mood changes from previous state.
 
     Args:
-        world_state: Current world state
+        world_state: Current world state (read-only view, BL-020)
         scene_card: Optional scene card dict (with ambient_light_level,
                     environmental_hazards, etc.)
         previous: Previous audio state (for transition detection)

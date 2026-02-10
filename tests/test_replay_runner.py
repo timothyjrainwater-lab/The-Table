@@ -242,3 +242,4 @@ def test_reduce_event_does_not_mutate_original_state():
     assert original_state.entities["player"]["hp"] == 20
     # New state should have the change
     assert new_state.entities["player"]["hp"] == 10
+

@@ -33,7 +33,8 @@ from dataclasses import dataclass
 from typing import List, Dict, Any, Optional, Tuple
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
-from aidm.schemas.attack import AttackIntent, GridPosition, StepMoveIntent
+from aidm.schemas.attack import AttackIntent, StepMoveIntent
+from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.entity_fields import EF
@@ -52,13 +53,13 @@ class AooTrigger:
     provoking_action: str
     """Type of provoking action: movement_out, ranged_attack, spellcasting"""
 
-    reactor_position: GridPosition
+    reactor_position: Position
     """Position of reactor (for threatened square calculation)"""
 
-    provoker_from_pos: GridPosition
+    provoker_from_pos: Position
     """Starting position of provoker (threatened square)"""
 
-    provoker_to_pos: Optional[GridPosition] = None
+    provoker_to_pos: Optional[Position] = None
     """Destination position (for movement provocation)"""
 
 
@@ -79,7 +80,7 @@ class AooSequenceResult:
 def get_threatened_squares(
     reactor_id: str,
     world_state: WorldState
-) -> List[GridPosition]:
+) -> List[Position]:
     """
     Get all squares threatened by an actor (5-ft reach only).
 
@@ -88,7 +89,7 @@ def get_threatened_squares(
         world_state: Current world state
 
     Returns:
-        List of threatened GridPosition objects (all adjacent squares)
+        List of threatened Position objects (all adjacent squares)
     """
     entity = world_state.entities.get(reactor_id)
     if entity is None:
@@ -99,7 +100,7 @@ def get_threatened_squares(
     if pos_dict is None:
         return []
 
-    reactor_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
+    reactor_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     # All adjacent squares (8 directions for 5-ft reach)
     threatened = []
@@ -107,7 +108,7 @@ def get_threatened_squares(
         for dy in [-1, 0, 1]:
             if dx == 0 and dy == 0:
                 continue  # Skip own square
-            threatened.append(GridPosition(x=reactor_pos.x + dx, y=reactor_pos.y + dy))
+            threatened.append(Position(x=reactor_pos.x + dx, y=reactor_pos.y + dy))
 
     return threatened
 
@@ -187,7 +188,7 @@ def check_aoo_triggers(
         if provoker:
             pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
-                from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     elif isinstance(intent, TripIntent):
         # Trip provokes from TARGET only (unarmed attack)
@@ -199,7 +200,7 @@ def check_aoo_triggers(
         if provoker:
             pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
-                from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     elif isinstance(intent, OverrunIntent):
         # Overrun provokes from TARGET only (entering their space)
@@ -211,7 +212,7 @@ def check_aoo_triggers(
         if provoker:
             pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
-                from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     elif isinstance(intent, SunderIntent):
         # Sunder provokes from TARGET only
@@ -223,7 +224,7 @@ def check_aoo_triggers(
         if provoker:
             pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
-                from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     elif isinstance(intent, DisarmIntent):
         # Disarm provokes from TARGET only
@@ -235,7 +236,7 @@ def check_aoo_triggers(
         if provoker:
             pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
-                from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     elif isinstance(intent, GrappleIntent):
         # Grapple provokes from TARGET only
@@ -247,7 +248,7 @@ def check_aoo_triggers(
         if provoker:
             pos_dict = provoker.get(EF.POSITION)
             if pos_dict:
-                from_pos = GridPosition(x=pos_dict["x"], y=pos_dict["y"])
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     # TODO CP-15: Add ranged attack and spellcasting provocation once those intents exist
     # elif isinstance(intent, RangedAttackIntent):
@@ -297,7 +298,7 @@ def check_aoo_triggers(
         if target_pos_dict is None:
             return []
 
-        target_pos = GridPosition(x=target_pos_dict["x"], y=target_pos_dict["y"])
+        target_pos = Position(x=target_pos_dict["x"], y=target_pos_dict["y"])
 
         # Check if target is adjacent (threatens provoker)
         if from_pos is not None and target_pos.is_adjacent_to(from_pos):
@@ -333,7 +334,7 @@ def check_aoo_triggers(
             if reactor_pos_dict is None:
                 continue
 
-            reactor_pos = GridPosition(x=reactor_pos_dict["x"], y=reactor_pos_dict["y"])
+            reactor_pos = Position(x=reactor_pos_dict["x"], y=reactor_pos_dict["y"])
 
             # Check if provoker's from_pos is threatened by reactor
             if provoking_action in ("movement_out", "mounted_movement_out"):

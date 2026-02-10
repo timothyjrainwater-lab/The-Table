@@ -32,6 +32,7 @@ from aidm.core.rng_manager import RNGManager
 from aidm.schemas.attack import AttackIntent
 from aidm.core.conditions import get_condition_modifiers
 from aidm.core.targeting_resolver import evaluate_target_legality  # CP-18A-T&V
+from aidm.schemas.entity_fields import EF
 
 
 def parse_damage_dice(dice_expr: str) -> Tuple[int, int]:
@@ -180,7 +181,7 @@ def resolve_attack(
 
     # Get target AC (base AC + condition modifiers + cover bonus)
     target = world_state.entities[intent.target_id]
-    base_ac = target.get("ac", 10)  # Default AC 10 if not specified
+    base_ac = target.get(EF.AC, 10)  # Default AC 10 if not specified
     # CP-16: condition modifier, CP-19: cover bonus
     target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
 
@@ -241,7 +242,10 @@ def resolve_attack(
 
         # Roll damage
         damage_rolls = roll_dice(num_dice, die_size, rng)
-        base_damage = sum(damage_rolls) + intent.weapon.damage_bonus
+        # PHB p.113: STR modifier applies to melee damage
+        attacker = world_state.entities[intent.attacker_id]
+        str_modifier = attacker.get(EF.STR_MOD, 0)
+        base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_modifier
         # CP-16: Apply condition damage modifier
         damage_total = max(0, base_damage + attacker_modifiers.damage_modifier)
 
@@ -256,6 +260,7 @@ def resolve_attack(
                 "damage_dice": intent.weapon.damage_dice,
                 "damage_rolls": damage_rolls,
                 "damage_bonus": intent.weapon.damage_bonus,
+                "str_modifier": str_modifier,  # PHB p.113
                 "condition_modifier": attacker_modifiers.damage_modifier,  # CP-16
                 "damage_total": damage_total,
                 "damage_type": intent.weapon.damage_type
@@ -265,7 +270,7 @@ def resolve_attack(
         current_event_id += 1
 
         # Get current HP
-        hp_before = target.get("hp_current", 0)
+        hp_before = target.get(EF.HP_CURRENT, 0)
         hp_after = hp_before - damage_total
 
         # Emit hp_changed event
@@ -321,12 +326,12 @@ def apply_attack_events(world_state: WorldState, events: List[Event]) -> WorldSt
         if event.event_type == "hp_changed":
             entity_id = event.payload["entity_id"]
             if entity_id in entities:
-                entities[entity_id]["hp_current"] = event.payload["hp_after"]
+                entities[entity_id][EF.HP_CURRENT] = event.payload["hp_after"]
 
         elif event.event_type == "entity_defeated":
             entity_id = event.payload["entity_id"]
             if entity_id in entities:
-                entities[entity_id]["defeated"] = True
+                entities[entity_id][EF.DEFEATED] = True
 
     # Return new WorldState
     return WorldState(

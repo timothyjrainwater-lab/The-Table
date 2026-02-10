@@ -15,6 +15,7 @@ merged into that canonical schema instead of co-existing.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from types import MappingProxyType
 from typing import Any, Dict, Mapping
 
 from .permanent_stats import PermanentStatModifiers
@@ -42,13 +43,18 @@ class EntityState:
     def __post_init__(self) -> None:
         if not isinstance(self.entity_id, str) or not self.entity_id.strip():
             raise ValueError("entity_id must be a non-empty string")
-        if not isinstance(self.base_stats, dict):
+        if not isinstance(self.base_stats, (dict, MappingProxyType)):
             raise ValueError("base_stats must be a dict")
         for k, v in self.base_stats.items():
             if not isinstance(k, str):
                 raise ValueError("base_stats keys must be strings")
             if isinstance(v, bool) or not isinstance(v, int):
                 raise ValueError("base_stats values must be ints")
+        # Deep-freeze mutable dicts to prevent in-place mutation
+        object.__setattr__(self, "base_stats", MappingProxyType(dict(self.base_stats)))
+        object.__setattr__(
+            self, "temporary_modifiers", MappingProxyType(dict(self.temporary_modifiers))
+        )
 
     def to_dict(self) -> Dict[str, Any]:
         return {

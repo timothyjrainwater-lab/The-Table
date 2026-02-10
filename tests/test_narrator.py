@@ -8,6 +8,7 @@ Tests the LLM_ENGINE_BOUNDARY_CONTRACT.md narrator implementation:
 """
 
 import pytest
+from datetime import datetime
 
 from aidm.narration.narrator import (
     Narrator,
@@ -44,7 +45,7 @@ def create_hit_result() -> EngineResult:
         "damage": 8,
     })
     builder.set_narration_token("attack_hit")
-    return builder.build()
+    return builder.build(result_id="test-result-001", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
 
 def create_miss_result() -> EngineResult:
@@ -59,19 +60,19 @@ def create_miss_result() -> EngineResult:
         "hit": False,
     })
     builder.set_narration_token("attack_miss")
-    return builder.build()
+    return builder.build(result_id="test-result-001", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
 
 def create_failure_result() -> EngineResult:
     """Create a failed action result."""
     builder = EngineResultBuilder(intent_id="test-fail")
-    return builder.build_failure("Target not found")
+    return builder.build_failure("Target not found", result_id="test-result-001", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
 
 def create_aborted_result() -> EngineResult:
     """Create an aborted action result."""
     builder = EngineResultBuilder(intent_id="test-abort")
-    return builder.build_aborted("Attack of opportunity")
+    return builder.build_aborted("Attack of opportunity", result_id="test-result-001", resolved_at=datetime(2025, 1, 1, 12, 0, 0))
 
 
 # =============================================================================

@@ -1,4 +1,17 @@
-"""Deterministic RNG manager with stream isolation."""
+"""Deterministic RNG manager with stream isolation.
+
+BOUNDARY LAW (BL-005, BL-006): This is the ONLY module in the codebase that
+may import stdlib ``random``. All other modules must use RNGManager.stream()
+for randomness. If you import ``random`` elsewhere, test_boundary_law.py
+BL-006 will fail.
+
+WHY: Deterministic replay requires that every random number consumed during
+a game session is reproducible from a master seed. stdlib random uses a global
+shared RNG — any uncontrolled call desynchronizes the stream and breaks replay.
+
+SINGLE SOURCE OF TRUTH for: All randomness in the system.
+CANONICAL OWNER: aidm.core.rng_manager (this file).
+"""
 
 import hashlib
 import random
@@ -9,6 +22,8 @@ class DeterministicRNG:
     """Isolated RNG stream with deterministic behavior."""
 
     def __init__(self, seed: int):
+        if not isinstance(seed, int) or isinstance(seed, bool):
+            raise TypeError(f"RNG seed must be int, got {type(seed).__name__}")
         self._rng = random.Random(seed)
         self._call_count = 0
 
@@ -42,6 +57,8 @@ class RNGManager:
     """Manages deterministic RNG streams with stable seed derivation."""
 
     def __init__(self, master_seed: int):
+        if not isinstance(master_seed, int) or isinstance(master_seed, bool):
+            raise TypeError(f"master_seed must be int, got {type(master_seed).__name__}")
         self._master_seed = master_seed
         self._streams: Dict[str, DeterministicRNG] = {}
 
