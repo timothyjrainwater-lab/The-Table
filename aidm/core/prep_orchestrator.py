@@ -124,7 +124,7 @@ class PrepOrchestrator:
 
         return jobs
 
-    def execute_job(self, job: PrepJob) -> PrepJob:
+    def execute_job(self, job: PrepJob, logged_at: Optional[str] = None) -> PrepJob:
         """Execute a single prep job.
 
         Idempotent: if job_id is already DONE with matching content_hash,
@@ -132,6 +132,8 @@ class PrepOrchestrator:
 
         Args:
             job: The job to execute
+            logged_at: Optional ISO-format timestamp for logging (BL-018: inject for determinism)
+                       If None, generates timestamp at call time (for backward compatibility)
 
         Returns:
             Updated job with outputs, status, and content_hash
@@ -144,9 +146,13 @@ class PrepOrchestrator:
 
         campaign_dir = self.store.campaign_dir(self.manifest.campaign_id)
 
+        # Generate timestamp if not provided (BL-018: backward compatibility)
+        if logged_at is None:
+            logged_at = datetime.now(timezone.utc).isoformat()
+
         # Mark as running
         job.status = "running"
-        self._log_job_state(job)
+        self._log_job_state(job, logged_at)
 
         try:
             if job.job_type == "INIT_SCAFFOLD":
@@ -167,7 +173,7 @@ class PrepOrchestrator:
             job.status = "failed"
             job.error = str(e)
 
-        self._log_job_state(job)
+        self._log_job_state(job, logged_at)
         self._completed_jobs[job.job_id] = job
 
         return job
@@ -391,13 +397,18 @@ class PrepOrchestrator:
 
         return placeholders
 
-    def _log_job_state(self, job: PrepJob) -> None:
-        """Append job state to prep_jobs.jsonl (append-only)."""
+    def _log_job_state(self, job: PrepJob, logged_at: str) -> None:
+        """Append job state to prep_jobs.jsonl (append-only).
+
+        Args:
+            job: PrepJob to log
+            logged_at: ISO-format timestamp (BL-018: must be injected)
+        """
         campaign_dir = self.store.campaign_dir(self.manifest.campaign_id)
         log_path = campaign_dir / "prep" / "prep_jobs.jsonl"
 
         entry = job.to_dict()
-        entry["_logged_at"] = datetime.now(timezone.utc).isoformat()
+        entry["_logged_at"] = logged_at
 
         try:
             with open(log_path, "a", encoding="utf-8") as f:

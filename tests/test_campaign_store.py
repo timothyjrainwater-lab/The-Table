@@ -10,6 +10,8 @@ Tests:
 
 import json
 import pytest
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 from aidm.core.campaign_store import CampaignStore, CampaignStoreError
@@ -18,6 +20,18 @@ from aidm.schemas.campaign import (
     CampaignPaths,
     SessionZeroConfig,
 )
+
+
+# Test helper to inject required campaign_id and created_at
+def _create_campaign_injected(store, session_zero, title, seed=0):
+    """Helper to create campaign with injected BL-017/018 values."""
+    return store.create_campaign(
+        campaign_id=str(uuid.uuid4()),
+        session_zero=session_zero,
+        title=title,
+        created_at=datetime.now(timezone.utc).isoformat(),
+        seed=seed,
+    )
 
 
 # =============================================================================
@@ -32,7 +46,7 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Test Campaign", seed=42)
+        manifest = _create_campaign_injected(store, sz, "Test Campaign", seed=42)
 
         assert isinstance(manifest, CampaignManifest)
         assert manifest.title == "Test Campaign"
@@ -44,7 +58,7 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Test")
+        manifest = _create_campaign_injected(store, sz, "Test")
         campaign_dir = tmp_path / manifest.campaign_id
 
         # Verify directory structure
@@ -64,7 +78,7 @@ class TestCampaignCreation:
             preparation_depth="deep",
         )
 
-        manifest = store.create_campaign(sz, "Roundtrip Test", seed=999)
+        manifest = _create_campaign_injected(store, sz, "Roundtrip Test", seed=999)
 
         # Read manifest from disk
         manifest_path = tmp_path / manifest.campaign_id / "manifest.json"
@@ -81,8 +95,8 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        m1 = store.create_campaign(sz, "Campaign A")
-        m2 = store.create_campaign(sz, "Campaign B")
+        m1 = _create_campaign_injected(store, sz, "Campaign A")
+        m2 = _create_campaign_injected(store, sz, "Campaign B")
 
         assert m1.campaign_id != m2.campaign_id
 
@@ -91,7 +105,7 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Default Seed")
+        manifest = _create_campaign_injected(store, sz, "Default Seed")
 
         assert manifest.master_seed == 0
 
@@ -100,7 +114,7 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Timestamped")
+        manifest = _create_campaign_injected(store, sz, "Timestamped")
 
         assert manifest.created_at != ""
         # Should be ISO format
@@ -116,7 +130,7 @@ class TestCampaignCreation:
             doctrine_enforcement=False,
         )
 
-        manifest = store.create_campaign(sz, "Full SZ")
+        manifest = _create_campaign_injected(store, sz, "Full SZ")
 
         assert manifest.session_zero.optional_rules == ["flanking", "massive_damage"]
         assert manifest.session_zero.alignment_mode == "narrative_only"
@@ -127,7 +141,7 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Empty Logs")
+        manifest = _create_campaign_injected(store, sz, "Empty Logs")
         campaign_dir = tmp_path / manifest.campaign_id
 
         events = (campaign_dir / "events.jsonl").read_text()
@@ -143,7 +157,7 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "With Paths")
+        manifest = _create_campaign_injected(store, sz, "With Paths")
 
         assert manifest.paths.root == str(tmp_path / manifest.campaign_id)
         assert manifest.paths.events == "events.jsonl"
@@ -156,7 +170,7 @@ class TestCampaignCreation:
         store = CampaignStore(tmp_path / "campaigns")
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "New Root")
+        manifest = _create_campaign_injected(store, sz, "New Root")
 
         assert (tmp_path / "campaigns").is_dir()
         assert (tmp_path / "campaigns" / manifest.campaign_id).is_dir()
@@ -177,7 +191,7 @@ class TestCampaignLoading:
             optional_rules=["flanking"],
         )
 
-        created = store.create_campaign(sz, "Load Test", seed=42)
+        created = _create_campaign_injected(store, sz, "Load Test", seed=42)
         loaded = store.load_campaign(created.campaign_id)
 
         assert loaded.campaign_id == created.campaign_id
@@ -225,7 +239,7 @@ class TestManifestSave:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Original Title")
+        manifest = _create_campaign_injected(store, sz, "Original Title")
 
         # Modify and save
         manifest.title = "Updated Title"
@@ -242,7 +256,7 @@ class TestManifestSave:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Sorted")
+        manifest = _create_campaign_injected(store, sz, "Sorted")
 
         manifest_path = tmp_path / manifest.campaign_id / "manifest.json"
         content = manifest_path.read_text()
@@ -282,9 +296,9 @@ class TestCampaignListing:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        m1 = store.create_campaign(sz, "A")
-        m2 = store.create_campaign(sz, "B")
-        m3 = store.create_campaign(sz, "C")
+        m1 = _create_campaign_injected(store, sz, "A")
+        m2 = _create_campaign_injected(store, sz, "B")
+        m3 = _create_campaign_injected(store, sz, "C")
 
         campaigns = store.list_campaigns()
 
@@ -298,9 +312,9 @@ class TestCampaignListing:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        store.create_campaign(sz, "A")
-        store.create_campaign(sz, "B")
-        store.create_campaign(sz, "C")
+        _create_campaign_injected(store, sz, "A")
+        _create_campaign_injected(store, sz, "B")
+        _create_campaign_injected(store, sz, "C")
 
         campaigns = store.list_campaigns()
 
@@ -311,7 +325,7 @@ class TestCampaignListing:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        store.create_campaign(sz, "Real")
+        _create_campaign_injected(store, sz, "Real")
 
         # Create non-campaign directories
         (tmp_path / "random_dir").mkdir()
@@ -339,7 +353,7 @@ class TestCampaignStoreUtils:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        manifest = store.create_campaign(sz, "Exists")
+        manifest = _create_campaign_injected(store, sz, "Exists")
 
         assert store.campaign_exists(manifest.campaign_id) is True
 
@@ -374,7 +388,7 @@ class TestCampaignStoreUtils:
         )
 
         # Create
-        manifest = store.create_campaign(sz, "Lifecycle Test", seed=12345)
+        manifest = _create_campaign_injected(store, sz, "Lifecycle Test", seed=12345)
         campaign_id = manifest.campaign_id
 
         # Load

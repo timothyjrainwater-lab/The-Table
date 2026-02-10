@@ -3,7 +3,7 @@
 **Document Type:** R0 Governance / Decision Control
 **Purpose:** Track all GO/NO-GO decisions with evidence links and caveats
 **Data Source:** Synthesis, Gap Register, Model Budgets, Hardware Baseline
-**Last Updated:** 2026-02-10
+**Last Updated:** 2026-02-11
 **Agent:** Agent D (Research Orchestrator)
 
 ---
@@ -352,6 +352,8 @@ This register records **every binding decision** made during the R0 research pha
 
 **Status:** 🔵 DEFERRED (M1 scope)
 
+> **R1 REVISION (2026-02-11):** Sound/music now has a concrete path. **Music:** Curated royalty-free library (30-45 tracks, ~150 MB) for M0; procedural MIDI for M1; MusicGen during prep-time for M2+ (viable because models load sequentially during prep phase, not simultaneously). **SFX:** Curated pre-recorded library (200-500 sounds, 50-200 MB) for M0; AudioGen/Tango 2 during prep-time for M2+ (same sequential loading rationale). Status remains DEFERRED for M0 but with clear implementation path for M1+. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
+
 ---
 
 ### R0-DEC-015: Implicit Player Modeling → DEFER TO M1
@@ -520,6 +522,8 @@ This register records **every binding decision** made during the R0 research pha
 
 **Status:** ✅ APPROVED (2026-02-10)
 
+> **R1 REVISION (2026-02-11):** Superseded by **Qwen3 8B Instruct (Q4_K_M)**. 85% human preference in roleplay blind evaluations. Outperforms Qwen 2.5 14B on 15 benchmarks. Apache 2.0 license. ~6 GB VRAM. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
+
 ---
 
 ### R0-DEC-021: LLM (Minimum Spec) → GO (Phi-2 or StableLM-3B)
@@ -544,6 +548,8 @@ This register records **every binding decision** made during the R0 research pha
 
 **Status:** ✅ APPROVED (2026-02-10)
 
+> **R1 REVISION (2026-02-11):** Superseded by **Qwen3 4B Instruct (Q4_K_M)**. Significant quality improvement over Phi-2 2.7B at similar resource footprint (~3 GB VRAM). Alternative: Gemma 3 4B QAT. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
+
 ---
 
 ### R0-DEC-022: LLM (13B Model) → NO-GO (Exceeds RAM Budget)
@@ -566,6 +572,8 @@ This register records **every binding decision** made during the R0 research pha
 **Owner:** Agent D (Research Orchestrator)
 
 **Status:** ✅ APPROVED (2026-02-10)
+
+> **R1 REVISION (2026-02-11):** Updated — 13B+ models still require HIGH tier (≥8 GB VRAM). Qwen3 14B and Gemma 3 12B added as HIGH tier options. The NO-GO for median spec remains valid; these are HIGH-tier only.
 
 ---
 
@@ -591,6 +599,8 @@ This register records **every binding decision** made during the R0 research pha
 **Owner:** Agent D (Research Orchestrator)
 
 **Status:** ✅ APPROVED (2026-02-10)
+
+> **R1 REVISION (2026-02-11):** Superseded by **SDXL Lightning NF4**. NF4 quantization (bitsandbytes) brings SDXL down to 3.5-4.5 GB VRAM — same envelope as SD 1.5. SDXL Lightning runs in 4 steps (vs 20 for SD 1.5), producing SDXL-quality images in 4-6 seconds. Apache 2.0 license. SD 1.5 retained as CPU fallback only. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
 
 ---
 
@@ -639,6 +649,8 @@ This register records **every binding decision** made during the R0 research pha
 
 **Status:** ✅ APPROVED (2026-02-10)
 
+> **R1 REVISION (2026-02-11): REVERSED.** NF4 quantization reduces SDXL VRAM from 6-7 GB to 3.5-4.5 GB. SDXL Lightning (4-step) fits within median VRAM budget. Original NO-GO was based on fp16 VRAM requirements which are no longer the only option. SDXL Lightning NF4 is now the **RECOMMENDED primary image model**. Status changed from NO-GO to **GO (Median Spec)**. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
+
 ---
 
 ### R0-DEC-026: TTS (All Specs) → GO (Coqui TTS or Piper)
@@ -662,6 +674,8 @@ This register records **every binding decision** made during the R0 research pha
 **Owner:** Agent D (Research Orchestrator)
 
 **Status:** ✅ APPROVED (2026-02-10)
+
+> **R1 REVISION (2026-02-11):** Primary recommendation changed to **Kokoro TTS** (StyleTTS2-based, 82M params, ONNX, Apache 2.0, `pip install kokoro-onnx`). Quality rating 4.0/5 vs Piper's 3.0/5 at similar RAM footprint (150-300 MB). Piper retained as fallback. Coqui deprioritized (abandoned project, MSVC build requirement). See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
 
 ---
 
@@ -709,6 +723,8 @@ This register records **every binding decision** made during the R0 research pha
 
 **Status:** ✅ APPROVED (2026-02-10)
 
+> **R1 REVISION (2026-02-11):** Superseded by **faster-whisper small.en** (CTranslate2 INT8). Same Whisper models but 40-50% less RAM, 3x faster CPU inference. Model upgrade from base.en to small.en now fits in budget (400-700 MB INT8 vs 500-800 MB PyTorch for base). 28% relative WER improvement. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
+
 ---
 
 ### R0-DEC-029: STT (Minimum Spec) → GO (Whisper Tiny)
@@ -731,6 +747,8 @@ This register records **every binding decision** made during the R0 research pha
 **Owner:** Agent D (Research Orchestrator)
 
 **Status:** ✅ APPROVED (2026-02-10)
+
+> **R1 REVISION (2026-02-11):** Runtime changed to **faster-whisper**. Whisper tiny.en via CTranslate2 INT8 now uses only 100-200 MB RAM (vs 300-500 MB PyTorch). Model upgrade to base.en viable for minimum spec (200-400 MB). See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
 
 ---
 
@@ -845,27 +863,34 @@ This register records **every binding decision** made during the R0 research pha
 
 **Status:** 🔴 BLOCKED (awaiting R0 critique validation)
 
+> **R1 REVISION (2026-02-11):** Image critique now has a concrete recommendation. Three-layer pipeline: **Heuristics** (CPU, <100ms) + **ImageReward** (GPU, ~100ms, ~1.0 GB FP16, NeurIPS 2023) + **SigLIP** (GPU, ~100ms, ~0.6 GB FP16). Sequential loading with SDXL means peak VRAM during critique is only 1.0-1.6 GB. Status changed from NOT STARTED to **ANSWERABLE** — requires benchmarking to confirm, but model selection is resolved. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.
+
 ---
 
 ### R0-DEC-035: GO Criterion 5 — Prep Phase Pipeline Prototyped
 
 **Criterion:** Prep phase pipeline must be prototyped and timing validated (≤30 min for 2-hour session).
 
-**Current Status:** 🔴 NOT STARTED (no pipeline defined)
+**Current Status:** 🟡 PROJECTED PASS (prototype complete, timing analysis projected, hardware benchmarking pending)
 
 **Evidence:**
 - `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 366-370): "Prep phase pipeline prototyped"
 - `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 108-124): "Prep-Time Budget and Pipeline — UNDERSPECIFIED"
+- `aidm/core/prep_pipeline.py`: Sequential model loading prototype (WO-M3-PREP-01, complete)
+- `aidm/schemas/prep_pipeline.py`: Pipeline schemas (CampaignDescriptor, PrepAssetManifest)
+- `docs/research/R0_PREP_PIPELINE_TIMING_STUDY.md`: Timing projections (~9 min median, ~17 min minimum)
 
 **Requirements to Satisfy:**
-- Define asset sequence (scout → scaffold → portraits → scenes)
-- Benchmark generation time per asset (realistic estimates)
-- Validate total prep time (≤30 minutes for 2-hour session)
-- Design UX (progress indication, error handling, cancellation, resume)
+- ✅ Define asset sequence (LLM → Image → Critique → Music → SFX → TTS) — DONE (prototype)
+- 🟡 Benchmark generation time per asset (realistic estimates) — PROJECTED (needs hardware validation)
+- 🟡 Validate total prep time (≤30 minutes for 2-hour session) — PROJECTED PASS (~9 min median, ~17 min minimum)
+- ⬜ Design UX (progress indication, error handling, cancellation, resume) — NOT STARTED
+
+> **R1 REVISION (2026-02-11):** Prep pipeline prototype completed by WO-M3-PREP-01 (Sonnet B). Sequential model loading architecture validated in stub mode. Timing study projects ~9 min on median spec and ~17 min on minimum spec for a full session — well within the ≤30 min target. LLM content generation is the bottleneck (71% of time on minimum spec). Status upgraded from BLOCKED to **PROJECTED PASS**. Hardware benchmarking with real models (Qwen3 8B, SDXL Lightning NF4, ACE-Step) is the only remaining validation. See `docs/research/R0_PREP_PIPELINE_TIMING_STUDY.md`.
 
 **Owner:** Agent D (Research Orchestrator)
 
-**Status:** 🔴 BLOCKED (awaiting R0 prep pipeline prototype)
+**Status:** 🟡 PROJECTED PASS (awaiting hardware benchmarking)
 
 ---
 
@@ -951,6 +976,8 @@ This register records **every binding decision** made during the R0 research pha
 **Owner:** Agent D (Research Orchestrator)
 
 **Status:** ✅ MITIGATED (trigger avoided, 2026-02-10)
+
+> **R1 UPDATE (2026-02-11):** Model selections updated — Qwen3 8B/14B (median LLM), Qwen3 4B (minimum LLM), SDXL Lightning NF4 (image), Kokoro (TTS), faster-whisper small.en (STT). All fit within established hardware budgets. Sequential prep-time loading eliminates simultaneous VRAM contention.
 
 ---
 
@@ -1243,10 +1270,12 @@ This register records **every binding decision** made during the R0 research pha
 - R0-DEC-036: GO Criterion 6 (MVP Scope) → IN PROGRESS
 - R0-DEC-041: NO-GO Trigger 5 (Scope Creep) → PARTIAL MITIGATION
 
-**🔴 BLOCKED (5 decisions):**
-- R0-DEC-034: GO Criterion 4 (Image Critique) → NOT STARTED
-- R0-DEC-035: GO Criterion 5 (Prep Pipeline) → NOT STARTED
+**🔴 BLOCKED (4 decisions):**
+- R0-DEC-034: GO Criterion 4 (Image Critique) → ANSWERABLE (R1 resolved model selection)
 - R0-DEC-042 through R0-DEC-048: R0 Validations 1-7 → PENDING
+
+**🟡 PROJECTED PASS (1 decision):**
+- R0-DEC-035: GO Criterion 5 (Prep Pipeline) → PROJECTED PASS (prototype complete, timing projected ~9 min median)
 
 **🔵 DEFERRED (8 decisions):**
 - R0-DEC-004: M1 Enhancements → DEFER

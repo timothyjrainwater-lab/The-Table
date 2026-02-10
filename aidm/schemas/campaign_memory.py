@@ -400,3 +400,39 @@ class ThreadRegistry:
             campaign_id=data["campaign_id"],
             clues=[ClueCard.from_dict(c) for c in data.get("clues", [])]
         )
+
+
+@dataclass
+class QueryResult:
+    """
+    Result from LLM memory query.
+
+    Used for retrieving entity IDs, event IDs, or relationships from indexed memory.
+    Per LLM_QUERY_INTERFACE.md Section 1.2.
+    """
+
+    entity_ids: List[str] = field(default_factory=list)
+    """Entity IDs matching the query"""
+
+    event_ids: List[str] = field(default_factory=list)
+    """Event IDs matching the query"""
+
+    summary: str = ""
+    """Brief summary of findings"""
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return {
+            "entity_ids": self.entity_ids,
+            "event_ids": self.event_ids,
+            "summary": self.summary
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "QueryResult":
+        """Create from dictionary."""
+        return cls(
+            entity_ids=data.get("entity_ids", []),
+            event_ids=data.get("event_ids", []),
+            summary=data.get("summary", "")
+        )

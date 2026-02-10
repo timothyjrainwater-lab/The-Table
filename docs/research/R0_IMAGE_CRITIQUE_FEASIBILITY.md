@@ -1,9 +1,9 @@
 # Image Critique Feasibility Analysis — R0 Research Draft
 
-**Status:** R0 / DRAFT / NON-BINDING
+**Status:** R0 / DRAFT / NON-BINDING (R1 revision appended)
 **Purpose:** Evaluate technical feasibility of automated image critique approaches
 **Authority:** Advisory — requires validation against actual performance
-**Last Updated:** 2026-02-10
+**Last Updated:** 2026-02-11
 **Research Context:** Image critique viability analysis for AIDM immersion pipeline
 
 ---
@@ -34,6 +34,57 @@ This document is a **research draft** analyzing technical feasibility of image c
 **Key Finding:** **Heuristics + CLIP hybrid covers 85% of users acceptably** (15% CPU-only + 70% mid-tier GPU).
 
 **Fallback Required:** Shipped art pack for users who cannot run CLIP on CPU and have no GPU.
+
+---
+
+## R1 REVISION (2026-02-11)
+
+**This document's recommendations are superseded by R1 findings.**
+
+The R0 feasibility study was written before ImageReward (NeurIPS 2023), SigLIP (Google, 2024-2025), and QualiCLIP (CVPR 2024) became available. These models are strictly better than the CLIP ViT-B/32 recommendation in Approach 2/4.
+
+### Updated Recommendation: Three-Layer Pipeline
+
+**Layer 1: Fast Heuristics (CPU, <100ms, 0 VRAM)** — Same as this document's Approach 1
+- Laplacian variance for blur, BRISQUE via pyiqa, saliency center-of-mass
+- Catches obviously broken images before loading any models
+
+**Layer 2: ImageReward (GPU, ~100ms, ~1.0 GB FP16)** — Replaces CLIP ViT-B/32
+- NeurIPS 2023 model (THUDM). Takes BOTH image AND text prompt as input.
+- Produces single score: "how well does this image match this description per human preference?"
+- Beats raw CLIP similarity by ~40% on human preference alignment.
+- API: `score = model.score("description", [image_path])`
+
+**Layer 3 (Optional): SigLIP (GPU, ~100ms, ~0.6 GB FP16)** — Replaces CLIP for reference comparison
+- Google's successor to CLIP. Better calibration, smaller, outperforms same-size CLIP.
+- SigLIP ViT-L/16-256 at ~600 MB FP16.
+- Use for reference-based comparison: style consistency, NPC identity matching.
+
+### Updated Performance Estimates
+
+| Approach | F1 Score | FPR | FNR | VRAM |
+|----------|----------|-----|-----|------|
+| Heuristics-only (unchanged) | 0.60-0.65 | 15-20% | 25-40% | 0 GB |
+| **Heuristics + ImageReward** | **0.80-0.85** | **5-8%** | **8-12%** | **~1.0 GB** |
+| **Heuristics + ImageReward + SigLIP** | **0.85-0.90** | **5-8%** | **5-10%** | **~1.6 GB** |
+| Old: Heuristics + CLIP B/32 | 0.75-0.80 | 8-10% | 12-15% | ~1.5 GB |
+
+### VRAM Budget (Sequential Pipeline)
+
+Since AIDM uses prep-time sequential model loading:
+1. SDXL Lightning NF4 generates image (~4 GB VRAM). Unloads.
+2. ImageReward loads (~1.0 GB). Scores. Unloads.
+3. SigLIP loads (~0.6 GB). Compares. Unloads.
+
+Peak VRAM during critique: ~1.0-1.6 GB. No contention with image generation.
+
+### Status Update
+
+- R0-DEC-016 (Image Critique PAUSE): Now **ANSWERABLE** — model selection resolved
+- R0-DEC-034 (GO Criterion 4): Now **ANSWERABLE** — requires benchmarking to confirm
+- R0-DEC-037 (NO-GO Trigger 1): **NOT TRIGGERED** — viable critique path exists
+
+**Full details:** `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`
 
 ---
 

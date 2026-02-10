@@ -2,9 +2,23 @@
 
 **Document Type:** R0 Governance / Master Index
 **Purpose:** Central registry of all R0 research questions, ownership, priorities, and GO/NO-GO acceptance criteria
-**Last Updated:** 2026-02-10
+**Last Updated:** 2026-02-11
 **Agent:** Agent D (Research Orchestrator)
 **M1 Status:** ✅ **UNLOCKED** (2026-02-10) — LLM Narration Integration authorized with guardrails enforcement
+
+> ## R1 REVISION NOTICE (2026-02-11)
+>
+> The R1 Technology Stack Validation (Opus, 2026-02-11) resolved model selections across all technology areas. Several research questions listed below as "Not Started" are now **partially or fully answered** by R1 findings. Key changes:
+>
+> - **RQ-HW-003 (Model Selection):** Acceptance thresholds updated — Qwen3 8B/14B (LLM), SDXL Lightning NF4 (image), Kokoro (TTS), faster-whisper small.en (STT)
+> - **RQ-IMG-001 (Image Critique):** Model selection resolved — Heuristics + ImageReward + SigLIP pipeline
+> - **RQ-VOICE-001 (TTS Quality):** Primary engine identified — Kokoro TTS (4.0/5 quality, Apache 2.0)
+> - **R0-DEC-025 (SDXL NO-GO):** **REVERSED** — NF4 quantization brings SDXL to 3.5-4.5 GB VRAM
+> - **Architecture correction:** AIDM is a prep-time sequential pipeline, not simultaneous model loading
+>
+> Questions marked as "R1-ANSWERED" below have model selections resolved but may still need benchmarking validation.
+>
+> **Full details:** `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`
 
 ---
 
@@ -17,11 +31,15 @@
 - **Important (Affects Architecture):** 19
 - **Optional (Clarifications):** 14
 
-**Status Breakdown:**
-- **Not Started:** 43
-- **In Progress:** 4 (Canonical ID Schema, Hardware Baseline, MVP Scope, Model Budgets)
+**Status Breakdown (Post-R1 Reconciliation, 2026-02-11):**
+- **R1-Answered:** 7 (model selections resolved, benchmarking needed)
+- **R1-Partially-Answered:** 6 (direction clear, work remains)
+- **Complete:** 2 (RQ-LLM-001, R1-ARCH-001)
+- **In Progress:** 4 (Canonical ID Schema, Hardware Baseline, LLM Determinism, Prep Idempotency)
+- **Still Open (Critical):** 6 (LLM query, LLM constraint adherence, image quality, prep time, bounded regen, failure fallback)
+- **Still Open (Important):** 13
+- **Deferred (M1+):** 11
 - **Blocked:** 0
-- **Complete:** 2 (RQ-LLM-001 Indexed Memory Architecture, R1-ARCH-001 Spark Swappability)
 
 ### Owner Assignments
 
@@ -879,6 +897,134 @@ All "Optional" priority questions (14 total) are low-risk. These can be deferred
 | Date | Version | Agent | Changes |
 |------|---------|-------|---------|
 | 2026-02-10 | 1.0 | Agent D | Initial master tracker created |
+| 2026-02-11 | 1.1 | Opus (Agent 46) | R1 revision notice added; R1 reconciliation section appended |
+
+---
+
+## 10. R1 Reconciliation — Research Question Status After R1 Technology Validation
+
+**Date:** 2026-02-11
+**Author:** Opus (Agent 46)
+**Source:** `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`
+
+The R1 Technology Stack Validation resolved model selections across all seven technology areas. This section reconciles the 49 R0 research questions against R1 findings to identify which are answered, which remain open, and which are no longer relevant.
+
+### Status Categories
+
+| Category | Count | Description |
+|----------|-------|-------------|
+| **R1-ANSWERED** | 7 | Model/technology selection fully resolved by R1; needs benchmarking only |
+| **R1-PARTIALLY-ANSWERED** | 6 | R1 provides direction but design/implementation work remains |
+| **ALREADY COMPLETE** | 2 | Finished before R1 (RQ-LLM-001, R1-ARCH-001) |
+| **IN PROGRESS** | 4 | Was already being worked on (schema, hardware baseline) |
+| **STILL OPEN** | 16 | Not addressed by R1, needs design/implementation work |
+| **DEFERRED (M1+)** | 8 | M1+ scope, not blocking M0 |
+| **SUPERSEDED** | 0 | No questions rendered irrelevant (all remain valid) |
+| **STILL OPEN (CRITICAL)** | 6 | Open critical-path items that need resolution |
+
+### R1-ANSWERED (7 questions — model selection resolved)
+
+These questions have their technology/model selection answered by R1. They still need benchmarking on target hardware to confirm acceptance thresholds, but the "which model?" question is resolved.
+
+| ID | Question | R1 Answer | Remaining Work |
+|----|----------|-----------|----------------|
+| **RQ-HW-003** | Model selection within budget | Qwen3 8B/14B/4B (LLM), SDXL Lightning NF4 (image), Kokoro (TTS), faster-whisper small.en (STT), ACE-Step (music) | Benchmark on target hardware |
+| **RQ-IMG-001** | Image critique model selection | Heuristics + ImageReward + SigLIP (three-layer pipeline) | Benchmark F1/FPR/FNR on sample images |
+| **RQ-VOICE-001** | TTS quality baseline | Kokoro TTS (4.0/5 quality, Apache 2.0, 150-300 MB RAM) | User testing with 10+ listeners |
+| **RQ-VOICE-002** | TTS latency target | Kokoro: 100-300ms CPU. Well within <500ms target | Benchmark on minimum spec hardware |
+| **RQ-VOICE-003** | STT latency target | faster-whisper small.en: 1100-1750ms (10s audio, CPU). Within <2000ms target | Benchmark on minimum spec hardware |
+| **RQ-HW-004** | GPU requirement decision | Support integrated graphics; CPU fallback mandatory (15% of users). Qwen3 4B + SD 1.5 OpenVINO for CPU path | Confirmed by R1 model budget analysis |
+| **RQ-HW-006** | Cloud vs local models | Local-first confirmed. All R1 selections are local models with permissive licenses | No remaining work |
+
+### R1-PARTIALLY-ANSWERED (6 questions — direction clear, work remains)
+
+| ID | Question | What R1 Resolved | What Remains |
+|----|----------|------------------|--------------|
+| **RQ-HW-001** | Hardware baseline extraction | Steam survey data referenced; median/minimum specs defined | Formal extraction document needs completion |
+| **RQ-HW-002** | Minimum spec CPU fallback | Model selections confirmed (Qwen3 4B, SD 1.5 OpenVINO, Kokoro, faster-whisper base.en) | CPU benchmark testing needed |
+| **RQ-IMG-002** | Image critique failure modes | Three-layer pipeline defines graduated failure handling | Documented failure mode catalog still needed |
+| **RQ-IMG-007** | Image generation latency (median) | SDXL Lightning NF4: 4-6 sec at 768x768 on RTX 3060 (R1 estimate) | Benchmark on actual target hardware |
+| **RQ-IMG-008** | Image generation latency (minimum) | SD 1.5 + LCM LoRA OpenVINO: 8-20 sec on CPU (R1 estimate) | Benchmark on actual minimum spec hardware |
+| **RQ-PREP-002** | Prep phase task breakdown | Sequential pipeline defined (LLM → image → critique → music → SFX → TTS) | Timing study, asset list, resource allocation per task |
+
+### ALREADY COMPLETE (2 questions)
+
+| ID | Question | Status |
+|----|----------|--------|
+| **RQ-LLM-001** | LLM indexed memory architecture | Certified PASSED (policy gaps documented) |
+| **R1-ARCH-001** | Spark swappability doctrine + contract | COMPLETE (doctrine + contract + 6 acceptance tests) |
+
+### IN PROGRESS (4 questions — work predates R1)
+
+| ID | Question | Current State |
+|----|----------|---------------|
+| **RQ-SCHEMA-001** | Canonical ID format definition | Draft completed, needs validation |
+| **RQ-SCHEMA-002** | ID collision probability | Addressed in canonical ID schema draft |
+| **RQ-LLM-007** | LLM output determinism | Addressed in canonical ID schema draft |
+| **RQ-PREP-003** | Prep job idempotency | Addressed in canonical ID schema draft |
+
+### STILL OPEN — CRITICAL (6 questions — must resolve for M0)
+
+These are the remaining critical-path items that R1 did not address. They require design work, prototyping, or user testing.
+
+| ID | Question | Why R1 Didn't Resolve | Next Step |
+|----|----------|-----------------------|-----------|
+| **RQ-LLM-002** | LLM query interface (prompt eng vs function calling vs RAG) | Architecture decision, not model selection | Design query interface against Qwen3 8B capabilities |
+| **RQ-LLM-006** | LLM constraint adherence (D&D 3.5e rules, <5% hallucination) | Requires evaluation with selected model | Test Qwen3 8B against D&D rule corpus |
+| **RQ-IMG-003** | Image quality threshold (>70% "acceptable") | Requires user testing with SDXL Lightning output | Generate samples, run playtest |
+| **RQ-PREP-001** | Prep time budget (≤30 min target) | Requires end-to-end timing with sequential pipeline | **CRITICAL BLOCKER — Priority 4 prep pipeline prototype** |
+| **RQ-IMG-010** | Bounded regeneration policy | Design decision, not model selection | Define max attempts, backoff, fallback rules |
+| **RQ-IMG-009** | Image generation failure fallback | Design decision | Define placeholder strategy, retry UX |
+
+### STILL OPEN — IMPORTANT (10 questions)
+
+| ID | Question | Category | Notes |
+|----|----------|----------|-------|
+| **RQ-LLM-003** | Entity renames in indexed memory | LLM/Memory | Blocked on RQ-LLM-001 (complete) — ready to start |
+| **RQ-LLM-004** | Deleted entities in index | LLM/Memory | Blocked on RQ-LLM-001 (complete) — ready to start |
+| **RQ-LLM-005** | Entity ID aliasing | LLM/Memory | Blocked on RQ-SCHEMA-001 (in progress) |
+| **RQ-LLM-008** | Session recap summarization | LLM/Memory | Blocked on RQ-LLM-001 (complete) — ready to start |
+| **RQ-LLM-010** | Duplicate NPC naming | Schema | In progress via canonical ID schema |
+| **RQ-LLM-011** | Entity persistence across sessions | Schema | In progress via canonical ID schema |
+| **RQ-IMG-004** | Asset content addressing | Schema | In progress via canonical ID schema |
+| **RQ-IMG-005** | Asset variant handling | Image | Blocked on RQ-IMG-004 |
+| **RQ-HW-005** | Cross-platform priority | Hardware | M0 = Windows-only (already decided) |
+| **RQ-SCHEMA-003** | Campaign ID user scoping | Schema | Blocked on RQ-SCHEMA-001 |
+| **RQ-SCHEMA-005** | Session replay determinism | Schema | Blocked on RQ-SCHEMA-001 |
+| **RQ-PREP-004** | Failed prep job retry | Prep | Blocked on RQ-PREP-002 |
+| **RQ-PREP-008** | Prep phase failure UX | Prep | Blocked on RQ-PREP-001 |
+
+### DEFERRED — M1+ SCOPE (8 questions)
+
+These are explicitly scoped for M1 or later. Not blocking M0.
+
+| ID | Question | Deferred To | Notes |
+|----|----------|-------------|-------|
+| **RQ-LLM-009** | Knowledge tome progressive detail | M1 | Feature design, not R0 research |
+| **RQ-LLM-012** | Entity rename side effects | M1 | Depends on RQ-LLM-003 |
+| **RQ-VOICE-004** | TTS persona switching | M1 | Single persona for M0; Kokoro has 6-10 voices for M1 |
+| **RQ-VOICE-005** | Multilingual STT accuracy | M1 | M0 = English-only; faster-whisper supports 50+ languages |
+| **RQ-VOICE-006** | Multilingual TTS quality | M1 | M0 = English-only |
+| **RQ-IMG-006** | Shared cache asset IDs | M1 | Optional optimization |
+| **RQ-SCHEMA-004** | Campaign forking/cloning | M1+ | Optional feature |
+| **RQ-SCHEMA-006** | Event nesting | M1+ | Optional structural decision |
+| **RQ-PREP-005** | Prep job dependencies (DAG) | M1+ | Optional optimization |
+| **RQ-PREP-006** | Prep job regen with different params | M1+ | Optional feature |
+| **RQ-PREP-007** | Versioned asset handling | M1+ | Optional feature |
+
+### Summary: What R1 Changed
+
+**Before R1:** 43 of 49 questions "Not Started." No model selections locked. No technology validated.
+
+**After R1:**
+- **7 questions answered** (model selections resolved)
+- **6 questions partially answered** (direction clear, benchmarking needed)
+- **2 questions already complete** (predated R1)
+- **4 questions in progress** (canonical ID schema work)
+- **6 critical questions still open** (design work, user testing, prep pipeline timing)
+- **8+ questions deferred** (M1+ scope)
+
+**The single most important remaining open item is RQ-PREP-001 (Prep Time Budget)**, which requires the prep pipeline prototype (Priority 4 / R0-DEC-035). This is the critical blocker.
 
 ---
 

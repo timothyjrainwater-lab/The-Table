@@ -26,8 +26,6 @@ Read these files completely before writing any code. The order matters.
 | 4 | `PROJECT_COHERENCE_DOCTRINE.md` | Architectural constraints, scope boundaries | Defines what you CAN'T do (no LLM at runtime, etc.) |
 | 5 | `KNOWN_TECH_DEBT.md` | Things that look broken but are intentionally deferred | Prevents you from wasting work "fixing" deferred items |
 
-**Do NOT read** `WORKSPACE_MANIFEST.md` — it is severely stale and will mislead you about project size. Use `PROJECT_STATE_DIGEST.md` for the current module inventory.
-
 **Do NOT read** superseded action plans — use `docs/AIDM_EXECUTION_ROADMAP_V3.md` for the canonical roadmap.
 
 ---
@@ -168,7 +166,19 @@ Every completion packet follows this process:
 
 ## Step 8: PM Review Inbox
 
-When you complete a deliverable that needs PM (Aegis) review — work order output, design doc, spec, audit report, or any artifact the PM should evaluate — copy the output to `pm_inbox/` as a markdown file.
+When you complete a deliverable that needs PM (Aegis) review — work order output, design doc, spec, audit report, or any artifact the PM should evaluate — write it to `pm_inbox/` as a markdown file.
+
+### FILE ROUTING (MANDATORY)
+
+| Destination | Who writes there | Purpose |
+|-------------|-----------------|---------|
+| `pm_inbox/` | **Agents** | New deliverables awaiting PM review |
+| `pm_inbox/reviewed/` | **PM/Thunder ONLY** | Reviewed and approved documents |
+| `pm_inbox/aegis_rehydration/` | **PM/Thunder ONLY** | PM context files |
+
+**DO NOT write to `pm_inbox/reviewed/`.** That folder is for documents that have already been reviewed and approved by the PM. Only Thunder or the PM moves files there. If you write directly to `reviewed/`, your deliverable will be treated as misrouted and may be missed.
+
+**DO NOT write deliverables to `pm_inbox/aegis_rehydration/`.** That folder contains PM system context. The only exception is **syncing canonical project files** that have rehydration copies (e.g., `AGENT_DEVELOPMENT_GUIDELINES.md`, `PROJECT_STATE_DIGEST.md`, `KNOWN_TECH_DEBT.md`) — those files have headers that explicitly say to sync the rehydration copy after editing.
 
 **Naming convention:** `{AGENT}_{WO-id}_{short_description}.md`
 **Examples:**
@@ -193,13 +203,13 @@ When you complete a deliverable that needs PM (Aegis) review — work order outp
 
 Thunder will drag-and-drop these files to the PM (Aegis/GPT) for review. After review, files are moved to `pm_inbox/reviewed/` or deleted.
 
-**What goes to pm_inbox:**
+**What goes to `pm_inbox/`:**
 - Completed work order deliverables
 - Design decision documents
 - Spec proposals that need PM sign-off
 - Audit reports or analysis results
 
-**What does NOT go to pm_inbox:**
+**What does NOT go to `pm_inbox/`:**
 - Code files (those stay where they belong in the source tree)
 - Test files
 - Intermediate scratch work

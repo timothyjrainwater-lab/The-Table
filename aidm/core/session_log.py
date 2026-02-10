@@ -13,7 +13,6 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 import json
 from pathlib import Path
-from copy import deepcopy
 
 from aidm.core.event_log import Event, EventLog
 from aidm.core.state import WorldState
@@ -250,19 +249,21 @@ class ReplayHarness:
     def replay_session(
         self,
         session_log: SessionLog,
-        apply_state_changes: bool = True,
     ) -> ReplayVerificationResult:
         """Replay a session log and verify all results.
 
+        NOTE: This method does NOT mutate state. It verifies that replaying
+        each intent with the original world state produces identical results.
+        State changes are NOT applied between entries (replay is stateless).
+
         Args:
             session_log: The session log to replay
-            apply_state_changes: If True, apply state changes between entries
 
         Returns:
             ReplayVerificationResult
         """
         rng = RNGManager(self.master_seed)
-        current_state = deepcopy(self.initial_state)
+        current_state = self.initial_state
 
         for i, entry in enumerate(session_log.entries):
             # Skip retracted intents (no result to verify)
@@ -272,7 +273,7 @@ class ReplayHarness:
             # Reset RNG to the entry's initial offset
             rng_offset = entry.result.rng_initial_offset
 
-            # Replay resolution
+            # Replay resolution (non-mutating)
             try:
                 replayed_result = self.resolver_fn(
                     entry.intent, current_state, rng
@@ -295,12 +296,6 @@ class ReplayHarness:
                     divergence_index=i,
                     divergence_details=details,
                 )
-
-            # Apply state changes if requested
-            if apply_state_changes:
-                for sc in entry.result.state_changes:
-                    if sc.entity_id in current_state.entities:
-                        current_state.entities[sc.entity_id][sc.field] = sc.new_value
 
         return ReplayVerificationResult(
             verified=True,
@@ -336,6 +331,10 @@ def create_test_resolver():
 
     This is a stub resolver that just returns success for any intent.
     Real resolvers would implement actual game logic.
+
+    NOTE: The test resolver generates UUIDs and timestamps internally.
+    This is acceptable for test/demo code but violates BL-017/018.
+    Production resolvers must accept injected IDs and timestamps.
     """
     from aidm.schemas.engine_result import EngineResultBuilder
     import uuid
@@ -405,6 +404,8 @@ def create_test_resolver():
             # Default: just mark as resolved
             builder.set_narration_token("action_complete")
 
+        # NOTE: Test helper uses non-deterministic ID/timestamp generation.
+        # Production code must inject these values (BL-017/018).
         return builder.build(
             result_id=str(uuid.uuid4()),
             resolved_at=datetime.utcnow(),

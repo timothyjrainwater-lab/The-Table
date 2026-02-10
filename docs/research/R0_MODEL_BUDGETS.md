@@ -3,8 +3,34 @@
 **Document Type:** R0 Governance / Budget Control
 **Purpose:** Convert hardware baseline into concrete model selection budgets with GO/NO-GO decisions
 **Data Source:** `R0_HARDWARE_BASELINE_SOURCES.md` (Steam Hardware Survey, January 2026)
-**Last Updated:** 2026-02-10
+**Last Updated:** 2026-02-11
 **Agent:** Agent D (Research Orchestrator)
+
+> ## R1 REVISION NOTICE (2026-02-11)
+>
+> **Critical Architecture Correction:** This document's VRAM budgets assume all models loaded simultaneously. The actual AIDM architecture is a **prep-time content generation pipeline** where models load **sequentially** — LLM generates content, then unloads; image model loads, generates, unloads; TTS loads, generates, unloads. Each model gets full GPU access during its phase.
+>
+> **Impact:** The simultaneous VRAM contention analysis (Section 2) is **obsolete**. Peak VRAM = largest single model, not sum of all models.
+>
+> **Model Selection Updates (R1):**
+> - **LLM:** Mistral 7B → **Qwen3 8B** (median), Phi-2 → **Qwen3 4B** (minimum)
+> - **Image Gen:** SD 1.5 → **SDXL Lightning NF4** (3.5-4.5 GB, 4 steps, Apache 2.0)
+> - **TTS:** Coqui/Piper → **Kokoro TTS** (82M params, ONNX, 150-300 MB RAM)
+> - **STT:** Whisper Base/Tiny → **faster-whisper small.en/base.en** (CTranslate2 INT8, 40-50% less RAM)
+>
+> **SDXL NO-GO Reversed:** R0-DEC-025 rejected SDXL for exceeding median VRAM. NF4 quantization (bitsandbytes) now brings SDXL to 3.5-4.5 GB — within budget. SDXL Lightning NF4 is the new primary image model.
+>
+> **Sequential Pipeline VRAM Budget (Corrected):**
+>
+> | Phase | Model | Peak VRAM | Notes |
+> |-------|-------|-----------|-------|
+> | LLM Narration | Qwen3 8B Q4_K_M | ~6 GB | Unloads before next phase |
+> | Image Generation | SDXL Lightning NF4 | ~4 GB | Unloads before critique |
+> | Image Critique | ImageReward FP16 | ~1 GB | Sequential with SigLIP |
+> | TTS | Kokoro ONNX | CPU only | 150-300 MB RAM |
+> | STT | faster-whisper | CPU only | 400-700 MB RAM |
+>
+> **Full details:** `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`
 
 ---
 

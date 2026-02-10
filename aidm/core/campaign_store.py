@@ -18,11 +18,10 @@ Directory layout per campaign:
 Reference: docs/design/LOCAL_RUNTIME_PACKAGING_STRATEGY.md (LRP-001)
 """
 
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 import json
-import uuid
 
 from aidm.schemas.campaign import (
     CampaignManifest,
@@ -58,19 +57,22 @@ class CampaignStore:
 
     def create_campaign(
         self,
+        campaign_id: str,
         session_zero: SessionZeroConfig,
         title: str,
+        created_at: str,
         seed: int = 0,
-        created_at: Optional[str] = None,
     ) -> CampaignManifest:
         """Create a new campaign with directory structure.
 
         Args:
+            campaign_id: Unique campaign identifier (BL-017: must be injected,
+                         e.g., str(uuid.uuid4()) by caller)
             session_zero: Session Zero configuration
             title: Human-readable campaign title
+            created_at: ISO-format timestamp (BL-018: must be injected,
+                        e.g., datetime.now(timezone.utc).isoformat() by caller)
             seed: Master RNG seed (0 = default)
-            created_at: Optional ISO-format timestamp for deterministic replay.
-                        If None, uses current UTC time.
 
         Returns:
             CampaignManifest for the created campaign
@@ -78,7 +80,6 @@ class CampaignStore:
         Raises:
             CampaignStoreError: If campaign directory cannot be created
         """
-        campaign_id = str(uuid.uuid4())
         campaign_dir = self.root_dir / campaign_id
 
         # Create directory structure
@@ -96,13 +97,12 @@ class CampaignStore:
             )
 
         # Build manifest
-        now = created_at or datetime.now(timezone.utc).isoformat()
         paths = CampaignPaths(root=str(campaign_dir))
 
         manifest = CampaignManifest(
             campaign_id=campaign_id,
             title=title,
-            created_at=now,
+            created_at=created_at,
             master_seed=seed,
             session_zero=session_zero,
             paths=paths,

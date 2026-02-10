@@ -9,7 +9,7 @@ SINGLE SOURCE OF TRUTH for: Game event recording and ordering.
 CANONICAL OWNER: aidm.core.event_log (this file).
 """
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from typing import Any, Dict, List, Optional
 import json
 from pathlib import Path
@@ -24,12 +24,7 @@ class Event:
     timestamp: float
     payload: Dict[str, Any]
     rng_offset: int = 0
-    citations: List[Dict[str, Any]] = None  # List of Citation.to_dict() outputs
-
-    def __post_init__(self):
-        """Initialize citations to empty list if None."""
-        if self.citations is None:
-            self.citations = []
+    citations: List[Dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""

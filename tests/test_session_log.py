@@ -400,14 +400,11 @@ class TestReplayHarness:
             result = resolver(intent, world, rng)
             log.append(intent, result)
 
-            # Apply state changes (as replay harness does)
-            for sc in result.state_changes:
-                if sc.entity_id in world.entities:
-                    world.entities[sc.entity_id][sc.field] = sc.new_value
+            # NOTE: Replay harness is non-mutating (reducer-only pattern).
+            # Do NOT apply state changes here - replay uses the same initial state.
 
-        # Run 10× verification (with fresh world for each replay)
-        fresh_world = self.create_test_world()
-        harness = ReplayHarness(resolver, fresh_world, master_seed=42)
+        # Run 10× verification (same initial world state for each replay)
+        harness = ReplayHarness(resolver, world, master_seed=42)
         all_passed, results = harness.verify_10x(log)
 
         assert all_passed is True

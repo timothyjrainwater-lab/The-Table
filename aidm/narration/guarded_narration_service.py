@@ -45,6 +45,17 @@ except ImportError:
     LoadedModel = None  # type: ignore
     logger.info("Spark Adapter not available, using template-based narration only")
 
+# LLMQueryInterface import (optional, for M3 LLM integration)
+try:
+    from aidm.narration.llm_query_interface import LLMQueryInterface, WorldStateSummary, CharacterContext
+    LLM_QUERY_INTERFACE_AVAILABLE = True
+except ImportError:
+    LLM_QUERY_INTERFACE_AVAILABLE = False
+    LLMQueryInterface = None  # type: ignore
+    WorldStateSummary = None  # type: ignore
+    CharacterContext = None  # type: ignore
+    logger.info("LLMQueryInterface not available, using basic LLM narration")
+
 
 # ========================================================================
 # Frozen Memory Snapshot (FREEZE-001)
@@ -196,21 +207,27 @@ class GuardedNarrationService:
     - All M1 guardrails remain enforced regardless of narration method
     """
 
-    def __init__(self, loaded_model: Optional[Any] = None):
+    def __init__(self, loaded_model: Optional[Any] = None, use_llm_query_interface: bool = True):
         """Initialize guarded narration service.
 
         Args:
             loaded_model: Optional LoadedModel from Spark Adapter for LLM narration.
                          If None, uses template-based narration (M1 mode).
+            use_llm_query_interface: If True and available, use LLMQueryInterface for narration (M3 mode).
         """
         self.metrics = NarrationMetrics()
         self._kill_switch_active = False
         self.loaded_model = loaded_model if SPARK_AVAILABLE else None
 
-        if self.loaded_model is not None:
+        # Initialize LLMQueryInterface if requested and available
+        self.llm_query_interface = None
+        if use_llm_query_interface and LLM_QUERY_INTERFACE_AVAILABLE and self.loaded_model is not None:
+            self.llm_query_interface = LLMQueryInterface(loaded_model=self.loaded_model)
+            logger.info("GuardedNarrationService initialized with LLMQueryInterface (M3 mode)")
+        elif self.loaded_model is not None:
             logger.info(
                 f"GuardedNarrationService initialized with LLM model: "
-                f"{self.loaded_model.model_id}"
+                f"{self.loaded_model.model_id} (M2 mode)"
             )
         else:
             logger.info("GuardedNarrationService initialized in template mode (M1)")
@@ -271,10 +288,10 @@ class GuardedNarrationService:
         return narration_text
 
     def _generate_llm_narration(self, request: NarrationRequest) -> str:
-        """Generate narration using LLM (Spark Adapter).
+        """Generate narration using LLM (Spark Adapter or LLMQueryInterface).
 
-        This method uses the loaded Spark model to generate contextual
-        narration based on engine results and memory snapshot.
+        This method uses either the LLMQueryInterface (M3) if available,
+        or falls back to the basic Spark model interface (M2).
 
         Args:
             request: Narration request with frozen memory snapshot
@@ -285,6 +302,28 @@ class GuardedNarrationService:
         Raises:
             Exception: If LLM generation fails
         """
+        # M3 mode: Use LLMQueryInterface if available
+        if self.llm_query_interface is not None:
+            try:
+                # Build world state summary from memory snapshot
+                world_state = self._build_world_state_summary(request)
+
+                # Extract player action from engine result
+                player_action = self._extract_player_action(request.engine_result)
+
+                # Generate narration via LLMQueryInterface
+                return self.llm_query_interface.generate_narration(
+                    player_action=player_action,
+                    world_state_summary=world_state,
+                    character_context=None,  # TODO: Extract from memory snapshot
+                    temperature=request.temperature,
+                    narration_type="combat",  # TODO: Derive from engine result
+                )
+            except Exception as e:
+                logger.warning(f"LLMQueryInterface narration failed, falling back to basic mode: {e}")
+                # Fall through to M2 mode
+
+        # M2 mode: Use basic Spark model interface
         if not SPARK_AVAILABLE:
             raise RuntimeError("Spark Adapter not available")
 
@@ -318,6 +357,47 @@ class GuardedNarrationService:
             text = str(output)
 
         return text.strip()
+
+    def _build_world_state_summary(self, request: NarrationRequest) -> Any:
+        """Build WorldStateSummary from memory snapshot.
+
+        Args:
+            request: Narration request
+
+        Returns:
+            WorldStateSummary object
+        """
+        if not LLM_QUERY_INTERFACE_AVAILABLE:
+            return None
+
+        # Parse memory snapshot
+        session_data = json.loads(request.memory_snapshot.session_ledger_json)
+        session_facts = session_data.get('facts_added', [])
+
+        # Build world state summary
+        return WorldStateSummary(
+            active_npcs=[],  # TODO: Extract from world state
+            player_location="",  # TODO: Extract from world state
+            active_threads=[],  # TODO: Extract from thread registry
+            recent_events=session_facts[-3:] if session_facts else [],
+        )
+
+    def _extract_player_action(self, engine_result: EngineResult) -> str:
+        """Extract player action description from engine result.
+
+        Args:
+            engine_result: Engine result to extract from
+
+        Returns:
+            Player action description
+        """
+        token = engine_result.narration_token or "action"
+
+        if engine_result.events:
+            event_summary = "; ".join(str(e) for e in engine_result.events[:2])
+            return f"{token}: {event_summary}"
+
+        return token
 
     def _build_llm_prompt(self, request: NarrationRequest) -> str:
         """Build LLM prompt from narration request.

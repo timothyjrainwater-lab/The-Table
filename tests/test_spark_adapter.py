@@ -56,9 +56,9 @@ def test_model_registry_get_model_by_id():
     registry = ModelRegistry.load_from_file("config/models.yaml")
 
     # Get known model
-    model = registry.get_model_by_id("mistral-7b-instruct-4bit")
+    model = registry.get_model_by_id("qwen3-8b-instruct-4bit")
     assert model is not None
-    assert model.id == "mistral-7b-instruct-4bit"
+    assert model.id == "qwen3-8b-instruct-4bit"
     assert model.tier == TierName.MEDIUM
 
     # Get non-existent model
@@ -74,7 +74,7 @@ def test_model_registry_get_tier_rule():
     tier_rule = registry.get_tier_rule(TierName.MEDIUM)
     assert tier_rule is not None
     assert tier_rule.tier == TierName.MEDIUM
-    assert tier_rule.preferred_model == "mistral-7b-instruct-4bit"
+    assert tier_rule.preferred_model == "qwen3-8b-instruct-4bit"
 
 
 def test_model_registry_get_models_by_tier():
@@ -92,9 +92,9 @@ def test_model_registry_fallback_chain():
     registry = ModelRegistry.load_from_file("config/models.yaml")
 
     # Get fallback chain for 14B model
-    chain = registry.get_fallback_chain("mistral-14b-instruct-4bit")
+    chain = registry.get_fallback_chain("qwen3-14b-instruct-4bit")
     assert len(chain) > 1
-    assert chain[0] == "mistral-14b-instruct-4bit"
+    assert chain[0] == "qwen3-14b-instruct-4bit"
     assert chain[-1] == "template-narration"  # Should end at template
 
 
@@ -222,12 +222,12 @@ def test_llamacpp_adapter_get_fallback_model(mock_check):
     adapter = LlamaCppAdapter(registry=registry)
 
     # Get fallback for 14B model
-    fallback_id = adapter.get_fallback_model("mistral-14b-instruct-4bit")
-    assert fallback_id == "mistral-7b-instruct-4bit"
+    fallback_id = adapter.get_fallback_model("qwen3-14b-instruct-4bit")
+    assert fallback_id == "qwen3-8b-instruct-4bit"
 
-    # Get fallback for 7B model
-    fallback_id = adapter.get_fallback_model("mistral-7b-instruct-4bit")
-    assert fallback_id == "phi-3b-instruct-4bit"
+    # Get fallback for 8B model
+    fallback_id = adapter.get_fallback_model("qwen3-8b-instruct-4bit")
+    assert fallback_id == "qwen3-4b-instruct-4bit"
 
 
 @patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
@@ -254,12 +254,12 @@ def test_llamacpp_adapter_check_compatibility(mock_check):
     # Mock hardware detection
     with patch.object(adapter, '_get_available_vram_gb', return_value=10.0):
         with patch.object(adapter, '_get_available_ram_gb', return_value=32.0):
-            # Check 7B model compatibility (should be compatible)
-            report = adapter.check_model_compatibility("mistral-7b-instruct-4bit")
+            # Check 8B model compatibility (should be compatible)
+            report = adapter.check_model_compatibility("qwen3-8b-instruct-4bit")
 
     # Note: Report may show not compatible due to missing model file
     # In real scenario with model files present, it should be compatible
-    assert report.model_id == "mistral-7b-instruct-4bit"
+    assert report.model_id == "qwen3-8b-instruct-4bit"
     assert report.vram_required_gb == 6.0
     assert report.vram_available_gb == 10.0
 
@@ -517,13 +517,13 @@ def test_full_spark_workflow_with_fallback(mock_check):
     with patch.object(adapter, 'check_model_compatibility') as mock_compat:
         # First model incompatible, fallback compatible
         mock_compat.side_effect = [
-            Mock(is_compatible=False),  # phi-3b incompatible
-            Mock(is_compatible=True),   # template compatible
+            Mock(is_compatible=False),  # qwen3-4b incompatible
+            Mock(is_compatible=True),   # gemma3-4b or template compatible
         ]
         model_id = adapter.select_model_for_tier(hardware_tier)
 
-    # Should have fallen back to template
-    assert model_id in ["phi-3b-instruct-4bit", "qwen2.5-3b-instruct", "template-narration"]
+    # Should have fallen back through the chain
+    assert model_id in ["qwen3-4b-instruct-4bit", "gemma3-4b-qat", "template-narration"]
 
     # 5. Load model (template will always succeed)
     loaded_model = adapter.load_model("template-narration")

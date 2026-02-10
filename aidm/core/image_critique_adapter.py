@@ -33,6 +33,12 @@ from aidm.schemas.image_critique import (
     DEFAULT_CRITIQUE_RUBRIC,
 )
 
+# Lazy imports for optional dependencies
+def _import_heuristics_critic():
+    """Lazy import HeuristicsImageCritic to avoid dependency issues."""
+    from aidm.core.heuristics_image_critic import HeuristicsImageCritic
+    return HeuristicsImageCritic
+
 
 @runtime_checkable
 class ImageCritiqueAdapter(Protocol):
@@ -182,6 +188,7 @@ class StubImageCritic:
 # Adapter registry (matches STT/TTS pattern)
 _IMAGE_CRITIC_REGISTRY: Dict[str, Any] = {
     "stub": StubImageCritic,
+    "heuristics": _import_heuristics_critic,  # Lazy import
 }
 
 
@@ -189,7 +196,7 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
     """Factory function for image critique adapters.
 
     Args:
-        backend: Adapter backend name ("stub" only for now)
+        backend: Adapter backend name ("stub" or "heuristics")
         **kwargs: Backend-specific configuration
 
     Returns:
@@ -199,7 +206,7 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
         ValueError: If backend unknown
 
     Examples:
-        # Always pass (default)
+        # Always pass (default stub)
         critic = create_image_critic("stub")
 
         # Always fail
@@ -208,8 +215,16 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
         # Custom placeholder score
         critic = create_image_critic("stub", placeholder_score=0.75)
 
-        # Future: Heuristics-only (CPU)
-        # critic = create_image_critic("heuristics")
+        # Heuristics-only (CPU, M3 Layer 1)
+        critic = create_image_critic("heuristics")
+
+        # Heuristics with custom thresholds
+        critic = create_image_critic(
+            "heuristics",
+            blur_threshold=120.0,
+            min_resolution=768,
+            edge_density_min=0.08
+        )
 
         # Future: CLIP + heuristics (GPU)
         # critic = create_image_critic("clip", device="cuda")
@@ -221,5 +236,12 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
         available = ", ".join(sorted(_IMAGE_CRITIC_REGISTRY.keys()))
         raise ValueError(f"Unknown image critic backend '{backend}'. Available: {available}")
 
-    adapter_class = _IMAGE_CRITIC_REGISTRY[backend]
+    adapter_class_or_factory = _IMAGE_CRITIC_REGISTRY[backend]
+
+    # Handle lazy imports (callables that return the class)
+    if callable(adapter_class_or_factory) and not isinstance(adapter_class_or_factory, type):
+        adapter_class = adapter_class_or_factory()
+    else:
+        adapter_class = adapter_class_or_factory
+
     return adapter_class(**kwargs)

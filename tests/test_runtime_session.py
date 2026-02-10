@@ -461,6 +461,7 @@ class TestProcessInput:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-013",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-013",
             target_id="goblin_1",
             method="longsword",
         )
@@ -492,6 +493,7 @@ class TestProcessInput:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-014",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-014",
             get_clarification=get_clarification,
         )
 
@@ -517,6 +519,7 @@ class TestProcessInput:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-015",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-015",
             get_clarification=retract_clarification,
         )
 
@@ -549,6 +552,7 @@ class TestReplaySession:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-016",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-016",
             target_id="goblin_1",
             method="longsword",
         )
@@ -580,6 +584,7 @@ class TestReplaySession:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-017",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-017",
             target_id="goblin_1",
             method="sword",
         )
@@ -589,6 +594,7 @@ class TestReplaySession:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-018",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-018",
             target_id="goblin_1",
             method="sword",
         )
@@ -621,6 +627,7 @@ class TestVerify10xReplay:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-019",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-019",
             target_id="goblin_1",
             method="longsword",
         )
@@ -650,6 +657,7 @@ class TestVerify10xReplay:
             action_type=ActionType.ATTACK,
             intent_id="test-intent-020",
             timestamp=datetime(2025, 1, 1, 12, 0, 0),
+            result_id="test-result-020",
             target_id="goblin_1",
             method="longsword",
         )

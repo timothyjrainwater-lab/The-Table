@@ -8,6 +8,9 @@ dependencies = [
     "psutil>=5.9.0",  # Hardware detection (CPU, RAM)
     "pyyaml>=6.0",     # Model registry parsing (models.yaml)
     "msgpack>=1.0.0",  # IPC serialization (M1)
+    "opencv-python-headless>=4.8.0",  # Image heuristics (M3 Layer 1)
+    "Pillow>=10.0.0",  # Image loading (M3 Layer 1)
+    "numpy>=1.24.0",   # Array operations (M3 Layer 1)
 ]
 
 [tool.pytest.ini_options]

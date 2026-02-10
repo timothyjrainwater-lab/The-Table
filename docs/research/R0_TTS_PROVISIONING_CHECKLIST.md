@@ -4,8 +4,44 @@
 **Document Type:** R0 Infrastructure / Pre-Execution Checklist
 **Purpose:** Prepare TTS stack for RQ-VOICE-001 execution (no benchmarking yet)
 **Owner:** Agent D (Research Orchestrator)
-**Date:** 2026-02-10
-**Status:** 🟢 **PREP ONLY** (benchmarks require PM authorization)
+**Date:** 2026-02-11
+**Status:** 🟢 **PREP ONLY** (benchmarks require PM authorization) — R1 revision appended
+
+> ## R1 REVISION (2026-02-11)
+>
+> **Primary TTS recommendation changed to Kokoro TTS.**
+>
+> This checklist was written before Kokoro TTS became available. Kokoro resolves the core tradeoff between quality and footprint that made the R0 decision difficult.
+>
+> ### Updated TTS Priority Order
+>
+> | Priority | Engine | Quality (1-5) | RAM | Install | License | Status |
+> |----------|--------|:---:|:---:|:---:|:---:|:---:|
+> | **1 (Primary)** | **Kokoro (ONNX)** | **4.0** | **150-300 MB** | `pip install kokoro-onnx` | Apache 2.0 | Active |
+> | 2 (Fallback) | Piper | 3.0 | 100-300 MB | `pip install piper-tts` | MIT | Active |
+> | 3 (Optional) | Coqui VITS | 3.5 | 300-500 MB | Needs MSVC build tools | MPL-2.0 | **Abandoned** |
+>
+> ### Kokoro Provisioning Steps
+>
+> 1. Install: `pip install kokoro-onnx`
+> 2. Install ONNX Runtime: `pip install onnxruntime>=1.16.0` (already in dependency plan)
+> 3. Verify: `python -c "from kokoro_onnx import Kokoro; print('OK')"`
+> 4. Test generation: Generate sample WAV and verify quality
+> 5. Configure voice selection (6-10 built-in voices)
+>
+> ### Key Advantages Over Piper/Coqui
+>
+> - Quality significantly better than Piper (4.0 vs 3.0) at similar RAM
+> - Clean pip install — no MSVC build tools (the blocker that stopped Coqui)
+> - Uses ONNX Runtime — already in the project's dependency plan
+> - Apache 2.0 — no commercial restrictions
+> - Active development — lower abandonment risk than Coqui
+>
+> ### Coqui Deprioritized
+>
+> Coqui TTS (coqui-ai/TTS) is **abandoned** — no commits since mid-2024, PyPI package broken on Windows without MSVC build tools. Retain as optional third-tier option for users who want 109 NPC voices and can install MSVC.
+>
+> **Full details:** `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`
 
 ---
 

@@ -11,6 +11,8 @@ Tests:
 
 import json
 import pytest
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 from aidm.core.campaign_store import CampaignStore
@@ -36,7 +38,13 @@ def campaign_env(tmp_path):
         preparation_depth="standard",
         alignment_mode="strict",
     )
-    manifest = store.create_campaign(sz, "Prep Test Campaign", seed=42)
+    manifest = store.create_campaign(
+        campaign_id=str(uuid.uuid4()),
+        session_zero=sz,
+        title="Prep Test Campaign",
+        created_at=datetime.now(timezone.utc).isoformat(),
+        seed=42,
+    )
     return store, manifest
 
 
@@ -48,7 +56,13 @@ def deep_campaign_env(tmp_path):
         preparation_depth="deep",
         alignment_mode="inferred",
     )
-    manifest = store.create_campaign(sz, "Deep Prep Campaign", seed=99)
+    manifest = store.create_campaign(
+        campaign_id=str(uuid.uuid4()),
+        session_zero=sz,
+        title="Deep Prep Campaign",
+        created_at=datetime.now(timezone.utc).isoformat(),
+        seed=99,
+    )
     return store, manifest
 
 
@@ -59,7 +73,13 @@ def light_campaign_env(tmp_path):
     sz = SessionZeroConfig(
         preparation_depth="light",
     )
-    manifest = store.create_campaign(sz, "Light Prep Campaign", seed=1)
+    manifest = store.create_campaign(
+        campaign_id=str(uuid.uuid4()),
+        session_zero=sz,
+        title="Light Prep Campaign",
+        created_at=datetime.now(timezone.utc).isoformat(),
+        seed=1,
+    )
     return store, manifest
 
 
@@ -137,8 +157,20 @@ class TestQueueConstruction:
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
 
-        m1 = store.create_campaign(sz, "A", seed=1)
-        m2 = store.create_campaign(sz, "B", seed=2)
+        m1 = store.create_campaign(
+            campaign_id=str(uuid.uuid4()),
+            session_zero=sz,
+            title="A",
+            created_at=datetime.now(timezone.utc).isoformat(),
+            seed=1,
+        )
+        m2 = store.create_campaign(
+            campaign_id=str(uuid.uuid4()),
+            session_zero=sz,
+            title="B",
+            created_at=datetime.now(timezone.utc).isoformat(),
+            seed=2,
+        )
 
         orch1 = PrepOrchestrator(m1, store)
         orch2 = PrepOrchestrator(m2, store)
@@ -275,7 +307,12 @@ class TestJobExecution:
         """VALIDATE_READY should detect missing files."""
         store = CampaignStore(tmp_path)
         sz = SessionZeroConfig()
-        manifest = store.create_campaign(sz, "Incomplete")
+        manifest = store.create_campaign(
+            campaign_id=str(uuid.uuid4()),
+            session_zero=sz,
+            title="Incomplete",
+            created_at=datetime.now(timezone.utc).isoformat(),
+        )
 
         orch = PrepOrchestrator(manifest, store)
         jobs = orch.build_job_queue()

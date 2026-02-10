@@ -3,8 +3,8 @@
 
 **Document Type:** Design / Architecture Specification
 **Phase:** M2 Preparation (Design-Only)
-**Date:** 2026-02-10
-**Status:** DESIGN (Non-binding until M2 implementation approval)
+**Date:** 2026-02-11
+**Status:** DESIGN (Non-binding until M2 implementation approval) — R1 model selections updated
 **Agent:** Agent A (LLM & Systems Architect)
 
 ---
@@ -58,9 +58,9 @@ The Spark Adapter provides a **configuration-driven model loading interface** th
 
 **Principle 2: Hardware-Aware Selection**
 - Model selection based on detected hardware tier (Agent B)
-- High tier (≥8 GB VRAM) → 14B model
-- Medium tier (6-8 GB VRAM) → 7B model
-- Low tier (<6 GB VRAM or CPU-only) → 3B model or CPU offload
+- High tier (≥8 GB VRAM) → 14B model (Qwen3 14B / Gemma 3 12B)
+- Medium tier (6-8 GB VRAM) → 7-8B model (Qwen3 8B)
+- Low tier (<6 GB VRAM or CPU-only) → 3-4B model (Qwen3 4B / Gemma 3 4B) or CPU offload
 
 **Principle 3: Graceful Degradation**
 - If selected model fails to load → fallback to smaller model
@@ -91,7 +91,7 @@ class SparkAdapter:
         """Load model by ID from model registry.
 
         Args:
-            model_id: Model identifier (e.g., "mistral-7b-instruct-4bit")
+            model_id: Model identifier (e.g., "qwen3-8b-instruct-4bit")
 
         Returns:
             LoadedModel instance with inference interface
@@ -158,7 +158,7 @@ class HardwareTier:
 @dataclass
 class ModelProfile:
     """Model metadata from model registry."""
-    id: str  # "mistral-7b-instruct-4bit"
+    id: str  # "qwen3-8b-instruct-4bit"
     path: str  # Path to model file
     quantization: str  # "4bit", "8bit", "fp16"
     max_tokens: int  # Maximum generation length
@@ -196,35 +196,35 @@ class CompatibilityReport:
 
 models:
   # High-Tier Model (14B, requires ≥8 GB VRAM)
-  - id: mistral-14b-instruct-4bit
-    path: models/mistral-14b-instruct-Q4_K_M.gguf
+  - id: qwen3-14b-instruct-4bit
+    path: models/qwen3-14b-instruct-Q4_K_M.gguf
     quantization: 4bit
     max_tokens: 2048
-    max_context_window: 8192
-    min_vram_gb: 8.0
+    max_context_window: 32768
+    min_vram_gb: 10.0
     supports_streaming: true
     backend: llama.cpp
     tier: HIGH
-    fallback_model: mistral-7b-instruct-4bit
+    fallback_model: qwen3-8b-instruct-4bit
 
-  # Medium-Tier Model (7B, requires 6-8 GB VRAM)
-  - id: mistral-7b-instruct-4bit
-    path: models/mistral-7b-instruct-Q4_K_M.gguf
+  # Medium-Tier Model (8B, requires 6-8 GB VRAM)
+  - id: qwen3-8b-instruct-4bit
+    path: models/qwen3-8b-instruct-Q4_K_M.gguf
     quantization: 4bit
     max_tokens: 2048
-    max_context_window: 8192
+    max_context_window: 32768
     min_vram_gb: 6.0
     supports_streaming: true
     backend: llama.cpp
     tier: MEDIUM
-    fallback_model: phi-3b-instruct-4bit
+    fallback_model: qwen3-4b-instruct-4bit
 
-  # Low-Tier Model (3B, CPU-compatible)
-  - id: phi-3b-instruct-4bit
-    path: models/phi-3b-instruct-Q4_K_M.gguf
+  # Low-Tier Model (4B, CPU-compatible)
+  - id: qwen3-4b-instruct-4bit
+    path: models/qwen3-4b-instruct-Q4_K_M.gguf
     quantization: 4bit
     max_tokens: 1024
-    max_context_window: 4096
+    max_context_window: 32768
     min_vram_gb: 3.0
     supports_streaming: true
     backend: llama.cpp
@@ -247,13 +247,13 @@ models:
 tier_selection:
   HIGH:
     min_vram_gb: 8.0
-    preferred_model: mistral-14b-instruct-4bit
+    preferred_model: qwen3-14b-instruct-4bit
   MEDIUM:
     min_vram_gb: 6.0
-    preferred_model: mistral-7b-instruct-4bit
+    preferred_model: qwen3-8b-instruct-4bit
   LOW:
     min_vram_gb: 0.0
-    preferred_model: phi-3b-instruct-4bit
+    preferred_model: qwen3-4b-instruct-4bit
   FALLBACK:
     min_vram_gb: 0.0
     preferred_model: template-narration
@@ -325,7 +325,7 @@ ALGORITHM:
                  ▼
 ┌─────────────────────────────────────┐
 │ Get preferred_model for tier       │
-│ (e.g., HIGH → mistral-14b-4bit)    │
+│ (e.g., HIGH → qwen3-14b-4bit)    │
 └─────────────────────────────────────┘
                  │
                  ▼
@@ -369,29 +369,29 @@ Template Narration (M0 fallback, no LLM)
 
 **Example Fallback Chain:**
 ```
-mistral-14b-instruct-4bit (8 GB VRAM required)
+qwen3-14b-instruct-4bit (10 GB VRAM required)
     ↓ VRAM insufficient (only 6 GB available)
-mistral-7b-instruct-4bit (6 GB VRAM required)
+qwen3-8b-instruct-4bit (6 GB VRAM required)
     ↓ Load successful ✅
 ```
 
 **Example Extreme Fallback:**
 ```
-mistral-14b-instruct-4bit (8 GB VRAM required)
+qwen3-14b-instruct-4bit (10 GB VRAM required)
     ↓ VRAM insufficient (only 4 GB available)
-mistral-7b-instruct-4bit (6 GB VRAM required)
+qwen3-8b-instruct-4bit (6 GB VRAM required)
     ↓ VRAM insufficient
-phi-3b-instruct-4bit (3 GB VRAM required)
+qwen3-4b-instruct-4bit (3 GB VRAM required)
     ↓ Load successful ✅
 ```
 
 **Example Complete Failure:**
 ```
-mistral-14b-instruct-4bit (8 GB VRAM required)
+qwen3-14b-instruct-4bit (10 GB VRAM required)
     ↓ VRAM insufficient (CPU-only system)
-mistral-7b-instruct-4bit (6 GB VRAM required)
+qwen3-8b-instruct-4bit (6 GB VRAM required)
     ↓ VRAM insufficient
-phi-3b-instruct-4bit (3 GB VRAM required)
+qwen3-4b-instruct-4bit (3 GB VRAM required)
     ↓ VRAM insufficient (CPU fallback attempted, too slow)
 template-narration (M0 template fallback)
     ↓ Always succeeds (no model required) ✅
@@ -413,12 +413,12 @@ template-narration (M0 template fallback)
 ```yaml
 # models.yaml (offload section)
 offload_config:
-  mistral-14b-instruct-4bit:
-    gpu_layers: 40  # Full model on GPU (if VRAM ≥8 GB)
-    offload_layers: 20  # Offload 20 layers to CPU if VRAM <8 GB
+  qwen3-14b-instruct-4bit:
+    gpu_layers: 40  # Full model on GPU (if VRAM ≥10 GB)
+    offload_layers: 20  # Offload 20 layers to CPU if VRAM <10 GB
     min_gpu_layers: 10  # Minimum 10 layers on GPU (otherwise fallback)
 
-  mistral-7b-instruct-4bit:
+  qwen3-8b-instruct-4bit:
     gpu_layers: 32
     offload_layers: 16
     min_gpu_layers: 8
@@ -442,14 +442,14 @@ ELSE:
 
 **Case 1: Successful Model Load**
 ```
-✅ "Loading Mistral 14B model... Ready!"
+✅ "Loading Qwen3 14B model... Ready!"
 (No user notification needed, system working as expected)
 ```
 
 **Case 2: Fallback to Smaller Model**
 ```
-⚠️ "Mistral 14B requires 8 GB VRAM (6 GB available).
-    Falling back to Mistral 7B for optimal performance."
+⚠️ "Qwen3 14B requires 10 GB VRAM (6 GB available).
+    Falling back to Qwen3 8B for optimal performance."
 ```
 
 **Case 3: CPU Offload**
@@ -658,7 +658,7 @@ def test_tier_selection_high_vram():
     """Test that HIGH tier selects 14B model."""
     hardware = HardwareTier(tier_name="HIGH", vram_gb=10.0, cpu_cores=8, supports_gpu=True)
     model_id = spark_adapter.select_model_for_tier(hardware)
-    assert model_id == "mistral-14b-instruct-4bit"
+    assert model_id == "qwen3-14b-instruct-4bit"
 
 def test_fallback_chain():
     """Test that fallback chain terminates at template-narration."""
@@ -786,3 +786,7 @@ hardware_tier = detect_hardware_tier()
 **Deliverable:** SPARK_ADAPTER_ARCHITECTURE.md
 **Status:** COMPLETE (awaiting PM review)
 **Authority:** DESIGN (non-binding until M2 implementation approval)
+
+---
+
+> **R1 Update (2026-02-11):** Model references updated to reflect R1 Technology Stack Validation selections. See `pm_inbox/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md`.

@@ -11,6 +11,8 @@ Tests:
 
 import json
 import pytest
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 from aidm.core.campaign_store import CampaignStore
@@ -40,7 +42,13 @@ def prepared_campaign(tmp_path):
         preparation_depth="standard",
         optional_rules=["flanking"],
     )
-    manifest = store.create_campaign(sz, "Export Test Campaign", seed=42)
+    manifest = store.create_campaign(
+        campaign_id=str(uuid.uuid4()),
+        session_zero=sz,
+        title="Export Test Campaign",
+        created_at=datetime.now(timezone.utc).isoformat(),
+        seed=42,
+    )
 
     # Run full prep
     orch = PrepOrchestrator(manifest, store)

@@ -1,0 +1,67 @@
+{
+  "active_combat": {
+    "initiative_order": [
+      "goblin_1",
+      "pc_fighter"
+    ],
+    "round": 1,
+    "turn_counter": 0
+  },
+  "entities": {
+    "goblin_1": {
+      "ac": 15,
+      "alignment": "CE",
+      "attack_bonus": 2,
+      "base_attack_bonus": 1,
+      "conditions": [],
+      "creature_type": "humanoid",
+      "damage_die": "1d6+1",
+      "fortitude": 2,
+      "hp_current": 6,
+      "hp_max": 6,
+      "int": 10,
+      "name": "Goblin Warrior",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "reflex": 1,
+      "size": "Small",
+      "speed": 30,
+      "team": "monsters",
+      "will": -1,
+      "wis": 11
+    },
+    "pc_fighter": {
+      "ac": 16,
+      "alignment": "LG",
+      "attack_bonus": 3,
+      "base_attack_bonus": 1,
+      "class": "Fighter",
+      "conditions": [],
+      "fortitude": 3,
+      "hp_current": 10,
+      "hp_max": 10,
+      "int": 10,
+      "level": 1,
+      "name": "Kael the Fighter",
+      "position": {
+        "x": 10,
+        "y": 0
+      },
+      "reflex": 0,
+      "size": "Medium",
+      "speed": 30,
+      "team": "party",
+      "weapon": "longsword",
+      "weapon_damage": "1d8+3",
+      "will": -1,
+      "wis": 9
+    }
+  },
+  "metadata": {
+    "created_at": "2025-01-01T00:00:00+00:00",
+    "schema_version": "1.0"
+  },
+  "ruleset_version": "3.5e"
+}
