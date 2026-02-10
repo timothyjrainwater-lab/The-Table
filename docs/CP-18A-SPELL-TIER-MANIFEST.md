@@ -17,7 +17,7 @@ This manifest is the **binding Tier 1 spell list** for CP-18A (Tier 1 Spellcasti
 - No spell may be implemented without appearing in this table
 - Deviation requires NEW decision record (DR-XXX)
 
-This document enforces the fail-closed gate architecture defined in [AIDM_PROJECT_ACTION_PLAN_V2.md](AIDM_PROJECT_ACTION_PLAN_V2.md).
+This document enforces the fail-closed gate architecture defined in [AIDM_EXECUTION_ROADMAP_V3.md](AIDM_EXECUTION_ROADMAP_V3.md).
 
 ---
 
@@ -264,7 +264,7 @@ No spell in this manifest requires any CLOSED gate:
 
 ## Explicitly Deferred Spell Categories
 
-The following spell categories are **FORBIDDEN** for CP-18A per [AIDM_PROJECT_ACTION_PLAN_V2.md](AIDM_PROJECT_ACTION_PLAN_V2.md) Section 6:
+The following spell categories are **FORBIDDEN** for CP-18A per [AIDM_EXECUTION_ROADMAP_V3.md](AIDM_EXECUTION_ROADMAP_V3.md):
 
 **Summoning (G-T3A CLOSED):**
 - Summon Monster I-IX, Summon Nature's Ally I-IX, Planar Ally, Planar Binding, Gate (summoning variant), Animate Dead, Create Undead

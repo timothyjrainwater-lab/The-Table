@@ -493,8 +493,8 @@ This document is a **research draft** proposing M0 vs M1 feature split. It is **
 
 ## References
 
-- Global Plan Audit: `docs/analysis/GAP_AND_RISK_REGISTER.md` (Risk: Feature bloat)
-- Global Plan Audit: `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (Recommendation: Ruthless M0 triage)
+- Global Plan Audit: `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (Risk: Feature bloat)
+- Global Plan Audit: `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (Recommendation: Ruthless M0 triage)
 - Inbox Document: "Secondary Pass Audit" (lists 100+ features, no prioritization)
 
 ---

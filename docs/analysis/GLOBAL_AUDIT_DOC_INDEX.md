@@ -47,7 +47,7 @@ This document indexes all design artifacts ingested during the Global Plan Audit
 | Document | Location | Status | Version |
 |----------|----------|--------|---------|
 | Execution Roadmap | `docs/AIDM_EXECUTION_ROADMAP_V3.md` | 🟢 CANONICAL | v3.1 |
-| Action Plan | `docs/AIDM_PROJECT_ACTION_PLAN_V3.md` | 🟡 DRAFT | v3.0 |
+| Action Plan | `DELETED — superseded by AIDM_EXECUTION_ROADMAP_V3.md` | 🔴 DELETED | v3.0 |
 | Design Layer Adoption Record | (referenced, not yet read) | 🟢 FROZEN | - |
 
 **Status:** Execution Roadmap v3.1 is CANONICAL. Action Plan v3.0 is DRAFT (pending PM sign-off).

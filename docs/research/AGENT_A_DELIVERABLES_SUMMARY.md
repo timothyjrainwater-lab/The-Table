@@ -258,7 +258,7 @@
 
 ### Agent D (If Assigned - Already Completed Audit)
 **Potential Responsibilities:**
-- Update AGENT_D_TOPIC_INDEX.md with new canonical ID references
+- ~~Update AGENT_D_TOPIC_INDEX.md with new canonical ID references~~ (file deleted — superseded by global audit)
 - Verify R0 specs align with GLOBAL-AUDIT-001 findings
 - Cross-check R0 specs against existing codebase
 
@@ -306,7 +306,7 @@
 4. Write 50+ unit tests (rejection criteria, security checks)
 
 ### For Agent D (Cross-Agent Review)
-1. Update AGENT_D_TOPIC_INDEX.md with canonical ID references
+1. ~~Update AGENT_D_TOPIC_INDEX.md with canonical ID references~~ (file deleted — superseded by global audit)
 2. Cross-check R0 specs against GLOBAL-AUDIT-001 findings
 3. Identify any contradictions or missing requirements
 

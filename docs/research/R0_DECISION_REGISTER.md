@@ -35,8 +35,8 @@ This register records **every binding decision** made during the R0 research pha
 - 8-12 weeks is reasonable timeline for validation
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 414-424): "Phase R0: Research Validation (CURRENT STATE → GO)"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 414-424): "Phase R0: Research Validation (CURRENT STATE → GO)"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning"
 
 **Caveats:**
 - None (unconditional GO)
@@ -57,8 +57,8 @@ This register records **every binding decision** made during the R0 research pha
 - Planning before validation risks wasted effort on infeasible features
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 426-440): "Phase M0: MVP Planning (CONDITIONAL GO - After R0)"
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 336-372): "GO Criteria (Proceed to M0 Planning)"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 426-440): "Phase M0: MVP Planning (CONDITIONAL GO - After R0)"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 336-372): "GO Criteria (Proceed to M0 Planning)"
 
 **Caveats:**
 - **BLOCKED until R0 complete**
@@ -82,7 +82,7 @@ This register records **every binding decision** made during the R0 research pha
 - Team capacity must be sufficient
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 442-460): "Phase M0: MVP Development (CONDITIONAL GO - After Planning)"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 442-460): "Phase M0: MVP Development (CONDITIONAL GO - After Planning)"
 
 **Caveats:**
 - **BLOCKED until M0 plan approved**
@@ -106,7 +106,7 @@ This register records **every binding decision** made during the R0 research pha
 - No M1 planning until M0 validated with users
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 462-474): "Phase M1: Post-Launch Enhancements (DEFER)"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 462-474): "Phase M1: Post-Launch Enhancements (DEFER)"
 
 **Caveats:**
 - M1 deferred indefinitely until M0 ships
@@ -130,7 +130,7 @@ This register records **every binding decision** made during the R0 research pha
 - Enables reskinning, localization, accessibility without scope creep
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 27-40): "Mechanics vs Presentation Separation — KEEP"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 27-40): "Mechanics vs Presentation Separation — KEEP"
 
 **Caveats:**
 - None (unconditional KEEP)
@@ -151,7 +151,7 @@ This register records **every binding decision** made during the R0 research pha
 - Dual modality is technically feasible (TTS/STT are mature)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 42-56): "Voice-First, Text-Available Design — KEEP"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 42-56): "Voice-First, Text-Available Design — KEEP"
 
 **Caveats:**
 - None (unconditional KEEP)
@@ -172,7 +172,7 @@ This register records **every binding decision** made during the R0 research pha
 - Enables caching and reuse for continuity
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 58-72): "Prep-First Asset Generation — KEEP"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 58-72): "Prep-First Asset Generation — KEEP"
 
 **Caveats:**
 - None (unconditional KEEP)
@@ -194,8 +194,8 @@ This register records **every binding decision** made during the R0 research pha
 - **BUT:** No indexing architecture defined (critical gap)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 74-88): "Indexed Memory — KEEP"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 43-62): "LLM Indexed Memory Querying — MISSING"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 74-88): "Indexed Memory — KEEP"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 43-62): "LLM Indexed Memory Querying — MISSING"
 
 **Caveats:**
 - **BLOCKED until architecture defined**
@@ -219,8 +219,8 @@ This register records **every binding decision** made during the R0 research pha
 - **BUT:** No ID format, namespace rules, or collision prevention defined (critical gap)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 90-101): "Canonical ID System — KEEP"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 191-208): "Canonical IDs Solve Everything — Hand-Waving"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 90-101): "Canonical ID System — KEEP"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 191-208): "Canonical IDs Solve Everything — Hand-Waving"
 - `docs/research/CANONICAL_ID_SCHEMA_DRAFT.md` (full document): Draft schema with 30 open questions
 
 **Caveats:**
@@ -245,8 +245,8 @@ This register records **every binding decision** made during the R0 research pha
 - Research validation required before commitment
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 106-121): "Multilingual Input/Output — DEFER TO M1"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 65-85): "Multilingual STT/TTS — MISSING"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 106-121): "Multilingual Input/Output — DEFER TO M1"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 65-85): "Multilingual STT/TTS — MISSING"
 
 **Caveats:**
 - M0 ships English-only
@@ -270,7 +270,7 @@ This register records **every binding decision** made during the R0 research pha
 - All three require UI integration, which competes with core systems
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 123-139): "Player Artifacts — SPLIT to M1"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 123-139): "Player Artifacts — SPLIT to M1"
 
 **Caveats:**
 - M0 has no notebook, handbook, or knowledge tome
@@ -294,8 +294,8 @@ This register records **every binding decision** made during the R0 research pha
 - Most players will accept default DM if quality is high
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 141-158): "DM Persona Switching — DEFER TO M1"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 127-139): "Voice Persona Switching — Missing Justification"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 141-158): "DM Persona Switching — DEFER TO M1"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 127-139): "Voice Persona Switching — Missing Justification"
 
 **Caveats:**
 - M0 ships with single default DM persona (no switching)
@@ -318,8 +318,8 @@ This register records **every binding decision** made during the R0 research pha
 - Can ship with single high-quality default dice set
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 160-175): "Dice Customization — DEFER TO M1"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 141-157): "Dice Customization — Missing Justification"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 160-175): "Dice Customization — DEFER TO M1"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 141-157): "Dice Customization — Missing Justification"
 
 **Caveats:**
 - M0 ships with default dice only (no customization)
@@ -342,7 +342,7 @@ This register records **every binding decision** made during the R0 research pha
 - Can use royalty-free asset library as M1 stopgap
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 177-194): "Sound Palette Generation — DEFER TO M1"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 177-194): "Sound Palette Generation — DEFER TO M1"
 
 **Caveats:**
 - M0 ships with silence or minimal stock audio
@@ -365,8 +365,8 @@ This register records **every binding decision** made during the R0 research pha
 - Simpler system for M0 reduces failure modes
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 196-211): "Implicit Player Modeling — DEFER TO M1"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 245-259): "Player Modeling Adapts Automatically — Hand-Waving"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 196-211): "Implicit Player Modeling — DEFER TO M1"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 245-259): "Player Modeling Adapts Automatically — Hand-Waving"
 
 **Caveats:**
 - M0 uses explicit calibration tags only (3 questions at start)
@@ -391,8 +391,8 @@ This register records **every binding decision** made during the R0 research pha
 - No quality threshold defined (what's "acceptable"?)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 215-230): "Image Critique System — PAUSE"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 21-41): "Image Critique / Quality Gating — MISSING"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 215-230): "Image Critique System — PAUSE"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 21-41): "Image Critique / Quality Gating — MISSING"
 
 **Caveats:**
 - **BLOCKED until R0 validates:**
@@ -419,8 +419,8 @@ This register records **every binding decision** made during the R0 research pha
 - No retrieval accuracy validated (can LLM find correct records?)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 232-248): "LLM Indexed Memory Retrieval — PAUSE"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 43-62): "LLM Indexed Memory Querying — MISSING"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 232-248): "LLM Indexed Memory Retrieval — PAUSE"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 43-62): "LLM Indexed Memory Querying — MISSING"
 
 **Caveats:**
 - **BLOCKED until R0 validates:**
@@ -447,8 +447,8 @@ This register records **every binding decision** made during the R0 research pha
 - Model selection cannot proceed without hardware constraints
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 250-267): "Hardware Resource Budget — PAUSE"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 87-106): "Hardware and Optimization Baseline — MISSING"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 250-267): "Hardware Resource Budget — PAUSE"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 87-106): "Hardware and Optimization Baseline — MISSING"
 - `docs/research/R0_HARDWARE_BASELINE_SOURCES.md` (full document): Sourced Steam Hardware Survey data
 - `docs/research/R0_MODEL_BUDGETS.md` (full document): Model budget worksheets
 
@@ -478,8 +478,8 @@ This register records **every binding decision** made during the R0 research pha
 - No user experience designed (progress bar? cancellation? resume?)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 269-285): "Prep Phase Pipeline and Timing — PAUSE"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 108-124): "Prep-Time Budget and Pipeline — UNDERSPECIFIED"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 269-285): "Prep Phase Pipeline and Timing — PAUSE"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 108-124): "Prep-Time Budget and Pipeline — UNDERSPECIFIED"
 
 **Caveats:**
 - **BLOCKED until R0 validates:**
@@ -766,7 +766,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** 🟡 PARTIAL (draft exists, 30 open questions)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 341-345): "Canonical ID schema defined"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 341-345): "Canonical ID schema defined"
 - `docs/research/CANONICAL_ID_SCHEMA_DRAFT.md` (full document): Draft schema with 30 open questions
 
 **Requirements to Satisfy:**
@@ -787,8 +787,8 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** 🔴 NOT STARTED (no architecture defined)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 347-352): "Indexed memory architecture designed"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 43-62): "LLM Indexed Memory Querying — MISSING"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 347-352): "Indexed memory architecture designed"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 43-62): "LLM Indexed Memory Querying — MISSING"
 
 **Requirements to Satisfy:**
 - Choose storage system (SQLite? Vector DB? JSON?)
@@ -809,7 +809,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ✅ SATISFIED (2026-02-10)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 354-358): "Hardware baseline established"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 354-358): "Hardware baseline established"
 - `docs/research/R0_HARDWARE_BASELINE_SOURCES.md` (full document): Sourced baseline with citations
 - `docs/research/R0_MODEL_BUDGETS.md` (full document): Resource budgets allocated
 
@@ -832,8 +832,8 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** 🔴 NOT STARTED (no critique model identified)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 360-364): "Image critique validated"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 21-41): "Image Critique / Quality Gating — MISSING"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 360-364): "Image critique validated"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 21-41): "Image Critique / Quality Gating — MISSING"
 
 **Requirements to Satisfy:**
 - Identify critique model (CLIP-based? Custom trained?)
@@ -854,8 +854,8 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** 🔴 NOT STARTED (no pipeline defined)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 366-370): "Prep phase pipeline prototyped"
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 108-124): "Prep-Time Budget and Pipeline — UNDERSPECIFIED"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 366-370): "Prep phase pipeline prototyped"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 108-124): "Prep-Time Budget and Pipeline — UNDERSPECIFIED"
 
 **Requirements to Satisfy:**
 - Define asset sequence (scout → scaffold → portraits → scenes)
@@ -876,7 +876,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** 🟡 PARTIAL (draft exists, awaiting stakeholder approval)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 372): "MVP scope defined"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 372): "MVP scope defined"
 - `docs/research/MVP_SCOPE_M0_VS_M1.md` (full document): Draft M0 vs M1 triage with 5 open questions
 
 **Requirements to Satisfy:**
@@ -900,7 +900,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 validation)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 380-385): "Image critique infeasible — NO-GO"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 380-385): "Image critique infeasible — NO-GO"
 
 **Mitigation Options:**
 - Pivot to human review (manual QA for generated images)
@@ -920,7 +920,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 validation)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 387-392): "LLM indexed memory fails validation — NO-GO"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 387-392): "LLM indexed memory fails validation — NO-GO"
 
 **Mitigation Options:**
 - Pivot to summarization (LLM summarizes old sessions, no retrieval)
@@ -940,7 +940,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ✅ MITIGATED (hardware baseline established, models fit budget)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 394-399): "Hardware baseline unachievable — NO-GO"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 394-399): "Hardware baseline unachievable — NO-GO"
 - `docs/research/R0_HARDWARE_BASELINE_SOURCES.md` + `docs/research/R0_MODEL_BUDGETS.md`: Baseline established, models selected
 
 **Mitigation Applied:**
@@ -961,7 +961,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 validation)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 401-406): "Prep phase >30 minutes — NO-GO"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 401-406): "Prep phase >30 minutes — NO-GO"
 
 **Mitigation Options:**
 - Reduce asset scope (fewer NPCs, fewer locations)
@@ -981,7 +981,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** 🟡 MITIGATED (partial triage complete, awaiting final approval)
 
 **Evidence:**
-- `docs/analysis/SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 408-413): "Scope creep uncontrolled — NO-GO"
+- `docs/analysis/GLOBAL_AUDIT_SYNTHESIS_AND_RECOMMENDATIONS.md` (lines 408-413): "Scope creep uncontrolled — NO-GO"
 - `docs/research/MVP_SCOPE_M0_VS_M1.md`: Draft triage (M0: 4 classes, levels 1-5, 6 months)
 
 **Mitigation Applied:**
@@ -1004,7 +1004,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 testing)
 
 **Evidence:**
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — LLM"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — LLM"
 
 **Requirements:**
 - Benchmark Mistral 7B / LLaMA 2 7B on D&D 3.5 rule enforcement
@@ -1024,7 +1024,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 architecture + testing)
 
 **Evidence:**
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — LLM"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — LLM"
 
 **Requirements:**
 - Design indexed memory architecture (storage + query interface)
@@ -1045,7 +1045,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 testing)
 
 **Evidence:**
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — Image Gen"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — Image Gen"
 
 **Requirements:**
 - Benchmark SD 1.5 on median spec (6-8 GB VRAM)
@@ -1066,7 +1066,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 testing)
 
 **Evidence:**
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — Image Critique"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — Image Critique"
 
 **Requirements:**
 - Identify critique model (CLIP-based? Custom trained?)
@@ -1087,7 +1087,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** 🔵 DEFERRED (M1 scope, not required for M0)
 
 **Evidence:**
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — STT"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — STT"
 - R0-DEC-010: Multilingual support deferred to M1
 
 **Requirements:**
@@ -1107,7 +1107,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 testing)
 
 **Evidence:**
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — TTS"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — TTS"
 
 **Requirements:**
 - Benchmark Coqui TTS / Piper TTS on median + minimum specs
@@ -1128,7 +1128,7 @@ This register records **every binding decision** made during the R0 research pha
 **Current Status:** ⏳ PENDING (awaiting R0 benchmarking)
 
 **Evidence:**
-- `docs/analysis/GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — Hardware"
+- `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (lines 424-431): "Must Validate Before M0 Planning — Hardware"
 - `docs/research/R0_MODEL_BUDGETS.md` (lines 456-481): "R0 Validation Checklist"
 
 **Requirements:**

@@ -28,7 +28,7 @@ Read these files completely before writing any code. The order matters.
 
 **Do NOT read** `WORKSPACE_MANIFEST.md` — it is severely stale and will mislead you about project size. Use `PROJECT_STATE_DIGEST.md` for the current module inventory.
 
-**Do NOT read** `docs/AIDM_PROJECT_MASTER_PLAN.md` — it is superseded by `docs/AIDM_PROJECT_ACTION_PLAN_V2.md`.
+**Do NOT read** superseded action plans — use `docs/AIDM_EXECUTION_ROADMAP_V3.md` for the canonical roadmap.
 
 ---
 

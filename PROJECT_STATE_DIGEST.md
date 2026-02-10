@@ -8,8 +8,8 @@ UPDATE RULES:
 - Paste this file to refresh any agent completely
 - Format: Markdown with stable section ordering
 
-LAST UPDATED: CP-001 Phase 2 COMPLETE (1393 tests passing in ~3.5s)
-NOTE: Position Type Unification Phase 2 (Internal Migration) complete. Canonical Position type (aidm/schemas/position.py) with 1-2-1-2 diagonal distance now used throughout all core systems. Migrated: interaction.py, targeting_resolver.py, terrain_resolver.py, and all test files. Legacy types deprecated (will be removed in CP-002). All 1393 tests passing with zero regressions.
+LAST UPDATED: M1 Infrastructure (1712 tests passing in ~7s)
+NOTE: M1 work orders WO-M1-01 through WO-M1-05 complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, pm_inbox workflow. Documentation spring cleaning removed 17 superseded files (6,775 lines). All 1712 tests passing with zero regressions.
 -->
 
 # Project State Digest
@@ -1204,7 +1204,7 @@ Breakdown by subsystem:
 
 **Additional Resources:**
 - [CP_TEMPLATE.md](CP_TEMPLATE.md) — Standard template for new completion packet decision documents
-- [docs/AIDM_PROJECT_ACTION_PLAN_V2.md](docs/AIDM_PROJECT_ACTION_PLAN_V2.md) — Canonical action plan and capability gates
+- [docs/AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Canonical roadmap and capability gates
 
 **Failure to follow the onboarding checklist results in code reverts and scope reductions.**
 
@@ -1212,24 +1212,24 @@ Breakdown by subsystem:
 
 ## Canonical Project Plan Reference
 
-**CANONICAL ACTION PLAN:**
-- [AIDM_PROJECT_ACTION_PLAN_V2.md](docs/AIDM_PROJECT_ACTION_PLAN_V2.md) — Sole canonical action plan, governance authority, capability gate definitions
-- [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Execution roadmap with M0-M4 milestone naming
+**CANONICAL ROADMAP:**
+- [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Sole canonical roadmap, governance authority, capability gate definitions, M0-M4 milestone naming
 
 **DESIGN LAYER (FROZEN):**
 - [DESIGN_LAYER_ADOPTION_RECORD.md](docs/design/DESIGN_LAYER_ADOPTION_RECORD.md) — Formal design freeze declaration
 - docs/design/*.md — 6 frozen design documents (SESSION_ZERO, CHARACTER_SHEET_UI, VOICE_INTENT, LLM_ENGINE_BOUNDARY, LOCAL_RUNTIME, SOLO_FIRST)
 
-**NON-CANONICAL (Historical Only):**
-- docs/AIDM_PROJECT_MASTER_PLAN.md — Superseded by Action Plan V2, historical reference only
+**NON-CANONICAL (Historical — Deleted):**
+- ~~docs/AIDM_PROJECT_MASTER_PLAN.md~~ — Deleted (superseded by Execution Roadmap V3)
+- ~~docs/AIDM_PROJECT_ACTION_PLAN_V2.md~~ — Deleted (superseded by Execution Roadmap V3)
 
-**No ambiguity. No "see also." Action Plan V2 is the sole source of truth for project direction, capability gates, and kernel requirements.**
+**No ambiguity. No "see also." Execution Roadmap V3 is the sole source of truth for project direction, capability gates, and kernel requirements.**
 
 ---
 
 ## Capability Gate Status (Current)
 
-All capability gates are defined in [AIDM_PROJECT_ACTION_PLAN_V2.md](docs/AIDM_PROJECT_ACTION_PLAN_V2.md) Section 1.
+All capability gates are defined in [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md).
 
 **Current Gate Status:**
 
@@ -1398,11 +1398,11 @@ The following documents exist for reference but are **not authoritative** for cu
 - EXTRACTED_SOURCES_QUICK_REF.md (extracted source quick reference)
 - WORKSPACE_MANIFEST.md (file inventory snapshot)
 - SOURCE_LAYER_PLAN.md (historical migration plan)
-- docs/AIDM_PROJECT_MASTER_PLAN.md (superseded by Action Plan V2)
+- ~~docs/AIDM_PROJECT_MASTER_PLAN.md~~ (deleted — superseded by Execution Roadmap V3)
 
 **Authoritative sources:**
 - This file (PROJECT_STATE_DIGEST.md)
-- [docs/AIDM_PROJECT_ACTION_PLAN_V2.md](docs/AIDM_PROJECT_ACTION_PLAN_V2.md)
+- [docs/AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md)
 - [PROJECT_COHERENCE_DOCTRINE.md](PROJECT_COHERENCE_DOCTRINE.md)
 - README.md (user-facing documentation)
 - Test suite (executable specification)

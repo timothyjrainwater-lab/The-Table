@@ -570,7 +570,7 @@ This document is a **research draft** extracting hardware baseline from Steam Ha
 ## References
 
 - Steam Hardware Survey: https://store.steampowered.com/hwsurvey (January 2025)
-- Global Plan Audit: `docs/analysis/GAP_AND_RISK_REGISTER.md` (Blocker #3: Hardware baseline not extracted)
+- Global Plan Audit: `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (Blocker #3: Hardware baseline not extracted)
 - Inbox Document: "Chronological Design Record, Phase 10" (Hardware reality check identified)
 
 ---

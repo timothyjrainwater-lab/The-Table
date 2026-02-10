@@ -369,7 +369,7 @@ FLAGGED FOR REVIEW: In PR
 ## Integration with Existing Governance
 
 This protocol supplements:
-- [AIDM_PROJECT_ACTION_PLAN_V2.md](docs/AIDM_PROJECT_ACTION_PLAN_V2.md) — Capability gates, kernel requirements
+- [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Capability gates, kernel requirements
 - [PROJECT_COHERENCE_DOCTRINE.md](PROJECT_COHERENCE_DOCTRINE.md) — Fail-closed design, event sourcing
 - [CP-18A-SPELL-TIER-MANIFEST.md](docs/CP-18A-SPELL-TIER-MANIFEST.md) — Spell scope boundary (current work)
 

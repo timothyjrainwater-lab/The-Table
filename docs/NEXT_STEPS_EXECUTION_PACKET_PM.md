@@ -73,7 +73,7 @@ Update: `docs/DOCUMENTATION_AUTHORITY_INDEX.md` to mark:
 ## 2) Update the Action Plan (V3) to Reflect Product-Layer Doctrine
 **Goal:** Ensure roadmap sequencing matches the frozen design: solo-first + prep pipeline + contextual grid + asset tooling.
 
-### Step 2.1 — Produce `AIDM_PROJECT_ACTION_PLAN_V3.md`
+### Step 2.1 — ~~Produce `AIDM_PROJECT_ACTION_PLAN_V3.md`~~ DONE — superseded by `AIDM_EXECUTION_ROADMAP_V3.md`
 Actions:
 - Add a **Product Layer Track** (voice, sheet UI, contextual board, prep pipeline)
 - Reframe near-term milestones around a **solo vertical slice**

@@ -5,7 +5,7 @@ This file documents known issues that are INTENTIONALLY DEFERRED. They are not b
 to be fixed — they are design decisions or blocked work items. Agents that "helpfully"
 fix these items waste context, break tests, and introduce regressions.
 
-LAST UPDATED: CP-001 Phase 2 Complete (1393 tests, Position Type Unification - Internal Migration)
+LAST UPDATED: M1 Infrastructure (1712 tests)
 -->
 
 # Known Technical Debt

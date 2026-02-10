@@ -465,9 +465,9 @@ def generate_session_id(campaign_id: str, session_number: int, start_timestamp: 
 
 ## References
 
-- Global Plan Audit: `docs/analysis/GAP_AND_RISK_REGISTER.md` (Blocker #1: Canonical ID schema undefined)
+- Global Plan Audit: `docs/analysis/GLOBAL_AUDIT_GAP_AND_RISK_REGISTER.md` (Blocker #1: Canonical ID schema undefined)
 - Current Implementation: `aidm/schemas/campaign.py::compute_asset_id()` (SHA-256, 16-char truncation)
-- Design Insight: `docs/analysis/CONSISTENCY_AUDIT.md` (Orphaned: ID stability for indexed memory)
+- Design Insight: `docs/analysis/GLOBAL_AUDIT_CONSISTENCY_AUDIT.md` (Orphaned: ID stability for indexed memory)
 
 ---
 

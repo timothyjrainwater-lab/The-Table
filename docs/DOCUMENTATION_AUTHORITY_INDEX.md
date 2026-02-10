@@ -76,11 +76,11 @@ Changes to these documents require formal decision records (DR-XXX).
 | Topic | Authoritative Document |
 |-------|------------------------|
 | Combat maneuvers | `docs/CP18_COMBAT_MANEUVERS_DECISIONS.md` |
-| Environment & terrain | `docs/cp19/CP19_ENVIRONMENT_TERRAIN_DECISIONS.md` |
+| Environment & terrain | `docs/CP19_ENVIRONMENT_TERRAIN_DECISIONS.md` |
 | Environmental damage | `docs/cp20/CP20_ENVIRONMENTAL_DAMAGE_DECISIONS.md` |
 | Conditions (simple) | `docs/CP16_CONDITIONS_DECISIONS.md` |
 | Forced movement | `docs/cp18/` + `docs/cp19/` |
-| Falling damage | `docs/cp19/CP19_ENVIRONMENT_TERRAIN_DECISIONS.md` |
+| Falling damage | `docs/CP19_ENVIRONMENT_TERRAIN_DECISIONS.md` |
 
 ---
 
