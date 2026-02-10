@@ -354,6 +354,7 @@ class RuntimeSession:
         action_type: ActionType,
         intent_id: str,
         timestamp: datetime,
+        result_id: str,
         get_clarification: Optional[Callable[[List[str]], Dict[str, Any]]] = None,
         **initial_fields: Any,
     ) -> Tuple[EngineResult, str]:
@@ -373,6 +374,7 @@ class RuntimeSession:
             action_type: Type of action
             intent_id: Unique ID for this intent (BL-017: must be injected)
             timestamp: Current timestamp (BL-018: must be injected)
+            result_id: Unique ID for fallback result (BL-017: must be injected)
             get_clarification: Callback to get clarification responses
             **initial_fields: Initial field values
 
@@ -409,10 +411,10 @@ class RuntimeSession:
                 # Player retracted
                 retracted_intent = self.retract_intent(intent, timestamp=timestamp)
                 # Build a proper EngineResult so return type matches signature
-                import uuid as _uuid
+                # Use injected result_id (BL-017 compliant)
                 builder = EngineResultBuilder(intent_id=retracted_intent.intent_id)
                 result = builder.build(
-                    result_id=str(_uuid.uuid4()),
+                    result_id=result_id,
                     resolved_at=timestamp,
                     status=EngineResultStatus.FAILURE,
                     failure_reason="action_retracted",
