@@ -11,9 +11,6 @@ dependencies = [
     "opencv-python-headless>=4.8.0",  # Image heuristics (M3 Layer 1)
     "Pillow>=10.0.0",  # Image loading (M3 Layer 1)
     "numpy>=1.24.0",   # Array operations (M3 Layer 1)
-    "torch>=2.0.0",    # ImageReward model backend (M3 Layer 2)
-    "torchvision>=0.15.0",  # ImageReward preprocessing (M3 Layer 2)
-    "image-reward @ git+https://github.com/THUDM/ImageReward.git",  # Text-image alignment scoring (M3 Layer 2)
 ]
 
 [tool.pytest.ini_options]

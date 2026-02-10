@@ -46,14 +46,8 @@ def _import_imagereward_critic():
     return ImageRewardCritiqueAdapter
 
 
-def _import_siglip_critic():
-    """Lazy import SigLIPCritiqueAdapter to avoid dependency issues."""
-    from aidm.core.siglip_critique_adapter import SigLIPCritiqueAdapter
-    return SigLIPCritiqueAdapter
-
-
 def _import_graduated_orchestrator():
-    """Lazy import GraduatedCritiqueOrchestrator."""
+    """Lazy import GraduatedCritiqueOrchestrator to avoid dependency issues."""
     from aidm.core.graduated_critique_orchestrator import GraduatedCritiqueOrchestrator
     return GraduatedCritiqueOrchestrator
 
@@ -208,7 +202,6 @@ _IMAGE_CRITIC_REGISTRY: Dict[str, Any] = {
     "stub": StubImageCritic,
     "heuristics": _import_heuristics_critic,  # Lazy import
     "imagereward": _import_imagereward_critic,  # Lazy import
-    "siglip": _import_siglip_critic,  # Lazy import
     "graduated": _import_graduated_orchestrator,  # Lazy import
 }
 
@@ -217,7 +210,7 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
     """Factory function for image critique adapters.
 
     Args:
-        backend: Adapter backend name ("stub", "heuristics", "siglip", or "graduated")
+        backend: Adapter backend name ("stub", "heuristics", "imagereward", or "graduated")
         **kwargs: Backend-specific configuration
 
     Returns:
@@ -247,25 +240,15 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
             edge_density_min=0.08
         )
 
-        # SigLIP reference comparison (GPU, M3 Layer 3)
-        critic = create_image_critic("siglip")
-
-        # SigLIP with custom threshold
-        critic = create_image_critic(
-            "siglip",
-            similarity_threshold=0.75,
-            device="cuda"
-        )
-
-        # Graduated pipeline (Layer 1 + Layer 2 + Layer 3)
+        # Graduated pipeline (all layers)
         critic = create_image_critic(
             "graduated",
             layer1_backend="heuristics",
-            layer2_backend="imagereward",  # None to skip Layer 2
-            layer3_backend="siglip"  # None to skip Layer 3
+            layer2_backend="imagereward",
+            layer3_backend="siglip"
         )
 
-        # Graduated with only Layer 1
+        # Graduated pipeline (CPU-only, L1 only)
         critic = create_image_critic(
             "graduated",
             layer1_backend="heuristics",
@@ -277,6 +260,27 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
         available = ", ".join(sorted(_IMAGE_CRITIC_REGISTRY.keys()))
         raise ValueError(f"Unknown image critic backend '{backend}'. Available: {available}")
 
+    # Special handling for "graduated" backend (creates sub-adapters)
+    if backend == "graduated":
+        layer1_backend = kwargs.pop("layer1_backend", "heuristics")
+        layer2_backend = kwargs.pop("layer2_backend", None)
+        layer3_backend = kwargs.pop("layer3_backend", None)
+
+        # Create layer adapters recursively
+        layer1 = create_image_critic(layer1_backend, **kwargs.get("layer1_kwargs", {}))
+        layer2 = create_image_critic(layer2_backend, **kwargs.get("layer2_kwargs", {})) if layer2_backend else None
+        layer3 = create_image_critic(layer3_backend, **kwargs.get("layer3_kwargs", {})) if layer3_backend else None
+
+        # Get orchestrator class
+        adapter_class_or_factory = _IMAGE_CRITIC_REGISTRY[backend]
+        if callable(adapter_class_or_factory) and not isinstance(adapter_class_or_factory, type):
+            adapter_class = adapter_class_or_factory()
+        else:
+            adapter_class = adapter_class_or_factory
+
+        return adapter_class(layer1=layer1, layer2=layer2, layer3=layer3)
+
+    # Standard adapter creation
     adapter_class_or_factory = _IMAGE_CRITIC_REGISTRY[backend]
 
     # Handle lazy imports (callables that return the class)
@@ -284,18 +288,5 @@ def create_image_critic(backend: str = "stub", **kwargs) -> ImageCritiqueAdapter
         adapter_class = adapter_class_or_factory()
     else:
         adapter_class = adapter_class_or_factory
-
-    # Special handling for graduated orchestrator
-    if backend == "graduated":
-        layer1_backend = kwargs.pop("layer1_backend", "heuristics")
-        layer2_backend = kwargs.pop("layer2_backend", None)
-        layer3_backend = kwargs.pop("layer3_backend", None)
-
-        # Create layer adapters
-        layer1 = create_image_critic(layer1_backend, **kwargs.get("layer1_kwargs", {}))
-        layer2 = create_image_critic(layer2_backend, **kwargs.get("layer2_kwargs", {})) if layer2_backend else None
-        layer3 = create_image_critic(layer3_backend, **kwargs.get("layer3_kwargs", {})) if layer3_backend else None
-
-        return adapter_class(layer1=layer1, layer2=layer2, layer3=layer3)
 
     return adapter_class(**kwargs)

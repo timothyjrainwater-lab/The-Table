@@ -16,8 +16,8 @@ PHASE:       M3 (Immersion Layer v1) — design phase COMPLETE, implementation p
 FROZEN:      M0, M1, M2 (Persistence v1.1)
 COMPLETED:   All design WOs complete. Layer 1 (Heuristics) implemented. Audio stubs integrated.
              LLM Query Interface designed. 15 PM decisions this session.
-ACTIVE:      5 WOs dispatched — Bounded Regen, Failure Fallback, ImageReward, SigLIP, Critique Orchestrator
-IDLE:        None — all agents executing
+ACTIVE:      None — all agents on standby
+IDLE:        Sonnet A, B, C, D, E — awaiting next dispatch
 BLOCKER:     None
 TESTS:       1823 passing, 0 failures
 INBOX:       CLEAN
@@ -66,17 +66,15 @@ INBOX:       CLEAN
 
 ### Active Work Orders
 
-| WO ID | Agent | Dispatched | Objective |
-|-------|-------|------------|-----------|
-| WO-M3-BOUNDED-REGEN-IMPL | Sonnet A | 2026-02-11 | Bounded Regeneration retry logic implementation |
-| WO-M3-FAILURE-FALLBACK-IMPL | Sonnet B | 2026-02-11 | Failure Fallback 4-tier hierarchy implementation |
-| WO-M3-IMAGEREWARD-IMPL-02 | Sonnet C | 2026-02-11 | Layer 2 ImageReward adapter (GPU, ~1 GB) |
-| WO-M3-SIGLIP-IMPL-03 | Sonnet D | 2026-02-11 | Layer 3 SigLIP adapter (GPU, ~0.6 GB) |
-| WO-M3-CRITIQUE-ORCHESTRATOR | Sonnet E | 2026-02-11 | Graduated critique pipeline wiring (L1→L2→L3) |
+None — all agents on standby.
 
 ### Ready for Dispatch
 
-Implementation WOs available (deferred to next sprint):
+Implementation WOs available (designs all approved):
+- **WO-M3-IMAGEREWARD-IMPL-02**: Layer 2 ImageReward adapter implementation
+- **WO-M3-SIGLIP-IMPL-03**: Layer 3 SigLIP adapter implementation
+- **WO-M3-BOUNDED-REGEN-IMPL**: Bounded Regeneration implementation
+- **WO-M3-FAILURE-FALLBACK-IMPL**: Failure Fallback implementation
 - **WO-M3-AUDIO-CURATED-MUSIC**: Curated music library curation (M3 Sprint 2)
 - **WO-M3-AUDIO-SFX-CURATION**: SFX library curation (M3 Sprint 3)
 
@@ -91,12 +89,12 @@ Implementation WOs available (deferred to next sprint):
 
 | Agent | State | Notes |
 |-------|-------|-------|
-| Sonnet A | ACTIVE | Executing WO-M3-BOUNDED-REGEN-IMPL |
-| Sonnet B | ACTIVE | Executing WO-M3-FAILURE-FALLBACK-IMPL |
-| Sonnet C | ACTIVE | Executing WO-M3-IMAGEREWARD-IMPL-02 |
-| Sonnet D | ACTIVE | Executing WO-M3-SIGLIP-IMPL-03 |
-| Sonnet E | ACTIVE | Executing WO-M3-CRITIQUE-ORCHESTRATOR |
-| Opus | ACTIVE | Acting PM. All 5 agents dispatched. |
+| Sonnet A | IDLE | WO-RQ-LLM-002 complete and approved. Awaiting next dispatch. |
+| Sonnet B | IDLE | WO-RQ-IMG-010 complete and approved. Awaiting next dispatch. |
+| Sonnet C | IDLE | WO-RQ-IMG-009 complete and approved. Awaiting next dispatch. |
+| Sonnet D | IDLE | WO-M3-AUDIO-INT-01 complete and approved. Awaiting next dispatch. |
+| Sonnet E | IDLE | WO-M3-HEURISTICS-IMPL-01 complete and approved. Awaiting next dispatch. |
+| Opus | ACTIVE | Acting PM. All 5 agents on standby. |
 | Aegis | DOWN | Opus acting as PM this session. |
 
 ---
@@ -135,26 +133,20 @@ Implementation WOs available (deferred to next sprint):
 
 ## Key Reference Files
 
-**PM Knowledge Base (START HERE for full project context):**
-- `pm_inbox/aegis_rehydration/PM_KNOWLEDGE_BASE.md` — Comprehensive PM rehydration document (25 sections, every threshold, constraint, decision, and technology selection)
-
-**Design Documents:**
+- `pm_inbox/reviewed/OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md` — R1 model selections (518 lines)
+- `pm_inbox/reviewed/SONNET-C_WO-M3-IMAGE-CRITIQUE-02_heuristics_design.md` — APPROVED Layer 1 design
+- `pm_inbox/reviewed/SONNET-C_WO-M3-IMAGE-CRITIQUE-02_imagereward_design.md` — APPROVED Layer 2 design
+- `pm_inbox/reviewed/SONNET-C_WO-M3-IMAGE-CRITIQUE-02_siglip_design.md` — APPROVED Layer 3 design
+- `pm_inbox/reviewed/SONNET-C_WO-M3-IMAGE-CRITIQUE-02_prep_integration.md` — APPROVED prep integration
+- `pm_inbox/reviewed/SONNET-B_WO-RQ-IMG-010_completion.md` — APPROVED Bounded Regen design
+- `pm_inbox/reviewed/SONNET-C_WO-RQ-IMG-009_completion.md` — APPROVED Failure Fallback design
+- `pm_inbox/reviewed/SONNET-E_WO-M3-HEURISTICS-IMPL-01_completion.md` — APPROVED Layer 1 implementation
+- `pm_inbox/reviewed/SONNET-A_WO-RQ-LLM-002_completion.md` — APPROVED LLM Query Interface design
+- `pm_inbox/reviewed/SONNET-D_WO-M3-AUDIO-INT-01_completion.md` — APPROVED Audio pipeline integration
 - `docs/design/BOUNDED_REGENERATION_POLICY.md` — Bounded Regen design doc (~410 lines)
 - `docs/design/IMAGE_GENERATION_FAILURE_FALLBACK.md` — Failure Fallback design doc (~1,100 lines)
 - `docs/design/LLM_QUERY_INTERFACE.md` — LLM Query Interface design doc (~798 lines)
 - `docs/AIDM_EXECUTION_ROADMAP_V3.md` — Canonical roadmap (v3.2 live)
-
-**Approved Work Order Completions (in pm_inbox/reviewed/):**
-- `OPUS_R1_TECHNOLOGY_STACK_VALIDATION.md` — R1 model selections (518 lines)
-- `SONNET-C_WO-M3-IMAGE-CRITIQUE-02_heuristics_design.md` — APPROVED Layer 1 design
-- `SONNET-C_WO-M3-IMAGE-CRITIQUE-02_imagereward_design.md` — APPROVED Layer 2 design
-- `SONNET-C_WO-M3-IMAGE-CRITIQUE-02_siglip_design.md` — APPROVED Layer 3 design
-- `SONNET-C_WO-M3-IMAGE-CRITIQUE-02_prep_integration.md` — APPROVED prep integration
-- `SONNET-B_WO-RQ-IMG-010_completion.md` — APPROVED Bounded Regen design
-- `SONNET-C_WO-RQ-IMG-009_completion.md` — APPROVED Failure Fallback design
-- `SONNET-E_WO-M3-HEURISTICS-IMPL-01_completion.md` — APPROVED Layer 1 implementation
-- `SONNET-A_WO-RQ-LLM-002_completion.md` — APPROVED LLM Query Interface design
-- `SONNET-D_WO-M3-AUDIO-INT-01_completion.md` — APPROVED Audio pipeline integration
 
 ---
 
@@ -166,6 +158,5 @@ When Aegis opens a new context window, Thunder drops the `aegis_rehydration/` fo
 3. Read `STANDING_OPS_CONTRACT.md` third (behavioral rules)
 4. Read `R1_TECHNOLOGY_STACK_SUMMARY.md` fourth (R1 model selections)
 5. Read `OPUS_ACTION_REPORT_2026-02-11.md` fifth (action items)
-6. Read `PM_KNOWLEDGE_BASE.md` sixth (comprehensive project context — every threshold, constraint, decision, tech selection, and architectural principle)
-7. Confirm: "I see [N] active items, waiting on [X]. State: [status]."
-8. Resume from the current state — do NOT re-plan anything already planned
+6. Confirm: "I see [N] active items, waiting on [X]. State: [status]."
+7. Resume from the current state — do NOT re-plan anything already planned

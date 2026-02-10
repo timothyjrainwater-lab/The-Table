@@ -12,7 +12,7 @@ test_audio_queue_results.txt
 # User Profile Configuration (local-only, never commit)
 config/user_profile.yaml
 
-# Large reference data (not needed for backup)
+# Large reference data (not needed for code backup)
 /Vault/
 
 # Pip version marker files
