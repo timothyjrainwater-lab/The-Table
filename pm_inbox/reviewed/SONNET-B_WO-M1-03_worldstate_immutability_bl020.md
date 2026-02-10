@@ -6,7 +6,7 @@ Status: Complete
 
 ## Summary
 
-Successfully implemented BL-020 enforcement to prevent mutation of WorldState at all non-engine boundaries. Created `FrozenWorldStateView` proxy class, updated non-engine consumers, and implemented all 14 acceptance tests (T-020-01 through T-020-14). All 1684 project tests pass.
+Successfully implemented BL-020 enforcement to prevent mutation of WorldState at all non-engine boundaries. Created `FrozenWorldStateView` proxy class, updated non-engine consumers, and implemented all 14 acceptance tests (T-020-01 through T-020-14). All 1711 project tests pass.
 
 ---
 
@@ -130,8 +130,8 @@ All BL-020 STOP conditions now enforced:
 ## Test Results
 
 **BL-020 Tests**: 14/14 passing
-**Full Project Suite**: 1684/1684 passing
-**Execution Time**: 6.95 seconds
+**Full Project Suite**: 1711/1711 passing
+**Execution Time**: 7.14 seconds
 **No regressions introduced**
 
 ---
@@ -217,14 +217,14 @@ Per WO-M1-03 constraints, the following were explicitly excluded:
 
 ✅ Code implementation (`FrozenWorldStateView` in aidm/core/state.py)
 ✅ Non-engine module updates (audio_mixer, contextual_grid, character_sheet)
-✅ Passing test suite (14/14 BL-020 tests, 1684/1684 total)
+✅ Passing test suite (14/14 BL-020 tests, 1711/1711 total)
 ✅ Execution report (this document)
 
 **Confirmation**:
 - All STOP conditions enforced ✅
 - No boundary conflicts introduced ✅
 - All 14 acceptance tests passing ✅
-- 1684/1684 total tests passing (no regressions) ✅
+- 1711/1711 total tests passing (no regressions) ✅
 
 ---
 

@@ -72,6 +72,29 @@ MUTATING_EVENTS: Set[str] = {
 }
 
 # Informational events (no state mutation, AC-09 exempted)
+#
+# CLASSIFICATION POLICY (WO-M1-05):
+# An event is informational if:
+# 1. It records a narrative moment with no state change (e.g., "attack_roll")
+# 2. State mutation has already occurred via a separate mutating event
+#    (e.g., "bull_rush_success" is informational because the position change
+#    was already recorded by a "move" event)
+#
+# FUTURE MIGRATION RULE:
+# If an informational event begins to directly mutate state (e.g., a maneuver
+# result event starts setting entity fields without emitting a mutating event),
+# it MUST be migrated to MUTATING_EVENTS and given an explicit reducer handler.
+#
+# WHY MANEUVER RESULTS ARE INFORMATIONAL:
+# Events like "bull_rush_success", "disarm_success", etc. are currently
+# informational because:
+# - Position changes are recorded by "move" events
+# - Condition changes are recorded by "condition_applied" events
+# - HP changes are recorded by "hp_changed" events
+# - The maneuver result event itself is a narrative marker that doesn't
+#   directly mutate state—it reports that a sequence of state-mutating
+#   events has completed successfully.
+#
 INFORMATIONAL_EVENTS: Set[str] = {
     # Informational/narrative
     "no-op",

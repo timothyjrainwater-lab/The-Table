@@ -5,7 +5,7 @@ This file is MANDATORY READING for all agents before writing code on this projec
 It documents hard-won lessons from audits, discovered bugs, and architectural patterns
 that MUST be followed to maintain project integrity.
 
-LAST UPDATED: Plan B Remediation (1225 tests, CP-20, FIX-04/12/16)
+LAST UPDATED: M1 Infrastructure (1712 tests, BL-017/018/020)
 -->
 
 # Agent Development Guidelines
@@ -321,3 +321,66 @@ Every CP must follow this process:
 - `CP-{XX}{letter}`: Sub-packet (e.g., CP-18A for spellcasting part A)
 - `SKR-{XXX}`: Structural Kernel Register entry (cross-cutting concerns)
 - `CP-{XX}D`: Documentation/coherence cleanup packet
+
+---
+
+## 14. Boundary Laws (M1+)
+
+Boundary laws are hard constraints enforced by tests in `tests/test_boundary_law.py`. Violating any of these will cause test failures. Full specifications live in `docs/governance/`.
+
+### BL-017: UUID Injection Only
+
+**No `uuid.uuid4()` in dataclass default_factory.** All IDs must be injected by the caller, never auto-generated. This ensures replay determinism — auto-generated UUIDs produce different values on each replay.
+
+```python
+# WRONG — breaks replay
+@dataclass
+class IntentObject:
+    intent_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+
+# CORRECT — caller injects
+@dataclass
+class IntentObject:
+    intent_id: str  # Required, no default
+```
+
+### BL-018: Timestamp Injection Only
+
+**No `datetime.utcnow()` in dataclass default_factory.** Same rationale as BL-017 — timestamps must be injected, never auto-captured. A replay at a different wall-clock time must produce identical state.
+
+```python
+# WRONG — breaks replay
+@dataclass
+class Event:
+    timestamp: float = field(default_factory=time.time)
+
+# CORRECT — caller injects
+@dataclass
+class Event:
+    timestamp: float  # Required, no default
+```
+
+### BL-020: WorldState Immutability at Non-Engine Boundaries
+
+**No module outside the engine boundary may mutate WorldState or anything reachable from it.** This is the most important boundary law for day-to-day coding.
+
+**Engine boundary (authorized mutators):**
+- `aidm/core/play_loop.py`
+- `aidm/core/replay_runner.py`
+- `aidm/core/combat_controller.py`
+- `aidm/core/prep_orchestrator.py`
+- `aidm/core/interaction.py`
+
+**Everything else** (narration, immersion, UI, spark adapters, IPC consumers) receives a `FrozenWorldStateView` — a read-only snapshot. If you need state in a non-engine module, use the frozen view.
+
+```python
+# WRONG — mutates state in a non-engine module
+def format_hp(world_state):
+    world_state.entities["pc1"]["hp"] = 0  # BL-020 VIOLATION
+
+# CORRECT — read-only access
+def format_hp(frozen_view: FrozenWorldStateView):
+    hp = frozen_view.entities["pc1"]["hp"]  # Read-only, no mutation
+```
+
+**Full spec:** `docs/governance/BL-020_WORLDSTATE_IMMUTABILITY_AT_NON_ENGINE_BOUNDARIES.md`

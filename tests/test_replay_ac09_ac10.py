@@ -87,6 +87,99 @@ def test_ac09_movement_declared_is_informational():
 
 
 # ============================================================================
+# WO-M1-05: Reducer Classification Guardrails
+# ============================================================================
+
+def test_wom105_informational_events_do_not_mutate_state():
+    """WO-M1-05: Informational events must NOT mutate state.
+
+    GUARDRAIL TEST:
+    - Process each event type in INFORMATIONAL_EVENTS through reduce_event()
+    - Verify state hash remains unchanged
+    - If any informational event mutates state, the test FAILS
+
+    WHY: This enforces the INFORMATIONAL_EVENTS classification policy. If an
+    informational event begins to mutate state, it must be migrated to
+    MUTATING_EVENTS and given an explicit reducer handler.
+    """
+    from aidm.core.state import WorldState
+    from aidm.core.event_log import Event
+    from aidm.core.replay_runner import reduce_event, INFORMATIONAL_EVENTS
+    from aidm.core.rng_manager import RNGManager
+
+    # Create a rich initial state with various entity fields
+    initial_state = WorldState(
+        ruleset_version="dnd3.5",
+        entities={
+            "player": {
+                "hp": 50,
+                "hp_max": 50,
+                "position": {"x": 0, "y": 0},
+                "initiative": 15,
+                "conditions": [],
+                "defeated": False,
+            },
+            "goblin": {
+                "hp": 7,
+                "hp_max": 7,
+                "position": {"x": 5, "y": 0},
+                "initiative": 10,
+                "conditions": [],
+                "defeated": False,
+            },
+        },
+        active_combat={
+            "active": True,
+            "round": 1,
+            "current_turn": "player",
+            "participants": ["player", "goblin"],
+            "initiative_order": ["player", "goblin"],
+        },
+    )
+
+    initial_hash = initial_state.state_hash()
+    rng_manager = RNGManager(12345)
+
+    # Test each informational event type
+    violations = []
+
+    for event_type in sorted(INFORMATIONAL_EVENTS):
+        # Create a generic payload for the event
+        # (Use plausible field names that might exist in real events)
+        payload = {
+            "entity_id": "player",
+            "target_id": "goblin",
+            "roll": 15,
+            "result": "success",
+            "message": f"Test {event_type}",
+        }
+
+        event = Event(
+            event_id=0,
+            event_type=event_type,
+            timestamp=1.0,
+            payload=payload,
+        )
+
+        # Apply the event
+        new_state = reduce_event(initial_state, event, rng_manager)
+        new_hash = new_state.state_hash()
+
+        # Verify state hash unchanged
+        if new_hash != initial_hash:
+            violations.append(event_type)
+
+    assert len(violations) == 0, (
+        f"WO-M1-05 GUARDRAIL FAILED: {len(violations)} informational events mutated state:\\n"
+        f"{sorted(violations)}\\n\\n"
+        f"POLICY VIOLATION: Events in INFORMATIONAL_EVENTS must NOT mutate state.\\n"
+        f"If an event needs to mutate state, it must be migrated to MUTATING_EVENTS\\n"
+        f"and given an explicit reducer handler.\\n"
+        f"See CLASSIFICATION POLICY comment in replay_runner.py for migration rules."
+    )
+
+
+# ============================================================================
 # AC-10: Replay Hash Equivalence (WO-M1-01 Acceptance Criterion)
 # ============================================================================
 

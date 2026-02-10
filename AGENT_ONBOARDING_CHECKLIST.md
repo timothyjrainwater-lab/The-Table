@@ -41,8 +41,8 @@ python -m pytest tests/ -v --tb=short
 ```
 
 **Expected result:**
-- 1331+ tests passing
-- Runtime under 5 seconds
+- 1700+ tests passing
+- Runtime under 10 seconds
 - Zero failures, zero errors
 
 If this doesn't pass, STOP. Do not proceed. Report the failure.
