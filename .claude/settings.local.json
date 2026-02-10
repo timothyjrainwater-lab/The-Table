@@ -68,11 +68,7 @@
       "Bash(dir:*)",
       "Bash(chmod:*)",
       "Bash(move \"f:\\\\DnD-3.5\\\\pm_inbox\\\\SONNET-C_WO-M3-IMAGE-CRITIQUE-02_siglip_design.md\" \"f:\\\\DnD-3.5\\\\pm_inbox\\\\reviewed\"\" && move \"f:DnD-3.5pm_inboxSONNET-C_WO-M3-IMAGE-CRITIQUE-02_prep_integration.md\" \"f:DnD-3.5pm_inboxreviewed\"\")",
-      "Bash(move \"f:\\\\DnD-3.5\\\\pm_inbox\\\\SONNET-C_WO-M3-IMAGE-CRITIQUE-02_completion.md\" \"f:\\\\DnD-3.5\\\\pm_inbox\\\\reviewed\"\")",
-      "Bash(HTTPS_PROXY=http://127.0.0.1:7890 gh repo edit:*)",
-      "Bash(HTTPS_PROXY=http://127.0.0.1:7890 \"C:/Program Files/GitHub CLI/gh.exe\" repo edit:*)",
-      "Bash(git branch:*)",
-      "Bash(HTTPS_PROXY=http://127.0.0.1:7890 \"C:/Program Files/GitHub CLI/gh.exe\" repo view:*)"
+      "Bash(move \"f:\\\\DnD-3.5\\\\pm_inbox\\\\SONNET-C_WO-M3-IMAGE-CRITIQUE-02_completion.md\" \"f:\\\\DnD-3.5\\\\pm_inbox\\\\reviewed\"\")"
     ],
     "additionalDirectories": [
       "f:\\DnD-3.5\\docs\\cp19"

@@ -189,13 +189,14 @@ def test_siglip_critic_high_similarity_passes():
     """SigLIPCritiqueAdapter passes with high similarity (>= threshold)."""
     critic = SigLIPCritiqueAdapter(similarity_threshold=0.70)
 
-    # Mock _compute_similarity to return high similarity
-    with patch.object(critic, '_compute_similarity', return_value=0.85):
-        with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
-            image_bytes = generate_test_image_bytes()
-            anchor_bytes = generate_test_image_bytes()
+    # Mock load, _compute_similarity, and _load_image_from_bytes
+    with patch.object(critic, 'load'):
+        with patch.object(critic, '_compute_similarity', return_value=0.85):
+            with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
+                image_bytes = generate_test_image_bytes()
+                anchor_bytes = generate_test_image_bytes()
 
-            result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
+                result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
             assert result.passed is True
             assert result.overall_severity == SeverityLevel.ACCEPTABLE
@@ -215,13 +216,14 @@ def test_siglip_critic_low_similarity_fails():
     """SigLIPCritiqueAdapter fails with low similarity (< threshold)."""
     critic = SigLIPCritiqueAdapter(similarity_threshold=0.70)
 
-    # Mock _compute_similarity to return low similarity
-    with patch.object(critic, '_compute_similarity', return_value=0.45):
-        with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
-            image_bytes = generate_test_image_bytes()
-            anchor_bytes = generate_test_image_bytes()
+    # Mock load, _compute_similarity, and _load_image_from_bytes
+    with patch.object(critic, 'load'):
+        with patch.object(critic, '_compute_similarity', return_value=0.45):
+            with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
+                image_bytes = generate_test_image_bytes()
+                anchor_bytes = generate_test_image_bytes()
 
-            result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
+                result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
             assert result.passed is False
             assert result.rejection_reason is not None
@@ -243,42 +245,45 @@ def test_siglip_critic_threshold_boundary_below():
     """SigLIPCritiqueAdapter fails just below threshold (0.69 < 0.70)."""
     critic = SigLIPCritiqueAdapter(similarity_threshold=0.70)
 
-    with patch.object(critic, '_compute_similarity', return_value=0.69):
-        with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
-            image_bytes = generate_test_image_bytes()
-            anchor_bytes = generate_test_image_bytes()
+    with patch.object(critic, 'load'):
+        with patch.object(critic, '_compute_similarity', return_value=0.69):
+            with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
+                image_bytes = generate_test_image_bytes()
+                anchor_bytes = generate_test_image_bytes()
 
-            result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
+                result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
-            assert result.passed is False
+                assert result.passed is False
 
 
 def test_siglip_critic_threshold_boundary_exact():
     """SigLIPCritiqueAdapter passes at exact threshold (0.70 == 0.70)."""
     critic = SigLIPCritiqueAdapter(similarity_threshold=0.70)
 
-    with patch.object(critic, '_compute_similarity', return_value=0.70):
-        with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
-            image_bytes = generate_test_image_bytes()
-            anchor_bytes = generate_test_image_bytes()
+    with patch.object(critic, 'load'):
+        with patch.object(critic, '_compute_similarity', return_value=0.70):
+            with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
+                image_bytes = generate_test_image_bytes()
+                anchor_bytes = generate_test_image_bytes()
 
-            result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
+                result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
-            assert result.passed is True
+                assert result.passed is True
 
 
 def test_siglip_critic_threshold_boundary_above():
     """SigLIPCritiqueAdapter passes just above threshold (0.71 > 0.70)."""
     critic = SigLIPCritiqueAdapter(similarity_threshold=0.70)
 
-    with patch.object(critic, '_compute_similarity', return_value=0.71):
-        with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
-            image_bytes = generate_test_image_bytes()
-            anchor_bytes = generate_test_image_bytes()
+    with patch.object(critic, 'load'):
+        with patch.object(critic, '_compute_similarity', return_value=0.71):
+            with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
+                image_bytes = generate_test_image_bytes()
+                anchor_bytes = generate_test_image_bytes()
 
-            result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
+                result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
-            assert result.passed is True
+                assert result.passed is True
 
 
 # =============================================================================
@@ -407,28 +412,17 @@ def test_siglip_critic_roundtrip_through_factory():
 # CritiqueResult Schema Compliance Tests
 # =============================================================================
 
-@patch('aidm.core.siglip_critique_adapter.open_clip')
-@patch('aidm.core.siglip_critique_adapter.torch')
-def test_siglip_critic_result_schema_compliance(mock_torch, mock_open_clip):
+def test_siglip_critic_result_schema_compliance():
     """SigLIPCritiqueAdapter returns schema-compliant CritiqueResult."""
-    mock_model = Mock()
-    mock_model.eval = Mock()
-    mock_preprocess = Mock(side_effect=lambda img: Mock(unsqueeze=Mock(return_value=Mock(to=Mock(return_value=Mock())))))
-    mock_open_clip.create_model_and_transforms.return_value = (mock_model, None, mock_preprocess)
-
-    mock_embedding = Mock()
-    mock_embedding.norm = Mock(return_value=Mock(item=Mock(return_value=1.0)))
-    mock_embedding.__truediv__ = Mock(return_value=mock_embedding)
-    mock_embedding.__matmul__ = Mock(return_value=Mock(item=Mock(return_value=0.75)))
-    mock_model.encode_image = Mock(return_value=mock_embedding)
-
-    mock_torch.no_grad = MagicMock()
-
     critic = SigLIPCritiqueAdapter()
     image_bytes = generate_test_image_bytes()
     anchor_bytes = generate_test_image_bytes()
 
-    result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
+    # Mock load and _compute_similarity to avoid real model dependencies
+    with patch.object(critic, 'load'):
+        with patch.object(critic, '_compute_similarity', return_value=0.75):
+            with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
+                result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
     # Schema compliance checks
     assert isinstance(result.passed, bool)

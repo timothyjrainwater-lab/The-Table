@@ -46,6 +46,12 @@ def _import_imagereward_critic():
     return ImageRewardCritiqueAdapter
 
 
+def _import_siglip_critic():
+    """Lazy import SigLIPCritiqueAdapter to avoid dependency issues."""
+    from aidm.core.siglip_critique_adapter import SigLIPCritiqueAdapter
+    return SigLIPCritiqueAdapter
+
+
 def _import_graduated_orchestrator():
     """Lazy import GraduatedCritiqueOrchestrator to avoid dependency issues."""
     from aidm.core.graduated_critique_orchestrator import GraduatedCritiqueOrchestrator
@@ -202,6 +208,7 @@ _IMAGE_CRITIC_REGISTRY: Dict[str, Any] = {
     "stub": StubImageCritic,
     "heuristics": _import_heuristics_critic,  # Lazy import
     "imagereward": _import_imagereward_critic,  # Lazy import
+    "siglip": _import_siglip_critic,  # Lazy import
     "graduated": _import_graduated_orchestrator,  # Lazy import
 }
 
