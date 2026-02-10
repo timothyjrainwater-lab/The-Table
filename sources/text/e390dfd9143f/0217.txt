@@ -1,0 +1,241 @@
+ 
+   
+ 
+   
+   
+    
+ 
+  
+    
+ 
+  
+   
+  
+   
+  
+  
+   
+  
+  
+ 
+
+A roper stands some 9 feet tall and tapers from 3 or 4 feet in
+diameter at the base to 1 foot across at the top, It weighs 2,200
+pounds, A roper's coloration and temperature change to match the
+features of the surrounding cave.
+
+Ropers speak Terran and Undercommon.
+
+COMBAT
+\A roper hunts by standing very still and imitating a bit of rock
+This tactic often allows it to attack with surprise. When prey)
+comes within reach, it lashes outwith its strands. In melee, ir bites.
+adjacent opponents with its powerful maw.
+
+Drag (Ex): Ifa roper hits with a strand attack, the strand latches
+onto the opponent's body, This deals no damage but drags the
+stuck opponent 10 feet closer each subsequent round (provoking
+no attack of opportunity) unless that creature breaks free, which
+requires a DC 23 Escape Artist check or a DC 19 Strength check.
+The check DCs are Strength-based, and the Escape Artist DC
+includes a.+4 racial bonus. A roper can draw in a creature within
+10 feet of itself and bire with a +4 attack bonus in the same round.)
+
+strand has 10 hit points and can be attacked by making a suc
+cessful sunder attempt. However, attacking a roper's strand does
+not provoke an attack of opportunity. If the strand is currently
+attached to a target, the roper takes a —4 penalty on its opposed
+attack roll to resist the sunder attempt, Seveting a strand deals no
+damage to a roper:
+Strands (Ex); Most encounters with aroper begin when it fires
+strong, sticky strands. The creature can have up to six strands at
+‘ance, and.they can strike up to $0 feet away (no range increment
+Ufa strand is severed, the roper can extrude a new one on its next
+turn asa free action
+Weakness (Ex); A roper's strands can sap.an.opponent's
+strength. Anyone grabbed by a strand must succeed on a DC 18
+Fortitude save or take 2d8 points of Strength damage. The save DC
+is Constitution-based.
+Skills: *Ropers have a +8 racial bonus on Hide checks in stony
+or icy areas.
+
+—____ RUST MONSTER
+
+Medium Aberration
+Hit Dice: 5d8+5 (27 hp!
+Initiative: +3
+Speed: 40 ft. (8 squares
+Armor Class; 18.(+3 Dex, +5 natural), touch 13, f
+Base Attack/Grapple: +3/+3
+Attack: Antennae.touch +3 melee (rust
+Full Attack: Antennae touch +3 melee
+(rust) and bite -2 melee (1d3)
+Space/Reach: 5 ft./5 ft
+Special Attacks: Rust
+Special Qualities: Darkvision, scent
+Sayes: Fort +2, Ref +4, Will +
+Abilities: Str 10, Dex 17, Con 13, Int 2,
+Wis 13, Cha8
+Skills: Listen +7, Spot +7
+Feats: Alertness, Track
+Environment: Underground
+Organization: Solitary or pair
+Challenge Rating: 3
+Treasure: None
+Alignment: Always neutral
+|Advancement; 6-8 HD (Medium),
+9-15 HD (Large.
+Level Adjustment; —
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+   
+
+ 
+
+ 
+
+at-footed 15
+
+ 
+
+ 
+
+ 
+
+This creature seems to be about the size of a
+pony..It.has four insectlike legs and a squat, humped. body protected by a
+
+   
+
+  
+
+thick lumpy hide Its tail is covered with armor plates and ends in.a bony
+projection that looks like a double-ended paddle, The creature sports two
+long antennae on its head, one beneath each eye.
+
+Most fighters would rather face an army of ores than confront a
+rust monster. These creatures corrode and eat metal objects and
+have ruined the armor, shields, and weapons of countless adven:
+turers.
+
+ 
+
+The hide of these creatures varies in color from a yellowish tan.
+underside to a rust-red upper back. A rust monster's prehensile
+antennae can rust metals on contact.
+
+The typical rust monster measures $ feet long and 3 feet high,
+weighing 200 pounds
+
+COMBAT
+
+A rust monster can scent a metal object from upto 90 feet away
+When it detects one, it dashes toward the source and attempts to
+strike it with its antennae. The creature is relentless, chasing char-
+jacters over long distances if they still possess intact metal objects.
+but usually ceasing its attacks to devour a freshly rusted meal, A
+clever (or desperate) character can often distract a hungry rust
+monster by tossing it some metal objects, then fleeing while it
+consumes them.
+
+The creature targets the largest metal object available, striking
+first at armor, then at shields and smaller isems, Jt prefers ferrous
+metals (steel or iron) over precious metals (such as gold or silver’
+but will devour the latter if given the opportunity,
+
+Rust (Ex); A rust monster thar makes a successful touch artack |
+with its antennae causes the target metal to corrode, falling to
+pieces and becoming useless immediately. The touch can destroy
+up to a 10-foor cube of metal instantly. Magic armor.and weapons,
+and other magic items made of metal, must succeed_on a DC 17
+Reflex save or be dissolved, The save DC is Constitution-based and
+includes a +4 racial bonus,
+
+A metal weapon that deals damage to a rust monster corrodes
+immediately. Wooden, stone, and other nonmetallic weapons are
+unaffecte
+
+ 
+
+ 
+
+ 
+
+  
+
+  
+
+   
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+
+   
+   
+
+Rust monster
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+     
+ 
+   
+   
+ 
+    
+
+ 
+  
+
+  
+  
+

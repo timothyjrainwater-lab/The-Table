@@ -1,0 +1,238 @@
+‘Werebear, Human Form
+
+Medium Humanoid
+(Human, Shapechanger)
+
+Hit Dice: 1ds+1 plus 6d8+30 (62 hp)
+Initiative:
+
+Speed: 30 ft. (6 squares)
+
+Armor Class: 15 (+2 natural, +3 studded leather
+
+armor), touch 10, flat-footed 15
+Base Attack/Grapple: +5/+6
+
+Attack: Greataxe +6 melee (1d12+1/x3) or
+throwing axe +5 ranged (1d6+1)
+
+Full Attack: Greataxe +6 melee (id12+1/x3) or
+throwing axe +5 ranged (1d6+1)
+
+Space/Reach: 5 ft/s fr.
+
+Special Attacks:
+
+Special Qualities: Alternate form, bear empathy,
+
+low-light vision, scent damage reduction 10/silver,
+
+Saves: Fort +8, Ref +5, Will +4
+
+Abilities: Str 13, Dex 11, Con 12
+Int 10, Wis 11, Cha 8
+
+Skills: Handle Animal +3, Listen +4,
+Spot +4, Swim +1
+
+Feats: Endurance, Iron Will", Multiattack,
+Power Attack, Run, Track®
+
+Environment: Cold forests
+
+Organization: Solitary, pair, family (3—-4),or
+troupe (2~4 plus 1-4 brown bears)
+
+Challenge Rating: 5
+
+Treasure; Standard
+
+Alignment: Always lawful good
+
+Advancement: By character class
+
+Level Adjustment; +3
+
+Werebear, Bear Form
+Large Humanoid
+(Human, Shapechanger)
+1d8+t plus 6d8+30 (62 hp)
++0
+40 ft. (8 squares)
+7 (-1 size, +1 Dex, +7
+natural), touch 10, flat-footed 16
++5/+18
+Claw +13 melee (1d8+9)
+
+2 claws +43 melee (1d8+9) and
+bite +11 melee (2d6+4)
+
+10 ft,/s ft
+
+Imptoved grab, curse
+
+of lycanthropy
+
+Alternate form, bear empathy,
+damage reduction 10/silver,
+low-light vision, scent
+
+Fort +12, Ref +6, Will +4
+
+Str 29, Dex 13, Con 20,
+
+Int 10, Wis 11, Cha 8
+
+Handle Animal +3, Listen +4,
+Spor +4, Swim +13
+
+(same as human form)
+
+Cold forests
+(same as human form)
+
+5
+
+Standard
+
+Always lawful good
+By character class
++3
+
+Werebear, Hybrid Form
+
+Large Humanoid
+
+(Human, Shapechanger)
+
+id8+1 plus 6d8+30 (62 hp)
+
++1 +
+
+30 fr. (6 squares)
+
+17 (-1 size, +1 Dex, +7 natural)
+touch 10, flat-footed 16
+
+45/18
+
+Greataxe +11 melee (1d12+13/x3);
+or claw +13 melee (1d6+9)
+
+Claw +13 melee (1d6+9) and greataxe
++9 melee (1d12+4/x3) and bite +11
+melee (1d8+4) or 2 claws +13 melee
+(1d6+9) and bite +11 melee (1d8+4)
+10 ft,/10 ft.
+
+Curse of lycanthropy
+
+Alternate form, bear empathy,
+
+low-light vision, scent
+
+Fort +12, Ref +6, Will +4
+
+Str 29, Dex 13, Con 20,
+
+Int 10, Wis 11, Cha 8
+
+Handle Animal +3, Listen +4,
+Spot +5, Swim +9
+
+(same as human form)
+
+Cold forests
+(same as human form)
+
+5
+
+Standard
+
+Always lawful good
+By character class
++3
+
+WEREBOAR
+
+Werebears in humanoid form tend to be stout, well-muscled, and.
+
+hairy. Their brown hair is thick, and males usually wear beards.
+
+They may have reddish, blond, ivory, or black hair, matching the}
+color of the ursine form. They dress in simple cloth and leather
+
+garments that are easy. to remove, repair, or replace. In their
+animal form, werebears are moody and grumpy. They desire only
+their own company and seek out evil creatures to slay.
+
+Combat
+Werebears fight just as brown bears do in animal form. In hu-
+manoid or hybrid form, they favor large, heavy weapons such as
+greataxes or greatswords. The werebear’s greataxe is a Medium
+\weapon, so it can wield the axe in one hand in hybrid form.
+
+Alternate Form (Su): A werebear.can assume the form of a
+brown bear or a bear-humanoid hybrid.
+
+Bear Empathy (Ex): Communicate with bears and dire bears,
+and +4 racial bonus on Charisma-based checks against bears and
+dire bears,
+
+Curse of Lycanthropy (Su): Any humanoid or giant hit by a
+werebear's bite attack in animal or hybrid form must succeed on a
+DC 15 Fortitude save or contract lycanthropy.
+
+Improved Grab (Ex): To use this ability, a werebear must be in
+
+bear form and must hit witha claw attack. It can then attempt to start
+a.grapple as a free action without provoking an attack of opportunity.
+
+Skills: Werebears havea +4 racial bonus on Swim checks in any.
+
+jbear form,
+
+“The werebear presented here is a tst-level human warrior and nat-
+
+ural lycanthrope, using the following base ability scores: Str-13,.
+
+Dex 11,.Con.12, Int 10, Wis 9, Cha 8,
+
+Stocky and powerful, this fierce. humanoid is.cavered in shor, stiff fur and
+has boarlike tusks,
+
+‘A wereboar in humanoid form tends to be a stocky, muscular indi-
+vidual of average height. It dresses in simple garments that are
+easy ta remove, repair, ot replace.
+
+Combat.
+
+In any form, wereboars are as ferocious as normal boars. When in
+hybrid form, they fight with a weapon and their dangerous gore
+attack.
+
+Alternate Form (Su): A wereboar can assume the form of a
+boar or a boar-humanoid hybrid.
+
+Boar Empathy (Ex): Communicate with boars and dire boars,
+and +4 racial bonus on Charisma-hased checks against boars and
+dire boars.
+
+Curse of Lycanthropy (Su): Any. humanoid or giant hit by the
+wereboar's gore attack in animal or hybrid form must succeed ona
+DC 15 Fortitude save or contract lycanthropy.
+
+Ferocity (Ex): A wereboar is such a tenacious combatant that it }
+continues to fight without penalty even while disabled or dying.
+
+{The wereboar presented here is a 1st-level human warrior and nat-|
+ural lycanthrope, using the following base ability scores: Str 13,1
+Dex 11, Con 12, Int.10, Wis 9, Cha 8.
+
+WERERAT
+
+Quick and feral, this humanoid is covered with matted brown fur and has a
+long, hairless tail. t.carries a rapier in its paw, ond its face is distinctly ratlike.
+
+ 
+

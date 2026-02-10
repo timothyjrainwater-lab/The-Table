@@ -1,0 +1,275 @@
+Aworker is about 3 feet long and about 2-1/2 feet high at the
+front. It weighs about 60 pounds. Its hands are suitable only for
+
+manual labor.
+
+Combat
+
+Formian workers fight only o defend their hive-cities, using their]
+
+mandibled bite.
+
+‘A formian worker's natural weapons, as well as any weapons it
+wields, are treated as lawful-aligned for the purpose of overcoming |
+
+damage reduction.
+
+Cure Serious Wounds (Sp): Eight workers together can heal «
+creature's wounds as though using the cure serious wounds spell
+(caster level 7th). This is a full-round action for all eight workers.
+
+Make Whole (Sp): Three workers together can repair an object as
+though using the make.whole spell (caster level 7th). This is a full-
+
+round action for all three workers,
+
+WARRIOR
+
+This creature is. about the size of a pony. It looks like an ant, but holds its,
+head and thorax upright. Its mouth features powerful-looking mandibles...
+The creature has humanlike shoulders and arms ending in powerful
+
+hands with sharp claws. Its abdomen bears a stinger.
+
+Hit Dice
+Initia
+Speed:
+Armor Class:
+
+ 
+
+ 
+
+Base Attack/Grapple:
+Attack:
+
+Full Attack:
+
+Space/Reach:
+Special Attacks:
+
+Special Qualities:
+
+ 
+
+Feats:
+
+Environment:
+Organization:
+
+Challenge Rating:
+Treasure:
+Alignment:
+Advancement:
+
+Level Adjustment:
+
+Formian Worker
+
+Small Outsider
+
+(Lawful, Extraplanar)
+
+td8+1 (5 hp)
+
++2
+
+40 ft. (8 squares)
+
+17 (+1 size, +2 Dex, +4 natural),
+touch 13, flat-footed 15
+
++1/-2
+
+Bite +3 melee (1d4+1)
+
+Bite +3 melee (1d4+1)
+
+5 ft/s ft
+
+Cure serious wounds, hive mind,
+
+immunity to poison, petrification,
+and.cold, make whole, resistance to
+electricity 10, fire 10, and sonic 10
+
+Fort +3, Ref +4, Will +2
+
+Str 13, Dex 14, Con 13,
+
+Int 6, Wis 10, Cha 9
+
+Climb +10, Craft (any one) +5,
+Hide 46, Listen +4, Search +2,
+Spot +4
+
+Skill Focus (Craft [selected skill])
+
+Clockwork Nirvana of Mechanus
+Team (2-4) or crew (7-18)
+
+1/2
+
+None
+
+Always lawful neutral
+2-3 HD (Medium)
+
+Formian warriors exist only to fight }
+Warriors.rank only slightly above workers. They communi-;
+
+cate through the hive mind to convey battle plans and make,
+reports to their commanders, They cannot speak otherwise,
+A warrior is about is abouts feet long and about 4-1/2 feet high
+
+Combat
+
+at the front. It weighs about 180 pounds.
+
+Warriors are wicked combatants, using claws, bite, and a poison,
+
+ous sting all at once, Through the hive mind, they attack with
+
+damage reduction.
+
+coordinated and extremely efficient tactics,
+A formian warrior's natural weapons, as well as any weapons it
+wields, are treated as lawful-aligned for the purpose of overcoming
+
+Poison (Ex); Injury, Fortitude DC 14, initial and secondary
+
+damage 1dé6 Str. The save DC is Constitution-based.
+
+TASKMASTER
+
+{This creature is about the size of @ pony. tt looks like an ant, but holds,
+its head and thorox upright. It does not appear to have a mouth. The
+creature has humanlike shoulders and_arms. ending in powerful hands
+
+with sharp claws. Its abdomen bears a stinger,
+
+Formian Warrior
+
+Medium Outsider
+
+(Lawful, Extraplanar)
+
+4d8+8 (26 hp)
+
++3.
+
+40 ft. (8 squares)
+
+18 (+3 Dex, +5 natural),
+
+touch 13, flat-footed 15
+
++4/+7
+
+Sting +7 melee (2d4+3
+
+plus poison)
+
+Sting +7 melee (2d4+3 plus poison)
+and 2 claws +5 melee (1d6+1) and
+bite +5 melee (1d4+1)
+
+5 ft/s ft.
+
+Poison
+
+Hive mind, immunity to poison,
+petrification, and cold, resistance to
+electricity 10, fire 10, and sonic 10,
+spell resistance 18
+
+Fort +6, Ref +7, Will +5
+
+Str.17, Dex 16, Con 14,
+
+Int. 10, Wis 12, Cha 11
+
+Climb +10, Hide +10, Jump +14,
+Listen +8, Move Silently +10,
+Search +7, Spot +8, Survival +1
+(43 following tracks), Tumble +12
+
+Dodge, Multiatrack
+
+Clockwork Nirvana of Mechanus
+Solitary, team (2-4), or troop (6~11)
+
+3
+None
+
+Always lawful neutral
+5-8 HD (Medium);
+9-12 HD (Large)
+
+Formian Taskmaster
+Medium Outsider
+
+(Lawful, Extraplanar)
+
+6d8+12 (39 hp)
+
+40 ft. (8 squares)
+
+19 (+3 Dex, +6 natural),
+
+touch 13, flat-footed 16
+
++6/+10
+
+Sting +10 melee (2d4+4
+
+plus poison)
+
+Sting +10 melee (2d4+4
+
+plus poison) and
+
+2 claws +8 melee (1d6+2)
+
+5 ft,/5 ft,
+
+Dominate monster, dominated
+creature, poison
+
+Hive mind, immunity to poison,
+petrification, and cold, resistance
+toclectricity 10, fire 10, and
+sonic 10, spell resistance 21,
+telepathy 100 ft.
+
+Fort +7, Ref +8, Will +8
+
+Str 18, Dex 16, Con 14,
+
+Int 11, Wis 16, Cha 19
+
+Climb +13, Diplomacy +6,
+
+Hide +12, Intimidare +13, Listen +12,
+Move Silently +12, Search +9,
+Sense Motive +12, Spot +12,
+Survival +3 (+5 following tracks)
+Dodge, Improved Initiative,
+Multiattack
+
+Clockwork Nirvana of Mechanus
+Solitary (1 plus 1 dominated
+creature) or conscription team.
+(2—4 plus 1 dominated creature
+per team member)
+
+Standard
+
+Always lawful neurral
+
+7-9 HD (Medium),
+
+10-12 HD (Large)
+
+ 
+

@@ -1,0 +1,3 @@
+{"citations": [], "event_id": 0, "event_type": "turn_start", "payload": {"actor_id": "goblin_1", "turn_index": 0}, "rng_offset": 0, "timestamp": 0.0}
+{"citations": [], "event_id": 1, "event_type": "turn_end", "payload": {"actor_id": "goblin_1", "turn_index": 0}, "rng_offset": 0, "timestamp": 0.1}
+{"citations": [], "event_id": 999, "event_type": "turn_start", "payload": {"actor_id": "pc_fighter", "turn_index": 1}, "rng_offset": 0, "timestamp": 1.0}

@@ -1,0 +1,137 @@
+ 
+ 41
+desired. For example, at 6th level, the monk Ember could make one 
+attack with her unarmed strike at an attack bonus of +3 and one 
+attack with a special monk weapon at an attack bonus of +3. When 
+using weapons as part of a flurry of blows, a monk applies her 
+Strength bonus (not Str bonus ×  1-1/2 or × 1/2) to her damage rolls 
+for all successful attacks, whether she wields a weapon in one or 
+both hands. The monk can’t use any weapon other than a special 
+monk weapon as part of a flurry of blows. 
+In the case of the quarterstaff, each end counts as a separate 
+weapon for the purpose of using the flurry of blows ability. Even 
+though the quarterstaff requires two hands to use, a monk may still 
+intersperse unarmed strikes with quarterstaff strikes, assuming 
+that she has enough attacks in her flurry of blows 
+routine to do so. For example, an 8th-level monk 
+could make two attacks 
+with the quarterstaff (one 
+with each end) at a +5 attack 
+bonus and one with an 
+unarmed strike at a +0 attack 
+bonus, or she could attack with 
+one end of the quarterstaff and 
+one unarmed strike each at a +5 
+attack bonus, and with the other 
+end of the quarterstaff at a +0 
+attack bonus, or she could attack 
+with one end of the quarterstaff and 
+one unarmed strike at a +5 attack 
+bonus each, and with the other end of 
+the quarterstaff at a +0 attack bonus. 
+She cannot, however, wield any other 
+weapon at the same time that she uses 
+a quarterstaff. 
+When a monk reaches 11th level, her 
+flurry of blows ability improves. In 
+addition to the standard single extra 
+attack she gets from flurry of blows, she 
+gets a second extra attack at her full 
+base attack bonus. 
+Unarmed Strike: Monks are highly 
+trained in fighting unarmed, giving 
+them considerable advantages when 
+doing so. At 1st level, a monk gains 
+Improved Unarmed Strike as a bonus feat. 
+A monk’s attacks may be with either fist 
+interchangeably or even from elbows, 
+knees, and feet. This means that a monk 
+may even make unarmed strikes with her 
+hands full. There is no such thing as an off-hand 
+attack for a monk striking unarmed. A monk may 
+thus apply her full Strength bonus on damage rolls 
+for all her unarmed strikes. 
+Usually a monk’s unarmed strikes deal lethal damage, but she can 
+choose to deal nonlethal damage instead with no penalty on her 
+attack roll. She has the same choice to deal lethal or nonlethal 
+damage while grappling. 
+A monk’s unarmed strike is treated both as a manufactured 
+weapon and a natural weapon for the purpose of spells and effects 
+that enhance or improve either manufactured weapons or natural 
+weapons (such as the magic fang and magic weapon spells). 
+A monk also deals more damage with her unarmed strikes than a 
+normal person would, as shown on Table 3–10: The Monk. The 
+unarmed damage on Table 3–10 is for Medium monks. A Small 
+monk deals less damage than the amount given there with her 
+unarmed attacks, while a Large monk deals more damage; see Table: 
+Small or Large Monk Unarmed Damage. 
+Table 3–11: Small or Large Monk Unarmed Damage 
+Level Damage (Small Monk) Damage(Large Monk) 
+1st–3rd  1d4 1d8 
+4th–7th  1d6 2d6 
+8th–11th  1d8 2d8 
+12th–15th  1d10 3d6 
+16th–19th  2d6 3d8 
+20th  2d8 4d8  
+ 
+Bonus Feat:  At 1st level, a monk may select either Improved 
+Grapple or Stunning Fist as a bonus feat. At 2nd level, she 
+may select either Combat Reflexes or Deflect Arrows as a 
+bonus feat. At 6th level, she may select either Improved 
+Disarm or Improved Trip as a bonus feat. (See Chapter 
+5: Feats for descriptions.) A monk need not have any 
+of the prerequisites normally required for these 
+feats to select them. 
+Evasion (Ex):  A monk of 2nd level or higher 
+can avoid even magical and unusual attacks with 
+great agility. If she makes a successful Reflex 
+saving throw against an attack that normally 
+deals half damage on a successful save (such 
+as a red dragon’s fiery breath or a fireball), she 
+instead takes no damage. Evasion can be used 
+only if a monk is wearing light armor or no 
+armor. A helpless monk (such as one who is 
+unconscious or paralysed) does not gain the 
+benefit of evasion. 
+Fast Movement (Ex):  At 3rd level, a 
+monk gains an enhancement bonus to 
+her speed, as shown on Table 3–10. 
+A monk in armor (even light 
+armor) or carrying a medium 
+or heavy load loses this 
+extra speed. 
+Still Mind (Ex):  A monk of 3rd level or 
+higher gains a +2 bonus on saving throws 
+against spells and effects from the school of 
+enchantment, since her meditation and training 
+improve her resistance to mind-affecting 
+attacks. 
+Ki Strike (Su):  At 4th level, a monk’s 
+unarmed attacks are empowered with ki. Her 
+unarmed attacks are treated as magic weapons 
+for the purpose of dealing damage to 
+creatures with damage reduction (see 
+Damage Reduction, page 291 of the 
+Dungeon Master’s Guide ). Ki strike 
+improves with the character’s monk 
+level. At 10th level, her unarmed attacks are also treated as lawful 
+weapons for the purpose of dealing damage to creatures with 
+damage reduction. At 16th level, her unarmed attacks are treated as 
+adamantine weapons for the purpose of dealing damage to creatures 
+with damage reduction and bypassing hardness (see Smashing an 
+Object, page 165). 
+Slow Fall (Ex): At 4th level or higher, a monk within arm’s reach 
+of a wall can use it to slow her descent. When first using this ability, 
+she takes damage as if the fall were 20 feet shorter than it actually is. 
+The monk’s ability to slow her fall (that is, to reduce the effective 
+distance of the fall when next to a wall) improves with her monk 
+level until at 20th level she can use a nearby wall to slow her descent 
+and fall any distance without harm. See the Special column on Table 
+3–10 for details. 
+Purity of Body (Ex):  At 5th level, a monk gains control over her 
+body’s immune system. She gains immunity to all diseases except 
+for supernatural and magical diseases (such as mummy rot and 
+lycanthropy). 
+Ember 
+CHAPTER 3: 
+CLASSES 

@@ -1,0 +1,128 @@
+ 
+ 10 
+/rhombus4 Turning checks for clerics and paladins attempting to turn 
+zombies, vampires, and other undead. 
+Sorcerers and bards get bonus spells based on their Charisma 
+scores. The minimum Charisma score needed to cast a sorcerer or 
+bard spell is 10 + the spell’s level. 
+ 
+Average Charisma Scores 
+ Average Average 
+Example Race or Creature Kind Wisdom Modifier 
+Zombie, golem, shrieker (fungus) 1 –5 
+Spider, crocodile, lizard, rhinoceros 2 –4 
+Tendriculos, octopus 3 –4 
+Dire rat, weasel, chuul, donkey 4–5 –3 
+Badger, troll, giant fire beetle, bear 6–7 –2 
+Gnoll, dire boar, manticore, gorgon 8–9 –1 
+Human, wolverine, dretch (demon) 10–11 +0 
+Treant, roper, doppelganger, night hag 12–13 +1 
+Storm giant, barghest, medusa 14–15 +2 
+Ogre mage, pixie, harpy, achaierai 16–17 +3 
+Greater barghest, nixie 18–19 +4 
+Astral deva (angel), kraken 20–21 +5 
+Great wyrm gold dragon 32–33 +11  
+ 
+EXAMPLE OF GENERATING AND 
+ASSIGNING ABILITY SCORES 
+Monte wants to create a new character. He rolls four six-sided dice 
+(4d6) and gets 5, 4, 4, and 1. Ignoring the lowest roll (1), he records 
+the result on scratch paper: 13. He rolls the dice five more times and 
+gets these six scores: 13, 10, 15, 12, 8, and 14. Monte decides to play a 
+strong, tough dwarf fighter. Now he assigns his scores to abilities. 
+Strength gets the highest score, 15. His character has a +2 
+Strength bonus that will serve him well in combat. 
+Constitution gets the next highest score, 14. The dwarf’s +2 racial 
+bonus to Constitution (see Table 2–1: Racial Ability Adjustments, 
+page 12) improves his Constitution score to 16, which gives him a +3 
+modifier. This bonus gives the character more hit points and better 
+Fortitude saving throws. 
+Monte puts his lowest score, 8, into Charisma. The dwarf’s –2 
+racial penalty to Charisma (see Table 2–1) reduces his Charisma 
+score to 6, for a –2 penalty. 
+Monte has two bonus-range scores left (13 and 12), plus an aver-
+age score (10). Dexterity gets the 13 (+1 bonus), which helps with 
+ranged weapon attacks and with Reflex saving throws. (Monte’s also 
+thinking ahead. A Dexterity score of 13 qualifies his character for 
+the Dodge feat—see Table 5–1: Feats, page 90). 
+Wisdom gets the 12 (+1 bonus). The Wisdom bonus helps with 
+perception skills, such as Spot and Listen (see Table 4–2: Skills, page 
+63), as well as with Will saving throws. 
+Intelligence gets the 10 (no bonus or penalty). An average Intel-
+ligence isn’t bad for a fighter. 
+Monte records his character’s race, class, ability scores, and ability 
+modifiers on his character sheet. 
+ 
+CHANGING ABILITY SCORES 
+Over time, the ability scores your character starts with can change. 
+Ability scores can increase with no limit. Points at which ability 
+changes occur include the following: 
+/rhombus4 Add 1 point to any score upon attaining 4th level and at every 
+fourth level your character attains thereafter (8th, 12th, 16th, and 
+20th level). 
+/rhombus4 Many spells and magical effects temporarily increase or decrease 
+ability scores. The ray of enfeeblement  spell reduces a creature’s 
+Strength, and the bull’s strength  spell increases it. Sometimes a 
+spell simply hampers a character, reducing his or her ability score. 
+A character trapped by an entangle spell, for example, acts as if his 
+or her Dexterity were 4 points lower than it really is. 
+/rhombus4 Several magic items improve ability scores as long as the character 
+is using them. For example, gloves of dexterity improve the wearer’s 
+Dexterity score. (Magic items are described in the Dungeon 
+Master’s Guide.) Note that a magic item of this type can’t change an 
+ability score by more than +6. 
+/rhombus4 Some rare magic items can boost an ability score permanently, as 
+can a wish spell. Such an increase is called an inherent bonus. An 
+ability score can’t have an inherent bonus of more than +5. 
+/rhombus4 Poisons, diseases, and other effects can temporarily harm an 
+ability (ability damage). Ability points lost to damage return on 
+their own at a rate of 1 point per day for each damaged ability. 
+/rhombus4 Some effects drain abilities, resulting in a permanent loss (ability 
+drain). Points lost this way don’t return on their own, but they can 
+be regained with spells, such as restoration. 
+/rhombus4 As a character ages, some ability scores go up and others go down. 
+See Table 6–5: Aging Effects (page 109). 
+When an ability score changes, all attributes associated with that 
+score change accordingly. For example, when Mialee becomes a 4th-
+level wizard, she decides to increase her Intelligence score to 16. 
+That score gives her a 3rd-level bonus spell (which she’ll pick up 
+upon attaining 5th level, when she becomes able to cast 3rd-level 
+spells), and it increases the number of skill points she gets per level 
+from 4 to 5 (2 per level for her class, plus another 3 per level from 
+her Intelligence bonus). As a new 4th-level character, she can get 
+the skill points immediately after raising her Intelligence, so she’ll 
+get 5 points for attaining 4th level in the wizard class. She does not 
+retroactively get additional points for her previous levels (that is, 
+skill points she would have gained if she had had an Intelligence 
+score of 16 starting at 1st level). 
+INTELLIGENCE, WISDOM, AND CHARISMA 
+You can use your character’s Intelligence, Wisdom, and Charisma scores
+to guide you in roleplaying your character. Here is some background
+(just guidelines) about what these scores can mean. 
+A smart character (one with high Intelligence) is curious, knowledge-
+able, and prone to using big words. A character with a high Intelligence
+but low Wisdom may be smart but absentminded, or knowledgeable but
+lacking in common sense. A character with a high Intelligence but a low
+Charisma may be a know-it-all or a reclusive scholar. A smart character
+lacking in both Wisdom and Charisma may put her foot in her mouth
+often. 
+A character with a low Intelligence mispronounces and misuses
+words, has trouble following directions, or fails to get the joke. 
+A character with a high Wisdom score may be sensible, serene, “in
+tune,” alert, or centered. A character with a high Wisdom but low 
+Intelligence may be aware, but simple. A character with high Wisdom but 
+low Charisma knows enough to speak carefully and may become an 
+advisor (or “power behind the throne”) rather than a leader. The wise 
+character lacking in both Intelligence and Charisma is uncouth and unso-
+phisticated. 
+A character with a low Wisdom score may be rash, imprudent, irre-
+sponsible, or “out of it.” 
+A character with high Charisma may be attractive, striking, personable, 
+and confident. A character with high Charisma but a low Intelligence can 
+usually pass herself off as knowledgeable, until she meets a true expert. 
+A charismatic character lacking in both Intelligence and Wisdom is likely 
+to be shallow and unaware of others’ feelings. 
+A character with low Charisma may be reserved, gruff, rude, fawning, 
+or simply nondescript. 
+CHAPTER 1: 
+ABILITIES 

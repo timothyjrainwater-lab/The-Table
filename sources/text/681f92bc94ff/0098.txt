@@ -1,0 +1,108 @@
+ 
+ 97
+Special: A monk automatically gains Improved Unarmed Strike 
+as a bonus feat at 1st level. She need not select it. 
+A fighter may select Improved Unarmed Strike as one of his 
+fighter bonus feats (see page 38). 
+ 
+INVESTIGATOR [GENERAL] 
+You have a knack for finding information. 
+Benefit: You get a +2 bonus on all Gather Information checks 
+and Search checks. 
+ 
+IRON WILL [GENERAL] 
+You have a stronger will than normal. 
+Benefit: You get a +2 bonus on all Will saving throws. 
+ 
+LEADERSHIP [GENERAL] 
+You are the sort of person others want to follow, and you have done 
+some work attempting to recruit cohorts and followers. 
+Prerequisite: Character level 6th. 
+Benefit: You can attract loyal companions and 
+devoted followers, subordinates who assist you. Your DM 
+has information on what sort of cohort and how many 
+followers you can recruit. 
+Special: Check with your DM before selecting this feat, and work 
+with your DM to determine an appropriate cohort and followers for 
+your character (the Dungeon Master’s Guide has more information on 
+cohorts and followers). 
+ 
+LIGHTNING REFLEXES [GENERAL] 
+You have faster than normal reflexes. 
+Benefit: You get a +2 bonus on all Reflex saving throws. 
+ 
+MAGICAL APTITUDE [GENERAL] 
+You have a knack for magical endeavors. 
+Benefit: You get a +2 bonus on all Spellcraft checks and Use 
+Magic Device checks. 
+ 
+MANYSHOT [GENERAL] 
+You can fire multiple arrows simultaneously against a nearby target. 
+Prerequisites: Dex 17, Point Blank Shot, Rapid Shot, base attack 
+bonus +6 
+Benefit: As a standard action, you may fire two arrows at a single 
+opponent within 30 feet. Both arrows use the same attack roll (with 
+a –4 penalty) to determine success and deal damage normally (but 
+see Special). 
+For every five points of base attack bonus you have above +6, you 
+may add one additional arrow to this attack, to a maximum of four 
+arrows at a base attack bonus of +16. However, each arrow after the 
+second adds a cumulative –2 penalty on the attack roll (for a total 
+penalty of –6 for three arrows and –8 for four). 
+Damage reduction and other resistances apply separately against 
+each arrow fired. 
+Special: Regardless of the number of arrows you fire, you apply 
+precision-based damage (such as sneak attack damage) only once. If 
+you score a critical hit, only the first arrow fired deals critical 
+damage; all others deal regular damage. 
+A fighter may select Manyshot as one of his fighter bonus feats 
+(see page 38). 
+A 6th-level ranger who has chosen the archery combat style is 
+treated as having Manyshot even if he does not have the 
+prerequisites for it, but only when he is wearing light or no armor 
+(see page 48). 
+ 
+MARTIAL WEAPON PROFICIENCY 
+[GENERAL] 
+Choose a type of martial weapon, such as a longbow 
+(see Table 7–5: Weapons, page 116, for a list of martial 
+weapons). You understand how to use that type of 
+martial weapon in combat. 
+Use this feat to expand the 
+list of weapons with which 
+you are proficient beyond the basic list in your 
+class description. 
+Benefit: You make attack rolls with the selected 
+weapon normally. 
+Normal: When using a weapon with which you are 
+not proficient, you take a –4 penalty on attack rolls. 
+Special: Barbarians, fighters, paladins, and rangers are 
+proficient with all martial weapons. They need not select 
+this feat. 
+You can gain Martial Weapon Proficiency multiple 
+times. Each time you take the feat, it applies to a new type of 
+weapon.  
+A cleric who chooses the War domain automatically gains the 
+Martial Weapon Proficiency feat related to his deity’s favored 
+weapon as a bonus feat, if the weapon is a martial one. He need not 
+select it. 
+A sorcerer or wizard who casts the spell Tenser’s transformation on 
+himself or herself gains proficiency with all martial weapons for the 
+duration of the spell. 
+ 
+MAXIMIZE SPELL [METAMAGIC] 
+You can cast spells to maximum effect. 
+Benefit: All variable, numeric effects of a spell modified by this 
+feat are maximized. A maximized spell deals maximum damage, 
+cures the maximum number of hit points, affects the maximum 
+number of targets, etc., as appropriate. For example, a maximized 
+fireball deals 6 points of damage per caster level (up to a maximum of 
+60 points of damage at 10th caster level). Saving throws and opposed 
+rolls (such as the one you make when you cast dispel magic) are not 
+affected, nor are spells without random variables. A maximized spell 
+uses up a spell slot three levels higher than the spell’s actual level. 
+Illus. by J. Jarvis 
+Attacking with two arrows,
+thanks to the Manyshot feat. 
+CHAPTER 5: 
+FEATS 

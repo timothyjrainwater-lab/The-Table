@@ -1,0 +1,135 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+n the marketplace of a big city, armorsmiths and weapon-
+smiths offer a wide variety of arms and armor for those with 
+the gold to buy them. Here you can find practical, sturdy 
+swords and perhaps a few elven blades of exceptional quality. 
+Alchemists sell acid, alchemist’s fire, and smokesticks for 
+those who want something flashier than a trusty blade. Wizards (or, 
+more likely, their brokers) even sell magic scrolls, wands, weapons, 
+and other items. 
+This chapter covers the mundane and exotic merchandise that 
+characters may want to purchase and how to go about doing so. 
+(Magic items are covered in the Dungeon Master’s Guide.) 
+ 
+EQUIPPING A CHARACTER 
+A beginning character generally has enough wealth to start out with 
+the basics: some weapons, some armor suitable to his or her class (if 
+any), and some miscellaneous gear. As the character undertakes 
+adventures and amasses loot, he or she can afford bigger and better 
+gear. At first, however, the options are limited by the character’s 
+budget. 
+ 
+STARTING PACKAGES 
+Each class has a starting package that provides default equipment (as 
+well as default skills, a default feat, and so forth). If you equip your 
+character with the default equipment, you can customize these 
+packages a little by swapping in some equipment of your choice for 
+the indicated equipment. Trades like this are fine as long as the 
+value of the equipment you swap in isn’t higher than the value of the 
+equipment given in the package. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+EQUIPMENT A LA CARTE 
+If you don’t want to take the standard package for your character 
+class, you can instead purchase weapons, armor, and 
+miscellaneous equipment item by item. You begin with a 
+random number of gold pieces that is determined by your 
+character’s class, and you decide how to spend it (see Table 7–1: 
+Random Starting Gold). Alternatively, your DM can assign 
+average starting gold for each character, as indicated on Table 
+7–1. 
+ 
+Table 7–1: Random Starting Gold 
+Class Amount (average) Class Amount (average) 
+Barbarian 4d4 × 10 (100 gp) Paladin 6d4 × 10 (150 gp) 
+Bard 4d4 × 10 (100 gp) Ranger 6d4 × 10 (150 gp) 
+Cleric 5d4 × 10 (125 gp) Rogue 5d4 × 10 (125 gp) 
+Druid 2d4 × 10 (50 gp) Sorcerer 3d4 × 10 (75 gp) 
+Fighter 6d4 × 10 (150 gp) Wizard 3d4 × 10 (75 gp) 
+Monk 5d4 (12 gp, 5 sp)
+ 
+ 
+Note that buying beginning equipment this way is an 
+abstraction. Your character doesn’t walk into a store with 
+handfuls of gold and buy every item one by one. Rather, 
+these items may have come the character’s way as gifts 
+from family, equipment from patrons, gear granted 
+during military service, swag gained through duplicity, 
+and so on. 
+Assume your character owns at least one outfit of normal 
+clothes. Pick any one of the following clothing outfits for free: 
+artisan’s outfit, entertainer’s outfit, explorer’s outfit, monk’s 
+outfit, peasant’s outfit, scholar’s outfit, or traveler’s outfit. 
+(See Clothing, page 131.) 
+111

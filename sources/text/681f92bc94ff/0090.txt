@@ -1,0 +1,136 @@
+ 
+ 89
+FEAT DESCRIPTIONS 
+Here is the format for feat descriptions. 
+ 
+FEAT NAME [TYPE OF FEAT] 
+Description of what the feat does or represents in plain language. 
+Prerequisite: A minimum ability score, another feat or feats, a 
+minimum base attack bonus, a minimum number of ranks in one or 
+more skills, or a class level that a character must have in order to 
+acquire this feat. This entry is absent if a feat has no prerequisite. A 
+feat may have more than one prerequisite. 
+Benefit: What the feat enables the character (“you” in the feat 
+description) to do. If a character has the same feat more than once, 
+its benefits do not stack unless indicated otherwise in the descrip-
+tion. In general, having a feat twice is the same as having it once. 
+Normal: What a character who does not have this feat is limited 
+to or restricted from doing. If not having the feat causes no 
+particular drawback, this entry is absent. 
+Special: Additional facts about the feat that may be helpful when 
+you decide whether to acquire the feat. 
+ 
+ACROBATIC [GENERAL] 
+You have excellent body awareness and coordination. 
+Benefit: You get a +2 bonus on all Jump checks and Tumble 
+checks. 
+ 
+AGILE [GENERAL] 
+You are particularly flexible and poised. 
+Benefit: You get a +2 bonus on all Balance checks and Escape 
+Artist checks. 
+ 
+ALERTNESS [GENERAL] 
+You have finely tuned senses. 
+Benefit: You get a +2 bonus on all Listen checks and Spot checks. 
+Special: The master of a familiar (see the Familiars sidebar, page 
+52) gains the benefit of the Alertness feat whenever the familiar is 
+within arm’s reach. 
+ 
+ANIMAL AFFINITY [GENERAL] 
+You are good with animals. 
+Benefit: You get a +2 bonus on all Handle Animal checks and 
+Ride checks. 
+ 
+ARMOR PROFICIENCY (HEAVY) [GENERAL] 
+You are proficient with heavy armor (see Table 7–6: Armor and 
+Shields, page 123). 
+Prerequisites: Armor Proficiency (light), Armor Proficiency 
+(medium). 
+Benefit: See Armor Proficiency (light). 
+Normal: See Armor Proficiency (light). 
+Special: Fighters, paladins, and clerics automatically have Armor 
+Proficiency (heavy) as a bonus feat. They need not select it. 
+ 
+ARMOR PROFICIENCY (LIGHT) [GENERAL] 
+You are proficient with light armor (see Table 7–6: Armor and 
+Shields, page 123). 
+Benefit: When you wear a type of armor with which you are 
+proficient, the armor check penalty for that armor applies only to 
+Balance, Climb, Escape Artist, Hide, Jump, Move Silently, Pick 
+Pocket, and Tumble checks. 
+Normal: A character who is wearing armor with which she is not 
+proficient applies its armor check penalty to attack rolls and to all 
+skill checks that involve moving, including Ride. 
+Special: All characters except wizards, sorcerers, and monks 
+automatically have Armor Proficiency (light) as a bonus feat. They 
+need not select it. 
+ARMOR PROFICIENCY (MEDIUM) 
+[GENERAL] 
+You are proficient with medium armor (see Table 7–6: Armor and 
+Shields, page 123). 
+Prerequisite: Armor Proficiency (light). 
+Benefit: See Armor Proficiency (light). 
+Normal: See Armor Proficiency (light). 
+Special: Fighters, barbarians, paladins, clerics, druids, and bards 
+automatically have Armor Proficiency (medium) as a bonus feat. 
+They need not select it. 
+ 
+ATHLETIC [GENERAL] 
+You have a knack for athletic endeavors. 
+Benefit: You get a +2 bonus on all Climb checks and Swim 
+checks. 
+ 
+AUGMENT SUMMONING [GENERAL] 
+Your summoned creatures are more powerful than normal. 
+Prerequisite: Spell Focus (conjuration). 
+Benefit: Each creature you conjure with any summon spell gains a 
++4 enhancement bonus to Strength and Constitution for the 
+duration of the spell that summoned it. 
+ 
+BLIND-FIGHT [GENERAL] 
+You know how to fight in melee without being able to see your foes. 
+Benefit: In melee, every time you miss because of concealment, 
+you can reroll your miss chance percentile roll one time to see if you 
+actually hit (see Concealment, page 152). 
+An invisible attacker gets no advantages related to hitting you in 
+melee. That is, you don’t lose your Dexterity bonus to Armor Class, 
+and the attacker doesn’t get the usual +2 bonus for being invisible 
+(see Table 8–5: Attack Roll Modifiers and Table 8–6: Armor Class 
+Modifiers, page 151). The invisible attacker’s bonuses do still apply 
+for ranged attacks, however. 
+You take only half the usual penalty to speed for being unable to 
+see. Darkness and poor visibility in general reduces your speed to 
+three-quarters normal, instead of one-half (see Table 9–4: Hampered 
+Movement, page 163). 
+Normal: Regular attack roll modifiers for invisible attackers 
+trying to hit you (see Table 8–5: Attack Roll Modifiers, page 151) 
+apply, and you lose your Dexterity bonus to AC. The speed reduc-
+tion for darkness and poor visibility (see Table 9–4: Hampered 
+Movement, page 163) also applies. 
+Special: The Blind-Fight feat is of no use against a character who 
+is the subject of a blink spell (see page 206). 
+A fighter may select Blind-Fight as one of his fighter bonus feats 
+(see page 38). 
+ 
+BREW POTION [ITEM CREATION] 
+You can create potions, which carry spells within themselves. See 
+the Dungeon Master’s Guide for rules on potions. 
+Prerequisite: Caster level 3rd. 
+Benefit: You can create a potion of any 3rd-level or lower spell 
+that you know and that targets one or more creatures. Brewing a 
+potion takes one day. When you create a potion, you set the caster 
+level, which must be sufficient to cast the spell in question and no 
+higher than your own level. The base price of a potion is its spell 
+level ×  its caster level ×  50 gp. To brew a potion, you must spend 
+1/25 of this base price in XP and use up raw materials costing one 
+half this base price. 
+When you create a potion, you make any choices that you would 
+normally make when casting the spell. Whoever drinks the potion is 
+the target of the spell. 
+Any potion that stores a spell with a costly material component or 
+an XP cost also carries a commensurate cost. In addition to the costs 
+derived from the base price, you must expend the material 
+component or pay the XP when creating the potion. 
+CHAPTER 5: 
+FEATS 

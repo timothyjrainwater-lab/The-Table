@@ -1,0 +1,333 @@
+¢
+
+An ankheg burrows with legs and mandibles. A burrowing
+ankheg usually does not make a usable tunnel, but can construct
+a tunnel; it burrows at half speed when it does so. tt often digs a
+winding tunnel up to 40 feet below the surface in the rich soil of
+forests or farmlands. The tunnel is 5 feet tall and wide,and from 60
+to 150 feet long ({tdt0 + 5] x 10), The hollowed ends of the tunnel
+erve as temporary lairs for sleeping, eating, or hibe
+
+‘An ankheg can eat decayed organic matter but prefers fresh
+meat. Though a hungry ankheg might kill a farmer, the creature is
+quite beneficial to farmland. Its tunnel system laces the soil with
+passages for air and water, while its wastes add rich nutrie
+
+COMBAT
+Anankheg usually lies 5 to.10 feet below the
+surface until its antennae detect
+the approach of prey..It
+then_burrows_ up_to.
+attack. (Treat this asa
+charge, even though
+the ankheg does not
+need to move 10 feet
+before attacking
+
+ 
+
+ 
+
+ 
+
+ 
+
+nating
+
+ 
+
+ 
+
+ 
+
+    
+  
+   
+
+ 
+
+ 
+
+Clusters of ank:
+hegs share the
+same territory but
+do not cooperate. If
+several attack, each
+tries to grab a dif
+there aren't enou
+two might grab the
+same creature in a
+tug-of-wa
+
+Improved
+Grab (Ex): To
+use.this ability, an
+ankheg must hit with
+its bite attack. It.can then attempt to start.a grapple asa free action
+without provoking an attack of opportunity. If the ankheg is dam:
+aged after grabbing its prey, it retreats backward down its tunnel at
+its land speed (not its burrow speed), dragging the victim with it
+
+Spit Acid (Ex): 30-ft. line, once every 6
+
+ 
+
+t foe. If
+
+h targets,
+
+ 
+
+    
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+nours; damage 444
+
+acid, Reflex DC 14 half One such attack depletes the ankheg's
+
+   
+
+supply for 6 hours. It cannot spit acid or deal acid damage
+g this time, The save DC is Constitution-based.
+
+An ankheg does not use this ability unless it is desperate or
+ustrated, It most often spits acid when reduced to fewer than
+its full normal hit points or when it has not successfully
+
+grabbed an opponent.
+
+ 
+
+ 
+
+  
+
+ 
+
+Medium Magical Beast (Shapechanger)
+
+Hit Dice: 3d10+6 (22 hp)
+
+Initiative: +6
+
+Speed: 50 ft. (10 squares), climb 25 ft
+
+Armor Class: 13 (+2 Dex, +1 natural
+
+Base Attack/Grapple; +3/+3
+
+Attack: Bite +5 melee (1d6 plus poison) or web +5 ranged
+
+Full Attack: Bite +5 melee (1d6 plus poison) or web +5 ranged
+
+Space/Reach: 5 ft./5 ft
+
+Special Attacks; Poison, spells, web
+
+|Special Qualities: Change shape, darkvision 60 ft,. low-light vision
+
+\Saves; Fort +5, Ref +5, Will +4
+
+Abilities: Str 11, Dex 15,.Con 14, Int 14, Wis 13, Cha 14
+
+Skills; Climb +14, Concentration +8, Escape Artist +5, Jump +13,
+Listen +6, Spot +6
+
+touch 12, flat-footed 11
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Feats: Improved Initiative, Iron Will", Weapon Finesse
+Environment: Temperate forests
+
+Organization: Solitary or colony (3-6. 1
+Challenge Rating: 4
+
+Treasure: Standard coins; double goods; standard items
+Alignment: Usually neutral
+
+Advancement: By character class
+
+Level Adjustment: +4
+
+ 
+
+The creature appears to be a monstrous spider but it has
+humonlike arms below its mandibles.
+
+10. small
+
+ 
+
+ 
+
+ 
+
+An aranea is an intelligent, shapechanging spider with sorcerous
+powers, In its natural form, an aranea resembles a big spider, with
+a humpbacked body a little bigger than. a human torso. Ithas{
+fanged mandibles like a normal spider. Two small arms, cach about
+andibles. Each arm has a hand with
+four many-jointed fingers and a
+double-jointed thumb.
+An aranea weighs about 150
+pounds. The hump on its back
+houses its brain.
+Araneas speak Common and
+Sylvan.
+
+COMBAT
+An aranea avoids physical com
+batand uses its webs.and |
+spells. when it can_In,
+
+a battle, it tries 10
+immobilize or distract.
+the most.aggressive
+opponents first.
+
+Araneas_often.
+subdue opponents
+for ransom.
+
+Poison (Ex): Injury, Fortitude DC 13, initial damage 1dé6 Str
+lary damage 2d6 Str. The save DC is Constituti
+
+ 
+
+ 
+
+ 
+
+2 feet long, lie below the n
+
+      
+ 
+ 
+ 
+ 
+  
+ 
+ 
+   
+   
+ 
+  
+   
+
+ 
+
+Ankheg
+
+ 
+
+  
+
+ 
+
+  
+
+ 
+
+  
+
+n-based.
+
+ 
+
+secon
+
+   
+
+Spells: An aranea casts spells asa 3rd-level sorcerer. It prefers
+illu
+
+ 
+
+ions and enchantments and avoids fire spells
+Typical Sorcerer Spells Known. (6/6; save DC 12 + spell level): 0
+
+ni,
+
+    
+
+ 
+
+detect magic, gf Ke; Lst—mage armor, silent
+
+  
+
+age, sleep,
+
+Web (Ex): In spider or hybrid form
+can throw a.web up to six times per day. This is similar to an
+attack with a.net bur has a
+range increment of 10 feet, and is effective against targets of
+up to Large size. The web anchors the target in place, allowing
+no movement.
+
+An entangled creature can escape with a DC 13 Escape Artist
+check or burst the web with a.DC 17 Strength check. The check
+DCs are Constitution-based, and the Strength check DC includes
+a +4racial bonus. The web has 6 hit points, hardness 0, and takes
+double damage from fire.
+
+Change Shape (Su); An aranea’s natural form is that of a
+Medium monstrous spider, It can assume two other forms, The
+first is a unique Small or Medium humanoid; an aranea in its
+humanoid form always.assumes the same appearance and traits,
+much as.alycanthrope would. In humanoid form,an aranea
+not use its bite attack, webs, or poison.
+
+The second form is a Medium spider—humanoid hybrid. In
+hybrid form, an aranea looks like a Medium humanoid at first
+glance, but.a DC 18 Spor check reveals the creature's fangs an
+ts, The aranea retains its bite attack, webs, and poison
+rm, and can also wield weapons or wear armor. Whi
+hybrid form, an aranea's speed is 30 feet (6 squares,
+
+   
+
+see bel
+
+ 
+
+w), an aran
+
+    
+
+naximum range of 50 feet, wi
+
+ 
+
+   
+
+ 
+
+ 
+
+   
+
+in
+
+ 
+

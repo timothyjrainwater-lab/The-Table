@@ -1,0 +1,202 @@
+ 
+ 246 
+Arcane Material Component: A small piece 
+of iron that was once part of either an iron 
+golem, a hero’s armor, or a war machine. 
+ 
+Ironwood 
+Transmutation 
+Level: Drd 6 
+Components: V, S, M 
+Casting Time: 1 minute/lb. created 
+Range: 0 ft. 
+Effect: An ironwood object weighing up to 
+5 lb./level 
+Duration: One day/level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+Ironwood is a magical substance created by 
+druids from normal wood. While re-
+maining natural wood in almost every way, 
+ironwood is as strong, heavy, and resistant 
+to fire as steel. Spells that affect metal or 
+iron (such as heat metal) do not function on 
+ironwood. Spells that affect wood (such as 
+wood shape ) do affect ironwood, although 
+ironwood does not burn. Using this spell 
+with wood shape  or a wood-related Craft 
+check, you can fashion wooden items that 
+function as steel items. Thus, wooden plate 
+armor and wooden swords can be created 
+that are as durable as their normal steel 
+counterparts. These items are freely usable 
+by druids. 
+Further, if you make only half as much 
+ironwood as the spell would normally allow, 
+any weapon, shield, or suit of armor so 
+created is treated as a magic item with a +1 
+enhancement bonus. 
+Material Component:  Wood shaped into 
+the form of the intended ironwood object. 
+ 
+Jump 
+Transmutation 
+Level: Drd 1, Rgr 1, Sor/Wiz 1 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature touched 
+Duration: 1 min./level (D) 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes 
+ 
+The subject gets a +10 enhancement bonus 
+on Jump checks. The enhancement bonus 
+increases to +20 at caster level 5th, and to 
++30 (the maximum) at caster level 9th. 
+Material Component:  A grasshopper’s 
+hind leg, which you break when the spell 
+is cast. 
+ 
+Keen Edge 
+Transmutation 
+Level: Sor/Wiz 3 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Targets: One weapon or fifty projectiles, 
+all of which must be in contact with 
+each other at the time of casting 
+Duration: 10 min./level 
+Saving Throw: Will negates (harmless, 
+object) 
+Spell Resistance: Yes (harmless, object) 
+ 
+This spell makes a weapon magically keen, 
+improving its ability to deal telling blows. 
+This transmutation doubles the threat 
+range of the weapon. A threat range of 20 
+becomes 19–20, a threat range of 19–20 
+becomes 17–20, and a threat range of 18–
+20 becomes 15–20. The spell can be cast 
+only on piercing or slashing weapons. If 
+cast on arrows or crossbow bolts, the keen 
+edge on a particular projectile ends after 
+one use, whether or not the missile strikes 
+its intended target. (Treat shuriken as 
+arrows, rather than as thrown weapons, for 
+the purpose of this spell.) 
+Multiple effects that increase a weapon’s 
+threat range (such as the keen edge spell and 
+the Improved Critical feat) don’t stack. You 
+can’t cast this spell on a natural weapon, 
+such as a claw. 
+ 
+Knock 
+Transmutation 
+Level: Sor/Wiz 2 
+Components: V 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Target: One door, box, or chest with an 
+area of up to 10 sq. ft./level 
+Duration: Instantaneous; see text 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+The knock spell opens stuck, barred, 
+locked, held, or arcane locked doors. It opens 
+secret doors, as well as locked or trick-
+opening boxes or chests. It also loosens 
+welds, shackles, or chains (provided they 
+serve to hold closures shut). If used to 
+open a arcane locked door, the spell does not 
+remove the arcane lock but simply suspends 
+its functioning for 10 minutes. In all other 
+cases, the door does not relock itself or 
+become stuck again on its own. Knock does 
+not raise barred gates or similar impedi-
+ments (such as a portcullis), nor does it 
+affect ropes, vines, and the like. The effect 
+is limited by the area. A 3rd-level caster can 
+cast a knock spell on a door of 30 square feet 
+or less (for example, a standard 4-foot-by-7-
+foot door). Each spell can undo as many as 
+two means of preventing egress. Thus if a 
+door is locked, barred, and held, or 
+quadruple locked, opening it requires two 
+knock spells. 
+ 
+Know Direction 
+Divination 
+Level: Brd 0, Drd 0 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: Instantaneous 
+ 
+You instantly know the direction of north 
+from your current position. The spell is 
+effective in any environment in which 
+“north” exists, but it may not work in 
+extraplanar settings. Your knowledge of 
+north is correct at the moment of casting, 
+but you can get lost again within moments 
+if you don’t find some external reference 
+point to help you keep track of direction. 
+ 
+Legend Lore 
+Divination 
+Level: Brd 4, Knowledge 7, Sor/Wiz 6 
+Components: V, S, M, F 
+Casting Time: See text 
+Range: Personal 
+Target: You 
+Duration: See text 
+ 
+Legend lore  brings to your mind legends 
+about an important person, place, or thing. 
+If the person or thing is at hand, or if you 
+are in the place in question, the casting 
+time is only 1d4×10 minutes. If you have 
+only detailed information on the person, 
+place, or thing, the casting time is 1d10 
+days, and the resulting lore is less complete 
+and specific (though it often provides 
+enough information to help you find the 
+person, place, or thing, thus allowing a 
+better legend lore  result next time). If you 
+know only rumors, the casting time is 2d6 
+weeks, and the resulting lore is vague and 
+incomplete (though it often directs you to 
+more detailed information, thus allowing a 
+better legend lore result next time). 
+During the casting, you cannot engage 
+in other than routine activities: eating, 
+sleeping, and so forth. When completed, 
+the divination brings legends (if any) 
+about the person, place, or things to your 
+mind. These may be legends that are still 
+current, legends that have been forgotten, 
+or even information that has never been 
+generally known. If the person, place, or 
+thing is not of legendary importance, you 
+gain no information. As a rule of thumb, 
+characters who are 11th level and higher 
+are “legendary,” as are the sorts of creatures 
+they contend with, the major magic items 
+they wield, and the places where they 
+perform their key deeds. 
+Examples of legend lore  results include 
+the following. 
+A divination about a mysterious magic 
+axe you have at hand: “Woe to the evildoer 
+whose hand touches the axe, for even the 
+haft chops the hand of the evil ones. Only 
+a true Son or Daughter of Stone, one who 
+loves Moradin and whom Moradin loves, 
+may awaken the true powers of the axe, 
+CHAPTER 11: 
+SPELLS 

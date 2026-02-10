@@ -1,0 +1,169 @@
+ 
+
+Demons are a race of creatures native to. the Abyss, plane of end-
+less evil. They are ferocity personified and will attack any.creature
+just for the sheer fun of it—even other demons. They enjoy rerri-,
+fying their victims before slaying them and often devour the slain. |
+Many demons, not satisfied with their own iniquity, take pleruet
+\in.tempting mortals to become as depraved as they are. a
+A number of demons belong to a.race (and subtype) known. Pa
+the tanar'ri. The tanar'ri form the largest and most diverse group of |
+jdemons, and they are the unchallenged masters of the Abyss, |
+\—Tanar'ri Traits: A tanar'ti possesses the following traits (unless
+_otherwise noted in a creature's entry),
+
+—Immunity to electricity and poison.
+
+—Resistance to.acid 10, cold 10, and fire 10.
+
+—Summon (Sp): Tanar'ti share the ability to summon others of
+their kind (the success chance and type of tanar'ri summoned are
+,noted in each monster description). However, between their|
+\arrogance and disdain for owing favors to one another, tanar'ri,
+jare often reluctant to use this power until in obvious peril or,
+
+extreme circumstances,
+
+—Telepathy,
+
+Except where otherwise noted, demons speak Abyssal, Celestial,
+and Draconic.
+
+BABAU
+Medium Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)
+| Hit Dice: 7d8+35 (66 hp)
+Anitiative: +1
+|Speed: 30 ft. (6 squares)
+{Armor Class: 19 (+1 Dex, +8 natural), touch 11, flat-footed 18
+Base Attack/Grapple: +7/+12
+Attack: Claw +12 melee (1d6+5)
+Full Attack: 2 claws +12 melee (1d6+5) and bite +7 melee (1d6+2)
+Space/Reach: 5 ft./s ft.
+Special Attacks: Sneak attack +2d6, spell-like abilities, summon
+tanarvi
+Special Qualities: Damage reduction 10/cold iron or good,
+darkvision 60 ft., immunity to electricity and poison, protec}
+tive slime, resistance to.acid 10, cold 10, and fire 10, spell
+resistance 14, telepathy 100 ft.
+Saves: Fort +10, Ref +6, Will +6
+Abilities: Str 21, Dex 12, Con 20, Int 14, Wis 13, Cha 16
+Skills; Climb. +15, Disable Device. +12, Disguise +13, Escape
+Artist +11, Hide +19, Listen +19, Move Silently +19, Open
+Lock +11, Search +20, Sleight of Hand +11, Survival +1 (+3
+| following tracks), Use Rope +1 (+3. with bindings)
+_Feats: Cleave, Multiattack, Power Attack
+Enyironment: Infinite Layers of the Abyss
+Organization: Solitary or gang (3-4)
+Challenge Rating: 6
+‘Treasure: Standard.
+Alignment: Always chaoric evil
+Advancement: 814 HD (Large); 15-21 HD (Huge)
+Level Adjustment: —
+
+Reeking of decay, this gaumt humanoid is covered in black, leathery skin.
+Behind its pointed ears, a large curved hom rises out.of she back of its
+skull. A mouth of jagged teeth tokes.up half of the foul creature's head.
+
+|Babaus serve.as.assassins that strike with a sudden ferocity, They.
+lare devious, forming careful plans before going into plans—
+jalways making sure that they do not haye.to engage in a fair fight.
+‘Almost every demon lord has a number of babaus employed as
+spies and killers.
+A babawis about 6 feet tall and weighs about 140 pounds.
+
+Combat
+Babaus are sneaky and sly. They attack the most powerful foe first.] j
+hoping to climinate the true threats quickly and then toy with the,
+rest, When ambushing their opponents, they make excellent use|
+4of the combination of multiple attacks and sneak attacks.
+
+A babau’s natural weapons, as well as any weapons it wields, are
+treated as chaotic-aligned and evil-aligned for the purpose of over-
+coming damage reduction,
+
+Sneak Attack (Ex): A babau can make a sneak attack like a,
+
+.rogue, dealing an extra 2d6 points of damage whenever a foe is
+denied his or her Dexterity bonus, or when the babau is flanking.)
+
+Spell-Like Abilities; At will—darkness, dispel magic, see inwisibil-
+ity, greater teleport (self plus 50 pounds of objects.only). Caster level
+7th.
+
+Protective Slime (Su): A slimy red jelly coats the babau's skin.
+Any weapon that touches it takes 1d8 points of acid damage from
+,the corrosive goo, and the weapon's hardness does not reduce this
+damage. A magic weapon may attempt a DC 18 Reflex save to.
+javoid taking this damage. A creature who strikes the babau with,
+jan unarmed attack, unarmed strike, touch spell, or natural weapon,
+takes this damage as well but can negate the damage with a DC 18.
+Reflex save. The save DCs are Constitution-based. +
+
+Summon Tanar'ri (Sp): Once per day a babau can attempt to sum-
+mon 1 babau.with a 40%.chance of success. This ability.is the
+equivalent of a 3rd-level spell.
+
+Skills; Babaus have a +8 racial bonus.on Hide, Listen, Move
+Silently, and Search checks. 4
+
+BALOR
+
+Large Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)
+
+Hit Dice: 20d8+200 (290 hp)
+
+Initiative: +11
+
+Speed: 40 fr. (8 squares), fly 90 ft. (good)
+
+Armor Class: 35 (1 size, +7 Dex, +19 natural), touch 16,
+flat-footed 28
+
+Base Attack/Grapple: +20/+36
+
+Attack; +1 vorpal longsword +33 melee (2d6+8/19-20)
+
+Full Attack: +1 vorpal longswond +31/+26/+21/+16 melee
+(2d6+8/19-20) and +1 flaming whip +30/+25 melee (1d4+4 plus
+idé fire plus entangle); or 2 slams +31 melee (1d10+7)
+
+Space/Reach: 10 ft,/10 fr. (20.ft. with +1 flaming whip)
+
+Special Attacks: Death throes, entangle, spell-like abilities,
+summon tanar'ri, vorpal sword.
+
+Special Qualities: Damage reduction 15/cold iron and good,
+darkvision 60 ft, flaming body, immunity to electricity, fire,
+and poison, resistance to acid 10 and cold 10, spell resistance
+28, telepathy 100 ft., true seeing
+
+Saves: Fort +22, Ref +19, Will +19
+
+Abilities: Str 35, Dex 25, Con 31, Int 24, Wis 24, Cha 26
+
+Skills: Bluff +31, Concentration +33, Diplomacy +35, Disguise +8
+(+10 acting), Hide +26, Intimidate +33, Knowledge (any two)
++30, Listen +38, Move Silently +30, Search +30, Sense Motive
++30, Spellcraft +30 (+32 scrolls), Spot +38, Survival +7 (+9
+following tracks), Use Magic Device +31 (+33 scrolls)
+
+Feats; Cleave, Improved Initiative, Improved Two-Weapon.
+Fighting, Power Attack, Quicken Spell-Like Ability (telekinesis),
+‘Two-Weapon Fighting, Weapon Focus (longsword)
+
+Environment: Infinite Layers of the Abyss
+
+Organization: Solitary or troupe (1 balor, 1 marilith,and 2-5 _|
+hezrous) 4
+
+Challenge Rating; 20
+
+‘Treasure; Standard coins; double goods; standard items, plus +1
+vorpal greatswond and +1 flaming whip
+
+Alignment: Always chaotic evil
+
+Advancement; 21-30 HD (Large); 31-60 HD (Huge)
+
+Level Adjustment: —
+

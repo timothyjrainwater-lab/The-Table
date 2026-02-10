@@ -1,0 +1,107 @@
+ 
+ 134 
+ATTACK ROLL 
+An attack roll represents your attempt to strike your opponent on 
+your turn in a round. When you make an attack roll, you roll a d20 
+and add your attack bonus. (Other modifiers may also apply to this 
+roll.) If your result equals or beats the target’s Armor Class, you hit 
+and deal damage. 
+Automatic Misses and Hits:  A natural 1 (the d20 comes up 1) 
+on an attack roll is always a miss. A natural 20 (the d20 comes up 20) 
+is always a hit. A natural 20 is also a threat—a possible critical hit 
+(see the Critical Hits sidebar, page 140). 
+ 
+ATTACK BONUS 
+Your attack bonus with a melee weapon is: 
+Base attack bonus + Strength modifier + size modifier 
+With a ranged weapon, your attack bonus is: 
+Base attack bonus + Dexterity modifier + size modifier 
++ range penalty 
+ 
+Strength Modifier: Strength helps you swing a weapon harder 
+and faster, so your Strength modifier applies to melee attack rolls. 
+Dexterity Modifier:  Dexterity measures coordination and 
+steadiness, so your Dexterity modifier applies to attacks with ranged 
+weapons. 
+Size Modifier:  The smaller you are, the bigger other creatures 
+are relative to you. A human is a big target to a halfling, just as an 
+ogre is a big target to a human. Since this same size modifier applies 
+to Armor Class, two creatures of the same size strike each other 
+normally, regardless of what size they actually are. 
+ 
+Table 8–1: Size Modifiers 
+Size Size Modifier Size Size Modifier 
+Colossal –8 Small +1 
+Gargantuan –4 Tiny +2 
+Huge –2 Diminutive +4 
+Large –1 Fine +8 
+Medium +0  
+Range Penalty: The range penalty for a ranged weapon depends 
+on the weapon and the distance to the target. All ranged weapons 
+have a range increment, such as 10 feet for a thrown dart or 100 feet 
+for a longbow (see Table 7–5: Weapons, page 116). Any attack from a 
+distance of less than one range increment is not penalized for range, 
+so an arrow from a shortbow (range increment 60 feet) can strike at 
+enemies up to 59 feet away with no penalty. However, each full 
+range increment causes a cumulative –2 penalty on the attack roll. A 
+shortbow archer firing at a target 200 feet away takes a –6 penalty on 
+his attack roll (because 200 feet is at least three range increments but 
+not four increments). 
+Thrown weapons, such as throwing axes, have a maximum range 
+of five range increments. Projectile weapons, such as bows, can 
+shoot up to ten increments. 
+ 
+DAMAGE 
+When your attack succeeds, you deal damage. The type of weapon 
+used (see Table 7–5: Weapons, page 116) determines the amount of 
+damage you deal. Effects that modify weapon damage apply to 
+unarmed strikes and the natural physical attack forms of creatures. 
+Damage reduces a target’s current hit points. 
+Minimum Damage: If penalties reduce the damage result to less 
+than 1, a hit still deals 1 point of damage. 
+Strength Bonus: When you hit with a melee or thrown weapon, 
+including a sling, add your Strength modifier to the damage result. 
+A Strength penalty, but not a bonus, applies on attacks made with a 
+bow that is not a composite bow. 
+Off-Hand Weapon: When you deal damage with a weapon in your 
+off hand, you add only 1/2 your Strength bonus. 
+Wielding a Weapon Two-Handed:  When you deal damage with a 
+weapon that you are wielding two-handed, you add 1-1/2 times your 
+Strength bonus. However, you don’t get this higher Strength bonus 
+when using a light weapon with two hands (see Light, One-Handed, 
+and Two-Handed Melee Weapons, page 113). 
+Multiplying Damage: Sometimes you multiply damage by some 
+factor, such as on a critical hit. Roll the damage (with all modifiers) 
+multiple times and total the results. Note: When you multiply 
+damage more than once, each multiplier works off the original, 
+unmultiplied damage (see Multiplying, page 304). 
+Exception: Extra damage dice over and above a weapon’s normal 
+damage, such as that dealt by a sneak attack or the special ability of a 
+flaming sword, are never multiplied. 
+For example, Krusk the half-orc barbarian has a Strength bonus of 
++3. That means he gets a +3 bonus on damage rolls when using a 
+longsword, a +4 bonus on damage when using a greataxe (two-
+handed), and a +1 bonus to damage when using a weapon in his off 
+hand. His critical multiplier with a greataxe is ×3, so if he scores a 
+critical hit with that weapon, he would roll 1d12+4 points of damage 
+three times (the same as rolling 3d12+12). 
+Ability Damage: Certain creatures and magical effects can cause 
+temporary ability damage (a reduction to an ability score). The 
+Dungeon Master’s Guide has details on ability damage. 
+ 
+ARMOR CLASS 
+Your Armor Class (AC) represents how hard it is for opponents to 
+land a solid, damaging blow on you. It’s the attack roll result that an 
+opponent needs to achieve to hit you. The average, unarmored 
+peasant has an AC of 10. Your AC is equal to the following: 
+ 
+10 + armor bonus + shield bonus + Dexterity modifier 
++ size modifier 
+ 
+Armor and Shield Bonuses:  Your armor and shield each pro-
+vide a bonus to your AC. This bonus represents their ability to pro-
+tect you from blows. 
+Dexterity Modifier:  If your Dexterity is high, you are adept at 
+dodging blows. If your Dexterity is low, you are inept at it. That’s 
+CHAPTER 8: 
+COMBAT 

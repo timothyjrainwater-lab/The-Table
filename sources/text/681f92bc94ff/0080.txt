@@ -1,0 +1,136 @@
+ 
+ 79
+indicated DC would be their average check result (or close to it). For 
+instance, the DC 19 noted on the table for a cat stalking means that 
+an average cat has a +9 bonus on Move Silently checks. Assuming an 
+average roll of 10 on 1d20, its Move Silently check result would be 
+19. 
+Action: Varies. Every time you have a chance to hear something 
+in a reactive manner (such as when someone makes a noise or you 
+move into a new area), you can make a Listen check without using 
+an action. Trying to hear something you failed to hear previously is a 
+move action. 
+Try Again: Yes. You can try to hear something that you failed to 
+hear previously with no penalty. 
+Special: When several characters are listening to the same thing, 
+a single 1d20 roll can be used for all the individuals’ Listen checks. 
+A fascinated creature takes a –4 penalty on Listen checks made as 
+reactions. 
+If you have the Alertness feat, you get a +2 bonus on Listen 
+checks. 
+A ranger gains a bonus on Listen checks when using this skill 
+against a favored enemy (see page 47). 
+An elf, gnome, or halfling has a +2 racial bonus on Listen checks, 
+thanks to the keen ears with which members of those races are 
+blessed. 
+A half-elf has a +1 racial bonus on Listen checks. Her hearing is 
+good because of her elven heritage, but not as keen as that of a full 
+elf. 
+A sleeping character may make Listen checks at a –10 penalty. A 
+successful check awakens the sleeper. 
+ 
+MOVE SILENTLY (DEX; ARMOR CHECK PENALTY) 
+You can use this skill to sneak up behind an enemy or to slink away 
+without being noticed. 
+Check: Your Move Silently check is opposed by the Listen check 
+of anyone who might hear you. You can move up to one-half your 
+normal speed at no penalty. When moving at a speed greater than 
+one-half but less than your full speed, you take a –5 penalty. It’s 
+practically impossible (–20 penalty) to move silently while running 
+or charging. 
+Noisy surfaces, such as bogs or undergrowth, are tough to move 
+silently across. When you try to sneak across such a surface, you take 
+a penalty on your Move Silently check as indicated below. 
+ 
+Surface Check Modifier 
+Noisy (scree, shallow or deep bog, undergrowth, –2 
+dense rubble) 
+Very noisy (dense undergrowth, deep snow) –5  
+ 
+Action: None. A Move Silently check is included in your move-
+ment or other activity, so it is part of another action. 
+Special: The master of a cat familiar (see the Familiars sidebar, 
+page 52) gains a +3 bonus on Move Silently checks. 
+A halfling has a +2 racial bonus on Move Silently checks because 
+halflings are nimble. 
+If you have the Stealthy feat, you get a +2 bonus on Move Silently 
+checks. 
+ 
+OPEN LOCK (DEX; TRAINED ONLY) 
+You can pick padlocks, finesse combination locks, and solve puzzle 
+locks. The effort requires at least a simple tool of the appropriate sort 
+(a pick, pry bar, blank key, wire, or the like). Attempting an Open 
+Lock check without a set of thieves’ tools (page 130) imposes a –2 
+circumstance penalty on the check, even if a simple tool is 
+employed. If you use masterwork thieves’ tools, you gain a +2 
+circumstance bonus on the check. 
+Check: The DC for opening a lock varies from 20 to 40, depend-
+ing on the quality of the lock, as given on the table below. 
+Lock DC Lock DC 
+Very simple lock 20 Good lock 30 
+Average lock 25 Amazing lock 40  
+ 
+Action: Opening a lock is a full-round action. 
+Special: If you have the Nimble Fingers feat, you get a +2 bonus 
+on Open Lock checks. 
+Untrained: You cannot pick locks untrained, but you might 
+successfully force them open (see Smashing an Object, page 165). 
+ 
+PERFORM (CHA) 
+You are skilled in a type of artistic expression, which may encom-
+pass a variety of specific methods, and you know how to put on a 
+show. 
+Like Craft, Knowledge, and Profession, Perform is actually a 
+number of separate skills. For instance, you could have the skill 
+Perform (act). Your ranks in that skill don’t affect any checks you 
+happen to make for Perform (oratory) or Perform (string 
+instruments). You could have several Perform skills, each with its 
+own ranks, each purchased as a separate skill. 
+Each of the nine categories of the Perform skill includes a variety 
+of methods, instruments, or techniques, a small list of which is 
+provided for each category below. The DM is free to expand any of 
+these categories with additional methods, instruments, or tech-
+niques, as appropriate for his or her campaign. 
+/rhombus4 Act (comedy, drama, mime) 
+/rhombus4 Comedy (buffoonery, limericks, joke-telling) 
+/rhombus4 Dance (ballet, waltz, jig) 
+/rhombus4 Keyboard instruments (harpsichord, piano, pipe organ) 
+/rhombus4 Oratory (epic, ode, storytelling) 
+/rhombus4 Percussion instruments (bells, chimes, drums, gong) 
+/rhombus4 String instruments (fiddle, harp, lute, mandolin) 
+/rhombus4 Wind instruments (flute, pan pipes, recorder, shawm, trumpet) 
+/rhombus4 Sing (ballad, chant, melody) 
+ 
+Check: You can impress audiences with your talent and skill. 
+ 
+ Perform 
+ DC Performance 
+ 10 Routine performance. Trying to earn money by playing in 
+  public is essentially begging. You can earn 1d10 cp/day. 
+ 15 Enjoyable performance. In a prosperous city, you can earn 
+  1d10 sp/day. 
+ 20 Great performance. In a prosperous city, you can earn 
+  3d10 sp/day. In time, you may be invited to join a pro- 
+  fessional troupe and may develop a regional reputation. 
+ 25 Memorable performance. In a prosperous city, you can 
+  earn 1d6 gp/day. In time, you may come to the attention of 
+  noble patrons and develop a national reputation. 
+ 30 Extraordinary performance. In a prosperous city, you can 
+  earn 3d6 gp/day. In time, you may draw attention from 
+  distant potential patrons, or even from extraplanar beings.  
+ 
+A masterwork musical instrument (page 130) gives you a +2 cir-
+cumstance bonus on Perform checks that involve its use. 
+Action: Varies. Trying to earn money by playing in public 
+requires anywhere from an evening’s work to a full day’s perform-
+ance, at the DM’s discretion. The bard’s special Perform-based abil-
+ities are described in that class’s description (page 29). 
+Try Again: Yes. Retries are allowed, but they don’t negate previ-
+ous failures, and an audience that has been unimpressed in the past 
+is likely to be prejudiced against future performances. (Increase the 
+DC by 2 for each previous failure.) 
+Special: A bard must have at least 3 ranks in a Perform skill to 
+inspire courage in his allies, or to use his countersong or his fascinate 
+ability. A bard needs 6 ranks in a Perform skill to inspire com-
+CHAPTER 4: 
+SKILLS 

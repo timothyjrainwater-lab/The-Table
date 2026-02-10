@@ -1,0 +1,137 @@
+ 
+ 114 
+WEAPON QUALITIES 
+The weapon a character uses says something about who he or she is. 
+You probably want to equip your character with both a melee 
+weapon and a ranged weapon. If you can’t afford both your melee 
+weapon of choice and your ranged weapon of choice, decide which 
+is more important to the character.  
+What size of weapon you choose determines how your character 
+can choose to wield it (with one hand or two) and how much 
+damage he or she can deal with it. A two-handed weapon deals more 
+damage than a one-handed weapon, but wielding a two-handed 
+weapon prevents the wielder from using a shield, so that’s a trade-
+off. 
+The number of weapons your character is proficient with depends 
+on his or her class and race. A character can also become proficient 
+with additional weapons by selecting the right feats. See Exotic 
+Weapon Proficiency (page 94), Martial Weapon Proficiency (page 
+97), and Simple Weapon Proficiency (page 100). 
+A better weapon is usually more expensive than an inferior one, 
+but more expensive doesn’t always mean better. For instance, a 
+rapier is more expensive than a longsword. For a dexterous rogue 
+with the Weapon Finesse feat, a rapier is a terrific weapon. For a 
+typical fighter, a longsword is better. 
+When selecting your character’s weapons, keep in mind the fol-
+lowing factors (given as column headings on Table 7–5). 
+Cost: This value is the weapon’s cost in gold pieces (gp) or silver 
+pieces (sp). The cost includes miscellaneous gear that goes with the 
+weapon, such as a scabbard for a sword or a quiver for arrows. This 
+cost is the same for a Small or Medium version of the weapon. A 
+Large version costs twice the listed price. 
+Damage: The Damage columns give the damage you deal by the 
+weapon on a successful hit. The column labelled “Dmg (S)” is for 
+Small weapons, such as those typically wielded by a gnome or 
+halfling. The column labelled “Dmg (M)” is for Medium weapons, 
+such as those typically wielded by a dwarf, elf, half-elf, half-orc, or 
+human. If two damage ranges are given, such as “1d6/1d6” for the 
+quarterstaff, then the weapon is a double weapon (see Double 
+Weapons, above, and Two-Weapon Fighting, page 160). Use the 
+second damage figure given for the double weapon’s extra attack. 
+Table 7–4: Tiny and Large Weapon Damage gives weapon damage 
+values for weapons of those sizes. For instance, a Tiny longsword 
+(such as might be wielded by a halfling or gnome fighter under the 
+effect of a reduce person  spell) deals 1d4 points of damage, while a 
+Large greataxe (wielded by a half-orc barbarian under the effect of an 
+enlarge person  spell) deals 3d6 points of damage. The Dungeon 
+Master’s Guide has more information on weapons and combat for 
+creatures smaller than Small and larger than Medium. 
+ 
+Table 7–4: Tiny and Large Weapon Damage 
+ Medium Tiny Large 
+ Weapon Damage  Weapon Damage  Weapon Damage  
+ 1d2 — 1d3 
+ 1d3 1 1d4 
+ 1d4 1d2 1d6 
+ 1d6 1d3 1d8 
+ 1d8 1d4 2d6 
+ 1d10 1d6 2d8 
+ 1d12 1d8 3d6 
+ 2d4 1d4 2d6 
+ 2d6 1d8 3d6 
+ 2d8 1d10 3d8 
+ 2d10 2d6 4d8  
+ 
+Critical: The entry in this column notes how the weapon is used 
+with the rules for critical hits. When your character scores a critical 
+hit, roll the damage two, three, or four times, as indicated by its 
+critical multiplier (using all applicable modifiers on each roll), and 
+add all the results together. 
+Exception: Bonus damage over and above a weapon’s normal 
+damage, such as that dealt by a sneak attack or the special ability of a 
+flaming sword, is not multiplied when you score a critical hit. 
+×2: The weapon deals double damage on a critical hit. 
+×3: The weapon deals triple damage on a critical hit. 
+×3/×4: One head of this double weapon deals triple damage on a 
+critical hit. The other head deals quadruple damage on a critical hit. 
+×4: The weapon deals quadruple damage on a critical hit. 
+19–20/×2: The weapon scores a threat (a possible critical hit) on a 
+natural roll of 19 or 20 (instead of just on a 20) and deals double 
+damage on a critical hit. (The weapon has a threat range of 19–20.) 
+18–20/×2: The weapon scores a threat on a natural roll of 18, 19, or 
+20 (instead of just on a 20) and deals double damage on a critical hit.  
+(The weapon has a threat range of 18–20.) 
+19–20/×2: The weapon scores a threat (a possible critical hit) on a 
+natural roll of 19 or 20 (instead of just on a 20) and deals double 
+damage on a critical hit. (The weapon has a threat range of 19–20.) 
+18–20/×2: The weapon scores a threat on a natural roll of 18, 19, or 
+20 (instead of just on a 20) and deals double damage on a critical hit.  
+(The weapon has a threat range of 18–20.) 
+Range Increment:  Any attack at less than this distance is not 
+penalized for range, so an arrow from a shortbow (range increment 
+60 feet) can strike at enemies up to 59 feet away or closer with no 
+penalty. However, each full range increment imposes a cumulative –
+2 penalty on the attack roll. A shortbow archer firing at a target 200 
+feet away suffers a –6 penalty on the attack roll(–2 × 3, because 200 
+feet is at least three range increments but not four). A thrown 
+weapon, such as a throwing axe, has a maximum range of five range 
+increments. A projectile weapon, such as a bow, can shoot up to ten 
+range increments. 
+Weight: This column gives the weight of a Medium version of 
+the weapon. Halve this number for Small weapons, and double it for 
+Large weapons. 
+Type: Weapons are classified according to the type of damage 
+they deal: bludgeoning, piercing, or slashing. Some monsters may be 
+resistant or immune to attacks from certain types of weapons. For 
+example, a skeleton takes less damage from slashing weapons and 
+piercing weapons. 
+Some weapons deal damage of multiple types (for example, the 
+morningstar, which deals both bludgeoning and piercing damage). 
+If a weapon is of two types, the damage it deals is not half one type 
+and half another; all of it is both types. Therefore, a creature would 
+have to be immune to both types of damage to ignore any of the 
+damage from such a weapon. 
+In other cases, a weapon can deal either of two types of damage 
+(such as the dagger, which can deal either piercing or slashing 
+damage). In a situation when the damage type is significant, the 
+wielder can choose which type of damage to deal with such a 
+weapon. 
+Special: Some weapons have special features. See the weapon 
+descriptions for details. 
+ 
+Weapon Descriptions 
+Weapons found on Table 7–5: Weapons are described below, along 
+with any special options for the wielder (“you”) has for their use. 
+Splash weapons are described under Special Substances and Items, 
+page 128. 
+Arrows: An arrow used as a melee weapon is treated as a light 
+improvised weapon (–4 penalty on attack rolls) and deals damage as 
+a dagger of its size (critical multiplier ×2). Arrows come in a leather 
+quiver that holds 20 arrows. An arrow that hits its target is 
+destroyed; one that misses has a 50% chance of being destroyed or 
+lost. 
+Axe, Throwing:  A throwing axe is lighter than a handaxe and 
+balanced for throwing. Gnome fighters often use throwing axes for 
+both melee and ranged attacks. 
+CHAPTER 7: 
+EQUIPMENT 

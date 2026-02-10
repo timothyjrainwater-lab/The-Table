@@ -1,0 +1,206 @@
+ 
+ 253
+points of damage. Stone shape deals you 3d6 
+points of damage but does not expel you. 
+Transmute rock to mud  expels you and then 
+slays you instantly unless you make a DC 
+18 Fortitude save, in which case you are 
+merely expelled. Finally, passwall expels 
+you without damage. 
+ 
+Melf’s Acid Arrow 
+Conjuration (Creation) [Acid] 
+Level: Sor/Wiz 2 
+Components: V, S, M, F 
+Casting Time: 1 standard action 
+Range: Long (400 ft. + 40 ft./level) 
+Effect: One arrow of acid 
+Duration: 1 round + 1 round per three 
+levels 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+A magical arrow of acid springs from your 
+hand and speeds to its target. You must 
+succeed on a ranged touch attack to hit 
+your target. The arrow deals 2d4 points of 
+a c i d  d a m a g e  w i t h  n o  s p l a s h  d a m a g e .  F o r  
+every three caster levels (to a maximum of 
+18th), the acid, unless somehow neutra-
+lized, lasts for another round, dealing ano-
+ther 2d4 points of damage in that round. 
+Material Component:  Powdered rhubarb 
+leaf and an adder’s stomach. 
+Focus: A dart. 
+ 
+Mending 
+Transmutation 
+Level: Brd 0, Clr 0, Drd 0, Sor/Wiz 0 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 10 ft. 
+Target: One object of up to 1 lb. 
+Duration: Instantaneous 
+Saving Throw: Will negates (harmless, 
+object) 
+Spell Resistance: Yes (harmless, object) 
+ 
+Mending repairs small breaks or tears in 
+objects (but not warps, such as might be 
+caused by a warp wood  spell). It will weld 
+broken metallic objects such as a ring, a 
+chain link, a medallion, or a slender 
+dagger, providing but one break exists. 
+Ceramic or wooden objects with multiple 
+breaks can be invisibly rejoined to be as 
+strong as new. A hole in a leather sack or a 
+wineskin is completely healed over by 
+mending. The spell can repair a magic item, 
+but the item’s magical abilities are not 
+restored. (For restoring a broken magic 
+item’s abilities, see the item creation feats 
+in Chapter 5: Feats.) The spell cannot 
+mend broken magic rods, staffs, or wands, 
+nor does it affect creatures (including 
+constructs). 
+ 
+Message 
+Transmutation [Language-Dependent] 
+Level: Brd 0, Sor/Wiz 0 
+Components: V, S, F 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Targets: One creature/level 
+Duration: 10 min./level 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You can whisper messages and receive 
+whispered replies with little chance of be-
+ing overheard. You point your finger at 
+each creature you want to receive the 
+message. When you whisper, the whis-
+pered message is audible to all targeted 
+creatures within range. Magical silence, 1 
+foot of stone, 1 inch of common metal (or a 
+thin sheet of lead), or 3 feet of wood or dirt 
+blocks the spell. The message does not 
+have to travel in a straight line. It can 
+circumvent a barrier if there is an open 
+path between you and the subject, and the 
+path’s entire length lies within the spell’s 
+range. The creatures that receive the mes-
+sage can whisper a reply that you hear. The 
+spell transmits sound, not meaning. It 
+doesn’t transcend language barriers. 
+Note: To speak a message, you must 
+mouth the words and whisper, possibly al-
+lowing observers the opportunity to read 
+your lips. 
+Focus: A short piece of copper wire. 
+ 
+Meteor Swarm 
+Evocation [Fire] 
+Level: Sor/Wiz 9 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Long (400 ft. + 40 ft./level) 
+Area: Four 40-ft.-radius spreads; see text 
+Duration: Instantaneous 
+Saving Throw: None or Reflex half; see 
+text 
+Spell Resistance: Yes 
+ 
+Meteor swarm  is a very powerful and spec-
+tacular spell that is similar to fireball in 
+many aspects. When you cast it, four 2- 
+foot-diameter spheres spring from your 
+outstretched hand and streak in straight 
+lines to the spots you select. The meteor 
+spheres leave a fiery trail of sparks. 
+If you aim a sphere at a specific creature, 
+you may make a ranged touch attack to 
+strike the target with the meteor. Any 
+creature struck by one of these spheres 
+takes 2d6 points of bludgeoning damage 
+(no save) and receives no saving throw 
+against the sphere’s fire damage (see 
+below). If a targeted sphere misses its tar-
+get, it simply explodes at the nearest 
+corner of the target’s space. You may aim 
+more than one meteor at the same target. 
+Once a sphere reaches its destination, it 
+explodes in a 40-foot-radius spread, dealing 
+6d6 points of fire damage to each creature 
+in the area. If a creature is within the area 
+of more than one sphere, it must save sepa-
+rately against each. (Fire resistance applies 
+to each sphere’s damage individually.) 
+ 
+Mind Blank 
+Abjuration 
+Level: Protection 8, Sor/Wiz 8 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One creature 
+Duration: 24 hours 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+The subject is protected from all devices 
+and spells that detect, influence, or read 
+emotions or thoughts. This spell protects 
+against all mind-affecting spells and effects 
+as well as information gathering by 
+divination spells or effects. Mind blank  
+even foils limited wish , miracle, and wish 
+spells when they are used in such a way as 
+to affect the subject’s mind or to gain in-
+formation about it. In the case of scrying 
+that scans an area the creature is in, such as 
+arcane eye, the spell works but the creature 
+simply isn’t detected. Scrying attempts that 
+are targeted specifically at the subject do 
+not work at all. 
+ 
+Mind Fog 
+Enchantment (Compulsion) [Mind-
+Affecting] 
+Level: Brd 5, Sor/Wiz 5 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Effect: Fog spreads in 20-ft. radius, 20 ft. 
+high 
+Duration: 30 minutes and 2d6 rounds; see 
+text 
+Saving Throw: Will negates 
+Spell Resistance: Yes 
+ 
+Mind fog produces a bank of thin mist that 
+weakens the mental resistance of those 
+caught in it. Creatures in the mind fog take 
+a –10 competence penalty on Wisdom 
+checks and Will saves. (A creature that suc-
+cessfully saves against the fog is not 
+affected and need not make further saves 
+even if it remains in the fog.) Affected 
+creatures take the penalty as long as they 
+remain in the fog and for 2d6 rounds 
+thereafter. The fog is stationary and lasts 
+for 30 minutes (or until dispersed by 
+wind). 
+A moderate wind (11+ mph) disperses 
+the fog in four rounds; a strong wind (21+ 
+mph) disperses the fog in 1 round. 
+The fog is thin and does not signifi-
+cantly hamper vision. 
+ 
+Minor Creation 
+Conjuration (Creation) 
+Level: Sor/Wiz 4 
+Components: V, S, M 
+Casting Time: 1 minute 
+CHAPTER 11: 
+SPELLS 

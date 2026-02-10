@@ -1,0 +1,139 @@
+ 
+ 22 
+d20), a number representing the character’s innate abilities (the 
+ability modifier), and a bonus representing the character’s 
+experience and training. This third factor depends, either directly or 
+indirectly, on the character’s class and level. Table 3–1: Base Save 
+and Base Attack Bonuses (see below) summarizes the figures for this 
+third factor when it applies to base save bonuses and base attack 
+bonuses. 
+Base Save Bonus:  The two numbers given in this column on 
+Table 3–1 apply to saving throws. Whether a character uses the first 
+(good) bonus or the second (poor) bonus depends on his or her class 
+and the type of saving throw being attempted. For example, fighters 
+get the lower bonus on Reflex and Will saves and the higher bonus 
+on Fortitude saves, while rogues get the lower bonus on Fortitude 
+and Will saves and the higher bonus on Reflex saves. Monks are 
+equally good at all three types of saving throws. See each class’s 
+description to find out which bonus applies to which category of 
+saves. If a character has more than one class (see Multiclass Charac-
+ters, page 59), the base save bonuses for each class are cumulative. 
+Base Attack Bonus:  On an attack roll, apply the bonus from the 
+appropriate column on Table 3–1 according to the class to which the 
+character belongs. Whether a character uses the first (good) base 
+attack bonus, the second (average) base attack bonus, or the third 
+(poor) base attack bonus depends on his or her class. Barbarians, 
+fighters, paladins, and rangers have a good base attack bonus, so they 
+use the first Base Attack Bonus column. Clerics, druids, monks, and 
+rogues have an average base attack bonus, so they use the second 
+column. Sorcerers and wizards have a poor base attack bonus, so 
+they use the third column. Numbers after a slash indicate additional 
+attacks at reduced bonuses: “+12/+7/+2” means three attacks per 
+round, with an attack bonus of +12 for the first attack, +7 for the 
+second, and +2 for the third. Any modifiers on attack rolls apply to 
+all these attacks normally, but bonuses do not grant extra attacks. 
+For example, when Lidda the halfling rogue is 2nd level, she has a 
+base attack bonus of +1. With a thrown weapon, she adds her 
+Dexterity bonus (+3), her size bonus (+1), and a racial bonus (+1) for 
+a total of +6. Even though a +6 base attack bonus would grant an 
+additional attack at +1, raising that number to +6 via ability, racial, 
+size, weapon, or other bonuses doesn’t grant Lidda an additional 
+attack. If a character has more than one class (see Multiclass 
+Characters, page 59), the base attack bonuses for each class are 
+cumulative. 
+ 
+Table 3–1: Base Save and Base Attack Bonuses 
+  Base Base Base Base Base 
+  Save Save Attack Attack Attack 
+ Class Bonus Bonus Bonus Bonus Bonus 
+ Level (Good) (Poor) (Good) (Average) (Poor)
+ 
+ 1st +2 +0 +1 +0 +0 
+ 2nd +3 +0 +2 +1 +1 
+ 3rd +3 +1 +3 +2 +1 
+ 4th +4 +1 +4 +3 +2 
+ 5th +4 +1 +5 +3 +2 
+ 6th +5 +2 +6/+1 +4 +3 
+ 7th +5 +2 +7/+2 +5 +3 
+ 8th +6 +2 +8/+3 +6/+1 +4 
+ 9th +6 +3 +9/+4 +6/+1 +4 
+ 10th +7 +3 +10/+5 +7/+2 +5 
+ 11th +7 +3 +11/+6/+1 +8/+3 +5 
+ 12th +8 +4 +12/+7/+2 +9/+4 +6/+1 
+ 13th +8 +4 +13/+8/+3 +9/+4 +6/+1 
+ 14th +9 +4 +14/+9/+4 +10/+5 +7/+2 
+ 15th +9 +5 +15/+10/+5 +11/+6/+1 +7/+2 
+ 16th +10 +5 +16/+11/+6/+1 +12/+7/+2 +8/+3 
+ 17th +10 +5 +17/+12/+7/+2 +12/+7/+2 +8/+3 
+ 18th +11 +6 +18/+13/+8/+3 +13/+8/+3 +9/+4 
+ 19th +11 +6 +19/+14/+9/+4 +14/+9/+4 +9/+4 
+ 20th +12 +6 +20/+15/+10/+5 +15/+10/+5 +10/+5  
+LEVEL-DEPENDENT BENEFITS 
+In addition to attack bonuses and saving throw bonuses, all char-
+acters gain other benefits from advancing in level. Table 3–2: 
+Experience and Level-Dependent Benefits summarizes these addi-
+tional benefits. 
+XP: This column on Table 3–2 shows the experience point total 
+needed to attain a given character level—that is, the total of all the 
+character’s level in classes. (A character’s level in a class is called his 
+or her class level.) For any character (including a multiclass one), XP 
+determines overall character level, not individual class levels. 
+Class Skill Max Ranks:  The maximum number of ranks a 
+character can have in a class skill is equal to his or her character level 
++ 3. A class skill is a skill frequently associated with a particular 
+class—for example, Spellcraft is a class skill for wizards. Class skills 
+are given in each class description in this chapter (see also Table 4–2: 
+Skills, page 63, for more information on skills). 
+Cross-Class Skill Max Ranks:  For cross-class skills (skills not 
+associated with a character’s class), the maximum number of ranks a 
+character can have is one-half the maximum for a class skill. For 
+example, at 1st level a wizard could have 2 ranks in Move Silently 
+(typically associated with rogues, and on that class’s list of class 
+skills), but no more. These 2 ranks in a cross-class skill would cost 
+the wizard 4 skill points, whereas the same 4 points would buy 4 
+ranks in a wizard class skill, such as Spellcraft. The half ranks (1/2) 
+indicated on Table 3–2 don’t improve skill checks. They simply 
+represent partial purchase of the next skill rank and indicate the 
+character is training to improve that skill. 
+Feats: Every character gains one feat at 1st level and another at 
+every level divisible by three (3rd, 6th, 9th, 12th, 15th, and 18th 
+level). These feats are in addition to any bonus feats granted as class 
+features (see the class descriptions later in this chapter) and the 
+bonus feat granted to all humans. See Chapter 5: Feats for more 
+information about feats. 
+Ability Increases:  Upon attaining any level divisible by four 
+(4th, 8th, 12th, 16th, and 20th level), a character increases one of his 
+or her ability scores by 1 point. The player chooses which ability 
+score to improve. For example, a sorcerer with a starting Charisma of 
+16 might increase this to 17 at 4th level. At 8th level, the same 
+character might increase his Charisma score again (from 17 to 18) or 
+could choose to improve some other ability instead. The ability 
+improvement is permanent. 
+ 
+Table 3–2: Experience and Level-Dependent Benefits 
+  Class Cross-Class 
+Character  Skill Max Skill Max  Ability Score 
+Level XP Ranks Ranks Feats Increases  
+ 1st 0 4 2 1st — 
+ 2nd 1,000 5 2-1/2 — — 
+ 3rd 3,000 6 3 2nd — 
+ 4th 6,000 7 3-1/2 — 1st 
+ 5th 10,000 8 4  — — 
+ 6th 15,000 9 4-1/2 3rd — 
+ 7th 21,000 10 5 — — 
+ 8th 28,000 11 5-1/2 — 2nd 
+ 9th 36,000 12 6 4th — 
+ 10th 45,000 13 6-1/2 — — 
+ 11th 55,000 14 7 — — 
+ 12th 66,000 15 7-1/2 5th 3rd 
+ 13th 78,000 16 8 — — 
+ 14th 91,000 17 8-1/2 — — 
+ 15th 105,000 18 9 6th — 
+ 16th 120,000 19 9-1/2 — 4th 
+ 17th 136,000 20 10 — — 
+ 18th 153,000 21 10-1/2 7th — 
+ 19th 171,000 22 11 — — 
+ 20th 190,000 23 11-1/2 — 5th
+ 
+CHAPTER 3: 
+CLASSES 

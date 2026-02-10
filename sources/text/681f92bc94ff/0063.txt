@@ -1,0 +1,125 @@
+ 
+ 62 
+Ranks tell you how proficient your are and reflect your training 
+in a given skill. In general, while anyone can get a lucky roll, a 
+character with, say, 10 ranks in a given skill has a higher degree of 
+training and expertise in that skill than a character with 9 ranks or 
+fewer. 
+The class starting packages in Chapter 3 provide an easier way to 
+select 1st-level skills, because they assume that you max out 
+(increase to maximum rank) each skill you buy and because they 
+provide a shorter list from which to choose. Although selecting 
+skills from a starting package feels very different from buying them 
+rank by rank, your character winds up spending the same number of 
+skill points no matter which way you select 1st-level skills. 
+The Skills paragraph on page 59 covers the skill acquisition rules 
+for multiclass characters. 
+ 
+Table 4–1: Skill Points per Level 
+ 1st-level Higher-level 
+Class Skill Points 1 Skill Points 2 
+Barbarian (4 + Int modifier) × 4 4 + Int modifier 
+Bard (6 + Int modifier) × 4 6 + Int modifier 
+Cleric (2 + Int modifier) × 4 2 + Int modifier 
+Druid (4 + Int modifier) × 4 4 + Int modifier 
+Fighter (2 + Int modifier) × 4 2 + Int modifier 
+Monk (4 + Int modifier) × 4 4 + Int modifier 
+Paladin (2 + Int modifier) × 4 2 + Int modifier 
+Ranger (6 + Int modifier) × 4 6 + Int modifier 
+Rogue (8 + Int modifier) × 4 8 + Int modifier 
+Sorcerer (2 + Int modifier) × 4 2 + Int modifier 
+Wizard (2 + Int modifier) × 4 2 + Int modifier 
+1 Humans add +4 to this total at 1st level. 
+2 Humans add +1 each level.
+ 
+ 
+ACQUIRING SKILLS AT 1ST LEVEL 
+Follow these two steps to pick skills for your 1st-level character: 
+1. Determine the number of skill points your character gets. This 
+number depends on his or her class and Intelligence modifier, as 
+shown on Table 4–1: Skill Points per Level. For example, Lidda is a 
+1st-level halfling rogue with an Intelligence score of 14 (+2 Int 
+modifier). At the start of play, she has 40 skill points to spend (8 + 2 = 
+10, 10 × 4 = 40). 
+A character gets at least 4 skill points (1 × 4 = 4) at 1st level, even if 
+he or she has an Intelligence penalty. 
+A human gets 4 extra skill points as a 1st-level character. A human 
+character with the same class and Intelligence modifier as Lidda 
+would have 44 skill points at the start of play. 
+2. Spend the skill points. Each skill point you spend on a class 
+skill gets you 1 rank in that skill. Class skills are the skills found on 
+your character’s class skill list. Each skill point you spend on a cross-
+class skill gets your character 1/2 rank in that skill. Cross-class skills 
+are skills not found on your character’s class skill list. (Half ranks do 
+not improve your skill check, but two 1/2 ranks make 1 rank.) Your 
+maximum rank in a class skill is 4. In a cross-class skill, it’s 2. 
+Table 4–2: Skills shows all the skills and indicates which are class 
+skills and which are cross-class skills for each class. 
+Spend all your skill points. You can’t save them to spend later. 
+ 
+SKILLS AT HIGHER LEVELS 
+When your character attains a new level, follow these steps to gain 
+new skills and improve those he or she already has: 
+1. Determine the number of skill points your character gets. See 
+Table 4–1: Skill Points per Level. 
+A character gets at least 1 skill point at each new level, even if he 
+or she has an Intelligence penalty. 
+A human gets 1 extra skill point per level. 
+2. You can improve any class skill that you’ve previously maxed 
+out by 1 rank or any cross-class skill that you’ve previously maxed 
+out by 1/2 rank. 
+3. If you have not maxed out a skill, you can spend extra skill 
+points on it and increase its rank further. 
+First, find out what your character’s maximum rank in that skill 
+is. If it’s a class skill, the maximum rank is the character’s new level + 
+3. If it’s a cross-class skill, the maximum rank is half of that number 
+(do not round up or down). 
+You may spend the number of skill points it takes to max out the 
+skill, provided that you have that many skill points to spend. 
+4. If you want to pick up a new skill for your character, you can 
+spend skill points equal to his or her character level +3. These skill 
+points buy 1 rank each if the new skill is a class skill or 1/2 rank each 
+if it’s a cross-class skill. 
+Regardless of whether a skill is purchased as a class skill or a 
+cross-class skill, if it is a class for any of your classes, your maximum 
+rank equals your total character level +3. 
+ 
+USING SKILLS 
+When your character uses a skill, you make a skill check to see how 
+well he or she does. The higher the result of the skill check, the 
+better. Based on the circumstances, your result must match or beat a 
+particular number (a DC or the result of an opposed skill check) for 
+the check to be successful. The harder the task, the higher the 
+number you need to roll. 
+Circumstances can affect your check. A character who is free to 
+work without distractions can make a careful attempt and avoid 
+simple mistakes. A character who has lots of time can try over and 
+over again, thereby assuring the best outcome. If others help, the 
+character may succeed where otherwise he or she would fail. 
+CHARACTER SKILLS 
+When you create your character, you will probably only be able to
+purchase ranks in a handful of skills. It may not seem as though you
+have as many skills as real people do—but the skills on your character
+sheet don’t actually define everything your character can do. 
+Your character may have solid familiarity with many skills, without
+having the actual training that grants skill ranks. Knowing how to strum a
+few chords on a lute or clamber over a low fence doesn’t really mean you
+have ranks in Perform or Climb. Ranks in those skills represent training
+beyond everyday use—the ability to impress an audience with a wide
+repertoire of songs on the lute, or to successfully scale a 100-foot-high 
+cliff face. 
+So how do normal people get through life without ranks in a lot o f
+skills? For starters, remember that not every use a skill requires a skill
+check. Performing routine tasks in normal situations is generally so easy 
+that no check is required. And when a check might be called for, the DC 
+of most mundane tasks rarely exceeds 10, let alone 15. In day-to-day life, 
+when you don’t have enemies breathing down your neck and your life 
+depending on success, you can take your time and do things right—
+making it easy, even without any ranks in the requisite skill, to succeeed 
+(see Checks without Rolls, page 65). 
+You’re always welcome to assume that your character is familiar 
+with—even good at, as far as everyday tasks go—many skills beyond 
+those for which you actually gain ranks. The skills you buy ranks in, 
+however, are those with which you have truly heroic potential. 
+CHAPTER 4: 
+SKILLS 

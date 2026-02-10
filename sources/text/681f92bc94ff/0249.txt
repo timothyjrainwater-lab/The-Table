@@ -1,0 +1,204 @@
+ 
+ 248 
+who can detect traps. You place the spell 
+upon any small mechanism or device, such 
+as a lock, hinge, hasp, cork, cap, or ratchet. 
+Any character able to detect traps, or who 
+uses any spell or device enabling trap 
+detection, is 100% certain a real trap exists. 
+Of course, the effect is illusory and 
+nothing happens if the trap is “sprung”; its 
+primary purpose is to frighten away 
+thieves or make them waste precious time. 
+If another Leomund’s trap is active within 
+50 feet when the spell is cast, the casting 
+fails. 
+Material Component:  A piece of iron 
+pyrite touched to the object to the trapped 
+while the object is sprinkled with a special 
+dust requiring 50gp to prepare. 
+ 
+Lesser (Spell Name) 
+Any spell whose name begins with lesser is 
+alphabetized in this chapter according to 
+the second word of the spell name. Thus, 
+the description of a lesser spell appears near 
+the description of the spell on which it is 
+based. Spell chains that have lesser spells in 
+them include those based on the spells 
+confusion, geas, globe of invulnerability , planar 
+ally, planar binding, and restoration. 
+ 
+Levitate 
+Transmutation 
+Level: Sor/Wiz 2 
+Components: V, S, F 
+Casting Time: 1 standard action 
+Range: Personal or close (25 ft. + 5 ft./2 
+levels) 
+Target: You or one willing creature or one 
+object (total weight up to 100 lb./level) 
+Duration: 1 min./level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+Levitate allows you to move yourself, an-
+other creature, or an object up and down as 
+you wish. A creature must be willing to be 
+levitated, and an object must be unattended 
+or possessed by a willing creature. You can 
+mentally direct the recipient to move up or 
+down as much as 20 feet each round; doing 
+so is a move action. You cannot move the 
+recipient horizontally, but the recipient 
+could clamber along the face of a cliff, for 
+example, or push against a ceiling to move 
+laterally (generally at half its base land 
+speed). 
+A levitating creature that attacks with a 
+melee or ranged weapon finds itself in-
+creasingly unstable; the first attack has a –1 
+penalty on attack rolls, the second –2, and 
+so on, to a maximum penalty of –5. A full 
+round spent stabilizing allows the creature 
+to begin again at –1. 
+Focus: Either a small leather loop or a 
+piece of golden wire bent into a cup shape 
+with a long shank on one end. 
+Light 
+Evocation [Light] 
+Level: Brd 0, Clr 0, Drd 0, Sor/Wiz 0 
+Components: V, M/DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Object touched 
+Duration: 10 min./level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+This spell causes an object to glow like a 
+torch, shedding bright light in a 20-foot-
+radius (and dim light for an additional 20 
+feet) from the point you touch. The effect 
+is immobile, but it can be cast on a mov-
+able object. Light taken into an area of 
+magical darkness does not function. 
+A light spell (one with the light de-
+scriptor) counters and dispels a darkness 
+spell (one with the darkness descriptor) of 
+an equal or lower level. 
+Arcane Material Component:  A firefly or a 
+piece of phosphorescent moss. 
+ 
+Lightning Bolt 
+Evocation [Electricity] 
+Level: Sor/Wiz 3 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: 120 ft. 
+Area: 120-ft. line 
+Duration: Instantaneous 
+Saving Throw: Reflex half 
+Spell Resistance: Yes 
+ 
+You release a powerful stroke of electrical 
+energy that deals 1d6 points of electricity 
+damage per caster level (maximum 10d6) 
+to each creature within its area. The bolt 
+begins at your fingertips. 
+The lightning bolt  sets fire to combusti-
+bles and damages objects in its path. It can 
+melt metals with a low melting point, such 
+as lead, gold, copper, silver, or bronze. If 
+the damage caused to an interposing bar-
+rier shatters or breaks through it, the bolt 
+may continue beyond the barrier if the 
+spell’s range permits; otherwise, it stops at 
+the barrier just as any other spell effect 
+does. 
+Material Component:  A bit of fur and an 
+amber, crystal, or glass rod. 
+ 
+Limited Wish 
+Universal 
+Level: Sor/Wiz 7 
+Components: V, S, XP 
+Casting Time: 1 standard action 
+Range: See text 
+Target, Effect, or Area: See text 
+Duration: See text 
+Saving Throw: None; see text 
+Spell Resistance: Yes 
+ 
+A limited wish  lets you create nearly any 
+type of effect. For example, a limited wish  
+can do any of the following things. 
+/rhombus4 Duplicate any sorcerer/wizard spell of 
+6th level or lower, provided the spell is 
+not of a school prohibited to you. 
+/rhombus4 Duplicate any other spell of 5th level or 
+lower, provided the spell is not of a 
+school prohibited to you. 
+/rhombus4 Duplicate any sorcerer/wizard spell of 
+5th level or lower, even if it’s of a pro-
+hibited school. 
+/rhombus4 Duplicate any other spell of 4th level or 
+lower, even if it’s of a prohibited school. 
+/rhombus4 Undo the harmful effects of many 
+spells, such as geas/quest or insanity. 
+/rhombus4 Produce any other effect whose power 
+level is in line with the above effects, 
+such as a single creature automatically 
+hitting on its next attack or taking a –7 
+penalty on its next saving throw. 
+ 
+A duplicated spell allows saving throws 
+and spell resistance as normal (but the save 
+DC is for a 7th-level spell). When a limited 
+wish duplicates a spell that has an XP cost, 
+you must pay that cost or 300 XP, 
+whichever is more. When a limited wish  
+spell duplicates a spell with a material 
+component that costs more than 1,000 gp, 
+you must provide that component. 
+XP Cost: 300 XP or more (see above). 
+ 
+Liveoak 
+Transmutation 
+Level: Drd 6 
+Components: V, S 
+Casting Time: 10 minutes 
+Range: Touch 
+Target: Tree touched 
+Duration: One day/level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+This spell turns an oak tree into a protector 
+or guardian. The spell can be cast on only a 
+single tree at a time; while liveoak is in 
+effect, you can’t cast it again on another 
+tree. The tree on which the spell is cast 
+must be within 10 feet of your dwelling 
+place, within a place sacred to you, or 
+within 300 feet of something that you wish 
+to guard or protect. 
+Liveoak must be cast on a healthy, Huge 
+oak. A triggering phrase of up to one word 
+per caster level is placed on the targeted 
+oak. For instance, “Attack any persons who 
+come near without first saying ‘sacred 
+mistletoe’ “ is an eleven-word trigger 
+phrase that you could use at 11th level or 
+higher. The liveoak spell triggers the tree 
+into animating as a treant (see the Monster 
+Manual). At the DM’s option, you can 
+extrapolate statistics for a smaller tree from 
+the treant statistics if you cast likeoak on a 
+smaller oak. 
+If liveoak is dispelled, the tree takes root 
+immediately, wherever it happens to be. If 
+released by you, the tree tries to return to 
+its original location before taking root. 
+CHAPTER 11: 
+SPELLS 

@@ -1,0 +1,373 @@
+ 
+   
+    
+    
+  
+ 
+ 
+ 
+   
+ 
+
+ 
+  
+   
+  
+  
+   
+   
+
+ 
+
+Speed:
+Armor Class:
+
+Base Attack/Grapple:
+Attack:
+
+Full Attack:
+Space/Reach:
+Special Attacks;
+Special Qualities:
+
+Saves:
+Abilities:
+
+Skills:
+Feats:
+
+Environment:
+Organization:
+Challenge Rating:
+Treasure:
+Alignment:
+Advancement;
+Level Adjustment;
+
+Hit Dice:
+Initiative:
+
+Base Attack/Grapple:
+Attack:
+
+Full Attack:
+Space/Reach:
+
+Special Attacks:
+|Special Qualities:
+
+Saves:
+Abilities:
+
+Skills:
+
+Feats:
+
+Environment:
+Organization:
+Challenge Rating:
+‘Treasure:
+Alignment:
+Advancement:
+Level Adjustment:
+
+table below for details) and may be lifted into the air_An affected
+creature must succeed on a Reflex save when it comes into contact
+with the whirlwind or take the indicated damage. It must also suc-
+ceed on a second Reflex save or be-picked up bodily and held sus-
+pended in the powerful winds, automatically taking the indicated |
+damage each round. A creature that can fly is allowed a Reflex save,
+each round to escape the whirlwind. The creature still takes}
+jdamage bur can leave if the save is successful. The DC for saves)
+
+Air Elemental, Small
+
+    
+   
+   
+  
+  
+
+ 
+
+Air Elemental, Medium
+
+against the whirlwind’ effects varies with the elemental’s size (see
+the table). The save DC is Strength based. |
+Creatures trapped in the whirlwind cannot move except.to go/
+where the elemental carries them or to escape the whirlwind.
+| Creatures caught in the whirlwind can otherwise act normally, but
+jmust succeed ona Concentration check (DC 15 + spell level) to.
+,cast a spell, Creatures caught in the whirlwind take a—¢ penalty to.
+Dexterity and a ~2 penalty on.attack rolls, The elemental can haye.
+
+  
+
+Air Elemental, Large
+
+Small Elemental (Air, Extraplanar) Medium Elemental (Air, Extraplanar) Large Elemental (Air, Extraplanar)
+
+2d8 (9 hp)
+
+Fly 100 ft. (perfect) (20 squares)
+17 (+1 size, +3 Dex, +3 natural),
+touch 14, flat-footed 14
+
+W/3
+
+Slam +5 melee (1d4)
+
+Slam +5 melee (1d4)
+
+5 ft,/5 fr.
+
+Air mastery, whirlwind
+Darkvision 60 ft., elemental traits
+
+Fort +0, Ref +6, Will +0
+Str 10, Dex.17, Con 10,
+Int 4, Wis 11, Cha 14
+Listen +2, Spot +3
+Flyby Attack, Improved Initiarive®,
+Weapon Finesse ®
+Elemental Plane of Air
+Solitary
+
+1
+
+None
+
+Usually neutral
+
+3. HD (Small
+
+Air Elemental, Huge
+
+Huge Elemental (Air, Extraplanar)
+16d8+64 (136 hp)
+
++13
+
+Fly 100 ft. (perfect) (20 squares)
+21 (~2 size, +9 Dex, +4 natural),
+touch 17, flat-footed 12
++12/424
+
+Slam.+19 melee (2d8+4)
+
+2 slams +19 melee (2d8+4)
+
+15 ft./15 ft
+
+Air mastery, whirlwind
+Damage reduction S/~,
+darkvision 60 ft, elemental traits
+Fort +9, Ref +19, Will +5
+
+Str 18, Dex 29, Con 18,
+
+Int 6, Wis 11,Cha 11
+
+Listen +11, Spot +12
+
+Alermess, Combat Reflexes,
+Dodge, Flyby Attack, Improved
+Initiative ®, Mobility, Spring
+Atrack, Weapon Finesse®
+
+Elemental Plane of Air
+Solitary
+
+7
+
+None
+
+Usually neutral
+
+17-20 HD (Huge!
+
+4d8+8 (26 hp)
+
++9
+
+Fly 100 ft. (perfect) (20 squares)
+18 (+5 Dex, +3 natural),
+
+touch 15, flat-footed 13
+
++3/+4
+
+Slam +8 melee (1d6+1)
+
+Slam +8 melee (1d6+1)
+
+5 ft/s ft,
+
+Air mastery, whirlwind
+Darkvision 60 ft,, elemental traits
+
+Fort +3, Ref +9, Will +1
+Str.12, Dex 21, Con 14,
+
+Int 4, Wis 11, Cha 11
+
+Listen +3, Spot ++
+
+Dodge, Flyby Attack, Improved
+Initiative ", Weapon Finesse®
+Elemental Plane of Air
+Solitary
+
+3
+
+None
+
+Usually neutral
+
+5-7 HD (Medium)
+
+Air Elemental, Greater
+
+Huge Elemental (Air, Extraplanar)
+21d8+84 (178 hp)
+
++14
+
+Fly 100 ft. (perfect) (20 squares)
+26 (—2 size, +10 Dex, +8 natural),
+touch 18, flat-footed 16
+
++15/+28
+
+Slam +23 melee (2d8+5)
+
+2 slams +23 melee (2d8+5)
+
+15 ft./15 ft.
+
+Air mastery, whirlwind
+
+Damage reduction 10/-
+darkyision 60 ft., elemental traits
+Fort +11, Ref +22, Will +9
+
+Str 20, Dex 31, Con 18,
+
+Int 8, Wis 11, Cha 11
+
+Listen +14, Spor +14
+
+Alertness, Blind-fight, Combat
+Reflexes, Flyby Attack, Improved
+Initiative ®, Iron Will, Mobility,
+Power Attack, Spring Amtack,
+Weapon Finesse*
+
+Elemental Plane of Air
+
+Solitary
+
+9
+
+None
+
+Usually neutral
+
+22-23 HD (Huge)
+
+ 
+
+ 
+
+ 
+
+8d8+24 (60 hp)
+
++
+
+Fly 100 ft, (perfect) (20 squares)
+
+20 (~1 size, +7 Dex, +4 natural),
+touch 16, flat-footed 13.
+
++6/+12
+
+Slam +12 melee (2d6+2),
+
+2 slams +12 melee (2d6+2)
+
+10 ft./10 fr.
+
+Air mastery, whirlwind
+
+Damage reduction $/-,
+
+darkvision 60 ft., elemental traits
+Fort +5, Ref +13, Will +2
+
+Str 14, Dex 25, Con 16,
+
+Int 6, Wis 11, Cha 11
+
+Listen +5, Spot +6
+
+Combat Reflexes, Dodge, Flyby Attack,
+Improved Initiative ®, Weapon Finesse®
+Elemental Plane of Air
+
+Solitary
+
+s
+
+None
+
+Usually neutral
+
+9-15 HD (Large)
+
+Air Elemental, Elder
+
+Huge Elemental (Air, Extraplanar)
+24d8+96 (204 hp)
+
++15
+
+Fly 100 ft, (perfect) (20 squares)
+27.(-2 size, +11 Dex, +8 natural),
+rouch 19, flat-footed 16
++18/432
+
+Slam +27 melee (2d8+6)
+
+2 slams +27 melee (2d8+6)
+
+15 fr/15 ft.
+
+Air mastery, whirlwind
+Damage reduction 10/-,
+darkvision 60 ft., elemental traits
+Fort +12, Ref +25, Will +10
+
+Str 22, Dex 33, Con 18,
+
+Int 10, Wis 11, Cha 11
+
+Listen +29, Spot +29
+
+Alertness, Blind-fight, Cleave,
+Combat Reflexes, Flyby Attack,
+Improved Initiative ®, Iron Will,
+Mobility, Power Attack, Spring
+Attack, Weapon Finesse”
+Elemental Plane of Air
+
+Solitary
+
+uM
+
+None
+
+Usually neutral
+
+25-48 HD (Huge)
+

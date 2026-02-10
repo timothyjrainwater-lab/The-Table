@@ -1,0 +1,131 @@
+ 312 
+feet away with a melee attack roll. Most such weapons cannot be 
+used to attack adjacent foes, however. 
+reaction: Acting in response to a situation or circumstance 
+beyond one’s control. For example, the DM may call for a Listen 
+check as a reaction to see if you hear something you weren’t 
+specifically trying to hear. 
+rebuke undead: A supernatural ability to make undead cower by 
+channeling negative energy. 
+redirect a spell:  Redirect an active spell’s effect at a specific 
+target or targets. Redirecting a spell is a move action and does not 
+provoke an attack of opportunity. 
+Reflex save: A type of saving throw, related to a character’s ability 
+to withstand damage thanks to his agility or quick reactions. 
+regeneration: The ability of some creatures to regrow severed 
+body parts and ruined organs, repair broken bones, and heal other 
+damage. Severed body parts that are not reattached simply die, and 
+the regenerating creature grows replacements at a rate specified in 
+the individual spell or monster description. Most damage dealt to a 
+naturally regenerating creature is treated as nonlethal damage, 
+which heals at a fixed rate. However, certain attack forms (typically 
+fire and acid) deal damage that does not convert to nonlethal 
+damage. Such damage is not regenerated. Regeneration does not 
+alter conditions that do not deal damage in hit points, such as 
+poisoning or disintegration. 
+resistance bonus: A bonus on saving throws that provides extra 
+protection against harm. Multiple resistance bonuses on the same 
+character or object do not stack. Only the highest resistance bonus 
+applies. 
+resistance to energy:  A creature with resistance to an energy 
+type ignores a certain amount of damage dealt by that energy type 
+each time it is dealt. For instance, a creature with fire resistance 10 
+ignores the first 10 points of fire damage dealt by each attack. 
+Resistance to energy doesn’t affect the saving throw made against 
+the attack (if any). Multiple sources of resistance to a certain energy 
+type (such as a spell and a special quality of a monster) don’t stack 
+with each other; only the highest value applies to any given attack. 
+result: The numerical outcome of a check, attack roll, saving 
+throw, or other 1d20 roll. The result is the sum of the natural die roll 
+and all applicable modifiers. 
+rogue (Rog): A class made up of characters who primarily rely on 
+stealth rather than brute force or magical ability. 
+round: A 6-second unit of game time used to manage combat. 
+Every combatant may make at least one action every round. 
+sacred bonus:  A bonus that stems from the power of good. 
+Multiple sacred bonuses on the same character or object do not 
+stack. Only the highest sacred bonus applies. 
+saving throw (save):  A roll made to avoid (at least partially) 
+damage or harm. The three types of saving throws are Fortitude, 
+Reflex, and Will. 
+school of magic:  A group of related spells that work in similar 
+ways. The eight schools of magic available to spellcasters are 
+abjuration, conjuration, divination, enchantment, evocation, 
+illusion, necromancy, and transmutation. 
+scribe: Write a spell onto a scroll. 
+scry: See and hear events from afar through the use of a spell or a 
+magic item. 
+shaken: Mildly fearful. A shaken character takes a –2 penalty on 
+attack rolls, saving throws, skill checks, and ability checks. 
+shield bonus: A bonus to Armor Class granted by a shield or by a 
+spell or magic effect that mimics a shield. Shield bonuses stack with 
+all other bonuses to AC except other shield bonuses. A magic shield 
+typically grants an enhancement bonus to the shield’s shield bonus, 
+which has the effect of increasing the shield’s overall bonus to AC. A 
+shield bonus granted by a spell or magic item typically takes the 
+form of an invisible, tangible field of force that protects the 
+recipient. A shield bonus doesn’t apply against touch attacks. 
+sickened: Mildly ill. A sickened character takes a –2 penalty on 
+all attack rolls, weapon damage rolls, saving throws, skill checks, and 
+ability checks. 
+silver piece (sp):  The most prevalent form of currency among 
+commoners. Ten silver pieces are equivalent to 1 gold piece. 
+size: The physical dimensions and/or weight of a creature or 
+object. The sizes, from smallest to largest, are Fine, Diminutive, 
+Tiny, Small, Medium, Large, Huge, Gargantuan, and Colossal. 
+size modifier:  The bonus or penalty derived from a creature’s 
+size category. Size modifiers of different kinds apply to Armor Class, 
+attack rolls, Hide checks, grapple checks, and various other checks. 
+skill: A talent that a character acquires and improves through 
+training. 
+skill check:  A check relating to use of a skill. The basic skill 
+check = 1d20 + skill rank + the relevant ability modifier (or simply 
+1d20 + skill modifier). 
+skill modifier: The bonus or penalty associated with a particular 
+skill. Skill modifier = skill rank + ability modifier + miscellaneous 
+modifiers. (Miscellaneous modifiers include racial bonuses, armor 
+check penalty, situational modifiers, and so forth.) Skill modifiers 
+apply to skill checks by characters in the course of using the 
+corresponding skills. 
+skill points:  A measure of a character’s ability to gain and 
+improve skills. At each level, a character gains skill points and 
+spends them to buy skill ranks. Each skill point buys 1 rank in a 
+class skill or 1/2 rank in a cross-class skill. 
+skill rank:  A number indicating how much training or experi-
+ence a character has with a given skill. Skill rank is incorporated 
+into the skill modifier, which in turn improves the chance of 
+success for skill checks with that skill. 
+Small: A Small creature is typically between 2 feet and 4 feet in 
+height or length and weighs between 8 pounds and 60 pounds. 
+sorcerer (Sor):  A class made up of characters who have inborn 
+magical ability. 
+space: The amount of floor space a creature requires to fight 
+effectively, expressed as one dimension of a square area (for 
+example, a creature with a space of 10 feet occupies a 10-foot-by-10-
+foot area on the battle grid). Space determines how many creatures 
+can fight side by side in a corridor, as well as how many creatures 
+can attack a single opponent at once. A creature’s space depends 
+upon both its size and its body shape. Sometimes also called fighting 
+space. 
+special qualities:  Characteristics possessed by certain monsters 
+(and sometimes characters) that are distinctive in some way. The 
+Monster Manual has detailed information on all special qualities. 
+speed: The number of feet a creature can move when taking a 
+move action. 
+spell: A one-time magical effect. The two primary categories of 
+spells are arcane and divine. Clerics, druids, paladins, and rangers 
+cast divine spells, while wizards, sorcerers, and bards cast arcane 
+spells. Spells are further grouped into eight schools of magic. 
+spell completion item:  A magic item (typically a scroll) that 
+contains a partially cast spell. Since the spell preparation step has 
+already been completed, all the user need do to cast the spell is 
+complete the final gestures or words normally required to trigger it. 
+To use a spell completion item safely, the caster must be high 
+enough level in the appropriate class to cast the spell already, 
+though it need not be a known spell. A caster who does not fit this 
+criterion has a chance of spell failure. Activating a spell completion 
+item is a standard action and provokes attacks of opportunity just as 
+casting a spell does. 
+spell failure: The chance that a spell fails and is ruined when cast 
+under less than ideal conditions; when a spell is cast to no effect. 
+ 

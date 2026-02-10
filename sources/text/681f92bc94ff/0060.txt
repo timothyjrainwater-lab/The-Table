@@ -1,0 +1,130 @@
+ 
+ 59
+7. Feats:  Upon attaining 3rd level and at every third level 
+thereafter (6th, 9th, 12th, 15th, and 18th level), the character gains 
+one feat of your choice (see Table 5–1: Feats, page 90). The character 
+must meet any prerequisites for that feat in order to select it. As with 
+ability score increases, it is the overall character level, not the class 
+level, that determines when a character gets a new feat. 
+8. Spells:  Spellcasting characters gain the ability to cast more 
+spells as they advance in levels. Each class description for a spell-
+casting class includes a Spells per Day section (on the class table) 
+that shows the base number of spells (without bonus spells for high 
+ability scores) of a given spell level that a character can cast at each 
+class level. See your character’s class description in this chapter for 
+details. 
+9. Class Features:  Check your character’s class description in 
+this chapter for any new capabilities your character may receive. 
+Many characters gain special attacks or new special powers as they 
+advance in levels. 
+ 
+MULTICLASS CHARACTERS 
+A character may add new classes as he or she progresses in level, 
+thus becoming a multiclass character. The class abilities from a 
+character’s different classes combine to determine a multiclass 
+character’s overall abilities. Multiclassing improves a character’s 
+versatility at the expense of focus. 
+ 
+CLASS AND LEVEL FEATURES 
+As a general rule, the abilities of a multiclass character are the sum 
+of the abilities of each of the character’s classes. 
+Level: “Character level” is a character’s total number of levels. It is 
+used to determine when feats and ability score boosts are gained, as 
+noted on Table 3–2: Experience and Level-Dependent Benefits (page 
+22). 
+“Class level” is a character’s level in a particular class. For a 
+character whose levels are all in the same class, character level and 
+class level are the same. 
+Hit Points: A character gains hit points from each class as his or 
+her class level increases, adding the new hit points to the previous 
+total. For example, Lidda the halfling began as a rogue and attained 
+4th level, then added levels of wizard at her next two level 
+advancements. As a 4th-level rogue/2nd-level wizard, her total hit 
+points are 6 + 1d6 + 1d6 + 1d6 + 1d4 + 1d4. 
+Base Attack Bonus:  Add the base attack bonuses acquired for 
+each class to get the character’s base attack bonus. A resulting value 
+of +6 or higher provides the character with multiple attacks. Find 
+the character’s base attack bonus on Table 3–1: Base Save and Base 
+Attack Bonuses (page 22) to see how many additional attacks the 
+character gets and at what bonuses. For instance, a 6th-level 
+rogue/4th-level wizard would have a base attack bonus of +6 (+4 for 
+the rogue class and +2 for the wizard class). A base attack bonus of +6 
+allows a second attack with a bonus of +1 (given as +6/+1 on Table 3–
+1), even though neither the +4 from the rogue levels nor the +2 from 
+the wizard levels normally allows an extra attack. 
+Saving Throws:  Add the base save bonuses for each class 
+together. A 7th-level rogue/4th-level wizard has a +3 base save bonus 
+on Fortitude saving throws (+2 as a 7th-level rogue and +1 as a 4th-
+level wizard), a +6 on Reflex saving throws (+5 and +1), and a +6 on 
+Will saving throws (+2 and +4). 
+Skills: If a skill is a class skill for any of a multiclass character’s 
+classes, then character level determines a skill’s maximum rank. 
+(The maximum rank for a class skill is 3 + character level.) 
+If a skill is not a class skill for any of a multiclass character’s 
+classes, the maximum rank for that skill is one-half the maximum 
+for a class skill. 
+For example, a 7th-level rogue/4th-level wizard (an 11th-level 
+character) can have as many as 14 ranks in any skill that is a class 
+skill for rogues or wizards. That same character can have as many as 
+7 ranks in any skill that is not a class skill for rogues or wizards. 
+Class Features: A multiclass character gets all the class features 
+of all his or her classes but must also suffer the consequences of the 
+special restrictions of all his or her classes. ( Exception: A character 
+who acquires the barbarian class does not become illiterate.)  Some 
+class features don’t work well with the skills or class features of 
+other classes. For example, although rogues are proficient with light 
+armor, a rogue/wizard still has an arcane spell failure chance if 
+wearing armor. 
+In the special case of turning undead, both clerics and experi-
+enced paladins have the same ability. If the character’s paladin level 
+is 4th or higher, her effective turning level is her cleric level plus 
+her paladin level minus 3. Thus a 5th-level paladin/4th-level cleric 
+turns undead as a 6th-level cleric. 
+In the special case of uncanny dodge, both experienced bar-
+barians and experienced rogues have the same ability. When a 
+barbarian/rogue would gain uncanny dodge a second time (for her 
+second class), she instead gains improved uncanny dodge, if she 
+does not already have it. Her barbarian and rogue levels stack to 
+determine the rogue level an attacker needs to flank her.  For 
+example, a 2nd-level barbarian/4th-level rogue could only be 
+flanked by a rogue of at least 10th level. 
+In the special case of obtaining a familiar, both wizards and 
+sorcerers have the same ability. A sorcerer/wizard stacks his sorcerer 
+and wizard levels to determine the familiar’s natural armor, 
+Intelligence score, and special abilities. 
+Feats: A multiclass character gains a feat every three character 
+levels, regardless of individual class level (see Table 3–2: Experience 
+and Level Dependent Benefits, page 22). 
+Ability Increases:  A multiclass character increases one ability 
+score by 1 point every four character levels, regardless of individual 
+class level (see Table 3–2: Experience and Level Dependent Benefits, 
+page 22).. 
+Spells: The character gains spells from all of his or her spell-
+casting classes. Thus, an experienced ranger/druid may have access 
+to the spell protection from elements  both as a ranger and as a druid. 
+Since the spell’s effect is based on the class level of the caster, the 
+player must keep track of whether the character is preparing and 
+casting protection from elements as a ranger or as a druid. 
+ 
+ADDING A SECOND CLASS 
+When a character with one class gains a level, he or she may choose 
+to increase the level of his or her current class or pick up a new class 
+at 1st level. (A character can’t gain 1st level in the same class more 
+than once, even if this would allow him or her to select different 
+class features, such as a different set of domains for a cleric.) The DM 
+may restrict the choices available based on the way he or she handles 
+classes, skills, experience, and training. For instance, the character 
+may need to find a tutor to teach him or her the ways of the new 
+class. Additionally, the DM may require the player to declare what 
+class the character is “working on” before he or she makes the jump 
+to the next level, so the character has time to practice new skills. 
+The character gains the 1st-level base attack bonuses, base save 
+bonuses, class skills, weapon proficiency, armor and shield pro-
+ficiencies, spells, and other class features of the new class, hit points 
+of the appropriate Hit Die type, and the new class’s number of skill 
+points gained at each additional level (not that number × 4, as is the 
+case for a 1st level character). 
+Picking up a new class is not exactly the same as starting a char-
+acter in that class. Some of the benefits a 1st-level character gains 
+CHAPTER 3: 
+CLASSES 

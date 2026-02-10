@@ -1,0 +1,157 @@
+Constrict (Ex); A flexible animated object such as a_rope,
+
+vine,.or rug deals damage equal to its slam damage value plus.1-|
+
+1/2.1imes its Strength bonus with a successful grapple.
+
+check against a creature up to one size larger
+than itself.
+
+An.object of at least Large size can
+make.constriction attacks against multi-
+ple creatures at once, if they all are at
+least two sizes smaller than the object
+and can fir under it. 4
+
+Hardness (Ex): An animated object
+has the same hardness it had before it was
+
+animated (see Table 9-9 and Table 9-11,
+page 166 of the Player's Handbook, for the.
+hardness of some common substances and |
+
+* objects).
+
+Improved Speed (Ex): The base land speed
+given in the statistics block assume that an ani-
+& mated object Jurches, rocks, or slithers along,
+
+Objects with two legs (statues, ladders) or a similar
+shape that allows faster movement have a +10
+
+foot bonus to speed. Objects with multi-
+ple legs (tables, chairs) have a +20 foo
+bonus to speed, Wheeled objects have
+
+a +40 foot bonus to speed
+
+Objects might have additional modes
+of movement. A wooden object can float,
+and has a swim speed equal to half its land
+speed, A.rope or similar sinuous object has a climb
+speed equal to half its land speed. A sheetlike
+object can fly (clumsy maneuverability) at
+half its normal speed. |
+‘Trample (Ex): An animated object
+
+of at least Large size and with a hard-
+ness of at least 10 can trample.crea-
+tures two or more sizes smaller than
+irself, dealing damage.equal to the
+object's slam damage + 1-1/2 times its
+Strength bonus Opponents who do not
+
+(2); 1st—bless (2), cause fear, divine favor(2), entropic shield, obscur-
+ing mist®, shield of faith; 2nd—align weapon, bear’s.endunance (2),
+bull's strength (2), consecrate, eagle's splendor, spiritual
+weapon*; 3rd—daylight, invisibility purge, magic circle
+against evil, magic vestment*, prayer(2), protection from
+energy, wind wall; 4ch—death wand (2), dismissal (2),
+divine power, neutralize poison (2); Sth—break
+lenchantment, control winds", dispel evil, plane
+ishift, righteous might (2), symbol of pain;
+6th—banishment, chain lightning® heroes.
+feast, mass cure moderate wounds, sindeath to
+\death, word of recall; 7th—control weather”,
+destruction, dictum, ethereal jaunt, holy word,
+regenerate; 8th—fire storm, holy aura, mass
+cure critical wounds (2), whirlwind*; 9th—
+etherealness, elemental swarm (air)®, mass heal,
+miracle, storm of vengeance.
+
+*Domain spell. Domains: Air and War.
+
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+ 
+ 
+ 
+   
+ 
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+  
+
+‘
+
+ 
+
+‘Animated objects come in all sizes, shapes, and colors. They
+owe their existence as creatures to spells such as animate objects
+or similar supernatural abilities.
+
+COMBAT
+
+(Animated objects fight only as directed by the animator.
+| They follow orders without question and.to the best of their
+abilities. Since they do not need to breathe and never tire,
+they can be extremely capable minions.
+
+An animated object can have one or more of the following
+special abilities, depending on its form.
+
+Blind (Ex); A sheetlike animated object such as a
+carpet or tapestry can grapple an opponent up to three
+sizes larger than itself. The object makes a
+normal grapple check. If it wins, it
+wraps itself around the opponent's Vive
+head, causing that creature to be z€
+blinded until removed.
+
+Animated object
+
+Animated Object, Tiny Animated Object, Small Animated Object, Medium
+Tiny Construct Small Construct Medium Construct
+Hit Dice: 1/210 (2 hp) 1d10+10 (15 hp) 2d10+20 (31 hp)
+Initiative: +2 al +0.
+Speed: 40 ft. (8 squares); 50 ft. legs, 30 ft. (6 squares); 40 ft. legs, 30 ft. (6 squares); 40 ft. legs,
+60 ft. multiple legs; 80 ft. wheels 50 ft, multiple legs, 70 ft. wheels 50 ft. multiple legs, 70 ft. wheels
+Armor Class; 14 (+2 size, +2 Dex), touch 14, 14.(+1 size, +1 Dex, +2 natural), 14.(+4 natural),
+flat-footed 12 touch 12, flat-footed 13 touch 10, flar-foored 14
+Base Attack/Grapple: +0/-9 40/4 +1/42
+Attack: Slam +1 melee (1d3~1) Slam +1 melee (1d4) Slam +2 melee (idé+1)
+Full Attack: Slam +1 melee (1d3—1) Slam +1 melee (1d4) Slam +2 melee (1dé+1)
+Space/Reach; 2-1/2 ft,/o ft, 5 ft/s fr. 5 ft/s ft
+Special Attacks: See text See text See text
+Special Qualities: Construct traits, darkyision 60 ft., Construct traits, darkvision 60 ft., Construct traits, darkvision 60 ft.,
+low-light vision; also see text low-light vision; also see text low-light vision; also see text
+Saves: Fort +0, Ref +2, Will -s Fort +0, Ref +1, Will -s Fort +0, Ref +0, Will -s
+Abilities; Str 8, Dex 14, Con —, $tr.10, Dex 12, Con—, Str 12, Dex 10, Con —,
+Int —, Wis 1, Cha 1 Int —, Wis 1, Cha 1 Int—, Wis 1, Chat
+Skills: _ — —
+Feats: — — =
+Environment: Any Any Any
+Organization: Group (4) Pair Solitary
+Challenge Rating: 1/2 1 2
+Treasure; None None None
+Alignment: Always neutral Always neurral Always neutral
+Advancement: _ _ -
+
+Level Adjustment:
+
+ 
+

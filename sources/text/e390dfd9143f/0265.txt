@@ -1,0 +1,203 @@
+   
+  
+  
+   
+  
+   
+     
+
+—Racial Skills: A yuan-ti_ pureblood's monstrous humanoid
+levels give it skill points equal.to 7 x (2+ Int modifier), Irs class
+skills are Concentration, Disguise, Hide, Knowledge (any), Listen
+and Spot.
+
+—Racial Feats: A yuan-ti pureblood’s monstrous humanoid.
+levels give it rwo feats Yuan-ti purebloods receive Alertness and)
+Blind-Fight as bonus feats,
+
+— +1 natural armor bonus.
+
+—Special Attacks (see above): Spell-like abilities. }
+
+—Special Qualities (see above): Alternate form, detect poison, spell!
+[resistance equal to class levels + 14.
+
+—Automatic Languages: Yuan-ti. Common. Bonus Languages:
+Abyssal, Draconic.
+
+—Favored Class: Ranger.
+
+—Level adjustment +2.
+
+YUAN-TI HALFBLOOD
+Medium Monstrous Humanoid
+| Hit Dice: 7d8+7 (38 hp)
+Initiative: +5
+Speed: 30 fr. (6. squares)
+Armor Class: 20 (+1 Dex, +4 natural, +3 masterwork studded
+leather, +2 masterwork heavy shield), touch 11, flat-footed 19
+Base Attack/Grapple: +7/+9
+Attack: Masterwork scimitar +10 melee (1d6+2/18-20) or
+masterwork.composite longbow (+2 Str bonus) +9 ranged
+(1d8+2/x3)
+|Eull Attack: Masterwork scimitar +10/+5 melee (1d6+2/18-20)
+and bite +4 melee (1d6+1 plus poison), or masterwork compos-
+| ite longbow (+2 Str bonus) +9/+4 ranged (1d8+2/x3)
+|Space/Reach: s ft,/s ft.
+|Special Attacks: Poison, produce acid, spell-like abilities
+Special Qualities: Alternate form, chameleon power, darkyision
+60 ft., detect poison, scent, spell resistance 16.
+Saves: Fort.+3, Ref +6, Will +9
+Abilities; Str 15, Dex 13, Con 13, Int 18, Wis 18, Cha 16
+Skills; Concentration +11, Craft or Knowledge (any two) +14,
+Hide +10°, Listen +16, Spot +16
+Feats: Alertness", Blind-Fight®, Combat Expertise, Dodge,
+Improved Initiative
+Environment: Warm forests
+Organization: Solitary, pair, gang (3-4), troupe (2-13 pure-
+bloods, 2-5 halfbloods, and 2—4 abominations), or tribe
+(20-160 purebloods, 10-80 halfbloods, and 10-40 abomina-
+tions)
+Challenge Rating: 5
+Treasure; Double standard
+Alignment: Usually chaotic evil
+_Adyancement: By character class
+Level Adjustment: +5
+
+This being has the body of a.lithe human with sharp features and unblink-
+ing eyes. tts skin.is covered with. gleaming scales, and a serpent’s head,
+complete with long fangs and forked tongue, rises from its shoulders.
+
+Like purebloods, yuan-ti halfbloods appear mostly human, but
+they always have obvious snake features, The snakelike features of
+
+a halfblood may reflect any of a variety of venomous snakes, so a
+
+halfblood may have a cobras hood or a. diamondback's distinctive
+
+.scale pattern. These features are usually consistent within a single
+ytroupe of yuan-ti, and often mark a troupe's status within a tribe.
+A halfblood is about the same height and weight as. human.
+
+Combat
+Halfbloods typically hang back out of melee while any purebloods
+
+accompanying them wade in, using their chameleon power to hide,
+while softening up opponents with their spell-like abilities. If the
+
+   
+   
+   
+   
+   
+  
+  
+   
+   
+  
+   
+   
+  
+   
+  
+
+purebloods all fall, the halfbloods wade into melee in their stead.
+
+Poison (Ex): Injury, Fortitude DC 14, initial and secondary |
+damage id6 Con. The save DC is Constitution-based.
+
+Produce Acid (Sp): A yuan-ti halfblood has the psionic power to.
+jexude acid from its body, dealing 3dé6 points of acid damage to. the
+[next creature it touches, including a creature hit by its bite attack.
+[Ifthe yuan-ti is grappling or pinning a foe when it uses this power,
+
+its grasp deals Sd6 points of acid damage. The acid becomes inert
+when it leaves the yuan-ti’s body, and the yuan-ti is immune to its
+effects,
+
+Spell-Like Abilities: 3/day—animal trance (DC 15), cause fear
+(DC 14), entangle (DC 14); 1/day—deeper darkness, neutnalize poison.
+(DC 17), suggestion (DC 16). Caster level 8th. The save DCs are
+Charisma-based.
+
+Chameleon Power (Sp): A yuan-ti halfblood can psionically.
+change the coloration of itself and its equipment to match its sur-
+roundings, granting it a +10 circumstance bonus on Hide checks,
+
+Skills: “Yuan-ti halfbloods using chameleon power gain a +10 cir-
+
+jcumstance bonus on Hide checks,
+
+Halfblood Variants
+
+The statistics above reflect. the most common form of a yuan-ti
+halfblood, with the head and scaly skin of a serpent but otherwise
+human features The curse of the yuan-ti produces a wide variety
+of halfbloods, however, manifesting their serpentine nature in dif-
+ferent ways. To generate a random yuan-ti halfblood, roll d’% and
+consult the following table.
+
+d% _ Halfblood Variety
+
+01-40 As described above
+
+41-60 Human head, but arms are snakes (two bite attacks
+instead of one, damage 1d4+2 plus poison)
+
+61-80 Snake tail in addition to human legs (speed 30 ft., swim
+15 ft., can constrict Small or smaller creatures for 1d4+3
+points of damage)
+
+81-00 Snake tail instead of human legs (speed 20 ft...climb 15
+
+ft., swim 15 ft., can constrict Medium or smaller.creatures
+for 1d6+3 points of damage)
+
+Constrict (Ex): A halfblood with a snake tail deals extra
+damage (1d4+3 if it also has legs, or 1d6+3 if it does not) with a suc-
+cessful grapple check against a creature small enough for it to con-
+strict.
+
+YUAN-TI ABOMINATION
+
+Large Monstrous Humanoid
+
+Hit Dice: 9d8+27 (67 hp)
+
+Initiative: +5
+
+Speed: 30 ff. (6 squares), climb 20 ft., swim 20 ft.
+
+Armor Class; 22 (~1 size, +1 Dex, +10 natural, +2 masterwork
+heavy shield), touch 10, flat-footed 21
+
+Base Attack/Grapple: +9/+17
+
+Attack; Masterwork scimitar +13.melee (1d8+4/18-20) or
+masterwork composite longbow. (+4 Str bonus) +10 ranged
+(2d6+4/x3).
+
+Full Attack: Masterwork scimitar +13/+8 melee (1d8+4/18-20)
+and bite +7 melee (2d6+3 plus poison); or masterwork compos-
+ite longbow (+4 Str bonus) +10/+5 ranged (2d6+4/x3)
+
+Space/Reach: 10 ft,/10 ft
+
+Special Attacks: Aversion, constrict 1d6+6, improved grab,
+poison, praduce acid, spell-like abilities
+
+Special Qualities: Alternate form, chameleon power, darkvision
+60 ft., detect poison, scent, spell resistance 18
+
+Saves: Fort +6, Ref +7, Will +11
+
+Abilities: Str 19, Dex 13, Con 17, Int 20, Wis 20, Cha 18
+
+| Skills: Concentration +15, Craft or Knowledge (any two) +17,
+
+Hide +8*, Listen +19, Move Silently +12, Spot +19
+
+\Feats: Alertness", Blind-Fight®, Combat Expertise, Dodge,
+
+Improved Initiative, Mobility
+

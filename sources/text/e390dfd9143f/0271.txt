@@ -1,0 +1,190 @@
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+   
+   
+
+Armor Class: 13 (~1 size, +4 natural), touch 9, flat-footed 13
+Base Attack/Grapple: +3/+13
+Attack: Gore +8 melee (1d8+9).
+Full Attack: Gore +8 melee (1d8+9)
+Space/Reach: 10 ft/s ft.
+
+Special Attacks: Stampede.
+
+Special Qualities: Low-light vision, scent
+
+Saves: Fort +7, Ref +4, Will +1
+
+\Abilities: Str 22, Dex 10, Con 16, Int 2, Wis 11, Cha 4
+Skills: Listen +7, Spot +5
+
+Feats: Alertness, Endurance
+_Enyironment: Temperate plains
+Organization: Solitary or herd (6-30)
+Challenge Rating: 2
+
+Advancement: 6-7 HD (Large)
+Level Adjustment: —
+
+ 
+
+| These herd animals can be aggressive when protecting young and.
+| during the mating season, but they generally prefer flight to fighting. |
+
+A bison stands more than 6 feet tall at the shoulder and is 9 ro.
+12 feet long. It weigh 1,800 to 2,400 pounds. The bison’s statistics
+can be used for almost any large herd animal.
+
+Combat
+Stampede (Ex): A frightened herd of bison flees as a group ina
+random direction (but always away from the perceived source of
+|danger). They literally run over anything of Large size or smaller
+\that gets in their way, dealing 1d12 points of damage for each five
+bison in the herd (Reflex DC 18 half), The save DC is Strength-
+based.
+
+BOAR
+Medium Animal
+Hit Dice: 3d8+12 (25 hp)
+Initiative: +0
+Speed: 40 ft. (8 squares)
+Armor Class; 16 (+6 natural), touch 10, flar-foored 16
+Base Attack/Grapple: +2/+4
+Attack: Gore +4 melee (1d8+3)
+Full Attack: Gore +4 melee (1d8+3)
+Space/Reach: 5 ft./s ft
+Special Attacks: Ferocity
+Special Qualities; Low-light vision, scent
+Saves; Fort +6, Ref +3, Will +2
+Abilities: Str.15, Dex 10, Con 17, Int 2, Wis 13, Cha 4
+Skills: Listen +2, Spor +5
+Feats: Alertness, Toughness
+_Environment: Temperate forests
+| Organization: Solitary or herd (5-8)
+Challenge Rating: 2
+|Advancement: 4-5 HD (Medium)
+Level Adjustment; —
+
+ 
+
+ 
+
+Though not carnivores, these wild swine are bad-tempered and
+usually charge anyone who disturbs them.
+
+A boar is covered in coarse, grayish-black fur. Adult males are
+about 4 feet long and 3 feet high ar the shoulder.
+
+Combat
+Ferocity (Ex): A boar is such.a tenacious combatant thar it con-
+\tinues to fight without penalty even while disabled or dying.
+
+|Hit Dice: 3d8+6 (19 hp)
+Initiative: +3
+Speed: 50 ft. (10 squares)
+
+   
+
+   
+   
+  
+    
+     
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+ 
+
+Armor Class: 13 (~1 size, +3 Dex, +1 natural) touch 12,
+flat-footed 10
+Base Attack/Grapple: +2/+10
+Attack: Bite +0 melee (1d4+2")
+{Full Attack: Bite +0 melee* (1d4+2*)
+)Space/Reach: 10 ft/s ft.
+Special Attacks: —
+Special Qualities: Low-light vision, scent
+Saves: Fort +5, Ref +6, Will +1
+Abilities: Str 18, Dex 16, Con 14, Int 2, Wis 11,.Cha 4
+Skills: Listen +5, Spot +5
+Feats: Alertness, Endurance
+Environment: Warm deserts
+Organization: Domesticated or herd (6-30)
+Challenge Rating: 1
+Advancement: —
+Level Adjustment: —
+
+\ Camels are known for their ability to travel long distances without.
+food or water.
+
+The statistics presented here are for the dromedary, or one-
+humped camel, which thrives in. warm deserts. A dromedary stands
+about 7 feet tall at the shoulder, with its hump rising 1 foor higher.
+
+The two-humped, or Bactrian, camel is suited to cooler, rocky
+areas. It is stockier, slower (speed 40 feet), and has.a higher Con-
+stitution score (16).
+
+Carrying Capacity: A light load fora camel is up to 300,
+pounds; a medium load, 301-600 pounds; and a heavy load.)
+601-900 pounds, A camel can drag 4,500 pounds.
+
+Combat 4
+*A camels bite is treated as a secondary attack and adds only half.
+the camel's Strength bonus to the damage roll.
+
+CAT
+Tiny Animal
+Hit Dice: 1/2 d8 (2 hp)
+Initiative: +2
+Speed: 30 ft. (6 squares)
+Armor Class; 14 (+2 size, +2 Dex), touch 14, flat-footed 12
+Base Attack/Grapple: +0/-12
+Attack: Claw +4 melee (id2—4)
+Full Attack: 2 claws +4 melee (1d2-+) and bite -1 melee (1d3—4)
+Space/Reach: 2-1/2 ft./0 ft.
+Special Attacks: —
+Special Qualities: Low-light vision, scent
+Saves: Fort +2, Ref +4, Will +1
+Abilities: Str 3, Dex 15, Con 10, Int 2, Wis 12, Cha 7
+Skills: Balance +10, Climb +6, Hide +14°, Jump +10, Listen +3,
+Move Silently +6, Spot +3
+Feats: Weapon Finesse
+Environment; Temperate plains
+Organization: Domesticated or solitary
+Challenge Rating: 1/4
+Advancement: —
+Level Adjustment: —
+
+ 
+
+  
+ 
+
+ 
+
+The statistics presented here describe a common housecat.
+
+Combat
+_Cats prefer.to sneak up on their prey.
+
+Skills: Cars have a +4 racial bonus on Climb, Hide, and Move]
+Silently checks and a+8 racial bonus on Jump checks, Cars have a}
++8 racial bonus.on Balance checks. They use their Dexterity modi-
+fier instead of their Strength modifier for Climb and Jump checks.
+“In areas of tall grass or heavy undergrowth, the Hide bonus rises
+to +8.
+

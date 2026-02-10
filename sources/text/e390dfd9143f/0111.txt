@@ -1,0 +1,189 @@
+  
+    
+   
+    
+  
+ 
+   
+  
+   
+    
+  
+ 
+
+   
+    
+  
+          
+
+Formian Myrmarch
+Large Outsider (Lawful, Extraplanar)
+
+Hit Dice: 12d8+48 (102 hp)
+
+Initiative: +8.
+
+Speed: $0 ft. (10 squares)
+
+Armor Class: 28 (1 size, +4 Dex, +15 natural),
+
+touch 13, flar-footed 24
+
+ 
+
+  
+  
+
+   
+
+Formian Queen
+Large Outsider (Lawful, Extraplanar)
+20d8+100 (190 hp)
+
+-S
+
+of.
+
+23 (-1 size, +14 natural),
+
+touch 9, flat-footed 23
+
+ 
+
+Base Attack/Grapple: +12/+20 +20/424
+Attack: Sting +15 melee (2d4+4 plus poison) or —
+javelin +15 ranged (1d6+4)
+Full Attack: Sting +15 melee (2d4+4 plus poison) and bite —
++13 melee (2d6+2); or javelin +15/+10 ranged (1dé+4)
+Space/Reach: 10 ft./5 fr. 10 ft/s fe.
+Special Attacks: Poison, spell-like abilities Spell-like abilities, spells
+Special Qualities: Fast healing 2, hive mind, immunity to poison, Fast healing 2, hive mind, immunity to poison,
+petrification, and cold, resistance to electricity 10, petrification, and cold, resistance to electricity 10,
+fire 10, and sonic 10, spell resistance 25 fire 10, and sonic 10, spell resistance 30, telepathy
+Saves: Fort +12, Ref +12, Will +11 Fort +19, Ref —, Will +19
+Abilities: Str 19, Dex 18, Con 18, Int 16, Wis 16, Cha 17 Str—, Dex —, Con 20, Int 20, Wis 20,Cha 21
+Skills: Climb +19, Concentration +18, Diplomacy +20, Appraise +28, Bluff +28, Concentration +28,
+
+Hide +15, Knowledge (any one) +18, Listen +18,
+Move Silently +19, Search +18, Sense Motive +18,
+Spot +18, Survival +3 (+5 following tracks)
+
+ 
+
+Feats: Dodge, Improved Initiat
+Spring Attack
+_ Environment Clockwork Nirvana of Mechanus
+Organization: Solitary, team (2-4), or platoon (1 plus
+
+7-18 workers and 6-11 warriors)
+
+Challenge Rating 10
+
+Treasure: Standard
+
+Alignment: Always lawful neutral
+Advancement: 13-18 HD (Large), 19-24 HD (Huge)
+Level Adjustment: =—
+
+Taskmasters resemble warriors with no mandibles—no apparent.
+
+mouth ar all, in fact. These formians communicate only telepathi-|
+
+cally and derive sustenance from the mental energies of those.
+they dominate.
+
+A taskmaster's duty is to gather and control nonformians for in-
+tegration into the hive. Put simply, taskmasters enslave other crea-
+tures, They_do not.enjoy controlling others but believe it is the
+only efficient way.to spread the hive to all places, a desirable end
+for all rational creatures, If a taskmaster can manage to “conscript”
+a laborer. without using its dominate monster ability, it will do so,
+
+Those few souls who have escaped refer to formian hive-
+cities as “work pits.” While formians are not cruel, they are still
+
+Lemotionless—and pitiless,
+Ataskmaster is about the same size.as.a. warrior.
+
+Combat
+‘Taskmasters rely on their dominated slaves to fight for them if at
+all possible, If necessary, though, they can defend themselves with
+claws and a poison sting.
+
+A formian taskmaster's natural weapons, as well as any. weapons
+it wields, are treated as lawful-aligned for the purpose of overcom-
+ing damage reduction.
+
+Dominate Monster (Su); A taskmaster can use.a.dominate
+
+\monster.ability.as.the spell from a 10th-level caster. (Will DC 17
+negates), although the subject may.be of any kind and may.be up.
+bro Large size. Creatures thar successfully save cannot be affected
+\by the same.taskmaster’s dominate monster ability for 24 hours. A
+single taskmaster can dominate up to four subjects at a time, The
+save DC is Charisma-based. }
+Dominated Creature (Ex): A taskmaster is never encountered
+
+. Mobility, Multiartack,
+
+Diplomacy +32, Disguise +5 (+7 acting), Intimidate +30,
+Knowledge (any three) +28, Listen +30, Sense Motive
++28, Spellcraft +28 (+30 scrolls), Spot +30, Use Magic
+Device +28 (+30 scrolls)
+
+Alertness, Eschew Materials®, Great Fortitude, Improved
+Counterspell, Iron Will, item creation feat (any one),
+Maximize Spell, Spell Focus (enchantment)
+
+Clockwork Nirvana of Mechanus
+
+Hive (1 plus 100-400 workers,
+
+11-40 warriors, 4-7 taskmasters with 1
+
+dominated creature each, and 5-8 myrmarchs,
+
+7
+
+Double standard
+
+Always lawful neutral
+
+21-30 HD (Huge); 31-40 HD (Gargantuan)
+
+alone. One dominated nonformian creature always accompanies
+it (choose or determine randomly any creature of CR 4),
+
+Poison (Ex): Injury, Fortitude DC 15, initial and secondary
+damage 1d6 Str. The save DC is Constitution-based.
+
+MYRMARCH
+
+This creature is about the sizeof a light horse. tt looks like an ant, but
+holds its head.and thorax upright, Its mouth features powerful-looking
+mandibles, and it wears an elaborate bronze helmet. The creature has
+humanlike shoulders and arms ending in humaniike hands. tts abdomen
+bears a stinger.
+
+Myrmarchs are the elite of formian society. Much more than those
+beneath them, these creatures.are individuals, with goals, desires,
+and creative thought. Very rarely do these thoughts conflict with
+the wishes of the queen, though—most myrmarchs are still very
+loyal to her.
+
+Myrmarchs are commanders in formian armies and leaders in
+formian communities. They are the hands of the queen, carrying
+out her direct orders and making sure everything goes as she |
+desires, Myrmarchs also have a secondary role: stamping out chaos |
+wherever and whenever they can. Those who foment disorder,|
+and particularly creatures that revere or exemplify it (such as.
+slaadi), are the hated foes of myrmarchs,
+
+A.myxmarch is.about is about 7 feet long and about 5-1/2 feet
+high at the front. It weighs about 1,500 pounds, Its claws are |
+capable of fine manipulation, like human hands. Each myrmarch
+
+{wears a bronze helm.to signify its position (the more elaborate the
+\helm, the more prestigious the position)
+Myrmarchs speak Formian and Common.
+

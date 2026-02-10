@@ -1,0 +1,85 @@
+27-29 horrid wilting 3,000 gp 88-90 _ sunburst 3,000 gp 50-53 _ Mordenkainen's 3,825 gp
+30-32 incendiary cloud 3,000 gp 91 symbol of death 8,000 gp disjunction
+33-35 iron body 3,000 gp 92 symbol of insanity 8,000 gp 54-58 power word kill 3,825 gp
+36-38 maze 3,000 gp 93-94 sympathy 4,500 gp 59-62 prismatic sphere 3,825 gp
+39-41 mind blank 3,000 gp 95-98 temporal stasis 3,500 gp 63-66 refuge 3,825 ep
+42-44 moment.of prescience 3,000 gp 99-100 trap the soul 13,000 gp! 67-10 _ shades 3,825 gp.
+45-48 Otiluke's telekinetic 3,000 gp. 1 Assumes a creature of 10 HD or less. 71-76 shapechange 3,825 gp
+sphere 72-19 __ soul bind. 3,825 gp.
+49-51 Otto's irresistible dance 3,000 gp. 9th-Level Arcane Spells 80-83 summon monster IX 3,825 gp,
+52-54 planar binding, greater__ 3,000 gp. 4% _ Spell Market Price 84-86 teleportation circle 4,825 gp |
+35-57 polar ray 3,000 gp 01-03 astral projection 4,870 gp 87-91 time stop 3,825 gp,
+58-60 polymorph any object 3,000 gp. 04-07 Bigby’s crushing hand _3,825 gp 92-95 wail of the banshee 3,825 gp
+61-63 power word stun 3,000 gp 08-12 dominote monster 3,825 gp 96-99 weird 3,825 gp
+64-66 prismatic wall 3,000 gp 13-16 energy drain 3,825 gp 100__wish 28,825 gp!
+67-70 protection from spells 3,500 gp 17-21 etherealness 3,825 gp |]_Assumes.no material component cost in
+71-73 _ prying eyes, greater 3,000 gp 22-25 foresight 3,825 gp excess of 10,000 gp and no XP.cost in
+74-76 scintillating pattern 3,000 gp 26-31 freedom 3,825 gp excess of 5,000 XP.
+77-78 screen 3,000 gp 32-36 ote 8,825 gp
+73-81 shadow evocation, greater 3,000 ep 37-40 hold monster, mass 3,825 gp
+82-84 shout, greater. 3,000 gp. 41-44 imprisonment 3,825 gp
+85-87 summon monster Vill 3,000 gp 45-49 meteor swarm 3,825 ep
+
+determine its level and then on the appropriate subtable of Table
+7-23: Arcane Spell Scrolls or Table 7-24: Divine Spell Scrolls to
+determine the specific spell.
+
+All the spells described in the Player's Handbook are represented
+on Table 7-23 and Table 7~24. Each scroll appears on a list accord-
+ing to the level of the spell scribed into it.
+
+Several arcane spells are different in level for sorcerers and
+wizards than they are for bards, Such spells appear on Table
+7-23 at the level appropriate to a sorcerer or wizard (consid-
+
+ered the default because bards typically don't involve them-
+selves in scribing scrolls). Examples: Tasha's hideous laughter,
+suggestion.
+
+Likewise, some divine spells are different in level for clerics and
+druids than they are for paladins and rangers. Such spells appear)
+on Table 7~24 at. the level appropriate to.a cleric or druid (consid-
+ered the default because paladins and rangers typically don't
+involve themselves in scribing scrolls). Examples: nad magic, lesser
+restoration, reduce animal.
+
+Tasle 7-24: Divine Spett Scrois 36-37 detect snares and pits 25 gp 05-06 _ barkskin 150 gp
+O-Level Divine Spells 38-39 detect undead 25 gp 07-09 bear's endurance 150 gp
+4% Spell Market Price 40-41 divine favor 25. gp 10-12 _ bull's strength 150 gp
+01-07 create water 12. gp 5sp 42-43 doom 25 gp 13-14 calm emotions 150 gp
+08-14 cure minor wounds__12.g.5 sp. 44-48. endure elements 25.gp. 15-17__ cat's grace 150 gp
+15-22 detect magic 12 gp Ssp 49-50 entangle 25 gp 18 chill metal 150 gp
+23-28 detect poison 12 gp. 5sp 51-52__ entropic shield 25 gp 19-20 consecrate 200 gp
+30-36 flare 12 gp 5sp 53-54 faerie fire 25 gp 21-24 cure moderate wounds 180 gp
+37-43_ guidance. 12gp.5sp 55-56 _ goodberry. 25 gp 25-26. darkness 150 gp
+44-50 inflict minor wounds 12 gp S sp 57-58 hide from animals 25 gp 27 death knell 150 gp
+|-51=57_know direction 12.gp 5 sp 59-60 hide from undead 25 gp 28-30 delay poison 150 gp
+58-65 light 12 gp 5 sp 61-62 _ inflict light wounds 23 gp 31-32 desecrate 200 gp
+|..66-72__mending 12. gp 5 sp 63-64 _ jump 25 gp 33-35 eagle's splendor 150 gp
+73-79 purify food and drink 12 gp S sp 65-66 longstrider 25 gp 36-37 enthrall 150. gp
+80-86 read mogic 12 gp 5 sp 67-68 _ magic fang 25 gp 38-39 find traps 150 gp
+87-93 resistance 12 gp Ssp 69-72 magic stone 25 gp 40 fire trap 175 gp
+94-100 virtue 12 gp5 sp 73-74 magic weapon 25 gp 4}-42__ flame blade 150 gp
+75-78 obscuring mist 25 gp 43-44 flaming sphere 150 gp
+
+Ist-Level Divine Spells - 73-80 pass without trace 25 gp 45-46 fog cloud 150 gp
+d% Spell Market Price 81-82 produce flame 28 gp 47 gentle repose 150 gp
+01 alarm 100 gp 83-86 protection from chaos/ 25 gp. 48 gust of wind 150. gp
+92-03 bane 25 gp evil/good/law 49 heat metal 150 gp
+04-06 bless 25 gp 87-88 remove fear 25 gp 50-5) hold animal 150 gp
+07-09 bless water 50 gp 89-90 sanctuary 25 gp $2-$4 hold person 150 gp
+10 bless weapon 100 gp 91-92 shield of faith 25 gp 55-56 _ inflict. moderate. wounds_150 gp
+11=12__calm animals 25 gp 93-94 shillelagh 25 gp 57-58_moke whole 150 gp
+13-14 cause fear 25 gp 95-96 speak with animals 25 gp 59-61 owl's wisdom 150 gp
+15-16 charm animal 25 gp 97-98 summon monster | 25 gp 62. reduce animal 150 gp
+17-19 command 25 gp 99-100 summon nature's.allyi 25 gp 63-64 _ remove paralysis 150 gp
+20-21_comprchend languages 25 gp 65-67 resist energy 150 gp
+22-26 cure light wounds 25 gp 2nd-Level Divine Spells 68-70 _ restoration, lesser 150 gp
+27-28 _ curse water 50.gp 4% — Spell Market Price T-72 shatter 150 gp
+29-30 deathwatch 2S gp 01 animal messenger 150 gp 73-74 shield other 150 gp
+31=32__detect animals or plants ___25.gp 02__ animal trance 150. gp 75-76 silence 150 gp
+
+33-35 detect chaos/evil/good/law 25 gp 03-04 augury 175 gp
+
+ 
+

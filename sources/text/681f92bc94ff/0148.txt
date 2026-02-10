@@ -1,0 +1,75 @@
+ 
+ 147
+quietly skirt the fracas seeking a straggler or an unwary opponent to 
+strike with a sneak attack. Finally, if the fight is lost, most characters 
+seek to remove themselves from the vicinity. Movement is an 
+important element for gaining the upper hand on the battlefield. 
+Dungeons & D ragons miniatures are on the 30mm scale—a 
+miniature figure of a six-foot-tall human is approximately 30mm tall. 
+A square on the battle grid is 1 inch across, representing a 5-foot-by-
+5-foot area. 
+ 
+TACTICAL MOVEMENT 
+Where you can move, how long it takes you to get there, and 
+whether you’re vulnerable to attacks of opportunity while you’re 
+moving are key questions in combat. 
+ 
+How Far Can Your Character Move? 
+Your speed is determined by your race and your armor (see Table 8–
+3: Tactical Speed). Your speed while unarmored is your base land 
+speed. 
+Encumbrance: A character encumbered by carrying a large 
+amount of gear, treasure, or fallen comrades may move slower than 
+normal (see Carrying Capacity, page 161). 
+Hampered Movement:  Difficult terrain, obstacles, or poor vis-
+ibility can hamper movement (see Terrain and Obstacles, below, and 
+Hampered Movement, page 163). 
+Movement in Combat: Generally, you can move your speed in a 
+round and still do something, such as swing an axe or cast a spell. If 
+you do nothing but move (that is, if you use both of your actions in a 
+round to move your speed), you can move double your speed. If you 
+spend the entire round running, you can move quadruple your 
+speed. If you do something that requires a full round you can only 
+take a 5-foot step. 
+Bonuses to Speed: A barbarian has a +10 foot bonus to his speed 
+(unless he’s wearing heavy armor). Experienced monks also have 
+higher speed (unless they’re wearing armor of any sort). In addition, 
+many spells and magic items can affect a character’s speed. Always 
+apply any modifiers to a character’s speed before adjusting the 
+character’s speed based on armor or encumbrance, and remember 
+that multiple bonuses of the same type to a character’s speed (such as 
+enhancement bonuses) don’t stack. 
+ 
+Table 8–3: Tactical Speed 
+ No Armor or Medium or 
+Race Light Armor Heavy Armor  
+Human, elf, half-elf, half-orc 30 ft.(6 squares) 20 ft.(4 squares) 
+Dwarf 20 ft.(4 squares) 20 ft.(4 squares) 
+Halfling, gnome 20 ft.(4 squares) 15 ft.(3 squares)  
+ 
+Measuring Distance 
+Diagonals: When measuring distance, the first diagonal counts 
+as 1 square, the second counts as 2 squares, the third counts as 1, the 
+fourth as 2, and so on. (If it helps, you can think of a diagonal as a 
+distance of 1.5 squares.) 
+You can’t move diagonally past a corner (even by taking a 5-foot 
+step). You can move diagonally past a creature, even an opponent. 
+You can also move diagonally past other impassable obstacles, such 
+as pits. 
+Closest Creature: When it’s important to determine the closest 
+square or creature to a location, if two squares or creatures are 
+equally close, randomly determine which one counts as closest by 
+rolling a die. 
+ 
+Moving through a Square 
+Friend: You can move through a square occupied by a friendly 
+character, unless you are charging (page 154). When you move 
+through a square occupied by a friendly character, that character 
+doesn’t provide you with cover (see page 150). 
+Opponent: You can’t move through a square occupied by an op-
+ponent, unless the opponent is helpless (dead, unconscious, 
+paralyzed, bound, or the like). You can move through a square 
+occupied by a helpless opponent without penalty. (The DM may 
+rule that some creatures, such as an enormous dragon, present an 
+CHAPTER 8: 
+COMBAT 

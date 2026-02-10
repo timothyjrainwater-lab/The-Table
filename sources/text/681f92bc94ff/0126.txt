@@ -1,0 +1,72 @@
+ 
+ 125
+Like a normal gauntlet, a locked gauntlet lets you deal lethal 
+damage rather than nonlethal damage with an unarmed strike. 
+Half-Plate: This armor is a combination of chainmail with metal 
+plates (breastplate, epaulettes, elbow guards, gauntlets, tasses, and 
+greaves) covering vital areas. Buckles and straps hold the whole suit 
+together and distribute the weight, but the armor still hangs more 
+loosely than full plate. The suit includes gauntlets. 
+Hide: This armor is prepared from multiple layers of leather and 
+animal hides. It is stiff and hard to move in. Druids, who wear only 
+nonmetallic armor, favor hide. 
+Leather: The breastplate and shoulder protectors of this armor 
+are made of leather that has been stiffened by boiling in oil. The rest 
+of the armor is made of softer and more flexible leather. 
+Padded: Padded armor features quilted layers of cloth and bat-
+ting. It gets hot quickly and can become foul with sweat, grime, lice, 
+and fleas. 
+Scale Mail: This armor consists of a coat and leggings (and per-
+haps a separate skirt) of leather covered with overlapping pieces of 
+metal, much like the scales of a fish. The suit includes gauntlets. 
+Shield, Heavy, Wooden or Steel:  You strap a shield to your 
+forearm and grip it with your hand. A heavy shield is so heavy that 
+you can’t use your shield hand for anything else. 
+Wooden or Steel:  Wooden and steel shields offer the same basic 
+protection, though they respond differently to special attacks (such 
+as warp wood and heat metal). 
+Shield Bash Attacks: You can bash an opponent with a heavy shield, 
+using it as an off-hand weapon. See Table 7–5: Weapons for the 
+damage dealt by a shield bash. Used this way, a heavy shield is a mar-
+tial bludgeoning weapon. For the purpose of penalties on attack 
+rolls, treat a heavy shield as a one-handed weapon. If you use your 
+shield as a weapon, you lose its AC bonus until your next action 
+(usually until the next round). An enhancement bonus on a shield 
+does not improve the effectiveness of a shield bash made with it, but 
+the shield can be made into a magic weapon in its own right. 
+Shield, Light, Wooden or Steel:  You strap a shield to your 
+forearm and grip it with your hand. A light shield’s weight lets you 
+carry other items in that hand, although you cannot use weapons 
+with it. 
+Wooden or Steel:  Wooden and steel shields offer the same basic 
+protection, though they respond differently to special attacks (such 
+as warp wood and heat metal). 
+Shield Bash Attacks:  You can bash an opponent with a light shield, 
+using it as an off-hand weapon. See Table 7–5: Weapons for the 
+damage dealt by a shield bash. Used this way, a light shield is a 
+martial bludgeoning weapon. For the purpose of penalties on attack 
+rolls, treat a light shield as a light weapon. If you use your shield as a 
+weapon, you lose its AC bonus until your next action (usually until 
+the next round). An enhancement bonus on a shield does not 
+improve the effectiveness of a shield bash made with it, but the 
+shield can be made into a magic weapon in its own right. 
+Shield, Tower: This massive wooden shield is nearly as tall as you 
+are. In most situations, it provides the indicated shield bonus to your 
+AC. However, you can instead use it as total cover, though you must 
+give up your attacks to do so. The shield does not, however, provide 
+cover against targeted spells; a spellcaster can cast a spell on you by 
+targeting the shield you are holding. You cannot bash with a tower 
+shield, nor can you use your shield hand for anything else. 
+When employing a tower shield in combat, you take a –2 penalty 
+on attack rolls because of the shield’s encumbrance. 
+Shield Spikes:  When added to your shield, these spikes turn it 
+into a martial piercing weapon that increases the damage dealt by a 
+shield bash as if the shield were designed for a creature one size 
+category larger than you (from 1d4 to 1d6, for instance). You can’t 
+put spikes on a buckler or a tower shield. Otherwise, attacking with 
+a spiked shield is like making a shield bash attack (see above). An 
+enhancement bonus on a spiked shield does not improve the 
+effectiveness of a shield bash made with it, but a spiked shield can be 
+made into a magic weapon in its own right. 
+CHAPTER 7: 
+EQUIPMENT 

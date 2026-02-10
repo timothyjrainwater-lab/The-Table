@@ -1,0 +1,203 @@
+ 
+ 296 
+placed on the trigger object. As soon as the 
+subject picks up or accepts the trigger 
+object, its life force is automatically 
+transferred to the gem without the benefit 
+of spell resistance or a save. 
+Material Component:  Before the actual 
+casting of trap the soul, you must procure a 
+gem of at least 1,000 gp value for every Hit 
+Die possessed by the creature to be trapped 
+(for example, it requires a gem of 10,000 gp 
+value to trap a 10 HD creature). If the gem 
+is not valuable enough, it shatters when 
+the entrapment is attempted. (While 
+creatures have no concept of level or Hit 
+Dice as such, the value of the gem needed 
+to trap an individual can be researched. 
+Remember that this value can change over 
+time as creatures gain more Hit Dice.) 
+Focus (Trigger Object Only):  If the trigger 
+object method is used, a special trigger 
+object, prepared as described above, is 
+needed. 
+ 
+Tree Shape 
+Transmutation 
+Level: Drd 2, Rgr 3 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 hour/level (D) 
+ 
+By means of this spell, you are able to as-
+sume the form of a Large living tree or 
+shrub or a Large dead tree trunk with a 
+small number of limbs. The closest in-
+spection cannot reveal that the tree in 
+question is actually a magically concealed 
+creature. To all normal tests you are, in 
+fact, a tree or shrub, although a detect magic 
+spell reveals a faint transmutation on the 
+tree. While in tree form, you can observe 
+all that transpires around you just as if you 
+were in your normal form, and your hit 
+points and save bonuses remain 
+unaffected. You gain a +10 natural armor 
+bonus to AC but have an effective Dexter-
+ity score of 0 and a speed of 0 feet. You are 
+immune to critical hits while in tree form. 
+All clothing and gear carried or worn 
+changes with you. 
+You can dismiss tree shape as a free action 
+(instead of as a standard action). 
+ 
+Tree Stride 
+Conjuration (Teleportation) 
+Level: Drd 5, Rgr 4 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 1 hour/level or until 
+expended; see text 
+ 
+ 
+You gain the ability to enter trees and 
+move from inside one tree to inside 
+another tree. The first tree you enter and 
+all others you enter must be of the same 
+kind, must be living, and must have girth 
+at least equal to yours. By moving into an 
+oak tree (for example), you instantly know 
+the location of all other oak trees within 
+transport range (see below) and may 
+choose whether you want to pass into one 
+or simply step back out of the tree you 
+moved into. You may choose to pass to any 
+tree of the appropriate kind within the 
+transport range as shown on the following 
+table. 
+ 
+Type of Tree Transport Range 
+Oak, ash, yew 3,000 feet 
+Elm, linden 2,000 feet 
+Other deciduous 1,500 feet 
+Any coniferous 1,000 feet 
+All other trees 500 feet  
+ 
+You may move into a tree up to one time 
+per caster level (passing from one tree to 
+another counts only as moving into one 
+tree). The spell lasts until the duration 
+expires or you exit a tree. This means that 
+in a thick oak forest, a 10th-level druid 
+could make ten transports over the course 
+of 10 rounds, traveling as far as 30,000 feet 
+(about 6 miles) in doing so. Each transport 
+is a full-round action. 
+You can, at your option, remain within a 
+tree without transporting yourself, but you 
+are forced out when the spell ends. If the 
+tree in which you are concealed is chopped 
+down or burned, you are slain if you do not 
+exit before the process is complete. 
+ 
+True Resurrection 
+Conjuration (Healing) 
+Level: Clr 9 
+Casting Time: 10 minutes 
+ 
+This spell functions like raise dead , except 
+that you can resurrect a creature that has 
+been dead for as long as 10 years per caster 
+level. This spell can even bring back crea-
+tures whose bodies have been destroyed, 
+provided that you unambiguously identify 
+the deceased in some fashion (reciting the 
+deceased’s time and place of birth or death 
+is the most common method). 
+Upon completion of the spell, the crea-
+ture is immediately restored to full hit 
+points, vigor, and health, with no loss of 
+level (or Constitution points) or prepared 
+spells. 
+You can revive someone killed by a 
+death effect or someone who has been 
+turned into an undead creature and then 
+destroyed. This spell can also resurrect ele-
+mentals or outsiders, but it can’t resurrect 
+constructs or undead creatures. 
+Even true resurrection can’t restore to life 
+a creature who has died of old age. 
+Material Component:  A sprinkle of holy 
+water and diamonds worth a total of at 
+least 25,000 gp. 
+ 
+True Seeing 
+Divination 
+Level: Clr 5, Drd 7, Knowledge 5, 
+Sor/Wiz 6 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature touched 
+Duration: 1 min./level 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+You confer on the subject the ability to see 
+all things as they actually are. The subject 
+sees through normal and magical darkness, 
+notices secret doors hidden by magic, sees 
+the exact locations of creatures or objects 
+under blur or displacement effects, sees invi-
+sible creatures or objects normally, sees 
+through illusions, and sees the true form of 
+polymorphed, changed, or transmuted 
+things. Further, the subject can focus its 
+vision to see into the Ethereal Plane (but 
+not into extradimensional spaces). The 
+range of true seeing conferred is 120 feet. 
+True seeing, however, does not penetrate 
+solid objects. It in no way confers X-ray 
+vision or its equivalent. It does not negate 
+concealment, including that caused by fog 
+and the like. True seeing  does not help the 
+viewer see through mundane disguises, 
+spot creatures who are simply hiding, or 
+notice secret doors hidden by mundane 
+means. In addition, the spell effects cannot 
+be further enhanced with known magic, so 
+one cannot use true seeing through a crystal 
+ball or in conjunction with clairaudience/ 
+clairvoyance. 
+Material Component: An ointment for the 
+eyes that costs 250 gp and is made from 
+mushroom powder, saffron, and fat. 
+ 
+True Strike 
+Divination 
+Level: Sor/Wiz 1 
+Components: V, F 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: See text 
+ 
+You gain temporary, intuitive insight into 
+the immediate future during your next 
+attack. Your next single attack roll (if it is 
+made before the end of the next round) 
+gains a +20 insight bonus. Additionally, 
+you are not affected by the miss chance 
+that applies to attackers trying to strike a 
+concealed target. 
+Focus: A small wooden replica of an 
+archery target. 
+ 
+ 
+CHAPTER 11: 
+SPELLS 

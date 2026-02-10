@@ -1,0 +1,190 @@
+ 
+
+Goblin bands and tribes have noncombatant young equal in”
+
+number to the adults
+
+‘The chief goblin deity is Maglubiyer, who urges his wor-
+shipers to expand their numbers and overwhelm their.competi-
+tors.
+
+GOBLINS AS CHARACTERS
+
+\Goblin leaders tend to be rogues or fighter/rogues. Goblin clerics|
+\worship Maglubiyer. A goblin cleric has access to two of the fol-)
+
+Jowing domains: Chaos, Evil, or Trickery, Most goblin spellcasters |
+
+are adepts, Goblin adepts favor spells that fool or confuse enemies.
+
+Goblin characters possess the following racial traits.
+
+—=72 Strength, +2 Dexterity,—2 Charisma.
+
+—Small size: +1 bonus to Armor Class, +1 bonus on attack rolls,
++4 bonus on Hide checks, -+ penalty on grapple checks, lifting
+and carrying limits 3/4 those of Medium characters.
+
+—A goblin’s base land speed is 30 feet.
+
+—Darkvision out to 60 feet.
+
+|—+4 mcial bonus on Move Silently and Ride checks.
+
+—Automatic Languages: Common, Goblin. Bonus Languages:
+Draconic, Elven, Giant, Gnoll, Ore.
+
+—Favored Class: Rogue.
+
+The goblin warrior presented here had the following ability scores
+before racial adjustments: Str 13, Dex 11, Con 12, Int 10, Wis 9,
+Cha 8,
+
+\Golems are magically created automatons of great power. Con-
+\structing one involves the employment of mighty magic and ele-
+\mental forces,
+
+,.The animating force for a golem is a spirit from the Elemental
+\Plane of Earth. The process of creating the golem binds the unwill-
+ing spirit.to the artificial body and subjects it.to the will of the
+golem’s creator.
+
+COMBAT
+
+Golems are tenacious in combat and prodigiously strong as.well.|
+Being mindless, they do nothing without orders from their cre-|
+
+ators, They follow instructions explicitly and are incapable of |
+
+any strategy or tactics. They are emotionless in combat and
+cannot be provoked,
+
+A golem’ creator can command it if the golem is within 60 feet
+and can see and hear its creator, If uncommanded, a golem usually
+follows its Jastinstruction to the best ofits ability, though if attacked
+it returns the attack. The creator can give the golem a simple com-
+
+-mand to govern its actions in his or herabsence, such as “Remain in
+
+jan area and attack all creatures thar enter” (or only a specific type of
+\creature), “Ring a gong and attack,” or the like. The golem’s creator
+can order the golem to. obey the commands of another person (who
+might in turn place the golem under someone else's control, and so
+on), but the golem’s creator.can always resume control over his cre-
+
+ation by commanding the golem to obey him alone.
+
+Since golems do not need to breathe and are immune to most
+forms of energy, they.can press an_attack against an opponent
+almost anywhere, from the bottom of the sea to the frigid top of
+the tallest mountain.
+
+Immunity to Magic (Ex); Golems have immunity to most
+
+-magical and supernatural effects, except when otherwise noted.
+
+GONSTRUCTION—
+{The cost to create given for each golem includes the. cost.of the
+{physical body and all the materials and spell components thatare.
+consumed or become a permanent part of the golem. Creating a
+
+golem is essentially similar to creating any sort of magic item (see)
+page 282 of the Dungeon Master's Guide). However, a golem's body,
+
+includes costly material components that may require some extra,
+preparation. The golem’s creator can assemble the body or hire|
+someone else to do the job. The builder must have the appropriate |
+skill, which varies with the golem variety. }
+Completing the golem’s creation drains the appropriate XP
+ifrom the creator and requires casting any spells on the final day,
+,The creator must cast the spells personally, but they can come
+from outside sources, such as scrolls.
+
+The characteristics.of a golem that come from its nature.as.a,
+.magic item (caster level, prerequisite feats and spells, marker,
+price, cost to create) are given in summary form atthe end of each
+golem’s description, in the same format used in Chapter Z.of the
+
+Dungeon Master's Guide.
+
+Note: The market price of an advanced golem (a golem with.
+more Hit Dice than the typical golem described in each entry) is
+increased by 5,000 gp for each additional Hit Die, and increased by
+an.additional $0,000 gp if the golem’s size increases. The XP cost
+
+{for creating an advanced golem is equal to 1/25 the advanced
+4golem’s marker price minus the cost of the special materials
+irequired.
+
+CLAY GOLEM
+
+Large Construct
+
+Hit Dice: 11410230 (90 hp).
+
+Initiative: -1
+
+Speed: 20 ft. (4 squares)
+
+Armor Class: a (+1 size, -1 Dex, +14 natural), touch 8,
+flat-foon
+
+Ra acoeala +8/+19
+
+Attack: Slam +14 melee (2d10+7 plus cursed wound)
+
+Full Attack; 2 slams. +14 melee (2d10+7 plus cursed wound)
+
+Space/Reach: 10 ft,/10 ft,
+
+Special Attacks: Berserk, cursed wound
+
+Special Qualities: Construct traits, damage reduction
+10/adamantine and bludgeoning, darkvision 60 ft., haste,
+immunity to magic, low-light vision
+
+Saves: Fort +3, Ref +2, Will +3
+
+Abilities: Str 25, Dex 9, Con —, Int—, Wis.11,.Cha 1
+
+Skills: —
+
+Feats: —
+
+Environment: Any
+
+Organization: Solitary or gang (2-4)
+
+Challenge Rating: 10
+
+Treasure: None
+
+Alignment: Always neutral
+
+Advancement: 12-18 HD (Large); 19-33 HD (Huge)
+
+Level Adjustment: —
+
+ 
+
+This automaton has been sculpted from soft clay. It's about 18 inches taller
+than a normal human, and its features are grossly distorted from the
+human norm. Its chest is overty large, with arms attached by thick knots of
+muscle at the shoulder, hanging down to_its knees, and ending in short,
+stubby fingers. It has.no neck, and the jarge head has broad, flat features.
+Its legs are short and bowed, ending in wide, flat feet. It smells faintly of clay.
+
+This golem has a humanoid body made from clay.
+Aclay golem wears no clothing except for a metal or stiff leather
+garment around its hips. |
+A clay. golem golem cannot speak or make any vocal noise. Ir}
+walks and moves.with a slow, clumsy gait. It weighs around 600,
+pounds.
+
+Combat. {
+{Clay golems are frightening combatants, thanks to their immuni-
+{ties and their haste ability.
+
+Berserk (Ex): When a clay golem enters combat, there is a
+cumulative 1% chance each round that its elemental spirit breaks
+

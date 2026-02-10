@@ -1,0 +1,139 @@
+ 
+ 171
+fireball (that is, a fireball that has been enhanced by the metamagic 
+feat Maximize Spell) and vice versa. 
+Specific Exceptions:  Some spells specifically counter each 
+other, especially when they have diametrically opposed effects. For 
+example, you can counter a haste spell with a slow spell as well as 
+with another haste spell, or you can counter reduce person with enlarge 
+person. 
+Dispel Magic  as a Counterspell:  You can use dispel magic  to 
+counterspell another spellcaster, and you don’t need to identify the 
+spell he or she is casting. However, dispel magic doesn’t always work 
+as a counterspell (see the spell description, page 223). 
+ 
+CASTER LEVEL 
+A spell’s power often depends on its caster level, which for most 
+spellcasting characters is equal to your class level in the class you’re 
+using to cast the spell. For example, a fireball deals 1d6 points of 
+damage per caster level (to a maximum of 10d6), so a 10th-level 
+wizard can cast a more powerful fireball than a 5th-level wizard can. 
+You can cast a spell at a lower caster level than normal, but the 
+caster level you choose must be high enough for you to cast the spell 
+in question, and all level-dependent features must be based on the 
+same caster level. For example, at 10th level, Mialee can cast a fireball 
+to a range of 800 feet for 10d6 points of damage. If she wishes, she 
+can cast a fireball that deals less damage by casting the spell at a lower 
+caster level, but she must reduce the range according to the selected 
+caster level, and she can’t cast fireball with a caster level lower than 
+5th (the minimum level required for a wizard to cast fireball). 
+In the event that a class feature, domain granted power, or other 
+special ability provides an adjustment to your caster level, that 
+adjustment applies not only to effects based on caster level (such as 
+range, duration, and damage dealt) but also to your caster level 
+check to overcome your target’s spell resistance (see Spell Resis-
+tance, page 177) and to the caster level used in dispel checks (both 
+the dispel check and the DC of the check). For instance, a 7th-level 
+cleric with the Good domain casts spells with the good descriptor as 
+if he were 8th level. This means that his holy smite deals 4d8 points of 
+damage, he tolls 1d20+8 to overcome spell resistance with his good 
+spells, and his protection from evil  spell resists being dispelled as if it 
+had been cast by an 8th-level spellcaster. 
+ 
+SPELL FAILURE 
+If you ever try to cast a spell in conditions where the characteristics 
+of the spell (range, area, or the like) cannot be made to conform, the 
+casting fails and the spell is wasted. For example, if you cast charm 
+person on a dog, the spell fails because a dog is the wrong sort of 
+target for the spell. 
+Spells also fail if your concentration is broken and might fail if 
+you’re wearing armor while casting a spell with somatic components 
+(see Table 7–6: Armor and Shields, page 123). 
+ 
+THE SPELL’S RESULT 
+Once you know which creatures (or objects or areas) are affected, 
+and whether those creatures have made successful saving throws (if 
+any were allowed), you can apply whatever results a spell entails. 
+Many spells affect particular sorts of creatures. Repel vermin keeps 
+vermin away, and calm animals can calm down animals and magical 
+beasts. These terms, and terms like them, refer to specific creature 
+types defined in the Monster Manual. 
+ 
+SPECIAL SPELL EFFECTS 
+Many special spell effects are handled according to the school of the 
+spells in question. For example, illusory figments all have certain 
+effects in common (see Illusion, page 173). Certain other special 
+spell features are found across spell schools. 
+Attacks: Some spell descriptions refer to attacking. For instance, 
+invisibility is dispelled if you attack anyone or anything while under 
+its effects. All offensive combat actions, even those that don’t 
+damage opponents (such as disarm and bull rush) are considered 
+attacks. Attempts to turn or rebuke undead count as attacks. All 
+spells that opponents resist with saving throws, that deal damage, or 
+that otherwise harm or hamper subjects are attacks. Summon monster 
+I and similar spells are not attacks because the spells themselves 
+don’t harm anyone. 
+Bonus Types:  Many spells give their subjects bonuses to ability 
+scores, Armor Class, attacks, and other attributes. Usually, a bonus 
+has a type that indicates how the spell grants the bonus. For 
+example, mage armor  grants an armor bonus to AC, indicating that 
+the spell creates a tangible barrier around you. Shield of faith , on the 
+other hand, grants a deflection bonus to AC, which makes attacks 
+veer off. (Bonus types are covered in detail in the Dungeon Master’s 
+Guide.) The important aspect of bonus types is that two bonuses of 
+the same type don’t generally stack. With the exception of dodge 
+bonuses, most circumstance bonuses, and racial bonuses, only the 
+better bonus works (see Combining Magical Effects, below). The 
+same principle applies to penalties—a character taking two or more 
+penalties of the same type applies only the worst one. 
+Bringing Back the Dead:  Several spells have the power to 
+restore slain characters to life. 
+When a living creature dies, its soul departs its body, leaves the 
+Material Plane, travels through the Astral Plane, and goes to abide 
+on the plane where the creature’s deity resides. If the creature did 
+not worship a deity, its soul departs to the plane corresponding to its 
+alignment. Bringing someone back from the dead means retrieving 
+his or her soul and returning it to his or her body. 
+Level Loss:  The passage from life to death and back again is a 
+wrenching journey for a being’s soul. Consequently, any creature 
+brought back to life usually loses one level of experience. The 
+character’s new XP total is midway between the minimum needed 
+for his or her new (reduced) level and the minimum needed for the 
+next one. If the character was 1st level at the time of death, he or she 
+loses 2 points of Constitution instead of losing a level. 
+This level loss or Constitution loss cannot be repaired by any 
+mortal means, even wish or miracle. A revived character can regain a 
+lost level by earning XP through further adventuring. A revived 
+character who was 1st level at the time of death can regain lost 
+points of Constitution by improving his or her Constitution score 
+when he or she attains a level that allows an ability score increase. 
+Preventing Revivification:  Enemies can take steps to make it more 
+difficult for a character to be returned from the dead. Keeping the 
+body prevents others from using raise dead or resurrection to restore 
+the slain character to life. Casting trap the soul  prevents any sort of 
+revivification unless the soul is first released. 
+Revivification against One’s Will: A soul cannot be returned to life if 
+it does not wish to be. A soul knows the name, alignment, and 
+patron deity (if any) of the character attempting to revive it and may 
+refuse to return on that basis. For example, if Alhandra the paladin is 
+slain and a high priest of Nerull (god of death) grabs her body, 
+Alhandra probably does not wish to be raised from the dead by him. 
+Any attempts he makes to revive her automatically fail. If the evil 
+cleric wants to revive Alhandra to interrogate her, he needs to find 
+some way to trick her soul, such as duping a good cleric into raising 
+her and then capturing her once she’s alive again. 
+ 
+COMBINING MAGICAL EFFECTS 
+Spells or magical effects usually work as described, no matter how 
+many other spells or magical effects happen to be operating in the 
+same area or on the same recipient. Except in special cases, a spell 
+does not affect the way another spell operates. Whenever a spell has 
+a specific effect on other spells, the spell description explains that 
+effect. Several other general rules apply when spells or magical 
+effects operate in the same place: 
+Stacking Effects:  Spells that provide bonuses or penalties on 
+attack rolls, damage rolls, saving throws, and other attributes usually 
+do not stack with themselves. For example, two bless spells don’t give 
+twice the benefit of one bless. Both bless spells, however, continue to 
+CHAPTER 10: 
+MAGIC 

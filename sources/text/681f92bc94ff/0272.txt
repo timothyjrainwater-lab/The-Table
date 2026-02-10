@@ -1,0 +1,205 @@
+ 
+ 271
+curse does not remove the curse from a 
+cursed shield, weapon, or suit of armor, 
+although the spell typically enables the 
+creature afflicted with any such cursed 
+item to remove and get rid of it. Certain 
+special curses may not be countered by 
+this spell or may be countered only by a 
+caster of a certain level or higher. 
+Remove curse counters and dispels bestow 
+curse. 
+ 
+Remove Disease 
+Conjuration (Healing) 
+Level: Clr 3, Drd 3, Rgr 3 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature touched 
+Duration: Instantaneous 
+Saving Throw: Fortitude negates (harm-
+less) 
+Spell Resistance: Yes (harmless) 
+ 
+Remove disease  cures all diseases that the 
+subject is suffering from. The spell also 
+kills parasites, including green slime and 
+others. Certain special diseases may not be 
+countered by this spell or may be coun-
+tered only by a caster of a certain level or 
+higher. 
+Note: Since the spell’s duration is in-
+stantaneous, it does not prevent reinfec-
+tion after a new exposure to the same 
+disease at a later date. 
+ 
+Remove Fear 
+Abjuration 
+Level: Brd 1, Clr 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Targets: One creature plus one addi- 
+tional creature per four levels, no two 
+of which can be more than 30 ft. apart 
+Duration: 10 minutes; see text 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+You instill courage in the subject, granting 
+it a +4 morale bonus against fear effects for 
+10 minutes. If the subject is under the 
+influence of a fear effect when receiving 
+the spell, that effect is suppressed for the 
+duration of the spell. 
+Remove fear  counters and dispels cause 
+fear. 
+ 
+Remove Paralysis 
+Conjuration (Healing) 
+Level: Clr 2, Pal 2 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Targets: Up to four creatures, no two of 
+which can be more than 30 ft. apart 
+Duration: Instantaneous 
+Saving Throw: Will negates (harmless) 
+Spell Resistance: Yes (harmless) 
+ 
+You can free one or more creatures from 
+the effects of any temporary paralysis or 
+related magic, including a ghoul’s touch or 
+a slow spell. If the spell is cast on one 
+creature, the paralysis is negated. If cast on 
+two creatures, each receives another save 
+with a +4 resistance bonus against the 
+effect that afflicts it. If cast on three or four 
+creatures, each receives another save with 
+a +2 resistance bonus. 
+The spell does not restore ability scores 
+reduced by penalties, damage, or drain. 
+ 
+Repel Metal or Stone 
+Abjuration [Earth] 
+Level: Drd 8 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 60 ft. 
+Area: 60-ft. line from you 
+Duration: 1 round/level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+Like repel wood , this spell creates waves of 
+invisible and intangible energy that roll 
+forth from you. All metal or stone objects 
+in the path of the spell are pushed away 
+from you to the limit of the range. Fixed 
+metal or stone objects larger than 3 inches 
+in diameter and loose objects weighing 
+more than 500 pounds are not affected. 
+Anything else, including animated objects, 
+small boulders, and creatures in metal 
+armor, moves back. Fixed objects 3 inches 
+in diameter or smaller bend or break, and 
+the pieces move with the wave of energy. 
+Objects affected by the spell are repelled at 
+the rate of 40 feet per round. 
+Objects such as metal armor, swords, 
+and the like are pushed back, dragging 
+their bearers with them. Even magic items 
+with metal components are repelled, 
+although an antimagic field  blocks the 
+effects. 
+The waves of energy continue to sweep 
+down the set path for the spell’s duration. 
+After you cast the spell, the path is set, and 
+you can then do other things or go 
+elsewhere without affecting the spell’s 
+power. 
+ 
+Repel Vermin 
+Abjuration 
+Level: Brd 4, Clr 4, Drd 4, Rgr 3 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: 10 ft. 
+Area: 10-ft.-radius emanation centered on 
+you 
+Duration: 10 min./level (D) 
+Saving Throw: None or Will negates; see 
+text 
+Spell Resistance: Yes 
+ 
+ 
+An invisible barrier holds back vermin. A 
+vermin with Hit Dice of less than one-
+third your level cannot penetrate the bar-
+rier. A vermin with Hit Dice of one-third 
+your level or more can penetrate the bar-
+rier if it succeeds on a Will save. Even so, 
+crossing the barrier deals the vermin 2d6 
+points of damage, and pressing against the 
+barrier causes pain, which deters most 
+vermin. 
+ 
+Repel Wood 
+Transmutation 
+Level: Drd 6, Plant 6 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 60 ft. 
+Area: 60-ft. line-shaped emanation from 
+you 
+Duration: 1 min./level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+Waves of energy roll forth from you, mov-
+ing in the direction that you determine, 
+causing all wooden objects in the path of 
+the spell to be pushed away from you to 
+the limit of the range. Wooden objects 
+larger than 3 inches in diameter that are 
+fixed firmly are not affected, but loose 
+objects are. Objects 3 inches in diameter or 
+smaller that are fixed in place splinter and 
+break, and the pieces move with the wave 
+of energy. Objects affected by the spell are 
+repelled at the rate of 40 feet per round. 
+Objects such as wooden shields, spears, 
+wooden weapon shafts and hafts, and 
+arrows and bolts are pushed back, dragging 
+those carrying them along. (A creature 
+being dragged by an item it is carrying can 
+let go. A creature being dragged by a shield 
+can loose it as a move action and drop it as 
+a free action.) If a spear is planted (set) to 
+prevent this forced movement, it splinters. 
+Even magic items with wooden sections 
+are repelled, although an antimagic field  
+blocks the effects. 
+The waves of energy continue to sweep 
+down the set path for the spell’s duration. 
+After you cast the spell, the path is set, and 
+you can then do other things or go 
+elsewhere without affecting the spell’s 
+power. 
+ 
+Repulsion 
+Abjuration 
+Level: Clr 7, Protection 7, Sor/Wiz 6 
+Components: V, S, F/DF 
+Casting Time: 1 standard action 
+Range: Up to 10 ft./level 
+Area: Up to 10-ft.-radius/level emanation 
+centered on you 
+Duration: 1 round/level (D) 
+Saving Throw: Will negates 
+Spell Resistance: Yes 
+ 
+CHAPTER 11: 
+SPELLS 

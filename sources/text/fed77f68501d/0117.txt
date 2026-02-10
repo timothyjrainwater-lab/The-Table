@@ -1,0 +1,87 @@
+Taste 4-15; NPC Druio
+Skill Pts./ Spells
+
+Level hp AC Melee Ranged __F/R/W. Feats _per Day Gear
+Ist 9 7 4 3 +3/42/+4 20/1 3/2 Hide armor, heavy wooden shield, mwk
+melee, mwk ranged, 250 gp
+2nd_14 17s? +4 +4/+2/+5 25/1 4p As Ist level, except 1,350 gp
+3d 2048 +8 44/43/45 30/2 4/3/2 As Ist level, except 1,800 gp
+4th 25 1744 +6 +5/43/+7 35/2 5/4/3 As Ist level, except 2,600 gp
+Sth 31 17 44 +6 +5/43/47 40/2 5/4/3/2 As Ist level, except 3,000 gp
+6th 36 18 +5 7 +6/+4/+8 45/3 5/4/43 +1 hide armor, heavy wooden shield, mwk.
+melee, mvk ranged, 3,400 gp
+Wth 42 «18 46 +8 46/44/48 50/3 6/S/4/3/n As 6th level, except 5,000 gp
+Bh 47. 19 47/2 +3/4 +7/t4)+9 55/3 6/5/4/4/2 +1 hide armor,.+1 heavy wooden shield, ring of.
+protection +1, mwk melee, mwk ranged,
+3,400 gp
+Mh 53 20 47/2 +9/4 7/45/49 60/4 6/5/5/4/2/1 As 8th level, except 6,000 gp
+10th +58 2 +8/3 +10/5 +8/25/+10 65/4 6/5/5/4/3/2 +1 hide armor, +1 heavy.woaden shield, amulet
+
+of natural armor +1. ring +1,.mwk.melee,
+mwk ranged, 8,000 gp
+
+Vth 64 «2149/4 +11/6 +8/+5/411 70/4 6/6/5/S/4/2/1 +1 hide armor, +1 heavy wooden shield, amulet
++1, ring +1, mwk melee, mwk ranged, periapt
+of Wisdom +2, 9,000 gp
+
+12th 69 21 +10/5 +12/7 +9/+6/+13. 75/8 /7/5/5/4/4/2 +1 hide armor, +1 heavy wooden shield, amulet
++1, ring +1, +1 melee, mwk ranged, periapt
++2, 6,500 gp
+
+Vth 75 2210/5 +12/7 9/46/+13 80/5 6/7/6/5/5/4/2/) +2 hide armor, +1 heavy wooden shield, amulet
++1, ring +1, +1 melee, mwk ranged, periapt
++2, 19,500 gp
+
+4th 80 22 +11/6 +13/8 +10/+6/+15 85/5 6/7/7/S/S/4/4/2 +2 hide armor, +1 heavy wooden shield, amulet
++1, ring +1, +1 melee, mwk ranged, periopt
++4, 17,500 gp
+
+ith 86 23 «H2/7/2—-+14/9 +10/+7/+15 90/6 6/7/7/6/S/5/4/2/1 +2 hide armor, +1 heavy wooden shield, amulet
++2, ring +1, +7 melee, mwk ranged, penopt
++4, 29,500 gp
+
+Vth 91 24 414/9/4 415/104 0 J47/436 95/6 6/7/7/6/5/5/4/3/2__+2.hide armor, +1 heavy wooden shield, amulet
++2, ring +2, +2 melee, mwk ranged, periapt
++4, 31,000 gp
+
+Vth «97-25 14/94 435/10. -+11/47/417 100/66 /7/7/7/6/5/5/4/2/1 +2 hide armor, +2 heavy wooden shield, amulet
++2, ring +2, +2 melee, mwk ranged, periapt
++6, 41,000 gp
+
+18th 102, 28+ 15 /10/S_+16/11_+12/+8/+18 105/76 /7/7/7/6/5/5/4/3/2 +3 hide armor, +4 heavy wooden shield, amulet
++2, ring +2, +2 melee, mwk ranged, periapt
++6, 54,000 gp
+
+19th 108.28 16/11/6 +17/12 «+ 12/48/4918 —-110/7_—_—«6/7/7/7/6/6/5/5/3/3 As 18th level, except 94,000 gp
+
+20th 113.28 __417/12/7_+18/13__+13/48/+20. 1158/7 —_6/7/7/7/7/6/5/5/5/4 As 18th level, except 144,000 gp
+
+ 
+
+ 
+
++3, Jump 42, Knowledge (nature) +8, Spellcraft +4, Swim +9, Sur- Bonus Trick: This animal companion is capable of learn-
+vival +9; Multiattack (see page 304 of the Monster Manual), Scribe ing one trick in addition to.any that the druid might
+Scroll, Track. choose to teach it (see the Handle Animal skill, page 74 of
+Animal Companion (Ex); This druid has.a crocodile as an animal the Player's Handbook), This bonus trick doesnt require any
+companion. This creature is.a loyal companion that accompanies training time ot Handle Animal checks, and it doesn't
+the druid on adventures.as appropriate for its kind. Its abilities and count against the normal limit.of tricks known by the
+characteristics are summarized below, creature, The druid selects this bonus trick, and once
+Crocodile Animal Companion: CR —; Medium mag- selected, it cant be changed.
+ical beast, HD 3d8+9; hp 22; Init +1, Spd 20 ft., swim 30 ft; Hold Breath (Ex); This creature.can hold its breath for 68
+AC 15, touch 11, flat-footed 14; Base Atk +2; Grp +6; Atk +6 rounds before it risks drowning.
+melee (1d8+6, bite), or +6 melee (tail slap, 1d12+6); Full Low-Light Vision (Ex); Can see twice as far as a human.in.
+Atk +6 melee (1d8+6, bite), or +6 melee (tail slap, 1d12+6); dim light.
+Space/Reach 5 ft./5 ft,,SA improved grab; SQ bonus trick, Hold Breath (Ex): Lizardfolk can hold their breath for 60 rounds
+hold breath, low-light vision; ALN; SV Fort +6, Ref +4, before they risk drowning. ,
+Will 42; Str.19, Dex 13, Con 12, Int 1, Wis 12, Cha 2. Link.with Companion (Ex); This druid can handle its animal com-|
+| _Skills and Feats: Hide +7, Listen +4, Spot +4, Swim +12; panion as a free action, or push itas a move action, with a+4 bonus |
+Alertness, Skill Focus (Hide). ‘on wild empathy and Handle Animal checks made while dealing |
+Improwed Grab (Ex): To use this ability, a crocodile must vwith thatanimal,
+hit with its bite attack. If it wins the grapple check, the .__Nature Sense (Ex); This druid gains a +2 bonus on Knowledge
+crocodile grabs the opponent with its mouth and drags it Minature) and Survival checks (these bonuses are included in the
+
+into deep water, attempting to pin it to the bottom | "seatistics given above),
+
+ 
+

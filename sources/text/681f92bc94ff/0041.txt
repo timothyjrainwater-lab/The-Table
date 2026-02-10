@@ -1,0 +1,109 @@
+ 
+ 40 
+devotion to an interest, art, or discipline, and some of them leave the 
+forests to become monks. The monk tradition is alien to dwarf and 
+gnome culture, and halflings typically have too mobile a lifestyle to 
+commit themselves to a monastery, so dwarves, gnomes, and 
+halflings very rarely become monks. 
+The savage humanoids do not have the stable social structure that 
+allows monk training, but the occasional orphaned or abandoned 
+child from some humanoid tribe winds up in a civilized monastery 
+or is adopted by a wandering master. The evil subterranean elves 
+known as the drow have a small but successful monk tradition. 
+Other Classes:  Monks sometimes seem distant because they 
+often have neither motivation nor skills in common with members 
+of other classes. Monks do, however, work well with the support of 
+others, and they usually prove themselves reliable companions. 
+Role: The monk functions best as an opportunistic combatant, 
+using her speed to get into and out of combat quickly rather than 
+engaging in prolonged melees. She also makes an excellent scout, 
+particularly if she focuses her skill selection on stealth. 
+ 
+GAME RULE INFORMATION 
+Monks have the following game statistics. 
+Abilities: Wisdom powers the monk’s special offensive and 
+defensive capabilities. Dexterity provides the unarmored monk with 
+a better defense and with bonuses to some class skills. Strength 
+helps a monk’s unarmed combat ability. 
+Alignment: Any lawful. 
+Hit Die: d8. 
+ 
+Class Skills 
+The monk’s class skills (and the key ability for each skill) are Balance 
+(Dex), Climb (Str), Concentration (Con), Craft (Int), Diplomacy 
+(Cha), Escape Artist (Dex), Hide (Dex), Jump (Str), Knowledge 
+(arcana) (Int), Knowledge (religion) (Int), Listen (Wis), Move 
+Silently (Dex), Perform (Cha), Profession (Wis), Sense Motive (Wis), 
+Spot (Wis), Swim (Str), and Tumble (Dex). See Chapter 4: Skills for 
+skill descriptions. 
+Skill Points at 1st Level: (4 + Int modifier) × 4. 
+Skill Points at Each Additional Level: 4 + Int modifier. 
+ 
+Class Features 
+All of the following are class features of the monk. 
+Weapon and Armor Proficiency:  Monks are proficient with 
+certain basic peasant weapons and some special weapons that are 
+part of monk training. The weapons with which a monk is proficient 
+are club, crossbow (light or heavy), dagger, handaxe, javelin, kama, 
+nunchaku, quarterstaff, sai, shuriken, siangham, and sling. (See 
+Chapter 7: Equipment for descriptions of these weapons.) Monks 
+are not proficient with any armor or shields—in fact, many of the 
+monk’s special powers require unfettered movement. When 
+wearing armor, using a shield, or carrying a medium or heavy load, a 
+monk loses her AC bonus, as well as her fast movement and flurry of 
+blows abilities. 
+AC Bonus (Ex):  A monk is highly trained at dodging blows, and 
+she has a sixth sense that lets her avoid even unanticipated attacks. 
+When unarmored and unencumbered, the monk adds her Wisdom 
+bonus (if any) to her AC. In addition, a monk gains a +1 bonus to AC 
+at 5th level. This bonus increases by 1 for every five monk levels 
+thereafter (+2 at 10th, +3 at 15th, and +4 at 20th level). 
+These bonuses to AC apply even against touch attacks or when 
+the monk is flat-footed. She loses these bonuses when she is 
+immobilized or helpless, when she wears any armor, when she 
+carries a shield, or when she carries a medium or heavy load. 
+Flurry of Blows (Ex): When unarmored, a monk may strike with 
+a flurry of blows at the expense of accuracy. When doing so, she may 
+make one extra attack in a round at her highest base attack bonus, 
+but this attack takes a –2 penalty, as does each other attack made that 
+round. The resulting modified base attack bonuses are shown in the 
+Flurry of Blows Attack Bonus column on Table 3–10: The Monk. 
+This penalty applies for 1 round, so it also affects attacks of 
+opportunity the monk might make before her next action. When a 
+monk reaches 5th level, the penalty lessens to –1, and at 9th level it 
+disappears. A monk must use a full attack action (see page 143) to 
+strike with a flurry of blows. 
+When using flurry of blows, a monk may attack only with 
+unarmed strikes or with special monk weapons (kama, nunchaku, 
+quarterstaff, sai, shuriken, and siangham). She may attack with 
+unarmed strikes and special monk weapons interchangeably as 
+Table 3–10: The Monk 
+ Base Fort Ref Will  Flurry of Blows Unarmed AC Unarmored 
+Level Attack Bonus Save Save Save Special Attack Bonus Damage 1 Bonus Speed Bonus  
+ 1st +0 +2 +2 +2 Bonus feat, flurry of blows, –2/–2 1d6 +0 +0 ft. 
+      u n a r m e d  s t r i k e  
+ 2nd +1 +3 +3 +3 Bonus feat, evasion –1/–1 1d6 +0 +0 ft. 
+ 3rd +2 +3 +3 +3 Still mind +0/+0 1d6 +0 +10 ft. 
+ 4th +3 +4 +4 +4 Ki strike (magic), slow fall 20 ft. +1/+1 1d8 +0 +10 ft. 
+ 5th +3 +4 +4 +4 Purity of body +2/+2 1d8 +1 +10 ft. 
+ 6th +4 +5 +5 +5 Bonus feat, slow fall 30 ft. +3/+3 1d8 +1 +20 ft. 
+ 7th +5 +5 +5 +5 Wholeness of body +4/+4 1d8 +1 +20 ft. 
+ 8th +6/+1 +6 +6 +6 Slow fall 40 ft. +5/+5/+0 1d10 +1 +20 ft. 
+ 9th +6/+1 +6 +6 +6 Improved evasion +6/+6/+1 1d10 +1 +30 ft. 
+10th +7/+2 +7 +7 +7 Ki strike (lawful), slow fall 50 ft. +7/+7/+2 1d10 +2 +30 ft. 
+11th +8/+3 +7 +7 +7 Diamond body, greater flurry +8/+8/+8/+3 1d10 +2 +30 ft. 
+12th +9/+4 +8 +8 +8 Abundant step, slow fall 60 ft. +9/+9/+9/+4 2d6 +2 +40 ft. 
+13th +9/+4 +8 +8 +8 Diamond soul +9/+9/+9/+4 2d6 +2 +40 ft. 
+14th +10/+5 +9 +9 +9 Slow fall 70 ft. +10/+10/+10/+5 2d6 +2 +40 ft. 
+15th +11/+6/+1 +9 +9 +9 Quivering palm +11/+11/+11/+6/+1 2d6 +3 +50 ft. 
+16th +12/+7/+2 +10 +10 +10 Ki strike (adamantine), +12/+12/+12/+7/+2 2d8 +3 +50 ft. 
+      slow fall 80 ft. 
+17th +12/+7/+2 +10 +10 +10 Timeless body, +12/+12/+12/+7/+2 2d8 +3 +50 ft. 
+      tongue of the sun and moon 
+18th +13/+8/+3 +11 +11 +11 Slow fall 90 ft. +13/+13/+13/+8/+3 2d8 +3 +60 ft. 
+19th +14/+9/+4 +11 +11 +11 Empty body +14/+14/+14/+9/+4 2d8 +3 +60 ft. 
+20th +15/+10/+5 +12 +12 +12 Perfect self, +15/+15/+15/+10/+5 2d10 +4 +60 ft. 
+      slow fall any distance 
+1 The value shown is for Medium monks. See Table 3–11: Small or Large Monk Unarmed Damage for Small or Large monks. 
+CHAPTER 3: 
+CLASSES 

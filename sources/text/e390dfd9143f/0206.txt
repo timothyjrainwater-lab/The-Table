@@ -1,0 +1,206 @@
+Otyughs are grotesque subterranean monsters that luck within
+heaps of refuse. Although primarily scavengers that can eat almost
+any kind of refuse, they never object to a meal of fresh meat when
+the opportunity presents itself.
+
+‘An otyugh spend most of its time within its lair, which it keeps.,
+filled with carrion, offal, and all manner.of similar trash, An
+otyugh usually covers itself with this vile stuff, leaving only its,
+sensory stalk exposed (the stack also carries the otyugh’s olfactory.
+organ) and lies there for hours, shoveling food into its mouth.
+Intelligent subterranean beings sometimes coexist with oryughs,|
+which they regard as conyenient garbage disposals; They dump
+their refuse in the lair of the otyugh, which generally refrains
+from attacking them.
+
+Atypical otyugh has a body.8 feet in diameter and weighs about
+500 pounds.
+
+Otyughs speak Common,
+
+COMBAT
+
+Challenge Rating: 3
+
+Treasure; None
+
+Alignment: Usually neutral good.
+Advancement; 5-8 HD (Large); 9-12 HD (Huge)
+Level Adjustment; +2 (cohort)
+
+Giant owls are nocturnal birds of prey, feared for their ability to
+hunt and attack in near silence. They are intelligent. and though
+naturally suspicious, sometimes associate with good creatures. ,
+
+They attack creatures that appear threatening, especially those ,
+intent on raiding the owls’ nest for eggs or fledglings, which fetch }
+a handsome price in many civilized areas. Young owls can be
+tained and are prized as aerial mounts.
+
+A typical giant owl stands about 9 feet tall, has a wingspan .of up
+to 20 feet, and resembles its smaller cousins in nearly every way
+except size.
+
+Giant owls speak Common and Sylvan
+
+‘An otyugh attacks living creatures if it feels threatened or ifiis| COMBAT
+
+hungry; otherwise it is content to remain hidden. Oryughs slash |
+and squeeze opponents with their tentacles, which they also use to
+drag prey into their mouths.
+
+Constrict (Ex): An otyugh deals automatic tentacle damage
+with a successful grapple check.
+
+Disease (Ex): Filth fever—bite,
+Fortitude DC 14, incubation
+period 1d3 days; damage 1d3
+Dex and 1d3 Con. The save DC) _\
+
+is Constitution-based. . Giant owl
+Improved Grab (Ex): To use . X
+this ability, an otyugh must hit ~
+
+with a tentacle attack. It can
+
+then attempt to start a grapple as
+
+a free action without provoking
+
+an attack. of opportunity, If ir wins “—_
+
+the grapple check, it establishes a
+
+hold and can constrict. a
+Skills: "An otyugh has «+8 racial =
+
+bonus on Hide checks when in its lair,
+
+due to its natural coloration, ~
+
+ 
+
+—S
+
+Large Magical Beast
+
+Hit Dice: 4d10+4 (26 hp)
+
+Initiative: +3
+
+Speed: 10 ft, (2 squares), fly 70 ft. (average)
+
+Armor Class; 15 (1 size, +3 Dex, +3 natural), touch
+12, flat-footed 12
+
+Base Attack/Grapple; +4/+12
+
+(Attack: Claw +7 melee (1d6+4)
+
+Full Attack: 2 claws +7 melee (1d6+4) and bite
++2 melee (1d8+2)
+
+Space/Reach: 10 ft,/s ft.
+
+Special Attacks; —
+
+Special Qualities: Superior low:
+light vision
+
+Saves: Fort +5, Ref +7, Will +3.
+
+Abilities: Str 18, Dex 17, Con
+12, Int 10, Wis 14, Cha. 10
+
+Skills: Knowledge (nature.
+Move Silently +8*, Spot +10
+
+\Feats; Alertness, Wingover
+
+Environment: Temperate forests
+
+Organization; Solitary, pair, or company
+(3-5)
+
+  
+   
+  
+   
+  
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+
+ 
+
+Listen +17,
+
+A giant owl attacks by gliding silently just a few feet above its prey
+and plunging to strike when directly overhead.
+
+A solitary giant owl is typically hunting or patrolling in the vi-
+cinity of its nestand generally ignores creatures that do not appear
+threatening. A mated pair of giant owls will attack in concert and
+
+fight.ro the death to
+_y —Sefend their nest. Sev:
+Mid eral giant owls sometimes
+A y operate as a company. for)
+oe PF some specific purpose, such as
+driving away a_group of evil
+he humanoids
+7 Superior Low-Light Vision.
+oF; (Ex): A giant owl can see five times.as
+f } far as a human can in dim light.
+Skills: Giant owls have.a.+8 racial
+bonus on Listen checks and.a+4 racial
+bonus on Spot checks
+
+*When in flight, giant owls gain a +8
+
+bonus_on Moye Silently checks.
+
+TRAINING A
+GIANT OWL
+Although intelligent, a giant
+B owl requires training before it
+& ¥ can bear a rider in combat. To be
+, trained, a giant owl must have a
+friendly attitude toward the trainer
+(this can.be achieved through a success-
+: ful Diplomacy check). Training a
+a % friendly giant owl requires six
+% Pee Jj ovecks of work and a DC 2s
+io pally ) Handle Animal check. Riding
+a giant owl requires an exotic
+saddle. A giant owl can fight while carrying a
+rider, but the rider cannot also attack unless he or
+she succeeds on a Ride check.
+Giant owl eggs are worth 2,500 gp apiece
+on the open market, while chicks are
+worth 4,000 gp each. Professional train-
+ers charge 1,000 gp to rearortrain.a giant,
+owl. 4
+4 Carrying Capacity: A light load for a,
+giant owl is up to 300 pounds; a medium}
+load, 301-600 pounds;.and_a heavy load,
+601-900 pounds.
+
+   
+   
+  
+  
+ 
+ 
+  
+ 
+ 
+
+ 
+

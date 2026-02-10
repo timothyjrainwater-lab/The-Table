@@ -1,0 +1,167 @@
+ 
+ 196 
+Evoc Bigby’s Clenched Fist:  Large hand provides cover, pushes, 
+or attacks your foes. 
+ Otiluke’s Telekinetic Sphere:  As Otiluke’s resilient sphere , 
+but you move sphere telekinetically. 
+ Polar Ray:  Ranged touch attack deals 1d6/level cold 
+damage. 
+ Shout, Greater:  Devastating yell deals 10d6 sonic damage; 
+stuns creatures, damages objects. 
+ Sunburst:  Blinds all within 10 ft., deals 6d6 damage. 
+Illus Scintillating Pattern:  Twisting colors confuse, stun, or 
+render unconscious. 
+ Screen:  Illusion hides area from vision, scrying. 
+ Shadow Evocation, Greater:  As shadow evocation, but up to 
+7th level and 60% real. 
+Necro Clone M F: Duplicate awakens when original dies. 
+ Create Greater Undead M: Create shadows, wraiths, spec-
+tres, or devourers. 
+ Horrid Wilting:  Deals 1d6/level damage within 30 ft. 
+ Symbol of Death M: Triggered rune slays nearby creatures. 
+Trans Iron Body: Your body becomes living iron. 
+ Polymorph Any Object:  Changes any subject into any-
+thing else. 
+ Temporal Stasis M: Puts subject into suspended animation. 
+ 
+9TH-LEVEL SORCERER/WIZARD SPELLS 
+Abjur Freedom: Releases creature from imprisonment. 
+ Imprisonment:  Entombs subject beneath the earth. 
+ Mordenkainen’s Disjunction:  Dispels magic, disenchants 
+magic items. 
+ 
+ 
+ 
+ 
+ Prismatic Sphere:  As prismatic wall , but surrounds on all 
+sides. 
+Conj Gate 
+X: Connects two planes for travel or summoning. 
+ Refuge M: Alters item to transport its possessor to you. 
+ Summon Monster IX:  Calls extraplanar creature to fight 
+for you. 
+ Teleportation Circle M: Circle teleports any creature inside 
+to designated spot. 
+Div Foresight: “Sixth sense” warns of impending danger. 
+Ench Dominate Monster: As dominate person, but any creature. 
+ Hold Monster, Mass:  As hold monster, but all within 30 ft. 
+ Power Word Kill:  Kills one creature with 100 hp or less. 
+Evoc Bigby’s Crushing Hand:  Large hand provides cover, 
+pushes, or crushes your foes. 
+ Meteor Swarm:  Four exploding spheres each deal 6d6 fire 
+damage. 
+Illus Shades: As shadow conjuration , but up to 8th level and 80% 
+real. 
+ Weird:  As phantasmal killer, but affects all within 30 ft. 
+Necro Astral Projection M: Projects you and companions onto 
+Astral Plane. 
+ Energy Drain:  Subject gains 2d4 negative levels. 
+ Soul Bind F: Traps newly dead soul to prevent resurrection. 
+ Wail of the Banshee:  Kills one creature/level. 
+Trans Etherealness: Travel to Ethereal Plane with companions. 
+ Shapechange F: Transforms you into any creature, and 
+change forms once per round. 
+ Time Stop:  You act freely for 1d4+1 rounds. 
+Univ Wish X: As limited wish, but with fewer limits. 
+ 
+SPELLS 
+The spells herein are presented in alpha-
+betical order (with the exception of those 
+whose names begin with “greater,” “lesser,” 
+or “mass”; see Order of Presentation, page 
+181). 
+ 
+Acid Fog 
+Conjuration (Creation) [Acid] 
+Level: Sor/Wiz 6, Water 7 
+Components: V, S, M/DF 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Effect: Fog spreads in 20-ft. radius, 20 ft. 
+high 
+Duration: 1 round/level 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+Acid fog  creates a billowing mass of misty 
+vapors similar to that produced by a solid 
+fog spell (page 281). In addition to slowing 
+creatures down and obscuring sight, this 
+spell’s vapors are highly acidic. Each round 
+on your turn, starting when you cast the 
+spell, the fog deals 2d6 points of acid 
+damage to each creature and object within 
+it. 
+Arcane Material Component:  A pinch of 
+dried, powdered peas combined with pow-
+dered animal hoof. 
+ 
+ 
+Acid Splash 
+Conjuration (Creation) [Acid] 
+Level: Sor/Wiz 0 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Effect: One missile of acid 
+Duration: Instantaneous 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You fire a small orb of acid at the target. 
+You must succeed on a ranged touch attack 
+to hit your target. The orb deals 1d3 points 
+of acid damage. 
+ 
+Aid 
+Enchantment (Compulsion) 
+[Mind-Affecting] 
+Level: Clr 2, Good 2, Luck 2 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Living creature touched 
+Duration: 1 min./level 
+Saving Throw: None 
+Spell Resistance: Yes (harmless) 
+ 
+Aid grants the target a +1 morale bonus on 
+attack rolls and saves against fear effects, 
+plus temporary hit points equal to 1d8 + 
+caster level (to a maximum of 1d8+10 tem-
+porary hit points at caster level 10th). 
+Air Walk 
+Transmutation [Air] 
+Level: Air 4, Clr 4, Drd 4 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Touch 
+Target: Creature (Gargantuan or smaller) 
+touched 
+Duration: 10 min./level 
+Saving Throw: None 
+Spell Resistance: Yes (harmless) 
+ 
+The subject can tread on air as if walking 
+on solid ground. Moving upward is similar 
+to walking up a hill. The maximum 
+upward or downward angle possible is 45 
+degrees, at a rate equal to one-half the air 
+walker’s normal speed. 
+A strong wind (21+ mph) can push the 
+subject along or hold it back. At the end of 
+its turn each round, the wind blows the air 
+walker 5 feet for each 5 miles per hour of 
+wind speed. The creature can, at the DM’s 
+option, be subject to additional penalties in 
+exceptionally strong or turbulent winds, 
+such as loss of control over movement or 
+physical damage from being buffeted 
+about. 
+Should the spell duration expire while 
+the subject is still aloft, the magic fails 
+slowly. The subject floats downward 60 
+feet per round for 1d6 rounds. If it reaches 
+the ground in that amount of time, it lands 
+CHAPTER 11: 
+SPELLS 

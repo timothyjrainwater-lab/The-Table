@@ -1,0 +1,167 @@
+CHAPTER 3: VERMIN
+
+This chapter provides statistics and basic information for several
+kinds of monstrous vermin, These creatures operate on instinct,
+driven by simple needs such as food and reproduction.
+Except where noted, vermin attack only when hungry or,
+threatened, ,
+Vermin Traits: Vermin possess the following traits (unless oth-
+erwise noted in a creature's entry), }
+—Mindless: No Intelligence score,.and immunity to all mind-)
+affecting effects (charms, compulsions, phantasms, patterns, and
+morale effects),
+—Darkvision out to 60 feet.
+—Alignment: Always neutral. Vermin are not governed by a
+human sense of morality.
+—Treasure; Vermin generally possess no treasure. For those that
+.do, this treasure consists of possessions formerly owned by a crea-
+.ture.that the monster has killed
+
+GIANT ANT
+
+Giant ants are among the hardiest and most adaptable vermin. Sol-
+diers and workers are about 6 feet long, while queens can grow to
+a length of 9 feet
+Acid Sting (Ex): A giant soldier ant has a stinger and an acid-
+producing gland in its abdomen. If it successfully grabs an oppo-
+nent, it can attempt to sting each round (+3 attack bonus). A hit
+with the sting attack deals 1d4+1 points of piercing damage and
+U4 points of acid damage.
+Improved Grab (Ex): To use this ability, a.giant ant must hit
+jwith its bite attack. A giant soldier ant that wins the ensuing grap-
+ple check establishes a hold and can sting.
+| Skills: *Giant ants have a +4 racial bonus.on Survival checks
+when tracking by scent and a +8 racial bonus.on. Climb checks. A
+giant ant can always choose to take 10. on Climb checks, even if
+rushed or threatened.
+
+GIANT BEE
+
+Medium Vermin
+
+    
+  
+  
+  
+   
+   
+   
+  
+   
+  
+   
+   
+   
+  
+   
+ 
+
+Armor Class: 14.(+2 Dex, +2 natural), rouch 12, flar-footed 12
+Base Attack/Grapple:
+Attack: Sting +2 melee (14 plus poison)
+
+Full Attack: Sting +2. melee (1d¢ plus poison)
+Space/Reach: 5 ft,/s ft.
+|Special Attacks: Poison
+
+Special Qualities: Darkvision.60 ft., vermin traits
+Saves: Fort +3, Ref +3, Will +2
+
+Abi tr 11, Dex.14, Con 11, Int—, Wis 12, Cha 9
+Skills: Spot +5, Survival +1*
+
+Feats: —
+
+Environment: Temperate plains
+
+Organization: Solitary, buzz (2-5), or hive (11-20)
+Challenge Rating: 1
+
+‘Treasure: No coins; 1/4 goods (honey only); no items
+Advancement: 4-6 HD (Medium); 7-9 HD (Large)
+Level Adjustment: —
+
+   
+
+42
+
+ 
+
+ 
+
+ 
+
+jAlthough many. times larger, growing.to.a length of about 5 feet,
+giant bees behave generally the same as their smaller cousins
+
+Giant bees are usually not aggressive except when defending
+themselves or their hive.
+
+Poison (Ex): Injury, Fortitude DC 11, initial and secondary
+damage 1d4 Con. The save DC is Constitution-based.
+
+A giant bee that successfully stings another creature pulls away,
+leaving its stinger in the creature. The bee.then dies.
+
+Skills: Giant bees have a +4 racial bonus on Spor.checks. “They.|
+also have a +4 racial bonus on Survival checks to. orient themselves. |
+
+GIANT BOMBARDIER BEETLE
+Medium Vermin
+Hit Dice: 2d8+4 (13 hp)
+Initiative: +0
+Speed: 30 ft. (6 squares)
+Armor Class: 16 (+6 natural), touch 10, flat-footed 16
+Base Attack/Grapple: +1/+2
+Attack: Bite +2 melee (1d4+1
+Full Attack: Bite +2 melee (1d4+1
+
+ 
+
+     
+
+ 
+
+  
+   
+   
+   
+  
+ 
+
+        
+
+ 
+
+Hit Dice: 3d8 (13 hp) Space/Reas ft/s ft,
+Initiative: +2 Special Attacks: Acid spray.
+Speed: 20 ft. (4 squares), fly 80 ft. (good) Special Qualities: Darkvision 60 ft... vermin traits
+Giant Ant, Worker Giant Ant, Soldier Giant Ant, Queen
+Medium Vermin Medium Vermin Large Vermin
+Hit Dice: 2d8 (9 hp) 2d8+2 (11 hp) 4d8+4 (22 hp)
+Initiative: +0. +0 =1
+50 ft. (10 squares), climb 20 ft. 50 ft. (10 squares), climb 20 ft. 40 ft. (8 squares)
+Armor Class; 17.(+7 natural), 17.(+7 natural), 17 (-1 size, —1 Dex, +9 natural),
+1 touch 10, flat-footed 17 touch 10, flat-footed 17 touch 8, flat-footed 17
+Base Attack/Grapple: +1/+1 +1/33 +3/+10
+Attack: Bite +1 melee (1d6) Bite +3 melee (2d4+3) Bire +5 melee (2d6+4
+Full Attack: Bite +1 melee (td6) Bite +3 melee (2d4+3) Bite +5 melee (2d6+4)
+Space/Reach: 5 ft./5 ft. 5 ft/s ft. 10 fr/s ft
+Special Attacks: Improved grab Improved grab, acid sting Improved grab
+Special Qualities: Scent, vermin traits Scent, vermin traits Scent, vermin traits
+Saves: Fort +3, Ref +0, Will +0 Fort +4, Ref +0, Will +1 Fort +5, Ref +0, Will +2
+Abilities: Str 10, Dex 10, Con 10, Str 14, Dex 10, Con 13, Str 16, Dex 9, Con 13,
+Int —, Wis 11, Cha 9 Int —, Wis 13, Cha 11 Int —, Wis 13, Cha 11
+Skills: Climb +8 Climb +10 —
+Feats: Track®, Track" Track*
+Environment: ‘Temperate plains Temperate plains ‘Temperate plains
+Organization: Gang (2-6) or crew (6-11 plus Solitary or gang (2-4) Hive (1 plus 10-100 workers
+1 giant ant soldier) and $-20 soldiers:
+Challenge Rating: 1 2 2
+‘Treasure: None None 1/10 coins; 50% goods; 50% items
+Advancement: 3-4 HD (Medium); 5-6 HD (Large) 5~—6 HD (Large); 7-8 HD (Huge)
+
+Level Adjustment:
+
+3-4 HD (Medium); 5-6 HD (Large)
+

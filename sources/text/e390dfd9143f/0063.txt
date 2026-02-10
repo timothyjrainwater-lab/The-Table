@@ -1,0 +1,175 @@
+ 
+
+an attack of opportunity. If it wins the grapple check, itestablishes :
+
+ahold and can try to swallow the foe the following round.
+Swallow Whole (Ex); A tyrannosaurus.can.try.10. swallow a
+grabbed opponent of up to two sizes smaller by making a success-
+ful grapple check.
+The swallowed creature takes 2d8+8 points of bludgeoning |
+
+damage and 8 points of acid damage per round from the tyran:|
+\nosaurus’s gizzard. A swallowed creature can cut its way out by)
+[using a light slashing or piercing weapon to deal 25 points of
+,damage to the gizzard (AC 12). Once the creature exits, muscular,
+
+action closes the hole; another swallowed opponent must cut its
+LOWn Way. Out,
+A Huge tyrannosaurus’s gizzard can hold 2 Medium, 8 Small, 32
+Tiny, or 128 Diminutive or smaller opponents,
+Skills: A tyrannosaurus has a +2 racial bonus on Listen and Spot
+checks,
+
+\Dire animals are larger, tougher, meaner versions of ordinary ani-}
+
+mals. Each kind tends to have a feral, prehistoric, or even demonic
+appearance.
+
+DIRE APE
+
+Large Animal
+
+Hit Dice: sd8+13 (35 hp)
+Anitiative: +2
+| Speed: 30 ft, (6 squares), climb 15 ft,
+|Armor Class: 15 (—1 size, +2 Dex, +4 natural), touch 11,
+\__flar-footed 13
+
+Base Attack/Grapple: +3/+13
+
+Attack: Claw +8 melee (1d6+6)
+
+,Eull Attack: 2 claws +8 melee (1d6+6) and bite +3 melee (1d8+3)
+Space/Reach: 10 ft,/10 ft.
+
+Special Attacks; Rend 2d6+9
+
+Special Qualities: Low-light vision, scent
+
+Saves: Fort +6, Ref +6, Will +5
+
+Abilities; Str 22, Dex 15, Con 14, Int 2, Wis 12, Cha
+Skills: Climb +14, Listen +5, Move Silently +4, Spot +6
+Feats: Alertness, Toughness
+
+Environment: Warm forests
+
+Organization: Solitary or company (5-8)
+
+Challenge Rating: 3
+
+‘Treasure; None.
+
+Alignment: Always neutral
+
+Advancement: 6-15 HD (Large)
+
+Level Adjustment: —
+
+[this great, feral ape is about the size of an.ogre, but even more muscular,
+itis barrel-chested, with thick, black fur. long arms, and o broad muzzle.
+Lit seems well equipped with claws and teeth.
+
+Dire apes are territorial and apt to attack anything they see.
+A dire ape stands about 9 feet tall and weighs from 800 to 1,200
+pounds.
+
+Combat
+Dire apes attack anything that enters their territory, even other
+dire apes. If an opponent's armor foils a dire ape's attacks, the crea-
+.ture will attempt to grapple and pin, then rend the prone oppo-
+nent,
+|_Rend (Ex); A dire ape thar hits with borh claw attacks latches
+jonto the opponent's body and tears the flesh. This attack automar-
+Jically deals.an extra 2d6+12 points of damage.
+Skills; Dire apes have a +8 racial bonus on Climb checks and
+
+can always choose to take 10 on Climb checks, even if rushed or}
+
+threatened,
+
+DIRE BADGER {
+Medium Animal 4
+Hit Dice; 3d8+15 (28 hp) +
+Initiative: +3
+
+,Speed: 30 ft. (6 squares), burrow 10 ft.
+Armor Class: 16 (+3 Dex, +3 natural), touch 13, flat-footed 13
+Base Attack/Grapple: +2/+4
+
+Attack: Claw +4 melee (id4+2)
+
+Full Attack: 2 claws +4 melee (1d4+2) and bite
+_Space/Reach: 5 ft./s ft,
+Special Attacks: Rage
+Special Qualities: Low
+
+1 melee (1d6+1)
+
+vlight vision, scent
+Saves: Fort +7, Ref +6, Will +4
+Abilities: Str 14, Dex 17, Con 19, Int 2, Wis 12, Cha.10
+Skills; Listen +6, Spot +6
+Feats: Alertness, Toughness, Track"
+Environment: Temperate forests
+Organization: Solitary or cete (2-5)
+Challenge Rating: 2
+Treasure: None
+Alignment: Always neutral
+Advancement: 4-9 HD (Large)
+Level Adjustment: —
+
+This squat, muscular creature is covered in wild, thick fur. Its stout legs end
+in clawed feet, and its pointed snout has o wide. mouth full of sharp teeth.
+
+,These vicious creatures tolerate no intrusions, They cannot)
+burrow into solid rock, but can move through just about any mate-
+rial softer. than that A dire badger usually leaves behind «usable
+tunnel 5 feet in diameter when burrowing unless the material it's
+moving through is very loose.
+
+A dire badger is from 5 to 7 feet in length and can weigh up 10
+500 pounds.
+
+Combat
+
+Dire badgers attack with their sharp claws and teeth,
+
+Rage (Ex): A dire badger that takes damage in combat flies into
+a berserk rage on its next.turn, clawing and biting madly until
+either it or its opponent is dead, It gains +4 Strength, +4 Constitu-
+tion, and —2 AC, The creature cannot end its rage voluntarily.
+
+DIRE BAT
+Large Animal
+Hit Dice: 4d$+12 (30 hp)
+Initiative; +6
+Speed: 20 ft. (4 squares), fly 40 ft. (good)
+Armor Class; 20 (—1 size, +6 Dex, +5 natural), touch 15,
+flat-footed 14
+Base Attack/Grapple: +3/+10
+Attack: Bite +5 melee (1d8+4)
+Full Attack: Bite +5 melee (1d8++)
+Space/Reach; 10 ft/s ft.
+Special Attacks; —
+Special Qualities: Blindsense 40 ft.
+Saves; Fort +7, Ref +10, Will +6
+Abilities: Str 17, Dex 22, Con 17, Int 2, Wis 14, Cha 6
+Skills: Hide +4, Listen +12°, Move Silently +11, Spot +8°
+Feats; Alertness, Stealthy }
+Environment: Iemperate deserts
+Organization; Solitary or colony (5-8)
+Challenge Rating: 2
+Treasure: None
+_Alignment: Always neutral
+Advancement; 5-12 HD (Large)
+Level Adjustment; —
+
+ 
+
+ 
+
+ 
+
+ 
+

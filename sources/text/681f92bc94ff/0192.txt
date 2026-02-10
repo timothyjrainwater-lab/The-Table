@@ -1,0 +1,130 @@
+ 
+ 191
+8TH-LEVEL DRUID SPELLS 
+Animal Shapes: One ally/level polymorphs into chosen animal. 
+Control Plants: Control actions of one or more plant creatures. 
+Cure Serious Wounds, Mass:  Cures 3d8 damage +1/level for 
+many creatures. 
+Earthquake: Intense tremor shakes 5-ft./level radius. 
+Finger of Death: Kills one subject. 
+Repel Metal or Stone: Pushes away metal and stone. 
+Reverse Gravity: Objects and creatures fall upward. 
+Summon Nature’s Ally VIII: Calls creature to fight. 
+Sunburst: Blinds all within 10 ft., deals 6d6 damage. 
+Whirlwind: Cyclone deals damage and can pick up creatures. 
+Word of Recall: Teleports you back to designated place. 
+ 
+9TH-LEVEL DRUID SPELLS 
+Antipathy: Object or location affected by spell repels certain 
+creatures. 
+Cure Critical Wounds, Mass:  Cures 4d8 damage +1/level for 
+many creatures. 
+Elemental Swarm: Summons multiple elementals. 
+Foresight: “Sixth sense” warns of impending danger. 
+Regenerate: Subject’s severed limbs grow back, cures 4d8 damage 
++1/level (max +35). 
+Shambler: Summons 1d4+2 shambling mounds to fight for you. 
+Shapechange F: Transforms you into any creature, and change 
+forms once per round. 
+Storm of Vengeance: Storm rains acid, lightning, and hail. 
+Summon Nature’s Ally IX: Calls creature to fight. 
+Sympathy M: Object or location attracts certain creatures. 
+ 
+PALADIN SPELLS 
+ 
+1ST-LEVEL PALADIN SPELLS 
+Bless: Allies gain +1 on attack rolls and +1 on saves against fear. 
+Bless Water: Makes holy water. 
+Bless Weapon: Weapon strikes true against evil foes. 
+Create Water: Creates 2 gallons/level of pure water. 
+Cure Light Wounds: Cures 1d8 damage +1/level (max +5). 
+Detect Poison: Detects poison in one creature or small object. 
+Detect Undead: Reveals undead within 60 ft. 
+Divine Favor:  You gain +1 per three levels on attack and damage 
+rolls. 
+Endure Elements: Exist comfortably in hot or cold environments. 
+Magic Weapon: Weapon gains +1 bonus. 
+Protection from Chaos/Evil:  +2 to AC and saves, counter mind 
+control, hedge out elementals and outsiders. 
+Read Magic: Read scrolls and spellbooks. 
+Resistance: Subject gains +1 on saving throws. 
+Restoration, Lesser: Dispels magical ability penalty or repairs 1d4 
+ability damage. 
+Virtue: Subject gains 1 temporary hp. 
+ 
+2ND-LEVEL PALADIN SPELLS 
+Bull’s Strength: Subject gains +4 to Str for 1 min./level. 
+Delay Poison: Stops poison from harming subject for 1 hour/level. 
+Eagle’s Splendor: Subject gains +4 to Cha for 1 min./level. 
+Owl’s Wisdom: Subject gains +4 to Wis for 1 min./level. 
+Remove Paralysis:  Frees one or more creatures from paralysis or 
+slow effect. 
+Resist Energy: Ignores 10 (or more) points of damage/attack from 
+specified energy type. 
+Shield Other F: You take half of subject’s damage. 
+Undetectable Alignment: Conceals alignment for 24 hours. 
+Zone of Truth: Subjects within range cannot lie. 
+3RD-LEVEL PALADIN SPELLS 
+Cure Moderate Wounds: Cures 2d8 damage +1/level (max +10). 
+Daylight: 60-ft. radius of bright light. 
+Discern Lies: Reveals deliberate falsehoods. 
+Dispel Magic: Cancels spells and magical effects. 
+Heal Mount: As heal on warhorse or other special mount. 
+Magic Circle against Chaos:  As protection from chaos , but 10-ft. 
+radius and 10 min./level. 
+Magic Circle against Evil:  As protection from evil , but 10-ft. radius 
+and 10 min./level. 
+Magic Weapon, Greater: +1 bonus/four levels (max +5). 
+Prayer: Allies +1 bonus on most rolls, enemies –1 penalty. 
+Remove Blindness/Deafness:  Cures normal or magical condi-
+tions. 
+Remove Curse: Frees object or person from curse. 
+ 
+4TH-LEVEL PALADIN SPELLS 
+Break Enchantment:  Frees subjects from enchantments, alter-
+ations, curses, and petrification. 
+Cure Serious Wounds: Cures 3d8 damage +1/level (max +15). 
+Death Ward: Grants immunity to death spells and negative energy 
+effects. 
+Dispel Chaos: +4 bonus against attacks by chaotic creatures. 
+Dispel Evil: +4 bonus against attacks by evil creatures. 
+Holy Sword: Weapon becomes +5, deals +2d6 damage against evil. 
+Mark of Justice: Designates action that will trigger curse on subject. 
+Neutralize Poison:  Immunizes subject against poison, detoxifies 
+venom in or on subject. 
+Restoration M: Restores level and ability score drains. 
+ 
+RANGER SPELLS 
+ 
+1ST-LEVEL RANGER SPELLS 
+Alarm: Wards an area for 2 hours/level. 
+Animal Messenger: Sends a Tiny animal to a specific place. 
+Calm Animals: Calms (2d4 + level) HD of animals. 
+Charm Animal: Makes one animal your friend. 
+Delay Poison: Stops poison from harming subject for 1 hour/level. 
+Detect Animals or Plants: Detects kinds of animals or plants. 
+Detect Poison: Detects poison in one creature or object. 
+Detect Snares and Pits: Reveals natural or primitive traps. 
+Endure Elements: Exist comfortably in hot or cold environments. 
+Entangle: Plants entangle everyone in 40-ft.-radius circle. 
+Hide from Animals: Animals can’t perceive one subject/level. 
+Jump: Subject gets bonus on Jump checks. 
+Longstrider: Increases your speed. 
+Magic Fang:  One natural weapon of subject creature gets +1 on 
+attack and damage rolls. 
+Pass without Trace: One subject/level leaves no tracks. 
+Read Magic: Read scrolls and spellbooks. 
+Resist Energy: Ignores 10 (or more) points of damage/attack from 
+specified energy type. 
+Speak with Animals: You can communicate with animals. 
+Summon Nature’s Ally I: Calls animal to fight for you. 
+ 
+2ND-LEVEL RANGER SPELLS 
+Barkskin: Grants +2 (or higher) enhancement to natural armor. 
+Bear’s Endurance: Subject gains +4 to Con for 1 min./level. 
+Cat’s Grace: Subject gains +4 to Dex for 1 min./level. 
+Cure Light Wounds: Cures 1d8 damage +1/level (max +5). 
+Hold Animal: Paralyzes one animal for 1 round/level. 
+Owl’s Wisdom: Subject gains +4 to Wis for 1 min./level. 
+CHAPTER 11: 
+SPELLS 

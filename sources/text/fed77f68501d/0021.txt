@@ -1,0 +1,205 @@
+  
+   
+ 
+   
+    
+   
+  
+  
+  
+   
+   
+   
+  
+  
+  
+   
+   
+  
+  
+   
+  
+   
+   
+  
+  
+   
+ 
+  
+  
+   
+  
+  
+   
+   
+  
+   
+  
+   
+   
+  
+   
+  
+ 
+ 
+
+  
+
+(5 feet), then 3 squares straight (15 feet), and then another square
+diagonally (10 feet) for a total movement of 30 fect.
+
+Armor and Encumbrance
+The Player's Handbook explains the effect of armor and encum-|
+brance on creatures with base speeds of 20 feet or 30 feet. The table)
+below provides reduced speed figures for all hase speeds from 20)
+{feet.ro 100 feet (in 10-foor increments).
+
+. Base Speed _ Reduced Speed Base Speed Reduced Speed __
+20 ft. 1S ft. 70 ft. 50f.
+30 ft. 20 ft. 80 ft 55 ft
+40 ft. 30 ft. 90 ft. 60 ft.
+50 ft 35 ft. 100 ft 70 ft.
+60 ft. 40 ft.
+
+MOVING IN THREE DIMENSIONS
+
+|Not every creature gets around by walking and running. A shark, |
+
+jeven though it moves by swimming, can take a run action to swim}
+Haster. A character under the influence of a fly spell can make a,
+flying charge. A climbing thief can use part of his speed to climb
+down a short wall and then use the remainder to hustle toward a
+foe. Use the movement rules to apply to any sort of movement, not
+just when traveling across a flat surface.
+
+Tactical Aerial Movement
+(The elf barbarian mounted on the giant eagle swoops over the
+igroup of mind flayers, launching arrows from his bow: One of the
+imind flayers wears winged boots and takes to the air to better con-
+front the elf, Once movement becomes three-dimensional and
+[involves turning in midair and maintaining a minimum velocity
+[to stay aloft, it gets more complicated
+
+Most flying creatures have to slow down at leasta little to make
+{a turn, and many are limited to fairly wide turns and must main-
+tain.a minimum forward speed. Each flying creature has amaneu-
+verability, as shown on Table 2-1: Maneuverability, The entries on
+Table 2-1 are defined below.
+
+Minimum Forwand Speed: If a flying creature fails to maintain its,
+minimum forward speed, it must land at the end of its movement.
+If it is too high above the ground to land, it falls straight down,
+descending 150 feet in the first round of falling. If this distance
+brings it to the ground, it takes falling damage. If the fall doesnt
+bring the crearure to the ground, it must spend its next turn recov-
+ering from the stall. It_ must succeed on a DC 20 Reflex save to
+recover, Otherwise it falls another 300 feet, If it hits the ground, it
+takes falling damage. Otherwise. it has another chance to recover
+on its next turn,
+
+Hover; The ability to stay in one place while airborne.
+
+Move Backward: The ability to move backward without turning
+
+jaround,
+
+TABLE 2-1: MANEUVERABILITY
+
+Perfect Good
+(Will-o'-wisp) (Beholder)
+Minimum forward speed None None
+Hover Yes Yes.
+Move backward Yes Yes
+Reverse Free -5 ft.
+Turn Any 90°/5 ft.
+Turn in place Any +90°/-S ft
+Maximum tum Any Any
+Up angle Any Any
+Up speed Full Half
+Down angle Any Any
+Down speed Double Double
+Between down and up 0 0
+
+   
+
+Reverse:.A creature with good maneuverability uses up 5 feet of.
+
+its speed to start flying backward
+Turn: How much the creature can turn after covering the stated
+distance.
+Turn in Place: A creature with good or average maneuverability
+{can use some of its speed to turn in place.
+‘Maximum Turn: How much the creature can turnin any one space.
+Up Angle: The angle at which the creature can climb,
+Up Speed: How fast the creature can climb,
+Down Angle: The angle at which the creature can descend.
+
+Down Speed: A flying creature can fly down at twice its normal |
+
+flying speed.
+
+Between Down and Up; An average, poor, or clumsy flier must fly
+level for 2 minimum distance after descending and before climb-
+ing. Any flier-can begin descending after a climb without an inter-
+vening distance of level flight
+
+EVASION AND PURSUIT
+
+{Un round-by-round movement, simply counting off squares, it's
+Limpossible for a slow character to get away from a determined fast
+character without mitigating circumstances, Likewise, it's no.
+problem for a fast character to get away froma slower one,
+When the speeds of the nwo concerned characters are equal, there's
+a simple way to resolve a chase; If one creature is pursuing another,
+both are moving at the same speed, and the chase continues for at
+least a few rounds, have them make opposed Dexterity checks to see
+who is the faster over those rounds If the creature being chased wins,
+irescapes. If the pursuer wins, it catches the fleeing creature,
+
+Sometimes a chase occurs overland and could last all day, with |
+
+the two sides only occasionally getting glimpses of each other ata,
+distance. In the case of a long chase, an opposed Constitution!
+check made by all parties determines which can keep pace the,
+longest. If the creature being chased rolls the highest, it gets away.
+If not, the chaser runs down its prey, outlasting it with stamina
+
+MOVING AROUND IN SQUARES
+The characters are all within a corridor only 5 feet wide. A fighter
+stands at the end of the corridor, at a dead end, He's been poisoned
+and is dying. The cleric wants to get at the fighter to help, bur two
+other characters are between them. Thus, there's no way for the cleric
+to get next to the fighter and cast neutnalize poison. You can rule that its
+okay for the cleric to squeeze past the characters who are in the way,
+cast the spell, and then moye back to. where she previously stood.
+In general, when the characters aren't engaged in round-by-
+round combat, they should be able to move anywhere and in any
+manner that you can imagine real people could, A 5-foot square,
+for instance, can hold several characters; they just can‘ all fight
+effectively in that small space. The rules for movement of minia-
+tures are important for combat, but outside combat they can
+impose unnecessary hindrances.on character activities.
+
+Maneuverability and Example Creature
+
+Average Poor Clumsy
+(Gargoyle) (Wyvern) (Manticore)
+Half Half Half
+No No No
+
+No No No
+
+No No No
+45°/5 ft. 45°/5 ft. 45°/10 ft.
++45°/-5 ft. No No
+
+90° 45° 45°
+
+60° 45° 45°
+Half Half Half
+Any 45° 45°
+Double Double Double
+Sft. 10 ft. 20 ft.
+
+ 
+

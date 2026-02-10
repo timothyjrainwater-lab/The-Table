@@ -1,0 +1,109 @@
+ 
+ 102 
+Benefit: When you attempt to overrun an opponent while 
+mounted, your target may not choose to avoid you. Your mount may 
+make one hoof attack against any target you knock down, gaining 
+the standard +4 bonus on attack rolls against prone targets (see 
+Overrun, page 157). 
+Special: A fighter may select Trample as one of his fighter bonus 
+feats (see page 38). 
+ 
+TWO-WEAPON DEFENSE [GENERAL] 
+Your two-weapon fighting style bolsters your defense as well as your 
+offense. 
+Prerequisites: Dex 15, Two-Weapon Fighting. 
+Benefit: When wielding a double weapon or two weapons (not 
+including natural weapons or unarmed strikes), you gain a +1 shield 
+bonus to your AC. 
+When you are fighting defensively or using the total defense 
+action, this shield bonus increases to +2. 
+Special: A fighter may select Two-Weapon Defense as one of his 
+fighter bonus feats. 
+ 
+TWO-WEAPON FIGHTING [GENERAL] 
+You can fight with a weapon in each hand. You can make one extra 
+attack each round with the second weapon. 
+Prerequisite: Dex 15. 
+Benefit: Your penalties on attack rolls for fighting with two 
+weapons are reduced. The penalty for your primary hand lessens by 
+2 and the one for your off hand lessens by 6. 
+Normal: See Two-Weapon Fighting, page 160, and Table 8–10: 
+Two-Weapon Fighting Penalties, page 160. 
+Special: A 2nd-level ranger who has chosen the two-weapon 
+combat style is treated as having Two-Weapon Fighting, even if he 
+does not have the prerequisite for it, but only when he is wearing 
+light or no armor (see page 48). 
+A fighter may select Two-Weapon Fighting as one of his fighter 
+bonus feats (see page 38). 
+ 
+WEAPON FINESSE [GENERAL] 
+You are especially skilled at using weapons that can benefit as much 
+from Dexterity as from Strength. 
+Prerequisite: Base attack bonus +1. 
+Benefit: With a light weapon, rapier, whip, or spiked chain made 
+for a creature of your size category, you may use your Dexterity 
+modifier instead of your Strength modifier on attack rolls. If you 
+carry a shield, its armor check penalty applies to your attack rolls. 
+Special: A fighter may select Weapon Finesse as one of his 
+fighter bonus feats (see page 38). 
+Natural weapons are always considered light weapons. 
+ 
+WEAPON FOCUS [GENERAL] 
+Choose one type of weapon, such as greataxe. You can also choose 
+unarmed strike or grapple (or ray, if you are a spellcaster) as your 
+weapon for purposes of this feat. You are especially good at using 
+this weapon. (If you have chosen ray, you are especially good with 
+rays, such as the one produced by the ray of frost spell.) 
+Prerequisites: Proficiency with selected weapon, base attack 
+bonus +1. 
+Benefit: You gain a +1 bonus on all attack rolls you make using 
+the selected weapon. 
+Special: You can gain this feat multiple times. Its effects do not 
+stack. Each time you take the feat, it applies to a new type of weapon. 
+A fighter may select Weapon Focus as one of his fighter bonus 
+feats (see page 38). He must have Weapon Focus with a weapon to 
+gain the Weapon Specialization feat for that weapon. 
+ 
+WEAPON SPECIALIZATION [GENERAL] 
+Choose one type of weapon, such as greataxe, for which you have 
+already selected the Weapon Focus feat. You can also choose 
+unarmed strike or grapple as your weapon for purposes of this feat. 
+You deal extra damage when using this weapon. 
+Prerequisites: Proficiency with selected weapon, Weapon Focus 
+with selected weapon, fighter level 4th. 
+Benefit: You gain a +2 bonus on all damage rolls you make using 
+the selected weapon. 
+Special: You can gain this feat multiple times. Its effects do not 
+stack. Each time you take the feat, it applies to a new type of weapon. 
+A fighter may select Weapon Specialization as one of his fighter 
+bonus feats (see page 38). 
+ 
+WHIRLWIND ATTACK [GENERAL] 
+You can strike nearby opponents in an amazing, spinning attack. 
+Prerequisites: Dex 13, Int 13, Combat Expertise, Dodge, 
+Mobility, Spring Attack, base attack bonus +4. 
+Benefit: When you use the full attack action, you can give up 
+your regular attacks and instead make one melee attack at your full 
+base attack bonus against each opponent within reach. 
+When you use the Whirlwind Attack feat, you also forfeit any 
+bonus or extra attacks granted by other feats, spells, or abilities (such 
+as the Cleave feat or the haste spell). 
+Special: A fighter may select Whirlwind Attack as one of his 
+fighter bonus feats. 
+ 
+WIDEN SPELL [METAMAGIC] 
+You can increase the area of your spells. 
+Benefit: You can alter a burst, emanation, line, or spread shaped 
+spell to increase its area. Any numeric measurements of the spell’s 
+area increase by 100%. For example, a fireball spell (which normally 
+produces a 20-foot-radius spread) that is widened now fills a 40-foot-
+radius spread. A widened spell uses up a spell slot three levels higher 
+than the spell’s actual level. 
+Spells that do not have an area of one of these four sorts are not 
+affected by this feat. 
+ 
+ 
+ 
+ 
+CHAPTER 5: 
+FEATS 

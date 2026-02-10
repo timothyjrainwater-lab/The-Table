@@ -1,0 +1,97 @@
+COMBAT
+
+Rasts attack with a frightening, brutal cunning, The creatures par-|
+
+ 
+
+ 
+
+Medium Ouisider (Extraplanar, Fire) = alyze.as many.of their foes as possible, then attack any that are still
+moving. A rast.can claw or bite, but cannot do both during the
+|. {same round.
+
+Speed: f (square), fly 60 ft. (good) |. Paralyzing Gaze (Su); Paralysis for 1d6 rounds, 30 feet, Forti-
+Armor Class; 15 (+1 Dex, +4natural), touch 11, flat-footed 14__| _jrude DC 13 negates. The save DC is Charisma-based,
+\Base Attack/Grapple: +4/+6 Improved Grab (Ex): To use this ability, a rast must hit with its
+\Attack: Claw +6 melee (1d4+2) or bite +6 melee (1d8+3) J bite attack. It can then attempt to start a grapple as a free action,
+Full Attack: 4 claws +6 melee (1d4+2) or bite +6 melee (1d8+3)__|. _,without provoking an attack of opportunity,
+Space/Reach: 5 ft,/s ft Blood Drain (Ex): A rast drains blood from_a.grabbed oppo-|
+‘Special Attacks: Paralyzing gaze, improved grab, blood drain nent, dealing 1 point of Constitution damage each round it main-
+Special Qualities: Darkvision 60 ft., flight, immunity to fire, tains the hold.
+
+vulnerability to cold Flight (Su): A rast can cease or resume flightas a free action. A,
+Saves: Fort +5, Ref +5, Will +5 rast that loses this ability falls and can perform only.a single action,
+Abilities: Str 14, Dex 12, Con 13, Int 3, Wis 13, Cha 12 (either a move action or an attack action) each round.
+|Skills; Hide +8, Listen +8, Move Silently +8, Spot +8
+Feats; Improved Initiative, Toughness
+\Environment; Elemental Plane of Fire }
+Organization: Solitary, pair, or cluster (3-6) . Medium Outsider (Extraplanar)
+Challenge Rating: 5 Hit Dice: 3d8+3 (16 hp)
+Treasure: None Initiative: +4
+Alignment; Usually neutral Speed: 20 ft. (4 squares), fly. 60 ft, (perfect)
+Advancement; 5-6 HD (Medium); 712 HD (Large: Armor Class; 25 (+15 natural), touch 10, flat-footed 25
+Level Adjustment; — Base Attack/Grapple: +3/+4
+
+Attack: Tail slap +4 melee (1d6+1 plus positive energy).or tail
+This vile creature must have at least a dozen long, spindly claws that hang touch +4 melee touch (positive energy)
+\from its. bulbous, floating body, Its round head is.almest.all mouth, and Full Attack: Tail slap +4 melee (1d6+1 plus positive energy) and_|
+its mouth is almost all teeth. claw +2 melee (1d4 plus positive energy); or tail touch +4
+melee touch (positive energy) and claw touch +2 melee touch
+
+Rasts swarm in isolated pockets on distant planes, particularly the (positive energy)
+Elemental Plane of Fire. Floating, fleshy sacks of reeth and claws, Space/Reach: 5 ft,/5 ft,
+these insatiable creatures eat almost continuously. Special Attacks: Positive energy lash, animate objects.
+
+Atits heart, a rast is a creature of ash and cinder, but it feasts on Special Qualities: Darkvision 60 ft,, flight, immunity-to fire.
+blood with a lust that would shame most normal beasts.A rast has Saves: Fort +4, Ref +3, Will +4
+anywhere from ten to fifteen claws, though it can only use four at Abilities: Str 13, Dex 10, Con 13, Int 7, Wis 12, Cha 14
+once, Skills: Escape Artist +6, Hide +6, Listen +7, Move Silently +6,
+
+A rast has.a body about the size of a large dog's, with ahead Spot +7, Survival +7, Use Rope +0 (+2 with bindings)
+almost as large as the body. It weighs about 200 pounds. | Feats: Improved Initiative, Multiattack __
+
+Environment: Positive Energy Plane
+
+Organization: Solitary (1 plus atleast 1 animated object)
+Challenge Rating: 5
+
+‘Treasure: None
+
+Alignment: Always neutral
+
+Advancement: + HD (Medium); 5-9 HD (Large)
+Level Adjustment: —
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+  
+
+ 
+
+This creature has @ long, serpentine body that trails away
+as it floats effortlessly through the air, and a single
+claw that juts fooward near its head,
+
+Ravids are_creatures from the Positive
+Energy Plane, These bizarre entities imbue
+creatures with energy by their touch and
+animate lifeless objects around them,
+Ravids that make their way to the Mater-
+ial Plane wander about aimlessly, followed.
+by the objects to which they have.given
+life.
+A ravid is about 7 feet long and weighs.
+about 75 pounds,
+
+. COMBAT
++ . Ravids fight only in self-defense. A ravid itself is not very power-|
+F ful but is always accompanied by at least one animated object that
+defends it,
+
+ 
+

@@ -1,0 +1,202 @@
+ 
+ 277
+lower. The illusory conjurations created 
+deal three-fifths (60%) damage to non-
+believers, and nondamaging effects are 
+60% likely to work against nonbelievers. 
+ 
+Shadow Evocation 
+Illusion (Shadow) 
+Level: Brd 5, Sor/Wiz 5 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: See text 
+Effect: See text 
+Duration: See text 
+Saving Throw: Will disbelief (if inter-
+acted with) 
+Spell Resistance: Yes 
+ 
+You tap energy from the Plane of Shadow 
+to cast a quasi-real, illusory version of a 
+sorcerer or wizard evocation spell of 4th 
+level or lower. (For a spell with more than 
+one level, use the best one applicable to 
+you.) 
+Spells that deal damage, such as light-
+ning bolt , have normal effects unless an 
+affected creature succeeds on a Will save. 
+Each disbelieving creature takes only one-
+fifth damage from the attack. If the 
+disbelieved attack has a special effect other 
+than damage, that effect is one-fifth as 
+strong (if applicable) or only 20% likely to 
+occur. If recognized as a shadow evocation, a 
+damaging spell deals only one-fifth (20%) 
+damage. Regardless of the result of the 
+save to disbelieve, an affected creature is 
+also allowed any save (or spell resistance) 
+that the spell being simulated allows, but 
+the save DC is set according to shadow 
+evocation’s level (5th) rather than the spell’s 
+normal level. 
+Nondamaging effects, such as gust of 
+wind, have normal effects except against 
+those who disbelieve them. Against dis-
+believers, they have no effect. 
+Objects automatically succeed on their 
+Will saves against this spell. 
+ 
+Shadow Evocation, Greater 
+Illusion (Shadow) 
+Level: Sor/Wiz 8 
+ 
+This spell functions like shadow evocation , 
+except that it enables you to create par-
+tially real, illusory versions of sorcerer or 
+wizard evocation spells of 7th level or 
+lower. If recognized as a greater shadow evo-
+cation, a damaging spell deals only three-
+fifths (60%) damage. 
+ 
+Shadow Walk 
+Illusion (Shadow) 
+Level: Brd 5, Sor/Wiz 6 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Touch 
+Targets: Up to one touched creature/ 
+level 
+Duration: 1 hour/level (D) 
+Saving Throw: Will negates 
+Spell Resistance: Yes 
+ 
+To use the shadow walk spell, you must be 
+in an area of shadowy illumination. You 
+and any creature you touch are then trans-
+ported along a coiling path of shadowstuff 
+to the edge of the Material Plane where it 
+borders the Plane of Shadow. The effect is 
+largely illusory, but the path is quasi-real. 
+You can take more than one creature along 
+with you (subject to your level limit), but 
+all must be touching each other. 
+In the region of shadow, you move at a 
+rate of 50 miles per hour, moving normally 
+on the borders of the Plane of Shadow but 
+much more rapidly relative to the Material 
+Plane. Thus, you can use this spell to travel 
+rapidly by stepping onto the Plane of 
+Shadow, moving the desired distance, and 
+then stepping back onto the Material 
+Plane. 
+Because of the blurring of reality be-
+tween the Plane of Shadow and the Ma-
+terial Plane, you can’t make out details of 
+the terrain or areas you pass over during 
+transit, nor can you predict perfectly 
+where your travel will end. It’s impossible 
+to judge distances accurately, making the 
+spell virtually useless for scouting or 
+spying. Furthermore, when the spell effect 
+ends, you are shunted 1d10×100 feet in a 
+random horizontal direction from your 
+desired endpoint. If this would place you 
+within a solid object, you are shunted 
+1d10×1,000 feet in the same direction. If 
+this would still place you within a solid 
+object, you (and any creatures with you) 
+are shunted to the nearest empty space 
+available, but the strain of this activity 
+renders each creature fatigued (no save). 
+Shadow walk can also be used to travel to 
+other planes that border on the Plane of 
+Shadow, but this usage requires the transit 
+of the Plane of Shadow to arrive at a border 
+with another plane of reality. The transit of 
+the Plane of Shadow requires 1d4 hours. 
+Any creatures touched by you when 
+shadow walk is cast also make the transition 
+to the borders of the Plane of Shadow. 
+They may opt to follow you, wander off 
+through the plane, or stumble back into 
+the Material Plane (50% chance for either 
+of the latter results if they are lost or aban-
+doned by you). Creatures unwilling to 
+accompany you into the Plane of Shadow 
+receive a Will saving throw, negating the 
+effect if successful. 
+ 
+Shambler 
+Conjuration (Creation) 
+Level: Drd 9, Plant 9 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Effect: Three or more shambling 
+mounds, no two of which can be more 
+than 30 ft. apart; see text 
+Duration: Seven days or seven months 
+(D); see text 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+The shambler spell creates 1d4+2 sham-
+bling mounds with 11 HD each. (See the 
+Monster Manual  for details about sham-
+bling mounds.) The creatures willingly aid 
+you in combat or battle, perform a specific 
+mission, or serve as bodyguards. The 
+creatures remain with you for seven days 
+unless you dismiss them. If the shamblers 
+are created only for guard duty, however, 
+the duration of the spell is seven months. 
+In this case, the shamblers can only be 
+ordered to guard a specific site or location. 
+Shamblers summoned to guard duty 
+cannot move outside the spell’s range, 
+which is measured from the point where 
+each first appeared.  
+The shamblers have resistance to fire as 
+normal shambling mounds do only if the 
+terrain is rainy, marshy, or damp. 
+ 
+Shapechange 
+Transmutation 
+Level: Animal 9, Drd 9, Sor/Wiz 9 
+Components: V, S, F 
+Casting Time: 1 standard action 
+Range: Personal 
+Target: You 
+Duration: 10 min./level (D) 
+ 
+This spell functions like polymorph, except 
+that it enables you to assume the form of 
+any single nonunique creature (of any 
+type) from Fine to Colossal size. The 
+assumed form cannot have more than 
+twice your caster level in Hit Dice (to a 
+maximum of 50 HD). Unlike polymorph, 
+this spell allows incorporeal or gaseous 
+forms to be assumed. 
+You gain all extraordinary and super-
+natural abilities (both attacks and qualities) 
+of the assumed form, but you lose your 
+own supernatural abilities. You also gain 
+the type of the new form (for example, 
+dragon or magical beast) in place of your 
+own. The new form does not disorient you. 
+Parts of your body or pieces of equipment 
+that are separated from you do not revert 
+to their original forms. 
+You can become just about anything you 
+are familiar with. You can change form 
+once each round as a free action. The 
+change takes place either immediately 
+before your regular action or immediately 
+after it, but not during the action. For 
+example, you are in combat and assume 
+the form of a will-o’-wisp. When this form 
+is no longer useful, you change into a stone 
+CHAPTER 11: 
+SPELLS 

@@ -1,0 +1,177 @@
+Wisdom. A template may, however, state thata monster has a dif-
+
+ferent “good” saving throw—see Table 41.
+Abilities: If a template changes one or more ability scores,
+these changes are noted here.
+
+Skills: As with attacks, changing a monster's type does not,
+
+always change its skill points. Most templates don't change the
+
+number of Hit Dice a creature has, so you dont need to adjust,
+|skills in that case unless the key abilities for those skills have,
+changed, or the template gives a bonus.on one or more skills, of
+unless the template gives a feat that. provides a bonus on.a skill.
+
+check.
+Some templates change how skill points are determined, but
+‘this change usually only affects skill points gained after the tem-
+plate is applied. Treat skills listed in the base creature's description
+as class skills, as well as any-new skills provided by the template.
+Feats: Since most templates do not change the number of Hit
+\Dicea creature has, a.template will not change the number of feats
+
+the creature has. Some templates grant one or more bonus feats.
+
+Environment: Usually the same as the base creature.
+
+Organization: Usually the same as the base creature.
+
+Challenge Rating: Most templates increase the creature's
+Challenge Rating. A template might provide a modifier to be
+added to the base creature's CR, or it might specify a range of mod-
+ifiers depending on the base creature's original Hit Dice or CR.
+
+Treasure: Usually the same as the base creature.
+
+Alignment: Usually the same as the base creature, unless the
+template is associated with a certain alignment (such as the celes-
+tial and fiendish templates, and any.template that changes a crea-
+ture’s type to undead).
+
+Advancement: Usually the same as the base creature.
+
+Level Adjustment: This entry is a modifier to the base crea-
+ture’s level adjustment. Any level adjustment.is meaningless
+unless the creature retains a high enough Intelligence (minimum
+3).to gain class levels after applying the template.
+
+ADDING A TEMPLATE, STEP-BY-STEP.
+All.the templates presented in this book include at least one
+example of the template applied ro a creature. To apply a.template,
+toa creature yourself, follow the steps outlined below.
+
+If the template changes the base creature's size, use Table 4-2 10]
+determine changes to natural armor, Armor Class, and attack rolls.
+Check the text of the template to see if you apply size modifiers to
+Strength, Dexterity, and Constitution. The template's Abilities
+entry may-already account for those adjustments.
+
+Add all ability score modifiers, from size and froth the Abilities
+entry, to the base creature's ability scores.
+
+When you know the new Constitution modifier and any
+change to. Hit Die size, recalculate.the templated monster's hit
+
+points. See Hit Dice and Hit Points, above.
+
+The new Constitution modifier also modifies the creature's Forti-
+rude saving throw modifier and any skill modifier for Concentration
+checks. Check for Great Fortitude or any other feat that affects the
+Fortitude saving throw modifier and apply the change now,
+
+When you know the new Dexterity modifier, recalculate the
+creature's modifier on initiative checks and Armor Class. Apply
+modifiers for size and natural armor at this time. Check for
+Improved Initiative and any other feat that affects Initiative and
+apply the change now.
+
+Check to see if either the base creature or. the templated crea-
+
+ture uses Weapon Finesse swith one or more of its attacks. If it does,
+use the new. Dexterity modifier to recalculate the attack bonus.
+|Apply.any size modifiers at the same time.
+
+|The new Dexterity modifier also modifies the Reflex saving
+
+{throw modifier and the modifiers of any_skills with Dexterity. as
+the key ability. Check for Lightning Reflexes or any other feat that
+affects the Reflex saving throw modifier and apply the change now.
+
+When you know the new Strength modifier, check to see if
+
+either the base creature or the templated creature has Weapon,
+Finesse. For all attacks that do not use Weapon Finesse, use the |
+new.Surength modifier to recalculate attack bonus, Apply any.size|
+modifiers at the.same_time.
+
+The new Strength modifier affects damage and any modifiers’
+
+[for skills with Strength as the key ability.
+|. When you know the new Intelligence modifier, recalculate
+skill modifiers for any. skills that use Intelligence asthe key ability.
+
+When you know. the new Wisdom modifier, recalculate the,
+
+.Will saving throw modifier and the modifiers for any skills that.
+use Wisdom as the key ability. Check for Iron Will or any.other}
+feat that affects the Will saving throw modifier. and apply the
+change now.
+
+For all special abilities of the base creature that remain, recaleu- ,
+late saving throw DCs (the template description tells how to.cal-|
+culate the DCs for any special abilities the template provides). The
+
+(formula for most save DCs is 10 + 1/2 the crearure’s Hit Dice +the
+{relevant ability score modifier of the creature using the ability.
+\Typically, each ability is associated with certain kinds of abilities, .
+as follows.
+
+Strength: Any application of force, crushing, binding, or.con-)
+striction.
+
+Dexterity: Movement, movement restrictions, hitting with a
+missile, entanglement.
+
+Constitution: Almost anything that comes from the creature's
+body, including poison attacks and breath weapons.
+
+Intelligence: Ilusion effects.
+
+Wisdom: Mental or perception effects (except charms.and.com-}
+pulsions; see Charisma).
+
+Charisma: A creature's Charisma modifier affects the save DC|
+for any spell-like abilities it has. Use Charisma for anything pit-|
+ting the creature’ will against an opponent, such as gaze attacks, |
+charms, compulsions,and energy drain effects. Also use Charisma
+for any DC that normally would be based on an ability score. the
+creature does not have. For example, undead have no Constitution
+score, so any poison attack an undead creature has. would use
+Charisma to determine the save DC
+
+Add any new special abilities granted by the template.
+
+Add any skill bonuses given by the template.
+
+Add any feats given by the template that are not already taken
+into account.
+
+Update the Challenge Rating as instructed by the template.
+
+Adding More Than.One Template
+In theory, there's no limit to the number of templates you can add
+to a creature. To.add more than one template, just apply each tem-
+plate one ata time. Always apply inherited templates before apply-
+ing acquired templates. Whenever you add multiple templates, pay
+attention to the creature's type—you may add a template that
+makes the creature ineligible for other templates you might want
+toadd. For example, a vampire cannot become a lich and vice versa,
+
+ADVANCED MONSTER
+
+When youadd higher ability scores, class levels, more Hit Dice, or
+a template to a monster, you make it a more challenging opponent
+for your players.
+
+When adding class levels to a crearure with 1 or less HOD, you,
+advance the creature like a character. Otherwise, uuse the following |
+guidelines. =
+
+ADDING CLASS LEVELS
+LI you are advancing a monster by adding player character class
+levels, decide if the class levels directly improve the monster's
+existing capabilities.
+
+ 
+

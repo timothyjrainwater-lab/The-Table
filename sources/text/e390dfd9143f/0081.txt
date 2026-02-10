@@ -1,0 +1,156 @@
+ 
+
+ 
+
+Speed Initiative AC ‘Special Abilities Caster Level SR
+
+Wyrmling 60 ft., burrow 30 ft., +0 15 (+2 size, +3 natural), Immunity to fire, speak with = =
+fly 150 ft. (average) touch 12, flat-footed 15 animals, vulnerability to cold
+
+Very young. 60 ft.. burrow 30 ft. +0 17 (+1 size, +6 natural), a =
+fly.150 ft, (average) touch 11, flat-footed 17
+
+Young 60 ft., burrow 30 ft, +0 19 (+9 natural), Ist -
+fly 200 ft. (poor) touch 10, flat-footed 19
+
+Juvenile 60 ft., burrow. 30 fi. +0 22 (+12 natural), Endure elements 3rd -
+fly 200 ft, (poor) touch 10, flat-footed 22
+
+Young adult 60 ft., burrow 30 ft., +0 24 (-1 size, +15 natural), DR S/magic Sth 18
+fly 200 ft. (poor) touch 9, flat-footed 24
+
+Adult 60 ft., burrow 30 ft., +0 27.{-1 size, +18 natural Suggestion 7th. 20,
+fly 200 ft, (poor) touch 9, flat-footed 27
+
+Mature adult 60 ft., burrow 30 ft., +0 29 (-2'size, +21 natural), OR 10/magic 9th 22
+fly 200 ft. (poor) touch 8, flat-footed 29
+
+Old 60 ft, burrow 30 ft., eS) 32 (-2 size, +24 natural), Control winds lth 24
+fly 200 ft, (poor) touch 8, flat-footed 32
+
+Very old 60 ft., burrow 30 ft., +0 35 (-2 size, +27 natural), OR 15/magic 13th 25
+fly 200 ft. (poor) touch 8, flat-footed 35
+
+Ancient 60 ft., burrow 30 ft, +0 38 (~2 size, +30 natural), Control weather 15th 27
+fly 200 ft, (poor) touch 8, flat-footed 38
+
+Wyrm 60 ft., burrow 30 ft., +0 39 (-4 size, +33 natural), OR 20/magic Vth 28
+fly 250 ft. (clumsy) touch 6, flat-footed 39
+
+Great wyrm___ 60 ft., burrow 30 ft., +0 42 (-4 size, +36 natural), Summon djinni 19th 30
+
+fly 250 ft. (clumsy)
+
+touch 6, flat-footed 42
+
+*Can also cast cleric spells and those from the Chaos and Knowledge domains as arcane spells
+
+\hide by burrowing into the sand. Older dragons spurn this ploy but
+| still prefer to have the advantage in combat,
+Breath Weapon (Su): A brass dragon has two types of breath
+| weapon, a line of fire and a cone of sleep. Creatures within the cone
+ymust succeed on a Will save or fall asleep, regardless of HD, for
+\d6 rounds plus 1 round per age category of the dragon,
+Spell-Like Abilities: At will—speak with animals; 3/day—endure
+elements Guyenile or older; radius 10 ft. x dragon's age category);
+1/day—suggestion (adult or older), control winds (old or older), control
+weather (ancient or older) +
+
+Summon Djinni (Sp): This ability, usable by a great wyrm brass,
+dragon, works like a summon monster spell, except that it summons}
+one djinni. This ability is the equivalent of a 7th-level spell.
+
+Skills: Bluff, Gather Information. and Survival are considered
+
+class skills for brass dragons,
+
+Wyrmling Brass Dragon: CR 3; Tiny dragon (fire); HD 4d12+4;
+hp 30; Init +4: Spd 60 ft., burrow 30 ft., fly 150 ft. (average); AC
+15, touch 12, flat-footed 15; Base Atk +4; Grp—t: Atk +6 melee (1d¢,
+bite); Full Ark +6 melee (1d4, bite), +1 melee (143, 2 claws);
+|Space/Reach 2-1/2 ft./0 ft. (bite 5 ft.) SA breath weapon, spell-like
+jabilities; SQ darkvision 120 ft., immunity to fire, sleep, and paraly-
+
+Bronze Dracons ey AGE
+
+Age Size Hit Dice (hp) __Str_ Dex Con int Wis
+Wyrmling = S 6d12+6 (45) 13:10 13 «14 «15
+Very young M 9d12+18 (76) 15-10 15 14 15
+Young M 12412424 (102) -17«'10:«41S:-—«16«17
+Juvenile L 15d12+45.(142) 19 -10_:«'17:«*18_—s19
+Young adult L — 18d12472 (189) 23 «10 «+19 «18 19
+Adult H _21d}24105 (241) 27 10 21 20 21
+Mature adult H 24d12+120(276) 29 10 21 20 21
+Old H_ 27d12+162 (337) 3110232223
+Very old H -30d12+180 (375) 33 10 23 «22: 23
+Ancient G 334124231 (445) 35 10 25 2425
+Wyrm G — 36d124288 (522) 37 10 27 26 27
+Greatwyrm G 394124312 (565) 39 10 27 26 27
+
+sis, low-light vision, vulnerability to cold; AL CG; SV Fort +5, Ref
++4, Will.+4) Str 11, Dex 10, Con 13, Int 10, Wis 11. Cha10.
+
+Skills and Feats: Hide +7, Knowledge (history) +6,. Knowledge |
+(local) +6, Knowledge (nature) +5, Listen +6, Search +6, Spot +6;
+Flyby Attack, Improved Initiative.
+
+Breath Weapon (Su): 30-ft. line, damage 1dé fire, Reflex DC 13
+half; or 15-ft. cone, sleep 1d6+1 rounds, Will DC 13 negates,
+
+Spell-Like Abilities: At will—speak with animals, Caster
+level 1st.
+
+BRONZE DRAGON
+
+Cha
+14
+14
+16
+
+ws
+20
+20
+2
+
+24
+26
+26
+
+Dragon (Water)
+
+Environment: Temperate hills
+
+Organization: Wyrmling, very young. young, juvenile, and
+young adult: solitary or.clutch (2-5); adult, mature adult, old,
+very old, ancient, wyrm, or great wyrm: solitary, pair, or family
+(1-2 and 2-5 offspring)
+
+Challenge Ratings: Wyrmling 3; very young 5; young 7; juve-
+nile 9; young adult 12; adult 15; mature adult 17; old 19; very
+old 20; ancient 22; wyrm 23; great wyrm 25
+
+‘Treasure: Triple standard
+
+Alignment: Always lawful good
+
+ 
+
+ 
+
+Breath — Frightful
+
+Base Attack/ Fort Ref Will Weapon Presence
+Grapple Attack Save Save Save (0c) pe
+46/43 46 4547 2d6(14) =
++9/+11. 41] $8 46 48 4d6 (16) —
+412/418 415° 410 44841 6d6 (18) —
+415/423. 418 +1249 4 13. 8d6 (20) ~
+418/428 4234151] 415 10d6 (23) 3
++21/+37_ 427 ¢}7 212417 12d6 (25) 25
+424/441 431419414419 14d6.(27)— 27
++27/+45 +35 $21 41S 421 16d6 (29) 29
+430/449 439-423 -417«423 «186 (31) 31
++33/457_ +4) +2518 +25 20d6 (33) 33
++36/+61 +45 +28 «+20 «+28 = 22d6 (36) 36
++39/+65___ +49 +29 421.429. 24d6 (37) 37
+

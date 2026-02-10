@@ -1,0 +1,175 @@
+Flamebrother Salamander Average Salamander
+Small Outsider Medium Outsider
+(Extraplanar, Fire) (Extraplanar, Fire)
+Hit Dice: 4d8+8 (26 hp) 9d8+18 (58 hp)
+Initiative: +1 +
+Speed: 20 ft. (4 squares) 20 ft. (4 squares)
+Armor Class: 19 (+1 size, +1 Dex,+7 natural), 18 (+1 Dex, +7 natural),
+touch 12, flat-footed 18. touch 11, flat-footed 17
+Base Attack/Grapple: +4/+1 49/e1t
+Attack: Spear +6 melee Spear +11 melee
+(1dé+1/x3 plus 1d6 fire) (1d8+3/3 plus 1dé fire)
+Full Attack: Spear +6 melee Spear +11/+6 melee
+(1d6+1/%3 plus 1de fire) and (1d8+3/x3 plus 1dé fire) and
+tail slap +4 melee (1d4 plus tail slap +9 melee (2d6+1 plus
+idé fire) 1dé fire)
+Space/Reach: 5 ft/s ft. 5 ft./5 ft. (10 ft. with tail)
+Special Attacks: Constrict 1d4 plus 1dé fire, heat, Constrict 2d6+1 plus 1dé fire, heat,
+improved grab improved grab
+Special Qualities:  Darkvision 60 ft, immunityto — Damage reduction 10/magic,
+fire, vulnerability to cold darkvision 60 ft,, immunity to fire,
+vulnerability to cold
+Saves: Fort +6, Ref +5, Will +6 Fort +8, Ref +7, Will +8
+Abilities: Str 12, Dex 13, Con 14, Str 14, Dex 13, Con 14,
+Int 14, Wis 15, Cha 13 Int 14, Wis 15, Cha 13
+Skills: Craft (blacksmithing) +8, Bluff +11, Craft (blacksmithing) +19,
+Hide +12, Listen +11, Diplomacy +3, Disguise +1 (+3 acting),
+Move Silently +6, Spor +11 Hide +11, Intimidare +3, Listen +8,
+Move Silently +11,Search +12, Spot +8
+| Feats: Alertness, Multiattack Alertness, Multiattack, Power Attack
+Environment: Elemental Plane of Fire Elemental Plane of Fire
+Organization: Solitary, pair, or cluster (3-5) Solitary, pair, or cluster (35)
+Challenge Rating: 3 6
+‘Treasure: Standard (nonflammables only) Standard (nonflammables only)
+Alignment: Usually evil (any) Usually evil (any)
+Advancement: 4-6 HD (Small) 8-14 HD (Medium)
+Level Adjustment: +4 +5
+
+Noble Salamander
+Large Outsider
+
+(Extraplanar, Fire)
+15d8+45 (112 hp)
+
++1
+
+20 fr. (4 squares)
+
+18 (~1 size, +1 Dex, +8 natural),
+touch 10, flat-footed 17
+
+15/425
+
++3 longspear +23 melee
+
+(1d8+9/x3 plus 1d8 fire)
+
++3 longspear +23/+18/+13
+
+melee (1d8+9/x3 plus 1d8 fire)
+and tail slap +18 melee (2d8+3
+plus 18 fire)
+
+10 ft./10 ft_(20 ft. with tail
+
+or longspear)
+
+Constrict 2d8+3 plus 1d8 fire, heat,
+improved grab, spelb-like abilities
+Damage reduction 15/magic,
+darkvision 60 ft., immunity to fire,
+vulnerability to cold
+
+Fort +12, Ref +10, Will +11
+
+22, Dex 13, Con 16,
+
+Int 16, Wis 15, Cha 15
+
+Bluff +19, Craft (blacksmithing) +25,
+Diplomacy +4, Hide +15,
+Intimidate +4, Listen +13,
+
+Move Silently +17, Spot +13
+Alertness, Cleave, Great Cleave,
+Multiattack, Power Attack,
+
+Skill Focus (Craft [blacksmithing])
+Elemental Plane of Fire
+
+Solitary, pair, or noble party (9-14)
+10
+
+Double standard (nonflammables
+only) and +3 longspear
+
+Usually evil (any)
+
+16-21 HD (Large); 22-45 HD (Huge)
+
+ 
+
+Feats: Salamanders have the Multiatrack feat even though they
+do not have the requisite three natural weapons,
+
+SALAMANDER SOCIETY
+Flamebrothers, the smallest of the salamanders, are barbaric and
+tribal, Often more sophisticated salamanders force their civiliza-
+tion upon their smaller kin. Salamander nobility make a point of
+|traveling through the planes, learning secrets to further their
+power, These experienced creatures eventually return to master
+their own kind and raise mighty kingdoms.
+
+In a mixed society, status is determined by size and power—
+flamebrothers are the lowest class and the front ranks of salaman-
+der armies, Average salamanders are the middle class and the main
+fighting force, while noble salamanders are commanders.
+
+Salamander nations do their best to resist the mighty.elemental
+lords on their plane, and they disdain the szers, efreet..and other
+inhabitants. They often fail, rhough, and are.enslaved by other
+fiery masters or conscripted into elemental armies,
+
+SALAMANDER CHARACTERS
+jElamebrothers have no favored class. They sometimes become
+ladepts.or warriors. Average or noble salamanders may_be clerics,
+sorcerers, or fighters (their favored class).
+
+Se SATYR
+
+Medium Fey
+
+Hit Dice: 5d6+5 (22 hp)
+
+Initiative: +1
+
+Speed: 40 ft. (8 squares)
+
+Armor Class: 15 (+1 Dex, +4 natural), ouch 11, flar-footed 14
+
+Base Attack/Grapple: +2/+2
+
+Attack: Head butt +2 melee (1d6) or shortbow +3 ranged
+(1d6/x3)
+
+Full Attack: Head butt +2 melee (1d6) and dagger ~3 melee
+(1d4/19-20); or shorthow +3 ranged (1d6/x3)
+
+Space/Reach: s ft,/s ft,
+
+Special Attacks: Pipes
+
+Special Qualities: Damage reduction /cold iron, low-light
+vision
+
+Saves: Fort +2, Ref +5, Will +5
+
+Abilities: Str 10, Dex 13, Con 12, Int 12, Wis 13, Cha.13.
+
+Skills; Bluff +9, Diplomacy +3, Disguise +1 (+3 acting), Hide +13,
+Intimidate +3, Knowledge (nature) +9, Listen.+15, Move.
+Silently +13, Perform (wind instruments) +2, Spot +15,
+Survival +1.(+3 aboveground)
+
+\Feats: Alertness", Dodge, Mobility
+
+Environment: Temperate forests
+
+Organization: Solitary, pair, band (3-5), or troop (6-11)
+
+Challenge Rating: 2 (without pipes) or 4 (with pipes)
+
+ 
+
+ 
+

@@ -1,0 +1,105 @@
+ 
+ 144 
+ 
+Restricted Withdraw: If you are limited to taking only a stan-
+dard action each round (for instance, if you have been slowed or 
+during a surprise round), you can withdraw as a standard action. In 
+this case, you may move up to your speed (rather than up to double 
+your speed). 
+ 
+Run 
+You can run as a full-round action. (If you do, you do not also get a 5-
+foot step.) When you run, you can move up to four times your speed 
+in a straight line (or three times your speed if you’re in heavy armor). 
+You lose any Dexterity bonus to AC unless you have the Run feat 
+(page 99), which allows you to keep your Dexterity bonus to AC 
+when running. 
+You can run for a number of rounds equal to your Constitution 
+score, but after that you must make a DC 10 Constitution check to 
+continue running. You must check again each round in which you 
+continue to run, and the DC of this check increases by 1 for each 
+check you have made. When you fail this check, you must stop 
+running. A character who has run to his limit must rest for 1 minute 
+(10 rounds) before running again. During a rest period, a character 
+can move no faster than a normal move action. 
+You can’t run across difficult terrain (page 148), or if you can’t see 
+where you’re going. 
+A run represents a speed of about 12 miles per hour for an unen-
+cumbered human. 
+ 
+Move 5 Feet through Difficult Terrain 
+In some situations, your movement may be so hampered that you 
+don’t have sufficient speed even to move 5 feet (a single square). In 
+such a case, you may spend a full-round action to move 5 feet (1 
+square) in any direction, even diagonally. Even though this looks 
+like a 5-foot step, it’s not, and thus it provokes attacks of opportunity 
+normally. (You can’t take advantage of this rule to move through 
+impassable terrain or to move when all movement is prohibited to 
+you, such as while paralyzed.) 
+FREE ACTIONS 
+Free actions don’t take any time at all, though your DM may limit 
+the number of free actions you can perform in a turn. Free actions 
+rarely incur attacks of opportunity. Some common free actions are 
+described below. 
+ 
+Drop an Item 
+Dropping an item in your space or into an adjacent square is a free 
+action. 
+ 
+Drop Prone 
+Dropping to a prone position in your space is a free action. 
+ 
+Speak 
+In general, speaking is a free action that you can perform even when 
+it isn’t your turn. Some DMs may rule that a character can only 
+speak on his turn, or that a character can’t speak while flat-footed 
+(and thus can’t warn allies of a surprise threat until he has a chance 
+to act). Speaking more than few sentences is generally beyond the 
+limit of a free action; to communicate more information than that, 
+your DM may require that you take a move action or even a full-
+round action. 
+ 
+Cease Concentration on Spell 
+You can stop concentrating on an active spell (such as detect evil) as a 
+free action. 
+ 
+Cast a Quickened Spell 
+You can cast a quickened spell (see the Quicken Spell feat, page 98) 
+or any spell whose casting time is designated as a free action (such as 
+the feather fall spell) as a free action. Only one such spell can be cast 
+in any round, and such spells don’t count toward your normal limit 
+of one spell per round. Casting a spell with a casting time of a free 
+action doesn’t incur an attack of opportunity. 
+ 
+MISCELLANEOUS ACTIONS 
+Some actions don’t fit neatly into the above categories. Some of 
+these options are actions that take the place of or are variations on 
+the actions described under Standard Actions, Move Actions, and 
+Full-Round Actions. For actions not covered below, the DM lets you 
+know how long such an action takes to perform and whether doing 
+so provokes attacks of opportunity from threatening enemies. The 
+variant and special attacks mentioned here are covered under 
+Special Attacks, page 154. 
+ 
+Take 5-Foot Step 
+You can move 5 feet in any round when you don’t perform any other 
+kind of movement. Taking this 5-foot step never provokes an attack 
+of opportunity. You can’t take more than one 5-foot step in a round, 
+and you can’t take a 5-foot step in the same round when you move 
+any distance. 
+You can take a 5-foot step before, during, or after your other ac-
+tions in the round. For example, you could draw a weapon (a move 
+action), take a 5-foot step, and then attack (a standard action), or you 
+could cast fireball (a standard action), take a 5-foot step through an 
+open door, then close the door (a move action). 
+You can only take a 5-foot-step if your movement isn’t hampered 
+by difficult terrain (see page 148) or darkness. Any creature with a 
+speed of 5 feet or less can’t take a 5-foot step, since moving even 5 
+feet requires a move action for such a slow creature. 
+You may not take a 5-foot step using a form of movement for 
+which you do not have a listed speed. For example, if you don’t have 
+a Climb speed listed, you can’t use climbing to make a 5-foot step. 
+Similarly, you can’t take a 5-foot step when swimming unless you 
+have a listed swim speed. 
+CHAPTER 8: 
+COMBAT 

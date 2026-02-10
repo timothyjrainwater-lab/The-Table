@@ -1,0 +1,49 @@
+ 
+ 150 
+sq 
+squares adjacent to it. A creature with greater than normal 
+natural reach usually gets an attack of opportunity against 
+you if you approach it, because you must enter and move within the 
+range of its reach before you can attack it. (This attack of oppor-
+tunity is not provoked if you take a 5-foot step.) 
+Large or larger creatures using reach weapons can strike up to 
+double their natural reach but can’t strike at their natural reach or 
+less. For example, an ogre with a Large longspear could strike 
+with the longspear at opponents 15 or 20 feet away, but not at 
+those 5 or 10 feet away. 
+ 
+COMBAT MODIFIERS 
+Sometimes you just have to go toe-to-toe in a fight, but you can 
+usually gain some advantage by seeking a better position, either 
+offensively or defensively. This section covers the rules for when 
+you can line up a particularly good attack or are forced to make a 
+disadvantageous one. 
+ 
+FAVORABLE AND 
+UNFAVORABLE CONDITIONS 
+Depending on the situation, you may gain bonuses or take penalties 
+on your attack roll. Generally, any situational modifier created by 
+the attacker’s position or tactics applies to the attack roll, while any 
+situational modifier created by the defender’s position, state, or 
+tactics applies to the defender’s AC. Your DM judges what bonuses 
+and penalties apply, using Table 8–5: Attack Roll Modifiers and 
+Table 8–6: Armor Class Modifiers as guides. 
+ 
+COVER 
+One of the best defenses available is cover. By 
+taking cover behind a tree, a wall, the side of a 
+wagon, or the battlements of a castle, you can 
+protect yourself from attacks, especially ranged 
+attacks, and also from being spotted. 
+To determine whether your target has 
+cover from your ranged attack, choose a 
+corner of your square. If any line from 
+this corner to any corner of the target’s 
+square passes through a square or border 
+that blocks line of effect or provides 
+cover, or through a square occupied by a 
+creature, the target has cover (+4 to 
+AC). 
+ 
+CHAPTER 8: 
+COMBAT 

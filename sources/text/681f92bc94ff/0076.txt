@@ -1,0 +1,136 @@
+ 
+ 75
+Defend (DC 20): The animal defends you (or is ready to defend 
+you if no threat is present), even without any command being given. 
+Alternatively, you can command the animal to defend a specific 
+other character. 
+Down (DC 15): The animal breaks off from combat or otherwise 
+backs down. An animal that doesn’t know this trick continues to 
+fight until it must flee (due to injury, a fear effect, or the like) or its 
+opponent is defeated. 
+Fetch (DC 15): The animal goes and gets something. If you do not 
+point out a specific item, the animal fetches some random object. 
+Guard (DC 20): The animal stays in place and prevents others 
+from approaching. 
+Heel (DC 15): The animal follows you closely, even to places 
+where it normally wouldn’t go. 
+Perform (DC 15): The animal performs a variety of simple tricks, 
+such as sitting up, rolling over, roaring or barking, and so on. 
+Seek (DC 15): The animal moves into an area and looks 
+around for anything that is obviously alive or animate. 
+Stay (DC 15): The animal stays in place, waiting for you to 
+return. It does not challenge other creatures that come by, 
+though it still defends itself if it needs to. 
+Track (DC 20): The animal tracks the scent presented to it. (This 
+requires the animal to have the scent ability; see the Monster 
+Manual for details.) 
+Work (DC 15): The animal pulls or pushes a medium or 
+heavy load. 
+Train an Animal for a Purpose:  Rather than teaching an 
+animal individual tricks, you can simply train it for a 
+general purpose. Essentially, an animal’s purpose represents 
+a preselected set of known tricks that fit into a common 
+scheme, such as guarding or heavy labor. The animal must 
+meet all the normal prerequisites for all tricks included in 
+the training package. If the package includes more than three 
+tricks, the animal must have an Intelligence score of 2. 
+An animal can be trained for only one general purpose, though if 
+the creature is capable of learning additional tricks (above and 
+beyond those included in its general purpose), it may do so. Training 
+an animal for a purpose requires fewer checks than teaching 
+individual tricks does, but no less time. At your DM’s option, you 
+may be able to train an animal for a purpose that isn’t mentioned 
+here. 
+Combat Riding (DC 20): An animal trained to bear a rider into 
+combat knows the tricks attack, come, defend, down, guard, and 
+heel. Training an animal for combat riding takes six weeks. You may 
+also “upgrade” an animal trained for riding to one trained for combat 
+riding by spending three weeks and making a successful DC 20 
+Handle Animal check. The new general purpose and tricks 
+completely replace the animal’s previous purpose and any tricks it 
+once knew. Warhorses and riding dogs (see the Monster Manual) are 
+already trained to bear riders into combat, and they don’t require any 
+additional training for this purpose. 
+Fighting (DC 20): An animal trained to engage in combat knows 
+the tricks attack, down, and stay. Training an animal for fighting 
+takes three weeks. 
+Guarding (DC 20): An animal trained to guard knows the tricks 
+attack, defend, down, and guard. Training an animal for guarding 
+takes four weeks. 
+Heavy Labor (DC 15): An animal trained for heavy labor knows 
+the tricks come and work. Training an animal for heavy labor takes 
+two weeks. 
+Hunting (DC 20): An animal trained for hunting knows the tricks 
+attack, down, fetch, heel, seek, and track. Training an animal for 
+hunting takes six weeks. 
+Performance (DC 15): An animal trained for performance knows 
+the tricks come, fetch, heel, perform, and stay. Training an animal 
+for performance takes five weeks. 
+Riding (DC 15): An animal trained to bear a rider knows the tricks 
+come, heel, and stay. Training an animal for riding takes three 
+weeks. 
+Rear a Wild Animal:  To rear an animal means to raise a wild 
+creature from infancy so that it becomes domesticated. A handler 
+can rear as many as three creatures of the same kind at once. A 
+successfully domesticated animal can be taught tricks at the same 
+time it’s being raised, or it can be taught as a domesticated animal 
+later. 
+Action: Varies. Handling an animal is a move action, while 
+pushing an animal is a full-round action. (A druid or ranger can 
+handle her animal companion as a free action or push it as a move 
+action.) For tasks with specific time frames noted above, you must 
+spend half this time (at the rate of 3 hours per day per animal being 
+handled) working toward completion of the task before you attempt 
+the Handle Animal check. If the check fails, your attempt to 
+teach, rear, or train the animal fails and you need not 
+complete the teaching, rearing, or training time. If the check 
+succeeds, you must invest the remainder of the time to complete 
+the teaching, rearing, or training. If the time is interrupted or 
+the task is not followed through to completion, the attempt to 
+teach, rear, or train the animal automatically fails. 
+Try Again: Yes, except for rearing an animal. 
+Special: You can use this skill on a creature with an 
+Intelligence score of 1 or 2 that is not an animal, but the DC 
+of any such check increases by 5. Such creatures have the 
+same limit on tricks known as animals do. The Monster 
+Manual provides information on teaching or training 
+other kinds of creatures as appropriate. 
+A druid or ranger gains a +4 circumstance bonus on 
+Handle Animal checks involving her animal 
+companion. In addition, a druid’s or ranger’s animal 
+companion knows one or more bonus tricks, which don’t count 
+against the normal limit on tricks known and don’t require any 
+training time or Handle Animal checks to teach. 
+If you have the Animal Affinity feat, you get a +2 bonus on 
+Handle Animal checks. 
+Synergy: If you have 5 or more ranks in Handle Animal, you get a 
++2 bonus on Ride checks and wild empathy checks. 
+Untrained: If you have no ranks in Handle Animal, you can use a 
+Charisma check to handle and push domestic animals, but you can’t 
+teach, rear, or train animals. A druid or ranger with no ranks in 
+Handle Animal can use a Charisma check to handle and push her 
+animal companion, but she can’t teach, rear, or train other 
+nondomestic animals. 
+ 
+HEAL (WIS) 
+Use this skill to keep a badly wounded friend from dying, to help 
+others recover faster from wounds, to keep your friend from suc-
+cumbing to a wyvern’s sting, or to treat disease. 
+Check: The DC and effect depend on the task you attempt. 
+ 
+Task Heal DC 
+First aid 15 
+Long-term care 15 
+Treat wound from caltrop, spike growth, or spike stones 15 
+Treat poison Poison’s save DC 
+Treat disease Disease’s save DC  
+ 
+First Aid:  You usually use first aid to save a dying character. If a 
+character has negative hit points and is losing hit points (at the rate 
+of 1 per round, 1 per hour, or 1 per day), you can make him or her 
+stable. A stable character regains no hit points but stops losing them. 
+(See Dying, page 145.) 
+Long-Term Care: Providing long-term care means treating a 
+wounded person for a day or more. If your Heal check is successful, 
+CHAPTER 4: 
+SKILLS 

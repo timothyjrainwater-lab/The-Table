@@ -1,0 +1,205 @@
+ 
+ 209
+Charm Monster 
+Enchantment (Charm) [Mind-Affecting] 
+Level: Brd 3, Sor/Wiz 4 
+Target: One living creature 
+Duration: One day/level 
+ 
+This spell functions like charm person , 
+except that the effect is not restricted by 
+creature type or size. 
+ 
+Charm Monster, Mass 
+Enchantment (Charm) [Mind-Affecting] 
+Level: Brd 6, Sor/Wiz 8 
+Components: V 
+Targets: One or more creatures, no two of 
+which can be more than 30 ft. apart 
+Duration: One day/level 
+ 
+This spell functions like charm monster , 
+except that mass charm monster  affects a 
+number of creatures whose combined HD 
+do not exceed twice your level, or at least 
+one creature regardless of HD. If there are 
+more potential targets than you can affect, 
+you choose them one at a time until you 
+choose a creature with too many HD. 
+ 
+Charm Person 
+Enchantment (Charm) [Mind-Affecting] 
+Level: Brd 1, Sor/Wiz 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: One humanoid creature 
+Duration: 1 hour/level 
+Saving Throw: Will negates 
+Spell Resistance: Yes 
+ 
+This charm makes a humanoid creature 
+regard you as its trusted friend and ally 
+(treat the target’s attitude as friendly; see 
+Influencing NPC Attitudes, page 72). If 
+the creature is currently being threatened 
+or attacked by you or your allies, however, 
+it receives a +5 bonus on its saving throw. 
+The spell does not enable you to control 
+the charmed person  as if it were an 
+automaton, but it perceives your words 
+and actions in the most favorable way. You 
+can try to give the subject orders, but you 
+must win an opposed Charisma check to 
+convince it to do anything it wouldn’t 
+ordinarily do. (Retries are not allowed.) An 
+affected creature never obeys suicidal or 
+obviously harmful orders, but a charmed 
+fighter, for example, might believe you if 
+you assured him that the only chance to 
+save your life is for him to hold back an 
+onrushing red dragon for “just a few 
+seconds.” Any act by you or your apparent 
+allies that threatens the charmed person 
+breaks the spell. You must speak the 
+person’s language to communicate your 
+commands, or else be good at panto-
+miming. 
+ 
+Chill Metal 
+Transmutation [Cold] 
+Level: Drd 2 
+Components: V, S, DF 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target: Metal equipment of one creature 
+per two levels, no two of which can be 
+more than 30 ft. apart; or 25 lb. of 
+metal/level, none of which can be more 
+than 30 ft. away from any of the rest 
+Duration: 7 rounds 
+Saving Throw: Will negates (object) 
+Spell Resistance: Yes (object) 
+ 
+Chill metal  makes metal extremely cold. 
+Unattended, nonmagical metal gets no 
+saving throw. Magical metal is allowed a 
+saving throw against the spell (Magic 
+item’s saving throws are covered in the 
+Dungeon Master’s Guide .) An item in a crea-
+ture’s possession uses the creature’s saving 
+throw bonus unless its own is higher. 
+A creature takes cold damage if its 
+equipment is chilled. It takes full damage 
+if its armor is affected or if it is holding, 
+touching, wearing, or carrying metal 
+weighing one-fifth of its weight. The crea-
+ture takes minimum damage (1 point or 2 
+points; see the table) if it’s not wearing 
+metal armor and the metal that it’s carry-
+ing weighs less than one-fifth of its weight. 
+On the first round of the spell, the metal 
+becomes chilly and uncomfortable to 
+touch but deals no damage. The same 
+effect also occurs on the last round of the 
+spell’s duration. During the second (and 
+also the next-to-last) round, icy coldness 
+causes pain and damage. In the third, 
+fourth, and fifth rounds, the metal is 
+freezing cold, causing more damage, as 
+shown on the table below. 
+ 
+ Metal 
+Round Temperature Damage 
+1 Cold None 
+2 Icy 1d4 points 
+3–5 Freezing 2d4 points 
+6 Icy 1d4 points 
+7 Cold None  
+ 
+Any heat intense enough to damage the 
+creature negates cold damage from the 
+spell (and vice versa) on a point-for-point 
+basis. For example, if the damage roll from 
+a chill metal spell indicates 5 points of cold 
+damage and the subject plunges through a 
+wall of fire  in the same round and takes 8 
+points of fire damage, it winds up taking 
+no cold damage and only 3 points of fire 
+damage. Underwater, chill metal  deals no 
+damage, but ice immediately forms around 
+the affected metal, making it more 
+buoyant. 
+Chill metal  counters and dispels heat 
+metal. 
+ 
+Chill Touch 
+Necromancy 
+Level: Sor/Wiz 1 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Touch 
+Targets: Creature or creatures touched (up 
+to one/level) 
+Duration: Instantaneous 
+Saving Throw: Fortitude partial or Will 
+negates; see text 
+Spell Resistance: Yes 
+ 
+A touch from your hand, which glows with 
+blue energy, disrupts the life force of living 
+creatures. Each touch channels negative 
+energy that deals 1d6 points of damage. 
+The touched creature also takes 1 point of 
+Strength damage unless it makes a success-
+ful Fortitude saving throw. You can use 
+this melee touch attack up to one time per 
+level. 
+An undead creature you touch takes no 
+damage of either sort, but it must make a 
+successful Will saving throw or flee as if 
+panicked for 1d4 rounds +1 round per 
+caster level. 
+ 
+Circle of Death 
+Necromancy [Death] 
+Level: Sor/Wiz 6 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: Medium (100 ft. + 10 ft./level) 
+Area: Several living creatures within a 40-
+ft.-radius burst 
+Duration: Instantaneous 
+Saving Throw: Fortitude negates 
+Spell Resistance: Yes 
+ 
+A circle of death  snuffs out the life force of 
+living creatures, killing them instantly. 
+The spell slays 1d4 HD worth of living 
+creatures per caster level (maximum 20d4). 
+Creatures with the fewest HD are affected 
+first; among creatures with equal HD, 
+those who are closest to the burst’s point of 
+origin are affected first. No creature of 9 or 
+more HD can be affected, and Hit Dice 
+that are not sufficient to affect a creature 
+are wasted. 
+Material Component:  The powder of a 
+crushed black pearl with a minimum value 
+of 500 gp. 
+ 
+Clairaudience/Clairvoyance 
+Divination (Scrying) 
+Level: Brd 3, Knowledge 3, Sor/Wiz 3 
+Components: V, S, F/DF 
+Casting Time: 10 minutes 
+Range: Long (400 ft. + 40 ft./level) 
+Effect: Magical sensor 
+Duration: 1 min./level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+Clairaudience/clairvoyance creates an invis-
+ible magical sensor at a specific location 
+CHAPTER 11: 
+SPELLS 

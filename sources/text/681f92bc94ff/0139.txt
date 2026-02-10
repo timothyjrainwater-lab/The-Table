@@ -1,0 +1,73 @@
+ 
+ 138 
+make two separate attacks of opportunity (since each one represents 
+a different opportunity). Moving out of more than one square 
+threatened by the same opponent in the same round doesn’t count 
+as more than one opportunity for that opponent. All these attacks 
+are at your full normal attack bonus. 
+ 
+ACTIONS IN COMBAT 
+The fundamental actions of moving, attacking, and casting spells 
+cover most of what you want to do in a battle. They’re all described 
+here. Other, more specialized options are covered later in Special 
+Attacks, page 154, and Special Initiative Actions, page 160. 
+ 
+THE COMBAT ROUND 
+Each round represents 6 seconds in the game world. At the table, a 
+round presents an opportunity for each character involved in a 
+combat situation to take an action. Anything a person could 
+reasonably do in 6 seconds, your character can do in 1 round. 
+Each round’s activity begins with the character with the highest 
+initiative result and then proceeds, in order, from there. Each round 
+of a combat uses the same initiative order. When a character’s turn 
+comes up in the initiative sequence, that character performs his 
+entire round’s worth of actions. (For exceptions, see Attacks of 
+Opportunity, page 137, and Special Initiative Actions, page 160.) 
+For almost all purposes, there is no relevance to the end of a 
+round or the beginning of a round. The term “round” works like the 
+word “month.” A month can mean either a calendar month or a span 
+of time from a day in one month to the same day the next month. In 
+the same way, a round can be a segment of game time starting with 
+the first character to act and ending with the last, but it usually 
+means a span of time from one round to the same initiative count in 
+the next round. Effects that last a certain number of rounds end just 
+before the same initiative count that they began on. 
+For example, a monk acts on initiative count 15. The monk’s 
+stunning attack stuns a creature for 1 round. The stun lasts through 
+initiative count 16 in the next round, not until the end of the 
+current round. On initiative count 15 in the next round, the stun 
+effect has ended and the previously stunned creature can act. 
+ 
+ACTION TYPES 
+An action’s type essentially tells you how long the action takes to 
+perform (within the framework of the 6-second combat round) and 
+how movement is treated. There are four types of actions: standard 
+actions, move actions, full-round actions, and free actions. 
+In a normal round, you can perform a standard action and a move 
+action, or you can perform a full-round action. You can also perform 
+as many free actions (see below) as your DM allows. You can always 
+take a move action in place of a standard action. 
+In some situations (such as in a surprise round), you may be 
+limited to taking only a single move action or standard action. 
+Standard Action: A standard action allows you to do something. 
+The most common type of standard action is an attack—a single 
+melee or ranged attack. Other common standard actions including 
+casting a spell, concentrating to maintain an active spell, activating a 
+magic item, and using a special ability. See Table 8–2: Actions in 
+Combat for other standard actions. 
+Move Action: A move action allows you to move your speed or 
+perform an action that takes a similar amount of time. You can move 
+your speed, climb one-quarter of your speed, draw or stow a weapon 
+or other item, stand up, pick up an object, or perform some 
+equivalent action (see Table 8–2: Actions in Combat). 
+You can take a move action in place of a standard action. For in-
+stance, rather than moving your speed and attacking, you could 
+stand up and move your speed (two move actions), put away a 
+weapon and climb one-quarter of your speed (two move actions), or 
+pick up an item and stow it in your backpack (two move actions). 
+If you move no actual distance in a round (commonly because 
+you have swapped your move for one or more equivalent actions, 
+such as standing up), you can take one 5-foot step either before, 
+during, or after the action. For example, if Tordek is on the ground, 
+CHAPTER 8: 
+COMBAT 

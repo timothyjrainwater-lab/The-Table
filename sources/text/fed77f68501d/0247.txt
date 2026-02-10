@@ -1,0 +1,196 @@
+   
+   
+  
+   
+  
+ 
+ 
+    
+
+Tasie 7-26: Wanos
+
+Minor Medium Major Wand Market Price
+
+01-02 — — Detect magic 375 gp
+03-04 — — _ Light 375 pp
+05-07 —  — — Buming hands 750 gp
+08-10 =—_ —_ Charm animal 750.gp.
+N13, — = =— — Charm person 750 gp
+
+4416  — = — __ Color spray 750. gp_|
+
+9 — = Care light wounds 750 gp
+20-22 = — _Detect secret doors 750 gp.
+23-25 — — — Enlarge person 750 gp
+(26-28 = — Magic missile (1st) 750 gp
+29-31 —  — Shocking grasp 750 gp
+32-34 — — —_ Summon monster | 750 gp
+35-36 —  — Magic missile (3rd) 2,250 gp
+37 __ 01-03 _— _ Magic missile (5th) 3,750 gp
+3840 04-07 — Bear's endurance 4,500 gp
+}41-43__ 08-11 _— Bull's strength 4,500 gp
+A446 12-15 — Cat's grace 4,500 gp
+}47-49 16-20 — Cure moderate wounds 4,500 gp
+50-51 21-22, — Darkness 4,500 gp
+52-54 23-24 —— Daylight 4,500 gp
+55-57 25-27. — _ Delay poison 4,500 gp
+58-60 28-31 — _ Eagle's splendor 4,500 gp
+61-63 32-33 — False life 4,500 gp
+64-66 34-37 — Fox's cunning 4,500 gp
+, 67-68 3B — — Ghoul touch 4,500 gp
+169-7139.  — Hold person. 4,500 gp
+72-74 40-42 — —Inwisibility 4,500 gp
+75-77 43-44. Knock 4,500 gp.
+78-80 45 — Levitate 4,500 gp
+(81-83 45-47. — —Melf's acid arrow 4,500 gp
+, 84-86 4849 — = Mirror image 4,500 gp
+87-89 50-53 — Owl's wisdom 4,500 gp
+90-91 34 — Shatter 4,500 gp
+92-94 55-56 — _ Silence 4,500 gp
+95-97 57  — Summon monster II 4,500 gp
+98-100. 58-59 — Web 4,500 gp
+— 60-62 01-02 Mogic missile (7th) 5,250 gp
+— 63-64 03-05_ Magic missile (9th) 6,750 gp
+— 65-67 06-07 Call lightning (Sth) 11,250 gp
+- 68 —_ 08___Chanm person, heightened 11,250 gp
+
+(Srd-leyel spell)
+
+_ 69-70 09-10 Contagion 11,250 gp
+—___7)=74_11=13_ Cure serious wounds 11,250 gp
+— 75-77 14-15. Dispel magic 11,250 gp
+
+WONDROUS ITEMS
+
+\This is a catch-all category for anything that doesnt fall into the
+other groups, Anyone can use a wondrous item (unless specified
+otherwise in the description).
+
+Physical Description: Varies.
+
+Activation: Usually use activated or command word, but
+details vary from item.to item.
+
+Random Generation: To generate wondrous items randomly,
+roll on Table 7-27; Minor Wondrous Items, Table 7-28: Medium
+Wondrous Items, or Table 7-29; Major Wondrous Items.
+
+Special Qualities: Roll d%. An_01 result indicates the won-
+
+jdrous item is intelligent, 02-31 indicates that something (a
+
+design, inscription, or the like) provides a clue to its function, and
+
+|32=100 indicates no special qualities. Intelligent items have extra
+jabilities and sometimes extraordinary powers and special pur-
+poses. Use Table 7-30: Item Intelligence, Wisdom, Charisma, and
+
+Capabilities as indicated if a wondrous item is intelligent. Won-
+drous items with charges can never be intelligent.
+
+    
+  
+    
+   
+   
+  
+   
+  
+  
+  
+  
+    
+    
+    
+   
+   
+   
+    
+  
+    
+
+   
+
+ 
+
+ 
+
+78-81__16-17__ Fireball (Sth) 11,250 gp.
+— 82-83 18-19 Keen edge 11,250 gp
+—___ 84-87 20-2) _ Lightning bolt (Sth) 11,250. gp.
+$8-89 22-23 Major image 11,250 gp
+— 90-91 24-25 Slow 11,250 gp
+— 92-94 26-27 Suggestion 11,250 gp
+— 95-97 28-29_ Summan monster I!) 11,250 gp
+_ 98 30-31 Fireball (6th) 13,500 gp
+- 99 32-33_Lightning bolt (6th) 13,500. gp
+— 100. 34-35. Searing light (6th) 13,500 gp
+— 36-37 Call lightning (8th). 18,000 gp
+_ — 38-39 Fireball (8th) 18,000 gp.
+—___ —_ 40-41_Lightning bolt (8th) 18,000 gp
+E — 42-45 Charm monster 21,000 gp
+= — 46-50 Cure critical wounds 21,000 gp
+= — (51-52 Dimensional anchor 21,000 gp
+- — 53-55 Fear 21,000 gp.
+= — $659 Greater invisibility 21,000 gp
+- — .60___Hold person, heightened 21,000 gp.
+(4th level)
+— 61-65 ice storm 21,000 gp
+- — 66-68 _Inflict critical wounds 21,000 gp
+- — 69-72 Neutralize poison 21,000 gp
+- —__73-74 Poison 21,000 gp.
+= — 73-77 Polymorph 21,000 gp
+- —___78__Ray of enfeeblement,. 21,000 gp
+heightened (4th level).
+== — 79 Suggestion, heightened 21,000 gp
+(4th level)
+_ — 80-82 Summon monster IV 21,000 gp.
+— — 8386 Wall offire 21,000 gp
+— —__ 87-90_ Wall of ice 21,000 gp.
+= — 91 Dispel magic (10th) 22,500 gp
+at — 92 Fireball (10th) 22,500 gp
+= — 93__Lightning bolt (10th) 22,500 gp
+= — 94 Chaos hammer (8th) 24,000 gp
+= — 95 _ Holy smite (8th) 24,000 gp
+- — 9% _—_ Order's wrath (8th) 24,000 gp
+= — 97 Unholy blight (8th) 24,000 gp
+— 98-99 _Restoration’ 26,000 gp
+= - 100 Stoneskin* 33,500 gp.
+
+1 The cost to create a wand of restoration is 10,500 gp, 840 XP, plus
+5,000 gp for the material components.
+
+2. The cost.to create a. wand of stoneskin is 10,500 gp, 840 XP, plus
+12,500 gp for the material components.
+
+Wondrous Item Descriptions
+
+Wondrous items can be configured to do just about anything from
+create a breeze to improve ability scores, Standard wondrous items
+are described below,
+
+Amulet of Health: This amulet isa golden disk on a chain. It
+usually bears the image of a lion or other powerful animal. The
+amulet grants the wearer an enhancement bonus to Constitution
+of +2,+4, or +6,.
+
+Moderate transmutation; CL sth; Craft Wondrous Item, bear's
+endurance; Price 4,000 gp (+2), 16,000 gp (+4), 36,000 gp (+6).
+
+Amulet of Mighty Fists: This amulet grants an enhancement
+bonus of +1. 10 +5 on attack and damage rolls with unarmed attacks,
+and natural weapons. }
+
+Faint evocation; CL Sth; Craft Wondrous Item, greater. magic
+fang, creator's caster level must be at least three.times.the amulet’s
+bonus; Price 6,000 gp (+1), 24,000 gp (+2), 54,000 gp (+3), 96,000 gp |
+(+4), 150,000 gp (+5).
+
+Amulet of Natural Armor: This amulet, usually crafted from
+bone or beast scales, toughens the wearer's body and flesh, giving
+him an enhancement bonus to his natural armor bonus of from +1
+
+ 
+
+ 
+

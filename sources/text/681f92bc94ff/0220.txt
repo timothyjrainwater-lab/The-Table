@@ -1,0 +1,189 @@
+ 
+ 219
+his character level is 6th or lower. 
+Lingering Aura: An evil aura lingers after 
+its original source dissipates (in the case of 
+a spell) or is destroyed (in the case of a 
+creature or magic item). If detect evil is cast 
+and directed at such a location, the spell 
+indicates an aura strength of dim (even 
+weaker than a faint aura). How long the 
+aura lingers at this dim level depends on 
+its original power: 
+ 
+ Duration of 
+Original Strength Lingering Aura  
+Faint 1d6 rounds 
+Moderate  1d6 minutes 
+Strong 1d6×10 minutes 
+Overwhelming 1d6 days
+ 
+ 
+Animals, traps, poisons, and other poten-
+tial perils are not evil, and as such this spell 
+does not detect them. 
+Each round, you can turn to detect evil 
+in a new area. The spell can penetrate bar-
+riers, but 1 foot of stone, 1 inch of common 
+metal, a thin sheet of lead, or 3 feet of 
+wood or dirt blocks it. 
+ 
+Detect Good 
+Divination 
+Level: Clr 1 
+ 
+This spell functions like detect evil , except 
+that it detects the auras of good creatures, 
+clerics or paladins of good deities, good 
+spells, and good magic items, and you are 
+vulnerable to an overwhelming good aura 
+if you are evil. Healing potions, antidotes, 
+and similar beneficial items are not good. 
+ 
+Detect Law 
+Divination 
+Level: Clr 1 
+ 
+This spell functions like detect evil , except 
+that it detects the auras of lawful creatures, 
+clerics of lawful deities, lawful spells, and 
+lawful magic items, and you are vulnerable 
+to an overwhelming lawful aura if you are 
+chaotic. 
+ 
+Detect Magic 
+Divination 
+Level: Brd 0, Clr 0, Drd 0, Sor/Wiz 0 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: 60 ft. 
+Area: Cone-shaped emanation 
+Duration: Concentration, up to 1 
+min./level (D) 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You detect magical auras. The amount of 
+information revealed depends on how 
+long you study a particular area or subject. 
+1st Round:  Presence or absence of magi-
+cal auras. 
+2nd Round: Number of different magical 
+auras and the power of the most potent 
+aura. 
+3rd Round:  The strength and location of 
+each aura. If the items or creatures bearing 
+the auras are in line of sight, you can make 
+Spellcraft skill checks to determine the 
+school of magic involved in each. (Make 
+one check per aura; DC 15 + spell level, or 
+15 + half caster level for a nonspell effect.) 
+Magical areas, multiple types of magic, 
+or strong local magical emanations may 
+distort or conceal weaker auras. 
+Aura Strength:  An aura’s power depends 
+on a spell’s functioning spell level or an 
+item’s caster level. If an aura falls into more 
+than one category, detect magic  indicates 
+the stronger of the two. 
+Lingering Aura:  A magical aura lingers 
+after its original source dissipates (in the 
+case of a spell) or is destroyed (in the case 
+of a magic item). If detect magic is cast and 
+directed at such a location, the spell indi-
+cates an aura strength of dim (even weaker 
+than a faint aura). How long the aura 
+lingers at this dim level depends on its 
+original power: 
+ 
+ Duration of 
+Original Strength Lingering Aura  
+Faint 1d6 rounds 
+Moderate 1d6 minutes 
+Strong 1d6×10 minutes 
+Overwhelming 1d6 days
+ 
+ 
+Outsiders and elementals are not magical 
+in themselves, but if they are summoned, 
+the conjuration spell registers. 
+Each round, you can turn to detect 
+magic in a new area. The spell can pene-
+trate barriers, but 1 foot of stone, 1 inch of 
+common metal, a thin sheet of lead, or 3 
+feet of wood or dirt blocks it. 
+Detect magic  can be made permanent 
+with a permanency spell. 
+ 
+Detect Poison 
+Divination 
+Level: Clr 0, Drd 0, Pal 1, Rgr 1, 
+Sor/Wiz 0 
+Components: V, S 
+Casting Time: 1 standard action 
+Range: Close (25 ft. + 5 ft./2 levels) 
+Target or Area: One creature, one object, 
+or a 5-ft. cube 
+Duration: Instantaneous 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You determine whether a creature, object, 
+or area has been poisoned or is poisonous. 
+You can determine the exact type of 
+poison with a DC 20 Wisdom check. A 
+character with the Craft (alchemy) skill 
+may try a DC 20 Craft (alchemy) check if 
+the Wisdom check fails, or may try the 
+Craft (alchemy) check prior to the Wis-
+dom check. 
+The spell can penetrate barriers, but 1 
+foot of stone, 1 inch of common metal, a 
+thin sheet of lead, or 3 feet of wood or dirt 
+blocks it. 
+ 
+Detect Scrying 
+Divination 
+Level: Brd 4, Sor/Wiz 4 
+Components: V, S, M 
+Casting Time: 1 standard action 
+Range: 40 ft. 
+Area: 40-ft.-radius emanation centered on 
+you 
+Duration: 24 hours 
+Saving Throw: None 
+Spell Resistance: No 
+ 
+You immediately become aware of any 
+attempt to observe you by means of a div-
+ination (scrying) spell or effect. The spell’s 
+area radiates from you and moves as you 
+move. You know the location of every 
+magical sensor within the spell’s area. 
+If the scrying attempt originates within 
+the area, you also know its location; 
+otherwise, you and the scrier immediately 
+make opposed caster level checks (1d20 + 
+caster level). If you at least match the 
+scrier’s result, you get a visual image of the 
+scrier and an accurate sense of his or her 
+Detect Evil 
+ ———————— Aura Power ———————— 
+Creature/Object Faint Moderate Strong Overwhelming  
+Evil creature1 (HD) 10 or lower 11–25 26–50 51 or higher 
+Undead (HD) 2 or lower 3–8 9–20 21 or higher 
+Evil outsider (HD) 1 or lower 2–4 5–10 11 or higher 
+Cleric of an evil deity
+2 (class levels) 1 2–4 5–10 11 or higher 
+Evil magic item or spell (caster level) 2nd or lower 3rd–8th 9th–20th 21st or higher 
+1 Except for undead and outsiders, which have their own entries on the table. 
+2 Some characters who are not clerics may radiate an aura of equivalent power. The class 
+description will indicate whether this applies. 
+ 
+Detect Magic 
+ ————————— Aura Power ————————— 
+Spell or Object Faint Moderate Strong Overwhelming  
+Functioning spell (spell level) 3rd or lower 4th–6th 7th–9th 10th+ (deity-level) 
+Magic item (caster level) 5th or lower 6th–11th 12th–20th 21st+ (artifact) 
+CHAPTER 11: 
+SPELLS 

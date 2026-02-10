@@ -1,0 +1,191 @@
+ 
+  
+ 
+ 
+    
+  
+   
+ 
+ 
+   
+   
+  
+ 
+  
+
+   
+   
+  
+ 
+ 
+ 
+   
+
+Combat
+
+Dogs generally hunt in packs, chasing and exhausting prey until
+
+they can drag it down.
+
+Skills: Dogs have a +4.racial bonus.on Jump checks. *Dogs have
+
++4 racial bonus on Survival checks when tracking by scent.
+
+DOG, RIDING
+Medium Animal
+Hit Dice: 2d8+4 (13 hp)
+Anitiative: +2
+Speed; 40 ft. (8 squares)
+Armor Class: 16 (+2 Dex, +4 natural), touch 12, flat-footed 14
+Base Attack/Grapple: +1/+3
+Attack: Bite +3 melee (1dé+3)
+Full Attack: Bite +3 melee (1d6+3)
+Space/Reach: Ss ft./s ft,
+Special Attacks; —
+Special Qualities: Low-light vision, scent
+Saves: Fort +5, Ref +5, Will +1
+\Abilities: Str 15, Dex 15, Con 15, Int 2, Wis 12, Cha 6
+Skills: Jump +8, Listen +5, Spot +5, Swim +3, Survival +1°
+Feats: Alertness, Track"
+Environment: Temperate plains
+litary or pack (5-12)
+Challenge Rating: 1
+Advancement; —
+Level Adjustment: —
+
+ 
+
+ 
+
+This category includes working breeds such as collies, huskies,
+land St. Bernards,
+
+Carrying Capacity: A light load for a.riding dog is up to 100
+\pounds; a medium load, 101-200 pounds; anda heavy load,
+201-300 pounds. A riding dog can drag 1,500 pounds.
+
+Combat
+If trained for war, these animals can make trip.attacks just as
+wolves do (see the Wolf entry). A riding dog can fight while carry-
+
+ing a rider, but the rider cannot also attack unless he or she suc,
+
+ceeds on a Ride check.
+
+Skills: Riding dogs have a +4 racial bonus on Jump checks.|
+
+*Riding dogs have a +4 racial bonus on Survival checks when
+tracking by scent.
+
+DONKEY.
+
+Medium Animal
+Hit Dice: 2d8+2 (11 hp)
+Initiative: +1
+Speed: 30 ft, (6 squares)
+Armor Class; 13 (+1 Dex, +2 natural), rouch 11, flat-footed 12
+Base Attack/Grapple: +1/+1
+Attack: Bite +1 melee (1d2)
+Full Attack: Bite +1 melee (1d2)
+Space/Reach: s fi./5 fi.
+Special Attacks; —
+Special Qualities: Low-light vision, scent
+Saves: Fort +4, Ref +4, Will +0
+
+Abilities: Str 10, Dex 13,Con 12, Int 2, Wis 11, Cha 4
+Skills: Balance +3, Listen +3, Spot +2
+Feats: Endurance
+Environment: Temperate. deserts
+
+Organization; Solitary.
+
+\Challenge Rating: 1/6
+
+)Adyancement; —
+
+Level Adjustment: —
+
+  
+
+These long-eared, horselike creatures are Surefooted and sturdy. |
+The statistics presented here could also describe burros.
+
+ 
+
+   
+
+  
+
+Carrying Capacity: A light load for a donkey is up.to 50.
+pounds; a. medium load, 51-100 pounds; and a heavy load.)
+101-150 pounds. A donkey can drag 750 pounds.
+
+Combat
+A donkey bites only when it has no way to escape.
+Skills: Donkeys have a +2 racial bonus on Balance checks.
+
+EAGLE
+_Small Animal
+Hit Dice: 1d8+1 (5 hp)
+Initiative: +2
+Speed: 10 ft, (2 squares), fly 80 ft. (average)
+Armor Class: 14 (+1 size, +2 Dex, +1 natural), touch 13,
+flat-footed 12
+Base Attack/Grapple: +0/—+
+Attack: Talons +3 melee (1d¢
+Full Attack: 2 talons +3 melee (1d4) and bite -2 melee (1d4)
+Space/Reach: 5 fi./5 ft,
+Special Attacks: —
+Special Qualities: Low-light vision
+Saves: Fort +3, Ref +4, Will +2
+Abilities: Str 10, Dex 15, Con 12, Int 2, Wis 14, Cha.6
+Skills: Listen +2, Spot +14
+Feats: Weapon Finesse
+Environment: Temperate mountains
+Organization: Solitary or pair
+Challenge Rating: 1/2
+Advancement; 2-3 HD (Medium)
+Level Adjustment; —
+
+  
+
+‘These birds of prey inhabit nearly every terrain and climate,
+though they all prefer high, secluded nesting spots.
+
+A typical eagle is about 3 feet long and has a wingspan of about
+7 feet. The statistics presented here can describe any similar-sized,
+diurnal bird of prey.
+
+Combat
+Eagles dive at prey, raking with their powerful talons.
+Skills: Eagles have a +8 racial bonus on Spot checks.
+
+ELEPHANT
+Huge Animal
+Hit Dice: 11d8+55 (104 hp)
+Initiative: +0
+Speed: 40 ft. (8 squares)
+Armor Class; 15 (~2 size, +7 natural), touch 8, flat-footed 15
+Base Attack/Grapple: +8/+26
+Attack: Gore +16 melee (2d8+15).
+Full Attack: Slam +16 melee (2d6+10) and 2 stamps +11 melee
+(2d6+5); or gore +16 melee (2d8+15)
+Space/Reach: 15 ft,/10 ft.
+Special Attacks; Trample 2d8+15
+Special Qualities; Low-light vision, scent
+Saves; Fort +12, Ref +7, Will +6
+Abilities: Str 30, Dex 10, Con 21, Int 2, Wis 13, Cha7
+Skills: Listen +12, Spot +10
+Feats; Alertness, Endurance, Iron Will, Skill Focus (Listen)
+Environment; Warm plains
+Organization; Solitary or herd (6-30)
+Challenge Rating: 7
+Advancement: 12-22 HD (Huge)
+Level Adjustment: —
+
+ 
+
+“Massive herbivores of tropical lands, elephants are unpredictable
+creatures but nevertheless are sometimes used as mounts or beasts
+of burden,
+
