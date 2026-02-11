@@ -424,6 +424,62 @@ def resolve_aoo_sequence(
             current_timestamp += 0.01
             continue  # Skip this AoO
 
+        # WO-035: Check for Tumble skill to avoid movement AoO
+        provoker = world_state.entities.get(trigger.provoker_id)
+        if provoker and trigger.provoking_action in ("movement_out", "mounted_movement_out"):
+            from aidm.core.skill_resolver import resolve_skill_check
+            from aidm.schemas.skills import SkillID
+
+            # Check if provoker has Tumble ranks
+            skill_ranks = provoker.get(EF.SKILL_RANKS, {})
+            if skill_ranks.get(SkillID.TUMBLE, 0) > 0:
+                # Attempt Tumble check (DC 15) to avoid AoO
+                try:
+                    tumble_result = resolve_skill_check(
+                        entity=provoker,
+                        skill_id=SkillID.TUMBLE,
+                        dc=15,
+                        rng=rng,
+                        circumstance_modifier=0
+                    )
+
+                    # Emit tumble check event
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="tumble_check",
+                        timestamp=current_timestamp,
+                        payload={
+                            "entity_id": trigger.provoker_id,
+                            "success": tumble_result.success,
+                            "total": tumble_result.total,
+                            "dc": tumble_result.dc,
+                            "d20_roll": tumble_result.d20_roll,
+                        },
+                        citations=[{"source_id": "681f92bc94ff", "page": 84}]  # PHB Tumble
+                    ))
+                    current_event_id += 1
+                    current_timestamp += 0.01
+
+                    if tumble_result.success:
+                        # Tumble success - AoO avoided
+                        events.append(Event(
+                            event_id=current_event_id,
+                            event_type="aoo_avoided_by_tumble",
+                            timestamp=current_timestamp,
+                            payload={
+                                "reactor_id": trigger.reactor_id,
+                                "provoker_id": trigger.provoker_id,
+                            },
+                            citations=[{"source_id": "681f92bc94ff", "page": 84}]  # PHB Tumble
+                        ))
+                        current_event_id += 1
+                        current_timestamp += 0.01
+                        continue  # Skip this AoO
+
+                except ValueError:
+                    # Tumble is trained-only, but we checked ranks > 0, so this shouldn't happen
+                    pass
+
         # Emit aoo_triggered event
         events.append(Event(
             event_id=current_event_id,
