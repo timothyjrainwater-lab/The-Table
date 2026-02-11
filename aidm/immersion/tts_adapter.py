@@ -87,8 +87,19 @@ class StubTTSAdapter:
 # Factory
 # ---------------------------------------------------------------------------
 
+def _get_kokoro_adapter_class() -> type:
+    """Lazy import of KokoroTTSAdapter to avoid import-time dependencies."""
+    from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
+    return KokoroTTSAdapter
+
+
 _TTS_REGISTRY: Dict[str, type] = {
     "stub": StubTTSAdapter,
+}
+
+# Lazy registration for backends with heavy dependencies
+_TTS_LAZY_REGISTRY: Dict[str, callable] = {
+    "kokoro": _get_kokoro_adapter_class,
 }
 
 
@@ -96,7 +107,7 @@ def create_tts_adapter(backend: str = "stub") -> TTSAdapter:
     """Create a TTS adapter by backend name.
 
     Args:
-        backend: Backend identifier (e.g., 'stub')
+        backend: Backend identifier (e.g., 'stub', 'kokoro')
 
     Returns:
         TTSAdapter instance
@@ -104,9 +115,18 @@ def create_tts_adapter(backend: str = "stub") -> TTSAdapter:
     Raises:
         ValueError: If backend is unknown
     """
-    if backend not in _TTS_REGISTRY:
-        raise ValueError(
-            f"Unknown TTS backend: '{backend}'. "
-            f"Available: {list(_TTS_REGISTRY.keys())}"
-        )
-    return _TTS_REGISTRY[backend]()
+    # Check direct registry first
+    if backend in _TTS_REGISTRY:
+        return _TTS_REGISTRY[backend]()
+
+    # Check lazy registry for backends with heavy dependencies
+    if backend in _TTS_LAZY_REGISTRY:
+        adapter_class = _TTS_LAZY_REGISTRY[backend]()
+        return adapter_class()
+
+    # Build list of all available backends
+    all_backends = list(_TTS_REGISTRY.keys()) + list(_TTS_LAZY_REGISTRY.keys())
+    raise ValueError(
+        f"Unknown TTS backend: '{backend}'. "
+        f"Available: {all_backends}"
+    )

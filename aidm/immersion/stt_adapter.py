@@ -71,11 +71,23 @@ _STT_REGISTRY: Dict[str, type] = {
 }
 
 
+def _get_whisper_adapter_class() -> type:
+    """Lazy import of WhisperSTTAdapter to avoid import-time dependencies."""
+    from aidm.immersion.whisper_stt_adapter import WhisperSTTAdapter
+    return WhisperSTTAdapter
+
+
+# Lazy-loaded adapters (import on first use)
+_STT_LAZY_REGISTRY: Dict[str, callable] = {
+    "whisper": _get_whisper_adapter_class,
+}
+
+
 def create_stt_adapter(backend: str = "stub") -> STTAdapter:
     """Create an STT adapter by backend name.
 
     Args:
-        backend: Backend identifier (e.g., 'stub')
+        backend: Backend identifier (e.g., 'stub', 'whisper')
 
     Returns:
         STTAdapter instance
@@ -83,9 +95,18 @@ def create_stt_adapter(backend: str = "stub") -> STTAdapter:
     Raises:
         ValueError: If backend is unknown
     """
-    if backend not in _STT_REGISTRY:
-        raise ValueError(
-            f"Unknown STT backend: '{backend}'. "
-            f"Available: {list(_STT_REGISTRY.keys())}"
-        )
-    return _STT_REGISTRY[backend]()
+    # Check direct registry first
+    if backend in _STT_REGISTRY:
+        return _STT_REGISTRY[backend]()
+
+    # Check lazy registry
+    if backend in _STT_LAZY_REGISTRY:
+        adapter_class = _STT_LAZY_REGISTRY[backend]()
+        return adapter_class()
+
+    # Unknown backend
+    all_backends = list(_STT_REGISTRY.keys()) + list(_STT_LAZY_REGISTRY.keys())
+    raise ValueError(
+        f"Unknown STT backend: '{backend}'. "
+        f"Available: {all_backends}"
+    )

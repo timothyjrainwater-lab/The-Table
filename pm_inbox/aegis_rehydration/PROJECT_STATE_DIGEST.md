@@ -1,7 +1,7 @@
 <!--
 PROJECT STATE DIGEST — LEAN OPERATIONAL STATE
 Last Updated: 2026-02-11
-Tests: 2913 passing
+Tests: 3091 passing
 Execution Plan: Steps 1-6 COMPLETE, Step 7 IN PROGRESS
 Historical content archived to: docs/history/PROJECT_HISTORY.md
 -->
@@ -25,7 +25,7 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 | 4 | Vertical Slice Gate | **COMPLETE** | WO-013 |
 | 5 | Spellcasting | **COMPLETE** | WO-014, WO-015 |
 | 6 | Integration Testing | **COMPLETE** | WO-016, WO-017, WO-018, WO-019 |
-| 7 | Immersion Layer | **IN PROGRESS** | — |
+| 7 | Immersion Layer | **IN PROGRESS** | WO-020, WO-021, WO-022, WO-023 |
 
 ---
 
@@ -100,9 +100,24 @@ Thousand-Fold Fireball: 1000 iterations, all geometric invariants hold.
 
 ---
 
+## Step 7: Immersion Layer (IN PROGRESS)
+
+| WO | Module | Lines | Tests | Status |
+|----|--------|-------|-------|--------|
+| WO-020 | kokoro_tts_adapter.py, test_kokoro_tts.py | 1069 | 38 | **COMPLETE** |
+| WO-021 | whisper_stt_adapter.py, test_whisper_stt.py | 850 | 31 | **COMPLETE** |
+| WO-022 | sdxl_image_adapter.py, test_sdxl_image.py | 1303 | 50 | **COMPLETE** |
+| WO-023 | tri_gem_socket.py, transparency.py, test_tri_gem_socket.py | 2553 | 59 | **COMPLETE** |
+
+Real backends: Kokoro TTS (CPU), faster-whisper STT (CPU), SDXL Lightning (NF4 GPU).
+Tri-Gem Socket: RUBY/SAPPHIRE/DIAMOND transparency modes on STP streams.
+All adapters use lazy loading, graceful fallback to stubs when deps unavailable.
+
+---
+
 ## Test Summary
 
-**Total: 2913 tests passing**
+**Total: 3091 tests passing**
 
 Recent additions:
 - Geometry engine: 395 tests
@@ -114,6 +129,10 @@ Recent additions:
 - Performance profiling: 46 tests
 - Property-based testing: 48 tests
 - Replay regression: 52 tests
+- Kokoro TTS: 38 tests
+- Whisper STT: 31 tests
+- SDXL Image: 50 tests
+- Tri-Gem Socket: 59 tests
 
 ---
 

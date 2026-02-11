@@ -25,4 +25,6 @@ markers = [
     "property_based: Property-based randomized tests (1000 iterations, optional skipping)",
     "slow: Tests that take more than 1 second to run",
     "replay: Replay regression tests (determinism verification, optional skipping)",
+    "requires_kokoro: Tests requiring Kokoro TTS (skipped if not installed)",
+    "requires_whisper: Tests requiring Whisper STT (skipped if not installed)",
 ]

@@ -24,8 +24,8 @@
 
 ```
 PHASE:       Step 7 IN PROGRESS — Immersion Layer
-TESTS:       2913 passing
-PENDING:     WO-020, WO-021, WO-022, WO-023 awaiting paste
+TESTS:       3091 passing
+PENDING:     WO-020/021/022/023 complete; remaining Step 7 WOs to draft
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -57,10 +57,7 @@ PENDING:     WO-020, WO-021, WO-022, WO-023 awaiting paste
 ## PENDING DISPATCH
 
 **Current batch (parallel-safe):**
-- WO-020 — Real TTS Backend (Kokoro)
-- WO-021 — Real STT Backend (faster-whisper)
-- WO-022 — Real Image Backend (SDXL Lightning)
-- WO-023 — Transparency Tri-Gem Socket
+*(Cleared — WO-020/021/022/023 approved. Remaining Step 7 WOs to be drafted.)*
 
 **Protocol:**
 - When dispatch presented: Add entry here

@@ -38,6 +38,11 @@ from aidm.immersion.tts_adapter import (
     create_tts_adapter,  # PUBLIC_STABLE: Factory
 )
 
+# --- PUBLIC_STABLE: Kokoro TTS backend ---
+from aidm.immersion.kokoro_tts_adapter import (
+    KokoroTTSAdapter,    # PUBLIC_STABLE: Real TTS backend
+)
+
 # --- PUBLIC_STABLE: Audio mixer contract ---
 from aidm.immersion.audio_mixer import (
     AudioMixerAdapter,          # PUBLIC_STABLE: Protocol
@@ -71,6 +76,7 @@ __all__ = [
     "TTSAdapter",
     "StubTTSAdapter",
     "create_tts_adapter",
+    "KokoroTTSAdapter",
     # Audio — PUBLIC_STABLE
     "AudioMixerAdapter",
     "StubAudioMixerAdapter",

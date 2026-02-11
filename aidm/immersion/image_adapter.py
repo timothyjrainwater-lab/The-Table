@@ -66,6 +66,12 @@ class StubImageAdapter:
 # Factory
 # ---------------------------------------------------------------------------
 
+def _get_sdxl_class() -> type:
+    """Lazy import of SDXLImageAdapter to avoid import-time dependencies."""
+    from aidm.immersion.sdxl_image_adapter import SDXLImageAdapter
+    return SDXLImageAdapter
+
+
 _IMAGE_REGISTRY: Dict[str, type] = {
     "stub": StubImageAdapter,
 }
@@ -75,17 +81,36 @@ def create_image_adapter(backend: str = "stub") -> ImageAdapter:
     """Create an image adapter by backend name.
 
     Args:
-        backend: Backend identifier (e.g., 'stub')
+        backend: Backend identifier (e.g., 'stub', 'sdxl')
 
     Returns:
         ImageAdapter instance
 
     Raises:
         ValueError: If backend is unknown
+
+    Note:
+        For 'sdxl' backend, if dependencies are unavailable,
+        returns StubImageAdapter as graceful fallback.
     """
+    # Handle SDXL specially for lazy loading and fallback
+    if backend == "sdxl":
+        try:
+            SDXLImageAdapter = _get_sdxl_class()
+            adapter = SDXLImageAdapter()
+            # Check if actually available; if not, fall back to stub
+            if adapter.is_available():
+                return adapter
+            # Fall back to stub with a warning (logged at DEBUG level)
+            return StubImageAdapter()
+        except ImportError:
+            # Dependencies not installed, fall back to stub
+            return StubImageAdapter()
+
     if backend not in _IMAGE_REGISTRY:
+        valid_backends = list(_IMAGE_REGISTRY.keys()) + ["sdxl"]
         raise ValueError(
             f"Unknown image backend: '{backend}'. "
-            f"Available: {list(_IMAGE_REGISTRY.keys())}"
+            f"Available: {valid_backends}"
         )
     return _IMAGE_REGISTRY[backend]()

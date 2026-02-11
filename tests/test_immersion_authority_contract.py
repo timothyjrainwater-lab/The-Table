@@ -29,6 +29,7 @@ from aidm.core.state import WorldState
 # Immersion modules may ONLY import from these aidm packages
 _ALLOWED_AIDM_IMPORTS = frozenset({
     "aidm.schemas.immersion",
+    "aidm.schemas.transparency",  # WO-023: Tri-Gem Socket transparency schemas
     "aidm.core.state",
     "aidm.immersion",
     "aidm.immersion.stt_adapter",
@@ -37,6 +38,11 @@ _ALLOWED_AIDM_IMPORTS = frozenset({
     "aidm.immersion.image_adapter",
     "aidm.immersion.contextual_grid",
     "aidm.immersion.attribution",
+    "aidm.immersion.tri_gem_socket",  # WO-023: Tri-Gem Socket
+    # Backend-specific adapter implementations (lazy-loaded)
+    "aidm.immersion.whisper_stt_adapter",
+    "aidm.immersion.kokoro_tts_adapter",
+    "aidm.immersion.sdxl_image_adapter",
 })
 
 # Immersion modules must NEVER import from these (engine mutators)
