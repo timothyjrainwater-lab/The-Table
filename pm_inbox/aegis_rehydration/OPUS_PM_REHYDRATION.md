@@ -23,9 +23,9 @@
 ## STATE BANNER
 
 ```
-PHASE:       Step 6 IN PROGRESS — Integration Testing
-TESTS:       2813 passing
-PENDING:     WO-018/019 awaiting paste
+PHASE:       Step 7 IN PROGRESS — Immersion Layer
+TESTS:       2913 passing
+PENDING:     WO-020, WO-021, WO-022, WO-023 awaiting paste
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -57,8 +57,10 @@ PENDING:     WO-018/019 awaiting paste
 ## PENDING DISPATCH
 
 **Current batch (parallel-safe):**
-- WO-018 — Replay Regression Suite
-- WO-019 — Property-Based Testing (Thousand-Fold Fireball)
+- WO-020 — Real TTS Backend (Kokoro)
+- WO-021 — Real STT Backend (faster-whisper)
+- WO-022 — Real Image Backend (SDXL Lightning)
+- WO-023 — Transparency Tri-Gem Socket
 
 **Protocol:**
 - When dispatch presented: Add entry here
@@ -104,7 +106,8 @@ PENDING:     WO-018/019 awaiting paste
 - After reviewing 3+ WO completions → commit and push immediately
 - If 5+ files are uncommitted → commit and push immediately
 - Never let unpushed work accumulate — remote is the safety net
-- PM executes git add/commit/push autonomously as standard methodology
+- **Execute git push via background agent** — PM must not block on network I/O
+- PM stages and commits directly, then spawns background task for push
 
 **After WO Reviews:**
 1. Update `PROJECT_STATE_DIGEST.md` (single source of truth for WO/step status)

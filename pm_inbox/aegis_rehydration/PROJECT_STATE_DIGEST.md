@@ -1,8 +1,8 @@
 <!--
 PROJECT STATE DIGEST — LEAN OPERATIONAL STATE
 Last Updated: 2026-02-11
-Tests: 2813 passing
-Execution Plan: Steps 1-5 COMPLETE, Step 6 IN PROGRESS
+Tests: 2913 passing
+Execution Plan: Steps 1-6 COMPLETE, Step 7 IN PROGRESS
 Historical content archived to: docs/history/PROJECT_HISTORY.md
 -->
 
@@ -24,8 +24,8 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 | 3 | Spark/Trust | **COMPLETE** | WO-010 |
 | 4 | Vertical Slice Gate | **COMPLETE** | WO-013 |
 | 5 | Spellcasting | **COMPLETE** | WO-014, WO-015 |
-| 6 | Integration Testing | **IN PROGRESS** | WO-016, WO-017 |
-| 7 | Immersion Layer | PENDING | — |
+| 6 | Integration Testing | **COMPLETE** | WO-016, WO-017, WO-018, WO-019 |
+| 7 | Immersion Layer | **IN PROGRESS** | — |
 
 ---
 
@@ -83,22 +83,26 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 
 ---
 
-## Step 6: Integration Testing (IN PROGRESS)
+## Step 6: Integration Testing (COMPLETE)
 
 | WO | Module | Lines | Tests | Status |
 |----|--------|-------|-------|--------|
 | WO-016 | scenario_runner.py, test_multi_encounter_stress.py | 2261 | 24 | **COMPLETE** |
 | WO-017 | performance_profiler.py, test_performance_profiling.py | 1746 | 46 | **COMPLETE** |
+| WO-018 | replay_regression.py, test_replay_regression.py, Gold Masters | 4482 | 52 | **COMPLETE** |
+| WO-019 | property_testing.py, test_property_based.py | 1151 | 48 | **COMPLETE** |
 
 4 scenarios verified: Tavern (5v3), Dungeon (4v4), Field Battle (6v6), Boss Fight (5v1).
 All deterministic, Lens-consistent, STPs validated.
 All latency targets met: Box p95 5.08ms (target 50ms), Lens p95 0.06ms (target 20ms).
+Thousand-Fold Fireball: 1000 iterations, all geometric invariants hold.
+1000-turn determinism gate: All scenarios pass with Gold Master replay.
 
 ---
 
 ## Test Summary
 
-**Total: 2813 tests passing**
+**Total: 2913 tests passing**
 
 Recent additions:
 - Geometry engine: 395 tests
@@ -108,6 +112,8 @@ Recent additions:
 - Spellcasting: 68 tests
 - Multi-encounter stress: 24 tests
 - Performance profiling: 46 tests
+- Property-based testing: 48 tests
+- Replay regression: 52 tests
 
 ---
 
