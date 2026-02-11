@@ -2,7 +2,7 @@
 
 **Research Track:** 4 of 7
 **Domain:** System Performance (Cross-cutting)
-**Status:** QUESTION FILED — Awaiting Research Findings
+**Status:** FINDINGS RECEIVED (partial — data layout, Spark constraint, determinism harness)
 **Filed:** 2026-02-11
 **Source:** Thunder (Product Owner) — Deep Research prompt
 
@@ -139,7 +139,133 @@ Synthesize into:
 
 ## Research Findings
 
-**STATUS: NOT YET DELIVERED**
+### Preamble
+
+To build a high-performance, deterministic engine, the gap between "Generative Magic" and "Rigid Rules" must be bridged through compact data schemas for the Lens and a prompting strategy that treats the LLM as a structured function call rather than a chatbot. The following findings address data layout, Spark output constraint, and determinism verification.
+
+---
+
+### Finding 1: Lens Data Schema — MsgPack with Integer-Key Mapping
+
+Standard Python dictionaries store redundant string keys. The Lens uses **MsgPack with an Integer-Mapping (Enums)** for compact, fast serialization.
+
+#### The Key Map Concept
+
+Instead of storing `{"health": 100, "position": [10, 20]}`, define a static map where `health = 0` and `position = 1`. The stored binary is simply `[100, [10, 20]]`.
+
+#### Schema Structure: Actors vs Items
+
+**Actors (Heavy State):**
+
+| Field | Type | Description |
+|---|---|---|
+| `ID` | int | Primary key |
+| `S` | int | Status bitmask (1=Alive, 2=Stunned, 4=Invisible). Bitmask instead of multiple Booleans saves significant space |
+| `V` | list | Vitality stats `[current_hp, max_hp, stamina]` |
+| `P` | list | Position `[x, y, z]` |
+
+**Items (Light State):**
+
+| Field | Type | Description |
+|---|---|---|
+| `T` | int | Type ID (points to a static "Master Template" in the Box) |
+| `D` | dict | Delta only — stores only what *changed* from the template (e.g., current durability) |
+
+**Implementation Note:** Use `msgpack.Packer(use_bin_type=True)` for the Lens. This ensures binary blobs are treated as bytes, preventing Python from attempting expensive UTF-8 decoding during turn replays.
+
+---
+
+### Finding 2: Spark Prompting Pipeline — Constrained Output
+
+The biggest performance/stability risk is "Hallucinated JSON" from the Spark layer. To ensure output matches the schema, use the **System Role as a Type Definer**.
+
+#### Prompt Architecture: Schema Population, Not Description
+
+Do not ask Spark to "Describe the room." Ask it to "Populate the Room Schema."
+
+**System Prompt Pattern:**
+
+> You are a world-state generator for a deterministic engine.
+> You MUST return a JSON object that adheres to this Typescript-style interface:
+> `{ "room_id": string, "entities": Array<{ "type": string, "desc": string, "stats": [int, int] }> }`
+> Do not include any prose outside the JSON.
+
+#### The "Grammar Shield" Strategy
+
+1. **Stop Sequences:** Set `}` as a stop sequence when generating single objects.
+2. **Schema Pre-fill:** Start the Spark response with the opening character `{`. This forces the model into "JSON mode" immediately.
+3. **Validation Middleware:**
+
+```python
+def spark_to_lens(raw_json):
+    try:
+        data = json.loads(raw_json)
+        # Use Pydantic to enforce types
+        return RoomSchema(**data).dict()
+    except ValidationError:
+        # Fallback: Log error and return a "Generic Safe Room"
+        return DEFAULT_ROOM_TEMPLATES["void"]
+```
+
+---
+
+### Finding 3: Determinism Regression Test Harness
+
+To prove the engine is deterministic, two identical seeds must produce identical world states after 1,000 turns.
+
+#### The `pytest` Determinism Suite
+
+**Test 1: Determinism Drift Detection**
+
+```python
+def run_simulation(seed, turns=1000):
+    engine = GameEngine(seed=seed)
+    history_hashes = []
+    for _ in range(turns):
+        history_hashes.append(engine.get_state_hash())
+        action = engine.get_random_valid_action()
+        engine.step(action)
+    return history_hashes, engine.get_state_hash()
+
+def test_determinism_drift():
+    shared_seed = 42
+    hashes_1, final_state_1 = run_simulation(shared_seed)
+    hashes_2, final_state_2 = run_simulation(shared_seed)
+    assert hashes_1 == hashes_2, "State diverged during simulation!"
+    assert final_state_1 == final_state_2, "Final world state is inconsistent!"
+```
+
+**Test 2: Reproducibility from Action Log**
+
+```python
+def test_reproducibility_from_log():
+    engine_a = GameEngine(seed=99)
+    actions_taken = []
+    for _ in range(50):
+        action = engine_a.get_random_valid_action()
+        actions_taken.append(action)
+        engine_a.step(action)
+    engine_b = GameEngine(seed=99)
+    for action in actions_taken:
+        engine_b.step(action)
+    assert engine_a.get_state_hash() == engine_b.get_state_hash()
+```
+
+#### Why This Works
+
+- **State Hashing:** `get_state_hash()` summarizes the Lens (MsgPack all entities → SHA256). If a single position coordinate or one HP point is off, the test fails.
+- **The "Gold Master":** Save `final_state_1` to a file. Whenever the Box rules are updated, run this test to ensure the math hasn't accidentally changed.
+
+---
+
+### Finding 4: Performance Architecture Summary
+
+| Layer | Strategy | Key Technique |
+|---|---|---|
+| **Box** | `__slots__` and bitmasks | Fast math, minimal object overhead |
+| **Lens** | MsgPack with Integer Keys | Tiny, fast-saving snapshots |
+| **Spark** | Schema-constrained prompts | Prevent "Dirty Data" from entering the Box |
+| **Harness** | `pytest` determinism suite | 1,000-turn reproducibility gate |
 
 ---
 

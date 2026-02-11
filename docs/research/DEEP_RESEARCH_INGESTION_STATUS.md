@@ -19,7 +19,7 @@ Thunder delivered 7 comprehensive Deep Research question prompts covering the co
 | 1 | RQ-BOX-001 | Box | Grid-Based Geometric Engine | YES | **DELIVERED** |
 | 2 | RQ-LENS-001 | Lens | Data Indexing + Retrieval Contract | YES | **DELIVERED** |
 | 3 | RQ-SPARK-001 | Spark | World Modeling → Structured Fact Emission | YES | **NOT DELIVERED** |
-| 4 | RQ-PERF-001 | System | Deterministic Compute Budgeting | YES | **NOT DELIVERED** |
+| 4 | RQ-PERF-001 | System | Deterministic Compute Budgeting | YES | **DELIVERED** (partial) |
 | 5 | RQ-INTERACT-001 | Player | Voice-First, Click-Second | YES | **DELIVERED** |
 | 6 | RQ-TRUST-001 | Trust | "Show Your Work" Without Debug UI | YES | **DELIVERED** |
 | 7 | RQ-NARR-001 | AI | Narrative Balance (Spark bounded by Box) | YES | **NOT DELIVERED** |
@@ -85,6 +85,27 @@ The Interaction Playbook findings covered 7 of the 8 sub-questions (sub-question
 
 ---
 
+## RQ-PERF-001 Findings Detail (Partial)
+
+Thunder delivered a cross-cutting performance architecture covering data layout, Spark constraint strategy, and determinism testing. This is a partial delivery — sub-questions 1-5 and 7 (performance targets, profiling, caching, incremental recompute, concurrency, tail latency) are not yet covered.
+
+| Sub-Question | Topic | Findings Received |
+|---|---|---|
+| (1) | Performance Targets | NOT YET |
+| (2) | Profiling Strategy | NOT YET |
+| (3) | Hot Path Caching | NOT YET |
+| (4) | Incremental Recompute | NOT YET |
+| (5) | Concurrency Boundaries | NOT YET |
+| (6) | Memory vs Disk Tradeoffs | YES — MsgPack with integer-key enum mapping, Actor vs Item split, `use_bin_type=True`, delta-only Items |
+| (7) | Tail Latency Management | NOT YET |
+| (8) | Performance Playbook | PARTIAL — `__slots__`+bitmasks (Box), MsgPack integer keys (Lens), schema-constrained prompts (Spark), pytest determinism harness |
+
+**Cross-cutting findings also delivered:**
+- Spark "Grammar Shield" strategy (stop sequences, schema pre-fill, Pydantic validation middleware)
+- Determinism regression suite (`test_determinism_drift`, `test_reproducibility_from_log`, state hashing via SHA256, Gold Master pattern)
+
+---
+
 ## RQ-TRUST-001 Findings Detail
 
 The Trust & Transparency findings covered all 8 sub-questions as a "Provenance & Proof" framework:
@@ -129,7 +150,7 @@ These have not been formalized as research questions yet.
 
 ## Next Steps
 
-1. **Receive remaining findings** — 3 research tracks still awaiting findings delivery (SPARK, PERF, NARR)
+1. **Receive remaining findings** — 2 research tracks still awaiting findings delivery (SPARK, NARR); PERF partially delivered
 2. **Cross-reference with existing R0/R1 research** — Some findings may overlap with or supersede existing research documents
 3. **Integrate into roadmap rewrite** — Research findings will inform the new milestone architecture
 
