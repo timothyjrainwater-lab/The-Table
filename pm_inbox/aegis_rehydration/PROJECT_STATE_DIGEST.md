@@ -3,7 +3,7 @@ PROJECT STATE DIGEST — LEAN OPERATIONAL STATE
 Last Updated: 2026-02-11
 Tests: 3302 passing
 Plan v1: CLOSED — All 7 steps COMPLETE, WO-026 audit PASSED, A1-A7 all PASSED
-Plan v2: ACTIVE — Phase 1 COMPLETE (5/5 WOs), A8 audit pending
+Plan v2: ACTIVE — Phase 1 CLOSED (A8 PASSED), Phase 2 gate OPEN
 Historical content archived to: docs/history/PROJECT_HISTORY.md
 -->
 
@@ -38,8 +38,8 @@ All 7 steps complete. 26/26 WOs delivered. Audit checkpoints A1-A7 all PASSED. P
 
 | Phase | Name | Status | WOs |
 |-------|------|--------|-----|
-| 1 | Wire the Brain | **COMPLETE** — All 5 WOs delivered, A8 pending | WO-027 to WO-031 |
-| 2 | Content Breadth + Narration Bridge | BLOCKED by Phase 1 | WO-032 to WO-037 |
+| 1 | Wire the Brain | **CLOSED** — All 5 WOs delivered, A8 PASSED | WO-027 to WO-031 |
+| 2 | Content Breadth + Narration Bridge | READY — Phase 1 gate cleared | WO-032 to WO-037 |
 | 3 | Session Playability | BLOCKED by Phase 2 | WO-038 to WO-041 |
 | 4 | Playtest Gate + Documentation | BLOCKED by Phase 3 | WO-042 to WO-044 |
 
@@ -68,6 +68,7 @@ All research inputs now delivered. Findings in `docs/research/findings/`. Synthe
 | A5: Regression Baseline | Step 6 | **PASSED** (implicit — Gold Masters, 1000-turn determinism, perf baselines) |
 | A6: Boundary Integrity | Step 7 | **PASSED** (WO-026 — BL-020 verified, 12/12 immersion authority tests) |
 | A7: Full System Audit | Plan closure | **PASSED** (WO-026 — 3170/3170 tests, all BLs, determinism, perf, tech debt) |
+| A8: Spark Integration Proof | Phase 1 | **PASSED** (demo_combat_turn.py — 7/7 criteria, 3302 tests, determinism verified) |
 
 ---
 
@@ -187,7 +188,7 @@ Recent additions:
 - Voice intent parser: 39 tests
 - Table-native UX: 40 tests
 
-### Plan v2 Phase 1: Wire the Brain (IN PROGRESS)
+### Plan v2 Phase 1: Wire the Brain (CLOSED — A8 PASSED)
 
 | WO | Module | Tests | Status |
 |----|--------|-------|--------|
@@ -210,6 +211,7 @@ Recent additions:
 | `KNOWN_TECH_DEBT.md` | Intentionally deferred issues |
 | `docs/doctrine/SPARK_LENS_BOX_DOCTRINE.md` | Architectural axioms |
 | `docs/governance/TACTICAL_INTEGRITY_DOCTRINE.md` | Anti-mercy enforcement, CR as RAW law, detection pipeline |
+| `demo_combat_turn.py` | Windshield demo + A8 audit checkpoint (Phase 1 closure proof) |
 
 ---
 
