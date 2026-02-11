@@ -2,7 +2,7 @@
 
 **Research Track:** 2 of 7
 **Domain:** Lens (Stateful Focus System)
-**Status:** FINDINGS RECEIVED (truncated — partial delivery)
+**Status:** FINDINGS RECEIVED (complete)
 **Filed:** 2026-02-11
 **Source:** Thunder (Product Owner) — Deep Research prompt + findings
 
@@ -391,11 +391,9 @@ The reliability of the Lens is maintained through core invariants validated duri
 3. **Referential Integrity Invariant:** No child object shall exist without a valid `parent_id` reference to an active or historical entity.
 4. **Determinism Invariant:** Given an identical starting snapshot and event log, the state reconstruction for any tick T must be bit-for-bit identical across all supported platforms.
 
----
+#### Testing Strategy
 
-## Truncation Notice
-
-**The original research findings were truncated at approximately 50,000 characters.** The findings above represent the delivered content up to the truncation point. The testing section ("Testing includes 'Str...") was cut off. Additional findings may need to be re-delivered to complete this research track.
+Testing includes **"Stress Replays,"** where the system is subjected to high-volume event logs with simulated network imperfections (jitter, packet loss) to ensure that the TCP_NODELAY and actor-model mitigations maintain single-digit millisecond response times under load. By binding logic, data, and environment into an immutable cryptographic tuple, the Lens provides the necessary veracity and performance to serve as the shared memory of a truly next-generation simulation.
 
 ---
 

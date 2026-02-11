@@ -17,7 +17,7 @@ Thunder delivered 7 comprehensive Deep Research question prompts covering the co
 | # | Track ID | Domain | Title | Questions Filed | Findings Status |
 |---|----------|--------|-------|----------------|-----------------|
 | 1 | RQ-BOX-001 | Box | Grid-Based Geometric Engine | YES | **DELIVERED** |
-| 2 | RQ-LENS-001 | Lens | Data Indexing + Retrieval Contract | YES | **DELIVERED** (truncated) |
+| 2 | RQ-LENS-001 | Lens | Data Indexing + Retrieval Contract | YES | **DELIVERED** |
 | 3 | RQ-SPARK-001 | Spark | World Modeling → Structured Fact Emission | YES | **NOT DELIVERED** |
 | 4 | RQ-PERF-001 | System | Deterministic Compute Budgeting | YES | **NOT DELIVERED** |
 | 5 | RQ-INTERACT-001 | Player | Voice-First, Click-Second | YES | **NOT DELIVERED** |
@@ -63,9 +63,9 @@ The Lens research findings were substantial and covered all 8 sub-questions:
 | (5) | Missing-Data Protocol | YES — JIT Fact Acquisition contract, defaulting rules |
 | (6) | Provenance + Auditability | YES — W3C PROV-DM model, explain() interface |
 | (7) | Performance + Caching | YES — Multi-level caching, performance budget table |
-| (8) | Implementation Spec | PARTIAL — APIs delivered, invariants delivered, testing section truncated |
+| (8) | Implementation Spec | YES — APIs delivered, invariants delivered, Stress Replay testing strategy |
 
-**Truncation Point:** The original message was truncated at ~50,000 characters. The testing section was cut off mid-sentence ("Testing includes 'Str..."). The remainder of the testing strategy and any additional synthesis content was not delivered.
+**Truncation Point:** The original message was truncated at ~50,000 characters but the complete testing section was re-delivered in a subsequent session. All 8 sub-questions are now fully covered.
 
 ---
 
