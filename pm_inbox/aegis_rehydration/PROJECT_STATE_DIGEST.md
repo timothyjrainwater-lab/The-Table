@@ -2,14 +2,27 @@
 PROJECT STATE DIGEST — CANONICAL STATE SNAPSHOT
 
 UPDATE RULES:
-- Updated at the end of every instruction packet (CP-XX)
 - Factual only — no discussion, no design speculation
 - Single source of truth for project state
 - Paste this file to refresh any agent completely
 - Format: Markdown with stable section ordering
 - REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
-LAST UPDATED: 2026-02-11 — PSD HYGIENE PASS: trimmed from 1750 to ~590 lines. Phase 2 Batch 2 DISPATCHED: WO-033 (Spark Stress Test) + WO-036 (Expanded Spells). Batch 1 COMPLETE: WO-032/034/035/037 all INTEGRATED.
+SIZE GATE: This file must not exceed 500 lines. If an update would push
+it past 500, compress existing sections before adding new content. The PM
+is responsible for enforcing this gate on every PSD update.
+
+PSD UPDATE PROTOCOL (compression-on-integration):
+When a WO is INTEGRATED, the PM updates the PSD as follows:
+  1. Add a COMPRESSED entry (3-5 lines max) to Locked Systems
+  2. Update the test count total in Test Count section
+  3. Update the Future Work Queue status table
+  4. Do NOT add a detailed history entry — the Locked Systems summary IS the record
+  5. If the update would breach 500 lines, compress older Locked Systems entries first
+  6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
+Field-level detail belongs in source code and WO dispatch docs, not here.
+
+LAST UPDATED: 2026-02-11 — PSD HYGIENE PASS: trimmed from 1750 to 365 lines. Phase 2 Batch 2 DISPATCHED: WO-033 (Spark Stress Test) + WO-036 (Expanded Spells). Batch 1 COMPLETE: WO-032/034/035/037 all INTEGRATED.
 -->
 
 # Project State Digest
@@ -342,24 +355,15 @@ See EXECUTION_PLAN_V2_POST_AUDIT.md for full WO definitions (WO-038 through WO-0
 
 ## Completion Protocol
 
-Every instruction packet completion summary must include:
+When a WO is INTEGRATED, the PM updates this file per the PSD Update Protocol in the header:
 
-1. **Packet ID**: CP-XX identifier
-2. **Tasks Completed**: List of all tasks in packet
-3. **Files Changed**: New/modified modules and tests
-4. **Tests Affected**: Count change (e.g., 164 → 199)
-5. **PSD Update Block**: Exact text to append to this file
+1. **Locked Systems**: Add 3-5 line compressed entry (name, key capabilities, test count, files)
+2. **Test Count**: Update total
+3. **Future Work Queue**: Update status table (DISPATCHED → INTEGRATED)
+4. **Size gate**: Verify file stays under 500 lines. If not, compress older entries first.
+5. **Sync**: Copy to pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
-Format:
-```
-## CP-XX Update
-
-### Changes
-- [List of locked systems added]
-- [Test count: X → Y]
-- [Module inventory changes]
-
-### Packet History Entry
-- CP-XX: [Brief description]
-- Status: COMPLETE
-```
+**Do NOT:**
+- Add detailed field-by-field, method-by-method history entries
+- Duplicate information already in source code or WO dispatch docs
+- Append without checking the 500-line gate
