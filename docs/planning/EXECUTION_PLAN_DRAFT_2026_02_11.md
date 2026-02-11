@@ -267,8 +267,8 @@ These are not failures — the plan explicitly noted in Open Question #2 that PM
 | WO-021 | 7.1 | Real STT Backend (Whisper) | **COMPLETE** |
 | WO-022 | 7.1 | Real Image Backend (SDXL) | **COMPLETE** |
 | WO-023 | 7.3 | Transparency Tri-Gem Socket | **COMPLETE** |
-| WO-024 | 7.2 | Voice-First Intent Parser | **DISPATCHED** |
-| WO-025 | 7.4 | Table-Native UX | **DISPATCHED** |
+| WO-024 | 7.2 | Voice-First Intent Parser | **COMPLETE** |
+| WO-025 | 7.4 | Table-Native UX | **COMPLETE** |
 | WO-026 | A7 | Full System Audit (Plan Closure Gate) | **PENDING** |
 
 ---
