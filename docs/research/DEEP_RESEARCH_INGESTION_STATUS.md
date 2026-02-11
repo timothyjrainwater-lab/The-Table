@@ -16,13 +16,37 @@ Thunder delivered 7 comprehensive Deep Research question prompts covering the co
 
 | # | Track ID | Domain | Title | Questions Filed | Findings Status |
 |---|----------|--------|-------|----------------|-----------------|
-| 1 | RQ-BOX-001 | Box | Grid-Based Geometric Engine | YES | **NOT DELIVERED** |
+| 1 | RQ-BOX-001 | Box | Grid-Based Geometric Engine | YES | **DELIVERED** |
 | 2 | RQ-LENS-001 | Lens | Data Indexing + Retrieval Contract | YES | **DELIVERED** (truncated) |
 | 3 | RQ-SPARK-001 | Spark | World Modeling → Structured Fact Emission | YES | **NOT DELIVERED** |
 | 4 | RQ-PERF-001 | System | Deterministic Compute Budgeting | YES | **NOT DELIVERED** |
 | 5 | RQ-INTERACT-001 | Player | Voice-First, Click-Second | YES | **NOT DELIVERED** |
 | 6 | RQ-TRUST-001 | Trust | "Show Your Work" Without Debug UI | YES | **NOT DELIVERED** |
 | 7 | RQ-NARR-001 | AI | Narrative Balance (Spark bounded by Box) | YES | **NOT DELIVERED** |
+
+---
+
+## RQ-BOX-001 Findings Detail
+
+The Box geometric engine research findings were comprehensive and covered all 8 sub-questions plus additional minutiae:
+
+| Sub-Question | Topic | Findings Received |
+|---|---|---|
+| (1) | Spatial Query Structures | YES — Uniform Grid O(1), Monotonic Logical Grid, Spatial Hash, hierarchical bitmasks |
+| (2) | Data-Oriented Object Representation | YES — ECS/DOD with SoA layout, 7 blittable component types, cache-line alignment |
+| (3) | Exact Cover Geometry | YES — Corner-to-corner Bresenham algorithm, 4 cover degrees, Large creature sweep |
+| (4) | LOS vs LOE Height-Aware | YES — Height map + voxel traversal, 32-bit Property_Mask, barrier type matrix |
+| (5) | Destructibility as State Transitions | YES — 4-state FSM (Intact→Damaged→Broken→Destroyed), material hardness table |
+| (6) | Environmental State Representation | YES — Bitmask encoding, material property bits, border metadata |
+| (7) | Turn-Based Recalculation | YES — 4-phase Resolve Loop (Snapshot→Reasoning→Resolution→Commit) |
+| (8) | Synthesis | YES — Action Grid via Dijkstra, 3D Bresenham integer arithmetic, message consumer/producer |
+
+Additional findings beyond the 8 sub-questions:
+- Line spell conservative rasterization
+- 3D diagonal double-weighted step rules
+- Intra-tile positioning (3×3 sub-grid for Tiny creatures)
+- 1-square-foot rule via border metadata
+- Hierarchical bitmasks for multi-level dungeons (<10ms pairwise visibility)
 
 ---
 
