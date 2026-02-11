@@ -2,7 +2,8 @@
 PROJECT STATE DIGEST — LEAN OPERATIONAL STATE
 Last Updated: 2026-02-11
 Tests: 3170 passing
-Execution Plan: Steps 1-6 COMPLETE, Step 7 IN PROGRESS (WO-026 audit pending)
+Plan v1: CLOSED — All 7 steps COMPLETE, WO-026 audit PASSED, A1-A7 all PASSED
+Plan v2: ACTIVE — Phase 1 ready for dispatch
 Historical content archived to: docs/history/PROJECT_HISTORY.md
 -->
 
@@ -15,7 +16,11 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 
 ---
 
-## Execution Plan Status (7 Steps)
+## Execution Plan Status
+
+### Plan v1: 7-Step Engine Build — CLOSED
+
+All 7 steps complete. 26/26 WOs delivered. Audit checkpoints A1-A7 all PASSED. Plan formally closed 2026-02-11.
 
 | Step | Name | Status | WOs |
 |------|------|--------|-----|
@@ -25,7 +30,18 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 | 4 | Vertical Slice Gate | **COMPLETE — GO GATE PASSED** | WO-013 |
 | 5 | Spellcasting | **PARTIAL** — spellcasting delivered; narration upgrade blocked by RQ-NARR-001 | WO-014, WO-015 |
 | 6 | Integration Testing | **COMPLETE** | WO-016, WO-017, WO-018, WO-019 |
-| 7 | Immersion Layer | **IN PROGRESS** | WO-020 to WO-025 |
+| 7 | Immersion Layer | **COMPLETE** | WO-020 to WO-026 |
+
+### Plan v2: AI Integration — ACTIVE
+
+4-phase plan to wire real LLM, expand content, build session loop. Prerequisite (WO-026 PASS) satisfied.
+
+| Phase | Name | Status | WOs |
+|-------|------|--------|-----|
+| 1 | Wire the Brain | **READY FOR DISPATCH** | WO-027 to WO-031 |
+| 2 | Content Breadth + Narration Bridge | BLOCKED by Phase 1 | WO-032 to WO-037 |
+| 3 | Session Playability | BLOCKED by Phase 2 | WO-038 to WO-041 |
+| 4 | Playtest Gate + Documentation | BLOCKED by Phase 3 | WO-042 to WO-044 |
 
 ---
 
@@ -50,8 +66,8 @@ These are tracked deferrals, not failures. All infrastructure is built and teste
 | A3: Safety | Step 3 | **PASSED** (implicit — BL-001/002 enforced, Spark one-way valve) |
 | A4: Vertical Slice Gate | Step 4 | **PASSED** (formal gate — WO-013) |
 | A5: Regression Baseline | Step 6 | **PASSED** (implicit — Gold Masters, 1000-turn determinism, perf baselines) |
-| A6: Boundary Integrity | Step 7 | **PENDING** |
-| A7: Full System Audit | Plan closure | **PENDING — WO-026** |
+| A6: Boundary Integrity | Step 7 | **PASSED** (WO-026 — BL-020 verified, 12/12 immersion authority tests) |
+| A7: Full System Audit | Plan closure | **PASSED** (WO-026 — 3170/3170 tests, all BLs, determinism, perf, tech debt) |
 
 ---
 
@@ -130,7 +146,7 @@ Thousand-Fold Fireball: 1000 iterations, all geometric invariants hold.
 
 ---
 
-## Step 7: Immersion Layer (IN PROGRESS)
+## Step 7: Immersion Layer (COMPLETE)
 
 | WO | Module | Lines | Tests | Status |
 |----|--------|-------|-------|--------|
@@ -140,6 +156,7 @@ Thousand-Fold Fireball: 1000 iterations, all geometric invariants hold.
 | WO-023 | tri_gem_socket.py, transparency.py, test_tri_gem_socket.py | 2553 | 59 | **COMPLETE** |
 | WO-024 | voice_intent_parser.py, clarification_loop.py | 1797 | 39 | **COMPLETE** |
 | WO-025 | combat_receipt.py, ghost_stencil.py, judges_lens.py | 2131 | 40 | **COMPLETE** |
+| WO-026 | Full System Audit (read-only) | — | — | **COMPLETE — PASS** |
 
 Real backends: Kokoro TTS (CPU), faster-whisper STT (CPU), SDXL Lightning (NF4 GPU).
 Tri-Gem Socket: RUBY/SAPPHIRE/DIAMOND transparency modes on STP streams.
@@ -176,8 +193,8 @@ Recent additions:
 
 | Document | Purpose |
 |----------|---------|
-| `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` | Plan v1: 7-step engine build (CLOSING — WO-026 audit pending) |
-| `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Plan v2: 4-phase AI integration (APPROVED — 2026-02-11) |
+| `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` | Plan v1: 7-step engine build (**CLOSED** — WO-026 PASSED) |
+| `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Plan v2: 4-phase AI integration (**ACTIVE** — Phase 1 ready) |
 | `docs/history/PROJECT_HISTORY.md` | Archived CP summaries, module inventory, frozen contracts |
 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards |
 | `KNOWN_TECH_DEBT.md` | Intentionally deferred issues |

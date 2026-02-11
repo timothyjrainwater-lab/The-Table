@@ -620,8 +620,8 @@ Player-facing communication when system degrades:
 | A3: Safety | Plan v1 Step 3 | Spark one-way valve | **PASSED** |
 | A4: Vertical Slice | Plan v1 Step 4 | Box→Lens→Spark proof | **PASSED** |
 | A5: Regression | Plan v1 Step 6 | Gold Masters, perf baselines | **PASSED** |
-| A6: Boundary | Plan v1 Step 7 | BL-020 with real backends | **PENDING — WO-026** |
-| A7: Full System | Plan v1 closure | All above re-verified | **PENDING — WO-026** |
+| A6: Boundary | Plan v1 Step 7 | BL-020 with real backends | **PASSED** (WO-026) |
+| A7: Full System | Plan v1 closure | All above re-verified | **PASSED** (WO-026) |
 | A8: Spark Integration | Plan v2 Phase 1 | Real LLM narration, kill switches, Grammar Shield | **FUTURE** |
 | A9: Content Integration | Plan v2 Phase 2 | Feats/skills/spells + NarrativeBrief stress test | **FUTURE** |
 | A10: Playability | Plan v2 Phase 3 | Full session loop, scene management, DM persona | **FUTURE** |
