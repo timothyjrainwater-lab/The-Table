@@ -9,7 +9,7 @@ UPDATE RULES:
 - Format: Markdown with stable section ordering
 - REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
-LAST UPDATED: 2026-02-11 — Whiteboard session complete, PM authority delegated, execution plan formalized
+LAST UPDATED: 2026-02-11 — Phase 1 complete (A8 PASSED), Phase 2 Batch 1 dispatched (WO-032, WO-034, WO-035, WO-037)
 NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (design) and WO-M1-RUNTIME-02 (implementation verification) complete. WO-M2-02 (BL-017/018 persistence cleanup) complete. WO-M1.5-UX-01 (runtime experience design) complete. WO-M3-PREP-01 (prep pipeline prototype with sequential model loading) complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, IPC runtime integration, pm_inbox workflow, runtime session bootstrap (campaign load, replay-first reconstruction, partial write recovery, log sync checks, 10× determinism verification). PrepOrchestrator timestamp injection compliance (deterministic testing enabled). Documentation spring cleaning removed 17 superseded files (6,775 lines). Root cleanup: torrent remnants deleted, REUSE_DECISION.json moved to config/. Solo vertical slice runtime experience design complete (resume flow, turn loop, exit semantics, engine/presentation boundary). M3 prep pipeline prototype demonstrates sequential model loading (LLM → Image Gen → Music Gen → SFX Gen) with stub implementations. Post-M3: Whiteboard session completed (7 Deep Research tracks filed, 5 delivered, execution plan formalized). 2003 tests passing. PM authority formally delegated to Opus.
 -->
 
@@ -404,7 +404,9 @@ NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (desig
 
 ## Test Count
 
-**Total: 1393 tests** (all passing in ~3.5 seconds)
+**Total: 3313 tests** (all passing in ~5 seconds)
+
+NOTE: Detailed breakdown below covers through CP-001 Phase 1 (1393 tests). Plan v1 WOs (WO-001 through WO-026) and Plan v2 Phase 1 WOs (WO-027 through WO-031) added ~1920 additional tests. See individual WO completion reports for per-WO test counts.
 
 Breakdown by subsystem:
 - RNGManager: 8 tests
@@ -1334,8 +1336,11 @@ The `Vault/` directory is a **structured D&D 3.5e rules reference** extracted fr
 
 ## Canonical Project Plan Reference
 
-**CANONICAL EXECUTION PLAN:**
-- [EXECUTION_PLAN_DRAFT_2026_02_11.md](docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md) — Active execution plan (7-step: Box→Lens→Vertical Slice→Spark Integration). Approved by PO 2026-02-11.
+**CANONICAL EXECUTION PLAN (Plan v2 — ACTIVE):**
+- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 Batch 1 DISPATCHED.
+
+**PRIOR EXECUTION PLAN (Plan v1 — CLOSED):**
+- [EXECUTION_PLAN_DRAFT_2026_02_11.md](docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md) — Prior execution plan (7-step: Box→Lens→Vertical Slice→Spark Integration). All 26 WOs complete. Closed 2026-02-11.
 
 **PRIOR ROADMAP (Historical):**
 - [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Prior canonical roadmap. M0-M4 milestone naming, capability gate definitions. Superseded by execution plan for project direction but capability gates remain in force.
@@ -1599,26 +1604,27 @@ The following documents exist for reference but are **not authoritative** for cu
 
 **No work items are greenlit for implementation.** All future work requires explicit authorization.
 
-The following capabilities are defined but NOT authorized for implementation:
-- CP-18A (Tier 1 Spellcasting Core) — Defined by DR-001, not yet greenlit
-- SKR-002 (Permanent Stat Modification) — Design phase only
-- SKR-008 (XP Economy & Permanence) — Design phase only
-- SKR-001 (Entity Forking & Lineage) — Design phase only
+### Phase 2 Batch 1 — DISPATCHED (2026-02-11)
 
-## Design Complete / Implementation Authorized
+The following WOs are dispatched to Sonnet agents for implementation:
 
-(None at this time — CP-19 has been implemented)
+| WO | Description | Dispatch File | Status |
+|----|-------------|---------------|--------|
+| WO-032 | NarrativeBrief Assembler (Lens layer) | pm_inbox/OPUS_WO-032_NARRATIVE_BRIEF_DISPATCH.md | DISPATCHED |
+| WO-034 | Core Feat System (15 feats) | pm_inbox/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | DISPATCHED |
+| WO-035 | Skill System (7 skills) | pm_inbox/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | DISPATCHED |
+| WO-037 | Experience and Leveling | pm_inbox/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | DISPATCHED |
 
-Deferred capabilities (see Action Plan V2 Section 6):
-- All Tier 2/3 spells (summoning, polymorph, dominate, resurrection, ability drain, XP-cost mechanics)
-- All Tier 1+ kernels (SKR-003, SKR-005, SKR-010, SKR-004, SKR-011, SKR-007, SKR-009, SKR-012)
+### Phase 2 Batch 2 — PENDING (awaiting Batch 1 dependencies)
 
-Additional candidates for future instruction packets:
-- LLM-based prep pipeline (scene generation, NPC creation)
-- Actual voice integration (ASR → intent parser)
-- UI implementation (grid, token display, point selection)
-- Rule atom extraction (structured rule database)
-- Semantic search with embeddings
+| WO | Description | Dependency |
+|----|-------------|-----------|
+| WO-033 | Spark Integration Stress Test | WO-032 (NarrativeBrief) |
+| WO-036 | Expanded Spell Registry (~33 new) | WO-035 (Concentration skill, soft dep) |
+
+### Phases 3-4 — FUTURE (awaiting Phase 2 A9 gate)
+
+See EXECUTION_PLAN_V2_POST_AUDIT.md for full WO definitions (WO-038 through WO-044).
 
 ## Completion Protocol
 
