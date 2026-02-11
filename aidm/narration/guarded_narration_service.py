@@ -685,20 +685,40 @@ class GuardedNarrationService:
         # Extract context from engine result events
         context = NarrationContext.from_engine_result(engine_result)
 
+        # WO-030: Extract entity names from metadata if present
+        actor_name = context.actor_name or "someone"
+        target_name = context.target_name or "someone"
+        weapon_name = context.weapon_name or "an attack"
+
+        if engine_result.metadata:
+            # Override with metadata names if available (from WO-030 pipeline)
+            actor_name = engine_result.metadata.get("actor_name", actor_name)
+            target_name = engine_result.metadata.get("target_name", target_name)
+            weapon_name = engine_result.metadata.get("weapon_name", weapon_name)
+
         # Extract damage from events if present
         damage = "some damage"
         for event in engine_result.events:
-            if event.get("type") == "damage_dealt":
+            event_type = event.get("type") or event.get("event_type")
+
+            if event_type == "damage_dealt":
                 damage = str(event.get("damage", "some damage"))
                 break
+            # WO-030: Also check hp_changed events from play_loop
+            if event_type == "hp_changed":
+                payload = event.get("payload", event)  # Handle both dict and Event objects
+                delta = payload.get("delta", 0)
+                if delta < 0:
+                    damage = str(abs(delta))
+                    break
 
         # Build substitution map with safe defaults for missing keys
         safe_defaults = defaultdict(
             lambda: "something",
             {
-                "actor": context.actor_name or "someone",
-                "target": context.target_name or "someone",
-                "weapon": context.weapon_name or "an attack",
+                "actor": actor_name,
+                "target": target_name,
+                "weapon": weapon_name,
                 "damage": damage,
             },
         )

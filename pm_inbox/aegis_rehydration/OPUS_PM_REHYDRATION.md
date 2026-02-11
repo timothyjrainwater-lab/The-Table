@@ -25,9 +25,9 @@
 
 ```
 PLAN v1:     CLOSED — 26/26 WOs complete, A1-A7 all PASSED
-PLAN v2:     ACTIVE — Phase 1 IN PROGRESS (Batch 2 complete, WO-030 ready)
-TESTS:       3288 passing
-NEXT:        Dispatch WO-030 (Narration Pipeline Wiring) — final Phase 1 WO
+PLAN v2:     ACTIVE — Phase 1 COMPLETE (5/5 WOs delivered), A8 audit pending
+TESTS:       3302 passing
+NEXT:        Execute A8 (Spark Integration Proof) audit checkpoint → close Phase 1 → begin Phase 2
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -58,19 +58,29 @@ NEXT:        Dispatch WO-030 (Narration Pipeline Wiring) — final Phase 1 WO
 
 ## PENDING DISPATCH
 
-**Current batch (parallel-safe):**
-- None — awaiting Thunder to dispatch WO-030
+**Phase 1: COMPLETE — No dispatches pending.**
 
-**Queued (Phase 1 final — serial, depends on WO-029):**
-- WO-030 — Narration Pipeline Wiring (play_loop.py + guarded_narration_service.py)
+All 5 Phase 1 WOs delivered:
+- WO-027 Spark Adapter ✓
+- WO-028 Template Fallback ✓
+- WO-029 Kill Switch Suite ✓
+- WO-030 Narration Pipeline Wiring ✓
+- WO-031 Grammar Shield ✓
 
-**Phase 1 Serial (after Batch 2):**
-- WO-030 — Narration Pipeline Wiring (READY — WO-029 complete)
+**Next gate:** A8 (Spark Integration Proof) audit checkpoint → closes Phase 1
+
+**After A8:** Phase 2 (Content Breadth + Narration Bridge, WO-032→WO-037) drafting begins
 
 **Research (parallel with all implementation WOs):**
 - RQ-SPARK-001 — 3 sub-dispatches (A/B/C) — ALL DELIVERED ✓
 - RQ-NARR-001 — 3 sub-dispatches (A/B/C) — ALL DELIVERED ✓
 - Synthesis (sub-Q8 for each RQ) — READY to compile from findings
+
+**New Governance:**
+- Tactical Integrity Doctrine (`docs/governance/TACTICAL_INTEGRITY_DOCTRINE.md`) — APPROVED
+  - Anti-mercy enforcement, CR as RAW law, prescriptive tactical envelopes
+  - Detection pipeline + drift metrics spec for Phase 2
+  - Weight-level debiasing (DPO/abliteration) sequenced as Phase 3+ if measured drift warrants
 
 **Protocol:**
 - When dispatch presented: Add entry here

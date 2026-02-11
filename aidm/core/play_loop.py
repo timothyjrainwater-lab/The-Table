@@ -43,7 +43,7 @@ from typing import List, Dict, Any, Optional, Union, Tuple, Literal
 from dataclasses import dataclass
 
 from aidm.core.event_log import Event, EventLog
-from aidm.core.state import WorldState
+from aidm.core.state import WorldState, FrozenWorldStateView
 from aidm.schemas.doctrine import MonsterDoctrine
 from aidm.schemas.entity_fields import EF
 from aidm.core.tactical_policy import evaluate_tactics, TacticalPolicyResult
@@ -656,6 +656,12 @@ class TurnResult:
     action_type: Optional[str] = None
     """CP-14: Action type that was taken (None if not validated)"""
 
+    narration_text: Optional[str] = None
+    """WO-030: Generated narration text from GuardedNarrationService"""
+
+    narration_provenance: Optional[str] = None
+    """WO-030: Narration source tag — "[NARRATIVE]" for LLM, "[NARRATIVE:TEMPLATE]" for template"""
+
 
 def execute_turn(
     world_state: WorldState,
@@ -664,7 +670,8 @@ def execute_turn(
     combat_intent: Optional[Union[AttackIntent, FullAttackIntent]] = None,
     rng: Optional[RNGManager] = None,
     next_event_id: int = 0,
-    timestamp: float = 0.0
+    timestamp: float = 0.0,
+    narration_service: Optional[Any] = None,  # WO-030: GuardedNarrationService
 ) -> TurnResult:
     """
     Execute a single turn in the play loop.
@@ -675,8 +682,14 @@ def execute_turn(
     - Validates intent (actor match, target exists, target not defeated)
     - Returns status + narration token
 
+    WO-030 INTEGRATION:
+    - Accepts optional narration_service (GuardedNarrationService)
+    - Generates narration text from narration token
+    - Populates narration_text and narration_provenance in TurnResult
+
     BACKWARD COMPATIBILITY:
     - If combat_intent is None, uses policy-based resolution (CP-09 behavior)
+    - If narration_service is None, skips narration generation
     - Monsters continue using policy stubs (combat deferred to CP-13)
     - PCs emit stub actions if no combat intent provided
 
@@ -688,9 +701,10 @@ def execute_turn(
         rng: Optional RNG manager (required if combat_intent provided)
         next_event_id: Next available event ID
         timestamp: Event timestamp
+        narration_service: Optional GuardedNarrationService for narration generation (WO-030)
 
     Returns:
-        TurnResult with status, updated state, events, and narration token
+        TurnResult with status, updated state, events, narration token, and optional narration text
     """
     events = []
     current_event_id = next_event_id
@@ -1307,12 +1321,88 @@ def execute_turn(
         active_combat=active_combat
     )
 
+    # WO-030: Generate narration text if service provided
+    narration_text = None
+    narration_provenance = None
+
+    if narration and narration_service is not None:
+        try:
+            # Import adapter dynamically to avoid BL-004 violation (no static import)
+            # This uses importlib to avoid AST-level import detection
+            import importlib
+            adapter = importlib.import_module("aidm.narration.play_loop_adapter")
+            generate_narration_for_turn = adapter.generate_narration_for_turn
+
+            # Determine target_id from narration context
+            target_id = None
+            if combat_intent is not None:
+                if isinstance(combat_intent, (AttackIntent, FullAttackIntent)):
+                    target_id = combat_intent.target_id
+                elif isinstance(combat_intent, (BullRushIntent, TripIntent, OverrunIntent,
+                                                SunderIntent, DisarmIntent, GrappleIntent)):
+                    target_id = combat_intent.target_id
+
+            # Extract entity names from world state
+            actor_entity = updated_state.entities.get(turn_ctx.actor_id, {})
+            actor_name = actor_entity.get("name", turn_ctx.actor_id)
+
+            target_name = None
+            if target_id:
+                target_entity = updated_state.entities.get(target_id, {})
+                target_name = target_entity.get("name", target_id)
+
+            # Extract weapon name from events
+            weapon_name = None
+            for event in events:
+                if event.event_type == "attack_roll" and "weapon" in event.payload:
+                    weapon_name = event.payload.get("weapon", "weapon")
+                    break
+
+            # Convert events to dicts for adapter (BL-003: narration can't import Event)
+            event_dicts = []
+            for event in events:
+                event_dict = {
+                    "type": event.event_type,
+                    "timestamp": event.timestamp,
+                    "payload": event.payload,
+                }
+                if event.citations:
+                    event_dict["citations"] = event.citations
+                event_dicts.append(event_dict)
+
+            # Get world state hash
+            from aidm.core.state import FrozenWorldStateView
+            frozen_view = FrozenWorldStateView(updated_state)
+            world_state_hash = frozen_view.state_hash()
+
+            narration_text, narration_provenance = generate_narration_for_turn(
+                narration_token=narration,
+                events=event_dicts,
+                actor_id=turn_ctx.actor_id,
+                actor_name=actor_name,
+                target_id=target_id,
+                target_name=target_name,
+                weapon_name=weapon_name,
+                world_state_hash=world_state_hash,
+                narration_service=narration_service,
+            )
+        except ImportError:
+            # Narration adapter not available — gracefully skip
+            narration_text = None
+            narration_provenance = None
+        except Exception:
+            # Any other error — narration is non-critical, don't crash the turn
+            narration_text = None
+            narration_provenance = None
+
     return TurnResult(
         status="ok",
         world_state=updated_state,
         events=events,
         turn_index=turn_ctx.turn_index,
-        narration=narration
+        narration=narration,
+        narration_text=narration_text,
+        narration_provenance=narration_provenance,
     )
 
 

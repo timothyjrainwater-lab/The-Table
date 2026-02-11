@@ -2,25 +2,30 @@
 
 **Prompting Patterns + Validation Loop + Grid Layout**
 
-**Date:** 2026-02-11  
-**Type:** Research (no code changes)  
-**System:** Spark (Qwen3 8B/4B GGUF) + Lens (validator) + Box (rules engine)
+**Date:** 2026-02-11
+**Type:** Research (no code changes)
+**System:** Spark (Qwen3 8B/4B GGUF via llama-cpp-python) + Lens (validator) + Box (rules engine)
 
 ---
 
 ## Executive Summary
 
-This document presents research findings on three critical challenges for reliable structured generation in the Spark/Lens/Box D&D 3.5e AI Dungeon Master system:
+This document presents research findings on three critical challenges for reliable
+structured generation in the Spark/Lens/Box D&D 3.5e AI Dungeon Master system:
 
 1. **Prompting patterns** to maximize JSON schema adherence from local Qwen3 models
 2. **Validation and repair protocols** for handling malformed or invalid Spark output
 3. **Grid layout generation** approaches for tactical D&D combat scenes
 
 **Key Recommendations:**
-- Use **grammar-constrained decoding** (GBNF) as primary reliability mechanism
-- Implement **two-pass generation** for complex scenes (narrative → structured extraction)
-- Deploy **tiered validation** with max 2 repair attempts before archetype fallback
-- Adopt **hybrid layout generation** (LLM description → procedural placement)
+
+- Use **GBNF grammar-constrained decoding** via `response_format={"type": "json_object", "schema": {...}}` as the primary reliability mechanism -- this auto-converts JSON schema to GBNF internally
+- Use **`/no_think` soft switch** in user messages for structured output calls (hard `enable_thinking=False` breaks Qwen3 structured output)
+- Use **temperature 0.7** with TopP=0.8, TopK=20 per Qwen3's official guidance -- grammar enforcement makes this safe for JSON validity
+- Consider **two-pass generation** for complex scenes (narrative draft -> structured extraction), but single-pass with grammar suffices for extraction/classification tasks
+- Deploy **tiered validation** (Pydantic + D&D 3.5e rules + spatial consistency) with max 2 repair attempts before archetype fallback
+- Adopt **hybrid layout generation** (LLM prose description -> pvigier-style CSP procedural placement)
+- **Do not** rely on LLMs for coordinate-level grid placement -- spatial reasoning degrades 42-80% as grid complexity increases
 
 ---
 
@@ -28,18 +33,108 @@ This document presents research findings on three critical challenges for reliab
 
 ### Overview
 
-Local LLMs in the Qwen3 8B/4B class are capable of structured output but require careful prompting and generation strategies. This research evaluates eight approaches for maximizing JSON schema adherence.
+Local LLMs in the Qwen3 8B/4B class can produce structured output but require careful
+prompting and generation strategies. This research evaluates eight approaches,
+incorporating findings from the existing `LLMQueryInterface` (prompt templates, temperature
+boundaries, stop sequences) and fresh web research on llama-cpp-python's actual behavior.
 
-### Strategy Rankings (Most → Least Reliable)
+### Qwen3-Specific Critical Findings
 
-#### 1. Grammar-Constrained Decoding (GBNF) ★★★★★
-**Reliability: 95-99%**
+Before ranking strategies, three Qwen3-specific findings fundamentally shape our approach:
 
-llama-cpp-python supports GBNF (GBNF Backus-Naur Form) grammars that enforce structure at the token level.
+**1. `enable_thinking=False` BREAKS structured output on Qwen3.**
 
-**How it works:**
+The hard switch `enable_thinking=False` overwrites the prompt by injecting
+`\n<think>\n\n</think>\n\n`, which interferes with grammar-constrained decoding.
+This is a confirmed bug across vLLM, SGLang, and llama-cpp-python backends.
+
+**Solution:** Use `enable_thinking=True` (default) and prepend the `/no_think` soft
+switch token to the user message content. This suppresses thinking without breaking
+structured output.
+
+Sources: vLLM Issue #18819, SGLang Issue #6675
+
+**2. Qwen3 explicitly warns against greedy decoding (temperature=0).**
+
+From the Qwen3 model card: "DO NOT use greedy decoding, as it can lead to performance
+degradation and endless repetitions." Their recommended non-thinking parameters:
+- Temperature: 0.7
+- TopP: 0.8
+- TopK: 20
+- MinP: 0
+
+This contradicts the conventional wisdom of temperature 0.0-0.2 for structured output.
+Since we use grammar-constrained decoding (which prevents invalid tokens regardless of
+temperature), the higher temperature is safe for structural validity while improving
+content quality.
+
+Source: Qwen3-8B Hugging Face Model Card
+
+**3. Do NOT set `max_tokens` on structured output calls.**
+
+Setting `max_tokens` can cause incomplete JSON when the grammar hasn't reached its
+terminal state. The grammar cannot force the model to "wrap up" -- it only constrains
+which tokens are valid at each step. If the token budget runs out mid-object, you get
+truncated, invalid JSON.
+
+Source: Qwen3 documentation, llama.cpp Issue #19051
+
+### Strategy Rankings (Most -> Least Reliable)
+
+#### 1. Grammar-Constrained Decoding (GBNF via response_format) -- RANK 1
+
+**Reliability: ~100% syntactically valid JSON (barring token exhaustion)**
+
+llama-cpp-python's `response_format={"type": "json_object", "schema": {...}}` internally
+converts your JSON schema to GBNF grammar via `json_schema_to_grammar.py`, then applies
+it as a token-level constraint during sampling. The grammar sampler runs *first* in the
+sampling chain, zeroing out logits of all tokens that would violate the grammar before
+temperature/top-k/top-p are applied.
+
+One practitioner reported going from 15-20% malformed JSON to 100% well-formed JSON
+and a 25% improvement in extracted data accuracy after switching to GBNF grammars.
+
+**Implementation:**
 ```python
-from llama_cpp import Llama, LlamaGrammar
+# Option A: Auto-convert from JSON schema (simpler)
+response = llm(
+    prompt,
+    response_format={
+        "type": "json_object",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "scene_id": {"type": "string"},
+                "description": {"type": "string"},
+                "objects": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "type": {"type": "string"},
+                            "position": {
+                                "type": "object",
+                                "properties": {
+                                    "x": {"type": "integer"},
+                                    "y": {"type": "integer"}
+                                },
+                                "required": ["x", "y"]
+                            }
+                        },
+                        "required": ["type", "position"]
+                    }
+                }
+            },
+            "required": ["scene_id", "description", "objects"]
+        }
+    },
+    temperature=0.7,
+    top_p=0.8,
+    top_k=20
+)
+
+# Option B: Hand-written GBNF (more control)
+from llama_cpp import LlamaGrammar
 
 grammar = LlamaGrammar.from_string(r'''
 root ::= scene
@@ -47,394 +142,353 @@ scene ::= "{" ws "\"scene_id\":" ws string "," ws "\"description\":" ws string "
 object-list ::= "[" ws (object ("," ws object)*)? "]"
 object ::= "{" ws "\"type\":" ws string "," ws "\"position\":" ws position "}"
 position ::= "{" ws "\"x\":" ws number "," ws "\"y\":" ws number "}"
-string ::= "\"" ([^"\\] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F]))* "\""
+string ::= "\"" ([^"\\] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F]{4}))* "\""
 number ::= ("-"? ([0-9] | [1-9] [0-9]*)) ("." [0-9]+)? ([eE] [-+]? [0-9]+)?
 ws ::= [ \t\n]*
 ''')
 
-response = llm(prompt, grammar=grammar, max_tokens=2048)
+response = llm(prompt, grammar=grammar, temperature=0.7)
 ```
 
-**Pros:**
-- Mathematically guarantees valid JSON structure
-- Prevents hallucinated keys, mismatched brackets, trailing text
-- Works at token generation level (no post-processing)
-- No overhead after grammar compilation
+**Supported JSON schema features:**
+- Basic types: string, integer, number, boolean, null, object, array
+- `properties`, `required`, `additionalProperties` (default false)
+- `enum` / `const`
+- `oneOf` / `anyOf` union types
+- `pattern` (regex, with limitations)
+- `minLength` / `maxLength`, `minimum` / `maximum` (integers only)
+- `minItems` / `maxItems`, `items`
+- `$ref` (local refs), `$defs` / `definitions`
 
-**Cons:**
-- Grammar must be written manually for each schema
-- Complex nested schemas create large grammars
-- Cannot enforce semantic constraints (e.g., "height must be 1-15")
-- Grammar compilation has upfront cost
+**NOT supported (silently skipped):**
+- Mixing `properties` with `anyOf`/`oneOf` in the same type
+- `minimum`/`maximum` for floating point `number` types
+- `exclusiveMinimum`/`exclusiveMaximum` for non-integers
 
-**Recommended for:** All Spark outputs. Write GBNF grammars for core schemas (scene, object, combat_state).
+**Known failure modes:**
+1. Token exhaustion: grammar cannot force early closure
+2. Grammar parse failure = **fail-open** (llama.cpp logs error but generates unconstrained) -- Issue #19051
+3. `std::out_of_range` crashes on certain models/prompts -- Issue #1655
+4. Jinja template interference when enabled -- Issue #15276
+5. Performance trap: patterns like `x? x? x?...` repeated N times cause extremely slow sampling; use `x{0,N}` instead
+6. `additionalProperties: true` is "slow and prone to hallucinations" -- defaults to false for good reason
+
+**Mitigation for fail-open:** Always validate the output with Pydantic after generation.
+Never assume grammar enforcement succeeded.
+
+Sources:
+- llama.cpp Grammars README (github.com/ggml-org/llama.cpp/blob/master/grammars/README.md)
+- Simon Willison: Using llama-cpp-python grammars to generate JSON
+- Aidan Cooper: A Guide to Structured Outputs Using Constrained Decoding
+- Ian Maurer: Using grammars to constrain llama.cpp output
+- arXiv 2501.10868: Generating Structured Outputs from LLMs: Benchmark and Studies
 
 ---
 
-#### 2. Two-Pass Generation ★★★★☆
-**Reliability: 85-92%**
+#### 2. Two-Pass Generation (Narrative -> Extraction) -- RANK 2
 
-Separate narrative creativity from structured extraction.
+**Reliability: High for reasoning-heavy tasks; marginal benefit for simple extraction**
 
-**Pass 1 - Narrative Draft:**
-```
-PROMPT:
-You are narrating a D&D scene. Describe what the adventurers see as they enter the 
-abandoned tavern. Include sensory details, atmosphere, and notable objects.
+Research from "Let Me Speak Freely?" (Tam et al., EMNLP 2024, arXiv:2408.02442) found
+that forcing structured output during generation causes 10-15% performance degradation
+on reasoning tasks. The CRANE paper (arXiv:2502.09061) confirms this and proposes
+alternating between unconstrained reasoning and constrained output, achieving up to 10%
+improvement on symbolic reasoning benchmarks.
 
-RESPONSE (unconstrained prose):
-"The door creaks open to reveal a scene of decay. Moonlight filters through broken 
-windows, illuminating overturned tables and scattered chairs. A massive stone 
-fireplace dominates the north wall, its hearth cold and filled with ash..."
-```
+A real-world customer analysis pipeline found:
+- Single-pass JSON: 48% accuracy on aggregation tasks
+- Two-pass (free reasoning then structured extraction): 61% accuracy
+- Token cost increase: ~12%
 
-**Pass 2 - Structured Extraction:**
-```
-PROMPT:
-Extract only the physical objects and layout from this description as JSON. 
-Output ONLY valid JSON, no other text.
+**The schema ordering trick:** Putting a `reasoning` field *before* the `answer` field
+in the JSON schema forces chain-of-thought before the answer, improving accuracy by ~8
+percentage points. This is effectively "one-pass two-step."
 
-Schema:
-{
-  "objects": [{"type": str, "position": {"x": int, "y": int}, "size": str}],
-  "walls": [{"x1": int, "y1": int, "x2": int, "y2": int}]
-}
+**When two-pass matters vs. doesn't:**
 
-Description:
-[Pass 1 output]
+| Task Type | Two-Pass Benefit | Recommendation |
+|-----------|-----------------|----------------|
+| Complex reasoning (puzzle solving, inference) | Significant (10-15%) | Use two-pass |
+| Scene narration + fact extraction | Moderate (5-8%) | Use two-pass |
+| Simple extraction (who attacked whom) | Minimal (<3%) | Single-pass sufficient |
+| Classification (room type, atmosphere) | None | Single-pass sufficient |
 
-JSON:
-```
-
-**Pros:**
-- Separates creative generation (where variance helps) from structure (where it hurts)
-- Pass 1 can use high temperature (0.8-1.2) for variety
-- Pass 2 uses low temperature (0.0-0.3) for reliability
-- Easier for model to focus on one task at a time
-
-**Cons:**
-- Doubles token generation cost
-- Adds latency (two inference passes)
-- Information can be lost between passes
-- Requires careful prompt design for extraction
-
-**Recommended for:** Complex scenes where narrative quality matters. Not worth overhead for simple state updates.
-
----
-
-#### 3. Schema Pre-fill / Prefix Forcing ★★★★☆
-**Reliability: 80-88%**
-
-Force the model to start with correct JSON structure.
-
-**Implementation:**
+**Implementation for our system:**
 ```python
-prompt = """Output a scene description as JSON.
-
-JSON:
-{"scene_id": """
-
-# Model continues from the forced prefix
-response = llm(prompt, max_tokens=1024)
-full_json = '{"scene_id": ' + response['choices'][0]['text']
-```
-
-**Pros:**
-- Eliminates "Sure, here's the JSON:" preambles
-- Forces immediate structural compliance
-- Works well with smaller models (4B class)
-- Minimal computational overhead
-
-**Cons:**
-- Doesn't prevent errors deeper in the structure
-- Can fail if model tries to "escape" the format
-- Requires knowing the first key of your schema
-
-**Recommended for:** Use as complement to other methods. Always pre-fill at least `{` to prevent prose preambles.
-
----
-
-#### 4. JSON Mode Enforcement (`response_format`) ★★★☆☆
-**Reliability: 70-80%**
-
-llama-cpp-python supports `response_format={"type": "json_object"}` (when available in model).
-
-**Implementation:**
-```python
-response = llm(
-    prompt,
-    response_format={"type": "json_object"},
-    max_tokens=2048
-)
-```
-
-**Pros:**
-- Simple one-line configuration
-- No manual grammar writing
-- Works across different models
-
-**Cons:**
-- **Failure mode 1:** Model outputs valid JSON but wrong schema
-  ```json
-  {"message": "I'll create a tavern scene for you", "status": "ready"}
-  ```
-- **Failure mode 2:** Invented keys not in your schema
-  ```json
-  {"scene_id": "...", "extra_thoughts": "...", "reasoning": "..."}
-  ```
-- **Failure mode 3:** Nested structure inconsistencies
-- Not all GGUF models support this parameter
-
-**Recommended for:** Quick prototyping only. Insufficient for production without additional validation.
-
----
-
-#### 5. Stop Sequences ★★★☆☆
-**Reliability: 75-85%**
-
-Use `stop` parameter to halt generation after JSON closes.
-
-**Implementation:**
-```python
-response = llm(
-    prompt,
-    stop=["}\n\n", "}\n}", "}\nSure", "}\nLet me"],
-    max_tokens=2048
-)
-```
-
-**Pros:**
-- Prevents post-JSON commentary
-- Reduces wasted tokens
-- Catches common "escape" patterns
-
-**Cons:**
-- Doesn't prevent internal JSON errors
-- Can prematurely truncate valid nested JSON
-- Requires anticipating all escape patterns
-- Qwen3 models sometimes output `}\nIs there anything` etc.
-
-**Recommended for:** Use in combination with other methods. Essential for preventing token waste.
-
----
-
-#### 6. Archetype Library Prompting ★★★☆☆
-**Reliability: 70-80%**
-
-Include canonical examples in system prompt for model to pattern-match.
-
-**System Prompt:**
-```
-You output JSON matching these archetypes:
-
-TAVERN SCENE:
-{
-  "scene_id": "tavern_001",
-  "objects": [
-    {"type": "table", "position": {"x": 5, "y": 5}, "size": "medium"},
-    {"type": "chair", "position": {"x": 4, "y": 5}, "size": "small"}
-  ]
-}
-
-DUNGEON CORRIDOR:
-{
-  "scene_id": "corridor_001", 
-  "objects": [
-    {"type": "door", "position": {"x": 0, "y": 5}, "size": "medium"},
-    {"type": "torch", "position": {"x": 2, "y": 0}, "size": "small"}
-  ]
-}
-
-Now generate a scene matching one of these patterns.
-```
-
-**Pros:**
-- Helps model understand schema implicitly
-- Reduces novel structure invention
-- Provides semantic guidance (tavern = tables/chairs)
-- Works well for domain-specific generation
-
-**Cons:**
-- Inflates prompt size (context limit concerns)
-- Model may over-match to examples (low variety)
-- Still doesn't guarantee schema compliance
-- Requires maintaining archetype library
-
-**Recommended for:** Include 2-3 archetypes per scene type. Keep examples minimal (don't show all fields).
-
----
-
-#### 7. Self-Checking Prompts ★★☆☆☆
-**Reliability: 60-75%**
-
-Explicit instructions to output JSON only.
-
-**Examples:**
-```
-❌ LESS EFFECTIVE:
-"Output the scene as JSON."
-
-✓ MORE EFFECTIVE:
-"Output ONLY valid JSON. No explanations, no prose, no commentary. 
-Begin directly with { and end with }."
-
-✓ EVEN BETTER (for Qwen3):
-"CRITICAL: Your response must be ONLY valid JSON. Do not write 'Here is the JSON' 
-or any other text. Start immediately with {
-Invalid responses will cause system failure."
-```
-
-**Pros:**
-- No technical overhead
-- Easy to implement
-- Can be combined with any other method
-
-**Cons:**
-- **Qwen3 8B still adds preambles ~25% of time**
-- **Qwen3 4B even less reliable (~40% preamble rate)**
-- Effectiveness degrades with smaller models
-- "Scary" language (system failure) helps but isn't foolproof
-
-**Recommended for:** Always include, but never rely on alone. Use as reinforcement.
-
----
-
-#### 8. Temperature Effects ★★★☆☆
-**Reliability: Depends on use case**
-
-Temperature profoundly affects JSON reliability.
-
-**Empirical Findings:**
-
-| Temperature | JSON Validity | Narrative Quality | Use Case |
-|-------------|---------------|-------------------|----------|
-| 0.0 | 95%+ | Repetitive, robotic | State updates, simple extractions |
-| 0.1-0.3 | 90-95% | Dry but varied | Tactical descriptions |
-| 0.4-0.6 | 80-90% | Good balance | General scene generation |
-| 0.7-1.0 | 65-80% | Creative, vivid | Pass 1 of two-pass (prose only) |
-| 1.1-2.0 | 40-65% | Highly creative | Never for JSON output |
-
-**Schema Complexity Impact:**
-- Simple schemas (≤5 fields): Temperature ≤0.6 acceptable
-- Complex nested schemas: Temperature ≤0.3 required
-- Arrays of objects: Temperature ≤0.2 strongly recommended
-
-**Recommended for:** 
-- JSON generation: temp=0.0-0.2
-- Narrative prose: temp=0.7-1.0
-- Two-pass: Pass 1 temp=0.8, Pass 2 temp=0.0
-
----
-
-### Recommended Stack for Qwen3 8B GGUF + llama-cpp-python
-
-**Production Configuration:**
-
-```python
-# Primary: Grammar-constrained decoding
-grammar = load_gbnf_schema("scene_output.gbnf")
-
-# Secondary: Two-pass for complex scenes
 def generate_scene(prompt: str, complex: bool = False):
     if complex:
-        # Pass 1: Narrative
-        narrative = llm(
-            f"Describe the scene: {prompt}",
+        # Pass 1: Narrative (unconstrained, high creativity)
+        narrative = spark.generate(SparkRequest(
+            prompt=f"/no_think\nDescribe the scene: {prompt}",
             temperature=0.8,
-            max_tokens=512
-        )
-        
-        # Pass 2: Extraction with grammar
-        structured = llm(
-            f"Extract as JSON: {narrative}\n\nJSON:\n{{",
-            grammar=grammar,
-            temperature=0.0,
-            max_tokens=1024,
-            stop=["}\n\n"]
-        )
-        return "{" + structured
+            max_tokens=512,
+            json_mode=False
+        ))
+
+        # Pass 2: Extraction (grammar-constrained)
+        structured = spark.generate(SparkRequest(
+            prompt=f"/no_think\nExtract the physical layout from this description as JSON.\n\nDescription:\n{narrative.text}\n\nJSON:",
+            temperature=0.7,
+            json_mode=True,
+            # schema passed via response_format
+        ))
+        return structured
     else:
-        # Single-pass with grammar
-        return llm(
-            f"{prompt}\n\nJSON:\n{{",
-            grammar=grammar,
-            temperature=0.2,
-            max_tokens=1024,
-            stop=["}\n\n"]
-        )
+        # Single-pass with grammar + reasoning field first
+        return spark.generate(SparkRequest(
+            prompt=f"/no_think\n{prompt}\n\nJSON:",
+            temperature=0.7,
+            json_mode=True,
+        ))
 ```
 
-**Reliability Expectation:** 95%+ valid JSON with correct schema structure.
+**Natural fit for our architecture:** The two-pass approach maps directly to Spark's
+existing role separation -- Spark generates creative narration (Pass 1), then Lens
+requests structured extraction from the narrative (Pass 2). This aligns with the
+principle that Spark has zero mechanical authority.
+
+Sources:
+- arXiv 2408.02442: Let Me Speak Freely? (EMNLP 2024)
+- arXiv 2502.09061: CRANE -- Reasoning with Constrained LLM Generation
+- ACL 2025: Grammar-Constrained Decoding Makes Large Language Models...
+- Dylan Castillo: Structured outputs can hurt the performance of LLMs
+
+---
+
+#### 3. Archetype Library Prompting -- RANK 3
+
+**Reliability: Improves content quality within grammar constraints**
+
+Include canonical object templates in the system prompt so Spark reuses known schemas
+rather than inventing field values. This does not replace grammar enforcement (which
+handles structure) but improves *semantic* quality of field values.
+
+**System Prompt Pattern:**
+```
+You are Spark, the narrative AI for a D&D 3.5e game. You output scene layouts
+as structured JSON. You have ZERO mechanical authority.
+
+ARCHETYPE REFERENCE (use these as templates):
+
+TAVERN:
+  landmarks: fireplace (wall), bar (wall), stage (corner)
+  furniture: table (2x2 squares), chair (1 square), stool (1 square), barrel (1 square)
+  lighting: bright (candles), dim (low fire), dark (boarded windows)
+
+DUNGEON CORRIDOR:
+  landmarks: door (wall), alcove (wall), pit trap (floor)
+  furniture: torch (wall), rubble (difficult terrain), pillar (cover)
+  lighting: dim (torches), dark (unlit)
+
+Size reference (D&D 3.5e):
+  Small: 5ft (1 square) -- halfling, kobold, chair, barrel
+  Medium: 5ft (1 square) -- human, orc, table, chest
+  Large: 10ft (2x2 squares) -- horse, ogre, large table, statue
+
+Output ONLY valid JSON matching the requested schema.
+```
+
+**Keep archetype prompts compact** -- context window is limited (existing system uses
+500-800 token prompt budgets). 2-3 archetypes per scene type is sufficient.
+
+---
+
+#### 4. Stop Sequences -- RANK 4 (Supporting Role)
+
+**Reliability: Prevents token waste, does not guarantee validity**
+
+With grammar-constrained decoding, stop sequences are largely redundant for structural
+purposes. Their primary value is preventing post-JSON rambling.
+
+**Recommended configuration:**
+```python
+stop_sequences = ["<|im_end|>"]  # Qwen3's end-of-turn token
+```
+
+The existing `JSON_STOP_SEQUENCES = ["}\n", "}\n\n"]` in `LLMQueryInterface` can
+interfere with nested JSON objects (the first `}` closes an inner object, not the
+root). With grammar enforcement, rely on the grammar to close the JSON properly and
+use only the model's end-of-turn token as a stop sequence.
+
+**Note:** Stop sequences are stripped from the output by llama-cpp-python. If using
+`}` as a stop sequence without grammar enforcement, you must append it back before
+parsing.
+
+---
+
+#### 5. JSON Mode (`response_format: json_object`) without schema -- RANK 5
+
+**Reliability: ~70-80% (valid JSON but wrong schema)**
+
+Using `response_format={"type": "json_object"}` without a schema tells the model to
+output JSON but doesn't constrain the structure. The model may output:
+```json
+{"message": "I'll create a tavern scene for you", "status": "ready"}
+```
+
+**Verdict:** Always pass a schema with `response_format`. Bare `json_object` mode is
+only useful for prototyping.
+
+**Important:** `response_format={"type": "json_schema"}` is broken in some llama.cpp
+versions -- it silently produces unstructured output. Use `{"type": "json_object"}` with
+the `schema` key instead. (llama.cpp Issue #10732)
+
+---
+
+#### 6. Schema Pre-fill / Prefix Forcing -- RANK 6
+
+**Reliability: Redundant with grammar constraints**
+
+Starting the assistant response with `{` or partial JSON forces the model to continue
+from that prefix. This was popularized by Anthropic's Claude API for cloud-hosted
+models.
+
+**Verdict for our system: Do not use.** Grammar-constrained decoding is strictly
+superior -- it provides the same structural guarantee at the token level without the
+fragility of prefix matching. Pre-fill is useful when you don't have access to
+constrained decoding (e.g., cloud APIs), but we do.
+
+If grammar enforcement is unavailable for some reason, pre-fill remains a useful
+fallback technique.
+
+---
+
+#### 7. Self-Checking Prompts ("Output JSON only") -- RANK 7
+
+**Reliability: ~60-75% alone, but always include as reinforcement**
+
+Explicit instructions help but are insufficient alone. With Qwen3 8B, preambles
+("Sure! Here's the JSON...") occur ~25% of the time even with strong instructions.
+With Qwen3 4B, preamble rate rises to ~40%.
+
+**The prompt is not visible to the grammar constraint** -- the grammar operates at the
+token level independently. However, a well-crafted prompt helps the model produce
+*semantically* better JSON even when structurally constrained.
+
+**Always include in system prompt:**
+```
+Output ONLY valid JSON matching the requested schema. No explanations, no commentary.
+```
+
+---
+
+#### 8. Temperature Effects -- RANK 8 (Configuration, Not Strategy)
+
+**Key finding: Temperature matters less with grammar enforcement.**
+
+Since the grammar prevents invalid tokens regardless of temperature, temperature
+primarily affects *content quality*, not structural validity. This means we can use
+Qwen3's recommended temperature=0.7 for better content while maintaining 100%
+structural validity.
+
+**Temperature guidance for our system:**
+
+| Use Case | Temperature | Rationale |
+|----------|------------|-----------|
+| Narration (unconstrained) | 0.8 | Creative quality, existing LLM-002 boundary (>=0.7) |
+| Structured output (grammar-constrained) | 0.7 | Qwen3 recommended, safe with grammar |
+| Memory query | 0.3 | Deterministic retrieval, existing LLM-002 boundary (<=0.5) |
+| **Never use with Qwen3** | 0.0 | Endless repetitions, performance degradation |
+
+**Note:** The existing system's `LLM-002 Safeguard` enforces narration >= 0.7 and
+query/structured <= 0.5. The query constraint is fine. The structured output constraint
+should be relaxed to allow 0.7 when grammar enforcement is active -- the grammar
+handles structural validity, so the temperature can be higher for better content.
+
+Sources:
+- Qwen3-8B Hugging Face Model Card (recommended parameters)
+- Tetrate: LLM Temperature Settings Guide
+- IBM: What is LLM Temperature?
+
+---
+
+### Recommended Prompting Stack for Qwen3 8B GGUF + llama-cpp-python
+
+**Production configuration (ordered by priority):**
+
+1. **Grammar-constrained decoding** via `response_format` with schema (structural guarantee)
+2. **`/no_think` prefix** on all structured output requests (prevent thinking overhead without breaking grammar)
+3. **Temperature 0.7** with TopP=0.8, TopK=20 (Qwen3 optimal, safe with grammar)
+4. **Schema description in prompt** (the grammar is not visible to the model -- prompt guides semantics)
+5. **Archetype examples** in system prompt (2-3 per scene type, compact)
+6. **`<|im_end|>` stop sequence** (prevent post-JSON rambling)
+7. **No max_tokens** on structured output calls (prevent truncation)
+8. **Pydantic validation** as mandatory post-check (catch grammar fail-open edge case)
+
+**Expected reliability:** ~99%+ syntactically valid JSON; ~95%+ semantically correct
+with validation pipeline catching remaining issues.
 
 ---
 
 ### Example Prompts
 
-#### Example 1: Scene Generation (Grammar-Constrained)
+#### Example 1: Scene Description (Grammar-Constrained, Single-Pass)
 
 **System Prompt:**
 ```
-You are Spark, the narrative AI for a D&D 3.5e game. You generate scene descriptions 
-as structured JSON. You have ZERO mechanical authority - you describe what exists, 
+You are Spark, the narrative AI for a D&D 3.5e game. You generate scene descriptions
+as structured JSON. You have ZERO mechanical authority -- you describe what exists,
 not how game rules resolve.
 
-Output only valid JSON matching the scene schema. No prose, no explanations.
+Size reference: Small=1sq, Medium=1sq, Large=2x2, Huge=3x3
+Placement hints: north_wall, south_wall, east_wall, west_wall, center, corner
+
+Output ONLY valid JSON matching the requested schema.
 ```
 
-**User Prompt:**
+**User Message:**
 ```
+/no_think
 Generate a tavern interior. The party enters at night. Include furniture and lighting.
-
-JSON:
-{
 ```
 
-**Expected Output (with GBNF grammar enforcing schema):**
+**response_format schema:**
 ```json
 {
-  "scene_id": "tavern_nighttime_01",
-  "description": "A dimly lit common room with ember-glow from the dying hearth",
-  "objects": [
-    {"type": "table", "position": {"x": 5, "y": 5}, "size": "medium", "height": 3},
-    {"type": "chair", "position": {"x": 4, "y": 5}, "size": "small", "height": 3},
-    {"type": "chair", "position": {"x": 6, "y": 5}, "size": "small", "height": 3},
-    {"type": "fireplace", "position": {"x": 0, "y": 8}, "size": "large", "height": 8},
-    {"type": "candle", "position": {"x": 5, "y": 5}, "size": "tiny", "height": 1}
-  ],
-  "lighting": "dim",
-  "atmosphere": "quiet"
+  "type": "object",
+  "properties": {
+    "scene_id": {"type": "string"},
+    "atmosphere": {"enum": ["calm", "tense", "festive", "abandoned", "eerie"]},
+    "lighting": {"enum": ["bright", "dim", "dark"]},
+    "landmarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "placement_hint": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": ["type", "placement_hint"]
+      }
+    },
+    "furniture": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 10}
+    },
+    "description": {"type": "string"}
+  },
+  "required": ["scene_id", "atmosphere", "lighting", "landmarks", "furniture", "description"]
 }
 ```
 
----
+#### Example 2: Combat Extraction (Two-Pass)
 
-#### Example 2: Combat State Update (Single-Pass, Low Temp)
-
-**Prompt:**
+**Pass 1 (Narration, unconstrained):**
 ```
-The fighter moves from (3,5) to (8,5) and attacks the orc. Update combat state JSON.
-
-Previous state:
-{"entities": [{"id": "fighter", "pos": {"x": 3, "y": 5}}, {"id": "orc", "pos": {"x": 9, "y": 5}}]}
-
-Updated JSON:
-{
+/no_think
+Describe the result of the fighter charging across the tavern to attack the orc
+with a greatsword. The tavern has overturned tables providing cover.
 ```
 
-**Config:**
-```python
-llm(prompt, grammar=combat_state_grammar, temperature=0.0, stop=["}\n"])
+**Pass 2 (Extraction, grammar-constrained):**
 ```
+/no_think
+Extract the combat-relevant facts from this narration as JSON.
 
-**Expected Output:**
-```json
-{
-  "entities": [
-    {"id": "fighter", "pos": {"x": 8, "y": 5}, "action": "attack", "target": "orc"},
-    {"id": "orc", "pos": {"x": 9, "y": 5}}
-  ],
-  "narrative": "The fighter charges forward, weapon raised"
-}
+Narration: [Pass 1 output]
+
+Extract: who moved where, who attacked whom, what environmental effects occurred.
 ```
 
 ---
@@ -443,113 +497,166 @@ llm(prompt, grammar=combat_state_grammar, temperature=0.0, stop=["}\n"])
 
 ### Overview
 
-Even with optimal prompting, local LLMs will occasionally produce invalid output. Lens must validate strictly and repair gracefully without inventing data.
+Even with grammar enforcement, Spark output requires validation because:
+1. Grammar ensures *syntactic* validity but not *semantic* correctness
+2. Grammar fail-open mode can silently produce unconstrained output
+3. Field values may be structurally valid but semantically wrong (e.g., table height = 500in)
+4. D&D 3.5e rule violations cannot be expressed in JSON schema (e.g., Large creature needs 2x2 space)
+5. Spatial consistency (overlaps, bounds) requires cross-field validation
 
 ### Validation Layers (Execute in Order)
 
-#### Layer 1: JSON Schema Validation ★ CRITICAL
-**Tool:** Pydantic `model_validate()`
+#### Layer 1: JSON Parse + Schema Validation (Pydantic)
+
+**Tool:** `model_validate_json()` with try/except `ValidationError`
 
 ```python
 from pydantic import BaseModel, Field, field_validator
-from typing import List, Literal
+from typing import List, Literal, Optional
 
 class Position(BaseModel):
-    x: int = Field(ge=0, le=50)  # Grid bounds
-    y: int = Field(ge=0, le=50)
-    
+    x: int = Field(ge=0, le=100)  # Grid bounds (BattleGrid max 100x100)
+    y: int = Field(ge=0, le=100)
+
 class SceneObject(BaseModel):
     type: str
     position: Position
-    size: Literal["tiny", "small", "medium", "large", "huge", "gargantuan"]
-    height: int = Field(ge=0, le=180)  # 0-180 inches (0-15ft)
-    
-class Scene(BaseModel):
-    scene_id: str
-    description: str
-    objects: List[SceneObject]
-    
-    @field_validator('scene_id')
+    size: Literal["fine", "diminutive", "tiny", "small", "medium",
+                  "large", "huge", "gargantuan", "colossal"]
+    description: Optional[str] = None
+
+    @field_validator('type')
     @classmethod
-    def validate_scene_id(cls, v: str) -> str:
-        if not v or len(v) > 64:
-            raise ValueError("scene_id must be 1-64 characters")
-        return v
+    def validate_type_known(cls, v: str) -> str:
+        # Before-validator: normalize LLM output variations
+        v = v.lower().strip()
+        aliases = {"desk": "table", "seat": "chair", "cask": "barrel"}
+        return aliases.get(v, v)
+
+class SceneDescription(BaseModel):
+    scene_id: str = Field(min_length=1, max_length=64)
+    atmosphere: Literal["calm", "tense", "festive", "abandoned", "eerie"]
+    lighting: Literal["bright", "dim", "dark"]
+    landmarks: List[SceneObject]
+    furniture: dict  # type -> count
+    description: str = Field(min_length=1, max_length=500)
 ```
 
-**Catches:**
-- Missing required fields
-- Wrong types (string where int expected)
-- Invalid enum values (size="gigantic" not in allowed list)
-- Out-of-range values
+**Pre-processing step:** LLMs frequently return markdown fences around JSON,
+explanatory text before/after, or thinking tokens. Strip these before parsing:
+```python
+import re
 
-**Action on failure:** Collect all validation errors → send to repair.
+def extract_json(raw: str) -> str:
+    """Extract JSON from LLM output that may contain markdown fences or prose."""
+    # Try to find JSON block in markdown fences
+    fence_match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', raw, re.DOTALL)
+    if fence_match:
+        return fence_match.group(1)
+    # Try to find bare JSON object
+    brace_match = re.search(r'\{.*\}', raw, re.DOTALL)
+    if brace_match:
+        return brace_match.group(0)
+    return raw  # Return as-is, let Pydantic fail with clear error
+```
+
+**Error formatting for re-prompting:** Convert Pydantic errors to natural-language
+instructions rather than raw error dicts:
+```python
+from pydantic import ValidationError
+
+def format_errors_for_llm(error: ValidationError) -> str:
+    """Convert Pydantic errors to LLM-friendly correction instructions."""
+    lines = []
+    for err in error.errors():
+        path = ".".join(str(p) for p in err["loc"])
+        msg = err["msg"]
+        lines.append(f"- Field '{path}': {msg}")
+    return "\n".join(lines)
+```
+
+**Catches:** Missing required fields, wrong types, invalid enum values, string length
+violations, integer range violations.
 
 ---
 
-#### Layer 2: D&D 3.5e Rules Validation ★ CRITICAL
+#### Layer 2: D&D 3.5e Rules Validation
 
-**Size-to-Space Rules (PHB p.149):**
+**Size-to-Space Rules (SRD Table of Creature Size and Scale):**
 
-| Size | Space | Example |
-|------|-------|---------|
-| Tiny | 2.5ft (½ square) | Rat, imp |
-| Small | 5ft (1 square) | Halfling, kobold |
-| Medium | 5ft (1 square) | Human, orc |
-| Large | 10ft (2×2 squares) | Horse, ogre |
-| Huge | 15ft (3×3 squares) | Giant, elephant |
-| Gargantuan | 20ft+ (4×4+ squares) | Dragon, kraken |
+| Size Category | Space (ft) | Grid Squares | AC/Attack Mod | Reach (Tall) | Reach (Long) |
+|--------------|-----------|-------------|--------------|-------------|-------------|
+| Fine | 1/2 ft. | <1 (multiple per sq) | +8 | 0 ft. | 0 ft. |
+| Diminutive | 1 ft. | <1 | +4 | 0 ft. | 0 ft. |
+| Tiny | 2-1/2 ft. | <1 | +2 | 0 ft. | 0 ft. |
+| Small | 5 ft. | 1x1 | +1 | 5 ft. | 5 ft. |
+| Medium | 5 ft. | 1x1 | +0 | 5 ft. | 5 ft. |
+| Large | 10 ft. | 2x2 | -1 | 10 ft. | 5 ft. |
+| Huge | 15 ft. | 3x3 | -2 | 15 ft. | 10 ft. |
+| Gargantuan | 20 ft. | 4x4 | -4 | 20 ft. | 15 ft. |
+| Colossal | 30 ft. | 6x6 | -8 | 30 ft. | 20 ft. |
 
-**Validation Function:**
+Source: d20srd.org/srd/combat/movementPositionAndDistance.htm
+
+**Object Material Properties (SRD):**
+
+| Substance | Hardness | HP per Inch of Thickness |
+|----------|---------|------------------------|
+| Paper/Cloth | 0 | 2 |
+| Glass | 1 | 1 |
+| Leather/Hide | 2 | 5 |
+| Wood | 5 | 10 |
+| Stone | 8 | 15 |
+| Iron/Steel | 10 | 30 |
+| Mithral | 15 | 30 |
+| Adamantine | 20 | 40 |
+
+**Door Types (SRD Dungeons section):**
+
+| Door Type | Thickness | Hardness | HP | Break DC (Stuck) | Break DC (Locked) |
+|----------|----------|---------|-----|-----------------|------------------|
+| Simple Wooden | 1 in. | 5 | 10 | 13 | 15 |
+| Good Wooden | 1-1/2 in. | 5 | 15 | 16 | 18 |
+| Strong Wooden | 2 in. | 5 | 20 | 23 | 25 |
+| Stone | 4 in. | 8 | 60 | 28 | 28 |
+| Iron | 2 in. | 10 | 60 | 28 | 28 |
+
+**Height/Size Reasonableness Validation:**
 ```python
-def validate_creature_size(obj: SceneObject) -> Optional[str]:
-    """Returns error message if size/space violation, None if valid."""
-    size_to_squares = {
-        "tiny": 0.5,
-        "small": 1,
-        "medium": 1,
-        "large": 2,
-        "huge": 3,
-        "gargantuan": 4
-    }
-    
-    if obj.type in ["character", "creature", "monster", "npc"]:
-        expected = size_to_squares.get(obj.size)
-        if expected is None:
-            return f"{obj.type} has invalid size: {obj.size}"
-        
-        # Large+ creatures require specific placement validation
-        if expected >= 2:
-            # Check if position allows 2×2 footprint
-            if obj.position.x + expected > 50 or obj.position.y + expected > 50:
-                return f"{obj.size} {obj.type} at ({obj.position.x},{obj.position.y}) exceeds grid bounds"
-    
-    return None
-```
+# Maximum heights for common objects (in inches)
+OBJECT_MAX_HEIGHTS = {
+    "door": 96,       # 8ft max
+    "table": 48,      # 4ft max
+    "chair": 48,      # 4ft max
+    "chest": 36,      # 3ft max
+    "candle": 12,     # 1ft max
+    "torch": 24,      # 2ft max (sconce mount)
+    "pillar": 180,    # 15ft max (standard ceiling)
+    "wall": 120,      # 10ft typical dungeon
+    "barrel": 42,     # 3.5ft max
+    "fireplace": 72,  # 6ft max
+    "statue": 120,    # 10ft max (standard ceiling)
+}
 
-**Height Validation (Custom Rules):**
-```python
-def validate_height(obj: SceneObject) -> Optional[str]:
-    """Validate height is plausible for object type."""
-    max_heights = {
-        "door": 96,      # 8ft max
-        "table": 48,     # 4ft max
-        "chair": 48,     # 4ft max
-        "chest": 36,     # 3ft max
-        "candle": 12,    # 1ft max
-        "torch": 24,     # 2ft max
-        "pillar": 180,   # 15ft max (standard ceiling)
-        "wall": 120,     # 10ft typical
-    }
-    
-    if obj.type in max_heights:
-        if obj.height > max_heights[obj.type]:
-            return f"{obj.type} height {obj.height}in exceeds maximum {max_heights[obj.type]}in"
-    
-    # Generic fallback
-    if obj.height > 180:  # 15ft ceiling standard
-        return f"{obj.type} height {obj.height}in exceeds room height limit"
-    
+# Room dimension reasonableness
+ROOM_DIMENSION_RULES = {
+    "min_ft": 5,        # 1 square minimum
+    "max_ft": 200,      # Extraordinary spaces (caverns)
+    "must_be_multiple_of": 5,  # Grid-aligned
+    "ceiling_min_ft": 5,
+    "ceiling_max_ft": 100,     # Grand halls, caverns
+    "ceiling_typical_ft": 10,  # Standard dungeon/building
+}
+
+# Room must be large enough for its occupants
+def validate_room_fits_occupants(room_width_ft, room_height_ft, creatures):
+    """Ensure room can physically contain all creatures."""
+    total_squares_needed = sum(
+        SIZE_TO_SQUARES[c.size] ** 2 for c in creatures
+    )
+    total_squares_available = (room_width_ft // 5) * (room_height_ft // 5)
+    if total_squares_needed > total_squares_available * 0.5:  # Max 50% occupancy
+        return f"Room {room_width_ft}x{room_height_ft}ft too small for {len(creatures)} creatures"
     return None
 ```
 
@@ -557,440 +664,330 @@ def validate_height(obj: SceneObject) -> Optional[str]:
 
 #### Layer 3: Spatial Consistency Validation
 
-**Collision Detection:**
+**Collision Detection (grid cell occupancy):**
 ```python
-def validate_no_overlap(objects: List[SceneObject]) -> List[str]:
-    """Check for invalid object overlaps."""
+def validate_no_overlap(objects: List[SceneObject], grid_width: int, grid_height: int) -> List[str]:
+    """Check for invalid object overlaps on grid."""
     errors = []
-    grid = {}  # (x, y) -> object_id
-    
-    for obj in objects:
-        # Calculate footprint based on size
-        size_to_squares = {"tiny": 0.5, "small": 1, "medium": 1, "large": 2, "huge": 3, "gargantuan": 4}
-        footprint = size_to_squares.get(obj.size, 1)
-        
-        # Check each square in footprint
-        for dx in range(int(footprint)):
-            for dy in range(int(footprint)):
-                cell = (obj.position.x + dx, obj.position.y + dy)
-                
-                if cell in grid:
-                    # Allow elevation difference (one object above another)
-                    other_obj = next(o for o in objects if o.type == grid[cell])
-                    if abs(obj.height - other_obj.height) < 12:  # Less than 1ft clearance
-                        errors.append(
-                            f"{obj.type} at {obj.position} overlaps {grid[cell]} at {cell}"
-                        )
-                else:
-                    grid[cell] = obj.type
-    
-    return errors
-```
+    occupied = {}  # (x, y) -> object_id
 
-**Grid Bounds:**
-```python
-def validate_in_bounds(obj: SceneObject, grid_width: int = 50, grid_height: int = 50) -> Optional[str]:
-    """Ensure object fits within grid."""
-    if obj.position.x < 0 or obj.position.y < 0:
-        return f"{obj.type} position ({obj.position.x},{obj.position.y}) is negative"
-    
-    if obj.position.x >= grid_width or obj.position.y >= grid_height:
-        return f"{obj.type} position ({obj.position.x},{obj.position.y}) exceeds grid ({grid_width}×{grid_height})"
-    
-    return None
+    SIZE_TO_GRID = {
+        "fine": 1, "diminutive": 1, "tiny": 1,
+        "small": 1, "medium": 1,
+        "large": 2, "huge": 3, "gargantuan": 4, "colossal": 6
+    }
+
+    for obj in objects:
+        footprint = SIZE_TO_GRID.get(obj.size, 1)
+        for dx in range(footprint):
+            for dy in range(footprint):
+                cell = (obj.position.x + dx, obj.position.y + dy)
+
+                # Bounds check
+                if cell[0] >= grid_width or cell[1] >= grid_height:
+                    errors.append(
+                        f"{obj.type} at ({obj.position.x},{obj.position.y}) "
+                        f"size={obj.size} extends beyond grid bounds"
+                    )
+                    continue
+
+                if cell in occupied:
+                    errors.append(
+                        f"{obj.type} at ({obj.position.x},{obj.position.y}) "
+                        f"overlaps {occupied[cell]} at cell {cell}"
+                    )
+                else:
+                    occupied[cell] = f"{obj.type}@({obj.position.x},{obj.position.y})"
+
+    return errors
 ```
 
 ---
 
 ### Repair Protocol
 
-**Goal:** Fix invalid output with minimal re-generation.
+**Goal:** Fix invalid output with minimal re-generation. Lens validates but never invents.
 
-**Protocol Flow:**
+#### Protocol Flow
 
 ```
-┌─────────────────────┐
-│  Spark generates    │
-│  JSON output        │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│  Lens validates     │
-│  (all layers)       │
-└──────────┬──────────┘
-           │
-           ├─── Valid ──────────────────┐
-           │                            │
-           └─── Invalid                 │
-                  │                     │
-                  ▼                     │
-           ┌──────────────┐             │
-           │ Build repair │             │
-           │ request      │             │
-           └──────┬───────┘             │
-                  │                     │
-                  ▼                     │
-           ┌──────────────┐             │
-           │ Attempt 1    │             │
-           │ (Spark retry)│             │
-           └──────┬───────┘             │
-                  │                     │
-                  ├─ Valid ─────────────┤
-                  │                     │
-                  └─ Invalid            │
-                         │              │
-                         ▼              │
-                  ┌──────────────┐      │
-                  │ Attempt 2    │      │
-                  │ (Spark retry)│      │
-                  └──────┬───────┘      │
-                         │              │
-                         ├─ Valid ──────┤
-                         │              │
-                         └─ Invalid     │
-                                │       │
-                                ▼       │
-                         ┌──────────┐   │
-                         │ Fallback │   │
-                         │ archetype│   │
-                         └──────┬───┘   │
-                                │       │
-                                └───────┤
-                                        │
-                                        ▼
-                                 ┌──────────┐
-                                 │ Success  │
-                                 │ (Box gets│
-                                 │  valid   │
-                                 │  JSON)   │
-                                 └──────────┘
+Spark generates JSON output
+         |
+         v
+Lens validates (all layers)
+         |
+    +----+----+
+    |         |
+  Valid    Invalid
+    |         |
+    |         v
+    |    Build repair request
+    |    (ONLY failed fields + error messages)
+    |         |
+    |         v
+    |    Spark Repair Attempt 1
+    |    (receives failed fields, emits JSON patch)
+    |         |
+    |    +----+----+
+    |    |         |
+    |  Valid    Invalid
+    |    |         |
+    |    |         v
+    |    |    Spark Repair Attempt 2
+    |    |         |
+    |    |    +----+----+
+    |    |    |         |
+    |    |  Valid    Invalid
+    |    |    |         |
+    |    |    |         v
+    |    |    |    Partial merge with
+    |    |    |    archetype defaults
+    |    |    |    (keep valid fields,
+    |    |    |     fill invalid from template)
+    |    |    |         |
+    +----+----+---------+
+    |
+    v
+  Success (Box receives valid JSON)
 ```
-
----
 
 #### Repair Request Format
 
-**Key Principle:** Send ONLY failed fields + error messages. Don't ask Spark to regenerate entire scene.
+**Key principle:** Send ONLY failed fields + error messages. Don't ask Spark to
+regenerate the entire scene. This saves tokens and improves repair success rate.
 
-**Example - Original Output (INVALID):**
-```json
-{
-  "scene_id": "tavern_01",
-  "description": "A cozy tavern",
-  "objects": [
-    {"type": "table", "position": {"x": 5, "y": 5}, "size": "medium", "height": 500},
-    {"type": "chair", "position": {"x": 5, "y": 5}, "size": "gigantic", "height": 3},
-    {"type": "door", "position": {"x": -1, "y": 10}, "size": "medium", "height": 96}
-  ]
-}
+**For 1-3 failed fields, use targeted JSON patch approach:**
+
+Repair prompt to Spark:
 ```
-
-**Validation Errors Detected:**
-1. `objects[0].height = 500` exceeds max table height (48in)
-2. `objects[1].size = "gigantic"` not in allowed enum
-3. `objects[1].position` overlaps with objects[0] 
-4. `objects[2].position.x = -1` is negative (out of bounds)
-
-**Repair Request to Spark:**
-```json
-{
-  "repair_needed": true,
-  "original_scene_id": "tavern_01",
-  "errors": [
-    {
-      "path": "objects[0].height",
-      "value": 500,
-      "error": "table height 500in exceeds maximum 48in",
-      "constraint": "height must be 0-48 for type=table"
-    },
-    {
-      "path": "objects[1].size", 
-      "value": "gigantic",
-      "error": "invalid size value",
-      "constraint": "size must be one of: tiny, small, medium, large, huge, gargantuan"
-    },
-    {
-      "path": "objects[1].position",
-      "value": {"x": 5, "y": 5},
-      "error": "overlaps with objects[0]",
-      "constraint": "no two objects can occupy the same grid square"
-    },
-    {
-      "path": "objects[2].position.x",
-      "value": -1,
-      "error": "coordinate is negative",
-      "constraint": "x must be >= 0"
-    }
-  ]
-}
-```
-
-**Repair Prompt to Spark:**
-```
-Your previous output had validation errors. Output ONLY a JSON patch fixing these fields:
+/no_think
+Your previous output had validation errors. Fix ONLY these fields:
 
 ERRORS:
-- objects[0].height = 500 (table height exceeds maximum 48in)
-- objects[1].size = "gigantic" (invalid value, must be: tiny/small/medium/large/huge/gargantuan)
-- objects[1].position overlaps objects[0] (move to different square)
-- objects[2].position.x = -1 (must be >= 0)
+- objects[0].height = 500 -> table height max is 48 inches
+- objects[1].size = "gigantic" -> must be one of: fine/diminutive/tiny/small/medium/large/huge/gargantuan/colossal
+- objects[2].position.x = -1 -> must be >= 0
 
-Output minimal JSON patch with corrected values only:
-{
-  "objects": [
-    {"index": 0, "height": <corrected_value>},
-    {"index": 1, "size": "<corrected_value>", "position": {"x": <new_x>, "y": <new_y>}},
-    {"index": 2, "position": {"x": <new_x>}}
-  ]
-}
-
-JSON:
-{
+Output ONLY the corrected fields as JSON:
 ```
 
-**Expected Repair Output:**
+With grammar enforcing the repair patch schema:
 ```json
 {
-  "objects": [
-    {"index": 0, "height": 30},
-    {"index": 1, "size": "small", "position": {"x": 6, "y": 5}},
-    {"index": 2, "position": {"x": 0}}
+  "corrections": [
+    {"path": "objects[0].height", "value": 30},
+    {"path": "objects[1].size", "value": "small"},
+    {"path": "objects[2].position.x", "value": 0}
   ]
 }
 ```
 
-**Lens applies patch:**
-```python
-def apply_repair_patch(original: dict, patch: dict) -> dict:
-    """Apply minimal JSON patch to original output."""
-    repaired = copy.deepcopy(original)
-    
-    for obj_patch in patch.get("objects", []):
-        idx = obj_patch["index"]
-        for key, value in obj_patch.items():
-            if key != "index":
-                repaired["objects"][idx][key] = value
-    
-    return repaired
-```
+**For widespread failures (>50% of fields invalid), use full re-generation** rather
+than targeted repair -- the original output is too broken to salvage.
 
----
+**Applying the patch:**
+```python
+import jsonpatch  # pip install jsonpatch (RFC 6902 implementation)
+
+def apply_corrections(original: dict, corrections: list) -> dict:
+    """Apply targeted field corrections to original output."""
+    ops = []
+    for correction in corrections:
+        # Convert dotted path to JSON Pointer
+        pointer = "/" + correction["path"].replace(".", "/").replace("[", "/").replace("]", "")
+        ops.append({"op": "replace", "path": pointer, "value": correction["value"]})
+
+    patch = jsonpatch.JsonPatch(ops)
+    return patch.apply(original)
+```
 
 #### Maximum Repair Attempts: 2
 
 **Rationale:**
-- Attempt 1: Catches simple errors (wrong type, out of range)
-- Attempt 2: Catches errors introduced by first repair
-- Beyond 2: Model is confused or schema is too complex → use archetype fallback
+- Attempt 1: Catches simple errors (wrong type, out of range, wrong enum value)
+- Attempt 2: Catches errors introduced by first repair or errors the model initially misunderstood
+- Beyond 2: Model is confused or the task is too complex for its capacity -> use archetype fallback
 
-**Logging:**
+Instructor's documentation consistently uses `max_retries=3` (3 total attempts, 2 retries),
+which aligns with this recommendation.
+
+Source: python.useinstructor.com/concepts/retrying/
+
+#### Repair Logging
+
 ```python
 @dataclass
 class RepairLog:
     scene_id: str
-    attempt_number: int  # 1 or 2
-    errors: List[str]
+    timestamp: float
+    attempt_number: int           # 0=first try, 1=repair 1, 2=repair 2
+    errors: List[dict]            # path, value, error, constraint
     repair_successful: bool
     fallback_used: bool
-    timestamp: datetime
+    fallback_type: Optional[str]  # archetype name if used
+    tokens_used: int              # repair attempt token cost
 ```
 
 ---
 
-### Fallback Strategy: Archetype Defaults
+### Fallback Strategy: Partial Merge with Archetype Defaults
 
-**Principle:** Lens NEVER invents data. If repair fails, use known-good archetype.
+**Critical principle:** Rather than discarding the entire LLM response on fallback,
+keep the fields that passed validation and only substitute defaults for the fields
+that failed. This preserves the LLM's creative contributions while ensuring structural
+validity.
 
-**Archetype Library:**
+**Tiered fallback:**
+
+```python
+def resolve_with_fallback(
+    spark_output: dict,
+    validation_errors: List[dict],
+    scene_type: str
+) -> dict:
+    """Keep valid fields from Spark, fill invalid from archetype."""
+    archetype = ARCHETYPES[scene_type]
+    result = {}
+
+    failed_paths = {e["path"] for e in validation_errors}
+
+    for key, value in archetype.items():
+        if key in failed_paths:
+            # Use archetype default for this field
+            result[key] = archetype[key]
+        elif key in spark_output:
+            # Keep Spark's value (it passed validation)
+            result[key] = spark_output[key]
+        else:
+            # Field missing from Spark output, use archetype
+            result[key] = archetype[key]
+
+    return result
+```
+
+**Archetype Library (pre-validated, guaranteed correct):**
 
 ```python
 ARCHETYPES = {
     "tavern": {
         "scene_id": "tavern_default",
-        "description": "A simple common room with basic furnishings",
-        "objects": [
-            {"type": "table", "position": {"x": 5, "y": 5}, "size": "medium", "height": 30},
-            {"type": "chair", "position": {"x": 4, "y": 5}, "size": "small", "height": 36},
-            {"type": "chair", "position": {"x": 6, "y": 5}, "size": "small", "height": 36},
-            {"type": "door", "position": {"x": 0, "y": 5}, "size": "medium", "height": 84}
-        ]
+        "atmosphere": "calm",
+        "lighting": "dim",
+        "landmarks": [
+            {"type": "fireplace", "placement_hint": "north_wall"},
+            {"type": "bar", "placement_hint": "east_wall"}
+        ],
+        "furniture": {"table": 3, "chair": 6, "stool": 2, "barrel": 2},
+        "description": "A common room with basic furnishings"
     },
-    
     "dungeon_corridor": {
         "scene_id": "corridor_default",
-        "description": "A straight stone passageway",
-        "objects": [
-            {"type": "door", "position": {"x": 0, "y": 5}, "size": "medium", "height": 84},
-            {"type": "door", "position": {"x": 20, "y": 5}, "size": "medium", "height": 84},
-            {"type": "torch", "position": {"x": 5, "y": 0}, "size": "tiny", "height": 24},
-            {"type": "torch", "position": {"x": 15, "y": 0}, "size": "tiny", "height": 24}
-        ]
+        "atmosphere": "tense",
+        "lighting": "dark",
+        "landmarks": [
+            {"type": "door", "placement_hint": "north_wall"},
+            {"type": "door", "placement_hint": "south_wall"}
+        ],
+        "furniture": {"torch": 2},
+        "description": "A straight stone passageway"
     },
-    
-    "combat_empty": {
-        "scene_id": "empty_battlefield",
-        "description": "An open area suitable for combat",
-        "objects": []
+    "dungeon_chamber": {
+        "scene_id": "chamber_default",
+        "atmosphere": "eerie",
+        "lighting": "dark",
+        "landmarks": [
+            {"type": "door", "placement_hint": "south_wall"}
+        ],
+        "furniture": {"pillar": 2, "rubble": 1},
+        "description": "A square stone chamber"
+    },
+    "forest_clearing": {
+        "scene_id": "clearing_default",
+        "atmosphere": "calm",
+        "lighting": "bright",
+        "landmarks": [
+            {"type": "tree", "placement_hint": "north_wall"},
+            {"type": "tree", "placement_hint": "east_wall"}
+        ],
+        "furniture": {"rock": 2, "log": 1},
+        "description": "A clearing ringed by tall trees"
+    },
+    "empty_battlefield": {
+        "scene_id": "battlefield_default",
+        "atmosphere": "tense",
+        "lighting": "bright",
+        "landmarks": [],
+        "furniture": {},
+        "description": "An open area"
     }
 }
-
-def get_fallback_scene(scene_type: str) -> dict:
-    """Return archetype if Spark fails after 2 repair attempts."""
-    archetype = ARCHETYPES.get(scene_type, ARCHETYPES["combat_empty"])
-    
-    # Generate unique ID for this instance
-    archetype["scene_id"] = f"{archetype['scene_id']}_{uuid.uuid4().hex[:8]}"
-    
-    return archetype
-```
-
-**Fallback Decision Tree:**
-```python
-def resolve_scene(spark_output: str, scene_type: str) -> dict:
-    """Validate with repair, fallback to archetype if needed."""
-    
-    # Attempt 1: Parse and validate
-    try:
-        scene = Scene.model_validate_json(spark_output)
-        errors = validate_all_rules(scene)
-        if not errors:
-            return scene.model_dump()
-    except Exception as e:
-        errors = [str(e)]
-    
-    # Attempt 2: Repair
-    repair_prompt = build_repair_prompt(errors)
-    repaired_output = spark.generate(repair_prompt)
-    
-    try:
-        scene = Scene.model_validate_json(repaired_output)
-        errors = validate_all_rules(scene)
-        if not errors:
-            log_repair_success(scene_id=scene.scene_id, attempt=1)
-            return scene.model_dump()
-    except Exception as e:
-        errors = [str(e)]
-    
-    # Attempt 3: Second repair
-    repair_prompt_2 = build_repair_prompt(errors)
-    repaired_output_2 = spark.generate(repair_prompt_2)
-    
-    try:
-        scene = Scene.model_validate_json(repaired_output_2)
-        errors = validate_all_rules(scene)
-        if not errors:
-            log_repair_success(scene_id=scene.scene_id, attempt=2)
-            return scene.model_dump()
-    except Exception:
-        pass
-    
-    # Fallback: Use archetype
-    log_fallback_used(scene_type=scene_type, errors=errors)
-    return get_fallback_scene(scene_type)
 ```
 
 ---
 
 ### Monitoring Metrics
 
-**Track these metrics to identify Spark/Lens issues:**
+**Tier 1 -- Critical (track from day 1):**
+
+| Metric | Type | Target | Alert Threshold |
+|--------|------|--------|----------------|
+| `validation_pass_rate` | Gauge | >80% first-attempt | <70% |
+| `repair_success_rate` | Gauge | >90% of repairs succeed | <75% |
+| `fallback_frequency` | Counter | <5% of generations | >10% |
+| `total_latency_p95` | Histogram | <500ms incl. retries | >1s |
+| `retry_count_distribution` | Histogram | Mode at 0 | Mode at 2 |
+
+**Tier 2 -- Per-field diagnostics:**
+
+| Metric | Type | Purpose |
+|--------|------|---------|
+| `field_failure_rate{field=X}` | Counter | Identify which fields fail most often |
+| `field_error_type{field=X, error=Y}` | Counter | Categorize failure modes per field |
+| `field_repair_success{field=X}` | Counter | Track per-field repair effectiveness |
 
 ```python
-@dataclass
-class ValidationMetrics:
-    total_generations: int
-    valid_on_first_attempt: int
-    valid_after_repair_1: int
-    valid_after_repair_2: int
-    fallback_used: int
-    
-    # Error categories
-    schema_errors: int          # Wrong types, missing fields
-    range_errors: int           # Values out of bounds
-    dnd_rule_errors: int        # Size/space violations
-    spatial_errors: int         # Overlaps, collisions
-    
-    # Performance
-    avg_generation_time_ms: float
-    avg_repair_time_ms: float
-    
-    def success_rate(self) -> float:
-        """% of generations valid without fallback."""
-        return (self.valid_on_first_attempt + self.valid_after_repair_1 + 
-                self.valid_after_repair_2) / self.total_generations
-    
-    def first_attempt_rate(self) -> float:
-        """% valid on first try (ideal metric to optimize)."""
-        return self.valid_on_first_attempt / self.total_generations
+# Custom per-field tracking
+def track_validation_errors(schema_name: str, error: ValidationError):
+    for err in error.errors():
+        field_path = ".".join(str(p) for p in err["loc"])
+        metrics.field_validation_errors.labels(
+            schema_name=schema_name,
+            field_name=field_path,
+            error_type=err["type"]
+        ).inc()
 ```
 
-**Alerting Thresholds:**
-- First-attempt rate < 80% → Review prompts/grammar
-- Fallback rate > 5% → Schema too complex or model undersized
-- spatial_errors > 20% → Layout generation needs improvement (see Sub-Q5)
+**Tier 3 -- Operational:**
+
+| Metric | Type | Purpose |
+|--------|------|---------|
+| `token_usage_per_request` | Histogram | Cost including retries |
+| `json_extraction_failures` | Counter | No extractable JSON at all |
+| `grammar_failopen_count` | Counter | Grammar parse failed silently |
+
+**Dashboard panels (recommended):**
+1. Validation Pass Rate over time (line chart, target >80%)
+2. Retry Distribution (stacked bar: pass-on-1st, pass-on-2nd, pass-on-3rd, fallback)
+3. Top Failing Fields (bar chart, sorted descending)
+4. Token Cost: Direct vs Retry overhead
+5. Fallback Usage Trend (should decrease over time as prompts improve)
 
 ---
 
-### Example: Full Validation + Repair Flow
+### Existing Framework Landscape
 
-```python
-# Spark generates scene
-spark_output = """
-{
-  "scene_id": "tavern_nightfall_01",
-  "description": "A dimly lit tavern at night",
-  "objects": [
-    {"type": "table", "position": {"x": 5, "y": 5}, "size": "medium", "height": 500},
-    {"type": "candle", "position": {"x": 5, "y": 5}, "size": "tiny", "height": 6}
-  ]
-}
-"""
+| Library | Approach | Guarantees? | Retry Built-in? | Relevant? |
+|---------|----------|-------------|-----------------|-----------|
+| **Outlines** | Constrained token sampling | 100% structural | Not needed | Yes -- works with llama.cpp |
+| **Instructor** | Function calling + Pydantic | Via retries | Yes (max_retries) | No -- API-focused |
+| **Pydantic AI** | Native Pydantic integration | Via retries | Yes | Partially -- retry patterns useful |
+| **Guardrails AI** | RAIL spec or Pydantic | Via re-prompting | Yes | Partially -- validator patterns useful |
 
-# Lens validates
-try:
-    scene = Scene.model_validate_json(spark_output)
-except ValidationError as e:
-    # Layer 1 fails
-    errors = e.errors()
-    # {'loc': ('objects', 0, 'height'), 'msg': 'Input should be less than or equal to 180'}
-
-# Layer 2: D&D rules
-rule_errors = []
-rule_errors.append(validate_height(scene.objects[0]))  
-# "table height 500in exceeds maximum 48in"
-
-# Layer 3: Spatial
-spatial_errors = validate_no_overlap(scene.objects)
-# [] - candle can sit ON table (different heights)
-
-# Build repair request
-repair_request = {
-    "errors": [
-        {"path": "objects[0].height", "value": 500, 
-         "error": "exceeds maximum", "constraint": "0-48 for tables"}
-    ]
-}
-
-# Spark repairs
-repaired = """
-{
-  "objects": [
-    {"index": 0, "height": 30}
-  ]
-}
-"""
-
-# Lens applies patch
-final_scene = apply_repair_patch(scene.model_dump(), json.loads(repaired))
-
-# Validate again
-final_scene_obj = Scene.model_validate(final_scene)
-assert validate_all_rules(final_scene_obj) == []  # Success!
-
-# Log metrics
-metrics.valid_after_repair_1 += 1
-```
+**Recommendation:** Since we use llama-cpp-python locally (not API-based), Instructor
+and Pydantic AI don't directly apply. However, their *patterns* (Pydantic validation +
+retry with error feedback + max_retries=3) are exactly what we should implement. The
+actual token-level enforcement comes from llama-cpp-python's built-in grammar support,
+which is equivalent to what Outlines provides.
 
 ---
 
@@ -998,660 +995,547 @@ metrics.valid_after_repair_1 += 1
 
 ### Overview
 
-Generating tactically plausible D&D 3.5e battle maps is complex: must satisfy grid constraints, D&D rules, AND create interesting tactical scenarios. This research compares five approaches.
+Generating tactically plausible D&D 3.5e battle maps requires satisfying grid
+constraints, D&D rules, AND creating interesting tactical scenarios. Research shows
+that LLMs are fundamentally unreliable for coordinate-level spatial placement, making
+a hybrid approach essential.
+
+### Critical Finding: LLMs Cannot Do Spatial Placement Reliably
+
+Research is definitive on this point:
+
+- **Performance drops 42-80% as grid complexity increases.** LLMs show moderate
+  competence on simple local spatial tasks but "rapidly deteriorate as the problem
+  scale or compositional/geometric complexity increases" (Bai et al., 2025).
+
+- **Grid counting is particularly difficult.** Because LLMs tokenize text, grid
+  positions are abstract symbols without true spatial meaning. Counting grid squares
+  -- fundamental to 5ft-grid placement -- is unreliable.
+
+- **Global spatial integration fails.** GeoGramBench found that while LLMs exceed 80%
+  accuracy on local primitive recognition, they never surpass 50% on global abstract
+  integration -- they cannot compose piecemeal spatial facts into a coherent spatial map.
+
+- **Graph navigation hallucinates edges.** When navigating graph structures, models
+  "hallucinated edges between desirable nodes, took suboptimal paths, or got stuck in
+  loops."
+
+**Conclusion:** Spark should generate *descriptions* (room type, object list, thematic
+intent, atmosphere), not *coordinates*. All coordinate-level placement must be handled
+by deterministic procedural code.
+
+Sources:
+- Bai et al.: Spatial Reasoning in LLMs (emergentmind.com)
+- Nature Scientific Reports: Mitigating Spatial Hallucination
+- ztoz.blog: Map ML Investigation
 
 ### Grid System Specification
 
 **Standard D&D 3.5e Grid:**
 - 5ft squares (PHB p.147)
-- Typical room: 30×30ft (6×6 grid) to 100×100ft (20×20 grid)
-- PropertyMask system (existing Box implementation):
-  - Each cell has 32-bit mask for properties (difficult terrain, cover, etc.)
-  - Each border has 32-bit mask (wall, door, permeable, etc.)
-  - Bresenham LOS traversal for line of sight/effect
-  - AoE rasterization with 50% coverage rule (DMG p.62)
-
-**Tactical Requirements:**
-- **Cover opportunities:** Half cover (+4 AC, +2 Reflex), total cover (no LOS)
-- **Chokepoints:** Narrow passages force single-file, create tactical bottlenecks
-- **Elevation changes:** Stairs, platforms (higher ground = +1 attack, DMG p.63)
-- **Difficult terrain:** Rubble, furniture (+2 to DC for Tumble checks, Movement ×2)
-- **Clear movement paths:** No dead-end pockets unless intentional (trapped room)
-
----
+- Typical room: 30x30ft (6x6 grid) to 100x100ft (20x20 grid)
+- Existing Box infrastructure:
+  - `PropertyMask` (uint32 bitmask with PropertyFlag enum: SOLID, OPAQUE, PERMEABLE, DIFFICULT, HAZARDOUS, etc.)
+  - `GridCell` with cell_mask, border_masks (per-direction), elevation, height, hardness, HP, state
+  - `BattleGrid` with flat-array O(1) cell access, border reciprocity enforcement
+  - Bresenham 3D LOS/LOE traversal
+  - AoE rasterization with discrete distance formula: D = max(dx,dy) + floor(min(dx,dy)/2)
+  - Multi-cell entity support (Large=2x2, Huge=3x3, Gargantuan=4x4, Colossal=5x5 per existing code)
 
 ### Approach Comparison Matrix
 
-| Approach | Reliability | Tactical Quality | Complexity | Speed |
-|----------|-------------|------------------|------------|-------|
-| 1. Pure LLM | ★★☆☆☆ | ★★☆☆☆ | ★☆☆☆☆ | ★★★★★ |
-| 2. Procedural Templates | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★★ |
-| 3. Constraint Solving | ★★★★☆ | ★★★★☆ | ★★★★★ | ★★☆☆☆ |
-| 4. Heuristic Placement | ★★★★☆ | ★★★★☆ | ★★★☆☆ | ★★★★☆ |
-| **5. Hybrid (LLM→Procedural)** | **★★★★☆** | **★★★★★** | **★★★☆☆** | **★★★★☆** |
+| Approach | Reliability | Tactical Quality | Complexity | Speed | D&D 3.5e Fit |
+|----------|-------------|------------------|------------|-------|--------------|
+| 1. Pure LLM placement | LOW | LOW | LOW | FAST | POOR |
+| 2. Procedural templates | HIGH | MEDIUM | MEDIUM | FAST | GOOD |
+| 3. Constraint solving (SAT/CSP) | HIGH | HIGH | HIGH | SLOW | GOOD |
+| 4. Heuristic layered placement | HIGH | HIGH | MEDIUM | FAST | GOOD |
+| 5. WFC (Wave Function Collapse) | HIGH | MEDIUM | HIGH | MEDIUM | FAIR |
+| **6. Hybrid (LLM -> CSP placement)** | **HIGH** | **HIGHEST** | **MEDIUM** | **FAST** | **BEST** |
 
----
+### Approach 1: Pure LLM Generation -- NOT RECOMMENDED
 
-### Approach 1: Pure LLM Generation ❌ NOT RECOMMENDED
+Spark outputs object positions directly. Reliability is ~20-58% for valid layouts
+(positions within bounds, no overlaps, doors on walls). Common failures:
+- Objects overlap (model doesn't track 2D occupancy)
+- Doors placed in room interior instead of on walls
+- Object footprints ignored (Large table placed in 1 square)
+- No tactical coherence (random scattering)
 
-**How it works:** Spark directly outputs object positions.
+**Verdict:** Insufficient even with grammar enforcement (grammar ensures valid JSON
+structure but cannot enforce spatial constraints).
 
-**Prompt:**
+### Approach 2: Procedural Room Templates -- RECOMMENDED (as fallback)
+
+Pre-authored templates with parameterized placement rules. From the MagicalTimeBean
+(2014) pattern-based approach: compose rooms from smaller tile patterns, each with
+inlinks and outlinks, test against room geometry, check floor tile fit.
+
+**Strengths:** Guaranteed valid, fast, easy to maintain. The existing `from_terrain_map()`
+in `geometry_engine.py` already handles terrain -> BattleGrid conversion.
+
+**Weaknesses:** Limited variety. After 10-20 encounters with the same template set,
+players notice repetition.
+
+**Role in our system:** Fallback when hybrid generation fails.
+
+### Approach 3: Constraint Solving (CSP) -- RECOMMENDED (as placement engine)
+
+The most relevant implementation is **pvigier's CSP room generator** (Roguelike
+Celebration 2022), which is purpose-built for grid-based room interior furnishing.
+
+**Key design:**
+- 2D grid where cells are Empty, Margin (must stay free, e.g., door clearance), or Full (occupied)
+- **Unary constraints** (single-variable): "must be against wall," "must be in corner" -- pre-filter domains before solving
+- **Binary/N-ary constraints**: overlap prevention via grid cell marking (O(1) per check)
+- **Connectivity constraint**: all free cells must remain reachable. Uses DFS with a critical heuristic: if tiles surrounding a placed object form one connected piece, the room is still connected. Only when surrounding tiles fragment into 2+ pieces does expensive DFS run. This eliminates most DFS calls.
+- **Required vs. optional objects**: Required objects use full backtracking. Optional objects try each domain value once without backtracking, using probability ranges (e.g., "place 1-3 paintings").
+
+**Why this is ideal for our system:**
+- No external dependencies (no z3-solver, no ILP library)
+- Pure Python, integrates directly with BattleGrid
+- Grid-based overlap checking matches our flat-array cell storage
+- Connectivity guarantee ensures no inaccessible areas
+- Fast enough for real-time use (<50ms for typical rooms)
+
+Source: pvigier.github.io/2022/11/05/room-generation-using-constraint-satisfaction.html
+Source: github.com/pvigier/room_generator
+
+**Comparison with heavier solvers:**
+- Z3 SMT solver (Whitehead 2020): more expressive but requires large binary dependency, slower for simple rooms
+- MIQP optimization (Fan et al.): overkill for our grid-snapped problem
+- Full SAT/ILP: unnecessary when our constraints are simple placement rules
+
+### Approach 4: Heuristic Layered Placement -- RECOMMENDED (integrated into CSP)
+
+Layer-by-layer placement with collision checking. This is effectively a simplified
+CSP that trades completeness for speed.
+
+**Recommended placement order (respecting dependencies):**
+
+1. **Walls and room shape** (the container -- defines boundaries)
+2. **Doors and connections** (create margin cells for clearance)
+3. **Elevation features** (raised platforms, pits, stairs -- affect large areas)
+4. **Large furniture / terrain features** (tables, altars, pillars -- provide cover/chokepoints)
+5. **Hazards** (traps, fire pits -- placed at tactical points)
+6. **Small objects / decoration** (chairs, barrels, candles -- fill remaining space)
+7. **Creature starting positions** (placed last, considering cover and tactical advantage)
+
+This ordering is incorporated into the CSP solver as priority levels.
+
+### Approach 5: Wave Function Collapse -- NOT RECOMMENDED (for room interiors)
+
+WFC excels at tile-based map generation (dungeon layouts, cave systems) but is
+over-engineered for room interior furnishing. The tile authoring overhead (defining
+adjacency rules for every furniture-furniture and furniture-terrain combination) is
+high, and the approach doesn't naturally express D&D-specific constraints like
+"table provides half cover" or "door must have clearance."
+
+WFC would be more appropriate for generating the *dungeon layout* (which rooms connect
+to which) rather than individual room interiors.
+
+### Approach 6: Hybrid (LLM Description -> CSP Placement) -- PRIMARY RECOMMENDATION
+
+**Architecture:**
+
 ```
-Generate a tavern layout on a 10×10 grid (5ft squares). Include tables, chairs, 
-a bar, and a fireplace. Output as JSON with {type, x, y} for each object.
+Spark (LLM)                     Lens (Validator + Placement)
+-----------                     ---------------------------
+1. Receives scene request
+2. Generates structured JSON:   3. Validates Spark output (Sub-Q4 pipeline)
+   - room type, size            4. Initializes grid from validated description
+   - atmosphere, lighting       5. Runs CSP placement engine:
+   - landmark list with            a. Place walls (perimeter)
+     placement hints               b. Place doors (on walls, with clearance)
+   - furniture type counts         c. Place landmarks (using placement hints)
+   - special features              d. Place furniture (with spacing/cover rules)
+   - tactical intent               e. Add tactical features (cover, chokepoints)
+                                6. Validate final layout:
+                                   - All cells reachable from all doors
+                                   - Cover ratio 15-30% of non-wall cells
+                                   - At least 1 chokepoint if room type requires
+                                7. Convert to BattleGrid (PropertyMask encoding)
 ```
 
-**Example Output:**
+**Spark's JSON schema for scene description:**
 ```json
 {
-  "objects": [
-    {"type": "table", "x": 5, "y": 5},
-    {"type": "table", "x": 5, "y": 7},
-    {"type": "chair", "x": 4, "y": 5},
-    {"type": "fireplace", "x": 0, "y": 0},
-    {"type": "bar", "x": 8, "y": 2}
-  ]
-}
-```
-
-**What Goes Wrong:**
-
-1. **Overlap issues:** Tables at (5,5) and (5,7) likely overlap if tables are 2×2
-2. **No wall placement:** Where are the walls? How do you enter?
-3. **Poor tactical value:** Random placement doesn't create cover lanes or chokepoints
-4. **Size confusion:** Model doesn't account for object footprints (medium table = 1 square? 2×2?)
-5. **Inconsistent spacing:** Chairs too close, fireplace in corner (unsafe)
-
-**Reliability:** 40-60% of layouts have spatial violations.
-
-**Verdict:** Insufficient for production. Use only for prototyping.
-
----
-
-### Approach 2: Procedural Room Grammars ✓ RECOMMENDED (as component)
-
-**How it works:** Define templates with placement rules. Spark selects template + parameterizes.
-
-**Template Definition:**
-```python
-class RoomTemplate:
-    name: str
-    min_size: tuple[int, int]
-    max_size: tuple[int, int]
-    placement_rules: List[PlacementRule]
-
-TAVERN_TEMPLATE = RoomTemplate(
-    name="tavern_common_room",
-    min_size=(8, 8),
-    max_size=(15, 15),
-    placement_rules=[
-        # Walls first
-        PlacementRule(
-            object_type="wall",
-            placement="perimeter",
-            required=True
-        ),
-        # Doors on walls
-        PlacementRule(
-            object_type="door",
-            placement="on_wall",
-            count=(1, 3),
-            min_spacing=5  # Doors at least 5 squares apart
-        ),
-        # Fireplace on wall
-        PlacementRule(
-            object_type="fireplace",
-            placement="against_wall",
-            count=(0, 1),
-            size=(2, 1),  # 2 wide, 1 deep
-            avoid_corners=True
-        ),
-        # Tables in center area
-        PlacementRule(
-            object_type="table",
-            placement="interior",
-            count=(2, 5),
-            min_spacing=2,  # At least 2 squares between tables
-            size=(2, 2)
-        ),
-        # Chairs adjacent to tables
-        PlacementRule(
-            object_type="chair",
-            placement="adjacent_to:table",
-            count_per_table=(2, 4)
-        ),
-        # Bar along one wall
-        PlacementRule(
-            object_type="bar",
-            placement="against_wall",
-            count=(0, 1),
-            length=(3, 6)
-        )
-    ]
-)
-```
-
-**Generation Process:**
-```python
-def generate_from_template(template: RoomTemplate, rng: random.Random) -> List[Object]:
-    grid_width = rng.randint(*template.min_size, *template.max_size)
-    grid_height = rng.randint(*template.min_size, *template.max_size)
-    
-    grid = Grid(grid_width, grid_height)
-    objects = []
-    
-    # Execute placement rules in order
-    for rule in template.placement_rules:
-        placed = execute_placement_rule(rule, grid, objects, rng)
-        objects.extend(placed)
-    
-    return objects
-
-def execute_placement_rule(rule: PlacementRule, grid: Grid, 
-                          existing: List[Object], rng: random.Random) -> List[Object]:
-    if rule.placement == "perimeter":
-        return place_walls(grid)
-    elif rule.placement == "on_wall":
-        return place_on_walls(grid, existing, rule, rng)
-    elif rule.placement == "interior":
-        return place_in_interior(grid, existing, rule, rng)
-    elif rule.placement.startswith("adjacent_to:"):
-        anchor_type = rule.placement.split(":")[1]
-        return place_adjacent(grid, existing, anchor_type, rule, rng)
-    # ... etc
-```
-
-**Spark's Role:**
-```python
-# Spark selects template and parameters
-spark_output = {
-    "template": "tavern_common_room",
-    "size_preference": "medium",  # Maps to (10, 12) size range
-    "atmosphere": "cozy",         # Affects furniture density
-    "table_count": 3,
-    "has_fireplace": True,
-    "has_bar": True
-}
-
-# Lens executes procedural generation
-layout = generate_from_template(
-    TAVERN_TEMPLATE,
-    size=(10, 12),
-    table_count=3,
-    has_fireplace=True,
-    has_bar=True,
-    seed=hash(spark_output["scene_id"])
-)
-```
-
-**Pros:**
-- **Highly reliable:** Procedural code guarantees no overlaps
-- **Fast:** Pure Python, no LLM inference
-- **Tactically sound:** Templates encode tactical principles
-- **Extensible:** Add new templates easily
-
-**Cons:**
-- **Rigid:** Limited creativity, templates feel samey after a while
-- **Upfront work:** Must hand-author each template
-- **No novel layouts:** Can't generate "tavern built inside a giant tree stump"
-
-**Verdict:** Excellent foundation. Use as baseline, enhance with LLM creativity (see Approach 5).
-
----
-
-### Approach 3: Constraint Solving ⚠️ VIABLE BUT COMPLEX
-
-**How it works:** Define constraints (doors on walls, no overlaps, min spacing). SAT/ILP solver finds valid assignment.
-
-**Constraint Examples:**
-```python
-from z3 import *
-
-# Variables
-table1_x = Int('table1_x')
-table1_y = Int('table1_y')
-table2_x = Int('table2_x')
-table2_y = Int('table2_y')
-door_x = Int('door_x')
-door_y = Int('door_y')
-
-# Constraints
-constraints = [
-    # Grid bounds
-    And(table1_x >= 1, table1_x <= 8),
-    And(table1_y >= 1, table1_y <= 8),
-    
-    # Tables don't overlap (2×2 footprint)
-    Or(
-        table1_x + 2 <= table2_x,
-        table2_x + 2 <= table1_x,
-        table1_y + 2 <= table2_y,
-        table2_y + 2 <= table1_y
-    ),
-    
-    # Door on wall (x=0 or x=10 or y=0 or y=10)
-    Or(door_x == 0, door_x == 10, door_y == 0, door_y == 10),
-    
-    # Minimum spacing between tables
-    Or(
-        Abs(table1_x - table2_x) >= 3,
-        Abs(table1_y - table2_y) >= 3
-    )
-]
-
-solver = Solver()
-solver.add(constraints)
-
-if solver.check() == sat:
-    model = solver.model()
-    layout = extract_positions(model)
-```
-
-**Pros:**
-- **Mathematically guaranteed valid:** No trial-and-error
-- **Handles complex constraints:** Can express "table must be reachable from door" as graph connectivity
-- **Optimal solutions possible:** Can optimize for tactical value (maximize cover, minimize dead space)
-
-**Cons:**
-- **Heavy dependency:** Requires z3-solver or similar (large binary, complex install)
-- **Slow for large problems:** 20×20 grid with 15 objects can take 100ms-1s
-- **Constraint authoring is hard:** Expressing "create interesting chokepoints" is non-trivial
-- **Overkill for most scenes:** Simple rooms don't need SAT solving
-
-**Verdict:** Reserve for complex scenarios (multi-room dungeons, siege layouts). Too slow for turn-by-turn generation.
-
----
-
-### Approach 4: Heuristic Placement ✓ RECOMMENDED (as component)
-
-**How it works:** Layer-by-layer placement with collision checking. Simple, fast, reliable.
-
-**Algorithm:**
-```python
-def generate_heuristic_layout(scene_type: str, grid_size: tuple[int, int]) -> Layout:
-    grid = Grid(*grid_size)
-    
-    # Layer 1: Walls
-    place_perimeter_walls(grid)
-    
-    # Layer 2: Doors (on walls)
-    door_positions = find_wall_positions(grid, count=2, min_spacing=5)
-    for pos in door_positions:
-        grid.place("door", pos, size="medium")
-    
-    # Layer 3: Large structures (fireplace, bar, stairs)
-    large_objects = get_large_objects_for_scene(scene_type)
-    for obj in large_objects:
-        # Find valid placement: against wall, no overlap, min distance from doors
-        valid_positions = find_valid_positions(
-            grid, 
-            obj.size,
-            constraints={
-                "against_wall": True,
-                "min_distance_from": [("door", 3)]
-            }
-        )
-        if valid_positions:
-            pos = random.choice(valid_positions)
-            grid.place(obj.type, pos, obj.size)
-    
-    # Layer 4: Medium objects (tables, pillars)
-    medium_objects = get_medium_objects_for_scene(scene_type)
-    for obj in medium_objects:
-        valid_positions = find_valid_positions(
-            grid,
-            obj.size,
-            constraints={
-                "interior": True,
-                "min_spacing": 2
-            }
-        )
-        if valid_positions:
-            pos = random.choice(valid_positions)
-            grid.place(obj.type, pos, obj.size)
-    
-    # Layer 5: Small objects (chairs adjacent to tables, candles on tables)
-    place_adjacent_objects(grid, anchor_type="table", object_type="chair", count_per=3)
-    place_on_top_objects(grid, anchor_type="table", object_type="candle", count_per=1)
-    
-    return grid.to_layout()
-```
-
-**Tactical Enhancements:**
-```python
-def add_tactical_features(grid: Grid):
-    """Enhance layout with tactical considerations."""
-    
-    # Identify chokepoints (narrow passages)
-    chokepoints = find_narrow_passages(grid, max_width=1)
-    
-    # Add cover near chokepoints (pillar, crate)
-    for choke in chokepoints:
-        nearby = get_adjacent_positions(choke, distance=2)
-        cover_pos = random.choice([p for p in nearby if grid.is_empty(p)])
-        grid.place("pillar", cover_pos, provides_cover=True)
-    
-    # Create elevation changes (10% chance per room)
-    if random.random() < 0.1:
-        platform_area = select_corner_area(grid, size=(3, 3))
-        grid.set_elevation(platform_area, height=1)  # 5ft raised platform
-        stairs_pos = find_platform_edge(platform_area)
-        grid.place("stairs", stairs_pos)
-    
-    # Add difficult terrain (scattered furniture, rubble)
-    interior_cells = grid.get_interior_cells()
-    difficult_count = len(interior_cells) // 10  # 10% of interior
-    for _ in range(difficult_count):
-        pos = random.choice([p for p in interior_cells if grid.is_empty(p)])
-        grid.set_property(pos, "difficult_terrain")
-```
-
-**Pros:**
-- **Simple to implement:** Pure Python, no external dependencies
-- **Fast:** O(n) placement, <10ms for typical rooms
-- **Reliable:** Collision checking guarantees valid layouts
-- **Extensible:** Easy to add new heuristics
-
-**Cons:**
-- **Order-dependent:** Placing tables before pillars vs. after creates different results
-- **Can fail:** If constraints too tight, may not find valid positions
-- **Limited creativity:** Heuristics encode fixed strategies
-
-**Verdict:** Excellent for real-time generation. Combine with templates for best results.
-
----
-
-### Approach 5: Hybrid (LLM → Procedural) ⭐ RECOMMENDED
-
-**How it works:** Spark generates high-level description → Procedural system places objects based on keywords.
-
-**Best of both worlds:**
-- **LLM creativity:** "A tavern with a roaring fireplace and a shadowy corner booth"
-- **Procedural reliability:** Guaranteed valid grid placement
-
-**Two-Stage Process:**
-
-#### Stage 1: Spark Generates Scene Description
-
-**Prompt:**
-```
-Describe a tavern interior for a D&D encounter. Include:
-- Overall atmosphere and lighting
-- Key landmarks (fireplace, bar, stage, etc.)
-- Furniture types and rough quantities
-- Special features (secret door, trapdoor, etc.)
-
-Output as JSON:
-{
-  "atmosphere": "cozy" | "tense" | "abandoned",
-  "lighting": "bright" | "dim" | "dark",
-  "landmarks": [{"type": str, "description": str, "placement_hint": str}],
-  "furniture": {"table": count, "chair": count, "stool": count, ...},
-  "special_features": [{"type": str, "description": str}]
-}
-```
-
-**Example Output:**
-```json
-{
-  "atmosphere": "tense",
-  "lighting": "dim",
-  "landmarks": [
-    {
-      "type": "fireplace",
-      "description": "A massive stone fireplace dominates the north wall, fire nearly dead",
-      "placement_hint": "north_wall"
+  "type": "object",
+  "properties": {
+    "room_type": {"enum": ["tavern", "dungeon_corridor", "dungeon_chamber",
+                           "throne_room", "cave", "forest_clearing", "street",
+                           "temple", "library", "prison_cell"]},
+    "size_category": {"enum": ["tiny", "small", "medium", "large", "huge"]},
+    "atmosphere": {"enum": ["calm", "tense", "festive", "abandoned", "eerie"]},
+    "lighting": {"enum": ["bright", "dim", "dark"]},
+    "landmarks": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "placement_hint": {"enum": ["north_wall", "south_wall", "east_wall",
+                                       "west_wall", "center", "corner", "any"]},
+          "description": {"type": "string"}
+        },
+        "required": ["type", "placement_hint"]
+      }
     },
-    {
-      "type": "bar",
-      "description": "A long wooden bar stretches along the east wall, bottles smashed",
-      "placement_hint": "east_wall"
-    }
-  ],
-  "furniture": {
-    "table": 4,
-    "chair": 8,
-    "barrel": 3
+    "furniture": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 10}
+    },
+    "special_features": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "near": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": ["type"]
+      }
+    },
+    "tactical_intent": {"enum": ["open_battle", "defensible", "ambush",
+                                  "chokepoint", "multi_level", "hazardous"]},
+    "description": {"type": "string"}
   },
-  "special_features": [
-    {
-      "type": "trapdoor",
-      "description": "Hidden trapdoor beneath the rug near the fireplace"
-    }
-  ]
+  "required": ["room_type", "size_category", "atmosphere", "lighting",
+                "landmarks", "furniture", "description"]
 }
 ```
 
-#### Stage 2: Procedural Placement Interprets Description
+Spark outputs *what should exist*. The procedural system handles *where it goes*.
 
-**Placement Interpreter:**
+**Placement hint interpreter:**
 ```python
-def interpret_and_place(spark_description: dict, grid_size: tuple[int, int]) -> Layout:
-    grid = Grid(*grid_size)
-    
-    # 1. Place walls
-    place_perimeter_walls(grid)
-    
-    # 2. Place landmarks with placement hints
-    for landmark in spark_description["landmarks"]:
-        wall = parse_wall_hint(landmark["placement_hint"])  # "north_wall" → y=0
-        positions = find_wall_positions(grid, wall=wall, size=get_size(landmark["type"]))
-        if positions:
-            grid.place(landmark["type"], positions[0])
-    
-    # 3. Place furniture with spacing rules
-    for furniture_type, count in spark_description["furniture"].items():
-        heuristic_place(grid, furniture_type, count)
-    
-    # 4. Place special features
-    for feature in spark_description.get("special_features", []):
-        if feature["type"] == "trapdoor":
-            # "near the fireplace" → within 2 squares
-            fireplace_pos = grid.find_object("fireplace")
-            nearby = get_adjacent_positions(fireplace_pos, distance=2)
-            valid = [p for p in nearby if grid.is_empty(p)]
-            if valid:
-                grid.place("trapdoor", valid[0], hidden=True)
-    
-    # 5. Add tactical features based on atmosphere
-    if spark_description["atmosphere"] == "tense":
-        add_cover_opportunities(grid, density="high")
-        add_chokepoints(grid)
-    
-    return grid.to_layout()
-
-def parse_wall_hint(hint: str) -> str:
-    """Convert placement hints to grid coordinates."""
-    mapping = {
-        "north_wall": "top",
-        "south_wall": "bottom",
-        "east_wall": "right",
-        "west_wall": "left",
-        "corner": "corner",
-        "center": "interior"
-    }
-    return mapping.get(hint.lower(), "any")
+HINT_TO_REGION = {
+    "north_wall": lambda w, h: [(x, 0) for x in range(1, w-1)],
+    "south_wall": lambda w, h: [(x, h-1) for x in range(1, w-1)],
+    "east_wall":  lambda w, h: [(w-1, y) for y in range(1, h-1)],
+    "west_wall":  lambda w, h: [(0, y) for y in range(1, h-1)],
+    "center":     lambda w, h: [(x, y) for x in range(w//4, 3*w//4)
+                                        for y in range(h//4, 3*h//4)],
+    "corner":     lambda w, h: [(1,1), (w-2,1), (1,h-2), (w-2,h-2)],
+    "any":        lambda w, h: [(x, y) for x in range(1, w-1)
+                                        for y in range(1, h-1)],
+}
 ```
 
-**Pros:**
-- **Creative variety:** LLM generates unique descriptions
-- **Guaranteed validity:** Procedural placement handles grid constraints
-- **Narrative coherence:** "Shadowy corner booth" → booth placed in corner + low light
-- **Tactical intelligence:** Atmosphere hints guide cover/chokepoint generation
-- **Graceful degradation:** If LLM output missing fields, procedural system uses defaults
-
-**Cons:**
-- **Two-stage latency:** LLM generation + procedural placement (still fast: ~200ms total)
-- **Interpretation errors:** "Near the fireplace" could be ambiguous
-- **Complexity:** More code than pure procedural
-
-**Verdict:** ⭐ Best approach for production. Balances creativity and reliability.
-
----
-
-### Recommended Implementation
-
-**Configuration:**
+**Size category to grid dimensions:**
 ```python
-class LayoutGenerationConfig:
-    approach: Literal["procedural", "hybrid"] = "hybrid"
-    use_llm_for_creative_scenes: bool = True
-    fallback_to_templates: bool = True
-    grid_size_range: tuple[int, int] = (8, 20)
-    tactical_enhancement: bool = True
-```
-
-**Generation Pipeline:**
-```python
-def generate_scene_layout(scene_request: str, config: LayoutGenerationConfig) -> Layout:
-    if config.approach == "hybrid" and config.use_llm_for_creative_scenes:
-        # Stage 1: LLM description
-        description = spark.generate_scene_description(scene_request)
-        
-        try:
-            # Stage 2: Procedural placement
-            layout = interpret_and_place(description, config.grid_size_range)
-            
-            if config.tactical_enhancement:
-                add_tactical_features(layout)
-            
-            return layout
-        except Exception as e:
-            log.warning(f"Hybrid placement failed: {e}, falling back to template")
-    
-    # Fallback: Pure procedural template
-    template = select_template(scene_request)
-    layout = generate_from_template(template, config.grid_size_range)
-    
-    if config.tactical_enhancement:
-        add_tactical_features(layout)
-    
-    return layout
+SIZE_TO_GRID = {
+    "tiny":   (4, 4),    # 20x20ft  -- closets, cells
+    "small":  (6, 6),    # 30x30ft  -- small rooms
+    "medium": (8, 10),   # 40x50ft  -- standard encounter rooms
+    "large":  (12, 14),  # 60x70ft  -- large chambers
+    "huge":   (16, 20),  # 80x100ft -- boss arenas, great halls
+}
 ```
 
 ---
 
-### Example Room Layout with Grid Coordinates
+### D&D 3.5e Tactical Layout Rules
 
-**Scene:** "Abandoned tavern, tense atmosphere, signs of recent violence"
+The procedural placement engine must encode these D&D 3.5e tactical concepts:
 
-**Spark Output:**
+#### Cover (SRD Combat Modifiers)
+
+| Cover Type | AC Bonus | Reflex Save | How Determined |
+|-----------|---------|-------------|---------------|
+| Standard | +4 | +2 | Line from attacker corner to target corner crosses obstacle |
+| Improved | +8 | +4 | Arrow slits, murder holes, fortifications |
+| Total | Can't target | N/A | No line of effect |
+| Soft (creatures) | +4 | None | Ranged only, creature in line |
+
+Low obstacles provide cover only within 30ft (6 squares). Attacker closer to obstacle
+than target can ignore low-obstacle cover.
+
+**Placement rule:** Rooms should have 15-30% of non-wall cells adjacent to
+cover-providing objects (pillars, tables, barrels, low walls).
+
+#### Difficult Terrain (SRD Movement)
+
+- Each square costs 2 squares of movement (diagonal: 3 squares)
+- **Cannot run or charge** across difficult terrain
+- **Cannot 5-foot step** in difficult terrain (D&D 3.5e specific -- major tactical implication)
+- Flying/incorporeal creatures unaffected
+
+**Placement rule:** Difficult terrain should not block ALL paths (unless intentional
+trap room). Ensure at least one non-difficult path from each door to each other door.
+
+#### Chokepoints
+
+- Cannot move diagonally past a corner (PHB p.148) -- doorways are natural chokepoints
+- Cannot move through enemy-occupied squares (unless helpless)
+- Moving through threatened squares provokes AoO
+- A single Medium defender blocks a 5ft corridor entirely
+
+**Placement rule:** "defensible" and "chokepoint" tactical intents should generate
+rooms with at least one 5ft-wide passage. "open_battle" should avoid chokepoints.
+
+#### Elevation
+
+- Higher ground provides tactical advantage (ranged attacks, charge prevention)
+- Fall damage for pushed/knocked-prone creatures on edges
+- Requires stairs/ramp for access (or Climb check)
+
+**Placement rule:** "multi_level" tactical intent generates 1-2 raised platforms
+(5ft elevation, 3x3 to 5x5 grid area) with stairs at one edge.
+
+#### Line of Effect vs Line of Sight
+
+The existing Box already handles this via `los_resolver.py`:
+- **LOS:** Blocked by OPAQUE cells/borders (unless PERMEABLE)
+- **LOE:** Blocked by SOLID cells/borders (unless PERMEABLE)
+- Creatures do NOT block LOS but DO provide cover
+
+**Placement rule:** Ensure pillars are SOLID|OPAQUE (blocks both). Arrow slits are
+SOLID|OPAQUE|PERMEABLE (blocks LOS/LOE for movement but permits ranged attacks through).
+Windows are OPAQUE|PERMEABLE (blocks vision but not spell effects -- actually,
+this should be inverted: windows are transparent, so no OPAQUE flag).
+
+---
+
+### Example Room Layout
+
+**Scene request:** "Abandoned tavern, tense atmosphere, signs of recent violence"
+
+**Spark output (grammar-constrained):**
 ```json
 {
+  "room_type": "tavern",
+  "size_category": "medium",
   "atmosphere": "tense",
   "lighting": "dim",
   "landmarks": [
-    {"type": "fireplace", "placement_hint": "north_wall"},
-    {"type": "bar", "placement_hint": "east_wall"}
+    {"type": "fireplace", "placement_hint": "north_wall",
+     "description": "A massive stone fireplace, fire nearly dead"},
+    {"type": "bar", "placement_hint": "east_wall",
+     "description": "Long wooden bar, bottles smashed on the floor"}
   ],
   "furniture": {"table": 3, "chair": 5, "barrel": 2},
-  "damage": ["overturned_table", "broken_glass"]
+  "special_features": [
+    {"type": "overturned_furniture", "near": "center",
+     "description": "Overturned table and broken chairs from a brawl"}
+  ],
+  "tactical_intent": "defensible",
+  "description": "A ransacked tavern common room, tables overturned from a recent brawl"
 }
 ```
 
-**Procedural Placement Result:**
+**Procedural placement result (8x10 grid = 40x50ft):**
 
 ```
-Grid: 12×10 (60ft × 50ft)
+Legend:
+  # = Wall    . = Floor    + = Door     F = Fireplace
+  T = Table   C = Chair    B = Barrel   | = Pillar
+  ~ = Difficult terrain (broken furniture)
+  = = Bar counter
 
-  0 1 2 3 4 5 6 7 8 9 10 11
-0 # # # F F # # # # # #  #   (# = wall, F = fireplace)
-1 # . . . . . . . . . .  #
-2 # . T T . . . . . . .  #
-3 # . T T . . . C . . .  #   (T = table, C = chair)
-4 # . . . . P . . . . .  #   (P = pillar - cover)
-5 D . C . . . . T T . .  #   (D = door)
-6 # . . . . . . T T . .  #
-7 # . B . . . . . . . .  #   (B = barrel)
-8 # . . . . . . C . . .  #
-9 # # # # # # # # # # #  #
+Grid (each cell = 5ft, y=0 is north):
 
-Elevation: All cells at height 0 (ground level)
+     0  1  2  3  4  5  6  7
+  0  #  #  #  F  F  #  #  #
+  1  #  .  .  .  .  .  .  #
+  2  #  .  T  T  .  .  .  =
+  3  #  .  T  T  .  C  .  =
+  4  #  .  .  .  |  .  .  =
+  5  +  .  C  .  .  ~  ~  #
+  6  #  .  .  T  T  .  .  #
+  7  #  .  C  T  T  .  B  #
+  8  #  .  .  .  .  C  .  #
+  9  #  #  #  #  #  #  +  #
 ```
 
-**Object List:**
-```json
-{
-  "objects": [
-    {"id": "wall_perimeter", "type": "wall", "cells": [...], "height": 120},
-    {"id": "door_01", "type": "door", "position": {"x": 0, "y": 5}, "size": "medium"},
-    {"id": "fireplace_01", "type": "fireplace", "position": {"x": 3, "y": 0}, "size": "large"},
-    {"id": "table_01", "type": "table", "position": {"x": 2, "y": 2}, "size": "medium", "overturned": false},
-    {"id": "table_02", "type": "table", "position": {"x": 7, "y": 5}, "size": "medium", "overturned": true},
-    {"id": "table_03", "type": "table", "position": {"x": 7, "y": 6}, "size": "medium", "overturned": false},
-    {"id": "chair_01", "type": "chair", "position": {"x": 7, "y": 3}, "size": "small"},
-    {"id": "chair_02", "type": "chair", "position": {"x": 2, "y": 5}, "size": "small"},
-    {"id": "chair_03", "type": "chair", "position": {"x": 7, "y": 8}, "size": "small"},
-    {"id": "pillar_01", "type": "pillar", "position": {"x": 5, "y": 4}, "size": "small", "provides_cover": "half"},
-    {"id": "barrel_01", "type": "barrel", "position": {"x": 2, "y": 7}, "size": "small"}
-  ]
-}
-```
+**Object list with PropertyMask encoding:**
 
-**Tactical Analysis:**
-- **Cover:** Pillar at (5,4) provides half cover for ranged combat
-- **Chokepoint:** Door at (0,5) creates natural bottleneck
-- **Movement:** Clear paths from door to all areas (no dead ends)
-- **Variety:** Overturned table creates difficult terrain + low cover
+| Object | Position | Size | Grid Cells | PropertyFlag |
+|--------|----------|------|-----------|-------------|
+| Wall (perimeter) | -- | -- | All border cells | SOLID, OPAQUE |
+| Door (west) | (0,5) | Medium | (0,5) border | None (when open) |
+| Door (south) | (6,9) | Medium | (6,9) border | None (when open) |
+| Fireplace | (3,0)-(4,0) | Large | 2 cells | SOLID, OPAQUE |
+| Bar counter | (7,2)-(7,4) | -- | 3 cells | SOLID (half cover) |
+| Table 1 | (2,2)-(3,3) | Medium | 2x2 cells | (half cover, height 30in) |
+| Table 2 | (3,6)-(4,7) | Medium | 2x2 cells | (half cover, height 30in) |
+| Pillar | (4,4) | Small | 1 cell | SOLID, OPAQUE |
+| Difficult terrain | (5,5)-(6,5) | -- | 2 cells | DIFFICULT |
+| Barrel 1 | (6,7) | Small | 1 cell | (half cover) |
+| Chairs | Various | Small | 1 cell each | (no cover, moveable) |
 
-**PropertyMask Encoding (Example Cell):**
+**Tactical analysis:**
+- **Cover:** Pillar at (4,4) provides hard cover in center. Tables provide half cover.
+  Bar counter provides half cover along east wall. ~25% of floor cells adjacent to cover.
+- **Chokepoints:** Single door entries at (0,5) and (6,9) create natural bottlenecks.
+- **Difficult terrain:** Broken furniture at (5,5)-(6,5) impedes movement near south
+  entrance. Cannot 5-foot step through it (D&D 3.5e specific).
+- **Movement:** Clear path from west door to south door via multiple routes.
+- **Flanking:** Attackers can approach table 1 from north or south. The pillar breaks
+  LOS between the two table clusters.
+
+**BattleGrid encoding (integrates with existing geometry_engine.py):**
 ```python
-# Cell (7, 5) - Overturned table
-cell_mask = 0b00000000000000000000000000000000
-cell_mask |= (1 << PROPERTY_DIFFICULT_TERRAIN)  # Movement cost ×2
-cell_mask |= (1 << PROPERTY_LOW_COVER)          # +2 AC when prone
+# Cell (4,4) -- Pillar
+grid.set_cell_mask(Position(4,4),
+    PropertyMask.from_int(PropertyFlag.SOLID | PropertyFlag.OPAQUE))
 
-# Border (7,5) → (8,5) - Open
-border_mask = 0b00000000000000000000000000000000
-# No flags set = passable
+# Cell (5,5) -- Difficult terrain (broken furniture)
+grid.set_cell_mask(Position(5,5),
+    PropertyMask.from_int(PropertyFlag.DIFFICULT))
 
-# Border (0,5) → (1,5) - Door
-border_mask = 0b00000000000000000000000000000000
-border_mask |= (1 << BORDER_DOOR)
-border_mask |= (1 << BORDER_BLOCKS_MOVEMENT)    # When closed
-border_mask |= (1 << BORDER_BLOCKS_LOS)         # When closed
+# Border (0,5) south -- Door (open)
+grid.set_border(Position(0,5), Direction.WEST,
+    PropertyMask.from_int(PropertyFlag.NONE))  # Open door = passable
+
+# Sync to Lens
+bridge.sync_cell_to_lens(Position(4,4), current_turn)
+bridge.sync_cell_to_lens(Position(5,5), current_turn)
 ```
+
+---
+
+### ASCII Grid Representation Standard
+
+For text-based map representation (debugging, logs, Spark prompts), adopt this symbol set:
+
+```
+Core Terrain:
+  .  Floor (empty, passable)
+  #  Wall (impassable, blocks LOS/LOE)
+  ~  Difficult terrain
+  :  Rubble (difficult + partial cover)
+
+Doors:
+  +  Closed door
+  /  Open door
+  L  Locked door
+  S  Secret door
+
+Elevation:
+  <  Stairs up
+  >  Stairs down
+  ^  Raised platform (5ft above)
+  v  Pit (5ft below)
+
+Furniture:
+  T  Table (half cover)
+  =  Bar/counter (half cover)
+  |  Pillar/column (total cover, blocks LOS)
+  B  Barrel/crate (half cover)
+  *  Fountain/basin
+  &  Statue (half cover)
+  C  Chair (no cover)
+
+Creatures:
+  @  Player character
+  A-Z  Monsters/NPCs (keyed to legend)
+```
+
+This format is:
+- Parseable by simple grid-reading code (split lines, iterate characters)
+- Human-readable for debugging and DM review
+- Compatible with existing `from_terrain_map()` conversion
+- Single-character-per-cell for clean alignment
 
 ---
 
 ## Summary of Recommendations
 
 ### Sub-Question 3: Prompting Patterns
-**Primary Strategy:** Grammar-constrained decoding (GBNF)  
-**Secondary Strategy:** Two-pass generation for complex scenes  
-**Supporting Tactics:** Schema pre-fill, stop sequences, temperature=0.0-0.2  
-**Expected Reliability:** 95%+ valid JSON
+
+| Priority | Strategy | Expected Impact |
+|----------|----------|----------------|
+| 1 | GBNF grammar via `response_format` with schema | ~100% structural validity |
+| 2 | `/no_think` prefix on all structured calls | Prevents thinking overhead without breaking grammar |
+| 3 | Temperature 0.7 + TopP=0.8 + TopK=20 | Qwen3-optimal, safe with grammar |
+| 4 | Schema in prompt (not just grammar) | Guides semantic quality |
+| 5 | Archetype examples in system prompt | Improves content variety within templates |
+| 6 | `<\|im_end\|>` stop sequence | Prevents post-JSON rambling |
+| 7 | No max_tokens on structured calls | Prevents truncation |
+| 8 | Pydantic validation as mandatory post-check | Catches grammar fail-open |
 
 ### Sub-Question 4: Validation + Repair
-**Validation Layers:** 
-1. Pydantic schema validation
-2. D&D 3.5e rules (size/space, height limits)
-3. Spatial consistency (overlaps, bounds)
 
-**Repair Protocol:**
-- Max 2 repair attempts with targeted error feedback
-- Fallback to archetype defaults after 2 failures
-- Lens never invents data
+| Layer | What It Catches | Tool |
+|-------|----------------|------|
+| 1: JSON Parse + Schema | Missing fields, wrong types, invalid enums | Pydantic `model_validate_json()` |
+| 2: D&D 3.5e Rules | Size/space violations, height limits, material properties | Custom validators |
+| 3: Spatial Consistency | Overlaps, out-of-bounds, connectivity | Grid occupancy checker |
 
-**Key Metrics:** First-attempt success rate (target: 80%+), Fallback rate (target: <5%)
+**Repair protocol:** Max 2 targeted repair attempts -> partial merge with archetype defaults
+**Key principle:** Lens validates but never invents
 
-### Sub-Question 5: Grid Layout Generation
-**Primary Approach:** Hybrid (LLM description → Procedural placement)  
-**Fallback:** Procedural templates  
-**Tactical Enhancements:** Cover placement, chokepoints, elevation  
-**Expected Performance:** <200ms per scene, 100% valid layouts
+### Sub-Question 5: Grid Layout
+
+| Component | Role | Technology |
+|-----------|------|-----------|
+| Spark | Generates scene description (what exists) | Grammar-constrained LLM |
+| CSP Solver | Places objects on grid (where things go) | pvigier-style backtracking CSP |
+| Tactical Enhancer | Adds cover, chokepoints, difficult terrain | Heuristic post-processing |
+| Template Library | Fallback when hybrid fails | Pre-authored room templates |
+| BattleGrid | Final representation | Existing PropertyMask/GridCell system |
+
+**LLMs should never output grid coordinates directly.** Spatial reasoning degrades
+42-80% with complexity. Use LLMs for creative descriptions, procedural code for placement.
+
+---
+
+## Key Sources
+
+### Prompting & Structured Output
+- llama.cpp Grammars README: github.com/ggml-org/llama.cpp/blob/master/grammars/README.md
+- Qwen3-8B Model Card: huggingface.co/Qwen/Qwen3-8B
+- vLLM Issue #18819: Broken Structured Output with Qwen3 enable_thinking=False
+- arXiv 2408.02442: "Let Me Speak Freely?" (EMNLP 2024)
+- arXiv 2502.09061: CRANE -- Reasoning with Constrained LLM Generation
+- arXiv 2501.10868: Generating Structured Outputs from LLMs: Benchmark and Studies
+- Aidan Cooper: A Guide to Structured Outputs Using Constrained Decoding
+- Simon Willison: Using llama-cpp-python grammars to generate JSON
+
+### Validation & Repair
+- Instructor: python.useinstructor.com/concepts/retrying/
+- Machine Learning Mastery: Complete Guide to Pydantic for LLM Outputs
+- jsonpatch.com: RFC 6902 JSON Patch
+- Cleanlab TLM: Structured Outputs Benchmark
+
+### D&D 3.5e Rules
+- d20srd.org: Movement, Position, and Distance
+- d20srd.org: Combat Modifiers (Cover)
+- d20srd.org: Exploration (Objects, Materials, Doors)
+- d20.pub: Table of Creature Size and Scale
+
+### Grid Layout Generation
+- pvigier: Room Generation using Constraint Satisfaction (2022)
+- Bai et al.: Spatial Reasoning in LLMs (emergentmind.com)
+- Boris the Brave: Wave Function Collapse Explained
+- Bob Nystrom: Rooms and Mazes
+- MagicalTimeBean: Procedural Room Generation Explained (2014)
+- Chen & Jhala: Narrative-to-Scene Generation (arXiv 2509.04481)
+- RogueBasin: Basic BSP Dungeon Generation
+- Kassoon: Make Tactical Memorable Combat
 
 ---
 
 ## Next Steps
 
-1. **Implement GBNF grammars** for core Spark schemas (scene, combat_state, object)
-2. **Build validation pipeline** with Pydantic + D&D rules + spatial checks
-3. **Create archetype library** for common scene types (tavern, dungeon, forest)
-4. **Prototype hybrid layout generator** with 3-5 room templates
-5. **Deploy metrics collection** to monitor validation success rates
-6. **Iterate on prompts** based on real-world failure modes
+1. **Implement GBNF grammar pipeline** -- wire `response_format` with schema through
+   `LlamaCppAdapter.generate()` using canonical `SparkRequest.json_mode` + schema field
+2. **Build Lens validation pipeline** -- Pydantic models for scene description, D&D 3.5e
+   rule validators, spatial consistency checker
+3. **Implement repair protocol** -- targeted error feedback, JSON patch application,
+   archetype fallback with partial merge
+4. **Port pvigier CSP pattern** -- grid-based backtracking solver with unary pre-filtering,
+   connectivity heuristic, required/optional object distinction
+5. **Create archetype + template library** -- 5+ room types (tavern, corridor, chamber,
+   cave, clearing), each with validated archetype JSON and procedural template
+6. **Deploy metrics collection** -- per-field failure tracking, retry distribution,
+   fallback frequency
+7. **Update LLM-002 safeguard** -- allow temperature 0.7 for structured output when
+   grammar enforcement is active
 
 ---
 

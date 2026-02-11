@@ -1,9 +1,9 @@
 <!--
 PROJECT STATE DIGEST — LEAN OPERATIONAL STATE
 Last Updated: 2026-02-11
-Tests: 3170 passing
+Tests: 3302 passing
 Plan v1: CLOSED — All 7 steps COMPLETE, WO-026 audit PASSED, A1-A7 all PASSED
-Plan v2: ACTIVE — Phase 1 ready for dispatch
+Plan v2: ACTIVE — Phase 1 COMPLETE (5/5 WOs), A8 audit pending
 Historical content archived to: docs/history/PROJECT_HISTORY.md
 -->
 
@@ -38,7 +38,7 @@ All 7 steps complete. 26/26 WOs delivered. Audit checkpoints A1-A7 all PASSED. P
 
 | Phase | Name | Status | WOs |
 |-------|------|--------|-----|
-| 1 | Wire the Brain | **IN PROGRESS** — Batch 1 complete (WO-027, WO-028) | WO-027 to WO-031 |
+| 1 | Wire the Brain | **COMPLETE** — All 5 WOs delivered, A8 pending | WO-027 to WO-031 |
 | 2 | Content Breadth + Narration Bridge | BLOCKED by Phase 1 | WO-032 to WO-037 |
 | 3 | Session Playability | BLOCKED by Phase 2 | WO-038 to WO-041 |
 | 4 | Playtest Gate + Documentation | BLOCKED by Phase 3 | WO-042 to WO-044 |
@@ -168,7 +168,7 @@ All adapters use lazy loading, graceful fallback to stubs when deps unavailable.
 
 ## Test Summary
 
-**Total: 3288 tests passing**
+**Total: 3302 tests passing**
 
 Recent additions:
 - Geometry engine: 395 tests
@@ -194,7 +194,7 @@ Recent additions:
 | WO-027 | spark_adapter.py, llamacpp_adapter.py | 31 new (49 total) | **COMPLETE** |
 | WO-028 | guarded_narration_service.py, narrator.py | 20 new (29 total) | **COMPLETE** |
 | WO-029 | kill_switch_registry.py, guarded_narration_service.py | 35 new (3288 total) | **COMPLETE** |
-| WO-030 | Narration Pipeline Wiring | — | **READY** (depends on WO-029) |
+| WO-030 | play_loop_adapter.py, play_loop.py, combat_controller.py | 14 new (3302 total) | **COMPLETE** |
 | WO-031 | grammar_shield.py, llamacpp_adapter.py | 32 new (3288 total) | **COMPLETE** |
 
 ---
@@ -209,6 +209,7 @@ Recent additions:
 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards |
 | `KNOWN_TECH_DEBT.md` | Intentionally deferred issues |
 | `docs/doctrine/SPARK_LENS_BOX_DOCTRINE.md` | Architectural axioms |
+| `docs/governance/TACTICAL_INTEGRITY_DOCTRINE.md` | Anti-mercy enforcement, CR as RAW law, detection pipeline |
 
 ---
 

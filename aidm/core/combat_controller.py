@@ -219,7 +219,8 @@ def execute_combat_round(
     doctrines: Dict[str, MonsterDoctrine],
     rng: RNGManager,
     next_event_id: int = 0,
-    timestamp: float = 0.0
+    timestamp: float = 0.0,
+    narration_service: Optional[Any] = None,  # WO-030: GuardedNarrationService
 ) -> CombatRoundResult:
     """
     Execute a single combat round in initiative order.
@@ -233,6 +234,7 @@ def execute_combat_round(
         rng: RNG manager
         next_event_id: Starting event ID
         timestamp: Starting timestamp
+        narration_service: Optional GuardedNarrationService for narration generation (WO-030)
 
     Returns:
         CombatRoundResult with updated state and all events
@@ -296,7 +298,8 @@ def execute_combat_round(
             doctrine=doctrine,
             rng=rng,
             next_event_id=current_event_id,
-            timestamp=current_timestamp
+            timestamp=current_timestamp,
+            narration_service=narration_service,  # WO-030: Pass through narration service
         )
 
         # Check if flat-footed should be cleared
