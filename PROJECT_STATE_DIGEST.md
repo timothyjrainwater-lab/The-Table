@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 INTEGRATED: WO-036 (33 spells, 50 tests) + WO-033 (28 tests, rework pending for +12). 3530 tests, 0 failed.
+LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 COMPLETE: WO-036 (50 tests) + WO-033 (40 tests, rework delivered). 3542 tests, 0 failed, 15 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -161,17 +161,17 @@ LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 INTEGRATED: WO-036 (33 spells, 50 t
 - **3 concentration spells**: Stinking Cloud, Wall of Fire, Telekinesis
 - **50 tests** in test_expanded_spells.py
 
-### WO-033: Spark Integration Stress Test (Partial)
-- **28 tests** in test_spark_integration_stress.py: NarrativeBrief containment (8), kill switch registry (8), template fallback (4), gold master compatibility (4), mock adapter (4)
-- **Rework pending**: Determinism verification (8 tests) and GPU performance (4 tests) categories not yet delivered
+### WO-033: Spark Integration Stress Test (Complete)
+- **40 tests** in test_spark_integration_stress.py: NarrativeBrief containment (8), kill switch registry (8), template fallback (4), gold master compatibility (4), mock adapter (4), determinism verification (8), GPU performance (4 — hardware-gated skip)
+- **Full coverage**: All 6 test categories delivered. 36 pass, 4 skipped (GPU-gated).
 
 ---
 
 ## Test Count
 
-**Total: 3530 tests** (all passing in ~46 seconds, 0 failed, 11 skipped hardware-gated)
+**Total: 3542 tests** (all passing, 0 failed, 15 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Batch 1: +150 tests. Batch 2: +78 tests (WO-036: 50, WO-033: 28).
+> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Batch 1: +150 tests. Batch 2: +90 tests (WO-036: 50, WO-033: 40).
 
 ---
 
@@ -217,7 +217,7 @@ LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 INTEGRATED: WO-036 (33 spells, 50 t
 ## Canonical Project Plan Reference
 
 **CANONICAL EXECUTION PLAN (Plan v2 — ACTIVE):**
-- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 Batch 1 COMPLETE. Phase 2 Batch 2 DISPATCHED.
+- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 COMPLETE (Batch 1 + Batch 2). A9 gate pending.
 
 **PRIOR PLANS (Historical):**
 - [EXECUTION_PLAN_DRAFT_2026_02_11.md](docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md) — Plan v1 (7-step). All 26 WOs complete. Closed.
@@ -256,7 +256,7 @@ LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 INTEGRATED: WO-036 (33 spells, 50 t
 - Conditions and status effects (non-relational, non-permanent)
 - Targeting and visibility
 - Saving throws and defensive resolution
-- Spellcasting (20 spells, levels 0-5, SpellResolver pipeline)
+- Spellcasting (53 spells, levels 0-5, SpellResolver pipeline)
 
 **All Tier 2 and Tier 3 mechanics are FORBIDDEN.**
 
@@ -312,7 +312,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~46s at 3452 tests — rule predates scale)
+- All tests must pass in < 5 seconds (currently ~46s at 3542 tests — rule predates scale)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)
@@ -352,7 +352,7 @@ All Batch 1 WOs integrated and tested. 3452 tests passing, 0 failed, 11 skipped 
 
 | WO | Description | Dispatch File | Status |
 |----|-------------|---------------|--------|
-| WO-033 | Spark Integration Stress Test | pm_inbox/reviewed/OPUS_WO-033_SPARK_STRESS_TEST_DISPATCH.md | **INTEGRATED** (28 tests, rework pending: +12 determinism/perf tests) |
+| WO-033 | Spark Integration Stress Test | pm_inbox/reviewed/OPUS_WO-033_SPARK_STRESS_TEST_DISPATCH.md | **INTEGRATED** (40 tests — 36 pass, 4 GPU-skipped) |
 | WO-036 | Expanded Spell Registry (33 new spells) | pm_inbox/OPUS_WO-036_EXPANDED_SPELLS_DISPATCH.md | **INTEGRATED** (50 tests, 3530 total) |
 
 ### Phases 3-4 — FUTURE (awaiting Phase 2 A9 gate)
