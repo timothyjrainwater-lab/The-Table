@@ -30,7 +30,10 @@ from aidm.core.state import WorldState
 _ALLOWED_AIDM_IMPORTS = frozenset({
     "aidm.schemas.immersion",
     "aidm.schemas.transparency",  # WO-023: Tri-Gem Socket transparency schemas
+    "aidm.schemas.position",  # WO-025: Position for ghost stencils & judge's lens
+    "aidm.schemas.intents",  # Voice intent parsing
     "aidm.core.state",
+    "aidm.core.aoe_rasterizer",  # WO-025: Geometry for ghost stencils
     "aidm.immersion",
     "aidm.immersion.stt_adapter",
     "aidm.immersion.tts_adapter",
@@ -39,6 +42,10 @@ _ALLOWED_AIDM_IMPORTS = frozenset({
     "aidm.immersion.contextual_grid",
     "aidm.immersion.attribution",
     "aidm.immersion.tri_gem_socket",  # WO-023: Tri-Gem Socket
+    "aidm.immersion.combat_receipt",  # WO-025: Combat receipts
+    "aidm.immersion.ghost_stencil",  # WO-025: Ghost stencils
+    "aidm.immersion.judges_lens",  # WO-025: Judge's lens
+    "aidm.immersion.voice_intent_parser",  # Voice intent parsing
     # Backend-specific adapter implementations (lazy-loaded)
     "aidm.immersion.whisper_stt_adapter",
     "aidm.immersion.kokoro_tts_adapter",

@@ -23,9 +23,9 @@
 ## STATE BANNER
 
 ```
-PHASE:       Step 7 IN PROGRESS — Immersion Layer
-TESTS:       3091 passing
-PENDING:     WO-024, WO-025 awaiting paste
+PHASE:       Step 7 IN PROGRESS — Immersion Layer (WO-026 audit pending)
+TESTS:       3170 passing
+PENDING:     WO-026 Full System Audit awaiting paste
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -57,11 +57,9 @@ PENDING:     WO-024, WO-025 awaiting paste
 ## PENDING DISPATCH
 
 **Current batch (parallel-safe):**
-- WO-024 — Voice-First Intent Parser
-- WO-025 — Table-Native UX (Combat Receipts, Ghost Stencils, Judge's Lens)
+- WO-026 — Full System Audit (Plan Closure Gate) — read-only, no code changes
 
-**Queued (dispatched after WO-024/025 complete):**
-- WO-026 — Full System Audit (Plan Closure Gate) — read-only audit, no code changes
+**Queued:** None — WO-026 is the final WO in the 7-step plan.
 
 **Protocol:**
 - When dispatch presented: Add entry here

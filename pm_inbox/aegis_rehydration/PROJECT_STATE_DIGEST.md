@@ -1,8 +1,8 @@
 <!--
 PROJECT STATE DIGEST — LEAN OPERATIONAL STATE
 Last Updated: 2026-02-11
-Tests: 3091 passing
-Execution Plan: Steps 1-6 COMPLETE, Step 7 IN PROGRESS
+Tests: 3170 passing
+Execution Plan: Steps 1-6 COMPLETE, Step 7 IN PROGRESS (WO-026 audit pending)
 Historical content archived to: docs/history/PROJECT_HISTORY.md
 -->
 
@@ -138,18 +138,20 @@ Thousand-Fold Fireball: 1000 iterations, all geometric invariants hold.
 | WO-021 | whisper_stt_adapter.py, test_whisper_stt.py | 850 | 31 | **COMPLETE** |
 | WO-022 | sdxl_image_adapter.py, test_sdxl_image.py | 1303 | 50 | **COMPLETE** |
 | WO-023 | tri_gem_socket.py, transparency.py, test_tri_gem_socket.py | 2553 | 59 | **COMPLETE** |
-| WO-024 | voice_intent_parser.py, clarification_loop.py | — | — | **DISPATCHED** |
-| WO-025 | combat_receipt.py, ghost_stencil.py, judges_lens.py | — | — | **DISPATCHED** |
+| WO-024 | voice_intent_parser.py, clarification_loop.py | 1797 | 39 | **COMPLETE** |
+| WO-025 | combat_receipt.py, ghost_stencil.py, judges_lens.py | 2131 | 40 | **COMPLETE** |
 
 Real backends: Kokoro TTS (CPU), faster-whisper STT (CPU), SDXL Lightning (NF4 GPU).
 Tri-Gem Socket: RUBY/SAPPHIRE/DIAMOND transparency modes on STP streams.
+Voice-first intent parser: Deterministic NLU at 50ms, STM context, DM-persona clarification.
+Table-native UX: Combat receipts, ghost stencils (burst/cone/line), Judge's Lens (3-tier inspection).
 All adapters use lazy loading, graceful fallback to stubs when deps unavailable.
 
 ---
 
 ## Test Summary
 
-**Total: 3091 tests passing**
+**Total: 3170 tests passing**
 
 Recent additions:
 - Geometry engine: 395 tests
@@ -165,6 +167,8 @@ Recent additions:
 - Whisper STT: 31 tests
 - SDXL Image: 50 tests
 - Tri-Gem Socket: 59 tests
+- Voice intent parser: 39 tests
+- Table-native UX: 40 tests
 
 ---
 
