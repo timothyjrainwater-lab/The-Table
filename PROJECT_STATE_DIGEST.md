@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 COMPLETE: WO-036 (50 tests) + WO-033 (40 tests, rework delivered). 3542 tests, 0 failed, 15 skipped (hardware-gated).
+LAST UPDATED: 2026-02-11 — Phase 3 Batch 1 INTEGRATED: WO-038 (27 tests) + WO-040 (31 tests) + WO-041 (32 tests). A9 PASSED. 3628 tests, 0 failed, 15 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -165,13 +165,31 @@ LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 COMPLETE: WO-036 (50 tests) + WO-03
 - **40 tests** in test_spark_integration_stress.py: NarrativeBrief containment (8), kill switch registry (8), template fallback (4), gold master compatibility (4), mock adapter (4), determinism verification (8), GPU performance (4 — hardware-gated skip)
 - **Full coverage**: All 6 test categories delivered. 36 pass, 4 skipped (GPU-gated).
 
+### WO-038: Intent Bridge (Phase 3)
+- **IntentBridge**: Translates player-facing names → entity IDs, weapon objects, spell IDs
+- **ClarificationRequest**: Frozen dataclass for ambiguity handling (target/weapon/spell not found or ambiguous)
+- **BL-020 compliant**: FrozenWorldStateView for all lookups, no state mutation
+- **27 tests** in test_intent_bridge.py
+
+### WO-040: Scene Management (Phase 3)
+- **SceneManager**: Scene transitions, encounter triggers (delegates to Box initiative), D&D 3.5e rest healing
+- **Rest mechanics**: 1 HP/level (8hrs), 2 HP/level (long-term care), 1.5x/level (bed rest) — PHB p.146, NOT 5e
+- **Data structures**: SceneState, Exit, EncounterDef, LootDef, TransitionResult, EncounterResult, RestResult
+- **31 tests** in test_scene_manager.py
+
+### WO-041: DM Personality Layer (Phase 3)
+- **DMPersona**: System prompt builder with ToneConfig (gravity/verbosity/drama 0-1), NPC voice mapping (Kokoro TTS)
+- **Containment**: No entity IDs, HP, AC in prompts — NarrativeBrief containment enforced
+- **Presets**: default, gritty, theatrical, humorous, terse DM personas
+- **32 tests** in test_dm_persona.py
+
 ---
 
 ## Test Count
 
-**Total: 3542 tests** (all passing, 0 failed, 15 skipped hardware-gated)
+**Total: 3628 tests** (all passing, 0 failed, 15 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Batch 1: +150 tests. Batch 2: +90 tests (WO-036: 50, WO-033: 40).
+> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32).
 
 ---
 
@@ -185,8 +203,10 @@ LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 COMPLETE: WO-036 (50 tests) + WO-03
 - `aidm/rules/` — legality_checker.py
 - `aidm/ui/` — character_sheet.py (CharacterData, CharacterSheetUI, PartySheet)
 - `aidm/narration/` — narrator.py (55 templates), play_loop_adapter.py, guarded_narration_service.py
-- `aidm/lens/` — narrative_brief.py, context_assembler.py (WO-032)
+- `aidm/lens/` — narrative_brief.py, context_assembler.py (WO-032), scene_manager.py (WO-040)
+- `aidm/interaction/` — intent_bridge.py (WO-038)
 - `aidm/immersion/` — 7 modules: stt/tts/image adapters, audio_mixer, contextual_grid, attribution
+- `aidm/spark/` — model_registry, spark_adapter, llamacpp_adapter, grammar_shield, dm_persona (WO-041)
 - `tests/` — 80+ test files
 - `Vault/` — D&D 3.5e rules knowledge base (~23,750 files, NOT AIDM code, do NOT modify without WO)
 
@@ -217,7 +237,7 @@ LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 COMPLETE: WO-036 (50 tests) + WO-03
 ## Canonical Project Plan Reference
 
 **CANONICAL EXECUTION PLAN (Plan v2 — ACTIVE):**
-- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 COMPLETE (Batch 1 + Batch 2). A9 gate pending.
+- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 COMPLETE (A9 PASSED). Phase 3 Batch 1 INTEGRATED.
 
 **PRIOR PLANS (Historical):**
 - [EXECUTION_PLAN_DRAFT_2026_02_11.md](docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md) — Plan v1 (7-step). All 26 WOs complete. Closed.
@@ -312,7 +332,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~46s at 3542 tests — rule predates scale)
+- All tests must pass in < 5 seconds (currently ~50s at 3628 tests — rule predates scale)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)
@@ -353,11 +373,26 @@ All Batch 1 WOs integrated and tested. 3452 tests passing, 0 failed, 11 skipped 
 | WO | Description | Dispatch File | Status |
 |----|-------------|---------------|--------|
 | WO-033 | Spark Integration Stress Test | pm_inbox/reviewed/OPUS_WO-033_SPARK_STRESS_TEST_DISPATCH.md | **INTEGRATED** (40 tests — 36 pass, 4 GPU-skipped) |
-| WO-036 | Expanded Spell Registry (33 new spells) | pm_inbox/OPUS_WO-036_EXPANDED_SPELLS_DISPATCH.md | **INTEGRATED** (50 tests, 3530 total) |
+| WO-036 | Expanded Spell Registry (33 new spells) | pm_inbox/reviewed/OPUS_WO-036_EXPANDED_SPELLS_DISPATCH.md | **INTEGRATED** (50 tests, 3530 total) |
 
-### Phases 3-4 — FUTURE (awaiting Phase 2 A9 gate)
+### Phase 3 Batch 1 — INTEGRATED (2026-02-11)
 
-See EXECUTION_PLAN_V2_POST_AUDIT.md for full WO definitions (WO-038 through WO-044).
+A9 gate PASSED. Phase 3 Session Playability begins.
+
+| WO | Description | Dispatch File | Status |
+|----|-------------|---------------|--------|
+| WO-038 | Intent Bridge | docs/implementation/WO-038_INTENT_BRIDGE_SUMMARY.md | **INTEGRATED** (27 tests) |
+| WO-040 | Scene Management | pm_inbox/reviewed/SONNET_WO-040_SCENE_MANAGEMENT.md | **INTEGRATED** (31 tests) |
+| WO-041 | DM Personality Layer | (in aidm/spark/dm_persona.py) | **INTEGRATED** (32 tests) |
+
+### Phase 3 Batch 2 + Phase 4 — FUTURE
+
+| WO | Description | Status |
+|----|-------------|--------|
+| WO-039 | Session Orchestrator | PENDING (depends on WO-038) |
+| WO-042-044 | Phase 4 Playtest WOs | FUTURE |
+
+See EXECUTION_PLAN_V2_POST_AUDIT.md for full WO definitions.
 
 ---
 
