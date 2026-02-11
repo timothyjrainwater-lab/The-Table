@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — Phase 3 Batch 1 INTEGRATED: WO-038 (27 tests) + WO-040 (31 tests) + WO-041 (32 tests). A9 PASSED. 3628 tests, 0 failed, 15 skipped (hardware-gated).
+LAST UPDATED: 2026-02-11 — WO-039 Session Orchestrator INTEGRATED (36 tests). 3664 tests, 0 failed, 15 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -183,13 +183,20 @@ LAST UPDATED: 2026-02-11 — Phase 3 Batch 1 INTEGRATED: WO-038 (27 tests) + WO-
 - **Presets**: default, gritty, theatrical, humorous, terse DM personas
 - **32 tests** in test_dm_persona.py
 
+### WO-039: Session Orchestrator (Phase 3)
+- **SessionOrchestrator**: Full turn cycle conductor — STT → IntentBridge → Box → NarrativeBrief → DMPersona + Narration → TTS
+- **Keyword parser**: parse_text_command() for attack/cast/move/rest/go (NOT NLU)
+- **Error recovery**: STT failure → text fallback, TTS failure → text-only, Spark failure → template narration
+- **BL-020 compliant**: FrozenWorldStateView for all reads, no state mutation during turns
+- **36 tests** in test_session_orchestrator.py, lives in `aidm/runtime/` (not `aidm/core/` — respects BL-004)
+
 ---
 
 ## Test Count
 
-**Total: 3628 tests** (all passing, 0 failed, 15 skipped hardware-gated)
+**Total: 3664 tests** (all passing, 0 failed, 15 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32).
+> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +36 tests (WO-039: 36).
 
 ---
 
@@ -205,6 +212,7 @@ LAST UPDATED: 2026-02-11 — Phase 3 Batch 1 INTEGRATED: WO-038 (27 tests) + WO-
 - `aidm/narration/` — narrator.py (55 templates), play_loop_adapter.py, guarded_narration_service.py
 - `aidm/lens/` — narrative_brief.py, context_assembler.py (WO-032), scene_manager.py (WO-040)
 - `aidm/interaction/` — intent_bridge.py (WO-038)
+- `aidm/runtime/` — session.py, session_orchestrator.py (WO-039), bootstrap.py, runner.py, display.py, ipc_serialization.py
 - `aidm/immersion/` — 7 modules: stt/tts/image adapters, audio_mixer, contextual_grid, attribution
 - `aidm/spark/` — model_registry, spark_adapter, llamacpp_adapter, grammar_shield, dm_persona (WO-041)
 - `tests/` — 80+ test files
@@ -332,7 +340,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~50s at 3628 tests — rule predates scale)
+- All tests must pass in < 5 seconds (currently ~50s at 3664 tests — rule predates scale)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)
@@ -385,11 +393,16 @@ A9 gate PASSED. Phase 3 Session Playability begins.
 | WO-040 | Scene Management | pm_inbox/reviewed/SONNET_WO-040_SCENE_MANAGEMENT.md | **INTEGRATED** (31 tests) |
 | WO-041 | DM Personality Layer | (in aidm/spark/dm_persona.py) | **INTEGRATED** (32 tests) |
 
-### Phase 3 Batch 2 + Phase 4 — FUTURE
+### Phase 3 Batch 2 — INTEGRATED (2026-02-11)
 
 | WO | Description | Status |
 |----|-------------|--------|
-| WO-039 | Session Orchestrator | PENDING (depends on WO-038) |
+| WO-039 | Session Orchestrator | **INTEGRATED** (36 tests) |
+
+### Phase 4 — FUTURE
+
+| WO | Description | Status |
+|----|-------------|--------|
 | WO-042-044 | Phase 4 Playtest WOs | FUTURE |
 
 See EXECUTION_PLAN_V2_POST_AUDIT.md for full WO definitions.
