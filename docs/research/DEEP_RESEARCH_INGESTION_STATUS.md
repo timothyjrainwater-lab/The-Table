@@ -18,11 +18,11 @@ Thunder delivered 7 comprehensive Deep Research question prompts covering the co
 |---|----------|--------|-------|----------------|-----------------|
 | 1 | RQ-BOX-001 | Box | Grid-Based Geometric Engine | YES | **DELIVERED** |
 | 2 | RQ-LENS-001 | Lens | Data Indexing + Retrieval Contract | YES | **DELIVERED** |
-| 3 | RQ-SPARK-001 | Spark | World Modeling → Structured Fact Emission | YES | **NOT DELIVERED** |
+| 3 | RQ-SPARK-001 | Spark | World Modeling → Structured Fact Emission | YES | **DELIVERED** (3 sub-dispatches: A/B/C) |
 | 4 | RQ-PERF-001 | System | Deterministic Compute Budgeting | YES | **DELIVERED** (partial) |
 | 5 | RQ-INTERACT-001 | Player | Voice-First, Click-Second | YES | **DELIVERED** |
 | 6 | RQ-TRUST-001 | Trust | "Show Your Work" Without Debug UI | YES | **DELIVERED** |
-| 7 | RQ-NARR-001 | AI | Narrative Balance (Spark bounded by Box) | YES | **NOT DELIVERED** |
+| 7 | RQ-NARR-001 | AI | Narrative Balance (Spark bounded by Box) | YES | **DELIVERED** (3 sub-dispatches: A/B/C) |
 
 ---
 
@@ -150,9 +150,10 @@ These have not been formalized as research questions yet.
 
 ## Next Steps
 
-1. **Receive remaining findings** — 2 research tracks still awaiting findings delivery (SPARK, NARR); PERF partially delivered
-2. **Cross-reference with existing R0/R1 research** — Some findings may overlap with or supersede existing research documents
-3. **Integrate into roadmap rewrite** — Research findings will inform the new milestone architecture
+1. ~~**Receive remaining findings**~~ — **COMPLETE**: All 7 research tracks now have findings (SPARK and NARR delivered via 6 sub-dispatches 2026-02-11)
+2. **Compile synthesis passes** — Sub-question 8 (synthesis/playbook) for RQ-SPARK-001 and RQ-NARR-001 ready to compile from delivered A/B/C findings
+3. **Cross-reference with existing R0/R1 research** — Some findings may overlap with or supersede existing research documents
+4. **Integrate into roadmap execution** — Research findings informing Plan v2 Phase 1-2 WOs (WO-029 Kill Switches, WO-031 Grammar Shield, WO-032+ content)
 
 ---
 

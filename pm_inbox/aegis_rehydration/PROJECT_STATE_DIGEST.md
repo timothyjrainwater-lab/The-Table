@@ -49,11 +49,11 @@ All 7 steps complete. 26/26 WOs delivered. Audit checkpoints A1-A7 all PASSED. P
 
 | Gap | Step | Blocked By | Infrastructure Ready? |
 |-----|------|-----------|----------------------|
-| Real Spark LLM integration | 3.1 | RQ-SPARK-001 (NOT DELIVERED) | Yes — SparkAdapter framework exists |
-| Constrained scene generation | 3.3 | RQ-SPARK-001 (NOT DELIVERED) | Yes — Lens validation, Room Schemas exist |
-| Guarded LLM narration | 5.2 | RQ-NARR-001 (NOT DELIVERED) | Yes — STP pipeline, guardrails (FREEZE-001, BL-003) exist |
+| Real Spark LLM integration | 3.1 | RQ-SPARK-001 — **DELIVERED** (all 3 sub-dispatches) | Yes — SparkAdapter framework exists |
+| Constrained scene generation | 3.3 | RQ-SPARK-001 — **DELIVERED** (all 3 sub-dispatches) | Yes — Lens validation, Room Schemas exist |
+| Guarded LLM narration | 5.2 | RQ-NARR-001 — **DELIVERED** (all 3 sub-dispatches) | Yes — STP pipeline, guardrails (FREEZE-001, BL-003) exist |
 
-These are tracked deferrals, not failures. All infrastructure is built and tested; only the research inputs are missing.
+All research inputs now delivered. Findings in `docs/research/findings/`. Synthesis (sub-Q8 for each RQ) ready to compile.
 
 ---
 

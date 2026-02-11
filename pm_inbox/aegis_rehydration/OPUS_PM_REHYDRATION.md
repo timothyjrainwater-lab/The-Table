@@ -69,8 +69,9 @@ NEXT:        Dispatch Phase 1 Batch 2 (WO-029 + WO-031)
 - WO-030 — Narration Pipeline Wiring (after WO-029)
 
 **Research (parallel with all implementation WOs):**
-- RQ-SPARK-001 — 3 sub-dispatches (A/B/C) — READY
-- RQ-NARR-001 — 3 sub-dispatches (A/B/C) — READY
+- RQ-SPARK-001 — 3 sub-dispatches (A/B/C) — ALL DELIVERED ✓
+- RQ-NARR-001 — 3 sub-dispatches (A/B/C) — ALL DELIVERED ✓
+- Synthesis (sub-Q8 for each RQ) — READY to compile from findings
 
 **Protocol:**
 - When dispatch presented: Add entry here
@@ -160,7 +161,8 @@ NEXT:        Dispatch Phase 1 Batch 2 (WO-029 + WO-031)
 | STT | faster-whisper small.en | 0 GB |
 | Music | ACE-Step | 6-8 GB |
 
-### Pending Research
+### Research Status
 
-- RQ-SPARK-001 (Structured Fact Emission) — DISPATCHED (3 sub-tasks: A/B/C)
-- RQ-NARR-001 (Narrative Balance) — DISPATCHED (3 sub-tasks: A/B/C)
+- RQ-SPARK-001 (Structured Fact Emission) — **ALL 3 SUB-DISPATCHES DELIVERED** (A/B/C findings in docs/research/findings/)
+- RQ-NARR-001 (Narrative Balance) — **ALL 3 SUB-DISPATCHES DELIVERED** (A/B/C findings in docs/research/findings/)
+- Synthesis (sub-Q8 for each RQ) — READY to compile from delivered findings
