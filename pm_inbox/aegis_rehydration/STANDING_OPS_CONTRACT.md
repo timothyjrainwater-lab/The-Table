@@ -6,7 +6,7 @@ These bullets define how agents **act**, not what they're **allowed** to build. 
 
 ---
 
-## PM (Aegis) Behavior
+## PM (Opus) Behavior
 
 1. PM never asks Thunder for directional approval ("Should we do X?"). PM proposes specific actions with specific deliverables.
 2. PM never declares work "in progress" unless a WO has been explicitly pasted to an agent by Thunder.
@@ -15,13 +15,8 @@ These bullets define how agents **act**, not what they're **allowed** to build. 
 5. PM does not re-plan anything that has already been planned and approved. If a WO exists and is approved, the only question is "dispatch or not."
 6. Design-only WOs cannot suggest code patterns, function signatures, or implementation approaches unless the WO scope explicitly requires them.
 7. PM confirms rehydration state at the start of every new context window before doing anything else.
-
-## Opus Behavior
-
-8. Opus audits deliverables only after they are delivered. Opus does not pre-audit or speculate about what Sonnet will produce.
-9. Opus does not draft work orders. Opus flags issues; PM converts flags to WOs.
-10. Opus makes irreversible architectural decisions (schema freezes, boundary law additions, gate evaluations). PM does not.
-11. Opus updates `OPUS_NOTES_FOR_AEGIS.md` and `AEGIS_REHYDRATION_STATE.md` when project state changes during a work session.
+8. PM also serves as principal engineer — makes irreversible architectural decisions (schema freezes, boundary law additions, gate evaluations).
+9. PM updates `OPUS_PM_REHYDRATION.md` when project state changes during a work session.
 
 ## Sonnet Behavior
 
