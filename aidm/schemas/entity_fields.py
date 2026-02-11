@@ -112,6 +112,11 @@ class _EntityFields:
     # --- Feats (WO-034) ---
     FEATS = "feats"                      # List of feat IDs (e.g., ["power_attack", "weapon_focus_longsword"])
 
+    # --- Skills (WO-035) ---
+    SKILL_RANKS = "skill_ranks"          # Dict mapping skill_id to rank (e.g., {"tumble": 5, "hide": 3})
+    CLASS_SKILLS = "class_skills"        # List of skill_ids that are class skills (e.g., ["tumble", "hide"])
+    ARMOR_CHECK_PENALTY = "armor_check_penalty"  # Armor check penalty value (subtracted from relevant skills)
+
 
 # Singleton instance — import this
 EF = _EntityFields()

@@ -9,7 +9,7 @@ UPDATE RULES:
 - Format: Markdown with stable section ordering
 - REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
-LAST UPDATED: 2026-02-11 — Phase 2 Batch 1 partial: WO-034 (Feats) INTEGRATED, WO-037 (XP/Leveling) INTEGRATED, WO-032/WO-035 in progress
+LAST UPDATED: 2026-02-11 — Phase 2 Batch 1 COMPLETE: WO-032 (NarrativeBrief) INTEGRATED, WO-034 (Feats) INTEGRATED, WO-035 (Skills) INTEGRATED, WO-037 (XP/Leveling) INTEGRATED
 NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (design) and WO-M1-RUNTIME-02 (implementation verification) complete. WO-M2-02 (BL-017/018 persistence cleanup) complete. WO-M1.5-UX-01 (runtime experience design) complete. WO-M3-PREP-01 (prep pipeline prototype with sequential model loading) complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, IPC runtime integration, pm_inbox workflow, runtime session bootstrap (campaign load, replay-first reconstruction, partial write recovery, log sync checks, 10× determinism verification). PrepOrchestrator timestamp injection compliance (deterministic testing enabled). Documentation spring cleaning removed 17 superseded files (6,775 lines). Root cleanup: torrent remnants deleted, REUSE_DECISION.json moved to config/. Solo vertical slice runtime experience design complete (resume flow, turn loop, exit semantics, engine/presentation boundary). M3 prep pipeline prototype demonstrates sequential model loading (LLM → Image Gen → Music Gen → SFX Gen) with stub implementations. Post-M3: Whiteboard session completed (7 Deep Research tracks filed, 5 delivered, execution plan formalized). 2003 tests passing. PM authority formally delegated to Opus.
 -->
 
@@ -207,6 +207,46 @@ NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (desig
 - **DMG/PHB citations**: Table 2-6 (p.38), Table 3-2 (p.46), Chapter 3 (p.22+), p.60 (multiclass)
 - **Files**: aidm/schemas/leveling.py, aidm/core/experience_resolver.py, tests/test_experience_resolver.py
 - **Modified**: aidm/schemas/entity_fields.py (EF.XP, EF.LEVEL, EF.CLASS_LEVELS, EF.FEAT_SLOTS)
+
+### WO-032: NarrativeBrief Assembler (Lens Layer)
+- **NarrativeBrief**: Frozen dataclass — one-way valve from Box (STP events) to Spark-safe context
+- **Fields**: action_type, actor_name, target_name, outcome_summary, severity, weapon_name, damage_type, condition_applied, target_defeated, previous_narrations, scene_description, source_event_ids, provenance_tag
+- **Severity mapping**: compute_severity() — HP percentage → category (minor < 20%, moderate 20-40%, severe 40-60%, devastating 60-80%, lethal > 80% or defeated)
+- **Entity name resolution**: resolve_entity_name() — entity_id → display name via FrozenWorldStateView
+- **Assembler**: assemble_narrative_brief() — STP events + FrozenWorldStateView → NarrativeBrief
+- **Outcome summary**: _build_outcome_summary() — action type → natural language description
+- **Containment boundary**: No entity IDs, raw HP, AC, attack bonuses, or grid coordinates in brief
+- **Provenance**: All briefs tagged [DERIVED], source_event_ids tracked
+- **Serialization**: to_dict() / from_dict() for JSON persistence
+- **ContextAssembler**: Token-budget-aware context window builder
+- **Token estimation**: word_count * 1.3 (conservative, no tokenizer dependency)
+- **Priority order**: (1) current brief (always), (2) scene description, (3) recent narrations, (4) session history
+- **Budget enforcement**: Lower-priority items dropped when budget exceeded
+- **Boundary laws**: BL-003 (Lens receives FrozenWorldStateView, not raw Box state), BL-020 (read-only)
+- **Test coverage**: 45 tests (7 severity, 4 entity resolution, 9 assembly, 2 serialization, 4 containment, 3 token estimation, 4 basic assembly, 4 budget enforcement, 3 priority, 5 edge cases)
+- **Files**: aidm/lens/__init__.py, aidm/lens/narrative_brief.py, aidm/lens/context_assembler.py
+- **Tests**: tests/test_narrative_brief.py (25 tests), tests/test_context_assembler.py (20 tests)
+
+### WO-035: Skill System (7 Combat-Adjacent Skills)
+- **SkillDefinition**: Frozen dataclass (skill_id, name, key_ability, armor_check_penalty, trained_only, phb_page)
+- **SkillID**: 7 skill ID constants (TUMBLE, CONCENTRATION, HIDE, MOVE_SILENTLY, SPOT, LISTEN, BALANCE)
+- **SKILLS registry**: Dict mapping skill_id → SkillDefinition for all 7 skills
+- **Skill properties**: Tumble (DEX/ACP/trained-only), Concentration (CON/no-ACP), Hide (DEX/ACP), Move Silently (DEX/ACP), Spot (WIS/no-ACP), Listen (WIS/no-ACP), Balance (DEX/ACP)
+- **resolve_skill_check()**: Standard check — d20 + ability_mod + ranks + circumstance - ACP vs DC
+- **resolve_opposed_check()**: Opposed check — actor vs opponent, ties favor active checker
+- **SkillCheckResult**: Frozen dataclass (success, total, dc, d20_roll, ability_modifier, skill_ranks, circumstance_modifier, armor_check_penalty, skill_id, skill_name)
+- **OpposedCheckResult**: Frozen dataclass (actor_wins, actor_total, opponent_total, actor_d20, opponent_d20, actor_skill, opponent_skill, tie)
+- **Trained-only enforcement**: Tumble requires ranks > 0 (ValueError if untrained)
+- **Armor check penalty**: Applied to DEX-based skills (Tumble, Hide, Move Silently, Balance), not to mental skills (Concentration, Spot, Listen)
+- **AoO integration**: Tumble check (DC 15) in aoo.py to avoid movement AoO (resolve_aoo_sequence)
+- **Concentration integration**: check_concentration_on_damage() in spell_resolver.py (DC = 10 + damage)
+- **Duration tracker extension**: has_active_concentration(), get_concentration_effect()
+- **Entity fields**: EF.SKILL_RANKS, EF.CLASS_SKILLS, EF.ARMOR_CHECK_PENALTY (added to entity_fields.py)
+- **RNG discipline**: Skill checks use "combat" stream
+- **PHB citations**: All 7 skills have phb_page references (p.67-84)
+- **Test coverage**: 30 tests (3 definitions, 10 skill checks, 4 opposed checks, 3 integration, 2 rule validation, 1 RNG, 2 edge cases, 5 concentration integration)
+- **Files**: aidm/schemas/skills.py, aidm/core/skill_resolver.py, tests/test_skill_resolver.py, tests/test_concentration_integration.py
+- **Modified**: aidm/schemas/entity_fields.py (EF.SKILL_RANKS, EF.CLASS_SKILLS, EF.ARMOR_CHECK_PENALTY), aidm/core/aoo.py (Tumble AoO avoidance), aidm/core/spell_resolver.py (Concentration on damage), aidm/core/duration_tracker.py (concentration helpers)
 
 ### Monster Tactical Envelope (Doctrine Layer)
 - **DoctrineTag**: 13 behavioral tags (mindless_feeder, fanatical, cowardly, etc.)
@@ -444,9 +484,9 @@ NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (desig
 
 ## Test Count
 
-**Total: 3377 tests** (all passing in ~46 seconds)
+**Total: 3452 tests** (all passing in ~46 seconds)
 
-NOTE: Detailed breakdown below covers through CP-001 Phase 1 (1393 tests). Plan v1 WOs (WO-001 through WO-026) and Plan v2 Phase 1 WOs (WO-027 through WO-031) added ~1920 additional tests. Phase 2 Batch 1 WOs added 75 tests (WO-034: 41, WO-037: 34). See individual WO completion reports for per-WO test counts.
+NOTE: Detailed breakdown below covers through CP-001 Phase 1 (1393 tests). Plan v1 WOs (WO-001 through WO-026) and Plan v2 Phase 1 WOs (WO-027 through WO-031) added ~1920 additional tests. Phase 2 Batch 1 WOs added 150 tests (WO-032: 45, WO-034: 41, WO-035: 30, WO-037: 34). See individual WO completion reports for per-WO test counts.
 
 Breakdown by subsystem:
 - RNGManager: 8 tests
@@ -551,6 +591,7 @@ Breakdown by subsystem:
 - terrain_resolver.py (CP-19)
 - feat_resolver.py (WO-034 — feat prerequisite validation, combat modifier computation)
 - experience_resolver.py (WO-037 — XP calculation, multiclass penalty, level-up mechanics)
+- skill_resolver.py (WO-035 — skill check resolution, opposed checks, ACP handling)
 - session_log.py (M1 — replay harness)
 - campaign_store.py (M2 — campaign persistence)
 - prep_orchestrator.py (M2 — deterministic prep queue)
@@ -594,12 +635,18 @@ Breakdown by subsystem:
 - position.py (CP-001 — Canonical Position type consolidating 3 legacy grid position types)
 - feats.py (WO-034 — FeatDefinition, FeatID, FEAT_REGISTRY, 15 combat feats)
 - leveling.py (WO-037 — LEVEL_THRESHOLDS, XP_TABLE, CLASS_PROGRESSIONS, LevelUpResult)
+- skills.py (WO-035 — SkillDefinition, SkillID, SKILLS registry, 7 combat-adjacent skills)
 
 ### aidm/ui/
 - character_sheet.py (M1 — CharacterData, CharacterSheetUI, PartySheet)
 
 ### aidm/narration/
 - narrator.py (M1 — Narrator, NarrationTemplates, NarrationContext)
+
+### aidm/lens/
+- __init__.py (WO-032 — re-exports NarrativeBrief, assemble_narrative_brief, ContextAssembler)
+- narrative_brief.py (WO-032 — NarrativeBrief, assemble_narrative_brief, compute_severity, resolve_entity_name)
+- context_assembler.py (WO-032 — ContextAssembler, token-budget-aware context window builder)
 
 ### aidm/immersion/
 - __init__.py (M3 — re-exports all public symbols)
@@ -610,7 +657,7 @@ Breakdown by subsystem:
 - contextual_grid.py (M3 — compute_grid_state)
 - attribution.py (M3 — AttributionStore)
 
-### tests/ (76 files)
+### tests/ (80 files)
 - test_event_log.py
 - test_event_log_citations.py
 - test_rng_manager.py
@@ -687,6 +734,10 @@ Breakdown by subsystem:
 - test_prep_pipeline.py (WO-M3-PREP-01)
 - test_feat_resolver.py (WO-034 — 41 tests: prerequisites, attack/damage/AC/initiative modifiers, TWF, special mechanics)
 - test_experience_resolver.py (WO-037 — 34 tests: XP calculation, multiclass penalty, level thresholds, level-up, award XP)
+- test_narrative_brief.py (WO-032 — 25 tests: severity mapping, entity resolution, brief assembly, serialization, containment boundary)
+- test_context_assembler.py (WO-032 — 20 tests: token estimation, basic assembly, budget enforcement, priority order, edge cases)
+- test_skill_resolver.py (WO-035 — 25 tests: skill definitions, skill checks, opposed checks, integration, rule validation, RNG)
+- test_concentration_integration.py (WO-035 — 5 tests: concentration check on damage, DC scaling, untrained use)
 
 ### Vault/ (D&D 3.5e Rules Knowledge Base — NOT AIDM CODE)
 
@@ -1656,10 +1707,10 @@ The following WOs are dispatched to Sonnet agents for implementation:
 
 | WO | Description | Dispatch File | Status |
 |----|-------------|---------------|--------|
-| WO-032 | NarrativeBrief Assembler (Lens layer) | pm_inbox/OPUS_WO-032_NARRATIVE_BRIEF_DISPATCH.md | DISPATCHED |
-| WO-034 | Core Feat System (15 feats) | pm_inbox/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | **INTEGRATED** (41 tests, 3377 total) |
-| WO-035 | Skill System (7 skills) | pm_inbox/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | DISPATCHED |
-| WO-037 | Experience and Leveling | pm_inbox/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | **INTEGRATED** (34 tests, 3377 total) |
+| WO-032 | NarrativeBrief Assembler (Lens layer) | pm_inbox/OPUS_WO-032_NARRATIVE_BRIEF_DISPATCH.md | **INTEGRATED** (45 tests, 3452 total) |
+| WO-034 | Core Feat System (15 feats) | pm_inbox/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | **INTEGRATED** (41 tests, 3452 total) |
+| WO-035 | Skill System (7 skills) | pm_inbox/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | **INTEGRATED** (30 tests, 3452 total) |
+| WO-037 | Experience and Leveling | pm_inbox/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | **INTEGRATED** (34 tests, 3452 total) |
 
 ### Phase 2 Batch 2 — PENDING (awaiting Batch 1 dependencies)
 

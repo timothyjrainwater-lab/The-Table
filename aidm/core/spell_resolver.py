@@ -983,3 +983,95 @@ def create_spell_resolver(
         turn=turn,
         initiative=initiative,
     )
+
+
+# ==============================================================================
+# CONCENTRATION CHECK — WO-035 Integration
+# ==============================================================================
+
+def check_concentration_on_damage(
+    caster: Dict[str, Any],
+    damage_taken: int,
+    rng: RNGManager,
+    duration_tracker: 'DurationTracker',
+) -> Tuple[bool, Optional[Any], List[Any]]:
+    """Check if concentration is maintained after taking damage.
+
+    PHB p.69: Concentration check (DC = 10 + damage taken) required
+    when caster takes damage while maintaining a concentration spell.
+    Uses Concentration skill.
+
+    Args:
+        caster: Entity dict of caster maintaining concentration
+        damage_taken: Amount of damage taken
+        rng: RNG manager for skill check
+        duration_tracker: DurationTracker instance to check active concentration
+
+    Returns:
+        Tuple of (concentration_maintained, skill_check_result, events)
+        - concentration_maintained: True if check succeeded or no concentration active
+        - skill_check_result: SkillCheckResult if check was made, None otherwise
+        - events: List of Event objects (concentration_check, concentration_broken)
+    """
+    from aidm.schemas.entity_fields import EF
+    from aidm.core.event_log import Event
+
+    events = []
+    caster_id = caster.get(EF.ENTITY_ID, "unknown")
+
+    # Check if caster has active concentration
+    if not duration_tracker.has_active_concentration(caster_id):
+        return (True, None, events)
+
+    # Concentration check: DC = 10 + damage taken
+    dc = 10 + damage_taken
+
+    from aidm.core.skill_resolver import resolve_skill_check
+    from aidm.schemas.skills import SkillID
+
+    # Perform Concentration check
+    check_result = resolve_skill_check(
+        entity=caster,
+        skill_id=SkillID.CONCENTRATION,
+        dc=dc,
+        rng=rng,
+        circumstance_modifier=0
+    )
+
+    # Emit concentration check event
+    events.append(Event(
+        event_id=0,  # Caller should renumber
+        event_type="concentration_check",
+        timestamp=0.0,  # Caller should set timestamp
+        payload={
+            "entity_id": caster_id,
+            "damage_taken": damage_taken,
+            "dc": dc,
+            "total": check_result.total,
+            "d20_roll": check_result.d20_roll,
+            "success": check_result.success,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 69}]  # PHB Concentration
+    ))
+
+    if check_result.success:
+        # Concentration maintained
+        return (True, check_result, events)
+    else:
+        # Concentration broken
+        concentration_effect = duration_tracker.get_concentration_effect(caster_id)
+        broken_effects = duration_tracker.break_concentration(caster_id)
+
+        events.append(Event(
+            event_id=0,  # Caller should renumber
+            event_type="concentration_broken",
+            timestamp=0.0,  # Caller should set timestamp
+            payload={
+                "entity_id": caster_id,
+                "spell_id": concentration_effect.spell_id if concentration_effect else None,
+                "spell_name": concentration_effect.spell_name if concentration_effect else None,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 69}]  # PHB Concentration
+        ))
+
+        return (False, check_result, events)

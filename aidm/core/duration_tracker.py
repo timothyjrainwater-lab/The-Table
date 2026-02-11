@@ -316,6 +316,67 @@ class DurationTracker:
 
         return removed
 
+    def check_concentration_on_damage(
+        self,
+        caster_id: str,
+        damage_taken: int,
+        rng: Any,
+    ) -> tuple[bool, Optional['SkillCheckResult']]:
+        """Check if concentration is maintained after taking damage.
+
+        PHB p.69: Concentration check (DC = 10 + damage taken) required
+        when caster takes damage while maintaining a concentration spell.
+
+        Args:
+            caster_id: Entity maintaining concentration
+            damage_taken: Amount of damage taken
+            rng: RNG manager for skill check
+
+        Returns:
+            Tuple of (concentration_maintained, check_result)
+            - If no concentration active: (True, None)
+            - If check succeeds: (True, SkillCheckResult)
+            - If check fails: (False, SkillCheckResult)
+        """
+        effect_id = self._concentration.get(caster_id)
+        if not effect_id:
+            # No concentration active, no check needed
+            return (True, None)
+
+        # Get the caster entity from world state (we'll need it passed in)
+        # For now, we'll return the DC and let the caller handle the check
+        # This is a limitation - the DurationTracker doesn't have access to entities
+        # We'll handle this at the integration point instead
+        raise NotImplementedError(
+            "check_concentration_on_damage should be called from combat resolver, "
+            "not from DurationTracker directly. Use has_active_concentration() to check."
+        )
+
+    def has_active_concentration(self, caster_id: str) -> bool:
+        """Check if a caster has an active concentration effect.
+
+        Args:
+            caster_id: Entity to check
+
+        Returns:
+            True if caster is maintaining a concentration effect
+        """
+        return caster_id in self._concentration
+
+    def get_concentration_effect(self, caster_id: str) -> Optional[ActiveSpellEffect]:
+        """Get the concentration effect for a caster.
+
+        Args:
+            caster_id: Entity to check
+
+        Returns:
+            ActiveSpellEffect if concentration is active, None otherwise
+        """
+        effect_id = self._concentration.get(caster_id)
+        if effect_id:
+            return self._effects.get(effect_id)
+        return None
+
     # ==========================================================================
     # DISPEL
     # ==========================================================================
