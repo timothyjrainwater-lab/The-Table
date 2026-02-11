@@ -8,7 +8,7 @@ Reference: docs/design/SPARK_ADAPTER_ARCHITECTURE.md (Section 2)
 
 import logging
 from pathlib import Path
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from aidm.spark.model_registry import HardwareTier, ModelProfile, ModelRegistry, TierName
 from aidm.spark.spark_adapter import (
@@ -517,6 +517,57 @@ class LlamaCppAdapter(SparkAdapter):
                 error=str(e),
                 provider_metadata={"model_id": loaded_model.model_id},
             )
+
+    def generate_validated(
+        self,
+        request: SparkRequest,
+        loaded_model: LoadedModel,
+        grammar_shield: Optional[Any] = None,
+        schema: Optional[Any] = None,
+    ) -> SparkResponse:
+        """Generate with Grammar Shield validation.
+
+        Falls through to generate() if no shield provided.
+
+        Args:
+            request: Canonical SPARK request
+            loaded_model: Loaded model instance
+            grammar_shield: Optional GrammarShield instance for validation
+            schema: Optional schema to validate against
+
+        Returns:
+            SparkResponse with validated text (and grammar_shield metadata)
+        """
+        response = self.generate(request, loaded_model)
+
+        if grammar_shield is None:
+            return response
+
+        # Skip validation on error responses
+        if response.finish_reason == FinishReason.ERROR:
+            return response
+
+        result = grammar_shield.validate_and_retry(
+            request=request,
+            response=response,
+            generate_fn=lambda req: self.generate(req, loaded_model),
+            schema=schema,
+        )
+
+        # Return modified SparkResponse with validated text
+        return SparkResponse(
+            text=result.final_text,
+            finish_reason=response.finish_reason,
+            tokens_used=response.tokens_used,
+            provider_metadata={
+                **(response.provider_metadata or {}),
+                "grammar_shield": {
+                    "retries_used": result.retries_used,
+                    "original_text": result.original_text,
+                    "errors_detected": [type(e).__name__ for e in result.errors],
+                },
+            },
+        )
 
     def _calculate_gpu_layers(
         self,

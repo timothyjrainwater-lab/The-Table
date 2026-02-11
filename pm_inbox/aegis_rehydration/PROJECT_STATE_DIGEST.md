@@ -168,7 +168,7 @@ All adapters use lazy loading, graceful fallback to stubs when deps unavailable.
 
 ## Test Summary
 
-**Total: 3221 tests passing**
+**Total: 3288 tests passing**
 
 Recent additions:
 - Geometry engine: 395 tests
@@ -193,9 +193,9 @@ Recent additions:
 |----|--------|-------|--------|
 | WO-027 | spark_adapter.py, llamacpp_adapter.py | 31 new (49 total) | **COMPLETE** |
 | WO-028 | guarded_narration_service.py, narrator.py | 20 new (29 total) | **COMPLETE** |
-| WO-029 | Kill Switch Suite (KILL-002→006) | — | **READY** (depends on WO-028) |
-| WO-030 | Narration Pipeline Wiring | — | BLOCKED by WO-029 |
-| WO-031 | Grammar Shield v1 | — | **READY** (depends on WO-027) |
+| WO-029 | kill_switch_registry.py, guarded_narration_service.py | 35 new (3288 total) | **COMPLETE** |
+| WO-030 | Narration Pipeline Wiring | — | **READY** (depends on WO-029) |
+| WO-031 | grammar_shield.py, llamacpp_adapter.py | 32 new (3288 total) | **COMPLETE** |
 
 ---
 

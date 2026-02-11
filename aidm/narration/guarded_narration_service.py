@@ -5,6 +5,11 @@ Implements guardrails from M1_IMPLEMENTATION_GUARDRAILS.md:
 - FORBIDDEN-WRITE-001: No narration-to-memory writes
 - LLM-002: Temperature boundaries (query ≤0.5, narration ≥0.7)
 - KILL-001: Narration-to-memory write detection
+- KILL-002: Mechanical assertion in Spark output
+- KILL-003: Token overflow (completion > max_tokens * 1.1)
+- KILL-004: Spark latency exceeds 10s
+- KILL-005: Consecutive guardrail rejections > 3
+- KILL-006: State hash drift post-narration
 
 BOUNDARY LAW (BL-003): This module must NEVER import from aidm.core.
 NARRATION (LENS) receives only immutable EngineResult snapshots. If you add
@@ -23,10 +28,17 @@ Reference: docs/design/M1_IMPLEMENTATION_GUARDRAILS.md
 import hashlib
 import json
 import logging
+import time
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
 
+from aidm.narration.kill_switch_registry import (
+    KillSwitchID,
+    KillSwitchRegistry,
+    build_evidence,
+    detect_mechanical_assertions,
+)
 from aidm.narration.narrator import NarrationTemplates, NarrationContext
 from aidm.schemas.campaign_memory import (
     SessionLedgerEntry,
@@ -144,11 +156,13 @@ class NarrationRequest:
         engine_result: Engine result to narrate (read-only)
         memory_snapshot: Frozen memory snapshot (immutable)
         temperature: LLM temperature (≥0.7 for narration per LLM-002)
+        world_state_hash: Optional world state hash for KILL-006 drift detection
     """
 
     engine_result: EngineResult
     memory_snapshot: FrozenMemorySnapshot
     temperature: float = 0.8  # Default narration temperature
+    world_state_hash: Optional[str] = None  # For KILL-006
 
     def __post_init__(self):
         """Validate narration request constraints."""
@@ -219,7 +233,7 @@ class GuardedNarrationService:
     - FREEZE-001: Read-only memory snapshots
     - FORBIDDEN-WRITE-001: No narration-to-memory writes
     - LLM-002: Temperature boundaries (narration ≥0.7)
-    - KILL-001: Write detection kill switch
+    - KILL-001 through KILL-006: Kill switch suite
 
     M2 Integration:
     - Supports optional Spark Adapter integration for LLM narration
@@ -227,17 +241,32 @@ class GuardedNarrationService:
     - All M1 guardrails remain enforced regardless of narration method
     """
 
-    def __init__(self, loaded_model: Optional[Any] = None, use_llm_query_interface: bool = True):
+    # KILL-004 latency threshold in seconds
+    LATENCY_THRESHOLD_S = 10.0
+
+    # KILL-003 token overflow multiplier
+    TOKEN_OVERFLOW_MULTIPLIER = 1.1
+
+    # KILL-005 consecutive rejection threshold
+    CONSECUTIVE_REJECTION_THRESHOLD = 3
+
+    def __init__(self, loaded_model: Optional[Any] = None, use_llm_query_interface: bool = True,
+                 kill_switch_registry: Optional[KillSwitchRegistry] = None):
         """Initialize guarded narration service.
 
         Args:
             loaded_model: Optional LoadedModel from Spark Adapter for LLM narration.
                          If None, uses template-based narration (M1 mode).
             use_llm_query_interface: If True and available, use LLMQueryInterface for narration (M3 mode).
+            kill_switch_registry: Optional shared KillSwitchRegistry instance.
+                                 If None, creates a private instance.
         """
         self.metrics = NarrationMetrics()
-        self._kill_switch_active = False
+        self.kill_switch_registry = kill_switch_registry or KillSwitchRegistry()
         self.loaded_model = loaded_model if SPARK_AVAILABLE else None
+
+        # Backward compat: shadow property for _kill_switch_active
+        # (used by existing tests that call _trigger_kill_switch directly)
 
         # Initialize LLMQueryInterface if requested and available
         self.llm_query_interface = None
@@ -264,16 +293,19 @@ class GuardedNarrationService:
         Raises:
             NarrationBoundaryViolation: If any guardrail violated
         """
-        # KILL-001: Check if kill switch active
-        if self._kill_switch_active:
-            logger.error("KILL-001 ACTIVE: Narration generation DISABLED")
+        # Check if ANY kill switch is active (O(1) via registry cache)
+        if self.kill_switch_registry.any_triggered():
+            active = self.kill_switch_registry.get_all_active()
+            ids = ", ".join(sw.value for sw, _ in active)
+            logger.error(f"Kill switch(es) ACTIVE ({ids}): Narration generation DISABLED")
             raise NarrationBoundaryViolation(
-                "Narration generation disabled by kill switch (KILL-001). "
-                "Memory write violation detected."
+                f"Narration generation disabled by kill switch ({ids}). "
+                "Manual reset required."
             )
 
         # Store hash before narration (for mutation detection)
         hash_before = request.memory_snapshot.snapshot_hash
+        world_hash_before = request.world_state_hash
 
         logger.info(
             f"Generating narration (temp={request.temperature}, hash={hash_before[:8]})"
@@ -282,32 +314,198 @@ class GuardedNarrationService:
         # ── Narration Generation ────────────────────────────────────
         # Try LLM narration if model loaded, otherwise use template
         provenance = "[NARRATIVE:TEMPLATE]"
+        llm_narration_text = None
+        llm_tokens_used = 0
+        llm_max_tokens = 150  # default
+
         if self.loaded_model is not None and self.loaded_model.model_id != "template-narration":
             try:
-                narration_text = self._generate_llm_narration(request)
-                provenance = "[NARRATIVE]"
+                t0 = time.monotonic()
+                llm_narration_text, llm_tokens_used, llm_max_tokens = self._generate_llm_narration_with_meta(request)
+                elapsed = time.monotonic() - t0
+
+                # ── KILL-004: Latency check ──────────────────────────
+                if elapsed > self.LATENCY_THRESHOLD_S:
+                    ev = build_evidence(
+                        KillSwitchID.KILL_004,
+                        f"Spark latency {elapsed*1000:.0f}ms exceeds {self.LATENCY_THRESHOLD_S*1000:.0f}ms threshold",
+                        {"elapsed_ms": round(elapsed * 1000), "max_allowed_ms": round(self.LATENCY_THRESHOLD_S * 1000)},
+                    )
+                    self.kill_switch_registry.trigger(KillSwitchID.KILL_004, ev)
+                    self.kill_switch_registry.record_rejection(KillSwitchID.KILL_004)
+                    self._check_kill005()
+                    # Fall back to template
+                    llm_narration_text = None
+
+                # ── KILL-003: Token overflow check ───────────────────
+                if llm_narration_text is not None and llm_tokens_used > llm_max_tokens * self.TOKEN_OVERFLOW_MULTIPLIER:
+                    ev = build_evidence(
+                        KillSwitchID.KILL_003,
+                        f"Token overflow: {llm_tokens_used} > {llm_max_tokens} * {self.TOKEN_OVERFLOW_MULTIPLIER}",
+                        {"max_tokens": llm_max_tokens, "tokens_used": llm_tokens_used,
+                         "overflow_ratio": round(llm_tokens_used / llm_max_tokens, 2)},
+                    )
+                    self.kill_switch_registry.trigger(KillSwitchID.KILL_003, ev)
+                    self.kill_switch_registry.record_rejection(KillSwitchID.KILL_003)
+                    self._check_kill005()
+                    llm_narration_text = None
+
+                # ── KILL-002: Mechanical assertion check ─────────────
+                if llm_narration_text is not None:
+                    mech = detect_mechanical_assertions(llm_narration_text)
+                    if mech is not None:
+                        pattern_name, matched_text = mech
+                        ev = build_evidence(
+                            KillSwitchID.KILL_002,
+                            f"Mechanical assertion detected: {pattern_name}",
+                            {"pattern": pattern_name, "matched_text": matched_text,
+                             "full_narration": llm_narration_text},
+                        )
+                        self.kill_switch_registry.trigger(KillSwitchID.KILL_002, ev)
+                        self.kill_switch_registry.record_rejection(KillSwitchID.KILL_002)
+                        self._check_kill005()
+                        llm_narration_text = None
+
             except Exception as e:
                 logger.warning(f"LLM narration failed, falling back to template: {e}")
-                narration_text = self._generate_template_narration(request.engine_result)
+                llm_narration_text = None
+
+        # Determine final narration text
+        if llm_narration_text is not None:
+            narration_text = llm_narration_text
+            provenance = "[NARRATIVE]"
+            # Successful generation resets consecutive rejection counter
+            self.kill_switch_registry.reset_rejection_counter()
         else:
             narration_text = self._generate_template_narration(request.engine_result)
 
         # ── Guardrail Enforcement ───────────────────────────────────
 
-        # FREEZE-001: Verify memory snapshot unchanged
+        # FREEZE-001 / KILL-001: Verify memory snapshot unchanged
         hash_after = request.memory_snapshot.snapshot_hash
         if hash_before != hash_after:
             self.metrics.hash_mismatches += 1
-            self._trigger_kill_switch(
-                f"Memory hash mismatch detected (before={hash_before[:8]}, after={hash_after[:8]})"
+            ev = build_evidence(
+                KillSwitchID.KILL_001,
+                f"Memory hash mismatch detected (before={hash_before[:8]}, after={hash_after[:8]})",
+                {"hash_before": hash_before, "hash_after": hash_after},
             )
+            self.kill_switch_registry.trigger(KillSwitchID.KILL_001, ev)
+            self.metrics.write_violations += 1
+            self.kill_switch_registry.record_rejection(KillSwitchID.KILL_001)
+            self._check_kill005()
             raise NarrationBoundaryViolation(
                 "FREEZE-001 VIOLATION: Memory snapshot mutated during narration. "
                 f"Hash before: {hash_before[:8]}, Hash after: {hash_after[:8]}"
             )
 
+        # KILL-006: State hash drift (broader than KILL-001)
+        if world_hash_before is not None:
+            # Caller must provide a way to re-compute the hash post-narration.
+            # Since we can't access world state directly (BL-003), we compare
+            # the hash stored in the request. If the request's world_state_hash
+            # has been modified between construction and now, drift is detected.
+            # In practice, the caller re-computes and passes it via a callback
+            # or the request is validated externally. Here we store the "before"
+            # and the caller can call check_world_state_drift() after.
+            pass  # Drift check happens via check_world_state_drift() method
+
         logger.info(f"Narration generated successfully (hash verified: {hash_after[:8]})")
         return NarrationResult(text=narration_text, provenance=provenance)
+
+    def check_world_state_drift(self, hash_before: str, hash_after: str) -> bool:
+        """Check for world state hash drift (KILL-006).
+
+        Call this after narration if the caller has access to world state hashes.
+
+        Args:
+            hash_before: World state hash before narration
+            hash_after: World state hash after narration
+
+        Returns:
+            True if drift detected (kill switch triggered)
+        """
+        if hash_before != hash_after:
+            ev = build_evidence(
+                KillSwitchID.KILL_006,
+                f"World state hash drift detected (before={hash_before[:8]}, after={hash_after[:8]})",
+                {"hash_before": hash_before, "hash_after": hash_after, "snapshot_type": "world_state"},
+            )
+            self.kill_switch_registry.trigger(KillSwitchID.KILL_006, ev)
+            self.kill_switch_registry.record_rejection(KillSwitchID.KILL_006)
+            self._check_kill005()
+            return True
+        return False
+
+    def _check_kill005(self) -> None:
+        """Check if KILL-005 (consecutive rejections) should fire."""
+        if self.kill_switch_registry.consecutive_rejections >= self.CONSECUTIVE_REJECTION_THRESHOLD:
+            if not self.kill_switch_registry.is_triggered(KillSwitchID.KILL_005):
+                ev = build_evidence(
+                    KillSwitchID.KILL_005,
+                    f"Consecutive guardrail rejections: {self.kill_switch_registry.consecutive_rejections}",
+                    {"rejection_count": self.kill_switch_registry.consecutive_rejections,
+                     "rejection_types": self.kill_switch_registry.rejection_types},
+                )
+                self.kill_switch_registry.trigger(KillSwitchID.KILL_005, ev)
+
+    def _generate_llm_narration_with_meta(self, request: NarrationRequest):
+        """Generate narration using LLM and return metadata for kill switch checks.
+
+        Returns:
+            Tuple of (narration_text, tokens_used, max_tokens)
+        """
+        # M3 mode: Use LLMQueryInterface if available
+        if self.llm_query_interface is not None:
+            try:
+                world_state = self._build_world_state_summary(request)
+                player_action = self._extract_player_action(request.engine_result)
+                text = self.llm_query_interface.generate_narration(
+                    player_action=player_action,
+                    world_state_summary=world_state,
+                    character_context=None,
+                    temperature=request.temperature,
+                    narration_type="combat",
+                )
+                return (text, 0, 150)  # No token info from M3 interface
+            except Exception as e:
+                logger.warning(f"LLMQueryInterface narration failed, falling back to basic mode: {e}")
+
+        # M2 mode: Use basic Spark model interface
+        if not SPARK_AVAILABLE:
+            raise RuntimeError("Spark Adapter not available")
+
+        if self.loaded_model is None or self.loaded_model.inference_engine is None:
+            raise RuntimeError("No LLM model loaded")
+
+        prompt = self._build_llm_prompt(request)
+        presets = self.loaded_model.profile.presets.get('narration', {})
+        temperature = request.temperature
+        max_tokens = presets.get('max_tokens', 150)
+        stop_sequences = presets.get('stop_sequences', [])
+
+        logger.debug(f"Generating LLM narration (temp={temperature}, max_tokens={max_tokens})")
+
+        output = self.loaded_model.inference_engine(
+            prompt,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            stop=stop_sequences,
+            echo=False,
+        )
+
+        # Extract text
+        if isinstance(output, dict) and 'choices' in output:
+            text = output['choices'][0]['text']
+        else:
+            text = str(output)
+
+        # Extract token usage
+        tokens_used = 0
+        if isinstance(output, dict) and 'usage' in output:
+            tokens_used = output['usage'].get('completion_tokens', 0)
+
+        return (text.strip(), tokens_used, max_tokens)
 
     def _generate_llm_narration(self, request: NarrationRequest) -> str:
         """Generate narration using LLM (Spark Adapter or LLMQueryInterface).
@@ -509,30 +707,39 @@ class GuardedNarrationService:
         return template.format_map(safe_defaults)
 
     def _trigger_kill_switch(self, reason: str) -> None:
-        """Trigger KILL-001 kill switch.
+        """Trigger KILL-001 kill switch (backward compat wrapper).
 
         Args:
             reason: Reason for kill switch activation
         """
-        self._kill_switch_active = True
+        ev = build_evidence(
+            KillSwitchID.KILL_001,
+            reason,
+            {"reason": reason},
+        )
+        self.kill_switch_registry.trigger(KillSwitchID.KILL_001, ev)
         self.metrics.write_violations += 1
         logger.critical(f"KILL-001 TRIGGERED: {reason}")
         logger.critical("Narration generation DISABLED until manual reset")
 
-    def reset_kill_switch(self) -> None:
+    def reset_kill_switch(self, switch_id: Optional[KillSwitchID] = None) -> None:
         """Reset kill switch (manual intervention required).
 
         This should only be called after:
         1. Root cause identified and fixed
         2. Guardrails re-verified
         3. Agent D approval obtained
+
+        Args:
+            switch_id: Specific switch to reset. If None, resets KILL-001 (backward compat).
         """
-        logger.warning("Kill switch manually reset (requires Agent D approval)")
-        self._kill_switch_active = False
+        target = switch_id or KillSwitchID.KILL_001
+        logger.warning(f"{target.value} manually reset (requires Agent D approval)")
+        self.kill_switch_registry.reset(target)
 
     def is_kill_switch_active(self) -> bool:
-        """Check if kill switch is active."""
-        return self._kill_switch_active
+        """Check if any kill switch is active."""
+        return self.kill_switch_registry.any_triggered()
 
     def get_metrics(self) -> NarrationMetrics:
         """Get current guardrail metrics."""

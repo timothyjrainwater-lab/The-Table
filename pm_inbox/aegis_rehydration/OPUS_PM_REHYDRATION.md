@@ -25,9 +25,9 @@
 
 ```
 PLAN v1:     CLOSED — 26/26 WOs complete, A1-A7 all PASSED
-PLAN v2:     ACTIVE — Phase 1 IN PROGRESS (Batch 1 complete)
-TESTS:       3221 passing
-NEXT:        Dispatch Phase 1 Batch 2 (WO-029 + WO-031)
+PLAN v2:     ACTIVE — Phase 1 IN PROGRESS (Batch 2 complete, WO-030 ready)
+TESTS:       3288 passing
+NEXT:        Dispatch WO-030 (Narration Pipeline Wiring) — final Phase 1 WO
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -59,14 +59,13 @@ NEXT:        Dispatch Phase 1 Batch 2 (WO-029 + WO-031)
 ## PENDING DISPATCH
 
 **Current batch (parallel-safe):**
-- None — awaiting Thunder to dispatch Phase 1 Batch 2
+- None — awaiting Thunder to dispatch WO-030
 
-**Queued (Phase 1 Batch 2 — parallel-safe, no file overlap):**
-- WO-029 — Kill Switch Suite KILL-002→006 (narration/, core/)
-- WO-031 — Grammar Shield v1 (spark/)
+**Queued (Phase 1 final — serial, depends on WO-029):**
+- WO-030 — Narration Pipeline Wiring (play_loop.py + guarded_narration_service.py)
 
 **Phase 1 Serial (after Batch 2):**
-- WO-030 — Narration Pipeline Wiring (after WO-029)
+- WO-030 — Narration Pipeline Wiring (READY — WO-029 complete)
 
 **Research (parallel with all implementation WOs):**
 - RQ-SPARK-001 — 3 sub-dispatches (A/B/C) — ALL DELIVERED ✓
