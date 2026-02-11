@@ -20,7 +20,7 @@ Thunder delivered 7 comprehensive Deep Research question prompts covering the co
 | 2 | RQ-LENS-001 | Lens | Data Indexing + Retrieval Contract | YES | **DELIVERED** |
 | 3 | RQ-SPARK-001 | Spark | World Modeling → Structured Fact Emission | YES | **NOT DELIVERED** |
 | 4 | RQ-PERF-001 | System | Deterministic Compute Budgeting | YES | **NOT DELIVERED** |
-| 5 | RQ-INTERACT-001 | Player | Voice-First, Click-Second | YES | **NOT DELIVERED** |
+| 5 | RQ-INTERACT-001 | Player | Voice-First, Click-Second | YES | **DELIVERED** |
 | 6 | RQ-TRUST-001 | Trust | "Show Your Work" Without Debug UI | YES | **NOT DELIVERED** |
 | 7 | RQ-NARR-001 | AI | Narrative Balance (Spark bounded by Box) | YES | **NOT DELIVERED** |
 
@@ -66,6 +66,22 @@ The Lens research findings were substantial and covered all 8 sub-questions:
 | (8) | Implementation Spec | YES — APIs delivered, invariants delivered, Stress Replay testing strategy |
 
 **Truncation Point:** The original message was truncated at ~50,000 characters but the complete testing section was re-delivered in a subsequent session. All 8 sub-questions are now fully covered.
+
+---
+
+## RQ-INTERACT-001 Findings Detail
+
+The Interaction Playbook findings covered 7 of the 8 sub-questions (sub-question 8 was the synthesis, delivered as the playbook itself):
+
+| Sub-Question | Topic | Findings Received |
+|---|---|---|
+| (1) | Intent → Structured Action | YES — Context-aware semantic slot filling, STM buffer, ActionIntent JSON schema, vague phrase handling |
+| (2) | Ambiguity Resolution | YES — "Ghost/Phantom" state confirmation loop, confidence-based DM inquiry, real-time refinement |
+| (3) | Lean-Up Map Interaction | YES — Focus key trigger, tilt-shift visual, context-sensitive cursor grammar (4 modes, no toolbars) |
+| (4) | Character Sheet as Action Surface | YES — Drag-to-world, touch-to-query, dynamic ink, focus state |
+| (5) | Error Handling | YES — Reflective questioning (3 scenarios: ambiguous target, illegal move, parser fail) |
+| (6) | Timing/Responsiveness | YES — Intent parsing <600ms, phantom render <200ms, Box resolution 1-3s (deliberate tension) |
+| (7) | Accessibility/Fallback | YES — Dual-mode redundancy, seamless voice+click handoff, chat fallback |
 
 ---
 
