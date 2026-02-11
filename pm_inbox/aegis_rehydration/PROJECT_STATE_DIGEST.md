@@ -21,11 +21,37 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 |------|------|--------|-----|
 | 1 | Box Geometric Engine | **COMPLETE** | WO-001 to WO-006, WO-011 |
 | 2 | Lens Structured Output | **COMPLETE** | WO-007 to WO-009, WO-012 |
-| 3 | Spark/Trust | **COMPLETE** | WO-010 |
-| 4 | Vertical Slice Gate | **COMPLETE** | WO-013 |
-| 5 | Spellcasting | **COMPLETE** | WO-014, WO-015 |
+| 3 | Spark/Trust | **PARTIAL** — STP delivered; real Spark LLM blocked by RQ-SPARK-001 | WO-010 |
+| 4 | Vertical Slice Gate | **COMPLETE — GO GATE PASSED** | WO-013 |
+| 5 | Spellcasting | **PARTIAL** — spellcasting delivered; narration upgrade blocked by RQ-NARR-001 | WO-014, WO-015 |
 | 6 | Integration Testing | **COMPLETE** | WO-016, WO-017, WO-018, WO-019 |
-| 7 | Immersion Layer | **IN PROGRESS** | WO-020, WO-021, WO-022, WO-023 |
+| 7 | Immersion Layer | **IN PROGRESS** | WO-020 to WO-025 |
+
+---
+
+## Research-Blocked Gaps
+
+| Gap | Step | Blocked By | Infrastructure Ready? |
+|-----|------|-----------|----------------------|
+| Real Spark LLM integration | 3.1 | RQ-SPARK-001 (NOT DELIVERED) | Yes — SparkAdapter framework exists |
+| Constrained scene generation | 3.3 | RQ-SPARK-001 (NOT DELIVERED) | Yes — Lens validation, Room Schemas exist |
+| Guarded LLM narration | 5.2 | RQ-NARR-001 (NOT DELIVERED) | Yes — STP pipeline, guardrails (FREEZE-001, BL-003) exist |
+
+These are tracked deferrals, not failures. All infrastructure is built and tested; only the research inputs are missing.
+
+---
+
+## Audit Checkpoint Status
+
+| Checkpoint | After | Status |
+|------------|-------|--------|
+| A1: Foundation | Step 1 | **PASSED** (implicit — BL-001→BL-012, 395 tests) |
+| A2: Membrane | Step 2 | **PASSED** (implicit — Lens read-only, provenance valid, 210 tests) |
+| A3: Safety | Step 3 | **PASSED** (implicit — BL-001/002 enforced, Spark one-way valve) |
+| A4: Vertical Slice Gate | Step 4 | **PASSED** (formal gate — WO-013) |
+| A5: Regression Baseline | Step 6 | **PASSED** (implicit — Gold Masters, 1000-turn determinism, perf baselines) |
+| A6: Boundary Integrity | Step 7 | **PENDING** |
+| A7: Full System Audit | Plan closure | **PENDING — WO-026** |
 
 ---
 
@@ -54,11 +80,14 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 
 ---
 
-## Step 3: Spark/Trust (COMPLETE)
+## Step 3: Spark/Trust (PARTIAL)
 
 | WO | Module | Lines | Tests |
 |----|--------|-------|-------|
 | WO-010 | truth_packets.py | 798 | 47 |
+
+**Delivered:** Structured Truth Packets (11 STP types, audit trail).
+**Blocked:** Real Spark LLM (RQ-SPARK-001), constrained scene generation (RQ-SPARK-001).
 
 ---
 
@@ -72,14 +101,15 @@ Historical content archived to: docs/history/PROJECT_HISTORY.md
 
 ---
 
-## Step 5: Spellcasting (COMPLETE)
+## Step 5: Spellcasting (PARTIAL)
 
 | WO | Module | Lines | Tests | Status |
 |----|--------|-------|-------|--------|
 | WO-014 | spell_resolver.py, spell_definitions.py, duration_tracker.py | 1433 | 51 | **COMPLETE** |
 | WO-015 | play_loop.py (extended), combat_controller.py (extended) | 1730 | 17 | **COMPLETE** |
 
-**Next:** Step 6 continues — additional integration work orders to be defined
+**Delivered:** Spellcasting resolution (17 spells), play loop integration.
+**Blocked:** Narration upgrade (RQ-NARR-001).
 
 ---
 
@@ -108,6 +138,8 @@ Thousand-Fold Fireball: 1000 iterations, all geometric invariants hold.
 | WO-021 | whisper_stt_adapter.py, test_whisper_stt.py | 850 | 31 | **COMPLETE** |
 | WO-022 | sdxl_image_adapter.py, test_sdxl_image.py | 1303 | 50 | **COMPLETE** |
 | WO-023 | tri_gem_socket.py, transparency.py, test_tri_gem_socket.py | 2553 | 59 | **COMPLETE** |
+| WO-024 | voice_intent_parser.py, clarification_loop.py | — | — | **DISPATCHED** |
+| WO-025 | combat_receipt.py, ghost_stencil.py, judges_lens.py | — | — | **DISPATCHED** |
 
 Real backends: Kokoro TTS (CPU), faster-whisper STT (CPU), SDXL Lightning (NF4 GPU).
 Tri-Gem Socket: RUBY/SAPPHIRE/DIAMOND transparency modes on STP streams.
@@ -140,7 +172,7 @@ Recent additions:
 
 | Document | Purpose |
 |----------|---------|
-| `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` | Active 7-step execution plan |
+| `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` | Active 7-step execution plan (includes audit framework) |
 | `docs/history/PROJECT_HISTORY.md` | Archived CP summaries, module inventory, frozen contracts |
 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards |
 | `KNOWN_TECH_DEBT.md` | Intentionally deferred issues |

@@ -194,23 +194,82 @@ PM issues work orders autonomously. PO consulted for design decisions and vision
 
 ## Open Questions
 
-1. **Python vs C for geometry hot path** — Profile after Step 1 sub-step 3 and decide. Pure Python with numpy may suffice for target scale (10-20 combatants). C extension needed if targeting 50+ combatants or <10ms pairwise visibility.
+1. **Python vs C for geometry hot path** — **RESOLVED.** Pure Python exceeds all targets by 10x+ margin (Box p95: 5.08ms vs 50ms target). No C extension needed at current scale.
 
-2. **Remaining research deliveries** — RQ-SPARK-001 (structured fact emission) directly affects Step 3. RQ-NARR-001 (narrative balance) affects Step 5. PM will proceed with available information and integrate findings when delivered.
+2. **Remaining research deliveries** — RQ-SPARK-001 (structured fact emission) directly affects Step 3 sub-step 1 (real Spark model loading) and sub-step 3 (constrained scene generation). RQ-NARR-001 (narrative balance) affects Step 5 sub-step 2 (narration upgrade). Both remain NOT DELIVERED. PM has proceeded with available infrastructure; these items are tracked as research-blocked gaps.
 
-3. **Existing M2 governance** — M2 Spark Swappability governance docs preserved and applied during Step 3 sub-step 1.
+3. **Existing M2 governance** — M2 Spark Swappability governance docs preserved and applied. SparkAdapter remains swappable per M2 acceptance criteria.
+
+---
+
+## Audit Checkpoint Framework
+
+Formal audit checkpoints verify system integrity at step boundaries. Each checkpoint has explicit pass/fail criteria tied to executable tests.
+
+| Checkpoint | After | What Gets Verified | Status |
+|------------|-------|-------------------|--------|
+| **A1: Foundation** | Step 1 | BL-001→BL-012 pass, geometry invariants hold, 395 tests | **PASSED** (implicit — all tests green) |
+| **A2: Membrane** | Step 2 | Lens read-only boundary intact, provenance chain valid, 210 tests | **PASSED** (implicit — all tests green) |
+| **A3: Safety** | Step 3 | Spark one-way valve verified, no Box mutations from Spark layer | **PASSED** (implicit — BL-001/002 enforced) |
+| **A4: Vertical Slice Gate** | Step 4 | End-to-end Box→Lens→Spark pipeline proof | **PASSED** (formal gate — WO-013) |
+| **A5: Regression Baseline** | Step 6 | Gold Masters locked, performance baselines recorded, 1000-turn determinism | **PASSED** (implicit — WO-016/017/018/019) |
+| **A6: Boundary Integrity** | Step 7 | Immersion boundary (BL-020) intact with all real backends, no import leaks | **PENDING** |
+| **A7: Full System Audit** | Plan closure | All above re-verified, test count confirmed, tech debt inventory current | **PENDING — WO-026** |
+
+**A1-A3 passed implicitly:** All boundary law tests (test_boundary_law.py, 1,275 lines) ran on every pytest invocation during Steps 1-3 and never failed. No formal sign-off was recorded.
+
+**A4 was the only formal gate** defined in the original plan.
+
+**A5 passed implicitly:** Step 6 WOs produced Gold Master recordings, performance baselines, and property-based invariant verification — all passing.
+
+**A6 and A7 are forward-looking gates** added during the mid-plan audit review (2026-02-11).
+
+---
+
+## Research-Blocked Gaps
+
+Items from the execution plan that cannot be completed until external research tracks deliver:
+
+| Gap | Step | Blocked By | Infrastructure Ready? |
+|-----|------|-----------|----------------------|
+| Real Spark LLM integration | 3.1 | RQ-SPARK-001 (NOT DELIVERED) | Yes — SparkAdapter framework, Grammar Shield designed |
+| Constrained scene generation | 3.3 | RQ-SPARK-001 (NOT DELIVERED) | Yes — Lens validation, Room Schemas exist |
+| Guarded LLM narration | 5.2 | RQ-NARR-001 (NOT DELIVERED) | Yes — STP pipeline, guardrail framework (FREEZE-001, BL-003) |
+
+These are not failures — the plan explicitly noted in Open Question #2 that PM would "proceed with available information and integrate findings when delivered."
 
 ---
 
 ## Work Order Tracking
 
-| WO ID | Step | Description | Status | Agent | Doc |
-|---|---|---|---|---|---|
-| WO-001 | 1.1 | Box Geometric Engine Core | DISPATCHED | Sonnet-A | `docs/planning/WO-001_BOX_GEOMETRIC_ENGINE_CORE.md` |
-| WO-002 | 1.2 | Cover Resolution | PENDING | — | — |
-| WO-003 | 1.3 | LOS/LOE Resolution | PENDING | — | — |
-| WO-004 | 1.4 | AoE Rasterization | PENDING | — | — |
-| WO-005 | 1.5 | Ranged Attacks | PENDING | — | — |
+| WO ID | Step | Description | Status |
+|---|---|---|---|
+| WO-001 | 1.1 | Box Geometric Engine Core | **COMPLETE** |
+| WO-002 | 1.2 | Cover Resolution | **COMPLETE** |
+| WO-003 | 1.3 | LOS/LOE Resolution | **COMPLETE** |
+| WO-004 | 1.4 | AoE Rasterization | **COMPLETE** |
+| WO-005 | 1.5 | Ranged Attacks | **COMPLETE** |
+| WO-006 | 1.6 | Reach Weapons | **COMPLETE** |
+| WO-007 | 2.1 | Object Property Indexing (Lens) | **COMPLETE** |
+| WO-008 | 2.2 | JIT Fact Acquisition | **COMPLETE** |
+| WO-009 | 2.3 | Provenance Tracking | **COMPLETE** |
+| WO-010 | 3.2 | Structured Truth Packets | **COMPLETE** |
+| WO-011 | 1.7 | Combat Reflexes Feat | **COMPLETE** |
+| WO-012 | 2.4 | Box-Lens Bridge | **COMPLETE** |
+| WO-013 | 4 | Vertical Slice Gate (Tavern Combat) | **COMPLETE — GO GATE PASSED** |
+| WO-014 | 5.1 | Spellcasting Resolution | **COMPLETE** |
+| WO-015 | 5.1b | Play Loop Spell Integration | **COMPLETE** |
+| WO-016 | 6.1 | Multi-Encounter Stress Test | **COMPLETE** |
+| WO-017 | 6.2 | Performance Profiling | **COMPLETE** |
+| WO-018 | 6.3 | Replay Regression Suite | **COMPLETE** |
+| WO-019 | 6.4 | Property-Based Testing | **COMPLETE** |
+| WO-020 | 7.1 | Real TTS Backend (Kokoro) | **COMPLETE** |
+| WO-021 | 7.1 | Real STT Backend (Whisper) | **COMPLETE** |
+| WO-022 | 7.1 | Real Image Backend (SDXL) | **COMPLETE** |
+| WO-023 | 7.3 | Transparency Tri-Gem Socket | **COMPLETE** |
+| WO-024 | 7.2 | Voice-First Intent Parser | **DISPATCHED** |
+| WO-025 | 7.4 | Table-Native UX | **DISPATCHED** |
+| WO-026 | A7 | Full System Audit (Plan Closure Gate) | **PENDING** |
 
 ---
 

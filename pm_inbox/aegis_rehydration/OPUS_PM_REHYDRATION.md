@@ -25,7 +25,7 @@
 ```
 PHASE:       Step 7 IN PROGRESS — Immersion Layer
 TESTS:       3091 passing
-PENDING:     WO-020/021/022/023 complete; remaining Step 7 WOs to draft
+PENDING:     WO-024, WO-025 awaiting paste
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -57,7 +57,11 @@ PENDING:     WO-020/021/022/023 complete; remaining Step 7 WOs to draft
 ## PENDING DISPATCH
 
 **Current batch (parallel-safe):**
-*(Cleared — WO-020/021/022/023 approved. Remaining Step 7 WOs to be drafted.)*
+- WO-024 — Voice-First Intent Parser
+- WO-025 — Table-Native UX (Combat Receipts, Ghost Stencils, Judge's Lens)
+
+**Queued (dispatched after WO-024/025 complete):**
+- WO-026 — Full System Audit (Plan Closure Gate) — read-only audit, no code changes
 
 **Protocol:**
 - When dispatch presented: Add entry here
@@ -112,6 +116,13 @@ PENDING:     WO-020/021/022/023 complete; remaining Step 7 WOs to draft
 3. Clear PENDING DISPATCH if applicable
 4. Move approved reports to `pm_inbox/reviewed/`
 5. Check git status — if threshold met, commit and push (no approval needed)
+
+**Audit Checkpoints (see execution plan for full framework):**
+- A1-A5: PASSED (Steps 1-6)
+- A6: Boundary Integrity — verify after Step 7 WOs complete
+- A7: Full System Audit — WO-026, plan closure gate
+- PM dispatches WO-026 after WO-024/025 are reviewed
+- WO-026 is read-only: agent runs tests and produces audit report, no code changes
 
 ---
 
