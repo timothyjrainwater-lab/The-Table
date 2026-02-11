@@ -5,6 +5,7 @@ Wrapper layer that orchestrates combat rounds by:
 - Managing round progression
 - Calling execute_turn() for each actor in initiative order
 - Tracking flat-footed state
+- WO-015: Duration tick at round end for spell effects
 
 Preserves CP-09/CP-12 execute_turn() API.
 """
@@ -20,6 +21,109 @@ from aidm.core.initiative import roll_initiative_for_all_actors, InitiativeRoll
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.doctrine import MonsterDoctrine
 from aidm.schemas.entity_fields import EF
+# WO-015: Duration tracker for spell effects
+from aidm.core.duration_tracker import DurationTracker
+
+
+# ==============================================================================
+# WO-015: DURATION TRACKER HELPERS
+# ==============================================================================
+
+def _tick_duration_tracker(
+    world_state: WorldState,
+    current_round: int,
+    next_event_id: int,
+    timestamp: float,
+) -> Tuple[List[Event], WorldState]:
+    """Tick the duration tracker at round end and expire effects.
+
+    Args:
+        world_state: Current world state
+        current_round: Current round number
+        next_event_id: Next event ID
+        timestamp: Event timestamp
+
+    Returns:
+        Tuple of (events, updated_world_state)
+    """
+    events = []
+    current_event_id = next_event_id
+
+    if world_state.active_combat is None:
+        return events, world_state
+
+    # Get duration tracker
+    tracker_data = world_state.active_combat.get("duration_tracker")
+    if tracker_data is None:
+        return events, world_state
+
+    duration_tracker = DurationTracker.from_dict(tracker_data)
+
+    # Tick the tracker and get expired effects
+    expired_effects = duration_tracker.tick_round()
+
+    if not expired_effects:
+        # Update tracker in active_combat even if no effects expired
+        active_combat = deepcopy(world_state.active_combat)
+        active_combat["duration_tracker"] = duration_tracker.to_dict()
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=deepcopy(world_state.entities),
+            active_combat=active_combat,
+        )
+        return events, world_state
+
+    # Process expired effects
+    entities = deepcopy(world_state.entities)
+
+    for effect in expired_effects:
+        # Emit effect_expired event
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="spell_effect_expired",
+            timestamp=timestamp,
+            payload={
+                "spell_id": effect.spell_id,
+                "spell_name": effect.spell_name,
+                "caster_id": effect.caster_id,
+                "target_id": effect.target_id,
+                "round": current_round,
+            },
+        ))
+        current_event_id += 1
+
+        # Remove condition from target if applicable
+        if effect.condition_applied:
+            target_entity = entities.get(effect.target_id, {})
+            conditions = target_entity.get(EF.CONDITIONS, [])
+            if effect.condition_applied in conditions:
+                conditions.remove(effect.condition_applied)
+                target_entity[EF.CONDITIONS] = conditions
+
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="condition_removed",
+                    timestamp=timestamp + 0.01,
+                    payload={
+                        "entity_id": effect.target_id,
+                        "condition": effect.condition_applied,
+                        "reason": "duration_expired",
+                        "spell_name": effect.spell_name,
+                    },
+                ))
+                current_event_id += 1
+
+    # Update active_combat with modified tracker
+    active_combat = deepcopy(world_state.active_combat)
+    active_combat["duration_tracker"] = duration_tracker.to_dict()
+
+    updated_state = WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=active_combat,
+    )
+
+    return events, updated_state
 
 
 @dataclass
@@ -235,15 +339,26 @@ def execute_combat_round(
     active_combat["flat_footed_actors"] = list(flat_footed_actors)  # Convert set to list for serialization
     active_combat["aoo_used_this_round"] = aoo_used_this_round  # CP-15: Reset for next round
 
-    updated_state = WorldState(
+    # Apply the updated active_combat to world_state BEFORE ticking duration
+    world_state = WorldState(
         ruleset_version=world_state.ruleset_version,
         entities=deepcopy(world_state.entities),
-        active_combat=active_combat
+        active_combat=active_combat,
     )
+
+    # WO-015: Tick duration tracker and expire effects at round end
+    duration_events, world_state = _tick_duration_tracker(
+        world_state=world_state,
+        current_round=current_round,
+        next_event_id=current_event_id,
+        timestamp=current_timestamp,
+    )
+    events.extend(duration_events)
+    current_event_id += len(duration_events)
 
     return CombatRoundResult(
         round_index=current_round,
-        world_state=updated_state,
+        world_state=world_state,
         events=events,
         turn_results=turn_results
     )

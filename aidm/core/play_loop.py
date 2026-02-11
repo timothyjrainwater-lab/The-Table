@@ -30,6 +30,12 @@ CP-18 SCOPE:
 - Combat maneuver routing (Bull Rush, Trip, Overrun, Sunder, Disarm, Grapple)
 - Maneuver-specific AoO handling
 - Condition application from maneuvers (Prone, Grappled)
+
+WO-015 SCOPE:
+- Spellcasting resolution (CastSpellIntent handling)
+- Integration with SpellResolver, DurationTracker
+- STP generation for spell casts
+- Concentration break on caster damage
 """
 
 from copy import deepcopy
@@ -57,6 +63,15 @@ from aidm.schemas.maneuvers import (
     SunderIntent, DisarmIntent, GrappleIntent,
 )
 from aidm.core.maneuver_resolver import resolve_maneuver
+# WO-015: Spellcasting imports
+from aidm.core.spell_resolver import (
+    SpellCastIntent, SpellResolver, CasterStats, TargetStats,
+    SpellDefinition, SpellEffect
+)
+from aidm.schemas.spell_definitions import SPELL_REGISTRY
+from aidm.core.duration_tracker import DurationTracker, ActiveSpellEffect, create_effect
+from aidm.schemas.position import Position
+from aidm.core.geometry_engine import BattleGrid
 
 
 def resolve_monster_combat_intent(
@@ -137,6 +152,463 @@ def resolve_monster_combat_intent(
         attack_bonus=doctrine.attack_bonus,
         weapon=doctrine.weapon
     )
+
+
+# ==============================================================================
+# WO-015: SPELLCASTING RESOLUTION HELPERS
+# ==============================================================================
+
+def _create_caster_stats(
+    caster_id: str,
+    world_state: WorldState,
+) -> CasterStats:
+    """Create CasterStats from WorldState entity data.
+
+    Args:
+        caster_id: Entity ID of the caster
+        world_state: Current world state
+
+    Returns:
+        CasterStats with position and spell parameters
+    """
+    entity = world_state.entities.get(caster_id, {})
+
+    # Get position
+    pos_data = entity.get(EF.POSITION, {"x": 0, "y": 0})
+    if isinstance(pos_data, Position):
+        position = pos_data
+    else:
+        position = Position(x=pos_data.get("x", 0), y=pos_data.get("y", 0))
+
+    # Get caster level (default 5 for testing)
+    caster_level = entity.get("caster_level", 5)
+
+    # Get spell DC base (default 10 + 3 for INT/WIS mod)
+    spell_dc_base = entity.get("spell_dc_base", 13)
+
+    # Get attack bonus for touch/ray spells
+    attack_bonus = entity.get(EF.ATTACK_BONUS, 0)
+
+    return CasterStats(
+        caster_id=caster_id,
+        position=position,
+        caster_level=caster_level,
+        spell_dc_base=spell_dc_base,
+        attack_bonus=attack_bonus,
+    )
+
+
+def _create_target_stats(
+    entity_id: str,
+    world_state: WorldState,
+) -> TargetStats:
+    """Create TargetStats from WorldState entity data.
+
+    Args:
+        entity_id: Entity ID of the target
+        world_state: Current world state
+
+    Returns:
+        TargetStats with position, HP, and saves
+    """
+    entity = world_state.entities.get(entity_id, {})
+
+    # Get position
+    pos_data = entity.get(EF.POSITION, {"x": 0, "y": 0})
+    if isinstance(pos_data, Position):
+        position = pos_data
+    else:
+        position = Position(x=pos_data.get("x", 0), y=pos_data.get("y", 0))
+
+    # Get HP
+    hp_current = entity.get(EF.HP_CURRENT, 10)
+    hp_max = entity.get(EF.HP_MAX, 10)
+
+    # Get saves
+    fort_save = entity.get(EF.SAVE_FORT, 0)
+    ref_save = entity.get(EF.SAVE_REF, 0)
+    will_save = entity.get(EF.SAVE_WILL, 0)
+
+    # Get SR
+    sr = entity.get(EF.SR, 0)
+
+    return TargetStats(
+        entity_id=entity_id,
+        position=position,
+        hit_points=hp_current,
+        max_hit_points=hp_max,
+        fort_save=fort_save,
+        ref_save=ref_save,
+        will_save=will_save,
+        spell_resistance=sr,
+    )
+
+
+def _get_or_create_duration_tracker(world_state: WorldState) -> DurationTracker:
+    """Get duration tracker from active_combat or create new one.
+
+    Args:
+        world_state: Current world state
+
+    Returns:
+        DurationTracker instance
+    """
+    if world_state.active_combat is None:
+        return DurationTracker()
+
+    tracker_data = world_state.active_combat.get("duration_tracker")
+    if tracker_data is None:
+        return DurationTracker()
+
+    return DurationTracker.from_dict(tracker_data)
+
+
+def _resolve_spell_cast(
+    intent: SpellCastIntent,
+    world_state: WorldState,
+    rng: RNGManager,
+    grid: Optional[BattleGrid],
+    next_event_id: int,
+    timestamp: float,
+    turn_index: int,
+) -> Tuple[List[Event], WorldState, str]:
+    """Resolve a spell cast intent.
+
+    Args:
+        intent: The spell cast intent
+        world_state: Current world state
+        rng: RNG manager
+        grid: Optional battle grid for spatial queries
+        next_event_id: Next event ID
+        timestamp: Event timestamp
+        turn_index: Current turn index
+
+    Returns:
+        Tuple of (events, updated_world_state, narration_token)
+    """
+    events = []
+    current_event_id = next_event_id
+
+    # Look up spell
+    spell = SPELL_REGISTRY.get(intent.spell_id)
+    if spell is None:
+        # Unknown spell
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="spell_cast_failed",
+            timestamp=timestamp,
+            payload={
+                "caster_id": intent.caster_id,
+                "spell_id": intent.spell_id,
+                "reason": f"Unknown spell: {intent.spell_id}",
+                "turn_index": turn_index,
+            }
+        ))
+        return events, world_state, "spell_failed"
+
+    # Create caster stats
+    caster = _create_caster_stats(intent.caster_id, world_state)
+
+    # Build target stats for all potential targets
+    targets: Dict[str, TargetStats] = {}
+    for entity_id in world_state.entities:
+        if entity_id != intent.caster_id:
+            targets[entity_id] = _create_target_stats(entity_id, world_state)
+
+    # Add caster as potential target (for self spells)
+    targets[intent.caster_id] = _create_target_stats(intent.caster_id, world_state)
+
+    # Create a minimal grid if none provided
+    if grid is None:
+        grid = BattleGrid(100, 100)
+        # Place entities on grid based on position
+        from aidm.schemas.geometry import SizeCategory
+        for entity_id, entity in world_state.entities.items():
+            pos_data = entity.get(EF.POSITION, {"x": 0, "y": 0})
+            if isinstance(pos_data, dict):
+                pos = Position(x=pos_data.get("x", 0), y=pos_data.get("y", 0))
+            else:
+                pos = pos_data
+            if grid.in_bounds(pos):
+                grid.place_entity(entity_id, pos, SizeCategory.MEDIUM)
+
+    # Create spell resolver
+    resolver = SpellResolver(
+        grid=grid,
+        rng=rng,
+        spell_registry=SPELL_REGISTRY,
+        turn=turn_index,
+        initiative=0,
+    )
+
+    # Validate cast
+    valid, error = resolver.validate_cast(intent, caster)
+    if not valid:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="spell_cast_failed",
+            timestamp=timestamp,
+            payload={
+                "caster_id": intent.caster_id,
+                "spell_id": intent.spell_id,
+                "spell_name": spell.name,
+                "reason": error,
+                "turn_index": turn_index,
+            },
+            citations=list(spell.rule_citations),
+        ))
+        return events, world_state, "spell_failed"
+
+    # Resolve the spell
+    resolution = resolver.resolve_spell(intent, caster, targets)
+
+    # Emit spell_cast event
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="spell_cast",
+        timestamp=timestamp,
+        payload={
+            "cast_id": resolution.cast_id,
+            "caster_id": resolution.caster_id,
+            "spell_id": resolution.spell_id,
+            "spell_name": spell.name,
+            "spell_level": spell.level,
+            "affected_entities": list(resolution.affected_entities),
+            "turn_index": turn_index,
+        },
+        citations=list(spell.rule_citations),
+    ))
+    current_event_id += 1
+
+    # Deep copy entities for mutation
+    entities = deepcopy(world_state.entities)
+
+    # Apply damage
+    for entity_id, damage in resolution.damage_dealt.items():
+        if damage > 0 and entity_id in entities:
+            old_hp = entities[entity_id].get(EF.HP_CURRENT, 0)
+            new_hp = old_hp - damage
+            entities[entity_id][EF.HP_CURRENT] = new_hp
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="hp_changed",
+                timestamp=timestamp + 0.01,
+                payload={
+                    "entity_id": entity_id,
+                    "old_hp": old_hp,
+                    "new_hp": new_hp,
+                    "delta": -damage,
+                    "source": f"spell:{spell.name}",
+                },
+                citations=list(spell.rule_citations),
+            ))
+            current_event_id += 1
+
+            # Check for defeat
+            if new_hp <= 0 and not entities[entity_id].get(EF.DEFEATED, False):
+                entities[entity_id][EF.DEFEATED] = True
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="entity_defeated",
+                    timestamp=timestamp + 0.02,
+                    payload={
+                        "entity_id": entity_id,
+                        "source": f"spell:{spell.name}",
+                    },
+                ))
+                current_event_id += 1
+
+    # Apply healing
+    for entity_id, healing in resolution.healing_done.items():
+        if healing > 0 and entity_id in entities:
+            old_hp = entities[entity_id].get(EF.HP_CURRENT, 0)
+            max_hp = entities[entity_id].get(EF.HP_MAX, old_hp)
+            new_hp = min(old_hp + healing, max_hp)
+            entities[entity_id][EF.HP_CURRENT] = new_hp
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="hp_changed",
+                timestamp=timestamp + 0.01,
+                payload={
+                    "entity_id": entity_id,
+                    "old_hp": old_hp,
+                    "new_hp": new_hp,
+                    "delta": healing,
+                    "source": f"spell:{spell.name}",
+                },
+                citations=list(spell.rule_citations),
+            ))
+            current_event_id += 1
+
+    # Get/create duration tracker
+    duration_tracker = _get_or_create_duration_tracker(world_state)
+
+    # Apply conditions and track durations
+    for entity_id, condition in resolution.conditions_applied:
+        # Initialize conditions list if needed
+        if EF.CONDITIONS not in entities[entity_id]:
+            entities[entity_id][EF.CONDITIONS] = []
+
+        # Add condition if not already present
+        if condition not in entities[entity_id][EF.CONDITIONS]:
+            entities[entity_id][EF.CONDITIONS].append(condition)
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="condition_applied",
+                timestamp=timestamp + 0.02,
+                payload={
+                    "entity_id": entity_id,
+                    "condition": condition,
+                    "source": f"spell:{spell.name}",
+                    "duration_rounds": spell.duration_rounds if spell.duration_rounds > 0 else None,
+                },
+                citations=list(spell.rule_citations),
+            ))
+            current_event_id += 1
+
+        # Track duration for conditions with duration
+        if spell.duration_rounds > 0:
+            effect = create_effect(
+                spell_id=spell.spell_id,
+                spell_name=spell.name,
+                caster_id=intent.caster_id,
+                target_id=entity_id,
+                duration_rounds=spell.duration_rounds,
+                concentration=spell.concentration,
+                condition=condition,
+                turn=turn_index,
+            )
+            duration_tracker.add_effect(effect)
+
+    # Update active_combat with duration tracker
+    active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
+    active_combat["duration_tracker"] = duration_tracker.to_dict()
+
+    # Create updated world state
+    updated_state = WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=active_combat,
+    )
+
+    # Determine narration token
+    if spell.effect_type == SpellEffect.DAMAGE:
+        total_damage = sum(resolution.damage_dealt.values())
+        if total_damage > 0:
+            narration = "spell_damage_dealt"
+        else:
+            narration = "spell_no_effect"
+    elif spell.effect_type == SpellEffect.HEALING:
+        narration = "spell_healed"
+    elif spell.effect_type == SpellEffect.BUFF:
+        narration = "spell_buff_applied"
+    elif spell.effect_type == SpellEffect.DEBUFF:
+        if resolution.conditions_applied:
+            narration = "spell_debuff_applied"
+        else:
+            narration = "spell_resisted"
+    else:
+        narration = "spell_cast_success"
+
+    return events, updated_state, narration
+
+
+def _check_concentration_break(
+    caster_id: str,
+    damage_dealt: int,
+    world_state: WorldState,
+    rng: RNGManager,
+    next_event_id: int,
+    timestamp: float,
+) -> Tuple[List[Event], WorldState]:
+    """Check if damage breaks concentration on a spell.
+
+    Per PHB p.170, taking damage requires Concentration check DC 10 + damage dealt.
+    On failure, concentration spell ends.
+
+    Args:
+        caster_id: Entity that took damage
+        damage_dealt: Amount of damage taken
+        world_state: Current world state
+        rng: RNG manager
+        next_event_id: Next event ID
+        timestamp: Event timestamp
+
+    Returns:
+        Tuple of (events, updated_world_state)
+    """
+    events = []
+    current_event_id = next_event_id
+
+    duration_tracker = _get_or_create_duration_tracker(world_state)
+
+    # Check if caster has concentration effect
+    concentration_effect = duration_tracker.get_concentration_effect(caster_id)
+    if concentration_effect is None:
+        return events, world_state
+
+    # Roll Concentration check
+    dc = 10 + damage_dealt
+    concentration_bonus = world_state.entities.get(caster_id, {}).get("concentration_bonus", 0)
+    roll = rng.stream("combat").randint(1, 20)
+    total = roll + concentration_bonus
+
+    if total < dc:
+        # Concentration broken
+        removed_effects = duration_tracker.break_concentration(caster_id)
+
+        for effect in removed_effects:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_broken",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": caster_id,
+                    "spell_id": effect.spell_id,
+                    "spell_name": effect.spell_name,
+                    "target_id": effect.target_id,
+                    "dc": dc,
+                    "roll": roll,
+                    "total": total,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 170}],  # PHB Concentration
+            ))
+            current_event_id += 1
+
+            # Remove condition from target
+            if effect.condition_applied:
+                entities = deepcopy(world_state.entities)
+                target_entity = entities.get(effect.target_id, {})
+                conditions = target_entity.get(EF.CONDITIONS, [])
+                if effect.condition_applied in conditions:
+                    conditions.remove(effect.condition_applied)
+                    target_entity[EF.CONDITIONS] = conditions
+
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="condition_removed",
+                        timestamp=timestamp + 0.01,
+                        payload={
+                            "entity_id": effect.target_id,
+                            "condition": effect.condition_applied,
+                            "reason": "concentration_broken",
+                        },
+                    ))
+                    current_event_id += 1
+
+                    # Update state
+                    active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
+                    active_combat["duration_tracker"] = duration_tracker.to_dict()
+                    world_state = WorldState(
+                        ruleset_version=world_state.ruleset_version,
+                        entities=entities,
+                        active_combat=active_combat,
+                    )
+
+    return events, world_state
 
 
 @dataclass
@@ -256,6 +728,9 @@ def execute_turn(
         elif isinstance(combat_intent, (BullRushIntent, TripIntent, OverrunIntent,
                                         SunderIntent, DisarmIntent, GrappleIntent)):
             intent_actor_id = combat_intent.attacker_id
+        # WO-015: Spellcasting intents
+        elif isinstance(combat_intent, SpellCastIntent):
+            intent_actor_id = combat_intent.caster_id
         else:
             # Unknown intent type
             raise ValueError(f"Unknown combat intent type: {type(combat_intent)}")
@@ -524,6 +999,23 @@ def execute_turn(
             # Apply events to get updated state
             world_state = apply_attack_events(world_state, combat_events)
 
+            # WO-015: Check concentration break if target took damage
+            hp_events = [e for e in combat_events if e.event_type == "hp_changed"]
+            for hp_event in hp_events:
+                target_id = hp_event.payload.get("entity_id")
+                damage = abs(hp_event.payload.get("delta", 0))
+                if damage > 0 and target_id:
+                    conc_events, world_state = _check_concentration_break(
+                        caster_id=target_id,
+                        damage_dealt=damage,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.15,
+                    )
+                    events.extend(conc_events)
+                    current_event_id += len(conc_events)
+
             # Generate narration token
             attack_events = [e for e in combat_events if e.event_type == "attack_roll"]
             if attack_events and attack_events[0].payload["hit"]:
@@ -545,6 +1037,23 @@ def execute_turn(
 
             # Apply events to get updated state
             world_state = apply_full_attack_events(world_state, combat_events)
+
+            # WO-015: Check concentration break if target took damage
+            hp_events = [e for e in combat_events if e.event_type == "hp_changed"]
+            for hp_event in hp_events:
+                target_id = hp_event.payload.get("entity_id")
+                damage = abs(hp_event.payload.get("delta", 0))
+                if damage > 0 and target_id:
+                    conc_events, world_state = _check_concentration_break(
+                        caster_id=target_id,
+                        damage_dealt=damage,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.15,
+                    )
+                    events.extend(conc_events)
+                    current_event_id += len(conc_events)
 
             # Generate narration token
             narration = "full_attack_complete"
@@ -653,6 +1162,39 @@ def execute_turn(
                 narration = f"{maneuver_type}_success"
             else:
                 narration = f"{maneuver_type}_failure"
+
+        # WO-015: Spellcasting intent
+        elif isinstance(combat_intent, SpellCastIntent):
+            # Resolve the spell cast
+            spell_events, world_state, narration = _resolve_spell_cast(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                grid=None,  # Grid created internally if needed
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+                turn_index=turn_ctx.turn_index,
+            )
+            events.extend(spell_events)
+            current_event_id += len(spell_events)
+
+            # Check concentration break if the caster took damage this turn
+            # (from AoO for example)
+            hp_events = [e for e in events if e.event_type == "hp_changed"
+                        and e.payload.get("entity_id") == combat_intent.caster_id
+                        and e.payload.get("delta", 0) < 0]
+            for hp_event in hp_events:
+                damage = abs(hp_event.payload.get("delta", 0))
+                conc_events, world_state = _check_concentration_break(
+                    caster_id=combat_intent.caster_id,
+                    damage_dealt=damage,
+                    world_state=world_state,
+                    rng=rng,
+                    next_event_id=current_event_id,
+                    timestamp=timestamp + 0.15,
+                )
+                events.extend(conc_events)
+                current_event_id += len(conc_events)
 
     # If no combat intent provided, use policy-based resolution (CP-09 behavior)
     elif doctrine is not None and turn_ctx.actor_team == "monsters":

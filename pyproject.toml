@@ -21,4 +21,7 @@ python_functions = ["test_*"]
 addopts = "-v --strict-markers"
 markers = [
     "immersion_fast: Immersion layer tests (sub-millisecond, zero external deps)",
+    "performance: Performance profiling tests (may be slow, optional skipping)",
+    "property_based: Property-based randomized tests (1000 iterations, optional skipping)",
+    "slow: Tests that take more than 1 second to run",
 ]
