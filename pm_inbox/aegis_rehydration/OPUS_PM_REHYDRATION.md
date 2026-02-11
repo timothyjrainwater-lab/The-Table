@@ -1,8 +1,9 @@
 # Opus PM Rehydration Packet
 
 > **Last Updated:** 2026-02-11
-> **PM:** Opus (Claude Opus 4.5) — full PM authority delegated by Thunder
-> **Canonical Plan:** `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` (status: APPROVED)
+> **PM:** Opus (Claude Opus 4.6) — full PM authority delegated by Thunder
+> **Canonical Plan v1:** `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` (status: CLOSING — WO-026 audit pending)
+> **Canonical Plan v2:** `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` (status: DRAFT — awaiting PO approval)
 
 ---
 
@@ -115,10 +116,11 @@ PENDING:     WO-026 Full System Audit awaiting paste
 4. Move approved reports to `pm_inbox/reviewed/`
 5. Check git status — if threshold met, commit and push (no approval needed)
 
-**Audit Checkpoints (see execution plan for full framework):**
+**Audit Checkpoints (see execution plans for full framework):**
 - A1-A5: PASSED (Steps 1-6)
 - A6: Boundary Integrity — verify after Step 7 WOs complete
-- A7: Full System Audit — WO-026, plan closure gate
+- A7: Full System Audit — WO-026, plan v1 closure gate
+- A8-A11: Defined in Plan v2 (Spark Integration, Content Integration, Playability, Ship Gate)
 - PM dispatches WO-026 after WO-024/025 are reviewed
 - WO-026 is read-only: agent runs tests and produces audit report, no code changes
 
@@ -130,7 +132,8 @@ PENDING:     WO-026 Full System Audit awaiting paste
 |------|---------|
 | `PROJECT_STATE_DIGEST.md` | **Single source of truth** for WO status, step progress, test counts |
 | `docs/history/PROJECT_HISTORY.md` | Archived CP history, frozen contracts |
-| `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` | Active 7-step execution plan |
+| `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` | Plan v1: 7-step engine build (CLOSING) |
+| `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Plan v2: 4-phase AI integration (DRAFT) |
 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards |
 | `KNOWN_TECH_DEBT.md` | Deferred issues |
 
