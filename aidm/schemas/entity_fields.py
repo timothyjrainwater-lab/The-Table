@@ -103,6 +103,15 @@ class _EntityFields:
     # --- Environment & Terrain (CP-19) ---
     ELEVATION = "elevation"              # Current elevation in feet (for higher ground)
 
+    # --- Experience & Leveling (WO-037) ---
+    XP = "xp"                            # Total experience points
+    LEVEL = "level"                      # Total character level
+    CLASS_LEVELS = "class_levels"        # Dict mapping class name to level (e.g., {"fighter": 3})
+    FEAT_SLOTS = "feat_slots"            # Number of unspent feat slots
+
+    # --- Feats (WO-034) ---
+    FEATS = "feats"                      # List of feat IDs (e.g., ["power_attack", "weapon_focus_longsword"])
+
 
 # Singleton instance — import this
 EF = _EntityFields()

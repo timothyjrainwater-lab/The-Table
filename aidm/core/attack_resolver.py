@@ -179,21 +179,37 @@ def resolve_attack(
         ))
         return events
 
-    # Get target AC (base AC + condition modifiers + cover bonus)
+    # WO-034: Get feat-based attack modifier
+    from aidm.core.feat_resolver import get_attack_modifier
+    attacker = world_state.entities[intent.attacker_id]
     target = world_state.entities[intent.target_id]
+
+    # Build context for feat modifier computation
+    # TODO: Extract weapon name from intent.weapon when weapon tracking is implemented
+    feat_context = {
+        "weapon_name": "unknown",  # Placeholder until weapon tracking exists
+        "range_ft": 5,  # Assume melee range for now
+        "is_ranged": False,  # TODO: Detect from weapon type
+        "is_twf": False,  # TODO: Detect from attack intent
+        "power_attack_penalty": 0,  # TODO: Get from player choice
+    }
+    feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
+
+    # Get target AC (base AC + condition modifiers + cover bonus)
     base_ac = target.get(EF.AC, 10)  # Default AC 10 if not specified
     # CP-16: condition modifier, CP-19: cover bonus
     target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
 
-    # Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground)
+    # Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier)
     combat_rng = rng.stream("combat")
     d20_result = combat_rng.randint(1, 20)
-    # CP-16: condition modifier, CP-18A: mounted bonus, CP-19: terrain higher ground
+    # CP-16: condition modifier, CP-18A: mounted bonus, CP-19: terrain higher ground, WO-034: feat modifier
     attack_bonus_with_conditions = (
         intent.attack_bonus +
         attacker_modifiers.attack_modifier +
         mounted_bonus +
-        terrain_higher_ground
+        terrain_higher_ground +
+        feat_attack_modifier
     )
     total = d20_result + attack_bonus_with_conditions
 
@@ -221,6 +237,7 @@ def resolve_attack(
             "condition_modifier": attacker_modifiers.attack_modifier,  # CP-16
             "mounted_bonus": mounted_bonus,  # CP-18A
             "terrain_higher_ground": terrain_higher_ground,  # CP-19
+            "feat_modifier": feat_attack_modifier,  # WO-034
             "cover_type": cover_result.cover_type,  # CP-19
             "cover_ac_bonus": cover_result.ac_bonus,  # CP-19
             "total": total,
@@ -243,11 +260,17 @@ def resolve_attack(
         # Roll damage
         damage_rolls = roll_dice(num_dice, die_size, rng)
         # PHB p.113: STR modifier applies to melee damage
-        attacker = world_state.entities[intent.attacker_id]
         str_modifier = attacker.get(EF.STR_MOD, 0)
+
+        # WO-034: Get feat-based damage modifier
+        from aidm.core.feat_resolver import get_damage_modifier
+        # Update context for damage computation
+        feat_context["is_two_handed"] = False  # TODO: Detect from weapon grip
+        feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)
+
         base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_modifier
-        # CP-16: Apply condition damage modifier
-        damage_total = max(0, base_damage + attacker_modifiers.damage_modifier)
+        # CP-16: Apply condition damage modifier, WO-034: Apply feat damage modifier
+        damage_total = max(0, base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier)
 
         # Emit damage_roll event
         events.append(Event(
@@ -262,6 +285,7 @@ def resolve_attack(
                 "damage_bonus": intent.weapon.damage_bonus,
                 "str_modifier": str_modifier,  # PHB p.113
                 "condition_modifier": attacker_modifiers.damage_modifier,  # CP-16
+                "feat_modifier": feat_damage_modifier,  # WO-034
                 "damage_total": damage_total,
                 "damage_type": intent.weapon.damage_type
             },

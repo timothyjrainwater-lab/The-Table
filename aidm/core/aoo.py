@@ -444,6 +444,36 @@ def resolve_aoo_sequence(
         if reactor is None:
             continue  # Reactor disappeared (edge case)
 
+        # WO-034: Check for Mobility feat (+4 AC vs movement AoO)
+        from aidm.core.feat_resolver import get_ac_modifier
+        provoker = world_state.entities.get(trigger.provoker_id)
+        if provoker is None:
+            continue  # Provoker disappeared (edge case)
+
+        # Build context for feat AC modifier
+        feat_context = {
+            "is_aoo": True,
+            "aoo_trigger": trigger.provoking_action,
+        }
+        feat_ac_modifier = get_ac_modifier(provoker, reactor, feat_context)
+
+        # TODO WO-034: Apply feat_ac_modifier to AoO attack
+        # Current limitation: attack_resolver doesn't accept context-specific AC modifiers.
+        # For now, Mobility +4 AC is computed but not applied to the attack.
+        # This requires refactoring attack_resolver to accept an optional AC modifier parameter.
+        # Tracked in WO-034 acceptance criteria.
+        # WORKAROUND: Temporarily modify provoker's AC in world_state copy
+        if feat_ac_modifier != 0:
+            # Create a modified world state with updated AC for this AoO only
+            from copy import deepcopy
+            temp_entities = deepcopy(world_state.entities)
+            temp_entities[trigger.provoker_id][EF.AC] = temp_entities[trigger.provoker_id].get(EF.AC, 10) + feat_ac_modifier
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=temp_entities,
+                active_combat=world_state.active_combat
+            )
+
         # Extract attack bonus and weapon from entity
         # TODO CP-15: This is a temporary hack - proper attack params should come from doctrine/equipment
         attack_bonus = reactor.get(EF.ATTACK_BONUS, 0)

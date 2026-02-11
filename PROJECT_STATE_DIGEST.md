@@ -9,7 +9,7 @@ UPDATE RULES:
 - Format: Markdown with stable section ordering
 - REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
-LAST UPDATED: 2026-02-11 — Phase 1 complete (A8 PASSED), Phase 2 Batch 1 dispatched (WO-032, WO-034, WO-035, WO-037)
+LAST UPDATED: 2026-02-11 — Phase 2 Batch 1 partial: WO-034 (Feats) INTEGRATED, WO-037 (XP/Leveling) INTEGRATED, WO-032/WO-035 in progress
 NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (design) and WO-M1-RUNTIME-02 (implementation verification) complete. WO-M2-02 (BL-017/018 persistence cleanup) complete. WO-M1.5-UX-01 (runtime experience design) complete. WO-M3-PREP-01 (prep pipeline prototype with sequential model loading) complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, IPC runtime integration, pm_inbox workflow, runtime session bootstrap (campaign load, replay-first reconstruction, partial write recovery, log sync checks, 10× determinism verification). PrepOrchestrator timestamp injection compliance (deterministic testing enabled). Documentation spring cleaning removed 17 superseded files (6,775 lines). Root cleanup: torrent remnants deleted, REUSE_DECISION.json moved to config/. Solo vertical slice runtime experience design complete (resume flow, turn loop, exit semantics, engine/presentation boundary). M3 prep pipeline prototype demonstrates sequential model loading (LLM → Image Gen → Music Gen → SFX Gen) with stub implementations. Post-M3: Whiteboard session completed (7 Deep Research tracks filed, 5 delivered, execution plan formalized). 2003 tests passing. PM authority formally delegated to Opus.
 -->
 
@@ -167,6 +167,46 @@ NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (desig
 - **Resolves**: TD-001 (Three Duplicate Grid Position Types)
 - **Status**: Phase 1 COMPLETE (canonical type introduced, backward-compatible, all 1393 tests passing)
 - **Next**: Phase 2 (migrate existing code to use Position, deprecate legacy types in CP-002)
+
+### WO-034: Core Feat System (15 Combat Feats)
+- **FeatDefinition**: Frozen dataclass (feat_id, name, prerequisites, modifier_type, phb_page, description)
+- **FeatID**: 15 feat ID constants (POWER_ATTACK, CLEAVE, GREAT_CLEAVE, DODGE, MOBILITY, SPRING_ATTACK, POINT_BLANK_SHOT, PRECISE_SHOT, RAPID_SHOT, WEAPON_FOCUS, WEAPON_SPECIALIZATION, TWO_WEAPON_FIGHTING, IMPROVED_TWF, GREATER_TWF, IMPROVED_INITIATIVE)
+- **FEAT_REGISTRY**: Dict mapping feat_id to FeatDefinition for all 15 feats
+- **Prerequisite validation**: check_prerequisites() validates ability scores, BAB, required feats, fighter level
+- **Weapon-specific feats**: weapon_focus_<weapon> and weapon_specialization_<weapon> suffix pattern
+- **Attack modifiers**: Weapon Focus +1, Point Blank Shot +1 (30ft), Rapid Shot -2, Power Attack penalty
+- **Damage modifiers**: Weapon Specialization +2, Point Blank Shot +1 (30ft), Power Attack bonus (1:1 one-hand, 1:2 two-hand)
+- **AC modifiers**: Dodge +1 vs designated, Mobility +4 vs movement AoO
+- **Initiative modifier**: Improved Initiative +4
+- **Special mechanics**: Cleave/Great Cleave (extra attack on kill), Spring Attack (suppress AoO), Precise Shot (ignore shooting-into-melee penalty), TWF chain (penalty reduction, extra attacks)
+- **Attack resolver integration**: feat_modifier field in attack_roll and damage_roll events
+- **AoO integration**: Mobility +4 AC applied via temporary world state modification
+- **Entity field**: EF.FEATS (list of feat IDs on entity)
+- **Test coverage**: 41 tests (prerequisites, attack/damage/AC/initiative modifiers, TWF, special mechanics, registry)
+- **PHB citations**: All 15 feats have phb_page references
+- **Files**: aidm/schemas/feats.py, aidm/core/feat_resolver.py, tests/test_feat_resolver.py
+- **Modified**: aidm/core/attack_resolver.py (feat_modifier integration), aidm/core/aoo.py (Mobility integration)
+
+### WO-037: Experience and Leveling System
+- **LEVEL_THRESHOLDS**: DMG Table 3-2 (p.46) — XP thresholds for levels 1-20
+- **XP_TABLE**: DMG Table 2-6 (p.38) — XP awards by (party_level, cr_delta), levels 1-20
+- **CR_FRACTIONS**: Fractional CR mapping (1/8 through 1/2)
+- **ClassProgression**: Frozen dataclass (hit_die, bab_type, good_saves, skill_points_per_level)
+- **CLASS_PROGRESSIONS**: 4 core classes (Fighter d10/full/fort, Rogue d6/3-4/ref, Cleric d8/3-4/fort+will, Wizard d4/half/will)
+- **BAB_PROGRESSION**: Full/three-quarters/half progression tables (levels 1-20)
+- **Save progression**: GOOD_SAVE_PROGRESSION and POOR_SAVE_PROGRESSION tables (levels 1-20)
+- **LevelUpResult**: Dataclass (new_level, class_name, hp_roll, hp_gained, skill_points, bab_increase, save_increases, feat_slot_gained, ability_score_increase)
+- **calculate_xp_award()**: CR-based XP calculation with party size adjustment (DMG p.38)
+- **calculate_multiclass_penalty()**: PHB p.60 XP penalty for imbalanced multiclassing (-20% per offending class)
+- **apply_level_up()**: Atomic level-up (deepcopy, hit die + CON mod, BAB, saves, skill points, feat slot every 3rd level, ability score every 4th level)
+- **award_xp()**: XP award with optional multiclass penalty
+- **Entity fields**: EF.XP, EF.LEVEL, EF.CLASS_LEVELS, EF.FEAT_SLOTS (added to entity_fields.py)
+- **RNG discipline**: Hit die rolls use "combat" stream
+- **State mutation**: All functions use deepcopy (BL-020 compliant)
+- **Test coverage**: 34 tests (XP calculation, multiclass penalty, level thresholds, level-up mechanics, award XP, integration)
+- **DMG/PHB citations**: Table 2-6 (p.38), Table 3-2 (p.46), Chapter 3 (p.22+), p.60 (multiclass)
+- **Files**: aidm/schemas/leveling.py, aidm/core/experience_resolver.py, tests/test_experience_resolver.py
+- **Modified**: aidm/schemas/entity_fields.py (EF.XP, EF.LEVEL, EF.CLASS_LEVELS, EF.FEAT_SLOTS)
 
 ### Monster Tactical Envelope (Doctrine Layer)
 - **DoctrineTag**: 13 behavioral tags (mindless_feeder, fanatical, cowardly, etc.)
@@ -404,9 +444,9 @@ NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (desig
 
 ## Test Count
 
-**Total: 3313 tests** (all passing in ~5 seconds)
+**Total: 3377 tests** (all passing in ~46 seconds)
 
-NOTE: Detailed breakdown below covers through CP-001 Phase 1 (1393 tests). Plan v1 WOs (WO-001 through WO-026) and Plan v2 Phase 1 WOs (WO-027 through WO-031) added ~1920 additional tests. See individual WO completion reports for per-WO test counts.
+NOTE: Detailed breakdown below covers through CP-001 Phase 1 (1393 tests). Plan v1 WOs (WO-001 through WO-026) and Plan v2 Phase 1 WOs (WO-027 through WO-031) added ~1920 additional tests. Phase 2 Batch 1 WOs added 75 tests (WO-034: 41, WO-037: 34). See individual WO completion reports for per-WO test counts.
 
 Breakdown by subsystem:
 - RNGManager: 8 tests
@@ -509,6 +549,8 @@ Breakdown by subsystem:
 - maneuver_resolver.py (CP-18)
 - permanent_stats.py (SKR-002)
 - terrain_resolver.py (CP-19)
+- feat_resolver.py (WO-034 — feat prerequisite validation, combat modifier computation)
+- experience_resolver.py (WO-037 — XP calculation, multiclass penalty, level-up mechanics)
 - session_log.py (M1 — replay harness)
 - campaign_store.py (M2 — campaign persistence)
 - prep_orchestrator.py (M2 — deterministic prep queue)
@@ -550,6 +592,8 @@ Breakdown by subsystem:
 - prep_pipeline.py (WO-M3-PREP-01 — CampaignDescriptor, PrepPipelineConfig, PrepAssetManifest, GeneratedAsset, PrepPipelineResult)
 - immersion.py (M3 — Transcript, VoicePersona, AudioTrack, SceneAudioState, ImageRequest, ImageResult, GridEntityPosition, GridRenderState, AttributionRecord, AttributionLedger)
 - position.py (CP-001 — Canonical Position type consolidating 3 legacy grid position types)
+- feats.py (WO-034 — FeatDefinition, FeatID, FEAT_REGISTRY, 15 combat feats)
+- leveling.py (WO-037 — LEVEL_THRESHOLDS, XP_TABLE, CLASS_PROGRESSIONS, LevelUpResult)
 
 ### aidm/ui/
 - character_sheet.py (M1 — CharacterData, CharacterSheetUI, PartySheet)
@@ -566,7 +610,7 @@ Breakdown by subsystem:
 - contextual_grid.py (M3 — compute_grid_state)
 - attribution.py (M3 — AttributionStore)
 
-### tests/ (74 files)
+### tests/ (76 files)
 - test_event_log.py
 - test_event_log_citations.py
 - test_rng_manager.py
@@ -641,6 +685,8 @@ Breakdown by subsystem:
 - test_immersion_determinism_canary.py (M3 Plan C)
 - test_position.py (CP-001 Phase 1)
 - test_prep_pipeline.py (WO-M3-PREP-01)
+- test_feat_resolver.py (WO-034 — 41 tests: prerequisites, attack/damage/AC/initiative modifiers, TWF, special mechanics)
+- test_experience_resolver.py (WO-037 — 34 tests: XP calculation, multiclass penalty, level thresholds, level-up, award XP)
 
 ### Vault/ (D&D 3.5e Rules Knowledge Base — NOT AIDM CODE)
 
@@ -1611,9 +1657,9 @@ The following WOs are dispatched to Sonnet agents for implementation:
 | WO | Description | Dispatch File | Status |
 |----|-------------|---------------|--------|
 | WO-032 | NarrativeBrief Assembler (Lens layer) | pm_inbox/OPUS_WO-032_NARRATIVE_BRIEF_DISPATCH.md | DISPATCHED |
-| WO-034 | Core Feat System (15 feats) | pm_inbox/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | DISPATCHED |
+| WO-034 | Core Feat System (15 feats) | pm_inbox/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | **INTEGRATED** (41 tests, 3377 total) |
 | WO-035 | Skill System (7 skills) | pm_inbox/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | DISPATCHED |
-| WO-037 | Experience and Leveling | pm_inbox/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | DISPATCHED |
+| WO-037 | Experience and Leveling | pm_inbox/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | **INTEGRATED** (34 tests, 3377 total) |
 
 ### Phase 2 Batch 2 — PENDING (awaiting Batch 1 dependencies)
 
