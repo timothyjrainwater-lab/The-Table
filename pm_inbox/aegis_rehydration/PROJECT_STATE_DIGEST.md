@@ -177,7 +177,7 @@ Recent additions:
 | Document | Purpose |
 |----------|---------|
 | `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` | Plan v1: 7-step engine build (CLOSING — WO-026 audit pending) |
-| `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Plan v2: 4-phase AI integration (DRAFT — awaiting PO approval) |
+| `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Plan v2: 4-phase AI integration (APPROVED — 2026-02-11) |
 | `docs/history/PROJECT_HISTORY.md` | Archived CP summaries, module inventory, frozen contracts |
 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards |
 | `KNOWN_TECH_DEBT.md` | Intentionally deferred issues |

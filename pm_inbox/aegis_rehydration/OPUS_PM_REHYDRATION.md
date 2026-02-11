@@ -3,7 +3,7 @@
 > **Last Updated:** 2026-02-11
 > **PM:** Opus (Claude Opus 4.6) — full PM authority delegated by Thunder
 > **Canonical Plan v1:** `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` (status: CLOSING — WO-026 audit pending)
-> **Canonical Plan v2:** `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` (status: DRAFT — awaiting PO approval)
+> **Canonical Plan v2:** `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` (status: APPROVED — 2026-02-11)
 
 ---
 
