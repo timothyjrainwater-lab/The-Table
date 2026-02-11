@@ -21,7 +21,7 @@ Thunder delivered 7 comprehensive Deep Research question prompts covering the co
 | 3 | RQ-SPARK-001 | Spark | World Modeling → Structured Fact Emission | YES | **NOT DELIVERED** |
 | 4 | RQ-PERF-001 | System | Deterministic Compute Budgeting | YES | **NOT DELIVERED** |
 | 5 | RQ-INTERACT-001 | Player | Voice-First, Click-Second | YES | **DELIVERED** |
-| 6 | RQ-TRUST-001 | Trust | "Show Your Work" Without Debug UI | YES | **NOT DELIVERED** |
+| 6 | RQ-TRUST-001 | Trust | "Show Your Work" Without Debug UI | YES | **DELIVERED** |
 | 7 | RQ-NARR-001 | AI | Narrative Balance (Spark bounded by Box) | YES | **NOT DELIVERED** |
 
 ---
@@ -85,6 +85,23 @@ The Interaction Playbook findings covered 7 of the 8 sub-questions (sub-question
 
 ---
 
+## RQ-TRUST-001 Findings Detail
+
+The Trust & Transparency findings covered all 8 sub-questions as a "Provenance & Proof" framework:
+
+| Sub-Question | Topic | Findings Received |
+|---|---|---|
+| (1) | Trust-Critical Events | YES — 5-category "Distrust" hierarchy (Movement/AoO, Cover/LOS, AoE Boundary, Damage Mitigation, Die Integrity) |
+| (2) | Explain Packets | YES — Structured Truth Packets (STP), JSON schema with event_id/origin/geometry/exclusions/rules_ref |
+| (3) | Table-Native UX | YES — Combat Receipt (parchment slip), Ghost Stencil (translucent AoE), Judge's Lens (magnifying glass status) |
+| (4) | Audit Trails | YES — Universal Seed, Dice Tray with Entropy Source ID, append-only Ledger for dispute rewind |
+| (5) | Anti-Hallucination | YES — One-Way Knowledge Valve (Box→Lens→Spark), System Correction pattern |
+| (6) | Transparency Modes | YES — Tri-Gem Socket: Ruby (Immersion), Sapphire (Standard), Diamond (Tournament/"Show Your Work") |
+| (7) | Validation Strategy | YES — "Thousand-Fold Fireball" PBT CI test, Replay Fuzzing for version regression |
+| (8) | Trust Framework Spec | YES — Box=Authoritative Source, Lens=Visual Witness, Spark=Narrator, Combat Receipt=player truth |
+
+---
+
 ## Additional Research Tracks Mentioned
 
 Thunder noted that beyond the core 7, additional research tracks could include:
@@ -112,10 +129,9 @@ These have not been formalized as research questions yet.
 
 ## Next Steps
 
-1. **Receive remaining findings** — 6 research tracks still awaiting findings delivery
-2. **Complete RQ-LENS-001** — Request re-delivery of truncated testing section
-3. **Cross-reference with existing R0/R1 research** — Some findings may overlap with or supersede existing research documents
-4. **Integrate into roadmap rewrite** — Research findings will inform the new milestone architecture
+1. **Receive remaining findings** — 3 research tracks still awaiting findings delivery (SPARK, PERF, NARR)
+2. **Cross-reference with existing R0/R1 research** — Some findings may overlap with or supersede existing research documents
+3. **Integrate into roadmap rewrite** — Research findings will inform the new milestone architecture
 
 ---
 
