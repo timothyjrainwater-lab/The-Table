@@ -204,13 +204,13 @@ PM issues work orders autonomously. PO consulted for design decisions and vision
 
 ## Work Order Tracking
 
-| WO ID | Step | Description | Status | Doc |
-|---|---|---|---|---|
-| WO-001 | 1.1 | Box Geometric Engine Core | READY FOR DISPATCH | `docs/planning/WO-001_BOX_GEOMETRIC_ENGINE_CORE.md` |
-| WO-002 | 1.2 | Cover Resolution | PENDING | — |
-| WO-003 | 1.3 | LOS/LOE Resolution | PENDING | — |
-| WO-004 | 1.4 | AoE Rasterization | PENDING | — |
-| WO-005 | 1.5 | Ranged Attacks | PENDING | — |
+| WO ID | Step | Description | Status | Agent | Doc |
+|---|---|---|---|---|---|
+| WO-001 | 1.1 | Box Geometric Engine Core | DISPATCHED | Sonnet-A | `docs/planning/WO-001_BOX_GEOMETRIC_ENGINE_CORE.md` |
+| WO-002 | 1.2 | Cover Resolution | PENDING | — | — |
+| WO-003 | 1.3 | LOS/LOE Resolution | PENDING | — | — |
+| WO-004 | 1.4 | AoE Rasterization | PENDING | — | — |
+| WO-005 | 1.5 | Ranged Attacks | PENDING | — | — |
 
 ---
 
