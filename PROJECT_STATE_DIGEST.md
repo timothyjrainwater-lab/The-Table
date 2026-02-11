@@ -9,7 +9,7 @@ UPDATE RULES:
 - Format: Markdown with stable section ordering
 - REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
-LAST UPDATED: 2026-02-11 — Phase 2 Batch 1 COMPLETE: WO-032 (NarrativeBrief) INTEGRATED, WO-034 (Feats) INTEGRATED, WO-035 (Skills) INTEGRATED, WO-037 (XP/Leveling) INTEGRATED
+LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 DISPATCHED: WO-033 (Spark Stress Test) + WO-036 (Expanded Spells). Batch 1 COMPLETE: WO-032/034/035/037 all INTEGRATED.
 NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (design) and WO-M1-RUNTIME-02 (implementation verification) complete. WO-M2-02 (BL-017/018 persistence cleanup) complete. WO-M1.5-UX-01 (runtime experience design) complete. WO-M3-PREP-01 (prep pipeline prototype with sequential model loading) complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, IPC runtime integration, pm_inbox workflow, runtime session bootstrap (campaign load, replay-first reconstruction, partial write recovery, log sync checks, 10× determinism verification). PrepOrchestrator timestamp injection compliance (deterministic testing enabled). Documentation spring cleaning removed 17 superseded files (6,775 lines). Root cleanup: torrent remnants deleted, REUSE_DECISION.json moved to config/. Solo vertical slice runtime experience design complete (resume flow, turn loop, exit semantics, engine/presentation boundary). M3 prep pipeline prototype demonstrates sequential model loading (LLM → Image Gen → Music Gen → SFX Gen) with stub implementations. Post-M3: Whiteboard session completed (7 Deep Research tracks filed, 5 delivered, execution plan formalized). 2003 tests passing. PM authority formally delegated to Opus.
 -->
 
@@ -1434,7 +1434,7 @@ The `Vault/` directory is a **structured D&D 3.5e rules reference** extracted fr
 ## Canonical Project Plan Reference
 
 **CANONICAL EXECUTION PLAN (Plan v2 — ACTIVE):**
-- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 Batch 1 DISPATCHED.
+- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 Batch 1 COMPLETE. Phase 2 Batch 2 DISPATCHED.
 
 **PRIOR EXECUTION PLAN (Plan v1 — CLOSED):**
 - [EXECUTION_PLAN_DRAFT_2026_02_11.md](docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md) — Prior execution plan (7-step: Box→Lens→Vertical Slice→Spark Integration). All 26 WOs complete. Closed 2026-02-11.
@@ -1701,23 +1701,25 @@ The following documents exist for reference but are **not authoritative** for cu
 
 **No work items are greenlit for implementation.** All future work requires explicit authorization.
 
-### Phase 2 Batch 1 — DISPATCHED (2026-02-11)
+### Phase 2 Batch 1 — COMPLETE (2026-02-11)
 
-The following WOs are dispatched to Sonnet agents for implementation:
+All Batch 1 WOs integrated and tested. 3452 tests passing, 0 failed, 11 skipped (hardware-gated).
 
 | WO | Description | Dispatch File | Status |
 |----|-------------|---------------|--------|
-| WO-032 | NarrativeBrief Assembler (Lens layer) | pm_inbox/OPUS_WO-032_NARRATIVE_BRIEF_DISPATCH.md | **INTEGRATED** (45 tests, 3452 total) |
-| WO-034 | Core Feat System (15 feats) | pm_inbox/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | **INTEGRATED** (41 tests, 3452 total) |
-| WO-035 | Skill System (7 skills) | pm_inbox/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | **INTEGRATED** (30 tests, 3452 total) |
-| WO-037 | Experience and Leveling | pm_inbox/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | **INTEGRATED** (34 tests, 3452 total) |
+| WO-032 | NarrativeBrief Assembler (Lens layer) | pm_inbox/reviewed/OPUS_WO-032_NARRATIVE_BRIEF_DISPATCH.md | **INTEGRATED** (45 tests, 3452 total) |
+| WO-034 | Core Feat System (15 feats) | pm_inbox/reviewed/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | **INTEGRATED** (41 tests, 3452 total) |
+| WO-035 | Skill System (7 skills) | pm_inbox/reviewed/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | **INTEGRATED** (30 tests, 3452 total) |
+| WO-037 | Experience and Leveling | pm_inbox/reviewed/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | **INTEGRATED** (34 tests, 3452 total) |
 
-### Phase 2 Batch 2 — PENDING (awaiting Batch 1 dependencies)
+### Phase 2 Batch 2 — DISPATCHED (2026-02-11)
 
-| WO | Description | Dependency |
-|----|-------------|-----------|
-| WO-033 | Spark Integration Stress Test | WO-032 (NarrativeBrief) |
-| WO-036 | Expanded Spell Registry (~33 new) | WO-035 (Concentration skill, soft dep) |
+Dependencies satisfied. Both WOs dispatched for parallel implementation.
+
+| WO | Description | Dispatch File | Dependency | Status |
+|----|-------------|---------------|-----------|--------|
+| WO-033 | Spark Integration Stress Test (~40 tests) | pm_inbox/OPUS_WO-033_SPARK_STRESS_TEST_DISPATCH.md | WO-032 ✅ | **DISPATCHED** |
+| WO-036 | Expanded Spell Registry (~33 new spells, ~50 tests) | pm_inbox/OPUS_WO-036_EXPANDED_SPELLS_DISPATCH.md | WO-035 ✅ | **DISPATCHED** |
 
 ### Phases 3-4 — FUTURE (awaiting Phase 2 A9 gate)
 
