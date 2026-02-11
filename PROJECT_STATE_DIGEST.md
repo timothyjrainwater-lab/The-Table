@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — PSD HYGIENE PASS: trimmed from 1750 to 365 lines. Phase 2 Batch 2 DISPATCHED: WO-033 (Spark Stress Test) + WO-036 (Expanded Spells). Batch 1 COMPLETE: WO-032/034/035/037 all INTEGRATED.
+LAST UPDATED: 2026-02-11 — Phase 2 Batch 2 INTEGRATED: WO-036 (33 spells, 50 tests) + WO-033 (28 tests, rework pending for +12). 3530 tests, 0 failed.
 -->
 
 # Project State Digest
@@ -152,16 +152,26 @@ LAST UPDATED: 2026-02-11 — PSD HYGIENE PASS: trimmed from 1750 to 365 lines. P
 - **SpellResolver** (1078 lines): Full resolution pipeline — targeting, saves, damage, healing, conditions, STPs
 - **DurationTracker** (492 lines): Effect lifecycle, concentration management, expiration, dispelling
 - **AoE Rasterizer** (593 lines): Burst/cone/line geometry per RQ-BOX-001
-- **20 existing spells** in spell_definitions.py (levels 0-5)
+- **20 existing spells** + **33 new spells (WO-036)** = 53 total in spell_definitions.py (levels 0-5)
 - **Concentration integration** (WO-035): check_concentration_on_damage() DC = 10 + damage
+
+### WO-036: Expanded Spell Registry (33 New Spells)
+- **53 total spells** (levels 0-5): 4 cantrips, 6 L1, 7 L2, 5 L3, 6 L4, 5 L5
+- **Purely declarative**: SpellDefinition entries only, no resolver/tracker/rasterizer changes
+- **3 concentration spells**: Stinking Cloud, Wall of Fire, Telekinesis
+- **50 tests** in test_expanded_spells.py
+
+### WO-033: Spark Integration Stress Test (Partial)
+- **28 tests** in test_spark_integration_stress.py: NarrativeBrief containment (8), kill switch registry (8), template fallback (4), gold master compatibility (4), mock adapter (4)
+- **Rework pending**: Determinism verification (8 tests) and GPU performance (4 tests) categories not yet delivered
 
 ---
 
 ## Test Count
 
-**Total: 3452 tests** (all passing in ~46 seconds, 0 failed, 11 skipped hardware-gated)
+**Total: 3530 tests** (all passing in ~46 seconds, 0 failed, 11 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2 Batch 1 WOs added 150 tests (WO-032: 45, WO-034: 41, WO-035: 30, WO-037: 34).
+> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Batch 1: +150 tests. Batch 2: +78 tests (WO-036: 50, WO-033: 28).
 
 ---
 
@@ -338,14 +348,12 @@ All Batch 1 WOs integrated and tested. 3452 tests passing, 0 failed, 11 skipped 
 | WO-035 | Skill System (7 skills) | pm_inbox/reviewed/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | **INTEGRATED** (30 tests, 3452 total) |
 | WO-037 | Experience and Leveling | pm_inbox/reviewed/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | **INTEGRATED** (34 tests, 3452 total) |
 
-### Phase 2 Batch 2 — DISPATCHED (2026-02-11)
+### Phase 2 Batch 2 — INTEGRATED (2026-02-11)
 
-Dependencies satisfied. Both WOs dispatched for parallel implementation.
-
-| WO | Description | Dispatch File | Dependency | Status |
-|----|-------------|---------------|-----------|--------|
-| WO-033 | Spark Integration Stress Test (~40 tests) | pm_inbox/OPUS_WO-033_SPARK_STRESS_TEST_DISPATCH.md | WO-032 | **DISPATCHED** |
-| WO-036 | Expanded Spell Registry (~33 new spells, ~50 tests) | pm_inbox/OPUS_WO-036_EXPANDED_SPELLS_DISPATCH.md | WO-035 | **DISPATCHED** |
+| WO | Description | Dispatch File | Status |
+|----|-------------|---------------|--------|
+| WO-033 | Spark Integration Stress Test | pm_inbox/reviewed/OPUS_WO-033_SPARK_STRESS_TEST_DISPATCH.md | **INTEGRATED** (28 tests, rework pending: +12 determinism/perf tests) |
+| WO-036 | Expanded Spell Registry (33 new spells) | pm_inbox/OPUS_WO-036_EXPANDED_SPELLS_DISPATCH.md | **INTEGRATED** (50 tests, 3530 total) |
 
 ### Phases 3-4 — FUTURE (awaiting Phase 2 A9 gate)
 

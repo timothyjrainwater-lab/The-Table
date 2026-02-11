@@ -440,6 +440,676 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         rule_citations=("PHB p.248",),
     ),
 
+    # ==========================================================================
+    # WO-036: EXPANDED SPELL REGISTRY (33 NEW SPELLS)
+    # ==========================================================================
+
+    # ── LEVEL 0 CANTRIPS (4 new) ──
+
+    "resistance": SpellDefinition(
+        spell_id="resistance",
+        name="Resistance",
+        level=0,
+        school="abjuration",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min
+        concentration=False,
+        conditions_on_success=("resistance",),  # +1 resistance bonus to saves
+        rule_citations=("PHB p.272",),
+    ),
+
+    "guidance": SpellDefinition(
+        spell_id="guidance",
+        name="Guidance",
+        level=0,
+        school="divination",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min
+        concentration=False,
+        conditions_on_success=("guidance",),  # +1 competence bonus to attack/save/skill
+        rule_citations=("PHB p.238",),
+    ),
+
+    "mending": SpellDefinition(
+        spell_id="mending",
+        name="Mending",
+        level=0,
+        school="transmutation",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.HEALING,
+        damage_dice=None,
+        damage_type=None,
+        healing_dice="1d4",  # Repairs 1d4 HP to object
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=0,  # Instantaneous
+        concentration=False,
+        rule_citations=("PHB p.253",),
+    ),
+
+    "read_magic": SpellDefinition(
+        spell_id="read_magic",
+        name="Read Magic",
+        level=0,
+        school="divination",
+        target_type=SpellTarget.SELF,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.UTILITY,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=100,  # 10 min/level
+        concentration=False,
+        rule_citations=("PHB p.269",),
+    ),
+
+    # ── LEVEL 1 SPELLS (6 new) ──
+
+    "bless": SpellDefinition(
+        spell_id="bless",
+        name="Bless",
+        level=1,
+        school="enchantment",
+        target_type=SpellTarget.AREA,
+        range_ft=50,
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=50,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_success=("blessed",),  # +1 morale attack & fear saves
+        rule_citations=("PHB p.205",),
+    ),
+
+    "bane": SpellDefinition(
+        spell_id="bane",
+        name="Bane",
+        level=1,
+        school="enchantment",
+        target_type=SpellTarget.AREA,
+        range_ft=50,
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=50,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_fail=("bane",),  # -1 morale attack & fear saves
+        rule_citations=("PHB p.203",),
+    ),
+
+    "grease": SpellDefinition(
+        spell_id="grease",
+        name="Grease",
+        level=1,
+        school="conjuration",
+        target_type=SpellTarget.AREA,
+        range_ft=25,  # Close range
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=10,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.REF,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=1,  # 1 round/level
+        concentration=False,
+        conditions_on_fail=("prone",),  # Balance DC 10 or fall prone
+        rule_citations=("PHB p.237",),
+    ),
+
+    "sleep": SpellDefinition(
+        spell_id="sleep",
+        name="Sleep",
+        level=1,
+        school="enchantment",
+        target_type=SpellTarget.AREA,
+        range_ft=100,  # Medium range
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=10,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,  # No save — HD-limited effect (PHB p.280)
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_fail=("unconscious",),  # HD-limited: affects 4 HD max, lowest HD first
+        rule_citations=("PHB p.280", "HD-limited effect: no save, affects 4 HD, lowest HD first"),
+    ),
+
+    "entangle": SpellDefinition(
+        spell_id="entangle",
+        name="Entangle",
+        level=1,
+        school="transmutation",
+        target_type=SpellTarget.AREA,
+        range_ft=400,  # Long range
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=40,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.REF,
+        save_effect=SaveEffect.PARTIAL,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_fail=("entangled",),
+        rule_citations=("PHB p.227",),
+    ),
+
+    "color_spray": SpellDefinition(
+        spell_id="color_spray",
+        name="Color Spray",
+        level=1,
+        school="illusion",
+        target_type=SpellTarget.AREA,
+        range_ft=0,  # Caster origin
+        aoe_shape=AoEShape.CONE,
+        aoe_radius_ft=15,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=0,  # Varies by HD
+        concentration=False,
+        conditions_on_fail=("stunned",),  # Simplified: stunned for all HD
+        rule_citations=("PHB p.210", "Effect varies by HD"),
+    ),
+
+    # ── LEVEL 2 SPELLS (7 new) ──
+
+    "invisibility": SpellDefinition(
+        spell_id="invisibility",
+        name="Invisibility",
+        level=2,
+        school="illusion",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_success=("invisible",),  # Breaks on attack
+        rule_citations=("PHB p.245",),
+    ),
+
+    "mirror_image": SpellDefinition(
+        spell_id="mirror_image",
+        name="Mirror Image",
+        level=2,
+        school="illusion",
+        target_type=SpellTarget.SELF,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_success=("mirror_image",),  # 1d4+1 duplicates
+        rule_citations=("PHB p.254", "Creates 1d4+1 duplicates"),
+    ),
+
+    "cats_grace": SpellDefinition(
+        spell_id="cats_grace",
+        name="Cat's Grace",
+        level=2,
+        school="transmutation",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_success=("cats_grace",),  # +4 DEX
+        rule_citations=("PHB p.208",),
+    ),
+
+    "bears_endurance": SpellDefinition(
+        spell_id="bears_endurance",
+        name="Bear's Endurance",
+        level=2,
+        school="transmutation",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_success=("bears_endurance",),  # +4 CON
+        rule_citations=("PHB p.203",),
+    ),
+
+    "owls_wisdom": SpellDefinition(
+        spell_id="owls_wisdom",
+        name="Owl's Wisdom",
+        level=2,
+        school="transmutation",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_success=("owls_wisdom",),  # +4 WIS
+        rule_citations=("PHB p.259",),
+    ),
+
+    "resist_energy": SpellDefinition(
+        spell_id="resist_energy",
+        name="Resist Energy",
+        level=2,
+        school="abjuration",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=100,  # 10 min/level
+        concentration=False,
+        conditions_on_success=("resist_energy",),  # Resistance 10 to chosen energy
+        rule_citations=("PHB p.272",),
+    ),
+
+    "silence": SpellDefinition(
+        spell_id="silence",
+        name="Silence",
+        level=2,
+        school="illusion",
+        target_type=SpellTarget.AREA,
+        range_ft=400,  # Long range
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=20,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=1,  # 1 round/level
+        concentration=False,
+        conditions_on_fail=("silenced",),  # No sound, blocks verbal spells
+        rule_citations=("PHB p.279",),
+    ),
+
+    # ── LEVEL 3 SPELLS (5 new) ──
+
+    "dispel_magic": SpellDefinition(
+        spell_id="dispel_magic",
+        name="Dispel Magic",
+        level=3,
+        school="abjuration",
+        target_type=SpellTarget.SINGLE,
+        range_ft=100,  # Medium range
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.UTILITY,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=0,  # Instantaneous
+        concentration=False,
+        conditions_on_success=(),  # Caster level check to remove effects
+        rule_citations=("PHB p.223", "Caster level check required"),
+    ),
+
+    "protection_from_energy": SpellDefinition(
+        spell_id="protection_from_energy",
+        name="Protection from Energy",
+        level=3,
+        school="abjuration",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=100,  # 10 min/level
+        concentration=False,
+        conditions_on_success=("protection_from_energy",),  # Absorbs 12/level (max 120)
+        rule_citations=("PHB p.266",),
+    ),
+
+    "magic_circle_against_evil": SpellDefinition(
+        spell_id="magic_circle_against_evil",
+        name="Magic Circle against Evil",
+        level=3,
+        school="abjuration",
+        target_type=SpellTarget.AREA,
+        range_ft=0,  # Self + 10ft radius
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=10,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=100,  # 10 min/level
+        concentration=False,
+        conditions_on_success=("magic_circle_evil",),  # +2 deflection AC, +2 resistance saves
+        rule_citations=("PHB p.249",),
+    ),
+
+    "fly": SpellDefinition(
+        spell_id="fly",
+        name="Fly",
+        level=3,
+        school="transmutation",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=10,  # 1 min/level
+        concentration=False,
+        conditions_on_success=("flying",),  # Fly speed 60ft
+        rule_citations=("PHB p.232",),
+    ),
+
+    "stinking_cloud": SpellDefinition(
+        spell_id="stinking_cloud",
+        name="Stinking Cloud",
+        level=3,
+        school="conjuration",
+        target_type=SpellTarget.AREA,
+        range_ft=100,  # Medium range
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=20,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.FORT,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=1,  # 1 round/level
+        concentration=True,  # Concentration required
+        conditions_on_fail=("nauseated",),  # Nauseated 1d4+1 rounds
+        rule_citations=("PHB p.284",),
+    ),
+
+    # ── LEVEL 4 SPELLS (6 new) ──
+
+    "cure_critical_wounds": SpellDefinition(
+        spell_id="cure_critical_wounds",
+        name="Cure Critical Wounds",
+        level=4,
+        school="conjuration",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.HEALING,
+        damage_dice=None,
+        damage_type=None,
+        healing_dice="4d8",  # +1/level, max +20
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=0,  # Instantaneous
+        concentration=False,
+        rule_citations=("PHB p.215",),
+    ),
+
+    "stoneskin": SpellDefinition(
+        spell_id="stoneskin",
+        name="Stoneskin",
+        level=4,
+        school="abjuration",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=100,  # 10 min/level
+        concentration=False,
+        conditions_on_success=("stoneskin",),  # DR 10/adamantine (max 150 absorbed)
+        rule_citations=("PHB p.284", "DR 10/adamantine, max 150 damage absorbed"),
+    ),
+
+    "wall_of_fire": SpellDefinition(
+        spell_id="wall_of_fire",
+        name="Wall of Fire",
+        level=4,
+        school="evocation",
+        target_type=SpellTarget.AREA,
+        range_ft=100,  # Medium range
+        aoe_shape=AoEShape.LINE,
+        aoe_radius_ft=20,  # 20ft long wall
+        effect_type=SpellEffect.DAMAGE,
+        damage_dice="2d4",  # Within 10ft, 2d6+CL passing through
+        damage_type=DamageType.FIRE,
+        save_type=SaveType.REF,
+        save_effect=SaveEffect.HALF,
+        duration_rounds=1,  # Concentration + 1 round/level (PHB p.298)
+        concentration=True,  # Concentration required
+        rule_citations=("PHB p.298",),
+    ),
+
+    "dimension_door": SpellDefinition(
+        spell_id="dimension_door",
+        name="Dimension Door",
+        level=4,
+        school="conjuration",
+        target_type=SpellTarget.SELF,
+        range_ft=400,  # 400ft + 40ft/level
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.UTILITY,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=0,  # Instantaneous
+        concentration=False,
+        rule_citations=("PHB p.221", "Teleport up to range"),
+    ),
+
+    "greater_invisibility": SpellDefinition(
+        spell_id="greater_invisibility",
+        name="Greater Invisibility",
+        level=4,
+        school="illusion",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.BUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=1,  # 1 round/level
+        concentration=False,
+        conditions_on_success=("greater_invisibility",),  # Invisible even while attacking
+        rule_citations=("PHB p.245",),
+    ),
+
+    "ice_storm": SpellDefinition(
+        spell_id="ice_storm",
+        name="Ice Storm",
+        level=4,
+        school="evocation",
+        target_type=SpellTarget.AREA,
+        range_ft=400,  # Long range
+        aoe_shape=AoEShape.BURST,
+        aoe_radius_ft=20,
+        effect_type=SpellEffect.DAMAGE,
+        damage_dice="5d6",  # 3d6 bludgeoning + 2d6 cold (simplified to 5d6)
+        damage_type=DamageType.COLD,
+        save_type=None,  # No save
+        save_effect=SaveEffect.NONE,
+        duration_rounds=0,  # Instantaneous
+        concentration=False,
+        rule_citations=("PHB p.243", "3d6 bludgeoning + 2d6 cold, no save"),
+    ),
+
+    # ── LEVEL 5 SPELLS (5 new) ──
+
+    "hold_monster": SpellDefinition(
+        spell_id="hold_monster",
+        name="Hold Monster",
+        level=5,
+        school="enchantment",
+        target_type=SpellTarget.SINGLE,
+        range_ft=100,  # Medium range
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=1,  # 1 round/level
+        concentration=False,
+        conditions_on_fail=("paralyzed",),
+        rule_citations=("PHB p.241",),
+    ),
+
+    "wall_of_stone": SpellDefinition(
+        spell_id="wall_of_stone",
+        name="Wall of Stone",
+        level=5,
+        school="conjuration",
+        target_type=SpellTarget.AREA,
+        range_ft=100,  # Medium range
+        aoe_shape=AoEShape.LINE,
+        aoe_radius_ft=0,  # Variable size
+        effect_type=SpellEffect.UTILITY,
+        damage_dice=None,
+        damage_type=None,
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=-1,  # Permanent
+        concentration=False,
+        rule_citations=("PHB p.299", "Create stone wall, permanent"),
+    ),
+
+    "raise_dead": SpellDefinition(
+        spell_id="raise_dead",
+        name="Raise Dead",
+        level=5,
+        school="conjuration",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.HEALING,
+        damage_dice=None,
+        damage_type=None,
+        healing_dice="0",  # Restore life, not HP
+        save_type=None,
+        save_effect=SaveEffect.NONE,
+        duration_rounds=0,  # Instantaneous
+        concentration=False,
+        rule_citations=("PHB p.268", "Restore life, -1 level"),
+    ),
+
+    "telekinesis": SpellDefinition(
+        spell_id="telekinesis",
+        name="Telekinesis",
+        level=5,
+        school="transmutation",
+        target_type=SpellTarget.SINGLE,
+        range_ft=400,  # Long range
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.UTILITY,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=1,  # 1 round/level
+        concentration=True,  # Concentration required
+        rule_citations=("PHB p.292", "Move 25lb/level, concentration"),
+    ),
+
+    "baleful_polymorph": SpellDefinition(
+        spell_id="baleful_polymorph",
+        name="Baleful Polymorph",
+        level=5,
+        school="transmutation",
+        target_type=SpellTarget.SINGLE,
+        range_ft=25,  # Close range
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.DEBUFF,
+        damage_dice=None,
+        damage_type=None,
+        save_type=SaveType.FORT,
+        save_effect=SaveEffect.NEGATES,
+        duration_rounds=-1,  # Permanent
+        concentration=False,
+        conditions_on_fail=("polymorphed",),  # Transform into animal
+        rule_citations=("PHB p.202",),
+    ),
+
 }
 
 
