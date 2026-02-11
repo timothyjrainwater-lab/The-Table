@@ -622,7 +622,7 @@ Player-facing communication when system degrades:
 | A5: Regression | Plan v1 Step 6 | Gold Masters, perf baselines | **PASSED** |
 | A6: Boundary | Plan v1 Step 7 | BL-020 with real backends | **PASSED** (WO-026) |
 | A7: Full System | Plan v1 closure | All above re-verified | **PASSED** (WO-026) |
-| A8: Spark Integration | Plan v2 Phase 1 | Real LLM narration, kill switches, Grammar Shield | **FUTURE** |
+| A8: Spark Integration | Plan v2 Phase 1 | Real LLM narration, kill switches, Grammar Shield | **PASSED** (demo_combat_turn.py, 7/7) |
 | A9: Content Integration | Plan v2 Phase 2 | Feats/skills/spells + NarrativeBrief stress test | **FUTURE** |
 | A10: Playability | Plan v2 Phase 3 | Full session loop, scene management, DM persona | **FUTURE** |
 | A11: Ship Gate | Plan v2 Phase 4 | Playtest, fallback UX, documentation, M3 transition | **FUTURE** |

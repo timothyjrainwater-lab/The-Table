@@ -22,7 +22,8 @@ class Weapon:
     """Damage dice expression (e.g., '1d8', '2d6')"""
 
     damage_bonus: int
-    """Flat damage bonus (e.g., STR modifier)"""
+    """Flat damage bonus from enhancement, specialization, or magic effects.
+    Does NOT include STR modifier — the resolver adds STR via entity[EF.STR_MOD]."""
 
     damage_type: str
     """Damage type: 'slashing', 'piercing', 'bludgeoning', 'fire', 'cold', etc."""
