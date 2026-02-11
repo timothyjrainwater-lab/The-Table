@@ -7,6 +7,8 @@
 **Authority:** PM (Thunder) + Agent D (Research Orchestrator)
 **Scope:** All AIDM components (engine, narration, memory, UX)
 
+> **AMENDMENT NOTICE (2026-02-11):** The LENS layer definition in Section 2 ("stateless presentation logic") has been amended by Product Owner directive. The Lens is now defined as a **stateful focus system** that holds campaign memory, player model, alignment tracking, environmental data, and session continuity. All authority/trust axioms in this doctrine remain unchanged. The Lens still cannot invent mechanical authority. See `docs/design/SPARK_LENS_BOX_ARCHITECTURE.md` for the amended operational architecture.
+
 ---
 
 ## 1. Purpose Statement

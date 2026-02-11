@@ -7,6 +7,8 @@
 **Authority:** PM (Thunder)
 **Parent Document:** `docs/doctrine/SPARK_LENS_BOX_DOCTRINE.md`
 
+> **AMENDMENT NOTICE (2026-02-11):** The Lens definition in this document (Section 2.2) describes the Lens as "stateless" presentation logic. Per Product Owner whiteboarding (Session 002, 2026-02-11) and the new `docs/design/SPARK_LENS_BOX_ARCHITECTURE.md` specification, the Lens is now understood to be a **stateful focus system** — it holds campaign memory, player model, alignment tracking, environmental data index, and session continuity. All trust/authority separation principles in this document remain fully valid and binding. The amendment upgrades the Lens role; it does not change the Lens's prohibition against inventing mechanical authority. See `docs/design/SPARK_LENS_BOX_ARCHITECTURE.md` for the amended Lens definition and interface contracts.
+
 ---
 
 ## 1. Purpose & Non-Modification Statement
