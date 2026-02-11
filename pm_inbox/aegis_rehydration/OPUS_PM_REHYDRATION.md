@@ -25,9 +25,9 @@
 
 ```
 PLAN v1:     CLOSED — 26/26 WOs complete, A1-A7 all PASSED
-PLAN v2:     ACTIVE — Phase 1 ready for dispatch
-TESTS:       3170 passing
-NEXT:        Dispatch Phase 1 Batch 1 (WO-027 + WO-028)
+PLAN v2:     ACTIVE — Phase 1 IN PROGRESS (Batch 1 complete)
+TESTS:       3221 passing
+NEXT:        Dispatch Phase 1 Batch 2 (WO-029 + WO-031)
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -59,18 +59,18 @@ NEXT:        Dispatch Phase 1 Batch 1 (WO-027 + WO-028)
 ## PENDING DISPATCH
 
 **Current batch (parallel-safe):**
-- None — awaiting Thunder to dispatch Phase 1 Batch 1
+- None — awaiting Thunder to dispatch Phase 1 Batch 2
 
-**Queued (Phase 1 Batch 1 — parallel-safe, no file overlap):**
-- WO-027 — Canonical SparkAdapter Integration (spark/ layer)
-- WO-028 — Template Fallback Chain (narration/ layer)
-
-**Phase 1 Batch 2 (after Batch 1 completes):**
-- WO-029 — Kill Switch Suite (after WO-028)
-- WO-031 — Grammar Shield v1 (after WO-027)
+**Queued (Phase 1 Batch 2 — parallel-safe, no file overlap):**
+- WO-029 — Kill Switch Suite KILL-002→006 (narration/, core/)
+- WO-031 — Grammar Shield v1 (spark/)
 
 **Phase 1 Serial (after Batch 2):**
 - WO-030 — Narration Pipeline Wiring (after WO-029)
+
+**Research (parallel with all implementation WOs):**
+- RQ-SPARK-001 — 3 sub-dispatches (A/B/C) — READY
+- RQ-NARR-001 — 3 sub-dispatches (A/B/C) — READY
 
 **Protocol:**
 - When dispatch presented: Add entry here
@@ -162,5 +162,5 @@ NEXT:        Dispatch Phase 1 Batch 1 (WO-027 + WO-028)
 
 ### Pending Research
 
-- RQ-SPARK-001 (Spark adapter) — NOT DELIVERED
-- RQ-NARR-001 (Narrative pacing) — NOT DELIVERED
+- RQ-SPARK-001 (Structured Fact Emission) — DISPATCHED (3 sub-tasks: A/B/C)
+- RQ-NARR-001 (Narrative Balance) — DISPATCHED (3 sub-tasks: A/B/C)

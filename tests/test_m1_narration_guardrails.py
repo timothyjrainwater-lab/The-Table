@@ -17,6 +17,7 @@ from aidm.narration.guarded_narration_service import (
     GuardedNarrationService,
     NarrationBoundaryViolation,
     NarrationRequest,
+    NarrationResult,
     verify_frozen_snapshot_immutable,
     verify_no_memory_write_path,
 )
@@ -122,12 +123,12 @@ def test_memory_hash_unchanged_after_narration():
 
     # Generate narration
     service = GuardedNarrationService()
-    narration = service.generate_narration(request)
+    result = service.generate_narration(request)
 
     # Verify narration generated
-    assert narration is not None
-    assert isinstance(narration, str)
-    assert len(narration) > 0
+    assert result is not None
+    assert isinstance(result, NarrationResult)
+    assert len(result.text) > 0
 
     # Verify hash unchanged (memory not mutated)
     hash_after = snapshot.snapshot_hash
@@ -345,8 +346,9 @@ def test_kill_switch_manual_reset():
     )
 
     # Should succeed after reset
-    narration = service.generate_narration(request)
-    assert narration is not None, "Narration should succeed after kill switch reset"
+    result = service.generate_narration(request)
+    assert result is not None, "Narration should succeed after kill switch reset"
+    assert isinstance(result, NarrationResult)
 
 
 # ========================================================================
@@ -403,12 +405,12 @@ def test_full_narration_flow_no_violations():
 
     # Generate narration
     service = GuardedNarrationService()
-    narration = service.generate_narration(request)
+    result = service.generate_narration(request)
 
     # Verify narration generated
-    assert narration is not None
-    assert isinstance(narration, str)
-    assert len(narration) > 0
+    assert result is not None
+    assert isinstance(result, NarrationResult)
+    assert len(result.text) > 0
 
     # Verify memory unchanged
     hash_after = snapshot.snapshot_hash
@@ -545,3 +547,298 @@ def test_generate_evidence_for_audit(tmp_path):
 
     # Return evidence content for assertion
     return evidence_content
+
+
+# ========================================================================
+# WO-028: Template Fallback Chain Tests
+# ========================================================================
+
+
+class TestTemplateFallbackChain:
+    """WO-028: Tests for the full 55-template fallback chain.
+
+    Verifies:
+    - All 55 narration tokens produce non-empty template text
+    - Placeholder substitution works correctly
+    - Missing placeholder data uses safe defaults
+    - Provenance tagging distinguishes LLM vs template
+    - Guardrails still enforced on template path
+    """
+
+    def _make_request(self, token: str, events: list = None) -> NarrationRequest:
+        """Helper: build a NarrationRequest for a given token."""
+        engine_result = EngineResult(
+            result_id="wo028-test",
+            intent_id="wo028-intent",
+            status=EngineResultStatus.SUCCESS,
+            resolved_at=datetime(2025, 1, 1, 12, 0, 0),
+            narration_token=token,
+            events=events or [],
+        )
+        snapshot = FrozenMemorySnapshot.create()
+        return NarrationRequest(
+            engine_result=engine_result,
+            memory_snapshot=snapshot,
+            temperature=0.8,
+        )
+
+    # ── All 55 tokens produce text ──────────────────────────────────
+
+    def test_all_55_tokens_produce_non_empty_text(self):
+        """Every token in NarrationTemplates.TEMPLATES produces non-empty narration."""
+        from aidm.narration.narrator import NarrationTemplates
+
+        service = GuardedNarrationService()
+        tokens = list(NarrationTemplates.TEMPLATES.keys())
+        assert len(tokens) >= 55, f"Expected at least 55 templates, got {len(tokens)}"
+
+        for token in tokens:
+            request = self._make_request(token)
+            result = service.generate_narration(request)
+            assert len(result.text) > 0, f"Token '{token}' produced empty text"
+
+    def test_attack_hit_template_text(self):
+        """attack_hit template produces text with placeholder substitution."""
+        service = GuardedNarrationService()
+        events = [
+            {"type": "attack_roll", "attacker": "fighter_1", "target": "goblin_1"},
+            {"type": "damage_dealt", "target": "goblin_1", "damage": 12},
+        ]
+        request = self._make_request("attack_hit", events)
+        result = service.generate_narration(request)
+        assert "fighter_1" in result.text
+        assert "goblin_1" in result.text
+        assert "12" in result.text
+
+    def test_attack_miss_template_text(self):
+        """attack_miss template produces text with actor and target."""
+        service = GuardedNarrationService()
+        events = [
+            {"type": "attack_roll", "attacker": "rogue_1", "target": "orc_1"},
+        ]
+        request = self._make_request("attack_miss", events)
+        result = service.generate_narration(request)
+        assert "rogue_1" in result.text
+        assert "orc_1" in result.text
+
+    def test_critical_hit_template_text(self):
+        """critical_hit template includes damage."""
+        service = GuardedNarrationService()
+        events = [
+            {"type": "attack_roll", "attacker": "paladin_1", "target": "demon_1"},
+            {"type": "damage_dealt", "target": "demon_1", "damage": 30},
+        ]
+        request = self._make_request("critical_hit", events)
+        result = service.generate_narration(request)
+        assert "30" in result.text
+
+    def test_combat_maneuver_tokens(self):
+        """All combat maneuver tokens produce non-empty text."""
+        service = GuardedNarrationService()
+        maneuver_tokens = [
+            "bull_rush_declared", "bull_rush_success", "bull_rush_failure",
+            "trip_declared", "trip_success", "trip_failure",
+            "grapple_declared", "grapple_success", "grapple_failure",
+            "disarm_declared", "disarm_success", "disarm_failure",
+            "sunder_declared", "sunder_success", "sunder_failure",
+            "overrun_declared", "overrun_success", "overrun_failure",
+        ]
+        for token in maneuver_tokens:
+            request = self._make_request(token)
+            result = service.generate_narration(request)
+            assert len(result.text) > 0, f"Maneuver token '{token}' produced empty text"
+
+    # ── Unknown token fallback ──────────────────────────────────────
+
+    def test_unknown_token_falls_back_to_unknown_template(self):
+        """Unrecognized token produces the 'unknown' template, not a crash."""
+        service = GuardedNarrationService()
+        request = self._make_request("totally_bogus_token_xyz")
+        result = service.generate_narration(request)
+        assert len(result.text) > 0
+        # Should match the "unknown" template: "Something happens..."
+        assert "Something happens" in result.text
+
+    def test_none_token_falls_back(self):
+        """None narration_token uses 'unknown' template."""
+        service = GuardedNarrationService()
+        engine_result = EngineResult(
+            result_id="wo028-none",
+            intent_id="wo028-intent",
+            status=EngineResultStatus.SUCCESS,
+            resolved_at=datetime(2025, 1, 1, 12, 0, 0),
+            narration_token=None,
+            events=[],
+        )
+        snapshot = FrozenMemorySnapshot.create()
+        request = NarrationRequest(
+            engine_result=engine_result,
+            memory_snapshot=snapshot,
+            temperature=0.8,
+        )
+        result = service.generate_narration(request)
+        assert "Something happens" in result.text
+
+    # ── Placeholder substitution ────────────────────────────────────
+
+    def test_placeholder_actor_replaced(self):
+        """The {actor} placeholder is replaced with the actual actor name."""
+        service = GuardedNarrationService()
+        events = [
+            {"type": "attack_roll", "attacker": "fighter_1", "target": "goblin_1"},
+        ]
+        request = self._make_request("turn_start", events)
+        result = service.generate_narration(request)
+        assert "fighter_1" in result.text
+        assert "{actor}" not in result.text
+
+    def test_placeholder_target_replaced(self):
+        """The {target} placeholder is replaced with the actual target name."""
+        service = GuardedNarrationService()
+        events = [
+            {"type": "attack_roll", "attacker": "wizard_1", "target": "dragon_1"},
+        ]
+        request = self._make_request("target_defeated", events)
+        result = service.generate_narration(request)
+        assert "dragon_1" in result.text
+        assert "{target}" not in result.text
+
+    def test_placeholder_weapon_replaced(self):
+        """The {weapon} placeholder is replaced with the weapon name."""
+        service = GuardedNarrationService()
+        events = [
+            {"type": "attack_roll", "attacker": "a", "target": "b", "weapon": "greataxe"},
+        ]
+        request = self._make_request("attack_hit", events)
+        result = service.generate_narration(request)
+        assert "greataxe" in result.text
+        assert "{weapon}" not in result.text
+
+    def test_placeholder_damage_replaced(self):
+        """The {damage} placeholder is replaced with damage value."""
+        service = GuardedNarrationService()
+        events = [
+            {"type": "attack_roll", "attacker": "a", "target": "b"},
+            {"type": "damage_dealt", "target": "b", "damage": 42},
+        ]
+        request = self._make_request("damage_applied", events)
+        result = service.generate_narration(request)
+        assert "42" in result.text
+        assert "{damage}" not in result.text
+
+    # ── Missing placeholder data uses safe defaults ─────────────────
+
+    def test_missing_actor_uses_safe_default(self):
+        """Missing actor data doesn't cause KeyError; uses default."""
+        service = GuardedNarrationService()
+        # No events → no actor extracted
+        request = self._make_request("turn_start", [])
+        result = service.generate_narration(request)
+        assert len(result.text) > 0
+        assert "{actor}" not in result.text
+
+    def test_missing_damage_uses_safe_default(self):
+        """Missing damage data doesn't cause KeyError; uses default."""
+        service = GuardedNarrationService()
+        # No damage_dealt event
+        request = self._make_request("hp_changed", [])
+        result = service.generate_narration(request)
+        assert len(result.text) > 0
+        assert "{damage}" not in result.text
+        # Default is "some damage"
+        assert "some damage" in result.text
+
+    def test_missing_all_placeholders_no_crash(self):
+        """A template with all placeholders but no event data doesn't crash."""
+        service = GuardedNarrationService()
+        request = self._make_request("attack_hit", [])
+        result = service.generate_narration(request)
+        assert len(result.text) > 0
+        # No raw placeholders remain
+        assert "{" not in result.text
+
+    # ── Provenance tagging ──────────────────────────────────────────
+
+    def test_template_provenance_tag(self):
+        """Template narration has provenance [NARRATIVE:TEMPLATE]."""
+        service = GuardedNarrationService()  # No LLM → always template
+        request = self._make_request("attack_hit")
+        result = service.generate_narration(request)
+        assert result.provenance == "[NARRATIVE:TEMPLATE]"
+
+    def test_template_provenance_on_llm_fallback(self):
+        """When LLM fails and falls back to template, provenance is [NARRATIVE:TEMPLATE]."""
+
+        class FakeModel:
+            model_id = "fake-llm-model"
+            inference_engine = None  # Will cause exception
+
+        service = GuardedNarrationService(loaded_model=FakeModel(), use_llm_query_interface=False)
+        request = self._make_request("attack_hit")
+        result = service.generate_narration(request)
+        assert result.provenance == "[NARRATIVE:TEMPLATE]"
+        assert len(result.text) > 0
+
+    # ── LLM guardrail rejection triggers template fallback ──────────
+
+    def test_llm_exception_falls_back_to_template_silently(self):
+        """LLM failure falls back to template — no exception to caller."""
+
+        class ExplodingModel:
+            model_id = "exploding-model"
+            inference_engine = None
+
+        service = GuardedNarrationService(loaded_model=ExplodingModel(), use_llm_query_interface=False)
+        request = self._make_request("combat_started")
+        # Should NOT raise
+        result = service.generate_narration(request)
+        assert len(result.text) > 0
+        assert result.provenance == "[NARRATIVE:TEMPLATE]"
+
+    # ── Kill switch blocks all narration (LLM and template) ─────────
+
+    def test_kill_switch_blocks_template_narration(self):
+        """KILL-001 active → template narration also blocked (raises)."""
+        service = GuardedNarrationService()
+        service._trigger_kill_switch("TEST: kill switch test")
+        request = self._make_request("attack_hit")
+        with pytest.raises(NarrationBoundaryViolation) as exc_info:
+            service.generate_narration(request)
+        assert "KILL-001" in str(exc_info.value)
+
+    # ── FREEZE-001 hash verification on template path ───────────────
+
+    def test_freeze_001_enforced_on_template_path(self):
+        """FREEZE-001 hash verification still runs during template narration."""
+        service = GuardedNarrationService()
+        request = self._make_request("attack_hit")
+
+        # Generate narration (template path)
+        result = service.generate_narration(request)
+        assert len(result.text) > 0
+
+        # Hash should be unchanged
+        metrics = service.get_metrics()
+        assert metrics.hash_mismatches == 0
+
+    # ── BL-003 boundary law ─────────────────────────────────────────
+
+    def test_narration_module_has_no_core_imports(self):
+        """BL-003: No aidm.core imports in any narration/ file."""
+        import pathlib
+        narration_dir = pathlib.Path("aidm/narration")
+        if not narration_dir.exists():
+            narration_dir = pathlib.Path("f:/DnD-3.5/aidm/narration")
+
+        violations = []
+        for py_file in narration_dir.glob("*.py"):
+            content = py_file.read_text(encoding="utf-8")
+            for line in content.splitlines():
+                stripped = line.strip()
+                if stripped.startswith(("import aidm.core", "from aidm.core")):
+                    violations.append(f"{py_file.name}: {stripped}")
+
+        assert violations == [], (
+            f"BL-003 VIOLATION: narration/ imports aidm.core:\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )

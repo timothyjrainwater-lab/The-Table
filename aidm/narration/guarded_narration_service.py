@@ -23,9 +23,11 @@ Reference: docs/design/M1_IMPLEMENTATION_GUARDRAILS.md
 import hashlib
 import json
 import logging
+from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
 
+from aidm.narration.narrator import NarrationTemplates, NarrationContext
 from aidm.schemas.campaign_memory import (
     SessionLedgerEntry,
     EvidenceLedger,
@@ -159,6 +161,24 @@ class NarrationRequest:
 
 
 # ========================================================================
+# Narration Result (with Provenance)
+# ========================================================================
+
+
+@dataclass
+class NarrationResult:
+    """Result of narration generation with provenance tracking.
+
+    Attributes:
+        text: The narration text
+        provenance: Source tag — "[NARRATIVE]" for LLM, "[NARRATIVE:TEMPLATE]" for template
+    """
+
+    text: str
+    provenance: str
+
+
+# ========================================================================
 # Narration Service (Guarded)
 # ========================================================================
 
@@ -232,14 +252,14 @@ class GuardedNarrationService:
         else:
             logger.info("GuardedNarrationService initialized in template mode (M1)")
 
-    def generate_narration(self, request: NarrationRequest) -> str:
+    def generate_narration(self, request: NarrationRequest) -> NarrationResult:
         """Generate narration with guardrail enforcement.
 
         Args:
             request: Narration request with frozen memory snapshot
 
         Returns:
-            Narration text (ephemeral, not persisted)
+            NarrationResult with text and provenance tag
 
         Raises:
             NarrationBoundaryViolation: If any guardrail violated
@@ -261,9 +281,11 @@ class GuardedNarrationService:
 
         # ── Narration Generation ────────────────────────────────────
         # Try LLM narration if model loaded, otherwise use template
+        provenance = "[NARRATIVE:TEMPLATE]"
         if self.loaded_model is not None and self.loaded_model.model_id != "template-narration":
             try:
                 narration_text = self._generate_llm_narration(request)
+                provenance = "[NARRATIVE]"
             except Exception as e:
                 logger.warning(f"LLM narration failed, falling back to template: {e}")
                 narration_text = self._generate_template_narration(request.engine_result)
@@ -285,7 +307,7 @@ class GuardedNarrationService:
             )
 
         logger.info(f"Narration generated successfully (hash verified: {hash_after[:8]})")
-        return narration_text
+        return NarrationResult(text=narration_text, provenance=provenance)
 
     def _generate_llm_narration(self, request: NarrationRequest) -> str:
         """Generate narration using LLM (Spark Adapter or LLMQueryInterface).
@@ -446,26 +468,45 @@ class GuardedNarrationService:
         return "\n".join(prompt_parts)
 
     def _generate_template_narration(self, engine_result: EngineResult) -> str:
-        """Generate narration from template (M1 fallback).
+        """Generate narration from template (fallback path).
 
-        This is the original M1 implementation using simple templates.
-        Used when no LLM model is loaded or LLM generation fails.
+        Delegates to NarrationTemplates from narrator.py for the full
+        55-template dictionary with placeholder substitution.
 
         Args:
             engine_result: Engine result to narrate
 
         Returns:
-            Template-based narration text
+            Template-based narration text with placeholders filled
         """
-        # Simple template based on narration token
         token = engine_result.narration_token or "unknown"
-        templates = {
-            "attack_hit": "The attack lands successfully!",
-            "attack_miss": "The attack misses!",
-            "critical_hit": "A critical hit!",
-            "unknown": "An action occurs.",
-        }
-        return templates.get(token, templates["unknown"])
+
+        # Look up template from the full 55-entry dictionary
+        template = NarrationTemplates.get_template(token)
+
+        # Extract context from engine result events
+        context = NarrationContext.from_engine_result(engine_result)
+
+        # Extract damage from events if present
+        damage = "some damage"
+        for event in engine_result.events:
+            if event.get("type") == "damage_dealt":
+                damage = str(event.get("damage", "some damage"))
+                break
+
+        # Build substitution map with safe defaults for missing keys
+        safe_defaults = defaultdict(
+            lambda: "something",
+            {
+                "actor": context.actor_name or "someone",
+                "target": context.target_name or "someone",
+                "weapon": context.weapon_name or "an attack",
+                "damage": damage,
+            },
+        )
+
+        # Substitute placeholders — never crash on missing data
+        return template.format_map(safe_defaults)
 
     def _trigger_kill_switch(self, reason: str) -> None:
         """Trigger KILL-001 kill switch.

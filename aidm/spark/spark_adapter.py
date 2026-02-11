@@ -301,7 +301,7 @@ class SparkAdapter(ABC):
         """
         raise NotImplementedError
 
-    def generate(self, request: SparkRequest) -> SparkResponse:
+    def generate(self, request: SparkRequest, loaded_model: Optional[LoadedModel] = None) -> SparkResponse:
         """Generate text from canonical request (SPARK_PROVIDER_CONTRACT.md §7.1).
 
         Default implementation delegates to generate_text() for backward
@@ -309,14 +309,16 @@ class SparkAdapter(ABC):
 
         Args:
             request: Canonical SPARK request
+            loaded_model: Loaded model instance (optional for backward compat)
 
         Returns:
             Canonical SPARK response
         """
         # Bridge to legacy generate_text() for existing adapters
+        effective_model = loaded_model or getattr(self, '_current_model', None)
         try:
             text = self.generate_text(
-                loaded_model=getattr(self, '_current_model', None),
+                loaded_model=effective_model,
                 prompt=request.prompt,
                 temperature=request.temperature,
                 max_tokens=request.max_tokens,

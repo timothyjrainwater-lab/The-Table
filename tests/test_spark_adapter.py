@@ -332,10 +332,11 @@ def test_guarded_narration_service_backwards_compatible():
     )
 
     # Generate narration
-    narration = service.generate_narration(request)
+    result = service.generate_narration(request)
 
     # Should use template narration
-    assert narration is not None
+    assert result is not None
+    narration = result.text if hasattr(result, 'text') else str(result)
     assert isinstance(narration, str)
     assert len(narration) > 0
     assert "attack" in narration.lower()
@@ -379,10 +380,11 @@ def test_guarded_narration_service_with_template_model(mock_check):
     )
 
     # Generate narration
-    narration = service.generate_narration(request)
+    result = service.generate_narration(request)
 
     # Should use template narration
-    assert narration is not None
+    assert result is not None
+    narration = result.text if hasattr(result, 'text') else str(result)
     assert "critical" in narration.lower() or "hit" in narration.lower()
 
 
@@ -425,10 +427,11 @@ def test_guarded_narration_service_maintains_guardrails(mock_check):
     )
 
     # Generate narration
-    narration = service.generate_narration(request)
+    result = service.generate_narration(request)
 
     # Should use template narration
-    assert narration is not None
+    assert result is not None
+    narration = result.text if hasattr(result, 'text') else str(result)
     assert "critical" in narration.lower() or "hit" in narration.lower()
 
 
@@ -555,13 +558,600 @@ def test_full_spark_workflow_with_fallback(mock_check):
         temperature=0.8,
     )
 
-    narration = service.generate_narration(request)
+    result = service.generate_narration(request)
 
     # 8. Verify result
-    assert narration is not None
+    assert result is not None
+    narration = result.text if hasattr(result, 'text') else str(result)
     assert isinstance(narration, str)
     assert len(narration) > 0
 
     # 9. Verify guardrails maintained
     assert not service.is_kill_switch_active()
     assert not service.get_metrics().has_violations()
+
+
+# ============================================================================
+# WO-027: LlamaCppAdapter.generate() Canonical Contract Tests
+# ============================================================================
+
+from aidm.spark.spark_adapter import (
+    SparkRequest,
+    SparkResponse,
+    FinishReason,
+    LoadedModel,
+)
+
+
+def _make_mock_llm_response(
+    text=" Generated text.",
+    prompt_tokens=10,
+    completion_tokens=5,
+    finish_reason="stop",
+):
+    """Helper: build a dict matching llama-cpp's response format."""
+    return {
+        "choices": [{"text": text, "finish_reason": finish_reason}],
+        "usage": {
+            "prompt_tokens": prompt_tokens,
+            "completion_tokens": completion_tokens,
+        },
+    }
+
+
+def _make_loaded_model(inference_engine=None, model_id="test-model"):
+    """Helper: build a LoadedModel with a mock inference engine."""
+    profile = Mock()
+    profile.name = "Test Model"
+    profile.tier = Mock(value="medium")
+    profile.backend = "llama.cpp"
+    profile.quantization = "4bit"
+    profile.max_tokens = 1024
+    profile.max_context_window = 8192
+    return LoadedModel(
+        model_id=model_id,
+        profile=profile,
+        inference_engine=inference_engine,
+        device="cpu",
+        memory_usage_mb=100.0,
+    )
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_basic_response(mock_check):
+    """generate() returns SparkResponse with correct text."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(text=" Hello world."))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Say hello", temperature=0.7, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.text == "Hello world."
+    assert response.finish_reason == FinishReason.COMPLETED
+    assert response.error is None
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_token_count_nonzero(mock_check):
+    """generate() populates tokens_used with actual counts, not 0."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        prompt_tokens=15, completion_tokens=20,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test prompt", temperature=0.5, max_tokens=100)
+    response = adapter.generate(request, loaded)
+
+    assert response.tokens_used == 35  # 15 + 20
+    assert response.tokens_used > 0
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_stop_sequence_detection(mock_check):
+    """generate() sets finish_reason=STOP_SEQUENCE when output ends with stop seq."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    # Text ends with the stop sequence (after strip)
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        text=" The answer is 42.\n\n###",
+        completion_tokens=8,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(
+        prompt="Question", temperature=0.5, max_tokens=100,
+        stop_sequences=["###", "---"],
+    )
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.STOP_SEQUENCE
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_stop_sequence_no_match(mock_check):
+    """generate() returns COMPLETED when no stop sequence matches."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        text=" Normal text here.",
+        completion_tokens=5,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(
+        prompt="Test", temperature=0.5, max_tokens=100,
+        stop_sequences=["###"],
+    )
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.COMPLETED
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_length_limit_detection(mock_check):
+    """generate() sets finish_reason=LENGTH_LIMIT when completion_tokens >= max_tokens."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        completion_tokens=50,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Long prompt", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.LENGTH_LIMIT
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_length_limit_exceeds_max_tokens(mock_check):
+    """generate() sets LENGTH_LIMIT when completion_tokens > max_tokens."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        completion_tokens=60,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.LENGTH_LIMIT
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_seed_forwarding(mock_check):
+    """generate() forwards seed to llama-cpp when provided."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50, seed=42)
+    adapter.generate(request, loaded)
+
+    # Verify seed was passed in the call
+    call_kwargs = mock_engine.call_args
+    assert call_kwargs[1]["seed"] == 42
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_no_seed_not_forwarded(mock_check):
+    """generate() does not forward seed when not provided."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert "seed" not in call_kwargs[1]
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_json_mode_flag(mock_check):
+    """generate() passes response_format when json_mode=True."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(text=' {"key": "value"}'))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(
+        prompt="Return JSON", temperature=0.5, max_tokens=50, json_mode=True,
+    )
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert call_kwargs[1]["response_format"] == {"type": "json_object"}
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_json_mode_off_no_format(mock_check):
+    """generate() does not pass response_format when json_mode=False."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert "response_format" not in call_kwargs[1]
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_template_model_returns_error(mock_check):
+    """generate() with template model (no engine) returns ERROR, not crash."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    loaded = _make_loaded_model(inference_engine=None, model_id="template-narration")
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.ERROR
+    assert response.tokens_used == 0
+    assert response.text == ""
+    assert "No inference engine loaded" in response.error
+    assert "template fallback" in response.error
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_no_loaded_model_returns_error(mock_check):
+    """generate() with loaded_model=None returns ERROR response."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded_model=None)
+
+    assert response.finish_reason == FinishReason.ERROR
+    assert response.error is not None
+    assert "No inference engine loaded" in response.error
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_provider_metadata_populated(mock_check):
+    """generate() populates provider_metadata with token counts and model_id."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        prompt_tokens=12, completion_tokens=8,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine, model_id="my-model")
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.provider_metadata is not None
+    assert response.provider_metadata["prompt_tokens"] == 12
+    assert response.provider_metadata["completion_tokens"] == 8
+    assert response.provider_metadata["model_id"] == "my-model"
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_error_during_generation(mock_check):
+    """generate() produces finish_reason=ERROR with error message on exception."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(side_effect=RuntimeError("CUDA out of memory"))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.ERROR
+    assert response.tokens_used == 0
+    assert response.text == ""
+    assert "CUDA out of memory" in response.error
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_error_preserves_model_id_in_metadata(mock_check):
+    """generate() error response still includes model_id in provider_metadata."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(side_effect=ValueError("bad param"))
+    loaded = _make_loaded_model(inference_engine=mock_engine, model_id="err-model")
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.provider_metadata["model_id"] == "err-model"
+
+
+def test_spark_request_invalid_temperature_rejected():
+    """SparkRequest rejects temperature outside [0.0, 2.0] (BL-013)."""
+    with pytest.raises(ValueError, match="temperature MUST be in"):
+        SparkRequest(prompt="Test", temperature=-0.1, max_tokens=50)
+
+    with pytest.raises(ValueError, match="temperature MUST be in"):
+        SparkRequest(prompt="Test", temperature=2.1, max_tokens=50)
+
+
+def test_spark_request_empty_prompt_rejected():
+    """SparkRequest rejects empty prompt."""
+    with pytest.raises(ValueError, match="prompt MUST be non-empty"):
+        SparkRequest(prompt="", temperature=0.5, max_tokens=50)
+
+
+def test_spark_request_invalid_max_tokens_rejected():
+    """SparkRequest rejects non-positive max_tokens."""
+    with pytest.raises(ValueError, match="max_tokens MUST be positive"):
+        SparkRequest(prompt="Test", temperature=0.5, max_tokens=0)
+
+    with pytest.raises(ValueError, match="max_tokens MUST be positive"):
+        SparkRequest(prompt="Test", temperature=0.5, max_tokens=-1)
+
+
+def test_spark_response_error_requires_message():
+    """SparkResponse with finish_reason=ERROR requires error field (BL-016)."""
+    with pytest.raises(ValueError, match="error field MUST be populated"):
+        SparkResponse(text="", finish_reason=FinishReason.ERROR, tokens_used=0)
+
+
+def test_spark_response_negative_tokens_rejected():
+    """SparkResponse rejects negative tokens_used."""
+    with pytest.raises(ValueError, match="tokens_used MUST be non-negative"):
+        SparkResponse(text="ok", finish_reason=FinishReason.COMPLETED, tokens_used=-1)
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_temperature_forwarded(mock_check):
+    """generate() forwards temperature to llama-cpp."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=1.5, max_tokens=50)
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert call_kwargs[1]["temperature"] == 1.5
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_max_tokens_forwarded(mock_check):
+    """generate() forwards max_tokens to llama-cpp."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=200)
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert call_kwargs[1]["max_tokens"] == 200
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_stop_sequences_forwarded(mock_check):
+    """generate() forwards stop_sequences as 'stop' kwarg."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(
+        prompt="Test", temperature=0.5, max_tokens=50,
+        stop_sequences=["###", "\n\n"],
+    )
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert call_kwargs[1]["stop"] == ["###", "\n\n"]
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_no_stop_sequences_not_forwarded(mock_check):
+    """generate() does not pass 'stop' kwarg when no stop_sequences."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert "stop" not in call_kwargs[1]
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_determinism_same_seed_same_output(mock_check):
+    """10x determinism: same seed + same prompt -> same SparkResponse.text."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    # Mock engine returns deterministic output
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        text=" Deterministic output.",
+        prompt_tokens=10,
+        completion_tokens=3,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test prompt", temperature=0.0, max_tokens=50, seed=12345)
+
+    results = []
+    for _ in range(10):
+        response = adapter.generate(request, loaded)
+        results.append(response.text)
+
+    # All 10 results must be identical
+    assert all(r == results[0] for r in results), "Determinism violated: outputs differ"
+    # Verify seed was passed all 10 times
+    assert mock_engine.call_count == 10
+    for call in mock_engine.call_args_list:
+        assert call[1]["seed"] == 12345
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_determinism_seed_consistency(mock_check):
+    """Same seed produces same response fields (tokens_used, finish_reason)."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    response_data = _make_mock_llm_response(
+        text=" Consistent.",
+        prompt_tokens=8,
+        completion_tokens=2,
+    )
+    mock_engine = Mock(return_value=response_data)
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.0, max_tokens=50, seed=99)
+
+    responses = [adapter.generate(request, loaded) for _ in range(10)]
+
+    texts = [r.text for r in responses]
+    tokens = [r.tokens_used for r in responses]
+    reasons = [r.finish_reason for r in responses]
+
+    assert len(set(texts)) == 1
+    assert len(set(tokens)) == 1
+    assert len(set(reasons)) == 1
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_completed_finish_reason(mock_check):
+    """generate() returns COMPLETED for normal generation."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response(
+        completion_tokens=10,
+    ))
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=100)
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.COMPLETED
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_prompt_forwarded(mock_check):
+    """generate() passes the prompt as first positional arg to engine."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="My specific prompt", temperature=0.5, max_tokens=50)
+    adapter.generate(request, loaded)
+
+    call_args = mock_engine.call_args
+    assert call_args[0][0] == "My specific prompt"
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_echo_false(mock_check):
+    """generate() always passes echo=False to llama-cpp."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    mock_engine = Mock(return_value=_make_mock_llm_response())
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    adapter.generate(request, loaded)
+
+    call_kwargs = mock_engine.call_args
+    assert call_kwargs[1]["echo"] is False
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_raw_text_stop_sequence_detection(mock_check):
+    """generate() detects stop sequence in raw text even after stripping."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    # Raw text ends with stop seq but stripped text does not
+    mock_engine = Mock(return_value={
+        "choices": [{"text": "The end\n\n", "finish_reason": "stop"}],
+        "usage": {"prompt_tokens": 5, "completion_tokens": 3},
+    })
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(
+        prompt="Test", temperature=0.5, max_tokens=100,
+        stop_sequences=["\n\n"],
+    )
+    response = adapter.generate(request, loaded)
+
+    assert response.finish_reason == FinishReason.STOP_SEQUENCE
+
+
+@patch('aidm.spark.llamacpp_adapter.LlamaCppAdapter._check_llama_cpp_available')
+def test_generate_missing_usage_returns_zero_tokens(mock_check):
+    """generate() returns tokens_used=0 when response has no 'usage' field."""
+    mock_check.return_value = True
+    registry = ModelRegistry.load_from_file("config/models.yaml")
+    adapter = LlamaCppAdapter(registry=registry)
+
+    # Response without usage field
+    mock_engine = Mock(return_value={
+        "choices": [{"text": " Some text."}],
+    })
+    loaded = _make_loaded_model(inference_engine=mock_engine)
+
+    request = SparkRequest(prompt="Test", temperature=0.5, max_tokens=50)
+    response = adapter.generate(request, loaded)
+
+    assert response.tokens_used == 0
+    assert response.text == "Some text."
+    assert response.finish_reason == FinishReason.COMPLETED

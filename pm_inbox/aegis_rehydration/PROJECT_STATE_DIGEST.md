@@ -38,7 +38,7 @@ All 7 steps complete. 26/26 WOs delivered. Audit checkpoints A1-A7 all PASSED. P
 
 | Phase | Name | Status | WOs |
 |-------|------|--------|-----|
-| 1 | Wire the Brain | **READY FOR DISPATCH** | WO-027 to WO-031 |
+| 1 | Wire the Brain | **IN PROGRESS** — Batch 1 complete (WO-027, WO-028) | WO-027 to WO-031 |
 | 2 | Content Breadth + Narration Bridge | BLOCKED by Phase 1 | WO-032 to WO-037 |
 | 3 | Session Playability | BLOCKED by Phase 2 | WO-038 to WO-041 |
 | 4 | Playtest Gate + Documentation | BLOCKED by Phase 3 | WO-042 to WO-044 |
@@ -168,7 +168,7 @@ All adapters use lazy loading, graceful fallback to stubs when deps unavailable.
 
 ## Test Summary
 
-**Total: 3170 tests passing**
+**Total: 3221 tests passing**
 
 Recent additions:
 - Geometry engine: 395 tests
@@ -186,6 +186,16 @@ Recent additions:
 - Tri-Gem Socket: 59 tests
 - Voice intent parser: 39 tests
 - Table-native UX: 40 tests
+
+### Plan v2 Phase 1: Wire the Brain (IN PROGRESS)
+
+| WO | Module | Tests | Status |
+|----|--------|-------|--------|
+| WO-027 | spark_adapter.py, llamacpp_adapter.py | 31 new (49 total) | **COMPLETE** |
+| WO-028 | guarded_narration_service.py, narrator.py | 20 new (29 total) | **COMPLETE** |
+| WO-029 | Kill Switch Suite (KILL-002→006) | — | **READY** (depends on WO-028) |
+| WO-030 | Narration Pipeline Wiring | — | BLOCKED by WO-029 |
+| WO-031 | Grammar Shield v1 | — | **READY** (depends on WO-027) |
 
 ---
 

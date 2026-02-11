@@ -13,6 +13,9 @@ from typing import List, Optional
 from aidm.spark.model_registry import HardwareTier, ModelProfile, ModelRegistry, TierName
 from aidm.spark.spark_adapter import (
     SparkAdapter,
+    SparkRequest,
+    SparkResponse,
+    FinishReason,
     LoadedModel,
     CompatibilityReport,
     ModelLoadError,
@@ -407,6 +410,113 @@ class LlamaCppAdapter(SparkAdapter):
             raise ModelLoadError(
                 f"Failed to generate text with model '{loaded_model.model_id}': {e}"
             ) from e
+
+    def generate(self, request: SparkRequest, loaded_model: LoadedModel = None) -> SparkResponse:
+        """Generate text from canonical SparkRequest (SPARK_PROVIDER_CONTRACT.md §7.1).
+
+        Full implementation with accurate token counts, finish reason tracking,
+        stop sequence enforcement, seed forwarding, and json_mode support.
+
+        Args:
+            request: Canonical SPARK request
+            loaded_model: Loaded model instance
+
+        Returns:
+            Canonical SPARK response with full field fidelity
+        """
+        # Template model handling: no inference engine loaded
+        if loaded_model is None or loaded_model.inference_engine is None:
+            return SparkResponse(
+                text="",
+                finish_reason=FinishReason.ERROR,
+                tokens_used=0,
+                error="No inference engine loaded — use template fallback",
+            )
+
+        try:
+            # Build llama-cpp kwargs
+            kwargs = {
+                "max_tokens": request.max_tokens,
+                "temperature": request.temperature,
+                "echo": False,
+            }
+
+            # Stop sequence enforcement
+            if request.stop_sequences:
+                kwargs["stop"] = request.stop_sequences
+
+            # Seed forwarding for reproducibility
+            if request.seed is not None:
+                kwargs["seed"] = request.seed
+
+            # json_mode flag
+            if request.json_mode:
+                kwargs["response_format"] = {"type": "json_object"}
+
+            # Call llama-cpp inference engine
+            output = loaded_model.inference_engine(request.prompt, **kwargs)
+
+            # Extract text from response
+            if isinstance(output, dict) and "choices" in output:
+                text = output["choices"][0]["text"]
+            else:
+                text = str(output)
+
+            text = text.strip()
+
+            # Extract token usage from response
+            prompt_tokens = 0
+            completion_tokens = 0
+            if isinstance(output, dict) and "usage" in output:
+                usage = output["usage"]
+                prompt_tokens = usage.get("prompt_tokens", 0)
+                completion_tokens = usage.get("completion_tokens", 0)
+
+            tokens_used = prompt_tokens + completion_tokens
+
+            # Determine finish reason
+            finish_reason = FinishReason.COMPLETED
+
+            # Check LENGTH_LIMIT: completion_tokens >= max_tokens
+            if completion_tokens >= request.max_tokens:
+                finish_reason = FinishReason.LENGTH_LIMIT
+
+            # Check STOP_SEQUENCE: output ends with a stop sequence
+            # Only check if not already LENGTH_LIMIT (length takes priority)
+            if finish_reason != FinishReason.LENGTH_LIMIT and request.stop_sequences:
+                for seq in request.stop_sequences:
+                    if text.endswith(seq):
+                        finish_reason = FinishReason.STOP_SEQUENCE
+                        break
+                    # Also check the raw (untrimmed) text from the response
+                    if isinstance(output, dict) and "choices" in output:
+                        raw_text = output["choices"][0].get("text", "")
+                        if raw_text.endswith(seq):
+                            finish_reason = FinishReason.STOP_SEQUENCE
+                            break
+
+            # Provider metadata
+            provider_metadata = {
+                "prompt_tokens": prompt_tokens,
+                "completion_tokens": completion_tokens,
+                "model_id": loaded_model.model_id,
+            }
+
+            return SparkResponse(
+                text=text,
+                finish_reason=finish_reason,
+                tokens_used=tokens_used,
+                provider_metadata=provider_metadata,
+            )
+
+        except Exception as e:
+            return SparkResponse(
+                text="",
+                finish_reason=FinishReason.ERROR,
+                tokens_used=0,
+                error=str(e),
+                provider_metadata={"model_id": loaded_model.model_id},
+            )
 
     def _calculate_gpu_layers(
         self,
