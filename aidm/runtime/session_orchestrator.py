@@ -40,6 +40,13 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Protocol, Tuple, runtime_checkable
 
+from aidm.schemas.box_events import (
+    AttackRollPayload,
+    HPChangedPayload,
+    EntityDefeatedPayload,
+    validate_event_payload,
+)
+
 from aidm.core.play_loop import (
     execute_turn as box_execute_turn,
     TurnContext as BoxTurnContext,
@@ -458,7 +465,7 @@ class SessionOrchestrator:
         # Update authoritative world state from Box result
         self._world_state = box_result.world_state
 
-        # Extract outcome from Box events
+        # Extract outcome from Box events via validated contracts
         hit = False
         damage = 0
         target_defeated = False
@@ -471,12 +478,16 @@ class SessionOrchestrator:
             }
             event_dicts.append(event_dict)
 
-            if event.event_type == "attack_roll":
-                hit = event.payload.get("hit", False)
-            elif event.event_type == "hp_changed":
-                damage = abs(event.payload.get("delta", 0))
-            elif event.event_type == "entity_defeated":
-                if event.payload.get("entity_id") == bridge_result.target_id:
+            # Validate and extract typed payloads at the boundary
+            validated = validate_event_payload(event.event_type, event.payload)
+
+            if isinstance(validated, AttackRollPayload):
+                hit = validated.hit
+            elif isinstance(validated, HPChangedPayload):
+                damage = abs(validated.delta)
+            elif isinstance(validated, EntityDefeatedPayload):
+                eid = validated.entity_id
+                if eid == bridge_result.target_id:
                     target_defeated = True
 
         # Build NarrativeBrief from real outcome

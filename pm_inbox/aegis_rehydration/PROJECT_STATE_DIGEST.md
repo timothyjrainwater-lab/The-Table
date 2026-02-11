@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — WO-045 Box Integration INTEGRATED (42 orchestrator tests). 3670 tests, 0 failed, 15 skipped (hardware-gated).
+LAST UPDATED: 2026-02-11 — WO-046 Box Event Contracts INTEGRATED (24 tests). 3694 tests, 0 failed, 15 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -191,13 +191,19 @@ LAST UPDATED: 2026-02-11 — WO-045 Box Integration INTEGRATED (42 orchestrator 
 - **Windshield tests**: Determinism (same seed), HP mutation proof, narration-reflects-outcome, real d20 data, defeat propagation, RNG variance
 - **42 tests** in test_session_orchestrator.py (36 original + 6 windshield), lives in `aidm/runtime/` (BL-004 compliant)
 
+### WO-046: Box Event Contracts (Phase 3)
+- **box_events.py**: 10 frozen dataclass schemas for Box→Lens boundary events (attack_roll, damage_roll, hp_changed, entity_defeated, spell_cast, save_rolled, turn_start/end, condition_applied/removed)
+- **Boundary validation**: `validate_event_payload()` at orchestrator extraction point — typed payloads replace raw dict access
+- **Contract registry**: PAYLOAD_SCHEMAS maps event_type strings to schema classes; unknown events pass through as dicts
+- **24 tests** in test_box_event_contracts.py (10 construction + 8 validation + 6 integration)
+
 ---
 
 ## Test Count
 
-**Total: 3670 tests** (all passing, 0 failed, 15 skipped hardware-gated)
+**Total: 3694 tests** (all passing, 0 failed, 15 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +42 tests (WO-039: 36 + WO-045: 6 windshield).
+> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +66 tests (WO-039: 36, WO-045: 6 windshield, WO-046: 24 contracts).
 
 ---
 
@@ -341,7 +347,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~50s at 3670 tests — rule predates scale)
+- All tests must pass in < 5 seconds (currently ~50s at 3694 tests — rule predates scale)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)
@@ -400,6 +406,7 @@ A9 gate PASSED. Phase 3 Session Playability begins.
 |----|-------------|--------|
 | WO-039 | Session Orchestrator | **INTEGRATED** (36 tests) |
 | WO-045 | Box Integration (windshield) | **INTEGRATED** (+6 tests, 42 total orchestrator) |
+| WO-046 | Box Event Contracts | **INTEGRATED** (24 tests) |
 
 ### Phase 4 — FUTURE
 
