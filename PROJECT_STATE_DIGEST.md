@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — WO-039 Session Orchestrator INTEGRATED (36 tests). 3664 tests, 0 failed, 15 skipped (hardware-gated).
+LAST UPDATED: 2026-02-11 — WO-045 Box Integration INTEGRATED (42 orchestrator tests). 3670 tests, 0 failed, 15 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -183,20 +183,21 @@ LAST UPDATED: 2026-02-11 — WO-039 Session Orchestrator INTEGRATED (36 tests). 
 - **Presets**: default, gritty, theatrical, humorous, terse DM personas
 - **32 tests** in test_dm_persona.py
 
-### WO-039: Session Orchestrator (Phase 3)
-- **SessionOrchestrator**: Full turn cycle conductor — STT → IntentBridge → Box → NarrativeBrief → DMPersona + Narration → TTS
+### WO-039 + WO-045: Session Orchestrator with Box Integration (Phase 3)
+- **SessionOrchestrator**: Full turn cycle conductor — STT → IntentBridge → Box (`play_loop.execute_turn`) → NarrativeBrief → DMPersona + Narration → TTS
+- **Box wiring (WO-045)**: Attack/spell commands delegate to canonical `play_loop.execute_turn()` — real d20 rolls, HP mutations, defeat detection. NarrativeBrief built from real Box events (hit/miss, damage, severity, defeat), not declared intents.
 - **Keyword parser**: parse_text_command() for attack/cast/move/rest/go (NOT NLU)
 - **Error recovery**: STT failure → text fallback, TTS failure → text-only, Spark failure → template narration
-- **BL-020 compliant**: FrozenWorldStateView for all reads, no state mutation during turns
-- **36 tests** in test_session_orchestrator.py, lives in `aidm/runtime/` (not `aidm/core/` — respects BL-004)
+- **Windshield tests**: Determinism (same seed), HP mutation proof, narration-reflects-outcome, real d20 data, defeat propagation, RNG variance
+- **42 tests** in test_session_orchestrator.py (36 original + 6 windshield), lives in `aidm/runtime/` (BL-004 compliant)
 
 ---
 
 ## Test Count
 
-**Total: 3664 tests** (all passing, 0 failed, 15 skipped hardware-gated)
+**Total: 3670 tests** (all passing, 0 failed, 15 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +36 tests (WO-039: 36).
+> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +42 tests (WO-039: 36 + WO-045: 6 windshield).
 
 ---
 
@@ -340,7 +341,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~50s at 3664 tests — rule predates scale)
+- All tests must pass in < 5 seconds (currently ~50s at 3670 tests — rule predates scale)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)
@@ -398,6 +399,7 @@ A9 gate PASSED. Phase 3 Session Playability begins.
 | WO | Description | Status |
 |----|-------------|--------|
 | WO-039 | Session Orchestrator | **INTEGRATED** (36 tests) |
+| WO-045 | Box Integration (windshield) | **INTEGRATED** (+6 tests, 42 total orchestrator) |
 
 ### Phase 4 — FUTURE
 

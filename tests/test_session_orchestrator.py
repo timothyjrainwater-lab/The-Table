@@ -270,24 +270,29 @@ class TestTurnCycle:
     """Full turn cycle through orchestrator."""
 
     def test_text_attack_full_cycle(self, orchestrator):
-        """Text 'attack Goblin Warrior' → resolve → narrate → TurnResult."""
+        """Text 'attack Goblin Warrior' → Box resolution → narrate → TurnResult."""
         result = orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
 
         assert isinstance(result, TurnResult)
         assert result.success is True
         assert result.narration_text != ""
         assert len(result.events) > 0
-        assert result.events[0]["type"] == "attack_declared"
+        # Box events start with turn_start, then attack_roll
+        event_types = [e["type"] for e in result.events]
+        assert "turn_start" in event_types
+        assert "attack_roll" in event_types
         assert result.provenance in ("[NARRATIVE]", "[NARRATIVE:TEMPLATE]")
 
     def test_text_spell_full_cycle(self, orchestrator):
-        """Text 'cast fireball at 10,5' → resolve → narrate."""
+        """Text 'cast fireball at 10,5' → Box resolution → narrate."""
         result = orchestrator.process_text_turn("cast fireball at 10,5", "pc_fighter")
 
         assert result.success is True
         assert result.narration_text != ""
-        assert result.events[0]["type"] == "spell_cast"
-        assert result.events[0]["spell_id"] == "fireball"
+        # Box events start with turn_start, then spell_cast
+        event_types = [e["type"] for e in result.events]
+        assert "turn_start" in event_types
+        assert "spell_cast" in event_types
 
     def test_text_move_turn(self, orchestrator):
         """Text 'move to 5,5' → move resolution."""
@@ -522,25 +527,28 @@ class TestSessionState:
 class TestBoundaryCompliance:
     """Boundary law enforcement."""
 
-    def test_frozen_world_state_view_enforced(self, orchestrator):
-        """Orchestrator uses FrozenWorldStateView for reads (BL-020)."""
+    def test_box_resolution_mutates_state(self, orchestrator):
+        """Box resolution produces real state mutation (HP changes)."""
         initial_hash = orchestrator.world_state.state_hash()
 
-        # Process a turn
+        # Process an attack turn — Box resolves d20 + damage
         orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
 
-        # World state should be unchanged (no mutations)
-        assert orchestrator.world_state.state_hash() == initial_hash
+        # State SHOULD change — Box resolved combat (damage applied)
+        # This proves the Box is actually in the loop
+        assert orchestrator.world_state.state_hash() != initial_hash
 
-    def test_no_state_mutation_during_narration(self, orchestrator):
-        """World state hash unchanged after narration generation."""
-        hash_before = orchestrator.world_state.state_hash()
-
-        # Multiple turns should not mutate state
+    def test_state_mutation_only_through_box(self, orchestrator):
+        """State mutation occurs through Box, not narration or immersion."""
+        # Process attack — this goes through Box
         orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
-        orchestrator.process_text_turn("cast fireball at 10,5", "pc_fighter")
+        hash_after_attack = orchestrator.world_state.state_hash()
 
-        assert orchestrator.world_state.state_hash() == hash_before
+        # Process move — this does NOT go through Box (no play_loop call)
+        orchestrator.process_text_turn("move to 5,5", "pc_fighter")
+
+        # State should be unchanged after move (move doesn't mutate HP/combat state)
+        assert orchestrator.world_state.state_hash() == hash_after_attack
 
     def test_narration_receives_narrative_brief_not_raw_state(self, orchestrator):
         """Narration gets NarrativeBrief, not raw state."""
@@ -554,3 +562,327 @@ class TestBoundaryCompliance:
         # No entity IDs in brief
         assert "pc_fighter" not in brief.actor_name
         assert "goblin_1" not in (brief.target_name or "")
+
+
+# ======================================================================
+# CATEGORY 7: WINDSHIELD INTEGRATION — Box Resolution Proof (6 tests)
+# ======================================================================
+
+
+class TestWindshieldIntegration:
+    """WO-045: Prove Box resolution is in the loop.
+
+    These tests verify that the orchestrator delegates to the canonical
+    play_loop.execute_turn(), producing real d20 rolls, HP mutations,
+    and outcome-aware narration briefs.
+    """
+
+    def test_deterministic_attack_same_seed(self):
+        """Same seed → identical outcome (determinism proof)."""
+        from aidm.core.rng_manager import RNGManager
+
+        def make_orchestrator(seed):
+            ws = WorldState(
+                ruleset_version="RAW_3.5",
+                entities={
+                    "pc_fighter": {
+                        EF.ENTITY_ID: "pc_fighter",
+                        "name": "Kael",
+                        EF.TEAM: "party",
+                        EF.HP_CURRENT: 30,
+                        EF.HP_MAX: 50,
+                        EF.AC: 16,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 5,
+                        EF.BAB: 3,
+                        EF.STR_MOD: 2,
+                        EF.WEAPON: "longsword",
+                        "weapon_damage": "1d8+2",
+                        EF.DEX_MOD: 1,
+                    },
+                    "goblin_1": {
+                        EF.ENTITY_ID: "goblin_1",
+                        "name": "Goblin Warrior",
+                        EF.TEAM: "enemy",
+                        EF.HP_CURRENT: 6,
+                        EF.HP_MAX: 6,
+                        EF.AC: 15,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 2,
+                    },
+                },
+            )
+            return SessionOrchestrator(
+                world_state=ws,
+                intent_bridge=IntentBridge(),
+                scene_manager=SceneManager(scenes={}),
+                dm_persona=DMPersona(),
+                narration_service=GuardedNarrationService(),
+                context_assembler=ContextAssembler(token_budget=800),
+                master_seed=seed,
+            )
+
+        orch_a = make_orchestrator(seed=12345)
+        orch_b = make_orchestrator(seed=12345)
+
+        result_a = orch_a.process_text_turn("attack Goblin Warrior", "pc_fighter")
+        result_b = orch_b.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+        # Same seed → same events
+        assert len(result_a.events) == len(result_b.events)
+        for ea, eb in zip(result_a.events, result_b.events):
+            assert ea["type"] == eb["type"]
+
+        # Same seed → same final state
+        assert orch_a.world_state.state_hash() == orch_b.world_state.state_hash()
+
+    def test_hp_actually_changes_on_hit(self):
+        """Attack that hits → target HP decreases."""
+        from aidm.core.rng_manager import RNGManager
+
+        # Use seed 999 — we'll try multiple seeds until we find a hit
+        # The test verifies that IF a hit occurs, HP changes
+        for seed in range(100):
+            ws = WorldState(
+                ruleset_version="RAW_3.5",
+                entities={
+                    "pc_fighter": {
+                        EF.ENTITY_ID: "pc_fighter",
+                        "name": "Kael",
+                        EF.TEAM: "party",
+                        EF.HP_CURRENT: 50,
+                        EF.HP_MAX: 50,
+                        EF.AC: 16,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 10,  # High bonus to ensure hits
+                        EF.BAB: 8,
+                        EF.STR_MOD: 4,
+                        EF.WEAPON: "longsword",
+                        "weapon_damage": "1d8+4",
+                        EF.DEX_MOD: 1,
+                    },
+                    "goblin_1": {
+                        EF.ENTITY_ID: "goblin_1",
+                        "name": "Goblin Warrior",
+                        EF.TEAM: "enemy",
+                        EF.HP_CURRENT: 100,
+                        EF.HP_MAX: 100,
+                        EF.AC: 10,  # Low AC to ensure hits
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 2,
+                    },
+                },
+            )
+            orch = SessionOrchestrator(
+                world_state=ws,
+                intent_bridge=IntentBridge(),
+                scene_manager=SceneManager(scenes={}),
+                dm_persona=DMPersona(),
+                narration_service=GuardedNarrationService(),
+                context_assembler=ContextAssembler(token_budget=800),
+                master_seed=seed,
+            )
+            result = orch.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+            # Check if this was a hit
+            hit = any(
+                e["type"] == "attack_roll" and e.get("hit", False)
+                for e in result.events
+            )
+            if hit:
+                # HP must have changed
+                goblin_hp = orch.world_state.entities["goblin_1"][EF.HP_CURRENT]
+                assert goblin_hp < 100, f"Hit occurred but HP unchanged (seed={seed})"
+                return  # Test passes
+
+        pytest.fail("No hit found in 100 seeds — RNG pathological")
+
+    def test_narration_reflects_hit_or_miss(self):
+        """Narration brief says hit/miss matching Box outcome."""
+        from aidm.core.rng_manager import RNGManager
+
+        for seed in range(100):
+            ws = WorldState(
+                ruleset_version="RAW_3.5",
+                entities={
+                    "pc_fighter": {
+                        EF.ENTITY_ID: "pc_fighter",
+                        "name": "Kael",
+                        EF.TEAM: "party",
+                        EF.HP_CURRENT: 50,
+                        EF.HP_MAX: 50,
+                        EF.AC: 16,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 5,
+                        EF.BAB: 3,
+                        EF.STR_MOD: 2,
+                        EF.WEAPON: "longsword",
+                        "weapon_damage": "1d8+2",
+                        EF.DEX_MOD: 1,
+                    },
+                    "goblin_1": {
+                        EF.ENTITY_ID: "goblin_1",
+                        "name": "Goblin Warrior",
+                        EF.TEAM: "enemy",
+                        EF.HP_CURRENT: 100,
+                        EF.HP_MAX: 100,
+                        EF.AC: 15,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 2,
+                    },
+                },
+            )
+            orch = SessionOrchestrator(
+                world_state=ws,
+                intent_bridge=IntentBridge(),
+                scene_manager=SceneManager(scenes={}),
+                dm_persona=DMPersona(),
+                narration_service=GuardedNarrationService(),
+                context_assembler=ContextAssembler(token_budget=800),
+                master_seed=seed,
+            )
+            result = orch.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+            # Check Box hit/miss
+            box_hit = any(
+                e["type"] == "attack_roll" and e.get("hit", False)
+                for e in result.events
+            )
+
+            brief = orch.brief_history[0]
+            if box_hit:
+                assert brief.action_type == "attack_hit"
+                assert "hits" in brief.outcome_summary.lower() or "strikes" in brief.outcome_summary.lower()
+                return  # Found a hit, test passes
+            else:
+                assert brief.action_type == "attack_miss"
+                assert "miss" in brief.outcome_summary.lower()
+                return  # Found a miss, test passes
+
+        pytest.fail("No attack resolved in 100 seeds")
+
+    def test_attack_events_contain_real_rolls(self, orchestrator):
+        """Box events contain actual d20 roll data, not synthetic dicts."""
+        result = orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+        attack_rolls = [e for e in result.events if e["type"] == "attack_roll"]
+        assert len(attack_rolls) >= 1
+
+        roll = attack_rolls[0]
+        # Real attack_roll events have these fields from the resolver
+        assert "d20_result" in roll
+        assert "total" in roll
+        assert "hit" in roll
+        assert "target_ac" in roll
+        assert isinstance(roll["d20_result"], int)
+        assert 1 <= roll["d20_result"] <= 20
+
+    def test_defeat_propagates_to_brief(self):
+        """If target is defeated, NarrativeBrief.target_defeated == True."""
+        from aidm.core.rng_manager import RNGManager
+
+        for seed in range(200):
+            ws = WorldState(
+                ruleset_version="RAW_3.5",
+                entities={
+                    "pc_fighter": {
+                        EF.ENTITY_ID: "pc_fighter",
+                        "name": "Kael",
+                        EF.TEAM: "party",
+                        EF.HP_CURRENT: 50,
+                        EF.HP_MAX: 50,
+                        EF.AC: 16,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 15,  # Very high to guarantee hit
+                        EF.BAB: 12,
+                        EF.STR_MOD: 6,
+                        EF.WEAPON: "longsword",
+                        "weapon_damage": "1d8+6",
+                        EF.DEX_MOD: 1,
+                    },
+                    "goblin_1": {
+                        EF.ENTITY_ID: "goblin_1",
+                        "name": "Goblin Warrior",
+                        EF.TEAM: "enemy",
+                        EF.HP_CURRENT: 1,  # 1 HP — any hit defeats
+                        EF.HP_MAX: 6,
+                        EF.AC: 5,  # Very low AC
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 2,
+                    },
+                },
+            )
+            orch = SessionOrchestrator(
+                world_state=ws,
+                intent_bridge=IntentBridge(),
+                scene_manager=SceneManager(scenes={}),
+                dm_persona=DMPersona(),
+                narration_service=GuardedNarrationService(),
+                context_assembler=ContextAssembler(token_budget=800),
+                master_seed=seed,
+            )
+            result = orch.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+            defeated = any(
+                e["type"] == "entity_defeated" for e in result.events
+            )
+            if defeated:
+                brief = orch.brief_history[0]
+                assert brief.target_defeated is True
+                assert "defeating" in brief.outcome_summary.lower()
+                # Entity should be marked defeated in state
+                assert orch.world_state.entities["goblin_1"].get(EF.DEFEATED) is True
+                return
+
+        pytest.fail("No defeat in 200 seeds with 1 HP target — RNG pathological")
+
+    def test_different_seeds_produce_different_outcomes(self):
+        """Different seeds → at least some different outcomes (RNG is real)."""
+        from aidm.core.rng_manager import RNGManager
+
+        outcomes = set()
+        for seed in range(20):
+            ws = WorldState(
+                ruleset_version="RAW_3.5",
+                entities={
+                    "pc_fighter": {
+                        EF.ENTITY_ID: "pc_fighter",
+                        "name": "Kael",
+                        EF.TEAM: "party",
+                        EF.HP_CURRENT: 50,
+                        EF.HP_MAX: 50,
+                        EF.AC: 16,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 5,
+                        EF.BAB: 3,
+                        EF.STR_MOD: 2,
+                        EF.WEAPON: "longsword",
+                        "weapon_damage": "1d8+2",
+                        EF.DEX_MOD: 1,
+                    },
+                    "goblin_1": {
+                        EF.ENTITY_ID: "goblin_1",
+                        "name": "Goblin Warrior",
+                        EF.TEAM: "enemy",
+                        EF.HP_CURRENT: 100,
+                        EF.HP_MAX: 100,
+                        EF.AC: 15,
+                        EF.DEFEATED: False,
+                        EF.ATTACK_BONUS: 2,
+                    },
+                },
+            )
+            orch = SessionOrchestrator(
+                world_state=ws,
+                intent_bridge=IntentBridge(),
+                scene_manager=SceneManager(scenes={}),
+                dm_persona=DMPersona(),
+                narration_service=GuardedNarrationService(),
+                context_assembler=ContextAssembler(token_budget=800),
+                master_seed=seed,
+            )
+            orch.process_text_turn("attack Goblin Warrior", "pc_fighter")
+            outcomes.add(orch.world_state.state_hash())
+
+        # With 20 different seeds, we should get at least 2 different outcomes
+        assert len(outcomes) >= 2, "All 20 seeds produced identical outcomes — RNG not varying"

@@ -40,6 +40,13 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional, Protocol, Tuple, runtime_checkable
 
+from aidm.core.play_loop import (
+    execute_turn as box_execute_turn,
+    TurnContext as BoxTurnContext,
+    TurnResult as BoxTurnResult,
+)
+from aidm.core.rng_manager import RNGManager
+from aidm.core.spell_resolver import SpellCastIntent as BoxSpellCastIntent
 from aidm.core.state import FrozenWorldStateView, WorldState
 from aidm.interaction.intent_bridge import (
     AmbiguityType,
@@ -47,7 +54,7 @@ from aidm.interaction.intent_bridge import (
     IntentBridge,
 )
 from aidm.lens.context_assembler import ContextAssembler
-from aidm.lens.narrative_brief import NarrativeBrief
+from aidm.lens.narrative_brief import NarrativeBrief, compute_severity
 from aidm.lens.scene_manager import SceneManager, SceneState
 from aidm.narration.guarded_narration_service import (
     FrozenMemorySnapshot,
@@ -254,6 +261,8 @@ class SessionOrchestrator:
         dm_persona: DMPersona,
         narration_service: GuardedNarrationService,
         context_assembler: ContextAssembler,
+        rng: Optional[RNGManager] = None,
+        master_seed: int = 42,
         stt_adapter: Optional[STTProtocol] = None,
         tts_adapter: Optional[TTSProtocol] = None,
         image_adapter: Optional[ImageProtocol] = None,
@@ -267,6 +276,8 @@ class SessionOrchestrator:
             dm_persona: DMPersona for system prompt construction
             narration_service: GuardedNarrationService for narration
             context_assembler: ContextAssembler for token-budgeted context
+            rng: Optional RNGManager for deterministic resolution (created from master_seed if None)
+            master_seed: RNG seed used if rng is None
             stt_adapter: Optional STT adapter (None = text-only)
             tts_adapter: Optional TTS adapter (None = text-only)
             image_adapter: Optional image adapter
@@ -277,6 +288,7 @@ class SessionOrchestrator:
         self._dm_persona = dm_persona
         self._narration_service = narration_service
         self._context_assembler = context_assembler
+        self._rng = rng if rng is not None else RNGManager(master_seed)
         self._stt = stt_adapter
         self._tts = tts_adapter
         self._image = image_adapter
@@ -402,47 +414,103 @@ class SessionOrchestrator:
     # ------------------------------------------------------------------
 
     def _process_attack(self, actor_id: str, command: ParsedCommand) -> TurnResult:
-        """Process an attack command through IntentBridge."""
+        """Process an attack command through IntentBridge → Box resolution.
+
+        Flow: IntentBridge (name → entity ID) → execute_turn (d20 + damage) → NarrativeBrief
+        """
         view = FrozenWorldStateView(self._world_state)
         declared = DeclaredAttackIntent(
             target_ref=command.target_ref or "",
             weapon=command.weapon,
         )
 
-        result = self._intent_bridge.resolve_attack(actor_id, declared, view)
+        bridge_result = self._intent_bridge.resolve_attack(actor_id, declared, view)
 
-        if isinstance(result, ClarificationRequest):
+        if isinstance(bridge_result, ClarificationRequest):
             return self._build_clarification_result(
-                result.message, list(result.candidates)
+                bridge_result.message, list(bridge_result.candidates)
             )
 
-        # Build a brief for this attack resolution
-        target_entity = self._world_state.entities.get(result.target_id, {})
-        target_name = target_entity.get("name", result.target_id)
+        # Bridge succeeded — we have an AttackIntent with entity IDs and Weapon
+        # Now route through Box (play_loop.execute_turn) for actual combat resolution
         actor_entity = self._world_state.entities.get(actor_id, {})
         actor_name = actor_entity.get("name", actor_id)
+        target_entity = self._world_state.entities.get(bridge_result.target_id, {})
+        target_name = target_entity.get("name", bridge_result.target_id)
+        target_hp_before = target_entity.get(EF.HP_CURRENT, 0)
+        target_hp_max = target_entity.get(EF.HP_MAX, 1)
 
-        brief = NarrativeBrief(
-            action_type="attack_declared",
-            actor_name=actor_name,
-            target_name=target_name,
-            outcome_summary=f"{actor_name} attacks {target_name}",
-            weapon_name=result.weapon.damage_type if result.weapon else None,
+        turn_ctx = BoxTurnContext(
+            turn_index=self._turn_count,
+            actor_id=actor_id,
+            actor_team=actor_entity.get(EF.TEAM, "party"),
         )
 
-        events = [
-            {
-                "type": "attack_declared",
-                "attacker_id": actor_id,
-                "target_id": result.target_id,
-                "weapon": str(result.weapon) if result.weapon else "unarmed",
-            }
-        ]
+        box_result = box_execute_turn(
+            world_state=self._world_state,
+            turn_ctx=turn_ctx,
+            combat_intent=bridge_result,  # AttackIntent from IntentBridge
+            rng=self._rng,
+            next_event_id=self._turn_count * 100,
+            timestamp=float(self._turn_count),
+        )
 
-        return self._narrate_and_output(brief, events)
+        # Update authoritative world state from Box result
+        self._world_state = box_result.world_state
+
+        # Extract outcome from Box events
+        hit = False
+        damage = 0
+        target_defeated = False
+        event_dicts = []
+
+        for event in box_result.events:
+            event_dict = {
+                "type": event.event_type,
+                **event.payload,
+            }
+            event_dicts.append(event_dict)
+
+            if event.event_type == "attack_roll":
+                hit = event.payload.get("hit", False)
+            elif event.event_type == "hp_changed":
+                damage = abs(event.payload.get("delta", 0))
+            elif event.event_type == "entity_defeated":
+                if event.payload.get("entity_id") == bridge_result.target_id:
+                    target_defeated = True
+
+        # Build NarrativeBrief from real outcome
+        if hit:
+            severity = compute_severity(damage, target_hp_before, target_hp_max, target_defeated)
+            if target_defeated:
+                outcome = f"{actor_name} strikes {target_name} for {damage} damage, defeating them"
+            else:
+                outcome = f"{actor_name} hits {target_name} for {damage} damage"
+            action_type = "attack_hit"
+        else:
+            severity = "minor"
+            outcome = f"{actor_name}'s attack misses {target_name}"
+            action_type = "attack_miss"
+
+        brief = NarrativeBrief(
+            action_type=action_type,
+            actor_name=actor_name,
+            target_name=target_name,
+            outcome_summary=outcome,
+            severity=severity,
+            weapon_name=bridge_result.weapon.damage_type if bridge_result.weapon else None,
+            damage_type=bridge_result.weapon.damage_type if bridge_result.weapon else None,
+            target_defeated=target_defeated,
+            source_event_ids=[e.event_id for e in box_result.events],
+        )
+
+        return self._narrate_and_output(brief, event_dicts)
 
     def _process_spell(self, actor_id: str, command: ParsedCommand) -> TurnResult:
-        """Process a spell command through IntentBridge."""
+        """Process a spell command through IntentBridge → Box resolution.
+
+        Flow: IntentBridge (name → spell ID + target) → execute_turn (saves + effects) → NarrativeBrief
+        """
         view = FrozenWorldStateView(self._world_state)
         declared = CastSpellIntent(spell_name=command.spell_name or "")
 
@@ -452,31 +520,48 @@ class SessionOrchestrator:
         if command.destination:
             kwargs["target_position"] = command.destination
 
-        result = self._intent_bridge.resolve_spell(actor_id, declared, view, **kwargs)
+        bridge_result = self._intent_bridge.resolve_spell(actor_id, declared, view, **kwargs)
 
-        if isinstance(result, ClarificationRequest):
+        if isinstance(bridge_result, ClarificationRequest):
             return self._build_clarification_result(
-                result.message, list(result.candidates)
+                bridge_result.message, list(bridge_result.candidates)
             )
 
+        # Bridge succeeded — we have a SpellCastIntent ready for Box resolution
         actor_entity = self._world_state.entities.get(actor_id, {})
         actor_name = actor_entity.get("name", actor_id)
 
-        brief = NarrativeBrief(
-            action_type="spell_cast",
-            actor_name=actor_name,
-            outcome_summary=f"{actor_name} casts {result.spell_id}",
+        turn_ctx = BoxTurnContext(
+            turn_index=self._turn_count,
+            actor_id=actor_id,
+            actor_team=actor_entity.get(EF.TEAM, "party"),
         )
 
-        events = [
-            {
-                "type": "spell_cast",
-                "caster_id": actor_id,
-                "spell_id": result.spell_id,
-            }
-        ]
+        box_result = box_execute_turn(
+            world_state=self._world_state,
+            turn_ctx=turn_ctx,
+            combat_intent=bridge_result,  # SpellCastIntent from IntentBridge
+            rng=self._rng,
+            next_event_id=self._turn_count * 100,
+            timestamp=float(self._turn_count),
+        )
 
-        return self._narrate_and_output(brief, events)
+        # Update authoritative world state from Box result
+        self._world_state = box_result.world_state
+
+        # Extract outcome from Box events
+        event_dicts = []
+        for event in box_result.events:
+            event_dicts.append({"type": event.event_type, **event.payload})
+
+        brief = NarrativeBrief(
+            action_type=box_result.narration or "spell_cast",
+            actor_name=actor_name,
+            outcome_summary=f"{actor_name} casts {bridge_result.spell_id}",
+            source_event_ids=[e.event_id for e in box_result.events],
+        )
+
+        return self._narrate_and_output(brief, event_dicts)
 
     def _process_move(self, actor_id: str, command: ParsedCommand) -> TurnResult:
         """Process a move command."""
@@ -513,16 +598,13 @@ class SessionOrchestrator:
 
     def _process_rest(self, command: ParsedCommand) -> TurnResult:
         """Process rest through SceneManager."""
-        from aidm.core.rng_manager import RNGManager
-
         self._session_state = SessionState.REST
-        rng = RNGManager(master_seed=42)
 
         try:
             rest_result = self._scene_manager.process_rest(
                 rest_type=command.rest_type,
                 world_state=self._world_state,
-                rng=rng,
+                rng=self._rng,
             )
         except Exception as e:
             logger.warning("Rest processing failed: %s", e)
