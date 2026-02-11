@@ -1,9 +1,18 @@
-# Execution Plan Draft — 2026-02-11
+# Execution Plan — 2026-02-11
 
-**Status:** DRAFT — Awaiting PO review and approval
-**Author:** Opus (Acting PM)
-**Source:** Synthesis of 5 delivered research tracks, codebase survey (2003 tests, 112 source files), doctrine/governance review
-**Context:** Thunder declared existing roadmap "trash." This plan proposes a replacement execution order based on ground truth.
+**Status:** APPROVED — PO reviewed and approved 2026-02-11
+**Author:** Opus (PM)
+**Source:** Synthesis of 5 delivered research tracks, codebase survey (2003 tests, 112 source files), doctrine/governance review, PO secondary opinion integration
+**Context:** Thunder declared existing roadmap "trash." This plan replaces it as the active execution order based on ground truth.
+
+---
+
+## Project Governance
+
+**Product Owner (PO):** Thunder — Design decisions, implementation vision, research delivery. Does not control coding.
+**Project Manager (PM):** Opus — Full PM authority. Work order creation, coding direction, agent coordination, execution management.
+
+PM issues work orders autonomously. PO consulted for design decisions and vision changes only.
 
 ---
 
@@ -51,13 +60,13 @@
 
 ---
 
-## Proposed Execution Order
+## Execution Order (7 Steps)
 
-### Phase 1: Complete the Rules Engine (Box)
+### Step 1: Complete the Box Geometric Engine
 
 **Rationale:** Everything downstream (trust, transparency, narration, Lens queries) depends on Box being able to resolve the full tactical combat that 3.5e demands. You can't generate a Structured Truth Packet for a fireball if Box can't resolve a fireball.
 
-**Priority order:**
+**Work order sequence:**
 
 1. **Geometric engine core** — Uniform grid data structure, PropertyMask (Uint32) on cells and borders, border metadata. This is the data layer that cover/LOS/LOE reads from. (RQ-BOX-001 Findings 1-2, 6-7)
 
@@ -69,23 +78,21 @@
 
 5. **Ranged attacks** — Distance penalties, cover interaction with ranged, range increments. Currently melee-only.
 
-6. **Spellcasting resolution** — Spell targeting (single/area/self), save effects, damage types, duration tracking, concentration. Largest single gap in the engine.
+6. **Reach weapons** — Variable threatened square radius (10ft polearms). Currently hardcoded to 5ft.
 
-7. **Reach weapons** — Variable threatened square radius (10ft polearms). Currently hardcoded to 5ft.
+7. **Combat Reflexes feat** — Multiple AoO/round. Currently limited to 1. Table-stakes for 3.5e tactical play.
 
-8. **Combat Reflexes feat** — Multiple AoO/round. Currently limited to 1. This feat is table-stakes for 3.5e tactical play.
-
-**Architectural decision required:** Python pure vs. C extension for geometry hot path. The research describes cache-line-aligned SoA with SIMD vectorization. Python with numpy/bitarray may be sufficient for 10-20 combatant scenarios. Decision point: profile after step 3 (cover resolution) and decide whether to drop to C for the inner loop.
+**Decision point:** Profile after sub-step 3 (LOS/LOE). Pure Python with numpy may suffice for 10-20 combatants. C extension needed if targeting 50+ combatants or <10ms pairwise visibility.
 
 ---
 
-### Phase 2: Build the Lens
+### Step 2: Build the Core Lens
 
 **Rationale:** The Lens is the data membrane between Spark and Box. It must exist before LLM integration is safe. Without it, Spark writes directly to game state — violating the core doctrine.
 
-**Priority order:**
+**Work order sequence:**
 
-1. **Object property indexing** — Hybrid schema (Active_Entities, Spatial_Index, Mechanical_Profile). MsgPack with integer-key mapping from PERF-001. This is what Box queries for cover/LOS checks. (RQ-LENS-001 Findings 3, 7; RQ-PERF-001 Finding 1)
+1. **Object property indexing** — Hybrid schema (Active_Entities, Spatial_Index, Mechanical_Profile). MsgPack with integer-key mapping from PERF-001. (RQ-LENS-001 Findings 3, 7; RQ-PERF-001 Finding 1)
 
 2. **JIT Fact Acquisition** — Box→Lens→Spark→Lens→Box protocol for missing data. Pydantic validation middleware. Fallback to DEFAULT_ROOM_TEMPLATES. (RQ-LENS-001 Finding 5; RQ-PERF-001 Finding 2)
 
@@ -97,32 +104,87 @@
 
 ---
 
-### Phase 3: Spark Integration + Trust Layer
+### Step 3: Begin Spark Integration
 
 **Rationale:** With Box computing real results and Lens indexing world state, LLM integration becomes safe and useful rather than dangerous.
 
-**Priority order:**
+**Work order sequence:**
 
-1. **Real Spark model loading** — Wire up llama-cpp-python or Ollama to existing SparkAdapter framework. Grammar Shield strategy (stop sequences, schema pre-fill, Pydantic validation). (RQ-PERF-001 Finding 2)
+1. **Real Spark model loading** — Wire up llama-cpp-python or Ollama to existing SparkAdapter framework. Grammar Shield strategy (stop sequences, schema pre-fill, Pydantic validation). Existing M2 governance docs (Spark Swappability) apply here. (RQ-PERF-001 Finding 2)
 
 2. **Structured Truth Packets** — Implement STP schema from TRUST-001. Extend existing event log to include explain packets. Cover, AoE, damage, and die roll STPs. (RQ-TRUST-001 Findings 1-2)
 
 3. **Constrained scene generation** — Spark populates Room Schemas, not prose. Lens validates and indexes. Awaiting RQ-SPARK-001 findings for full Scene Fact Pack schema.
 
-4. **Narration upgrade** — Replace 55 templates with guarded LLM narration. One-Way Knowledge Valve: Box→STP→Lens→NarrativeBrief→Spark. Existing guardrail framework (FREEZE-001, BL-003) already supports this. (RQ-TRUST-001 Finding 5; awaiting RQ-NARR-001 findings)
+---
 
-5. **Determinism test harness** — Implement the pytest suite from PERF-001 (`test_determinism_drift`, `test_reproducibility_from_log`, SHA256 Gold Master). (RQ-PERF-001 Finding 3)
+### Step 4: First Vertical Slice (Tavern Combat)
+
+**Rationale:** Prove the Box→Lens→Spark pipeline works end-to-end before expanding scope. A single tavern combat encounter exercises geometric resolution, Lens indexing, and Spark narration in a controlled scenario.
+
+**Success criteria:**
+- 3-5 combatants in a single-room encounter
+- Melee + ranged attacks resolve through geometric engine
+- Cover and LOS computed correctly via property masks
+- Spark narrates outcomes from STPs (not templates)
+- Lens indexes all entities and provides query interface
+- Full replay produces identical results
+- All existing tests continue to pass
+
+**This step is an explicit gate.** Nothing after Step 4 proceeds until the vertical slice demonstrates correct end-to-end behavior.
 
 ---
 
-### Deferred (Not in Phases 1-3)
+### Step 5: Spellcasting + Expanded Combat
+
+**Rationale:** With the vertical slice proving the pipeline, add the largest missing rules system. Spellcasting is deferred to here (rather than Step 1) because the vertical slice validates the integration pattern first.
+
+**Work order sequence:**
+
+1. **Spellcasting resolution** — Spell targeting (single/area/self), save effects, damage types, duration tracking, concentration. Largest single gap in the engine.
+
+2. **Narration upgrade** — Replace 55 templates with guarded LLM narration. One-Way Knowledge Valve: Box→STP→Lens→NarrativeBrief→Spark. Existing guardrail framework (FREEZE-001, BL-003) already supports this. (RQ-TRUST-001 Finding 5; awaiting RQ-NARR-001 findings)
+
+3. **Determinism test harness expansion** — Implement the full pytest suite from PERF-001 (`test_determinism_drift`, `test_reproducibility_from_log`, SHA256 Gold Master) covering spellcasting scenarios. (RQ-PERF-001 Finding 3)
+
+---
+
+### Step 6: Full Integration Testing + Performance
+
+**Rationale:** Validate the complete system under realistic combat load before adding polish layers.
+
+**Work order sequence:**
+
+1. **Multi-encounter stress test** — Multiple combat scenarios (dungeon crawl, open field, multi-level), 10-20 combatants, mixed melee/ranged/spell
+
+2. **Performance profiling** — Identify hot paths, validate latency targets (Box query <50ms p95, Lens query <20ms p95, full action resolution <3s p95)
+
+3. **Replay regression suite** — 1000-turn determinism gate, Gold Master recordings, version-to-version replay compatibility
+
+4. **Property-based testing** — "Thousand-Fold Fireball" CI test for geometry edge cases (RQ-TRUST-001 Finding 7)
+
+---
+
+### Step 7: Immersion Integration
+
+**Rationale:** With the core pipeline stable and tested, wire up the real immersion backends to the existing adapter framework.
+
+**Work order sequence:**
+
+1. **Real immersion backends** — TTS/STT/Image generation connected to existing adapter framework (stubs replaced with real implementations)
+
+2. **Voice-first interaction** — Wire RQ-INTERACT-001 findings into intent parsing pipeline
+
+3. **Transparency modes** — Implement Tri-Gem Socket (Ruby/Sapphire/Diamond) on top of STP system
+
+4. **Table-native UX** — Combat receipts, ghost stencils, Judge's Lens (RQ-TRUST-001 Findings 3-4)
+
+---
+
+### Deferred (Not in Steps 1-7)
 
 | Item | Reason | When |
 |---|---|---|
-| Real immersion backends (TTS/STT/Image) | Stub framework correct; integration task, not architecture | When game actually runs end-to-end |
-| Voice-first interaction (RQ-INTERACT-001) | Intent system already works; voice parsing is frontend | After Phase 3 core is stable |
-| Transparency modes (Ruby/Sapphire/Diamond) | UX polish on STP system | After STPs implemented |
-| Table-native UX (combat receipts, ghost stencils) | Requires rendering layer | After immersion backends |
 | Equipment management, encumbrance | Content completeness, not architectural | Incrementally |
 | Skills, feats (beyond Combat Reflexes) | Content completeness | Incrementally |
 | Experience, leveling | Content completeness | Incrementally |
@@ -130,18 +192,25 @@
 
 ---
 
-## Open Questions for PO Decision
+## Open Questions
 
-1. **Python vs C for geometry hot path** — Profile after Phase 1 step 3 and decide. Pure Python with numpy may suffice for target scale (10-20 combatants). C extension needed if targeting 50+ combatants or <10ms pairwise visibility.
+1. **Python vs C for geometry hot path** — Profile after Step 1 sub-step 3 and decide. Pure Python with numpy may suffice for target scale (10-20 combatants). C extension needed if targeting 50+ combatants or <10ms pairwise visibility.
 
-2. **Remaining research deliveries** — RQ-SPARK-001 (structured fact emission) directly affects Phase 2/3 design. RQ-NARR-001 (narrative balance) affects Phase 3 step 4. When can these be delivered?
+2. **Remaining research deliveries** — RQ-SPARK-001 (structured fact emission) directly affects Step 3. RQ-NARR-001 (narrative balance) affects Step 5. PM will proceed with available information and integrate findings when delivered.
 
-3. **Milestone naming** — The existing M0-M4 structure doesn't map to this plan. Options:
-   - Rewrite M0-M4 to match these phases
-   - Abandon M-numbering, use phase names (Box Completion, Lens Build, Spark Integration)
-   - Keep M-numbering but redefine scope
+3. **Existing M2 governance** — M2 Spark Swappability governance docs preserved and applied during Step 3 sub-step 1.
 
-4. **Existing M2 (Spark Swappability)** — The governance framework for M2 is already complete. It fits inside Phase 3 step 1. Should the existing M2 governance docs be preserved as-is or folded into the new structure?
+---
+
+## Work Order Tracking
+
+| WO ID | Step | Description | Status | Doc |
+|---|---|---|---|---|
+| WO-001 | 1.1 | Box Geometric Engine Core | READY FOR DISPATCH | `docs/planning/WO-001_BOX_GEOMETRIC_ENGINE_CORE.md` |
+| WO-002 | 1.2 | Cover Resolution | PENDING | — |
+| WO-003 | 1.3 | LOS/LOE Resolution | PENDING | — |
+| WO-004 | 1.4 | AoE Rasterization | PENDING | — |
+| WO-005 | 1.5 | Ranged Attacks | PENDING | — |
 
 ---
 

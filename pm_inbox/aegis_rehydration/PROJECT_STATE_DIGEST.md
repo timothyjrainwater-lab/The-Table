@@ -9,11 +9,22 @@ UPDATE RULES:
 - Format: Markdown with stable section ordering
 - REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
-LAST UPDATED: M3 Prep Pipeline Prototype (WO-M3-PREP-01 complete, 1777 tests passing in ~8s)
-NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (design) and WO-M1-RUNTIME-02 (implementation verification) complete. WO-M2-02 (BL-017/018 persistence cleanup) complete. WO-M1.5-UX-01 (runtime experience design) complete. WO-M3-PREP-01 (prep pipeline prototype with sequential model loading) complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, IPC runtime integration, pm_inbox workflow, runtime session bootstrap (campaign load, replay-first reconstruction, partial write recovery, log sync checks, 10× determinism verification). PrepOrchestrator timestamp injection compliance (deterministic testing enabled). Documentation spring cleaning removed 17 superseded files (6,775 lines). Root cleanup: torrent remnants deleted, REUSE_DECISION.json moved to config/. Solo vertical slice runtime experience design complete (resume flow, turn loop, exit semantics, engine/presentation boundary). M3 prep pipeline prototype demonstrates sequential model loading (LLM → Image Gen → Music Gen → SFX Gen) with stub implementations. All 1777 tests passing (1770 pass, 7 pre-existing Spark adapter failures).
+LAST UPDATED: 2026-02-11 — Whiteboard session complete, PM authority delegated, execution plan formalized
+NOTE: M1 work orders WO-M1-01 through WO-M1-06 complete. WO-M1-RUNTIME-01 (design) and WO-M1-RUNTIME-02 (implementation verification) complete. WO-M2-02 (BL-017/018 persistence cleanup) complete. WO-M1.5-UX-01 (runtime experience design) complete. WO-M3-PREP-01 (prep pipeline prototype with sequential model loading) complete. Replay reducer, BL-017/018/020 boundary laws, spark adapter, hardware detection, audio queue, guarded narration, IPC serialization, IPC runtime integration, pm_inbox workflow, runtime session bootstrap (campaign load, replay-first reconstruction, partial write recovery, log sync checks, 10× determinism verification). PrepOrchestrator timestamp injection compliance (deterministic testing enabled). Documentation spring cleaning removed 17 superseded files (6,775 lines). Root cleanup: torrent remnants deleted, REUSE_DECISION.json moved to config/. Solo vertical slice runtime experience design complete (resume flow, turn loop, exit semantics, engine/presentation boundary). M3 prep pipeline prototype demonstrates sequential model loading (LLM → Image Gen → Music Gen → SFX Gen) with stub implementations. Post-M3: Whiteboard session completed (7 Deep Research tracks filed, 5 delivered, execution plan formalized). 2003 tests passing. PM authority formally delegated to Opus.
 -->
 
 # Project State Digest
+
+## Project Governance
+
+**Product Owner (PO):** Thunder — Design decisions, implementation vision, research delivery. Does not control coding.
+**Project Manager (PM):** Opus — Project management, work order creation, coding direction, agent coordination. Full PM authority delegated by Thunder on 2026-02-11.
+
+**Authority model:** PM issues work orders and manages execution autonomously. PO is consulted for design decisions and vision changes only. All architectural doctrine (Spark/Lens/Box) remains binding regardless of role.
+
+**Effective date:** 2026-02-11 (whiteboard session closeout)
+
+---
 
 ## Locked Systems (Implemented & Tested)
 
@@ -1323,8 +1334,11 @@ The `Vault/` directory is a **structured D&D 3.5e rules reference** extracted fr
 
 ## Canonical Project Plan Reference
 
-**CANONICAL ROADMAP:**
-- [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Sole canonical roadmap, governance authority, capability gate definitions, M0-M4 milestone naming
+**CANONICAL EXECUTION PLAN:**
+- [EXECUTION_PLAN_DRAFT_2026_02_11.md](docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md) — Active execution plan (7-step: Box→Lens→Vertical Slice→Spark Integration). Approved by PO 2026-02-11.
+
+**PRIOR ROADMAP (Historical):**
+- [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Prior canonical roadmap. M0-M4 milestone naming, capability gate definitions. Superseded by execution plan for project direction but capability gates remain in force.
 
 **DESIGN LAYER (FROZEN):**
 - [DESIGN_LAYER_ADOPTION_RECORD.md](docs/design/DESIGN_LAYER_ADOPTION_RECORD.md) — Formal design freeze declaration
@@ -1334,7 +1348,7 @@ The `Vault/` directory is a **structured D&D 3.5e rules reference** extracted fr
 - ~~docs/AIDM_PROJECT_MASTER_PLAN.md~~ — Deleted (superseded by Execution Roadmap V3)
 - ~~docs/AIDM_PROJECT_ACTION_PLAN_V2.md~~ — Deleted (superseded by Execution Roadmap V3)
 
-**No ambiguity. No "see also." Execution Roadmap V3 is the sole source of truth for project direction, capability gates, and kernel requirements.**
+**No ambiguity. The Execution Plan is the active source of truth for project direction and work order sequencing. Capability gates from Roadmap V3 remain enforced.**
 
 ---
 
