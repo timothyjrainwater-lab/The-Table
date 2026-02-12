@@ -70,6 +70,7 @@ class NarrativeBrief:
         condition_removed: Condition name if removed (WO-046B)
         maneuver_type: Combat maneuver type (e.g., "bull_rush", "trip") (WO-046B)
         target_defeated: Whether target was defeated
+        visible_gear: Externally visible gear names for actor (WO-056, AD-005 Layer 3)
         previous_narrations: Last N narration texts for continuity
         scene_description: Brief location context
         source_event_ids: STP event IDs this was built from
@@ -93,6 +94,9 @@ class NarrativeBrief:
     condition_removed: Optional[str] = None
     maneuver_type: Optional[str] = None
     target_defeated: bool = False
+
+    # Gear affordance (WO-056, AD-005 Layer 3)
+    visible_gear: Optional[List[str]] = None  # Display names, NOT item_ids
 
     # Scene context (for continuity)
     previous_narrations: List[str] = field(default_factory=list)
@@ -121,6 +125,7 @@ class NarrativeBrief:
             "condition_removed": self.condition_removed,
             "maneuver_type": self.maneuver_type,
             "target_defeated": self.target_defeated,
+            "visible_gear": self.visible_gear,
             "previous_narrations": self.previous_narrations,
             "scene_description": self.scene_description,
             "source_event_ids": self.source_event_ids,
@@ -150,6 +155,7 @@ class NarrativeBrief:
             condition_removed=data.get("condition_removed"),
             maneuver_type=data.get("maneuver_type"),
             target_defeated=data.get("target_defeated", False),
+            visible_gear=data.get("visible_gear"),
             previous_narrations=data.get("previous_narrations", []),
             scene_description=data.get("scene_description"),
             source_event_ids=data.get("source_event_ids", []),
@@ -260,6 +266,40 @@ def get_entity_hp_data(
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# Gear Affordance Resolution (WO-056, AD-005 Layer 3)
+# ══════════════════════════════════════════════════════════════════════════
+
+
+def resolve_visible_gear_names(
+    item_ids: List[str],
+    catalog,
+) -> List[str]:
+    """Convert item_ids from container resolver into display names.
+
+    Bridges Box layer (item_ids from get_visible_gear()) to Lens layer
+    (display names safe for Spark narration). Item IDs that don't resolve
+    in the catalog are humanized (underscores → spaces, title case).
+
+    Args:
+        item_ids: List of item_id strings from ContainerResolver.get_visible_gear().
+        catalog: EquipmentCatalog instance for name lookups.
+
+    Returns:
+        List of display name strings (never item_ids).
+    """
+    names = []
+    for item_id in item_ids:
+        if catalog is not None:
+            item = catalog.get(item_id)
+            if item is not None:
+                names.append(item.name)
+                continue
+        # Fallback: humanize item_id
+        names.append(item_id.replace("_", " ").title())
+    return names
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # NarrativeBrief Assembler (STP Events → NarrativeBrief)
 # ══════════════════════════════════════════════════════════════════════════
 
@@ -270,6 +310,7 @@ def assemble_narrative_brief(
     frozen_view: FrozenWorldStateView,
     previous_narrations: Optional[List[str]] = None,
     scene_description: Optional[str] = None,
+    visible_gear: Optional[List[str]] = None,
 ) -> NarrativeBrief:
     """Assemble NarrativeBrief from STP events and FrozenWorldStateView.
 
@@ -294,6 +335,7 @@ def assemble_narrative_brief(
         frozen_view: FrozenWorldStateView for read-only state access
         previous_narrations: Last N narration texts for continuity
         scene_description: Brief location context
+        visible_gear: Display names of externally visible gear (WO-056, AD-005 Layer 3)
 
     Returns:
         NarrativeBrief with Spark-safe context
@@ -562,6 +604,7 @@ def assemble_narrative_brief(
         condition_removed=condition_removed,
         maneuver_type=maneuver_type,
         target_defeated=target_defeated,
+        visible_gear=visible_gear,
         previous_narrations=previous_narrations or [],
         scene_description=scene_description,
         source_event_ids=event_ids,
