@@ -139,11 +139,6 @@ class TestCandidateOrdering:
     Tie-break: entity_id lexicographic order.
     """
 
-    @pytest.mark.xfail(
-        reason="Delta D-01: _resolve_entity_name() does not yet sort candidates. "
-               "Contract §2.3 requires lexicographic ordering.",
-        strict=True,
-    )
     def test_bridge_candidates_sorted_lexicographically(self):
         """When bridge returns ambiguous targets, candidates are sorted."""
         entities = {

@@ -5,7 +5,7 @@ This file tells new agents EXACTLY what to read, in what order, and what to veri
 before writing a single line of code. It exists because the project has 9+ root-level
 .md files and agents waste context reading them in the wrong order or skipping critical ones.
 
-LAST UPDATED: Post-Audit Remediation COMPLETE (1331 tests, FIX-01 through FIX-18)
+LAST UPDATED: 2026-02-13 — Wave 1-3 WOs integrated. 5,144 tests collected.
 -->
 
 # Agent Onboarding Checklist
@@ -14,19 +14,25 @@ LAST UPDATED: Post-Audit Remediation COMPLETE (1331 tests, FIX-01 through FIX-18
 
 ---
 
+## Step 0: Read the Project Compass
+
+**Before anything else**, read `PROJECT_COMPASS.md`. It is the rehydration hub — a single document covering the project thesis, architecture, what's real vs paper, the roadmap, conventions, and pointers to every deep dive. If you only read one file, read that one.
+
+---
+
 ## Step 1: Read the Governance Documents (IN THIS ORDER)
 
-Read these files completely before writing any code. The order matters.
+After the Compass, read these for operational detail. The order matters.
 
 | Order | File | Purpose | Critical Because |
 |-------|------|---------|-----------------|
-| 1 | `PROJECT_STATE_DIGEST.md` | What's built, test counts, module inventory | You need to know what exists before touching anything |
-| 2 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards, pitfall avoidance | Contains hard-won bug fixes — ignoring this causes regressions |
-| 3 | `AGENT_COMMUNICATION_PROTOCOL.md` | How to flag concerns, gates, scope creep | Violations cause code reverts |
-| 4 | `PROJECT_COHERENCE_DOCTRINE.md` | Architectural constraints, scope boundaries | Defines what you CAN'T do (no LLM at runtime, etc.) |
+| 1 | `PROJECT_COMPASS.md` | Rehydration hub — thesis, architecture, status, conventions, directory map | Single entry point. Covers everything at summary level. |
+| 2 | `PROJECT_STATE_DIGEST.md` | Detailed operational state — locked systems, WO history, capability gates | Operational detail beyond what Compass covers |
+| 3 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards, pitfall avoidance | Contains hard-won bug fixes — ignoring this causes regressions |
+| 4 | `AGENT_COMMUNICATION_PROTOCOL.md` | How to flag concerns, gates, scope creep | Violations cause code reverts |
 | 5 | `KNOWN_TECH_DEBT.md` | Things that look broken but are intentionally deferred | Prevents you from wasting work "fixing" deferred items |
 
-**Do NOT read** superseded action plans — use `docs/AIDM_EXECUTION_ROADMAP_V3.md` for the canonical roadmap.
+**Do NOT read** superseded action plans — use `docs/planning/REVISED_PROGRAM_SEQUENCING_2026_02_12.md` for the current roadmap.
 
 ---
 
@@ -39,9 +45,10 @@ python -m pytest tests/ -v --tb=short
 ```
 
 **Expected result:**
-- 1700+ tests passing
-- Runtime under 10 seconds
-- Zero failures, zero errors
+- 5,100+ tests passing
+- 7 failures (Chatterbox TTS — external dependency, expected)
+- 16 skipped (hardware-gated)
+- Runtime ~100 seconds for full suite (use `pytest -m "not slow"` for ~30s fast suite)
 
 If this doesn't pass, STOP. Do not proceed. Report the failure.
 
@@ -143,7 +150,7 @@ Every completion packet follows this process:
 3. Write tests second (at least Tier-1 stubs before implementation)
 4. Implement (fill in logic to make tests pass)
 5. Run full test suite (`python -m pytest tests/ -v --tb=short`)
-6. Verify 1225+ tests still pass in under 5 seconds
+6. Verify 5,100+ tests still pass
 7. Update `PROJECT_STATE_DIGEST.md` (test counts, module inventory, CP history)
 8. Update `AGENT_DEVELOPMENT_GUIDELINES.md` if new patterns or pitfalls were discovered
 9. Use `CP_TEMPLATE.md` for the standard CP decisions document format

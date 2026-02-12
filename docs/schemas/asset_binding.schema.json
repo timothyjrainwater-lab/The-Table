@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "asset_binding.schema.json",
+  "title": "AssetBindingRegistry",
+  "description": "Minimal binding registry interface for the Discovery Log. Maps entity_type_id to permanently bound portrait, voice profile, and map token assets. Bindings are deterministic (same world_seed + entity_type_id = same binding) and permanent for the campaign lifetime. Interface-only — does not define asset generation or rendering.",
+
+  "$defs": {
+
+    "AssetBindingRegistry": {
+      "title": "AssetBindingRegistry",
+      "description": "Top-level registry of all entity-to-asset bindings for a campaign. Grows as new entity types are encountered. Entries are never removed or rebound.",
+      "type": "object",
+      "required": ["campaign_id", "schema_version", "world_seed", "bindings"],
+      "properties": {
+        "campaign_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Campaign this registry belongs to."
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Schema version (major.minor)"
+        },
+        "world_seed": {
+          "type": "integer",
+          "description": "World seed used for deterministic binding selection. Combined with entity_type_id and asset_type to produce the binding hash."
+        },
+        "bindings": {
+          "type": "object",
+          "description": "Map of entity_type_id → EntityAssetBinding. One entry per entity type that has been encountered in play.",
+          "additionalProperties": { "$ref": "#/$defs/EntityAssetBinding" }
+        },
+        "pool_usage": {
+          "type": "object",
+          "description": "Map of pool_category → number of items consumed. Tracks pool exhaustion.",
+          "additionalProperties": { "type": "integer", "minimum": 0 },
+          "default": {}
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp of the most recent binding."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "EntityAssetBinding": {
+      "title": "EntityAssetBinding",
+      "description": "Complete asset binding for a single entity type. Created on first knowledge event for any player. Permanent and immutable once created.",
+      "type": "object",
+      "required": ["entity_type_id", "binding_timestamp", "portrait_binding", "token_binding"],
+      "properties": {
+        "entity_type_id": {
+          "type": "string",
+          "pattern": "^creature\\.[a-z][a-z0-9_]*$",
+          "description": "References a CanonicalCreatureEntry in the world bundle."
+        },
+        "binding_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp when this binding was created."
+        },
+        "portrait_binding": {
+          "$ref": "#/$defs/PortraitBinding",
+          "description": "Portrait asset binding across all quality tiers."
+        },
+        "voice_binding": {
+          "oneOf": [
+            { "$ref": "#/$defs/VoiceBinding" },
+            { "type": "null" }
+          ],
+          "description": "Voice profile binding. Null if entity type has no voice (non-speaking creatures).",
+          "default": null
+        },
+        "token_binding": {
+          "$ref": "#/$defs/TokenBinding",
+          "description": "Map token asset binding."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "PortraitBinding": {
+      "title": "PortraitBinding",
+      "description": "Portrait binding across all quality tiers. Each tier is a separate asset reference. The Discovery Log selects which tier to display based on the player's knowledge stage.",
+      "type": "object",
+      "required": ["pool_category", "binding_id"],
+      "properties": {
+        "pool_category": {
+          "type": "string",
+          "pattern": "^portrait\\.[a-z][a-z0-9_]*$",
+          "description": "Asset pool category used for selection. Derived from entity's primary taxonomy_tag.",
+          "examples": ["portrait.beast", "portrait.elemental", "portrait.humanoid"]
+        },
+        "binding_id": {
+          "type": "string",
+          "minLength": 32,
+          "description": "Deterministic binding hash: hash(world_seed, entity_type_id, 'portrait')."
+        },
+        "fallback": {
+          "type": "boolean",
+          "description": "True if this binding was resolved from a _fallback pool instead of the primary pool.",
+          "default": false
+        },
+        "placeholder": {
+          "type": "boolean",
+          "description": "True if no pool was available and this binding uses a generic placeholder.",
+          "default": false
+        },
+        "tiers": {
+          "$ref": "#/$defs/PortraitTiers",
+          "description": "Asset references for each quality tier."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "PortraitTiers": {
+      "title": "PortraitTiers",
+      "description": "Asset references for each portrait quality tier. The Discovery Log maps knowledge stages to these tiers: heard_of→silhouette, observed→sketch, engaged→detailed, studied→full.",
+      "type": "object",
+      "required": ["silhouette"],
+      "properties": {
+        "silhouette": {
+          "$ref": "#/$defs/AssetRef",
+          "description": "Solid dark shape. No identifying features. Used at heard_of stage."
+        },
+        "sketch": {
+          "oneOf": [
+            { "$ref": "#/$defs/AssetRef" },
+            { "type": "null" }
+          ],
+          "description": "Partial detail. Shape and coloring visible. Used at observed stage. Null falls back to silhouette.",
+          "default": null
+        },
+        "detailed": {
+          "oneOf": [
+            { "$ref": "#/$defs/AssetRef" },
+            { "type": "null" }
+          ],
+          "description": "Full visual with identifiable features. Used at engaged stage. Null falls back to sketch.",
+          "default": null
+        },
+        "full": {
+          "oneOf": [
+            { "$ref": "#/$defs/AssetRef" },
+            { "type": "null" }
+          ],
+          "description": "Complete high-detail rendering. Used at studied stage. Null falls back to detailed.",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "VoiceBinding": {
+      "title": "VoiceBinding",
+      "description": "Voice profile binding for a speaking entity. Voice is not tiered by knowledge stage — it always plays at full quality. Only the visual attribution context changes per stage.",
+      "type": "object",
+      "required": ["pool_category", "binding_id", "voice_profile_id"],
+      "properties": {
+        "pool_category": {
+          "type": "string",
+          "pattern": "^voice\\.[a-z][a-z0-9_]*$",
+          "description": "Asset pool category used for selection. Derived from entity's primary taxonomy_tag.",
+          "examples": ["voice.beast", "voice.humanoid", "voice.elemental"]
+        },
+        "binding_id": {
+          "type": "string",
+          "minLength": 32,
+          "description": "Deterministic binding hash: hash(world_seed, entity_type_id, 'voice')."
+        },
+        "voice_profile_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the VoicePersona record in the immersion system."
+        },
+        "fallback": {
+          "type": "boolean",
+          "description": "True if resolved from a _fallback pool.",
+          "default": false
+        },
+        "placeholder": {
+          "type": "boolean",
+          "description": "True if no pool was available. Voice playback disabled; text-only attribution.",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "TokenBinding": {
+      "title": "TokenBinding",
+      "description": "Map token binding for battle map display.",
+      "type": "object",
+      "required": ["pool_category", "binding_id"],
+      "properties": {
+        "pool_category": {
+          "type": "string",
+          "pattern": "^token\\.[a-z][a-z0-9_]*$",
+          "description": "Asset pool category. Derived from entity's size_class.",
+          "examples": ["token.medium", "token.large", "token.huge"]
+        },
+        "binding_id": {
+          "type": "string",
+          "minLength": 32,
+          "description": "Deterministic binding hash: hash(world_seed, entity_type_id, 'token')."
+        },
+        "tiers": {
+          "$ref": "#/$defs/TokenTiers",
+          "description": "Asset references for each token quality tier."
+        },
+        "fallback": {
+          "type": "boolean",
+          "description": "True if resolved from a _fallback pool.",
+          "default": false
+        },
+        "placeholder": {
+          "type": "boolean",
+          "description": "True if no pool was available. Generic circle token used.",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "TokenTiers": {
+      "title": "TokenTiers",
+      "description": "Asset references for each token quality tier. Maps to knowledge stages: heard_of→silhouette, observed→outline, engaged→colored, studied→full.",
+      "type": "object",
+      "required": ["silhouette"],
+      "properties": {
+        "silhouette": {
+          "$ref": "#/$defs/AssetRef",
+          "description": "Dark shape token. Used at heard_of stage."
+        },
+        "outline": {
+          "oneOf": [
+            { "$ref": "#/$defs/AssetRef" },
+            { "type": "null" }
+          ],
+          "description": "Outline token with shape visible. Used at observed stage.",
+          "default": null
+        },
+        "colored": {
+          "oneOf": [
+            { "$ref": "#/$defs/AssetRef" },
+            { "type": "null" }
+          ],
+          "description": "Full-color token. Used at engaged stage.",
+          "default": null
+        },
+        "full": {
+          "oneOf": [
+            { "$ref": "#/$defs/AssetRef" },
+            { "type": "null" }
+          ],
+          "description": "High-detail token. Used at studied stage.",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "AssetRef": {
+      "title": "AssetRef",
+      "description": "Reference to an asset in the asset store.",
+      "type": "object",
+      "required": ["asset_id"],
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Asset identifier in the campaign asset store. Matches AssetRecord.asset_id."
+        },
+        "content_hash": {
+          "type": ["string", "null"],
+          "description": "SHA-256 hash of the asset content for integrity verification. Null if not yet generated.",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "description": "Schema for the entity-to-asset binding registry. Maps entity types to permanently bound portrait, voice, and token assets. Deterministic selection ensures reproducibility. Interface-only — does not define asset generation, rendering, or storage format."
+}

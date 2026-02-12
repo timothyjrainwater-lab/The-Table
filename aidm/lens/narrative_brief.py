@@ -48,6 +48,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 from aidm.core.state import FrozenWorldStateView
+from aidm.schemas.presentation_semantics import AbilityPresentationEntry
 
 
 @dataclass(frozen=True)
@@ -98,6 +99,9 @@ class NarrativeBrief:
     # Gear affordance (WO-056, AD-005 Layer 3)
     visible_gear: Optional[List[str]] = None  # Display names, NOT item_ids
 
+    # Presentation semantics (AD-007 Layer B)
+    presentation_semantics: Optional[AbilityPresentationEntry] = None
+
     # Scene context (for continuity)
     previous_narrations: List[str] = field(default_factory=list)
     scene_description: Optional[str] = None
@@ -126,6 +130,11 @@ class NarrativeBrief:
             "maneuver_type": self.maneuver_type,
             "target_defeated": self.target_defeated,
             "visible_gear": self.visible_gear,
+            "presentation_semantics": (
+                self.presentation_semantics.to_dict()
+                if self.presentation_semantics is not None
+                else None
+            ),
             "previous_narrations": self.previous_narrations,
             "scene_description": self.scene_description,
             "source_event_ids": self.source_event_ids,
@@ -156,6 +165,11 @@ class NarrativeBrief:
             maneuver_type=data.get("maneuver_type"),
             target_defeated=data.get("target_defeated", False),
             visible_gear=data.get("visible_gear"),
+            presentation_semantics=(
+                AbilityPresentationEntry.from_dict(data["presentation_semantics"])
+                if data.get("presentation_semantics") is not None
+                else None
+            ),
             previous_narrations=data.get("previous_narrations", []),
             scene_description=data.get("scene_description"),
             source_event_ids=data.get("source_event_ids", []),
@@ -311,6 +325,7 @@ def assemble_narrative_brief(
     previous_narrations: Optional[List[str]] = None,
     scene_description: Optional[str] = None,
     visible_gear: Optional[List[str]] = None,
+    presentation_semantics: Optional[AbilityPresentationEntry] = None,
 ) -> NarrativeBrief:
     """Assemble NarrativeBrief from STP events and FrozenWorldStateView.
 
@@ -336,6 +351,7 @@ def assemble_narrative_brief(
         previous_narrations: Last N narration texts for continuity
         scene_description: Brief location context
         visible_gear: Display names of externally visible gear (WO-056, AD-005 Layer 3)
+        presentation_semantics: AD-007 Layer B semantics for the ability (if applicable)
 
     Returns:
         NarrativeBrief with Spark-safe context
@@ -605,6 +621,7 @@ def assemble_narrative_brief(
         maneuver_type=maneuver_type,
         target_defeated=target_defeated,
         visible_gear=visible_gear,
+        presentation_semantics=presentation_semantics,
         previous_narrations=previous_narrations or [],
         scene_description=scene_description,
         source_event_ids=event_ids,

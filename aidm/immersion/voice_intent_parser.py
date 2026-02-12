@@ -92,6 +92,18 @@ class STMContext:
         if len(self.history) > 3:
             self.history.pop(0)
 
+    def clear(self) -> None:
+        """Reset all tracked referents.
+
+        Called on scene transition to prevent cross-scene pronoun carryover.
+        """
+        self.last_target = None
+        self.last_location = None
+        self.last_action = None
+        self.last_weapon = None
+        self.last_spell = None
+        self.history.clear()
+
 
 # =============================================================================
 # PARSE RESULT

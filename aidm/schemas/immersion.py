@@ -93,6 +93,22 @@ class VoicePersona:
     pitch: float = 1.0
     """Pitch adjustment multiplier (0.5–2.0)."""
 
+    reference_audio: str = ""
+    """Path to reference audio WAV for voice cloning (optional).
+
+    Used by voice-cloning backends (e.g., Chatterbox). The reference clip
+    should be 5–15 seconds of clean speech in the target voice.
+    Backends that don't support cloning ignore this field.
+    """
+
+    exaggeration: float = 0.5
+    """Emotion/expression intensity (0.0–1.0).
+
+    Controls how expressive the synthesized voice sounds.
+    Only used by backends that support emotion control (e.g., Chatterbox Original).
+    Backends that don't support this ignore the field.
+    """
+
     def validate(self) -> List[str]:
         """Validate persona fields. Returns list of errors."""
         errors = []
@@ -108,17 +124,26 @@ class VoicePersona:
             errors.append(
                 f"pitch must be between 0.5 and 2.0, got {self.pitch}."
             )
+        if not (0.0 <= self.exaggeration <= 1.0):
+            errors.append(
+                f"exaggeration must be between 0.0 and 1.0, got {self.exaggeration}."
+            )
         return errors
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
-        return {
+        d: Dict[str, Any] = {
             "persona_id": self.persona_id,
             "name": self.name,
             "voice_model": self.voice_model,
             "speed": self.speed,
             "pitch": self.pitch,
         }
+        if self.reference_audio:
+            d["reference_audio"] = self.reference_audio
+        if self.exaggeration != 0.5:
+            d["exaggeration"] = self.exaggeration
+        return d
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "VoicePersona":
@@ -129,6 +154,8 @@ class VoicePersona:
             voice_model=data.get("voice_model", "default"),
             speed=data.get("speed", 1.0),
             pitch=data.get("pitch", 1.0),
+            reference_audio=data.get("reference_audio", ""),
+            exaggeration=data.get("exaggeration", 0.5),
         )
 
 

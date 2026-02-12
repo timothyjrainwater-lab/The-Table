@@ -1,0 +1,772 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "681f92bc94ff",
+  "note": "INTERNAL ONLY — contains original feat names for provenance tracking",
+  "name_to_id": {
+    "ACROBATIC": "FEAT_001",
+    "AGILE": "FEAT_002",
+    "ALERTNESS": "FEAT_003",
+    "ANIMAL AFFINITY": "FEAT_004",
+    "ARMOR PROFICIENCY (HEAVY)": "FEAT_005",
+    "ARMOR PROFICIENCY (LIGHT)": "FEAT_006",
+    "ARMOR PROFICIENCY (MEDIUM)": "FEAT_007",
+    "ATHLETIC": "FEAT_008",
+    "AUGMENT SUMMONING": "FEAT_009",
+    "BLIND-FIGHT": "FEAT_010",
+    "BREW POTION": "FEAT_011",
+    "CLEAVE": "FEAT_012",
+    "COMBAT CASTING": "FEAT_013",
+    "COMBAT EXPERTISE": "FEAT_014",
+    "COMBAT REFLEXES": "FEAT_015",
+    "CRAFT MAGIC ARMS AND ARMOR": "FEAT_016",
+    "CRAFT ROD": "FEAT_017",
+    "CRAFT STAFF": "FEAT_018",
+    "CRAFT WAND": "FEAT_019",
+    "CRAFT WONDROUS ITEM": "FEAT_020",
+    "DECEITFUL": "FEAT_021",
+    "DEFLECT ARROWS": "FEAT_022",
+    "DEFT HANDS": "FEAT_023",
+    "DIEHARD": "FEAT_024",
+    "DILIGENT": "FEAT_025",
+    "DODGE": "FEAT_026",
+    "EMPOWER SPELL": "FEAT_027",
+    "ENDURANCE": "FEAT_028",
+    "ENLARGE SPELL": "FEAT_029",
+    "ESCHEW MATERIALS": "FEAT_030",
+    "EXOTIC WEAPON PROFICIENCY": "FEAT_031",
+    "EXTEND SPELL": "FEAT_032",
+    "EXTRA TURNING": "FEAT_033",
+    "FAR SHOT": "FEAT_034",
+    "FORGE RING": "FEAT_035",
+    "GREAT CLEAVE": "FEAT_036",
+    "GREAT FORTITUDE": "FEAT_037",
+    "GREATER SPELL FOCUS": "FEAT_038",
+    "GREATER SPELL PENETRATION": "FEAT_039",
+    "GREATER TWO-WEAPON FIGHTING": "FEAT_040",
+    "GREATER WEAPON FOCUS": "FEAT_041",
+    "GREATER WEAPON SPECIALIZATION": "FEAT_042",
+    "HEIGHTEN SPELL": "FEAT_043",
+    "IMPROVED BULL RUSH": "FEAT_044",
+    "IMPROVED COUNTERSPELL": "FEAT_045",
+    "IMPROVED CRITICAL": "FEAT_046",
+    "IMPROVED DISARM": "FEAT_047",
+    "IMPROVED FEINT": "FEAT_048",
+    "IMPROVED GRAPPLE": "FEAT_049",
+    "IMPROVED INITIATIVE": "FEAT_050",
+    "IMPROVED OVERRUN": "FEAT_051",
+    "IMPROVED PRECISE SHOT": "FEAT_052",
+    "IMPROVED SHIELD BASH": "FEAT_053",
+    "IMPROVED SUNDER": "FEAT_054",
+    "IMPROVED TRIP": "FEAT_055",
+    "IMPROVED TURNING": "FEAT_056",
+    "IMPROVED TWO-WEAPON FIGHTING": "FEAT_057",
+    "IMPROVED UNARMED STRIKE": "FEAT_058",
+    "INVESTIGATOR": "FEAT_059",
+    "IRON WILL": "FEAT_060",
+    "LEADERSHIP": "FEAT_061",
+    "LIGHTNING REFLEXES": "FEAT_062",
+    "MAGICAL APTITUDE": "FEAT_063",
+    "MANYSHOT": "FEAT_064",
+    "MARTIAL WEAPON PROFICIENCY": "FEAT_065",
+    "MAXIMIZE SPELL": "FEAT_066",
+    "MOBILITY": "FEAT_067",
+    "MOUNTED ARCHERY": "FEAT_068",
+    "MOUNTED COMBAT": "FEAT_069",
+    "NATURAL SPELL": "FEAT_070",
+    "NEGOTIATOR": "FEAT_071",
+    "NIMBLE FINGERS": "FEAT_072",
+    "PERSUASIVE": "FEAT_073",
+    "POINT BLANK SHOT": "FEAT_074",
+    "POWER ATTACK": "FEAT_075",
+    "PRECISE SHOT": "FEAT_076",
+    "QUICK DRAW": "FEAT_077",
+    "QUICKEN SPELL": "FEAT_078",
+    "RAPID RELOAD": "FEAT_079",
+    "RAPID SHOT": "FEAT_080",
+    "RIDE-BY ATTACK": "FEAT_081",
+    "RUN": "FEAT_082",
+    "SCRIBE SCROLL": "FEAT_083",
+    "SELF-SUFFICIENT": "FEAT_084",
+    "SHIELD PROFICIENCY": "FEAT_085",
+    "SHOT ON THE RUN": "FEAT_086",
+    "SILENT SPELL": "FEAT_087",
+    "SIMPLE WEAPON PROFICIENCY": "FEAT_088",
+    "SKILL FOCUS": "FEAT_089",
+    "SNATCH ARROWS": "FEAT_090",
+    "SPELL FOCUS": "FEAT_091",
+    "SPELL MASTERY": "FEAT_092",
+    "SPELL PENETRATION": "FEAT_093",
+    "SPIRITED CHARGE": "FEAT_094",
+    "SPRING ATTACK": "FEAT_095",
+    "STEALTHY": "FEAT_096",
+    "STILL SPELL": "FEAT_097",
+    "STUNNING FIST": "FEAT_098",
+    "TOUGHNESS": "FEAT_099",
+    "TOWER SHIELD PROFICIENCY": "FEAT_100",
+    "TRACK": "FEAT_101",
+    "TRAMPLE": "FEAT_102",
+    "TWO-WEAPON DEFENSE": "FEAT_103",
+    "TWO-WEAPON FIGHTING": "FEAT_104",
+    "WEAPON FINESSE": "FEAT_105",
+    "WEAPON FOCUS": "FEAT_106",
+    "WEAPON SPECIALIZATION": "FEAT_107",
+    "WHIRLWIND ATTACK": "FEAT_108",
+    "WIDEN SPELL": "FEAT_109"
+  },
+  "entries": [
+    {
+      "template_id": "FEAT_001",
+      "original_name": "ACROBATIC",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_002",
+      "original_name": "AGILE",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_003",
+      "original_name": "ALERTNESS",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_004",
+      "original_name": "ANIMAL AFFINITY",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_005",
+      "original_name": "ARMOR PROFICIENCY (HEAVY)",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_006",
+      "original_name": "ARMOR PROFICIENCY (LIGHT)",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_007",
+      "original_name": "ARMOR PROFICIENCY (MEDIUM)",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_008",
+      "original_name": "ATHLETIC",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_009",
+      "original_name": "AUGMENT SUMMONING",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_010",
+      "original_name": "BLIND-FIGHT",
+      "page": "90",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_011",
+      "original_name": "BREW POTION",
+      "page": "90",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_012",
+      "original_name": "CLEAVE",
+      "page": "93",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_013",
+      "original_name": "COMBAT CASTING",
+      "page": "93",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_014",
+      "original_name": "COMBAT EXPERTISE",
+      "page": "93",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_015",
+      "original_name": "COMBAT REFLEXES",
+      "page": "93",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_016",
+      "original_name": "CRAFT MAGIC ARMS AND ARMOR",
+      "page": "93",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_017",
+      "original_name": "CRAFT ROD",
+      "page": "93",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_018",
+      "original_name": "CRAFT STAFF",
+      "page": "93",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_019",
+      "original_name": "CRAFT WAND",
+      "page": "93",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_020",
+      "original_name": "CRAFT WONDROUS ITEM",
+      "page": "93",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_021",
+      "original_name": "DECEITFUL",
+      "page": "94",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_022",
+      "original_name": "DEFLECT ARROWS",
+      "page": "94",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_023",
+      "original_name": "DEFT HANDS",
+      "page": "94",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_024",
+      "original_name": "DIEHARD",
+      "page": "94",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_025",
+      "original_name": "DILIGENT",
+      "page": "94",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_026",
+      "original_name": "DODGE",
+      "page": "94",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_027",
+      "original_name": "EMPOWER SPELL",
+      "page": "94",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_028",
+      "original_name": "ENDURANCE",
+      "page": "94",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_029",
+      "original_name": "ENLARGE SPELL",
+      "page": "95",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_030",
+      "original_name": "ESCHEW MATERIALS",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_031",
+      "original_name": "EXOTIC WEAPON PROFICIENCY",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_032",
+      "original_name": "EXTEND SPELL",
+      "page": "95",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_033",
+      "original_name": "EXTRA TURNING",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_034",
+      "original_name": "FAR SHOT",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_035",
+      "original_name": "FORGE RING",
+      "page": "95",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_036",
+      "original_name": "GREAT CLEAVE",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_037",
+      "original_name": "GREAT FORTITUDE",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_038",
+      "original_name": "GREATER SPELL FOCUS",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_039",
+      "original_name": "GREATER SPELL PENETRATION",
+      "page": "95",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_040",
+      "original_name": "GREATER TWO-WEAPON FIGHTING",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_041",
+      "original_name": "GREATER WEAPON FOCUS",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_042",
+      "original_name": "GREATER WEAPON SPECIALIZATION",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_043",
+      "original_name": "HEIGHTEN SPELL",
+      "page": "96",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_044",
+      "original_name": "IMPROVED BULL RUSH",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_045",
+      "original_name": "IMPROVED COUNTERSPELL",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_046",
+      "original_name": "IMPROVED CRITICAL",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_047",
+      "original_name": "IMPROVED DISARM",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_048",
+      "original_name": "IMPROVED FEINT",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_049",
+      "original_name": "IMPROVED GRAPPLE",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_050",
+      "original_name": "IMPROVED INITIATIVE",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_051",
+      "original_name": "IMPROVED OVERRUN",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_052",
+      "original_name": "IMPROVED PRECISE SHOT",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_053",
+      "original_name": "IMPROVED SHIELD BASH",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_054",
+      "original_name": "IMPROVED SUNDER",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_055",
+      "original_name": "IMPROVED TRIP",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_056",
+      "original_name": "IMPROVED TURNING",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_057",
+      "original_name": "IMPROVED TWO-WEAPON FIGHTING",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_058",
+      "original_name": "IMPROVED UNARMED STRIKE",
+      "page": "97",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_059",
+      "original_name": "INVESTIGATOR",
+      "page": "98",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_060",
+      "original_name": "IRON WILL",
+      "page": "98",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_061",
+      "original_name": "LEADERSHIP",
+      "page": "98",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_062",
+      "original_name": "LIGHTNING REFLEXES",
+      "page": "98",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_063",
+      "original_name": "MAGICAL APTITUDE",
+      "page": "98",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_064",
+      "original_name": "MANYSHOT",
+      "page": "98",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_065",
+      "original_name": "MARTIAL WEAPON PROFICIENCY",
+      "page": "98",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_066",
+      "original_name": "MAXIMIZE SPELL",
+      "page": "98",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_067",
+      "original_name": "MOBILITY",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_068",
+      "original_name": "MOUNTED ARCHERY",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_069",
+      "original_name": "MOUNTED COMBAT",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_070",
+      "original_name": "NATURAL SPELL",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_071",
+      "original_name": "NEGOTIATOR",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_072",
+      "original_name": "NIMBLE FINGERS",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_073",
+      "original_name": "PERSUASIVE",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_074",
+      "original_name": "POINT BLANK SHOT",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_075",
+      "original_name": "POWER ATTACK",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_076",
+      "original_name": "PRECISE SHOT",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_077",
+      "original_name": "QUICK DRAW",
+      "page": "99",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_078",
+      "original_name": "QUICKEN SPELL",
+      "page": "99",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_079",
+      "original_name": "RAPID RELOAD",
+      "page": "100",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_080",
+      "original_name": "RAPID SHOT",
+      "page": "100",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_081",
+      "original_name": "RIDE-BY ATTACK",
+      "page": "100",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_082",
+      "original_name": "RUN",
+      "page": "100",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_083",
+      "original_name": "SCRIBE SCROLL",
+      "page": "100",
+      "feat_type_raw": "ITEM CREATION"
+    },
+    {
+      "template_id": "FEAT_084",
+      "original_name": "SELF-SUFFICIENT",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_085",
+      "original_name": "SHIELD PROFICIENCY",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_086",
+      "original_name": "SHOT ON THE RUN",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_087",
+      "original_name": "SILENT SPELL",
+      "page": "101",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_088",
+      "original_name": "SIMPLE WEAPON PROFICIENCY",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_089",
+      "original_name": "SKILL FOCUS",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_090",
+      "original_name": "SNATCH ARROWS",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_091",
+      "original_name": "SPELL FOCUS",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_092",
+      "original_name": "SPELL MASTERY",
+      "page": "101",
+      "feat_type_raw": "SPECIAL"
+    },
+    {
+      "template_id": "FEAT_093",
+      "original_name": "SPELL PENETRATION",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_094",
+      "original_name": "SPIRITED CHARGE",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_095",
+      "original_name": "SPRING ATTACK",
+      "page": "101",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_096",
+      "original_name": "STEALTHY",
+      "page": "102",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_097",
+      "original_name": "STILL SPELL",
+      "page": "102",
+      "feat_type_raw": "METAMAGIC"
+    },
+    {
+      "template_id": "FEAT_098",
+      "original_name": "STUNNING FIST",
+      "page": "102",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_099",
+      "original_name": "TOUGHNESS",
+      "page": "102",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_100",
+      "original_name": "TOWER SHIELD PROFICIENCY",
+      "page": "102",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_101",
+      "original_name": "TRACK",
+      "page": "102",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_102",
+      "original_name": "TRAMPLE",
+      "page": "102",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_103",
+      "original_name": "TWO-WEAPON DEFENSE",
+      "page": "103",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_104",
+      "original_name": "TWO-WEAPON FIGHTING",
+      "page": "103",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_105",
+      "original_name": "WEAPON FINESSE",
+      "page": "103",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_106",
+      "original_name": "WEAPON FOCUS",
+      "page": "103",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_107",
+      "original_name": "WEAPON SPECIALIZATION",
+      "page": "96",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_108",
+      "original_name": "WHIRLWIND ATTACK",
+      "page": "103",
+      "feat_type_raw": "GENERAL"
+    },
+    {
+      "template_id": "FEAT_109",
+      "original_name": "WIDEN SPELL",
+      "page": "103",
+      "feat_type_raw": "METAMAGIC"
+    }
+  ]
+}

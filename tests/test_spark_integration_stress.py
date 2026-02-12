@@ -1042,8 +1042,8 @@ class TestPerformance:
     def test_narration_latency_under_budget(self):
         """Single narration call completes within 2 seconds."""
         from aidm.narration.guarded_narration_service import GuardedNarrationService
-        from aidm.schemas.engine_result import EngineResult
-        from aidm.core.event_log import Event
+        from aidm.schemas.engine_result import EngineResult, EngineResultStatus
+        from datetime import datetime
 
         service = GuardedNarrationService(
             kill_switch_registry=KillSwitchRegistry(),
@@ -1051,16 +1051,18 @@ class TestPerformance:
         )
 
         # Create minimal EngineResult
-        event = Event(
-            event_id=1,
-            event_type="attack_hit",
-            timestamp=0.0,
-            payload={"attacker_id": "fighter_1", "target_id": "goblin_1", "damage_total": 8},
-        )
+        event = {
+            "event_type": "attack_hit",
+            "attacker_id": "fighter_1",
+            "target_id": "goblin_1",
+            "damage_total": 8,
+        }
         engine_result = EngineResult(
+            result_id="test_result_1",
+            intent_id="test_intent_1",
+            status=EngineResultStatus.SUCCESS,
+            resolved_at=datetime.utcnow(),
             events=[event],
-            final_world_state_hash="test_hash",
-            memory_snapshot=None,
         )
 
         # Time single narration call
@@ -1078,8 +1080,8 @@ class TestPerformance:
     def test_narration_throughput_10_turns(self):
         """10 consecutive narration calls complete within 20 seconds."""
         from aidm.narration.guarded_narration_service import GuardedNarrationService
-        from aidm.schemas.engine_result import EngineResult
-        from aidm.core.event_log import Event
+        from aidm.schemas.engine_result import EngineResult, EngineResultStatus
+        from datetime import datetime
 
         service = GuardedNarrationService(
             kill_switch_registry=KillSwitchRegistry(),
@@ -1089,16 +1091,18 @@ class TestPerformance:
         # Time 10 consecutive narration calls
         start_time = time.perf_counter()
         for i in range(10):
-            event = Event(
-                event_id=i,
-                event_type="attack_hit",
-                timestamp=float(i),
-                payload={"attacker_id": "fighter_1", "target_id": "goblin_1", "damage_total": 8},
-            )
+            event = {
+                "event_type": "attack_hit",
+                "attacker_id": "fighter_1",
+                "target_id": "goblin_1",
+                "damage_total": 8,
+            }
             engine_result = EngineResult(
+                result_id=f"test_result_{i}",
+                intent_id=f"test_intent_{i}",
+                status=EngineResultStatus.SUCCESS,
+                resolved_at=datetime.utcnow(),
                 events=[event],
-                final_world_state_hash="test_hash",
-                memory_snapshot=None,
             )
             narration = service.generate_narration(engine_result)
             assert narration is not None
@@ -1147,8 +1151,8 @@ class TestPerformance:
     def test_kill_switch_latency_overhead(self):
         """Kill switch checks add < 50ms overhead per narration call."""
         from aidm.narration.guarded_narration_service import GuardedNarrationService
-        from aidm.schemas.engine_result import EngineResult
-        from aidm.core.event_log import Event
+        from aidm.schemas.engine_result import EngineResult, EngineResultStatus
+        from datetime import datetime
 
         # Run with kill switch checks
         service_with_checks = GuardedNarrationService(
@@ -1156,16 +1160,18 @@ class TestPerformance:
             loaded_model=None,
         )
 
-        event = Event(
-            event_id=1,
-            event_type="attack_hit",
-            timestamp=0.0,
-            payload={"attacker_id": "fighter_1", "target_id": "goblin_1", "damage_total": 8},
-        )
+        event = {
+            "event_type": "attack_hit",
+            "attacker_id": "fighter_1",
+            "target_id": "goblin_1",
+            "damage_total": 8,
+        }
         engine_result = EngineResult(
+            result_id="test_result_1",
+            intent_id="test_intent_1",
+            status=EngineResultStatus.SUCCESS,
+            resolved_at=datetime.utcnow(),
             events=[event],
-            final_world_state_hash="test_hash",
-            memory_snapshot=None,
         )
 
         # Measure with checks

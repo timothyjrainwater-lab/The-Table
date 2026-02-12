@@ -22,7 +22,22 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+import os
+
 from aidm.schemas.immersion import VoicePersona
+
+# ==============================================================================
+# MODEL PATHS (for integration tests)
+# ==============================================================================
+
+_KOKORO_MODEL_PATH = os.environ.get(
+    "KOKORO_MODEL_PATH",
+    os.path.join(os.path.dirname(__file__), "..", "..", "models", "kokoro", "kokoro-v1.0.int8.onnx"),
+)
+_KOKORO_VOICES_PATH = os.environ.get(
+    "KOKORO_VOICES_PATH",
+    os.path.join(os.path.dirname(__file__), "..", "..", "models", "kokoro", "voices-v1.0.bin"),
+)
 
 
 # ==============================================================================
@@ -30,11 +45,14 @@ from aidm.schemas.immersion import VoicePersona
 # ==============================================================================
 
 def _kokoro_available() -> bool:
-    """Check if Kokoro TTS is available."""
+    """Check if Kokoro TTS is available with model files."""
     try:
         from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
-        adapter = KokoroTTSAdapter()
-        return adapter.is_available()
+        adapter = KokoroTTSAdapter(
+            model_path=_KOKORO_MODEL_PATH,
+            voices_path=_KOKORO_VOICES_PATH,
+        )
+        return adapter.is_available() and os.path.isfile(_KOKORO_MODEL_PATH)
     except ImportError:
         return False
 
@@ -52,9 +70,19 @@ requires_kokoro = pytest.mark.skipif(
 
 @pytest.fixture
 def kokoro_adapter():
-    """Create a KokoroTTSAdapter instance."""
+    """Create a KokoroTTSAdapter instance (no model paths for unit tests)."""
     from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
     return KokoroTTSAdapter()
+
+
+@pytest.fixture
+def kokoro_adapter_with_models():
+    """Create a KokoroTTSAdapter with real model paths (for integration tests)."""
+    from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
+    return KokoroTTSAdapter(
+        model_path=_KOKORO_MODEL_PATH,
+        voices_path=_KOKORO_VOICES_PATH,
+    )
 
 
 @pytest.fixture
@@ -211,31 +239,31 @@ class TestSynthesisMocked:
 
     def test_synthesize_returns_bytes(self, mock_kokoro_engine):
         """Synthesize should return bytes when engine available."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 result = adapter.synthesize("Hello world")
                 assert isinstance(result, bytes)
 
     def test_synthesize_with_persona(self, mock_kokoro_engine, sample_persona):
         """Synthesize should accept persona parameter."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 result = adapter.synthesize("Test text", persona=sample_persona)
                 assert isinstance(result, bytes)
 
     def test_synthesis_increments_count(self, mock_kokoro_engine):
         """Each synthesis should increment the count."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 assert adapter.get_synthesis_count() == 0
 
                 adapter.synthesize("First")
@@ -254,11 +282,11 @@ class TestWavFormatValidation:
 
     def test_output_is_valid_wav(self, mock_kokoro_engine):
         """Output should be valid WAV format."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 wav_bytes = adapter.synthesize("Test")
 
                 # Should be parseable as WAV
@@ -269,11 +297,11 @@ class TestWavFormatValidation:
 
     def test_wav_has_riff_header(self, mock_kokoro_engine):
         """WAV output should have RIFF header."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 wav_bytes = adapter.synthesize("Test")
 
                 # RIFF header check
@@ -282,11 +310,11 @@ class TestWavFormatValidation:
 
     def test_wav_sample_rate_is_16khz(self, mock_kokoro_engine):
         """Output sample rate should be 16kHz."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 wav_bytes = adapter.synthesize("Test")
 
                 buffer = io.BytesIO(wav_bytes)
@@ -332,10 +360,8 @@ class TestAvailability:
 
     def test_synthesize_raises_when_unavailable(self, kokoro_adapter):
         """Synthesize should raise when Kokoro unavailable."""
-        from aidm.immersion.kokoro_tts_adapter import _loader
-
-        with patch.object(_loader, "is_available", return_value=False):
-            with patch.object(_loader, "get_kokoro", side_effect=RuntimeError("Not available")):
+        with patch.object(kokoro_adapter._loader, "is_available", return_value=False):
+            with patch.object(kokoro_adapter._loader, "get_kokoro", side_effect=RuntimeError("Not available")):
                 with pytest.raises(RuntimeError, match="[Nn]ot available"):
                     kokoro_adapter.synthesize("Test")
 
@@ -401,10 +427,10 @@ class TestFactoryFunction:
 
     def test_factory_fallback_disabled_raises(self):
         """Factory should raise when fallback disabled and unavailable."""
-        from aidm.immersion.kokoro_tts_adapter import create_kokoro_adapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import create_kokoro_adapter, _dep_checker
 
-        with patch.object(_loader, "is_available", return_value=False):
-            with patch.object(_loader, "get_error", return_value="Test error"):
+        with patch.object(_dep_checker, "is_available", return_value=False):
+            with patch.object(_dep_checker, "get_error", return_value="Test error"):
                 with pytest.raises(RuntimeError):
                     create_kokoro_adapter(fallback_to_stub=False)
 
@@ -420,21 +446,21 @@ class TestKokoroIntegration:
     These tests are skipped if Kokoro is not installed.
     """
 
-    def test_real_synthesis_produces_audio(self, kokoro_adapter):
+    def test_real_synthesis_produces_audio(self, kokoro_adapter_with_models):
         """Real synthesis should produce non-empty audio."""
-        wav_bytes = kokoro_adapter.synthesize("Hello, adventurer.")
+        wav_bytes = kokoro_adapter_with_models.synthesize("Hello, adventurer.")
         assert len(wav_bytes) > 44  # More than just WAV header
 
-    def test_real_synthesis_all_personas(self, kokoro_adapter):
+    def test_real_synthesis_all_personas(self, kokoro_adapter_with_models):
         """Should synthesize with all available personas."""
-        personas = kokoro_adapter.list_personas()
+        personas = kokoro_adapter_with_models.list_personas()
         text = "Roll for initiative."
 
         for persona in personas:
-            wav_bytes = kokoro_adapter.synthesize(text, persona=persona)
+            wav_bytes = kokoro_adapter_with_models.synthesize(text, persona=persona)
             assert len(wav_bytes) > 44, f"Failed for persona {persona.persona_id}"
 
-    def test_real_synthesis_speed_variation(self, kokoro_adapter):
+    def test_real_synthesis_speed_variation(self, kokoro_adapter_with_models):
         """Different speeds should produce different audio lengths."""
         text = "The dragon breathes fire."
 
@@ -451,13 +477,13 @@ class TestKokoroIntegration:
             speed=1.3,
         )
 
-        slow_audio = kokoro_adapter.synthesize(text, persona=slow_persona)
-        fast_audio = kokoro_adapter.synthesize(text, persona=fast_persona)
+        slow_audio = kokoro_adapter_with_models.synthesize(text, persona=slow_persona)
+        fast_audio = kokoro_adapter_with_models.synthesize(text, persona=fast_persona)
 
         # Slow should be longer than fast
         assert len(slow_audio) > len(fast_audio)
 
-    def test_real_synthesis_long_text(self, kokoro_adapter):
+    def test_real_synthesis_long_text(self, kokoro_adapter_with_models):
         """Should handle longer narration text."""
         long_text = (
             "The ancient dragon rises from its slumber, scales glinting "
@@ -465,8 +491,16 @@ class TestKokoroIntegration:
             "fix upon your party. With a thunderous roar that shakes the very "
             "foundations of the mountain, it spreads its massive wings."
         )
-        wav_bytes = kokoro_adapter.synthesize(long_text)
+        wav_bytes = kokoro_adapter_with_models.synthesize(long_text)
         assert len(wav_bytes) > 1000  # Should be substantial audio
+
+    def test_real_synthesis_with_string_persona(self, kokoro_adapter_with_models):
+        """String persona should resolve to a voice and synthesize."""
+        wav_bytes = kokoro_adapter_with_models.synthesize(
+            "The goblin crumbles and falls.",
+            persona="dm_narrator",
+        )
+        assert len(wav_bytes) > 44
 
 
 # ==============================================================================
@@ -478,14 +512,14 @@ class TestAudioQualitySanity:
 
     def test_non_silent_audio_has_samples(self, mock_kokoro_engine):
         """Non-empty synthesis should have audio samples."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
         # Return non-silent audio
         mock_kokoro_engine.create.return_value = ([0.5] * 12000, 24000)
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 wav_bytes = adapter.synthesize("Test")
 
                 # Parse and check frames
@@ -496,15 +530,15 @@ class TestAudioQualitySanity:
 
     def test_audio_samples_in_valid_range(self, mock_kokoro_engine):
         """Audio samples should be in valid 16-bit range."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
         # Return varied audio samples
         samples = [0.5, -0.5, 0.0, 1.0, -1.0]
         mock_kokoro_engine.create.return_value = (samples * 1000, 24000)
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 wav_bytes = adapter.synthesize("Test")
 
                 buffer = io.BytesIO(wav_bytes)
@@ -527,33 +561,33 @@ class TestErrorHandling:
 
     def test_synthesis_with_special_characters(self, mock_kokoro_engine):
         """Should handle special characters in text."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 # Should not raise
                 result = adapter.synthesize("Roll 2d6+3! (Critical hit)")
                 assert isinstance(result, bytes)
 
     def test_synthesis_with_numbers(self, mock_kokoro_engine):
         """Should handle numbers in text."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 result = adapter.synthesize("You deal 25 damage.")
                 assert isinstance(result, bytes)
 
     def test_synthesis_wraps_engine_errors(self, mock_kokoro_engine):
         """Engine errors should be wrapped in RuntimeError."""
-        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter, _loader
+        from aidm.immersion.kokoro_tts_adapter import KokoroTTSAdapter
 
         mock_kokoro_engine.create.side_effect = ValueError("Engine error")
 
-        with patch.object(_loader, "is_available", return_value=True):
-            with patch.object(_loader, "get_kokoro", return_value=mock_kokoro_engine):
-                adapter = KokoroTTSAdapter()
+        adapter = KokoroTTSAdapter()
+        with patch.object(adapter._loader, "is_available", return_value=True):
+            with patch.object(adapter._loader, "get_kokoro", return_value=mock_kokoro_engine):
                 with pytest.raises(RuntimeError, match="synthesis failed"):
                     adapter.synthesize("Test")

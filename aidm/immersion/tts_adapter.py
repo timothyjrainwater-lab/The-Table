@@ -93,6 +93,12 @@ def _get_kokoro_adapter_class() -> type:
     return KokoroTTSAdapter
 
 
+def _get_chatterbox_adapter_class() -> type:
+    """Lazy import of ChatterboxTTSAdapter to avoid import-time dependencies."""
+    from aidm.immersion.chatterbox_tts_adapter import ChatterboxTTSAdapter
+    return ChatterboxTTSAdapter
+
+
 _TTS_REGISTRY: Dict[str, type] = {
     "stub": StubTTSAdapter,
 }
@@ -100,6 +106,7 @@ _TTS_REGISTRY: Dict[str, type] = {
 # Lazy registration for backends with heavy dependencies
 _TTS_LAZY_REGISTRY: Dict[str, callable] = {
     "kokoro": _get_kokoro_adapter_class,
+    "chatterbox": _get_chatterbox_adapter_class,
 }
 
 

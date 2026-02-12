@@ -43,6 +43,11 @@ from aidm.immersion.kokoro_tts_adapter import (
     KokoroTTSAdapter,    # PUBLIC_STABLE: Real TTS backend
 )
 
+# --- PUBLIC_STABLE: Chatterbox TTS backend ---
+from aidm.immersion.chatterbox_tts_adapter import (
+    ChatterboxTTSAdapter,    # PUBLIC_STABLE: GPU voice-cloning TTS
+)
+
 # --- PUBLIC_STABLE: Audio mixer contract ---
 from aidm.immersion.audio_mixer import (
     AudioMixerAdapter,          # PUBLIC_STABLE: Protocol
@@ -102,6 +107,7 @@ __all__ = [
     "StubTTSAdapter",
     "create_tts_adapter",
     "KokoroTTSAdapter",
+    "ChatterboxTTSAdapter",
     # Audio — PUBLIC_STABLE
     "AudioMixerAdapter",
     "StubAudioMixerAdapter",

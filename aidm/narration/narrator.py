@@ -84,12 +84,34 @@ class NarrationTemplates:
 
     These are fallback templates used when LLM is unavailable.
     Each template is keyed by narration token.
+
+    WO-049: Severity-branched templates for combat archetypes.
+    Templates only claim what the context provides. No fabrication.
+    Severity thresholds come from NarrativeBrief.severity (computed
+    from HP percentage, not guessed).
     """
+
+    # ── Severity-branched templates ──────────────────────────────────
+    # Keyed by (token, severity). Checked before flat TEMPLATES dict.
+    # Severity values: minor, moderate, severe, devastating, lethal
+    SEVERITY_TEMPLATES: Dict[str, Dict[str, str]] = {
+        "attack_hit": {
+            "minor": "{actor}'s {weapon} catches {target}, dealing {damage} damage. A glancing blow.",
+            "moderate": "{actor}'s {weapon} bites into {target}, dealing {damage} damage.",
+            "severe": "{actor}'s {weapon} strikes {target} hard, dealing {damage} damage. Blood flows freely.",
+            "devastating": "{actor}'s {weapon} tears into {target} for {damage} damage. The wound is grievous.",
+            "lethal": "{actor}'s {weapon} cleaves into {target} for {damage} damage. {target} crumbles and falls!",
+        },
+        "attack_miss": {
+            "minor": "{actor} swings at {target}, but the blade finds only air.",
+            "moderate": "{actor} lunges at {target} with their {weapon}, but {target} turns the blow aside.",
+        },
+    }
 
     TEMPLATES: Dict[str, str] = {
         # ── Attack outcomes ──────────────────────────────────────────
-        "attack_hit": "{actor} strikes {target} with their {weapon}! The blow lands true, dealing {damage} damage.",
-        "attack_miss": "{actor} swings at {target} with their {weapon}, but the attack goes wide!",
+        "attack_hit": "{actor}'s {weapon} connects with {target}, dealing {damage} damage.",
+        "attack_miss": "{actor} swings at {target} with their {weapon}, but the attack goes wide.",
         "critical_hit": "{actor}'s {weapon} finds a critical opening! The devastating blow deals {damage} damage to {target}!",
         "critical_miss": "{actor} stumbles badly, their attack completely missing {target}!",
 
@@ -111,6 +133,7 @@ class NarrationTemplates:
         "flat_footed_cleared": "{actor} is no longer flat-footed.",
 
         # ── Movement and position ────────────────────────────────────
+        "movement": "{actor} shifts position, boots scraping against stone.",
         "movement_stub": "{actor} moves across the battlefield.",
         "movement_declared": "{actor} moves across the battlefield.",
         "mounted_movement": "{actor} rides their mount across the field.",
@@ -121,7 +144,7 @@ class NarrationTemplates:
         "action_aborted_by_aoo": "{actor}'s action is interrupted by an attack of opportunity!",
 
         # ── Targeting ────────────────────────────────────────────────
-        "targeting_failed": "{actor} cannot target {target} — the attack is blocked.",
+        "targeting_failed": "{actor} cannot target {target} -- the attack is blocked.",
 
         # ── Combat maneuvers: Bull Rush ──────────────────────────────
         "bull_rush_declared": "{actor} attempts to bull rush {target}!",
@@ -168,6 +191,10 @@ class NarrationTemplates:
         "fall_triggered": "{target} falls!",
         "falling_damage": "{target} takes falling damage.",
 
+        # ── Scene transitions and rest ─────────────────────────────────
+        "scene_transition": "{actor} moves onward, footsteps echoing as the chamber falls behind.",
+        "rest": "{actor} settles in to rest. The quiet is a welcome relief after the chaos.",
+
         # ── Miscellaneous ────────────────────────────────────────────
         "rule_lookup": "A rule is consulted.",
 
@@ -181,8 +208,22 @@ class NarrationTemplates:
     }
 
     @classmethod
-    def get_template(cls, token: str) -> str:
-        """Get template for a narration token."""
+    def get_template(cls, token: str, severity: str = "") -> str:
+        """Get template for a narration token, optionally branched by severity.
+
+        Args:
+            token: Narration token (e.g. "attack_hit")
+            severity: Optional severity level for branched selection
+
+        Returns:
+            Template string with {placeholders}
+        """
+        # Check severity-branched templates first
+        if severity and token in cls.SEVERITY_TEMPLATES:
+            branches = cls.SEVERITY_TEMPLATES[token]
+            if severity in branches:
+                return branches[severity]
+
         return cls.TEMPLATES.get(token, cls.TEMPLATES["unknown"])
 
 

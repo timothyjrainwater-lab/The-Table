@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "knowledge_mask.schema.json",
+  "title": "PlayerKnowledgeMask",
+  "description": "Per-player knowledge mask and reveal ledger for the Discovery Log. Tracks what each player has learned about each entity type through in-game events. The player-visible bestiary entry is computed as: render(canonical_entry, replay(ledger, display_policy)). Lens-tier runtime state.",
+
+  "$defs": {
+
+    "PlayerKnowledgeMask": {
+      "title": "PlayerKnowledgeMask",
+      "description": "Top-level mask structure for a single player. Contains one EntityKnowledgeRecord per entity type the player has any knowledge of.",
+      "type": "object",
+      "required": ["player_id", "schema_version", "entity_records"],
+      "properties": {
+        "player_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Player identity. Masks are per-player, never shared or merged."
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Schema version (major.minor)"
+        },
+        "campaign_id": {
+          "type": "string",
+          "description": "Campaign this mask belongs to."
+        },
+        "entity_records": {
+          "type": "object",
+          "description": "Map of entity_type_id → EntityKnowledgeRecord. Only entities with at least one knowledge event appear here.",
+          "additionalProperties": { "$ref": "#/$defs/EntityKnowledgeRecord" }
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp of the most recent ledger event across all entity records."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "EntityKnowledgeRecord": {
+      "title": "EntityKnowledgeRecord",
+      "description": "Knowledge state for a single entity type, for a single player. Contains the current stage, the set of revealed fields with their reliability, and the full reveal ledger.",
+      "type": "object",
+      "required": ["entity_type_id", "stage", "revealed_fields", "reveal_ledger"],
+      "properties": {
+        "entity_type_id": {
+          "type": "string",
+          "pattern": "^creature\\.[a-z][a-z0-9_]*$",
+          "description": "References a CanonicalCreatureEntry in the world bundle."
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["heard_of", "observed", "engaged", "studied"],
+          "description": "Current knowledge stage. Monotonically increasing — never regresses."
+        },
+        "stage_history": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/StageTransition" },
+          "description": "Ordered log of stage transitions with triggering event references.",
+          "default": []
+        },
+        "revealed_fields": {
+          "type": "object",
+          "description": "Map of field_name → RevealedFieldState. Contains only fields that have been explicitly revealed by at least one knowledge event.",
+          "additionalProperties": { "$ref": "#/$defs/RevealedFieldState" }
+        },
+        "reveal_ledger": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/RevealLedgerEntry" },
+          "minItems": 1,
+          "description": "Append-only log of all knowledge events for this (player, entity_type) pair. Ordered by timestamp. Never modified or deleted. The current mask state is reproducible by replaying this ledger."
+        },
+        "first_knowledge_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp of the first knowledge event for this entity."
+        },
+        "encounter_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of distinct encounters with this entity type.",
+          "default": 0
+        },
+        "combat_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of distinct combat interactions with this entity type.",
+          "default": 0
+        },
+        "study_attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of study_action events (both successes and failures).",
+          "default": 0
+        },
+        "study_successes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of successful study_action events.",
+          "default": 0
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RevealedFieldState": {
+      "title": "RevealedFieldState",
+      "description": "Current state of a single revealed field. Tracks the highest reliability source and the provenance label.",
+      "type": "object",
+      "required": ["field_name", "reliability", "provenance_label", "source_event_refs"],
+      "properties": {
+        "field_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name of the revealed field (matches a field in CanonicalCreatureEntry)."
+        },
+        "reliability": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Highest reliability tier from any source that revealed this field."
+        },
+        "provenance_label": {
+          "type": "string",
+          "enum": ["BOX", "DERIVED", "NARRATIVE", "UNCERTAIN"],
+          "description": "Provenance label for display. Determined by reliability: high→BOX or DERIVED, medium→DERIVED, low→UNCERTAIN."
+        },
+        "source_event_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "References to all ledger events that contributed to this field reveal. Ordered chronologically."
+        },
+        "first_revealed_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp when this field was first revealed."
+        },
+        "last_updated_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp of the most recent event affecting this field."
+        },
+        "sub_field_reveals": {
+          "type": "object",
+          "description": "For array/object fields (e.g., notable_abilities, observed_attack_forms): tracks which sub-items have been individually revealed. Key is sub-item identifier (e.g., content_id or form_tag), value is RevealedSubFieldState.",
+          "additionalProperties": { "$ref": "#/$defs/RevealedSubFieldState" },
+          "default": {}
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RevealedSubFieldState": {
+      "title": "RevealedSubFieldState",
+      "description": "Reveal state for an individual sub-item within an array/object field (e.g., a single ability within notable_abilities).",
+      "type": "object",
+      "required": ["sub_item_id", "reliability", "source_event_ref"],
+      "properties": {
+        "sub_item_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the sub-item (e.g., content_id for abilities, form_tag for attacks)."
+        },
+        "reliability": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Reliability tier of the source that revealed this sub-item."
+        },
+        "source_event_ref": {
+          "type": "string",
+          "description": "Reference to the ledger event that revealed this sub-item."
+        },
+        "observed_description": {
+          "type": "string",
+          "description": "What the player observed (e.g., 'fired a spray of hardened spines in a cone'). Populated from the knowledge event's field_values.",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RevealLedgerEntry": {
+      "title": "RevealLedgerEntry",
+      "description": "A single entry in the append-only reveal ledger. Records one knowledge event and its effects on the mask. Ledger entries are never modified or deleted.",
+      "type": "object",
+      "required": ["ledger_index", "event_ref", "timestamp", "source_type", "reliability", "fields_revealed"],
+      "properties": {
+        "ledger_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Sequential index in the ledger. Monotonically increasing."
+        },
+        "event_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the originating knowledge event in the campaign event log."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp of the knowledge event."
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "encounter_observation",
+            "combat_interaction",
+            "npc_report",
+            "document_source",
+            "study_action",
+            "party_share"
+          ],
+          "description": "Knowledge source type."
+        },
+        "reliability": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Reliability tier of this source event."
+        },
+        "stage_before": {
+          "type": "string",
+          "enum": ["unknown", "heard_of", "observed", "engaged", "studied"],
+          "description": "Knowledge stage before this event was applied."
+        },
+        "stage_after": {
+          "type": "string",
+          "enum": ["unknown", "heard_of", "observed", "engaged", "studied"],
+          "description": "Knowledge stage after this event was applied."
+        },
+        "fields_revealed": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of field names revealed or updated by this event. Empty array if no new reveals (e.g., failed study)."
+        },
+        "field_values_snapshot": {
+          "type": "object",
+          "description": "Snapshot of field values as provided by the event. For auditability. Keys are field names, values are the revealed data.",
+          "additionalProperties": true,
+          "default": {}
+        },
+        "box_event_ref": {
+          "type": ["string", "null"],
+          "description": "Reference to the originating Box event (skill check, combat resolution). Null for non-Box sources (npc_report, document_source).",
+          "default": null
+        },
+        "source_player_id": {
+          "type": ["string", "null"],
+          "description": "For party_share events: the player who shared the knowledge. Null for other source types.",
+          "default": null
+        },
+        "source_npc_id": {
+          "type": ["string", "null"],
+          "description": "For npc_report events: the NPC who provided the information. Null for other source types.",
+          "default": null
+        },
+        "study_result": {
+          "type": ["string", "null"],
+          "enum": ["success", "failure", null],
+          "description": "For study_action events: whether the skill check succeeded. Null for other source types.",
+          "default": null
+        },
+        "seed": {
+          "type": ["integer", "null"],
+          "description": "Deterministic seed used for any computed values in this event. Null if not applicable.",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "StageTransition": {
+      "title": "StageTransition",
+      "description": "Record of a knowledge stage transition.",
+      "type": "object",
+      "required": ["from_stage", "to_stage", "event_ref", "timestamp"],
+      "properties": {
+        "from_stage": {
+          "type": "string",
+          "enum": ["unknown", "heard_of", "observed", "engaged", "studied"],
+          "description": "Stage before transition."
+        },
+        "to_stage": {
+          "type": "string",
+          "enum": ["heard_of", "observed", "engaged", "studied"],
+          "description": "Stage after transition."
+        },
+        "event_ref": {
+          "type": "string",
+          "description": "Reference to the ledger entry that triggered the transition."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp of the transition."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "description": "Schema for the per-player knowledge mask and reveal ledger. The mask tracks what each player has learned about each entity type through progressive in-game discovery. The reveal ledger is append-only and enables deterministic replay: same world bundle + same ledger = same visible bestiary entry."
+}

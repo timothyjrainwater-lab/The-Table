@@ -6,9 +6,11 @@
 
 ---
 
-## Primary State Snapshot
+## Primary Rehydration Entry Point
 
-**`PROJECT_STATE_DIGEST.md`** (repo root) is the single source of truth for what is implemented, tested, and locked. When any other document contradicts the PSD, the PSD wins.
+**`PROJECT_COMPASS.md`** (repo root) is the rehydration hub for fresh agent context windows. It summarizes the project thesis, architecture, what's built vs paper vs missing, the current roadmap phase, coding conventions, and directory structure — with pointers to every deep dive document.
+
+**`PROJECT_STATE_DIGEST.md`** (repo root) is the operational source of truth for what is implemented, tested, and locked. When any other document contradicts the PSD, the PSD wins.
 
 The PSD is updated at the close of every integrated work order. Its header contains the last-updated timestamp and the current test count.
 
@@ -36,6 +38,7 @@ These documents reflect the current state of the project and are actively mainta
 
 | Document | Path | Scope | Notes |
 |----------|------|-------|-------|
+| Project Compass | `PROJECT_COMPASS.md` | Rehydration hub — thesis, architecture, grounded status, roadmap, conventions, directory map, deep dive index | Entry point for fresh agents. Summary-level. Points to all deep dives. |
 | Project State Digest (PSD) | `PROJECT_STATE_DIGEST.md` | What is built, test counts, module inventory, governance model | Updated every WO integration. 500-line size gate enforced. |
 | Execution Plan v2 | `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Active 4-phase plan (Brain, Content Breadth, Session Playability, Playtest) | Approved by PO 2026-02-11. Phases 1-3 delivered. |
 | Agent Onboarding Checklist | `AGENT_ONBOARDING_CHECKLIST.md` | Step-by-step reading order for new agents | First file any new agent must read. |
@@ -91,11 +94,12 @@ These documents provide useful context but are not sources of truth for project 
 ## How to Use This Index
 
 **New agent joining the project:**
-1. Read `AGENT_ONBOARDING_CHECKLIST.md` first (it tells you the reading order).
-2. Read `PROJECT_STATE_DIGEST.md` to understand what exists.
-3. If you encounter a claim in any document that contradicts the PSD, the PSD wins.
-4. Check `docs/DOC_DRIFT_LEDGER.md` for known contradictions and their resolutions.
-5. If you find a new contradiction, add it to the drift ledger.
+1. Read `PROJECT_COMPASS.md` first (rehydration hub — covers everything at summary level).
+2. Read `AGENT_ONBOARDING_CHECKLIST.md` for operational step-by-step.
+3. Read `PROJECT_STATE_DIGEST.md` for detailed operational state if needed.
+4. If you encounter a claim in any document that contradicts the PSD, the PSD wins.
+5. Check `docs/DOC_DRIFT_LEDGER.md` for known contradictions and their resolutions.
+6. If you find a new contradiction, add it to the drift ledger.
 
 **Checking if a feature is in scope:**
 1. Check PSD "Locked Systems" -- if it is listed there, it is implemented.

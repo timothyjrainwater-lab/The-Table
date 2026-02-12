@@ -9,6 +9,7 @@ Validates the full turn cycle conductor:
 - Error recovery at every stage
 - Session state tracking
 - Boundary law compliance (BL-020, Axiom 2)
+- Box-level fallback validation (P3)
 
 Test Categories:
 1. Command Parsing (8 tests)
@@ -17,8 +18,9 @@ Test Categories:
 4. Error Recovery (7 tests)
 5. Session State Tracking (5 tests)
 6. Boundary Law Compliance (3 tests)
+7. Box Fallback Validation — P3 (5 tests)
 
-Total: 36 tests
+Total: 41 tests
 """
 
 import pytest
@@ -886,3 +888,92 @@ class TestWindshieldIntegration:
 
         # With 20 different seeds, we should get at least 2 different outcomes
         assert len(outcomes) >= 2, "All 20 seeds produced identical outcomes — RNG not varying"
+
+
+# ======================================================================
+# CATEGORY 7: BOX FALLBACK VALIDATION — P3 (5 tests)
+# ======================================================================
+
+
+class TestBoxFallbackValidation:
+    """P3: Box-level error injection proves no state corruption.
+
+    Validates that when box_execute_turn() raises an unexpected exception
+    mid-resolution, the orchestrator:
+    1. Returns TurnResult with success=False and meaningful error_message
+    2. Preserves world_state unchanged (no partial mutation)
+    3. Remains usable for subsequent turns
+    """
+
+    def test_attack_box_failure_returns_error_turnresult(self, orchestrator):
+        """Box exception during attack → TurnResult(success=False) with error message."""
+        with patch(
+            "aidm.runtime.session_orchestrator.box_execute_turn",
+            side_effect=ValueError("Simulated resolver crash"),
+        ):
+            result = orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+        assert result.success is False
+        assert result.error_message is not None
+        assert "Simulated resolver crash" in result.error_message
+        assert result.provenance == "[SYSTEM]"
+
+    def test_spell_box_failure_returns_error_turnresult(self, orchestrator):
+        """Box exception during spell → TurnResult(success=False) with error message."""
+        with patch(
+            "aidm.runtime.session_orchestrator.box_execute_turn",
+            side_effect=RuntimeError("Spell resolver blew up"),
+        ):
+            result = orchestrator.process_text_turn("cast fireball at 10,5", "pc_fighter")
+
+        assert result.success is False
+        assert result.error_message is not None
+        assert "Spell resolver blew up" in result.error_message
+        assert result.provenance == "[SYSTEM]"
+
+    def test_box_failure_preserves_world_state(self, orchestrator):
+        """Box exception leaves world_state completely unchanged."""
+        state_hash_before = orchestrator.world_state.state_hash()
+        hp_before = orchestrator.world_state.entities["goblin_1"][EF.HP_CURRENT]
+
+        with patch(
+            "aidm.runtime.session_orchestrator.box_execute_turn",
+            side_effect=ValueError("Mid-turn crash"),
+        ):
+            orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+        # State hash unchanged — no partial mutation
+        assert orchestrator.world_state.state_hash() == state_hash_before
+        # HP unchanged — no partial damage applied
+        assert orchestrator.world_state.entities["goblin_1"][EF.HP_CURRENT] == hp_before
+
+    def test_session_usable_after_box_failure(self, orchestrator):
+        """Session processes normal turns after Box failure recovery."""
+        # First turn: Box fails
+        with patch(
+            "aidm.runtime.session_orchestrator.box_execute_turn",
+            side_effect=ValueError("Transient failure"),
+        ):
+            failed_result = orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+        assert failed_result.success is False
+
+        # Second turn: Box works normally (no patch = real resolution)
+        recovered_result = orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+        assert recovered_result.success is True
+        assert recovered_result.narration_text != ""
+        assert len(recovered_result.events) > 0
+
+    def test_box_failure_does_not_corrupt_turn_count(self, orchestrator):
+        """Turn counter advances even on Box failure (turn was attempted)."""
+        turns_before = orchestrator.turn_count
+
+        with patch(
+            "aidm.runtime.session_orchestrator.box_execute_turn",
+            side_effect=ValueError("Crash"),
+        ):
+            orchestrator.process_text_turn("attack Goblin Warrior", "pc_fighter")
+
+        # Turn count advanced (the turn was attempted, even though it failed)
+        assert orchestrator.turn_count == turns_before + 1

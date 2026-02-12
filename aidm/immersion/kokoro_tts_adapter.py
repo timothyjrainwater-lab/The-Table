@@ -130,7 +130,13 @@ class _KokoroLoader:
     Initializes only when first synthesis requested.
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        model_path: Optional[str] = None,
+        voices_path: Optional[str] = None,
+    ) -> None:
+        self._model_path = model_path
+        self._voices_path = voices_path
         self._kokoro: Any = None
         self._initialized: bool = False
         self._available: Optional[bool] = None
@@ -166,7 +172,7 @@ class _KokoroLoader:
             Initialized Kokoro instance
 
         Raises:
-            RuntimeError: If Kokoro is not available
+            RuntimeError: If Kokoro is not available or model paths missing
         """
         if not self.is_available():
             raise RuntimeError(
@@ -175,11 +181,16 @@ class _KokoroLoader:
             )
 
         if not self._initialized:
+            if not self._model_path or not self._voices_path:
+                raise RuntimeError(
+                    "Kokoro model files not configured. "
+                    "Provide model_path and voices_path to KokoroTTSAdapter."
+                )
             from kokoro_onnx import Kokoro
             # Initialize with CPU provider only (0 GB VRAM requirement)
             self._kokoro = Kokoro(
-                model_path=None,  # Use default model
-                voices_path=None,  # Use default voices
+                model_path=self._model_path,
+                voices_path=self._voices_path,
             )
             self._initialized = True
 
@@ -190,8 +201,8 @@ class _KokoroLoader:
         return self._error_message
 
 
-# Global lazy loader instance
-_loader = _KokoroLoader()
+# Global lazy loader for dependency checking (no model paths needed)
+_dep_checker = _KokoroLoader()
 
 
 # ==============================================================================
@@ -291,30 +302,48 @@ class KokoroTTSAdapter:
     Falls back gracefully if Kokoro is unavailable.
 
     Implements the TTSAdapter protocol:
-    - synthesize(text, persona) → WAV bytes
-    - list_personas() → available voice personas
-    - is_available() → True if backend ready
+    - synthesize(text, persona) -> WAV bytes
+    - list_personas() -> available voice personas
+    - is_available() -> True if backend ready
+
+    Persona argument is flexible (satisfies both immersion TTSAdapter
+    and orchestrator TTSProtocol):
+    - None -> use default persona
+    - VoicePersona -> use directly
+    - str -> look up in voice map (e.g. "dm_narrator" -> af_bella)
     """
 
-    def __init__(self, default_persona: Optional[VoicePersona] = None) -> None:
+    def __init__(
+        self,
+        default_persona: Optional[VoicePersona] = None,
+        model_path: Optional[str] = None,
+        voices_path: Optional[str] = None,
+    ) -> None:
         """Initialize the Kokoro TTS adapter.
 
         Args:
             default_persona: Default persona for synthesis (uses DM narrator if None)
+            model_path: Path to Kokoro ONNX model file
+            voices_path: Path to Kokoro voices .bin file
         """
         self._default_persona = default_persona or _DEFAULT_PERSONA
         self._synthesis_count: int = 0
+        self._loader = _KokoroLoader(
+            model_path=model_path,
+            voices_path=voices_path,
+        )
 
     def synthesize(
         self,
         text: str,
-        persona: Optional[VoicePersona] = None,
+        persona: Optional[Any] = None,
     ) -> bytes:
         """Synthesize text to WAV audio bytes.
 
         Args:
             text: Text to synthesize (should be clean, no SSML)
-            persona: Voice persona to use (uses default if None)
+            persona: Voice persona — accepts VoicePersona, str (voice map key),
+                     or None (uses default)
 
         Returns:
             WAV audio bytes (16kHz mono 16-bit PCM)
@@ -326,10 +355,11 @@ class KokoroTTSAdapter:
             # Return silent WAV for empty text
             return _encode_wav(b"")
 
-        effective_persona = persona or self._default_persona
+        # Resolve persona argument: str -> VoicePersona lookup, None -> default
+        effective_persona = self._resolve_persona(persona)
 
         try:
-            kokoro = _loader.get_kokoro()
+            kokoro = self._loader.get_kokoro()
 
             # Get voice ID from persona
             voice_id = self._resolve_voice(effective_persona)
@@ -359,6 +389,37 @@ class KokoroTTSAdapter:
             raise
         except Exception as e:
             raise RuntimeError(f"Kokoro synthesis failed: {e}") from e
+
+    def _resolve_persona(self, persona: Optional[Any]) -> VoicePersona:
+        """Resolve flexible persona argument to VoicePersona.
+
+        Handles three cases for orchestrator/protocol compatibility:
+        - None -> default persona
+        - VoicePersona -> use directly
+        - str -> look up in voice map, wrap in VoicePersona
+
+        Args:
+            persona: Persona as VoicePersona, string key, or None
+
+        Returns:
+            Resolved VoicePersona
+        """
+        if persona is None:
+            return self._default_persona
+        if isinstance(persona, VoicePersona):
+            return persona
+        if isinstance(persona, str):
+            # String persona: look up in voice map
+            voice_model = _KOKORO_VOICE_MAP.get(persona, persona)
+            return VoicePersona(
+                persona_id=persona,
+                name=persona,
+                voice_model=voice_model,
+                speed=1.0,
+                pitch=1.0,
+            )
+        # Unknown type — use default
+        return self._default_persona
 
     def _resolve_voice(self, persona: VoicePersona) -> str:
         """Resolve persona to Kokoro voice ID.
@@ -442,7 +503,7 @@ class KokoroTTSAdapter:
         Returns:
             True if kokoro-onnx and models are installed
         """
-        return _loader.is_available()
+        return _dep_checker.is_available()
 
     def get_synthesis_count(self) -> int:
         """Get the number of successful syntheses.
@@ -476,12 +537,16 @@ class KokoroTTSAdapter:
 def create_kokoro_adapter(
     default_persona: Optional[VoicePersona] = None,
     fallback_to_stub: bool = True,
+    model_path: Optional[str] = None,
+    voices_path: Optional[str] = None,
 ) -> "KokoroTTSAdapter":
     """Create a Kokoro TTS adapter with optional stub fallback.
 
     Args:
         default_persona: Default voice persona
         fallback_to_stub: If True, return stub adapter when Kokoro unavailable
+        model_path: Path to Kokoro ONNX model file
+        voices_path: Path to Kokoro voices .bin file
 
     Returns:
         KokoroTTSAdapter instance
@@ -489,11 +554,15 @@ def create_kokoro_adapter(
     Raises:
         RuntimeError: If Kokoro unavailable and fallback_to_stub is False
     """
-    adapter = KokoroTTSAdapter(default_persona=default_persona)
+    adapter = KokoroTTSAdapter(
+        default_persona=default_persona,
+        model_path=model_path,
+        voices_path=voices_path,
+    )
 
     if not adapter.is_available() and not fallback_to_stub:
         raise RuntimeError(
-            f"Kokoro TTS not available: {_loader.get_error()}. "
+            f"Kokoro TTS not available: {_dep_checker.get_error()}. "
             "Install with: pip install kokoro-onnx onnxruntime"
         )
 

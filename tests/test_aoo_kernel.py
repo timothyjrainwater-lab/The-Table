@@ -536,3 +536,198 @@ def test_aoo_usage_resets_each_round():
     # Should have AoO in round 2
     aoo_events_2 = [e for e in result2.events if e.event_type == "aoo_triggered"]
     assert len(aoo_events_2) == 1
+
+
+# ==============================================================================
+# TIER 3: WEAPON_DATA TYPE GUARD
+# ==============================================================================
+
+def test_string_weapon_data_does_not_crash():
+    """Tier 3: String weapon_data should not crash AoO resolution."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "goblin_1": {
+                "ac": 15,
+                "hp_current": 6,
+                "hp_max": 6,
+                "position": {"x": 5, "y": 5},
+                "team": "monsters",
+                "attack_bonus": 2,
+                "weapon": "longsword"  # String, not dict
+            },
+            "fighter": {
+                "ac": 16,
+                "hp_current": 10,
+                "hp_max": 10,
+                "position": {"x": 6, "y": 5},
+                "team": "party",
+                "attack_bonus": 5,
+                "weapon": {
+                    "damage_dice": "1d8",
+                    "damage_bonus": 3,
+                    "damage_type": "slashing",
+                    "critical_multiplier": 2
+                }
+            }
+        },
+        active_combat={
+            "turn_counter": 0,
+            "round_index": 1,
+            "initiative_order": ["fighter", "goblin_1"],
+            "flat_footed_actors": [],
+            "aoo_used_this_round": []
+        }
+    )
+
+    # Fighter moves away from goblin — goblin has string weapon_data
+    move_intent = StepMoveIntent(
+        actor_id="fighter",
+        from_pos=GridPosition(x=6, y=5),
+        to_pos=GridPosition(x=7, y=5)
+    )
+
+    turn_ctx = TurnContext(turn_index=0, actor_id="fighter", actor_team="party")
+    rng = RNGManager(master_seed=42)
+
+    # Should not raise AttributeError
+    result = execute_turn(
+        world_state=world_state,
+        turn_ctx=turn_ctx,
+        combat_intent=move_intent,
+        rng=rng,
+        next_event_id=0,
+        timestamp=1.0
+    )
+
+    # AoO triggers but skips attack resolution (string weapon = no usable weapon dict)
+    attack_rolls = [e for e in result.events if e.event_type == "attack_roll"]
+    assert len(attack_rolls) == 0  # No attack resolved
+
+
+def test_none_weapon_data_does_not_crash():
+    """Tier 3: None weapon_data should not crash AoO resolution."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "goblin_1": {
+                "ac": 15,
+                "hp_current": 6,
+                "hp_max": 6,
+                "position": {"x": 5, "y": 5},
+                "team": "monsters",
+                "attack_bonus": 2,
+                # No weapon field at all
+            },
+            "fighter": {
+                "ac": 16,
+                "hp_current": 10,
+                "hp_max": 10,
+                "position": {"x": 6, "y": 5},
+                "team": "party",
+                "attack_bonus": 5,
+                "weapon": {
+                    "damage_dice": "1d8",
+                    "damage_bonus": 3,
+                    "damage_type": "slashing",
+                    "critical_multiplier": 2
+                }
+            }
+        },
+        active_combat={
+            "turn_counter": 0,
+            "round_index": 1,
+            "initiative_order": ["fighter", "goblin_1"],
+            "flat_footed_actors": [],
+            "aoo_used_this_round": []
+        }
+    )
+
+    move_intent = StepMoveIntent(
+        actor_id="fighter",
+        from_pos=GridPosition(x=6, y=5),
+        to_pos=GridPosition(x=7, y=5)
+    )
+
+    turn_ctx = TurnContext(turn_index=0, actor_id="fighter", actor_team="party")
+    rng = RNGManager(master_seed=42)
+
+    # Should not crash
+    result = execute_turn(
+        world_state=world_state,
+        turn_ctx=turn_ctx,
+        combat_intent=move_intent,
+        rng=rng,
+        next_event_id=0,
+        timestamp=1.0
+    )
+
+    # No attack resolved (goblin has no weapon)
+    attack_rolls = [e for e in result.events if e.event_type == "attack_roll"]
+    assert len(attack_rolls) == 0
+
+
+def test_dict_weapon_data_still_works():
+    """Tier 3: Dict weapon_data continues to work as before."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "goblin_1": {
+                "ac": 15,
+                "hp_current": 6,
+                "hp_max": 6,
+                "position": {"x": 5, "y": 5},
+                "team": "monsters",
+                "attack_bonus": 2,
+                "weapon": {
+                    "damage_dice": "1d6",
+                    "damage_bonus": 0,
+                    "damage_type": "slashing",
+                    "critical_multiplier": 2
+                }
+            },
+            "fighter": {
+                "ac": 16,
+                "hp_current": 10,
+                "hp_max": 10,
+                "position": {"x": 6, "y": 5},
+                "team": "party",
+                "attack_bonus": 5,
+                "weapon": {
+                    "damage_dice": "1d8",
+                    "damage_bonus": 3,
+                    "damage_type": "slashing",
+                    "critical_multiplier": 2
+                }
+            }
+        },
+        active_combat={
+            "turn_counter": 0,
+            "round_index": 1,
+            "initiative_order": ["fighter", "goblin_1"],
+            "flat_footed_actors": [],
+            "aoo_used_this_round": []
+        }
+    )
+
+    move_intent = StepMoveIntent(
+        actor_id="fighter",
+        from_pos=GridPosition(x=6, y=5),
+        to_pos=GridPosition(x=7, y=5)
+    )
+
+    turn_ctx = TurnContext(turn_index=0, actor_id="fighter", actor_team="party")
+    rng = RNGManager(master_seed=42)
+
+    result = execute_turn(
+        world_state=world_state,
+        turn_ctx=turn_ctx,
+        combat_intent=move_intent,
+        rng=rng,
+        next_event_id=0,
+        timestamp=1.0
+    )
+
+    # AoO should trigger with dict weapon_data
+    aoo_triggered = [e for e in result.events if e.event_type == "aoo_triggered"]
+    assert len(aoo_triggered) == 1

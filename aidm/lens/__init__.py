@@ -35,6 +35,11 @@ from aidm.lens.segment_summarizer import (
     DriftResult,
     SEGMENT_SIZE,
 )
+from aidm.lens.discovery_log import (
+    DiscoveryLog as LensDiscoveryLog,
+    KnowledgeEvent,
+    KnowledgeSource,
+)
 
 __all__ = [
     "NarrativeBrief",
@@ -49,4 +54,7 @@ __all__ = [
     "SegmentTracker",
     "DriftResult",
     "SEGMENT_SIZE",
+    "LensDiscoveryLog",
+    "KnowledgeEvent",
+    "KnowledgeSource",
 ]

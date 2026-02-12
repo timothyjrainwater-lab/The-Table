@@ -7,7 +7,7 @@ RQ-INTERACT-001 Finding 5.
 WO-024: Voice-First Intent Parser
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 from aidm.immersion.voice_intent_parser import ParseResult
@@ -445,3 +445,97 @@ def create_clarification_engine() -> ClarificationEngine:
         ClarificationEngine instance
     """
     return ClarificationEngine()
+
+
+# =============================================================================
+# CLARIFICATION LOOP — Round-limited clarification with RETRACTED fallback
+# =============================================================================
+
+@dataclass
+class ClarificationResult:
+    """Result of a clarification round.
+
+    Attributes:
+        resolved: Whether clarification succeeded
+        retracted: Whether intent was retracted (max rounds exceeded)
+        clarification: The clarification request (if still clarifying)
+        round_number: Current round number (1-indexed)
+    """
+
+    resolved: bool
+    retracted: bool
+    clarification: Optional[ClarificationRequest] = None
+    round_number: int = 0
+
+
+class ClarificationLoop:
+    """Tracks clarification rounds and enforces max_rounds limit.
+
+    Contract §4.6: After max_rounds failed clarification attempts, the intent
+    is RETRACTED rather than continuing to ask indefinitely.
+
+    Usage:
+        loop = ClarificationLoop(max_rounds=3)
+        while True:
+            result = loop.attempt(parse_result, world_context)
+            if result.retracted:
+                # Intent status → RETRACTED
+                break
+            if result.resolved:
+                # Clarification succeeded
+                break
+            # Present result.clarification to player, get new input
+    """
+
+    def __init__(self, max_rounds: int = 3) -> None:
+        self._max_rounds = max_rounds
+        self._round_count = 0
+        self._engine = ClarificationEngine()
+
+    @property
+    def max_rounds(self) -> int:
+        return self._max_rounds
+
+    @property
+    def round_count(self) -> int:
+        return self._round_count
+
+    def attempt(
+        self,
+        parse_result: ParseResult,
+        world_context: Optional[Dict[str, Any]] = None,
+    ) -> ClarificationResult:
+        """Attempt one round of clarification.
+
+        Returns:
+            ClarificationResult with resolved/retracted status.
+        """
+        self._round_count += 1
+
+        if not parse_result.needs_clarification:
+            return ClarificationResult(
+                resolved=True,
+                retracted=False,
+                round_number=self._round_count,
+            )
+
+        if self._round_count > self._max_rounds:
+            return ClarificationResult(
+                resolved=False,
+                retracted=True,
+                round_number=self._round_count,
+            )
+
+        clarification = self._engine.generate_clarification(
+            parse_result, world_context
+        )
+        return ClarificationResult(
+            resolved=False,
+            retracted=False,
+            clarification=clarification,
+            round_number=self._round_count,
+        )
+
+    def reset(self) -> None:
+        """Reset round counter for a new intent."""
+        self._round_count = 0

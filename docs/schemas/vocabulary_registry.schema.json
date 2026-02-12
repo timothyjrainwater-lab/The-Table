@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "vocabulary_registry.schema.json",
+  "title": "Vocabulary Registry Schema",
+  "description": "Canonical JSON schema for the world's vocabulary registry (lexicon). Maps stable content_ids to world-flavored names, aliases, localization hooks, and taxonomy classification. Content-independent — no game-system-specific vocabulary in field names.",
+
+  "$defs": {
+
+    "VocabularyRegistry": {
+      "title": "VocabularyRegistry",
+      "description": "Top-level vocabulary registry. Every mechanical ID in the content pack has exactly one canonical name in this world. Entries sorted by content_id for deterministic serialization.",
+      "type": "object",
+      "required": ["schema_version", "world_id", "locale", "entries"],
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Schema version of this registry file (major.minor)"
+        },
+        "world_id": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 64,
+          "description": "World identity hash — must match world_manifest.json world_id"
+        },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+          "description": "BCP-47 locale tag for this vocabulary (e.g., 'en', 'en-US')",
+          "default": "en"
+        },
+        "naming_style": {
+          "type": "string",
+          "description": "The naming style from the world theme brief (e.g., 'anglo_saxon_with_elvish', 'latin_technical')"
+        },
+        "entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of entries (for quick integrity check)"
+        },
+        "taxonomy": {
+          "$ref": "#/$defs/WorldTaxonomy",
+          "description": "World-specific taxonomy tree. Categories and subcategories used for classification."
+        },
+        "entries": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/VocabularyEntry" },
+          "description": "All vocabulary entries, sorted by content_id"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "VocabularyEntry": {
+      "title": "VocabularyEntry",
+      "description": "A single vocabulary mapping: content_id → world-flavored name + aliases + localization hooks.",
+      "type": "object",
+      "required": [
+        "content_id",
+        "world_name",
+        "lexicon_id",
+        "domain",
+        "category"
+      ],
+      "properties": {
+        "content_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Content pack identifier (e.g., 'spell.fireball', 'creature.goblin'). Uses the mechanical_id namespace: domain.canonical_name."
+        },
+        "lexicon_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 16,
+          "description": "Deterministic stable ID: sha256(world_seed + content_id)[:16]. Used for cross-references."
+        },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "spell",
+            "feat",
+            "skill",
+            "class",
+            "class_feature",
+            "creature",
+            "item",
+            "condition",
+            "action",
+            "damage_type",
+            "school",
+            "terrain",
+            "faction",
+            "location",
+            "cosmology"
+          ],
+          "description": "Vocabulary domain. Aligns with mechanical_id namespace domains plus world-specific domains."
+        },
+        "world_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical world-flavored display name. This is the name the player sees."
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Alternative names for this entry (e.g., colloquial names, abbreviations). Used for voice recognition and search. Sorted alphabetically.",
+          "default": []
+        },
+        "category": {
+          "type": "string",
+          "description": "World taxonomy category (e.g., 'destruction_magic', 'divine_healing', 'martial_technique')"
+        },
+        "subcategory": {
+          "type": ["string", "null"],
+          "description": "World taxonomy subcategory (e.g., 'fire_domain', 'blade_arts')",
+          "default": null
+        },
+        "short_description": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "One-line world-flavored description for indices and tooltips"
+        },
+        "article": {
+          "type": ["string", "null"],
+          "enum": ["a", "an", "the", null],
+          "description": "Grammatical article for this name in English (for sentence construction). Null if no article.",
+          "default": null
+        },
+        "plural_form": {
+          "type": ["string", "null"],
+          "description": "Plural form of world_name (e.g., 'Searing Bursts'). Null if same as singular.",
+          "default": null
+        },
+        "localization_hooks": {
+          "$ref": "#/$defs/LocalizationHooks",
+          "description": "Structured data for future localization. Not translated — provides semantic anchors."
+        },
+        "ip_clean": {
+          "type": "boolean",
+          "description": "Compiler assertion that this name passes the Recognition Test (RQ-PRODUCT-001 §3). Must be true for all entries.",
+          "default": true
+        },
+        "provenance": {
+          "$ref": "#/$defs/VocabularyProvenance",
+          "description": "Provenance record for this entry"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "LocalizationHooks": {
+      "title": "LocalizationHooks",
+      "description": "Semantic anchors for future localization. Not translated text — structured data a translator can use.",
+      "type": "object",
+      "properties": {
+        "semantic_root": {
+          "type": "string",
+          "description": "Language-independent semantic concept (e.g., 'fire_burst_projectile', 'undead_skeletal_warrior')"
+        },
+        "tone_register": {
+          "type": "string",
+          "enum": ["formal", "colloquial", "archaic", "technical", "mythic"],
+          "description": "The register/tone of the world_name"
+        },
+        "gender_class": {
+          "type": ["string", "null"],
+          "enum": ["masculine", "feminine", "neuter", "animate", "inanimate", null],
+          "description": "Grammatical gender class (for languages that require it)",
+          "default": null
+        },
+        "syllable_count": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Syllable count of world_name (for rhythm-matching in localization)",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "VocabularyProvenance": {
+      "title": "VocabularyProvenance",
+      "description": "Provenance record for a vocabulary entry.",
+      "type": "object",
+      "required": ["source", "compiler_version", "seed_used"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "const": "world_compiler",
+          "description": "Always 'world_compiler' for compiled entries"
+        },
+        "compiler_version": {
+          "type": "string",
+          "description": "Version of the compiler that generated this entry"
+        },
+        "seed_used": {
+          "type": "integer",
+          "description": "The derived seed used for name generation (from lexicon_seed derivation)"
+        },
+        "content_pack_id": {
+          "type": "string",
+          "description": "Content pack that provided the mechanical ID"
+        },
+        "template_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of naming templates used",
+          "default": []
+        },
+        "llm_output_hash": {
+          "type": ["string", "null"],
+          "description": "SHA-256 hash of the LLM output used for name generation (for determinism verification). Null if no LLM was used.",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "WorldTaxonomy": {
+      "title": "WorldTaxonomy",
+      "description": "World-specific classification tree. Defines how abilities, creatures, and entities are categorized in this world's vocabulary.",
+      "type": "object",
+      "required": ["categories"],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/TaxonomyCategory" },
+          "minItems": 1,
+          "description": "Top-level taxonomy categories, sorted by category_id"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "TaxonomyCategory": {
+      "title": "TaxonomyCategory",
+      "description": "A single taxonomy category with optional subcategories.",
+      "type": "object",
+      "required": ["category_id", "display_name", "domain"],
+      "properties": {
+        "category_id": {
+          "type": "string",
+          "description": "Stable category identifier (e.g., 'destruction_magic', 'martial_technique')"
+        },
+        "display_name": {
+          "type": "string",
+          "description": "World-flavored display name for this category"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Which vocabulary domain this category applies to (e.g., 'spell', 'feat', 'creature')"
+        },
+        "subcategories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["subcategory_id", "display_name"],
+            "properties": {
+              "subcategory_id": { "type": "string" },
+              "display_name": { "type": "string" }
+            },
+            "additionalProperties": false
+          },
+          "description": "Subcategories within this category",
+          "default": []
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "description": "This schema defines the Vocabulary Registry: canonical world-flavored names, aliases, taxonomy classification, and localization hooks for every mechanical ID in the content pack. All names are generated at world compile and frozen. No copyrighted content."
+}

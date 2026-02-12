@@ -1273,3 +1273,37 @@ class TestBL018_TimestampInjectionOnly:
 
         assert restored.result_id == "roundtrip-result-001"
         assert restored.resolved_at == ts
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# BL-AD007: Spark Must Not Import Presentation Semantics Directly
+# ═══════════════════════════════════════════════════════════════════════
+
+
+class TestBL_AD007_SparkMustNotImportPresentationSemantics:
+    """AD-007 Boundary: Spark receives semantics via NarrativeBrief only.
+
+    WHY: Spark is constrained by presentation semantics but must not
+    import the schema module directly. This enforces the one-way valve:
+    Box → Lens (enriches NarrativeBrief with semantics) → Spark.
+
+    If Spark imports from aidm.schemas.presentation_semantics directly,
+    it could bypass Lens's containment boundary and construct or
+    manipulate Layer B data outside the intended data flow.
+
+    WHAT BREAKS: Lens containment boundary, one-way valve enforcement.
+    """
+
+    def test_spark_does_not_import_presentation_semantics(self):
+        violations = []
+        for filepath in _get_py_files("aidm/spark"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if "presentation_semantics" in imp:
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-AD007 VIOLATION: Spark imports presentation_semantics "
+            f"directly (must receive via NarrativeBrief):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )

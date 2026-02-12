@@ -283,6 +283,7 @@ class IntentBridge:
                     continue
                 display_name = entity.get("name", entity_id)
                 available.append(display_name)
+            available.sort(key=lambda n: n.lower())
 
             return ClarificationRequest(
                 intent_type="attack",
@@ -321,7 +322,8 @@ class IntentBridge:
             return exact_matches[0][0]
         elif len(exact_matches) > 1:
             # Multiple exact matches (should be rare)
-            candidates = tuple(display_name for _, display_name in exact_matches)
+            sorted_matches = sorted(exact_matches, key=lambda m: m[1].lower())
+            candidates = tuple(display_name for _, display_name in sorted_matches)
             return ClarificationRequest(
                 intent_type="attack",
                 ambiguity_type=AmbiguityType.TARGET_AMBIGUOUS,
@@ -333,7 +335,8 @@ class IntentBridge:
             return partial_matches[0][0]
         elif len(partial_matches) > 1:
             # Multiple partial matches
-            candidates = tuple(display_name for _, display_name in partial_matches)
+            sorted_matches = sorted(partial_matches, key=lambda m: m[1].lower())
+            candidates = tuple(display_name for _, display_name in sorted_matches)
             return ClarificationRequest(
                 intent_type="attack",
                 ambiguity_type=AmbiguityType.TARGET_AMBIGUOUS,
@@ -350,6 +353,7 @@ class IntentBridge:
                     continue
                 display_name = entity.get("name", entity_id)
                 available.append(display_name)
+            available.sort(key=lambda n: n.lower())
 
             return ClarificationRequest(
                 intent_type="attack",

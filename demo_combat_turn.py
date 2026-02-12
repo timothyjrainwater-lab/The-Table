@@ -661,6 +661,69 @@ def run_demo(with_tts: bool = False) -> dict:
 
     audit["template_performance"] = template_pass
 
+    # ── Step 14: A10 Windshield Summary ───────────────────────────
+    # (Consolidated proof that the Box is authoritative)
+
+    header("A10 WINDSHIELD: Box Authoritative Proof")
+
+    # Before/after HP
+    goblin_hp_after = turn_result.world_state.entities["goblin_1"][EF.HP_CURRENT]
+    goblin_defeated = turn_result.world_state.entities["goblin_1"].get(EF.DEFEATED, False)
+    fighter_hp_after = turn_result.world_state.entities["fighter_1"][EF.HP_CURRENT]
+
+    print(f"\n  {BOLD}TARGET HP{RESET}")
+    print(f"    Before: {goblin[EF.HP_CURRENT]}/{goblin[EF.HP_MAX]}")
+    hp_color = RED if goblin_hp_after <= 0 else YELLOW
+    print(f"    After:  {hp_color}{goblin_hp_after}/{goblin[EF.HP_MAX]}{RESET}", end="")
+    if goblin_defeated:
+        print(f"  {RED}{BOLD}[DEFEATED]{RESET}")
+    else:
+        print(f"  (delta: {goblin_hp_after - goblin[EF.HP_CURRENT]:+d})")
+
+    # Before/after state hash
+    post_turn_hash = turn_result.world_state.state_hash()
+    print(f"\n  {BOLD}STATE HASH{RESET}")
+    print(f"    Before: {pre_turn_hash[:32]}...")
+    print(f"    After:  {post_turn_hash[:32]}...")
+    hash_changed = pre_turn_hash != post_turn_hash
+    if hash_changed:
+        print(f"    {GREEN}State mutated by Box resolution (combat had effect){RESET}")
+    else:
+        print(f"    {YELLOW}State unchanged (miss with no side effects){RESET}")
+
+    # Exact attack_roll payload
+    attack_roll_event = None
+    for event in turn_result.events:
+        if event.event_type == "attack_roll":
+            attack_roll_event = event.payload
+            break
+
+    if attack_roll_event:
+        print(f"\n  {BOLD}ATTACK_ROLL PAYLOAD (raw Box output){RESET}")
+        for key in sorted(attack_roll_event.keys()):
+            val = attack_roll_event[key]
+            print(f"    {key}: {val}")
+
+    # Narration with provenance tag
+    print(f"\n  {BOLD}NARRATION{RESET}")
+    if turn_result.narration_text:
+        print(f"    \"{turn_result.narration_text}\"")
+    else:
+        print(f"    (no narration generated)")
+    print(f"    Provenance: {CYAN}{turn_result.narration_provenance or '(none)'}{RESET}")
+
+    # Verdict
+    print()
+    box_in_loop = hash_changed and attack_roll_event is not None
+    if box_in_loop:
+        print(f"  {GREEN}{BOLD}VERDICT: Box is authoritative. State mutation is real.{RESET}")
+        print(f"  {GREEN}This is the real loop, not a cosmetic loop.{RESET}")
+    else:
+        print(f"  {YELLOW}VERDICT: Attack missed — no state mutation, but Box was in the loop.{RESET}")
+        print(f"  {YELLOW}Re-run with different seed if hit verification needed.{RESET}")
+
+    audit["a10_box_authoritative"] = attack_roll_event is not None
+
     # ── Audit Summary ─────────────────────────────────────────────
 
     header("A8 AUDIT CHECKPOINT: Spark Integration Proof")

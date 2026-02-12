@@ -708,3 +708,52 @@ def test_scene_with_multiple_encounters(scene_manager, rng):
     )
 
     assert result2.encounter_id == "enc_02"
+
+
+# ==============================================================================
+# TIER 7: STM CLEAR ON TRANSITION (1 test)
+# ==============================================================================
+
+def test_stm_cleared_on_scene_transition(world_state):
+    """Tier 7: STMContext.clear() is called on scene transition.
+
+    After a scene transition, previously-tracked entity names must NOT
+    resolve — 'attack him' should not carry over from the previous room.
+    """
+    from aidm.immersion.voice_intent_parser import STMContext
+
+    stm = STMContext()
+    stm.update(action="attack", target="goblin_01", weapon="longsword")
+    assert stm.last_target == "goblin_01"
+    assert stm.last_weapon == "longsword"
+    assert len(stm.history) == 1
+
+    scenes = {
+        "room_a": SceneState(
+            scene_id="room_a",
+            name="Room A",
+            description="First room.",
+            exits=[Exit(exit_id="door", destination_scene_id="room_b", description="a door")],
+        ),
+        "room_b": SceneState(
+            scene_id="room_b",
+            name="Room B",
+            description="Second room.",
+        ),
+    }
+
+    manager = SceneManager(scenes=scenes, stm=stm)
+    result = manager.transition_scene(
+        from_scene="room_a",
+        exit_id="door",
+        world_state=world_state,
+    )
+
+    assert result.success is True
+    # STM should be cleared — no carryover from previous room
+    assert stm.last_target is None
+    assert stm.last_weapon is None
+    assert stm.last_action is None
+    assert stm.last_spell is None
+    assert stm.last_location is None
+    assert stm.history == []

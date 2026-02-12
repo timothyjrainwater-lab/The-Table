@@ -228,13 +228,15 @@ class SceneManager:
         )
     """
 
-    def __init__(self, scenes: Dict[str, SceneState]):
+    def __init__(self, scenes: Dict[str, SceneState], stm: Optional[Any] = None):
         """Initialize scene manager.
 
         Args:
             scenes: Dictionary of scene_id -> SceneState
+            stm: Optional STMContext for clearing on scene transitions
         """
         self.scenes = scenes
+        self._stm = stm
 
     def load_scene(self, scene_id: str) -> SceneState:
         """Load a scene by ID.
@@ -327,6 +329,10 @@ class SceneManager:
 
         # Generate narrative hint
         narrative_hint = f"The party moves through {exit_obj.description} into {dest_scene.name}."
+
+        # Clear STM context to prevent cross-scene pronoun carryover
+        if self._stm is not None and hasattr(self._stm, 'clear'):
+            self._stm.clear()
 
         return TransitionResult(
             success=True,

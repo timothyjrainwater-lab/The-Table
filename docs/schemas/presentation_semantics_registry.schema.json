@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "presentation_semantics_registry.schema.json",
+  "title": "Presentation Semantics Registry Schema",
+  "description": "Canonical JSON schema for AD-007 presentation semantics authored at world compile time. Defines how abilities and events BEHAVE VISUALLY in this world. Content-independent — same mechanical template can have different presentation semantics in different worlds.",
+
+  "$defs": {
+
+    "PresentationSemanticsRegistry": {
+      "title": "PresentationSemanticsRegistry",
+      "description": "Top-level registry of all AD-007 Layer B presentation semantics for this world. Every ability and event category in the content pack has a corresponding entry. Sorted by content_id for deterministic serialization.",
+      "type": "object",
+      "required": ["schema_version", "world_id", "ability_entries", "event_entries"],
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Schema version of this registry file (major.minor)"
+        },
+        "world_id": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 64,
+          "description": "World identity hash — must match world_manifest.json world_id"
+        },
+        "compiler_version": {
+          "type": "string",
+          "description": "Version of the world compiler that produced this registry"
+        },
+        "ability_entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of ability entries"
+        },
+        "event_entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of event category entries"
+        },
+        "ability_entries": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/AbilityPresentationEntry" },
+          "description": "Presentation semantics for all abilities, sorted by content_id"
+        },
+        "event_entries": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/EventPresentationEntry" },
+          "description": "Default presentation semantics for event categories (combat, environmental, social), sorted by event_category"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "AbilityPresentationEntry": {
+      "title": "AbilityPresentationEntry",
+      "description": "AD-007 Layer B presentation semantics for a single ability. These structured tags tell Spark how to narrate, the battle map how to animate, and the discovery log what to progressively reveal. Frozen at compile time.",
+      "type": "object",
+      "required": [
+        "content_id",
+        "delivery_mode",
+        "staging",
+        "origin_rule",
+        "vfx_tags",
+        "sfx_tags",
+        "scale",
+        "provenance"
+      ],
+      "properties": {
+        "content_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Content pack identifier (e.g., 'spell.fireball'). Must have a matching entry in the vocabulary registry."
+        },
+        "delivery_mode": {
+          "type": "string",
+          "enum": [
+            "projectile",
+            "beam",
+            "burst_from_point",
+            "aura",
+            "cone",
+            "line",
+            "touch",
+            "self",
+            "summon",
+            "teleport",
+            "emanation",
+            "gaze"
+          ],
+          "description": "How the effect reaches its target. Primary staging driver for animation and narration."
+        },
+        "staging": {
+          "type": "string",
+          "enum": [
+            "travel_then_detonate",
+            "instant",
+            "linger",
+            "pulses",
+            "channeled",
+            "delayed",
+            "expanding",
+            "fading"
+          ],
+          "description": "Temporal sequence of the effect. Constrains Spark narration order."
+        },
+        "origin_rule": {
+          "type": "string",
+          "enum": [
+            "from_caster",
+            "from_chosen_point",
+            "from_object",
+            "from_target",
+            "from_ground",
+            "ambient"
+          ],
+          "description": "Where the effect originates visually."
+        },
+        "vfx_tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "Visual descriptor tags. Sorted alphabetically. Drive battle map overlays and Spark imagery. (e.g., ['expanding_ring', 'fire', 'scorch'])"
+        },
+        "sfx_tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Audio descriptor tags. Sorted alphabetically. Drive audio cues and Spark sound descriptions. (e.g., ['boom', 'crackle'])",
+          "default": []
+        },
+        "scale": {
+          "type": "string",
+          "enum": ["subtle", "moderate", "dramatic", "catastrophic"],
+          "description": "Perceived size/impact of the effect. Drives Spark emphasis and VFX intensity."
+        },
+        "residue": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "What remains after the effect resolves. Sorted alphabetically. (e.g., ['heated_air', 'scorch_marks', 'smoke'])",
+          "default": []
+        },
+        "ui_description": {
+          "type": "string",
+          "description": "Canonical short description for the world's rulebook entry. Generated from Layer A + Layer B at compile time. Frozen."
+        },
+        "token_style": {
+          "type": ["string", "null"],
+          "description": "Battle map token overlay style (e.g., 'fire_circle', 'frost_zone'). Null if no persistent token.",
+          "default": null
+        },
+        "handout_style": {
+          "type": ["string", "null"],
+          "description": "How this ability appears in player handouts/notebooks (e.g., 'bordered_red', 'glowing_text'). Null for default.",
+          "default": null
+        },
+        "contraindications": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Narration patterns that MUST NOT appear for this ability. Used by ContradictionChecker. (e.g., for a projectile: 'erupting_from_ground' would be a contraindication)",
+          "default": []
+        },
+        "provenance": {
+          "$ref": "#/$defs/SemanticsProvenance",
+          "description": "Provenance record for this entry"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "EventPresentationEntry": {
+      "title": "EventPresentationEntry",
+      "description": "Default presentation semantics for an event category. Applies to events that don't have ability-specific semantics (e.g., generic melee hit, environmental damage, social interaction).",
+      "type": "object",
+      "required": [
+        "event_category",
+        "default_scale",
+        "default_vfx_tags",
+        "default_sfx_tags"
+      ],
+      "properties": {
+        "event_category": {
+          "type": "string",
+          "enum": [
+            "melee_attack",
+            "ranged_attack",
+            "combat_maneuver",
+            "saving_throw",
+            "skill_check",
+            "condition_applied",
+            "condition_removed",
+            "hp_change",
+            "entity_defeated",
+            "movement",
+            "environmental_damage",
+            "environmental_effect",
+            "social_interaction",
+            "discovery",
+            "rest",
+            "trade",
+            "turn_boundary",
+            "round_boundary"
+          ],
+          "description": "Event category this entry covers"
+        },
+        "default_scale": {
+          "type": "string",
+          "enum": ["subtle", "moderate", "dramatic", "catastrophic"],
+          "description": "Default scale for events in this category"
+        },
+        "default_vfx_tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Default visual tags for this event category",
+          "default": []
+        },
+        "default_sfx_tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Default audio tags for this event category",
+          "default": []
+        },
+        "default_residue": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Default residue for this event category",
+          "default": []
+        },
+        "narration_priority": {
+          "type": "string",
+          "enum": ["always_narrate", "narrate_if_significant", "narrate_on_request", "never_narrate"],
+          "description": "How eagerly Spark should narrate this event type",
+          "default": "narrate_if_significant"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "SemanticsProvenance": {
+      "title": "SemanticsProvenance",
+      "description": "Provenance record for a presentation semantics entry.",
+      "type": "object",
+      "required": ["source", "compiler_version", "seed_used"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "const": "world_compiler",
+          "description": "Always 'world_compiler' for compiled entries"
+        },
+        "compiler_version": {
+          "type": "string",
+          "description": "Version of the compiler that generated this entry"
+        },
+        "seed_used": {
+          "type": "integer",
+          "description": "The derived seed used for this entry's generation"
+        },
+        "content_pack_id": {
+          "type": "string",
+          "description": "Content pack that provided the behavioral contract (Layer A)"
+        },
+        "template_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of theme templates used to generate semantics",
+          "default": []
+        },
+        "llm_output_hash": {
+          "type": ["string", "null"],
+          "description": "SHA-256 hash of the LLM output used for tag generation. Null if deterministic (non-LLM) generation.",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "description": "This schema defines the Presentation Semantics Registry: AD-007 Layer B structured tags for every ability and event category in the world. These tags constrain Spark narration, drive battle map visuals, and enable the world-owned rulebook. Frozen at world compile time. Different worlds may assign different semantics to the same mechanical template."
+}

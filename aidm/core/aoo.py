@@ -535,8 +535,8 @@ def resolve_aoo_sequence(
         attack_bonus = reactor.get(EF.ATTACK_BONUS, 0)
         weapon_data = reactor.get(EF.WEAPON)
 
-        if weapon_data is None:
-            # No weapon data available, skip AoO
+        if weapon_data is None or not isinstance(weapon_data, dict):
+            # No weapon data or non-dict (e.g. string name), skip AoO
             continue
 
         from aidm.schemas.attack import Weapon

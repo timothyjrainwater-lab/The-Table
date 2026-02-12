@@ -2,6 +2,8 @@
 
 A deterministic, reproducible AI referee system for Dungeons & Dragons 3.5 Edition.
 
+> **Agent quick-start:** Read [`PROJECT_COMPASS.md`](PROJECT_COMPASS.md) first — it's the rehydration hub covering thesis, architecture, what's built, roadmap, and conventions. Then follow [`AGENT_ONBOARDING_CHECKLIST.md`](AGENT_ONBOARDING_CHECKLIST.md) for step-by-step setup.
+
 ## Overview
 
 AIDM is an experimental engine for running D&D 3.5e sessions with deterministic outcomes. Every game session is fully reproducible from its event log, making debugging, testing, and validation tractable. The system enforces strict determinism through event sourcing, stream-isolated RNG, and stable hashing.

@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Thunder (PO) conducted a multi-hour design session on 2026-02-12 that produced **two doctrinal decisions** and **five research artifacts**. This packet consolidates everything the PM needs to review, approve, and sequence.
+Thunder (PO) conducted a multi-hour design session on 2026-02-12 that produced **two doctrinal decisions** and **six research artifacts**. This packet consolidates everything the PM needs to review, approve, and sequence.
 
 **No implementation is authorized.** All artifacts are specs, research briefs, or doctrine. Implementation WOs cannot be dispatched until the PM reviews this packet and decides on sequencing.
 
@@ -24,6 +24,7 @@ Thunder (PO) conducted a multi-hour design session on 2026-02-12 that produced *
 | 5 | Contradiction Surface Mapping | `docs/specs/RQ-LENS-002_CONTRADICTION_SURFACE_MAPPING.md` | Research Brief | Review & approve |
 | 6 | Community RAW Argument Survey | `docs/research/RQ-BOX-002-A_COMMUNITY_RAW_ARGUMENT_SURVEY.md` | Research Supplement | Review (feeds into RQ-BOX-002) |
 | 7 | MANIFESTO.md — No-Opaque-DM Doctrine | `MANIFESTO.md` lines 174-176 | Doctrine (already committed by PO) | Acknowledge |
+| 8 | Content Independence Architecture | `docs/specs/RQ-PRODUCT-001_CONTENT_INDEPENDENCE_ARCHITECTURE.md` | Research Brief | Review & approve |
 
 ---
 
@@ -219,6 +220,45 @@ All prerequisite WOs are INTEGRATED: WO-032, WO-039, WO-040, WO-041, WO-045, WO-
 
 **PM decision:** Acknowledge. The 4 new silence entries (SIL-007 through SIL-010) are already integrated into RQ-BOX-002. The design principles reinforce existing project doctrine.
 
+### 3.5 RQ-PRODUCT-001: Content Independence Architecture
+
+**File:** `docs/specs/RQ-PRODUCT-001_CONTENT_INDEPENDENCE_ARCHITECTURE.md`
+
+**Purpose:** Define how the product achieves full IP independence — shipping zero copyrightable text while maintaining a consistent player experience. Establishes the three-layer content model that governs all content authoring.
+
+**The Three-Layer Content Model:**
+
+| Layer | Name | Owner | Static/Dynamic | Contains |
+|-------|------|-------|----------------|----------|
+| 1 | **Mechanical Definition** | Box | Static | Pure math — formulas, parameters, thresholds, tables |
+| 2 | **Behavioral Contract** | Lens | Static | Spatial/temporal operation — delivery model, phases, sensory tags |
+| 3 | **Narrative Realization** | Spark | Dynamic (per use) | Creative description generated from contract + skin + scene |
+
+**Key architectural decisions:**
+- **No static flavor text.** Content pack entries contain math and technical specs only. Spark generates all narration fresh.
+- **Behavioral contracts are static and inspectable.** Players can look up how an ability works (projectile, detonation, area) but not read pre-written prose about it.
+- **Provenance firewall.** The Vault (~23,750 D&D 3.5e text files) is a human-readable research reference, never a build input. No automated path from Vault to content pack. Content is authored by human understanding, not algorithmic transformation.
+- **Recognition test.** Every piece of static content must pass: "Could a D&D player recognize this as coming from the PHB without being told?" If yes, rewrite as pure specification.
+- **Multi-skin support.** Abstract IDs map to display names via skin JSON files (ABILITY_003 → "Fireball" in fantasy, "Plasma Grenade" in sci-fi). Engine and content pack unchanged across skins.
+
+**Extraction surface audit:** ~10 files need content extraction (spell_definitions, feat_resolver, skill_resolver, etc.), ~15 files are already clean (attack_resolver, spell_resolver, full_attack_resolver, etc.). The extraction is data migration, not code rewrite.
+
+**Layered World Authority Model (Creation Stack):** PO defined a stratified creation hierarchy that determines where each content layer gets frozen:
+
+| Level | What Freezes | Stability |
+|-------|-------------|-----------|
+| 0 — Substrate | Math, resolvers, IDs | Immutable — never changes |
+| 1 — World | **Rulebook**, cosmology, species, magic level, ability names, monster catalog, **all regions/countries/cities/governments/geography** | Generated once at world creation, frozen for all campaigns |
+| 2 — Campaign | **Selects a region** of the world to play in; adds local detail (NPCs, plot hooks) | Cheap — world already exists, just pick a region |
+| 3 — Storyline | Characters, plot arcs, NPCs | Multiple per campaign, evolves within |
+| 4 — Session | Narration, dice rolls, logs | Ephemeral |
+
+The rulebook AND the map belong to the **World layer** — the world's flavor (space adventure, undersea kingdom, classic fantasy) determines the rulebook's flavor, and world generation produces all regions, countries, cities, and governments. Switching campaigns means selecting a different region of the same world — same monsters, same spells, same ability names, same geography (just a different part of it). This hierarchy controls cognitive load: changing storylines is cheap, changing campaigns is low-cost (pick a different region), changing worlds is rare and high-cost (new rulebook, new map, new everything).
+
+**Sequencing:** Not now. Continue developing with D&D names as scaffolding. Execute content extraction pass during pre-release preparation. This research defines *what* must be done, not *when*.
+
+**PM decision:** Review the three-layer content model and behavioral contract schema. Confirm the provenance firewall constraint (Vault as research oracle, not content source). This artifact does not block current development but must be approved before any content ships externally.
+
 ---
 
 ## Section 4: Sequencing Recommendation
@@ -250,6 +290,12 @@ RQ-LENS-002 (Contradiction Surface Mapping)
   ├── Requires: Local LLM model
   ├── Informs: RQ-LENS-SPARK-001 Phase 1
   └── Independent of: RQ-BOX-002, RQ-BOX-003
+
+RQ-PRODUCT-001 (Content Independence Architecture)
+  ├── Independent of: All other research tracks
+  ├── Constrains: All future content authoring (three-layer model)
+  ├── Enables: Multi-skin support, commercial release
+  └── Execution: Pre-release phase (not blocking current development)
 ```
 
 ### Recommended Execution Order
@@ -268,12 +314,21 @@ RQ-LENS-002 (Contradiction Surface Mapping)
 
 **Tracks A and B are independent.** Neither blocks the other. Both represent architectural hardening before feature expansion.
 
+**Track C (Content Independence) — runs in parallel, executes later:**
+1. RQ-PRODUCT-001 three-layer model approved by PM
+2. Behavioral contract vocabulary finalized (delivery models, phases, sensory tags)
+3. Content extraction pass executed during pre-release preparation
+4. Skin system implemented (terminology mapping JSON)
+
+**Track C is independent of Tracks A and B** and does not block current development. It defines pre-release obligations. The three-layer model should be approved early so that new content authored during development follows the schema, even though the formal extraction pass happens later.
+
 ### What Cannot Proceed Until This Review Is Complete
 
 - No implementation WOs can be dispatched for any of these deliverables
 - No asset integration (TTS beyond Kokoro, image, music) until RQ-LENS-SPARK-001 exit gate passes
 - No trigger family implementation until RQ-BOX-002 audit confirms the family list
 - No ObjectState implementation until RQ-BOX-003 open questions are resolved
+- No content can ship externally until RQ-PRODUCT-001 three-layer model and provenance firewall are approved
 
 ---
 
@@ -291,6 +346,8 @@ RQ-LENS-002 (Contradiction Surface Mapping)
 | 8 | **Decide WO granularity** for RQ-LENS-SPARK-001 (1 mega-WO or per-deliverable) | RQ-LENS-SPARK-001 | Medium |
 | 9 | **Decide on SIL-007 resolution** (PHB vs DMG enhancement bonus — recommend PHB) | RQ-BOX-002 | Low (not blocking v1) |
 | 10 | **Resolve RQ-BOX-003 open questions** (especially §5.1 destruction threshold, §5.4 broken vs destroyed) | RQ-BOX-003 | Low (not blocking current work) |
+| 11 | **Review RQ-PRODUCT-001** three-layer content model, behavioral contract schema, and provenance firewall | RQ-PRODUCT-001 | Medium |
+| 12 | **Confirm provenance firewall constraint** — Vault is research oracle, not content source; no automated path to content pack | RQ-PRODUCT-001 | High (constrains all content authoring) |
 
 ---
 
@@ -306,9 +363,10 @@ docs/specs/RQ-LENS-SPARK-001_CONTEXT_ORCHESTRATION_SPRINT.md
 docs/specs/RQ-BOX-002_RAW_SILENCE_CATALOG.md
 docs/specs/RQ-BOX-003_OBJECT_IDENTITY_MODEL.md
 docs/specs/RQ-LENS-002_CONTRADICTION_SURFACE_MAPPING.md
+docs/specs/RQ-PRODUCT-001_CONTENT_INDEPENDENCE_ARCHITECTURE.md
 docs/research/RQ-BOX-002-A_COMMUNITY_RAW_ARGUMENT_SURVEY.md
 ```
 
-Total: 8 files. ~2,500 lines of specification and research.
+Total: 9 files. ~3,000 lines of specification and research.
 No code was written. No tests were added. No implementation was started.
 All artifacts are DRAFT status pending PM review.
