@@ -680,6 +680,56 @@ Player-facing communication when system degrades:
 
 ---
 
+## Phase 1 Research Findings — New Work Items (2026-02-12)
+
+**Source:** Phase 1 research agent deliverables (RWO-001 through RWO-006), reviewed by PM.
+
+These items were identified during Phase 1 research review and need to be scheduled into the existing plan or executed as hotfixes.
+
+### Hotfix Work Orders (P0 — Execute Immediately)
+
+| WO | Source | Description | Effort |
+|----|--------|-------------|--------|
+| WO-FIX-001 | 5E_CONTAMINATION_AUDIT | **DurationTracker 5e concentration limiter**: `duration_tracker.py:115` implements 5e one-concentration-per-caster rule. Change `_concentration: Dict[str, str]` to `Dict[str, List[str]]`, remove auto-end logic at lines 124-136. | Low |
+| WO-FIX-002 | MECHANICAL_COVERAGE_AUDIT | **Critical hits missing from attack_resolver.py**: Only `full_attack_resolver.py` has critical hit logic. Standard single attacks cannot score critical hits — RAW violation. Port `resolve_single_attack_with_critical()` logic. | Low |
+| WO-FIX-003 | MECHANICAL_COVERAGE_AUDIT | **full_attack_resolver bypasses modifiers**: Uses raw entity AC directly (line 261), ignoring condition modifiers, cover, terrain, mounted bonuses, and feat modifiers that `attack_resolver.py` correctly applies. Unify AC computation. | Medium |
+
+### Phase 2 Integration Items (Schedule Into Existing WOs)
+
+| Target WO | Source | Addition |
+|-----------|--------|----------|
+| WO-034 (Core Feat System) | MECHANICAL_COVERAGE_AUDIT #3 | Add **Combat Expertise** (PHB p.92) — prerequisite for Improved Trip/Disarm/Feint. Currently MISSING entirely. |
+| WO-034 (Core Feat System) | MECHANICAL_COVERAGE_AUDIT #3 | Wire **Power Attack** integration — `attack_resolver.py:194` hardcodes `power_attack_penalty: 0`. Pass player's chosen penalty through intent. |
+| WO-034 (Core Feat System) | MECHANICAL_COVERAGE_AUDIT #2 | Wire **TWF** into attack sequence generation — `calculate_iterative_attacks()` only handles primary-hand. |
+| WO-035 (Skill System) | RQ_NARR_001_SYNTHESIS | Add **flanking detection** as prerequisite for Sneak Attack (requires spatial geometry check). |
+
+### New Work Orders (From Research)
+
+| WO | Phase | Source | Description | Priority |
+|----|-------|--------|-------------|----------|
+| WO-045B | 2A | SEAM_PROTOCOL_ANALYSIS GAP-002 | **PromptPack v1 Schema**: Implement AD-002 five-channel wire protocol. Replace monolithic string assembly in `context_assembler.py`. | CRITICAL |
+| WO-046B | 2A | SEAM_PROTOCOL_ANALYSIS GAP-001/003 | **NarrativeBrief completion**: Wire all 10 registered event types (not just 5). Add spell names, save DCs, condition durations. | HIGH |
+| WO-047 | 2A | SEAM_PROTOCOL_ANALYSIS GAP-004 | **ImmersionPlan schema**: Typed interface connecting narration output to TTS/image/audio adapter invocations. Includes orchestration order and timeout enforcement. | HIGH |
+| WO-048 | 2B | MECHANICAL_COVERAGE_AUDIT #13 | **Damage Reduction system**: DR field on entities, DR type system (DR/magic, DR/cold iron, etc.), integrate into attack and spell resolvers. Blocks CR 5+ encounters. | HIGH |
+| WO-049 | 2B | MECHANICAL_COVERAGE_AUDIT #15 | **Concealment/miss chance**: Miss chance roll after hit determination, concealment field on conditions/terrain, 20%/50% miss chance for blur/displacement/fog/darkness. | HIGH |
+| WO-050B | 2B | MECHANICAL_COVERAGE_AUDIT #26 | **Sneak Attack**: Precision damage dice, flanking detection, denied-Dex-to-AC check. Rogue's primary damage mechanic. | MEDIUM |
+| WO-051B | 3 | AD-003 | **Policy Default Library**: Implement `aidm/data/policy_defaults.json` — starter 20 object classes with D&D 3.5e RAW properties (dimensions, materials, hardness, HP, cover, break DC). | HIGH |
+| WO-052B | 3 | AD-003 | **Seeded Deterministic Generator**: Scene type + seed → complete object facts. Deterministic, bounded, RAW-grounded. Wire into NeedFact chain. | HIGH |
+
+### Open Questions from Research (PM Decisions Needed)
+
+| ID | Source | Question | Options |
+|----|--------|----------|---------|
+| OQ-1 | RQ_NARR_001 | How much percentage margin on HP descriptions? | ±5% (strict) vs ±10% (relaxed) |
+| OQ-2 | RQ_NARR_001 | Should NPC HP be visible to players? | Never / Only when bloodied / DM discretion toggle |
+| OQ-3 | RQ_NARR_001 | KILL-002 strictness: block ALL numbers or allow contextual? | Strict (no numbers) / Contextual (allow damage dealt text) |
+| OQ-4 | RQ_NARR_001 | DM override UX: should DM be able to override Spark narration? | No override / Edit before display / Full rewrite |
+| OQ-5 | RQ_NARR_001 | Default tone parameters? | Dramatic + terse / Dramatic + verbose / Neutral + moderate |
+| OQ-6 | RQ_NARR_001 | Can NPC voice personas change mid-session? | Fixed at session start / Mutable by DM |
+| OQ-7 | DOC_DRIFT_LEDGER DRIFT-003 | Test runtime gate re-baseline? | Per-test average (<15ms) / New wall-clock (<60s) / Downgrade to SHOULD |
+
+---
+
 ## Cross-References
 
 | Document | Purpose |
@@ -690,3 +740,11 @@ Player-facing communication when system degrades:
 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards, boundary laws |
 | `KNOWN_TECH_DEBT.md` | Intentional deferrals |
 | `PROJECT_STATE_DIGEST.md` | Current project state |
+| `docs/decisions/AD-001_AUTHORITY_RESOLUTION_PROTOCOL.md` | NeedFact/WorldPatch protocol |
+| `docs/decisions/AD-002_LENS_CONTEXT_ORCHESTRATION.md` | Five-channel PromptPack architecture |
+| `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` | Policy Default Library + Deterministic Generator |
+| `docs/audits/MECHANICAL_COVERAGE_AUDIT.md` | 32-mechanic coverage status |
+| `docs/audits/5E_CONTAMINATION_AUDIT.md` | 5e rule contamination findings |
+| `docs/audits/SEAM_PROTOCOL_ANALYSIS.md` | Box-Lens-Spark-Immersion seam gaps |
+| `docs/research/RQ_SPARK_001_SYNTHESIS.md` | Spark Emission Contract v1 |
+| `docs/research/RQ_NARR_001_SYNTHESIS.md` | Narrative Balance Contract v1 |
