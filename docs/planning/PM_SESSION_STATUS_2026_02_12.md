@@ -1,18 +1,20 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 10 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 + WO-053/054/055 Physical Affordance + WO-045B PromptPack → WO-046B NarrativeBrief + WO-056 Gear Affordance)
+**Sessions Covered:** 12 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 + WO-053/054/055 Physical Affordance + WO-045B PromptPack → WO-046B NarrativeBrief + WO-056 Gear Affordance → AD-006 House Policy Governance Doctrine → Research Sprint Execution (FAQ mining, PF delta, Skip Williams, GREEN family specs))
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 12 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056). **AD-005 Physical Affordance Policy fully implemented** through all 3 layers: L1 Encumbrance, L2 Container Policies, L3 Gear Affordance Tags. **Box→Lens seam upgraded to GREEN** with NarrativeBrief handling all event types. **Lens→Spark seam YELLOW** with PromptPack v1 + visible_gear wired.
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 12 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056). **AD-006 House Policy Governance Doctrine ratified** — No-Opaque-DM doctrine, Template Family Registry (9 families, 3 GREEN), FAIL_CLOSED protocol, Two-Loop Model. **Box→Lens seam upgraded to GREEN** with NarrativeBrief handling all event types. **Lens→Spark seam YELLOW** with PromptPack v1 + visible_gear wired.
+
+**Research sprint launched:** RQ-BOX-002 Phase 1 (FAQ mining), Pathfinder 1e delta index, Skip Williams designer intent mining. GREEN family template specs formalized. Research Finding Schema codified. No-physics constraint added to AD-006.
 
 **Test suite:** 4130 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
 
-**Next action:** GAP-007 resolution (unify dual prompt assembly paths via PromptPack).
+**Next action:** Commit all research artifacts, then review research agent outputs, then GAP-007 resolution.
 
 ---
 
@@ -26,6 +28,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 | AD-002: Lens Context Orchestration | `docs/decisions/AD-002_LENS_CONTEXT_ORCHESTRATION.md` | Five-channel PromptPack wire protocol. Lens as OS for context assembly. |
 | AD-003: Self-Sufficiency Resolution | `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` | System self-sufficiency through Policy Default Library + Seeded Deterministic Generator, not LLM invention. |
 | AD-005: Physical Affordance Policy | `docs/decisions/AD-005_PHYSICAL_AFFORDANCE_POLICY.md` | Declared physical facts for RAW-silent properties. Four-layer inventory architecture. HOUSE_POLICY provenance for container/storage rules. |
+| AD-006: House Policy Governance Doctrine | `docs/decisions/AD-006_HOUSE_POLICY_GOVERNANCE_DOCTRINE.md` | No-Opaque-DM. Two authorities (RAW + House Policy). Template Family Registry (closed at runtime, open across versions). FAIL_CLOSED protocol. Two-Loop Model. |
 
 ### AD-004: Mechanical Evidence Gate
 
@@ -145,6 +148,12 @@ Full details: `docs/audits/MECHANICAL_COVERAGE_AUDIT.md`
 | OQ-5 | Default tone params | Dramatic+terse / Dramatic+verbose / Neutral |
 | OQ-6 | NPC voice mutability | Fixed at start / Mutable by DM |
 | OQ-7 | Test runtime re-baseline | Per-test avg / New wall-clock / Downgrade |
+| OQ-8 | SIL-007: PHB vs DMG enhancement bonus | PHB (+2/+10) / DMG (+1/+1) — PM recommends PHB |
+| OQ-9 | SIL-008: Armor enhancement exclusion | Include armor / Exclude armor — PM recommends include |
+| OQ-10 | RQ-BOX-003 Q5.1: Destruction threshold | HP=0 → broken, further → destroyed / HP=0 → destroyed immediately |
+| OQ-11 | RQ-BOX-003 Q5.4: Broken vs destroyed | Distinct states / Collapse into one |
+| OQ-12 | RQ-BOX-003 Q5.6: Fragment count | Fixed (2) / Material-dependent / Damage-dependent |
+| OQ-13 | Research Finding Schema | Lock format as-is / Modify before mining begins |
 
 ---
 
@@ -162,11 +171,19 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ## What to Do Next
 
-### Immediate
+### Immediate (This Session — In Progress)
+
+1. **Research sprint completion**: Review outputs from FAQ mining, PF delta index, Skip Williams mining agents
+2. **Commit all governance + research artifacts**: AD-006, MANIFESTO, CURRENT_CANON, research specs, GREEN family specs, research findings
+3. **Cross-reference findings**: Map new findings from all three sources to existing SIL catalog
+
+### Next Session
 
 1. **GAP-007 resolution**: Unify two prompt assembly paths (GuardedNarrationService._build_llm_prompt + ContextAssembler) via PromptPack
 2. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
-3. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
+3. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
+4. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
+5. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
 
 ### Phase 2 Dispatch (Ready)
 
@@ -196,10 +213,12 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 ## File Inventory (New This Session)
 
 ### Decisions
-- `docs/decisions/AD-001_AUTHORITY_RESOLUTION_PROTOCOL.md` (190 lines)
+- `docs/decisions/AD-001_AUTHORITY_RESOLUTION_PROTOCOL.md` (210 lines, updated with AD-006 reconciliation note)
 - `docs/decisions/AD-002_LENS_CONTEXT_ORCHESTRATION.md` (180 lines)
 - `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` (225 lines)
 - `docs/decisions/AD-004_MECHANICAL_EVIDENCE_GATE.md` (163 lines)
+- `docs/decisions/AD-005_PHYSICAL_AFFORDANCE_POLICY.md` (139 lines)
+- `docs/decisions/AD-006_HOUSE_POLICY_GOVERNANCE_DOCTRINE.md` (NEW — No-Opaque-DM, Template Family Registry, FAIL_CLOSED, Two-Loop Model)
 
 ### Evidence Maps (AD-004)
 - `docs/evidence/ATTACK_RESOLUTION.md` — 16 single attack + 10 full attack + 3 weapon mechanics mapped
@@ -230,12 +249,24 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 - `docs/audits/SEAM_PROTOCOL_ANALYSIS.md` (491 lines)
 
 ### Governance
-- `docs/CURRENT_CANON.md` (updated — AD-001/002/003 added to Tier 1)
+- `docs/CURRENT_CANON.md` (updated — AD-001/002/003/005/006 added to Tier 1)
 - `docs/DOC_DRIFT_LEDGER.md` (161 lines, 6 entries)
+- `MANIFESTO.md` (updated — No-Opaque-DM doctrine addendum)
 
 ### Specs
 - `docs/specs/RQ-LENS-SPARK-001_CONTEXT_ORCHESTRATION_SPRINT.md` (607 lines)
+- `docs/specs/RQ-BOX-002_RAW_SILENCE_CATALOG.md` (NEW — systematic audit of 3.5e underspecification, 10 seed silences)
+- `docs/specs/RQ-BOX-003_OBJECT_IDENTITY_MODEL.md` (NEW — ObjectState schema, 5-state integrity model, 6 open questions)
+- `docs/specs/RQ-LENS-002_CONTRADICTION_SURFACE_MAPPING.md` (NEW — empirical Spark contradiction detection, 40 scripted briefs)
+- `docs/specs/RESEARCH_FINDING_SCHEMA.md` (NEW — standardized format for RAW silence cataloging)
+- `docs/specs/TEMPLATE_FAMILY_SPECS_GREEN.md` (NEW — formal specs for 3 GREEN families: CONTAINMENT, RETRIEVAL, READINESS)
 - `docs/planning/GPT_RESEARCH_SYNTHESIS_ACTION_PLAN.md` (450 lines)
+
+### Research (New)
+- `docs/research/RQ-BOX-002-A_COMMUNITY_RAW_ARGUMENT_SURVEY.md` (NEW — community RAW debate mining, SIL-007 through SIL-010)
+- `docs/research/findings/RQ-BOX-002-F_FAQ_MINING_RESULTS.md` (IN PROGRESS — FAQ parsing for RAW silences)
+- `docs/research/findings/PF_DELTA_INDEX.md` (IN PROGRESS — Pathfinder 1e change catalog)
+- `docs/research/findings/SKIP_WILLIAMS_DESIGNER_INTENT.md` (IN PROGRESS — designer intent articles)
 
 ### Lens Layer (WO-046B, WO-056)
 - `aidm/lens/narrative_brief.py` — WO-046B/056: NarrativeBrief with all event types + visible_gear (770 lines)

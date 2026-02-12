@@ -194,4 +194,19 @@ The concrete integration is: wire `FactAcquisitionManager` into the combat resol
 
 ---
 
+## Reconciliation with AD-006 (House Policy Governance Doctrine)
+
+AD-006 establishes that every game-state outcome traces to exactly two visible authority sources: **RAW** and **House Policy**. AD-001's four source tiers map to these as follows:
+
+| AD-001 Source Tier | AD-006 Authority | Notes |
+|---|---|---|
+| `CANONICAL` | **RAW** | Rules as written, deterministic resolvers, rulebook citations |
+| `POLICY_DEFAULT` | **House Policy** | Template-instantiated, logged, frozen, player-inspectable. Governed by AD-006 Template Family Registry. |
+| `PLAYER` | Legitimate authority input | Player/DM choice within bounded options. Not a separate authority — the player selects from RAW-valid or policy-valid options. |
+| `SPARK_DRAFT` | **Forbidden** for mechanical facts | Unchanged. Spark may propose; may never commit. |
+
+This mapping is additive — AD-006 does not change AD-001's resolution protocol or priority ordering. It adds a governance layer constraining what categories of `POLICY_DEFAULT` entries may exist (only those in the Template Family Registry) and how new categories are created (Loop 2 only, PO-approved, Rule of Three).
+
+---
+
 *This decision was prompted by external architectural review identifying that Spark-supplied scene facts in mechanical calculations constitute an LLM-in-the-combat-loop violation. Infrastructure audit confirmed 80% of machinery exists; the gap is integration and policy enforcement.*
