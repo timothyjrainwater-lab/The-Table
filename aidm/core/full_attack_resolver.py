@@ -6,16 +6,31 @@ This module extends CP-10's single attack resolution to handle:
 - Critical confirmation rolls
 - Critical damage multiplication (×2/×3/×4)
 
+CP-16 INTEGRATION:
+- Condition modifiers affect attack rolls and AC
+- Attacker conditions modify attack bonus (e.g., shaken -2)
+- Defender conditions modify AC (e.g., prone -4 vs melee)
+- Damage modifiers apply to damage rolls (e.g., sickened -2)
+
+CP-18A INTEGRATION:
+- Mounted higher ground bonus (+1 vs smaller on-foot targets)
+
+CP-19 INTEGRATION:
+- Cover bonuses (standard +4 AC, improved +8 AC, total blocks targeting)
+- Terrain higher ground bonus (+1 melee, stacks with mounted bonus)
+
+WO-034 INTEGRATION:
+- Feat-based attack modifiers (Weapon Focus, etc.)
+- Feat-based damage modifiers (Weapon Specialization, Power Attack, etc.)
+
+WO-FIX-003: Unified AC/modifier computation (PHB p.140)
+- All modifier layers (conditions, mounted, terrain, cover, feats) applied
+- Matches attack_resolver.py's resolve_attack() modifier discipline
+
 RNG CONSUMPTION ORDER (deterministic):
 1. Attack roll (d20)
 2. IF threat: Confirmation roll (d20)
 3. IF hit: Damage roll (XdY)
-
-NO MECHANICS BEYOND CP-11 SCOPE:
-- Threat range uses weapon.critical_range (default 20, can be 19-20, 18-20, etc.)
-- No two-weapon fighting
-- No attacks of opportunity
-- No DR/resistance/conditions
 
 All state mutations are event-driven only.
 """
@@ -28,6 +43,8 @@ from aidm.core.state import WorldState
 from aidm.core.rng_manager import RNGManager
 from aidm.schemas.attack import AttackIntent
 from aidm.core.attack_resolver import parse_damage_dice, roll_dice
+from aidm.core.conditions import get_condition_modifiers
+from aidm.core.targeting_resolver import evaluate_target_legality
 from aidm.schemas.entity_fields import EF
 
 
@@ -92,10 +109,24 @@ def resolve_single_attack_with_critical(
     next_event_id: int,
     timestamp: float,
     attack_index: int,
-    str_modifier: int = 0
+    str_modifier: int = 0,
+    condition_damage_modifier: int = 0,
+    feat_damage_modifier: int = 0,
+    base_attack_bonus_raw: int = 0,
+    condition_attack_modifier: int = 0,
+    mounted_bonus: int = 0,
+    terrain_higher_ground: int = 0,
+    feat_attack_modifier: int = 0,
+    target_base_ac: int = 10,
+    target_ac_modifier: int = 0,
+    cover_type: str = "none",
+    cover_ac_bonus: int = 0,
 ) -> Tuple[List[Event], int]:
     """
     Resolve a single attack with critical hit logic.
+
+    WO-FIX-003: Now accepts pre-computed modifiers from resolve_full_attack()
+    so that all modifier layers are applied consistently.
 
     RNG consumption order:
     1. Attack roll (d20)
@@ -105,13 +136,25 @@ def resolve_single_attack_with_critical(
     Args:
         attacker_id: Attacker entity ID
         target_id: Target entity ID
-        attack_bonus: Attack bonus for this specific attack
+        attack_bonus: Fully adjusted attack bonus (BAB + conditions + mounted + terrain + feat)
         weapon: Weapon being used
-        target_ac: Target's AC
+        target_ac: Fully adjusted target AC (base + condition + cover)
         rng: RNG manager
         next_event_id: Next available event ID
         timestamp: Event timestamp
         attack_index: Index of this attack in the full attack sequence (0-based)
+        str_modifier: STR modifier for damage (PHB p.113)
+        condition_damage_modifier: CP-16 condition damage modifier
+        feat_damage_modifier: WO-034 feat damage modifier
+        base_attack_bonus_raw: Unadjusted BAB for this iterative (for audit trail)
+        condition_attack_modifier: CP-16 condition attack modifier (for audit trail)
+        mounted_bonus: CP-18A mounted bonus (for audit trail)
+        terrain_higher_ground: CP-19 terrain bonus (for audit trail)
+        feat_attack_modifier: WO-034 feat attack modifier (for audit trail)
+        target_base_ac: Base AC before modifiers (for audit trail)
+        target_ac_modifier: CP-16 defender condition AC modifier (for audit trail)
+        cover_type: CP-19 cover type string (for audit trail)
+        cover_ac_bonus: CP-19 cover AC bonus (for audit trail)
 
     Returns:
         Tuple of (events, next_event_id, damage_total)
@@ -152,7 +195,7 @@ def resolve_single_attack_with_critical(
         if confirmation_total >= target_ac:
             is_critical = True
 
-    # Emit attack_roll event
+    # Emit attack_roll event (WO-FIX-003: full modifier audit trail)
     events.append(Event(
         event_id=current_event_id,
         event_type="attack_roll",
@@ -162,17 +205,25 @@ def resolve_single_attack_with_critical(
             "target_id": target_id,
             "attack_index": attack_index,
             "d20_result": d20_result,
-            "attack_bonus": attack_bonus,
+            "attack_bonus": base_attack_bonus_raw,  # WO-FIX-003: raw BAB for this iterative
+            "condition_modifier": condition_attack_modifier,  # CP-16
+            "mounted_bonus": mounted_bonus,  # CP-18A
+            "terrain_higher_ground": terrain_higher_ground,  # CP-19
+            "feat_modifier": feat_attack_modifier,  # WO-034
             "total": total,
             "target_ac": target_ac,
+            "target_base_ac": target_base_ac,  # WO-FIX-003: base AC for audit
+            "target_ac_modifier": target_ac_modifier,  # CP-16
+            "cover_type": cover_type,  # CP-19
+            "cover_ac_bonus": cover_ac_bonus,  # CP-19
             "hit": hit,
-            "is_natural_20": (d20_result == 20),
+            "is_natural_20": is_natural_20,
             "is_natural_1": is_natural_1,
             "is_threat": is_threat,
-            "is_critical": is_critical,  # CP-11: New field (backward compatible with default False)
-            "confirmation_total": confirmation_total  # CP-11: New field (None if no confirmation)
+            "is_critical": is_critical,
+            "confirmation_total": confirmation_total
         },
-        citations=[{"source_id": "681f92bc94ff", "page": 143}]  # PHB attack rules
+        citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical hit rules
     ))
     current_event_id += 1
 
@@ -185,14 +236,16 @@ def resolve_single_attack_with_critical(
         damage_rolls = roll_dice(num_dice, die_size, rng)
         # PHB p.113: STR modifier applies to melee damage
         base_damage = sum(damage_rolls) + weapon.damage_bonus + str_modifier
+        # CP-16: condition damage modifier, WO-034: feat damage modifier
+        base_damage_with_modifiers = base_damage + condition_damage_modifier + feat_damage_modifier
 
-        # Apply critical multiplier if critical hit
+        # WO-FIX-002: Apply critical multiplier (PHB p.140)
         if is_critical:
-            damage_total = base_damage * weapon.critical_multiplier
+            damage_total = max(0, base_damage_with_modifiers * weapon.critical_multiplier)
         else:
-            damage_total = base_damage
+            damage_total = max(0, base_damage_with_modifiers)
 
-        # Emit damage_roll event
+        # Emit damage_roll event (WO-FIX-003: full modifier audit trail)
         events.append(Event(
             event_id=current_event_id,
             event_type="damage_roll",
@@ -205,12 +258,14 @@ def resolve_single_attack_with_critical(
                 "damage_rolls": damage_rolls,
                 "damage_bonus": weapon.damage_bonus,
                 "str_modifier": str_modifier,  # PHB p.113
-                "base_damage": base_damage,  # CP-11: New field (backward compatible)
-                "critical_multiplier": weapon.critical_multiplier if is_critical else 1,  # CP-11: New field
+                "condition_modifier": condition_damage_modifier,  # CP-16
+                "feat_modifier": feat_damage_modifier,  # WO-034
+                "base_damage": base_damage_with_modifiers,  # Pre-multiplier damage
+                "critical_multiplier": weapon.critical_multiplier if is_critical else 1,
                 "damage_total": damage_total,
                 "damage_type": weapon.damage_type
             },
-            citations=[{"source_id": "681f92bc94ff", "page": 145}]  # PHB damage rules
+            citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical/damage rules
         ))
         current_event_id += 1
 
@@ -232,10 +287,15 @@ def resolve_full_attack(
     Resolve a full attack action with multiple iterative attacks.
 
     This is the core CP-11 proof function. It:
-    1. Calculates iterative attack bonuses from BAB
-    2. Resolves each attack in sequence (attack roll → crit confirm → damage)
-    3. Accumulates damage to target HP
-    4. Checks for defeat after all attacks
+    1. Validates targeting legality (CP-18A-T&V)
+    2. Checks cover (CP-19, including total cover blocking)
+    3. Computes all modifiers once (conditions, mounted, terrain, cover, feats)
+    4. Calculates iterative attack bonuses from BAB
+    5. Resolves each attack in sequence (attack roll → crit confirm → damage)
+    6. Accumulates damage to target HP
+    7. Checks for defeat after all attacks
+
+    WO-FIX-003: All modifier layers now match attack_resolver.py's resolve_attack().
 
     Args:
         intent: Full attack intent with attacker/target/weapon/BAB
@@ -259,19 +319,89 @@ def resolve_full_attack(
     if intent.target_id not in world_state.entities:
         raise ValueError(f"Target not found in world state: {intent.target_id}")
 
-    # Get target AC and HP
+    # CP-18A-T&V: Validate targeting legality BEFORE any RNG access
+    legality = evaluate_target_legality(
+        actor_id=intent.attacker_id,
+        target_id=intent.target_id,
+        world_state=world_state,
+        max_range=100  # TODO: Use weapon range when available
+    )
+
+    if not legality.is_legal:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="targeting_failed",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "reason": legality.failure_reason.value,
+                "intent_type": "full_attack"
+            },
+            citations=[c.to_dict() for c in legality.citations]
+        ))
+        return events
+
+    # CP-19: Check cover between attacker and defender
+    from aidm.core.terrain_resolver import get_higher_ground_bonus, check_cover
+    cover_result = check_cover(world_state, intent.attacker_id, intent.target_id, is_melee=True)
+
+    # CP-19: If total cover, cannot target
+    if cover_result.blocks_targeting:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="targeting_failed",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "reason": "total_cover",
+                "intent_type": "full_attack"
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 150}]  # PHB cover rules
+        ))
+        return events
+
+    # CP-16: Get condition modifiers for attacker and defender
+    attacker_modifiers = get_condition_modifiers(world_state, intent.attacker_id, context="attack")
+    defender_modifiers = get_condition_modifiers(world_state, intent.target_id, context="defense")
+
+    # CP-18A: Get mounted higher ground bonus
+    from aidm.core.mounted_combat import get_mounted_attack_bonus
+    mounted_bonus = get_mounted_attack_bonus(intent.attacker_id, intent.target_id, world_state)
+
+    # CP-19: Get terrain higher ground bonus (stacks with mounted)
+    terrain_higher_ground = get_higher_ground_bonus(world_state, intent.attacker_id, intent.target_id)
+
+    # WO-034: Get feat-based attack modifier
+    from aidm.core.feat_resolver import get_attack_modifier, get_damage_modifier
+    attacker = world_state.entities[intent.attacker_id]
     target = world_state.entities[intent.target_id]
-    target_ac = target.get(EF.AC, 10)
+
+    feat_context = {
+        "weapon_name": "unknown",  # Placeholder until weapon tracking exists
+        "range_ft": 5,  # Assume melee range for now
+        "is_ranged": False,  # TODO: Detect from weapon type
+        "is_twf": False,  # TODO: Detect from attack intent
+        "power_attack_penalty": 0,  # TODO: Get from player choice
+        "is_two_handed": False,  # TODO: Detect from weapon grip
+    }
+    feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
+    feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)
+
+    # Get target AC (base AC + condition modifiers + cover bonus) — WO-FIX-003
+    base_ac = target.get(EF.AC, 10)
+    target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
+
     hp_current = target.get(EF.HP_CURRENT, 0)
 
     # PHB p.113: STR modifier applies to melee damage
-    attacker = world_state.entities[intent.attacker_id]
     str_modifier = attacker.get(EF.STR_MOD, 0)
 
     # Calculate iterative attacks
     attack_bonuses = calculate_iterative_attacks(intent.base_attack_bonus)
 
-    # Emit full_attack_start event
+    # Emit full_attack_start event (WO-FIX-003: include modifier audit trail)
     events.append(Event(
         event_id=current_event_id,
         event_type="full_attack_start",
@@ -281,7 +411,17 @@ def resolve_full_attack(
             "target_id": intent.target_id,
             "base_attack_bonus": intent.base_attack_bonus,
             "num_attacks": len(attack_bonuses),
-            "attack_bonuses": attack_bonuses
+            "attack_bonuses": attack_bonuses,
+            "condition_attack_modifier": attacker_modifiers.attack_modifier,  # CP-16
+            "condition_ac_modifier": defender_modifiers.ac_modifier,  # CP-16
+            "mounted_bonus": mounted_bonus,  # CP-18A
+            "terrain_higher_ground": terrain_higher_ground,  # CP-19
+            "cover_type": cover_result.cover_type,  # CP-19
+            "cover_ac_bonus": cover_result.ac_bonus,  # CP-19
+            "feat_attack_modifier": feat_attack_modifier,  # WO-034
+            "feat_damage_modifier": feat_damage_modifier,  # WO-034
+            "target_base_ac": base_ac,  # WO-FIX-003
+            "target_ac": target_ac,  # WO-FIX-003: fully adjusted AC
         },
         citations=[{"source_id": "681f92bc94ff", "page": 143}]  # PHB full attack
     ))
@@ -290,18 +430,38 @@ def resolve_full_attack(
     # Resolve each attack in sequence
     total_damage = 0
 
-    for attack_index, attack_bonus in enumerate(attack_bonuses):
+    for attack_index, raw_attack_bonus in enumerate(attack_bonuses):
+        # WO-FIX-003: Apply all modifiers to each iterative attack bonus
+        adjusted_attack_bonus = (
+            raw_attack_bonus +
+            attacker_modifiers.attack_modifier +
+            mounted_bonus +
+            terrain_higher_ground +
+            feat_attack_modifier
+        )
+
         attack_events, current_event_id, damage = resolve_single_attack_with_critical(
             attacker_id=intent.attacker_id,
             target_id=intent.target_id,
-            attack_bonus=attack_bonus,
+            attack_bonus=adjusted_attack_bonus,
             weapon=intent.weapon,
             target_ac=target_ac,
             rng=rng,
             next_event_id=current_event_id,
             timestamp=timestamp + 0.5 * attack_index,
             attack_index=attack_index,
-            str_modifier=str_modifier
+            str_modifier=str_modifier,
+            condition_damage_modifier=attacker_modifiers.damage_modifier,
+            feat_damage_modifier=feat_damage_modifier,
+            base_attack_bonus_raw=raw_attack_bonus,
+            condition_attack_modifier=attacker_modifiers.attack_modifier,
+            mounted_bonus=mounted_bonus,
+            terrain_higher_ground=terrain_higher_ground,
+            feat_attack_modifier=feat_attack_modifier,
+            target_base_ac=base_ac,
+            target_ac_modifier=defender_modifiers.ac_modifier,
+            cover_type=cover_result.cover_type,
+            cover_ac_bonus=cover_result.ac_bonus,
         )
 
         events.extend(attack_events)

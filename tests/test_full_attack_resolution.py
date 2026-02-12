@@ -813,3 +813,248 @@ def test_weapon_critical_range_validation():
     with pt.raises(ValueError):
         Weapon(damage_dice="1d8", damage_bonus=0, damage_type="slashing", critical_range=-1)
 
+
+# ==============================================================================
+# WO-FIX-003: MODIFIER INTEGRATION TESTS
+# ==============================================================================
+
+def test_full_attack_condition_modifier_affects_attack_bonus():
+    """WO-FIX-003: Shaken condition (-2 attack) must reduce hit probability in full attack.
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0311.txt
+    Rule: "A shaken character takes a -2 penalty on attack rolls."
+    """
+    from aidm.schemas.conditions import create_shaken_condition
+    from aidm.core.conditions import apply_condition
+
+    # Base: attacker with no conditions, high BAB to guarantee hits
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "fighter": {
+                "ac": 10, "hp_current": 50, "hp_max": 50,
+                "team": "party",
+            },
+            "goblin": {
+                "ac": 15, "hp_current": 30, "hp_max": 30,
+                "team": "monsters",
+            }
+        }
+    )
+
+    intent = FullAttackIntent(
+        attacker_id="fighter",
+        target_id="goblin",
+        base_attack_bonus=6,  # 2 attacks: +6/+1
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing")
+    )
+
+    # Run without condition
+    rng_clean = RNGManager(master_seed=42)
+    events_clean = resolve_full_attack(intent, world_state, rng_clean, next_event_id=0, timestamp=1.0)
+    attacks_clean = [e for e in events_clean if e.event_type == "attack_roll"]
+
+    # Apply shaken to attacker
+    shaken = create_shaken_condition(source="intimidate", applied_at_event_id=0)
+    shaken_state = apply_condition(world_state, "fighter", shaken)
+
+    rng_shaken = RNGManager(master_seed=42)
+    events_shaken = resolve_full_attack(intent, shaken_state, rng_shaken, next_event_id=0, timestamp=1.0)
+    attacks_shaken = [e for e in events_shaken if e.event_type == "attack_roll"]
+
+    # Same d20 rolls (same seed), but shaken totals should be 2 less
+    for clean, shaken_atk in zip(attacks_clean, attacks_shaken):
+        assert clean.payload["d20_result"] == shaken_atk.payload["d20_result"]
+        assert shaken_atk.payload["total"] == clean.payload["total"] - 2
+        assert shaken_atk.payload["condition_modifier"] == -2
+
+
+def test_full_attack_defender_condition_affects_ac():
+    """WO-FIX-003: Prone defender (-4 AC vs melee) must reduce effective AC in full attack.
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0311.txt
+    Rule: "A prone defender takes a -4 penalty to Armor Class against melee attacks."
+    """
+    from aidm.schemas.conditions import create_prone_condition
+    from aidm.core.conditions import apply_condition
+
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "fighter": {
+                "ac": 10, "hp_current": 50, "hp_max": 50,
+                "team": "party",
+            },
+            "goblin": {
+                "ac": 20, "hp_current": 30, "hp_max": 30,
+                "team": "monsters",
+            }
+        }
+    )
+
+    intent = FullAttackIntent(
+        attacker_id="fighter",
+        target_id="goblin",
+        base_attack_bonus=6,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing")
+    )
+
+    # Run against non-prone target
+    rng_clean = RNGManager(master_seed=42)
+    events_clean = resolve_full_attack(intent, world_state, rng_clean, next_event_id=0, timestamp=1.0)
+    attacks_clean = [e for e in events_clean if e.event_type == "attack_roll"]
+
+    # Apply prone to defender
+    prone = create_prone_condition(source="trip", applied_at_event_id=0)
+    prone_state = apply_condition(world_state, "goblin", prone)
+
+    rng_prone = RNGManager(master_seed=42)
+    events_prone = resolve_full_attack(intent, prone_state, rng_prone, next_event_id=0, timestamp=1.0)
+    attacks_prone = [e for e in events_prone if e.event_type == "attack_roll"]
+
+    # Prone target AC should be 4 less
+    for clean, prone_atk in zip(attacks_clean, attacks_prone):
+        assert prone_atk.payload["target_ac"] == clean.payload["target_ac"] - 4
+        assert prone_atk.payload["target_base_ac"] == 20
+        assert prone_atk.payload["target_ac_modifier"] == -4
+
+
+def test_full_attack_condition_damage_modifier_applied():
+    """WO-FIX-003: Sickened condition (-2 damage) must reduce damage in full attack.
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0312.txt
+    Rule: "A sickened character takes a -2 penalty on all ... damage rolls."
+    """
+    from aidm.schemas.conditions import create_sickened_condition
+    from aidm.core.conditions import apply_condition
+
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "fighter": {
+                "ac": 10, "hp_current": 50, "hp_max": 50,
+                "team": "party",
+            },
+            "goblin": {
+                "ac": 10, "hp_current": 50, "hp_max": 50,
+                "team": "monsters",
+            }
+        }
+    )
+
+    intent = FullAttackIntent(
+        attacker_id="fighter",
+        target_id="goblin",
+        base_attack_bonus=6,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing")
+    )
+
+    # Apply sickened to attacker
+    sickened = create_sickened_condition(source="poison", applied_at_event_id=0)
+    sick_state = apply_condition(world_state, "fighter", sickened)
+
+    rng = RNGManager(master_seed=42)
+    events = resolve_full_attack(intent, sick_state, rng, next_event_id=0, timestamp=1.0)
+    damage_events = [e for e in events if e.event_type == "damage_roll"]
+
+    for dmg in damage_events:
+        assert dmg.payload["condition_modifier"] == -2
+        # base_damage includes condition modifier, so verify it's embedded
+        raw_roll_sum = sum(dmg.payload["damage_rolls"]) + dmg.payload["damage_bonus"] + dmg.payload["str_modifier"]
+        assert dmg.payload["base_damage"] == raw_roll_sum + dmg.payload["condition_modifier"] + dmg.payload["feat_modifier"]
+
+
+def test_full_attack_event_audit_trail_includes_all_modifiers():
+    """WO-FIX-003: attack_roll events must include all modifier breakdown fields."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {
+                "ac": 10, "hp_current": 50, "hp_max": 50,
+                "team": "party",
+            },
+            "target": {
+                "ac": 15, "hp_current": 30, "hp_max": 30,
+                "team": "monsters",
+            }
+        }
+    )
+
+    intent = FullAttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        base_attack_bonus=11,  # 3 attacks
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing")
+    )
+
+    rng = RNGManager(master_seed=42)
+    events = resolve_full_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+    # Check full_attack_start has modifier fields
+    start = [e for e in events if e.event_type == "full_attack_start"][0]
+    assert "condition_attack_modifier" in start.payload
+    assert "condition_ac_modifier" in start.payload
+    assert "mounted_bonus" in start.payload
+    assert "terrain_higher_ground" in start.payload
+    assert "cover_type" in start.payload
+    assert "cover_ac_bonus" in start.payload
+    assert "feat_attack_modifier" in start.payload
+    assert "feat_damage_modifier" in start.payload
+    assert "target_base_ac" in start.payload
+    assert "target_ac" in start.payload
+
+    # Check attack_roll events have modifier breakdown
+    attack_events = [e for e in events if e.event_type == "attack_roll"]
+    for atk in attack_events:
+        required_fields = [
+            "attack_bonus", "condition_modifier", "mounted_bonus",
+            "terrain_higher_ground", "feat_modifier",
+            "target_ac", "target_base_ac", "target_ac_modifier",
+            "cover_type", "cover_ac_bonus",
+        ]
+        for field in required_fields:
+            assert field in atk.payload, f"Missing field: {field}"
+
+    # Check damage_roll events have modifier breakdown
+    damage_events = [e for e in events if e.event_type == "damage_roll"]
+    for dmg in damage_events:
+        assert "condition_modifier" in dmg.payload
+        assert "feat_modifier" in dmg.payload
+
+
+def test_full_attack_targeting_fails_when_illegal():
+    """WO-FIX-003: Full attack should emit targeting_failed if target is out of range.
+
+    This guards against the pre-FIX-003 behaviour where full attack bypassed
+    targeting legality entirely.
+    """
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {
+                "ac": 10, "hp_current": 50,
+                "team": "party",
+                "position": {"x": 0, "y": 0},
+            },
+            "target": {
+                "ac": 15, "hp_current": 30,
+                "team": "monsters",
+                "position": {"x": 999, "y": 999},  # Very far away
+            }
+        }
+    )
+
+    intent = FullAttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        base_attack_bonus=6,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing")
+    )
+
+    rng = RNGManager(master_seed=42)
+    events = resolve_full_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+    # Should have targeting_failed event and no attack_roll events
+    assert any(e.event_type == "targeting_failed" for e in events)
+    assert not any(e.event_type == "attack_roll" for e in events)
+
