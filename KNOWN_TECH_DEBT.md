@@ -7,7 +7,7 @@ fix these items waste context, break tests, and introduce regressions.
 
 REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/KNOWN_TECH_DEBT.md
 
-LAST UPDATED: M1 Infrastructure (1712 tests)
+LAST UPDATED: 2026-02-13 (5,144 tests)
 -->
 
 # Known Technical Debt

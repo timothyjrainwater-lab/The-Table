@@ -135,7 +135,7 @@ PROPOSED HANDLING:
 - Document in CP-18A decisions file
 - Add integration test: test_haste_slow_cancellation()
 
-DOCUMENTING IN CP18A_DECISIONS.md BEFORE MERGE.
+DOCUMENTING IN docs/decisions/ (relevant CP18A decisions file) BEFORE MERGE.
 ```
 
 ---
@@ -308,7 +308,7 @@ AWAITING EXPLICIT APPROVAL BEFORE PROCEEDING WITH ANY OPTION.
 ```
 
 **Human Response:**
-"Approved: Option 2 (degraded implementation). Enlarge/Reduce Person = CP-16 temporary ability modifiers only. Add note to manifest. Document limitation in CP18A_DECISIONS.md."
+"Approved: Option 2 (degraded implementation). Enlarge/Reduce Person = CP-16 temporary ability modifiers only. Add note to manifest. Document limitation in relevant docs/decisions/ or docs/cp18/ file."
 
 ---
 
@@ -359,7 +359,7 @@ Handling:
 - If shield active → damage_negated event, no hp_changed
 - Test: test_magic_missile_vs_shield()
 
-DOCUMENTED IN: docs/CP18A_DECISIONS.md
+DOCUMENTED IN: relevant docs/decisions/ or docs/cp18/ file
 SELF-APPROVED: Low risk, clear PHB ruling, deterministic
 FLAGGED FOR REVIEW: In PR
 ```

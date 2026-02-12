@@ -1,6 +1,6 @@
 # CURRENT CANON -- Authoritative Document Index
 
-**Effective Date:** 2026-02-12 (RWO-003: Documentation Canonicalization)
+**Effective Date:** 2026-02-13 (Wave 1-3 WO integration + PM hygiene)
 **Author:** Opus (PM)
 **Purpose:** A single reference that tells any agent which documents are authoritative, which are historical, and how to resolve conflicts between them.
 
@@ -40,7 +40,8 @@ These documents reflect the current state of the project and are actively mainta
 |----------|------|-------|-------|
 | Project Compass | `PROJECT_COMPASS.md` | Rehydration hub — thesis, architecture, grounded status, roadmap, conventions, directory map, deep dive index | Entry point for fresh agents. Summary-level. Points to all deep dives. |
 | Project State Digest (PSD) | `PROJECT_STATE_DIGEST.md` | What is built, test counts, module inventory, governance model | Updated every WO integration. 500-line size gate enforced. |
-| Execution Plan v2 | `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Active 4-phase plan (Brain, Content Breadth, Session Playability, Playtest) | Approved by PO 2026-02-11. Phases 1-3 delivered. |
+| Execution Plan v2 | `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` | Active 4-phase plan (Brain, Content Breadth, Session Playability, Playtest) | Approved by PO 2026-02-11. Phases 1-3 delivered. Superseded by Revised Program Sequencing for phase ordering. |
+| Revised Program Sequencing | `docs/planning/REVISED_PROGRAM_SEQUENCING_2026_02_12.md` | 5-phase roadmap (Phase 0-4) with product pivot to content independence | Active roadmap. Phase 0 mostly complete, Phase 1 partially started. |
 | Agent Onboarding Checklist | `AGENT_ONBOARDING_CHECKLIST.md` | Step-by-step reading order for new agents | First file any new agent must read. |
 | Agent Development Guidelines | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards, boundary laws, pitfall avoidance | Binding on all implementation work. |
 | Agent Communication Protocol | `AGENT_COMMUNICATION_PROTOCOL.md` | How agents flag concerns, gates, scope creep | Binding on all agent communication. |

@@ -311,7 +311,7 @@ pm_inbox/         Deliverables awaiting PM review (agents write here)
 | Onboarding step-by-step | `AGENT_ONBOARDING_CHECKLIST.md` |
 | Document precedence | `docs/CURRENT_CANON.md` |
 | Known tech debt | `KNOWN_TECH_DEBT.md` |
-| PM session history | `docs/planning/PM_SESSION_STATUS_2026_02_12.md` |
+| PM session history | `docs/planning/PM_SESSION_STATUS_2026_02_13.md` |
 | Roadmap (5-phase) | `docs/planning/REVISED_PROGRAM_SEQUENCING_2026_02_12.md` |
 | MVP definition | `docs/specs/MVP_SESSION_ZERO_TO_ONE_COMBAT.md` |
 | UX north star (physical table) | `docs/specs/UX_VISION_PHYSICAL_TABLE.md` |

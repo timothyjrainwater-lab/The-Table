@@ -7,7 +7,7 @@ that MUST be followed to maintain project integrity.
 
 REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/AGENT_DEVELOPMENT_GUIDELINES.md
 
-LAST UPDATED: M1 Infrastructure (1712 tests, BL-017/018/020)
+LAST UPDATED: 2026-02-13 (5,144 tests, BL-017/018/020)
 -->
 
 # Agent Development Guidelines
