@@ -1,0 +1,347 @@
+## 1) Top 10 Fixes (Strict Priority Order + Dependencies)
+
+### 1. **GAP-001 – Complete AoO Provocation Matrix (Ranged + Spellcasting)**
+
+**Depends on:** none
+**Unblocks:** Ranged intents, Spellcasting interrupt correctness, Concentration on damage scenarios
+
+### 2. **GAP-002 – Replace Weapon Range Stub with RAW Range Model**
+
+**Depends on:** none
+**Unblocks:** AoO completeness validation, Cover/LoS correctness, Ranged attack penalties
+
+### 3. **GAP-003 – Integrate Temporary Modifiers into Derived Stats**
+
+**Depends on:** none
+**Unblocks:** AC/Attack/Skill/Saves correctness, Spell buff/debuff validation
+
+### 4. **GAP-004 – Authoritative AC/HP Recompute System**
+
+**Depends on:** GAP-003 (derived modifier source of truth)
+**Unblocks:** Reliable stacking, damage/healing correctness
+
+### 5. **GAP-006 – RAW Spell Scenario Suite (not just registry tests)**
+
+**Depends on:** GAP-001, GAP-002, GAP-003
+**Unblocks:** Trustworthy spell mechanics coverage
+
+### 6. Terminology Hardening (“Cantrip” → “0-level spell”)
+
+**Depends on:** none
+
+### 7. Concentration Semantics Lock (explicitly prohibit 5e-style limiter)
+
+**Depends on:** none
+
+### 8. Add RAW Coverage Matrix Doc (system-level coverage visibility)
+
+**Depends on:** 1–5 partially
+
+### 9. Expand AoE Edge Geometry Scenario Tests
+
+**Depends on:** 2
+
+### 10. Derived Stat Regression Suite (stacking matrix coverage expansion)
+
+**Depends on:** 3–4
+
+---
+
+# 2) Full Remediation Work Packets (Top 5)
+
+---
+
+## WORK PACKET 1 — AoO Provocation Completeness (GAP-001)
+
+### Objective
+
+Implement and validate full 3.5e AoO provocation triggers for ranged attacks and spellcasting.
+
+### Scope
+
+**IN:**
+
+* AoO provocation logic in `aidm/core/aoo.py`
+* Interaction with `attack_resolver.py` and spellcasting intent
+* Concentration checks triggered by AoO damage
+
+**OUT:**
+
+* Grapple-based AoO variants
+* Exotic feats modifying AoO
+
+### Artifacts Touched
+
+* `aidm/core/aoo.py`
+* `aidm/core/attack_resolver.py`
+* Spell intent handling module
+* Tests under `tests/core/test_aoo_*`
+
+### Step Plan
+
+1. Extract existing movement-based AoO trigger logic.
+2. Define canonical provocation event list (RAW matrix).
+3. Add ranged attack provocation path.
+4. Add spellcasting provocation path.
+5. Ensure damage-triggered concentration checks fire.
+6. Validate interaction ordering with event log.
+7. Add replay verification for new paths.
+8. Update Known Tech Debt doc to close TD-005.
+
+### Acceptance Criteria
+
+* Casting in threatened square triggers AoO.
+* Ranged attack in threatened square triggers AoO.
+* Concentration check DC = 10 + damage works.
+* Replay hash unchanged for prior test corpus.
+
+### New Tests
+
+* `test_aoo_spellcasting_provokes()` – proves casting in threat causes AoO.
+* `test_aoo_ranged_provokes()` – proves ranged attack provokes.
+* `test_concentration_after_aoo_damage()` – proves damage triggers check.
+
+### Rollback Plan
+
+Revert provocation additions; restore prior AoO movement-only behavior.
+
+### Stop Conditions
+
+* If provocation ordering breaks determinism (hash drift), halt.
+* If spell intent cannot represent provoking action cleanly, escalate.
+
+---
+
+## WORK PACKET 2 — Weapon Range Model (GAP-002)
+
+### Objective
+
+Replace hard-coded `max_range=100` with RAW 3.5e range increment system.
+
+### Scope
+
+**IN:**
+
+* Weapon schema update
+* `attack_resolver.py` distance checks
+
+**OUT:**
+
+* Spell range categories (separate track)
+
+### Artifacts
+
+* Weapon schema module
+* `aidm/core/attack_resolver.py`
+* Tests in `tests/core/test_ranged_*`
+
+### Step Plan
+
+1. Add range increment + max range fields to weapon schema.
+2. Implement increment penalty logic.
+3. Enforce max range rejection.
+4. Integrate with LoS/cover gates.
+5. Replay verify existing melee tests unaffected.
+6. Add regression tests for increments.
+
+### Acceptance Criteria
+
+* Increment penalties stack correctly.
+* Out-of-range attacks rejected.
+* No regression in melee scenarios.
+
+### New Tests
+
+* `test_range_increment_penalty()`
+* `test_out_of_range_rejected()`
+* `test_thrown_weapon_range()`
+
+### Rollback
+
+Restore stub; revert schema.
+
+### Stop Conditions
+
+* If schema migration breaks serialization compatibility, escalate.
+
+---
+
+## WORK PACKET 3 — Temporary Modifier Integration (GAP-003)
+
+### Objective
+
+Ensure temporary ability and condition modifiers propagate into derived stats.
+
+### Scope
+
+**IN:**
+
+* `permanent_stats.py`
+* Condition integration layer
+
+**OUT:**
+
+* Redesign of condition stacking system
+
+### Artifacts
+
+* `aidm/core/permanent_stats.py`
+* Condition module
+* Tests under `tests/core/test_derived_stats_*`
+
+### Step Plan
+
+1. Identify current derived stat calculation path.
+2. Replace `temp_total=0` stub with condition lookup.
+3. Ensure stacking precedence defined.
+4. Add derived stat recalculation trigger.
+5. Validate replay invariance.
+6. Add regression tests.
+
+### Acceptance Criteria
+
+* STR buff modifies attack/damage.
+* DEX debuff modifies AC and Reflex.
+* Deterministic replay preserved.
+
+### New Tests
+
+* `test_temp_str_affects_attack()`
+* `test_temp_dex_affects_ac()`
+* `test_condition_stack_precedence()`
+
+### Rollback
+
+Restore stub logic.
+
+### Stop Conditions
+
+* If stacking rules ambiguous, escalate to rules decision log.
+
+---
+
+## WORK PACKET 4 — Authoritative AC/HP Recompute (GAP-004)
+
+### Objective
+
+Implement full RAW AC stacking and HP recompute pipeline.
+
+### Scope
+
+**IN:**
+
+* AC stacking components
+* HP recompute logic
+
+**OUT:**
+
+* House rules
+* Non-core prestige variants
+
+### Artifacts
+
+* `permanent_stats.py`
+* Combat state module
+* Tests under `tests/core/test_ac_*`
+
+### Step Plan
+
+1. Define AC stacking matrix (armor/shield/natural/dodge/etc.).
+2. Implement authoritative recompute function.
+3. Integrate with derived stat layer.
+4. Implement HP recompute with CON changes.
+5. Validate event sourcing stability.
+6. Add stacking regression matrix tests.
+
+### Acceptance Criteria
+
+* Correct stacking precedence validated.
+* HP recalculates on CON changes correctly.
+
+### New Tests
+
+* `test_ac_stacking_matrix()`
+* `test_hp_recompute_on_con_change()`
+
+### Rollback
+
+Disable recompute path; restore previous static model.
+
+### Stop Conditions
+
+* If stacking model contradicts earlier design docs, escalate.
+
+---
+
+## WORK PACKET 5 — RAW Spell Scenario Suite (GAP-006)
+
+### Objective
+
+Add end-to-end RAW scenario tests for spell mechanics beyond registry validation.
+
+### Scope
+
+**IN:**
+
+* SpellResolver
+* DurationTracker
+* AoE Rasterizer
+
+**OUT:**
+
+* New spells
+
+### Artifacts
+
+* `tests/scenarios/test_spell_raw_*`
+* SpellResolver module
+
+### Step Plan
+
+1. Define 10 canonical RAW spell scenarios (SR, save negates/half, AoE, buffs, damage).
+2. Encode as deterministic scenario tests.
+3. Capture golden event log/state hash.
+4. Validate replay invariance.
+5. Add CI gate.
+
+### Acceptance Criteria
+
+* All scenarios pass deterministically.
+* Event logs match expected resolution.
+
+### New Tests
+
+* `test_spell_sr_block()`
+* `test_spell_save_half_damage()`
+* `test_spell_aoe_edge_case()`
+* `test_spell_buff_duration_expires()`
+
+### Rollback
+
+Remove scenario tests if unstable; revert to prior test baseline.
+
+### Stop Conditions
+
+* If core mechanics missing (SR/CL), escalate before implementing scenarios.
+
+---
+
+# 3) Single Highest-Risk Unknown
+
+### Risk
+
+Whether **Spell Resistance, Damage Reduction, concealment/miss chance, and touch attacks** are actually implemented and tested RAW.
+
+If missing or partially implemented, GAP-006 (spell scenario suite) will expose systemic failures requiring broader redesign.
+
+### Fastest Resolution Method
+
+1. Inspect `spell_resolver.py` and `attack_resolver.py` for SR, DR, concealment hooks.
+2. Run test search for: `SR`, `damage_reduction`, `concealment`, `touch_attack`.
+3. Confirm existence of deterministic scenario tests for each.
+
+If absent → escalate immediately before executing the spell scenario packet.
+
+---
+
+This plan is merge-ready and bounded strictly to the existing Gap Register findings.

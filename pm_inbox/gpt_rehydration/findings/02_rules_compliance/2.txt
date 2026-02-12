@@ -1,0 +1,111 @@
+## 5e contamination risk hotspots (where future work is most likely to “accidentally 5e”)
+
+1. **Rest / healing / recovery loops**
+
+   * You *do* explicitly encode 3.5e natural healing rates and warn “NOT 5e” (SceneManager).
+   * Risk is later UX/features quietly introducing 5e semantics: *short/long rest*, *hit dice spending*, *spell recovery rules*, etc.
+   * Where it shows up: Rest types + healing math in SceneManager; 3.5e rest guidance in dev guidelines.
+
+2. **“Concentration”**
+
+   * In 3.5e, concentration is a **skill check** and also a **spell property** (“concentration duration”), but it is **not** the 5e “one concentration spell at a time” global limiter.
+   * You already have **Concentration skill** and “DC = 10 + damage” integration; you also label spells as “concentration spells” in the registry.
+   * The label itself is the risk: future implementers may accidentally add a 5e-style global concentration slot.
+   * Where it shows up: Skill system + Spellcasting system + expanded spell registry notes.
+
+3. **“Cantrips” terminology**
+
+   * 3.5e has **0-level spells** that still consume slots (unless special cases). You use “cantrips” language in state docs.
+   * Risk: someone implements “at-will cantrips” (5e) rather than 3.5 slot usage.
+   * Where it shows up: Expanded Spell Registry summary (“4 cantrips”).
+
+4. **Stealth / perception vocabulary**
+
+   * 3.5e uses **Spot/Listen** and **Hide/Move Silently**, not 5e Perception/Stealth skills.
+   * You correctly implement the 3.5 set, but later UI/intent language (“perception check”, “stealth check”) could map incorrectly.
+   * Where it shows up: Skill system (7 combat-adjacent skills).
+
+5. **Action economy naming creep**
+
+   * 5e’s “bonus action/reaction” terms are a frequent contamination vector.
+   * Your runtime uses explicit turn orchestration and AoO mechanics; a future “reaction” API could accidentally become 5e-like.
+   * Where it shows up: AoO system + SessionOrchestrator/IntentBridge expansions.
+
+---
+
+## Highest-risk 3.5e RAW misinterpretations (even without 5e creep)
+
+1. **Attacks of Opportunity coverage is *incomplete* (RAW gap)**
+
+   * Current AoO is **movement-triggered only**.
+   * 3.5e RAW includes provocation from **ranged attacks** and **spellcasting** (plus other actions).
+   * This is explicitly tracked as blocked tech debt: AoO provocation TODOs for ranged/spellcasting.
+   * Impact: mechanical outcomes (interrupts, damage, concentration checks) will be wrong in many real combats until this is done.
+
+2. **Weapon range / ranged combat envelope is not real yet**
+
+   * Attack resolver uses a hard-coded `max_range=100` placeholder because weapon schema lacks range.
+   * This effectively collapses “in range?” correctness and will mask downstream bugs in cover/LoS/LoE + ranged increments.
+
+3. **Temporary modifiers not integrated into permanent stat computation**
+
+   * Permanent stats explicitly stub temporary condition modifiers to `0`.
+   * That means many 3.5 staples (ability buffs/debuffs, condition-based temp mods) won’t affect derived mechanics (attack, AC, skills) unless separately applied elsewhere.
+   * This risks subtle correctness bugs: results may look plausible but won’t be RAW.
+
+4. **AC / HP “full recalculation” not designed**
+
+   * There are explicit stubs for “full AC recalculation” and “HP calculation when HP system available.”
+   * If current combat relies on partial/simple AC/HP logic, edge cases like size changes, armor/shield stacking rules, natural armor vs deflection, etc., can drift from RAW when additional systems come online.
+
+5. **Cover / LoS / LoE correctness is sensitive**
+
+   * You fixed a specific LoS geometric bug (good), but ranged/casting will stress this more than melee.
+   * The risk is *not* the geometry engine per se; it’s missing integration with weapon ranges, cover types, concealment, and “what counts as line of effect” for different spell shapes.
+
+---
+
+## “Specified but untested” (or: specified, but tests don’t cover the real RAW surface)
+
+These are the places your docs indicate *structure exists*, but correctness is not actually exercised end-to-end yet:
+
+1. **AoO provocation (ranged + spellcasting)**
+
+   * **Specified:** TODOs exist, and the system acknowledges missing triggers.
+   * **Untested:** No tests can exist until ranged/spellcasting intents are added (explicitly blocked).
+
+2. **Weapon/equipment-driven range and AoO parameters**
+
+   * **Specified:** tech debt notes weapon params should come from equipment; weapon schema lacks range.
+   * **Untested:** any test suite today can’t validate range increments, threatened area interactions, or “reach vs ranged” provocation properly.
+
+3. **Temporary modifier stacking into derived stats (AC/attack/skills/saves)**
+
+   * **Specified:** there is a dedicated integration stub.
+   * **Untested:** because the integration is currently hardwired to zero, you cannot have tests that validate buff/debuff correctness through the derived-stat pipeline.
+
+4. **AC recomputation system (full RAW stacking model)**
+
+   * **Specified:** explicit placeholder location for future full AC recalc.
+   * **Untested:** until the full AC system exists, tests may validate *some* AC usage but not “the actual 3.5 AC stack rules” as a system.
+
+5. **Expanded spells are declarative-only**
+
+   * **Specified:** 53 spell definitions exist; registry tests exist.
+   * **Untested (mechanically):** those tests can validate schema/registration, but **not RAW resolution** unless each spell’s mechanics are exercised through SpellResolver + DurationTracker + AoE rasterizer with scenario tests.
+
+---
+
+## Where RAW coverage is likely still missing (even if nothing contradicts docs)
+
+Based on what is *not mentioned as implemented+tested* in your state summary, these are common 3.5 correctness traps to explicitly confirm with targeted audits:
+
+* **Concealment vs cover** (miss chance, precision damage interactions)
+* **Spell Resistance & caster level checks**
+* **Damage Reduction & energy resistance**
+* **Grapple sub-rules** (size, reach, escape, action restrictions)
+* **Readied actions / delays / interrupts** (often hard for deterministic engines)
+* **Touch attacks / incorporeal / flat-footed nuances**
+* **Condition interaction edge cases** (stacking, immunity, duration precedence)
+
+If you want, I can turn this into a **mechanical correctness audit checklist** keyed to the specific subsystems you claim implemented (CP-10..19, spell pipeline, maneuvers) and the highest-value “RAW scenario tests” to demand from Opus’ audit—without proposing code.

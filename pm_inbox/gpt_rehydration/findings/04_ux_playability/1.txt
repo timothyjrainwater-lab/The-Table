@@ -1,0 +1,194 @@
+According to a document from **2026-02-11**, here is the consolidated register.
+
+# AIDM Research Gap Register
+
+## Section 1: Critical Path Blockers
+
+### RG-001 — Define the missing “Scene Fact Pack” (or its replacement) contract
+
+* **Question:** What *exact* structured output contract must Spark emit for **constrained scene generation** and/or downstream narrative assembly (the docs reference a “Scene Fact Pack schema” as missing, and also reference a Box→STP→Lens→NarrativeBrief→Spark valve)?
+* **Source:** Execution plan notes “Awaiting RQ-SPARK-001 findings for full Scene Fact Pack schema.” and explicitly lists “Scene Fact Pack schema” as *NOT DELIVERED* under RQ-SPARK-001.
+* **Blocks:** Real Spark LLM integration (Step 3.1), constrained scene generation (Step 3.3), and anything expecting an authoritative scene-structure emission path.
+* **Research Type:** **Decision + Prototype**
+* **Recommended Approach:** Produce a single “output-space spec” (schemas + allowed fields + validation rules) and then prototype with 2–3 local models to confirm it can be emitted reliably under Grammar Shield + validation.
+* **Estimated Scope:** **Large (weeks)**
+
+### RG-002 — Synthesize RQ-SPARK-001 into actionable “prompting + validation loop” guidance
+
+* **Question:** What is the final, unified operational pattern for “structured fact emission” (prompts, stop conditions, retries, validation loops) compatible with SparkAdapter/Grammar Shield?
+* **Source:** RQ-SPARK-001 is repeatedly flagged as **NOT DELIVERED** and a direct blocker for Step 3 sub-steps (real model loading + constrained scene generation).
+* **Blocks:** Same as RG-001, plus production readiness for “Spark narrates from STPs (not templates)” in slice-like runs.
+* **Research Type:** **Synthesis (Decision + Empirical)**
+* **Recommended Approach:** Collate the three sub-findings into a single synthesis doc with: failure taxonomy, recommended loop, and “ship thresholds” (schema compliance rate, retry bounds, latency).
+* **Estimated Scope:** **Medium (days)**
+
+### RG-003 — Synthesize RQ-NARR-001 into an “allowed narration output space” spec
+
+* **Question:** What is the “allowed output space” for narration that preserves determinism/truth while improving beyond 55 templates (tone controls, what can/can’t be said, what must be cited)?
+* **Source:** RQ-NARR-001 is **NOT DELIVERED** and explicitly blocks “Guarded LLM narration.”
+* **Blocks:** Narration upgrade path (“Replace 55 templates with guarded LLM narration”) and consistent “One-Way Knowledge Valve: Box→STP→Lens→NarrativeBrief→Spark.”
+* **Research Type:** **Decision + Prototype**
+* **Recommended Approach:** Define narration constraints as a contract (claims must be grounded in STPs/citations; banned content; tone knobs), then run adversarial prompt tests to confirm guardrails contain it.
+* **Estimated Scope:** **Medium (days)**
+
+### RG-004 — Voice reference sourcing + archetype recipes for cloning
+
+* **Question:** What is the legally clean, high-quality sourcing strategy for reference clips, and what parameter “recipes” produce stable archetypes (narrator, dwarf, elf, villain, etc.)?
+* **Source:** WO-051 enumerates required outputs: quality guidelines, archetype recipe table with exact parameter ranges, sourcing strategy (LibriVox/VCTK/Common Voice/etc.), DSP transforms, and community survey.
+* **Blocks:** Any credible “characters don’t all sound the same” milestone; also blocks a meaningful voice resolver policy because there are no canonical voice assets to resolve *to*.
+* **Research Type:** **Literature + Community + Empirical**
+* **Recommended Approach:** Build a shortlist of 20–40 candidate clips (license-vetted), then run quick A/B cloning trials to map clip traits → VoicePersona parameter presets.
+* **Estimated Scope:** **Large (weeks)**
+
+### RG-005 — Entity identity lifecycle and “generational GUIDs” semantics (Lens↔Box consistency)
+
+* **Question:** What are the semantics for “generational GUIDs + JML lifecycle” (split/merge handling, part-whole hierarchy) and how are renames/deletes represented so Lens indexing stays correct over time?
+* **Source:** Execution plan calls out “Generational GUIDs + JML lifecycle… split/merge handling, hierarchyid for part-whole relationships.”
+* **Blocks:** Robust Lens indexing over sessions; prevents subtle state/reference drift in narration/scene indexing once sessions become long-running.
+* **Research Type:** **Design decision**
+* **Recommended Approach:** Treat as an identity and provenance policy brief: define operations (create, rename, delete, split, merge) and required invariants, then validate against event-sourcing/replay constraints.
+* **Estimated Scope:** **Medium (days)**
+
+---
+
+## Section 2: Design Decisions Needed (trade-offs explicit)
+
+### DD-001 — Spark integration strategy: llama-cpp-python vs Ollama vs (both)
+
+* **Decision:** Which local serving path is the “reference” integration (and what is the swappability abstraction boundary)?
+* **Source:** Step 3.1 explicitly lists “Wire up llama-cpp-python or Ollama” as the model-loading task under Spark integration.
+* **Key tension:**
+
+  * *llama-cpp-python* favors tight embedding + deterministic controls;
+  * *Ollama* favors operational simplicity and model management;
+  * supporting both increases surface area and test matrix.
+* **Research Type:** **Decision + Empirical (benchmark)**
+* **Approach:** Compare cold-start time, steady-state latency, and schema compliance (with Grammar Shield) on the target hardware profile.
+
+### DD-002 — Geometry “hot path” optimization thresholds (Python-only vs accelerate)
+
+* **Decision:** What scale triggers optimization work, and what is the acceptable p95 for visibility/cover computations at larger combatant counts?
+* **Source:** The plan states Python already exceeds targets by 10× and no C extension needed “at current scale,” but leaves a decision point if targeting 50+ combatants or <10ms pairwise visibility.
+* **Research Type:** **Empirical + Decision**
+* **Approach:** Benchmark at 10/20/50 combatants with representative maps; set a formal “optimize/no-optimize” threshold.
+
+### DD-003 — Provenance tiering policy and conflict resolution (Box vs Player vs Spark vs Default)
+
+* **Decision:** When facts conflict across tiers, what wins, and how are conflicts recorded and surfaced?
+* **Source:** Lens provenance requires tier tagging “Box/Canonical > Player > Spark > Default.”
+* **Research Type:** **Design decision**
+* **Approach:** Specify conflict-handling outcomes: reject, quarantine, or annotate; tie directly to fail-closed posture.
+
+---
+
+## Section 3: Empirical Unknowns (benchmarks / hardware validation)
+
+### EU-001 — Real-world Spark latency + schema compliance under Grammar Shield
+
+* **Unknown:** Can local models reliably emit required structured outputs with acceptable latency and low retry rates?
+* **Source:** Real Spark integration is described as infrastructure-ready but blocked by RQ-SPARK-001; Grammar Shield strategy is referenced but not validated here.
+* **Approach:** Run a benchmark suite: schema compliance rate, retries, token/sec, and tail latency.
+
+### EU-002 — End-to-end “Prep vs Play” runtime budgets on target hardware
+
+* **Unknown:** The architecture separates long-running prep from fast deterministic play, but there’s no measurement proving the orchestration meets the “fast play” goal once Spark + immersion are in real use.
+* **Source:** README defines the prep/play split and implies play must be fast/deterministic while prep can be slow/thorough.
+* **Approach:** Instrument full play-loop timing under realistic scenes (combat active vs not), including any load/unload events.
+
+### EU-003 — Voice cloning: minimum clip quality, length, and diversity needed for distinct characters
+
+* **Unknown:** What clip properties produce stable distinct voices without artifacts, and how many archetypes can be derived from a limited library?
+* **Source:** WO-051 frames “what degrades quality,” “format requirements,” and demands archetype recipes with parameter ranges.
+* **Approach:** Controlled A/B cloning tests on a standardized script with MOS-style internal ratings.
+
+---
+
+## Section 4: Knowledge Gaps (Literature / Community)
+
+### KG-001 — Legal/ethical sourcing patterns for voice reference clips in hobby/desktop deployments
+
+* **Source:** WO-051 explicitly calls for license notes per source and identifies candidate datasets/sources.
+* **Research Type:** **Literature + Community**
+* **Approach:** Build a short legal matrix (license, attribution needs, redistribution limits, commercial ambiguity).
+
+### KG-002 — Community “golden settings” for voice cloning and character voice acting workflows
+
+* **Source:** WO-051 calls out RVC Discord, voice acting forums, and project surveys as required inputs.
+* **Research Type:** **Community**
+* **Approach:** Curate consensus presets and note failure modes; map them to the project’s VoicePersona controls.
+
+---
+
+## Section 5: Implicit Assumptions (hand-waves / undefined protocols)
+
+### IA-001 — “NarrativeBrief” is referenced as a core valve stage but not defined here
+
+* **Assumption:** The pipeline “Box→STP→Lens→NarrativeBrief→Spark” is treated as concrete, but the register-able contract for NarrativeBrief (fields, token budgeting, provenance carry-through) is not present in the cited docs.
+* **Source:** Explicitly referenced as the narration upgrade path / one-way valve.
+
+### IA-002 — JIT Fact Acquisition fallback semantics assume DEFAULT_ROOM_TEMPLATES adequacy
+
+* **Assumption:** The plan references a fallback to DEFAULT_ROOM_TEMPLATES, but doesn’t define sufficiency criteria (“when is default acceptable” vs “must block”).
+* **Source:** “JIT Fact Acquisition … Fallback to DEFAULT_ROOM_TEMPLATES.”
+
+### IA-003 — Lens event-sourcing integration assumes adaptive snapshotting policy is known
+
+* **Assumption:** “Adaptive snapshotting per LENS-001 Finding 4” is referenced but the policy (trigger conditions, frequency, determinism concerns) is not defined in these files.
+* **Source:** “Event sourcing integration… Adaptive snapshotting…”
+
+---
+
+## Section 6: Research Synthesis Opportunities (RQ-SPARK-001, RQ-NARR-001)
+
+### What a proper RQ-SPARK-001 synthesis should contain
+
+* **It must answer:**
+
+  1. What is the *final* structured emission schema (Scene Fact Pack / Room Schema population contract)?
+  2. What is the recommended emission loop (prompt → validate → retry → stop), including retry bounds and failure handling?
+  3. What are the “ship thresholds” (schema compliance %, latency p95, max retries) for the target models?
+
+### What a proper RQ-NARR-001 synthesis should contain
+
+* **It must answer:**
+
+  1. What narration output space is permitted (grounding requirements to STPs, disallowed claims, tone knobs)?
+  2. How tone control is implemented without leaking authority back into mechanics (fail-closed narrative errors).
+  3. Evaluation method: how to score narration quality vs truthfulness without human-heavy processes.
+
+---
+
+## Section 7: Dependency Map (optimal research execution order)
+
+| Upstream Research                                         | Enables                                                         | Downstream work impacted                                       |
+| --------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| **RG-001 Scene Fact Pack / structured emission contract** | Reliable constrained scene generation & structured Spark output | Spark integration (real), scene generation, narrative assembly |
+| **RG-002 RQ-SPARK-001 synthesis**                         | Operational prompting + validation loops                        | Same as above; reduces integration risk                        |
+| **RG-003 RQ-NARR-001 synthesis**                          | Guarded narration upgrade path                                  | Replace templates with guarded narration                       |
+| **DD-001 Spark serving choice + EU-001 benchmarking**     | Stable serving stack + performance expectations                 | All Spark runtime behaviors                                    |
+| **RG-005 identity lifecycle policy**                      | Durable Lens indexing over time                                 | Session playability & long-run correctness                     |
+| **RG-004 voice sourcing + recipes**                       | Distinct character voices                                       | Voice pipeline credibility & any resolver policy               |
+
+**Recommended execution order:** RG-001 → RG-002 → EU-001/DD-001 in parallel → RG-003 → RG-005 → RG-004.
+
+---
+
+## Section 8: Top 10 Highest-Impact Research Questions (ranked)
+
+1. **RG-001** — Final structured emission contract (Scene Fact Pack / replacement).
+2. **RG-002** — RQ-SPARK-001 synthesis into an operational emission loop. 
+3. **EU-001/DD-001** — Spark serving choice + real model latency/compliance benchmarks. 
+4. **RG-003** — RQ-NARR-001 synthesis: allowed narration output space + evaluation. 
+5. **RG-005** — Identity lifecycle (split/merge/rename/delete) and generational GUID semantics. 
+6. **DD-003** — Provenance tier conflict policy (Box/Canonical > Player > Spark > Default). 
+7. **IA-001** — NarrativeBrief contract definition (fields + budgeting + provenance propagation). 
+8. **EU-002** — End-to-end prep/play budget validation on target hardware. 
+9. **RG-004** — Voice reference sourcing + archetype recipes (license-vetted). 
+10. **KG-002/EU-003** — Community “golden settings” + empirical minimum viable clip quality for cloning. 
+
+---
+
+### Objective ↔ Output check
+
+* **Objective:** “Find every unresolved research question / ambiguity / unknown across provided docs; organize into research briefs with dependencies and approaches.”
+* **Output:** Register includes 5 critical blockers, decision points, empirical unknowns, implicit assumptions, synthesis needs, dependency order, and ranked top 10—each grounded in cited source lines.

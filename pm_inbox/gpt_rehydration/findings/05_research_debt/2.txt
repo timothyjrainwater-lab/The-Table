@@ -1,0 +1,339 @@
+# AIDM — Focused Research Gap Analysis
+
+**Scope:** RQ-SPARK-001, RQ-NARR-001, RQ-VOICE-001 + R0 GO Criteria
+**Question:** What was promised but never synthesized? What questions were asked but never answered?
+
+---
+
+# 1. RQ-SPARK-001 — Structured Emission
+
+## What Was Promised
+
+* A structured fact emission protocol from Spark.
+* A replacement for the abandoned “Scene Fact Pack.”
+* Grammar Shield enforcement.
+* Deterministic post-resolution narration.
+* A policy for structured extraction that does not violate the Box/Lens/Spark membrane.
+
+Sub-dispatches were completed, but no canonical synthesis document exists consolidating them into binding policy.
+
+---
+
+## What Was Never Synthesized
+
+### 1.1 Canonical Structured Output Schema
+
+Questions never finalized:
+
+* What is the **authoritative Spark output contract**?
+
+  * JSON only?
+  * Tagged sections?
+  * Mixed prose + structured blocks?
+* What fields are mandatory vs optional?
+* What is the repair strategy for malformed output?
+* Does Spark ever emit new “facts,” or only narrate Box state?
+* What are explicit rejection criteria?
+
+The documentation implies answers but does not publish a final schema.
+
+---
+
+### 1.2 Determinism Under Structured Emission
+
+Unanswered:
+
+* Is structured emission required to be deterministic under fixed seed?
+* Is temperature 0 mandated?
+* Is grammar repair allowed to mutate semantic content?
+* What constitutes a boundary violation vs stylistic drift?
+
+The kill-switch and Grammar Shield exist, but acceptance thresholds are not formally defined.
+
+---
+
+### 1.3 NarrativeBrief Replacement Clarity
+
+The “Scene Fact Pack” was replaced by the “NarrativeBrief pattern,” but:
+
+* What exactly does NarrativeBrief contain?
+* Token allocation rules?
+* Priority ordering (recent events vs long-term memory vs player model)?
+* Maximum token ceiling?
+* Truncation strategy?
+
+There is no synthesized, binding policy for assembly.
+
+---
+
+## What Questions Were Asked But Not Fully Answered
+
+* How does Spark emit structured metadata without leaking authority?
+* What is the failure mode if structured emission fails?
+* How do we validate narrative completeness?
+* What metrics define Spark “stress stability”?
+
+---
+
+# 2. RQ-NARR-001 — Narrative Balance
+
+## What Was Promised
+
+* A formal narrative balance model.
+* Tone governance.
+* Persona shaping.
+* Mechanical fidelity prioritization.
+* Evaluation of “AI as DM” boundaries.
+
+Three sub-findings delivered. No final synthesis.
+
+---
+
+## What Was Never Synthesized
+
+### 2.1 Tone Evaluation Framework
+
+Unanswered:
+
+* How is tone measured?
+* Is there a rubric?
+* What defines “too cinematic” vs “mechanically faithful”?
+* Is there a maximum verbosity threshold?
+* How is pacing enforced?
+
+There is no binding “Narrative Policy v1.0.”
+
+---
+
+### 2.2 DM Persona Model
+
+The persona layer was built empirically.
+
+Missing:
+
+* Canonical persona archetype definitions.
+* Persona parameter ranges.
+* Whether persona can drift mid-session.
+* Whether persona affects structured output fields.
+
+No formal persona governance spec exists.
+
+---
+
+### 2.3 Narrative vs Mechanical Priority Conflict Resolution
+
+Critical unanswered questions:
+
+* If Spark embellishment conflicts with mechanical state, how is correction handled?
+* Does narration ever get rewritten?
+* Is Spark allowed to foreshadow uncomputed mechanics?
+* Can narration imply future state not yet resolved?
+
+The doctrine says “engine defines reality,” but enforcement mechanisms are not formally enumerated for edge cases.
+
+---
+
+# 3. RQ-VOICE-001 — Voice Design (Not Started)
+
+This is the largest unresearched area.
+
+## What Was Promised
+
+* Reference clip sourcing strategy.
+* Archetype recipes.
+* Character-to-voice mapping.
+* Voice differentiation.
+* Voice roster cache policy.
+
+None of this has research synthesis.
+
+---
+
+## What Was Never Answered
+
+### 3.1 Reference Audio Strategy
+
+* How long should clips be?
+* Phoneme coverage requirements?
+* Loudness normalization?
+* Licensing policy?
+* Public-domain vs synthetic generation?
+* Storage format?
+
+No sourcing doctrine exists.
+
+---
+
+### 3.2 Archetype Canon
+
+* How many archetypes?
+* Are archetypes numeric or semantic?
+* Are pitch/speed ranges fixed?
+* What collision rate is acceptable?
+
+The resolver spec assumes this research output but it does not exist.
+
+---
+
+### 3.3 Determinism of VoicePersona
+
+* Must two calls for the same NPC produce identical VoicePersona?
+* Is LLM variance acceptable?
+* Are personas session-scoped or campaign-scoped?
+* Can voice parameters evolve?
+
+No policy.
+
+---
+
+# 4. R0 GO Criteria — What Remains Unresolved
+
+Three GO gates still partially open.
+
+---
+
+## GO-1: Canonical ID Schema (In Progress)
+
+30 sub-questions, 7 critical.
+
+Unanswered themes likely include:
+
+* ID immutability vs rename handling.
+* Cross-book reference collisions.
+* Serialization format stability.
+* Human-readable vs UUID tradeoff.
+* How IDs propagate into memory index.
+
+No final ratified schema document referenced.
+
+This blocks long-term indexed memory confidence.
+
+---
+
+## GO-4: Image Critique Pipeline (Answerable, Not Benchmarked)
+
+Model selection resolved, but:
+
+* What are objective acceptance thresholds?
+* How many regeneration attempts?
+* What defines a “failed” image?
+* How is artifact detection weighted?
+* How much VRAM contention with Spark?
+
+No empirical validation run on production hardware.
+
+---
+
+## GO-5: Prep Phase Timing Validation (Projected Pass)
+
+Projected ≠ measured.
+
+Unanswered:
+
+* Worst-case VRAM fragmentation?
+* SDXL + Spark swap latency?
+* Audio generation overlap timing?
+* Full pipeline turn latency?
+
+This is assumed safe, not proven.
+
+---
+
+## GO-6: MVP Scope Definition (Partial)
+
+Awaiting stakeholder approval.
+
+Unanswered:
+
+* Is voice cloning required for MVP?
+* Is image generation required?
+* Is narration required?
+* What is the minimal viable “AI Dungeon Master”?
+
+No formal MVP boundary doc ratified.
+
+---
+
+# 5. Cross-Track Missing Synthesis Themes
+
+## 5.1 Failure Semantics Unification
+
+Across Spark, Narration, Voice:
+
+* What is the global failure contract?
+* Does system degrade to text-only?
+* Does session pause?
+* Does it log and continue?
+
+Policy is implied, not unified.
+
+---
+
+## 5.2 Determinism Boundary Clarity
+
+We have strong determinism in Box.
+
+Less clear:
+
+* Is Spark output required to be replay-deterministic?
+* Are VoicePersona mappings replay-deterministic?
+* Is immersion reproducible under replay?
+
+No cross-layer determinism doctrine.
+
+---
+
+## 5.3 Validation Metrics
+
+For Spark, Narration, Voice:
+
+* What is “ship quality”?
+* What measurable criteria define GO?
+* What percentage of malformed outputs is acceptable?
+* What perceptual voice distinctness threshold is required?
+
+No numeric thresholds defined.
+
+---
+
+# 6. Summary of What Was Promised But Never Synthesized
+
+| Track        | Promised                   | Missing                                                     |
+| ------------ | -------------------------- | ----------------------------------------------------------- |
+| RQ-SPARK-001 | Structured emission policy | Canonical schema + repair + determinism thresholds          |
+| RQ-NARR-001  | Narrative balance doctrine | Tone rubric + persona governance + conflict resolution spec |
+| RQ-VOICE-001 | Voice design research      | Reference sourcing + archetype library + mapping policy     |
+| GO-1         | Canonical ID schema        | Final ratified spec                                         |
+| GO-4         | Image critique             | Benchmarks + thresholds                                     |
+| GO-5         | Prep pipeline timing       | Real hardware measurements                                  |
+| GO-6         | MVP definition             | Explicit feature boundary                                   |
+
+---
+
+# 7. The Core Pattern
+
+The engine is over-specified and fully synthesized.
+
+The AI-facing layers are partially researched but **not canonized**.
+
+The missing step is not discovery.
+It is synthesis into binding doctrine with measurable acceptance criteria.
+
+---
+
+# The 5 Highest-Impact Unanswered Questions
+
+1. What is the canonical structured output contract for Spark?
+2. What is the narrative policy that defines tone, pacing, and mechanical fidelity?
+3. What is the voice reference and archetype doctrine?
+4. What is the finalized canonical ID schema?
+5. What measurable thresholds define AI-layer “GO” readiness?
+
+Everything else cascades from those.
+
+---
+
+If you want, I can next produce:
+
+* A proposed outline for the missing synthesis documents, or
+* A risk-weighted matrix ranking which of these gaps threatens Phase 4 most.

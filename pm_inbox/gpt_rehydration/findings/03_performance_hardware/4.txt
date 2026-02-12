@@ -1,0 +1,308 @@
+## 1) Ranked “Top 10 Fixes” (Strict Priority Order + Dependencies)
+
+**1. F1 — Execute and Capture GPU Performance Gate**
+(Closes GAP-001, partially GAP-003, GAP-004)
+No dependency. Everything else depends on real measurements.
+
+**2. F2 — Define and Ratify VRAM Residency / Eviction Policy**
+(Closes GAP-002, GAP-005)
+Depends on F1 (needs measured VRAM + reload behavior).
+
+**3. F3 — Define Latency SLAs by Hardware Tier**
+(Closes GAP-004)
+Depends on F1 (real latency numbers).
+
+**4. F4 — Replace Placeholder Throughput With Measured Manifest Data**
+(Closes GAP-003)
+Depends on F1 (tokens/sec evidence).
+
+**5. F5 — Validate OOM Recovery Semantics Under Repeated Cycles**
+(Closes GAP-005)
+Depends on F1 (must know real OOM behavior).
+
+**6. F6 — Formalize Context Overflow Default Policy Per Tier**
+(Closes GAP-007)
+Depends on F3 (must know latency envelopes).
+
+**7. F7 — Establish Tiered Performance Governance in CI / Release Policy**
+(Closes GAP-006)
+Depends on F3.
+
+**8. F8 — Produce Minimum Spec Definition (Feature Matrix)**
+(Closes GAP-004 systemic gap)
+Depends on F3 + F6.
+
+**9. F9 — Add Perf Artifact Requirement to Release Gate**
+Depends on F1–F4.
+
+**10. F10 — Document Cold-Start / Reload Behavior Guarantees**
+Depends on F2 + F5.
+
+---
+
+# 2) Remediation Work Packets (Top 5)
+
+---
+
+## WP-01 (F1): Execute and Capture GPU Performance Gate
+
+**Objective**
+Produce authoritative, reproducible GPU performance evidence for Spark runtime.
+
+**Scope Boundaries**
+IN: Spark stress suite, GPU-gated tests, real hardware measurement, artifact capture.
+OUT: Changing model architecture or tuning prompts.
+
+**Artifacts Touched**
+
+* `T1_PROJECT_STATE_DIGEST.md` (update with measured results)
+* `tests/test_spark_integration_stress.py` (ensure GPU tests are runnable)
+* Perf artifact directory (e.g., `artifacts/perf/gpu_run_YYYYMMDD.json`)
+* Release checklist doc
+
+**Step Plan**
+
+1. Identify canonical GPU rig (target 3080 Ti class).
+2. Enable hardware-gated tests in stress suite.
+3. Run 30–50 turn narration cycles.
+4. Record:
+
+   * Peak VRAM per turn
+   * Cold-start time
+   * Reload time
+   * Tokens/sec
+   * p50/p95 latency
+5. Repeat under fallback model scenario.
+6. Repeat under forced overflow condition.
+7. Save raw logs + summarized JSON artifact.
+8. Attach artifact to release gate.
+
+**Acceptance Criteria**
+
+* No OOM under defined test scenario.
+* p95 latency recorded for each path.
+* Artifact reproducible within ±10%.
+
+**New Tests Required**
+
+* `test_gpu_perf_baseline_recording`
+
+  * Proves measurement harness works.
+* `test_gpu_reload_latency_bounds`
+
+  * Proves reload < defined threshold.
+
+**Rollback Plan**
+Revert any temporary instrumentation if it contaminates determinism.
+
+**Stop Conditions**
+
+* VRAM exceeds GPU capacity.
+* Reload latency > 5× acceptable target.
+  Escalate to F2 immediately.
+
+---
+
+## WP-02 (F2): Define VRAM Residency / Eviction Policy
+
+**Objective**
+Establish binding GPU model residency rules to prevent thrash and OOM oscillation.
+
+**Scope Boundaries**
+IN: Policy definition, residency matrix, eviction triggers.
+OUT: Implementing new GPU manager architecture.
+
+**Artifacts Touched**
+
+* `T2_SPARK_PROVIDER_CONTRACT.md` (add residency section)
+* Immersion boundary doc
+* Release policy doc
+
+**Step Plan**
+
+1. Use F1 measurements to list VRAM footprints.
+2. Define allowed co-residency pairs.
+3. Define priority order (Spark vs others).
+4. Define eviction trigger (threshold % VRAM).
+5. Define cold-start prefetch timing.
+6. Define unload failure fallback.
+7. Document matrix and expected peak VRAM.
+
+**Acceptance Criteria**
+
+* Residency matrix exists and is binding.
+* No load/unload oscillation over 30-turn stress run.
+* Peak VRAM predictable within ±5%.
+
+**New Tests Required**
+
+* `test_vram_residency_matrix_enforced`
+* `test_no_reload_thrash_over_n_turns`
+
+**Rollback Plan**
+Remove residency enforcement policy if it causes deterministic failures.
+
+**Stop Conditions**
+
+* Cannot define stable co-residency set.
+  Escalate for architectural decision.
+
+---
+
+## WP-03 (F3): Define Latency SLAs by Hardware Tier
+
+**Objective**
+Define explicit p50/p95 latency envelopes per feature tier.
+
+**Scope Boundaries**
+IN: Narration generation latency, reload latency, overflow latency.
+OUT: Changing LLM models.
+
+**Artifacts Touched**
+
+* Performance policy doc
+* Release checklist
+* Spark contract (add SLA section)
+
+**Step Plan**
+
+1. Use F1 metrics.
+2. Define “Target,” “Recommended,” and “Minimum” tiers.
+3. Assign max p95 turn latency per tier.
+4. Assign max reload latency.
+5. Document enforcement (release gating).
+6. Link to overflow policy.
+
+**Acceptance Criteria**
+
+* SLA table exists.
+* Perf artifact includes pass/fail evaluation.
+
+**New Tests**
+
+* `test_latency_sla_enforcement`
+* `test_overflow_path_latency_within_sla`
+
+**Rollback Plan**
+Revert SLA thresholds if proven unrealistic; do not remove measurement harness.
+
+**Stop Conditions**
+
+* If no tier can meet acceptable turn cadence (< agreed threshold), escalate to UX redesign.
+
+---
+
+## WP-04 (F4): Replace Placeholder Throughput with Measured Data
+
+**Objective**
+Eliminate speculative `avg_tokens_per_sec` from model manifests.
+
+**Scope Boundaries**
+IN: Manifest metadata accuracy.
+OUT: Changing provider logic.
+
+**Artifacts Touched**
+
+* `T2_SPARK_PROVIDER_CONTRACT.md` (model manifest examples)
+* Config files referencing throughput
+
+**Step Plan**
+
+1. Extract tokens/sec from F1 runs.
+2. Stratify by context length.
+3. Update manifest entries with measured values + variance.
+4. Add measurement metadata tag.
+5. Document measurement method.
+
+**Acceptance Criteria**
+
+* No manifest contains “expected” values without measurement tag.
+* Tokens/sec reproducible ±10%.
+
+**New Tests**
+
+* `test_manifest_contains_measured_metadata`
+
+**Rollback Plan**
+Restore prior manifest if measurement corrupt.
+
+**Stop Conditions**
+
+* Throughput unstable across runs; escalate to define prompt classes.
+
+---
+
+## WP-05 (F5): Validate OOM Recovery Under Repeated Cycles
+
+**Objective**
+Ensure repeated OOM and fallback cycles do not degrade system state.
+
+**Scope Boundaries**
+IN: OOM simulation, repeated unload/reload validation.
+OUT: Implementing process isolation.
+
+**Artifacts Touched**
+
+* Stress test suite
+* Perf artifact logs
+
+**Step Plan**
+
+1. Force OOM via large context prompt.
+2. Trigger fallback chain.
+3. Repeat 20 cycles.
+4. Measure VRAM before/after each.
+5. Check memory growth trend.
+6. Record reload latency each cycle.
+7. Evaluate stability.
+
+**Acceptance Criteria**
+
+* No VRAM growth over cycles.
+* Reload latency bounded.
+* No permanent degradation.
+
+**New Tests**
+
+* `test_repeated_oom_recovery_stability`
+* `test_no_memory_leak_after_n_fallbacks`
+
+**Rollback Plan**
+Disable aggressive OOM retry logic if instability observed.
+
+**Stop Conditions**
+
+* Memory leak detected.
+* Reload latency increases monotonically.
+  Escalate immediately.
+
+---
+
+# 3) Single Highest-Risk Unknown
+
+### Highest-Risk Unknown
+
+**Whether GPU unload/reload actually reclaims VRAM reliably and cheaply under real driver/runtime conditions.**
+
+If unload does not reclaim memory deterministically, the entire VRAM arbitration plan collapses and OOM fallback becomes unstable.
+
+### Fastest Resolution Path
+
+1. On target GPU rig:
+
+   * Load primary Spark model.
+   * Record VRAM.
+   * Unload.
+   * Record VRAM.
+   * Repeat 20 cycles.
+2. Force OOM and fallback.
+3. Track VRAM after each cycle.
+
+**What to inspect**
+
+* Peak VRAM
+* Post-unload VRAM baseline
+* Fragmentation pattern
+* Latency increase trend
+
+This resolves the core feasibility question in under one day and determines whether the current architecture can survive real-world memory pressure.

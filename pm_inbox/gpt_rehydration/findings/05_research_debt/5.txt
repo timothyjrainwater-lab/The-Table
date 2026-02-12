@@ -1,0 +1,249 @@
+## 1) Taxonomy of Unknowns
+
+### U1 — **Missing Mechanical Facts (Authoritative)**
+
+Examples:
+
+* AC, HP, attack bonus, save DC, conditions, cover/LOS state, initiative order
+* Spell parameters (range/area/duration), feat prerequisites, action economy constraints
+* Any value that would change a roll, a target, a modifier, or a legal action
+
+### U2 — **Missing Rules Data / Reference (Authoritative Source Material)**
+
+Examples:
+
+* A rule not present in the local rules corpus / indexed rules store
+* Ambiguous rule interaction not codified in Box
+* Missing SRD/PHB/DMG reference page
+
+### U3 — **Missing World/Scene Facts (Non-authoritative fiction state)**
+
+Examples:
+
+* Room description details, lighting mood, smells, ambient sound
+* Non-mechanical environment details that do not affect cover/LOS/terrain tags already resolved by Box
+
+### U4 — **Missing NPC Traits (Non-authoritative characterization)**
+
+Examples:
+
+* Accent, temperament, speaking style, favorite phrases, goals, quirks
+* Backstory details not encoded as canonical facts
+
+### U5 — **Missing Player Intent / Ambiguous Player Input**
+
+Examples:
+
+* “I attack him” without specifying target in a crowd
+* “Cast fireball” without specifying grid point / targets
+* Voice input that is low confidence / conflicting
+
+### U6 — **Missing Asset Inputs (Immersion)**
+
+Examples:
+
+* Missing reference voice clip, missing model weights, missing sound effect, missing image prompt asset
+* Missing font, missing audio device, missing GPU capability
+
+### U7 — **Missing Narrative Context (Lens brief incomplete)**
+
+Examples:
+
+* NarrativeBrief absent fields, truncated memory, no prior turn summary, missing “who is speaking” attribution
+
+### U8 — **Missing Observability / Integrity Signals**
+
+Examples:
+
+* Corrupted event log, failed replay hash check, missing session bundle, inconsistent versioning
+
+---
+
+## 2) Required Response Policy (per unknown type)
+
+Policy verbs:
+
+* **DEFER** = proceed without the missing info by omitting it
+* **ASK** = request user/operator clarification
+* **INVENT (SAFE)** = fabricate only within explicitly non-authoritative narrative bounds, clearly labeled as non-canonical flavor
+* **ESCALATE** = fail-closed: stop the pipeline / raise explicit error / trigger kill-switch / require operator intervention
+
+### U1 — Missing Mechanical Facts (Authoritative)
+
+* **Policy:** **ESCALATE** (fail-closed) or **ASK** (if user input can supply it). Never invent.
+* **Allowed phrasing (system-facing):**
+
+  * “Insufficient authoritative state to resolve: {field}. Halting.”
+  * “Need target selection / grid point / action choice to proceed.”
+* **Forbidden phrasing:**
+
+  * “I’ll assume…” / “Probably…” / “Let’s say your AC is…”
+  * Any invented numeric/mechanical value.
+* **Notes:** Non-authoritative layers (Lens/Spark/Immersion) must not supply these.
+
+### U2 — Missing Rules Data / Reference
+
+* **Policy:** **ESCALATE** if Box requires it; **ASK** if the operator can provide the rule source; **DEFER** only if the system can proceed without applying the rule (and explicitly notes that it did not apply it).
+* **Allowed phrasing:**
+
+  * “Rule not found in local corpus for {topic}; cannot resolve deterministically.”
+  * “Provide rule source (PHB/DMG/SRD citation) or enable rules pack {X}.”
+* **Forbidden phrasing:**
+
+  * “In D&D, usually…” unless it’s explicitly labeled as non-binding and does not affect mechanics (but safest is: never).
+  * “I’ll use 5e rule…” (hard forbidden given 3.5e constraint).
+
+### U3 — Missing World/Scene Facts (Non-authoritative fiction)
+
+* **Policy:** **INVENT (SAFE)** or **DEFER**. Must not add mechanical implications.
+* **Allowed phrasing (player-facing narration):**
+
+  * “The room feels cold and stale.” (flavor only)
+  * “You hear distant dripping water.” (flavor only)
+* **Forbidden phrasing:**
+
+  * Anything that changes mechanics: “The floor is slippery so you fall,” “visibility is poor so attacks have disadvantage,” “you can’t see the target” unless Box already resolved concealment/LOS.
+* **Rule:** Spark may add sensory detail **only** if it does not introduce new constraints/advantages.
+
+### U4 — Missing NPC Traits (characterization)
+
+* **Policy:** **INVENT (SAFE)** or **DEFER**. Should be consistent once chosen (cache/roster) but must not create new “facts” that the Box will later contradict.
+* **Allowed phrasing:**
+
+  * “He speaks in clipped sentences.”
+  * “She sounds impatient.”
+* **Forbidden phrasing:**
+
+  * Declaring canonical backstory claims that would affect plot decisions unless such facts exist in memory: “He is the king’s brother” (unless already stored).
+* **Consistency rule:** Once invented traits are used, they become **session-local style**, not “world truth,” unless later confirmed.
+
+### U5 — Missing Player Intent / Ambiguous Input
+
+* **Policy:** **ASK** (primary). **ESCALATE** if ambiguity blocks legality in Box.
+* **Allowed phrasing:**
+
+  * “Which target?” “Which square/area?” “Melee or ranged?” “Do you move first?”
+* **Forbidden phrasing:**
+
+  * “I choose for you…” (unless the product spec allows an “auto-pilot” mode; not in provided gaps).
+* **If voice input low confidence:** ask confirmation or present options.
+
+### U6 — Missing Asset Inputs (Immersion)
+
+* **Policy:** **DEFER** with fallback if available; otherwise **DEFER** silently if purely cosmetic, or **ASK/ESCALATE** only if the run mode requires it.
+* **Allowed phrasing (operator logs):**
+
+  * “Voice reference missing; using fallback voice.”
+  * “Image backend unavailable; skipping image generation.”
+* **Forbidden phrasing (player-facing):**
+
+  * Don’t claim you generated an asset when you didn’t (“Here’s the portrait…”).
+* **Boundary rule:** Asset failures must never block Box resolution.
+
+### U7 — Missing Narrative Context (Lens brief incomplete)
+
+* **Policy:** **DEFER** and narrate only what is known; **ASK** only if needed for clarity (“Who is speaking?”) and the UI supports it; **ESCALATE** if required structured fields are missing for downstream validators.
+* **Allowed phrasing:**
+
+  * “Narration limited to verified events this turn.”
+  * “Speaker attribution unavailable; using neutral narration.”
+* **Forbidden phrasing:**
+
+  * Inventing turn outcomes or motivations not supported by facts.
+
+### U8 — Missing Observability / Integrity Signals
+
+* **Policy:** **ESCALATE**.
+* **Allowed phrasing (system-facing):**
+
+  * “Replay hash mismatch. Session integrity compromised. Halting.”
+  * “Event log corrupted/unreadable. Cannot continue deterministically.”
+* **Forbidden phrasing:**
+
+  * “Continuing anyway…” for integrity failures.
+
+---
+
+## 3) Compliance Checklist (Unit-testable Signals)
+
+These are **violation signals** that can be detected via structured output validation, log inspection, or golden tests.
+
+### C1 — Authority Boundary Violations
+
+* **Signal:** Non-Box component outputs any mechanical value not present in Box state (e.g., AC/HP/damage/save result).
+* **Test idea:** `test_no_mechanical_fields_in_spark_output_when_missing`
+
+  * Provide input with missing mechanics; assert Spark output contains no numeric mechanics and includes an “ESCALATE” marker instead.
+
+### C2 — Forbidden “Assumption Language” in Authoritative Context
+
+* **Signal:** Presence of phrases like “I’ll assume,” “probably,” “let’s say,” tied to mechanics or legality decisions.
+* **Test idea:** `test_forbidden_assumption_phrases_in_authoritative_gap`
+
+  * Run narration generation with a missing-mechanics flag; assert forbidden phrase set absent.
+
+### C3 — Unsupported Rule Invocation
+
+* **Signal:** Any mention of 5e-only constructs (“advantage,” “proficiency bonus”) or uncited rule assertions when rules data missing.
+* **Test idea:** `test_no_5e_terms_in_outputs`
+
+  * Regex scan all Spark outputs; fail on 5e lexicon.
+
+### C4 — Mechanical Implication Leakage from Flavor
+
+* **Signal:** Narration introduces new constraints/bonuses (slippery floor causes fall; darkness blocks sight) without Box tags indicating those conditions.
+* **Test idea:** `test_no_new_mechanical_implications_from_spark_when_not_in_box_tags`
+
+  * Provide Box tags that do not include concealment/terrain hazard; assert narration doesn’t claim them.
+
+### C5 — Missing-Asset Truthfulness
+
+* **Signal:** System claims an asset was generated/played when adapter reported failure/skip.
+* **Test idea:** `test_asset_claims_match_adapter_status`
+
+  * Simulate adapter unavailable; ensure narration/log uses “skipped/fallback” phrasing.
+
+### C6 — Ask vs Escalate Correctness
+
+* **Signal:** For U1/U8, system continues without required fields (no halt marker, no explicit request).
+* **Test idea:** `test_missing_authoritative_state_forces_halt_or_user_query`
+
+  * Provide incomplete Box state; assert “halt” event or “clarification requested” intent emitted.
+
+### C7 — Structured Output Contract Presence
+
+* **Signal:** When required, Spark output lacks mandatory fields (voice persona fields, structured sections).
+* **Test idea:** `test_structured_output_mandatory_fields_present_or_fail_closed`
+
+  * Provide incomplete prompt; assert Spark output rejected (not repaired silently).
+
+### C8 — Consistency for Invented NPC Traits (Session-local)
+
+* **Signal:** NPC trait flips across turns without an explicit “recast” event.
+* **Test idea:** `test_npc_trait_consistency_within_session_cache`
+
+  * Two turns, same NPC; assert voice/style tags stable unless explicitly changed.
+
+---
+
+## “Allowed vs Forbidden” Phrase Bank (for validators)
+
+### Allowed markers (safe)
+
+* “Unknown.” / “Not specified.” / “Not available.”
+* “Cannot resolve deterministically.”
+* “Need clarification: {X}.”
+* “Skipping immersion output due to unavailable backend.”
+
+### Forbidden markers (in authoritative gaps)
+
+* “I’ll assume…” / “Probably…” / “Let’s say…”
+* “Typically in D&D…” (when rules missing)
+* Any fabricated numeric/mechanical content.
+
+---
+
+If you want this wired into your existing governance style, the next step is to express this as two concrete contracts:
+
+1. a **Lens Unknown Policy** (what to emit upstream), and
+2. a **Spark Output Guard** rule set (what wording/fields are disallowed).

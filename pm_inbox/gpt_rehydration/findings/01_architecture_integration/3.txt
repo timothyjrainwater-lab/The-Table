@@ -1,0 +1,133 @@
+# 1) Executive Delta (What is missing that matters)
+
+* **AoO RAW is incomplete**: movement-triggered AoOs exist, but **ranged-attack provocation** and **spellcasting provocation** are explicitly TODO and **BLOCKED** (so large swaths of 3.5e combat will be mechanically wrong when those intents land). Evidence: `T3_KNOWN_TECH_DEBT.md` TD-005 → `aidm/core/aoo.py:130`, `:193`.
+* **Weapon range is stubbed** (`max_range=100`) because weapon schema has no range field. This silently invalidates **range increments**, ranged threat/position logic, and cover/LoS interactions in any ranged scenario. Evidence: TD-? “Weapon Range” → `aidm/core/attack_resolver.py:122`.
+* **Temporary modifiers are not integrated into “permanent stats”** (stub returns 0). This will break RAW for buff/debuff staples (ability score changes → derived mods → attacks/skills/saves/AC) and will be hard to notice without targeted scenario tests. Evidence: TD-006 → `aidm/core/permanent_stats.py:279`.
+* **Full AC and HP recomputation are explicitly stubbed** and marked BLOCKED pending “full AC system and HP system design.” Until defined + tested, many stacking/edge cases will drift from RAW. Evidence: TD-007 → `aidm/core/permanent_stats.py:327` and `:375`.
+* **5e contamination is actively guarded in guidelines but already leaking in terminology** (“cantrips” appears in spell registry summary). That’s a high-risk foothold for accidental “at-will cantrips” semantics later. Evidence: `T1_AGENT_DEVELOPMENT_GUIDELINES.md` §7 table; `T1_PROJECT_STATE_DIGEST.md` WO-036 summary (“4 cantrips”).
+* **“Concentration” is a contamination trap**: you correctly implement Concentration as a skill check (DC 10+damage) but the system also talks about “concentration management” in DurationTracker—risk of someone introducing 5e-style “one concentration spell” global limiter. Evidence: `T1_PROJECT_STATE_DIGEST.md` spell pipeline + “concentration management”; guidelines §7.
+* **Large mechanical surfaces appear “present” via registries/tests but not proven via RAW scenario coverage** (notably spells): registry/test counts don’t guarantee per-spell correctness (SR, AoE edge cases, duration interactions, interrupts). Evidence: PSD lists SpellResolver/DurationTracker/AoE Rasterizer and “53 spells,” but no evidence of per-spell scenario suites.
+
+# 2) System Map (As understood)
+
+* **Box (authoritative)**: deterministic combat mechanics; event-sourced; replay-verified.
+* **Lens**: one-way membrane; indexes Box state into prompts/facts; must not mutate Box.
+* **Spark**: narration / structured generation; must not decide mechanics; output validated by Grammar Shield.
+* **Immersion**: TTS/STT/images/audio; atmospheric only.
+
+**Authority boundaries**
+
+* Only Box can decide AC/damage/saves/conditions/state transitions.
+* Lens/Spark/Immersion may *describe* outcomes and choose media assets but cannot affect mechanical state.
+
+**Critical data flows**
+
+* Player/monster intent → Box resolves → event log/state hash → Lens builds narrative brief → Spark generates narration → Immersion renders.
+
+# 3) Gap Register (Prioritized)
+
+* ID: **GAP-001**
+* Severity: **BLOCKER**
+* Area: **requirements / mechanical correctness**
+* Symptom: AoO only covers movement triggers; ranged and spellcasting provocation are TODOs.
+* Impact: Any combat involving ranged attacks or casting in threat will resolve incorrectly; concentration interruptions and tactical behavior will be wrong and visible to users.
+* Evidence: `T3_KNOWN_TECH_DEBT.md` **TD-005**; `aidm/core/aoo.py:130` (ranged provocation TODO), `aidm/core/aoo.py:193` (spellcasting provocation TODO).
+* Likely root cause: Capability-gated work deferred until ranged/spellcasting intents exist; no placeholder contract for provocation sources.
+* Fix direction: Define provocation event model + add RAW trigger matrix (actions that provoke), then add scenario tests once intents exist.
+* Acceptance criteria: Scenario tests covering (a) casting in melee provoking AoO, (b) ranged attack provoking, (c) damage-triggered Concentration checks, (d) edge: 5-ft step exceptions if supported.
+* Stop condition: If intent model cannot represent provoking actions without redesign, halt and escalate to architecture owner.
+
+---
+
+* ID: **GAP-002**
+* Severity: **HIGH**
+* Area: **integration / mechanical correctness**
+* Symptom: Ranged distance validity is hard-coded (`max_range=100`).
+* Impact: Masks wrong range increment behavior; breaks RAW for weapons/spells with specific ranges; contaminates cover/LoS evaluation by making out-of-range attacks appear valid.
+* Evidence: `T3_KNOWN_TECH_DEBT.md` “Weapon Range” entry; `aidm/core/attack_resolver.py:122` stub.
+* Likely root cause: Weapon schema doesn’t encode range; melee-focused early milestone.
+* Fix direction: Specify canonical 3.5e range representation (increments, max range, thrown vs projectile) and require tests for increment penalties + out-of-range rejection.
+* Acceptance criteria: Tests for (1) increment penalty math, (2) max range enforcement, (3) thrown weapon handling, (4) interaction with LoS/cover gates.
+* Stop condition: If weapon schema changes would break determinism/serialization compatibility, stop and request schema migration plan.
+
+---
+
+* ID: **GAP-003**
+* Severity: **HIGH**
+* Area: **mechanical correctness / derived stats**
+* Symptom: Temporary modifiers are explicitly not integrated into permanent stat computation (`temp_total = 0`).
+* Impact: Common RAW effects (Bull’s Strength, poison, fatigue, conditions) won’t correctly affect attacks/skills/saves/AC unless duplicated elsewhere; produces “plausible but wrong” outcomes.
+* Evidence: `T3_KNOWN_TECH_DEBT.md` **TD-006**; `aidm/core/permanent_stats.py:279`.
+* Likely root cause: Condition system integration deferred (CP-16 dependency noted in tech debt).
+* Fix direction: Establish a single source of truth for effective ability scores and derived modifiers; require cross-check tests that apply a temporary modifier and validate downstream rolls.
+* Acceptance criteria: End-to-end scenario tests demonstrating temp STR affects attack/damage; temp DEX affects AC/Ref; temp CON affects Concentration and HP if applicable.
+* Stop condition: If conditions stack model is unclear or contradictory, escalate for a rules interpretation decision log.
+
+---
+
+* ID: **GAP-004**
+* Severity: **HIGH**
+* Area: **requirements / mechanical correctness**
+* Symptom: Full AC recomputation and HP calculation are explicit TODO stubs awaiting “full AC system and HP system design.”
+* Impact: AC stacking rules (armor/shield/natural/deflection/dodge/size) and HP edge cases won’t be RAW-complete; future features may bolt-on modifiers inconsistently.
+* Evidence: `T3_KNOWN_TECH_DEBT.md` **TD-007**; `aidm/core/permanent_stats.py:327` (AC), `:375` (HP).
+* Likely root cause: Early milestones validated core flow without full stacking framework.
+* Fix direction: Create an AC/HP “authoritative recompute” spec with stacking/precedence rules + regression suite based on SRD/PHB examples.
+* Acceptance criteria: A matrix of AC component stacking tests; HP recompute tests covering CON changes, temporary HP policy (if any), and healing caps.
+* Stop condition: If HP model conflicts with existing event sourcing expectations, escalate before implementing.
+
+---
+
+* ID: **GAP-005**
+* Severity: **MEDIUM**
+* Area: **docs / contamination**
+* Symptom: “Cantrip” terminology appears in spell registry summaries despite explicit 3.5e anti-5e guidance.
+* Impact: High probability of accidental at-will cantrip semantics later (5e contamination via language).
+* Evidence: `T1_AGENT_DEVELOPMENT_GUIDELINES.md` §7 “Common 5e Contamination Risks” (cantrips at will vs 0-level slots); `T1_PROJECT_STATE_DIGEST.md` WO-036 summary (“4 cantrips”).
+* Likely root cause: Informal naming; not enforced by lint/check.
+* Fix direction: Enforce terminology: “0-level spells” in code/docs; add a “contamination glossary” check in reviews.
+* Acceptance criteria: No references to “cantrip” in authoritative docs; tests explicitly assert 0-level spell slot consumption if modeled.
+* Stop condition: If product UX intentionally wants “cantrip” wording, require an explicit doc that defines it as synonym only (no semantic drift).
+
+---
+
+* ID: **GAP-006**
+* Severity: **MEDIUM**
+* Area: **tests / mechanical realism**
+* Symptom: Spell system shows large surface (SpellResolver, DurationTracker, AoE Rasterizer, 53 spells) but evidence provided is mostly registry counts + unit tests, not RAW scenario coverage.
+* Impact: Hidden correctness holes in SR, saving throw edge cases, AoE edge geometry, duration interactions, and interrupts will ship undetected.
+* Evidence: `T1_PROJECT_STATE_DIGEST.md` spell pipeline sections (SpellResolver 1078 lines, DurationTracker “concentration management,” AoE Rasterizer; “53 spells”).
+* Likely root cause: Milestone focused on infrastructure and determinism, not exhaustive rules conformance per spell.
+* Fix direction: Define a “RAW scenario suite” minimum set (10–20 scenarios) that exercises spell categories (save negates/half, SR yes/no, rays/touch, AoE, buffs/debuffs, concentration checks on damage).
+* Acceptance criteria: Scenario suite runs deterministically with golden event logs/state hashes; failures point to specific rule clause decisions.
+* Stop condition: If SR/CL mechanics are not yet specified in docs, halt and request a rule decision memo before testing.
+
+# 4) Contradictions and Drift
+
+* **Terminology drift:** Guidelines explicitly warn against 5e “cantrips at will,” but state digest uses “cantrips” language in spell inventory.
+* **Concentration semantics ambiguity:** Skill integration exists (DC 10+damage) while DurationTracker references “concentration management.” Without an explicit policy, implementers may introduce 5e-style global concentration constraints under that label.
+
+# 5) Unknowns, Assumptions, and Questions
+
+**Unknowns (UNCITED because artifact not provided here)**
+
+* Whether **Spell Resistance**, **Damage Reduction**, **concealment/miss chance**, **touch attacks**, **flat-footed**, **grapple**, and **readied actions/interrupts** are implemented and tested as RAW.
+* Whether any automated checks exist to prevent 5e vocabulary/semantics entering intents or UI layers.
+
+**Assumptions used to proceed**
+
+* Tech debt items marked BLOCKED correspond to currently untested mechanical coverage (not merely refactors).
+* “Registry tests” primarily validate schema/registration, not end-to-end mechanics.
+
+**Minimal request list (only what would materially tighten this audit)**
+
+1. A test inventory or coverage map for: `aoo.py`, `attack_resolver.py`, `permanent_stats.py`, `spell_resolver.py`, `duration_tracker.py`.
+2. Any “RAW decision log” or doc listing 3.5e rule interpretations for contentious areas (AC stacking, SR, concealment, grapple, interrupts).
+
+# 6) Next Actions (Top 3)
+
+1. **PM**: Open a mechanical correctness track for **AoO provocation completeness** tied to **GAP-001** (define RAW trigger matrix + test plan; gate ranged/spellcasting intent work on it).
+2. **Architect/Auditor**: Specify canonical **weapon range & range increment model** and its test suite scope (addresses **GAP-002**; prevents silent out-of-range correctness holes).
+3. **Implementer + Auditor**: Produce a “derived stats correctness” plan: temporary modifiers + AC/HP recompute spec + scenario tests (covers **GAP-003** and **GAP-004**; prevents plausible-but-wrong outcomes).
+
+If you paste this into an audit agent, the only blocker to deeper, evidence-grade findings is the missing test inventory for the key mechanical modules.

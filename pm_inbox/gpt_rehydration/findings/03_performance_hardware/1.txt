@@ -1,0 +1,194 @@
+# AIDM Research Gap Register
+
+## Section 1: Critical Path Blockers
+
+### RG-001 — RQ-SPARK-001 synthesis: “Structured Fact Emission” final contract
+
+* **Question:** What is the *final* structured-emission contract Spark must produce (fields, determinism expectations, validation rules), now that Phase 2+ uses **NarrativeBrief** patterns rather than the earlier “Scene Fact Pack” idea?
+* **Source:** Plan v1 draft flags RQ-SPARK-001 as “NOT DELIVERED” and blocking Spark integration + constrained scene generation. 
+  PM rehydration claims *all 3 sub-dispatches are delivered* and synthesis is ready to compile. 
+* **Blocks:** Any future changes to Spark output validation (Grammar Shield/Lens parsing) and any rework to “fact vs narrative” provenance labeling. 
+* **Research Type:** **Decision + Synthesis**
+* **Recommended Approach:** Pull the three delivered findings (A/B/C) and write the missing synthesis as a single “Spark Emission Contract v1” that explicitly maps to the current NarrativeBrief containment rules and Lens validators. Reconcile contradictions with the older Plan v1 language.
+* **Estimated Scope:** **Medium (days)**
+
+### RG-002 — RQ-NARR-001 synthesis: “Narrative Balance” scoring and accept/reject rubric
+
+* **Question:** What is the concrete rubric for “good narration” *under AIDM constraints* (no mechanical leakage, receipt alignment, tone controls), and how is it evaluated?
+* **Source:** Plan v1 draft flags guarded narration blocked by RQ-NARR-001 “NOT DELIVERED.” 
+  PM rehydration says RQ-NARR-001 sub-dispatches are delivered; synthesis is pending. 
+* **Blocks:** Any iteration on DM persona/tone presets and narration QA beyond template fallback. DM persona exists, but evaluation criteria appear implicit/empirical. 
+* **Research Type:** **Synthesis + Empirical**
+* **Recommended Approach:** Synthesize A/B/C findings into a single rubric: (1) mechanical fidelity checks (hit/miss/damage alignment), (2) containment checks (no HP/AC/IDs), (3) tone targets (gravity/verbosity/drama). Validate with a small corpus of narrated turns from stress tests.
+* **Estimated Scope:** **Medium (days)**
+
+### RG-003 — Voice pipeline foundation: reference audio corpus + sourcing policy (WO-051 prerequisite)
+
+* **Question:** What is the *reference audio strategy* (number of clips, duration, licensing, storage layout, normalization) to enable voice cloning and character differentiation?
+* **Source:** WO-052 explicitly depends on WO-051 research and notes current “every character uses the same default persona.” 
+* **Blocks:** WO-052’s resolver cannot select `reference_audio` meaningfully without an “available references” catalog + policy. 
+* **Research Type:** **Empirical + Community + Decision**
+* **Recommended Approach:** Define a minimal voice pack spec: clip requirements, file naming taxonomy, and a sourcing rubric (recorded in-house vs licensed packs). Then validate with 1–2 candidate voices through the TTS adapter end-to-end.
+* **Estimated Scope:** **Large (weeks)**
+
+### RG-004 — VRAM residency + unload/reload policy across Spark / SDXL / Music
+
+* **Question:** What is the enforced runtime policy for model residency (Spark vs SDXL vs ACE-Step) to prevent OOM and maintain predictable latency?
+* **Source:** Spark contract includes OOM fallback behavior and model switching guidance. 
+  Tech stack/VRAM assumptions appear in PM rehydration. 
+* **Blocks:** Any “full loop” immersion usage where multiple GPU-heavy backends compete; also impacts stress-test realism.
+* **Research Type:** **Empirical + Design decision**
+* **Recommended Approach:** Benchmark GPU memory footprints and cold-start latencies per backend on target hardware; decide a single arbitration policy (priority order + prefetch points + eviction triggers) aligned with “prep-first” sequencing.
+* **Estimated Scope:** **Medium (days)**
+
+### RG-005 — Canonical ID schema and rename/delete semantics at Lens boundaries
+
+* **Question:** What are the invariant rules for entity IDs across SessionBundle → SceneCards → Box events → Lens caches, including **rename**, **merge**, and **delete** semantics?
+* **Source:** Vertical Slice V1 shows SessionBundle/SceneCard IDs but does not define lifecycle/renames. 
+  Spark/Box integration relies on strict routing and validation. 
+* **Blocks:** Long-running sessions with persistence, cache invalidation, and anything using “voice roster per character_id” (WO-052 introduces a VoiceRoster keyed by character_id). 
+* **Research Type:** **Design decision**
+* **Recommended Approach:** Extract all current ID usages from schemas + runtime components, then write a single canonical “ID & Lifecycle Contract” (rename/delete rules + migration behavior + hash stability implications).
+* **Estimated Scope:** **Medium (days)**
+
+---
+
+## Section 2: Design Decisions Needed (with trade-offs)
+
+### DD-01 — “Structured output” strategy: native JSON mode vs guided generation + parsing
+
+* **Decision:** Standardize on either (A) native JSON mode where available, or (B) guided prompting + Lens parsing as the universal baseline.
+* **Trade-off:**
+
+  * **A (native JSON):** cleaner, fewer parse failures, but uneven provider support and higher coupling to backend quirks. 
+  * **B (guided + parse):** portable and already specified as fallback, but needs robust repair/retry policy and increases Lens complexity. 
+* **Why it matters:** This decision determines the final form of RG-001’s “Spark Emission Contract.”
+
+### DD-02 — Context overflow handling: truncate vs summarize vs user-approved model switch
+
+* **Decision:** Pick the default overflow strategy and when escalation is allowed.
+* **Trade-off:**
+
+  * Truncate oldest: deterministic and cheap, but can lose crucial narrative continuity. 
+  * Summarize: preserves info but costs extra calls and risks summary drift. 
+  * Model switch: preserves full context but requires UX + user approval flow. 
+
+### DD-03 — Voice resolver determinism vs variety
+
+* **Decision:** Should voice characterization be stable across sessions for the same NPC archetype, or re-generated per introduction?
+* **Trade-off:**
+
+  * Stable mapping improves recognition; reduces creative variance.
+  * Re-generation increases variety but risks “character voice drift.”
+* **Anchors:** WO-052 explicitly requires “deterministic enough to produce consistent results across LLM calls” and a caching roster. 
+
+---
+
+## Section 3: Empirical Unknowns (benchmarks / validation required)
+
+### EU-01 — Spark latency + token throughput under target model set
+
+* **Why empirical:** Provider contract requires logging/metrics and tokens/sec expectations in manifests. 
+* **Open unknown:** Real latency distributions on the target GPU/CPU, including cold start and after evictions (ties to RG-004).
+
+### EU-02 — GPU-skipped tests hiding true failure rate
+
+* **Source:** Spark stress test is integrated but explicitly notes some GPU-skipped tests. 
+* **Open unknown:** Whether the skipped set masks determinism breaks, OOM edges, or timing regressions on real hardware.
+
+### EU-03 — End-to-end “SessionOrchestrator” timing envelope with STT→Intent→Box→Narration→TTS
+
+* **Source:** Orchestrator pipeline exists and is described, including fallback paths. 
+* **Open unknown:** Real-time usability thresholds (turnaround time, jitter) once real Spark + immersion backends are used concurrently (again ties to RG-004).
+
+---
+
+## Section 4: Knowledge Gaps (Literature / Community)
+
+### KG-01 — Best-practice voice cloning datasets for local-first hobby projects
+
+* **Need:** Licensing-safe, lightweight reference sets for archetypal fantasy voices (male/female/age/accent) that work with the chosen TTS stack.
+* **Depends on:** RG-003.
+
+### KG-02 — Community-tested JSON repair strategies for LLMs without native JSON mode
+
+* **Need:** Robust “repair prompt” patterns and bounded retry policies that minimize hallucinated field invention.
+* **Depends on:** DD-01 and RG-001.
+* **Anchors:** Guided JSON fallback is explicitly specified. 
+
+---
+
+## Section 5: Implicit Assumptions (hand-waves / undefined protocols)
+
+### IA-01 — “SessionBundle is valid ⇒ cert.status == ready” hides validation contract complexity
+
+* **Source:** Vertical Slice V1 asserts `cert.status == "ready"` but does not define *what validations exist* (IDs, references, schema versions, provenance requirements). 
+* **Risk:** Later phases will rely on bundle validation as a safety gate; missing explicit rules creates silent divergence.
+
+### IA-02 — “Seeded generation support” is optional, but determinism expectations around narration aren’t spelled out
+
+* **Source:** Provider contract says seeded generation is optional and “non-deterministic SPARK acceptable.” 
+* **Open question:** Which parts of the narrative pipeline must be stable across replays (if any), and what’s the “show your work” story when narration differs?
+
+### IA-03 — “VoiceRoster keyed by character_id” assumes canonical character identity exists before voice is resolved
+
+* **Source:** WO-052 introduces caching and expects consistent IDs. 
+* **Risk:** If IDs change (rename/merge), voice continuity breaks unless lifecycle semantics (RG-005) are defined.
+
+---
+
+## Section 6: Research Synthesis Opportunities (RQ-SPARK-001, RQ-NARR-001)
+
+### What a proper synthesis document must contain
+
+#### Synthesis for RQ-SPARK-001
+
+* Final **Spark Emission Contract v1** (schemas + required/optional fields)
+* Mapping of emission to current pipeline objects (e.g., NarrativeBrief, provenance tags)
+* Failure modes: parse failure, missing fields, extra fields, contradiction with Box receipts
+* Bounded retry/repair policy and hard stop conditions
+* Provider capability matrix impact (json_mode vs guided) and test plan alignment
+  **Why:** The project has contradictory status claims: “NOT DELIVERED” in Plan v1 draft vs “all sub-dispatches delivered; synthesis ready” in PM rehydration. 
+
+#### Synthesis for RQ-NARR-001
+
+* A measurable narration rubric + examples (pass/fail) tied to containment rules
+* Tone control policy: how gravity/verbosity/drama map to prompt + evaluation
+* Alignment rules: narration must reflect Box outcome (hit/miss/damage/defeat) but must not leak forbidden details
+* Regression harness: curated scenarios to detect drift
+
+---
+
+## Section 7: Dependency Map (optimal research execution order)
+
+| Order | Item                              | Depends on                         | Unblocks                                                             |
+| ----: | --------------------------------- | ---------------------------------- | -------------------------------------------------------------------- |
+|     1 | **RG-004 VRAM policy**            | —                                  | Reliable real-hardware validation across Spark/Image/Music           |
+|     2 | **RG-001 RQ-SPARK-001 synthesis** | DD-01 (structured output strategy) | Final Spark↔Lens parsing/validation contract                         |
+|     3 | **RG-002 RQ-NARR-001 synthesis**  | RG-001 (facts/provenance shape)    | Narration QA + persona iteration                                     |
+|     4 | **RG-005 Canonical ID lifecycle** | —                                  | Cache invalidation, voice roster stability, long-session correctness |
+|     5 | **RG-003 Voice reference corpus** | RG-005 (ID stability)              | WO-052 resolver + distinct character voices                          |
+
+---
+
+## Section 8: Top 10 Highest-Impact Research Questions (ranked)
+
+1. **RG-004 — VRAM residency + eviction policy** (prevents systemic OOM + makes benchmarks real) 
+2. **RG-001 — RQ-SPARK-001 synthesis into a single emission contract** (ends ambiguity; stabilizes Spark/Lens) 
+3. **DD-01 — Structured output strategy (native JSON vs guided+parse baseline)** (drives parser + retry design) 
+4. **RG-002 — RQ-NARR-001 synthesis into a measurable rubric** (lets you iterate narration safely) 
+5. **RG-005 — Canonical ID lifecycle (rename/merge/delete)** (prevents long-session drift + cache bugs) 
+6. **EU-01 — Real Spark latency / throughput benchmark** (sets practical token budgets + UX expectations) 
+7. **DD-02 — Context overflow policy** (defines reliability under long sessions) 
+8. **RG-003 — Voice reference clip sourcing + policy** (unlocks “distinct NPC voices,” a core immersion promise) 
+9. **IA-01 — Formalize SessionBundle validation contract** (turns “cert.ready” into a real safety gate) 
+10. **EU-02 — Close the GPU-skipped test gap with real runs** (reduces unknown failure surface) 
+
+---
+
+### Notable contradiction to resolve (flagged)
+
+* Plan v1 draft still says RQ-SPARK-001 / RQ-NARR-001 are “NOT DELIVERED.” 
+* PM rehydration says all sub-dispatches for both are delivered and synthesis is ready. 
+
+This should be treated as a *documentation-state mismatch*: either the plan draft is stale, or “delivered” means “findings delivered but synthesis missing.” The register above assumes the latter and prioritizes synthesis as the fastest path to clarity.

@@ -1,0 +1,362 @@
+# Execution Plan Derived from Gap Register
+
+This plan uses **only the previously identified gaps (GAP-001 … GAP-007)**.
+No new architecture is introduced.
+
+---
+
+# 1) Ranked Top 10 Fixes (Strict Priority Order)
+
+## Priority Chain
+
+1. **Fix 1 — Synthesize RQ-SPARK-001 + RQ-NARR-001 (GAP-001)**
+
+   * Dependency: None.
+   * Unblocks: Voice resolver contract clarity, Spark stress acceptance criteria, Phase 4 readiness arguments.
+
+2. **Fix 2 — Execute RQ-VOICE-001 (WO-051) fully (GAP-002)**
+
+   * Depends on: Fix 1 (to align voice persona constraints with narrative policy).
+   * Unblocks: WO-052 resolver correctness, real immersion differentiation.
+
+3. **Fix 3 — Align Governance Authority Docs (GAP-003)**
+
+   * Independent.
+   * Prevents procedural conflicts during Fix 1 and 2 merges.
+
+4. **Fix 4 — Run and Record GPU-Gated Stress Tests (GAP-004)**
+
+   * Independent.
+   * Provides performance truth before expanding voice/image use.
+
+5. **Fix 5 — Define AoO + Permanent Stat Integration Contracts (GAP-005 + GAP-006)**
+
+   * Depends on: None.
+   * Unblocks mechanical correctness expansion.
+
+6. Formalize UUID determinism containment (GAP-006)
+
+7. Create hardware benchmark artifact registry (extension of GAP-004)
+
+8. Freeze NarrativeBrief schema explicitly (subset of GAP-001)
+
+9. Add explicit determinism tests for non-authoritative layers
+
+10. Add governance single-source-of-truth reference header enforcement
+
+---
+
+# 2) Full Remediation Work Packets (Top 5)
+
+---
+
+## FIX 1 — Synthesize RQ-SPARK-001 + RQ-NARR-001
+
+### Objective
+
+Produce two binding synthesis documents that canonize structured emission and narrative balance policies.
+
+### Scope Boundaries
+
+**IN**
+
+* RQ-SPARK-001 sub-dispatch findings (3 docs)
+* RQ-NARR-001 sub-dispatch findings (3 docs)
+* Grammar Shield references
+* Kill-switch contract references
+
+**OUT**
+
+* Code changes
+* LLM tuning experiments
+* New architecture
+
+### Concrete Artifacts Touched
+
+* `docs/research/RQ-SPARK-001_SYNTHESIS.md`
+* `docs/research/RQ-NARR-001_SYNTHESIS.md`
+* `T2_SPARK_PROVIDER_CONTRACT.md`
+* NarrativeBrief references in state digest
+* Grammar Shield tests
+
+### Step Plan
+
+1. Collect all six sub-dispatch documents.
+2. Extract all MUST / SHOULD / MUST-NOT statements.
+3. Identify contradictions across sub-findings.
+4. Resolve contradictions or flag for PO decision.
+5. Define canonical structured output schema (Spark).
+6. Define rejection/repair behavior.
+7. Define narrative tone rubric + fidelity rules.
+8. Map each rule to an existing test (or gap).
+9. Add explicit acceptance test matrix.
+10. Freeze document as binding.
+
+### Acceptance Criteria
+
+* Two synthesis docs exist.
+* Each includes:
+
+  * Final contract
+  * Edge-case behavior
+  * Explicit test references
+* No unresolved contradictions.
+
+### New Tests Required
+
+* `test_spark_structured_output_contract_enforced`
+* `test_narrative_balance_mechanical_fidelity_priority`
+* `test_spark_malformed_output_rejection_policy`
+
+### Rollback Plan
+
+If synthesis introduces contradictions with current implementation, revert doc and open decision memo.
+
+### Stop Conditions
+
+If sub-findings materially conflict and cannot reconcile → escalate to PO with option matrix.
+
+---
+
+## FIX 2 — Execute WO-051 (Voice Design Research)
+
+### Objective
+
+Produce a canonical Voice Design Guide with reference sourcing, archetypes, and licensing.
+
+### Scope Boundaries
+
+**IN**
+
+* Reference clip specs
+* Archetype recipe definitions
+* Voice normalization standards
+* Licensing policy
+
+**OUT**
+
+* TTS engine modification
+* Embedding-based selection
+
+### Artifacts
+
+* `docs/research/VOICE_DESIGN_GUIDE.md`
+* Reference clip folder structure
+* Update `T3_WO-052_LENS_VOICE_RESOLVER.md` dependency notes
+
+### Step Plan
+
+1. Survey Chatterbox best practices.
+2. Define clip requirements (length, SNR, format).
+3. Define loudness normalization standard.
+4. Identify sourcing policy (public domain / generated).
+5. Create 8–12 archetype recipes (numeric ranges).
+6. Package sample reference set.
+7. Validate perceptual distinctness manually.
+8. Document mapping to VoicePersona schema.
+9. Freeze guide as canonical.
+
+### Acceptance Criteria
+
+* Guide exists.
+* Archetypes mapped numerically.
+* Reference clips pass normalization checks.
+* Licensing compliance documented.
+
+### New Tests
+
+* `test_voicepersona_archetype_mapping_valid_ranges`
+* `test_reference_clip_format_validation`
+
+### Rollback Plan
+
+If licensing ambiguous → remove clips and revert to stub.
+
+### Stop Conditions
+
+Any legal ambiguity in reference sourcing.
+
+---
+
+## FIX 3 — Governance Authority Alignment
+
+### Objective
+
+Eliminate conflicting authority definitions across binding documents.
+
+### Scope
+
+**IN**
+
+* All binding contracts with authority headers.
+
+**OUT**
+
+* Role redesign
+* Org restructuring
+
+### Artifacts
+
+* `T1_PROJECT_STATE_DIGEST.md`
+* `T2_SPARK_PROVIDER_CONTRACT.md`
+* Any doc with “Authority:” header
+
+### Steps
+
+1. Inventory authority references.
+2. Select single canonical authority source.
+3. Update all docs to reference role, not person.
+4. Add reference link to governance file.
+5. Review for drift.
+
+### Acceptance Criteria
+
+* All binding docs align.
+* One canonical governance source exists.
+
+### New Tests
+
+* None (manual review checklist)
+
+### Rollback
+
+Revert doc edits if disagreement among stakeholders.
+
+### Stop Conditions
+
+Disagreement on authority ownership.
+
+---
+
+## FIX 4 — GPU Stress Test Execution
+
+### Objective
+
+Validate Spark performance envelope on target hardware.
+
+### Scope
+
+**IN**
+
+* GPU-skipped tests
+* VRAM measurement
+* Latency capture
+
+**OUT**
+
+* Performance optimization
+
+### Artifacts
+
+* Benchmark log file
+* `docs/perf/SPARK_GPU_BENCHMARK_2026.md`
+
+### Steps
+
+1. Run full test suite on RTX 3080 Ti.
+2. Capture VRAM usage peak.
+3. Capture latency distribution.
+4. Record fragmentation after 20+ iterations.
+5. Compare to pass thresholds.
+6. Document findings.
+7. Decide pass/fail.
+
+### Acceptance Criteria
+
+* All GPU tests pass on target hardware.
+* VRAM within safe envelope.
+
+### New Tests
+
+* `test_spark_gpu_peak_vram_under_limit`
+* `test_spark_repeated_runs_no_fragmentation_failure`
+
+### Rollback
+
+If failing → revert to CPU fallback config and escalate.
+
+### Stop Conditions
+
+Consistent OOM or latency > acceptable threshold.
+
+---
+
+## FIX 5 — AoO + Permanent Stats Contract Definition
+
+### Objective
+
+Define minimal contract for ranged/spell provocation and temporary modifier integration.
+
+### Scope
+
+**IN**
+
+* `T3_KNOWN_TECH_DEBT.md`
+* AoO provocation cases
+* permanent_stats stub area
+
+**OUT**
+
+* Full feat implementation
+* Equipment system full design
+
+### Artifacts
+
+* `docs/spec/AOO_PROVOCATION_MINIMAL_CONTRACT.md`
+* `docs/spec/TEMP_MODIFIER_INTEGRATION.md`
+
+### Steps
+
+1. Extract blocked cases from tech debt doc.
+2. Identify required intent fields.
+3. Define minimal equipment metadata required.
+4. Define stacking/ordering rules for temp modifiers.
+5. Enumerate canonical rule examples.
+6. Define test matrix.
+7. Freeze spec.
+
+### Acceptance Criteria
+
+* Specs exist.
+* Each includes example cases.
+* Each lists test names to implement later.
+
+### New Tests
+
+* `test_aoo_provocation_ranged_attack_trigger`
+* `test_temp_modifier_stat_stack_ordering`
+
+### Rollback
+
+If design conflicts with current CP gating, defer with formal schedule note.
+
+### Stop Conditions
+
+If enabling requires architecture change beyond minimal contract.
+
+---
+
+# 3) Single Highest-Risk Unknown
+
+## Risk
+
+**Whether the RQ-SPARK-001 and RQ-NARR-001 sub-dispatch findings actually agree with each other.**
+
+If they contradict fundamentally, synthesis will fail and narrative policy may require redesign.
+
+## Fastest Resolution
+
+1. Retrieve all six sub-dispatch documents.
+2. Create a side-by-side matrix of:
+
+   * Output schema claims
+   * Determinism expectations
+   * Repair policies
+   * Tone/fidelity rules
+3. Identify contradictions in 1–2 hours.
+
+If contradictions are structural (not stylistic), escalate immediately before proceeding with other fixes.
+
+---
+
+This plan is merge-ready and bounded strictly to identified gaps.

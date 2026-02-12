@@ -1,0 +1,79 @@
+According to a document from **2026-02-11**, the project *claims* Spark stress-testing is integrated, but **4 GPU performance tests are hardware-gated/skipped**, which is a direct hole in the evidence for VRAM/latency feasibility. 
+
+## Where the unbenchmarked assumptions are
+
+### 1) “VRAM budgeting works” is mostly policy-level, not measured end-to-end
+
+* The Spark Provider Contract defines an **OOM fallback sequence** (“unload model, try smaller model, else templates”) but it does **not** demonstrate that *unload+reload across backends* is reliable under real mixed workloads. 
+* The same contract contains a **model manifest field** for `min_vram_gb` and `avg_tokens_per_sec`, but those are *declared expectations*, not proven benchmarks. 
+
+**Unbenchmarked assumption:** that the runtime can safely arbitrate GPU memory across Spark and other GPU consumers, and that “unload → load” is fast enough not to wreck turn cadence.
+
+### 2) “Latency targets are met” is implied by interfaces, not validated under load
+
+* The contract makes latency part of `provider_metadata` (e.g., `latency_ms`) and requires `tokens_used`, but nothing in the retrieved docs defines **acceptable p50/p95 latency envelopes** for sync play. 
+* Context overflow handling (truncate/summarize/switch model) exists as a strategy menu, but the *latency impact* of summarization (extra call) and model switching (reload) isn’t bounded. 
+
+**Unbenchmarked assumption:** that “prep vs play separation” keeps synchronous play fast even when prompts bloat or models need switching. 
+
+### 3) “Minimum spec won’t fall apart” relies on graceful degradation, but the quality floor isn’t defined
+
+* The contract explicitly supports CPU-only “minimum spec” models in config examples (e.g., Phi-2) and a chain that ends in templates. 
+* What’s missing is a **minimum viable UX/performance definition**: how slow is “too slow” before the system is effectively unusable, even if it technically falls back.
+
+**Unbenchmarked assumption:** that template fallback is an acceptable “floor” for users, and that CPU-only narration latency won’t destroy pacing.
+
+---
+
+## What likely breaks first on minimum spec
+
+### A) Turn-to-turn cadence collapses (latency inflation)
+
+If the fallback chain lands on CPU-only SPARK (or frequent summarization/model-switch), you can get:
+
+* multi-second narration delays per turn,
+* additional delay for retries/repair prompts (JSON parse failures),
+* and worst case: falling back to templates frequently (quality cliff). 
+
+### B) GPU co-residency assumptions are fragile (OOM thrash)
+
+The system has explicit OOM behavior for Spark, but **no demonstrated arbitration** when other GPU backends are involved. In practice, if you have any other large GPU resident (image/music/TTS), you risk:
+
+* repeated unload/reload cycles,
+* fragmentation / allocator churn,
+* and unstable latency spikes.
+
+(Your docs acknowledge “GPU performance” as a test category—then skip it on non-GPU rigs.) 
+
+### C) “Performance invariants” are already outdated relative to scale
+
+The digest lists “tests must pass in < 5 seconds” and immediately notes current runtime is ~51s (rule predates scale). That’s a governance smell for runtime targets too: old performance thresholds drift unless re-baselined. 
+
+---
+
+## The concrete research questions to answer (perf/VRAM/feasibility)
+
+1. **VRAM residency policy:** what is the enforced GPU model lifecycle across Spark + other GPU backends (when to load, when to evict, what’s allowed to co-reside)?
+
+* Evidence gap: only OOM fallback behavior is specified, not steady-state policy. 
+
+2. **Latency envelope:** what are acceptable p50/p95 end-to-end turn latencies for:
+
+   * “play loop: Box→NarrativeBrief→Spark→TTS” and
+   * “fallback paths: summarize, model-switch, template”?
+
+* Evidence gap: instrumentation fields exist, but targets aren’t stated. 
+
+3. **Minimum spec definition:** what exact hardware profile is “minimum spec,” and what features are allowed/disabled there?
+
+* Evidence gap: example manifests include `min_ram_gb` / `min_vram_gb`, but there’s no validated tiering. 
+
+4. **GPU-skipped test closure:** run the 4 hardware-gated tests on target GPU and record:
+
+   * peak VRAM by phase,
+   * cold start vs warm start times,
+   * and stability under repeated unload/reload.
+
+* Evidence gap: explicitly skipped right now. 
+
+If you want, I can turn this into a mini “Performance & Feasibility Research Register” (RG-PERF-xxx items) with scopes and dependencies, staying strictly in research/benchmark framing.
