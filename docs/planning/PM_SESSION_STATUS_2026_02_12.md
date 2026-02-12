@@ -1,14 +1,31 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 17 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization → Steps 10-11 Integration Wiring → Phase 3 Evaluation Harness)
+**Sessions Covered:** 18 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization → Steps 10-11 Integration Wiring → Phase 3 Evaluation Harness → **Product Pivot Whiteboard + Flanking Integration**)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN**.
+**MAJOR PRODUCT PIVOT: "The Table"** — Product renamed and repositioned as a content-independent truthful play engine. All forward-facing documents stripped of D&D references. Physical table UI declared as north star. Voice-first interaction model. No Mercy doctrine. Presentation Semantics (AD-007) identified as keystone missing contract.
+
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** **AD-007 Presentation Semantics Contract ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN**.
+
+**Flanking geometry COMPLETE and WIRED into attack resolvers.** 29 tests for flanking detection + integration into both attack_resolver.py and full_attack_resolver.py. Gold masters regenerated. Sneak Attack (WO-050B) is now unblocked.
+
+**Whiteboard session documentation COMPLETE (7 new documents):**
+- MANIFESTO.md replaced (content-independent, "The Table")
+- docs/TECHNICAL_CASE.md (archived old manifesto)
+- docs/decisions/AD-007_PRESENTATION_SEMANTICS_CONTRACT.md (keystone Layer A/B/C model)
+- docs/specs/UX_VISION_PHYSICAL_TABLE.md (80+ UI/UX concepts)
+- docs/specs/MVP_SESSION_ZERO_TO_ONE_COMBAT.md (10 acceptance criteria)
+- docs/planning/REVISED_PROGRAM_SEQUENCING_2026_02_12.md (5-phase roadmap)
+- docs/planning/RQ-TABLE-FOUNDATIONS-001.md (7 research topics, tiered)
+
+**Revised program sequencing adopted:** Phase 0 (foundation alignment) → Phase 1 (world compile) → Phase 2 (play loop) → Phase 3 (table UI prototype) → Phase 4 (MVP integration). Mechanical coverage continues as parallel track.
+
+**Test suite:** 4339 passed (+5 from flanking integration), 0 failures, 11 skipped, 0 regressions.
 
 **RQ-LENS-SPARK-001 COMPLETE (ALL 3 PHASES):**
 - Phase 1: PromptPack v1 (WO-045B/057) + ContradictionChecker v1 (WO-058) — COMPLETE
@@ -35,7 +52,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 
 **RQ-PRODUCT-001 updated** with 0a/0b character substrate split in the Layered World Authority Model.
 
-**Test suite:** 4334 passed (+106 from WO-059/060 + Steps 10-11 + Phase 3), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
+**Test suite:** 4339 passed (+5 from flanking integration + gold master regen), 0 failures (import boundary fix resolved chatterbox whitelist), 11 skipped, 0 regressions.
 
 ---
 
@@ -50,6 +67,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 | AD-003: Self-Sufficiency Resolution | `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` | System self-sufficiency through Policy Default Library + Seeded Deterministic Generator, not LLM invention. |
 | AD-005: Physical Affordance Policy | `docs/decisions/AD-005_PHYSICAL_AFFORDANCE_POLICY.md` | Declared physical facts for RAW-silent properties. Four-layer inventory architecture. HOUSE_POLICY provenance for container/storage rules. |
 | AD-006: House Policy Governance Doctrine | `docs/decisions/AD-006_HOUSE_POLICY_GOVERNANCE_DOCTRINE.md` | No-Opaque-DM. Two authorities (RAW + House Policy). Template Family Registry (closed at runtime, open across versions). FAIL_CLOSED protocol. Two-Loop Model. |
+| AD-007: Presentation Semantics Contract | `docs/decisions/AD-007_PRESENTATION_SEMANTICS_CONTRACT.md` | Three-layer description model (Behavior/Presentation Semantics/Narration). Layer B frozen at world compile. 8 semantic fields. Keystone for content independence. |
 
 ### AD-004: Mechanical Evidence Gate
 
@@ -100,6 +118,9 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 24. `2ec50dc` — WO-059/060: Memory Retrieval Policy + Summarization Stability (65 new tests)
 25. `08fedcc` — RQ-LENS-SPARK-001 Steps 10-11: SegmentTracker + summaries wired into pipeline (17 new tests)
 26. `31b66c5` — RQ-LENS-SPARK-001 Phase 3: Evaluation Harness (Scenarios 1+4, 24 new tests)
+27. `1fe03e2` — docs: whiteboard session — product pivot to "The Table" (7 new documents)
+28. `798eec0` — feat: flanking geometry detection (29 tests) + fix import boundary
+29. `059efbf` — feat: wire flanking into attack resolvers + regenerate gold masters
 
 ---
 
@@ -155,7 +176,7 @@ Recent promotions:
 
 **New work stream (PO-directed):** Physical Affordance / Inventory system (AD-005, WO-053 through WO-056).
 
-**Remaining Tier 1 (Critical Path) gaps:** Sneak Attack (blocked on flanking geometry), 5-foot step completion, Inventory/Encumbrance (new — WO-054).
+**Remaining Tier 1 (Critical Path) gaps:** Sneak Attack (NOW UNBLOCKED — flanking complete), 5-foot step completion.
 
 Full details: `docs/audits/MECHANICAL_COVERAGE_AUDIT.md`
 
@@ -237,11 +258,15 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ### Next Session Priority
 
-1. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
-2. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
-3. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
-4. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
-5. **Evaluation harness expansion**: Scenarios 2 (scene transitions) and 3 (mixed mode) when scene/rest systems mature
+**Per REVISED_PROGRAM_SEQUENCING_2026_02_12.md:**
+
+1. **Phase 0.1**: Strip source material references from codebase (root to stem)
+2. **Phase 0.3**: Implement AD-007 Presentation Semantics Schema (frozen dataclass, enums, validation)
+3. **Phase 0.4**: Rulebook Object Model (storage, indexing, query API)
+4. **WO-050B**: Sneak Attack (NOW UNBLOCKED by flanking geometry)
+5. **RQ-TABLE-FOUNDATIONS-001**: Dispatch Tier 1 research (Intent Bridge combat mode, World Compiler minimum viable, Non-Combat Authority)
+
+**PO inbox item pending review:** `pm_inbox/PO_REVIEW_RQ-INTENT-001_INTENT_BRIDGE.md` — Jay's review of Intent Bridge research dispatch. Recommends approval with existing implementation context provided to agent.
 
 ### Phase 2 Dispatch (Ready)
 
@@ -264,7 +289,7 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 | Item | Blocked By |
 |------|-----------|
-| WO-050B: Sneak Attack | Flanking detection prerequisite (geometry) |
+| WO-050B: Sneak Attack | **UNBLOCKED** — flanking geometry complete and wired into resolvers |
 
 ---
 
@@ -351,6 +376,22 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 - `aidm/evaluation/__init__.py` — Package init
 - `aidm/evaluation/harness.py` — EvaluationHarness, EvaluationScenario, EvaluationReport, Scenarios 1+4 (~400 lines)
 - `tests/test_evaluation_harness.py` — 24 evaluation harness tests (6 categories)
+
+### Whiteboard Session (Product Pivot)
+- `MANIFESTO.md` — Replaced: content-independent product philosophy for "The Table"
+- `docs/TECHNICAL_CASE.md` — NEW: archived old manifesto as engineering reference
+- `docs/decisions/AD-007_PRESENTATION_SEMANTICS_CONTRACT.md` — NEW: three-layer description model
+- `docs/specs/UX_VISION_PHYSICAL_TABLE.md` — NEW: 80+ UI/UX concepts, physical table north star
+- `docs/specs/MVP_SESSION_ZERO_TO_ONE_COMBAT.md` — NEW: MVP scope + 10 acceptance criteria
+- `docs/planning/REVISED_PROGRAM_SEQUENCING_2026_02_12.md` — NEW: 5-phase roadmap
+- `docs/planning/RQ-TABLE-FOUNDATIONS-001.md` — NEW: 7 research topics (A-G) tiered by priority
+
+### Flanking Geometry (Mechanical Coverage)
+- `aidm/core/flanking.py` — NEW: flanking detection, 135-degree angle check, is_denied_dex_to_ac()
+- `tests/test_flanking.py` — NEW: 29 tests (angle computation, basic flanking, threat requirements, position, team, denied dex, multiple allies)
+- `aidm/core/attack_resolver.py` — Updated: flanking bonus in modifier chain + event payload
+- `aidm/core/full_attack_resolver.py` — Updated: flanking bonus in modifier chain + event payload
+- `tests/fixtures/gold_masters/*.jsonl` — Regenerated with flanking fields
 
 ### Work Orders
 - `docs/work_orders/WO-057_PROMPTPACK_CONSOLIDATION.md` — WO-057 spec (GAP-007 resolution)
