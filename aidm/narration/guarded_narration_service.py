@@ -79,6 +79,12 @@ except ImportError:
     PromptPackBuilder = None  # type: ignore
     logger.info("PromptPackBuilder not available, using legacy prompt assembly")
 
+# ContradictionChecker import (WO-058, for post-hoc Spark output validation)
+from aidm.narration.contradiction_checker import (
+    ContradictionChecker,
+    RecommendedAction,
+)
+
 
 # ========================================================================
 # Frozen Memory Snapshot (FREEZE-001)
@@ -264,7 +270,8 @@ class GuardedNarrationService:
     CONSECUTIVE_REJECTION_THRESHOLD = 3
 
     def __init__(self, loaded_model: Optional[Any] = None, use_llm_query_interface: bool = True,
-                 kill_switch_registry: Optional[KillSwitchRegistry] = None):
+                 kill_switch_registry: Optional[KillSwitchRegistry] = None,
+                 contradiction_checker: Optional[ContradictionChecker] = None):
         """Initialize guarded narration service.
 
         Args:
@@ -273,9 +280,13 @@ class GuardedNarrationService:
             use_llm_query_interface: If True and available, use LLMQueryInterface for narration (M3 mode).
             kill_switch_registry: Optional shared KillSwitchRegistry instance.
                                  If None, creates a private instance.
+            contradiction_checker: Optional ContradictionChecker for post-hoc
+                                  Spark output validation (WO-058). If None,
+                                  creates a default instance.
         """
         self.metrics = NarrationMetrics()
         self.kill_switch_registry = kill_switch_registry or KillSwitchRegistry()
+        self.contradiction_checker = contradiction_checker or ContradictionChecker()
         self.loaded_model = loaded_model if SPARK_AVAILABLE else None
 
         # Backward compat: shadow property for _kill_switch_active
@@ -379,6 +390,30 @@ class GuardedNarrationService:
                         self._check_kill005()
                         llm_narration_text = None
 
+                # ── WO-058: Contradiction check ─────────────────────
+                if llm_narration_text is not None and request.narrative_brief is not None:
+                    contradiction_result = self.contradiction_checker.check(
+                        llm_narration_text, request.narrative_brief,
+                    )
+                    if contradiction_result.has_contradiction:
+                        action = contradiction_result.recommended_action
+                        logger.warning(
+                            f"Contradiction detected: {len(contradiction_result.matches)} match(es), "
+                            f"action={action.value}"
+                        )
+                        if action == RecommendedAction.RETRY:
+                            # Retry with correction appended to prompt
+                            retry_text = self._retry_with_correction(
+                                request, contradiction_result,
+                            )
+                            if retry_text is not None:
+                                llm_narration_text = retry_text
+                            else:
+                                llm_narration_text = None  # Retry failed, fall back to template
+                        elif action == RecommendedAction.TEMPLATE_FALLBACK:
+                            llm_narration_text = None  # Fall back to template
+                        # ANNOTATE: keep the text but log (Class C, first occurrence)
+
             except Exception as e:
                 logger.warning(f"LLM narration failed, falling back to template: {e}")
                 llm_narration_text = None
@@ -461,6 +496,72 @@ class GuardedNarrationService:
                      "rejection_types": self.kill_switch_registry.rejection_types},
                 )
                 self.kill_switch_registry.trigger(KillSwitchID.KILL_005, ev)
+
+    def _retry_with_correction(
+        self, request: NarrationRequest, contradiction_result: Any,
+    ) -> Optional[str]:
+        """Retry LLM narration with contradiction correction appended to prompt.
+
+        WO-058: When a contradiction is detected and response policy says "retry",
+        regenerate with a correction prompt that explicitly tells Spark what it
+        got wrong.
+
+        Args:
+            request: Original NarrationRequest
+            contradiction_result: ContradictionResult from failed check
+
+        Returns:
+            Corrected narration text if retry succeeds, None if retry also fails
+        """
+        if self.loaded_model is None or self.loaded_model.inference_engine is None:
+            return None
+
+        correction = self.contradiction_checker.build_retry_correction(
+            contradiction_result, request.narrative_brief,
+        )
+
+        # Build prompt with correction appended
+        prompt = self._build_llm_prompt(request)
+        if request.narrative_brief is not None and PROMPT_PACK_BUILDER_AVAILABLE:
+            prompt = self._build_prompt_pack(request)
+        prompt = prompt + "\n\n" + correction
+
+        presets = self.loaded_model.profile.presets.get('narration', {})
+        temperature = min(request.temperature + 0.1, 2.0)  # Bump temp slightly
+        max_tokens = presets.get('max_tokens', 150)
+        stop_sequences = presets.get('stop_sequences', [])
+
+        try:
+            output = self.loaded_model.inference_engine(
+                prompt,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                stop=stop_sequences,
+                echo=False,
+            )
+
+            if isinstance(output, dict) and 'choices' in output:
+                text = output['choices'][0]['text'].strip()
+            else:
+                text = str(output).strip()
+
+            # Check retry output for mechanical assertions
+            mech = detect_mechanical_assertions(text)
+            if mech is not None:
+                return None
+
+            # Check retry output for contradictions
+            retry_result = self.contradiction_checker.check(
+                text, request.narrative_brief,
+            )
+            if retry_result.has_contradiction:
+                return None  # Retry also contradicted — caller falls back to template
+
+            return text
+
+        except Exception as e:
+            logger.warning(f"Contradiction retry failed: {e}")
+            return None
 
     def _generate_llm_narration_with_meta(self, request: NarrationRequest):
         """Generate narration using LLM and return metadata for kill switch checks.

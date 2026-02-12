@@ -1,14 +1,14 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 13 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation)
+**Sessions Covered:** 14 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 12 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **upgraded to GREEN** — **WO-057 COMPLETE**: PromptPackBuilder unifies both prompt assembly paths via PromptPack (GAP-007 resolved).
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 13 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN** — **WO-058 COMPLETE**: ContradictionChecker v1 validates Spark output against NarrativeBrief truth frame (RQ-LENS-SPARK-001 Deliverable 4, Phase 1).
 
 **PO design session artifacts reviewed and APPROVED:** RQ-PRODUCT-001 (Content Independence Architecture), RQ-BOX-002 (RAW Silence Catalog), RQ-BOX-003 (Object Identity), RQ-LENS-002 (Contradiction Surface), RQ-LENS-SPARK-001 (Context Orchestration Sprint), AD-006 (House Policy Governance Doctrine). Feature freeze approved.
 
@@ -19,10 +19,11 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 - Player sit-down flow: Name → Identity → Stats → World generation → Complete character → Play.
 - Character Substrate discovery: Level 0b exists before world creation (attribute schema, dice grammar).
 - Semantic emergence: IDs become names when world generates.
+- Box is ontology-free. D&D is one dataset mined for physics, not the product's identity.
 
 **RQ-PRODUCT-001 updated** with 0a/0b character substrate split in the Layered World Authority Model.
 
-**Test suite:** 4161 passed (+31 from WO-057), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
+**Test suite:** 4228 passed (+67 from WO-058), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
 
 ---
 
@@ -179,23 +180,28 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ## What to Do Next
 
-### Completed This Session (WO-057)
+### Completed This Session (WO-058)
 
-1. **GAP-007 RESOLVED**: PromptPackBuilder class created (`aidm/lens/prompt_pack_builder.py`)
-   - Single prompt assembly path: NarrativeBrief → PromptPack → serialize() → Spark
-   - Replaces PATH 1 (GuardedNarrationService._build_llm_prompt) and PATH 2 (ContextAssembler.assemble)
-   - Wired into GuardedNarrationService (uses PromptPack when narrative_brief present)
-   - Wired into SessionOrchestrator (passes narrative_brief to NarrationRequest)
-   - 31 new tests (all pass), 0 regressions
-2. **RQ-PRODUCT-001 updated** with 0a/0b character substrate split
+1. **WO-058 ContradictionChecker v1** (`aidm/narration/contradiction_checker.py`)
+   - Post-hoc Spark output validation against NarrativeBrief truth frame
+   - 3 contradiction classes: A (entity state), B (outcome), C (continuity)
+   - Class A: defeat/hit/miss keywords, severity inflation/deflation, stance
+   - Class B: weapon name substitution, damage type mismatch
+   - Class C: indoor/outdoor scene location mismatch
+   - Response policy: retry → template_fallback (escalating by consecutive count)
+   - Retry mechanism with correction prompt + temperature bump
+   - Wired into GuardedNarrationService (after KILL-002, before output delivery)
+   - 67 new tests (all pass), 0 regressions
+2. **Prior session (WO-057)**: PromptPackBuilder — single prompt assembly path (GAP-007 resolved)
 
 ### Next Session Priority
 
-1. **RQ-LENS-SPARK-001 Phase 1**: ContradictionChecker v1 — keyword dictionaries, retry policy (informed by RQ-LENS-002)
-2. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
-3. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
-4. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
-5. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
+1. **RQ-LENS-SPARK-001 Phase 2**: Memory Retrieval Policy — salience ranking, hard caps, provenance tags
+2. **RQ-LENS-SPARK-001 Phase 2**: Summarization Stability Protocol — template-based segment summaries
+3. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
+4. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
+5. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
+6. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
 
 ### Phase 2 Dispatch (Ready)
 
@@ -287,8 +293,13 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 - `tests/test_gear_affordance_056.py` — 16 WO-056 tests (gear resolution, pipeline, containment boundary)
 - `tests/test_prompt_pack_builder.py` — 31 WO-057 tests (build, truncation, determinism, style, contract, edge cases)
 
+### Narration Layer (WO-058)
+- `aidm/narration/contradiction_checker.py` — WO-058: ContradictionChecker v1 — post-hoc Spark output validation (~430 lines)
+- `tests/test_contradiction_checker.py` — 67 WO-058 tests (3 classes, response policy, retry correction, false positive avoidance, edge cases)
+
 ### Work Orders
 - `docs/work_orders/WO-057_PROMPTPACK_CONSOLIDATION.md` — WO-057 spec (GAP-007 resolution)
+- `docs/work_orders/WO-058_CONTRADICTION_CHECKER.md` — WO-058 spec (RQ-LENS-SPARK-001 Deliverable 4)
 
 ---
 
