@@ -66,7 +66,13 @@ def test_attack_resolution_deterministic_replay():
 
 
 def test_attack_hits_when_roll_meets_or_exceeds_ac():
-    """Tier 1: Attack should hit when total meets or exceeds target AC."""
+    """Tier 1: Attack should hit when total meets or exceeds target AC (PHB p.140).
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0140.txt
+    Rule: "Your attack roll is 1d20 + your attack bonus with the weapon
+    you're using. If the result is at least as high as the target's AC, you hit
+    and deal damage."
+    """
     world_state = WorldState(
         ruleset_version="3.5e",
         entities={
@@ -133,7 +139,11 @@ def test_attack_misses_when_roll_below_ac():
 
 
 def test_natural_20_always_hits():
-    """Tier 1: Natural 20 should always hit regardless of AC."""
+    """Tier 1: Natural 20 should always hit regardless of AC (PHB p.140).
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0140.txt
+    Rule: "A natural 20 (the d20 comes up 20) is always a hit."
+    """
     world_state = WorldState(
         ruleset_version="3.5e",
         entities={
@@ -166,7 +176,11 @@ def test_natural_20_always_hits():
 
 
 def test_natural_1_always_misses():
-    """Tier 1: Natural 1 should always miss regardless of attack bonus."""
+    """Tier 1: Natural 1 should always miss regardless of attack bonus (PHB p.140).
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0140.txt
+    Rule: "A natural 1 (the d20 comes up 1) on the attack roll is always a miss."
+    """
     world_state = WorldState(
         ruleset_version="3.5e",
         entities={
@@ -499,6 +513,9 @@ def test_parse_damage_dice_invalid():
 def test_single_attack_has_threat_detection():
     """WO-FIX-002: Single attacks must detect critical threats (PHB p.140).
 
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0140.txt
+    Rule: "A natural 20 is also a threat—a possible critical hit."
+
     Before this fix, resolve_attack had no is_threat or is_critical fields.
     """
     world_state = WorldState(
@@ -526,7 +543,12 @@ def test_single_attack_has_threat_detection():
 
 
 def test_single_attack_critical_confirmation():
-    """WO-FIX-002: Single attacks must roll confirmation on threat (PHB p.140)."""
+    """WO-FIX-002: Single attacks must roll confirmation on threat (PHB p.140).
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0141.txt
+    Rule: "If the critical roll also results in a hit against the target's AC,
+    your original hit is a critical hit."
+    """
     world_state = WorldState(
         ruleset_version="3.5e",
         entities={
@@ -566,7 +588,12 @@ def test_single_attack_critical_confirmation():
 
 
 def test_single_attack_critical_damage_multiplied():
-    """WO-FIX-002: Confirmed critical must multiply damage (PHB p.140)."""
+    """WO-FIX-002: Confirmed critical must multiply damage (PHB p.140).
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0141.txt
+    Rule: "A critical hit means that you roll your damage more than once,
+    with all your usual bonuses, and add the rolls together."
+    """
     world_state = WorldState(
         ruleset_version="3.5e",
         entities={
@@ -720,6 +747,10 @@ def test_single_attack_threat_in_expanded_range_must_still_meet_ac():
     PHB p.140: Only natural 20 auto-hits. Expanded threat range allows critical
     confirmation on rolls that hit, but does NOT turn misses into hits.
     This is a common misread of the rules.
+
+    Evidence: Vault/00-System/Staging/681f92bc94ff/pages/0141.txt
+    Rule: "In such cases, a roll of lower than 20 is not an automatic hit.
+    Any attack roll that doesn't result in a hit is not a threat."
     """
     world_state = WorldState(
         ruleset_version="3.5e",
