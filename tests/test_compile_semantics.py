@@ -430,7 +430,7 @@ class TestRegistryLoadable:
         context = _make_context(tmp_path)
         stage = SemanticsStage()
         result = stage.execute(context)
-        assert result.success
+        assert result.status == "success"
 
         output_path = context.workspace_dir / "presentation_semantics.json"
         loader = PresentationRegistryLoader.from_json_file(output_path)
@@ -441,7 +441,7 @@ class TestRegistryLoadable:
         context = _make_context(tmp_path)
         stage = SemanticsStage()
         result = stage.execute(context)
-        assert result.success
+        assert result.status == "success"
 
         output_path = context.workspace_dir / "presentation_semantics.json"
         with open(output_path, "r") as f:
@@ -464,7 +464,7 @@ class TestNoDuplicateContentIds:
         context = _make_context(tmp_path)
         stage = SemanticsStage()
         result = stage.execute(context)
-        assert result.success
+        assert result.status == "success"
 
         output_path = context.workspace_dir / "presentation_semantics.json"
         with open(output_path, "r") as f:
@@ -481,7 +481,7 @@ class TestNoDuplicateContentIds:
         context = _make_context(tmp_path)
         stage = SemanticsStage()
         result = stage.execute(context)
-        assert result.success
+        assert result.status == "success"
 
         output_path = context.workspace_dir / "presentation_semantics.json"
         with open(output_path, "r") as f:
@@ -509,13 +509,13 @@ class TestStubModeDeterminism:
         ctx1 = _make_context(tmp_path / "run1")
         stage = SemanticsStage()
         r1 = stage.execute(ctx1)
-        assert r1.success
+        assert r1.status == "success"
 
         # Run 2
         (tmp_path / "run2").mkdir()
         ctx2 = _make_context(tmp_path / "run2")
         r2 = stage.execute(ctx2)
-        assert r2.success
+        assert r2.status == "success"
 
         # Compare outputs
         with open(ctx1.workspace_dir / "presentation_semantics.json") as f:
@@ -560,7 +560,7 @@ class TestPassiveFeatsExcluded:
         context = _make_context(tmp_path)
         stage = SemanticsStage()
         result = stage.execute(context)
-        assert result.success
+        assert result.status == "success"
 
         output_path = context.workspace_dir / "presentation_semantics.json"
         with open(output_path, "r") as f:
@@ -588,7 +588,7 @@ class TestActiveFeatsIncluded:
         context = _make_context(tmp_path)
         stage = SemanticsStage()
         result = stage.execute(context)
-        assert result.success
+        assert result.status == "success"
 
         output_path = context.workspace_dir / "presentation_semantics.json"
         with open(output_path, "r") as f:
@@ -633,8 +633,8 @@ class TestStageInterface:
         result = stage.execute(context)
         assert isinstance(result, StageResult)
         assert result.stage_id == "semantics"
-        assert result.success
-        assert "presentation_semantics.json" in result.artifacts
+        assert result.status == "success"
+        assert "presentation_semantics.json" in result.output_files
 
     def test_execute_writes_output_file(self, tmp_path):
         context = _make_context(tmp_path)
@@ -757,7 +757,7 @@ class TestEmptyContentPack:
 
         stage = SemanticsStage()
         result = stage.execute(context)
-        assert result.success
+        assert result.status == "success"
 
         output_path = workspace / "presentation_semantics.json"
         with open(output_path, "r") as f:

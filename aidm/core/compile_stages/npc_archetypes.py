@@ -310,7 +310,8 @@ class NPCArchetypeStage(CompileStage):
             log.error("Stage 4 (npc_archetypes) failed: %s", exc)
             return StageResult(
                 stage_id=self.stage_id,
-                success=False,
+                status="failed",
+                output_files=(),
                 error=str(exc),
             )
 
@@ -381,11 +382,6 @@ class NPCArchetypeStage(CompileStage):
 
         return StageResult(
             stage_id=self.stage_id,
-            success=True,
-            artifacts=("npc_archetypes.json", "doctrine_profiles.json"),
-            metadata={
-                "archetype_count": len(archetypes),
-                "doctrine_count": len(doctrines),
-                "mode": "stub" if use_stub else "llm",
-            },
+            status="success",
+            output_files=("npc_archetypes.json", "doctrine_profiles.json"),
         )

@@ -1,29 +1,39 @@
 """Base interfaces for World Compiler compile stages.
 
-Defines CompileContext, CompileStage, and StageResult — the core
+Defines CompileContext, CompileStage, and StageResult — the canonical
 abstractions that every compile stage implements.
 
-NOTE: WorldCompiler/CompileStage may be canonically defined by
-WO-WORLDCOMPILE-SCAFFOLD-001 later. This module provides a compatible
-local interface until the scaffold WO lands.
+WO-UNIFY-COMPILE-001: Unified type hierarchy. The orchestrator
+(world_compiler.py) and all stages share these types. StageResult
+is re-exported from aidm.schemas.world_compile (the canonical frozen
+dataclass with status/output_files/warnings/elapsed_ms).
 """
 
 from __future__ import annotations
 
 import abc
+import logging
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
+from aidm.schemas.world_compile import StageResult  # noqa: F401 — canonical
+
 
 @dataclass
 class CompileContext:
-    """Immutable bag of inputs available to every compile stage.
+    """Mutable context passed between compile stages.
 
     Populated by the WorldCompiler before stage execution begins.
-    Stages read from context but never mutate it.
+    Stages read the flat convenience fields (content_pack_dir,
+    workspace_dir, world_seed, etc.) and write outputs to
+    stage_outputs.
+
+    Orchestrator-specific fields (stage_outputs, provenance, logger)
+    are used by the pipeline harness but are safe to ignore in stages.
     """
 
+    # ── Stage-facing fields (flat, used by all stages) ──────────
     content_pack_dir: Path
     """Path to the content pack directory."""
 
@@ -51,25 +61,20 @@ class CompileContext:
     derived_seeds: Dict[str, int] = field(default_factory=dict)
     """Override derived seeds for specific stages."""
 
+    # ── Orchestrator-facing fields (used by WorldCompiler) ──────
+    stage_outputs: Dict[str, Any] = field(default_factory=dict)
+    """Accumulated outputs from completed stages: {stage_id: output_data}."""
 
-@dataclass(frozen=True)
-class StageResult:
-    """Result returned by a compile stage after execution."""
+    logger: logging.Logger = field(
+        default_factory=lambda: logging.getLogger("world_compiler")
+    )
+    """Logger instance for compile messages."""
 
-    stage_id: str
-    """Which stage produced this result."""
-
-    success: bool
-    """Whether the stage completed without error."""
-
-    artifacts: Tuple[str, ...] = ()
-    """Filenames written to the workspace directory."""
-
-    error: Optional[str] = None
-    """Error message if success is False."""
-
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    """Stage-specific metadata (entry counts, timings, etc.)."""
+    # ── Backward-compatible alias ──────────────────────────────
+    @property
+    def workspace(self) -> Path:
+        """Alias for workspace_dir (used by Stage 8 finalization)."""
+        return self.workspace_dir
 
 
 class CompileStage(abc.ABC):
@@ -98,5 +103,5 @@ class CompileStage(abc.ABC):
             context: Compile context with all inputs and workspace path.
 
         Returns:
-            StageResult describing what was produced.
+            StageResult with status, output_files, and optional warnings/error.
         """

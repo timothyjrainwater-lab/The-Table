@@ -518,19 +518,16 @@ class SemanticsStage(CompileStage):
 
             return StageResult(
                 stage_id=self.stage_id,
-                success=True,
-                artifacts=(output_file,),
-                metadata={
-                    "ability_entry_count": len(ability_entries),
-                    "event_entry_count": len(event_entries),
-                },
+                status="success",
+                output_files=(output_file,),
             )
 
         except Exception as exc:
             log.error("Stage 3 (semantics) failed: %s", exc)
             return StageResult(
                 stage_id=self.stage_id,
-                success=False,
+                status="failed",
+                output_files=(),
                 error=str(exc),
             )
 

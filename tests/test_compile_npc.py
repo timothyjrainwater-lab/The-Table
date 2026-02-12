@@ -116,8 +116,9 @@ class TestStubCounts:
         assert len(doctrines) == 6
 
     def test_metadata_reports_counts(self, npc_result):
-        assert npc_result.metadata["archetype_count"] == 8
-        assert npc_result.metadata["doctrine_count"] == 6
+        # StageResult no longer carries metadata; verify via output files
+        assert "npc_archetypes.json" in npc_result.output_files
+        assert "doctrine_profiles.json" in npc_result.output_files
 
 
 # ---------------------------------------------------------------------------
@@ -302,7 +303,7 @@ class TestStubDeterminism:
             )
             stage = NPCArchetypeStage()
             result = stage.execute(ctx)
-            assert result.success
+            assert result.status == "success"
 
             with open(ws / "npc_archetypes.json", "r", encoding="utf-8") as f:
                 archetypes = json.load(f)
@@ -327,7 +328,7 @@ class TestStubDeterminism:
             )
             stage = NPCArchetypeStage()
             result = stage.execute(ctx)
-            assert result.success
+            assert result.status == "success"
 
             with open(ws / "npc_archetypes.json", "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -377,14 +378,11 @@ class TestStageInterface:
         result = stage.execute(compile_context)
         assert isinstance(result, StageResult)
         assert result.stage_id == "npc_archetypes"
-        assert result.success is True
+        assert result.status == "success"
 
-    def test_artifacts_list(self, npc_result):
-        assert "npc_archetypes.json" in npc_result.artifacts
-        assert "doctrine_profiles.json" in npc_result.artifacts
-
-    def test_metadata_reports_mode(self, npc_result):
-        assert npc_result.metadata["mode"] == "stub"
+    def test_output_files_list(self, npc_result):
+        assert "npc_archetypes.json" in npc_result.output_files
+        assert "doctrine_profiles.json" in npc_result.output_files
 
 
 # ---------------------------------------------------------------------------
@@ -394,12 +392,12 @@ class TestStageInterface:
 
 class TestFileOutput:
     def test_npc_archetypes_json_exists(self, compile_context, npc_result):
-        assert npc_result.success
+        assert npc_result.status == "success"
         path = compile_context.workspace_dir / "npc_archetypes.json"
         assert path.exists()
 
     def test_doctrine_profiles_json_exists(self, compile_context, npc_result):
-        assert npc_result.success
+        assert npc_result.status == "success"
         path = compile_context.workspace_dir / "doctrine_profiles.json"
         assert path.exists()
 

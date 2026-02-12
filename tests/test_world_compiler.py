@@ -92,6 +92,28 @@ def _make_content_pack(pack_id="test_pack_001"):
     )
 
 
+def _make_context_for_stage(workspace, inputs, content_pack=None, derived_seeds=None):
+    """Build a flat CompileContext for Stage 0/8 tests.
+
+    Replicates what WorldCompiler.compile() does internally: convert
+    CompileInputs into the flat CompileContext fields.
+    """
+    if content_pack is None:
+        content_pack = _make_content_pack()
+    theme_dict = inputs.world_theme_brief.to_dict()
+    pins_dict = inputs.toolchain_pins.to_dict()
+    return CompileContext(
+        content_pack_dir=workspace,
+        workspace_dir=workspace,
+        world_seed=inputs.world_seed,
+        world_theme_brief=theme_dict,
+        toolchain_pins=pins_dict,
+        content_pack_id=inputs.content_pack_id,
+        locale=inputs.locale,
+        derived_seeds=derived_seeds if derived_seeds is not None else {},
+    )
+
+
 class StubStage(CompileStage):
     """Test helper: configurable stub stage.
 
@@ -369,26 +391,18 @@ class TestStage0:
     def test_creates_workspace(self, tmp_path):
         workspace = tmp_path / "compile_output"
         inputs = _make_inputs(tmp_path, compile_config=CompileConfig(output_dir=str(workspace)))
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(),
-            workspace=workspace,
-            derived_seeds={},
-        )
-        result = _run_stage_0(context)
+        content_pack = _make_content_pack()
+        context = _make_context_for_stage(workspace, inputs, content_pack)
+        result = _run_stage_0(context, inputs, content_pack)
         assert result.status == "success"
         assert workspace.exists()
 
     def test_writes_compile_inputs_json(self, tmp_path):
         workspace = tmp_path / "compile_output"
         inputs = _make_inputs(tmp_path, compile_config=CompileConfig(output_dir=str(workspace)))
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(),
-            workspace=workspace,
-            derived_seeds={},
-        )
-        result = _run_stage_0(context)
+        content_pack = _make_content_pack()
+        context = _make_context_for_stage(workspace, inputs, content_pack)
+        result = _run_stage_0(context, inputs, content_pack)
         assert result.status == "success"
         assert "compile_inputs.json" in result.output_files
 
@@ -402,13 +416,9 @@ class TestStage0:
     def test_populates_derived_seeds(self, tmp_path):
         workspace = tmp_path / "compile_output"
         inputs = _make_inputs(tmp_path, compile_config=CompileConfig(output_dir=str(workspace)))
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(),
-            workspace=workspace,
-            derived_seeds={},
-        )
-        _run_stage_0(context)
+        content_pack = _make_content_pack()
+        context = _make_context_for_stage(workspace, inputs, content_pack)
+        _run_stage_0(context, inputs, content_pack)
         assert "world_seed" in context.derived_seeds
         assert "lexicon_seed" in context.derived_seeds
         assert context.derived_seeds["world_seed"] == 42
@@ -421,13 +431,9 @@ class TestStage0:
             world_theme_brief=theme,
             compile_config=CompileConfig(output_dir=str(workspace)),
         )
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(),
-            workspace=workspace,
-            derived_seeds={},
-        )
-        result = _run_stage_0(context)
+        content_pack = _make_content_pack()
+        context = _make_context_for_stage(workspace, inputs, content_pack)
+        result = _run_stage_0(context, inputs, content_pack)
         assert result.status == "failed"
         assert "IV-002" in result.error
 
@@ -438,13 +444,9 @@ class TestStage0:
             content_pack_id="",
             compile_config=CompileConfig(output_dir=str(workspace)),
         )
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(pack_id=""),
-            workspace=workspace,
-            derived_seeds={},
-        )
-        result = _run_stage_0(context)
+        content_pack = _make_content_pack(pack_id="")
+        context = _make_context_for_stage(workspace, inputs, content_pack)
+        result = _run_stage_0(context, inputs, content_pack)
         assert result.status == "failed"
 
 
@@ -464,13 +466,10 @@ class TestStage8Hashes:
         (workspace / "file_b.json").write_text('{"b":2}', encoding="utf-8")
 
         inputs = _make_inputs(tmp_path)
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(),
-            workspace=workspace,
-            derived_seeds=derive_seeds(42),
-        )
-        result = _run_stage_8(context, [])
+        content_pack = _make_content_pack()
+        context = _make_context_for_stage(workspace, inputs, content_pack,
+                                          derived_seeds=derive_seeds(42))
+        result = _run_stage_8(context, inputs, content_pack, [])
         assert result.status == "success"
 
         hashes_path = workspace / "bundle_hashes.json"
@@ -491,13 +490,10 @@ class TestStage8Hashes:
             (workspace / "data.json").write_text('{"x":1}', encoding="utf-8")
 
             inputs = _make_inputs(tmp_path)
-            context = CompileContext(
-                inputs=inputs,
-                content_pack=_make_content_pack(),
-                workspace=workspace,
-                derived_seeds=derive_seeds(42),
-            )
-            _run_stage_8(context, [])
+            content_pack = _make_content_pack()
+            context = _make_context_for_stage(workspace, inputs, content_pack,
+                                              derived_seeds=derive_seeds(42))
+            _run_stage_8(context, inputs, content_pack, [])
             with open(workspace / "bundle_hashes.json", "r", encoding="utf-8") as f:
                 data = json.load(f)
             hashes.append(data["root_hash"])
@@ -518,13 +514,10 @@ class TestStage8Manifest:
         (workspace / "compile_inputs.json").write_text("{}", encoding="utf-8")
 
         inputs = _make_inputs(tmp_path)
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(),
-            workspace=workspace,
-            derived_seeds=derive_seeds(42),
-        )
-        _run_stage_8(context, [])
+        content_pack = _make_content_pack()
+        context = _make_context_for_stage(workspace, inputs, content_pack,
+                                          derived_seeds=derive_seeds(42))
+        _run_stage_8(context, inputs, content_pack, [])
 
         manifest_path = workspace / "world_manifest.json"
         assert manifest_path.exists()
@@ -852,13 +845,9 @@ class TestEdgeCases:
             compile_config=CompileConfig(output_dir=str(workspace)),
             derived_seeds=(("lexicon", 999),),
         )
-        context = CompileContext(
-            inputs=inputs,
-            content_pack=_make_content_pack(),
-            workspace=workspace,
-            derived_seeds={},
-        )
-        _run_stage_0(context)
+        content_pack = _make_content_pack()
+        context = _make_context_for_stage(workspace, inputs, content_pack)
+        _run_stage_0(context, inputs, content_pack)
         assert context.derived_seeds["lexicon_seed"] == 999
 
     def test_enable_stages_filters_execution(self, tmp_path):

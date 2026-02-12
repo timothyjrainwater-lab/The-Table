@@ -4,6 +4,10 @@ Orchestrates world compilation through registered stages. Implements the
 pipeline harness (Stage 0 validation + Stage 8 finalization) plus the
 plugin interface that stage-specific work orders implement.
 
+WO-UNIFY-COMPILE-001: CompileStage, CompileContext, and StageResult are
+now defined in aidm.core.compile_stages._base (canonical). This module
+imports and uses them — no local redefinitions.
+
 Reference: docs/contracts/WORLD_COMPILER.md (full contract)
 Reference: docs/schemas/world_bundle.schema.json
 
@@ -16,13 +20,12 @@ import hashlib
 import json
 import logging
 import time
-from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from aidm.core.provenance import ProvenanceStore
+from aidm.core.compile_stages._base import CompileContext, CompileStage  # canonical
 from aidm.schemas.world_compile import (
     CompileConfig,
     CompileInputs,
@@ -146,85 +149,6 @@ class ContentPackStub:
 
 
 # ═══════════════════════════════════════════════════════════════════════
-# Compile Stage interface (ABC)
-# ═══════════════════════════════════════════════════════════════════════
-
-
-class CompileStage(ABC):
-    """Abstract base for a single compile stage.
-
-    Stage-specific work orders implement this interface. The WorldCompiler
-    executes stages in dependency order (topological sort).
-    """
-
-    @property
-    @abstractmethod
-    def stage_id(self) -> str:
-        """Stage identifier: 'lexicon', 'rulebook', 'bestiary', etc."""
-        ...
-
-    @property
-    @abstractmethod
-    def stage_number(self) -> int:
-        """Stage number (1-7). Stages 0 and 8 are built-in."""
-        ...
-
-    @property
-    @abstractmethod
-    def depends_on(self) -> tuple:
-        """Stage IDs this stage depends on. Tuple of strings."""
-        ...
-
-    @abstractmethod
-    def execute(self, context: CompileContext) -> StageResult:
-        """Execute this compile stage.
-
-        Args:
-            context: Mutable compile context with inputs, workspace,
-                     and accumulated stage outputs.
-
-        Returns:
-            StageResult indicating success/failure.
-        """
-        ...
-
-
-# ═══════════════════════════════════════════════════════════════════════
-# Compile Context (mutable, passed between stages)
-# ═══════════════════════════════════════════════════════════════════════
-
-
-@dataclass
-class CompileContext:
-    """Mutable context passed between compile stages.
-
-    Accumulates outputs from each stage. Stages read from stage_outputs
-    and write their own results.
-    """
-
-    inputs: CompileInputs
-    """Frozen compile inputs."""
-
-    content_pack: ContentPackStub
-    """Content pack data (frozen)."""
-
-    workspace: Path
-    """Compile workspace directory."""
-
-    derived_seeds: Dict[str, int]
-    """Stage-specific derived seeds."""
-
-    stage_outputs: Dict[str, Any] = field(default_factory=dict)
-    """Accumulated outputs from completed stages: {stage_id: output_data}."""
-
-    provenance: ProvenanceStore = field(default_factory=ProvenanceStore)
-    """PROV-DM tracking for compile provenance."""
-
-    logger: logging.Logger = field(default_factory=lambda: logging.getLogger("world_compiler"))
-    """Logger instance for compile messages."""
-
-
-# ═══════════════════════════════════════════════════════════════════════
 # Built-in stages: Stage 0 (Validate) and Stage 8 (Finalize)
 # ═══════════════════════════════════════════════════════════════════════
 
@@ -238,7 +162,7 @@ def _hash_file(file_path: Path) -> str:
     return h.hexdigest()
 
 
-def _run_stage_0(context: CompileContext) -> StageResult:
+def _run_stage_0(context: CompileContext, inputs: CompileInputs, content_pack: ContentPackStub) -> StageResult:
     """Stage 0: Validate inputs + create workspace.
 
     1. Validate all required inputs against schemas (§1.3)
@@ -255,7 +179,7 @@ def _run_stage_0(context: CompileContext) -> StageResult:
     output_files: List[str] = []
 
     # 1. Validate inputs
-    errors = context.inputs.validate()
+    errors = inputs.validate()
     if errors:
         elapsed = (time.monotonic_ns() // 1_000_000) - start_ms
         return StageResult(
@@ -267,7 +191,7 @@ def _run_stage_0(context: CompileContext) -> StageResult:
         )
 
     # 2. Verify content pack
-    if not context.content_pack.pack_id:
+    if not content_pack.pack_id:
         elapsed = (time.monotonic_ns() // 1_000_000) - start_ms
         return StageResult(
             stage_id="validate",
@@ -278,7 +202,7 @@ def _run_stage_0(context: CompileContext) -> StageResult:
         )
 
     # 3. Verify no 'latest' in pins (already checked in validate, but explicit)
-    pins_dict = context.inputs.toolchain_pins.to_dict()
+    pins_dict = inputs.toolchain_pins.to_dict()
     for key, value in pins_dict.items():
         if isinstance(value, str) and "latest" in value.lower():
             elapsed = (time.monotonic_ns() // 1_000_000) - start_ms
@@ -291,8 +215,8 @@ def _run_stage_0(context: CompileContext) -> StageResult:
             )
 
     # 4. Derive child seeds (apply overrides from derived_seeds)
-    seeds = derive_seeds(context.inputs.world_seed)
-    override_dict = dict(context.inputs.derived_seeds)
+    seeds = derive_seeds(inputs.world_seed)
+    override_dict = dict(inputs.derived_seeds)
     for stage_id, seed_val in override_dict.items():
         seed_key = f"{stage_id}_seed"
         if seed_key in seeds:
@@ -301,15 +225,20 @@ def _run_stage_0(context: CompileContext) -> StageResult:
     context.derived_seeds.update(seeds)
 
     # 5. Create workspace
-    context.workspace.mkdir(parents=True, exist_ok=True)
+    context.workspace_dir.mkdir(parents=True, exist_ok=True)
 
     # 6. Write compile_inputs.json
-    inputs_path = context.workspace / "compile_inputs.json"
-    inputs_data = context.inputs.to_dict()
+    inputs_path = context.workspace_dir / "compile_inputs.json"
+    inputs_data = inputs.to_dict()
     inputs_data["derived_seeds"] = seeds
     with open(inputs_path, "w", encoding="utf-8") as f:
         json.dump(inputs_data, f, indent=2, sort_keys=True)
     output_files.append("compile_inputs.json")
+
+    # Populate world_id on context for stages to use
+    context.world_id = compute_world_id(
+        inputs.world_seed, inputs.content_pack_id, inputs.toolchain_pins,
+    )
 
     elapsed = (time.monotonic_ns() // 1_000_000) - start_ms
     return StageResult(
@@ -321,7 +250,12 @@ def _run_stage_0(context: CompileContext) -> StageResult:
     )
 
 
-def _run_stage_8(context: CompileContext, stage_results: List[StageResult]) -> StageResult:
+def _run_stage_8(
+    context: CompileContext,
+    inputs: CompileInputs,
+    content_pack: ContentPackStub,
+    stage_results: List[StageResult],
+) -> StageResult:
     """Stage 8: Finalize hashes + write manifest + compile report.
 
     1. Compute SHA-256 hash of every file in the bundle workspace
@@ -336,7 +270,7 @@ def _run_stage_8(context: CompileContext, stage_results: List[StageResult]) -> S
     output_files: List[str] = []
     warnings: List[str] = []
 
-    workspace = context.workspace
+    workspace = context.workspace_dir
 
     # 1. Compute SHA-256 hash of every file in the bundle
     file_hashes: Dict[str, str] = {}
@@ -356,7 +290,7 @@ def _run_stage_8(context: CompileContext, stage_results: List[StageResult]) -> S
 
     bundle_hashes_data = {
         "root_hash": root_hash,
-        "algorithm": context.inputs.toolchain_pins.hash_algorithm,
+        "algorithm": inputs.toolchain_pins.hash_algorithm,
         "files": {k: file_hashes[k] for k in sorted(file_hashes.keys())},
     }
     hashes_path = workspace / "bundle_hashes.json"
@@ -366,27 +300,27 @@ def _run_stage_8(context: CompileContext, stage_results: List[StageResult]) -> S
 
     # 3. Compute world_id
     world_id = compute_world_id(
-        context.inputs.world_seed,
-        context.inputs.content_pack_id,
-        context.inputs.toolchain_pins,
+        inputs.world_seed,
+        inputs.content_pack_id,
+        inputs.toolchain_pins,
     )
 
     # 4. Write world_manifest.json
     manifest_data = {
         "world_id": world_id,
         "world_name": context.stage_outputs.get("world_name", ""),
-        "schema_version": context.inputs.toolchain_pins.schema_version,
+        "schema_version": inputs.toolchain_pins.schema_version,
         "compile_timestamp": datetime.now(timezone.utc).isoformat(),
-        "toolchain_pins": context.inputs.toolchain_pins.to_dict(),
+        "toolchain_pins": inputs.toolchain_pins.to_dict(),
         "seeds": context.derived_seeds,
-        "content_pack_id": context.inputs.content_pack_id,
-        "content_pack_hash": context.content_pack.content_hash,
+        "content_pack_id": inputs.content_pack_id,
+        "content_pack_hash": content_pack.content_hash,
         "root_hash": root_hash,
         "file_count": len(file_hashes) + 2,  # +2 for manifest + hashes themselves
         "world_theme_brief": {
-            "genre": context.inputs.world_theme_brief.genre,
-            "tone": context.inputs.world_theme_brief.tone,
-            "naming_style": context.inputs.world_theme_brief.naming_style,
+            "genre": inputs.world_theme_brief.genre,
+            "tone": inputs.world_theme_brief.tone,
+            "naming_style": inputs.world_theme_brief.naming_style,
         },
     }
     manifest_path = workspace / "world_manifest.json"
@@ -426,13 +360,13 @@ def _run_stage_8(context: CompileContext, stage_results: List[StageResult]) -> S
         "status": overall_status,
         "world_id": world_id,
         "root_hash": root_hash,
-        "schema_version": context.inputs.toolchain_pins.schema_version,
+        "schema_version": inputs.toolchain_pins.schema_version,
         "compile_timestamp": manifest_data["compile_timestamp"],
         "stage_results": [r.to_dict() for r in all_results],
         "total_elapsed_ms": total_elapsed,
         "warnings": all_warnings,
         "input_snapshot_hash": hashlib.sha256(
-            json.dumps(context.inputs.to_dict(), sort_keys=True, separators=(",", ":")).encode("utf-8")
+            json.dumps(inputs.to_dict(), sort_keys=True, separators=(",", ":")).encode("utf-8")
         ).hexdigest(),
     }
     report_path = workspace / "compile_report.json"
@@ -504,7 +438,7 @@ class WorldCompiler:
     Usage:
         compiler = WorldCompiler(inputs, content_pack)
         compiler.register_stage(LexiconStage())
-        compiler.register_stage(RulebookStage())
+        compiler.register_stage(SemanticsStage())
         report = compiler.compile()
 
     The compiler handles:
@@ -512,6 +446,7 @@ class WorldCompiler:
     - Dependency ordering via topological sort
     - Fail-closed: any stage failure halts downstream dependents
     - Deterministic seed derivation from world_seed
+    - Building the unified CompileContext that stages receive
     """
 
     def __init__(
@@ -551,11 +486,19 @@ class WorldCompiler:
         if workspace is None:
             workspace = Path(self._inputs.compile_config.output_dir)
 
-        # Build context
+        # Build unified CompileContext with flat fields for stages
+        # and orchestrator fields for the harness.
+        theme_dict = self._inputs.world_theme_brief.to_dict()
+        pins_dict = self._inputs.toolchain_pins.to_dict()
+
         context = CompileContext(
-            inputs=self._inputs,
-            content_pack=self._content_pack,
-            workspace=workspace,
+            content_pack_dir=workspace,  # will be overridden if real pack dir exists
+            workspace_dir=workspace,
+            world_seed=self._inputs.world_seed,
+            world_theme_brief=theme_dict,
+            toolchain_pins=pins_dict,
+            content_pack_id=self._inputs.content_pack_id,
+            locale=self._inputs.locale,
             derived_seeds={},
         )
 
@@ -564,7 +507,7 @@ class WorldCompiler:
         context.logger.setLevel(log_level)
 
         # ── Stage 0: Validate ──────────────────────────────────────
-        stage_0_result = _run_stage_0(context)
+        stage_0_result = _run_stage_0(context, self._inputs, self._content_pack)
         self._results.append(stage_0_result)
 
         if stage_0_result.status == "failed":
@@ -648,7 +591,7 @@ class WorldCompiler:
                         failed_stages.add(stage_id)
 
         # ── Stage 8: Finalize ──────────────────────────────────────
-        stage_8_result = _run_stage_8(context, self._results)
+        stage_8_result = _run_stage_8(context, self._inputs, self._content_pack, self._results)
         self._results.append(stage_8_result)
 
         # Build final report
@@ -674,7 +617,7 @@ class WorldCompiler:
         )
 
         # Read root_hash from bundle_hashes.json
-        hashes_path = context.workspace / "bundle_hashes.json"
+        hashes_path = context.workspace_dir / "bundle_hashes.json"
         root_hash = ""
         if hashes_path.exists():
             with open(hashes_path, "r", encoding="utf-8") as f:

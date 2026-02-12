@@ -215,7 +215,8 @@ class LexiconStage(CompileStage):
         except Exception as exc:
             return StageResult(
                 stage_id=self.stage_id,
-                success=False,
+                status="failed",
+                output_files=(),
                 error=str(exc),
             )
 
@@ -226,7 +227,8 @@ class LexiconStage(CompileStage):
         if not template_ids_by_domain:
             return StageResult(
                 stage_id=self.stage_id,
-                success=False,
+                status="failed",
+                output_files=(),
                 error="No template IDs found in content pack.",
             )
 
@@ -284,11 +286,6 @@ class LexiconStage(CompileStage):
 
         return StageResult(
             stage_id=self.stage_id,
-            success=True,
-            artifacts=("lexicon.json",),
-            metadata={
-                "entry_count": len(sorted_entries),
-                "domains": domains,
-                "mode": "stub" if use_stub else "llm",
-            },
+            status="success",
+            output_files=("lexicon.json",),
         )

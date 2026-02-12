@@ -155,7 +155,7 @@ class TestStubDeterminism:
             )
             stage = LexiconStage()
             result = stage.execute(ctx)
-            assert result.success
+            assert result.status == "success"
 
             with open(ws / "lexicon.json", "r", encoding="utf-8") as f:
                 results.append(json.load(f))
@@ -178,7 +178,7 @@ class TestStubDeterminism:
             )
             stage = LexiconStage()
             result = stage.execute(ctx)
-            assert result.success
+            assert result.status == "success"
 
             with open(ws / "lexicon.json", "r", encoding="utf-8") as f:
                 outputs.append(json.load(f))
@@ -208,7 +208,7 @@ class TestValidRegistryOutput:
 
     def test_loadable_from_json_file(self, compile_context, lexicon_result):
         """Output JSON file is loadable by VocabularyRegistryLoader.from_json_file."""
-        assert lexicon_result.success
+        assert lexicon_result.status == "success"
         path = compile_context.workspace_dir / "lexicon.json"
         loader = VocabularyRegistryLoader.from_json_file(path)
         assert loader.entry_count == 10
@@ -316,7 +316,7 @@ class TestStageInterface:
         result = stage.execute(compile_context)
         assert isinstance(result, StageResult)
         assert result.stage_id == "lexicon"
-        assert result.success is True
+        assert result.status == "success"
 
 
 # ---------------------------------------------------------------------------
@@ -339,7 +339,7 @@ class TestStageDependencies:
 
 class TestLexiconFileOutput:
     def test_lexicon_json_exists(self, compile_context, lexicon_result):
-        assert lexicon_result.success
+        assert lexicon_result.status == "success"
         path = compile_context.workspace_dir / "lexicon.json"
         assert path.exists()
 
@@ -350,17 +350,8 @@ class TestLexiconFileOutput:
         assert "entries" in data
         assert "schema_version" in data
 
-    def test_artifacts_list_contains_filename(self, lexicon_result):
-        assert "lexicon.json" in lexicon_result.artifacts
-
-    def test_metadata_reports_entry_count(self, lexicon_result):
-        assert lexicon_result.metadata["entry_count"] == 10
-
-    def test_metadata_reports_domains(self, lexicon_result):
-        assert set(lexicon_result.metadata["domains"]) == {"creature", "feat", "spell"}
-
-    def test_metadata_reports_stub_mode(self, lexicon_result):
-        assert lexicon_result.metadata["mode"] == "stub"
+    def test_output_files_contains_filename(self, lexicon_result):
+        assert "lexicon.json" in lexicon_result.output_files
 
 
 # ---------------------------------------------------------------------------
@@ -382,5 +373,5 @@ class TestErrorHandling:
         )
         stage = LexiconStage()
         result = stage.execute(ctx)
-        assert result.success is False
+        assert result.status == "failed"
         assert "No template IDs" in result.error
