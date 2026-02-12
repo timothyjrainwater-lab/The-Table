@@ -117,6 +117,9 @@ class _EntityFields:
     CLASS_SKILLS = "class_skills"        # List of skill_ids that are class skills (e.g., ["tumble", "hide"])
     ARMOR_CHECK_PENALTY = "armor_check_penalty"  # Armor check penalty value (subtracted from relevant skills)
 
+    # --- Damage Reduction (WO-048) ---
+    DAMAGE_REDUCTIONS = "damage_reductions"  # List of DR dicts, e.g., [{"amount": 10, "bypass": "magic"}]
+
 
 # Singleton instance — import this
 EF = _EntityFields()

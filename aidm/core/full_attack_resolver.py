@@ -121,6 +121,7 @@ def resolve_single_attack_with_critical(
     target_ac_modifier: int = 0,
     cover_type: str = "none",
     cover_ac_bonus: int = 0,
+    dr_amount: int = 0,
 ) -> Tuple[List[Event], int]:
     """
     Resolve a single attack with critical hit logic.
@@ -155,6 +156,7 @@ def resolve_single_attack_with_critical(
         target_ac_modifier: CP-16 defender condition AC modifier (for audit trail)
         cover_type: CP-19 cover type string (for audit trail)
         cover_ac_bonus: CP-19 cover AC bonus (for audit trail)
+        dr_amount: WO-048 applicable Damage Reduction amount
 
     Returns:
         Tuple of (events, next_event_id, damage_total)
@@ -245,6 +247,10 @@ def resolve_single_attack_with_critical(
         else:
             damage_total = max(0, base_damage_with_modifiers)
 
+        # WO-048: Apply Damage Reduction (PHB p.291)
+        from aidm.core.damage_reduction import apply_dr_to_damage
+        final_damage, damage_reduced = apply_dr_to_damage(damage_total, dr_amount)
+
         # Emit damage_roll event (WO-FIX-003: full modifier audit trail)
         events.append(Event(
             event_id=current_event_id,
@@ -262,15 +268,18 @@ def resolve_single_attack_with_critical(
                 "feat_modifier": feat_damage_modifier,  # WO-034
                 "base_damage": base_damage_with_modifiers,  # Pre-multiplier damage
                 "critical_multiplier": weapon.critical_multiplier if is_critical else 1,
-                "damage_total": damage_total,
+                "damage_total": damage_total,  # Pre-DR damage
+                "dr_amount": dr_amount,  # WO-048
+                "damage_reduced": damage_reduced,  # WO-048
+                "final_damage": final_damage,  # WO-048: Post-DR damage
                 "damage_type": weapon.damage_type
             },
             citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical/damage rules
         ))
         current_event_id += 1
 
-        # Return damage total for HP processing
-        return events, current_event_id, damage_total
+        # Return final damage (post-DR) for HP processing
+        return events, current_event_id, final_damage
 
     # No damage on miss
     return events, current_event_id, 0
@@ -389,6 +398,12 @@ def resolve_full_attack(
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
     feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)
 
+    # WO-048: Get applicable Damage Reduction
+    from aidm.core.damage_reduction import get_applicable_dr
+    dr_amount = get_applicable_dr(
+        world_state, intent.target_id, intent.weapon.damage_type,
+    )
+
     # Get target AC (base AC + condition modifiers + cover bonus) — WO-FIX-003
     base_ac = target.get(EF.AC, 10)
     target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
@@ -420,6 +435,7 @@ def resolve_full_attack(
             "cover_ac_bonus": cover_result.ac_bonus,  # CP-19
             "feat_attack_modifier": feat_attack_modifier,  # WO-034
             "feat_damage_modifier": feat_damage_modifier,  # WO-034
+            "dr_amount": dr_amount,  # WO-048
             "target_base_ac": base_ac,  # WO-FIX-003
             "target_ac": target_ac,  # WO-FIX-003: fully adjusted AC
         },
@@ -462,6 +478,7 @@ def resolve_full_attack(
             target_ac_modifier=defender_modifiers.ac_modifier,
             cover_type=cover_result.cover_type,
             cover_ac_bonus=cover_result.ac_bonus,
+            dr_amount=dr_amount,
         )
 
         events.extend(attack_events)

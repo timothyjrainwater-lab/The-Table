@@ -313,6 +313,13 @@ def resolve_attack(
         else:
             damage_total = max(0, base_damage_with_modifiers)
 
+        # WO-048: Apply Damage Reduction (PHB p.291)
+        from aidm.core.damage_reduction import get_applicable_dr, apply_dr_to_damage
+        dr_amount = get_applicable_dr(
+            world_state, intent.target_id, intent.weapon.damage_type,
+        )
+        final_damage, damage_reduced = apply_dr_to_damage(damage_total, dr_amount)
+
         # Emit damage_roll event
         events.append(Event(
             event_id=current_event_id,
@@ -329,16 +336,19 @@ def resolve_attack(
                 "feat_modifier": feat_damage_modifier,  # WO-034
                 "base_damage": base_damage_with_modifiers,  # WO-FIX-002: pre-multiplier damage
                 "critical_multiplier": intent.weapon.critical_multiplier if is_critical else 1,  # WO-FIX-002
-                "damage_total": damage_total,
+                "damage_total": damage_total,  # Pre-DR damage
+                "dr_amount": dr_amount,  # WO-048
+                "damage_reduced": damage_reduced,  # WO-048
+                "final_damage": final_damage,  # WO-048: Post-DR damage
                 "damage_type": intent.weapon.damage_type
             },
             citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical/damage rules
         ))
         current_event_id += 1
 
-        # Get current HP
+        # Get current HP — use final_damage (post-DR)
         hp_before = target.get(EF.HP_CURRENT, 0)
-        hp_after = hp_before - damage_total
+        hp_after = hp_before - final_damage
 
         # Emit hp_changed event
         events.append(Event(
@@ -349,7 +359,7 @@ def resolve_attack(
                 "entity_id": intent.target_id,
                 "hp_before": hp_before,
                 "hp_after": hp_after,
-                "delta": -damage_total,
+                "delta": -final_damage,
                 "source": "attack_damage"
             }
         ))
