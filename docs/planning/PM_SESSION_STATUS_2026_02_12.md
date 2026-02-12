@@ -1,14 +1,18 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 15 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization)
+**Sessions Covered:** 16 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization → Steps 10-11 Integration Wiring)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN** — **RQ-LENS-SPARK-001 Phase 2 COMPLETE**: WO-059 Memory Retrieval Policy (salience ranking, provenance, hard caps) + WO-060 Summarization Stability Protocol (template-based segment summaries, drift detection, rebuild-from-sources).
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN** — **RQ-LENS-SPARK-001 Phase 2 COMPLETE**: WO-059 Memory Retrieval Policy + WO-060 Summarization Stability Protocol + **Steps 10-11 Integration Wiring** (SegmentTracker in SessionOrchestrator, summaries in PromptPackBuilder pipeline).
+
+**RQ-LENS-SPARK-001 Steps 10-11 COMPLETE:**
+- Step 10: SegmentTracker wired into SessionOrchestrator (record_turn on every turn, force_segment on scene transitions / combat start-end)
+- Step 11: Summaries wired into PromptPackBuilder retrieval pipeline (MemoryChannel.segment_summaries, NarrationRequest.segment_summaries, GuardedNarrationService._build_prompt_pack() extracts summary texts)
 
 **PO design session artifacts reviewed and APPROVED:** RQ-PRODUCT-001 (Content Independence Architecture), RQ-BOX-002 (RAW Silence Catalog), RQ-BOX-003 (Object Identity), RQ-LENS-002 (Contradiction Surface), RQ-LENS-SPARK-001 (Context Orchestration Sprint), AD-006 (House Policy Governance Doctrine). Feature freeze approved.
 
@@ -23,7 +27,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 
 **RQ-PRODUCT-001 updated** with 0a/0b character substrate split in the Layered World Authority Model.
 
-**Test suite:** 4293 passed (+65 from WO-059/060), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
+**Test suite:** 4310 passed (+82 from WO-059/060 + Steps 10-11), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
 
 ---
 
@@ -85,6 +89,8 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 21. `530739f` — PM session status update with Phase 2 completions
 22. `753673f` — WO-046B: NarrativeBrief completion — wire all event types (82 new tests)
 23. `abdcfd6` — WO-056: Gear Affordance Tags for Lens→Spark (AD-005 Layer 3, 16 tests)
+24. `2ec50dc` — WO-059/060: Memory Retrieval Policy + Summarization Stability (65 new tests)
+25. `08fedcc` — RQ-LENS-SPARK-001 Steps 10-11: SegmentTracker + summaries wired into pipeline (17 new tests)
 
 ---
 
@@ -180,7 +186,7 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ## What to Do Next
 
-### Completed This Session (WO-059/060)
+### Completed This Session (WO-059/060 + Steps 10-11)
 
 1. **WO-059 Memory Retrieval Policy** (`aidm/lens/context_assembler.py`)
    - RetrievedItem frozen dataclass with provenance (source, turn_number, relevance_score, dropped, drop_reason)
@@ -198,18 +204,27 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
    - SegmentTracker: auto-trigger every 10 turns, force_segment() for transitions
    - Cumulative defeated entity tracking across segments
    - 34 new tests (all pass), 0 regressions
-3. **Prior session (WO-058)**: ContradictionChecker v1 — post-hoc Spark output validation
-4. **Prior session (WO-057)**: PromptPackBuilder — single prompt assembly path (GAP-007 resolved)
+3. **RQ-LENS-SPARK-001 Step 10**: SegmentTracker wired into SessionOrchestrator
+   - `record_turn()` called on every `_narrate_and_output()` invocation
+   - `force_segment()` on scene transitions, combat start/end
+   - `segment_tracker` property exposed for drift detection
+4. **RQ-LENS-SPARK-001 Step 11**: Summaries wired into PromptPackBuilder pipeline
+   - `MemoryChannel.segment_summaries` field added (newest first)
+   - `PromptPackBuilder.build()` accepts `segment_summaries` param
+   - `NarrationRequest.segment_summaries` carries WO-060 data
+   - `GuardedNarrationService._build_prompt_pack()` extracts summary texts
+   - Serialized PromptPack includes "Session Context:" section
+   - 17 new integration tests (all pass), 0 regressions
+5. **Prior session (WO-058)**: ContradictionChecker v1 — post-hoc Spark output validation
+6. **Prior session (WO-057)**: PromptPackBuilder — single prompt assembly path (GAP-007 resolved)
 
 ### Next Session Priority
 
-1. **RQ-LENS-SPARK-001 Phase 2 Integration**: Wire SegmentTracker into SessionOrchestrator (Step 10)
-2. **RQ-LENS-SPARK-001 Phase 2 Integration**: Wire summaries into PromptPackBuilder retrieval pipeline (Step 11)
-3. **RQ-LENS-SPARK-001 Phase 3**: Evaluation Harness — scenario scripts, metric collection, model comparison
-4. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
-5. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
-6. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
-7. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
+1. **RQ-LENS-SPARK-001 Phase 3**: Evaluation Harness — scenario scripts, metric collection, model comparison
+2. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
+3. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
+4. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
+5. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
 
 ### Phase 2 Dispatch (Ready)
 
@@ -294,20 +309,32 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 - `docs/research/findings/PF_DELTA_INDEX.md` (IN PROGRESS — Pathfinder 1e change catalog)
 - `docs/research/findings/SKIP_WILLIAMS_DESIGNER_INTENT.md` (IN PROGRESS — designer intent articles)
 
-### Lens Layer (WO-046B, WO-056, WO-057)
+### Lens Layer (WO-046B, WO-056, WO-057, WO-059, WO-060)
 - `aidm/lens/narrative_brief.py` — WO-046B/056: NarrativeBrief with all event types + visible_gear (770 lines)
-- `aidm/lens/prompt_pack_builder.py` — WO-057: PromptPackBuilder — single prompt assembly path (GAP-007 resolution)
+- `aidm/lens/prompt_pack_builder.py` — WO-057: PromptPackBuilder — single prompt assembly path (updated with segment_summaries)
+- `aidm/lens/context_assembler.py` — WO-032/059: ContextAssembler + RetrievedItem + retrieve() with provenance (~550 lines)
+- `aidm/lens/segment_summarizer.py` — WO-060: SegmentSummarizer + SegmentTracker + drift detection (~345 lines)
+- `aidm/schemas/prompt_pack.py` — WO-045B: PromptPack schema (updated with MemoryChannel.segment_summaries)
 - `tests/test_narrative_brief_046b.py` — 82 WO-046B tests (spell/maneuver/AoO/movement/full attack/condition/concealment)
 - `tests/test_gear_affordance_056.py` — 16 WO-056 tests (gear resolution, pipeline, containment boundary)
 - `tests/test_prompt_pack_builder.py` — 31 WO-057 tests (build, truncation, determinism, style, contract, edge cases)
+- `tests/test_retrieval_policy_059.py` — 31 WO-059 tests (relevance scoring, retrieval, hard caps, budget drops)
+- `tests/test_segment_summarizer_060.py` — 34 WO-060 tests (summary, drift, rebuild, tracker)
+- `tests/test_integration_wiring_step10_11.py` — 17 Step 10/11 integration tests (SegmentTracker in orchestrator, summaries in PromptPack)
 
 ### Narration Layer (WO-058)
 - `aidm/narration/contradiction_checker.py` — WO-058: ContradictionChecker v1 — post-hoc Spark output validation (~430 lines)
+- `aidm/narration/guarded_narration_service.py` — Updated: NarrationRequest.segment_summaries, _build_prompt_pack() with summaries
 - `tests/test_contradiction_checker.py` — 67 WO-058 tests (3 classes, response policy, retry correction, false positive avoidance, edge cases)
+
+### Runtime Layer (Steps 10-11)
+- `aidm/runtime/session_orchestrator.py` — Updated: SegmentTracker wired, segment_tracker property, force_segment on transitions
 
 ### Work Orders
 - `docs/work_orders/WO-057_PROMPTPACK_CONSOLIDATION.md` — WO-057 spec (GAP-007 resolution)
 - `docs/work_orders/WO-058_CONTRADICTION_CHECKER.md` — WO-058 spec (RQ-LENS-SPARK-001 Deliverable 4)
+- `docs/work_orders/WO-059_MEMORY_RETRIEVAL_POLICY.md` — WO-059 spec (RQ-LENS-SPARK-001 Deliverable 2)
+- `docs/work_orders/WO-060_SUMMARIZATION_STABILITY.md` — WO-060 spec (RQ-LENS-SPARK-001 Deliverable 3)
 
 ---
 
