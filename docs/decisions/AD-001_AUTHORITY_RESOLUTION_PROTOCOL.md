@@ -64,17 +64,21 @@ Box halts with a structured request:
 
 ```
 NeedFact {
+    fact_key: str              # Canonical addressable ID (e.g., "table_12.height")
     fact_type: "OBJECT_DIMENSIONS" | "LIGHTING_LEVEL" | "MATERIAL" | ...
-    object_ref: "table_12"          # Scene-local handle
-    why_needed: "cover_calculation"  # What mechanical system needs this
-    constraints: {                   # Plausibility bounds from RAW
+    object_ref: str            # Scene-local handle (e.g., "table_12")
+    purpose: str               # Mechanical dependency ("cover_calculation", "break_dc", "concealment")
+    criticality: "HARD" | "SOFT"  # HARD = Box must halt deterministically. SOFT = conservative default acceptable.
+    constraints: {             # Plausibility bounds from RAW
         height_range: [0.3, 1.5],   # meters
         must_be: "solid"            # for cover to apply
     }
+    turn_id: int               # Current turn counter
+    event_cursor: int          # Position in event stream at halt point
 }
 ```
 
-This is **fail-closed**: Box does NOT proceed with a guess. It halts.
+This is **fail-closed**: if criticality is HARD, Box does NOT proceed with a guess. It halts.
 
 ### Step 2: Lens routes to Authority Resolver
 
@@ -93,17 +97,20 @@ Once resolved, the system produces a deterministic, replayable patch:
 
 ```
 WorldPatch {
-    fact_id: "table_12.height"
-    value: 0.9
-    unit: "meters"
-    source: "SCENE_DATA" | "POLICY_DEFAULT" | "USER_CONFIRMED" | "SPARK_DRAFT_USER_CONFIRMED"
-    timestamp: <deterministic turn counter>
-    provenance: {
-        resolver: "authority_resolver_v1"
-        priority_used: 1  # which level of the chain resolved it
+    patch_id: str              # Deterministic (derived from fact_key + turn_id)
+    fact_key: str              # Canonical addressable ID (matches NeedFact.fact_key)
+    value: Any                 # The resolved value
+    unit: str                  # "meters", "feet", "enum", etc.
+    source_tier: "CANONICAL" | "POLICY_DEFAULT" | "PLAYER" | "SPARK_DRAFT_USER_CONFIRMED"
+    provenance_reference: str  # Link to resolver, policy_id, or user confirmation event
+    commit_scope: {
+        turn_id: int           # Turn when committed
+        event_cursor: int      # Event stream position at commit
     }
 }
 ```
+
+**Binding rule:** SPARK-tier facts may NEVER be committed as authoritative mechanical inputs. This is enforced in code at the `LensIndex.set_fact()` boundary, not by convention. Spark may propose, assist UX, decorate. Spark may NOT commit.
 
 This patch becomes part of the authoritative world state. It is logged in the event stream. It is replayable.
 
