@@ -72,12 +72,18 @@ class FullAttackIntent:
     weapon: "Weapon"  # noqa: F821
     """Weapon being used for all attacks"""
 
+    power_attack_penalty: int = 0
+    """WO-034-FIX: Power Attack trade-off penalty (PHB p.98).
+    0 = not using Power Attack. Max = BAB."""
+
     def __post_init__(self):
         """Validate full attack intent."""
         if not self.attacker_id:
             raise ValueError("attacker_id cannot be empty")
         if not self.target_id:
             raise ValueError("target_id cannot be empty")
+        if self.power_attack_penalty < 0:
+            raise ValueError("power_attack_penalty cannot be negative")
 
 
 def calculate_iterative_attacks(base_attack_bonus: int) -> List[int]:
@@ -426,8 +432,8 @@ def resolve_full_attack(
         "range_ft": 5,  # Assume melee range for now
         "is_ranged": False,  # TODO: Detect from weapon type
         "is_twf": False,  # TODO: Detect from attack intent
-        "power_attack_penalty": 0,  # TODO: Get from player choice
-        "is_two_handed": False,  # TODO: Detect from weapon grip
+        "power_attack_penalty": intent.power_attack_penalty,  # WO-034-FIX: from intent
+        "is_two_handed": intent.weapon.is_two_handed,  # WO-034-FIX: from weapon
     }
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
     feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)

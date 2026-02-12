@@ -35,6 +35,10 @@ class Weapon:
     """Minimum d20 roll that threatens a critical hit. Default 20 per PHB p.140.
     Examples: 20 (most weapons), 19 (longsword, rapier 19-20), 18 (keen longsword 18-20)."""
 
+    is_two_handed: bool = False
+    """WO-034-FIX: Whether weapon is wielded two-handed (PHB p.98).
+    Affects Power Attack damage ratio (1:2 instead of 1:1)."""
+
     def __post_init__(self):
         """Validate weapon data."""
         if not self.damage_dice:
@@ -76,12 +80,18 @@ class AttackIntent:
     weapon: Weapon
     """Weapon being used for this attack"""
 
+    power_attack_penalty: int = 0
+    """WO-034-FIX: Power Attack trade-off penalty (PHB p.98).
+    0 = not using Power Attack. Max = BAB."""
+
     def __post_init__(self):
         """Validate attack intent."""
         if not self.attacker_id:
             raise ValueError("attacker_id cannot be empty")
         if not self.target_id:
             raise ValueError("target_id cannot be empty")
+        if self.power_attack_penalty < 0:
+            raise ValueError("power_attack_penalty cannot be negative")
 
 
 @dataclass

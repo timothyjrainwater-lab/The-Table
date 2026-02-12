@@ -210,13 +210,13 @@ def resolve_attack(
     target = world_state.entities[intent.target_id]
 
     # Build context for feat modifier computation
-    # TODO: Extract weapon name from intent.weapon when weapon tracking is implemented
     feat_context = {
         "weapon_name": "unknown",  # Placeholder until weapon tracking exists
         "range_ft": 5,  # Assume melee range for now
         "is_ranged": False,  # TODO: Detect from weapon type
         "is_twf": False,  # TODO: Detect from attack intent
-        "power_attack_penalty": 0,  # TODO: Get from player choice
+        "power_attack_penalty": intent.power_attack_penalty,  # WO-034-FIX: from intent
+        "is_two_handed": intent.weapon.is_two_handed,  # WO-034-FIX: from weapon
     }
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
 
@@ -336,7 +336,7 @@ def resolve_attack(
         # WO-034: Get feat-based damage modifier
         from aidm.core.feat_resolver import get_damage_modifier
         # Update context for damage computation
-        feat_context["is_two_handed"] = False  # TODO: Detect from weapon grip
+        feat_context["is_two_handed"] = intent.weapon.is_two_handed  # WO-034-FIX
         feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)
 
         base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_modifier
