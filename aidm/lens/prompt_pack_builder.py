@@ -68,6 +68,7 @@ class PromptPackBuilder:
         self,
         brief: NarrativeBrief,
         session_facts: Optional[List[str]] = None,
+        segment_summaries: Optional[List[str]] = None,
         style: Optional[StyleChannel] = None,
         contract: Optional[OutputContract] = None,
     ) -> PromptPack:
@@ -76,6 +77,7 @@ class PromptPackBuilder:
         Args:
             brief: Current NarrativeBrief (from WO-046B event→brief)
             session_facts: Facts from FrozenMemorySnapshot (quest state, etc.)
+            segment_summaries: WO-060 segment summary texts (newest first)
             style: Optional style override. Defaults to moderate/dramatic.
             contract: Optional contract override. Defaults to 600 chars, prose.
 
@@ -83,7 +85,7 @@ class PromptPackBuilder:
             Frozen, deterministic PromptPack with all five channels.
         """
         truth = self._build_truth(brief)
-        memory = self._build_memory(brief, session_facts or [])
+        memory = self._build_memory(brief, session_facts or [], segment_summaries or [])
         task = self._build_task()
         used_style = style if style is not None else StyleChannel()
         used_contract = contract if contract is not None else OutputContract()
@@ -128,18 +130,26 @@ class PromptPackBuilder:
         self,
         brief: NarrativeBrief,
         session_facts: List[str],
+        segment_summaries: Optional[List[str]] = None,
     ) -> MemoryChannel:
         """Build MemoryChannel with token budget enforcement.
 
         previous_narrations come from NarrativeBrief.previous_narrations.
+        segment_summaries come from SegmentTracker (WO-060, newest first).
         session_facts come from FrozenMemorySnapshot.
 
-        Both are truncated to fit within memory_token_budget.
+        All are truncated to fit within memory_token_budget.
         Truncation removes from end (least relevant entries dropped first).
+
+        Priority order within budget:
+        1. previous_narrations (most relevant for continuity)
+        2. segment_summaries (session context)
+        3. session_facts (quest state, NPC attitudes)
 
         Args:
             brief: Current NarrativeBrief (carries previous_narrations)
             session_facts: Session facts from memory snapshot
+            segment_summaries: WO-060 segment summary texts (newest first)
 
         Returns:
             Frozen MemoryChannel within token budget
@@ -156,6 +166,15 @@ class PromptPackBuilder:
             truncated_narrations.append(narration)
             used += tokens
 
+        # segment_summaries: newest first, truncate from end (oldest dropped)
+        truncated_summaries = []
+        for summary in (segment_summaries or []):
+            tokens = self._estimate_tokens(summary)
+            if used + tokens > budget:
+                break
+            truncated_summaries.append(summary)
+            used += tokens
+
         # session_facts: fill remaining budget
         truncated_facts = []
         for fact in session_facts:
@@ -168,6 +187,7 @@ class PromptPackBuilder:
         return MemoryChannel(
             previous_narrations=tuple(truncated_narrations),
             session_facts=tuple(truncated_facts),
+            segment_summaries=tuple(truncated_summaries),
             token_budget=self.memory_token_budget,
         )
 

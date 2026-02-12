@@ -182,6 +182,7 @@ class NarrationRequest:
     temperature: float = 0.8  # Default narration temperature
     world_state_hash: Optional[str] = None  # For KILL-006
     narrative_brief: Optional[Any] = None  # NarrativeBrief (WO-057, avoids circular import)
+    segment_summaries: Optional[Any] = None  # List[SessionSegmentSummary] (WO-060, avoids circular import)
 
     def __post_init__(self):
         """Validate narration request constraints."""
@@ -810,10 +811,18 @@ class GuardedNarrationService:
         session_data = json.loads(request.memory_snapshot.session_ledger_json)
         session_facts = session_data.get('facts_added', [])
 
+        # WO-060: Extract summary texts from segment summaries if available
+        summary_texts = []
+        if request.segment_summaries:
+            for s in request.segment_summaries:
+                text = getattr(s, 'summary_text', str(s))
+                summary_texts.append(text)
+
         builder = PromptPackBuilder()
         pack = builder.build(
             brief=brief,
             session_facts=session_facts,
+            segment_summaries=summary_texts if summary_texts else None,
         )
 
         return pack.serialize()

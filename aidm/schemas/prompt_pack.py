@@ -82,6 +82,7 @@ class MemoryChannel:
     """
     previous_narrations: tuple = ()  # Last N narration texts for continuity
     session_facts: tuple = ()        # Relevant session facts (quest state, NPC attitudes)
+    segment_summaries: tuple = ()    # WO-060: Session segment summary texts (newest first)
     token_budget: int = 200          # Max tokens for this channel
 
 
@@ -222,11 +223,15 @@ class PromptPack:
             sections.append("Previous:")
             for narr in self.memory.previous_narrations:
                 sections.append(f"- {narr}")
+        if self.memory.segment_summaries:
+            sections.append("Session Context:")
+            for summary in self.memory.segment_summaries:
+                sections.append(f"- {summary}")
         if self.memory.session_facts:
             sections.append("Facts:")
             for fact in self.memory.session_facts:
                 sections.append(f"- {fact}")
-        if not self.memory.previous_narrations and not self.memory.session_facts:
+        if not self.memory.previous_narrations and not self.memory.session_facts and not self.memory.segment_summaries:
             sections.append("(none)")
         sections.append("[/MEMORY]")
         sections.append("")
@@ -294,6 +299,7 @@ class PromptPack:
             "memory": {
                 "previous_narrations": list(self.memory.previous_narrations),
                 "session_facts": list(self.memory.session_facts),
+                "segment_summaries": list(self.memory.segment_summaries),
                 "token_budget": self.memory.token_budget,
             },
             "task": {

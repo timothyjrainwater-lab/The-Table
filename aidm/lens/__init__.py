@@ -28,6 +28,13 @@ from aidm.lens.context_assembler import (
     MAX_RECENT_NARRATIONS,
     MAX_SESSION_SUMMARIES,
 )
+from aidm.lens.segment_summarizer import (
+    SessionSegmentSummary,
+    SegmentSummarizer,
+    SegmentTracker,
+    DriftResult,
+    SEGMENT_SIZE,
+)
 
 __all__ = [
     "NarrativeBrief",
@@ -37,4 +44,9 @@ __all__ = [
     "compute_relevance_score",
     "MAX_RECENT_NARRATIONS",
     "MAX_SESSION_SUMMARIES",
+    "SessionSegmentSummary",
+    "SegmentSummarizer",
+    "SegmentTracker",
+    "DriftResult",
+    "SEGMENT_SIZE",
 ]

@@ -63,6 +63,7 @@ from aidm.interaction.intent_bridge import (
 from aidm.lens.context_assembler import ContextAssembler
 from aidm.lens.narrative_brief import NarrativeBrief, compute_severity
 from aidm.lens.scene_manager import SceneManager, SceneState
+from aidm.lens.segment_summarizer import SegmentTracker
 from aidm.narration.guarded_narration_service import (
     FrozenMemorySnapshot,
     GuardedNarrationService,
@@ -347,6 +348,7 @@ class SessionOrchestrator:
         self._current_scene_id: Optional[str] = None
         self._brief_history: List[NarrativeBrief] = []
         self._turn_count: int = 0
+        self._segment_tracker = SegmentTracker()
 
     # ------------------------------------------------------------------
     # Properties
@@ -376,6 +378,11 @@ class SessionOrchestrator:
     def turn_count(self) -> int:
         """Number of turns processed."""
         return self._turn_count
+
+    @property
+    def segment_tracker(self) -> SegmentTracker:
+        """Segment tracker for WO-060 session summaries and drift detection."""
+        return self._segment_tracker
 
     # ------------------------------------------------------------------
     # Main Turn Cycle Entry Points
@@ -724,6 +731,11 @@ class SessionOrchestrator:
         # Update current scene
         self._current_scene_id = transition_result.new_scene.scene_id
 
+        # WO-060: Force segment boundary on scene transition
+        self._segment_tracker.force_segment(
+            turn_number=self._turn_count, reason="scene_transition",
+        )
+
         brief = NarrativeBrief(
             action_type="scene_transition",
             actor_name="The party",
@@ -752,10 +764,18 @@ class SessionOrchestrator:
 
     def enter_combat(self) -> None:
         """Transition session to combat state."""
+        # WO-060: Force segment boundary on combat start
+        self._segment_tracker.force_segment(
+            turn_number=self._turn_count, reason="combat_start",
+        )
         self._session_state = SessionState.COMBAT
 
     def exit_combat(self) -> None:
         """Transition session back to exploration state."""
+        # WO-060: Force segment boundary on combat end
+        self._segment_tracker.force_segment(
+            turn_number=self._turn_count, reason="combat_end",
+        )
         self._session_state = SessionState.EXPLORATION
 
     # ------------------------------------------------------------------
@@ -773,6 +793,7 @@ class SessionOrchestrator:
         5. Context assembly (ContextAssembler)
         6. System prompt (DMPersona) + narration (GuardedNarrationService)
         7. TTS synthesis (TTSAdapter)
+        8. Segment tracking (SegmentTracker — WO-060)
 
         Args:
             brief: NarrativeBrief for this turn
@@ -784,13 +805,19 @@ class SessionOrchestrator:
         # Track brief history
         self._brief_history.append(brief)
 
-        # 5. Context assembly
+        # WO-060: Record turn in segment tracker (may auto-generate summary)
+        self._segment_tracker.record_turn(brief, turn_number=self._turn_count)
+
+        # 5. Context assembly — use retrieve() with segment summaries
+        segment_summaries = self._segment_tracker.get_summaries()
         session_context = self._context_assembler.assemble(
             brief, session_history=self._brief_history[:-1]
         )
 
-        # 6. Narration generation
-        narration_text, provenance = self._generate_narration(brief, session_context, events)
+        # 6. Narration generation (pass summaries for PromptPack path)
+        narration_text, provenance = self._generate_narration(
+            brief, session_context, events, segment_summaries=segment_summaries,
+        )
 
         # 7. TTS synthesis
         narration_audio = self._synthesize_tts(narration_text, brief)
@@ -806,6 +833,7 @@ class SessionOrchestrator:
     def _generate_narration(
         self, brief: NarrativeBrief, session_context: str,
         events: Optional[List[Dict[str, Any]]] = None,
+        segment_summaries: Optional[List] = None,
     ) -> Tuple[str, str]:
         """Generate narration text via Spark or template fallback.
 
@@ -813,6 +841,7 @@ class SessionOrchestrator:
             brief: NarrativeBrief for context
             session_context: Assembled context string
             events: Box events for damage extraction
+            segment_summaries: WO-060 SessionSegmentSummary objects (newest first)
 
         Returns:
             Tuple of (narration_text, provenance_tag)
@@ -848,6 +877,7 @@ class SessionOrchestrator:
             temperature=0.8,
             world_state_hash=world_state_hash,
             narrative_brief=brief,  # WO-057: enables PromptPack path
+            segment_summaries=segment_summaries,  # WO-060: session context
         )
 
         try:
