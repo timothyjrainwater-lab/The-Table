@@ -1,7 +1,7 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 18 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization → Steps 10-11 Integration Wiring → Phase 3 Evaluation Harness → **Product Pivot Whiteboard + Flanking Integration**)
+**Sessions Covered:** 19 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization → Steps 10-11 Integration Wiring → Phase 3 Evaluation Harness → Product Pivot Whiteboard + Flanking Integration → **RQ-INTENT-001 Intent Bridge Contract**)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
@@ -12,7 +12,9 @@
 
 Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** **AD-007 Presentation Semantics Contract ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN**.
 
-**Flanking geometry COMPLETE and WIRED into attack resolvers.** 29 tests for flanking detection + integration into both attack_resolver.py and full_attack_resolver.py. Gold masters regenerated. Sneak Attack (WO-050B) is now unblocked.
+**Flanking geometry COMPLETE and WIRED into attack resolvers.** 29 tests for flanking detection + integration into both attack_resolver.py and full_attack_resolver.py. Gold masters regenerated.
+
+**WO-050B Sneak Attack COMPLETE.** 52 tests. Precision damage system: eligibility (flanking/denied Dex), dice calculation, immunity checks, NOT multiplied on critical hits. Wired into both attack resolvers. Gold masters regenerated.
 
 **Whiteboard session documentation COMPLETE (7 new documents):**
 - MANIFESTO.md replaced (content-independent, "The Table")
@@ -25,7 +27,23 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 
 **Revised program sequencing adopted:** Phase 0 (foundation alignment) → Phase 1 (world compile) → Phase 2 (play loop) → Phase 3 (table UI prototype) → Phase 4 (MVP integration). Mechanical coverage continues as parallel track.
 
-**Test suite:** 4339 passed (+5 from flanking integration), 0 failures, 11 skipped, 0 regressions.
+**Test suite:** 4416 passed (+52 from WO-050B sneak attack), 7 chatterbox failures (pre-existing, external dependency), 11 skipped, 0 regressions.
+
+**RQ-INTENT-001 COMPLETE (Intent Bridge Contract):**
+- Full contract specification: `docs/contracts/INTENT_BRIDGE.md` (1,010 lines)
+  - 7 Tier 1 + 16 Tier 2 + 4 meta intent types
+  - Entity resolution model with spatial disambiguation
+  - No-coaching constraint with 14 forbidden patterns
+  - Clarification protocol (max 3 rounds, 2-6 bounded options)
+  - 80+ test vectors across 5 categories
+  - Red-team analysis (10 failure modes)
+  - 10 explicit implementation deltas
+- JSON Schema: `docs/schemas/intent_request.schema.json` (303 lines)
+  - ActionRequest, Target, Instrument, Constraint, Provenance, Clarify, Option types
+  - Conditional validation (needs_clarification requires clarify, reject requires reject_reason)
+- Compliance checklist: `tests/spec/intent_bridge_compliance.md` (338 lines)
+  - 29 machine-detectable violations across 6 categories
+  - 10 coaching regex patterns, 5 schema validations, 3 determinism checks, 4 authority boundary scans, 3 content independence checks, 4 clarification loop constraints
 
 **RQ-LENS-SPARK-001 COMPLETE (ALL 3 PHASES):**
 - Phase 1: PromptPack v1 (WO-045B/057) + ContradictionChecker v1 (WO-058) — COMPLETE
@@ -121,6 +139,9 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 27. `1fe03e2` — docs: whiteboard session — product pivot to "The Table" (7 new documents)
 28. `798eec0` — feat: flanking geometry detection (29 tests) + fix import boundary
 29. `059efbf` — feat: wire flanking into attack resolvers + regenerate gold masters
+30. `d83ada3` — docs: update PM session status — product pivot + flanking integration
+31. `b79a652` — docs: RQ-INTENT-001 Intent Bridge Contract (3 deliverables, 1,840 lines)
+32. `ca16fc9` — feat: WO-050B Sneak Attack — precision damage system (52 tests)
 
 ---
 
@@ -263,10 +284,10 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 1. **Phase 0.1**: Strip source material references from codebase (root to stem)
 2. **Phase 0.3**: Implement AD-007 Presentation Semantics Schema (frozen dataclass, enums, validation)
 3. **Phase 0.4**: Rulebook Object Model (storage, indexing, query API)
-4. **WO-050B**: Sneak Attack (NOW UNBLOCKED by flanking geometry)
-5. **RQ-TABLE-FOUNDATIONS-001**: Dispatch Tier 1 research (Intent Bridge combat mode, World Compiler minimum viable, Non-Combat Authority)
+4. **RQ-TABLE-FOUNDATIONS-001**: Dispatch remaining Tier 1 research (World Compiler minimum viable, Non-Combat Authority)
 
-**PO inbox item pending review:** `pm_inbox/PO_REVIEW_RQ-INTENT-001_INTENT_BRIDGE.md` — Jay's review of Intent Bridge research dispatch. Recommends approval with existing implementation context provided to agent.
+**RQ-INTENT-001 COMPLETE:** Intent Bridge Contract fully delivered (`b79a652`). Jay's PO review addressed. 3 deliverables: contract spec, JSON schema, compliance checklist.
+**WO-050B COMPLETE:** Sneak Attack precision damage system (`ca16fc9`). 52 tests, wired into both resolvers, gold masters regenerated.
 
 ### Phase 2 Dispatch (Ready)
 
@@ -392,6 +413,19 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 - `aidm/core/attack_resolver.py` — Updated: flanking bonus in modifier chain + event payload
 - `aidm/core/full_attack_resolver.py` — Updated: flanking bonus in modifier chain + event payload
 - `tests/fixtures/gold_masters/*.jsonl` — Regenerated with flanking fields
+
+### RQ-INTENT-001 (Intent Bridge Contract)
+- `docs/contracts/INTENT_BRIDGE.md` — NEW: Full Intent Bridge contract (1,010 lines, 10 sections)
+- `docs/schemas/intent_request.schema.json` — NEW: JSON Schema for ActionRequest (303 lines)
+- `tests/spec/intent_bridge_compliance.md` — NEW: 29 machine-detectable violations (338 lines)
+- `pm_inbox/reviewed/PO_REVIEW_RQ-INTENT-001_INTENT_BRIDGE.md` — Jay's PO review (approved, moved to reviewed)
+
+### WO-050B (Sneak Attack)
+- `aidm/core/sneak_attack.py` — NEW: eligibility, dice calc, immunity, damage roll (250 lines)
+- `tests/test_sneak_attack.py` — NEW: 52 tests (dice, immunity, eligibility, integration, edge cases)
+- `aidm/core/attack_resolver.py` — Updated: sneak attack injected post-crit, pre-DR + 5 new event payload fields
+- `aidm/core/full_attack_resolver.py` — Updated: sneak attack computed per-full-attack, rolled per-hit + event payloads
+- `tests/fixtures/gold_masters/*.jsonl` — Regenerated with sneak attack fields
 
 ### Work Orders
 - `docs/work_orders/WO-057_PROMPTPACK_CONSOLIDATION.md` — WO-057 spec (GAP-007 resolution)

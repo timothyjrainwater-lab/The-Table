@@ -482,7 +482,7 @@ but needs these adjustments:
 |-----|-----------------|-------------------|
 | Options lack entity_id | `suggested_options: List[str]` | Options must include `entity_id` |
 | No max rounds | No loop counter | 3-round limit, then RETRACTED |
-| No spatial ordering | Arbitrary order | Spatial proximity order |
+| No stable ordering | Arbitrary order | Lexicographic by display_name |
 | `can_proceed_without` | Allows partial resolution | Remove — bridge must fully resolve or fail |
 
 ---
@@ -497,6 +497,7 @@ but needs these adjustments:
 | `unknown_ability` | Player named a spell/ability not in registry | **reject** | "I don't recognize that ability." |
 | `unknown_location` | Player referenced a position that can't be resolved | **clarify** | "Where exactly?" |
 | `unknown_precondition` | Action requires context the bridge doesn't have | **defer-to-Box-with-unknown** | (no player-facing phrasing — Box decides) |
+| `insufficient_context` | Pronoun with no STM referent, or spatial ref with no map data | **clarify** | "I didn't catch that. Who do you mean?" / "Where exactly?" |
 | `unknown_game_mode` | Bridge can't determine if combat or narrative mode | **defer-to-Box-with-unknown** | (no player-facing phrasing — Box decides) |
 | `unknown_actor` | actor_id not in world state | **reject** | (system error — no player-facing phrasing) |
 | `unknown_action` | Parser can't determine intent type | **clarify** | "I didn't catch that. What are you trying to do?" |
