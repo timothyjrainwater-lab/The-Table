@@ -1,14 +1,22 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 16 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization → Steps 10-11 Integration Wiring)
+**Sessions Covered:** 17 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization → Steps 10-11 Integration Wiring → Phase 3 Evaluation Harness)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN** — **RQ-LENS-SPARK-001 Phase 2 COMPLETE**: WO-059 Memory Retrieval Policy + WO-060 Summarization Stability Protocol + **Steps 10-11 Integration Wiring** (SegmentTracker in SessionOrchestrator, summaries in PromptPackBuilder pipeline).
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN**.
+
+**RQ-LENS-SPARK-001 COMPLETE (ALL 3 PHASES):**
+- Phase 1: PromptPack v1 (WO-045B/057) + ContradictionChecker v1 (WO-058) — COMPLETE
+- Phase 2: Memory Retrieval Policy (WO-059) + Summarization Stability (WO-060) + Integration Wiring (Steps 10-11) — COMPLETE
+- Phase 3: Evaluation Harness (Deliverable 5) — COMPLETE
+  - Scenario 1 (50-turn sustained combat) + Scenario 4 (100-turn context pressure)
+  - Template mode baseline: 0% contradictions, 0% mechanics leaks, 100% budget stability
+  - Infrastructure ready for Spark model comparison when LLM is connected
 
 **RQ-LENS-SPARK-001 Steps 10-11 COMPLETE:**
 - Step 10: SegmentTracker wired into SessionOrchestrator (record_turn on every turn, force_segment on scene transitions / combat start-end)
@@ -27,7 +35,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 
 **RQ-PRODUCT-001 updated** with 0a/0b character substrate split in the Layered World Authority Model.
 
-**Test suite:** 4310 passed (+82 from WO-059/060 + Steps 10-11), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
+**Test suite:** 4334 passed (+106 from WO-059/060 + Steps 10-11 + Phase 3), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
 
 ---
 
@@ -91,6 +99,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 23. `abdcfd6` — WO-056: Gear Affordance Tags for Lens→Spark (AD-005 Layer 3, 16 tests)
 24. `2ec50dc` — WO-059/060: Memory Retrieval Policy + Summarization Stability (65 new tests)
 25. `08fedcc` — RQ-LENS-SPARK-001 Steps 10-11: SegmentTracker + summaries wired into pipeline (17 new tests)
+26. `31b66c5` — RQ-LENS-SPARK-001 Phase 3: Evaluation Harness (Scenarios 1+4, 24 new tests)
 
 ---
 
@@ -217,14 +226,22 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
    - 17 new integration tests (all pass), 0 regressions
 5. **Prior session (WO-058)**: ContradictionChecker v1 — post-hoc Spark output validation
 6. **Prior session (WO-057)**: PromptPackBuilder — single prompt assembly path (GAP-007 resolved)
+7. **RQ-LENS-SPARK-001 Phase 3**: Evaluation Harness (Deliverable 5)
+   - `aidm/evaluation/harness.py`: EvaluationScenario, EvaluationHarness, EvaluationReport
+   - Scenario 1: 50-turn sustained combat (2 PCs vs 3 goblins)
+   - Scenario 4: 100-turn context pressure (1 PC vs 5 orcs, 10+ segments)
+   - Template mode baseline: 0% contradictions, 0% mechanics leaks, 100% budget stability
+   - Determinism check: same seed → same narration output
+   - Invariant system: pass/fail against configurable targets
+   - 24 new tests (all pass), 0 regressions
 
 ### Next Session Priority
 
-1. **RQ-LENS-SPARK-001 Phase 3**: Evaluation Harness — scenario scripts, metric collection, model comparison
-2. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
-3. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
-4. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
-5. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
+1. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
+2. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
+3. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
+4. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
+5. **Evaluation harness expansion**: Scenarios 2 (scene transitions) and 3 (mixed mode) when scene/rest systems mature
 
 ### Phase 2 Dispatch (Ready)
 
@@ -329,6 +346,11 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ### Runtime Layer (Steps 10-11)
 - `aidm/runtime/session_orchestrator.py` — Updated: SegmentTracker wired, segment_tracker property, force_segment on transitions
+
+### Evaluation Layer (Phase 3)
+- `aidm/evaluation/__init__.py` — Package init
+- `aidm/evaluation/harness.py` — EvaluationHarness, EvaluationScenario, EvaluationReport, Scenarios 1+4 (~400 lines)
+- `tests/test_evaluation_harness.py` — 24 evaluation harness tests (6 categories)
 
 ### Work Orders
 - `docs/work_orders/WO-057_PROMPTPACK_CONSOLIDATION.md` — WO-057 spec (GAP-007 resolution)
