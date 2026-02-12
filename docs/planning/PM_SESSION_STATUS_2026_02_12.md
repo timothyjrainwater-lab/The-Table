@@ -1,18 +1,18 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 7 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack)
+**Sessions Covered:** 9 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 Physical Affordance + WO-053 Equipment Catalog)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All three P0/P1 hotfixes (WO-FIX-001 through WO-FIX-003) are **complete and committed**. AD-004 (Mechanical Evidence Gate) is ratified, with Layer 1 enforcement active. **Phase 2 mechanical work orders are now in progress**: WO-048 (Damage Reduction), WO-049 (Concealment/Miss Chance), and WO-034-FIX (Power Attack integration) are **all complete and committed**. WO-036 (spell expansion to 53) was already complete from a prior session.
+Phase 1 research is **complete**. All hotfixes (WO-FIX-001 through WO-FIX-003) are **complete**. **Phase 2 Box-layer mechanical work is substantially complete**: WO-048 (DR), WO-049 (Concealment), WO-034-FIX (Power Attack), WO-036 (53 spells), WO-051B (Policy Default Library), WO-052B (Seeded Scene Generator) — all committed. **New work stream: Physical Affordance / Inventory** (WO-053 through WO-056) initiated per PO direction on equipment realism and container policies. AD-005 ratified.
 
-**Test suite:** 3842 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
+**Test suite:** 3889 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
 
-**Next action:** Execute WO-051B (Policy Default Library), WO-045B (PromptPack v1 Schema), or WO-046B (NarrativeBrief completion). Present OQ-1 through OQ-7 to PO.
+**Next action:** Execute WO-053 (Equipment Item Catalog), then WO-054 (Inventory + Encumbrance). WO-045B/046B (PromptPack, NarrativeBrief) follow once gear context is defined.
 
 ---
 
@@ -25,6 +25,7 @@ Phase 1 research is **complete**. All three P0/P1 hotfixes (WO-FIX-001 through W
 | AD-001: Authority Resolution Protocol | `docs/decisions/AD-001_AUTHORITY_RESOLUTION_PROTOCOL.md` | Spark MUST NEVER supply mechanical truth. NeedFact/WorldPatch halt-and-resolve protocol. |
 | AD-002: Lens Context Orchestration | `docs/decisions/AD-002_LENS_CONTEXT_ORCHESTRATION.md` | Five-channel PromptPack wire protocol. Lens as OS for context assembly. |
 | AD-003: Self-Sufficiency Resolution | `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` | System self-sufficiency through Policy Default Library + Seeded Deterministic Generator, not LLM invention. |
+| AD-005: Physical Affordance Policy | `docs/decisions/AD-005_PHYSICAL_AFFORDANCE_POLICY.md` | Declared physical facts for RAW-silent properties. Four-layer inventory architecture. HOUSE_POLICY provenance for container/storage rules. |
 
 ### AD-004: Mechanical Evidence Gate
 
@@ -63,6 +64,8 @@ Phase 1 research is **complete**. All three P0/P1 hotfixes (WO-FIX-001 through W
 12. `6c91573` — WO-048: Damage Reduction system with full bypass matching
 13. `74ba855` — WO-049: Concealment/Miss Chance system (PHB p.152)
 14. `760176d` — WO-034-FIX: Wire Power Attack penalty through intent pipeline (PHB p.98)
+15. `4de9cbd` — WO-051B: Policy Default Library with 20 environmental object classes (AD-003)
+16. `fb8bc73` — WO-052B: Seeded Deterministic Generator for scene objects (AD-003)
 
 ---
 
@@ -114,7 +117,11 @@ Recent promotions:
 - Concealment/Miss Chance: Missing → **Full** (WO-049)
 - Power Attack: Partial → **Full** (WO-034-FIX)
 
-**Remaining Tier 1 (Critical Path) gaps:** Sneak Attack (blocked on flanking geometry), 5-foot step completion.
+**New AD-003 infrastructure:** Policy Default Library (20 env object classes) + Seeded Scene Generator (5 templates, deterministic).
+
+**New work stream (PO-directed):** Physical Affordance / Inventory system (AD-005, WO-053 through WO-056).
+
+**Remaining Tier 1 (Critical Path) gaps:** Sneak Attack (blocked on flanking geometry), 5-foot step completion, Inventory/Encumbrance (new — WO-054).
 
 Full details: `docs/audits/MECHANICAL_COVERAGE_AUDIT.md`
 
@@ -150,9 +157,10 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ### Immediate
 
-1. **Present OQ-1 through OQ-7** to PO for decisions
-2. **WO-HARDEN-001**: Build remaining subsystem evidence maps (conditions, mounted, terrain, AoO, feats, spells, initiative)
-3. **Evidence pointer sweep**: Add `Evidence:` lines to remaining mechanical test files
+1. **WO-053**: Equipment Item Catalog — extend PDL with adventuring gear, containers, weapons-as-items
+2. **WO-054**: Inventory + Encumbrance system — entity fields, STR-based capacity, load tier penalties
+3. **WO-055**: Container Policies + Storage Location tracking — HOUSE_POLICY provenance
+4. **WO-056**: Gear Affordance Tags in NarrativeBrief — Lens → Spark visible_gear context
 
 ### Phase 2 Dispatch (Ready)
 
@@ -162,16 +170,20 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 | WO-049: Concealment/miss chance | Coding agent | **COMPLETE** (`74ba855`) |
 | WO-034-FIX: Power Attack integration | Coding agent | **COMPLETE** (`760176d`) |
 | WO-036: Spell registry expansion | Coding agent | **COMPLETE** (53 spells, prior session) |
-| WO-045B: PromptPack v1 Schema | Coding agent | READY (AD-002 spec complete) |
+| WO-051B: Policy Default Library | Coding agent | **COMPLETE** (`4de9cbd`) |
+| WO-052B: Seeded Deterministic Generator | Coding agent | **COMPLETE** (`fb8bc73`) |
+| WO-053: Equipment Item Catalog | Coding agent | IN PROGRESS |
+| WO-054: Inventory + Encumbrance | Coding agent | READY (after WO-053) |
+| WO-045B: PromptPack v1 Schema | Coding agent | READY (after WO-053/054 for gear context) |
 | WO-046B: NarrativeBrief completion | Coding agent | READY (schemas exist) |
-| WO-051B: Policy Default Library | Coding agent | READY (WO-048 unblocks this) |
 
 ### Phase 2 Dispatch (Blocked)
 
 | Item | Blocked By |
 |------|-----------|
-| WO-052B: Seeded Deterministic Generator | WO-051B (needs the default library data) |
 | WO-050B: Sneak Attack | Flanking detection prerequisite (geometry) |
+| WO-055: Container Policies | WO-053 + WO-054 (needs equipment catalog + inventory fields) |
+| WO-056: Gear Affordance Tags | WO-045B/046B (needs NarrativeBrief completion) |
 
 ---
 
@@ -193,6 +205,14 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 - `tests/test_damage_reduction.py` — 19 DR tests (unit + integration)
 - `tests/test_concealment.py` — 19 concealment tests (unit + integration)
 - `tests/test_power_attack_integration.py` — 10 Power Attack integration tests
+
+### Data Layer (AD-003)
+- `aidm/data/__init__.py` — Package exports for PDL + Scene Generator
+- `aidm/data/policy_defaults.json` — 20 environmental object classes (DMG-sourced)
+- `aidm/data/policy_defaults_loader.py` — Typed PDL loader (PolicyDefaultLibrary, ObjectDefault, Dimensions)
+- `aidm/data/scene_generator.py` — Seeded deterministic generator (5 scene templates)
+- `tests/test_policy_defaults.py` — 28 PDL tests
+- `tests/test_scene_generator.py` — 19 scene generator tests
 
 ### Research
 - `docs/research/RQ_SPARK_001_SYNTHESIS.md` (1046 lines)
