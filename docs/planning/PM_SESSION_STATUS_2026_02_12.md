@@ -1,16 +1,16 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 3 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003)
+**Sessions Covered:** 5 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. Six background agents produced deliverables covering all planned research domains. Three binding architectural decisions (AD-001, AD-002, AD-003) have been ratified. The project now has a clear path from "combat calculator" to "AI Dungeon Master" with identified gaps, priorities, and work orders.
+Phase 1 research is **complete**. All three P0/P1 hotfixes (WO-FIX-001 through WO-FIX-003) are **complete and committed**. AD-004 (Mechanical Evidence Gate) is ratified, with Layer 1 enforcement active (Evidence: pointers in test docstrings) and initial subsystem evidence maps created. The project is now **unblocked for Phase 2 dispatch**.
 
-**Next action:** Execute WO-FIX-001 (DurationTracker 5e concentration bug) as an immediate hotfix, then begin Phase 2 dispatch.
+**Next action:** Dispatch Phase 2 coding work orders (WO-045B PromptPack, WO-048 Damage Reduction, etc.) and present OQ-1 through OQ-7 to PO.
 
 ---
 
@@ -23,6 +23,12 @@ Phase 1 research is **complete**. Six background agents produced deliverables co
 | AD-001: Authority Resolution Protocol | `docs/decisions/AD-001_AUTHORITY_RESOLUTION_PROTOCOL.md` | Spark MUST NEVER supply mechanical truth. NeedFact/WorldPatch halt-and-resolve protocol. |
 | AD-002: Lens Context Orchestration | `docs/decisions/AD-002_LENS_CONTEXT_ORCHESTRATION.md` | Five-channel PromptPack wire protocol. Lens as OS for context assembly. |
 | AD-003: Self-Sufficiency Resolution | `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` | System self-sufficiency through Policy Default Library + Seeded Deterministic Generator, not LLM invention. |
+
+### AD-004: Mechanical Evidence Gate
+
+| Decision | Path | Key Rule |
+|----------|------|----------|
+| AD-004: Mechanical Evidence Gate | `docs/decisions/AD-004_MECHANICAL_EVIDENCE_GATE.md` | No mechanical rule enters Box without local corpus evidence. Three enforcement layers. |
 
 ### Phase 1 Research Deliverables (All Complete)
 
@@ -44,30 +50,42 @@ Phase 1 research is **complete**. Six background agents produced deliverables co
 1. `088bff0` — Phase 1 research deliverables and architectural decisions (12 files, 5122 lines)
 2. `8477bcc` — HISTORICAL banners and scope clarifications to governance docs
 3. `4a8f507` — GPT rehydration packet, voice research, PM inbox items (58 files)
+4. `4d06065` — WO-FIX-001: Remove 5e concentration auto-displacement from DurationTracker
+5. `62a1a10` — Harden AD-001 and AD-003 with PO-specified guardrails
+6. `52c043a` — Complete Steps 1-5, WO-016/017 of execution plan
+7. `4cbe57b` — Complete WO-018 Replay Regression Suite
+8. `a8575ad` — WO-FIX-002: Critical hits in attack_resolver + AD-004 Evidence Gate
+9. `60b4587` — WO-FIX-003: Unify AC/modifier computation in full_attack_resolver
+10. `3ca2454` — AD-004 Layer 1: Evidence pointers in critical attack test docstrings
 
 ---
 
 ## Critical Bugs Found
 
-### P0: DurationTracker 5e Concentration Limiter (WO-FIX-001)
+### P0: DurationTracker 5e Concentration Limiter (WO-FIX-001) — FIXED
 
 **File:** `aidm/core/duration_tracker.py:115`
 **Bug:** `_concentration: Dict[str, str]` implements 5e one-concentration-per-caster rule. Lines 124-136 auto-remove existing concentration effect when a new one is applied.
 **3.5e Rule:** Multiple concentration spells ARE allowed (each requires a Concentration check, but no automatic displacement).
-**Fix:** Change to `Dict[str, List[str]]` (one-to-many mapping), remove auto-end logic, add Concentration check mechanic.
-**Status:** Not yet fixed. Highest priority.
+**Fix:** Changed to `Dict[str, List[str]]` (one-to-many mapping), removed auto-end logic.
+**Commit:** `4d06065`
+**Status:** COMPLETE. Golden tests regenerated, full suite green.
 
-### P1: Critical Hits Missing from Single Attacks (WO-FIX-002)
+### P1: Critical Hits Missing from Single Attacks (WO-FIX-002) — FIXED
 
 **File:** `aidm/core/attack_resolver.py`
-**Bug:** No critical hit logic. Only `full_attack_resolver.py` handles criticals. Standard single attacks cannot score critical hits.
-**Status:** Not yet fixed.
+**Bug:** No critical hit logic. Only `full_attack_resolver.py` handled criticals. Standard single attacks could not score critical hits.
+**Fix:** Added threat detection, confirmation roll, damage multiplication. Also fixed expanded threat range auto-hit bug in both resolvers.
+**Commit:** `a8575ad`
+**Status:** COMPLETE. 8 new tests, gold masters regenerated.
 
-### P1: Full Attack Resolver Modifier Bypass (WO-FIX-003)
+### P1: Full Attack Resolver Modifier Bypass (WO-FIX-003) — FIXED
 
-**File:** `aidm/core/full_attack_resolver.py:261`
-**Bug:** Uses raw entity AC directly, bypassing condition modifiers, cover, terrain, mounted bonuses, and feat modifiers that `attack_resolver.py` correctly applies.
-**Status:** Not yet fixed.
+**File:** `aidm/core/full_attack_resolver.py`
+**Bug:** Used raw entity AC directly, bypassing condition modifiers (CP-16), cover (CP-19), terrain higher ground (CP-19), mounted bonuses (CP-18A), and feat modifiers (WO-034).
+**Fix:** Added targeting legality, total cover blocking, and all modifier layers matching attack_resolver.py. Full audit trail in event payloads.
+**Commit:** `60b4587`
+**Status:** COMPLETE. 5 new tests, 3794 total passed, 0 regressions.
 
 ---
 
@@ -119,14 +137,13 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ## What to Do Next
 
-### Immediate (Before Phase 2 Dispatch)
+### Immediate
 
-1. **WO-FIX-001**: Fix DurationTracker 5e concentration bug — this is a production correctness issue
-2. **WO-FIX-002**: Port critical hit logic to `attack_resolver.py`
-3. **WO-FIX-003**: Unify AC computation between attack_resolver and full_attack_resolver
-4. **Present OQ-1 through OQ-7** to PO for decisions
+1. **Present OQ-1 through OQ-7** to PO for decisions
+2. **WO-HARDEN-001**: Build remaining subsystem evidence maps (conditions, mounted, terrain, AoO, feats, spells, initiative)
+3. **Evidence pointer sweep**: Add `Evidence:` lines to remaining mechanical test files
 
-### Phase 2 Dispatch (Ready)
+### Phase 2 Dispatch (Ready — Hotfixes Complete)
 
 These items can be dispatched as soon as hotfixes are committed:
 
@@ -153,6 +170,11 @@ These items can be dispatched as soon as hotfixes are committed:
 - `docs/decisions/AD-001_AUTHORITY_RESOLUTION_PROTOCOL.md` (190 lines)
 - `docs/decisions/AD-002_LENS_CONTEXT_ORCHESTRATION.md` (180 lines)
 - `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` (225 lines)
+- `docs/decisions/AD-004_MECHANICAL_EVIDENCE_GATE.md` (163 lines)
+
+### Evidence Maps (AD-004)
+- `docs/evidence/ATTACK_RESOLUTION.md` — 16 single attack + 10 full attack + 3 weapon mechanics mapped
+- `docs/evidence/CONCENTRATION_AND_DURATION.md` — 9 concentration + 4 anti-5e + 8 duration mechanics mapped
 
 ### Research
 - `docs/research/RQ_SPARK_001_SYNTHESIS.md` (1046 lines)
