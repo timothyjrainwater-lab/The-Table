@@ -47,6 +47,8 @@ These documents reflect the current state of the project and are actively mainta
 | AD-001: Authority Resolution Protocol | `docs/decisions/AD-001_AUTHORITY_RESOLUTION_PROTOCOL.md` | NeedFact/WorldPatch protocol. Spark MUST NEVER supply mechanical truth. Authority chain: Box > Canonical > Player > Spark. | Binding. All resolvers must implement NeedFact halt. |
 | AD-002: Lens Context Orchestration | `docs/decisions/AD-002_LENS_CONTEXT_ORCHESTRATION.md` | Five-channel PromptPack wire protocol (Truth/Memory/Task/Style/OutputContract). Lens as OS for context. | Binding. Drives PromptPack v1 implementation. |
 | AD-003: Self-Sufficiency Resolution | `docs/decisions/AD-003_SELF_SUFFICIENCY_RESOLUTION_POLICY.md` | Policy Default Library + Seeded Deterministic Generator. Self-sufficiency through data, not LLM invention. | Binding. Defines fact resolution chain: Scene > PolicyDefault > Generator > PlayerChoice. |
+| AD-004: Mechanical Evidence Gate | `docs/decisions/AD-004_MECHANICAL_EVIDENCE_GATE.md` | No mechanical rule enters Box without local corpus evidence. Three layers: evidence-gated test docstrings, subsystem evidence maps, fail-closed resolution. | Binding. Uses Vault OCR corpus (322 PHB pages, 18 sources). |
+| Evidence Maps | `docs/evidence/*.md` | Per-subsystem structured evidence tables: mechanic → PHB page → Vault path → test → gaps. | Binding. Each resolver must have a corresponding evidence map. |
 | README | `README.md` | User-facing project overview, usage examples | May lag behind PSD on test counts and module listings. |
 
 ### Tier 2 -- Governance (Partially Superseded)

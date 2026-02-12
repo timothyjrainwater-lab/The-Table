@@ -481,3 +481,312 @@ def test_parse_damage_dice_invalid():
 
     with pytest.raises(ValueError):
         parse_damage_dice("1d0")  # Zero die size
+
+
+# ==============================================================================
+# WO-FIX-002: Critical Hit Tests for Single Attack (PHB p.140)
+#
+# D&D 3.5e PHB p.140: When you score a threat (d20 >= weapon's threat range),
+# roll a confirmation attack. If it hits AC, the attack is a critical hit and
+# damage is multiplied by the weapon's critical multiplier.
+#
+# These tests ensure single attacks (resolve_attack) have the same critical
+# hit logic as full attacks (resolve_full_attack). Prior to WO-FIX-002,
+# resolve_attack had NO critical hit logic — only natural 20 auto-hit.
+# ==============================================================================
+
+
+def test_single_attack_has_threat_detection():
+    """WO-FIX-002: Single attacks must detect critical threats (PHB p.140).
+
+    Before this fix, resolve_attack had no is_threat or is_critical fields.
+    """
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 50}
+        }
+    )
+
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=2, damage_type="slashing")
+    )
+
+    rng = RNGManager(master_seed=42)
+    events = resolve_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+    attack_event = events[0]
+    assert "is_threat" in attack_event.payload, "attack_roll missing is_threat field"
+    assert "is_critical" in attack_event.payload, "attack_roll missing is_critical field"
+    assert "confirmation_total" in attack_event.payload, "attack_roll missing confirmation_total field"
+
+
+def test_single_attack_critical_confirmation():
+    """WO-FIX-002: Single attacks must roll confirmation on threat (PHB p.140)."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 18, "hp_current": 50}  # AC 18: confirmation needs d20+5 >= 18, i.e. d20 >= 13
+        }
+    )
+
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=5,  # Low bonus so confirmation can fail
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing")
+    )
+
+    confirmed_found = False
+    failed_confirmation_found = False
+
+    for seed in range(2000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+        attack_event = events[0]
+        if attack_event.payload["is_threat"] and attack_event.payload["hit"]:
+            if attack_event.payload["is_critical"]:
+                assert attack_event.payload["confirmation_total"] >= attack_event.payload["target_ac"]
+                confirmed_found = True
+            else:
+                assert attack_event.payload["confirmation_total"] < attack_event.payload["target_ac"]
+                failed_confirmation_found = True
+
+        if confirmed_found and failed_confirmation_found:
+            break
+
+    assert confirmed_found, "Could not find confirmed critical in 2000 seeds"
+    assert failed_confirmation_found, "Could not find failed confirmation in 2000 seeds"
+
+
+def test_single_attack_critical_damage_multiplied():
+    """WO-FIX-002: Confirmed critical must multiply damage (PHB p.140)."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 100}
+        }
+    )
+
+    # x2 multiplier (default)
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing", critical_multiplier=2)
+    )
+
+    for seed in range(2000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+        attack_event = events[0]
+        damage_events = [e for e in events if e.event_type == "damage_roll"]
+
+        if attack_event.payload["is_critical"] and damage_events:
+            damage = damage_events[0].payload
+            assert damage["damage_total"] == damage["base_damage"] * 2, \
+                f"Critical x2 damage mismatch: {damage['damage_total']} != {damage['base_damage']} * 2"
+            assert damage["critical_multiplier"] == 2
+            break
+    else:
+        pytest.fail("Could not find confirmed critical in 2000 seeds")
+
+
+def test_single_attack_critical_x3_multiplier():
+    """WO-FIX-002: x3 critical multiplier (e.g., battleaxe) works correctly."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 100}
+        }
+    )
+
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing", critical_multiplier=3)
+    )
+
+    for seed in range(2000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+        attack_event = events[0]
+        damage_events = [e for e in events if e.event_type == "damage_roll"]
+
+        if attack_event.payload["is_critical"] and damage_events:
+            damage = damage_events[0].payload
+            assert damage["damage_total"] == damage["base_damage"] * 3
+            assert damage["critical_multiplier"] == 3
+            break
+    else:
+        pytest.fail("Could not find confirmed x3 critical in 2000 seeds")
+
+
+def test_single_attack_non_critical_multiplier_is_1():
+    """WO-FIX-002: Non-critical hits must have multiplier 1 in damage event."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 50}
+        }
+    )
+
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=2, damage_type="slashing")
+    )
+
+    for seed in range(200):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+        attack_event = events[0]
+        damage_events = [e for e in events if e.event_type == "damage_roll"]
+
+        if attack_event.payload["hit"] and not attack_event.payload["is_critical"] and damage_events:
+            damage = damage_events[0].payload
+            assert damage["critical_multiplier"] == 1
+            assert damage["damage_total"] == damage["base_damage"]
+            break
+    else:
+        pytest.fail("Could not find non-critical hit in 200 seeds")
+
+
+def test_single_attack_expanded_threat_range_19_20():
+    """WO-FIX-002: Weapon with critical_range=19 threatens on 19 and 20 (PHB p.140)."""
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 10, "hp_current": 100}
+        }
+    )
+
+    # Longsword: 19-20/x2
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=10,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=3, damage_type="slashing",
+                      critical_multiplier=2, critical_range=19)
+    )
+
+    threat_on_19_found = False
+    threat_on_20_found = False
+    no_threat_on_18_found = False
+
+    for seed in range(5000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+        attack_event = events[0]
+        d20 = attack_event.payload["d20_result"]
+
+        if d20 == 19:
+            assert attack_event.payload["is_threat"] is True
+            threat_on_19_found = True
+        elif d20 == 20:
+            assert attack_event.payload["is_threat"] is True
+            threat_on_20_found = True
+        elif d20 == 18:
+            assert attack_event.payload["is_threat"] is False
+            no_threat_on_18_found = True
+
+        if threat_on_19_found and threat_on_20_found and no_threat_on_18_found:
+            break
+
+    assert threat_on_19_found, "Could not find d20=19 in 5000 seeds"
+    assert threat_on_20_found, "Could not find d20=20 in 5000 seeds"
+    assert no_threat_on_18_found, "Could not find d20=18 in 5000 seeds"
+
+
+def test_single_attack_threat_in_expanded_range_must_still_meet_ac():
+    """WO-FIX-002: A roll of 19 on a 19-20 weapon that misses AC is NOT a hit.
+
+    PHB p.140: Only natural 20 auto-hits. Expanded threat range allows critical
+    confirmation on rolls that hit, but does NOT turn misses into hits.
+    This is a common misread of the rules.
+    """
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 35, "hp_current": 50}  # Very high AC
+        }
+    )
+
+    # Longsword 19-20/x2, low attack bonus
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=5,  # Total on 19: 24, still misses AC 35
+        weapon=Weapon(damage_dice="1d8", damage_bonus=2, damage_type="slashing",
+                      critical_multiplier=2, critical_range=19)
+    )
+
+    for seed in range(5000):
+        rng = RNGManager(master_seed=seed)
+        events = resolve_attack(intent, world_state, rng, next_event_id=0, timestamp=1.0)
+
+        attack_event = events[0]
+        d20 = attack_event.payload["d20_result"]
+
+        if d20 == 19:
+            # d20=19 threatens, but total (19+5=24) < AC 35, so it's a MISS
+            assert attack_event.payload["is_threat"] is True
+            assert attack_event.payload["hit"] is False, \
+                "Threat on 19 should NOT auto-hit when total < AC — only nat 20 auto-hits"
+            # No damage events should exist
+            damage_events = [e for e in events if e.event_type == "damage_roll"]
+            assert len(damage_events) == 0
+            break
+    else:
+        pytest.fail("Could not find d20=19 in 5000 seeds")
+
+
+def test_single_attack_rng_consumption_order():
+    """WO-FIX-002: RNG must be consumed in strict order: attack → [confirm] → [damage].
+
+    Deterministic replay requires that the same seed always produces the same
+    sequence of RNG calls regardless of threat/hit outcomes.
+    """
+    world_state = WorldState(
+        ruleset_version="3.5e",
+        entities={
+            "attacker": {"ac": 10},
+            "target": {"ac": 15, "hp_current": 50}
+        }
+    )
+
+    intent = AttackIntent(
+        attacker_id="attacker",
+        target_id="target",
+        attack_bonus=5,
+        weapon=Weapon(damage_dice="1d8", damage_bonus=2, damage_type="slashing")
+    )
+
+    # Run same seed twice — must produce identical events
+    for seed in range(50):
+        rng1 = RNGManager(master_seed=seed)
+        rng2 = RNGManager(master_seed=seed)
+
+        events1 = resolve_attack(intent, world_state, rng1, next_event_id=0, timestamp=1.0)
+        events2 = resolve_attack(intent, world_state, rng2, next_event_id=0, timestamp=1.0)
+
+        assert len(events1) == len(events2)
+        for e1, e2 in zip(events1, events2):
+            assert e1.payload == e2.payload

@@ -1,9 +1,10 @@
 """Attack resolution for CP-10 — Deterministic Attack Proof.
 
-This module implements minimal attack resolution:
+This module implements single attack resolution:
 - Attack roll (d20 + bonus vs AC)
 - Hit/miss determination (including natural 20/1)
-- Damage roll (on hit)
+- Critical threat detection and confirmation (PHB p.140)
+- Damage roll (on hit), with critical damage multiplication
 - HP update
 - Defeat check
 
@@ -19,6 +20,16 @@ CP-18A INTEGRATION:
 CP-19 INTEGRATION:
 - Cover bonuses (standard +4 AC, improved +8 AC, total blocks targeting)
 - Terrain higher ground bonus (+1 melee, stacks with mounted bonus)
+
+WO-FIX-002: Critical hit logic (PHB p.140)
+- Threat range from weapon (default 20, can be 19-20, 18-20)
+- Confirmation roll (d20 + attack bonus vs AC, no auto-hit on nat 20)
+- Damage multiplication on confirmed critical (×2/×3/×4)
+
+RNG CONSUMPTION ORDER (deterministic):
+1. Attack roll (d20)
+2. IF threat: Confirmation roll (d20)
+3. IF hit: Damage roll (XdY)
 
 All state mutations are event-driven only.
 """
@@ -96,9 +107,15 @@ def resolve_attack(
     This is the core CP-10 proof function. It:
     0. Validates targeting legality (CP-18A-T&V)
     1. Rolls d20 + attack_bonus
-    2. Compares to target AC
-    3. On hit: rolls damage and updates HP
-    4. Checks for defeat (HP <= 0)
+    2. Checks critical threat (d20 >= weapon.critical_range) (PHB p.140)
+    3. If threat: rolls confirmation (d20 + bonus vs AC)
+    4. On hit: rolls damage (multiplied on confirmed critical)
+    5. Updates HP and checks for defeat
+
+    RNG consumption order (deterministic):
+    1. Attack roll (d20)
+    2. IF threat: Confirmation roll (d20)
+    3. IF hit: Damage roll (XdY)
 
     Args:
         intent: Attack intent with attacker/target/weapon
@@ -200,7 +217,7 @@ def resolve_attack(
     # CP-16: condition modifier, CP-19: cover bonus
     target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
 
-    # Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier)
+    # Step 1: Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier)
     combat_rng = rng.stream("combat")
     d20_result = combat_rng.randint(1, 20)
     # CP-16: condition modifier, CP-18A: mounted bonus, CP-19: terrain higher ground, WO-034: feat modifier
@@ -213,16 +230,31 @@ def resolve_attack(
     )
     total = d20_result + attack_bonus_with_conditions
 
-    # Determine hit/miss
+    # Determine threat and hit (PHB p.140)
+    is_threat = (d20_result >= intent.weapon.critical_range)
     is_natural_20 = (d20_result == 20)
     is_natural_1 = (d20_result == 1)
 
-    if is_natural_20:
-        hit = True
-    elif is_natural_1:
+    # PHB p.140: Natural 1 always misses. Natural 20 always hits AND threatens.
+    # Expanded threat range (e.g., 19-20): the roll threatens a critical, but
+    # the attack must still meet AC to hit (only natural 20 auto-hits).
+    if is_natural_1:
         hit = False
+    elif is_natural_20:
+        hit = True
     else:
         hit = (total >= target_ac)
+
+    # Step 2: Critical confirmation (PHB p.140) — only if threat AND hit
+    is_critical = False
+    confirmation_total = None
+
+    if is_threat and hit:
+        confirmation_d20 = combat_rng.randint(1, 20)
+        confirmation_total = confirmation_d20 + attack_bonus_with_conditions
+        # Confirmation hits if it would hit normally (no auto-hit on natural 20 for confirmation)
+        if confirmation_total >= target_ac:
+            is_critical = True
 
     # Emit attack_roll event
     events.append(Event(
@@ -246,9 +278,12 @@ def resolve_attack(
             "target_ac_modifier": defender_modifiers.ac_modifier,  # CP-16
             "hit": hit,
             "is_natural_20": is_natural_20,
-            "is_natural_1": is_natural_1
+            "is_natural_1": is_natural_1,
+            "is_threat": is_threat,  # WO-FIX-002
+            "is_critical": is_critical,  # WO-FIX-002
+            "confirmation_total": confirmation_total  # WO-FIX-002 (None if no confirmation)
         },
-        citations=[{"source_id": "681f92bc94ff", "page": 143}]  # PHB attack rules
+        citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical hit rules
     ))
     current_event_id += 1
 
@@ -270,7 +305,13 @@ def resolve_attack(
 
         base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_modifier
         # CP-16: Apply condition damage modifier, WO-034: Apply feat damage modifier
-        damage_total = max(0, base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier)
+        base_damage_with_modifiers = base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier
+
+        # WO-FIX-002: Apply critical multiplier (PHB p.140)
+        if is_critical:
+            damage_total = max(0, base_damage_with_modifiers * intent.weapon.critical_multiplier)
+        else:
+            damage_total = max(0, base_damage_with_modifiers)
 
         # Emit damage_roll event
         events.append(Event(
@@ -286,10 +327,12 @@ def resolve_attack(
                 "str_modifier": str_modifier,  # PHB p.113
                 "condition_modifier": attacker_modifiers.damage_modifier,  # CP-16
                 "feat_modifier": feat_damage_modifier,  # WO-034
+                "base_damage": base_damage_with_modifiers,  # WO-FIX-002: pre-multiplier damage
+                "critical_multiplier": intent.weapon.critical_multiplier if is_critical else 1,  # WO-FIX-002
                 "damage_total": damage_total,
                 "damage_type": intent.weapon.damage_type
             },
-            citations=[{"source_id": "681f92bc94ff", "page": 145}]  # PHB damage rules
+            citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical/damage rules
         ))
         current_event_id += 1
 

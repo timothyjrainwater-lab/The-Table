@@ -127,12 +127,15 @@ def resolve_single_attack_with_critical(
     # Determine threat and hit
     is_threat = (d20_result >= weapon.critical_range)  # PHB p.140: threat range from weapon
     is_natural_1 = (d20_result == 1)
+    is_natural_20 = (d20_result == 20)
 
-    # Initial hit determination (before confirmation)
+    # PHB p.140: Natural 1 always misses. Natural 20 always hits AND threatens.
+    # Expanded threat range (e.g., 19-20): the roll threatens a critical, but
+    # the attack must still meet AC to hit (only natural 20 auto-hits).
     if is_natural_1:
         hit = False
-    elif is_threat:
-        hit = True  # Natural 20 auto-hits
+    elif is_natural_20:
+        hit = True
     else:
         hit = (total >= target_ac)
 
