@@ -1,14 +1,14 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 14 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker)
+**Sessions Covered:** 15 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation → WO-058 ContradictionChecker → WO-059/060 Retrieval+Summarization)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 13 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN** — **WO-058 COMPLETE**: ContradictionChecker v1 validates Spark output against NarrativeBrief truth frame (RQ-LENS-SPARK-001 Deliverable 4, Phase 1).
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 15 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056/057/058/059/060). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **GREEN** — **RQ-LENS-SPARK-001 Phase 2 COMPLETE**: WO-059 Memory Retrieval Policy (salience ranking, provenance, hard caps) + WO-060 Summarization Stability Protocol (template-based segment summaries, drift detection, rebuild-from-sources).
 
 **PO design session artifacts reviewed and APPROVED:** RQ-PRODUCT-001 (Content Independence Architecture), RQ-BOX-002 (RAW Silence Catalog), RQ-BOX-003 (Object Identity), RQ-LENS-002 (Contradiction Surface), RQ-LENS-SPARK-001 (Context Orchestration Sprint), AD-006 (House Policy Governance Doctrine). Feature freeze approved.
 
@@ -23,7 +23,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 
 **RQ-PRODUCT-001 updated** with 0a/0b character substrate split in the Layered World Authority Model.
 
-**Test suite:** 4228 passed (+67 from WO-058), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
+**Test suite:** 4293 passed (+65 from WO-059/060), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
 
 ---
 
@@ -180,28 +180,36 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ## What to Do Next
 
-### Completed This Session (WO-058)
+### Completed This Session (WO-059/060)
 
-1. **WO-058 ContradictionChecker v1** (`aidm/narration/contradiction_checker.py`)
-   - Post-hoc Spark output validation against NarrativeBrief truth frame
-   - 3 contradiction classes: A (entity state), B (outcome), C (continuity)
-   - Class A: defeat/hit/miss keywords, severity inflation/deflation, stance
-   - Class B: weapon name substitution, damage type mismatch
-   - Class C: indoor/outdoor scene location mismatch
-   - Response policy: retry → template_fallback (escalating by consecutive count)
-   - Retry mechanism with correction prompt + temperature bump
-   - Wired into GuardedNarrationService (after KILL-002, before output delivery)
-   - 67 new tests (all pass), 0 regressions
-2. **Prior session (WO-057)**: PromptPackBuilder — single prompt assembly path (GAP-007 resolved)
+1. **WO-059 Memory Retrieval Policy** (`aidm/lens/context_assembler.py`)
+   - RetrievedItem frozen dataclass with provenance (source, turn_number, relevance_score, dropped, drop_reason)
+   - Salience ranking: `recency * 0.5 + actor_match * 0.3 + severity * 0.2`
+   - Hard caps: 3 narrations, 5 session summaries
+   - Formalized drop order: summaries → narrations → scene
+   - `retrieve()` method returns `List[RetrievedItem]` with full provenance
+   - Backward-compatible `assemble()` API unchanged
+   - 31 new tests (all pass), 0 regressions
+2. **WO-060 Summarization Stability Protocol** (`aidm/lens/segment_summarizer.py`)
+   - SessionSegmentSummary frozen dataclass (segment_id, turn_range, summary_text, key_facts, entity_states, defeated_entities, content_hash)
+   - SegmentSummarizer: template-based summarization from NarrativeBrief history (deterministic, no LLM)
+   - Drift detection: entity state consistency + fact monotonicity
+   - Rebuild-from-sources on drift (deterministic)
+   - SegmentTracker: auto-trigger every 10 turns, force_segment() for transitions
+   - Cumulative defeated entity tracking across segments
+   - 34 new tests (all pass), 0 regressions
+3. **Prior session (WO-058)**: ContradictionChecker v1 — post-hoc Spark output validation
+4. **Prior session (WO-057)**: PromptPackBuilder — single prompt assembly path (GAP-007 resolved)
 
 ### Next Session Priority
 
-1. **RQ-LENS-SPARK-001 Phase 2**: Memory Retrieval Policy — salience ranking, hard caps, provenance tags
-2. **RQ-LENS-SPARK-001 Phase 2**: Summarization Stability Protocol — template-based segment summaries
-3. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
-4. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
-5. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
-6. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
+1. **RQ-LENS-SPARK-001 Phase 2 Integration**: Wire SegmentTracker into SessionOrchestrator (Step 10)
+2. **RQ-LENS-SPARK-001 Phase 2 Integration**: Wire summaries into PromptPackBuilder retrieval pipeline (Step 11)
+3. **RQ-LENS-SPARK-001 Phase 3**: Evaluation Harness — scenario scripts, metric collection, model comparison
+4. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
+5. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
+6. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
+7. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
 
 ### Phase 2 Dispatch (Ready)
 

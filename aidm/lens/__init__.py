@@ -23,10 +23,18 @@ from aidm.lens.narrative_brief import (
 )
 from aidm.lens.context_assembler import (
     ContextAssembler,
+    RetrievedItem,
+    compute_relevance_score,
+    MAX_RECENT_NARRATIONS,
+    MAX_SESSION_SUMMARIES,
 )
 
 __all__ = [
     "NarrativeBrief",
     "assemble_narrative_brief",
     "ContextAssembler",
+    "RetrievedItem",
+    "compute_relevance_score",
+    "MAX_RECENT_NARRATIONS",
+    "MAX_SESSION_SUMMARIES",
 ]
