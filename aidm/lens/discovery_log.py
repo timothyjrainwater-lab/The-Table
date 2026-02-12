@@ -25,6 +25,7 @@ from typing import Any, Dict, FrozenSet, List, Mapping, Tuple
 
 from aidm.schemas.knowledge_mask import (
     KnowledgeTier,
+    MaskedEntityView,
     REVEAL_SPEC,
 )
 
@@ -175,6 +176,40 @@ class DiscoveryLog:
         """
         tier = self.get_knowledge(player_id, creature_type)
         return REVEAL_SPEC[tier]
+
+    def get_entry_view(
+        self,
+        player_id: str,
+        creature_type: str,
+        entity_data: Mapping[str, Any],
+    ) -> MaskedEntityView:
+        """Produce a masked view of an entity filtered by the player's knowledge tier.
+
+        Only fields in REVEAL_SPEC[tier] are included. All other fields are
+        absent from the view -- not redacted, not zeroed, absent.
+
+        Args:
+            player_id: The player requesting the view.
+            creature_type: The creature type to view.
+            entity_data: The full (unmasked) entity data dict.
+
+        Returns:
+            A MaskedEntityView containing only the revealed fields.
+        """
+        tier = self.get_knowledge(player_id, creature_type)
+        allowed_fields = REVEAL_SPEC[tier]
+
+        visible_fields: List[Tuple[str, Any]] = []
+        for field_name in sorted(allowed_fields):
+            if field_name in entity_data:
+                visible_fields.append((field_name, entity_data[field_name]))
+
+        return MaskedEntityView(
+            entity_id=creature_type,
+            player_id=player_id,
+            tier=tier,
+            fields=tuple(visible_fields),
+        )
 
     @property
     def event_count(self) -> int:

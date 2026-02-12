@@ -7,9 +7,21 @@ Deterministic: same event stream → same knowledge state. No time-based
 logic, no inference-based upgrades.
 
 WO-CODE-DISCOVERY-001: Bestiary Knowledge Mask + Asset Binding Pools
+
+.. deprecated::
+    This module is deprecated. Use aidm.lens.discovery_log instead.
 """
 
 from __future__ import annotations
+
+import warnings
+
+warnings.warn(
+    "aidm.services.discovery_log is deprecated. Use aidm.lens.discovery_log instead. "
+    "This module will be removed in a future release.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 from typing import Any, Dict, List, Mapping, Optional, Tuple
 
