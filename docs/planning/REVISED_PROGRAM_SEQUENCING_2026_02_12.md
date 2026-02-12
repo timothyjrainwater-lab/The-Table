@@ -2,7 +2,7 @@
 
 **Author:** PM (Opus)
 **Date:** 2026-02-12
-**Status:** PROPOSED (awaiting PO ratification)
+**Status:** RATIFIED (PO ratification 2026-02-13)
 **Supersedes:** EXECUTION_PLAN_V2_POST_AUDIT.md (not invalidated, but reframed)
 
 ---
@@ -86,7 +86,7 @@ The existing mechanical extraction work continues in parallel. This is bone and 
 | Work | Status |
 |------|--------|
 | Flanking geometry detection | COMPLETE (29 tests) |
-| Sneak Attack (WO-050B) | Ready (flanking unblocked) |
+| Sneak Attack (WO-050B) | COMPLETE (52 tests) |
 | Evasion / Improved Evasion | Ready |
 | Combat Expertise | Ready |
 | Energy Resistance | Ready |

@@ -1,3 +1,5 @@
+> **PARTIALLY SUPERSEDED (2026-02-13):** This audit predates Wave 1-3 integration. Test count is now 5,144 (was 4,620). World compiler, discovery log, content packs, and WebSocket bridge now have partial implementations. See `PROJECT_COMPASS.md` for current status.
+
 # Ground-Truth Inventory & "Touch Land" Assessment
 
 **Document ID:** WO-AUDIT-REALITY-001

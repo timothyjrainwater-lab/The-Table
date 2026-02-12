@@ -167,7 +167,7 @@ All entity field accesses now use canonical constants from entity_fields.py.
 
 | ID | Item | Severity | Status | Safe to Fix? |
 |----|------|----------|--------|-------------|
-| TD-001 | Three GridPoint types | HIGH | Deferred | NO — needs own CP |
+| TD-001 | Three GridPoint types | HIGH | RESOLVED | N/A — resolved |
 | TD-002 | Replay runner coverage | HIGH | By design | NO — re-execution strategy |
 | TD-003 | play_loop.py monolith | MEDIUM | Deferred | NO — wait for CP-18A |
 | TD-004 | Bare string entity fields | MEDIUM | CLOSED | N/A — fixed in audit remediation |

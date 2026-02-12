@@ -24,7 +24,7 @@
 | Asset store | `aidm/core/asset_store.py` | Exists — binding registry for portrait/token |
 | Provenance | `aidm/core/provenance.py` | Exists — W3C PROV-DM tracking |
 | MonsterDoctrine | `aidm/schemas/doctrine.py` | Exists — behavior profiles (NEVER revealed) |
-| Discovery Log | — | **Greenfield — zero implementation** |
+| Discovery Log | — | **Partial implementation exists — see aidm/lens/discovery_log.py (canonical) and aidm/services/discovery_log.py (deprecated)** |
 
 ---
 
