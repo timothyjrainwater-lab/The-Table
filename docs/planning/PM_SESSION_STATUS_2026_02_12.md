@@ -1,18 +1,18 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 9 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 Physical Affordance + WO-053 Equipment Catalog)
+**Sessions Covered:** 9 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 + WO-053/054/055 Physical Affordance + WO-045B PromptPack)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes (WO-FIX-001 through WO-FIX-003) are **complete**. **Phase 2 Box-layer mechanical work is substantially complete**: WO-048 (DR), WO-049 (Concealment), WO-034-FIX (Power Attack), WO-036 (53 spells), WO-051B (Policy Default Library), WO-052B (Seeded Scene Generator) — all committed. **New work stream: Physical Affordance / Inventory** (WO-053 through WO-056) initiated per PO direction on equipment realism and container policies. AD-005 ratified.
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 10 Box-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B). **AD-005 Physical Affordance Policy ratified** with full Layer 1 (Encumbrance) and Layer 2 (Container Policies) implementation per PO direction. **Lens→Spark seam CRITICAL gap (GAP-002) resolved** with PromptPack v1 Schema (WO-045B).
 
-**Test suite:** 3889 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
+**Test suite:** 4032 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
 
-**Next action:** Execute WO-053 (Equipment Item Catalog), then WO-054 (Inventory + Encumbrance). WO-045B/046B (PromptPack, NarrativeBrief) follow once gear context is defined.
+**Next action:** WO-046B (NarrativeBrief completion — wire all 10 event types), then WO-056 (Gear Affordance Tags for Lens→Spark).
 
 ---
 
@@ -66,6 +66,10 @@ Phase 1 research is **complete**. All hotfixes (WO-FIX-001 through WO-FIX-003) a
 14. `760176d` — WO-034-FIX: Wire Power Attack penalty through intent pipeline (PHB p.98)
 15. `4de9cbd` — WO-051B: Policy Default Library with 20 environmental object classes (AD-003)
 16. `fb8bc73` — WO-052B: Seeded Deterministic Generator for scene objects (AD-003)
+17. `4efadd5` — AD-005 Physical Affordance Policy + WO-053 Equipment Item Catalog (35 items)
+18. `0023c4b` — WO-054: Inventory + Encumbrance system (PHB p.162)
+19. `5597f3d` — WO-055: Container Policies + Storage Location (AD-005 Layer 2)
+20. `3fefa9b` — WO-045B: PromptPack v1 Schema (AD-002 five-channel wire protocol)
 
 ---
 
@@ -103,7 +107,7 @@ Phase 1 research is **complete**. All hotfixes (WO-FIX-001 through WO-FIX-003) a
 | Seam | Health | Critical Gap |
 |------|--------|--------------|
 | Box → Lens | YELLOW | NarrativeBrief handles 5 of 10 event types. Dual STP systems not unified. |
-| Lens → Spark | **RED** | No PromptPack schema (AD-002 violation). Two independent prompt assembly paths. |
+| Lens → Spark | **YELLOW** | PromptPack v1 schema implemented (GAP-002 resolved). Two prompt paths not yet unified (GAP-007). |
 | Spark → Immersion | **RED** | No ImmersionPlan schema. Adapters exist in isolation with no orchestrator. |
 
 ---
@@ -157,10 +161,9 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ### Immediate
 
-1. **WO-053**: Equipment Item Catalog — extend PDL with adventuring gear, containers, weapons-as-items
-2. **WO-054**: Inventory + Encumbrance system — entity fields, STR-based capacity, load tier penalties
-3. **WO-055**: Container Policies + Storage Location tracking — HOUSE_POLICY provenance
-4. **WO-056**: Gear Affordance Tags in NarrativeBrief — Lens → Spark visible_gear context
+1. **WO-046B**: NarrativeBrief completion — wire all 10 registered event types (not just 5)
+2. **WO-056**: Gear Affordance Tags — wire visible_gear from container resolver into NarrativeBrief/PromptPack
+3. **GAP-007 resolution**: Unify two prompt assembly paths (GuardedNarrationService._build_llm_prompt + ContextAssembler) via PromptPack
 
 ### Phase 2 Dispatch (Ready)
 
@@ -172,9 +175,12 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 | WO-036: Spell registry expansion | Coding agent | **COMPLETE** (53 spells, prior session) |
 | WO-051B: Policy Default Library | Coding agent | **COMPLETE** (`4de9cbd`) |
 | WO-052B: Seeded Deterministic Generator | Coding agent | **COMPLETE** (`fb8bc73`) |
-| WO-053: Equipment Item Catalog | Coding agent | IN PROGRESS |
-| WO-054: Inventory + Encumbrance | Coding agent | READY (after WO-053) |
-| WO-045B: PromptPack v1 Schema | Coding agent | READY (after WO-053/054 for gear context) |
+| WO-051B: Policy Default Library | Coding agent | **COMPLETE** (`4de9cbd`) |
+| WO-052B: Seeded Deterministic Generator | Coding agent | **COMPLETE** (`fb8bc73`) |
+| WO-053: Equipment Item Catalog | Coding agent | **COMPLETE** (`4efadd5`) |
+| WO-054: Inventory + Encumbrance | Coding agent | **COMPLETE** (`0023c4b`) |
+| WO-055: Container Policies | Coding agent | **COMPLETE** (`5597f3d`) |
+| WO-045B: PromptPack v1 Schema | Coding agent | **COMPLETE** (`3fefa9b`) |
 | WO-046B: NarrativeBrief completion | Coding agent | READY (schemas exist) |
 
 ### Phase 2 Dispatch (Blocked)
