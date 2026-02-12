@@ -1,18 +1,18 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 9 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 + WO-053/054/055 Physical Affordance + WO-045B PromptPack)
+**Sessions Covered:** 10 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 + WO-053/054/055 Physical Affordance + WO-045B PromptPack → WO-046B NarrativeBrief + WO-056 Gear Affordance)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 10 Box-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B). **AD-005 Physical Affordance Policy ratified** with full Layer 1 (Encumbrance) and Layer 2 (Container Policies) implementation per PO direction. **Lens→Spark seam CRITICAL gap (GAP-002) resolved** with PromptPack v1 Schema (WO-045B).
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 12 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056). **AD-005 Physical Affordance Policy fully implemented** through all 3 layers: L1 Encumbrance, L2 Container Policies, L3 Gear Affordance Tags. **Box→Lens seam upgraded to GREEN** with NarrativeBrief handling all event types. **Lens→Spark seam YELLOW** with PromptPack v1 + visible_gear wired.
 
-**Test suite:** 4032 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
+**Test suite:** 4130 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
 
-**Next action:** WO-046B (NarrativeBrief completion — wire all 10 event types), then WO-056 (Gear Affordance Tags for Lens→Spark).
+**Next action:** GAP-007 resolution (unify dual prompt assembly paths via PromptPack).
 
 ---
 
@@ -70,6 +70,9 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 18. `0023c4b` — WO-054: Inventory + Encumbrance system (PHB p.162)
 19. `5597f3d` — WO-055: Container Policies + Storage Location (AD-005 Layer 2)
 20. `3fefa9b` — WO-045B: PromptPack v1 Schema (AD-002 five-channel wire protocol)
+21. `530739f` — PM session status update with Phase 2 completions
+22. `753673f` — WO-046B: NarrativeBrief completion — wire all event types (82 new tests)
+23. `abdcfd6` — WO-056: Gear Affordance Tags for Lens→Spark (AD-005 Layer 3, 16 tests)
 
 ---
 
@@ -106,8 +109,8 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 
 | Seam | Health | Critical Gap |
 |------|--------|--------------|
-| Box → Lens | YELLOW | NarrativeBrief handles 5 of 10 event types. Dual STP systems not unified. |
-| Lens → Spark | **YELLOW** | PromptPack v1 schema implemented (GAP-002 resolved). Two prompt paths not yet unified (GAP-007). |
+| Box → Lens | **GREEN** | NarrativeBrief handles all event types (WO-046B). Dual STP systems not yet unified but functional. |
+| Lens → Spark | **YELLOW** | PromptPack v1 schema + visible_gear wired (GAP-002 resolved). Two prompt paths not yet unified (GAP-007). |
 | Spark → Immersion | **RED** | No ImmersionPlan schema. Adapters exist in isolation with no orchestrator. |
 
 ---
@@ -161,9 +164,9 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ### Immediate
 
-1. **WO-046B**: NarrativeBrief completion — wire all 10 registered event types (not just 5)
-2. **WO-056**: Gear Affordance Tags — wire visible_gear from container resolver into NarrativeBrief/PromptPack
-3. **GAP-007 resolution**: Unify two prompt assembly paths (GuardedNarrationService._build_llm_prompt + ContextAssembler) via PromptPack
+1. **GAP-007 resolution**: Unify two prompt assembly paths (GuardedNarrationService._build_llm_prompt + ContextAssembler) via PromptPack
+2. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
+3. **Spark → Immersion seam**: Design ImmersionPlan schema to connect Spark outputs to TTS/Image adapters
 
 ### Phase 2 Dispatch (Ready)
 
@@ -175,21 +178,18 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 | WO-036: Spell registry expansion | Coding agent | **COMPLETE** (53 spells, prior session) |
 | WO-051B: Policy Default Library | Coding agent | **COMPLETE** (`4de9cbd`) |
 | WO-052B: Seeded Deterministic Generator | Coding agent | **COMPLETE** (`fb8bc73`) |
-| WO-051B: Policy Default Library | Coding agent | **COMPLETE** (`4de9cbd`) |
-| WO-052B: Seeded Deterministic Generator | Coding agent | **COMPLETE** (`fb8bc73`) |
 | WO-053: Equipment Item Catalog | Coding agent | **COMPLETE** (`4efadd5`) |
 | WO-054: Inventory + Encumbrance | Coding agent | **COMPLETE** (`0023c4b`) |
 | WO-055: Container Policies | Coding agent | **COMPLETE** (`5597f3d`) |
 | WO-045B: PromptPack v1 Schema | Coding agent | **COMPLETE** (`3fefa9b`) |
-| WO-046B: NarrativeBrief completion | Coding agent | READY (schemas exist) |
+| WO-046B: NarrativeBrief completion | Coding agent | **COMPLETE** (`753673f`) |
+| WO-056: Gear Affordance Tags | Coding agent | **COMPLETE** (`abdcfd6`) |
 
 ### Phase 2 Dispatch (Blocked)
 
 | Item | Blocked By |
 |------|-----------|
 | WO-050B: Sneak Attack | Flanking detection prerequisite (geometry) |
-| WO-055: Container Policies | WO-053 + WO-054 (needs equipment catalog + inventory fields) |
-| WO-056: Gear Affordance Tags | WO-045B/046B (needs NarrativeBrief completion) |
 
 ---
 
@@ -236,6 +236,11 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 ### Specs
 - `docs/specs/RQ-LENS-SPARK-001_CONTEXT_ORCHESTRATION_SPRINT.md` (607 lines)
 - `docs/planning/GPT_RESEARCH_SYNTHESIS_ACTION_PLAN.md` (450 lines)
+
+### Lens Layer (WO-046B, WO-056)
+- `aidm/lens/narrative_brief.py` — WO-046B/056: NarrativeBrief with all event types + visible_gear (770 lines)
+- `tests/test_narrative_brief_046b.py` — 82 WO-046B tests (spell/maneuver/AoO/movement/full attack/condition/concealment)
+- `tests/test_gear_affordance_056.py` — 16 WO-056 tests (gear resolution, pipeline, containment boundary)
 
 ---
 
