@@ -137,6 +137,9 @@ def resolve_single_attack_with_critical(
     cover_ac_bonus: int = 0,
     dr_amount: int = 0,
     miss_chance_percent: int = 0,
+    flanking_bonus: int = 0,
+    is_flanking: bool = False,
+    flanking_ally_ids: list = None,
 ) -> Tuple[List[Event], int]:
     """
     Resolve a single attack with critical hit logic.
@@ -229,6 +232,9 @@ def resolve_single_attack_with_critical(
             "mounted_bonus": mounted_bonus,  # CP-18A
             "terrain_higher_ground": terrain_higher_ground,  # CP-19
             "feat_modifier": feat_attack_modifier,  # WO-034
+            "flanking_bonus": flanking_bonus,  # PHB p.153
+            "is_flanking": is_flanking,  # PHB p.153
+            "flanking_ally_ids": flanking_ally_ids or [],  # PHB p.153
             "total": total,
             "target_ac": target_ac,
             "target_base_ac": target_base_ac,  # WO-FIX-003: base AC for audit
@@ -438,6 +444,12 @@ def resolve_full_attack(
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
     feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)
 
+    # Flanking: +2 melee attack bonus when attacker and ally on opposite sides (PHB p.153)
+    from aidm.core.flanking import get_flanking_info
+    flanking_bonus, is_flanking, flanking_ally_ids = get_flanking_info(
+        world_state, intent.attacker_id, intent.target_id
+    )
+
     # WO-048: Get applicable Damage Reduction
     from aidm.core.damage_reduction import get_applicable_dr
     dr_amount = get_applicable_dr(
@@ -479,6 +491,9 @@ def resolve_full_attack(
             "cover_ac_bonus": cover_result.ac_bonus,  # CP-19
             "feat_attack_modifier": feat_attack_modifier,  # WO-034
             "feat_damage_modifier": feat_damage_modifier,  # WO-034
+            "flanking_bonus": flanking_bonus,  # PHB p.153
+            "is_flanking": is_flanking,  # PHB p.153
+            "flanking_ally_ids": flanking_ally_ids,  # PHB p.153
             "dr_amount": dr_amount,  # WO-048
             "miss_chance_percent": miss_chance_percent,  # WO-049
             "target_base_ac": base_ac,  # WO-FIX-003
@@ -498,7 +513,8 @@ def resolve_full_attack(
             attacker_modifiers.attack_modifier +
             mounted_bonus +
             terrain_higher_ground +
-            feat_attack_modifier
+            feat_attack_modifier +
+            flanking_bonus
         )
 
         attack_events, current_event_id, damage = resolve_single_attack_with_critical(
@@ -525,6 +541,9 @@ def resolve_full_attack(
             cover_ac_bonus=cover_result.ac_bonus,
             dr_amount=dr_amount,
             miss_chance_percent=miss_chance_percent,
+            flanking_bonus=flanking_bonus,
+            is_flanking=is_flanking,
+            flanking_ally_ids=flanking_ally_ids,
         )
 
         events.extend(attack_events)

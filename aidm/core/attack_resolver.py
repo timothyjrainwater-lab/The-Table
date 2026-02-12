@@ -33,6 +33,10 @@ WO-049 INTEGRATION:
 - Concealment miss chance checked after hit, before damage (PHB p.152)
 - d100 roll consumed only when hit=True and miss_chance > 0
 
+FLANKING INTEGRATION:
+- Flanking bonus (+2 melee) when attacker and ally on opposite sides of target
+- PHB p.153: angle >= 135 degrees between attacker-target and ally-target vectors
+
 RNG CONSUMPTION ORDER (deterministic):
 1. Attack roll (d20)
 2. IF threat: Confirmation roll (d20)
@@ -220,21 +224,28 @@ def resolve_attack(
     }
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
 
+    # Flanking: +2 melee attack bonus when attacker and ally on opposite sides (PHB p.153)
+    from aidm.core.flanking import get_flanking_info
+    flanking_bonus, is_flanking, flanking_ally_ids = get_flanking_info(
+        world_state, intent.attacker_id, intent.target_id
+    )
+
     # Get target AC (base AC + condition modifiers + cover bonus)
     base_ac = target.get(EF.AC, 10)  # Default AC 10 if not specified
     # CP-16: condition modifier, CP-19: cover bonus
     target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
 
-    # Step 1: Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier)
+    # Step 1: Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier + flanking)
     combat_rng = rng.stream("combat")
     d20_result = combat_rng.randint(1, 20)
-    # CP-16: condition modifier, CP-18A: mounted bonus, CP-19: terrain higher ground, WO-034: feat modifier
+    # CP-16: condition modifier, CP-18A: mounted bonus, CP-19: terrain higher ground, WO-034: feat modifier, flanking
     attack_bonus_with_conditions = (
         intent.attack_bonus +
         attacker_modifiers.attack_modifier +
         mounted_bonus +
         terrain_higher_ground +
-        feat_attack_modifier
+        feat_attack_modifier +
+        flanking_bonus
     )
     total = d20_result + attack_bonus_with_conditions
 
@@ -278,6 +289,9 @@ def resolve_attack(
             "mounted_bonus": mounted_bonus,  # CP-18A
             "terrain_higher_ground": terrain_higher_ground,  # CP-19
             "feat_modifier": feat_attack_modifier,  # WO-034
+            "flanking_bonus": flanking_bonus,  # PHB p.153
+            "is_flanking": is_flanking,  # PHB p.153
+            "flanking_ally_ids": flanking_ally_ids,  # PHB p.153
             "cover_type": cover_result.cover_type,  # CP-19
             "cover_ac_bonus": cover_result.ac_bonus,  # CP-19
             "total": total,

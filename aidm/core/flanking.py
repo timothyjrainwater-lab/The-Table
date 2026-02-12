@@ -89,10 +89,12 @@ def _is_threatening(entity: dict) -> bool:
 
     # Check for incapacitating conditions
     conditions = entity.get(EF.CONDITIONS, {})
-    for cond_id, cond_data in conditions.items():
-        mods = cond_data.get("modifiers", {})
-        if mods.get("actions_prohibited", False):
-            return False
+    if isinstance(conditions, dict):
+        for cond_id, cond_data in conditions.items():
+            if isinstance(cond_data, dict):
+                mods = cond_data.get("modifiers", {})
+                if mods.get("actions_prohibited", False):
+                    return False
 
     return True
 
