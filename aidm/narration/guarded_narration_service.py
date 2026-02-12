@@ -70,6 +70,15 @@ except ImportError:
     CharacterContext = None  # type: ignore
     logger.info("LLMQueryInterface not available, using basic LLM narration")
 
+# PromptPackBuilder import (WO-057, for PromptPack-based prompt assembly)
+try:
+    from aidm.lens.prompt_pack_builder import PromptPackBuilder
+    PROMPT_PACK_BUILDER_AVAILABLE = True
+except ImportError:
+    PROMPT_PACK_BUILDER_AVAILABLE = False
+    PromptPackBuilder = None  # type: ignore
+    logger.info("PromptPackBuilder not available, using legacy prompt assembly")
+
 
 # ========================================================================
 # Frozen Memory Snapshot (FREEZE-001)
@@ -157,12 +166,16 @@ class NarrationRequest:
         memory_snapshot: Frozen memory snapshot (immutable)
         temperature: LLM temperature (≥0.7 for narration per LLM-002)
         world_state_hash: Optional world state hash for KILL-006 drift detection
+        narrative_brief: Optional NarrativeBrief for PromptPack path (WO-057).
+            When present, LLM prompt is built via PromptPackBuilder instead of
+            the legacy _build_llm_prompt() method. When absent, legacy path used.
     """
 
     engine_result: EngineResult
     memory_snapshot: FrozenMemorySnapshot
     temperature: float = 0.8  # Default narration temperature
     world_state_hash: Optional[str] = None  # For KILL-006
+    narrative_brief: Optional[Any] = None  # NarrativeBrief (WO-057, avoids circular import)
 
     def __post_init__(self):
         """Validate narration request constraints."""
@@ -479,6 +492,9 @@ class GuardedNarrationService:
             raise RuntimeError("No LLM model loaded")
 
         prompt = self._build_llm_prompt(request)
+        # WO-057: Use PromptPack path when narrative_brief is present
+        if request.narrative_brief is not None and PROMPT_PACK_BUILDER_AVAILABLE:
+            prompt = self._build_prompt_pack(request)
         presets = self.loaded_model.profile.presets.get('narration', {})
         temperature = request.temperature
         max_tokens = presets.get('max_tokens', 150)
@@ -552,6 +568,9 @@ class GuardedNarrationService:
 
         # Build prompt from engine result and memory snapshot
         prompt = self._build_llm_prompt(request)
+        # WO-057: Use PromptPack path when narrative_brief is present
+        if request.narrative_brief is not None and PROMPT_PACK_BUILDER_AVAILABLE:
+            prompt = self._build_prompt_pack(request)
 
         # Get generation presets from model profile
         presets = self.loaded_model.profile.presets.get('narration', {})
@@ -620,12 +639,17 @@ class GuardedNarrationService:
         return token
 
     def _build_llm_prompt(self, request: NarrationRequest) -> str:
-        """Build LLM prompt from narration request.
+        """Build LLM prompt from narration request (LEGACY — deprecated by WO-057).
 
         Constructs a prompt that includes:
         - Engine result (narration token, events)
         - Relevant memory context (session facts, evidence)
         - Instruction for D&D 3.5e-style narration
+
+        DEPRECATED: Use _build_prompt_pack() when narrative_brief is available.
+        This method is preserved for backward compatibility during the transition
+        period. When narrative_brief is absent in NarrationRequest, this path
+        is still used as the fallback.
 
         Args:
             request: Narration request
@@ -665,6 +689,34 @@ class GuardedNarrationService:
 
         return "\n".join(prompt_parts)
 
+    def _build_prompt_pack(self, request: NarrationRequest) -> str:
+        """Build prompt via PromptPack from narrative_brief (WO-057).
+
+        This is the canonical prompt assembly path (GAP-007 resolution).
+        All five PromptPack channels are populated from the NarrativeBrief
+        and session context. The serialized PromptPack text replaces the
+        ad-hoc string assembly of _build_llm_prompt().
+
+        Args:
+            request: NarrationRequest with narrative_brief set
+
+        Returns:
+            PromptPack.serialize() output — deterministic prompt string
+        """
+        brief = request.narrative_brief
+
+        # Extract session facts from frozen memory snapshot
+        session_data = json.loads(request.memory_snapshot.session_ledger_json)
+        session_facts = session_data.get('facts_added', [])
+
+        builder = PromptPackBuilder()
+        pack = builder.build(
+            brief=brief,
+            session_facts=session_facts,
+        )
+
+        return pack.serialize()
+
     def _generate_template_narration(self, engine_result: EngineResult) -> str:
         """Generate narration from template (fallback path).
 
@@ -679,8 +731,14 @@ class GuardedNarrationService:
         """
         token = engine_result.narration_token or "unknown"
 
+        # WO-049: Extract severity from metadata for branched template selection
+        severity = ""
+        if engine_result.metadata:
+            severity = engine_result.metadata.get("severity", "")
+
         # Look up template from the full 55-entry dictionary
-        template = NarrationTemplates.get_template(token)
+        # Severity-branched templates checked first for combat tokens (WO-049)
+        template = NarrationTemplates.get_template(token, severity=severity)
 
         # Extract context from engine result events
         context = NarrationContext.from_engine_result(engine_result)
@@ -711,6 +769,12 @@ class GuardedNarrationService:
                 if delta < 0:
                     damage = str(abs(delta))
                     break
+
+        # WO-048: Also check metadata for damage (from orchestrator template context)
+        if damage == "some damage" and engine_result.metadata:
+            meta_damage = engine_result.metadata.get("damage", "")
+            if meta_damage:
+                damage = meta_damage
 
         # Build substitution map with safe defaults for missing keys
         safe_defaults = defaultdict(

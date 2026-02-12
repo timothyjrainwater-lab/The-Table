@@ -1,22 +1,28 @@
 # PM Session Status — 2026-02-12
 
 **Author:** Opus (PM)
-**Sessions Covered:** 12 context windows (TTS evaluation → GPT findings review → Phase 1 research review + AD-003 → WO-FIX-001/002 + AD-004 → WO-FIX-003 + Evidence Gate enforcement → WO-048 DR system → WO-049 Concealment + WO-034-FIX Power Attack → WO-051B/052B Policy Defaults + Scene Gen → AD-005 + WO-053/054/055 Physical Affordance + WO-045B PromptPack → WO-046B NarrativeBrief + WO-056 Gear Affordance → AD-006 House Policy Governance Doctrine → Research Sprint Execution (FAQ mining, PF delta, Skip Williams, GREEN family specs))
+**Sessions Covered:** 13 context windows (prior sessions → Research Sprint Execution → PO Design Session Review → WO-057 PromptPack Consolidation)
 **Purpose:** Context continuity document for next PM session pickup
 
 ---
 
 ## Executive Summary
 
-Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 12 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056). **AD-006 House Policy Governance Doctrine ratified** — No-Opaque-DM doctrine, Template Family Registry (9 families, 3 GREEN), FAIL_CLOSED protocol, Two-Loop Model. **Box→Lens seam upgraded to GREEN** with NarrativeBrief handling all event types. **Lens→Spark seam YELLOW** with PromptPack v1 + visible_gear wired.
+Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 12 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056). **AD-006 House Policy Governance Doctrine ratified.** Box→Lens seam **GREEN**. Lens→Spark seam **upgraded to GREEN** — **WO-057 COMPLETE**: PromptPackBuilder unifies both prompt assembly paths via PromptPack (GAP-007 resolved).
 
-**Research sprint complete:** RQ-BOX-002 Phase 1 (25 FAQ findings), Pathfinder 1e delta index (25 deltas), Skip Williams designer intent mining (20 rulings). GREEN family template specs formalized. Research Finding Schema codified. No-physics constraint added to AD-006. All committed in `8a1de95`.
+**PO design session artifacts reviewed and APPROVED:** RQ-PRODUCT-001 (Content Independence Architecture), RQ-BOX-002 (RAW Silence Catalog), RQ-BOX-003 (Object Identity), RQ-LENS-002 (Contradiction Surface), RQ-LENS-SPARK-001 (Context Orchestration Sprint), AD-006 (House Policy Governance Doctrine). Feature freeze approved.
 
-**RQ-PRODUCT-001 reviewed and APPROVED:** Content Independence Architecture — three-layer content model (mechanical/behavioral/narrative), creature three-layer model (skeleton/muscle/skin), Layered World Authority Model (5-level creation stack), provenance firewall. Feature freeze approved until RQ-LENS-SPARK-001 exit gate passes.
+**Key PO philosophy captured:**
+- D&D is scaffolding, not the product. The product extracts the essence of tabletop RPG storytelling.
+- Spark + Lens coherence IS the product thesis, not a fragility risk.
+- This is creative development — not deadline-driven shipping. Governance and language design work is correctly paced.
+- Player sit-down flow: Name → Identity → Stats → World generation → Complete character → Play.
+- Character Substrate discovery: Level 0b exists before world creation (attribute schema, dice grammar).
+- Semantic emergence: IDs become names when world generates.
 
-**Test suite:** 4130 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
+**RQ-PRODUCT-001 updated** with 0a/0b character substrate split in the Layered World Authority Model.
 
-**Next action:** GAP-007 resolution (unify dual prompt assembly paths), then YELLOW family specs, then PO decisions on OQ-8 through OQ-13.
+**Test suite:** 4161 passed (+31 from WO-057), 8 pre-existing failures (Chatterbox TTS), 0 regressions.
 
 ---
 
@@ -115,7 +121,7 @@ Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is su
 | Seam | Health | Critical Gap |
 |------|--------|--------------|
 | Box → Lens | **GREEN** | NarrativeBrief handles all event types (WO-046B). Dual STP systems not yet unified but functional. |
-| Lens → Spark | **YELLOW** | PromptPack v1 schema + visible_gear wired (GAP-002 resolved). Two prompt paths not yet unified (GAP-007). |
+| Lens → Spark | **GREEN** | PromptPack v1 schema (WO-045B) + visible_gear (WO-056) + PromptPackBuilder (WO-057). Single prompt assembly path via PromptPack. GAP-007 RESOLVED. |
 | Spark → Immersion | **RED** | No ImmersionPlan schema. Adapters exist in isolation with no orchestrator. |
 
 ---
@@ -173,15 +179,19 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 
 ## What to Do Next
 
-### Immediate (This Session — In Progress)
+### Completed This Session (WO-057)
 
-1. **Research sprint completion**: Review outputs from FAQ mining, PF delta index, Skip Williams mining agents
-2. **Commit all governance + research artifacts**: AD-006, MANIFESTO, CURRENT_CANON, research specs, GREEN family specs, research findings
-3. **Cross-reference findings**: Map new findings from all three sources to existing SIL catalog
+1. **GAP-007 RESOLVED**: PromptPackBuilder class created (`aidm/lens/prompt_pack_builder.py`)
+   - Single prompt assembly path: NarrativeBrief → PromptPack → serialize() → Spark
+   - Replaces PATH 1 (GuardedNarrationService._build_llm_prompt) and PATH 2 (ContextAssembler.assemble)
+   - Wired into GuardedNarrationService (uses PromptPack when narrative_brief present)
+   - Wired into SessionOrchestrator (passes narrative_brief to NarrationRequest)
+   - 31 new tests (all pass), 0 regressions
+2. **RQ-PRODUCT-001 updated** with 0a/0b character substrate split
 
-### Next Session
+### Next Session Priority
 
-1. **GAP-007 resolution**: Unify two prompt assembly paths (GuardedNarrationService._build_llm_prompt + ContextAssembler) via PromptPack
+1. **RQ-LENS-SPARK-001 Phase 1**: ContradictionChecker v1 — keyword dictionaries, retry policy (informed by RQ-LENS-002)
 2. **WO-050B**: Sneak Attack (requires flanking detection prerequisite — geometry)
 3. **YELLOW family specs**: Formalize CONCEALMENT_PLAUSIBILITY, ENVIRONMENTAL_INTERACTION, FRAGILITY_BREAKAGE
 4. **PO decisions needed**: OQ-8 through OQ-13 (SIL-007 resolution, RQ-BOX-003 design choices)
@@ -270,10 +280,15 @@ The execution plan v2 (`docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`) has been
 - `docs/research/findings/PF_DELTA_INDEX.md` (IN PROGRESS — Pathfinder 1e change catalog)
 - `docs/research/findings/SKIP_WILLIAMS_DESIGNER_INTENT.md` (IN PROGRESS — designer intent articles)
 
-### Lens Layer (WO-046B, WO-056)
+### Lens Layer (WO-046B, WO-056, WO-057)
 - `aidm/lens/narrative_brief.py` — WO-046B/056: NarrativeBrief with all event types + visible_gear (770 lines)
+- `aidm/lens/prompt_pack_builder.py` — WO-057: PromptPackBuilder — single prompt assembly path (GAP-007 resolution)
 - `tests/test_narrative_brief_046b.py` — 82 WO-046B tests (spell/maneuver/AoO/movement/full attack/condition/concealment)
 - `tests/test_gear_affordance_056.py` — 16 WO-056 tests (gear resolution, pipeline, containment boundary)
+- `tests/test_prompt_pack_builder.py` — 31 WO-057 tests (build, truncation, determinism, style, contract, edge cases)
+
+### Work Orders
+- `docs/work_orders/WO-057_PROMPTPACK_CONSOLIDATION.md` — WO-057 spec (GAP-007 resolution)
 
 ---
 

@@ -248,6 +248,49 @@ def parse_text_command(text: str) -> ParsedCommand:
 
 
 # ======================================================================
+# TEMPLATE CONTEXT BUILDER (pure function, no RNG, no state mutation)
+# ======================================================================
+
+
+def _build_template_context(
+    brief: NarrativeBrief,
+    events: List[Dict[str, Any]],
+) -> Dict[str, str]:
+    """Build a deterministic template context dict from NarrativeBrief + events.
+
+    This is the single point where brief fields map to template placeholders.
+    Templates only claim what's in this context — no fabrication.
+
+    Args:
+        brief: NarrativeBrief with actor/target/weapon/severity data
+        events: Box event dicts for damage extraction
+
+    Returns:
+        Dict with keys matching template placeholders:
+        actor_name, target_name, weapon_name, damage, damage_type
+    """
+    # Extract damage from hp_changed events (authoritative source)
+    damage = ""
+    for e in events:
+        etype = e.get("type", "")
+        if etype == "hp_changed":
+            delta = e.get("delta", 0)
+            if delta < 0:
+                damage = str(abs(delta))
+                break
+
+    return {
+        "actor_name": brief.actor_name or "",
+        "target_name": brief.target_name or "",
+        "weapon_name": brief.weapon_name or "",
+        "damage": damage,
+        "damage_type": brief.damage_type or "",
+        "severity": brief.severity or "minor",
+        "target_defeated": "true" if brief.target_defeated else "",
+    }
+
+
+# ======================================================================
 # SESSION ORCHESTRATOR
 # ======================================================================
 
@@ -453,14 +496,23 @@ class SessionOrchestrator:
             actor_team=actor_entity.get(EF.TEAM, "party"),
         )
 
-        box_result = box_execute_turn(
-            world_state=self._world_state,
-            turn_ctx=turn_ctx,
-            combat_intent=bridge_result,  # AttackIntent from IntentBridge
-            rng=self._rng,
-            next_event_id=self._turn_count * 100,
-            timestamp=float(self._turn_count),
-        )
+        try:
+            box_result = box_execute_turn(
+                world_state=self._world_state,
+                turn_ctx=turn_ctx,
+                combat_intent=bridge_result,  # AttackIntent from IntentBridge
+                rng=self._rng,
+                next_event_id=self._turn_count * 100,
+                timestamp=float(self._turn_count),
+            )
+        except Exception as e:
+            logger.error("Box resolution failed during attack: %s", e)
+            return TurnResult(
+                success=False,
+                narration_text="",
+                error_message=f"Combat resolution failed: {e}",
+                provenance="[SYSTEM]",
+            )
 
         # Update authoritative world state from Box result
         self._world_state = box_result.world_state
@@ -509,7 +561,7 @@ class SessionOrchestrator:
             target_name=target_name,
             outcome_summary=outcome,
             severity=severity,
-            weapon_name=bridge_result.weapon.damage_type if bridge_result.weapon else None,
+            weapon_name=actor_entity.get(EF.WEAPON, bridge_result.weapon.damage_type if bridge_result.weapon else None),
             damage_type=bridge_result.weapon.damage_type if bridge_result.weapon else None,
             target_defeated=target_defeated,
             source_event_ids=[e.event_id for e in box_result.events],
@@ -548,14 +600,23 @@ class SessionOrchestrator:
             actor_team=actor_entity.get(EF.TEAM, "party"),
         )
 
-        box_result = box_execute_turn(
-            world_state=self._world_state,
-            turn_ctx=turn_ctx,
-            combat_intent=bridge_result,  # SpellCastIntent from IntentBridge
-            rng=self._rng,
-            next_event_id=self._turn_count * 100,
-            timestamp=float(self._turn_count),
-        )
+        try:
+            box_result = box_execute_turn(
+                world_state=self._world_state,
+                turn_ctx=turn_ctx,
+                combat_intent=bridge_result,  # SpellCastIntent from IntentBridge
+                rng=self._rng,
+                next_event_id=self._turn_count * 100,
+                timestamp=float(self._turn_count),
+            )
+        except Exception as e:
+            logger.error("Box resolution failed during spell: %s", e)
+            return TurnResult(
+                success=False,
+                narration_text="",
+                error_message=f"Spell resolution failed: {e}",
+                provenance="[SYSTEM]",
+            )
 
         # Update authoritative world state from Box result
         self._world_state = box_result.world_state
@@ -729,7 +790,7 @@ class SessionOrchestrator:
         )
 
         # 6. Narration generation
-        narration_text, provenance = self._generate_narration(brief, session_context)
+        narration_text, provenance = self._generate_narration(brief, session_context, events)
 
         # 7. TTS synthesis
         narration_audio = self._synthesize_tts(narration_text, brief)
@@ -743,13 +804,15 @@ class SessionOrchestrator:
         )
 
     def _generate_narration(
-        self, brief: NarrativeBrief, session_context: str
+        self, brief: NarrativeBrief, session_context: str,
+        events: Optional[List[Dict[str, Any]]] = None,
     ) -> Tuple[str, str]:
         """Generate narration text via Spark or template fallback.
 
         Args:
             brief: NarrativeBrief for context
             session_context: Assembled context string
+            events: Box events for damage extraction
 
         Returns:
             Tuple of (narration_text, provenance_tag)
@@ -759,13 +822,21 @@ class SessionOrchestrator:
             brief, session_context=session_context
         )
 
+        # Build template context from NarrativeBrief + events.
+        # This is the single function that maps brief fields to template
+        # placeholders. Templates only claim what's in this context.
+        template_context = _build_template_context(brief, events or [])
+
         # Build a minimal EngineResult for the narration service
+        # Pass template context via metadata so the template system
+        # can interpolate actor/target/weapon/damage instead of defaults.
         engine_result = EngineResult(
             result_id=f"turn_{self._turn_count}",
             intent_id=f"intent_{self._turn_count}",
             status=EngineResultStatus.SUCCESS,
             resolved_at=datetime.now(timezone.utc),
             narration_token=brief.action_type,
+            metadata=template_context,
         )
 
         memory_snapshot = FrozenMemorySnapshot.create()
@@ -776,6 +847,7 @@ class SessionOrchestrator:
             memory_snapshot=memory_snapshot,
             temperature=0.8,
             world_state_hash=world_state_hash,
+            narrative_brief=brief,  # WO-057: enables PromptPack path
         )
 
         try:

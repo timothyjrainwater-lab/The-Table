@@ -26,7 +26,7 @@ However, three critical integration gaps exist:
 **Severity Summary:**
 - 2 gaps rated CRITICAL (GAP-002, GAP-004)
 - 3 gaps rated HIGH (GAP-001, GAP-003, GAP-005)
-- 3 gaps rated MEDIUM (GAP-006, GAP-007, GAP-008)
+- 3 gaps rated MEDIUM (GAP-006, ~~GAP-007 RESOLVED~~, GAP-008)
 
 ---
 
@@ -196,13 +196,13 @@ This is a monolithic string with no channel markers, no schema versioning, no ou
 
 Additionally, `GuardedNarrationService._build_llm_prompt()` (line 622) constructs a SECOND, independent prompt format that is not coordinated with `ContextAssembler`. Two prompt assembly paths exist without shared schema.
 
-**GAP-007: Two independent prompt assembly paths (MEDIUM)**
+**GAP-007: Two independent prompt assembly paths (MEDIUM) — RESOLVED (WO-057)**
 
-`GuardedNarrationService` has two prompt paths:
+`GuardedNarrationService` previously had two prompt paths:
 1. `_build_llm_prompt()` (line 622) — builds a prompt from `NarrationRequest` with session facts from `FrozenMemorySnapshot`, ignoring `ContextAssembler` entirely
 2. `ContextAssembler.assemble()` — builds from `NarrativeBrief`, never used by `GuardedNarrationService`
 
-The `ContextAssembler` was built for WO-032 but the `GuardedNarrationService` predates it (M1/M2 era) and uses its own `_build_llm_prompt()`. These are not reconciled.
+**Resolution:** WO-057 introduced `PromptPackBuilder` (`aidm/lens/prompt_pack_builder.py`) which assembles all five PromptPack channels from NarrativeBrief + session_facts. When `narrative_brief` is present on `NarrationRequest`, both `GuardedNarrationService` and `SessionOrchestrator` use the PromptPack path. `_build_llm_prompt()` is deprecated but preserved for backward compatibility (used when `narrative_brief` is absent). `ContextAssembler` is retained but no longer called from the main narration pipeline.
 
 ### 3.4 Determinism
 
@@ -363,7 +363,7 @@ Pure functions (`compute_scene_audio_state`, `compute_grid_state`) are determini
 | GAP-004 | Spark-Immersion | CRITICAL | No ImmersionPlan schema orchestrating narration output to TTS/image/audio adapters | `aidm/immersion/__init__.py` (no orchestrator exists) |
 | GAP-005 | Spark-Immersion | HIGH | No authoritative vs atmospheric log partition specification | Cross-cutting (affects session persistence design) |
 | GAP-006 | Box-Lens | MEDIUM | Dual STP systems (`truth_packets.py` and `box_events.py`) not unified; neither wired end-to-end | `truth_packets.py`, `box_events.py` |
-| GAP-007 | Lens-Spark | MEDIUM | Two independent prompt assembly paths in `GuardedNarrationService._build_llm_prompt()` and `ContextAssembler.assemble()` | `guarded_narration_service.py:622`, `context_assembler.py:41` |
+| GAP-007 | Lens-Spark | ~~MEDIUM~~ RESOLVED | Two independent prompt assembly paths — **RESOLVED by WO-057 PromptPackBuilder** | `aidm/lens/prompt_pack_builder.py` |
 | GAP-008 | Spark-Immersion | MEDIUM | STT transcription to game-loop intent path undefined | `stt_adapter.py:17` |
 
 ---
@@ -441,9 +441,11 @@ Create `aidm/schemas/immersion_plan.py` defining:
 
 ### P2 — Can Defer to Later Milestone
 
-**R-006: Unify Prompt Assembly Paths (addresses GAP-007)**
+**R-006: Unify Prompt Assembly Paths (addresses GAP-007) — DONE (WO-057)**
 
-Once PromptPack v1 is defined (R-001), both `GuardedNarrationService._build_llm_prompt()` and `ContextAssembler.assemble()` should be replaced by a single `PromptPack.assemble()` path. This is a natural consequence of R-001 and does not require separate work.
+~~Once PromptPack v1 is defined (R-001), both `GuardedNarrationService._build_llm_prompt()` and `ContextAssembler.assemble()` should be replaced by a single `PromptPack.assemble()` path. This is a natural consequence of R-001 and does not require separate work.~~
+
+**Completed:** WO-057 introduced `PromptPackBuilder` in `aidm/lens/prompt_pack_builder.py`. NarrativeBrief → PromptPack → serialize() is now the canonical prompt path. 31 tests added. See `docs/work_orders/WO-057_PROMPTPACK_CONSOLIDATION.md`.
 
 **R-007: Define STT Intent Pipeline (addresses GAP-008)**
 

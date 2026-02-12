@@ -520,9 +520,22 @@ is constrained by the layer above.
 ### The Creation Stack
 
 ```
-Level 0: Mechanical Substrate (Immutable)
-  │  Pure math, resolvers, state machines, IDs only
-  │  Never changes. This is the physics engine.
+Level 0a: Engine Substrate (Immutable Code)
+  │  Resolvers, state machines, event sourcing, combat controller
+  │  Pure code. Never changes across any content pack or world.
+  │  This is the physics engine — it knows HOW to resolve, not WHAT.
+  │
+Level 0b: Character Substrate (Content Pack Data, Pre-World)
+  │  Attribute schema (six abilities, their ranges, their modifiers)
+  │  Dice grammar (d20 resolution, ability score generation, HP formula)
+  │  Character sheet structure (what a character IS before a world exists)
+  │  Stat generation rules (4d6-drop-lowest, point buy bounds)
+  │  This exists BEFORE a world is generated because:
+  │    → A player names their character → picks a concept → rolls stats
+  │    → THEN the world is generated and gives those stats context
+  │  The character substrate is what enables "they become someone first,
+  │  then the world rises up to meet them"
+  │  Ships with the content pack. Shared across all worlds using this pack.
   │
 Level 1: World Generation (Rare, High-Cost)
   │  Cosmology, magic/technology level, species taxonomy
@@ -558,7 +571,8 @@ Level 4: Session (Ephemeral)
 
 | Level | What Freezes | When | Stability |
 |-------|-------------|------|-----------|
-| 0 — Substrate | Math, resolvers, condition logic | At build time | Immutable across all worlds |
+| 0a — Engine | Resolvers, state machines, combat controller, event sourcing | At build time | Immutable code across all worlds |
+| 0b — Character Substrate | Attribute schema, dice grammar, stat generation, character sheet structure | At content pack authoring | Shared across all worlds using this content pack |
 | 1 — World | **Rulebook**, reality rules, species, materials, magic level, ability names, monster catalog, spell list, **all regions/countries/cities/governments/geography** | At world creation | Fixed for all campaigns in this world |
 | 2 — Campaign | **Selects a region** of the world to play in; may add local NPCs, plot hooks, local detail | At campaign creation | Fixed for all storylines in this campaign |
 | 3 — Storyline | Character sheets, plot state, NPC relationships | At storyline start | Evolves within storyline only |
@@ -631,7 +645,7 @@ monster ecology. The world already built all of it.
 | New session | Free | Just play | Everything |
 | New storyline | Low | New characters, new plot | Campaign, world, rules |
 | New campaign | Low-Medium | Select a different region of the world | World, rulebook, monsters, spells, all geography |
-| New world | High | New reality, new rulebook, new everything above Level 0 | Substrate only |
+| New world | High | New reality, new rulebook, new everything above Level 0b | Engine + character substrate only |
 
 This prevents cognitive overload. Players never face "what does this ability do
 again?" within a campaign. Experienced players recognize ability patterns across
@@ -647,7 +661,7 @@ World: W-01 (High Fantasy)
     Storyline: S-14 (The Void Cartographer)
       Session: T-221
         Event: ABILITY_003 used by entity_047 at grid (12,8)
-        Resolved by: Box (Level 0 substrate)
+        Resolved by: Box (Level 0a engine + Level 0b character substrate)
         Named by: World W-01 rulebook ("Void Flare")
         Narrated by: Spark (Level 4 ephemeral)
 ```
@@ -658,14 +672,17 @@ This is gold for debugging, trust, and deterministic replay.
 
 | Content Layer | Authored At | Frozen At | Referenced By |
 |--------------|------------|-----------|---------------|
-| Mechanical Definition (math) | Level 0 — Substrate | Build time | Box resolvers |
-| Behavioral Contract (spatial/temporal) | Level 0 — Substrate | Build time | Lens constraints, world rulebook |
+| Engine Code (resolvers, state machines) | Level 0a — Engine | Build time | All resolution |
+| Character Substrate (attribute schema, dice grammar) | Level 0b — Character Substrate | Content pack authoring | Character creation (pre-world), Box resolvers |
+| Mechanical Definition (math) | Level 0b — Character Substrate | Content pack authoring | Box resolvers |
+| Behavioral Contract (spatial/temporal) | Level 0b — Character Substrate | Content pack authoring | Lens constraints, world rulebook |
 | World Rules + Rulebook (reality + names) | Level 1 — World | World creation | All campaigns, player handbook UI, Spark narration anchor |
 | Campaign Context (geography, factions) | Level 2 — Campaign | Campaign creation | Storyline generation, Lens scene context |
 | Narrative Realization (prose) | Level 4 — Session | Never (ephemeral) | Player-facing output only |
 
-The behavioral contract (Level 0) is the **anchor**. The world rulebook
-(Level 1) is the **presentation**. The narration (Level 4) is the **experience**.
+The character substrate (Level 0b) is the **grammar**. The behavioral
+contract (Level 0b) is the **anchor**. The world rulebook (Level 1) is
+the **presentation**. The narration (Level 4) is the **experience**.
 
 ---
 
