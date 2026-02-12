@@ -37,11 +37,18 @@ FLANKING INTEGRATION:
 - Flanking bonus (+2 melee) when attacker and ally on opposite sides of target
 - PHB p.153: angle >= 135 degrees between attacker-target and ally-target vectors
 
+WO-050B INTEGRATION (Sneak Attack):
+- Precision damage (Xd6) when target is flanked or denied Dex to AC
+- NOT multiplied on critical hits (PHB p.50)
+- Not effective vs creatures immune to critical hits
+- Ranged sneak attacks limited to 30 feet
+
 RNG CONSUMPTION ORDER (deterministic):
 1. Attack roll (d20)
 2. IF threat: Confirmation roll (d20)
 3. IF hit AND miss_chance > 0: Miss chance roll (d100)
 4. IF hit: Damage roll (XdY)
+5. IF hit AND sneak attack eligible: Sneak attack roll (Xd6) (WO-050B)
 
 All state mutations are event-driven only.
 """
@@ -363,6 +370,17 @@ def resolve_attack(
         else:
             damage_total = max(0, base_damage_with_modifiers)
 
+        # WO-050B: Sneak Attack precision damage (PHB p.50)
+        # Added AFTER critical multiplier — precision damage is NOT multiplied on crits
+        from aidm.core.sneak_attack import calculate_sneak_attack
+        sa_eligible, sa_damage, sa_dice_expr, sa_rolls, sa_reason = calculate_sneak_attack(
+            world_state, intent.attacker_id, intent.target_id,
+            is_flanking=is_flanking,
+            rng=rng,
+        )
+        if sa_eligible:
+            damage_total += sa_damage
+
         # WO-048: Apply Damage Reduction (PHB p.291)
         from aidm.core.damage_reduction import get_applicable_dr, apply_dr_to_damage
         dr_amount = get_applicable_dr(
@@ -386,7 +404,12 @@ def resolve_attack(
                 "feat_modifier": feat_damage_modifier,  # WO-034
                 "base_damage": base_damage_with_modifiers,  # WO-FIX-002: pre-multiplier damage
                 "critical_multiplier": intent.weapon.critical_multiplier if is_critical else 1,  # WO-FIX-002
-                "damage_total": damage_total,  # Pre-DR damage
+                "sneak_attack_eligible": sa_eligible,  # WO-050B
+                "sneak_attack_dice": sa_dice_expr,  # WO-050B
+                "sneak_attack_rolls": sa_rolls,  # WO-050B
+                "sneak_attack_damage": sa_damage,  # WO-050B
+                "sneak_attack_reason": sa_reason,  # WO-050B
+                "damage_total": damage_total,  # Pre-DR damage (includes sneak attack)
                 "dr_amount": dr_amount,  # WO-048
                 "damage_reduced": damage_reduced,  # WO-048
                 "final_damage": final_damage,  # WO-048: Post-DR damage

@@ -34,11 +34,19 @@ WO-049 INTEGRATION:
 - Concealment miss chance checked after hit, before damage (PHB p.152)
 - d100 roll consumed only when hit=True and miss_chance > 0
 
+WO-050B INTEGRATION (Sneak Attack):
+- Precision damage (Xd6) when target is flanked or denied Dex to AC
+- NOT multiplied on critical hits (PHB p.50)
+- Not effective vs creatures immune to critical hits
+- Ranged sneak attacks limited to 30 feet
+- Computed once per full attack, applied to each individual hit
+
 RNG CONSUMPTION ORDER (deterministic):
 1. Attack roll (d20)
 2. IF threat: Confirmation roll (d20)
 3. IF hit AND miss_chance > 0: Miss chance roll (d100)
 4. IF hit: Damage roll (XdY)
+5. IF hit AND sneak attack eligible: Sneak attack roll (Xd6) (WO-050B)
 
 All state mutations are event-driven only.
 """
@@ -140,6 +148,9 @@ def resolve_single_attack_with_critical(
     flanking_bonus: int = 0,
     is_flanking: bool = False,
     flanking_ally_ids: list = None,
+    sneak_attack_dice: int = 0,
+    sneak_attack_eligible: bool = False,
+    sneak_attack_reason: str = "",
 ) -> Tuple[List[Event], int]:
     """
     Resolve a single attack with critical hit logic.
@@ -293,6 +304,16 @@ def resolve_single_attack_with_critical(
         else:
             damage_total = max(0, base_damage_with_modifiers)
 
+        # WO-050B: Sneak Attack precision damage (PHB p.50)
+        # Added AFTER critical multiplier — precision damage is NOT multiplied on crits
+        sa_damage = 0
+        sa_dice_expr = ""
+        sa_rolls = []
+        if sneak_attack_eligible and sneak_attack_dice > 0:
+            from aidm.core.sneak_attack import roll_sneak_attack_damage
+            sa_damage, sa_dice_expr, sa_rolls = roll_sneak_attack_damage(sneak_attack_dice, rng)
+            damage_total += sa_damage
+
         # WO-048: Apply Damage Reduction (PHB p.291)
         from aidm.core.damage_reduction import apply_dr_to_damage
         final_damage, damage_reduced = apply_dr_to_damage(damage_total, dr_amount)
@@ -314,7 +335,12 @@ def resolve_single_attack_with_critical(
                 "feat_modifier": feat_damage_modifier,  # WO-034
                 "base_damage": base_damage_with_modifiers,  # Pre-multiplier damage
                 "critical_multiplier": weapon.critical_multiplier if is_critical else 1,
-                "damage_total": damage_total,  # Pre-DR damage
+                "sneak_attack_eligible": sneak_attack_eligible,  # WO-050B
+                "sneak_attack_dice": sa_dice_expr,  # WO-050B
+                "sneak_attack_rolls": sa_rolls,  # WO-050B
+                "sneak_attack_damage": sa_damage,  # WO-050B
+                "sneak_attack_reason": sneak_attack_reason,  # WO-050B
+                "damage_total": damage_total,  # Pre-DR damage (includes sneak attack)
                 "dr_amount": dr_amount,  # WO-048
                 "damage_reduced": damage_reduced,  # WO-048
                 "final_damage": final_damage,  # WO-048: Post-DR damage
@@ -450,6 +476,14 @@ def resolve_full_attack(
         world_state, intent.attacker_id, intent.target_id
     )
 
+    # WO-050B: Check sneak attack eligibility (computed once per full attack)
+    from aidm.core.sneak_attack import is_sneak_attack_eligible, get_sneak_attack_dice
+    sa_eligible, sa_reason = is_sneak_attack_eligible(
+        world_state, intent.attacker_id, intent.target_id,
+        is_flanking=is_flanking,
+    )
+    sa_dice = get_sneak_attack_dice(attacker) if sa_eligible else 0
+
     # WO-048: Get applicable Damage Reduction
     from aidm.core.damage_reduction import get_applicable_dr
     dr_amount = get_applicable_dr(
@@ -494,6 +528,9 @@ def resolve_full_attack(
             "flanking_bonus": flanking_bonus,  # PHB p.153
             "is_flanking": is_flanking,  # PHB p.153
             "flanking_ally_ids": flanking_ally_ids,  # PHB p.153
+            "sneak_attack_eligible": sa_eligible,  # WO-050B
+            "sneak_attack_dice": sa_dice,  # WO-050B
+            "sneak_attack_reason": sa_reason,  # WO-050B
             "dr_amount": dr_amount,  # WO-048
             "miss_chance_percent": miss_chance_percent,  # WO-049
             "target_base_ac": base_ac,  # WO-FIX-003
@@ -544,6 +581,9 @@ def resolve_full_attack(
             flanking_bonus=flanking_bonus,
             is_flanking=is_flanking,
             flanking_ally_ids=flanking_ally_ids,
+            sneak_attack_dice=sa_dice,
+            sneak_attack_eligible=sa_eligible,
+            sneak_attack_reason=sa_reason,
         )
 
         events.extend(attack_events)
