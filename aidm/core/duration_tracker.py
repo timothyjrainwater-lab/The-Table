@@ -112,7 +112,7 @@ class DurationTracker:
         self._effects: Dict[str, ActiveSpellEffect] = {}
         self._by_target: Dict[str, List[str]] = {}  # target_id -> [effect_ids]
         self._by_caster: Dict[str, List[str]] = {}  # caster_id -> [effect_ids]
-        self._concentration: Dict[str, str] = {}    # caster_id -> effect_id
+        self._concentration: Dict[str, List[str]] = {}  # caster_id -> [effect_ids] (3.5e: multiple allowed)
 
     # ==========================================================================
     # EFFECT MANAGEMENT
@@ -121,19 +121,19 @@ class DurationTracker:
     def add_effect(self, effect: ActiveSpellEffect) -> None:
         """Add a new spell effect.
 
-        If the effect requires concentration and the caster already has
-        a concentration effect active, the old effect is automatically
-        ended.
+        In D&D 3.5e, a caster may maintain multiple concentration spells
+        simultaneously. Each requires a separate Concentration check when
+        the caster takes damage (PHB p.170). There is no automatic
+        displacement of existing concentration effects.
 
         Args:
             effect: The effect to add
         """
-        # Handle concentration conflict
+        # Track concentration (3.5e: multiple concentration spells allowed)
         if effect.concentration:
-            existing_concentration = self._concentration.get(effect.caster_id)
-            if existing_concentration:
-                self.remove_effect(existing_concentration)
-            self._concentration[effect.caster_id] = effect.effect_id
+            if effect.caster_id not in self._concentration:
+                self._concentration[effect.caster_id] = []
+            self._concentration[effect.caster_id].append(effect.effect_id)
 
         # Add to main registry
         self._effects[effect.effect_id] = effect
@@ -177,8 +177,11 @@ class DurationTracker:
                 del self._by_caster[effect.caster_id]
 
         # Remove from concentration tracking
-        if self._concentration.get(effect.caster_id) == effect_id:
-            del self._concentration[effect.caster_id]
+        if effect.caster_id in self._concentration:
+            if effect_id in self._concentration[effect.caster_id]:
+                self._concentration[effect.caster_id].remove(effect_id)
+            if not self._concentration[effect.caster_id]:
+                del self._concentration[effect.caster_id]
 
         return effect
 
@@ -247,19 +250,35 @@ class DurationTracker:
         effect_ids = self._by_caster.get(caster_id, [])
         return [self._effects[eid] for eid in effect_ids if eid in self._effects]
 
-    def get_concentration_effect(self, caster_id: str) -> Optional[ActiveSpellEffect]:
-        """Get the concentration effect for a caster (if any).
+    def get_concentration_effects(self, caster_id: str) -> List[ActiveSpellEffect]:
+        """Get all concentration effects for a caster.
+
+        In D&D 3.5e, a caster may maintain multiple concentration spells.
 
         Args:
             caster_id: Caster to query
 
         Returns:
-            Active concentration effect, or None
+            List of active concentration effects (may be empty)
         """
-        effect_id = self._concentration.get(caster_id)
-        if effect_id:
-            return self._effects.get(effect_id)
-        return None
+        effect_ids = self._concentration.get(caster_id, [])
+        return [self._effects[eid] for eid in effect_ids if eid in self._effects]
+
+    def get_concentration_effect(self, caster_id: str) -> Optional[ActiveSpellEffect]:
+        """Get the first concentration effect for a caster (if any).
+
+        Convenience method for callers that expect a single effect.
+        For 3.5e compliance, prefer get_concentration_effects() which
+        returns all active concentration spells.
+
+        Args:
+            caster_id: Caster to query
+
+        Returns:
+            First active concentration effect, or None
+        """
+        effects = self.get_concentration_effects(caster_id)
+        return effects[0] if effects else None
 
     def has_effect(self, entity_id: str, spell_id: str) -> bool:
         """Check if an entity has an effect from a specific spell.
@@ -299,6 +318,8 @@ class DurationTracker:
         """Break concentration for a caster.
 
         Removes all concentration effects from the caster.
+        In D&D 3.5e, failing a Concentration check ends all
+        concentration spells the caster is maintaining.
 
         Args:
             caster_id: Caster whose concentration is broken
@@ -307,9 +328,9 @@ class DurationTracker:
             List of effects that were removed
         """
         removed = []
-        effect_id = self._concentration.get(caster_id)
+        effect_ids = list(self._concentration.get(caster_id, []))
 
-        if effect_id:
+        for effect_id in effect_ids:
             effect = self.remove_effect(effect_id)
             if effect:
                 removed.append(effect)
@@ -324,8 +345,9 @@ class DurationTracker:
     ) -> tuple[bool, Optional['SkillCheckResult']]:
         """Check if concentration is maintained after taking damage.
 
-        PHB p.69: Concentration check (DC = 10 + damage taken) required
-        when caster takes damage while maintaining a concentration spell.
+        PHB p.170: Concentration check (DC = 10 + damage taken) required
+        for each concentration spell when caster takes damage.
+        In 3.5e, each spell requires a separate check.
 
         Args:
             caster_id: Entity maintaining concentration
@@ -335,11 +357,10 @@ class DurationTracker:
         Returns:
             Tuple of (concentration_maintained, check_result)
             - If no concentration active: (True, None)
-            - If check succeeds: (True, SkillCheckResult)
-            - If check fails: (False, SkillCheckResult)
+            - Otherwise: raises NotImplementedError (caller handles)
         """
-        effect_id = self._concentration.get(caster_id)
-        if not effect_id:
+        effect_ids = self._concentration.get(caster_id, [])
+        if not effect_ids:
             # No concentration active, no check needed
             return (True, None)
 
@@ -353,29 +374,15 @@ class DurationTracker:
         )
 
     def has_active_concentration(self, caster_id: str) -> bool:
-        """Check if a caster has an active concentration effect.
+        """Check if a caster has any active concentration effects.
 
         Args:
             caster_id: Entity to check
 
         Returns:
-            True if caster is maintaining a concentration effect
+            True if caster is maintaining one or more concentration effects
         """
-        return caster_id in self._concentration
-
-    def get_concentration_effect(self, caster_id: str) -> Optional[ActiveSpellEffect]:
-        """Get the concentration effect for a caster.
-
-        Args:
-            caster_id: Entity to check
-
-        Returns:
-            ActiveSpellEffect if concentration is active, None otherwise
-        """
-        effect_id = self._concentration.get(caster_id)
-        if effect_id:
-            return self._effects.get(effect_id)
-        return None
+        return bool(self._concentration.get(caster_id))
 
     # ==========================================================================
     # DISPEL
