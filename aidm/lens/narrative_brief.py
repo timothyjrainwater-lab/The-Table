@@ -1,4 +1,4 @@
-"""WO-032: NarrativeBrief — One-Way Valve (STP → Spark-Safe Context)
+"""WO-032/WO-046B: NarrativeBrief — One-Way Valve (STP → Spark-Safe Context)
 
 NarrativeBrief is the Lens layer's containment boundary. It controls exactly
 what mechanical data Spark can see, preventing Box state contamination.
@@ -26,11 +26,22 @@ SEVERITY MAPPING (from FrozenWorldStateView HP data):
 - "devastating": 60-80% of target max HP
 - "lethal": target defeated or > 80% of max HP
 
+EVENT TYPES HANDLED (WO-046B):
+- Attack events: attack_roll, damage_dealt/damage_roll, concealment_miss
+- Full attack events: full_attack_start, full_attack_end
+- HP events: hp_changed, entity_defeated
+- Condition events: condition_applied, condition_removed
+- Spell events: spell_cast, spell_cast_failed, concentration_broken
+- Maneuver events: bull_rush_*, trip_*, overrun_*, sunder_*, disarm_*, grapple_*
+- AoO events: aoo_triggered, aoo_blocked_by_cover, aoo_avoided_by_tumble
+- Movement events: movement_declared, mounted_move_declared
+- Targeting events: targeting_failed
+
 BOUNDARY LAW (BL-003): No imports from aidm.core.
 BOUNDARY LAW (BL-020): FrozenWorldStateView for read-only state access.
 AXIOM 3: Lens adapts stance, not authority — we describe outcomes, not compute them.
 
-Reference: docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md (WO-032)
+Reference: docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md (WO-032, WO-046B)
 """
 
 from dataclasses import dataclass, field
@@ -43,18 +54,21 @@ from aidm.core.state import FrozenWorldStateView
 class NarrativeBrief:
     """One-way valve: STP → Spark-safe context.
 
-    Implements Lens layer's containment boundary per WO-032.
+    Implements Lens layer's containment boundary per WO-032/WO-046B.
     Contains ONLY Spark-safe data derived from Box outcomes.
 
     Attributes:
-        action_type: Narration token (e.g., "attack_hit", "spell_damage")
+        action_type: Narration token (e.g., "attack_hit", "spell_damage_dealt")
         actor_name: Display name of actor (NOT entity ID)
         target_name: Display name of target (NOT entity ID)
         outcome_summary: Natural language outcome summary
         severity: Wound severity category ("minor", "moderate", "severe", "devastating", "lethal")
         weapon_name: Weapon name (NOT Weapon dataclass)
+        spell_name: Spell name string (WO-046B)
         damage_type: Damage type string (e.g., "slashing", "fire")
         condition_applied: Condition name if applied (e.g., "prone", "stunned")
+        condition_removed: Condition name if removed (WO-046B)
+        maneuver_type: Combat maneuver type (e.g., "bull_rush", "trip") (WO-046B)
         target_defeated: Whether target was defeated
         previous_narrations: Last N narration texts for continuity
         scene_description: Brief location context
@@ -73,8 +87,11 @@ class NarrativeBrief:
 
     # Context for narration quality
     weapon_name: Optional[str] = None
+    spell_name: Optional[str] = None
     damage_type: Optional[str] = None
     condition_applied: Optional[str] = None
+    condition_removed: Optional[str] = None
+    maneuver_type: Optional[str] = None
     target_defeated: bool = False
 
     # Scene context (for continuity)
@@ -98,8 +115,11 @@ class NarrativeBrief:
             "outcome_summary": self.outcome_summary,
             "severity": self.severity,
             "weapon_name": self.weapon_name,
+            "spell_name": self.spell_name,
             "damage_type": self.damage_type,
             "condition_applied": self.condition_applied,
+            "condition_removed": self.condition_removed,
+            "maneuver_type": self.maneuver_type,
             "target_defeated": self.target_defeated,
             "previous_narrations": self.previous_narrations,
             "scene_description": self.scene_description,
@@ -124,8 +144,11 @@ class NarrativeBrief:
             outcome_summary=data.get("outcome_summary", ""),
             severity=data.get("severity", "minor"),
             weapon_name=data.get("weapon_name"),
+            spell_name=data.get("spell_name"),
             damage_type=data.get("damage_type"),
             condition_applied=data.get("condition_applied"),
+            condition_removed=data.get("condition_removed"),
+            maneuver_type=data.get("maneuver_type"),
             target_defeated=data.get("target_defeated", False),
             previous_narrations=data.get("previous_narrations", []),
             scene_description=data.get("scene_description"),
@@ -254,9 +277,20 @@ def assemble_narrative_brief(
     All mechanical data is filtered through this function to ensure only
     safe-to-show information reaches Spark.
 
+    WO-046B: Handles all event types emitted by Box layer:
+    - Attack events (attack_roll, damage_dealt/damage_roll, concealment_miss)
+    - Full attack events (full_attack_start, full_attack_end)
+    - HP events (hp_changed, entity_defeated)
+    - Condition events (condition_applied, condition_removed)
+    - Spell events (spell_cast, spell_cast_failed, concentration_broken)
+    - Maneuver events (bull_rush_*, trip_*, overrun_*, sunder_*, disarm_*, grapple_*)
+    - AoO events (aoo_triggered, aoo_blocked_by_cover, aoo_avoided_by_tumble)
+    - Movement events (movement_declared, mounted_move_declared)
+    - Targeting events (targeting_failed)
+
     Args:
         events: List of STP event dicts from Box resolution
-        narration_token: Narration token (e.g., "attack_hit", "spell_damage")
+        narration_token: Narration token (e.g., "attack_hit", "spell_damage_dealt")
         frozen_view: FrozenWorldStateView for read-only state access
         previous_narrations: Last N narration texts for continuity
         scene_description: Brief location context
@@ -268,8 +302,11 @@ def assemble_narrative_brief(
     actor_id = ""
     target_id = ""
     weapon_name = None
+    spell_name = None
     damage_type = None
     condition_applied = None
+    condition_removed = None
+    maneuver_type = None
     damage_dealt = 0
     target_defeated = False
     event_ids = []
@@ -281,35 +318,205 @@ def assemble_narrative_brief(
 
         # Extract actor/target from various event types
         event_type = event.get("type") or event.get("event_type")
+        payload = event.get("payload", event)
 
+        # === ATTACK EVENTS ===
         if event_type == "attack_roll":
-            actor_id = event.get("attacker", actor_id)
-            target_id = event.get("target", target_id)
+            actor_id = (
+                event.get("attacker")
+                or payload.get("attacker_id")
+                or actor_id
+            )
+            target_id = (
+                event.get("target")
+                or payload.get("target_id")
+                or target_id
+            )
 
-        elif event_type == "damage_dealt":
-            actor_id = event.get("attacker", actor_id)
-            target_id = event.get("target", target_id)
-            damage_dealt = event.get("damage", 0)
-            damage_type = event.get("damage_type")
+        elif event_type in ("damage_dealt", "damage_roll"):
+            actor_id = (
+                event.get("attacker")
+                or payload.get("attacker_id")
+                or actor_id
+            )
+            target_id = (
+                event.get("target")
+                or payload.get("target_id")
+                or target_id
+            )
+            damage_dealt = (
+                event.get("damage")
+                or payload.get("final_damage")
+                or payload.get("damage_total")
+                or 0
+            )
+            damage_type = (
+                event.get("damage_type")
+                or payload.get("damage_type")
+                or damage_type
+            )
 
+        elif event_type == "concealment_miss":
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+
+        # === FULL ATTACK EVENTS ===
+        elif event_type == "full_attack_start":
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+
+        elif event_type == "full_attack_end":
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+
+        # === HP EVENTS ===
         elif event_type == "hp_changed":
-            payload = event.get("payload", event)
             target_id = payload.get("entity_id", target_id)
             delta = payload.get("delta", 0)
             if delta < 0:
                 damage_dealt = abs(delta)
 
         elif event_type == "entity_defeated":
-            target_id = event.get("target", target_id)
+            target_id = (
+                event.get("target")
+                or payload.get("entity_id")
+                or target_id
+            )
             target_defeated = True
 
+        # === CONDITION EVENTS ===
         elif event_type == "condition_applied":
-            target_id = event.get("target", target_id)
-            condition_applied = event.get("condition")
+            target_id = (
+                event.get("target")
+                or payload.get("target_id")
+                or target_id
+            )
+            condition_applied = (
+                event.get("condition")
+                or payload.get("condition_type")
+                or condition_applied
+            )
 
-        # Extract weapon name
+        elif event_type == "condition_removed":
+            target_id = payload.get("entity_id", target_id)
+            condition_removed = payload.get("condition_type", condition_removed)
+
+        # === SPELL EVENTS ===
+        elif event_type == "spell_cast":
+            actor_id = payload.get("caster_id", actor_id)
+            spell_name = payload.get("spell_id", spell_name)
+            targets = payload.get("targets", [])
+            if targets and not target_id:
+                target_id = targets[0] if isinstance(targets[0], str) else ""
+
+        elif event_type == "spell_cast_failed":
+            actor_id = payload.get("caster_id", actor_id)
+            spell_name = payload.get("spell_id", spell_name)
+
+        elif event_type == "concentration_broken":
+            actor_id = payload.get("caster_id", actor_id)
+            spell_name = payload.get("spell_id", spell_name)
+
+        # === MANEUVER EVENTS ===
+        elif event_type in (
+            "bull_rush_declared", "bull_rush_success", "bull_rush_failure",
+        ):
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+            maneuver_type = "bull_rush"
+
+        elif event_type in (
+            "trip_declared", "trip_success", "trip_failure",
+        ):
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+            maneuver_type = "trip"
+            if event_type == "trip_success":
+                condition_applied = payload.get("condition_applied", condition_applied)
+
+        elif event_type in ("counter_trip_success", "counter_trip_failure"):
+            actor_id = payload.get("counter_attacker", actor_id)
+            target_id = payload.get("target_id", target_id)
+            maneuver_type = "trip"
+            if event_type == "counter_trip_success":
+                condition_applied = payload.get("condition_applied", condition_applied)
+
+        elif event_type in (
+            "overrun_declared", "overrun_success", "overrun_failure",
+        ):
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = (
+                payload.get("target_id")
+                or payload.get("defender_id")
+                or target_id
+            )
+            maneuver_type = "overrun"
+            if event_type == "overrun_success":
+                condition_applied = payload.get("condition_applied", condition_applied)
+
+        elif event_type == "overrun_avoided":
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("defender_id", target_id)
+            maneuver_type = "overrun"
+
+        elif event_type in (
+            "sunder_declared", "sunder_success", "sunder_failure",
+        ):
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+            maneuver_type = "sunder"
+
+        elif event_type in (
+            "disarm_declared", "disarm_success", "disarm_failure",
+        ):
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+            maneuver_type = "disarm"
+
+        elif event_type in ("counter_disarm_success", "counter_disarm_failure"):
+            actor_id = payload.get("counter_attacker", actor_id)
+            target_id = payload.get("target_id", target_id)
+            maneuver_type = "disarm"
+
+        elif event_type in (
+            "grapple_declared", "grapple_success", "grapple_failure",
+        ):
+            actor_id = payload.get("attacker_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+            maneuver_type = "grapple"
+            if event_type == "grapple_success":
+                condition_applied = payload.get("condition_applied", condition_applied)
+
+        # === AOO EVENTS ===
+        elif event_type == "aoo_triggered":
+            actor_id = payload.get("reactor_id", actor_id)
+            target_id = payload.get("provoker_id", target_id)
+
+        elif event_type == "aoo_blocked_by_cover":
+            actor_id = payload.get("reactor_id", actor_id)
+            target_id = payload.get("provoker_id", target_id)
+
+        elif event_type == "aoo_avoided_by_tumble":
+            actor_id = payload.get("reactor_id", actor_id)
+            target_id = payload.get("provoker_id", target_id)
+
+        # === MOVEMENT EVENTS ===
+        elif event_type == "movement_declared":
+            actor_id = payload.get("actor_id", actor_id)
+
+        elif event_type == "mounted_move_declared":
+            actor_id = payload.get("rider_id", actor_id)
+
+        # === TARGETING EVENTS ===
+        elif event_type == "targeting_failed":
+            actor_id = payload.get("actor_id", actor_id)
+            target_id = payload.get("target_id", target_id)
+
+        # Extract weapon name from any event
         if "weapon" in event:
             weapon_name = event["weapon"]
+        elif "weapon_name" in payload and payload is not event:
+            weapon_name = payload["weapon_name"]
 
     # Resolve entity names from FrozenWorldStateView
     actor_name = resolve_entity_name(actor_id, frozen_view) if actor_id else "someone"
@@ -334,6 +541,10 @@ def assemble_narrative_brief(
         actor_name=actor_name,
         target_name=target_name,
         weapon_name=weapon_name,
+        spell_name=spell_name,
+        condition_applied=condition_applied,
+        condition_removed=condition_removed,
+        maneuver_type=maneuver_type,
         target_defeated=target_defeated,
     )
 
@@ -345,8 +556,11 @@ def assemble_narrative_brief(
         outcome_summary=outcome_summary,
         severity=severity,
         weapon_name=weapon_name,
+        spell_name=spell_name,
         damage_type=damage_type,
         condition_applied=condition_applied,
+        condition_removed=condition_removed,
+        maneuver_type=maneuver_type,
         target_defeated=target_defeated,
         previous_narrations=previous_narrations or [],
         scene_description=scene_description,
@@ -360,47 +574,190 @@ def _build_outcome_summary(
     actor_name: str,
     target_name: Optional[str],
     weapon_name: Optional[str],
+    spell_name: Optional[str],
+    condition_applied: Optional[str],
+    condition_removed: Optional[str],
+    maneuver_type: Optional[str],
     target_defeated: bool,
 ) -> str:
-    """Build natural language outcome summary.
+    """Build natural language outcome summary (WO-046B).
+
+    Handles all narration tokens emitted by play_loop.py:
+    - Attack: attack_hit, attack_miss, critical, full_attack_complete
+    - Spell: spell_damage_dealt, spell_no_effect, spell_healed,
+             spell_buff_applied, spell_debuff_applied, spell_resisted,
+             spell_cast_success
+    - Maneuver: {maneuver}_success, {maneuver}_failure
+    - Movement: movement_stub, mounted_movement, mounted, dismounted
+    - AoO: action_aborted_by_aoo
+    - Defeat: defeat (standalone)
+    - Condition: condition_applied, condition_removed
 
     Args:
         action_type: Narration token
         actor_name: Actor display name
         target_name: Target display name
         weapon_name: Weapon name
+        spell_name: Spell name
+        condition_applied: Condition name if applied
+        condition_removed: Condition name if removed
+        maneuver_type: Combat maneuver type
         target_defeated: Whether target defeated
 
     Returns:
         Outcome summary string
     """
-    # Handle different action types
+    target = target_name or "the target"
+
+    # === ATTACK NARRATION TOKENS ===
+
     if "attack_hit" in action_type:
         weapon = weapon_name or "weapon"
-        target = target_name or "the target"
         if target_defeated:
             return f"{actor_name} defeats {target} with {weapon}"
         return f"{actor_name} hits {target} with {weapon}"
 
-    elif "attack_miss" in action_type:
+    if "attack_miss" in action_type:
         weapon = weapon_name or "weapon"
-        target = target_name or "the target"
         return f"{actor_name} misses {target} with {weapon}"
 
-    elif "critical" in action_type:
+    if "critical" in action_type:
         weapon = weapon_name or "weapon"
-        target = target_name or "the target"
         return f"{actor_name} scores a critical hit on {target} with {weapon}"
 
-    elif "spell" in action_type:
-        target = target_name or "the target"
-        return f"{actor_name} casts a spell on {target}"
+    if action_type == "full_attack_complete":
+        weapon = weapon_name or "weapons"
+        if target_defeated:
+            return f"{actor_name} strikes down {target} with a flurry of blows"
+        return f"{actor_name} unleashes a flurry of attacks on {target}"
 
-    elif "defeat" in action_type:
-        target = target_name or "the target"
+    if action_type == "concealment_miss":
+        return f"{actor_name}'s attack passes through {target}'s concealment"
+
+    # === SPELL NARRATION TOKENS ===
+
+    if action_type == "spell_damage_dealt":
+        spell = spell_name or "a spell"
+        if target_defeated:
+            return f"{actor_name} destroys {target} with {spell}"
+        return f"{actor_name}'s {spell} strikes {target}"
+
+    if action_type == "spell_no_effect":
+        spell = spell_name or "spell"
+        return f"{actor_name}'s {spell} has no effect on {target}"
+
+    if action_type == "spell_healed":
+        spell = spell_name or "a healing spell"
+        return f"{actor_name} heals {target} with {spell}"
+
+    if action_type == "spell_buff_applied":
+        spell = spell_name or "a spell"
+        return f"{actor_name} enhances {target} with {spell}"
+
+    if action_type == "spell_debuff_applied":
+        spell = spell_name or "a spell"
+        condition = condition_applied or "an affliction"
+        return f"{actor_name}'s {spell} inflicts {condition} on {target}"
+
+    if action_type == "spell_resisted":
+        spell = spell_name or "spell"
+        return f"{target} resists {actor_name}'s {spell}"
+
+    if action_type == "spell_cast_success":
+        spell = spell_name or "a spell"
+        if target_name:
+            return f"{actor_name} casts {spell} on {target}"
+        return f"{actor_name} casts {spell}"
+
+    # Generic spell fallback (matches any action_type containing "spell")
+    if "spell" in action_type and action_type not in (
+        "spell_damage_dealt", "spell_no_effect", "spell_healed",
+        "spell_buff_applied", "spell_debuff_applied", "spell_resisted",
+        "spell_cast_success",
+    ):
+        spell = spell_name or "a spell"
+        return f"{actor_name} casts {spell} on {target}"
+
+    # === MANEUVER NARRATION TOKENS ===
+
+    if action_type == "bull_rush_success":
+        return f"{actor_name} bull rushes {target} backward"
+
+    if action_type == "bull_rush_failure":
+        return f"{actor_name} fails to bull rush {target}"
+
+    if action_type == "trip_success":
+        return f"{actor_name} trips {target} to the ground"
+
+    if action_type == "trip_failure":
+        return f"{actor_name} fails to trip {target}"
+
+    if action_type == "overrun_success":
+        return f"{actor_name} overruns {target}, knocking them prone"
+
+    if action_type == "overrun_failure":
+        return f"{actor_name} fails to overrun {target}"
+
+    if action_type == "sunder_success":
+        return f"{actor_name} sunders {target}'s equipment"
+
+    if action_type == "sunder_failure":
+        return f"{actor_name} fails to sunder {target}'s equipment"
+
+    if action_type == "disarm_success":
+        return f"{actor_name} disarms {target}"
+
+    if action_type == "disarm_failure":
+        return f"{actor_name} fails to disarm {target}"
+
+    if action_type == "grapple_success":
+        return f"{actor_name} grapples {target}"
+
+    if action_type == "grapple_failure":
+        return f"{actor_name} fails to grapple {target}"
+
+    # Dynamic maneuver tokens (e.g., "overrun_avoided")
+    if maneuver_type and "success" in action_type:
+        return f"{actor_name}'s {maneuver_type} succeeds against {target}"
+    if maneuver_type and "failure" in action_type:
+        return f"{actor_name}'s {maneuver_type} fails against {target}"
+    if maneuver_type and "avoided" in action_type:
+        return f"{target} avoids {actor_name}'s {maneuver_type}"
+
+    # === MOVEMENT NARRATION TOKENS ===
+
+    if action_type == "movement_stub":
+        return f"{actor_name} moves"
+
+    if action_type == "mounted_movement":
+        return f"{actor_name} rides forward"
+
+    if action_type == "mounted":
+        return f"{actor_name} mounts up"
+
+    if action_type == "dismounted":
+        return f"{actor_name} dismounts"
+
+    # === AOO NARRATION TOKENS ===
+
+    if action_type == "action_aborted_by_aoo":
+        return f"{actor_name}'s action is interrupted by an attack of opportunity"
+
+    # === CONDITION NARRATION TOKENS ===
+
+    if action_type == "condition_applied" and condition_applied:
+        return f"{target} is now {condition_applied}"
+
+    if action_type == "condition_removed" and condition_removed:
+        return f"{target} is no longer {condition_removed}"
+
+    # === DEFEAT NARRATION TOKEN ===
+
+    if "defeat" in action_type:
         return f"{actor_name} defeats {target}"
 
-    # Generic fallback
+    # === GENERIC FALLBACK ===
+
     if target_name:
         return f"{actor_name} acts against {target_name}"
     return f"{actor_name} acts"
