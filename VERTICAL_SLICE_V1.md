@@ -1,3 +1,17 @@
+> **HISTORICAL -- SUPERSEDED**
+>
+> This document defined the Phase 0 execution proof (CP-09, Feb 2025). It has been
+> fully superseded by later implementation phases. The "no combat resolver" and
+> "no movement resolution" exclusions listed below were delivered in CP-10 through
+> CP-19 (full combat stack), WO-039 (Session Orchestrator), and P2 (multi-room
+> scene persistence). The "3 turns, policy evaluation only" scope was the starting
+> point; the codebase now supports full combat resolution, spellcasting, initiative,
+> AoO, conditions, feats, skills, and scene management.
+>
+> **For current project state, see:** `PROJECT_STATE_DIGEST.md`
+> **For current execution plan, see:** `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md`
+> **For document precedence, see:** `docs/CURRENT_CANON.md`
+
 # Vertical Slice V1 — Minimal Runnable Session
 
 ## Overview

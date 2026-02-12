@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — WO-046 Box Event Contracts INTEGRATED (24 tests). 3694 tests, 0 failed, 15 skipped (hardware-gated).
+LAST UPDATED: 2026-02-12 — WO-050 Kokoro TTS Wiring INTEGRATED. 3753 tests, 0 failed, 11 skipped (hardware-gated). Kokoro TTS live on CPU (~1x real-time).
 -->
 
 # Project State Digest
@@ -197,13 +197,52 @@ LAST UPDATED: 2026-02-11 — WO-046 Box Event Contracts INTEGRATED (24 tests). 3
 - **Contract registry**: PAYLOAD_SCHEMAS maps event_type strings to schema classes; unknown events pass through as dicts
 - **24 tests** in test_box_event_contracts.py (10 construction + 8 validation + 6 integration)
 
+### P2: Multi-Room Scene Persistence Stress Test (Phase 3)
+- **3-room mini dungeon**: Room A (combat) → Room B (rest) → Room C (encounter trigger)
+- **State continuity**: HP/defeat status persists across transitions, state hash stable through navigation, rapid round-trips produce no drift
+- **Determinism**: Same seed + same actions → identical final state after full dungeon traversal
+- **18 tests** in test_multi_room_persistence.py (6 persistence + 5 combat/rest flow + 4 full traversal + 3 edge cases)
+
+### P1: Integration-Layer Replay Stability (Phase 3)
+- **Event payload equality**: Same seed + same commands → identical event payloads (full dict comparison, not just state hash)
+- **NarrativeBrief round-trip**: to_dict → JSON → from_dict preserves all 13 fields; real orchestrator briefs survive serialization
+- **Event ordering invariants**: turn_start always first, turn_end always last, attack_roll→damage_roll→hp_changed→entity_defeated causal order enforced
+- **Finding**: spell_cast `cast_id` uses uuid.uuid4() (non-deterministic correlation ID) — excluded from payload equality, documented
+- **13 tests** in test_replay_stability.py (4 payload equality + 4 serialization round-trip + 5 ordering invariants)
+
+### P3: Box Fallback Validation (Phase 3)
+- **Box error handling**: try/except added around both `box_execute_turn()` calls in SessionOrchestrator (`_process_attack`, `_process_spell`)
+- **State preservation**: Box exception → world_state remains unchanged, no partial mutation
+- **Session continuity**: Session remains usable for subsequent turns after Box failure recovery
+- **5 tests** in test_session_orchestrator.py Category 7 (attack/spell failure, state preservation, session recovery, turn count integrity)
+
+### WO-048: Template Interpolation Fix (Post-A10)
+- **Pipeline fix**: `_build_template_context()` pure function maps NarrativeBrief + events → template placeholders (actor/target/weapon/damage)
+- **Entity names**: Real names (not "The attacker"/"the target") flow through metadata to template system
+- **weapon_name fix**: Uses `EF.WEAPON` (e.g. "longsword") instead of `damage_type` ("slashing")
+- **Coverage**: Added templates for `movement`, `scene_transition`, `rest` tokens
+- **14 tests** in test_template_narration_contract.py (5 context + 5 snapshot + 3 forbidden-token + 1 provenance)
+
+### WO-049: Severity-Branched Template Narration (Post-A10)
+- **SEVERITY_TEMPLATES**: Combat tokens branch by severity (minor/moderate/severe/devastating/lethal)
+- **Deterministic selection**: Severity from `compute_severity()` (HP percentage), no RNG
+- **Scoped**: Only combat tokens (`attack_hit`, `attack_miss`) branched; all other tokens use flat templates
+- **Flavor upgrade**: Movement/transition/rest templates use atmospheric language
+- **4 tests** in test_template_narration_contract.py (severity branch + flat fallback + non-combat ignore + lethal integration)
+
+### WO-050: Kokoro TTS Wiring (Post-A10)
+- **KokoroTTSAdapter**: Updated for real model paths (model_path, voices_path), per-instance lazy loader
+- **Protocol compatibility**: synthesize() accepts VoicePersona, str, or None — satisfies both TTSAdapter and TTSProtocol
+- **Model**: kokoro-v1.0.int8.onnx (88MB, CPU-only), voices-v1.0.bin (27MB), ~1x real-time on CPU
+- **5 integration tests** in test_kokoro_tts.py (real synthesis, all 8 personas, speed variation, long text, string persona)
+
 ---
 
 ## Test Count
 
-**Total: 3694 tests** (all passing, 0 failed, 15 skipped hardware-gated)
+**Total: 3753 tests** (all passing, 0 failed, 11 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +66 tests (WO-039: 36, WO-045: 6 windshield, WO-046: 24 contracts).
+> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +66 tests (WO-039: 36, WO-045: 6 windshield, WO-046: 24 contracts). Phase 3 Batch 3: +36 tests (P2: 18 persistence, P1: 13 replay stability, P3: 5 Box fallback). Post-A10: +23 tests (WO-048: 14, WO-049: 4, WO-050: 5 integration).
 
 ---
 
@@ -347,7 +386,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~50s at 3694 tests — rule predates scale)
+- All tests must pass in < 5 seconds (currently ~51s at 3730 tests — rule predates scale)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)
@@ -402,11 +441,25 @@ A9 gate PASSED. Phase 3 Session Playability begins.
 
 ### Phase 3 Batch 2 — INTEGRATED (2026-02-11)
 
+A10 gate PASSED. Phase 3 Session Playability COMPLETE. Feature freeze in effect.
+
 | WO | Description | Status |
 |----|-------------|--------|
 | WO-039 | Session Orchestrator | **INTEGRATED** (36 tests) |
 | WO-045 | Box Integration (windshield) | **INTEGRATED** (+6 tests, 42 total orchestrator) |
 | WO-046 | Box Event Contracts | **INTEGRATED** (24 tests) |
+| P2 | Multi-Room Persistence Stress Test | **INTEGRATED** (18 tests) |
+| P1 | Integration-Layer Replay Stability | **INTEGRATED** (13 tests) |
+| P3 | Box Fallback Validation | **INTEGRATED** (5 tests, 47 total orchestrator) |
+
+### Post-A10 Verification — COMPLETE (2026-02-11)
+
+| WO | Description | Status |
+|----|-------------|--------|
+| WO-047 | Immersive Micro-Scenario (text-first dungeon crawl) | **COMPLETE** (demo script, no new tests) |
+| WO-048 | Template Interpolation Fix (entity names, damage, coverage) | **INTEGRATED** (14 tests, 3744 total) |
+| WO-049 | Severity-Branched Template Narration (emotional layer) | **INTEGRATED** (4 tests, 3748 total) |
+| WO-050 | Kokoro TTS Wiring (real model, protocol compat) | **INTEGRATED** (5 integration tests, 3753 total) |
 
 ### Phase 4 — FUTURE
 

@@ -1,5 +1,35 @@
 # Project Coherence Doctrine
 
+> **SCOPE CLARIFICATION ADDENDUM (2026-02-12, RWO-003)**
+>
+> This doctrine was written in Feb 2025 (CP-07D) when the project had 1,225 tests
+> and no immersion adapter implementations. Several specific claims are now stale:
+>
+> 1. **"Production Voice Integration" is listed as Out of Scope (Section: Scope
+>    Boundaries).** However, the M3 Immersion Layer (delivered under the 7-step
+>    execution plan) implemented STT, TTS, Image, and AudioMixer adapters with
+>    Protocol-based interfaces, stub defaults, and real backend wiring (Kokoro TTS,
+>    Whisper STT, SDXL Image). These adapters are non-authoritative (they cannot
+>    mutate WorldState or affect deterministic replay) and are governed by
+>    `docs/IMMERSION_BOUNDARY.md`. The doctrine's intent -- that voice is
+>    "structured intents only" for the deterministic runtime -- remains correct;
+>    the immersion layer operates outside the deterministic boundary.
+>
+> 2. **Test Runtime Invariant says "< 5 seconds" (Section 3).** The test suite
+>    has grown from 1,225 tests to 3,753 tests. Current runtime is ~51 seconds.
+>    The per-test average (~13.6ms) exceeds the original 4ms target. This rule
+>    predates the current scale and needs re-baselining (tracked as separate work
+>    item in DOC_DRIFT_LEDGER.md).
+>
+> 3. **Current Status line in Section 3 says "1225 tests in ~3.7 seconds."** This
+>    is a snapshot from Feb 2025. Current counts are in `PROJECT_STATE_DIGEST.md`.
+>
+> **The core architectural principles (Sections 1-8) remain binding.** The scope
+> boundaries should be read in light of the addendum above.
+>
+> **For current project state, see:** `PROJECT_STATE_DIGEST.md`
+> **For document precedence, see:** `docs/CURRENT_CANON.md`
+
 **Last Updated**: 2025-02-08 (CP-07D)
 **Status**: Locked (Project Governance)
 
