@@ -10,11 +10,13 @@
 
 Phase 1 research is **complete**. All hotfixes are **complete**. **Phase 2 is substantially complete**: 12 Box/Lens-layer WOs done (WO-048/049/034-FIX/036/051B/052B/053/054/055/045B/046B/056). **AD-006 House Policy Governance Doctrine ratified** — No-Opaque-DM doctrine, Template Family Registry (9 families, 3 GREEN), FAIL_CLOSED protocol, Two-Loop Model. **Box→Lens seam upgraded to GREEN** with NarrativeBrief handling all event types. **Lens→Spark seam YELLOW** with PromptPack v1 + visible_gear wired.
 
-**Research sprint launched:** RQ-BOX-002 Phase 1 (FAQ mining), Pathfinder 1e delta index, Skip Williams designer intent mining. GREEN family template specs formalized. Research Finding Schema codified. No-physics constraint added to AD-006.
+**Research sprint complete:** RQ-BOX-002 Phase 1 (25 FAQ findings), Pathfinder 1e delta index (25 deltas), Skip Williams designer intent mining (20 rulings). GREEN family template specs formalized. Research Finding Schema codified. No-physics constraint added to AD-006. All committed in `8a1de95`.
+
+**RQ-PRODUCT-001 reviewed and APPROVED:** Content Independence Architecture — three-layer content model (mechanical/behavioral/narrative), creature three-layer model (skeleton/muscle/skin), Layered World Authority Model (5-level creation stack), provenance firewall. Feature freeze approved until RQ-LENS-SPARK-001 exit gate passes.
 
 **Test suite:** 4130 passed, 8 pre-existing failures (Chatterbox TTS adapter + import boundary), 0 regressions.
 
-**Next action:** Commit all research artifacts, then review research agent outputs, then GAP-007 resolution.
+**Next action:** GAP-007 resolution (unify dual prompt assembly paths), then YELLOW family specs, then PO decisions on OQ-8 through OQ-13.
 
 ---
 
