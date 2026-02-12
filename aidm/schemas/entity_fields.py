@@ -123,6 +123,12 @@ class _EntityFields:
     # --- Concealment (WO-049) ---
     MISS_CHANCE = "miss_chance"  # Percentile miss chance (0-100), e.g., 20 for blur, 50 for invisibility
 
+    # --- Inventory & Encumbrance (WO-054, AD-005) ---
+    INVENTORY = "inventory"                        # List of item dicts: [{"item_id": "rope_hemp_50ft", "quantity": 1, "stow_location": "external"}, ...]
+    STRENGTH_SCORE = "strength_score"              # Raw Strength score (integer), used for carrying capacity
+    ENCUMBRANCE_LOAD = "encumbrance_load"          # Current load tier: "light", "medium", "heavy", "overloaded"
+    BASE_SPEED = "base_speed"                      # Base movement speed in feet before encumbrance penalties
+
 
 # Singleton instance — import this
 EF = _EntityFields()
