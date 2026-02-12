@@ -120,6 +120,9 @@ class _EntityFields:
     # --- Damage Reduction (WO-048) ---
     DAMAGE_REDUCTIONS = "damage_reductions"  # List of DR dicts, e.g., [{"amount": 10, "bypass": "magic"}]
 
+    # --- Concealment (WO-049) ---
+    MISS_CHANCE = "miss_chance"  # Percentile miss chance (0-100), e.g., 20 for blur, 50 for invisibility
+
 
 # Singleton instance — import this
 EF = _EntityFields()

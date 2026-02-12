@@ -26,10 +26,18 @@ WO-FIX-002: Critical hit logic (PHB p.140)
 - Confirmation roll (d20 + attack bonus vs AC, no auto-hit on nat 20)
 - Damage multiplication on confirmed critical (×2/×3/×4)
 
+WO-048 INTEGRATION:
+- Damage Reduction applied after critical multiplier (PHB p.291)
+
+WO-049 INTEGRATION:
+- Concealment miss chance checked after hit, before damage (PHB p.152)
+- d100 roll consumed only when hit=True and miss_chance > 0
+
 RNG CONSUMPTION ORDER (deterministic):
 1. Attack roll (d20)
 2. IF threat: Confirmation roll (d20)
-3. IF hit: Damage roll (XdY)
+3. IF hit AND miss_chance > 0: Miss chance roll (d100)
+4. IF hit: Damage roll (XdY)
 
 All state mutations are event-driven only.
 """
@@ -286,6 +294,34 @@ def resolve_attack(
         citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical hit rules
     ))
     current_event_id += 1
+
+    # WO-049: Miss chance from concealment (PHB p.152)
+    # Check AFTER hit determination, BEFORE damage roll
+    miss_chance_miss = False
+    miss_chance_d100 = None
+    if hit:
+        from aidm.core.concealment import get_miss_chance, check_miss_chance
+        miss_chance_percent = get_miss_chance(world_state, intent.target_id)
+        if miss_chance_percent > 0:
+            miss_chance_d100 = combat_rng.randint(1, 100)
+            if check_miss_chance(miss_chance_percent, miss_chance_d100):
+                miss_chance_miss = True
+                hit = False  # Override hit to miss
+                # Emit concealment_miss event
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="concealment_miss",
+                    timestamp=timestamp + 0.05,
+                    payload={
+                        "attacker_id": intent.attacker_id,
+                        "target_id": intent.target_id,
+                        "miss_chance_percent": miss_chance_percent,
+                        "d100_result": miss_chance_d100,
+                        "original_hit": True,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 152}]  # PHB concealment
+                ))
+                current_event_id += 1
 
     # If hit, roll damage
     if hit:

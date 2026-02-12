@@ -27,10 +27,18 @@ WO-FIX-003: Unified AC/modifier computation (PHB p.140)
 - All modifier layers (conditions, mounted, terrain, cover, feats) applied
 - Matches attack_resolver.py's resolve_attack() modifier discipline
 
+WO-048 INTEGRATION:
+- Damage Reduction applied per-attack after critical multiplier (PHB p.291)
+
+WO-049 INTEGRATION:
+- Concealment miss chance checked after hit, before damage (PHB p.152)
+- d100 roll consumed only when hit=True and miss_chance > 0
+
 RNG CONSUMPTION ORDER (deterministic):
 1. Attack roll (d20)
 2. IF threat: Confirmation roll (d20)
-3. IF hit: Damage roll (XdY)
+3. IF hit AND miss_chance > 0: Miss chance roll (d100)
+4. IF hit: Damage roll (XdY)
 
 All state mutations are event-driven only.
 """
@@ -122,6 +130,7 @@ def resolve_single_attack_with_critical(
     cover_type: str = "none",
     cover_ac_bonus: int = 0,
     dr_amount: int = 0,
+    miss_chance_percent: int = 0,
 ) -> Tuple[List[Event], int]:
     """
     Resolve a single attack with critical hit logic.
@@ -132,7 +141,8 @@ def resolve_single_attack_with_critical(
     RNG consumption order:
     1. Attack roll (d20)
     2. IF threat (d20 >= weapon.critical_range): Confirmation roll (d20)
-    3. IF hit: Damage roll (XdY)
+    3. IF hit AND miss_chance > 0: Miss chance roll (d100) (WO-049)
+    4. IF hit: Damage roll (XdY)
 
     Args:
         attacker_id: Attacker entity ID
@@ -157,6 +167,7 @@ def resolve_single_attack_with_critical(
         cover_type: CP-19 cover type string (for audit trail)
         cover_ac_bonus: CP-19 cover AC bonus (for audit trail)
         dr_amount: WO-048 applicable Damage Reduction amount
+        miss_chance_percent: WO-049 miss chance percentage (0-100)
 
     Returns:
         Tuple of (events, next_event_id, damage_total)
@@ -228,6 +239,29 @@ def resolve_single_attack_with_critical(
         citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical hit rules
     ))
     current_event_id += 1
+
+    # WO-049: Miss chance from concealment (PHB p.152)
+    # Check AFTER hit determination, BEFORE damage roll
+    if hit and miss_chance_percent > 0:
+        from aidm.core.concealment import check_miss_chance
+        miss_chance_d100 = combat_rng.randint(1, 100)
+        if check_miss_chance(miss_chance_percent, miss_chance_d100):
+            hit = False  # Override hit to miss
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concealment_miss",
+                timestamp=timestamp + 0.05,
+                payload={
+                    "attacker_id": attacker_id,
+                    "target_id": target_id,
+                    "attack_index": attack_index,
+                    "miss_chance_percent": miss_chance_percent,
+                    "d100_result": miss_chance_d100,
+                    "original_hit": True,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 152}]  # PHB concealment
+            ))
+            current_event_id += 1
 
     # Step 3: Damage roll (only if hit)
     if hit:
@@ -404,6 +438,10 @@ def resolve_full_attack(
         world_state, intent.target_id, intent.weapon.damage_type,
     )
 
+    # WO-049: Get miss chance from concealment (PHB p.152)
+    from aidm.core.concealment import get_miss_chance
+    miss_chance_percent = get_miss_chance(world_state, intent.target_id)
+
     # Get target AC (base AC + condition modifiers + cover bonus) — WO-FIX-003
     base_ac = target.get(EF.AC, 10)
     target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
@@ -436,6 +474,7 @@ def resolve_full_attack(
             "feat_attack_modifier": feat_attack_modifier,  # WO-034
             "feat_damage_modifier": feat_damage_modifier,  # WO-034
             "dr_amount": dr_amount,  # WO-048
+            "miss_chance_percent": miss_chance_percent,  # WO-049
             "target_base_ac": base_ac,  # WO-FIX-003
             "target_ac": target_ac,  # WO-FIX-003: fully adjusted AC
         },
@@ -479,6 +518,7 @@ def resolve_full_attack(
             cover_type=cover_result.cover_type,
             cover_ac_bonus=cover_result.ac_bonus,
             dr_amount=dr_amount,
+            miss_chance_percent=miss_chance_percent,
         )
 
         events.extend(attack_events)
