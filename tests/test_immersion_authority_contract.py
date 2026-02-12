@@ -49,6 +49,7 @@ _ALLOWED_AIDM_IMPORTS = frozenset({
     # Backend-specific adapter implementations (lazy-loaded)
     "aidm.immersion.whisper_stt_adapter",
     "aidm.immersion.kokoro_tts_adapter",
+    "aidm.immersion.chatterbox_tts_adapter",
     "aidm.immersion.sdxl_image_adapter",
 })
 
