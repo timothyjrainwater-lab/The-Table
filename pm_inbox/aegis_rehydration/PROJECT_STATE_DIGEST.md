@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — Playable CLI + Playtest Infrastructure INTEGRATED. 5353 tests collected, 5330 passed, 7 failed (chatterbox env), 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-13 — WO-ENCOUNTER-01 + WO-OPS-HYGIENE-01 INTEGRATED. 5356 tests collected, 5308 passed, 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -252,8 +252,10 @@ LAST UPDATED: 2026-02-13 — Playable CLI + Playtest Infrastructure INTEGRATED. 
 - **WO-WEBSOCKET-BRIDGE-001**: WebSocket protocol schema (ClientMessage/ServerMessage frozen dataclasses), Starlette ASGI app, ws_bridge handler in `aidm/schemas/ws_protocol.py` + `aidm/server/`. 28 tests.
 
 ### Playable CLI + Playtest Infrastructure (2026-02-13)
-- **play.py**: Terminal combat CLI — keyword parser (attack/cast/move/status/help), IntentBridge resolution, execute_turn wiring, enemy AI, event formatting, transcript autologging to `runtime_logs/`. 1v1 Fighter vs Goblin fixture.
-- **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap), `scripts/record_playtest.py` (result logger to `pm_inbox/playtest_log.jsonl`), `scripts/triage_latest_playtest.py` (structured transcript analysis with GREEN/YELLOW/RED decision).
+- **play.py**: Terminal combat CLI — keyword parser (attack/cast/move/status/help), IntentBridge resolution, execute_turn wiring, enemy AI, event formatting, transcript autologging to `runtime_logs/`. 3v3 party fixture (Fighter/Cleric/Rogue vs 3 Goblins).
+- **WO-ENCOUNTER-01**: Expanded fixture from 1v1 to 3v3 with alternating initiative, unique goblin names, standalone 1v1 test fixtures for unit test isolation.
+- **WO-OPS-HYGIENE-01**: Session bootstrap hardened — play.py process detection, dirty-tree RED warnings for tracked files.
+- **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap + hygiene gate), `scripts/record_playtest.py`, `scripts/triage_latest_playtest.py`.
 - **Bugfix**: `conditions.py` list-format tolerance — `get_condition_modifiers()` guards against list-format conditions from play_loop spell resolver (crash found in human playtest).
 - **55 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression).
 
@@ -261,7 +263,7 @@ LAST UPDATED: 2026-02-13 — Playable CLI + Playtest Infrastructure INTEGRATED. 
 
 ## Test Count
 
-**Total: 5353 tests collected** (5330 passed, 7 failed chatterbox env, 16 skipped hardware-gated)
+**Total: 5356 tests collected** (5308 passed, 16 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -472,7 +474,8 @@ None. All dispatched WOs have completion reports.
 | WO-MOVE-01 | Real movement in play loop | INTEGRATED |
 | WO-SELFTARGET-01 | Self-cast parsing | INTEGRATED |
 | WO-OPS-FOUNDATION-01 | Session bootstrap + playtest logger | INTEGRATED |
-| WO-ENCOUNTER-01 | Expand 1v1 to 3v3 party | NEXT |
+| WO-ENCOUNTER-01 | Expand 1v1 to 3v3 party | INTEGRATED |
+| WO-OPS-HYGIENE-01 | Session bootstrap hardening | INTEGRATED |
 | WO-INITIATIVE-01 | Initiative system in CLI | FUTURE |
 | WO-FULLATTACK-CLI-01 | Full attack action in CLI | FUTURE |
 | WO-SPELLSLOTS-01 | Spell slot tracking | FUTURE |

@@ -15,6 +15,7 @@ into the first message.
 import subprocess
 import sys
 import platform
+import os
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -43,9 +44,33 @@ def git_branch() -> str:
     return out if rc == 0 else "unknown"
 
 
-def git_dirty() -> bool:
+def git_dirty() -> tuple[bool, str]:
+    """Return (is_dirty, porcelain_output)."""
     rc, out, _ = run_cmd(["git", "status", "--porcelain"])
-    return bool(out)
+    return bool(out), out
+
+
+def play_py_running() -> bool:
+    """Check if a play.py process is already running (Windows + Unix)."""
+    try:
+        if platform.system() == "Windows":
+            rc, out, _ = run_cmd(["tasklist", "/FI", "IMAGENAME eq python.exe", "/FO", "CSV"], timeout=10)
+            # Check command lines via wmic for play.py
+            rc2, out2, _ = run_cmd(
+                ["wmic", "process", "where", "name='python.exe'", "get", "CommandLine"],
+                timeout=10,
+            )
+            return "play.py" in out2
+        else:
+            rc, out, _ = run_cmd(["pgrep", "-f", "play.py"], timeout=10)
+            if rc == 0 and out.strip():
+                # Exclude our own PID
+                pids = {int(p) for p in out.strip().split("\n") if p.strip()}
+                pids.discard(os.getpid())
+                return len(pids) > 0
+    except Exception:
+        pass
+    return False
 
 
 def test_collect_count() -> str:
@@ -84,10 +109,12 @@ def test_full_run() -> str:
 
 def main():
     full = "--full" in sys.argv
+    warnings = []
 
     commit = git_commit_hash()
     branch = git_branch()
-    dirty = git_dirty()
+    dirty, dirty_files = git_dirty()
+    play_running = play_py_running()
     py_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
     py_platform = platform.system()
 
@@ -107,6 +134,22 @@ def main():
         print(f"  result:   {result}")
     else:
         print(f"  (use --full to run actual test suite)")
+
+    # --- Warnings ---
+    if play_running:
+        warnings.append("[RED] play.py process detected — kill it before starting session")
+
+    if dirty:
+        tracked = [f for f in dirty_files.split("\n") if f.strip() and not f.strip().startswith("??")]
+        if tracked:
+            warnings.append(f"[RED] Dirty tree — {len(tracked)} tracked file(s) modified:")
+            for f in tracked:
+                warnings.append(f"       {f.strip()}")
+
+    if warnings:
+        print("-" * 55)
+        for w in warnings:
+            print(f"  {w}")
 
     print("=" * 55)
 
