@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "discovery_entry.schema.json",
+  "title": "CanonicalCreatureEntry",
+  "description": "Canonical creature/NPC entry in the World Bundle. Contains the full truth about an entity type. Frozen at world compile time. Box-tier authority. Content-independent — field names and enum values contain no game-system-specific vocabulary. World-specific names appear only in compiled values.",
+
+  "$defs": {
+
+    "CanonicalCreatureEntry": {
+      "title": "CanonicalCreatureEntry",
+      "description": "Complete entity type definition. One entry per distinct creature/NPC type in the world. Compiled by the world compiler, frozen for the campaign lifetime. The Discovery Log reveals subsets of this entry through the knowledge mask.",
+      "type": "object",
+      "required": [
+        "entity_type_id",
+        "schema_version",
+        "display_name",
+        "taxonomy_tags",
+        "size_class",
+        "physical_description",
+        "defense_value",
+        "vitality_range",
+        "provenance"
+      ],
+      "properties": {
+        "entity_type_id": {
+          "type": "string",
+          "pattern": "^creature\\.[a-z][a-z0-9_]*$",
+          "description": "Unique identifier for this entity type. Namespaced with 'creature.' prefix. Lowercase, underscore-separated.",
+          "examples": ["creature.thornback", "creature.glassfang", "creature.ironjaw_matriarch"]
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Schema version of this entry (major.minor)"
+        },
+        "world_id": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 64,
+          "description": "World identity hash — must match world_manifest.json world_id"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "World-authored name for this entity type. Content-independent — authored at compile time."
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Alternative names, titles, regional names. Sorted alphabetically.",
+          "default": []
+        },
+        "taxonomy_tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "description": "World-defined classification tags. Sorted alphabetically. Used for asset pool category resolution.",
+          "examples": [["beast", "reptilian"], ["elemental", "aerial"], ["humanoid", "organized"]]
+        },
+        "size_class": {
+          "type": "string",
+          "enum": ["tiny", "small", "medium", "large", "huge", "gargantuan", "colossal"],
+          "description": "Categorical size classification."
+        },
+        "physical_description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "World-authored appearance description. Frozen at compile time. Drives portrait generation and Spark narration constraints."
+        },
+        "movement_modes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/MovementMode" },
+          "description": "Movement types and relative speed classes. Empty array if stationary.",
+          "default": []
+        },
+        "sense_modes": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Sensory capabilities using world vocabulary. Sorted alphabetically.",
+          "default": [],
+          "examples": [["tremorsense", "keen_smell"], ["darksight", "echolocation"]]
+        },
+        "notable_abilities": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/NotableAbility" },
+          "description": "Abilities with AD-007 Layer B presentation semantics references. Sorted by content_id.",
+          "default": []
+        },
+        "observed_attack_forms": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/AttackForm" },
+          "description": "Attack types with descriptive tags. Sorted by form_tag.",
+          "default": []
+        },
+        "defense_profile": {
+          "$ref": "#/$defs/DefenseProfile",
+          "description": "Categorical defense descriptors for player-facing display."
+        },
+        "defense_value": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Exact numeric defense rating. Box-tier authority. Conditionally exposed per display_policy."
+        },
+        "vitality_range": {
+          "$ref": "#/$defs/IntRange",
+          "description": "Min/max vitality (hit points) range as designed. Box-tier authority. Conditionally exposed per display_policy."
+        },
+        "ability_scores": {
+          "type": "object",
+          "description": "Raw ability score values. Box-tier authority. Keys are world-defined ability names.",
+          "additionalProperties": { "type": "integer" },
+          "default": {}
+        },
+        "save_modifiers": {
+          "type": "object",
+          "description": "Saving throw modifiers. Box-tier authority. Keys are world-defined save categories.",
+          "additionalProperties": { "type": "integer" },
+          "default": {}
+        },
+        "attack_modifiers": {
+          "type": "object",
+          "description": "Attack roll modifiers. Box-tier authority. Keys are attack form tags.",
+          "additionalProperties": { "type": "integer" },
+          "default": {}
+        },
+        "challenge_rating": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Numeric difficulty rating. Box-tier authority. Conditionally exposed per display_policy."
+        },
+        "resistances": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Damage type resistances and immunities. World vocabulary. Sorted alphabetically.",
+          "default": []
+        },
+        "vulnerabilities": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Damage type vulnerabilities. World vocabulary. Sorted alphabetically.",
+          "default": []
+        },
+        "habitat_tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Preferred environments. World vocabulary. Sorted alphabetically.",
+          "default": []
+        },
+        "behavior_summary": {
+          "type": "string",
+          "description": "World-authored behavioral description. Frozen at compile time.",
+          "default": ""
+        },
+        "lore_text": {
+          "type": "string",
+          "description": "Extended world-authored lore passage. Frozen at compile time. Revealed only at studied stage.",
+          "default": ""
+        },
+        "extended_fields": {
+          "type": "object",
+          "description": "World-specific additional fields. Keys are field names, values are arbitrary JSON. Extension mechanism for v2+ fields without schema changes.",
+          "additionalProperties": true,
+          "default": {}
+        },
+        "provenance": {
+          "$ref": "#/$defs/EntryProvenance",
+          "description": "Provenance record for this canonical entry."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "MovementMode": {
+      "title": "MovementMode",
+      "description": "A single movement type with relative speed classification.",
+      "type": "object",
+      "required": ["mode", "speed_class"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Movement type. World vocabulary.",
+          "examples": ["walk", "fly", "swim", "burrow", "climb"]
+        },
+        "speed_class": {
+          "type": "string",
+          "enum": ["very_slow", "slow", "normal", "fast", "very_fast"],
+          "description": "Relative speed classification. Not a numeric value."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "NotableAbility": {
+      "title": "NotableAbility",
+      "description": "A notable ability with AD-007 Layer B presentation semantics reference.",
+      "type": "object",
+      "required": ["content_id"],
+      "properties": {
+        "content_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "AD-007 Layer B content_id. Must have a matching entry in the presentation semantics registry."
+        },
+        "ui_description": {
+          "type": "string",
+          "description": "World-authored short description from the presentation semantics registry. Frozen.",
+          "default": ""
+        },
+        "observation_hint": {
+          "type": "string",
+          "description": "What observing this ability in use looks like. Drives the 'observed_use' field in knowledge events.",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "AttackForm": {
+      "title": "AttackForm",
+      "description": "An attack type with descriptive tags.",
+      "type": "object",
+      "required": ["form_tag", "descriptors"],
+      "properties": {
+        "form_tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Attack form identifier. World vocabulary.",
+          "examples": ["bite", "claw", "tail_sweep", "spine_volley"]
+        },
+        "descriptors": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "description": "Descriptive tags for this attack form. Sorted alphabetically.",
+          "examples": [["close", "piercing"], ["cone", "ranged"]]
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "DefenseProfile": {
+      "title": "DefenseProfile",
+      "description": "Categorical defense descriptors for player-facing display. Never exposes exact numeric values directly.",
+      "type": "object",
+      "required": ["descriptor"],
+      "properties": {
+        "descriptor": {
+          "type": "string",
+          "enum": ["unarmored", "lightly_armored", "moderately_armored", "heavily_armored", "evasive", "incorporeal", "fortified"],
+          "description": "Primary defense characterization."
+        },
+        "notes": {
+          "type": "string",
+          "description": "World-authored defense flavor notes.",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "IntRange": {
+      "title": "IntRange",
+      "description": "An integer range with minimum and maximum values.",
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": {
+          "type": "integer",
+          "description": "Minimum value (inclusive)"
+        },
+        "max": {
+          "type": "integer",
+          "description": "Maximum value (inclusive)"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "EntryProvenance": {
+      "title": "EntryProvenance",
+      "description": "Provenance record for a canonical creature entry.",
+      "type": "object",
+      "required": ["source", "compiler_version"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "const": "world_compiler",
+          "description": "Always 'world_compiler' for compiled entries."
+        },
+        "compiler_version": {
+          "type": "string",
+          "description": "Version of the world compiler that produced this entry."
+        },
+        "seed_used": {
+          "type": "integer",
+          "description": "Deterministic seed used for this entry's generation."
+        },
+        "content_pack_id": {
+          "type": "string",
+          "description": "Content pack that provided the mechanical template."
+        },
+        "compile_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp of compilation."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "description": "Schema for canonical creature/NPC entries in the World Bundle. Each entry represents the full, frozen truth about an entity type. The Discovery Log reveals subsets of this data through the per-player knowledge mask. Content-independent — no game-system-specific vocabulary in field names or enum values."
+}

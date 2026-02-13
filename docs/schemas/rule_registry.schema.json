@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rule_registry.schema.json",
+  "title": "Rule Registry Schema",
+  "description": "Canonical JSON schema for world-authored rule entries in the Frozen World Bundle. Each entry binds a world-flavored rule description to an engine substrate procedure via stable IDs. Content-independent — no game-system-specific vocabulary in field names.",
+
+  "$defs": {
+
+    "RuleRegistry": {
+      "title": "RuleRegistry",
+      "description": "Top-level registry of all world-authored rule entries. Maps content_id → RuleEntry. Sorted by content_id for deterministic serialization.",
+      "type": "object",
+      "required": ["schema_version", "world_id", "entries"],
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Schema version of this registry file (major.minor)"
+        },
+        "world_id": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 64,
+          "description": "World identity hash — must match world_manifest.json world_id"
+        },
+        "compiler_version": {
+          "type": "string",
+          "description": "Version of the world compiler that produced this registry"
+        },
+        "entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of entries (for quick integrity check)"
+        },
+        "entries": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/RuleEntry" },
+          "description": "All rule entries, sorted by content_id"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RuleEntry": {
+      "title": "RuleEntry",
+      "description": "A single world-authored rule binding. References an engine procedure by stable procedure_id. Adds world-flavored text, parameters, and provenance. The engine procedure defines WHAT happens; the rule entry defines HOW it is described in this world.",
+      "type": "object",
+      "required": [
+        "content_id",
+        "procedure_id",
+        "rule_type",
+        "world_name",
+        "parameters",
+        "provenance"
+      ],
+      "properties": {
+        "content_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Content pack identifier (e.g., 'spell.fireball', 'feat.power_attack'). Uses the mechanical_id namespace from canonical_ids.py: domain.canonical_name."
+        },
+        "procedure_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable reference to the engine substrate procedure that resolves this rule (e.g., 'proc.ranged_burst_damage', 'proc.melee_attack'). The procedure exists in the engine; the compiler does NOT define it."
+        },
+        "rule_type": {
+          "type": "string",
+          "enum": [
+            "ability",
+            "spell",
+            "feat",
+            "class_feature",
+            "skill",
+            "combat_maneuver",
+            "condition",
+            "action_type",
+            "item_property",
+            "creature_trait"
+          ],
+          "description": "Classification of this rule within the content taxonomy"
+        },
+        "world_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "World-flavored display name (from lexicon). Must match lexicon.json entry for this content_id."
+        },
+        "tier": {
+          "type": "string",
+          "enum": ["tier_1", "tier_2", "tier_3", "stub"],
+          "description": "Implementation tier. tier_1 = fully resolved by engine. tier_2 = schema defined, resolution deferred. tier_3 = placeholder slot. stub = explicitly absent with marker.",
+          "default": "tier_1"
+        },
+        "parameters": {
+          "$ref": "#/$defs/RuleParameters",
+          "description": "Mechanical parameters authored by the content pack and bound by the world compiler. These parameterize the engine procedure — the compiler does NOT invent mechanics."
+        },
+        "text_slots": {
+          "$ref": "#/$defs/RuleTextSlots",
+          "description": "World-authored descriptive text for this rule. Frozen at compile time."
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Classification tags for indexing and search (e.g., 'fire', 'area_effect', 'melee', 'defensive')",
+          "default": []
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["prerequisite_type", "ref"],
+            "properties": {
+              "prerequisite_type": {
+                "type": "string",
+                "enum": ["feat", "ability_score", "class_level", "skill_rank", "other"],
+                "description": "Type of prerequisite"
+              },
+              "ref": {
+                "type": "string",
+                "description": "Reference to the prerequisite (content_id for feat, 'str:13' for ability score, etc.)"
+              },
+              "display": {
+                "type": "string",
+                "description": "World-flavored display text for this prerequisite"
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "Prerequisites for this rule, if applicable. Empty array if none.",
+          "default": []
+        },
+        "supersedes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "content_ids of rules this entry supersedes (e.g., improved version of a feat). Empty if none.",
+          "default": []
+        },
+        "provenance": {
+          "$ref": "#/$defs/RuleProvenance",
+          "description": "Provenance record for this entry"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RuleParameters": {
+      "title": "RuleParameters",
+      "description": "Mechanical parameters that configure the engine procedure. These come from the content pack; the compiler binds them to the world entry. The schema is deliberately flexible — different rule_types have different parameter shapes.",
+      "type": "object",
+      "properties": {
+        "range_ft": {
+          "type": ["integer", "null"],
+          "description": "Range in feet, if applicable"
+        },
+        "area_shape": {
+          "type": ["string", "null"],
+          "enum": ["burst", "cone", "line", "cylinder", "sphere", "emanation", "spread", null],
+          "description": "Area of effect shape, if applicable"
+        },
+        "area_radius_ft": {
+          "type": ["integer", "null"],
+          "description": "Area radius in feet, if applicable"
+        },
+        "damage_dice": {
+          "type": ["string", "null"],
+          "description": "Damage dice expression (e.g., '6d6', '1d8+3')"
+        },
+        "damage_type": {
+          "type": ["string", "null"],
+          "description": "Damage type (e.g., 'fire', 'slashing', 'force')"
+        },
+        "save_type": {
+          "type": ["string", "null"],
+          "enum": ["fortitude", "reflex", "will", null],
+          "description": "Save type required, if applicable"
+        },
+        "save_effect": {
+          "type": ["string", "null"],
+          "enum": ["half", "negates", "partial", "none", null],
+          "description": "Effect on successful save"
+        },
+        "duration_unit": {
+          "type": ["string", "null"],
+          "enum": ["rounds", "minutes", "hours", "permanent", "instantaneous", "concentration", null],
+          "description": "Duration measurement unit"
+        },
+        "duration_value": {
+          "type": ["integer", "null"],
+          "description": "Duration value (e.g., 3 for '3 rounds')"
+        },
+        "action_cost": {
+          "type": ["string", "null"],
+          "enum": ["standard", "move", "full_round", "free", "swift", "immediate", null],
+          "description": "Action economy cost"
+        },
+        "target_type": {
+          "type": ["string", "null"],
+          "enum": ["single_creature", "multiple_creatures", "area", "self", "touch", "ray", "object", null],
+          "description": "Targeting mode"
+        },
+        "custom": {
+          "type": "object",
+          "description": "Rule-type-specific parameters not covered by the standard fields. Keys are parameter names, values are primitives or arrays.",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RuleTextSlots": {
+      "title": "RuleTextSlots",
+      "description": "World-authored descriptive text for this rule. All text is generated at compile time and frozen. No copyrighted content. No coaching or tactical advice.",
+      "type": "object",
+      "properties": {
+        "rulebook_description": {
+          "type": "string",
+          "description": "Full rulebook entry text (generated from Layer A + Layer B). This is what the player sees when they 'open the rulebook.'"
+        },
+        "short_description": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "One-line summary for indices and tooltips"
+        },
+        "flavor_text": {
+          "type": "string",
+          "description": "World-flavored lore text (optional, frozen at compile)"
+        },
+        "mechanical_summary": {
+          "type": "string",
+          "description": "Concise mechanical description using world vocabulary (e.g., 'Launches a bolt of searing energy that detonates in a 20-foot burst')"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RuleProvenance": {
+      "title": "RuleProvenance",
+      "description": "Provenance record for a world-authored rule entry. Traces the entry back to compile inputs.",
+      "type": "object",
+      "required": ["source", "compiler_version", "seed_used"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "const": "world_compiler",
+          "description": "Always 'world_compiler' for compiled entries"
+        },
+        "compiler_version": {
+          "type": "string",
+          "description": "Version of the compiler that generated this entry"
+        },
+        "seed_used": {
+          "type": "integer",
+          "description": "The derived seed used for this entry's generation (from the rulebook_seed derivation)"
+        },
+        "content_pack_id": {
+          "type": "string",
+          "description": "Content pack that provided the mechanical template"
+        },
+        "template_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of content pack templates used to generate this entry",
+          "default": []
+        },
+        "llm_output_hash": {
+          "type": ["string", "null"],
+          "description": "SHA-256 hash of the LLM output used to generate text slots (for determinism verification). Null if no LLM was used.",
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "description": "This schema defines the Rule Registry: world-authored rule entries that bind engine procedures to world-flavored names, parameters, and descriptions. Each entry references a stable procedure_id in the engine substrate. The compiler generates text and tags; it does NOT define or modify engine procedures."
+}

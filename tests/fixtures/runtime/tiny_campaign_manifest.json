@@ -1,0 +1,29 @@
+{
+  "campaign_id": "test-tiny-campaign-001",
+  "config_schema_version": "1.0",
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "engine_version": "0.1.0",
+  "master_seed": 42,
+  "paths": {
+    "assets": "assets",
+    "events": "events.jsonl",
+    "intents": "intents.jsonl",
+    "manifest": "manifest.json",
+    "prep": "prep",
+    "start_state": "start_state.json"
+  },
+  "session_zero": {
+    "alignment_mode": "strict",
+    "amendments": [],
+    "config_schema_version": "1.0",
+    "creative_boundaries": {},
+    "doctrine_enforcement": true,
+    "fail_open_to_raw": true,
+    "optional_rules": [],
+    "preparation_depth": "light",
+    "ruleset_id": "RAW_3.5",
+    "visibility_prefs": {}
+  },
+  "title": "Tiny Test Campaign",
+  "tool_versions": {}
+}

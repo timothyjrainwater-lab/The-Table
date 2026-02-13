@@ -1,0 +1,185 @@
+According to a document from **2026-02-11**, the repo’s canonical state snapshot is **`T1_PROJECT_STATE_DIGEST.md`** (3730 tests, A10 complete), and it supersedes older planning drafts for “what’s built vs not built.”
+
+# AIDM Research Gap Register
+
+## Section 1: Critical Path Blockers
+
+### RG-001 — Canonical ID generation & injection policy (determinism-safe)
+
+* **Question:** What is the project’s canonical ID schema (format, scope, uniqueness boundaries, lifecycle) and how are IDs injected end-to-end without violating determinism (no runtime UUID generation)?
+* **Source:** Boundary Law **BL-017** explicitly bans `uuid.uuid4()` default factories; IDs must be injected by caller, implying an unresolved project-wide ID policy surface.
+* **Blocks:** Any future schema expansions / new entity types / cross-bundle references that require stable identifiers; also reduces risk in replay determinism and bundle validation.
+* **Research Type:** **Decision + Design**
+* **Recommended Approach:** Inventory every schema that includes `*_id` fields, map where IDs originate, then define a single “ID minting surface” policy (who mints, when, persistence boundary). Validate against replay constraints and serialization stability.
+* **Estimated Scope:** **Medium (days)**
+
+### RG-002 — Voice roster creation (legal reference clips + archetype recipes)
+
+* **Question:** What legally-usable reference audio sources and post-processing recipes reliably produce distinct fantasy voices for Chatterbox voice cloning, using the existing `VoicePersona` parameter ranges?
+* **Source:** WO-051 is explicitly dispatched to produce a “Voice Design Guide,” including sourcing strategy, archetype recipes, and DSP transforms; current issue: “every character sounds like the same default voice.”
+* **Blocks:** Any credible “voice-first DM” experience; downstream Lens voice resolver mapping quality; perceived product quality.
+* **Research Type:** **Literature + Community + Prototype**
+* **Recommended Approach:** (1) Shortlist 3–5 legal corpora (public domain + permissive datasets), (2) define clip quality rubric (noise floor, length, mono/stereo), (3) prototype 10–15 starter voices and score distinctness + stability.
+* **Estimated Scope:** **Large (weeks)**
+
+### RG-003 — Lens voice resolver mapping contract (description → VoicePersona, stable across session)
+
+* **Question:** What is the precise mapping from “voice description terms” to numeric `VoicePersona` fields, and how is reference audio chosen deterministically from an available roster?
+* **Source:** WO-052 defines a pure resolver + cache (`VoiceRoster`) and explicitly depends on WO-051’s archetype recipes; also constrains selection to string matching (no embeddings).
+* **Blocks:** Implementing consistent per-character voices; any persona system that expects stable voice identity.
+* **Research Type:** **Decision + Prototype**
+* **Recommended Approach:** Define a controlled vocabulary for descriptors (e.g., “gravelly,” “authoritative,” “spry”) and map each to bounded parameter deltas; validate with listening tests across 10+ characters; ensure session-scoped cache rules prevent drift.
+* **Estimated Scope:** **Medium (days)**
+
+### RG-004 — “Structured emission” and “truth packet interface” synthesis (Spark narration correctness surface)
+
+* **Question:** What is the final, validated spec for: (a) “structured emission” (formerly “Scene Fact Pack”), and (b) the “truth packet interface / allowed output space / tone control” constraints for narration?
+* **Source:** The Plan v1 draft calls **RQ-SPARK-001** and **RQ-NARR-001** “NOT DELIVERED,” listing missing artifacts: “Scene Fact Pack schema… truth packet interface… tone control.”
+* **Blocks:** Auditable narration safety; stable Spark contracts; consistent “show your work” outputs.
+* **Research Type:** **Design + Synthesis**
+* **Recommended Approach:** Gather the existing partial findings (3 sub-dispatches each, per your context) and produce a single consolidated “Spark Output Contract” doc: schemas, validation rules, and negative examples. Verify compatibility with current SessionOrchestrator flow (Box → NarrativeBrief → persona → narration).
+* **Estimated Scope:** **Medium (days)**
+
+### RG-005 — Governance / role authority contradiction (who is PM?)
+
+* **Question:** Which document is authoritative for governance roles (PM/PO), and what is the process for reconciling contradictions?
+* **Source:** `PROJECT_STATE_DIGEST.md` declares: **PO = Thunder**, **PM = Opus**, “Full PM authority delegated… 2026-02-11.” This directly conflicts with your instruction that the PM role is the assistant (Aegis).
+* **Blocks:** Correct dispatch authority, audit expectations, and workflow integrity.
+* **Research Type:** **Decision**
+* **Recommended Approach:** Treat this as a governance hotfix: decide the single source of truth for role assignment, then update the PSD + standing ops docs accordingly, with an explicit effective date and non-retroactive interpretation.
+* **Estimated Scope:** **Small (hours)**
+
+---
+
+## Section 2: Design Decisions Needed
+
+### DD-01 — ID schema: human-readable vs opaque, and where minting lives
+
+* **Tension:**
+
+  * *Human-readable IDs* aid debugging and manual authoring, but risk drift, collisions, and normalization edge-cases.
+  * *Opaque IDs* (monotonic ints / hash-based) are safer for determinism but harder to debug.
+* **Why this matters now:** BL-017 bans auto UUID generation, implying you need a deterministic, reproducible ID minting path.
+* **Decision output:** Single-page spec: formats, minting authority, persistence boundary, collision policy, and “rename/deletion” semantics.
+
+### DD-02 — Voice descriptor vocabulary and resolution strategy
+
+* **Tension:**
+
+  * Free-form descriptors are expressive but hard to map deterministically.
+  * Controlled vocab is rigid but testable and stable.
+* **Constraint:** Resolver must be pure, session-scoped cache only, and reference audio selection must be string matching (no embeddings).
+
+### DD-03 — “Structured emission” canonical artifact naming: Scene Fact Pack vs NarrativeBrief vs Truth Packet
+
+* **Tension:** Prior docs refer to “Scene Fact Pack,” newer state shows **NarrativeBrief** in the pipeline. Without a synthesis, teams will implement incompatible contracts.
+
+---
+
+## Section 3: Empirical Unknowns (Benchmarks / Measurements)
+
+### EU-01 — Voice distinctness + stability benchmark
+
+* **What to measure:** For each archetype recipe: distinctness (ABX listening tests), stability across different content, sensitivity to clip length/noise, and GPU vs CPU latency tiers.
+* **Why empirical:** WO-051 explicitly highlights clip length constraints for Chatterbox Turbo vs Original; quality will depend on actual audio conditions.
+
+### EU-02 — Hardware-gated test behavior and “skipped” surface area
+
+* **What to measure:** Which features degrade when GPU-gated tests are skipped; does the “fallback UX” remain coherent?
+* **Source:** PSD references hardware-gated skips (15 skipped).
+
+### EU-03 — Determinism envelope across orchestration (end-to-end turn cycle)
+
+* **What to measure:** Replay stability through SessionOrchestrator → narration fallback paths; confirm that error recovery doesn’t introduce nondeterministic branching.
+* **Source:** Orchestrator flow explicitly includes fallbacks (STT failure → text fallback; Spark failure → template narration).
+
+---
+
+## Section 4: Knowledge Gaps (Literature / Community)
+
+### KG-01 — Voice cloning “golden settings” for character acting
+
+* **What’s missing:** Practical community-tested presets for fantasy character voices (pitch/formant/exaggeration workflows), and what *not* to do to avoid uncanny artifacts.
+* **Source:** WO-051 explicitly requires community survey (RVC Discord, voice acting forums, TTRPG voice synthesis projects).
+
+### KG-02 — Best practices for selecting 5–15s reference clips (content vs timbre)
+
+* **What’s missing:** Whether lexical content matters vs pure vocal characteristics; and what scripts produce best cloning stability.
+* **Source:** Called out directly in WO-051 deliverables (“Does content matter?”).
+
+---
+
+## Section 5: Implicit Assumptions (hand-waves / undefined integration points)
+
+### IA-01 — “Single source of truth” vs “trimmed history” risk
+
+* **Assumption:** PSD trimming reduces context weight without losing operational essentials. But research gaps and governance contradictions can be lost when history is compressed.
+* **Source:** PSD states the CP/WO history is trimmed and instructs readers to rely on “Locked Systems” summaries. This increases the importance of explicit synthesis docs for partially delivered research tracks.
+
+### IA-02 — VoicePersona field semantics across backends
+
+* **Assumption:** `reference_audio`, `pitch`, `speed`, `exaggeration` are sufficient to express required character variety across Chatterbox and Kokoro tiers.
+* **Source:** Schema defines these fields and validation ranges, but does not define perceptual meaning or backend-specific interpretation beyond comments.
+
+### IA-03 — Keyword parser vs intent contracts boundary
+
+* **Assumption:** A keyword parser (“NOT NLU”) is sufficient as a fallback input path while preserving “structured intent” invariants.
+* **Source:** PSD describes the parser and the intent bridge pipeline; the correctness boundary (what is allowed to be inferred) isn’t spelled out as a research-backed policy in the provided snippets.
+
+---
+
+## Section 6: Research Synthesis Opportunities (RQ-SPARK-001, RQ-NARR-001)
+
+A proper synthesis document (one per track, plus a combined “Narration Contract” appendix) should answer:
+
+1. **Canonical artifact names + responsibilities**
+
+   * What is the authoritative “facts-in / narration-out” bundle? (NarrativeBrief vs Scene Fact Pack vs Truth Packet)
+2. **Schema + validation**
+
+   * Exact JSON schema(s), allowed enums, required fields, ordering rules, and failure behavior.
+3. **Allowed output space**
+
+   * What narration may mention vs must never mention (IDs, hidden stats, etc.), and tone-control parameterization.
+4. **Adversarial examples**
+
+   * Examples that look plausible but violate determinism doctrine or leak hidden mechanics; how Grammar Shield / kill switches respond.
+5. **Compatibility with orchestrator**
+
+   * How the synthesis plugs into: Box events → NarrativeBrief → persona prompt builder → narration → fallback templates.
+
+---
+
+## Section 7: Dependency Map
+
+| Item                                       | Depends On                                            | Unblocks                                                 |
+| ------------------------------------------ | ----------------------------------------------------- | -------------------------------------------------------- |
+| **RG-001 Canonical ID policy**             | BL-017 determinism constraints                        | Safer schema growth, bundle validation stability         |
+| **RG-002 Voice roster research (WO-051)**  | VoicePersona ranges in schema                         | Distinct character voices; credible immersion            |
+| **RG-003 Voice resolver mapping (WO-052)** | **RG-002** archetype recipes                          | Deterministic voice assignment + cache semantics         |
+| **RG-004 Spark/Narration synthesis**       | Existing partial sub-findings (not in provided files) | Stable narration contracts, validation, prompt structure |
+| **RG-005 Governance reconciliation**       | PSD vs current operating protocol                     | Correct dispatch authority; avoids process deadlock      |
+
+**Optimal research execution order (highest risk first):** RG-005 → RG-001 → RG-004 → RG-002 → RG-003.
+
+---
+
+## Section 8: Top 10 Highest-Impact Research Questions (ranked)
+
+1. **RG-005 Governance contradiction resolution** (prevents workflow corruption).
+2. **RG-001 Canonical ID schema & minting/injection policy** (determinism + schema safety).
+3. **RG-004 Structured emission / truth packet / allowed output space synthesis** (narration correctness).
+4. **RG-002 Voice roster research (WO-051)** (immersion credibility).
+5. **RG-003 Voice resolver mapping (WO-052)** (stability + determinism in voices).
+6. **EU-01 Voice distinctness/stability benchmark design** (turn “recipes” into measurable quality).
+7. **IA-02 Backend semantics of VoicePersona fields** (prevents “parameter does nothing” surprises).
+8. **EU-03 End-to-end determinism across fallback paths** (avoid nondeterministic recovery).
+9. **KG-01 Community “golden settings” for voice cloning** (fast path to quality).
+10. **IA-01 PSD trimming risk mitigation strategy** (ensures gaps aren’t erased by compression).
+
+---
+
+### Notable contradiction flagged (docs vs prompt context)
+
+Your prompt lists Phase 2/3 items as “not built yet,” but `PROJECT_STATE_DIGEST.md` states Phase 2 Batch 1/2 and Phase 3 Batch 1/2 are **INTEGRATED** and A10 is complete as of **2026-02-11**.
+Treat the PSD as authoritative for build status, and treat older “plan v1” statements about “NOT DELIVERED” research as candidates for synthesis work unless superseded by newer execution-plan docs (not included in the provided tier list).

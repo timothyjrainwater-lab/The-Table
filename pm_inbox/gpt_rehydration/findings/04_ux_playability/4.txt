@@ -1,0 +1,393 @@
+# Execution Plan — Derived Strictly from Gap Register
+
+This plan converts GAP-001 → GAP-007 into a prioritized, dependency-aware remediation sequence. No new architecture is introduced.
+
+---
+
+# 1) Ranked Top 10 Fixes (Strict Order + Dependencies)
+
+## 1. Fix Documentation Canon & Drift (GAP-001) — **BLOCKER**
+
+Everything else depends on a stable “source of truth.”
+
+## 2. Re-baseline Test Governance Policy (GAP-002)
+
+Depends on #1 (needs updated doctrine authority).
+
+## 3. Define Determinism Allowlist for Nondeterministic Fields (GAP-003)
+
+Depends on #1 (canonical replay contract must be clarified first).
+
+## 4. Produce Operator Quickstart + Failure Matrix (GAP-004)
+
+Depends on #1 (must reflect current system truth).
+
+## 5. Define Narrative Determinism Policy (GAP-006)
+
+Depends on #3 (must align with replay boundaries).
+
+## 6. Publish Replay Semantics Contract (GAP-007)
+
+Depends on #3 and #5.
+
+## 7. Formalize Voice Roster as Product Dependency (GAP-005)
+
+Independent of replay work; depends only on documentation clarity (#1).
+
+## 8. Validate Spark Provider Capability Claims vs Reality (derived from GAP-006)
+
+Depends on #5 (clarify determinism expectations first).
+
+## 9. Add Governance CI Checks for Runtime Drift (derived from GAP-002)
+
+Depends on #2.
+
+## 10. Add Drift Detection Test for Docs vs Implementation Snapshot
+
+Depends on #1.
+
+---
+
+# 2) Full Remediation Work Packets (Top 5)
+
+---
+
+## FIX-01 — Documentation Canonicalization (GAP-001)
+
+### Objective
+
+Establish a single authoritative “Current System Snapshot” and explicitly deprecate conflicting legacy documents.
+
+### Scope Boundaries
+
+**IN:**
+
+* PSD
+* Coherence Doctrine
+* Vertical Slice
+* README
+* Execution Plan files
+
+**OUT:**
+
+* Code refactors
+* Feature changes
+
+### Artifacts Touched
+
+* `docs/T1_PROJECT_STATE_DIGEST.md`
+* `docs/T1_PROJECT_COHERENCE_DOCTRINE.md`
+* `docs/T2_VERTICAL_SLICE_V1.md`
+* `docs/T1_README.md`
+* New: `docs/CURRENT_CANON.md`
+* New: `docs/DOC_DRIFT_LEDGER.md`
+
+### Step Plan
+
+1. Declare PSD as primary state snapshot.
+2. Create `CURRENT_CANON.md` referencing canonical docs.
+3. Add deprecation banner to Vertical Slice if superseded.
+4. Add scope clarification to Coherence Doctrine.
+5. Update README to reference CURRENT_CANON.
+6. Create DOC_DRIFT_LEDGER documenting resolved contradictions.
+7. Add date/version stamps.
+8. Add “Document Hierarchy” section to README.
+
+### Acceptance Criteria
+
+* No contradictory scope claims across canon docs.
+* Each superseded doc labeled clearly.
+* Onboarding checklist references CURRENT_CANON.
+
+### New Validations
+
+* `test_doc_canon_consistency.py`
+
+  * Ensures CURRENT_CANON references PSD.
+  * Ensures deprecated docs contain “SUPERSEDED” banner.
+
+### Rollback Plan
+
+Revert only doc commits; no code impact.
+
+### Stop Conditions
+
+If PSD itself is inaccurate relative to code → escalate for code audit.
+
+---
+
+## FIX-02 — Test Runtime Governance Re-baseline (GAP-002)
+
+### Objective
+
+Reconcile test runtime gate with actual suite size and enforce tiered test policy.
+
+### Scope Boundaries
+
+**IN:**
+
+* Governance docs
+* CI config
+* Test categorization
+
+**OUT:**
+
+* Removing existing tests
+
+### Artifacts Touched
+
+* `T1_PROJECT_COHERENCE_DOCTRINE.md`
+* CI config (UNCITED — needs repo inspection)
+* `tests/` markers
+* New: `docs/TEST_POLICY.md`
+
+### Step Plan
+
+1. Measure suite runtime on baseline hardware.
+2. Define “fast suite” (<10s target).
+3. Define “full suite” tier.
+4. Update doctrine runtime gate.
+5. Mark tests with tier markers.
+6. Update CI to run fast tier by default.
+7. Document policy in TEST_POLICY.md.
+
+### Acceptance Criteria
+
+* Fast suite runs within declared limit.
+* Doctrine runtime limit matches reality.
+* CI enforces tier separation.
+
+### New Validations
+
+* `test_fast_suite_runtime_guard.py`
+
+  * Fails if fast tier exceeds threshold.
+
+### Rollback Plan
+
+Revert doctrine update; remove CI tier separation.
+
+### Stop Conditions
+
+If runtime continues growing unbounded → escalate performance audit.
+
+---
+
+## FIX-03 — Determinism Allowlist Enforcement (GAP-003)
+
+### Objective
+
+Formalize and enforce allowed nondeterministic fields in event payloads.
+
+### Scope Boundaries
+
+**IN:**
+
+* Event contracts
+* Replay tests
+* Documentation
+
+**OUT:**
+
+* Changing replay architecture
+
+### Artifacts Touched
+
+* `aidm/core/events/*`
+* Replay tests (UNCITED — requires inspection)
+* New: `docs/DETERMINISM_ALLOWLIST.md`
+
+### Step Plan
+
+1. Inventory nondeterministic fields.
+2. Create allowlist doc.
+3. Add central validator enforcing allowlist.
+4. Update replay equality tests to reference allowlist.
+5. Add negative test for new nondeterministic field introduction.
+6. Update PSD to reference policy.
+
+### Acceptance Criteria
+
+* Only allowlisted nondeterministic fields exist.
+* Replay tests pass.
+* New nondeterministic field triggers failure.
+
+### New Tests
+
+* `test_no_unapproved_nondeterminism.py`
+
+  * Scans event schemas.
+* `test_replay_payload_integrity.py`
+
+  * Verifies only allowlisted differences.
+
+### Rollback Plan
+
+Remove validator; revert to previous replay behavior.
+
+### Stop Conditions
+
+If nondeterministic fields are found influencing state hashes.
+
+---
+
+## FIX-04 — Operator Quickstart + Failure Recovery Matrix (GAP-004)
+
+### Objective
+
+Make system runnable and debuggable by a real user on a clean machine.
+
+### Scope Boundaries
+
+**IN:**
+
+* Setup steps
+* Environment dependencies
+* Failure fallback behaviors
+* CLI entrypoint documentation
+
+**OUT:**
+
+* UI redesign
+* Architecture changes
+
+### Artifacts Touched
+
+* New: `docs/OPERATOR_QUICKSTART.md`
+* New: `docs/FAILURE_MATRIX.md`
+* Runtime entrypoint docs (UNCITED path)
+
+### Step Plan
+
+1. Document dependency installation.
+2. Document model acquisition.
+3. Document launch command.
+4. Provide example session.
+5. Define expected outputs/log lines.
+6. Create failure matrix table (STT/Spark/TTS/Image).
+7. Document replay validation.
+8. Add troubleshooting section.
+
+### Acceptance Criteria
+
+* Clean environment can run example session.
+* Failures degrade per matrix spec.
+* Replay verification documented.
+
+### New Validations
+
+* `test_smoke_session_run.py`
+
+  * Executes scripted micro-scenario.
+* `test_failure_fallback_paths.py`
+
+  * Simulates missing backend.
+
+### Rollback Plan
+
+Docs revert only.
+
+### Stop Conditions
+
+If smoke test fails on clean machine.
+
+---
+
+## FIX-05 — Narrative Determinism Policy (GAP-006)
+
+### Objective
+
+Define what must remain identical across replays and what may vary.
+
+### Scope Boundaries
+
+**IN:**
+
+* Narration behavior
+* Replay semantics documentation
+* Spark provider seed usage policy
+
+**OUT:**
+
+* Forcing narrative determinism if not desired
+
+### Artifacts Touched
+
+* New: `docs/NARRATIVE_DETERMINISM_POLICY.md`
+* `T2_SPARK_PROVIDER_CONTRACT.md`
+* PSD replay section
+
+### Step Plan
+
+1. Define mechanical determinism guarantee.
+2. Define narration variability allowance.
+3. Decide whether narration is cached.
+4. Define replay messaging.
+5. Update provider contract clarifications.
+6. Add replay demo example.
+7. Add policy cross-reference in README.
+
+### Acceptance Criteria
+
+* Policy document exists.
+* Replay demo shows identical mechanics.
+* Narrative variance is documented and expected.
+
+### New Tests
+
+* `test_mechanics_replay_strict_equality.py`
+* `test_narrative_variance_allowed.py`
+
+### Rollback Plan
+
+Remove policy doc; revert provider clarifications.
+
+### Stop Conditions
+
+If stakeholders disagree on narrative caching vs regeneration.
+
+---
+
+# 3) Single Highest-Risk Unknown
+
+## Risk
+
+**PSD accuracy vs actual repository state.**
+
+If PSD claims (Phase 3 complete, orchestrator working, 3730 tests) are inaccurate or outdated, the entire remediation order may be misaligned.
+
+## Fastest Resolution Method
+
+Immediately inspect:
+
+1. Repo tree:
+
+   * `aidm/runtime/`
+   * `aidm/spark/`
+   * `aidm/immersion/`
+2. Run:
+
+   * Full test suite with timing
+   * One end-to-end session run
+3. Verify:
+
+   * Event replay hash stability
+   * Presence of STT/TTS integration
+   * Existence of runner entrypoint
+
+If PSD deviates from code reality → pause plan and re-anchor to code.
+
+---
+
+# Summary
+
+This execution plan:
+
+* Fixes governance drift first.
+* Locks determinism contract.
+* Makes the system runnable by a real operator.
+* Clarifies narrative replay expectations.
+* Treats voice roster as product dependency.
+
+No architectural changes introduced.
+Everything is merge-ready and incremental.

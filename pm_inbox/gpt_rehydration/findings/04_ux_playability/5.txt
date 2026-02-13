@@ -1,0 +1,439 @@
+# AIDM Operator Runbook
+
+**Audience:** On-call operator at 2am who did not build the system
+**Goal:** Start, verify, diagnose, and recover AIDM safely
+
+---
+
+# 1) Setup Checklist (Reproducible, Pinned Dependencies)
+
+## 1.1 System Requirements
+
+**Hardware**
+
+* GPU: RTX 3080 Ti (12GB VRAM) or equivalent
+* RAM: ≥ 32GB recommended
+* Disk: ≥ 50GB free (models + logs)
+* OS: Ubuntu 22.04 LTS (recommended) or WSL2 Ubuntu
+
+**Critical Constraint**
+
+* Spark (LLM) and SDXL (image gen) cannot coexist in VRAM simultaneously.
+
+---
+
+## 1.2 Environment Preparation
+
+### A. Clone Repo
+
+```bash
+git clone <repo_url> aidm
+cd aidm
+```
+
+### B. Python Version (Pinned)
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+```
+
+Confirm:
+
+```bash
+python --version
+```
+
+Must be **3.11.x**
+
+---
+
+### C. Install Dependencies (Pinned)
+
+```bash
+pip install -r requirements.txt
+```
+
+If lockfile exists:
+
+```bash
+pip install -r requirements.lock.txt
+```
+
+Verify:
+
+```bash
+pip freeze > installed_snapshot.txt
+```
+
+Store snapshot for debugging drift.
+
+---
+
+### D. Model Installation
+
+**LLM (Spark)**
+
+* Place Qwen3 8B/14B GGUF in:
+
+```
+models/llm/
+```
+
+**Image Model (SDXL Lightning)**
+
+```
+models/sdxl/
+```
+
+**Whisper (STT)**
+Installed automatically via faster-whisper.
+
+**TTS (Chatterbox / Kokoro)**
+Ensure models are in:
+
+```
+models/tts/
+```
+
+---
+
+### E. Verify GPU
+
+```bash
+nvidia-smi
+```
+
+Confirm:
+
+* Driver loaded
+* VRAM available
+* No zombie processes holding VRAM
+
+---
+
+# 2) How To Run (Happy Path)
+
+## 2.1 Run Smoke Session
+
+```bash
+python -m aidm.runtime.runner --scenario micro
+```
+
+Expected:
+
+1. Session boot log
+2. Model load log
+3. Turn loop begins
+4. Narration generated
+5. Replay verification passes
+
+Final line must include:
+
+```
+REPLAY_HASH_MATCH: TRUE
+```
+
+---
+
+## 2.2 Full Interactive Session
+
+```bash
+python -m aidm.runtime.runner
+```
+
+Flow:
+
+1. Input (voice or text)
+2. Intent resolution
+3. Box executes turn
+4. NarrativeBrief assembled
+5. Spark narration
+6. TTS output
+7. Event logged
+
+---
+
+## 2.3 Replay Verification
+
+```bash
+python -m aidm.runtime.replay_runner --log session_logs/latest.jsonl
+```
+
+Expected:
+
+```
+STATE_HASH_MATCH: TRUE
+```
+
+---
+
+# 3) Triage Tree
+
+## Symptom A: System Fails To Start
+
+**Check:**
+
+```bash
+python --version
+pip list
+nvidia-smi
+```
+
+If import errors:
+
+* Missing dependency → reinstall via requirements
+
+If CUDA errors:
+
+* Driver mismatch
+* Wrong torch build
+
+---
+
+## Symptom B: Spark Fails / No Narration
+
+Check logs for:
+
+```
+SPARK_PROVIDER_LOAD_FAIL
+SPARK_JSON_VALIDATION_ERROR
+GRAMMAR_SHIELD_REJECT
+```
+
+Actions:
+
+1. Verify model file exists in models/llm/
+2. Check VRAM:
+
+   ```
+   nvidia-smi
+   ```
+3. If JSON validation failure:
+
+   * Enable fallback template mode:
+
+   ```
+   --force-template-narration
+   ```
+
+---
+
+## Symptom C: Replay Hash Mismatch
+
+Check:
+
+```
+REPLAY_HASH_MATCH: FALSE
+```
+
+Steps:
+
+1. Confirm RNG seed logged at session start.
+2. Inspect for nondeterministic fields in event payload.
+3. Re-run with:
+
+   ```
+   --determinism-strict
+   ```
+
+If mismatch persists:
+
+* Escalate (determinism violation).
+
+---
+
+## Symptom D: TTS Silent
+
+Check for:
+
+```
+TTS_BACKEND_LOAD_FAIL
+VOICE_REFERENCE_NOT_FOUND
+```
+
+Actions:
+
+1. Verify reference clips present.
+2. Try fallback:
+
+   ```
+   --tts-backend kokoro
+   ```
+
+---
+
+## Symptom E: OOM / CUDA Out Of Memory
+
+Check:
+
+```bash
+nvidia-smi
+```
+
+If Spark and SDXL both loaded:
+
+* Restart session with:
+
+```
+--disable-image-gen
+```
+
+Or:
+
+```
+--disable-spark
+```
+
+---
+
+## Symptom F: Intent Misinterpretation
+
+Check logs for:
+
+```
+INTENT_AMBIGUITY
+INTENT_RESOLUTION_FAIL
+```
+
+Actions:
+
+* Run:
+
+```
+--intent-debug
+```
+
+Review parsed entities.
+
+---
+
+# 4) Known Failure Signatures
+
+| Signature                      | Likely Cause                        | Fix                  |
+| ------------------------------ | ----------------------------------- | -------------------- |
+| `REPLAY_HASH_MATCH: FALSE`     | Nondeterministic field leakage      | Escalate immediately |
+| `GRAMMAR_SHIELD_REJECT`        | LLM invalid structured output       | Fallback template    |
+| `SPARK_PROVIDER_TIMEOUT`       | Model too large / CPU fallback slow | Switch to 8B         |
+| `CUDA out of memory`           | Spark + SDXL loaded                 | Disable one          |
+| `VOICE_REFERENCE_NOT_FOUND`    | Missing clip files                  | Restore models       |
+| `SESSION_BOOT_FAIL`            | Corrupt config                      | Reset config.yaml    |
+| `EVENT_SCHEMA_VALIDATION_FAIL` | Contract drift                      | Check recent commits |
+
+---
+
+# 5) Minimal Observability Spec
+
+## Required Logs (Structured JSON)
+
+### Session-Level
+
+* `session_id`
+* `rng_seed`
+* `state_hash_start`
+* `state_hash_end`
+* `replay_hash_match`
+* `llm_model_name`
+* `tts_backend`
+* `image_backend`
+
+---
+
+### Turn-Level
+
+* `turn_number`
+* `intent_type`
+* `entities_involved`
+* `box_execution_time_ms`
+* `spark_generation_time_ms`
+* `tts_generation_time_ms`
+* `grammar_shield_pass`
+* `event_count_emitted`
+
+---
+
+### Failure Events
+
+* `failure_type`
+* `component`
+* `exception_type`
+* `recovered` (bool)
+
+---
+
+## Required Metrics
+
+* `aidm.box.execution_time_ms`
+* `aidm.spark.latency_ms`
+* `aidm.spark.retry_count`
+* `aidm.replay.hash_mismatch`
+* `aidm.tts.latency_ms`
+* `aidm.intent.ambiguity_rate`
+* `aidm.vram.usage_mb`
+
+---
+
+# 6) Escalation Rules
+
+Escalate immediately if:
+
+* Replay hash mismatch.
+* State hash differs between identical seed runs.
+* Event schema validation fails.
+* Determinism allowlist violation detected.
+
+---
+
+# 7) Emergency Safe Mode
+
+If system unstable:
+
+```bash
+python -m aidm.runtime.runner \
+  --disable-spark \
+  --disable-image-gen \
+  --tts-backend kokoro \
+  --determinism-strict
+```
+
+This forces:
+
+* No LLM
+* No image gen
+* Deterministic core only
+* Guaranteed replay integrity
+
+---
+
+# 8) What Must Never Be Done
+
+* Never modify event logs manually.
+* Never edit state snapshot files.
+* Never override replay mismatch.
+* Never disable determinism checks in production.
+
+---
+
+# 9) Daily Health Check (5 Minutes)
+
+```bash
+pytest -q
+python -m aidm.runtime.runner --scenario micro
+python -m aidm.runtime.replay_runner --log session_logs/latest.jsonl
+nvidia-smi
+```
+
+All must pass.
+
+---
+
+# 10) Final Operator Mental Model
+
+If mechanics break → escalate immediately.
+If narration breaks → fallback acceptable.
+If immersion breaks → degrade gracefully.
+If replay breaks → system integrity compromised.
+
+Mechanics > Determinism > Narration > Immersion.
+
+Always protect the Box.

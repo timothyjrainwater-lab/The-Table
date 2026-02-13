@@ -1,0 +1,186 @@
+# 1) Executive Delta (What is missing that matters)
+
+* **Box→Lens event contract is porous:** WO-046 allows **unknown Box events to pass through as raw dicts**, defeating the purpose of typed boundary contracts. This is a future “silent schema drift” trap. *(PSD: WO-046 summary)*
+* **Lens→Spark interface is underspecified:** Spark Provider Contract standardizes *transport fields* (`prompt`, `max_tokens`, etc.) but **does not define the canonical “prompt pack” structure** Lens must generate (facts/constraints/output schema/versioning). This blocks reliable validation and regression. *(T2_SPARK_PROVIDER_CONTRACT.md)*
+* **Narration containment policy is incomplete at the seam:** NarrativeBrief bans IDs/raw stats/coords and maps HP→severity, but there’s no complete policy on **what mechanics-adjacent tokens are allowed** (spell names, distances, condition names, DC-like numbers, etc.). Expect “leaks” that feel like authority creep. *(PSD: WO-032)*
+* **Immersion boundary says “caller orchestrates storage,” but there is no canonical “ImmersionPlan” handoff object.** Current seam is likely glue logic spread across orchestrator(s), which will rot. *(T3_IMMERSION_BOUNDARY.md; PSD: M3 Immersion layer + Orchestrator)*
+* **Voice pipeline has an explicit dependency gap:** WO-052 depends on WO-051, but **acceptance metrics for “voice stability”** (determinism / cache invalidation / cross-session continuity) are not specified. Expect voice jitter and hard-to-debug persona drift. *(WO-052; WO-051)*
+* **Governance/doc drift is load-bearing:** Coherence Doctrine (2025) claims “production voice integration” is out of scope, while PSD (2026) shows STT/TTS/Image adapters implemented and frozen exports. Teams will mis-scope audits and dispatches. *(T1_PROJECT_COHERENCE_DOCTRINE.md vs T1_PROJECT_STATE_DIGEST.md)*
+* **Replay/determinism boundary may be violated by orchestration ordering:** Immersion outputs are excluded from replay hash, but the orchestrator now sequences STT→IntentBridge→Box→Narration→TTS. If any timing/IO bleeds into authoritative logs, determinism guarantees weaken. *(PSD: WO-039/045 orchestrator; T3_IMMERSION_BOUNDARY.md)*
+* **Versioning/backcompat of serialized contracts is not explicit at seam points:** JSONL events, bundles, and provider manifests exist, but there’s no stated policy for **schema_version negotiation** across BoxEvents / NarrativeBrief / Immersion assets. *(T1_README.md; T2_SPARK_PROVIDER_CONTRACT.md; PSD: bundles/immersion)*
+
+---
+
+# 2) System Map (As understood)
+
+## Architecture bullets
+
+* **Box (authoritative):** deterministic engine; event-sourced state mutations; replay verification; legality checks. *(T1_README.md; PSD Core Engine)*
+* **Lens (membrane):** constructs narration-safe context (NarrativeBrief, ContextAssembler) and mediates structured extraction/parsing (e.g., voice resolver). *(PSD: WO-032; WO-052)*
+* **Spark (untrusted generator):** swappable LLM providers via Spark Provider Contract; may support JSON mode; seeded generation optional. *(T2_SPARK_PROVIDER_CONTRACT.md)*
+* **Immersion (atmospheric):** STT/TTS/Image/AudioMixer adapters; pure deterministic helper functions; explicitly non-authoritative; excluded from replay hash. *(T3_IMMERSION_BOUNDARY.md; PSD M3 Immersion Layer v1)*
+* **Runtime orchestration:** session orchestrator conducts turn cycle and wires Box→Lens→Spark→Immersion with fallbacks. *(PSD: WO-039/045)*
+
+## Authority boundaries
+
+* **Only Box decides mechanics** (attack rolls, saves, legality, HP mutations). *(T1_README.md; T3_IMMERSION_BOUNDARY.md)*
+* **Lens may transform Box truth into non-authoritative representations** (redaction, severity mapping) but must not fabricate. *(PSD: WO-032 containment)*
+* **Spark may only describe**; output must be gated; no write-back to Box state. *(T1_README.md; Spark Contract intent)*
+* **Immersion must never influence Box decisions**, must not consume RNG, must not block engine execution. *(T3_IMMERSION_BOUNDARY.md)*
+
+## Critical data flows
+
+* **Player input (STT/text)** → IntentBridge (lookup via FrozenWorldStateView) → **Box** executes turn → Box emits events → **Lens** builds NarrativeBrief → **Spark** generates narration/dialogue → **Immersion** renders TTS/image/audio (optional, fail-open at UX level but fail-closed at “no mechanical effect”). *(PSD: WO-038; WO-039/045; T3_IMMERSION_BOUNDARY.md)*
+
+---
+
+# 3) Gap Register (Prioritized)
+
+### GAP-001
+
+* **Severity:** BLOCKER
+* **Area:** integration / boundary
+* **Symptom:** Box→Lens boundary contract allows **unknown events to pass through as dicts**.
+* **Impact:** Any new/changed Box event payload can silently bypass validation and poison downstream narration/immersion; later failures become nondeterministic and hard to reproduce.
+* **Evidence:** PSD “WO-046: Box Event Contracts” — “unknown events pass through as dicts.” *(T1_PROJECT_STATE_DIGEST.md, WO-046 section)*
+* **Likely root cause:** Partial enforcement mindset (contract registry exists, but permissive fallback retained).
+* **Fix direction:** Make “unknown event” handling explicit: either **fatal at boundary** (preferred) or routed into a quarantined “opaque event” type with zero downstream privileges.
+* **Acceptance criteria:** A boundary test proves any unregistered `event_type` cannot enter NarrativeBrief assembly without explicit allowlisting; failures are deterministic and include event_type + source.
+* **Stop condition:** If any downstream module relies on unknown dict passthrough, halt and escalate to PM to define migration/compat policy.
+
+### GAP-002
+
+* **Severity:** HIGH
+* **Area:** integration / docs
+* **Symptom:** Lens→Spark “prompt pack” schema is not defined; Spark Provider Contract only defines transport-level request/response fields.
+* **Impact:** Grammar Shield/validation cannot be stable; narration regressions will be untestable across models/providers; token budgeting becomes ad hoc.
+* **Evidence:** SparkRequest only includes `prompt: string` and generic flags; no canonical structure/versioning for what Lens must include. *(T2_SPARK_PROVIDER_CONTRACT.md, §2.1–2.2)*
+* **Likely root cause:** Contract scoped to provider swappability, not content protocol.
+* **Fix direction:** Define a **LensPromptPack v1** (sections, ordering, redaction guarantees, output schema, schema_version) and treat it as a PUBLIC_STABLE contract.
+* **Acceptance criteria:** Golden tests validate: (a) PromptPack serialization deterministic; (b) truncation strategy stable; (c) Spark outputs validate against declared schema.
+* **Stop condition:** If multiple call sites already construct prompts differently, stop and do an inventory before standardizing.
+
+### GAP-003
+
+* **Severity:** HIGH
+* **Area:** boundary / requirements
+* **Symptom:** NarrativeBrief defines some containment (no IDs/raw HP/AC/coords; HP severity mapping) but **does not specify the full leakage surface** (spell names, numeric distances, DC-like numbers, condition naming).
+* **Impact:** Spark narration will repeatedly “feel” like it’s in the combat loop even if it isn’t, eroding trust and forcing reactive patching of validators/templates.
+* **Evidence:** PSD WO-032 summary lists containment and severity mapping but not a complete redaction taxonomy. *(T1_PROJECT_STATE_DIGEST.md, WO-032 section)*
+* **Likely root cause:** Containment defined around obvious fields; not defined as a policy matrix.
+* **Fix direction:** Create a **Containment Policy Matrix** (Allowed / Forbidden / Mapped) for mechanics-adjacent tokens, and add validation tests that reject forbidden leakage.
+* **Acceptance criteria:** A suite of “leak probes” (turn facts containing distances, spell names, DC numbers, coordinates) is either mapped or rejected deterministically.
+* **Stop condition:** If this requires revisiting “what narration is allowed to mention,” escalate to PO for product intent constraints.
+
+### GAP-004
+
+* **Severity:** HIGH
+* **Area:** integration / ops
+* **Symptom:** Immersion boundary requires “caller orchestrates AssetStore writes” and “must not block engine execution,” but there is no canonical **turn-level ImmersionPlan** object defining requests/results and retry budgets.
+* **Impact:** Orchestrators will accumulate ad hoc glue logic; quality gating (image critique, retries) will either block improperly or become toothless.
+* **Evidence:** Immersion contract explicitly pushes orchestration responsibility outward; only defines adapter rules and pure functions. *(T3_IMMERSION_BOUNDARY.md)*
+* **Likely root cause:** Boundary contract completed before orchestration protocol formalization.
+* **Fix direction:** Define a non-authoritative **ImmersionPlan v1** (TTS segments + voice persona refs + image requests + audio cues + bounded retries), with deterministic serialization and attribution hooks.
+* **Acceptance criteria:** One integration test proves the orchestrator can execute a plan with all adapters stubbed and still satisfy “no blocking / no state mutation / deterministic logs.”
+* **Stop condition:** If multiple orchestrators exist (runtime vs prep) with divergent needs, halt and split the plan into “prep” vs “runtime” variants.
+
+### GAP-005
+
+* **Severity:** HIGH
+* **Area:** boundary / determinism
+* **Symptom:** Orchestrator sequences STT→IntentBridge→Box→Narration→TTS with fallbacks, but there is no explicit statement of what **enters the authoritative log** versus what remains atmospheric.
+* **Impact:** If any STT/narration artifacts leak into authoritative events (timestamps, transcript text), replay determinism and auditability degrade.
+* **Evidence:** Immersion contract forbids appearing in replay hash; orchestrator described as full cycle conductor including STT/TTS. *(T3_IMMERSION_BOUNDARY.md; T1_PROJECT_STATE_DIGEST.md WO-039/045)*
+* **Likely root cause:** Runtime wiring added after boundary doctrine without a “log partition” spec.
+* **Fix direction:** Define a strict partition: authoritative event log contains only Box events + deterministic intent artifacts; all STT/TTS/Narration artifacts go to a separate non-authoritative log with explicit schema_version.
+* **Acceptance criteria:** Replay harness proves identical Box outcomes regardless of STT confidence variance and TTS availability.
+* **Stop condition:** If product requires storing transcript for UX, escalate to define “non-authoritative transcript store” semantics.
+
+### GAP-006
+
+* **Severity:** MEDIUM
+* **Area:** docs / integration
+* **Symptom:** Coherence Doctrine (2025) states “Production Voice Integration” is out of scope, while PSD (2026) includes STT/TTS/Image adapters and “M3 Immersion Layer v1” frozen exports.
+* **Impact:** Auditors and new agents will misread scope, refuse valid work, or reopen closed debates; dispatch quality drops.
+* **Evidence:** Out-of-scope section forbids ASR/TTS implementation. *(T1_PROJECT_COHERENCE_DOCTRINE.md, “Out of Scope”)* vs PSD shows immersion adapters implemented and frozen exports. *(T1_PROJECT_STATE_DIGEST.md, “M3 Immersion Layer v1”)*
+* **Likely root cause:** Doctrine not updated post-milestone; PSD became reality.
+* **Fix direction:** Update doctrine with an addendum: “Immersion adapters implemented; still non-authoritative; production UX still out-of-scope if applicable.”
+* **Acceptance criteria:** Single-source-of-truth precedence documented; doctrine and PSD no longer conflict on immersion existence.
+* **Stop condition:** If doctrine is considered immutable, escalate to create a binding “Doctrine Errata” file rather than editing it.
+
+### GAP-007
+
+* **Severity:** MEDIUM
+* **Area:** integration / versioning
+* **Symptom:** Multiple serialized contracts exist (JSONL events, bundles, Spark manifests), but no explicit **schema_version compatibility policy** across seam objects (BoxEvents, NarrativeBrief, Immersion outputs).
+* **Impact:** Backward compatibility breaks silently; old campaigns or replays become non-loadable without clear error boundaries.
+* **Evidence:** Spark manifest includes versions; immersion mentions schema_version “1.0” but not negotiation; events/bundles described without a universal migration policy. *(T2_SPARK_PROVIDER_CONTRACT.md; T3_IMMERSION_BOUNDARY.md; T1_README.md)*
+* **Likely root cause:** Versioning handled per subsystem, not end-to-end.
+* **Fix direction:** Define “Compatibility Rules” per artifact: strict version match vs backward-compatible parse with deprecations, and where migrations live.
+* **Acceptance criteria:** Loading a bundle/event log with mismatched versions fails with a deterministic, actionable error and documented upgrade path.
+* **Stop condition:** If migrations would touch authoritative replay semantics, halt and require PO approval.
+
+### GAP-008
+
+* **Severity:** MEDIUM
+* **Area:** boundary / requirements
+* **Symptom:** Voice resolver WO-052 mandates “deterministic enough” prompts but provides no measurable stability target; also mandates session-only caching, potentially conflicting with campaign continuity expectations.
+* **Impact:** Voice jitter and identity discontinuity across sessions; hard to debug because “deterministic enough” is untestable.
+* **Evidence:** WO-052 prompt determinism requirement + session-scoped cache constraint. *(T3_WO-052_LENS_VOICE_RESOLVER.md, Deliverables/Constraints)*
+* **Likely root cause:** Requirements written as intent, not acceptance metrics.
+* **Fix direction:** Define quantifiable metrics: % field stability across N runs; persona assignment invariants; cache invalidation triggers.
+* **Acceptance criteria:** Tests demonstrate stable mapping for fixed inputs and deterministic fallback behavior for unknown descriptors.
+* **Stop condition:** If cross-session continuity is required, escalate to decide persistence semantics (non-authoritative store).
+
+### GAP-009
+
+* **Severity:** LOW
+* **Area:** security / ops
+* **Symptom:** Spark provider contract assumes model paths in YAML; no explicit secret-handling or path-sandbox policy at the integration seam.
+* **Impact:** Operator error and path injection risk (less critical for local-first single-user, still avoidable).
+* **Evidence:** Model registry example includes filesystem paths; no sandboxing guidance in provided docs. *(T2_SPARK_PROVIDER_CONTRACT.md, §4)*
+* **Likely root cause:** Focus on functionality over operator hardening.
+* **Fix direction:** Add validation: allowed base directories; reject traversal; clear error messages.
+* **Acceptance criteria:** Startup validation rejects unsafe paths deterministically.
+* **Stop condition:** If environment needs flexible paths, escalate to define an allowlist strategy.
+
+---
+
+# 4) Contradictions and Drift
+
+* **Doctrine vs reality:** Coherence Doctrine says “Production Voice Integration” (ASR/TTS) is out of scope, yet PSD records STT/TTS/Image adapters as implemented and API-stable. *(T1_PROJECT_COHERENCE_DOCTRINE.md vs T1_PROJECT_STATE_DIGEST.md)*
+* **Vertical slice framing vs later claims:** V1 explicitly excluded narration and full combat, but PSD indicates later phases now include full combat and narration pipeline; any doc still using V1 as “architecture proof” should be treated as historical only. *(T2_VERTICAL_SLICE_V1.md vs PSD CP-10.. and WO-039/045)*
+* **Authority model drift:** PSD says PM is Opus as of 2026-02-11, while Spark Provider Contract claims “Authority: PM (Aegis)” dated 2026-02-10—likely a naming/role evolution artifact. *(T1_PROJECT_STATE_DIGEST.md vs T2_SPARK_PROVIDER_CONTRACT.md header)*
+
+---
+
+# 5) Unknowns, Assumptions, and Questions
+
+## Unknowns (not resolvable from provided artifacts)
+
+* Whether authoritative event logs currently record **any STT transcript text, timestamps, or Spark narration** (needs runtime code pointers or sample logs). **UNCITED**
+* Actual Grammar Shield / validator rules for Spark output (not present in provided docs). **UNCITED**
+* Whether NarrativeBrief assembly consumes BoxEvents exclusively or also reads WorldState directly (needs `aidm/lens/` code). **UNCITED**
+
+## Assumptions made to proceed
+
+* “Unknown Box events pass through as dicts” is implemented as described in PSD, not merely a note.
+* Orchestrator writes at least one log stream and can segregate authoritative vs atmospheric artifacts.
+
+## One minimal request list (only if truly needed)
+
+If you want this audit to be code-confirmed rather than doc-derived, provide:
+
+1. `aidm/runtime/session_orchestrator.py` (or equivalent)
+2. `aidm/lens/narrative_brief.py` + `aidm/lens/context_assembler.py`
+3. `aidm/runtime/box_events.py` (event contract registry + validation)
+4. One sample authoritative JSONL event log from a real run
+5. One example Spark prompt + response captured in tests (golden or fixture)
+
+---
+
+# 6) Next Actions (Top 3)
+
+1. **PM:** Standardize the **Box→Lens boundary contract** to close GAP-001 (unknown event passthrough) and GAP-003 (containment policy completeness).
+2. **Architect/Auditor:** Define **LensPromptPack v1** + validation strategy to close GAP-002 and GAP-007 (versioning/backcompat), with a small golden-test plan.
+3. **Implementer (with Auditor review):** Define a canonical **ImmersionPlan v1** handoff and log partition rules to close GAP-004 and GAP-005 (non-blocking, non-authoritative, deterministic replay isolation).

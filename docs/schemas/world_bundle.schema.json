@@ -1,0 +1,381 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "world_bundle.schema.json",
+  "title": "World Bundle Schemas",
+  "description": "Canonical JSON schemas for the Frozen World Bundle. Covers world_manifest.json, bundle_hashes.json, and asset_pools.json. Content-independent — no game-system-specific vocabulary in field names.",
+
+  "$defs": {
+
+    "WorldManifest": {
+      "title": "WorldManifest",
+      "description": "World identity, compile certificate, and integrity root. Presence of this file signals a valid, complete bundle.",
+      "type": "object",
+      "required": [
+        "world_id",
+        "world_name",
+        "schema_version",
+        "compile_timestamp",
+        "toolchain_pins",
+        "seeds",
+        "content_pack_id",
+        "content_pack_hash",
+        "root_hash",
+        "file_count"
+      ],
+      "properties": {
+        "world_id": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 64,
+          "description": "Deterministic world identity: sha256(world_seed + content_pack_id + toolchain_pins_hash)[:32]"
+        },
+        "world_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Generated world name from lexicon (human-readable, for UX)"
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Bundle schema version (major.minor)"
+        },
+        "compile_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 compile time. UX only — EXCLUDED from hash computation and determinism checks."
+        },
+        "toolchain_pins": {
+          "$ref": "#/$defs/ToolchainPins",
+          "description": "Frozen versions of all tools used during compilation"
+        },
+        "seeds": {
+          "$ref": "#/$defs/SeedSet",
+          "description": "All seeds used during compilation"
+        },
+        "content_pack_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the content pack used as input"
+        },
+        "content_pack_hash": {
+          "type": "string",
+          "minLength": 16,
+          "description": "SHA-256 hash of the input content pack (for reproducibility verification)"
+        },
+        "root_hash": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64,
+          "description": "SHA-256 root hash of all bundle file hashes (deterministic bundle identity)"
+        },
+        "file_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total number of files in the bundle (for quick integrity check)"
+        },
+        "world_theme_brief": {
+          "type": "object",
+          "description": "Copy of the world theme brief used for compilation (for provenance)",
+          "properties": {
+            "genre": { "type": "string" },
+            "tone": { "type": "string" },
+            "naming_style": { "type": "string" }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "ToolchainPins": {
+      "title": "ToolchainPins",
+      "description": "Pinned versions of all tools used during compilation. No 'latest' allowed.",
+      "type": "object",
+      "required": ["llm_model_id", "hash_algorithm", "schema_version"],
+      "properties": {
+        "llm_model_id": {
+          "type": "string",
+          "minLength": 1,
+          "not": { "const": "latest" },
+          "description": "Exact LLM model identifier (e.g., 'llama-3.1-70b-instruct')"
+        },
+        "llm_temperature": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 2.0,
+          "description": "LLM temperature setting (0.0 for deterministic generation)"
+        },
+        "llm_top_p": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "LLM top-p (nucleus) sampling parameter"
+        },
+        "hash_algorithm": {
+          "type": "string",
+          "enum": ["sha256"],
+          "description": "Hash algorithm used for all integrity checks"
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Bundle schema version this toolchain targets"
+        },
+        "image_gen_model_id": {
+          "type": "string",
+          "description": "Image generation model ID (if used during compilation)"
+        }
+      },
+      "additionalProperties": true
+    },
+
+    "SeedSet": {
+      "title": "SeedSet",
+      "description": "All seeds used during world compilation. Primary seed derives all others.",
+      "type": "object",
+      "required": ["world_seed"],
+      "properties": {
+        "world_seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Primary world seed (64-bit non-negative integer)"
+        },
+        "lexicon_seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Derived seed for lexicon generation"
+        },
+        "map_seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Derived seed for map/geography generation"
+        },
+        "bestiary_seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Derived seed for creature detail generation"
+        },
+        "asset_seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Derived seed for asset pool initialization"
+        },
+        "doctrine_seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Derived seed for doctrine profile generation"
+        },
+        "rulebook_seed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Derived seed for rulebook text generation"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "BundleHashes": {
+      "title": "BundleHashes",
+      "description": "Per-file SHA-256 hashes and root bundle hash for integrity verification.",
+      "type": "object",
+      "required": ["root_hash", "algorithm", "files"],
+      "properties": {
+        "root_hash": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64,
+          "description": "SHA-256 of sorted concatenation of all file hashes"
+        },
+        "algorithm": {
+          "type": "string",
+          "enum": ["sha256"],
+          "description": "Hash algorithm used"
+        },
+        "files": {
+          "type": "object",
+          "description": "Map of relative file path → SHA-256 hash",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+          },
+          "minProperties": 1
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "AssetPools": {
+      "title": "AssetPools",
+      "description": "Asset category definitions, pool sizes, and binding rules for this world.",
+      "type": "object",
+      "required": ["categories", "binding_rules", "fallback_policy"],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/AssetCategory" },
+          "minItems": 1,
+          "description": "Asset categories defined for this world"
+        },
+        "binding_rules": {
+          "type": "object",
+          "description": "Rules for binding assets to entities",
+          "properties": {
+            "permanent_bind_types": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Asset types that permanently bind to an entity (e.g., 'npc_portrait', 'voice_profile')"
+            },
+            "category_bind_types": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Asset types that bind to a category, not an individual (e.g., 'creature_token_style')"
+            },
+            "no_reuse": {
+              "type": "boolean",
+              "description": "If true, no two entities may share the same permanently-bound asset",
+              "default": true
+            }
+          }
+        },
+        "fallback_policy": {
+          "type": "object",
+          "description": "What to do when an asset pool is empty",
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "enum": ["placeholder", "generate_on_demand", "fail_graceful"],
+              "description": "Fallback strategy when pool is exhausted"
+            },
+            "placeholder_format": {
+              "type": "string",
+              "description": "Format for placeholder assets (e.g., 'colored_silhouette')"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "AssetCategory": {
+      "title": "AssetCategory",
+      "description": "A single asset category with target pool size.",
+      "type": "object",
+      "required": ["category_id", "category_name", "target_pool_size"],
+      "properties": {
+        "category_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable category identifier (e.g., 'npc_portrait_human', 'voice_profile_gruff')"
+        },
+        "category_name": {
+          "type": "string",
+          "description": "Human-readable category name"
+        },
+        "asset_type": {
+          "type": "string",
+          "enum": ["portrait", "voice_profile", "token", "environment_tile", "ambient_track", "sfx", "handout_template"],
+          "description": "Type of asset in this category"
+        },
+        "target_pool_size": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Target number of assets to maintain in this pool"
+        },
+        "generation_prompt_template": {
+          "type": "string",
+          "description": "Template for generating new assets in this category"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "CompileReport": {
+      "title": "CompileReport",
+      "description": "Compile status report. Always written, even on failure.",
+      "type": "object",
+      "required": ["status", "schema_version", "compile_timestamp"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["success", "failure"],
+          "description": "Overall compile status"
+        },
+        "schema_version": {
+          "type": "string",
+          "description": "Schema version of this report"
+        },
+        "compile_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When compilation ran"
+        },
+        "stage_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["stage", "status"],
+            "properties": {
+              "stage": { "type": "integer", "minimum": 0, "maximum": 8 },
+              "stage_name": { "type": "string" },
+              "status": { "type": "string", "enum": ["success", "failure", "skipped"] },
+              "duration_ms": { "type": "integer", "minimum": 0 },
+              "output_files": { "type": "array", "items": { "type": "string" } },
+              "error": { "type": "string" }
+            }
+          },
+          "description": "Per-stage results"
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Non-fatal warnings"
+        },
+        "validation_results": {
+          "type": "object",
+          "description": "Schema validation results for generated artifacts"
+        },
+        "input_snapshot_hash": {
+          "type": "string",
+          "description": "SHA-256 hash of compile_inputs.json"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "LexiconEntry": {
+      "title": "LexiconEntry",
+      "description": "A single name mapping from content pack ID to world-flavored name.",
+      "type": "object",
+      "required": ["content_id", "world_name", "category"],
+      "properties": {
+        "content_id": {
+          "type": "string",
+          "description": "Content pack identifier (e.g., 'ABILITY_003')"
+        },
+        "world_name": {
+          "type": "string",
+          "description": "World-flavored display name (e.g., 'Void Flare')"
+        },
+        "category": {
+          "type": "string",
+          "description": "Taxonomy category in this world (e.g., 'destruction_magic')"
+        },
+        "subcategory": {
+          "type": "string",
+          "description": "Sub-classification (e.g., 'fire_domain')"
+        },
+        "short_description": {
+          "type": "string",
+          "description": "One-line description for lists and indices"
+        },
+        "lexicon_id": {
+          "type": "string",
+          "description": "Deterministic ID: sha256(world_seed + content_id)[:16]"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "description": "This schema file defines types used across the world bundle. Individual bundle files reference these definitions. The primary validation targets are world_manifest.json (§WorldManifest), bundle_hashes.json (§BundleHashes), and asset_pools.json (§AssetPools)."
+}

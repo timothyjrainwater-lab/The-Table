@@ -1,0 +1,36 @@
+[project]
+name = "aidm"
+version = "0.1.0"
+description = "AI Dungeon Master — deterministic D&D 3.5e rules engine"
+requires-python = ">=3.10"
+dependencies = [
+    "pytest>=7.0.0",
+    "psutil>=5.9.0",  # Hardware detection (CPU, RAM)
+    "pyyaml>=6.0",     # Model registry parsing (models.yaml)
+    "msgpack>=1.0.0",  # IPC serialization (M1)
+    "opencv-python-headless>=4.8.0",  # Image heuristics (M3 Layer 1)
+    "Pillow>=10.0.0",  # Image loading (M3 Layer 1)
+    "numpy>=1.24.0",   # Array operations (M3 Layer 1)
+]
+
+[project.optional-dependencies]
+server = [
+    "starlette>=0.27.0",
+    "uvicorn>=0.23.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --strict-markers"
+markers = [
+    "immersion_fast: Immersion layer tests (sub-millisecond, zero external deps)",
+    "performance: Performance profiling tests (may be slow, optional skipping)",
+    "property_based: Property-based randomized tests (1000 iterations, optional skipping)",
+    "slow: Tests that take more than 1 second to run",
+    "replay: Replay regression tests (determinism verification, optional skipping)",
+    "requires_kokoro: Tests requiring Kokoro TTS (skipped if not installed)",
+    "requires_whisper: Tests requiring Whisper STT (skipped if not installed)",
+]

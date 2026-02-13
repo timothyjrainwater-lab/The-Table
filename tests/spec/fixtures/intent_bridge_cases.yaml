@@ -1,0 +1,350 @@
+# Intent Bridge Contract Compliance Test Fixtures
+# WO-CODE-INTENT-002
+#
+# Each case defines:
+#   transcript: Player speech text
+#   confidence: STT confidence (default 1.0)
+#   entities: World state entity definitions
+#   expected: What the pipeline should produce
+#   category: Test category for grouping
+
+# ============================================================
+# CATEGORY: clean_resolution
+# Cases where the pipeline resolves cleanly without ambiguity
+# ============================================================
+
+- id: attack_single_target
+  category: clean_resolution
+  transcript: "I attack the goblin"
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+      ac: 16
+      weapon:
+        damage_dice: "1d6"
+        damage_bonus: 0
+        damage_type: "piercing"
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      ac: 15
+      entity_id: goblin_1
+  expected:
+    resolves: true
+    intent_type: attack
+    target: goblin_1
+
+- id: attack_with_weapon
+  category: clean_resolution
+  transcript: "I attack the orc with my longsword"
+  confidence: 1.0
+  entities:
+    pc_fighter:
+      team: party
+      hp_current: 30
+      ac: 18
+      weapon:
+        damage_dice: "1d8"
+        damage_bonus: 1
+        damage_type: "slashing"
+        name: "longsword"
+    orc_1:
+      team: enemy
+      hp_current: 10
+      ac: 13
+      entity_id: orc_1
+  expected:
+    resolves: true
+    intent_type: attack
+
+- id: cast_magic_missile
+  category: clean_resolution
+  transcript: "I cast magic missile at the goblin"
+  confidence: 1.0
+  entities:
+    pc_wizard:
+      team: party
+      hp_current: 15
+      ac: 12
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      ac: 15
+      entity_id: goblin_1
+  expected:
+    resolves: true
+    intent_type: cast_spell
+
+- id: move_action
+  category: clean_resolution
+  transcript: "I move to the door"
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+      position: {x: 0, y: 0}
+  expected:
+    resolves: false
+    needs_clarification: true
+    clarification_type: location
+
+# ============================================================
+# CATEGORY: target_ambiguity
+# Cases where multiple entities match the target reference
+# ============================================================
+
+- id: two_goblins_ambiguous
+  category: target_ambiguity
+  transcript: "I attack the goblin"
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+    goblin_warrior:
+      team: enemy
+      hp_current: 8
+      ac: 15
+      entity_id: goblin_warrior
+    goblin_archer:
+      team: enemy
+      hp_current: 5
+      ac: 14
+      entity_id: goblin_archer
+  expected:
+    resolves: false
+    needs_clarification: true
+    ambiguity_type: target_ambiguous
+    candidates_contain: ["goblin_warrior", "goblin_archer"]
+
+- id: three_orcs_ambiguous
+  category: target_ambiguity
+  transcript: "I attack the orc"
+  confidence: 1.0
+  entities:
+    pc_fighter:
+      team: party
+      hp_current: 30
+    orc_berserker:
+      team: enemy
+      hp_current: 12
+      entity_id: orc_berserker
+    orc_shaman:
+      team: enemy
+      hp_current: 8
+      entity_id: orc_shaman
+    orc_scout:
+      team: enemy
+      hp_current: 7
+      entity_id: orc_scout
+  expected:
+    resolves: false
+    needs_clarification: true
+    ambiguity_type: target_ambiguous
+
+# ============================================================
+# CATEGORY: target_not_found
+# Cases where no entity matches the target reference
+# ============================================================
+
+- id: nonexistent_target
+  category: target_not_found
+  transcript: "I attack the dragon"
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      entity_id: goblin_1
+  expected:
+    resolves: false
+    needs_clarification: true
+    ambiguity_type: target_not_found
+
+# ============================================================
+# CATEGORY: spell_not_found
+# Cases where spell name doesn't match registry
+# ============================================================
+
+- id: unknown_spell
+  category: spell_not_found
+  transcript: "I cast meteor swarm"
+  confidence: 1.0
+  entities:
+    pc_wizard:
+      team: party
+      hp_current: 15
+  expected:
+    resolves: false
+    needs_clarification: true
+
+# ============================================================
+# CATEGORY: low_confidence
+# Cases where STT confidence is below threshold
+# ============================================================
+
+- id: very_low_confidence
+  category: low_confidence
+  transcript: "mumble mumble attack"
+  confidence: 0.2
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+    goblin_1:
+      team: enemy
+      hp_current: 6
+  expected:
+    resolves: false
+
+- id: medium_confidence_attack
+  category: low_confidence
+  transcript: "I attack the goblin"
+  confidence: 0.6
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      entity_id: goblin_1
+  expected:
+    # Medium confidence may or may not need clarification
+    # depending on parser implementation
+    resolves: true
+
+# ============================================================
+# CATEGORY: pronoun_resolution
+# Cases testing cross-turn reference via STMContext
+# ============================================================
+
+- id: pronoun_him_after_attack
+  category: pronoun_resolution
+  transcript: "I attack him"
+  confidence: 1.0
+  stm_context:
+    last_target: "goblin_1"
+    last_action: "attack"
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      entity_id: goblin_1
+  expected:
+    resolves: true
+    intent_type: attack
+
+- id: again_repeats_last_action
+  category: pronoun_resolution
+  transcript: "again"
+  confidence: 1.0
+  stm_context:
+    last_target: "goblin_1"
+    last_action: "attack"
+    last_weapon: "longsword"
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      entity_id: goblin_1
+  expected:
+    resolves: true
+
+# ============================================================
+# CATEGORY: empty_or_garbage_input
+# Cases with empty, nonsensical, or unparseable input
+# ============================================================
+
+- id: empty_transcript
+  category: empty_input
+  transcript: ""
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+  expected:
+    resolves: false
+
+- id: nonsense_input
+  category: empty_input
+  transcript: "banana phone helicopter"
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+  expected:
+    resolves: false
+
+- id: only_whitespace
+  category: empty_input
+  transcript: "   "
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+  expected:
+    resolves: false
+
+# ============================================================
+# CATEGORY: weapon_ambiguity
+# Cases where weapon reference is ambiguous
+# ============================================================
+
+- id: weapon_not_specified
+  category: weapon_ambiguity
+  transcript: "I attack the goblin with my sword"
+  confidence: 1.0
+  entities:
+    pc_fighter:
+      team: party
+      hp_current: 30
+      weapon:
+        damage_dice: "1d8"
+        damage_bonus: 1
+        damage_type: "slashing"
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      entity_id: goblin_1
+  expected:
+    resolves: true
+    intent_type: attack
+
+# ============================================================
+# CATEGORY: multi_action
+# Cases with multiple potential actions in one utterance
+# ============================================================
+
+- id: attack_and_move
+  category: multi_action
+  transcript: "I move to the goblin and attack it"
+  confidence: 1.0
+  entities:
+    pc_rogue:
+      team: party
+      hp_current: 20
+      position: {x: 0, y: 0}
+    goblin_1:
+      team: enemy
+      hp_current: 6
+      position: {x: 3, y: 0}
+      entity_id: goblin_1
+  expected:
+    # Parser should extract primary intent
+    resolves: true

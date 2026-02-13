@@ -1,0 +1,158 @@
+# 1) Executive Delta (What is missing that matters)
+
+* **No real GPU performance evidence.** The Spark stress suite explicitly skips **4 GPU performance tests** as “hardware-gated.” That leaves VRAM/latency feasibility unproven on the target envelope. (T1_PROJECT_STATE_DIGEST.md, Spark stress tests section: “GPU performance (4 — hardware-gated skip)”)
+* **VRAM arbitration is specified only as an OOM fallback, not as a steady-state policy.** The contract says “unload model, try fallback,” but there’s no evidence of a deterministic residency/eviction policy across Spark + other GPU consumers. (T2_SPARK_PROVIDER_CONTRACT.md, “6.2 OOM Fallback”)
+* **Throughput/latency fields exist, but no acceptance envelopes exist.** The Spark response supports provider latency metadata and model manifests declare `avg_tokens_per_sec`, but no p50/p95 latency budgets or “too slow” thresholds are defined. (T2_SPARK_PROVIDER_CONTRACT.md, SparkResponse schema + model manifest example)
+* **Minimum spec is described as “CPU-only possible,” but the quality/UX floor isn’t defined.** The fallback chain ends in templates, but there’s no stated minimum viable experience for turn cadence under CPU-only. (T2_SPARK_PROVIDER_CONTRACT.md, OOM fallback + CPU-only example manifest)
+* **Performance governance is visibly drifted.** Digest states “tests must pass in < 5 seconds” while also stating current suite is ~51s and the rule “predates scale.” This is a leading indicator that runtime targets may be similarly stale. (T1_PROJECT_STATE_DIGEST.md, Critical Invariants)
+* **Cold-start and reload costs are not bounded.** The design implicitly relies on load/unload behavior to recover from OOM and to handle context overflow via model switching, but there’s no measured cold-start/reload latency. (T2_SPARK_PROVIDER_CONTRACT.md, “6.2 OOM Fallback” + overflow strategies)
+
+# 2) System Map (As understood)
+
+* **Architecture bullets**
+
+  * Box is authoritative deterministic resolution.
+  * Lens is a one-way data membrane; it can validate/shape data but must not mutate authoritative state.
+  * Spark is untrusted generation; outputs are validated and can fail-closed to templates.
+  * Immersion is atmospheric-only; must never affect engine decisions; expected to be modular/adaptable. (T3_IMMERSION_BOUNDARY.md)
+  * Stress testing exists for Spark integration, including determinism and GPU performance categories, but GPU tests can be hardware-gated. (T1_PROJECT_STATE_DIGEST.md)
+
+* **Authority boundaries**
+
+  * Box decides mechanics; Spark/Lens/Immersion must not influence outcomes (stated at multiple points; strongest explicit boundary is Immersion MUST NEVER mutate/affect decisions). (T3_IMMERSION_BOUNDARY.md)
+
+* **Critical data flows**
+
+  * Box outcome → Lens packaging → Spark generation → validation/parse → narration/TTS/immersion; on failure → template narration fallback. (T2_SPARK_PROVIDER_CONTRACT.md, JSON fallback pattern + OOM fallback + response schema)
+
+# 3) Gap Register (Prioritized)
+
+* ID: **GAP-001**
+* Severity: **BLOCKER**
+* Area: **perf**
+* Symptom: GPU performance validation is explicitly skipped on non-GPU rigs; project state reports **4 Spark GPU perf tests skipped**.
+* Impact: VRAM/latency feasibility is unknown on the actual target hardware; surprises will occur at integration time (OOM thrash, reload stalls).
+* Evidence: `T1_PROJECT_STATE_DIGEST.md` — Spark stress tests: “GPU performance (4 — hardware-gated skip)” and “36 pass, 4 skipped.”
+* Likely root cause: Performance gating is present in tests but not executed on a canonical “perf rig” as a required gate.
+* Fix direction: Define a **required GPU perf gate** (run + record) on the target-class GPU and make it a release criterion for Phase 2/3 integration.
+* Acceptance criteria: A saved benchmark artifact containing peak VRAM, reload time, tokens/sec, and p50/p95 latency for at least the primary + fallback model paths; no OOM under defined scenarios.
+* Stop condition: If GPU tests cannot be made reproducible (nondeterministic VRAM/latency swings), halt and define a deterministic measurement harness contract.
+
+---
+
+* ID: **GAP-002**
+* Severity: **BLOCKER**
+* Area: **perf / integration**
+* Symptom: VRAM management is defined as *reactive OOM fallback* (“unload model, try smaller”), but there is no explicit **steady-state residency/eviction policy**.
+* Impact: On realistic workloads (Spark + GPU backends), runtime can oscillate: load/unload loops, fragmentation, and catastrophic latency spikes.
+* Evidence: `T2_SPARK_PROVIDER_CONTRACT.md` — “6.2 OOM (Out of Memory) Fallback” with unload → fallback → template chain.
+* Likely root cause: Contract focuses on correctness/fail-closed behavior, not on resource scheduling across competing GPU clients.
+* Fix direction: Produce a **VRAM arbitration policy** (priority order, allowed co-residency pairs, eviction triggers, and prefetch points).
+* Acceptance criteria: A documented residency table + measured runs showing no repeated load/unload thrash over N turns; bounded cold-start overhead.
+* Stop condition: If arbitration requires cross-component refactors not in scope, escalate to PM/Architect to scope an explicit “resource manager” milestone.
+
+---
+
+* ID: **GAP-003**
+* Severity: **HIGH**
+* Area: **perf**
+* Symptom: Model manifests declare `avg_tokens_per_sec` and constraints like `min_vram_gb`, but these appear as **expected values**, not measured values.
+* Impact: Scheduling decisions and “median spec” claims can be wrong by 2–5×, breaking pacing and invalidating the fallback strategy.
+* Evidence: `T2_SPARK_PROVIDER_CONTRACT.md` — model manifest example includes `avg_tokens_per_sec: 20` and `min_vram_gb`.
+* Likely root cause: Placeholder throughput values were inserted to enable planning before benchmarking.
+* Fix direction: Replace “expected throughput” with “measured on rig X with prompt class Y” and include variance (p50/p95).
+* Acceptance criteria: Manifest entries include measurement metadata (rig ID, batch size, context length band) and are reproducible within tolerance.
+* Stop condition: If throughput varies wildly with minor prompt changes, escalate to define prompt-class stratification (short/medium/long).
+
+---
+
+* ID: **GAP-004**
+* Severity: **HIGH**
+* Area: **perf / UX**
+* Symptom: No explicit **latency envelope** is defined for turn cadence (p50/p95) across: primary model, fallback model, summarization, and template mode.
+* Impact: “Works on paper” but feels unusable in real play; operators cannot judge regressions.
+* Evidence: `T2_SPARK_PROVIDER_CONTRACT.md` — SparkResponse includes `provider_metadata` (latency etc.) but no acceptance targets; overflow strategies imply model switch/summarize paths.
+* Likely root cause: Instrumentation fields were specified before UX performance criteria were locked.
+* Fix direction: Define latency SLAs per mode (e.g., narration generation, full turn pipeline), and treat breaches as regressions.
+* Acceptance criteria: Bench suite outputs p50/p95 latency per pipeline path and asserts thresholds.
+* Stop condition: If the target envelopes are incompatible with local models, escalate to redefine “sync vs async narration” UX constraints.
+
+---
+
+* ID: **GAP-005**
+* Severity: **HIGH**
+* Area: **perf / failure modes**
+* Symptom: OOM policy requires “unload model,” but **no evidence** of reliable VRAM reclamation, allocator stability, or reload success under repeated cycles.
+* Impact: System can enter a degraded state where it repeatedly OOMs even after “unload,” causing cascading fallback to templates and unstable behavior.
+* Evidence: `T2_SPARK_PROVIDER_CONTRACT.md` — OOM fallback sequence explicitly depends on unload→reload.
+* Likely root cause: Contract assumes unload is effective and cheap, which is often false in practice (fragmentation, caches, driver behavior).
+* Fix direction: Empirically validate unload semantics on target stack; define “hard reset” behavior if unload doesn’t reclaim memory.
+* Acceptance criteria: Repeated OOM injection test shows recovery to fallback model within bounded time and without memory growth over M cycles.
+* Stop condition: If unload cannot be made reliable, escalate to “process isolation” or “single GPU resident at a time” as an enforced constraint.
+
+---
+
+* ID: **GAP-006**
+* Severity: **MEDIUM**
+* Area: **perf / ops**
+* Symptom: Test runtime governance is stale: “< 5 seconds” rule acknowledged as obsolete while suite is ~51s.
+* Impact: This signals performance criteria drift; similar drift likely exists for runtime latency/VRAM gates, creating blind spots.
+* Evidence: `T1_PROJECT_STATE_DIGEST.md` — “All tests must pass in < 5 seconds (currently ~51s… rule predates scale)”
+* Likely root cause: Early-stage invariant not updated into a tiered performance policy.
+* Fix direction: Establish tiered test policies (unit vs integration vs perf) with separate time budgets and required rigs.
+* Acceptance criteria: Updated policy document + CI behavior matches; perf tests run only on perf rigs but are mandatory for release.
+* Stop condition: If CI cannot support perf gating, escalate to an “operator-run release checklist” with required artifacts.
+
+---
+
+* ID: **GAP-007**
+* Severity: **MEDIUM**
+* Area: **integration / perf**
+* Symptom: Context overflow strategies exist (truncate/summarize/model-switch), but the **latency and VRAM consequences** are not measured or constrained.
+* Impact: Under long sessions, the system may oscillate between summarization calls and model reloads; user experiences “random slowdowns.”
+* Evidence: `T2_SPARK_PROVIDER_CONTRACT.md` — overflow strategies section; also OOM fallback implies model switching.
+* Likely root cause: Strategy menu specified without an execution cost model.
+* Fix direction: Pick a default overflow policy per hardware tier and benchmark it at multiple context-length bands.
+* Acceptance criteria: For each overflow policy, measured p95 latency and VRAM peak remain within defined envelopes.
+* Stop condition: If none meet envelopes, escalate to redesign the “brief assembly” and memory selection process (non-code: policy).
+
+# 4) Contradictions and Drift
+
+* **Performance policy drift (explicit).** “Tests < 5 seconds” is labeled obsolete at current suite size; indicates governance artifacts can lag reality. (T1_PROJECT_STATE_DIGEST.md, Critical Invariants)
+* **“GPU perf category delivered” vs “GPU perf unproven.”** Digest claims full coverage with a GPU perf category, but also states those tests are skipped as hardware-gated, so “coverage” ≠ “validated.” (T1_PROJECT_STATE_DIGEST.md, Spark stress tests)
+
+# 5) Unknowns, Assumptions, and Questions
+
+* **Unknowns I could not resolve**
+
+  * Actual measured VRAM footprints of Spark model(s), SDXL, music gen, and TTS components on target hardware (no logs provided here).
+  * Whether the runtime currently uses a central resource manager vs ad-hoc load/unload in adapters (no code artifacts provided here).
+  * Minimum spec definition in concrete terms (CPU, RAM, GPU VRAM) and whether minimum spec is expected to support images/music or only templates+CPU narration.
+
+* **Assumptions I made to proceed**
+
+  * The project intends to run multiple GPU-heavy backends in the same session lifecycle (based on OOM fallback language + immersion scope).
+  * The “hardware-gated” tests are the only current performance evidence path mentioned in docs.
+
+* **One minimal request list (only if truly needed)**
+
+  1. Latest perf rig run output for `test_spark_integration_stress.py` including the GPU-gated tests (or the reason they cannot run).
+  2. Any existing runtime logs/telemetry capturing peak VRAM and generation latency for at least 30 narrated turns.
+  3. The current “minimum spec” statement (one paragraph) used for product promises.
+
+# 6) Next Actions (Top 3)
+
+1. **Run and capture the GPU perf gate** (Owner: **Auditor/Implementer**)
+
+   * References: **GAP-001, GAP-003, GAP-004**
+   * Output: benchmark artifact with peak VRAM + p50/p95 latency + tokens/sec for primary and fallback.
+
+2. **Write the VRAM residency/eviction policy as a binding contract** (Owner: **PM + Architect/Auditor**)
+
+   * References: **GAP-002, GAP-005, GAP-007**
+   * Output: explicit allowed co-residency matrix + eviction triggers + “what happens on unload failure.”
+
+3. **Define minimum spec and performance SLAs by tier** (Owner: **PM**)
+
+   * References: **GAP-004, GAP-006**
+   * Output: tier table (min / recommended / target) with feature availability and acceptable latency envelopes; tie to release gating.

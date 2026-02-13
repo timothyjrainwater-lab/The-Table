@@ -1,0 +1,2435 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "e390dfd9143f",
+  "gap_count": 156,
+  "gaps": [
+    {
+      "page": "0010",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Abilities",
+        "Special Qualities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0014",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0015",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0016",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0018",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0020",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0022",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0025",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "Basilisk",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Saves",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment"
+      ]
+    },
+    {
+      "page": "0025",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Saves",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization"
+      ]
+    },
+    {
+      "page": "0027",
+      "reason": "low_quality: zero_ac",
+      "context": "Js U T H",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement"
+      ]
+    },
+    {
+      "page": "0027",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0032",
+      "reason": "low_quality: zero_hp",
+      "context": "Celestial Lion",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment",
+        "Special Qualities"
+      ]
+    },
+    {
+      "page": "0033",
+      "reason": "low_quality: invalid_hd, zero_hp",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0036",
+      "reason": "low_quality: zero_hp",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0038",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Base Attack/Grapple",
+        "Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0041",
+      "reason": "block_parse_failed",
+      "context": "BABAU",
+      "fields_found": [
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Organization",
+        "Challenge Rating",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0043",
+      "reason": "low_quality: zero_ac",
+      "context": "BEBILITH",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0044",
+      "reason": "low_quality: zero_ac, zero_hp",
+      "context": "LABREZU",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization"
+      ]
+    },
+    {
+      "page": "0045",
+      "reason": "low_quality: zero_ac",
+      "context": "HEZROU",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Base Attack/Grapple",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0049",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0053",
+      "reason": "low_quality: invalid_hd, zero_hp, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple"
+      ]
+    },
+    {
+      "page": "0055",
+      "reason": "low_quality: invalid_hd, zero_hp",
+      "context": "ERINYES",
+      "fields_found": [
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0058",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0060",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities"
+      ]
+    },
+    {
+      "page": "0061",
+      "reason": "low_quality: zero_ac",
+      "context": "DEINONYCHUS",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Base Attack/Grapple",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0063",
+      "reason": "low_quality: zero_ac",
+      "context": "DIRE APE",
+      "fields_found": [
+        "Hit Dice",
+        "Base Attack/Grapple",
+        "Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0064",
+      "reason": "low_quality: invalid_hd, zero_hp",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Alignment",
+        "Advancement"
+      ]
+    },
+    {
+      "page": "0065",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0065",
+      "reason": "low_quality: zero_ac",
+      "context": "DIRE SHARK",
+      "fields_found": [
+        "Hit Dice",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0066",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Armor Class",
+        "Base Attack/Grapple"
+      ]
+    },
+    {
+      "page": "0067",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure"
+      ]
+    },
+    {
+      "page": "0068",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0078",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0090",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0092",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0095",
+      "reason": "low_quality: invalid_hd, zero_hp, no_saves_or_abilities",
+      "context": "GHAELE",
+      "fields_found": [
+        "Initiative",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks"
+      ]
+    },
+    {
+      "page": "0097",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0097",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "Air Elemental, Large",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0098",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0099",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0101",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0103",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0107",
+      "reason": "low_quality: zero_hp, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Speed",
+        "Armor Class",
+        "Attack",
+        "Full Attack"
+      ]
+    },
+    {
+      "page": "0110",
+      "reason": "block_parse_failed",
+      "context": "Formian Worker",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0110",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0111",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "Formian Myrmarch",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class"
+      ]
+    },
+    {
+      "page": "0113",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "Shrieker",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Saves",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0113",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Saves",
+        "Special Attacks",
+        "Special Qualities",
+        "Abilities",
+        "Skills"
+      ]
+    },
+    {
+      "page": "0117",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "JANNI",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Feats",
+        "Organization",
+        "Challenge Rating",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0118",
+      "reason": "low_quality: invalid_hd",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0120",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "Ghoul",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Saves",
+        "Special Attacks",
+        "Special Qualities",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0121",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0121",
+      "reason": "block_parse_failed",
+      "context": "CLOUD GIANT",
+      "fields_found": [
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0122",
+      "reason": "low_quality: zero_hp",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0127",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Treasure",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0127",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach"
+      ]
+    },
+    {
+      "page": "0135",
+      "reason": "low_quality: invalid_hd, zero_ac",
+      "context": "CLAY GOLEM",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0137",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "IRON GOLEM",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple"
+      ]
+    },
+    {
+      "page": "0137",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0137",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0138",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0142",
+      "reason": "low_quality: invalid_hd",
+      "context": "AVORAL",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement"
+      ]
+    },
+    {
+      "page": "0147",
+      "reason": "low_quality: zero_hp",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0152",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0156",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0157",
+      "reason": "block_parse_failed",
+      "context": "Five-Headed Hydra",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0158",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0163",
+      "reason": "low_quality: zero_ac",
+      "context": "Krakens speak Common and Aq",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills"
+      ]
+    },
+    {
+      "page": "0167",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0167",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Space/Reach",
+        "Special Qualities"
+      ]
+    },
+    {
+      "page": "0172",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities",
+        "Skills"
+      ]
+    },
+    {
+      "page": "0173",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "Wereboar, Human Form",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Skills",
+        "Feats"
+      ]
+    },
+    {
+      "page": "0173",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack"
+      ]
+    },
+    {
+      "page": "0174",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "Wererat, Human Form",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Saves",
+        "Abilities",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment"
+      ]
+    },
+    {
+      "page": "0174",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0176",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0176",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "Werewolf, Human Form",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple"
+      ]
+    },
+    {
+      "page": "0176",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Attack"
+      ]
+    },
+    {
+      "page": "0176",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment",
+        "Hit Dice",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple"
+      ]
+    },
+    {
+      "page": "0177",
+      "reason": "low_quality: zero_ac",
+      "context": "Werewolf Lord, Human Form",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0178",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0185",
+      "reason": "low_quality: zero_ac",
+      "context": "Salt Mephit",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Alignment",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0188",
+      "reason": "low_quality: zero_ac",
+      "context": "Mind Flayer",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0188",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0191",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves"
+      ]
+    },
+    {
+      "page": "0194",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative"
+      ]
+    },
+    {
+      "page": "0195",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0198",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0200",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0202",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack"
+      ]
+    },
+    {
+      "page": "0202",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Abilities",
+        "Special Qualities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0203",
+      "reason": "low_quality: zero_ac",
+      "context": "GRAY OOZE",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0207",
+      "reason": "low_quality: zero_hp",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement"
+      ]
+    },
+    {
+      "page": "0208",
+      "reason": "low_quality: zero_ac, zero_hp, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice"
+      ]
+    },
+    {
+      "page": "0216",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0220",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0221",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Level Adjustment",
+        "Environment",
+        "Organization",
+        "Skills"
+      ]
+    },
+    {
+      "page": "0222",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0223",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0226",
+      "reason": "low_quality: zero_ac, zero_hp, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Attack",
+        "Skills",
+        "Hit Dice",
+        "Speed"
+      ]
+    },
+    {
+      "page": "0227",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0227",
+      "reason": "low_quality: invalid_hd, zero_ac, zero_hp",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities",
+        "Special Qualities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Hit Dice",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0228",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Challenge Rating",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0234",
+      "reason": "low_quality: zero_ac",
+      "context": "CRIOSPHINX",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0235",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0235",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Skills",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0235",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple"
+      ]
+    },
+    {
+      "page": "0237",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach"
+      ]
+    },
+    {
+      "page": "0239",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0240",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Initiative",
+        "Speed"
+      ]
+    },
+    {
+      "page": "0241",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Speed",
+        "Armor Class",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Skills"
+      ]
+    },
+    {
+      "page": "0245",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Space/Reach"
+      ]
+    },
+    {
+      "page": "0247",
+      "reason": "low_quality: invalid_hd, zero_hp",
+      "context": "",
+      "fields_found": [
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Skills",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Abilities",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0248",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0250",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0251",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0251",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack"
+      ]
+    },
+    {
+      "page": "0255",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0258",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0259",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0260",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment",
+        "Special Attacks"
+      ]
+    },
+    {
+      "page": "0263",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0268",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0268",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0268",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0269",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack"
+      ]
+    },
+    {
+      "page": "0270",
+      "reason": "low_quality: zero_ac, no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed"
+      ]
+    },
+    {
+      "page": "0272",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0274",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0275",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0277",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Speed",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0279",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Base Attack/Grapple",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0280",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0280",
+      "reason": "low_quality: zero_ac",
+      "context": "Constrictor Snake",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0281",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0281",
+      "reason": "low_quality: zero_ac",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure",
+        "Alignment",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0285",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0285",
+      "reason": "low_quality: invalid_hd, zero_hp",
+      "context": "GIANT BEE",
+      "fields_found": [
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Qualities",
+        "Saves",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0285",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack"
+      ]
+    },
+    {
+      "page": "0286",
+      "reason": "low_quality: invalid_hd, zero_hp",
+      "context": "GIANT FIRE BEETLE",
+      "fields_found": [
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Advancement",
+        "Level Adjustment"
+      ]
+    },
+    {
+      "page": "0287",
+      "reason": "block_parse_failed",
+      "context": "Monstrous Centipede, Tiny",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0287",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization",
+        "Challenge Rating",
+        "Treasure"
+      ]
+    },
+    {
+      "page": "0287",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0287",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves"
+      ]
+    },
+    {
+      "page": "0287",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Special Qualities",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment",
+        "Organization"
+      ]
+    },
+    {
+      "page": "0287",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Saves",
+        "Abilities",
+        "Special Qualities",
+        "Skills",
+        "Feats",
+        "Environment"
+      ]
+    },
+    {
+      "page": "0287",
+      "reason": "low_quality: no_saves_or_abilities",
+      "context": "",
+      "fields_found": [
+        "Hit Dice",
+        "Initiative",
+        "Speed",
+        "Armor Class",
+        "Base Attack/Grapple",
+        "Attack",
+        "Full Attack",
+        "Space/Reach",
+        "Special Attacks",
+        "Special Qualities",
+        "Saves",
+        "Abilities",
+        "Skills",
+        "Feats",
+        "Environment"
+      ]
+    },
+    {
+      "page": "0288",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0289",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0289",
+      "reason": "block_parse_failed",
+      "context": "",
+      "fields_found": [
+        "Saves",
+        "Abilities"
+      ]
+    },
+    {
+      "page": "0290",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0292",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0293",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0299",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0308",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    },
+    {
+      "page": "0317",
+      "reason": "multi_column_format_detected",
+      "context": "Side-by-side stat blocks may be partially parsed"
+    }
+  ]
+}

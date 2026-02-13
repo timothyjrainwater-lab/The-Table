@@ -1,0 +1,155 @@
+## 1) Contract Table (critical-path seams)
+
+|     # | Producer → Consumer                                  | Contract / Schema                                           | Format                       | Versioning                                                | Error handling                                                                                 | Retries                                                                  | Idempotency                                                          |
+| ----: | ---------------------------------------------------- | ----------------------------------------------------------- | ---------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| C-001 | **AIDM (Lens/Orchestrator)** → **SPARK Provider**    | `SparkRequest`                                              | In-proc call (adapter)       | **None explicit** (contract doc is “binding”)             | Schema invariants; invalid capability use must error (e.g., `json_mode=True` when unsupported) | Not specified; implied “retry w/ corrective prompt OR template fallback” | Request is pure; idempotency depends on seed support                 |
+| C-002 | **SPARK Provider** → **AIDM (Lens validators)**      | `SparkResponse`                                             | In-proc                      | None explicit                                             | `finish_reason="error"` requires `error` field                                                 | Not specified; AIDM may retry parse/repair or fall back                  | Response not idempotent unless seeded generation works               |
+| C-003 | **Provider author** → **AIDM startup**               | Provider **manifest**                                       | YAML/JSON                    | None explicit                                             | Startup validation: missing model, missing file path, missing provider → **fail-fast**         | None                                                                     | N/A                                                                  |
+| C-004 | **User/ops** → **AIDM startup/runtime**              | `models.yaml` registry + `fallback_chain`                   | YAML                         | None explicit                                             | Fail-fast on missing model; warn on huge file                                                  | None                                                                     | N/A                                                                  |
+| C-005 | **Prep system** → **Runtime**                        | `SessionBundle`                                             | JSON (via `to_dict`)         | **No `schema_version` field**                             | Validated via `ReadinessCertificate` (`ready` / `blocked`)                                     | None specified                                                           | Bundle ID-based idempotency possible if consumer treats as immutable |
+| C-006 | **Bundle validator** → **Orchestrator**              | `ReadinessCertificate`                                      | JSON                         | None explicit                                             | `blocked` with `missing_assets` / `missing_citations`                                          | None                                                                     | Yes (pure validation result)                                         |
+| C-007 | **Runtime engine** → **Replay runner / tools**       | Event Log                                                   | JSONL (`EventLog.to_jsonl`)  | None explicit                                             | Assumes monotonic IDs; replay asserts hash equality                                            | Not specified                                                            | Yes if append-only + monotonic IDs enforced                          |
+| C-008 | **Immersion compute** → **Caller (Orchestrator/UI)** | `SceneAudioState`, `GridRenderState`, `ImageRequest/Result` | In-proc + JSON-serializable  | **AttributionLedger has `schema_version`**; others do not | Must never block engine; adapter failures must degrade to stub results                         | Caller-level only                                                        | Yes (pure functions / deterministic outputs)                         |
+| C-009 | **STT Adapter** → **Interaction layer**              | `Transcript`                                                | In-proc + JSON               | None explicit                                             | `validate()` returns errors; confidence range enforced                                         | Not defined                                                              | Yes (data object)                                                    |
+| C-010 | **Lens voice resolver** → **TTS Adapter**            | `VoicePersona`                                              | In-proc + JSON               | None explicit                                             | `validate()`; missing `persona_id/name` invalid                                                | None                                                                     | Yes (cached by `VoiceRoster`)                                        |
+| C-011 | **Voice/NLU** → **Intent bridge**                    | `Intent` union (`cast_spell/move/attack/buy/rest`)          | JSON dict → `parse_intent()` | **Deprecation noted** (`GridPoint` removed in CP-002)     | Raises `IntentParseError` on unknown/invalid                                                   | None defined                                                             | Idempotent if intent IDs exist (none in schema)                      |
+| C-012 | **Immersion** → **Filesystem**                       | Attribution records                                         | JSON                         | Explicit `schema_version` in ledger                       | Must load/save; validation edge cases tested (per boundary doc)                                | Not specified                                                            | Yes if content-hash keyed                                            |
+
+**Evidence anchors**
+
+* Spark request/response + manifests + registry validation + fallback strategies: **T2_SPARK_PROVIDER_CONTRACT.md**
+* SessionBundle + ReadinessCertificate schema and serialization: **T4_bundles_schema.py**
+* Vertical slice’s JSONL event log + replay hash expectations: **T2_VERTICAL_SLICE_V1.md**
+* Immersion “must never block engine / stub defaults / pure functions”: **T3_IMMERSION_BOUNDARY.md** and immersion schemas: **T4_immersion_schema.py**
+* Intents parsing + deprecation of `GridPoint`: **T4_intents_schema.py**
+
+---
+
+## 2) Top 3 break modes per contract + required behavior
+
+### C-001/C-002 — SparkRequest/SparkResponse (AIDM ↔ SPARK)
+
+1. **Capability mismatch** (`json_mode=True` but provider doesn’t support)
+
+   * **Should happen:** hard error at capability check; fall back to guided JSON-in-prompt flow.
+2. **Parse/structure failure** (guided JSON output isn’t parseable)
+
+   * **Should happen:** bounded retry with corrective prompt; if still invalid → template fallback (fail-closed).
+3. **OOM / resource failure**
+
+   * **Should happen:** follow fallback chain: unload → smaller model → template; log user-visible warning.
+
+### C-003/C-004 — Provider manifest + model registry (YAML config → AIDM)
+
+1. **Model path missing / wrong**
+
+   * **Should happen:** fail-fast at startup with explicit missing path.
+2. **Provider backend missing** (dependency not installed)
+
+   * **Should happen:** fail-fast with install hint.
+3. **Misdeclared constraints** (`min_vram_gb` too low, `avg_tokens_per_sec` fantasy)
+
+   * **Should happen:** warn at startup if declared constraints conflict with measured perf artifacts (see versioning plan below).
+
+### C-005/C-006 — SessionBundle + ReadinessCertificate (prep → play)
+
+1. **Schema drift** (producer adds fields; consumer ignores or misreads)
+
+   * **Should happen:** additive fields tolerated; unknown fields ignored; but required fields must be present.
+2. **Asset references broken** (`assets` contains paths that don’t exist)
+
+   * **Should happen:** readiness status `blocked` with `missing_assets`; play must not begin.
+3. **Citation structure invalid**
+
+   * **Should happen:** `blocked` with `missing_citations`; or downgrade to warning if policy allows (currently described as missing/invalid structure).
+
+### C-007 — Event Log JSONL (runtime → replay/tools)
+
+1. **Non-monotonic IDs / duplicate IDs**
+
+   * **Should happen:** fail closed; refuse replay or refuse append; determinism guarantee depends on it.
+2. **Non-deterministic fields leaking in** (timestamps, random text)
+
+   * **Should happen:** excluded from replay hash; if present in authoritative fields → test failure / rejection.
+3. **Schema drift without versioning**
+
+   * **Should happen:** consumer attempts best-effort parse; if critical fields unknown → stop with actionable error.
+
+### C-008/C-012 — Immersion outputs + attribution (immersion → caller/filesystem)
+
+1. **Adapter not installed / import fails**
+
+   * **Should happen:** factory raises ImportError with clear message; caller uses stub adapter; engine continues.
+2. **Adapter returns invalid schema (bad ranges, empty IDs)**
+
+   * **Should happen:** `validate()` errors; caller treats as adapter failure and degrades to stub/no-op.
+3. **Filesystem attribution corruption**
+
+   * **Should happen:** ledger load validates `schema_version`; if incompatible → refuse or migrate per backward-compat rules.
+
+### C-009 — Transcript (STT → interaction)
+
+1. **Confidence out of range / non-numeric**
+
+   * **Should happen:** validation error; treat transcript as low-trust; do not feed into authoritative decisions.
+2. **Empty text**
+
+   * **Should happen:** treat as “no command”; do nothing; do not generate intents.
+3. **Adapter identity missing**
+
+   * **Should happen:** validation error; still safe since atmospheric-only, but log.
+
+### C-010 — VoicePersona (Lens resolver → TTS)
+
+1. **Missing required fields (`persona_id`, `name`)**
+
+   * **Should happen:** validation error; fallback to default persona.
+2. **Out-of-range speed/pitch/exaggeration**
+
+   * **Should happen:** clamp is not specified; safer is reject and default persona.
+3. **Reference audio path missing**
+
+   * **Should happen:** ignore reference audio; proceed with non-cloned voice; log warning.
+
+### C-011 — Intents (voice/NLU → intent bridge)
+
+1. **Unknown intent type**
+
+   * **Should happen:** `IntentParseError`; user-facing “couldn’t understand” path; no engine action.
+2. **Deprecated coordinate type (`GridPoint`) used post-CP-002**
+
+   * **Should happen:** hard failure after removal; during transition accept both Position and GridPoint with warning.
+3. **Partial data (e.g., attack missing target_ref)**
+
+   * **Should happen:** treat as incomplete; request clarification; do not execute.
+
+---
+
+## 3) Minimal versioning policy + 2-milestone backward-compat plan
+
+### Versioning policy (minimal, pragmatic)
+
+1. **Every persisted or cross-process payload MUST carry `schema_version`.**
+   Critical ones: `SessionBundle`, `ReadinessCertificate`, Event Log JSONL, Intent JSON.
+   (Today only attribution ledger explicitly mentions `schema_version`.)
+2. **SemVer at schema level:**
+
+   * **MAJOR**: breaking rename/remove/change meaning of fields; consumers must refuse unless migrated.
+   * **MINOR**: additive optional fields; consumers must ignore unknowns.
+   * **PATCH**: clarifications, constraints tightening that does not break valid old payloads.
+3. **Contract docs are binding; code must reference a single “current schema version” constant per artifact family.**
+
+### Backward-compat plan for the next 2 milestones
+
+* **Milestone N (next):**
+
+  * Add `schema_version` to: SessionBundle JSON, EventLog JSONL header or per-event, Intent JSON.
+  * Consumers accept **N and N-1 MINOR** versions and ignore unknown fields.
+* **Milestone N+1:**
+
+  * Deprecate N-1 with explicit warnings; keep read-compat but write only the latest version.
+  * If a breaking change is needed, introduce a **MAJOR bump** and ship a one-shot migration tool (or a documented manual conversion procedure) before removing support.
+
+This keeps it tight: you get deterministic parsing behavior, explicit drift detection, and a controlled deprecation window without building a heavy framework.
+
+If you want this narrowed further to *only* “perf critical path” seams: C-001 to C-004 and C-007 are the ones that will most likely kill a build under load.

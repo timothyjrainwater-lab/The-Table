@@ -1,0 +1,1 @@
+"""Server package — WebSocket bridge and ASGI application."""

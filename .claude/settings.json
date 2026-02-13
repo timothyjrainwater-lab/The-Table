@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)"
+    ]
+  },
+  "workspaceTrust": true,
+  "allowFileSystemAccess": true,
+  "allowedPaths": ["./"],
+  "projectInstructions": "MANDATORY: Before writing ANY code on this project, read AGENT_ONBOARDING_CHECKLIST.md and follow it step by step. It contains the required reading order, verification steps, and the five most common mistakes to avoid. Key rules: (1) Use EF.* constants from aidm/schemas/entity_fields.py for all entity field access — never bare string literals. (2) This is D&D 3.5e — no 5e concepts (no advantage/disadvantage, no short/long rest, damage type is 'electricity' not 'electric'). (3) Resolvers return events only, never mutate WorldState. (4) No set() objects in state, no floats in deterministic paths, all json.dumps must use sort_keys=True. (5) Do NOT fix items in KNOWN_TECH_DEBT.md unless explicitly asked. After every CP: run 'python -m pytest tests/ -v --tb=short' (expect 1700+ tests passing in <10s) and update PROJECT_STATE_DIGEST.md. (6) When you complete a deliverable that needs PM review (work order output, design doc, spec, audit report), copy it to pm_inbox/ as a .md file named {AGENT}_{WO-id}_{short_description}.md (e.g. SONNET-C_WO-M1-01_event_reducer_impl.md). Include a header block with Agent, Work Order, Date, and Status fields. Thunder will drag-drop these to the PM. (7) If you notice something worth flagging (judgment calls, ambiguities, possible bugs outside your scope, pattern violations in nearby code), append an entry to pm_inbox/SONNET_AGENT_NOTES.md using the template in that file."
+}

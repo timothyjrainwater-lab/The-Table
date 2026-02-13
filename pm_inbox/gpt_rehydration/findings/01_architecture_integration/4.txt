@@ -1,0 +1,341 @@
+# AIDM – Remediation Execution Plan
+
+(derived strictly from GAP-001 … GAP-009)
+
+---
+
+# 1) Top 10 Fixes (Ranked, With Dependencies)
+
+### 1) **GAP-001 — Enforce strict Box→Lens event contract**
+
+**Type:** BLOCKER
+**Depends on:** None
+**Unblocks:** GAP-002, GAP-003, GAP-005
+
+---
+
+### 2) **GAP-002 — Define LensPromptPack v1 schema**
+
+**Type:** HIGH
+**Depends on:** GAP-001 (stable Box payload)
+**Unblocks:** GAP-003, GAP-004, regression stability
+
+---
+
+### 3) **GAP-003 — Complete Narrative Containment Policy Matrix**
+
+**Type:** HIGH
+**Depends on:** GAP-001, GAP-002
+**Unblocks:** Spark validation reliability, trust UX
+
+---
+
+### 4) **GAP-004 — Define ImmersionPlan v1 orchestration contract**
+
+**Type:** HIGH
+**Depends on:** GAP-002 (stable output structure)
+**Unblocks:** Quality gating, retry discipline
+
+---
+
+### 5) **GAP-005 — Authoritative vs Atmospheric Log Partition**
+
+**Type:** HIGH
+**Depends on:** GAP-001
+**Unblocks:** Deterministic replay guarantees
+
+---
+
+### 6) GAP-007 — Schema versioning & compatibility policy
+
+Depends on GAP-002
+
+### 7) GAP-008 — Voice stability metrics + cache invariants
+
+Depends on GAP-002
+
+### 8) GAP-006 — Doctrine/PSD drift reconciliation
+
+Independent
+
+### 9) GAP-009 — Path validation hardening
+
+Independent
+
+### 10) Regression sweep across seams after fixes
+
+Depends on 1–5
+
+---
+
+# 2) Full Remediation Work Packets (Top 5)
+
+---
+
+## FIX-001 (GAP-001)
+
+### Objective
+
+Eliminate permissive passthrough of unknown Box events at the Box→Lens boundary.
+
+### Scope Boundaries
+
+**IN:** Event contract registry, validation layer, Lens ingestion point, related tests.
+**OUT:** Changing Box event types themselves.
+
+### Concrete Artifacts
+
+* `aidm/runtime/box_events.py`
+* `aidm/lens/narrative_brief.py`
+* Event contract registry (WO-046 reference)
+* Related test modules (`test_box_event_contracts.py` if exists)
+
+### Step Plan
+
+1. Inventory all registered event types.
+2. Identify current fallback behavior for unknown events.
+3. Replace permissive dict passthrough with explicit failure or quarantined type.
+4. Add boundary validator before NarrativeBrief assembly.
+5. Ensure failure path is deterministic and includes event_type.
+6. Update documentation (Box Event Contract section).
+7. Run replay tests to confirm no legitimate events break.
+8. Add regression tests.
+
+### Acceptance Criteria
+
+* Unknown event_type fails deterministically before Lens consumption.
+* No dict-based event objects reach NarrativeBrief.
+* Replay tests remain green.
+
+### New Tests
+
+* `test_unknown_event_rejected_at_boundary`
+* `test_registered_event_passes_boundary_validation`
+
+### Rollback Plan
+
+Restore permissive passthrough with warning logs if regression reveals legitimate legacy event types.
+
+### Stop Conditions
+
+If existing save logs rely on passthrough events → escalate to define migration plan.
+
+---
+
+## FIX-002 (GAP-002)
+
+### Objective
+
+Define and enforce LensPromptPack v1 as canonical Lens→Spark interface.
+
+### Scope Boundaries
+
+**IN:** Prompt construction, token budgeting, validation wrapper.
+**OUT:** Spark provider transport code.
+
+### Concrete Artifacts
+
+* `aidm/lens/context_assembler.py`
+* `aidm/spark/adapter.py`
+* Spark Provider Contract doc
+* Prompt fixtures
+
+### Step Plan
+
+1. Define PromptPack v1 sections (Facts / Constraints / OutputSchema / Tone / SchemaVersion).
+2. Formalize deterministic serialization order.
+3. Implement schema_version field.
+4. Replace direct string prompts with PromptPack assembly.
+5. Integrate into SparkRequest.
+6. Add truncation policy (deterministic).
+7. Update documentation.
+8. Add golden prompt tests.
+
+### Acceptance Criteria
+
+* Identical Box state → identical PromptPack string.
+* Truncation does not change section ordering.
+* Spark outputs validate against declared output schema.
+
+### New Tests
+
+* `test_promptpack_deterministic_serialization`
+* `test_promptpack_truncation_stability`
+
+### Rollback Plan
+
+Fallback to legacy prompt path behind feature flag.
+
+### Stop Conditions
+
+If multiple prompt construction paths exist → halt and unify inventory first.
+
+---
+
+## FIX-003 (GAP-003)
+
+### Objective
+
+Define complete Narrative Containment Policy Matrix.
+
+### Scope Boundaries
+
+**IN:** Redaction logic, mapping logic, validation tests.
+**OUT:** Changing allowed narrative style.
+
+### Concrete Artifacts
+
+* `aidm/lens/narrative_brief.py`
+* Documentation (Containment Policy Matrix)
+* Grammar Shield rules
+
+### Step Plan
+
+1. Enumerate all mechanics-adjacent fields.
+2. Categorize as Allowed / Mapped / Forbidden.
+3. Implement validation layer enforcing matrix.
+4. Add severity mapping tests.
+5. Add “leak probe” test cases.
+6. Update documentation.
+7. Run integration narration tests.
+
+### Acceptance Criteria
+
+* No raw HP/AC/coords/IDs appear in Spark prompt.
+* Leak probe tests fail if forbidden tokens appear.
+
+### New Tests
+
+* `test_narrative_no_raw_hp_leak`
+* `test_narrative_distance_mapping_policy`
+* `test_condition_name_policy`
+
+### Rollback Plan
+
+Temporarily allow mapped-only policy while refining forbidden list.
+
+### Stop Conditions
+
+If PO requires spell names or distances allowed verbatim → escalate for explicit policy signoff.
+
+---
+
+## FIX-004 (GAP-004)
+
+### Objective
+
+Create ImmersionPlan v1 turn-level non-authoritative orchestration contract.
+
+### Scope Boundaries
+
+**IN:** Turn-level immersion request object, orchestration layer.
+**OUT:** Adapter internals.
+
+### Concrete Artifacts
+
+* `aidm/runtime/session_orchestrator.py`
+* `aidm/immersion/*`
+* New `ImmersionPlan` schema
+* Attribution ledger hooks
+
+### Step Plan
+
+1. Inventory current immersion calls.
+2. Define ImmersionPlan structure.
+3. Ensure plan excludes authoritative state mutation.
+4. Define retry bounds (non-blocking).
+5. Implement serialization for logging.
+6. Update orchestrator to consume plan.
+7. Add stub integration test.
+
+### Acceptance Criteria
+
+* ImmersionPlan executes without blocking engine.
+* No authoritative event log contains immersion artifacts.
+* All immersion retries bounded.
+
+### New Tests
+
+* `test_immersionplan_nonblocking_execution`
+* `test_immersionplan_no_engine_state_mutation`
+
+### Rollback Plan
+
+Retain old glue logic behind flag until plan validated.
+
+### Stop Conditions
+
+If prep-phase and runtime-phase need divergent plans → split versioned variants.
+
+---
+
+## FIX-005 (GAP-005)
+
+### Objective
+
+Explicitly partition authoritative vs atmospheric logs.
+
+### Scope Boundaries
+
+**IN:** Logging layer, replay harness, orchestrator logging calls.
+**OUT:** Changing Box event semantics.
+
+### Concrete Artifacts
+
+* `aidm/runtime/session_orchestrator.py`
+* Event log writer module
+* Replay verification tests
+
+### Step Plan
+
+1. Audit all log writes in runtime.
+2. Classify as authoritative or atmospheric.
+3. Create separate log streams.
+4. Exclude atmospheric from replay hash.
+5. Add replay invariance test.
+6. Document partition rules.
+7. Run stress replay validation.
+
+### Acceptance Criteria
+
+* Replay hash identical regardless of STT/TTS variance.
+* Atmospheric log can be removed with no mechanical effect.
+
+### New Tests
+
+* `test_replay_ignores_atmospheric_artifacts`
+* `test_replay_hash_invariant_under_stt_variance`
+
+### Rollback Plan
+
+Revert to single-log mode if regressions appear.
+
+### Stop Conditions
+
+If transcript storage currently affects authoritative data → escalate immediately.
+
+---
+
+# 3) Highest-Risk Unknown
+
+### Risk
+
+Whether authoritative logs currently contain STT transcripts, timestamps, or narration artifacts.
+
+If true, GAP-005 remediation could invalidate replay determinism.
+
+### Fastest Resolution
+
+1. Inspect one real authoritative JSONL event log from runtime.
+2. Verify it contains only BoxEvents + deterministic intent artifacts.
+3. Run replay twice with:
+
+   * STT disabled
+   * STT enabled with noise
+     Compare replay hashes.
+
+This is a 30–60 minute validation that determines whether determinism boundary is already compromised.
+
+---
+
+This plan preserves current architecture and converts boundary ambiguity into explicit, versioned contracts with measurable tests.

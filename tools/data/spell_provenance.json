@@ -1,0 +1,3027 @@
+{
+  "SPELL_001": {
+    "original_ref": "page_ref:197",
+    "source_page": "PHB p.197",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_002": {
+    "original_ref": "page_ref:197",
+    "source_page": "PHB p.197",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_003": {
+    "original_ref": "page_ref:197",
+    "source_page": "PHB p.197",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_004": {
+    "original_ref": "page_ref:197",
+    "source_page": "PHB p.197",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_005": {
+    "original_ref": "page_ref:198",
+    "source_page": "PHB p.198",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_006": {
+    "original_ref": "page_ref:198",
+    "source_page": "PHB p.198",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_007": {
+    "original_ref": "page_ref:198",
+    "source_page": "PHB p.198",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_008": {
+    "original_ref": "page_ref:198",
+    "source_page": "PHB p.198",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_009": {
+    "original_ref": "page_ref:199",
+    "source_page": "PHB p.199",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_010": {
+    "original_ref": "page_ref:199",
+    "source_page": "PHB p.199",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_011": {
+    "original_ref": "page_ref:199",
+    "source_page": "PHB p.199",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_012": {
+    "original_ref": "page_ref:199",
+    "source_page": "PHB p.199",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_013": {
+    "original_ref": "page_ref:199",
+    "source_page": "PHB p.199",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_014": {
+    "original_ref": "page_ref:200",
+    "source_page": "PHB p.200",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_015": {
+    "original_ref": "page_ref:200",
+    "source_page": "PHB p.200",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_016": {
+    "original_ref": "page_ref:200",
+    "source_page": "PHB p.200",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_017": {
+    "original_ref": "page_ref:200",
+    "source_page": "PHB p.200",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_018": {
+    "original_ref": "page_ref:201",
+    "source_page": "PHB p.201",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_019": {
+    "original_ref": "page_ref:201",
+    "source_page": "PHB p.201",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_020": {
+    "original_ref": "page_ref:201",
+    "source_page": "PHB p.201",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_021": {
+    "original_ref": "page_ref:201",
+    "source_page": "PHB p.201",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_022": {
+    "original_ref": "page_ref:201",
+    "source_page": "PHB p.201",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_023": {
+    "original_ref": "page_ref:202",
+    "source_page": "PHB p.202",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_024": {
+    "original_ref": "page_ref:202",
+    "source_page": "PHB p.202",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_025": {
+    "original_ref": "page_ref:202",
+    "source_page": "PHB p.202",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_026": {
+    "original_ref": "page_ref:202",
+    "source_page": "PHB p.202",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_027": {
+    "original_ref": "page_ref:202",
+    "source_page": "PHB p.202",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_028": {
+    "original_ref": "page_ref:203",
+    "source_page": "PHB p.203",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_029": {
+    "original_ref": "page_ref:203",
+    "source_page": "PHB p.203",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_030": {
+    "original_ref": "page_ref:203",
+    "source_page": "PHB p.203",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_031": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_032": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_033": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_034": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_035": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_036": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_037": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_038": {
+    "original_ref": "page_ref:204",
+    "source_page": "PHB p.204",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_039": {
+    "original_ref": "page_ref:205",
+    "source_page": "PHB p.205",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_040": {
+    "original_ref": "page_ref:205",
+    "source_page": "PHB p.205",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_041": {
+    "original_ref": "page_ref:205",
+    "source_page": "PHB p.205",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_042": {
+    "original_ref": "page_ref:205",
+    "source_page": "PHB p.205",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_043": {
+    "original_ref": "page_ref:206",
+    "source_page": "PHB p.206",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_044": {
+    "original_ref": "page_ref:206",
+    "source_page": "PHB p.206",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_045": {
+    "original_ref": "page_ref:206",
+    "source_page": "PHB p.206",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_046": {
+    "original_ref": "page_ref:206",
+    "source_page": "PHB p.206",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_047": {
+    "original_ref": "page_ref:206",
+    "source_page": "PHB p.206",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_048": {
+    "original_ref": "page_ref:207",
+    "source_page": "PHB p.207",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_049": {
+    "original_ref": "page_ref:207",
+    "source_page": "PHB p.207",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_050": {
+    "original_ref": "page_ref:207",
+    "source_page": "PHB p.207",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_051": {
+    "original_ref": "page_ref:207",
+    "source_page": "PHB p.207",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_052": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_053": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_054": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_055": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_056": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_057": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_058": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_059": {
+    "original_ref": "page_ref:208",
+    "source_page": "PHB p.208",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_060": {
+    "original_ref": "page_ref:209",
+    "source_page": "PHB p.209",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_061": {
+    "original_ref": "page_ref:209",
+    "source_page": "PHB p.209",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_062": {
+    "original_ref": "page_ref:209",
+    "source_page": "PHB p.209",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_063": {
+    "original_ref": "page_ref:209",
+    "source_page": "PHB p.209",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_064": {
+    "original_ref": "page_ref:209",
+    "source_page": "PHB p.209",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_065": {
+    "original_ref": "page_ref:209",
+    "source_page": "PHB p.209",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_066": {
+    "original_ref": "page_ref:209",
+    "source_page": "PHB p.209",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_067": {
+    "original_ref": "page_ref:210",
+    "source_page": "PHB p.210",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_068": {
+    "original_ref": "page_ref:210",
+    "source_page": "PHB p.210",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_069": {
+    "original_ref": "page_ref:210",
+    "source_page": "PHB p.210",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_070": {
+    "original_ref": "page_ref:210",
+    "source_page": "PHB p.210",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_071": {
+    "original_ref": "page_ref:210",
+    "source_page": "PHB p.210",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_072": {
+    "original_ref": "page_ref:210",
+    "source_page": "PHB p.210",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_073": {
+    "original_ref": "page_ref:210",
+    "source_page": "PHB p.210",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_074": {
+    "original_ref": "page_ref:211",
+    "source_page": "PHB p.211",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_075": {
+    "original_ref": "page_ref:211",
+    "source_page": "PHB p.211",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_076": {
+    "original_ref": "page_ref:211",
+    "source_page": "PHB p.211",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_077": {
+    "original_ref": "page_ref:211",
+    "source_page": "PHB p.211",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_078": {
+    "original_ref": "page_ref:212",
+    "source_page": "PHB p.212",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_079": {
+    "original_ref": "page_ref:212",
+    "source_page": "PHB p.212",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_080": {
+    "original_ref": "page_ref:212",
+    "source_page": "PHB p.212",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_081": {
+    "original_ref": "page_ref:212",
+    "source_page": "PHB p.212",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_082": {
+    "original_ref": "page_ref:212",
+    "source_page": "PHB p.212",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_083": {
+    "original_ref": "page_ref:212",
+    "source_page": "PHB p.212",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_084": {
+    "original_ref": "page_ref:213",
+    "source_page": "PHB p.213",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_085": {
+    "original_ref": "page_ref:213",
+    "source_page": "PHB p.213",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_086": {
+    "original_ref": "page_ref:213",
+    "source_page": "PHB p.213",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_087": {
+    "original_ref": "page_ref:213",
+    "source_page": "PHB p.213",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_088": {
+    "original_ref": "page_ref:213",
+    "source_page": "PHB p.213",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_089": {
+    "original_ref": "page_ref:213",
+    "source_page": "PHB p.213",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_090": {
+    "original_ref": "page_ref:214",
+    "source_page": "PHB p.214",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_091": {
+    "original_ref": "page_ref:214",
+    "source_page": "PHB p.214",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_092": {
+    "original_ref": "page_ref:214",
+    "source_page": "PHB p.214",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_093": {
+    "original_ref": "page_ref:214",
+    "source_page": "PHB p.214",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_094": {
+    "original_ref": "page_ref:215",
+    "source_page": "PHB p.215",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_095": {
+    "original_ref": "page_ref:215",
+    "source_page": "PHB p.215",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_096": {
+    "original_ref": "page_ref:215",
+    "source_page": "PHB p.215",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_097": {
+    "original_ref": "page_ref:215",
+    "source_page": "PHB p.215",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_098": {
+    "original_ref": "page_ref:215",
+    "source_page": "PHB p.215",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_099": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_100": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_101": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_102": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_103": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_104": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_105": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_106": {
+    "original_ref": "page_ref:216",
+    "source_page": "PHB p.216",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_107": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_108": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_109": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_110": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_111": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_112": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_113": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_114": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_115": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_116": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_117": {
+    "original_ref": "page_ref:217",
+    "source_page": "PHB p.217",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_118": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_119": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_120": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_121": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_122": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_123": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_124": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_125": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_126": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_127": {
+    "original_ref": "page_ref:218",
+    "source_page": "PHB p.218",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_128": {
+    "original_ref": "page_ref:219",
+    "source_page": "PHB p.219",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_129": {
+    "original_ref": "page_ref:219",
+    "source_page": "PHB p.219",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_130": {
+    "original_ref": "page_ref:219",
+    "source_page": "PHB p.219",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_131": {
+    "original_ref": "page_ref:219",
+    "source_page": "PHB p.219",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_132": {
+    "original_ref": "page_ref:219",
+    "source_page": "PHB p.219",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_133": {
+    "original_ref": "page_ref:220",
+    "source_page": "PHB p.220",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_134": {
+    "original_ref": "page_ref:220",
+    "source_page": "PHB p.220",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_135": {
+    "original_ref": "page_ref:220",
+    "source_page": "PHB p.220",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_136": {
+    "original_ref": "page_ref:220",
+    "source_page": "PHB p.220",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_137": {
+    "original_ref": "page_ref:220",
+    "source_page": "PHB p.220",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_138": {
+    "original_ref": "page_ref:221",
+    "source_page": "PHB p.221",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_139": {
+    "original_ref": "page_ref:221",
+    "source_page": "PHB p.221",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_140": {
+    "original_ref": "page_ref:221",
+    "source_page": "PHB p.221",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_141": {
+    "original_ref": "page_ref:221",
+    "source_page": "PHB p.221",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_142": {
+    "original_ref": "page_ref:221",
+    "source_page": "PHB p.221",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_143": {
+    "original_ref": "page_ref:222",
+    "source_page": "PHB p.222",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_144": {
+    "original_ref": "page_ref:222",
+    "source_page": "PHB p.222",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_145": {
+    "original_ref": "page_ref:222",
+    "source_page": "PHB p.222",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_146": {
+    "original_ref": "page_ref:222",
+    "source_page": "PHB p.222",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_147": {
+    "original_ref": "page_ref:222",
+    "source_page": "PHB p.222",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_148": {
+    "original_ref": "page_ref:223",
+    "source_page": "PHB p.223",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_149": {
+    "original_ref": "page_ref:223",
+    "source_page": "PHB p.223",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_150": {
+    "original_ref": "page_ref:223",
+    "source_page": "PHB p.223",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_151": {
+    "original_ref": "page_ref:223",
+    "source_page": "PHB p.223",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_152": {
+    "original_ref": "page_ref:223",
+    "source_page": "PHB p.223",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_153": {
+    "original_ref": "page_ref:223",
+    "source_page": "PHB p.223",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_154": {
+    "original_ref": "page_ref:223",
+    "source_page": "PHB p.223",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_155": {
+    "original_ref": "page_ref:224",
+    "source_page": "PHB p.224",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_156": {
+    "original_ref": "page_ref:224",
+    "source_page": "PHB p.224",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_157": {
+    "original_ref": "page_ref:224",
+    "source_page": "PHB p.224",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_158": {
+    "original_ref": "page_ref:224",
+    "source_page": "PHB p.224",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_159": {
+    "original_ref": "page_ref:224",
+    "source_page": "PHB p.224",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_160": {
+    "original_ref": "page_ref:224",
+    "source_page": "PHB p.224",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_161": {
+    "original_ref": "page_ref:225",
+    "source_page": "PHB p.225",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_162": {
+    "original_ref": "page_ref:225",
+    "source_page": "PHB p.225",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_163": {
+    "original_ref": "page_ref:225",
+    "source_page": "PHB p.225",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_164": {
+    "original_ref": "page_ref:225",
+    "source_page": "PHB p.225",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_165": {
+    "original_ref": "page_ref:225",
+    "source_page": "PHB p.225",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_166": {
+    "original_ref": "page_ref:225",
+    "source_page": "PHB p.225",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_167": {
+    "original_ref": "page_ref:226",
+    "source_page": "PHB p.226",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_168": {
+    "original_ref": "page_ref:226",
+    "source_page": "PHB p.226",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_169": {
+    "original_ref": "page_ref:226",
+    "source_page": "PHB p.226",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_170": {
+    "original_ref": "page_ref:226",
+    "source_page": "PHB p.226",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_171": {
+    "original_ref": "page_ref:226",
+    "source_page": "PHB p.226",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_172": {
+    "original_ref": "page_ref:226",
+    "source_page": "PHB p.226",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_173": {
+    "original_ref": "page_ref:227",
+    "source_page": "PHB p.227",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_174": {
+    "original_ref": "page_ref:227",
+    "source_page": "PHB p.227",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_175": {
+    "original_ref": "page_ref:227",
+    "source_page": "PHB p.227",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_176": {
+    "original_ref": "page_ref:227",
+    "source_page": "PHB p.227",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_177": {
+    "original_ref": "page_ref:227",
+    "source_page": "PHB p.227",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_178": {
+    "original_ref": "page_ref:228",
+    "source_page": "PHB p.228",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_179": {
+    "original_ref": "page_ref:228",
+    "source_page": "PHB p.228",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_180": {
+    "original_ref": "page_ref:228",
+    "source_page": "PHB p.228",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_181": {
+    "original_ref": "page_ref:228",
+    "source_page": "PHB p.228",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_182": {
+    "original_ref": "page_ref:228",
+    "source_page": "PHB p.228",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_183": {
+    "original_ref": "page_ref:228",
+    "source_page": "PHB p.228",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_184": {
+    "original_ref": "page_ref:229",
+    "source_page": "PHB p.229",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_185": {
+    "original_ref": "page_ref:229",
+    "source_page": "PHB p.229",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_186": {
+    "original_ref": "page_ref:229",
+    "source_page": "PHB p.229",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_187": {
+    "original_ref": "page_ref:229",
+    "source_page": "PHB p.229",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_188": {
+    "original_ref": "page_ref:229",
+    "source_page": "PHB p.229",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_189": {
+    "original_ref": "page_ref:230",
+    "source_page": "PHB p.230",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_190": {
+    "original_ref": "page_ref:230",
+    "source_page": "PHB p.230",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_191": {
+    "original_ref": "page_ref:230",
+    "source_page": "PHB p.230",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_192": {
+    "original_ref": "page_ref:230",
+    "source_page": "PHB p.230",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_193": {
+    "original_ref": "page_ref:230",
+    "source_page": "PHB p.230",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_194": {
+    "original_ref": "page_ref:230",
+    "source_page": "PHB p.230",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_195": {
+    "original_ref": "page_ref:230",
+    "source_page": "PHB p.230",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_196": {
+    "original_ref": "page_ref:231",
+    "source_page": "PHB p.231",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_197": {
+    "original_ref": "page_ref:231",
+    "source_page": "PHB p.231",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_198": {
+    "original_ref": "page_ref:231",
+    "source_page": "PHB p.231",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_199": {
+    "original_ref": "page_ref:231",
+    "source_page": "PHB p.231",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_200": {
+    "original_ref": "page_ref:231",
+    "source_page": "PHB p.231",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_201": {
+    "original_ref": "page_ref:232",
+    "source_page": "PHB p.232",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_202": {
+    "original_ref": "page_ref:232",
+    "source_page": "PHB p.232",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_203": {
+    "original_ref": "page_ref:232",
+    "source_page": "PHB p.232",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_204": {
+    "original_ref": "page_ref:232",
+    "source_page": "PHB p.232",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_205": {
+    "original_ref": "page_ref:232",
+    "source_page": "PHB p.232",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_206": {
+    "original_ref": "page_ref:232",
+    "source_page": "PHB p.232",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_207": {
+    "original_ref": "page_ref:233",
+    "source_page": "PHB p.233",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_208": {
+    "original_ref": "page_ref:233",
+    "source_page": "PHB p.233",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_209": {
+    "original_ref": "page_ref:233",
+    "source_page": "PHB p.233",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_210": {
+    "original_ref": "page_ref:233",
+    "source_page": "PHB p.233",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_211": {
+    "original_ref": "page_ref:233",
+    "source_page": "PHB p.233",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_212": {
+    "original_ref": "page_ref:233",
+    "source_page": "PHB p.233",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_213": {
+    "original_ref": "page_ref:234",
+    "source_page": "PHB p.234",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_214": {
+    "original_ref": "page_ref:234",
+    "source_page": "PHB p.234",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_215": {
+    "original_ref": "page_ref:234",
+    "source_page": "PHB p.234",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_216": {
+    "original_ref": "page_ref:234",
+    "source_page": "PHB p.234",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_217": {
+    "original_ref": "page_ref:234",
+    "source_page": "PHB p.234",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_218": {
+    "original_ref": "page_ref:234",
+    "source_page": "PHB p.234",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_219": {
+    "original_ref": "page_ref:235",
+    "source_page": "PHB p.235",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_220": {
+    "original_ref": "page_ref:235",
+    "source_page": "PHB p.235",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_221": {
+    "original_ref": "page_ref:236",
+    "source_page": "PHB p.236",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_222": {
+    "original_ref": "page_ref:235",
+    "source_page": "PHB p.235",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_223": {
+    "original_ref": "page_ref:236",
+    "source_page": "PHB p.236",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_224": {
+    "original_ref": "page_ref:236",
+    "source_page": "PHB p.236",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_225": {
+    "original_ref": "page_ref:236",
+    "source_page": "PHB p.236",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_226": {
+    "original_ref": "page_ref:236",
+    "source_page": "PHB p.236",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_227": {
+    "original_ref": "page_ref:236",
+    "source_page": "PHB p.236",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_228": {
+    "original_ref": "page_ref:237",
+    "source_page": "PHB p.237",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_229": {
+    "original_ref": "page_ref:237",
+    "source_page": "PHB p.237",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_230": {
+    "original_ref": "page_ref:237",
+    "source_page": "PHB p.237",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_231": {
+    "original_ref": "page_ref:237",
+    "source_page": "PHB p.237",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_232": {
+    "original_ref": "page_ref:238",
+    "source_page": "PHB p.238",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_233": {
+    "original_ref": "page_ref:238",
+    "source_page": "PHB p.238",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_234": {
+    "original_ref": "page_ref:238",
+    "source_page": "PHB p.238",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_235": {
+    "original_ref": "page_ref:238",
+    "source_page": "PHB p.238",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_236": {
+    "original_ref": "page_ref:238",
+    "source_page": "PHB p.238",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_237": {
+    "original_ref": "page_ref:239",
+    "source_page": "PHB p.239",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_238": {
+    "original_ref": "page_ref:239",
+    "source_page": "PHB p.239",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_239": {
+    "original_ref": "page_ref:239",
+    "source_page": "PHB p.239",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_240": {
+    "original_ref": "page_ref:239",
+    "source_page": "PHB p.239",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_241": {
+    "original_ref": "page_ref:239",
+    "source_page": "PHB p.239",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_242": {
+    "original_ref": "page_ref:240",
+    "source_page": "PHB p.240",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_243": {
+    "original_ref": "page_ref:240",
+    "source_page": "PHB p.240",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_244": {
+    "original_ref": "page_ref:240",
+    "source_page": "PHB p.240",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_245": {
+    "original_ref": "page_ref:240",
+    "source_page": "PHB p.240",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_246": {
+    "original_ref": "page_ref:240",
+    "source_page": "PHB p.240",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_247": {
+    "original_ref": "page_ref:240",
+    "source_page": "PHB p.240",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_248": {
+    "original_ref": "page_ref:240",
+    "source_page": "PHB p.240",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_249": {
+    "original_ref": "page_ref:241",
+    "source_page": "PHB p.241",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_250": {
+    "original_ref": "page_ref:241",
+    "source_page": "PHB p.241",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_251": {
+    "original_ref": "page_ref:241",
+    "source_page": "PHB p.241",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_252": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_253": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_254": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_255": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_256": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_257": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_258": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_259": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_260": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_261": {
+    "original_ref": "page_ref:242",
+    "source_page": "PHB p.242",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_262": {
+    "original_ref": "page_ref:243",
+    "source_page": "PHB p.243",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_263": {
+    "original_ref": "page_ref:243",
+    "source_page": "PHB p.243",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_264": {
+    "original_ref": "page_ref:243",
+    "source_page": "PHB p.243",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_265": {
+    "original_ref": "page_ref:243",
+    "source_page": "PHB p.243",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_266": {
+    "original_ref": "page_ref:243",
+    "source_page": "PHB p.243",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_267": {
+    "original_ref": "page_ref:244",
+    "source_page": "PHB p.244",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_268": {
+    "original_ref": "page_ref:244",
+    "source_page": "PHB p.244",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_269": {
+    "original_ref": "page_ref:244",
+    "source_page": "PHB p.244",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_270": {
+    "original_ref": "page_ref:244",
+    "source_page": "PHB p.244",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_271": {
+    "original_ref": "page_ref:244",
+    "source_page": "PHB p.244",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_272": {
+    "original_ref": "page_ref:244",
+    "source_page": "PHB p.244",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_273": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_274": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_275": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_276": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_277": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_278": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_279": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_280": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_281": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_282": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_283": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_284": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_285": {
+    "original_ref": "page_ref:245",
+    "source_page": "PHB p.245",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_286": {
+    "original_ref": "page_ref:246",
+    "source_page": "PHB p.246",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_287": {
+    "original_ref": "page_ref:246",
+    "source_page": "PHB p.246",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_288": {
+    "original_ref": "page_ref:246",
+    "source_page": "PHB p.246",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_289": {
+    "original_ref": "page_ref:246",
+    "source_page": "PHB p.246",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_290": {
+    "original_ref": "page_ref:246",
+    "source_page": "PHB p.246",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_291": {
+    "original_ref": "page_ref:246",
+    "source_page": "PHB p.246",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_292": {
+    "original_ref": "page_ref:247",
+    "source_page": "PHB p.247",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_293": {
+    "original_ref": "page_ref:247",
+    "source_page": "PHB p.247",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_294": {
+    "original_ref": "page_ref:247",
+    "source_page": "PHB p.247",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_295": {
+    "original_ref": "page_ref:247",
+    "source_page": "PHB p.247",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_296": {
+    "original_ref": "page_ref:247",
+    "source_page": "PHB p.247",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_297": {
+    "original_ref": "page_ref:247",
+    "source_page": "PHB p.247",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_298": {
+    "original_ref": "page_ref:248",
+    "source_page": "PHB p.248",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_299": {
+    "original_ref": "page_ref:248",
+    "source_page": "PHB p.248",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_300": {
+    "original_ref": "page_ref:248",
+    "source_page": "PHB p.248",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_301": {
+    "original_ref": "page_ref:248",
+    "source_page": "PHB p.248",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_302": {
+    "original_ref": "page_ref:249",
+    "source_page": "PHB p.249",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_303": {
+    "original_ref": "page_ref:249",
+    "source_page": "PHB p.249",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_304": {
+    "original_ref": "page_ref:249",
+    "source_page": "PHB p.249",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_305": {
+    "original_ref": "page_ref:249",
+    "source_page": "PHB p.249",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_306": {
+    "original_ref": "page_ref:249",
+    "source_page": "PHB p.249",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_307": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_308": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_309": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_310": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_311": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_312": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_313": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_314": {
+    "original_ref": "page_ref:250",
+    "source_page": "PHB p.250",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_315": {
+    "original_ref": "page_ref:251",
+    "source_page": "PHB p.251",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_316": {
+    "original_ref": "page_ref:251",
+    "source_page": "PHB p.251",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_317": {
+    "original_ref": "page_ref:251",
+    "source_page": "PHB p.251",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_318": {
+    "original_ref": "page_ref:251",
+    "source_page": "PHB p.251",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_319": {
+    "original_ref": "page_ref:251",
+    "source_page": "PHB p.251",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_320": {
+    "original_ref": "page_ref:252",
+    "source_page": "PHB p.252",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_321": {
+    "original_ref": "page_ref:252",
+    "source_page": "PHB p.252",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_322": {
+    "original_ref": "page_ref:252",
+    "source_page": "PHB p.252",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_323": {
+    "original_ref": "page_ref:252",
+    "source_page": "PHB p.252",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_324": {
+    "original_ref": "page_ref:252",
+    "source_page": "PHB p.252",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_325": {
+    "original_ref": "page_ref:252",
+    "source_page": "PHB p.252",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_326": {
+    "original_ref": "page_ref:253",
+    "source_page": "PHB p.253",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_327": {
+    "original_ref": "page_ref:253",
+    "source_page": "PHB p.253",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_328": {
+    "original_ref": "page_ref:253",
+    "source_page": "PHB p.253",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_329": {
+    "original_ref": "page_ref:257",
+    "source_page": "PHB p.257",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_330": {
+    "original_ref": "page_ref:253",
+    "source_page": "PHB p.253",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_331": {
+    "original_ref": "page_ref:253",
+    "source_page": "PHB p.253",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_332": {
+    "original_ref": "page_ref:253",
+    "source_page": "PHB p.253",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_333": {
+    "original_ref": "page_ref:254",
+    "source_page": "PHB p.254",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_334": {
+    "original_ref": "page_ref:254",
+    "source_page": "PHB p.254",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_335": {
+    "original_ref": "page_ref:254",
+    "source_page": "PHB p.254",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_336": {
+    "original_ref": "page_ref:254",
+    "source_page": "PHB p.254",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_337": {
+    "original_ref": "page_ref:254",
+    "source_page": "PHB p.254",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_338": {
+    "original_ref": "page_ref:254",
+    "source_page": "PHB p.254",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_339": {
+    "original_ref": "page_ref:254",
+    "source_page": "PHB p.254",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_340": {
+    "original_ref": "page_ref:255",
+    "source_page": "PHB p.255",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_341": {
+    "original_ref": "page_ref:255",
+    "source_page": "PHB p.255",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_342": {
+    "original_ref": "page_ref:255",
+    "source_page": "PHB p.255",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_343": {
+    "original_ref": "page_ref:255",
+    "source_page": "PHB p.255",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_344": {
+    "original_ref": "page_ref:255",
+    "source_page": "PHB p.255",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_345": {
+    "original_ref": "page_ref:256",
+    "source_page": "PHB p.256",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_346": {
+    "original_ref": "page_ref:256",
+    "source_page": "PHB p.256",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_347": {
+    "original_ref": "page_ref:256",
+    "source_page": "PHB p.256",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_348": {
+    "original_ref": "page_ref:256",
+    "source_page": "PHB p.256",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_349": {
+    "original_ref": "page_ref:256",
+    "source_page": "PHB p.256",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_350": {
+    "original_ref": "page_ref:257",
+    "source_page": "PHB p.257",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_351": {
+    "original_ref": "page_ref:257",
+    "source_page": "PHB p.257",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_352": {
+    "original_ref": "page_ref:257",
+    "source_page": "PHB p.257",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_353": {
+    "original_ref": "page_ref:257",
+    "source_page": "PHB p.257",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_354": {
+    "original_ref": "page_ref:258",
+    "source_page": "PHB p.258",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_355": {
+    "original_ref": "page_ref:258",
+    "source_page": "PHB p.258",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_356": {
+    "original_ref": "page_ref:258",
+    "source_page": "PHB p.258",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_357": {
+    "original_ref": "page_ref:258",
+    "source_page": "PHB p.258",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_358": {
+    "original_ref": "page_ref:258",
+    "source_page": "PHB p.258",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_359": {
+    "original_ref": "page_ref:259",
+    "source_page": "PHB p.259",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_360": {
+    "original_ref": "page_ref:259",
+    "source_page": "PHB p.259",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_361": {
+    "original_ref": "page_ref:259",
+    "source_page": "PHB p.259",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_362": {
+    "original_ref": "page_ref:259",
+    "source_page": "PHB p.259",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_363": {
+    "original_ref": "page_ref:259",
+    "source_page": "PHB p.259",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_364": {
+    "original_ref": "page_ref:259",
+    "source_page": "PHB p.259",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_365": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_366": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_367": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_368": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_369": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_370": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_371": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_372": {
+    "original_ref": "page_ref:260",
+    "source_page": "PHB p.260",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_373": {
+    "original_ref": "page_ref:261",
+    "source_page": "PHB p.261",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_374": {
+    "original_ref": "page_ref:261",
+    "source_page": "PHB p.261",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_375": {
+    "original_ref": "page_ref:261",
+    "source_page": "PHB p.261",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_376": {
+    "original_ref": "page_ref:261",
+    "source_page": "PHB p.261",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_377": {
+    "original_ref": "page_ref:262",
+    "source_page": "PHB p.262",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_378": {
+    "original_ref": "page_ref:262",
+    "source_page": "PHB p.262",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_379": {
+    "original_ref": "page_ref:262",
+    "source_page": "PHB p.262",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_380": {
+    "original_ref": "page_ref:262",
+    "source_page": "PHB p.262",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_381": {
+    "original_ref": "page_ref:262",
+    "source_page": "PHB p.262",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_382": {
+    "original_ref": "page_ref:262",
+    "source_page": "PHB p.262",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_383": {
+    "original_ref": "page_ref:262",
+    "source_page": "PHB p.262",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_384": {
+    "original_ref": "page_ref:263",
+    "source_page": "PHB p.263",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_385": {
+    "original_ref": "page_ref:263",
+    "source_page": "PHB p.263",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_386": {
+    "original_ref": "page_ref:263",
+    "source_page": "PHB p.263",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_387": {
+    "original_ref": "page_ref:263",
+    "source_page": "PHB p.263",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_388": {
+    "original_ref": "page_ref:264",
+    "source_page": "PHB p.264",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_389": {
+    "original_ref": "page_ref:264",
+    "source_page": "PHB p.264",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_390": {
+    "original_ref": "page_ref:264",
+    "source_page": "PHB p.264",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_391": {
+    "original_ref": "page_ref:264",
+    "source_page": "PHB p.264",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_392": {
+    "original_ref": "page_ref:264",
+    "source_page": "PHB p.264",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_393": {
+    "original_ref": "page_ref:265",
+    "source_page": "PHB p.265",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_394": {
+    "original_ref": "page_ref:265",
+    "source_page": "PHB p.265",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_395": {
+    "original_ref": "page_ref:265",
+    "source_page": "PHB p.265",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_396": {
+    "original_ref": "page_ref:265",
+    "source_page": "PHB p.265",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_397": {
+    "original_ref": "page_ref:265",
+    "source_page": "PHB p.265",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_398": {
+    "original_ref": "page_ref:266",
+    "source_page": "PHB p.266",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_399": {
+    "original_ref": "page_ref:266",
+    "source_page": "PHB p.266",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_400": {
+    "original_ref": "page_ref:266",
+    "source_page": "PHB p.266",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_401": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_402": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_403": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_404": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_405": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_406": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_407": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_408": {
+    "original_ref": "page_ref:267",
+    "source_page": "PHB p.267",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_409": {
+    "original_ref": "page_ref:268",
+    "source_page": "PHB p.268",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_410": {
+    "original_ref": "page_ref:268",
+    "source_page": "PHB p.268",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_411": {
+    "original_ref": "page_ref:268",
+    "source_page": "PHB p.268",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_412": {
+    "original_ref": "page_ref:268",
+    "source_page": "PHB p.268",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_413": {
+    "original_ref": "page_ref:269",
+    "source_page": "PHB p.269",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_414": {
+    "original_ref": "page_ref:269",
+    "source_page": "PHB p.269",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_415": {
+    "original_ref": "page_ref:269",
+    "source_page": "PHB p.269",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_416": {
+    "original_ref": "page_ref:269",
+    "source_page": "PHB p.269",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_417": {
+    "original_ref": "page_ref:269",
+    "source_page": "PHB p.269",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_418": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_419": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_420": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_421": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_422": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_423": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_424": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_425": {
+    "original_ref": "page_ref:270",
+    "source_page": "PHB p.270",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_426": {
+    "original_ref": "page_ref:271",
+    "source_page": "PHB p.271",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_427": {
+    "original_ref": "page_ref:271",
+    "source_page": "PHB p.271",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_428": {
+    "original_ref": "page_ref:271",
+    "source_page": "PHB p.271",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_429": {
+    "original_ref": "page_ref:271",
+    "source_page": "PHB p.271",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_430": {
+    "original_ref": "page_ref:272",
+    "source_page": "PHB p.272",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_431": {
+    "original_ref": "page_ref:272",
+    "source_page": "PHB p.272",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_432": {
+    "original_ref": "page_ref:272",
+    "source_page": "PHB p.272",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_433": {
+    "original_ref": "page_ref:272",
+    "source_page": "PHB p.272",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_434": {
+    "original_ref": "page_ref:272",
+    "source_page": "PHB p.272",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_435": {
+    "original_ref": "page_ref:272",
+    "source_page": "PHB p.272",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_436": {
+    "original_ref": "page_ref:272",
+    "source_page": "PHB p.272",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_437": {
+    "original_ref": "page_ref:273",
+    "source_page": "PHB p.273",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_438": {
+    "original_ref": "page_ref:273",
+    "source_page": "PHB p.273",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_439": {
+    "original_ref": "page_ref:273",
+    "source_page": "PHB p.273",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_440": {
+    "original_ref": "page_ref:273",
+    "source_page": "PHB p.273",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_441": {
+    "original_ref": "page_ref:273",
+    "source_page": "PHB p.273",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_442": {
+    "original_ref": "page_ref:273",
+    "source_page": "PHB p.273",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_443": {
+    "original_ref": "page_ref:274",
+    "source_page": "PHB p.274",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_444": {
+    "original_ref": "page_ref:274",
+    "source_page": "PHB p.274",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_445": {
+    "original_ref": "page_ref:274",
+    "source_page": "PHB p.274",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_446": {
+    "original_ref": "page_ref:274",
+    "source_page": "PHB p.274",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_447": {
+    "original_ref": "page_ref:275",
+    "source_page": "PHB p.275",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_448": {
+    "original_ref": "page_ref:275",
+    "source_page": "PHB p.275",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_449": {
+    "original_ref": "page_ref:275",
+    "source_page": "PHB p.275",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_450": {
+    "original_ref": "page_ref:275",
+    "source_page": "PHB p.275",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_451": {
+    "original_ref": "page_ref:275",
+    "source_page": "PHB p.275",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_452": {
+    "original_ref": "page_ref:275",
+    "source_page": "PHB p.275",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_453": {
+    "original_ref": "page_ref:276",
+    "source_page": "PHB p.276",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_454": {
+    "original_ref": "page_ref:276",
+    "source_page": "PHB p.276",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_455": {
+    "original_ref": "page_ref:276",
+    "source_page": "PHB p.276",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_456": {
+    "original_ref": "page_ref:276",
+    "source_page": "PHB p.276",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_457": {
+    "original_ref": "page_ref:276",
+    "source_page": "PHB p.276",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_458": {
+    "original_ref": "page_ref:276",
+    "source_page": "PHB p.276",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_459": {
+    "original_ref": "page_ref:276",
+    "source_page": "PHB p.276",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_460": {
+    "original_ref": "page_ref:277",
+    "source_page": "PHB p.277",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_461": {
+    "original_ref": "page_ref:277",
+    "source_page": "PHB p.277",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_462": {
+    "original_ref": "page_ref:277",
+    "source_page": "PHB p.277",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_463": {
+    "original_ref": "page_ref:277",
+    "source_page": "PHB p.277",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_464": {
+    "original_ref": "page_ref:277",
+    "source_page": "PHB p.277",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_465": {
+    "original_ref": "page_ref:278",
+    "source_page": "PHB p.278",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_466": {
+    "original_ref": "page_ref:278",
+    "source_page": "PHB p.278",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_467": {
+    "original_ref": "page_ref:278",
+    "source_page": "PHB p.278",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_468": {
+    "original_ref": "page_ref:278",
+    "source_page": "PHB p.278",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_469": {
+    "original_ref": "page_ref:278",
+    "source_page": "PHB p.278",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_470": {
+    "original_ref": "page_ref:279",
+    "source_page": "PHB p.279",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_471": {
+    "original_ref": "page_ref:279",
+    "source_page": "PHB p.279",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_472": {
+    "original_ref": "page_ref:279",
+    "source_page": "PHB p.279",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_473": {
+    "original_ref": "page_ref:279",
+    "source_page": "PHB p.279",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_474": {
+    "original_ref": "page_ref:279",
+    "source_page": "PHB p.279",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_475": {
+    "original_ref": "page_ref:279",
+    "source_page": "PHB p.279",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_476": {
+    "original_ref": "page_ref:280",
+    "source_page": "PHB p.280",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_477": {
+    "original_ref": "page_ref:280",
+    "source_page": "PHB p.280",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_478": {
+    "original_ref": "page_ref:280",
+    "source_page": "PHB p.280",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_479": {
+    "original_ref": "page_ref:280",
+    "source_page": "PHB p.280",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_480": {
+    "original_ref": "page_ref:280",
+    "source_page": "PHB p.280",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_481": {
+    "original_ref": "page_ref:280",
+    "source_page": "PHB p.280",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_482": {
+    "original_ref": "page_ref:280",
+    "source_page": "PHB p.280",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_483": {
+    "original_ref": "page_ref:281",
+    "source_page": "PHB p.281",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_484": {
+    "original_ref": "page_ref:281",
+    "source_page": "PHB p.281",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_485": {
+    "original_ref": "page_ref:281",
+    "source_page": "PHB p.281",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_486": {
+    "original_ref": "page_ref:281",
+    "source_page": "PHB p.281",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_487": {
+    "original_ref": "page_ref:281",
+    "source_page": "PHB p.281",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_488": {
+    "original_ref": "page_ref:281",
+    "source_page": "PHB p.281",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_489": {
+    "original_ref": "page_ref:282",
+    "source_page": "PHB p.282",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_490": {
+    "original_ref": "page_ref:282",
+    "source_page": "PHB p.282",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_491": {
+    "original_ref": "page_ref:282",
+    "source_page": "PHB p.282",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_492": {
+    "original_ref": "page_ref:282",
+    "source_page": "PHB p.282",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_493": {
+    "original_ref": "page_ref:282",
+    "source_page": "PHB p.282",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_494": {
+    "original_ref": "page_ref:282",
+    "source_page": "PHB p.282",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_495": {
+    "original_ref": "page_ref:283",
+    "source_page": "PHB p.283",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_496": {
+    "original_ref": "page_ref:283",
+    "source_page": "PHB p.283",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_497": {
+    "original_ref": "page_ref:283",
+    "source_page": "PHB p.283",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_498": {
+    "original_ref": "page_ref:283",
+    "source_page": "PHB p.283",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_499": {
+    "original_ref": "page_ref:283",
+    "source_page": "PHB p.283",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_500": {
+    "original_ref": "page_ref:283",
+    "source_page": "PHB p.283",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_501": {
+    "original_ref": "page_ref:283",
+    "source_page": "PHB p.283",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_502": {
+    "original_ref": "page_ref:284",
+    "source_page": "PHB p.284",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_503": {
+    "original_ref": "page_ref:284",
+    "source_page": "PHB p.284",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_504": {
+    "original_ref": "page_ref:284",
+    "source_page": "PHB p.284",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_505": {
+    "original_ref": "page_ref:284",
+    "source_page": "PHB p.284",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_506": {
+    "original_ref": "page_ref:285",
+    "source_page": "PHB p.285",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_507": {
+    "original_ref": "page_ref:285",
+    "source_page": "PHB p.285",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_508": {
+    "original_ref": "page_ref:285",
+    "source_page": "PHB p.285",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_509": {
+    "original_ref": "page_ref:285",
+    "source_page": "PHB p.285",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_510": {
+    "original_ref": "page_ref:285",
+    "source_page": "PHB p.285",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_511": {
+    "original_ref": "page_ref:286",
+    "source_page": "PHB p.286",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_512": {
+    "original_ref": "page_ref:285",
+    "source_page": "PHB p.285",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_513": {
+    "original_ref": "page_ref:286",
+    "source_page": "PHB p.286",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_514": {
+    "original_ref": "page_ref:286",
+    "source_page": "PHB p.286",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_515": {
+    "original_ref": "page_ref:286",
+    "source_page": "PHB p.286",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_516": {
+    "original_ref": "page_ref:286",
+    "source_page": "PHB p.286",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_517": {
+    "original_ref": "page_ref:286",
+    "source_page": "PHB p.286",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_518": {
+    "original_ref": "page_ref:287",
+    "source_page": "PHB p.287",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_519": {
+    "original_ref": "page_ref:287",
+    "source_page": "PHB p.287",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_520": {
+    "original_ref": "page_ref:287",
+    "source_page": "PHB p.287",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_521": {
+    "original_ref": "page_ref:289",
+    "source_page": "PHB p.289",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_522": {
+    "original_ref": "page_ref:287",
+    "source_page": "PHB p.287",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_523": {
+    "original_ref": "page_ref:288",
+    "source_page": "PHB p.288",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_524": {
+    "original_ref": "page_ref:288",
+    "source_page": "PHB p.288",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_525": {
+    "original_ref": "page_ref:288",
+    "source_page": "PHB p.288",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_526": {
+    "original_ref": "page_ref:289",
+    "source_page": "PHB p.289",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_527": {
+    "original_ref": "page_ref:289",
+    "source_page": "PHB p.289",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_528": {
+    "original_ref": "page_ref:289",
+    "source_page": "PHB p.289",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_529": {
+    "original_ref": "page_ref:289",
+    "source_page": "PHB p.289",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_530": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_531": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_532": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_533": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_534": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_535": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_536": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_537": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_538": {
+    "original_ref": "page_ref:290",
+    "source_page": "PHB p.290",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_539": {
+    "original_ref": "page_ref:291",
+    "source_page": "PHB p.291",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_540": {
+    "original_ref": "page_ref:291",
+    "source_page": "PHB p.291",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_541": {
+    "original_ref": "page_ref:291",
+    "source_page": "PHB p.291",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_542": {
+    "original_ref": "page_ref:291",
+    "source_page": "PHB p.291",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_543": {
+    "original_ref": "page_ref:292",
+    "source_page": "PHB p.292",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_544": {
+    "original_ref": "page_ref:292",
+    "source_page": "PHB p.292",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_545": {
+    "original_ref": "page_ref:292",
+    "source_page": "PHB p.292",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_546": {
+    "original_ref": "page_ref:293",
+    "source_page": "PHB p.293",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_547": {
+    "original_ref": "page_ref:293",
+    "source_page": "PHB p.293",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_548": {
+    "original_ref": "page_ref:293",
+    "source_page": "PHB p.293",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_549": {
+    "original_ref": "page_ref:293",
+    "source_page": "PHB p.293",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_550": {
+    "original_ref": "page_ref:294",
+    "source_page": "PHB p.294",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_551": {
+    "original_ref": "page_ref:294",
+    "source_page": "PHB p.294",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_552": {
+    "original_ref": "page_ref:294",
+    "source_page": "PHB p.294",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_553": {
+    "original_ref": "page_ref:294",
+    "source_page": "PHB p.294",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_554": {
+    "original_ref": "page_ref:295",
+    "source_page": "PHB p.295",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_555": {
+    "original_ref": "page_ref:295",
+    "source_page": "PHB p.295",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_556": {
+    "original_ref": "page_ref:295",
+    "source_page": "PHB p.295",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_557": {
+    "original_ref": "page_ref:295",
+    "source_page": "PHB p.295",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_558": {
+    "original_ref": "page_ref:295",
+    "source_page": "PHB p.295",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_559": {
+    "original_ref": "page_ref:295",
+    "source_page": "PHB p.295",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_560": {
+    "original_ref": "page_ref:295",
+    "source_page": "PHB p.295",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_561": {
+    "original_ref": "page_ref:296",
+    "source_page": "PHB p.296",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_562": {
+    "original_ref": "page_ref:296",
+    "source_page": "PHB p.296",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_563": {
+    "original_ref": "page_ref:296",
+    "source_page": "PHB p.296",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_564": {
+    "original_ref": "page_ref:296",
+    "source_page": "PHB p.296",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_565": {
+    "original_ref": "page_ref:297",
+    "source_page": "PHB p.297",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_566": {
+    "original_ref": "page_ref:297",
+    "source_page": "PHB p.297",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_567": {
+    "original_ref": "page_ref:297",
+    "source_page": "PHB p.297",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_568": {
+    "original_ref": "page_ref:297",
+    "source_page": "PHB p.297",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_569": {
+    "original_ref": "page_ref:297",
+    "source_page": "PHB p.297",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_570": {
+    "original_ref": "page_ref:298",
+    "source_page": "PHB p.298",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_571": {
+    "original_ref": "page_ref:298",
+    "source_page": "PHB p.298",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_572": {
+    "original_ref": "page_ref:298",
+    "source_page": "PHB p.298",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_573": {
+    "original_ref": "page_ref:298",
+    "source_page": "PHB p.298",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_574": {
+    "original_ref": "page_ref:298",
+    "source_page": "PHB p.298",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_575": {
+    "original_ref": "page_ref:298",
+    "source_page": "PHB p.298",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_576": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_577": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_578": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_579": {
+    "original_ref": "page_ref:292",
+    "source_page": "PHB p.292",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_580": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_581": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_582": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_583": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_584": {
+    "original_ref": "page_ref:299",
+    "source_page": "PHB p.299",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_585": {
+    "original_ref": "page_ref:300",
+    "source_page": "PHB p.300",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_586": {
+    "original_ref": "page_ref:300",
+    "source_page": "PHB p.300",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_587": {
+    "original_ref": "page_ref:300",
+    "source_page": "PHB p.300",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_588": {
+    "original_ref": "page_ref:301",
+    "source_page": "PHB p.301",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_589": {
+    "original_ref": "page_ref:301",
+    "source_page": "PHB p.301",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_590": {
+    "original_ref": "page_ref:301",
+    "source_page": "PHB p.301",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_591": {
+    "original_ref": "page_ref:301",
+    "source_page": "PHB p.301",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_592": {
+    "original_ref": "page_ref:302",
+    "source_page": "PHB p.302",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_593": {
+    "original_ref": "page_ref:302",
+    "source_page": "PHB p.302",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_594": {
+    "original_ref": "page_ref:302",
+    "source_page": "PHB p.302",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_595": {
+    "original_ref": "page_ref:302",
+    "source_page": "PHB p.302",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_596": {
+    "original_ref": "page_ref:302",
+    "source_page": "PHB p.302",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_597": {
+    "original_ref": "page_ref:302",
+    "source_page": "PHB p.302",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_598": {
+    "original_ref": "page_ref:303",
+    "source_page": "PHB p.303",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_599": {
+    "original_ref": "page_ref:303",
+    "source_page": "PHB p.303",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_600": {
+    "original_ref": "page_ref:303",
+    "source_page": "PHB p.303",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_601": {
+    "original_ref": "page_ref:304",
+    "source_page": "PHB p.304",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_602": {
+    "original_ref": "page_ref:304",
+    "source_page": "PHB p.304",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_603": {
+    "original_ref": "page_ref:304",
+    "source_page": "PHB p.304",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_604": {
+    "original_ref": "page_ref:304",
+    "source_page": "PHB p.304",
+    "source_id": "681f92bc94ff"
+  },
+  "SPELL_605": {
+    "original_ref": "page_ref:304",
+    "source_page": "PHB p.304",
+    "source_id": "681f92bc94ff"
+  }
+}

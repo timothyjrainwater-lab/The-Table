@@ -1,0 +1,256 @@
+# Decision Log + Design Tradeoffs
+
+---
+
+# 1) Decision Log
+
+(Extracted from T1/T2/T3 artifacts referenced in prior audit. Decisions normalized into enforceable statements.)
+
+---
+
+### Core Architecture & Authority
+
+**DEC-001:** The Box is the sole mechanical authority.
+
+* Source: T1_README.md (architecture section)
+* Rationale: Prevent LLM from influencing game mechanics.
+* Consequences: Lens/Spark cannot mutate state; all mechanical outcomes originate in Box.
+
+**DEC-002:** The Lens is a one-way membrane from Box to Spark.
+
+* Source: T1_README.md
+* Rationale: Preserve determinism and authority boundary.
+* Consequences: No back-propagation of LLM output into combat state.
+
+**DEC-003:** Spark never decides AC, damage, saves, or condition results.
+
+* Source: T1_PROJECT_COHERENCE_DOCTRINE.md
+* Rationale: Prevent nondeterministic mechanics.
+* Consequences: Spark output must be validated and non-authoritative.
+
+**DEC-004:** All game state transitions are event-sourced.
+
+* Source: T1_README.md
+* Rationale: Deterministic replay and auditability.
+* Consequences: No hidden state mutation outside event log.
+
+**DEC-005:** Determinism invariant: identical seed + inputs = identical state hash.
+
+* Source: T1_PROJECT_COHERENCE_DOCTRINE.md
+* Rationale: Replay validation and trust.
+* Consequences: No clock/time/random calls in resolution path.
+
+---
+
+### Ruleset Scope
+
+**DEC-006:** System implements D&D 3.5e only.
+
+* Source: T1_AGENT_DEVELOPMENT_GUIDELINES.md §7
+* Rationale: Prevent scope creep and rule contamination.
+* Consequences: No 5e mechanics permitted.
+
+**DEC-007:** No advantage/disadvantage mechanic.
+
+* Source: T1_AGENT_DEVELOPMENT_GUIDELINES.md §7
+* Rationale: 5e contamination risk.
+* Consequences: All bonuses are numeric modifiers.
+
+**DEC-008:** No proficiency bonus system.
+
+* Source: T1_AGENT_DEVELOPMENT_GUIDELINES.md §7
+* Rationale: 5e-only mechanic.
+* Consequences: Skills follow 3.5 ranks + ability mod.
+
+**DEC-009:** Concentration is a skill check (DC 10 + damage), not a spell slot limiter.
+
+* Source: T1_AGENT_DEVELOPMENT_GUIDELINES.md §7
+* Rationale: Distinguish 3.5 from 5e semantics.
+* Consequences: Multiple “concentration duration” spells allowed concurrently.
+
+**DEC-010:** 0-level spells consume slots (no at-will cantrips).
+
+* Source: Guidelines contamination table
+* Rationale: RAW compliance.
+* Consequences: No infinite casting mechanic.
+
+---
+
+### Combat Engine
+
+**DEC-011:** AoO implemented for movement (initial milestone).
+
+* Source: T3_KNOWN_TECH_DEBT.md
+* Rationale: Phased capability rollout.
+* Consequences: Ranged/spellcasting provocation incomplete.
+
+**DEC-012:** Weapon range currently stubbed pending schema update.
+
+* Source: T3_KNOWN_TECH_DEBT.md
+* Rationale: Melee-first milestone focus.
+* Consequences: Ranged RAW not yet enforceable.
+
+**DEC-013:** Temporary modifiers integration deferred (stubbed).
+
+* Source: T3_KNOWN_TECH_DEBT.md TD-006
+* Rationale: Awaiting condition system consolidation.
+* Consequences: Derived stats incomplete.
+
+**DEC-014:** Full AC/HP recompute blocked pending formal design.
+
+* Source: T3_KNOWN_TECH_DEBT.md TD-007
+* Rationale: Avoid partial stacking errors.
+* Consequences: Current AC/HP logic incomplete.
+
+---
+
+### Spell System
+
+**DEC-015:** Spell resolution pipeline separated into SpellResolver, DurationTracker, AoE Rasterizer.
+
+* Source: T1_PROJECT_STATE_DIGEST.md
+* Rationale: Maintain separation of concerns.
+* Consequences: Modular validation possible.
+
+**DEC-016:** Spell registry counts do not imply full RAW scenario validation.
+
+* Source: Inferred from PSD test descriptions
+* Rationale: Registry tests ≠ scenario correctness.
+* Consequences: Requires scenario suite (future).
+
+---
+
+### Governance & Process
+
+**DEC-017:** Known technical debt is tracked explicitly and not silently fixed.
+
+* Source: T3_KNOWN_TECH_DEBT.md
+* Rationale: Avoid scope creep.
+* Consequences: Blocked items require formal dispatch.
+
+**DEC-018:** Boundary laws (e.g., BL-017 no runtime UUID default) are enforced.
+
+* Source: T1_AGENT_DEVELOPMENT_GUIDELINES.md
+* Rationale: Determinism guarantee.
+* Consequences: IDs injected externally.
+
+**DEC-019:** Hardware-gated tests may skip but must not alter authoritative logic.
+
+* Source: PSD (skipped tests note)
+* Rationale: Local-first constraint.
+* Consequences: Feature parity must degrade safely.
+
+**DEC-020:** No silent guessing on missing data (fail-closed).
+
+* Source: T1_PROJECT_COHERENCE_DOCTRINE.md
+* Rationale: Deterministic integrity.
+* Consequences: Exceptions preferred over fallback guesses.
+
+---
+
+(Additional decisions omitted for brevity but assumed similar extraction pattern.)
+
+---
+
+# 2) Five Ambiguous / Contradictory / Missing SSoT Decisions
+
+---
+
+### A1 — “Cantrip” Terminology Drift
+
+* Ambiguity: PSD uses “cantrips”; Guidelines forbid at-will semantics.
+* Risk: Semantic contamination.
+* Missing SSoT: Terminology enforcement clause.
+
+---
+
+### A2 — Concentration Semantics Boundary
+
+* Ambiguity: DurationTracker references “concentration management” without explicitly prohibiting 5e-style exclusivity.
+* Risk: Future implementer adds single-concentration limit.
+
+---
+
+### A3 — AC/HP Recompute Authority
+
+* Ambiguity: Stub exists but no declared “authoritative recompute model” document.
+* Risk: Parallel stacking logic in multiple modules.
+
+---
+
+### A4 — AoO Provocation Matrix Ownership
+
+* Ambiguity: Movement-only implemented; provocation list not formally defined in docs.
+* Risk: Inconsistent trigger expansion.
+
+---
+
+### A5 — Weapon Range Representation Standard
+
+* Ambiguity: Range increment model not defined in schema contract doc.
+* Risk: Divergent implementation interpretations.
+
+---
+
+# 3) Clarification Contracts (Exact Wording + Location)
+
+---
+
+## CLARIFICATION 1 — 0-Level Spell Terminology
+
+**Wording:**
+
+> “The system SHALL use the term ‘0-level spell’ in all authoritative documentation and code. The term ‘cantrip’ SHALL NOT imply at-will casting and SHALL NOT appear in mechanical logic.”
+
+**Location:**
+Append to `T1_AGENT_DEVELOPMENT_GUIDELINES.md` under §7 Contamination Risks.
+
+---
+
+## CLARIFICATION 2 — Concentration Scope
+
+**Wording:**
+
+> “Concentration in AIDM refers exclusively to the 3.5e skill check mechanic (DC 10 + damage or as specified). The system SHALL NOT enforce a global ‘one concentration spell at a time’ restriction.”
+
+**Location:**
+Add subsection under Spell System in `T1_PROJECT_COHERENCE_DOCTRINE.md`.
+
+---
+
+## CLARIFICATION 3 — AC/HP Authority
+
+**Wording:**
+
+> “AC and HP SHALL be recomputed exclusively through a single authoritative function within permanent_stats. No other module may apply stacking or recompute logic independently.”
+
+**Location:**
+New section in `T1_AGENT_DEVELOPMENT_GUIDELINES.md` under Derived Stats.
+
+---
+
+## CLARIFICATION 4 — AoO Provocation Matrix
+
+**Wording:**
+
+> “The list of provoking actions SHALL be explicitly enumerated in a single AoO Provocation Matrix document. All provocation checks SHALL reference this matrix.”
+
+**Location:**
+New doc `docs/MECHANICS_AOO_MATRIX.md`, referenced in Known Tech Debt.
+
+---
+
+## CLARIFICATION 5 — Weapon Range Standard
+
+**Wording:**
+
+> “Ranged weapons SHALL define: range increment (ft), maximum increments, and thrown/projectile category. Attack resolution SHALL compute penalties per increment and reject targets beyond maximum range.”
+
+**Location:**
+Weapon schema contract doc (append to T1_AGENT_DEVELOPMENT_GUIDELINES.md Combat Section).
+
+---
+
+# Summary
+
+This Decision Log extracts enforceable intent already present in the project and surfaces 5 high-drift areas. The clarifications do not introduce new features; they formalize existing direction into enforceable contracts and single sources of truth to prevent mechanical and semantic drift.
