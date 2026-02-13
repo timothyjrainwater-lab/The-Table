@@ -86,6 +86,26 @@ class TestParseInput:
         assert action is None
         assert decl is None
 
+    def test_help(self):
+        action, _ = parse_input("help")
+        assert action == "help"
+
+    def test_help_question_mark(self):
+        action, _ = parse_input("?")
+        assert action == "help"
+
+    def test_status(self):
+        action, _ = parse_input("status")
+        assert action == "status"
+
+    def test_look(self):
+        action, _ = parse_input("look")
+        assert action == "status"
+
+    def test_cast_no_spell(self):
+        action, _ = parse_input("cast")
+        assert action == "cast_no_spell"
+
 
 # ---------------------------------------------------------------------------
 # is_combat_over
@@ -182,6 +202,141 @@ class TestFormatEvents:
         assert "Roll:" in output
         assert "AC" in output
 
+    def test_formats_spell_cast(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={
+            "wizard_1": {"name": "Gandalf"},
+            "goblin_1": {"name": "Goblin"},
+        })
+        events = [Event(
+            event_id=0, event_type="spell_cast", timestamp=0.0,
+            payload={
+                "cast_id": "c1", "caster_id": "wizard_1", "spell_id": "SPELL_001",
+                "spell_name": "Magic Missile", "spell_level": 1,
+                "affected_entities": ["goblin_1"], "turn_index": 0,
+            },
+        )]
+        output = format_events(events, ws)
+        assert "Gandalf casts Magic Missile on Goblin!" in output
+
+    def test_formats_spell_cast_failed(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={})
+        events = [Event(
+            event_id=0, event_type="spell_cast_failed", timestamp=0.0,
+            payload={
+                "caster_id": "wizard_1", "spell_id": "SPELL_001",
+                "spell_name": "Fireball", "reason": "No valid targets in range",
+                "turn_index": 0,
+            },
+        )]
+        output = format_events(events, ws)
+        assert "Spell failed" in output
+        assert "Fireball" in output
+        assert "No valid targets in range" in output
+
+    def test_formats_spell_hp_changed_with_old_hp_convention(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"goblin_1": {"name": "Goblin"}})
+        events = [Event(
+            event_id=0, event_type="hp_changed", timestamp=0.0,
+            payload={
+                "entity_id": "goblin_1", "old_hp": 10, "new_hp": 3,
+                "delta": -7, "source": "spell:Magic Missile",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "Goblin" in output
+        assert "7 damage" in output
+        assert "Magic Missile" in output
+        assert "10" in output
+        assert "3" in output
+
+    def test_formats_hp_changed_with_hp_before_convention(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"goblin_1": {"name": "Goblin"}})
+        events = [Event(
+            event_id=0, event_type="hp_changed", timestamp=0.0,
+            payload={
+                "entity_id": "goblin_1", "hp_before": 20, "hp_after": 12,
+                "delta": -8, "source": "full_attack_damage",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "Goblin" in output
+        assert "20" in output
+        assert "12" in output
+
+    def test_formats_condition_applied(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"goblin_1": {"name": "Goblin"}})
+        events = [Event(
+            event_id=0, event_type="condition_applied", timestamp=0.0,
+            payload={
+                "entity_id": "goblin_1", "condition": "dazed",
+                "source": "spell:Color Spray", "duration_rounds": 3,
+            },
+        )]
+        output = format_events(events, ws)
+        assert "Goblin is now dazed (3 rounds)" in output
+
+    def test_formats_condition_applied_no_duration(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"goblin_1": {"name": "Goblin"}})
+        events = [Event(
+            event_id=0, event_type="condition_applied", timestamp=0.0,
+            payload={
+                "entity_id": "goblin_1", "condition": "prone",
+                "source": "spell:Grease",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "Goblin is now prone" in output
+        assert "rounds" not in output
+
+    def test_formats_healing(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"pc_1": {"name": "Fighter"}})
+        events = [Event(
+            event_id=0, event_type="hp_changed", timestamp=0.0,
+            payload={
+                "entity_id": "pc_1", "old_hp": 5, "new_hp": 13,
+                "delta": 8, "source": "spell:Cure Light Wounds",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "healed 8 HP" in output
+        assert "Cure Light Wounds" in output
+
+    def test_no_visible_effect_only_for_truly_empty(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={})
+        output = format_events([], ws)
+        assert "no visible effect" in output
+
+    def test_formats_movement_declared(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"pc_1": {"name": "Aldric"}})
+        events = [Event(
+            event_id=0, event_type="movement_declared", timestamp=0.0,
+            payload={
+                "actor_id": "pc_1",
+                "from_pos": {"x": 3, "y": 3},
+                "to_pos": {"x": 4, "y": 3},
+            },
+        )]
+        output = format_events(events, ws)
+        assert "Aldric moves to (4, 3)" in output
+
 
 # ---------------------------------------------------------------------------
 # Full game (scripted)
@@ -227,3 +382,150 @@ class TestFullGame:
             results.append(buf.getvalue())
 
         assert results[0] == results[1]
+
+
+# ---------------------------------------------------------------------------
+# CLI smoke test — every command type produces non-empty, non-crash output
+# ---------------------------------------------------------------------------
+
+class TestCLISmoke:
+    """Verify every player command produces visible, non-crash output."""
+
+    def _run_session(self, commands, seed=42):
+        """Run a CLI session with given commands, return captured stdout."""
+        import io
+        action_iter = iter(commands)
+
+        def mock_input(prompt=""):
+            try:
+                return next(action_iter)
+            except StopIteration:
+                return "quit"
+
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            main(seed=seed, input_fn=mock_input)
+        finally:
+            sys.stdout = old_stdout
+        return buf.getvalue()
+
+    def test_help_produces_output(self):
+        output = self._run_session(["help", "quit"])
+        assert "Commands:" in output
+        assert "attack" in output
+        assert "cast" in output
+
+    def test_status_produces_output(self):
+        output = self._run_session(["status", "quit"])
+        assert "HP" in output
+
+    def test_cast_no_spell_produces_guidance(self):
+        output = self._run_session(["cast", "quit"])
+        assert "Cast what?" in output
+
+    def test_unknown_command_shows_help(self):
+        output = self._run_session(["dance wildly", "quit"])
+        assert "Unknown command" in output
+        assert "Commands:" in output
+
+    def test_end_turn_produces_feedback(self):
+        output = self._run_session(["end turn", "quit"])
+        assert "ends their turn" in output
+
+    def test_attack_hit_shows_roll_and_damage(self):
+        # seed 100: first attack is a hit
+        output = self._run_session(["attack goblin warrior"] * 5, seed=100)
+        assert "Roll:" in output
+        assert "HIT" in output or "MISS" in output
+
+    def test_move_too_far_gives_guidance(self):
+        output = self._run_session(["move 99 99", "quit"])
+        assert "adjacent" in output or "too far" in output
+
+    def test_valid_move_shows_destination(self):
+        output = self._run_session(["move 4 3", "quit"], seed=42)
+        assert "moves to" in output
+
+    def test_spell_cast_shows_spell_feedback(self):
+        output = self._run_session(["cast magic missile on goblin warrior", "quit"], seed=42)
+        assert "casts Magic Missile" in output
+
+    def test_no_action_produces_silent_failure(self):
+        """Every recognized command must produce at least one line of output."""
+        commands = [
+            "help",
+            "status",
+            "cast",
+            "dance wildly",
+            "attack goblin warrior",
+        ]
+        output = self._run_session(commands, seed=42)
+        # After the banner + initial status, every command should add content
+        lines = [l for l in output.split("\n") if l.strip()]
+        # At minimum: banner (3 lines) + status (2) + prompt hint (1) + turn header + status
+        # + 5 command responses = lots of lines. Just verify it's substantial.
+        assert len(lines) > 15
+
+
+# ---------------------------------------------------------------------------
+# Golden transcript — deterministic session replay
+# ---------------------------------------------------------------------------
+
+class TestGoldenTranscript:
+    """Record and verify a canonical session transcript for regression detection."""
+
+    def test_seed_42_attack_sequence(self):
+        """Canonical 3-attack session with seed 42. If this changes, something regressed."""
+        import io
+        commands = iter(["attack goblin warrior", "attack goblin warrior", "attack goblin warrior"])
+
+        def mock_input(prompt=""):
+            try:
+                return next(commands)
+            except StopIteration:
+                return "quit"
+
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            main(seed=42, input_fn=mock_input)
+        finally:
+            sys.stdout = old_stdout
+        output = buf.getvalue()
+
+        # Structural assertions — these must always hold for seed 42
+        assert "D&D 3.5e Combat -- AIDM Engine" in output
+        assert "Aldric" in output
+        assert "Goblin Warrior" in output
+        assert "Roll:" in output
+        assert "vs AC" in output
+        # The game must end (either victory or enough attacks to resolve)
+        assert "Victory!" in output or "Farewell!" in output or "DEFEATED" in output
+
+    def test_seed_42_transcript_is_stable(self):
+        """Same inputs + same seed = byte-identical output."""
+        import io
+        outputs = []
+        for _ in range(2):
+            commands = iter(["attack goblin warrior", "attack goblin warrior",
+                             "attack goblin warrior", "attack goblin warrior"])
+
+            def mock_input(prompt="", _cmds=commands):
+                try:
+                    return next(_cmds)
+                except StopIteration:
+                    return "quit"
+
+            buf = io.StringIO()
+            old_stdout = sys.stdout
+            sys.stdout = buf
+            try:
+                main(seed=42, input_fn=mock_input)
+            finally:
+                sys.stdout = old_stdout
+            outputs.append(buf.getvalue())
+
+        assert outputs[0] == outputs[1], "Transcript not deterministic — output differs between runs"

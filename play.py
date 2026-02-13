@@ -86,7 +86,9 @@ def parse_input(text: str) -> Tuple[Optional[str], Any]:
         return "move", MoveIntent(destination=None)
 
     # Cast
-    if verb == "cast" and len(parts) > 1:
+    if verb == "cast":
+        if len(parts) < 2:
+            return "cast_no_spell", None
         rest = " ".join(parts[1:])
         spell_name, target_ref = rest, None
         for sep in (" on ", " at "):
@@ -100,7 +102,25 @@ def parse_input(text: str) -> Tuple[Optional[str], Any]:
     if text in ("end turn", "pass", "done", "end"):
         return "end_turn", None
 
+    # Help / status
+    if verb in ("help", "?", "commands"):
+        return "help", None
+    if verb in ("status", "hp", "look"):
+        return "status", None
+
     return None, None
+
+
+_HELP_TEXT = """\
+  Commands:
+    attack <target>             attack goblin warrior
+    attack <target> with <wpn>  attack goblin with longsword
+    cast <spell> on <target>    cast magic missile on goblin
+    move <x> <y>                move 5 3
+    status                      show HP and positions
+    end / pass                  end your turn
+    help                        show this message
+    quit                        exit the game"""
 
 
 # ---------------------------------------------------------------------------
@@ -148,11 +168,22 @@ def resolve_and_execute(
     # MoveIntent -> StepMoveIntent
     if isinstance(resolved, MoveIntent) and resolved.destination is not None:
         pos = ws_copy.entities[actor_id].get(EF.POSITION, {"x": 0, "y": 0})
-        resolved = StepMoveIntent(
-            actor_id=actor_id,
-            from_pos=Position(x=pos["x"], y=pos["y"]),
-            to_pos=Position(x=resolved.destination.x, y=resolved.destination.y),
-        )
+        try:
+            resolved = StepMoveIntent(
+                actor_id=actor_id,
+                from_pos=Position(x=pos["x"], y=pos["y"]),
+                to_pos=Position(x=resolved.destination.x, y=resolved.destination.y),
+            )
+        except ValueError:
+            cur = f"({pos['x']},{pos['y']})"
+            dest = f"({resolved.destination.x},{resolved.destination.y})"
+            return TurnResult(
+                status="requires_clarification",
+                world_state=ws,
+                events=[],
+                turn_index=turn_index,
+                failure_reason=f"Can only move to adjacent squares. You are at {cur}, {dest} is too far.",
+            )
 
     actor_team = ws_copy.entities.get(actor_id, {}).get(EF.TEAM, "party")
     ctx = TurnContext(turn_index=turn_index, actor_id=actor_id, actor_team=actor_team)
@@ -224,7 +255,20 @@ def format_events(events, ws: WorldState) -> str:
     lines = []
     for ev in events:
         p = ev.payload
-        if ev.event_type == "attack_roll":
+        if ev.event_type == "spell_cast":
+            caster = _name(ws, p.get("caster_id", ""))
+            spell = p.get("spell_name", p.get("spell_id", "a spell"))
+            targets = p.get("affected_entities", [])
+            target_names = [_name(ws, t) for t in targets] if targets else []
+            if target_names:
+                lines.append(f"  {caster} casts {spell} on {', '.join(target_names)}!")
+            else:
+                lines.append(f"  {caster} casts {spell}!")
+        elif ev.event_type == "spell_cast_failed":
+            reason = p.get("reason", "unknown reason")
+            spell = p.get("spell_name", p.get("spell_id", "spell"))
+            lines.append(f"  Spell failed ({spell}): {reason}")
+        elif ev.event_type == "attack_roll":
             d20 = p.get("d20_result", "?")
             bonus = p.get("attack_bonus", 0)
             total = p.get("total", 0)
@@ -237,12 +281,43 @@ def format_events(events, ws: WorldState) -> str:
             lines.append(f"  Damage: {dice} -> {final} hp")
         elif ev.event_type == "hp_changed":
             name = _name(ws, p.get("entity_id", ""))
-            lines.append(f"  {name}: HP {p.get('hp_before', '?')} -> {p.get('hp_after', '?')}")
+            hp_before = p.get("hp_before") if p.get("hp_before") is not None else p.get("old_hp", "?")
+            hp_after = p.get("hp_after") if p.get("hp_after") is not None else p.get("new_hp", "?")
+            source = p.get("source", "")
+            if source.startswith("spell:"):
+                spell_name = source[len("spell:"):]
+                delta = p.get("delta", 0)
+                if delta > 0:
+                    lines.append(f"  {name}: healed {delta} HP ({spell_name}) — HP {hp_before} -> {hp_after}")
+                else:
+                    lines.append(f"  {name}: {abs(delta)} damage ({spell_name}) — HP {hp_before} -> {hp_after}")
+            else:
+                lines.append(f"  {name}: HP {hp_before} -> {hp_after}")
         elif ev.event_type == "entity_defeated":
             name = _name(ws, p.get("entity_id", ""))
             lines.append(f"  *** {name} is DEFEATED! ***")
-        elif ev.event_type == "movement":
-            lines.append(f"  Moved to ({p.get('to_x', '?')}, {p.get('to_y', '?')})")
+        elif ev.event_type == "condition_applied":
+            name = _name(ws, p.get("entity_id", p.get("target_id", "")))
+            condition = p.get("condition", p.get("condition_type", "unknown"))
+            duration = p.get("duration_rounds")
+            if duration:
+                lines.append(f"  {name} is now {condition} ({duration} rounds)")
+            else:
+                lines.append(f"  {name} is now {condition}")
+        elif ev.event_type == "condition_removed":
+            name = _name(ws, p.get("entity_id", ""))
+            condition = p.get("condition", "unknown")
+            lines.append(f"  {name} is no longer {condition}")
+        elif ev.event_type in ("movement", "movement_declared"):
+            from_pos = p.get("from_pos", {})
+            to_pos = p.get("to_pos", {})
+            to_x = to_pos.get("x", p.get("to_x", "?"))
+            to_y = to_pos.get("y", p.get("to_y", "?"))
+            actor = _name(ws, p.get("actor_id", ""))
+            if actor:
+                lines.append(f"  {actor} moves to ({to_x}, {to_y})")
+            else:
+                lines.append(f"  Moved to ({to_x}, {to_y})")
     return "\n".join(lines) if lines else "  (no visible effect)"
 
 
@@ -288,7 +363,7 @@ def main(seed: int = 42, input_fn=input) -> None:
     print()
     show_status(ws)
     print()
-    print("Type 'attack <target>', 'move <x> <y>', 'cast <spell> on <target>', or 'quit'.")
+    print("Type 'help' for commands, or 'quit' to exit.")
     print()
 
     while True:
@@ -327,9 +402,20 @@ def main(seed: int = 42, input_fn=input) -> None:
 
                     action_type, declared = parse_input(text)
                     if action_type is None:
-                        print(f"  Unknown command. Try: attack goblin warrior")
+                        print("  Unknown command.")
+                        print(_HELP_TEXT)
+                        continue
+                    if action_type == "help":
+                        print(_HELP_TEXT)
+                        continue
+                    if action_type == "status":
+                        show_status(ws)
+                        continue
+                    if action_type == "cast_no_spell":
+                        print("  Cast what? Try: cast magic missile on goblin")
                         continue
                     if action_type == "end_turn":
+                        print(f"  {name} ends their turn.")
                         break
 
                     result = resolve_and_execute(ws, actor_id, action_type, declared, seed, turn_index, next_event_id)
