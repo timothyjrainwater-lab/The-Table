@@ -4,10 +4,11 @@ Data-only contracts for attack intent and weapon definitions.
 NO RESOLUTION LOGIC IN THIS MODULE.
 
 CP-15: Added StepMoveIntent for AoO trigger detection.
+CP-16: Added FullMoveIntent for multi-square movement with speed enforcement.
 """
 
-from dataclasses import dataclass
-from typing import Optional, Dict, Any
+from dataclasses import dataclass, field
+from typing import List, Optional, Dict, Any
 import warnings
 
 # CP-001: Canonical position type (replaces legacy GridPosition below)
@@ -174,3 +175,92 @@ class StepMoveIntent:
                 f"StepMoveIntent requires adjacent positions: "
                 f"from ({self.from_pos.x},{self.from_pos.y}) to ({self.to_pos.x},{self.to_pos.y})"
             )
+
+
+@dataclass
+class FullMoveIntent:
+    """Intent to move up to speed across multiple squares (CP-16).
+
+    CP-16 SCOPE:
+    - Multi-square movement up to entity's base speed
+    - Path must be contiguous (each step adjacent to previous)
+    - Cannot pass through occupied enemy squares
+    - Distance uses 5/10/5 diagonal rule (Position.distance_to)
+    - Terrain movement cost applied per square entered
+    - Each square departed triggers AoO check independently
+    - Flat grid only (no elevation changes)
+
+    The path field contains the sequence of positions from start (exclusive)
+    to destination (inclusive). AoO is checked at each departure square.
+    """
+
+    actor_id: str
+    """Entity performing the move."""
+
+    from_pos: Position
+    """Starting position (must be current entity position)."""
+
+    path: List[Position] = field(default_factory=list)
+    """Ordered list of positions to traverse (excludes from_pos, includes destination).
+    Each position must be adjacent to the previous one."""
+
+    speed_ft: int = 30
+    """Entity's movement speed in feet. Path cost must not exceed this."""
+
+    def __post_init__(self):
+        """Validate full move intent."""
+        if not self.actor_id:
+            raise ValueError("actor_id cannot be empty")
+        if self.speed_ft <= 0:
+            raise ValueError(f"speed_ft must be positive, got {self.speed_ft}")
+        if not self.path:
+            raise ValueError("path must contain at least one position")
+
+        # Validate path contiguity: each step must be adjacent to the previous
+        prev = self.from_pos
+        for i, pos in enumerate(self.path):
+            if not prev.is_adjacent_to(pos):
+                raise ValueError(
+                    f"Path is not contiguous at step {i}: "
+                    f"({prev.x},{prev.y}) to ({pos.x},{pos.y}) are not adjacent"
+                )
+            prev = pos
+
+    @property
+    def to_pos(self) -> Position:
+        """Final destination (last position in path)."""
+        return self.path[-1]
+
+    def path_cost_ft(self, terrain_costs: Optional[List[int]] = None) -> int:
+        """Calculate total movement cost in feet using 5/10/5 diagonal rule.
+
+        Args:
+            terrain_costs: Optional per-square terrain cost multiplier (1, 2, or 4).
+                           Must have same length as path. Defaults to 1 for all squares.
+
+        Returns:
+            Total movement cost in feet.
+        """
+        if terrain_costs is None:
+            terrain_costs = [1] * len(self.path)
+
+        total_ft = 0
+        prev = self.from_pos
+        diagonal_count = 0
+
+        for pos, terrain_mult in zip(self.path, terrain_costs):
+            dx = abs(pos.x - prev.x)
+            dy = abs(pos.y - prev.y)
+            is_diagonal = dx == 1 and dy == 1
+
+            if is_diagonal:
+                diagonal_count += 1
+                # 5/10/5/10 pattern: odd diagonals cost 5ft, even cost 10ft
+                base_cost = 10 if diagonal_count % 2 == 0 else 5
+            else:
+                base_cost = 5
+
+            total_ft += base_cost * terrain_mult
+            prev = pos
+
+        return total_ft

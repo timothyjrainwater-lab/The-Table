@@ -500,7 +500,7 @@ class TestCLISmoke:
 
     def test_move_too_far_gives_guidance(self):
         output = self._run_session(["move 99 99", "quit"])
-        assert "adjacent" in output or "too far" in output
+        assert "adjacent" in output.lower() or "too far" in output.lower()
 
     def test_valid_move_shows_destination(self):
         output = self._run_session(["move 4 3", "quit"], seed=42)
@@ -1350,8 +1350,9 @@ class TestActionEconomyCLI:
         # But move after should fail (or turn should auto-end)
         # Either "already used a full-round action" or turn ends before move
         # Since full_round sets is_turn_over(), the move never gets prompted
-        # The turn auto-ends after full attack, so "moves to" should NOT appear
-        assert "moves to" not in output
+        # The turn auto-ends after full attack, so the player should NOT move
+        # (enemy "moves toward" in header is fine, we check for player move result)
+        assert "Aldric moves to" not in output
 
     def test_move_prevents_full_attack(self):
         """Cannot full attack after taking a move action."""

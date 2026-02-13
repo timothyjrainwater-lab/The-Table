@@ -47,7 +47,7 @@ from aidm.core.state import WorldState, FrozenWorldStateView
 from aidm.schemas.doctrine import MonsterDoctrine
 from aidm.schemas.entity_fields import EF
 from aidm.core.tactical_policy import evaluate_tactics, TacticalPolicyResult
-from aidm.schemas.attack import AttackIntent, Weapon, StepMoveIntent
+from aidm.schemas.attack import AttackIntent, Weapon, StepMoveIntent, FullMoveIntent
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
 from aidm.core.full_attack_resolver import FullAttackIntent, resolve_full_attack, apply_full_attack_events
 from aidm.core.rng_manager import RNGManager
@@ -795,6 +795,9 @@ def execute_turn(
             intent_actor_id = combat_intent.attacker_id
         elif isinstance(combat_intent, StepMoveIntent):
             intent_actor_id = combat_intent.actor_id
+        # CP-16: Full multi-square movement
+        elif isinstance(combat_intent, FullMoveIntent):
+            intent_actor_id = combat_intent.actor_id
         # CP-18A: Mounted combat intents
         elif isinstance(combat_intent, MountedMoveIntent):
             intent_actor_id = combat_intent.rider_id
@@ -1166,7 +1169,109 @@ def execute_turn(
 
             narration = "movement_complete"
 
-        # CP-18A: Mounted movement intent
+        # CP-16: Full multi-square movement intent
+        elif isinstance(combat_intent, FullMoveIntent):
+            # Process movement step-by-step for AoO resolution at each departure
+            prev_pos = combat_intent.from_pos
+            actor_defeated = False
+
+            for step_pos in combat_intent.path:
+                # Check AoO at each departure square
+                step_intent = StepMoveIntent(
+                    actor_id=combat_intent.actor_id,
+                    from_pos=prev_pos,
+                    to_pos=step_pos,
+                )
+                step_aoo_triggers = check_aoo_triggers(world_state, combat_intent.actor_id, step_intent)
+
+                if step_aoo_triggers:
+                    aoo_result = resolve_aoo_sequence(
+                        triggers=step_aoo_triggers,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.05,
+                    )
+                    events.extend(aoo_result.events)
+                    current_event_id += len(aoo_result.events)
+
+                    # Update AoO tracking
+                    if world_state.active_combat is not None:
+                        aoo_used = list(world_state.active_combat.get("aoo_used_this_round", []))
+                        aoo_used.extend(aoo_result.aoo_reactors)
+                        active_combat_updated = deepcopy(world_state.active_combat)
+                        active_combat_updated["aoo_used_this_round"] = aoo_used
+                        world_state = WorldState(
+                            ruleset_version=world_state.ruleset_version,
+                            entities=deepcopy(world_state.entities),
+                            active_combat=active_combat_updated,
+                        )
+
+                    # If mover defeated by AoO, abort movement
+                    if aoo_result.provoker_defeated:
+                        actor_defeated = True
+                        events.append(Event(
+                            event_id=current_event_id,
+                            event_type="action_aborted",
+                            timestamp=timestamp + 0.2,
+                            payload={
+                                "actor_id": combat_intent.actor_id,
+                                "reason": "defeated_by_aoo_during_movement",
+                                "stopped_at": prev_pos.to_dict(),
+                                "turn_index": turn_ctx.turn_index,
+                            },
+                        ))
+                        current_event_id += 1
+                        break
+
+                # Move to this square
+                entities = deepcopy(world_state.entities)
+                if combat_intent.actor_id in entities:
+                    entities[combat_intent.actor_id][EF.POSITION] = step_pos.to_dict()
+                    world_state = WorldState(
+                        ruleset_version=world_state.ruleset_version,
+                        entities=entities,
+                        active_combat=world_state.active_combat,
+                    )
+                prev_pos = step_pos
+
+            # Emit single movement event for the full path
+            if not actor_defeated:
+                path_dicts = [p.to_dict() for p in combat_intent.path]
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="movement_declared",
+                    timestamp=timestamp + 0.1,
+                    payload={
+                        "actor_id": combat_intent.actor_id,
+                        "from_pos": combat_intent.from_pos.to_dict(),
+                        "to_pos": combat_intent.to_pos.to_dict(),
+                        "path": path_dicts,
+                        "distance_ft": combat_intent.path_cost_ft(),
+                    },
+                ))
+                current_event_id += 1
+
+            if actor_defeated:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.3,
+                    payload={
+                        "turn_index": turn_ctx.turn_index,
+                        "actor_id": turn_ctx.actor_id,
+                        "events_emitted": len(events),
+                    },
+                ))
+                return TurnResult(
+                    status="ok",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    narration="movement_aborted",
+                )
+
+            narration = "movement_complete"
         elif isinstance(combat_intent, MountedMoveIntent):
             # AoOs have already been resolved above (against mount)
             # Emit mounted movement event

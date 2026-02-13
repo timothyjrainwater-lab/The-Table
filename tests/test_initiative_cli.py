@@ -207,8 +207,8 @@ class TestTurnOrderFollowsInitiative:
         if first_team == "party":
             assert f"--- {first_name}'s Turn ---" in output
         else:
-            # Enemy turn: "--- <name> attacks <target>! ---"
-            assert f"--- {first_name} attacks" in output
+            # Enemy turn: "--- <name> attacks <target>! ---" or "--- <name>'s Turn (moves toward...) ---"
+            assert f"--- {first_name}" in output
 
     def test_order_stable_across_rounds(self):
         """Initiative order doesn't change between rounds."""

@@ -29,10 +29,11 @@ from typing import Any, Optional, Tuple
 from aidm.core.play_loop import TurnContext, TurnResult, execute_turn
 from aidm.core.rng_manager import RNGManager
 from aidm.core.state import FrozenWorldStateView, WorldState
+from aidm.core.movement_resolver import build_full_move_intent
 from aidm.interaction.intent_bridge import ClarificationRequest, IntentBridge
 from aidm.runtime.display import format_world_summary
 from aidm.runtime.play_controller import build_simple_combat_fixture
-from aidm.schemas.attack import AttackIntent, StepMoveIntent, Weapon
+from aidm.schemas.attack import AttackIntent, StepMoveIntent, FullMoveIntent, Weapon
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.intents import DeclaredAttackIntent, MoveIntent
 from aidm.schemas.position import Position
@@ -384,25 +385,18 @@ def resolve_and_execute(
             failure_reason=resolved.message,
         )
 
-    # MoveIntent -> StepMoveIntent
+    # MoveIntent -> FullMoveIntent (CP-16: multi-square movement)
     if isinstance(resolved, MoveIntent) and resolved.destination is not None:
-        pos = ws_copy.entities[actor_id].get(EF.POSITION, {"x": 0, "y": 0})
-        try:
-            resolved = StepMoveIntent(
-                actor_id=actor_id,
-                from_pos=Position(x=pos["x"], y=pos["y"]),
-                to_pos=Position(x=resolved.destination.x, y=resolved.destination.y),
-            )
-        except ValueError:
-            cur = f"({pos['x']},{pos['y']})"
-            dest = f"({resolved.destination.x},{resolved.destination.y})"
+        full_intent, error = build_full_move_intent(actor_id, resolved.destination, ws_copy)
+        if error is not None:
             return TurnResult(
                 status="requires_clarification",
                 world_state=ws,
                 events=[],
                 turn_index=turn_index,
-                failure_reason=f"Can only move to adjacent squares. You are at {cur}, {dest} is too far.",
+                failure_reason=error,
             )
+        resolved = full_intent
 
     actor_team = ws_copy.entities.get(actor_id, {}).get(EF.TEAM, "party")
     ctx = TurnContext(turn_index=turn_index, actor_id=actor_id, actor_team=actor_team)
@@ -422,12 +416,32 @@ def resolve_and_execute(
 # ---------------------------------------------------------------------------
 
 def pick_enemy_target(ws: WorldState, actor_id: str) -> Optional[str]:
+    """Pick closest enemy target by grid distance."""
     actor_team = ws.entities[actor_id].get(EF.TEAM, "monsters")
+    actor_pos_dict = ws.entities[actor_id].get(EF.POSITION, {})
+    actor_pos = Position(x=actor_pos_dict.get("x", 0), y=actor_pos_dict.get("y", 0))
+
+    best_target = None
+    best_dist = 9999
     for eid in sorted(ws.entities):
         e = ws.entities[eid]
-        if e.get(EF.TEAM) != actor_team and not e.get(EF.DEFEATED, False):
-            return eid
-    return None
+        if e.get(EF.TEAM) == actor_team or e.get(EF.DEFEATED, False):
+            continue
+        t_pos_dict = e.get(EF.POSITION, {})
+        t_pos = Position(x=t_pos_dict.get("x", 0), y=t_pos_dict.get("y", 0))
+        dist = actor_pos.distance_to(t_pos)
+        if dist < best_dist:
+            best_dist = dist
+            best_target = eid
+    return best_target
+
+
+def _is_adjacent(ws: WorldState, id_a: str, id_b: str) -> bool:
+    """Check if two entities are adjacent."""
+    a_pos = ws.entities[id_a].get(EF.POSITION, {})
+    b_pos = ws.entities[id_b].get(EF.POSITION, {})
+    return (abs(a_pos.get("x", 0) - b_pos.get("x", 0)) <= 1 and
+            abs(a_pos.get("y", 0) - b_pos.get("y", 0)) <= 1)
 
 
 def run_enemy_turn(
@@ -438,6 +452,68 @@ def run_enemy_turn(
         return TurnResult(status="ok", world_state=ws, events=[], turn_index=turn_index)
 
     entity = ws.entities[actor_id]
+
+    # If not adjacent to target, try to move closer first
+    if not _is_adjacent(ws, actor_id, target_id):
+        target_pos_dict = ws.entities[target_id].get(EF.POSITION, {})
+        target_pos = Position(x=target_pos_dict["x"], y=target_pos_dict["y"])
+
+        # Find an adjacent square to the target to move to
+        best_dest = None
+        best_dist = 9999
+        actor_pos_dict = entity.get(EF.POSITION, {})
+        actor_pos = Position(x=actor_pos_dict["x"], y=actor_pos_dict["y"])
+
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                if dx == 0 and dy == 0:
+                    continue
+                candidate = Position(x=target_pos.x + dx, y=target_pos.y + dy)
+                # Check if occupied by another entity
+                occupied = False
+                for eid, e in ws.entities.items():
+                    if eid == actor_id or e.get(EF.DEFEATED, False):
+                        continue
+                    epos = e.get(EF.POSITION, {})
+                    if epos.get("x") == candidate.x and epos.get("y") == candidate.y:
+                        occupied = True
+                        break
+                if not occupied:
+                    dist = actor_pos.distance_to(candidate)
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_dest = candidate
+
+        if best_dest is not None:
+            move_intent, error = build_full_move_intent(actor_id, best_dest, ws)
+            if move_intent is not None:
+                rng = RNGManager(seed + turn_index)
+                ws_copy = deepcopy(ws)
+                ctx = TurnContext(
+                    turn_index=turn_index,
+                    actor_id=actor_id,
+                    actor_team=entity.get(EF.TEAM, "monsters"),
+                )
+                move_result = execute_turn(
+                    world_state=ws_copy, turn_ctx=ctx, combat_intent=move_intent,
+                    rng=rng, next_event_id=next_event_id, timestamp=float(turn_index),
+                )
+                if move_result.status == "ok":
+                    ws = move_result.world_state
+                    next_event_id += len(move_result.events)
+                    turn_index += 1
+
+                    # If now adjacent, attack; otherwise just return the move result
+                    if not _is_adjacent(ws, actor_id, target_id):
+                        return move_result
+
+                    # Continue to attack below with updated ws
+                    events_so_far = move_result.events
+                else:
+                    return move_result
+            # If move failed, just try to attack from current position
+        # If no valid destination, just try to attack from current position
+
     weapon = Weapon(
         damage_dice=entity.get("weapon_damage", "1d4"),
         damage_bonus=0,   # resolver adds STR_MOD from entity
@@ -573,11 +649,18 @@ def format_events(events, ws: WorldState) -> str:
             to_pos = p.get("to_pos", {})
             to_x = to_pos.get("x", p.get("to_x", "?"))
             to_y = to_pos.get("y", p.get("to_y", "?"))
+            distance_ft = p.get("distance_ft")
             actor = _name(ws, p.get("actor_id", ""))
-            if actor:
-                lines.append(f"  {actor} moves to ({to_x}, {to_y})")
+            if distance_ft and distance_ft > 5:
+                if actor:
+                    lines.append(f"  {actor} moves to ({to_x}, {to_y}) [{distance_ft} ft]")
+                else:
+                    lines.append(f"  Moved to ({to_x}, {to_y}) [{distance_ft} ft]")
             else:
-                lines.append(f"  Moved to ({to_x}, {to_y})")
+                if actor:
+                    lines.append(f"  {actor} moves to ({to_x}, {to_y})")
+                else:
+                    lines.append(f"  Moved to ({to_x}, {to_y})")
         # AoO events
         elif ev.event_type == "aoo_triggered":
             reactor = _name(ws, p.get("reactor_id", ""))
@@ -647,7 +730,9 @@ def show_status(ws: WorldState) -> None:
         else:
             cond_display = ""
         bab_str = f"+{bab}" if bab >= 0 else str(bab)
-        print(f"  {e.get('name', eid):20s}  HP {hp}/{mx}  AC {ac}  BAB {bab_str}  {pos_str}{cond_display}")
+        speed = e.get(EF.BASE_SPEED, 30)
+        speed_sq = speed // 5
+        print(f"  {e.get('name', eid):20s}  HP {hp}/{mx}  AC {ac}  BAB {bab_str}  Spd {speed_sq}sq  {pos_str}{cond_display}")
 
 
 def show_map(ws: WorldState) -> None:
@@ -925,7 +1010,10 @@ def _main_loop(seed: int, input_fn) -> None:
                 target = pick_enemy_target(ws, actor_id)
                 if target is None:
                     continue
-                print(f"\n--- {name} attacks {_name(ws, target)}! ---")
+                if _is_adjacent(ws, actor_id, target):
+                    print(f"\n--- {name} attacks {_name(ws, target)}! ---")
+                else:
+                    print(f"\n--- {name}'s Turn (moves toward {_name(ws, target)}) ---")
                 result = run_enemy_turn(ws, actor_id, seed, turn_index, next_event_id)
                 print(format_events(result.events, ws))
                 if result.status == "ok":

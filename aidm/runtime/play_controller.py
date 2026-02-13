@@ -34,7 +34,7 @@ from aidm.narration.narrator import (
     NarrationContext,
     NarrationTemplates,
 )
-from aidm.schemas.attack import AttackIntent, StepMoveIntent, Weapon
+from aidm.schemas.attack import AttackIntent, StepMoveIntent, FullMoveIntent, Weapon
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.intents import (
     CastSpellIntent,
@@ -139,6 +139,7 @@ def build_simple_combat_fixture(
             EF.POSITION: {"x": 3, "y": 3},
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,  # PHB: medium humanoid in heavy armor = 20, but fighter has medium armor
         },
         "pc_cleric": {
             EF.ENTITY_ID: "pc_cleric",
@@ -157,6 +158,7 @@ def build_simple_combat_fixture(
             EF.POSITION: {"x": 2, "y": 3},
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 20,  # PHB: cleric in heavy armor
         },
         "pc_rogue": {
             EF.ENTITY_ID: "pc_rogue",
@@ -174,6 +176,7 @@ def build_simple_combat_fixture(
             EF.POSITION: {"x": 4, "y": 2},
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,  # PHB: rogue in light armor
         },
         # --- Monsters ---
         enemy_id: {
@@ -192,6 +195,7 @@ def build_simple_combat_fixture(
             EF.POSITION: {"x": 3, "y": 5},
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "small",
+            EF.BASE_SPEED: 30,  # MM: goblin base speed
         },
         "goblin_2": {
             EF.ENTITY_ID: "goblin_2",
@@ -209,6 +213,7 @@ def build_simple_combat_fixture(
             EF.POSITION: {"x": 4, "y": 5},
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "small",
+            EF.BASE_SPEED: 30,  # MM: goblin base speed
         },
         "goblin_3": {
             EF.ENTITY_ID: "goblin_3",
@@ -226,6 +231,7 @@ def build_simple_combat_fixture(
             EF.POSITION: {"x": 2, "y": 5},
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "small",
+            EF.BASE_SPEED: 30,  # MM: goblin base speed
         },
     }
 
@@ -361,16 +367,27 @@ class PlayOneTurnController:
             actor_team=actor_team,
         )
 
-        # Step 3a: Convert MoveIntent → StepMoveIntent for Box
+        # Step 3a: Convert MoveIntent → FullMoveIntent for Box (CP-16)
         if isinstance(resolved, MoveIntent) and resolved.destination is not None:
-            actor_pos_raw = actor_entity.get(EF.POSITION, {"x": 0, "y": 0})
-            from_pos = Position(x=actor_pos_raw["x"], y=actor_pos_raw["y"])
-            to_pos = Position(x=resolved.destination.x, y=resolved.destination.y)
-            resolved = StepMoveIntent(
-                actor_id=fixture.actor_id,
-                from_pos=from_pos,
-                to_pos=to_pos,
+            from aidm.core.movement_resolver import build_full_move_intent
+            full_intent, move_error = build_full_move_intent(
+                fixture.actor_id, resolved.destination, ws,
             )
+            if move_error is not None:
+                return TurnOutput(
+                    success=False,
+                    intent_summary=f"move: {move_error}",
+                    box_status="requires_clarification",
+                    events=(),
+                    narration_text="",
+                    narration_provenance="",
+                    state_hash_before=hash_before,
+                    state_hash_after=hash_before,
+                    event_count=0,
+                    clarification_needed=True,
+                    clarification_message=move_error,
+                )
+            resolved = full_intent
 
         # Step 4: Execute via Box
         box_result: BoxTurnResult = execute_turn(
@@ -591,6 +608,8 @@ class PlayOneTurnController:
                 f"bonus=+{resolved.attack_bonus}"
             )
         if isinstance(resolved, StepMoveIntent):
+            return f"move: destination=({resolved.to_pos.x}, {resolved.to_pos.y})"
+        if isinstance(resolved, FullMoveIntent):
             return f"move: destination=({resolved.to_pos.x}, {resolved.to_pos.y})"
         if isinstance(resolved, MoveIntent):
             dest = resolved.destination
