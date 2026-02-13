@@ -266,15 +266,19 @@ Status: GREEN
    - Without `--signal`, behavior unchanged (backward compatible)
    - Pipeline: detect signal → play chime → speak summary via Arbor → optionally speak body
 
-4. **Operator hook** (VS Code task or shell alias):
-   - Document a VS Code task definition in `scripts/README_VOICE.md`: "SPEAK LATEST REPORT"
-   - Task reads from a known drop path (`pm_inbox/REPORT_INCOMING.md`) and pipes to `speak.py --signal`
-   - Alternative: shell alias `signal-report` that does the same
-   - No automatic chat interception — operator-triggered only
+4. **Agent-triggered invocation** (primary path):
+   - On WO completion, the executing agent pipes the signal block to `speak.py --signal` via a Bash call
+   - No file watchers, no intermediate drop paths, no VS Code tasks required
+   - The agent already has shell access — one `Bash` call at the end of the completion report
+   - Example: `echo "=== SIGNAL: REPORT_READY ===\nWO-CONDFIX-01 complete. All tests pass." | python scripts/speak.py --signal`
+
+5. **Standing ops rule** (added to STANDING_OPS_CONTRACT.md):
+   - New universal rule: "On WO completion, the executing agent calls `python scripts/speak.py --signal` with the signal block piped to stdin. Signal triggers only for completion reports, dispatch packages, or CP approvals — not routine messages."
 
 **Files:**
 - `scripts/speak.py` (add `parse_signal()`, `_generate_chime()`, `--signal`/`--full` flags)
-- `scripts/README_VOICE.md` (new — VS Code task definition + shell alias docs)
+- `docs/ops/STANDING_OPS_CONTRACT.md` (add voice signal rule to Universal Rules)
+- `pm_inbox/aegis_rehydration/STANDING_OPS_CONTRACT.md` (sync rehydration copy)
 - `tests/test_speak_signal.py` (new — ~6 tests: parser, chime generation, CLI flag routing)
 
 **Key Constraints:**
@@ -288,8 +292,9 @@ Status: GREEN
 - Use only for completion reports, dispatch packages, or CP approvals
 - Do not use for routine chatter or minor clarifications
 - Keep first spoken line to one sentence max
+- Agent calls speak.py directly — no operator action needed to hear the signal
 
-**Acceptance:** `echo "=== SIGNAL: REPORT_READY ===\nWO-CONDFIX-01 complete. All tests pass." | python scripts/speak.py --signal` plays chime then speaks summary. Parser returns None for text without signal line. Existing speak.py usage unchanged.
+**Acceptance:** Agent Bash call `echo "=== SIGNAL: REPORT_READY ===\nWO-CONDFIX-01 complete. All tests pass." | python scripts/speak.py --signal` plays chime then speaks summary. Parser returns None for text without signal line. Existing speak.py usage unchanged. Standing ops rule documented.
 
 ---
 
