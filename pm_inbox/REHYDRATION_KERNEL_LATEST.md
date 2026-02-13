@@ -77,17 +77,36 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 2c892c0 (chore: integrate Wave B into PSD — Waves A+B complete)
-Tests collected: 5,420
-Tests passed: 5,397 (16 skipped, HW-gated)
+Last commit: 35942fe (chore: adopt Two-Force Protocol, convert BURST-001 to READY BRICK)
+Tests passed: 5,438 (7 failed Chatterbox GPU-gated, 16 skipped HW-gated)
+CLI tests: 130 passed
 Stoplight: GREEN
+
+**Uncommitted work (staged for next commit):**
+- Action economy implementation (ActionBudget class, turn loop rewrite) in `play.py`
+- 24 new tests + updated sequences in `tests/test_play_cli.py`
+- BURST-003 binary decisions resolved in `pm_inbox/BURST_INTAKE_QUEUE.md`
+- Stale planning docs archived (PHASE4B, PHASE4C, EXECUTION_PLAN_V2)
 
 ## Active Work Surfaces
 
-**Phase 4C:** Waves A+B COMPLETE (7/10 WOs integrated). Wave C: 3 WOs remaining (WO-SPELLSLOTS-01 BLOCKED on CP for entity_fields.py, WO-SPELLLIST-CLI-01 QUEUED, WO-CHARSHEET-CLI-01 QUEUED). No dispatch authorized.
+**Phase 4C — Waves A+B COMPLETE, playtest fixes COMPLETE:**
+All 7 Waves A+B WOs integrated. Additional playtest fixes implemented post-wave:
+- Action economy enforcement (D&D 3.5e ActionBudget — standard + move per turn)
+- AC breakdown display (base + cover + conditions in attack rolls)
+- ASCII tactical map (`show_map()`, `map` command)
+- Move error messages (friendly guidance for bad coords, no destination)
+- No double status on turn start
 
-**BURST-001 (Voice-First Reliability Membrane):** READY BRICK. All 5 research WOs complete. Playbook synthesized. 5 binary decisions (DC-01..DC-05) await operator resolution before PM drafts builder WOs. See `pm_inbox/BURST_INTAKE_QUEUE.md`.
+**Phase 4C — Wave C: 3 WOs remaining:**
+- WO-SPELLSLOTS-01: BLOCKED on CP for `entity_fields.py` (frozen contract)
+- WO-SPELLLIST-CLI-01: QUEUED (can show spell names without slots)
+- WO-CHARSHEET-CLI-01: QUEUED (no blocker)
 
-**BURST-002 (Model/Runtime Constraint Envelope):** NOT STARTED. PM drafts research WO when operator prioritizes.
+**BURST-001 (Voice-First Reliability Membrane):** READY BRICK. 5 binary decisions (DC-01..DC-05) await operator resolution. See `pm_inbox/BURST_INTAKE_QUEUE.md`.
 
-**PM posture:** IDLE. No dispatch pending. Awaiting operator signal (DC-01..DC-05 resolution, BURST-002 priority, or Phase 4C Wave C CP decision).
+**BURST-003 (Tactical Snapshot):** PARTIALLY IMPLEMENTED. ASCII grid done. AoE preview remains (1 binary decision open).
+
+**BURST-002 (Model/Runtime Constraint Envelope):** NOT STARTED.
+
+**PM posture:** IDLE. No dispatch pending. Awaiting operator signal (DC-01..DC-05 resolution, Wave C CP decision, or BURST-002 priority).

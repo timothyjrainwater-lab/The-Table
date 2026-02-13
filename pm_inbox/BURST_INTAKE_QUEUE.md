@@ -68,6 +68,31 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 
 **Next action:** If operator prioritizes, PM drafts research WO for operator execution. Existing RQ artifacts cover partial ground.
 
+### BURST-003: Tactical Snapshot (ASCII Grid + AoE Preview) — PARTIALLY IMPLEMENTED
+
+**Target Lock:** Player can see spatial state and predict AoE impact before committing actions.
+
+**Status:** PARTIALLY IMPLEMENTED — ASCII grid (`show_map()`) and `map` command are live. AoE preview remains unbuilt.
+
+**What's done:**
+- ASCII grid with auto-sized bounding box, entity symbols, coordinate labels, legend: `show_map()` in `play.py`
+- `map` / `grid` / `tactical` commands in parser
+- First-letter-of-name symbols with collision handling (e.g., G, G2 for two goblins)
+- Defeated entities excluded from map
+- 4 tests covering grid rendering, defeated exclusion, symbol collision, command parsing
+
+**What remains:**
+- AoE overlay preview before spell resolution (center square, entities in radius, save DC, confirm prompt)
+- Coordinate roster + distance matrix (optional complement)
+
+**Binary decisions — RESOLVED:**
+1. ~~Grid size: fixed 20x20, or bounded to active combat region (auto-sized)?~~ **RESOLVED: Auto-sized** (bounded to active entities + 1-cell padding)
+2. AoE preview: display-only, or confirm-gated (require "yes" before resolution)? **OPEN**
+3. ~~Grid display trigger: automatic every turn, or on-demand (`map` command)?~~ **RESOLVED: On-demand** (`map` command, free action)
+4. ~~Entity symbols: single-letter (A/S/E/G), or first-letter-of-name with collision handling?~~ **RESOLVED: First-letter-of-name with collision handling**
+
+**Next action:** Only AoE preview remains. Operator resolves DC-2 (confirm-gated or display-only). PM drafts 1 builder WO for AoE overlay integration.
+
 ---
 
 ## Completed Bursts
