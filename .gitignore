@@ -11,3 +11,21 @@ test_audio_queue_results.txt
 
 # User Profile Configuration (local-only, never commit)
 config/user_profile.yaml
+
+# D&D source material (copyrighted WotC content — do NOT push publicly)
+Vault/
+sources/
+
+# Claude Code local settings (contains local file paths)
+.claude/settings.local.json
+
+# Generated output and scratch files
+output/
+models/
+nul
+srd_fixture_temp.json
+trust_findings_raw.txt
+extract_trust.py
+demo_orpheus_audition.py
+demo_orpheus_remaining.py
+demo_tts_audio.py
