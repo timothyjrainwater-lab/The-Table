@@ -473,6 +473,18 @@ class TestCLISmoke:
         output = self._run_session(["cast magic missile on goblin warrior", "quit"], seed=42)
         assert "casts Magic Missile" in output
 
+    def test_cast_then_enemy_attack_no_crash(self):
+        """Casting a condition spell must not crash when enemy attacks next."""
+        # This reproduces a bug where spell conditions stored as list crashed
+        # get_condition_modifiers which expects dict. The enemy turn calls
+        # resolve_attack -> get_condition_modifiers on the target.
+        output = self._run_session(
+            ["cast shield on goblin warrior", "attack goblin warrior"] * 5,
+            seed=42
+        )
+        # Should not crash — any output means we survived the enemy turn
+        assert "Roll:" in output or "DEFEATED" in output or "Victory" in output
+
     def test_no_action_produces_silent_failure(self):
         """Every recognized command must produce at least one line of output."""
         commands = [

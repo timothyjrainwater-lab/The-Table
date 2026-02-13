@@ -56,6 +56,13 @@ def get_condition_modifiers(
         # No conditions: return zero modifiers
         return ConditionModifiers()
 
+    # Handle both storage conventions:
+    #   - dict format: {condition_id: {condition_dict...}}  (from conditions.apply_condition)
+    #   - list format: ["condition_name", ...]              (from play_loop spell resolver)
+    # List-format entries are bare strings with no modifier data; skip them.
+    if isinstance(conditions_data, list):
+        return ConditionModifiers()
+
     # Aggregate modifiers
     total_ac = 0
     total_attack = 0
@@ -74,6 +81,8 @@ def get_condition_modifiers(
 
     # Sum all condition modifiers
     for condition_id, condition_dict in conditions_data.items():
+        if not isinstance(condition_dict, dict):
+            continue  # Skip malformed entries
         condition = ConditionInstance.from_dict(condition_dict)
         mods = condition.modifiers
 
