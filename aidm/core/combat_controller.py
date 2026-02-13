@@ -95,9 +95,9 @@ def _tick_duration_tracker(
         # Remove condition from target if applicable
         if effect.condition_applied:
             target_entity = entities.get(effect.target_id, {})
-            conditions = target_entity.get(EF.CONDITIONS, [])
+            conditions = target_entity.get(EF.CONDITIONS, {})
             if effect.condition_applied in conditions:
-                conditions.remove(effect.condition_applied)
+                del conditions[effect.condition_applied]
                 target_entity[EF.CONDITIONS] = conditions
 
                 events.append(Event(

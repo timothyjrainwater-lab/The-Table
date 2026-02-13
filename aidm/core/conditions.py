@@ -56,10 +56,8 @@ def get_condition_modifiers(
         # No conditions: return zero modifiers
         return ConditionModifiers()
 
-    # Handle both storage conventions:
-    #   - dict format: {condition_id: {condition_dict...}}  (from conditions.apply_condition)
-    #   - list format: ["condition_name", ...]              (from play_loop spell resolver)
-    # List-format entries are bare strings with no modifier data; skip them.
+    # Safety guard: conditions should be dict format {condition_id: {condition_dict...}}.
+    # List format was deprecated by WO-CONDFIX-01. Guard kept for fail-closed safety.
     if isinstance(conditions_data, list):
         return ConditionModifiers()
 
@@ -83,7 +81,12 @@ def get_condition_modifiers(
     for condition_id, condition_dict in conditions_data.items():
         if not isinstance(condition_dict, dict):
             continue  # Skip malformed entries
-        condition = ConditionInstance.from_dict(condition_dict)
+        try:
+            condition = ConditionInstance.from_dict(condition_dict)
+        except (ValueError, KeyError):
+            # Unknown condition type (e.g., spell buff labels like "mage_armor")
+            # — no mechanical modifiers, skip aggregation
+            continue
         mods = condition.modifiers
 
         total_ac += mods.ac_modifier

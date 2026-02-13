@@ -336,7 +336,7 @@ class TestBuffSpells:
 
         # Wizard should have mage_armor condition
         wizard = result.world_state.entities["wizard"]
-        conditions = wizard.get(EF.CONDITIONS, [])
+        conditions = wizard.get(EF.CONDITIONS, {})
         assert "mage_armor" in conditions
 
         # Narration should indicate buff
@@ -417,7 +417,7 @@ class TestDebuffSpells:
                 # Found a seed where condition was applied (failed save)
                 assert result.status == "ok"
                 goblin = result.world_state.entities["goblin_1"]
-                conditions = goblin.get(EF.CONDITIONS, [])
+                conditions = goblin.get(EF.CONDITIONS, {})
                 assert "paralyzed" in conditions
                 assert result.narration == "spell_debuff_applied"
                 return
@@ -565,8 +565,20 @@ class TestDurationTracking:
         )
         tracker.add_effect(effect)
 
-        # Add condition to goblin
-        world_state.entities["goblin_1"][EF.CONDITIONS] = ["test_condition"]
+        # Add condition to goblin (dict format, matches play_loop storage)
+        world_state.entities["goblin_1"][EF.CONDITIONS] = {
+            "test_condition": {
+                "condition_type": "test_condition",
+                "source": "spell:Test Spell",
+                "modifiers": {"ac_modifier": 0, "attack_modifier": 0, "damage_modifier": 0,
+                               "dex_modifier": 0, "fort_save_modifier": 0, "ref_save_modifier": 0,
+                               "will_save_modifier": 0, "movement_prohibited": False,
+                               "actions_prohibited": False, "standing_triggers_aoo": False,
+                               "auto_hit_if_helpless": False, "loses_dex_to_ac": False},
+                "applied_at_event_id": 0,
+                "notes": None,
+            }
+        }
 
         world_state.active_combat["duration_tracker"] = tracker.to_dict()
 
@@ -591,7 +603,19 @@ class TestDurationTracking:
 
         # Restore tracker after start_combat reset it
         world_state.active_combat["duration_tracker"] = tracker.to_dict()
-        world_state.entities["goblin_1"][EF.CONDITIONS] = ["test_condition"]
+        world_state.entities["goblin_1"][EF.CONDITIONS] = {
+            "test_condition": {
+                "condition_type": "test_condition",
+                "source": "spell:Test Spell",
+                "modifiers": {"ac_modifier": 0, "attack_modifier": 0, "damage_modifier": 0,
+                               "dex_modifier": 0, "fort_save_modifier": 0, "ref_save_modifier": 0,
+                               "will_save_modifier": 0, "movement_prohibited": False,
+                               "actions_prohibited": False, "standing_triggers_aoo": False,
+                               "auto_hit_if_helpless": False, "loses_dex_to_ac": False},
+                "applied_at_event_id": 0,
+                "notes": None,
+            }
+        }
 
         # Execute a combat round
         round_result = execute_combat_round(

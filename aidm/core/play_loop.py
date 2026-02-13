@@ -64,6 +64,7 @@ from aidm.schemas.maneuvers import (
 )
 from aidm.core.maneuver_resolver import resolve_maneuver
 # WO-015: Spellcasting imports
+from aidm.schemas.conditions import ConditionType, ConditionModifiers, ConditionInstance
 from aidm.core.spell_resolver import (
     SpellCastIntent, SpellResolver, CasterStats, TargetStats,
     SpellDefinition, SpellEffect
@@ -263,6 +264,64 @@ def _get_or_create_duration_tracker(world_state: WorldState) -> DurationTracker:
     return DurationTracker.from_dict(tracker_data)
 
 
+# Mapping from ConditionType values to their canonical factory functions.
+# Import here to avoid circular imports at module level.
+from aidm.schemas.conditions import (
+    create_prone_condition, create_flat_footed_condition,
+    create_grappled_condition, create_helpless_condition,
+    create_stunned_condition, create_dazed_condition,
+    create_shaken_condition, create_sickened_condition,
+    create_frightened_condition, create_panicked_condition,
+    create_nauseated_condition, create_fatigued_condition,
+    create_exhausted_condition, create_paralyzed_condition,
+    create_staggered_condition, create_unconscious_condition,
+)
+
+_CONDITION_FACTORIES = {
+    "prone": create_prone_condition,
+    "flat_footed": create_flat_footed_condition,
+    "grappled": create_grappled_condition,
+    "helpless": create_helpless_condition,
+    "stunned": create_stunned_condition,
+    "dazed": create_dazed_condition,
+    "shaken": create_shaken_condition,
+    "sickened": create_sickened_condition,
+    "frightened": create_frightened_condition,
+    "panicked": create_panicked_condition,
+    "nauseated": create_nauseated_condition,
+    "fatigued": create_fatigued_condition,
+    "exhausted": create_exhausted_condition,
+    "paralyzed": create_paralyzed_condition,
+    "staggered": create_staggered_condition,
+    "unconscious": create_unconscious_condition,
+}
+
+
+def _make_condition_dict(condition: str, source: str, event_id: int) -> Dict[str, Any]:
+    """Build a ConditionInstance-compatible dict for storage in EF.CONDITIONS.
+
+    For conditions with a canonical ConditionType factory (prone, stunned, etc.),
+    uses the factory to get proper mechanical modifiers (AC penalty, attack penalty, etc.).
+    For spell buff/debuff labels without a canonical factory (mage_armor, shield, etc.),
+    creates a minimal dict with zero modifiers — tracked for presence, not effect.
+
+    Returns a dict compatible with ConditionInstance.to_dict() / from_dict().
+    """
+    factory = _CONDITION_FACTORIES.get(condition)
+    if factory is not None:
+        instance = factory(source=source, applied_at_event_id=event_id)
+        return instance.to_dict()
+
+    # No canonical factory — build minimal dict with zero modifiers
+    return {
+        "condition_type": condition,
+        "source": source,
+        "modifiers": ConditionModifiers().to_dict(),
+        "applied_at_event_id": event_id,
+        "notes": None,
+    }
+
+
 def _resolve_spell_cast(
     intent: SpellCastIntent,
     world_state: WorldState,
@@ -447,13 +506,18 @@ def _resolve_spell_cast(
 
     # Apply conditions and track durations
     for entity_id, condition in resolution.conditions_applied:
-        # Initialize conditions list if needed
+        # Initialize conditions dict if needed
         if EF.CONDITIONS not in entities[entity_id]:
-            entities[entity_id][EF.CONDITIONS] = []
+            entities[entity_id][EF.CONDITIONS] = {}
 
-        # Add condition if not already present
+        # Add condition if not already present (keyed by condition name)
         if condition not in entities[entity_id][EF.CONDITIONS]:
-            entities[entity_id][EF.CONDITIONS].append(condition)
+            condition_dict = _make_condition_dict(
+                condition=condition,
+                source=f"spell:{spell.name}",
+                event_id=current_event_id,
+            )
+            entities[entity_id][EF.CONDITIONS][condition] = condition_dict
 
             events.append(Event(
                 event_id=current_event_id,
@@ -582,9 +646,9 @@ def _check_concentration_break(
             if effect.condition_applied:
                 entities = deepcopy(world_state.entities)
                 target_entity = entities.get(effect.target_id, {})
-                conditions = target_entity.get(EF.CONDITIONS, [])
+                conditions = target_entity.get(EF.CONDITIONS, {})
                 if effect.condition_applied in conditions:
-                    conditions.remove(effect.condition_applied)
+                    del conditions[effect.condition_applied]
                     target_entity[EF.CONDITIONS] = conditions
 
                     events.append(Event(

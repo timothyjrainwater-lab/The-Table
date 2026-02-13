@@ -68,7 +68,7 @@ def extract_features(world_state: WorldState, actor_id: str) -> Dict[str, Any]:
         features["actor_hp_band"] = "critical"
 
     # Actor conditions restricting actions
-    conditions = actor.get(EF.CONDITIONS, [])
+    conditions = actor.get(EF.CONDITIONS, {})
     features["actor_stunned"] = "stunned" in conditions
     features["actor_prone"] = "prone" in conditions
     features["actor_frightened"] = "frightened" in conditions

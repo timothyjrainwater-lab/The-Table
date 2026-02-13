@@ -660,7 +660,7 @@ class ReplayRegressionHarness:
                 EF.SAVE_FORT: combatant.save_fort,
                 EF.SAVE_REF: combatant.save_ref,
                 EF.SAVE_WILL: combatant.save_will,
-                EF.CONDITIONS: [],
+                EF.CONDITIONS: {},
             }
 
             if combatant.attacks:
