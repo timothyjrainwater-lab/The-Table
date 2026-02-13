@@ -8,6 +8,21 @@ Product Owner (PO): Thunder. Design decisions, vision, dispatch authority.
 Project Manager (PM): Opus. WO creation, coding direction, agent coordination, principal engineering. Full PM authority delegated 2026-02-11.
 Agents execute within WO scope only. PM confirms rehydration before any work.
 
+## Two-Force Parallel Execution Protocol (effective 2026-02-13)
+
+**Relay model:** Operator Intent → PM drafts Research WO → Operator executes research → PM normalizes into Brick → PM drafts Builder WO → Builders implement.
+
+**Roles:**
+- Operator = Research execution. Does not draft WOs.
+- PM = WO authorship (research + build), normalization, sequencing, builder management. Does not execute research.
+- Builders = Implementation only. Never see upstream research artifacts. Receive only READY Brick packets.
+
+**Brick format (READY when all 4 present):** (1) Target Lock, (2) Binary Decisions, (3) Contract Spec, (4) Implementation Plan.
+
+**Tracking surface:** `pm_inbox/BURST_INTAKE_QUEUE.md` — single intake + staging surface for all bursts.
+
+**WIP limit:** 1-2 READY Bricks ahead. No BURST-003+ until BURST-001/002 resolved.
+
 ## Session Start Sensor
 
 Run `python scripts/verify_session_start.py` and paste output verbatim. No work begins until bootstrap confirmed. If RED warnings appear, resolve before proceeding. Read PROJECT_STATE_DIGEST.md for current state.
@@ -35,6 +50,7 @@ OPS-FRICTION: Tool or process fix only (escalation ladder).
 PLAYTEST: Forensics with command sequence, friction points, repro test.
 DOC: Apply escalation ladder. Probably reject.
 STRATEGY: Discussion only. No file changes.
+BURST: Create/append entry in BURST_INTAKE_QUEUE.md. No WO, no dispatch.
 
 ## Mandatory Dual-Channel Comms
 
@@ -61,18 +77,17 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: cfd52f6 (feat: signal parsing, chime, sentence chunking — WO-VOICE-SIGNAL-01)
+Last commit: 2c892c0 (chore: integrate Wave B into PSD — Waves A+B complete)
 Tests collected: 5,420
 Tests passed: 5,397 (16 skipped, HW-gated)
 Stoplight: GREEN
 
-## Next Work Orders
+## Active Work Surfaces
 
-Phase 4C Forward Progression — Waves A+B COMPLETE (7 WOs integrated):
-- Wave A: COMPLETE (WO-CONDFIX-01, WO-ROUND-TRACK-01)
-- Wave B: COMPLETE (WO-FULLATTACK-CLI-01, WO-MANEUVER-CLI-01, WO-STATUS-EXPAND-01, WO-AOO-DISPLAY-01, WO-VOICE-SIGNAL-01)
-- Wave C: WO-SPELLSLOTS-01 (BLOCKED — CP for entity_fields.py), WO-SPELLLIST-CLI-01 (QUEUED), WO-CHARSHEET-CLI-01 (QUEUED)
-Dispatch recommendation: Wave C blocked pending CP decision. No new dispatch authorized.
+**Phase 4C:** Waves A+B COMPLETE (7/10 WOs integrated). Wave C: 3 WOs remaining (WO-SPELLSLOTS-01 BLOCKED on CP for entity_fields.py, WO-SPELLLIST-CLI-01 QUEUED, WO-CHARSHEET-CLI-01 QUEUED). No dispatch authorized.
 
-Research anchored: 5 WO-RQ artifacts tracked (see PSD Future Work Queue)
-Voice research fleet (WO-VOICE-RESEARCH-01..05): deliveries landed, synthesis pending PM review
+**BURST-001 (Voice-First Reliability Membrane):** READY BRICK. All 5 research WOs complete. Playbook synthesized. 5 binary decisions (DC-01..DC-05) await operator resolution before PM drafts builder WOs. See `pm_inbox/BURST_INTAKE_QUEUE.md`.
+
+**BURST-002 (Model/Runtime Constraint Envelope):** NOT STARTED. PM drafts research WO when operator prioritizes.
+
+**PM posture:** IDLE. No dispatch pending. Awaiting operator signal (DC-01..DC-05 resolution, BURST-002 priority, or Phase 4C Wave C CP decision).
