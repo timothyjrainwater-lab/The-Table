@@ -1,7 +1,8 @@
 # AIDM Prosodic Annotation Schema (PAS) v0.1
 
+**Work Order:** WO-RQ-PROSODIC-001
 **Layer:** Lens -> Immersion (TTS)
-**Status:** Design Draft
+**Status:** Design Draft — research complete, implementation not yet scoped
 **Date:** 2026-02-13
 **Origin:** GPT cross-model review, refined against running AIDM stack
 
