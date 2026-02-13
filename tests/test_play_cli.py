@@ -298,7 +298,7 @@ class TestFormatEvents:
             },
         )]
         output = format_events(events, ws)
-        assert "Goblin is now dazed (3 rounds)" in output
+        assert "Goblin gains Dazed effect (3 rounds)" in output
 
     def test_formats_condition_applied_no_duration(self):
         from aidm.core.event_log import Event
@@ -312,7 +312,7 @@ class TestFormatEvents:
             },
         )]
         output = format_events(events, ws)
-        assert "Goblin is now prone" in output
+        assert "Goblin gains Prone effect" in output
         assert "rounds" not in output
 
     def test_formats_healing(self):

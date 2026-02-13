@@ -1,0 +1,55 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "PLAY",
+            "type": "shell",
+            "command": "python play.py",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "focus": true,
+                "clear": true
+            }
+        },
+        {
+            "label": "PLAY (seed)",
+            "type": "shell",
+            "command": "python play.py --seed ${input:seed}",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "focus": true,
+                "clear": true
+            }
+        },
+        {
+            "label": "TEST-CLI",
+            "type": "shell",
+            "command": "python -m pytest tests/test_play_cli.py -q --tb=short",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        },
+        {
+            "label": "TEST-ALL",
+            "type": "shell",
+            "command": "python -m pytest tests/ -q --tb=short",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "seed",
+            "type": "promptString",
+            "description": "RNG seed (different seeds = different dice rolls)",
+            "default": "42"
+        }
+    ]
+}

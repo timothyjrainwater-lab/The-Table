@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — Wave 1-3 WOs INTEGRATED (15 WOs). 5144 tests collected, 5121 passed, 7 failed (chatterbox env), 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-13 — Playable CLI + Playtest Infrastructure INTEGRATED. 5353 tests collected, 5330 passed, 7 failed (chatterbox env), 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -237,17 +237,10 @@ LAST UPDATED: 2026-02-13 — Wave 1-3 WOs INTEGRATED (15 WOs). 5144 tests collec
 - **5 integration tests** in test_kokoro_tts.py (real synthesis, all 8 personas, speed variation, long text, string persona)
 
 ### Wave 1: Foundation Schemas & Bugfixes (2026-02-13)
-- **WO-AD007-IMPL-001**: Presentation Semantics Python (PresentationSemanticsEntry, PresentationRegistryLoader in `aidm/schemas/presentation_semantics.py` + `aidm/lens/presentation_registry.py`). 37 tests.
-- **WO-BUGFIX-BATCH-001**: STM clear-on-transition, clarification loop max_rounds=3, AoO weapon_data type guard, intent bridge candidate ordering (D-01 xfail removed). 13 tests.
-- **WO-CONTENT-PACK-SCHEMA-001**: MechanicalCreatureTemplate, MechanicalFeatTemplate, ContentPack dataclasses + ContentPackLoader with validation in `aidm/lens/content_pack_loader.py`. 42 tests.
-- **WO-RULEBOOK-MODEL-001**: RuleEntry/RuleParameters/RuleTextSlots/Prerequisite/RuleProvenance frozen dataclasses + RulebookRegistry read-only loader in `aidm/lens/rulebook_registry.py`. 31 tests.
-- **WO-VOCAB-REGISTRY-001**: VocabularyEntry/VocabularyRegistry/WorldTaxonomy frozen dataclasses + VocabularyRegistryLoader in `aidm/lens/vocabulary_registry.py`. 36 tests.
-- **WO-OSS-REVISE-001**: OSS Shortlist corrections — Three.js adopted (table surface), Kenney downgraded to placeholder, Bucket 12 (image/audio gen) added. Docs only, 0 tests.
+- 6 WOs: AD007-IMPL (presentation semantics, 37 tests), BUGFIX-BATCH (STM/clarification/AoO/intent fixes, 13 tests), CONTENT-PACK-SCHEMA (creature/feat templates + loader, 42 tests), RULEBOOK-MODEL (rule entries + registry, 31 tests), VOCAB-REGISTRY (vocabulary + taxonomy, 36 tests), OSS-REVISE (docs only).
 
 ### Wave 2: Content Extraction (2026-02-13)
-- **WO-CONTENT-EXTRACT-001**: 605 IP-clean spell templates in `aidm/data/content_pack/spells.json`. MechanicalSpellTemplate schema. Extraction + verification scripts in `tools/`. 25 tests.
-- **WO-CONTENT-EXTRACT-002**: 273 IP-clean creature templates in `aidm/data/content_pack/creatures.json`. OCR correction, deep ability parsing. 36 tests (31 pass, 5 skip).
-- **WO-CONTENT-EXTRACT-003**: 109 IP-clean feat templates in `aidm/data/content_pack/feats.json`. Prereq chains resolved, fighter bonus feats flagged. 35 tests.
+- 3 WOs: CONTENT-EXTRACT-001 (605 spells, 25 tests), CONTENT-EXTRACT-002 (273 creatures, 36 tests), CONTENT-EXTRACT-003 (109 feats, 35 tests). All IP-clean templates in `aidm/data/content_pack/`.
 
 ### Wave 3: World Compiler + Backend (2026-02-13)
 - **WO-WORLDCOMPILE-SCAFFOLD-001**: WorldCompiler pipeline harness with CompileStage ABC, topological sort, Stage 0 (validation), Stage 8 (finalize/hashing), CompileReport in `aidm/core/world_compiler.py` + `aidm/schemas/world_compile.py`. 52 tests.
@@ -258,11 +251,17 @@ LAST UPDATED: 2026-02-13 — Wave 1-3 WOs INTEGRATED (15 WOs). 5144 tests collec
 - **WO-VOICE-RESOLVER-001**: Free-text keyword extraction + persona scoring in `aidm/lens/voice_resolver.py`. 23 tests.
 - **WO-WEBSOCKET-BRIDGE-001**: WebSocket protocol schema (ClientMessage/ServerMessage frozen dataclasses), Starlette ASGI app, ws_bridge handler in `aidm/schemas/ws_protocol.py` + `aidm/server/`. 28 tests.
 
+### Playable CLI + Playtest Infrastructure (2026-02-13)
+- **play.py**: Terminal combat CLI — keyword parser (attack/cast/move/status/help), IntentBridge resolution, execute_turn wiring, enemy AI, event formatting, transcript autologging to `runtime_logs/`. 1v1 Fighter vs Goblin fixture.
+- **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap), `scripts/record_playtest.py` (result logger to `pm_inbox/playtest_log.jsonl`), `scripts/triage_latest_playtest.py` (structured transcript analysis with GREEN/YELLOW/RED decision).
+- **Bugfix**: `conditions.py` list-format tolerance — `get_condition_modifiers()` guards against list-format conditions from play_loop spell resolver (crash found in human playtest).
+- **55 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression).
+
 ---
 
 ## Test Count
 
-**Total: 5144 tests collected** (5121 passed, 7 failed chatterbox env, 16 skipped hardware-gated)
+**Total: 5353 tests collected** (5330 passed, 7 failed chatterbox env, 16 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -281,6 +280,8 @@ LAST UPDATED: 2026-02-13 — Wave 1-3 WOs INTEGRATED (15 WOs). 5144 tests collec
 - `aidm/lens/` — narrative_brief.py, context_assembler.py, scene_manager.py, content_pack_loader.py, discovery_log.py, presentation_registry.py, rulebook_registry.py, vocabulary_registry.py, voice_resolver.py
 - `aidm/interaction/` — intent_bridge.py (WO-038)
 - `aidm/runtime/` — session.py, session_orchestrator.py, bootstrap.py, runner.py, display.py, ipc_serialization.py, play_controller.py
+- `play.py` — Playable CLI entry point (keyword parser, turn execution, enemy AI, event display, transcript autologging)
+- `scripts/` — verify_session_start.py, record_playtest.py, triage_latest_playtest.py, audit_snapshot.py
 - `aidm/immersion/` — 8 modules: stt/tts/image adapters, audio_mixer, contextual_grid, attribution, clarification_loop, voice_intent_parser, chatterbox_tts_adapter
 - `aidm/spark/` — model_registry, spark_adapter, llamacpp_adapter, grammar_shield, dm_persona
 - `aidm/server/` — app.py (Starlette ASGI + WebSocket route)
@@ -463,11 +464,18 @@ None. All dispatched WOs have completion reports.
 | WO-CODE-INTENT-002 | **CANCELED** — superseded by WO-BUGFIX-BATCH-001 (D-01 fix) |
 | WO-INTENT-002 | **CANCELED** — conflicting scope with WO-CODE-INTENT-002; core work absorbed by bugfix batch |
 
-### Phase 4 — FUTURE
+### Phase 4 — ACTIVE (Playable CLI)
 
 | WO | Description | Status |
 |----|-------------|--------|
-| WO-042-044 | Phase 4 Playtest WOs | FUTURE |
+| WO-PLAYABLE-LOOP-01 | Playable CLI (play.py) | INTEGRATED |
+| WO-MOVE-01 | Real movement in play loop | INTEGRATED |
+| WO-SELFTARGET-01 | Self-cast parsing | INTEGRATED |
+| WO-OPS-FOUNDATION-01 | Session bootstrap + playtest logger | INTEGRATED |
+| WO-ENCOUNTER-01 | Expand 1v1 to 3v3 party | NEXT |
+| WO-INITIATIVE-01 | Initiative system in CLI | FUTURE |
+| WO-FULLATTACK-CLI-01 | Full attack action in CLI | FUTURE |
+| WO-SPELLSLOTS-01 | Spell slot tracking | FUTURE |
 | WO-OSS-DICE-001 | Three.js Dice Roller Demo | FUTURE (needs amendments per Jay review) |
 
 See EXECUTION_PLAN_V2_POST_AUDIT.md and REVISED_PROGRAM_SEQUENCING_2026_02_12.md for full WO definitions.

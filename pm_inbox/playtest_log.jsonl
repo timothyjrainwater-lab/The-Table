@@ -1,0 +1,1 @@
+{"timestamp": "2026-02-13T08:15:21.579711+00:00", "commit": "11a2006", "result": "passed", "note": "cast-then-attack crash fix verified, all commands functional"}

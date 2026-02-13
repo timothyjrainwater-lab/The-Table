@@ -3,8 +3,8 @@ PROJECT STATE DIGEST — CANONICAL STATE SNAPSHOT
 
 UPDATE RULES:
 - Factual only — no discussion, no design speculation
-- Single source of truth for project state
-- Paste this file to refresh any agent completely
+- Single source of truth for operational project state
+- Fresh agents should start with PROJECT_COMPASS.md (rehydration hub), then use this file for operational detail
 - Format: Markdown with stable section ordering
 - REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
 
@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-11 — WO-047 Immersive Micro-Scenario COMPLETE (demo script). 3730 tests, 0 failed, 15 skipped (hardware-gated). A10 gate COMPLETE.
+LAST UPDATED: 2026-02-13 — Playable CLI + Playtest Infrastructure INTEGRATED. 5353 tests collected, 5330 passed, 7 failed (chatterbox env), 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -216,13 +216,54 @@ LAST UPDATED: 2026-02-11 — WO-047 Immersive Micro-Scenario COMPLETE (demo scri
 - **Session continuity**: Session remains usable for subsequent turns after Box failure recovery
 - **5 tests** in test_session_orchestrator.py Category 7 (attack/spell failure, state preservation, session recovery, turn count integrity)
 
+### WO-048: Template Interpolation Fix (Post-A10)
+- **Pipeline fix**: `_build_template_context()` pure function maps NarrativeBrief + events → template placeholders (actor/target/weapon/damage)
+- **Entity names**: Real names (not "The attacker"/"the target") flow through metadata to template system
+- **weapon_name fix**: Uses `EF.WEAPON` (e.g. "longsword") instead of `damage_type` ("slashing")
+- **Coverage**: Added templates for `movement`, `scene_transition`, `rest` tokens
+- **14 tests** in test_template_narration_contract.py (5 context + 5 snapshot + 3 forbidden-token + 1 provenance)
+
+### WO-049: Severity-Branched Template Narration (Post-A10)
+- **SEVERITY_TEMPLATES**: Combat tokens branch by severity (minor/moderate/severe/devastating/lethal)
+- **Deterministic selection**: Severity from `compute_severity()` (HP percentage), no RNG
+- **Scoped**: Only combat tokens (`attack_hit`, `attack_miss`) branched; all other tokens use flat templates
+- **Flavor upgrade**: Movement/transition/rest templates use atmospheric language
+- **4 tests** in test_template_narration_contract.py (severity branch + flat fallback + non-combat ignore + lethal integration)
+
+### WO-050: Kokoro TTS Wiring (Post-A10)
+- **KokoroTTSAdapter**: Updated for real model paths (model_path, voices_path), per-instance lazy loader
+- **Protocol compatibility**: synthesize() accepts VoicePersona, str, or None — satisfies both TTSAdapter and TTSProtocol
+- **Model**: kokoro-v1.0.int8.onnx (88MB, CPU-only), voices-v1.0.bin (27MB), ~1x real-time on CPU
+- **5 integration tests** in test_kokoro_tts.py (real synthesis, all 8 personas, speed variation, long text, string persona)
+
+### Wave 1: Foundation Schemas & Bugfixes (2026-02-13)
+- 6 WOs: AD007-IMPL (presentation semantics, 37 tests), BUGFIX-BATCH (STM/clarification/AoO/intent fixes, 13 tests), CONTENT-PACK-SCHEMA (creature/feat templates + loader, 42 tests), RULEBOOK-MODEL (rule entries + registry, 31 tests), VOCAB-REGISTRY (vocabulary + taxonomy, 36 tests), OSS-REVISE (docs only).
+
+### Wave 2: Content Extraction (2026-02-13)
+- 3 WOs: CONTENT-EXTRACT-001 (605 spells, 25 tests), CONTENT-EXTRACT-002 (273 creatures, 36 tests), CONTENT-EXTRACT-003 (109 feats, 35 tests). All IP-clean templates in `aidm/data/content_pack/`.
+
+### Wave 3: World Compiler + Backend (2026-02-13)
+- **WO-WORLDCOMPILE-SCAFFOLD-001**: WorldCompiler pipeline harness with CompileStage ABC, topological sort, Stage 0 (validation), Stage 8 (finalize/hashing), CompileReport in `aidm/core/world_compiler.py` + `aidm/schemas/world_compile.py`. 52 tests.
+- **WO-WORLDCOMPILE-LEXICON-001**: LexiconStage (Stage 1) — stub-mode name generation, VocabularyRegistry output in `aidm/core/compile_stages/lexicon.py`. 25 tests.
+- **WO-WORLDCOMPILE-SEMANTICS-001**: SemanticsStage (Stage 3) — mechanical-to-semantics mapping (delivery mode, staging, scale, VFX/SFX tags) in `aidm/core/compile_stages/semantics.py`. 58 tests.
+- **WO-WORLDCOMPILE-NPC-001**: NPCArchetypeStage (Stage 4) — 8 NPC archetypes + 6 doctrine profiles, MonsterDoctrine-compatible conversion in `aidm/core/compile_stages/npc_archetypes.py` + `aidm/schemas/npc_archetype.py`. 44 tests.
+- **WO-DISCOVERY-BACKEND-001**: DiscoveryLog (Lens-tier) with KnowledgeEvent, monotonic tier progression, field gating via REVEAL_SPEC in `aidm/lens/discovery_log.py`. 39 tests.
+- **WO-VOICE-RESOLVER-001**: Free-text keyword extraction + persona scoring in `aidm/lens/voice_resolver.py`. 23 tests.
+- **WO-WEBSOCKET-BRIDGE-001**: WebSocket protocol schema (ClientMessage/ServerMessage frozen dataclasses), Starlette ASGI app, ws_bridge handler in `aidm/schemas/ws_protocol.py` + `aidm/server/`. 28 tests.
+
+### Playable CLI + Playtest Infrastructure (2026-02-13)
+- **play.py**: Terminal combat CLI — keyword parser (attack/cast/move/status/help), IntentBridge resolution, execute_turn wiring, enemy AI, event formatting, transcript autologging to `runtime_logs/`. 1v1 Fighter vs Goblin fixture.
+- **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap), `scripts/record_playtest.py` (result logger to `pm_inbox/playtest_log.jsonl`), `scripts/triage_latest_playtest.py` (structured transcript analysis with GREEN/YELLOW/RED decision).
+- **Bugfix**: `conditions.py` list-format tolerance — `get_condition_modifiers()` guards against list-format conditions from play_loop spell resolver (crash found in human playtest).
+- **55 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression).
+
 ---
 
 ## Test Count
 
-**Total: 3730 tests** (all passing, 0 failed, 15 skipped hardware-gated)
+**Total: 5353 tests collected** (5330 passed, 7 failed chatterbox env, 16 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Phase 2: +240 tests. Phase 3 Batch 1: +90 tests (WO-038: 27, WO-040: 31, WO-041: 32). Phase 3 Batch 2: +66 tests (WO-039: 36, WO-045: 6 windshield, WO-046: 24 contracts). Phase 3 Batch 3: +36 tests (P2: 18 persistence, P1: 13 replay stability, P3: 5 Box fallback).
+> **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
 ---
 
@@ -231,17 +272,23 @@ LAST UPDATED: 2026-02-11 — WO-047 Immersive Micro-Scenario COMPLETE (demo scri
 > Per-file listings omitted for context weight. Use `ls aidm/core/`, `ls aidm/schemas/`, etc. for current inventory.
 
 **Directory structure:**
-- `aidm/core/` — 28 modules: resolvers (attack, full_attack, save, skill, feat, experience, maneuver, targeting, terrain, mounted_combat, aoo, conditions, spell_resolver), engine (play_loop, combat_controller, initiative, permanent_stats), infrastructure (event_log, rng_manager, state, replay_runner, source_registry, rule_lookup, ruling_helpers, interaction, obsidian_links, bundle_validator, doctrine_rules, tactical_policy), pipeline (session_log, campaign_store, prep_orchestrator, prep_pipeline, asset_store, world_archive, duration_tracker)
-- `aidm/schemas/` — 24 modules: data contracts for all subsystems
+- `aidm/core/` — 28+ modules: resolvers, engine, infrastructure, pipeline + `world_compiler.py`, `compile_stages/` (lexicon, semantics, npc_archetypes)
+- `aidm/schemas/` — 30+ modules: data contracts for all subsystems + content_pack, rulebook, vocabulary, presentation_semantics, npc_archetype, world_compile, knowledge_mask, asset_binding, ws_protocol
 - `aidm/rules/` — legality_checker.py
 - `aidm/ui/` — character_sheet.py (CharacterData, CharacterSheetUI, PartySheet)
 - `aidm/narration/` — narrator.py (55 templates), play_loop_adapter.py, guarded_narration_service.py
-- `aidm/lens/` — narrative_brief.py, context_assembler.py (WO-032), scene_manager.py (WO-040)
+- `aidm/lens/` — narrative_brief.py, context_assembler.py, scene_manager.py, content_pack_loader.py, discovery_log.py, presentation_registry.py, rulebook_registry.py, vocabulary_registry.py, voice_resolver.py
 - `aidm/interaction/` — intent_bridge.py (WO-038)
-- `aidm/runtime/` — session.py, session_orchestrator.py (WO-039), bootstrap.py, runner.py, display.py, ipc_serialization.py
-- `aidm/immersion/` — 7 modules: stt/tts/image adapters, audio_mixer, contextual_grid, attribution
-- `aidm/spark/` — model_registry, spark_adapter, llamacpp_adapter, grammar_shield, dm_persona (WO-041)
-- `tests/` — 80+ test files
+- `aidm/runtime/` — session.py, session_orchestrator.py, bootstrap.py, runner.py, display.py, ipc_serialization.py, play_controller.py
+- `play.py` — Playable CLI entry point (keyword parser, turn execution, enemy AI, event display, transcript autologging)
+- `scripts/` — verify_session_start.py, record_playtest.py, triage_latest_playtest.py, audit_snapshot.py
+- `aidm/immersion/` — 8 modules: stt/tts/image adapters, audio_mixer, contextual_grid, attribution, clarification_loop, voice_intent_parser, chatterbox_tts_adapter
+- `aidm/spark/` — model_registry, spark_adapter, llamacpp_adapter, grammar_shield, dm_persona
+- `aidm/server/` — app.py (Starlette ASGI + WebSocket route)
+- `aidm/services/` — discovery_log.py (services-tier)
+- `aidm/data/content_pack/` — spells.json (605), creatures.json (273), feats.json (109)
+- `tools/` — extract_spells.py, extract_monsters.py, extract_feats.py, verify_spell_bridge.py + data/
+- `tests/` — 100+ test files
 - `Vault/` — D&D 3.5e rules knowledge base (~23,750 files, NOT AIDM code, do NOT modify without WO)
 
 ---
@@ -255,13 +302,14 @@ LAST UPDATED: 2026-02-11 — WO-047 Immersive Micro-Scenario COMPLETE (demo scri
 ## MANDATORY FIRST READ FOR ALL AGENTS
 
 **START HERE:**
-- [AGENT_ONBOARDING_CHECKLIST.md](AGENT_ONBOARDING_CHECKLIST.md) — **READ THIS FIRST** — step-by-step reading order, verification steps, and quick-reference rules
+- [PROJECT_COMPASS.md](PROJECT_COMPASS.md) — **READ THIS FIRST** — rehydration hub covering thesis, architecture, what's real, roadmap, conventions, and deep dive pointers
+- [AGENT_ONBOARDING_CHECKLIST.md](AGENT_ONBOARDING_CHECKLIST.md) — Step-by-step reading order, verification steps, and quick-reference rules
 
 **Required Reading (in order per onboarding checklist):**
-1. This file (`PROJECT_STATE_DIGEST.md`) — What's built, test counts, module inventory
-2. [AGENT_DEVELOPMENT_GUIDELINES.md](AGENT_DEVELOPMENT_GUIDELINES.md) — Coding standards, pitfall avoidance
-3. [AGENT_COMMUNICATION_PROTOCOL.md](AGENT_COMMUNICATION_PROTOCOL.md) — How to flag concerns, gates, scope creep
-4. [PROJECT_COHERENCE_DOCTRINE.md](PROJECT_COHERENCE_DOCTRINE.md) — Architectural constraints, scope boundaries
+1. [PROJECT_COMPASS.md](PROJECT_COMPASS.md) — Rehydration hub (summary of everything)
+2. This file (`PROJECT_STATE_DIGEST.md`) — Detailed operational state, locked systems, capability gates
+3. [AGENT_DEVELOPMENT_GUIDELINES.md](AGENT_DEVELOPMENT_GUIDELINES.md) — Coding standards, pitfall avoidance
+4. [AGENT_COMMUNICATION_PROTOCOL.md](AGENT_COMMUNICATION_PROTOCOL.md) — How to flag concerns, gates, scope creep
 5. [KNOWN_TECH_DEBT.md](KNOWN_TECH_DEBT.md) — Things that look broken but are intentionally deferred
 
 **Failure to follow the onboarding checklist results in code reverts and scope reductions.**
@@ -366,7 +414,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~51s at 3730 tests — rule predates scale)
+- All tests must pass within <25ms avg / <120s total (see docs/STATE.md for current actuals)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)
@@ -391,60 +439,46 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 **No work items are greenlit for implementation.** All future work requires explicit authorization.
 
-### Phase 2 Batch 1 — COMPLETE (2026-02-11)
+### Phases 1-3 + Post-A10 — COMPLETE (2026-02-11)
 
-All Batch 1 WOs integrated and tested. 3452 tests passing, 0 failed, 11 skipped (hardware-gated).
+All Phase 1-3 WOs and Post-A10 verification integrated. 30+ WOs delivered. See git log and Locked Systems for details.
 
-| WO | Description | Dispatch File | Status |
-|----|-------------|---------------|--------|
-| WO-032 | NarrativeBrief Assembler (Lens layer) | pm_inbox/reviewed/OPUS_WO-032_NARRATIVE_BRIEF_DISPATCH.md | **INTEGRATED** (45 tests, 3452 total) |
-| WO-034 | Core Feat System (15 feats) | pm_inbox/reviewed/OPUS_WO-034_CORE_FEAT_SYSTEM_DISPATCH.md | **INTEGRATED** (41 tests, 3452 total) |
-| WO-035 | Skill System (7 skills) | pm_inbox/reviewed/OPUS_WO-035_SKILL_SYSTEM_DISPATCH.md | **INTEGRATED** (30 tests, 3452 total) |
-| WO-037 | Experience and Leveling | pm_inbox/reviewed/OPUS_WO-037_EXPERIENCE_LEVELING_DISPATCH.md | **INTEGRATED** (34 tests, 3452 total) |
+### Wave 1-3 (Phase 0 Foundation) — INTEGRATED (2026-02-13)
 
-### Phase 2 Batch 2 — INTEGRATED (2026-02-11)
+15 WOs delivered across 3 waves. All accepted. See Wave 1/2/3 entries in Locked Systems.
 
-| WO | Description | Dispatch File | Status |
-|----|-------------|---------------|--------|
-| WO-033 | Spark Integration Stress Test | pm_inbox/reviewed/OPUS_WO-033_SPARK_STRESS_TEST_DISPATCH.md | **INTEGRATED** (40 tests — 36 pass, 4 GPU-skipped) |
-| WO-036 | Expanded Spell Registry (33 new spells) | pm_inbox/reviewed/OPUS_WO-036_EXPANDED_SPELLS_DISPATCH.md | **INTEGRATED** (50 tests, 3530 total) |
+| Wave | WOs | Focus | New Tests |
+|------|-----|-------|-----------|
+| 1 | AD007-IMPL, BUGFIX-BATCH, CONTENT-PACK-SCHEMA, RULEBOOK-MODEL, VOCAB-REGISTRY, OSS-REVISE | Foundation schemas + bugfixes | ~159 |
+| 2 | CONTENT-EXTRACT-001/002/003 | IP-clean content extraction (spells/creatures/feats) | ~96 |
+| 3 | WORLDCOMPILE-SCAFFOLD/LEXICON/SEMANTICS/NPC, DISCOVERY-BACKEND, VOICE-RESOLVER, WEBSOCKET-BRIDGE | World compiler pipeline + backend + WS bridge | ~269 |
 
-### Phase 3 Batch 1 — INTEGRATED (2026-02-11)
+### Pending Dispatches (Not Yet Completed)
 
-A9 gate PASSED. Phase 3 Session Playability begins.
+None. All dispatched WOs have completion reports.
 
-| WO | Description | Dispatch File | Status |
-|----|-------------|---------------|--------|
-| WO-038 | Intent Bridge | docs/implementation/WO-038_INTENT_BRIDGE_SUMMARY.md | **INTEGRATED** (27 tests) |
-| WO-040 | Scene Management | pm_inbox/reviewed/SONNET_WO-040_SCENE_MANAGEMENT.md | **INTEGRATED** (31 tests) |
-| WO-041 | DM Personality Layer | (in aidm/spark/dm_persona.py) | **INTEGRATED** (32 tests) |
+### Canceled / Superseded
 
-### Phase 3 Batch 2 — INTEGRATED (2026-02-11)
+| WO | Disposition |
+|----|-------------|
+| WO-CODE-INTENT-002 | **CANCELED** — superseded by WO-BUGFIX-BATCH-001 (D-01 fix) |
+| WO-INTENT-002 | **CANCELED** — conflicting scope with WO-CODE-INTENT-002; core work absorbed by bugfix batch |
 
-A10 gate PASSED. Phase 3 Session Playability COMPLETE. Feature freeze in effect.
+### Phase 4 — ACTIVE (Playable CLI)
 
 | WO | Description | Status |
 |----|-------------|--------|
-| WO-039 | Session Orchestrator | **INTEGRATED** (36 tests) |
-| WO-045 | Box Integration (windshield) | **INTEGRATED** (+6 tests, 42 total orchestrator) |
-| WO-046 | Box Event Contracts | **INTEGRATED** (24 tests) |
-| P2 | Multi-Room Persistence Stress Test | **INTEGRATED** (18 tests) |
-| P1 | Integration-Layer Replay Stability | **INTEGRATED** (13 tests) |
-| P3 | Box Fallback Validation | **INTEGRATED** (5 tests, 47 total orchestrator) |
+| WO-PLAYABLE-LOOP-01 | Playable CLI (play.py) | INTEGRATED |
+| WO-MOVE-01 | Real movement in play loop | INTEGRATED |
+| WO-SELFTARGET-01 | Self-cast parsing | INTEGRATED |
+| WO-OPS-FOUNDATION-01 | Session bootstrap + playtest logger | INTEGRATED |
+| WO-ENCOUNTER-01 | Expand 1v1 to 3v3 party | NEXT |
+| WO-INITIATIVE-01 | Initiative system in CLI | FUTURE |
+| WO-FULLATTACK-CLI-01 | Full attack action in CLI | FUTURE |
+| WO-SPELLSLOTS-01 | Spell slot tracking | FUTURE |
+| WO-OSS-DICE-001 | Three.js Dice Roller Demo | FUTURE (needs amendments per Jay review) |
 
-### Post-A10 Verification — COMPLETE (2026-02-11)
-
-| WO | Description | Status |
-|----|-------------|--------|
-| WO-047 | Immersive Micro-Scenario (text-first dungeon crawl) | **COMPLETE** (demo script, no new tests) |
-
-### Phase 4 — FUTURE
-
-| WO | Description | Status |
-|----|-------------|--------|
-| WO-042-044 | Phase 4 Playtest WOs | FUTURE |
-
-See EXECUTION_PLAN_V2_POST_AUDIT.md for full WO definitions.
+See EXECUTION_PLAN_V2_POST_AUDIT.md and REVISED_PROGRAM_SEQUENCING_2026_02_12.md for full WO definitions.
 
 ---
 

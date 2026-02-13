@@ -22,6 +22,7 @@ sources/
 # Generated output and scratch files
 output/
 models/
+runtime_logs/
 nul
 srd_fixture_temp.json
 trust_findings_raw.txt

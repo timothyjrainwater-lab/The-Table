@@ -15,8 +15,11 @@ Commands during play:
 """
 
 import argparse
+import os
 import sys
 from copy import deepcopy
+from datetime import datetime
+from pathlib import Path
 from typing import Any, Optional, Tuple
 
 from aidm.core.play_loop import TurnContext, TurnResult, execute_turn
@@ -259,11 +262,15 @@ def format_events(events, ws: WorldState) -> str:
     for ev in events:
         p = ev.payload
         if ev.event_type == "spell_cast":
-            caster = _name(ws, p.get("caster_id", ""))
+            caster_id = p.get("caster_id", "")
+            caster = _name(ws, caster_id)
             spell = p.get("spell_name", p.get("spell_id", "a spell"))
             targets = p.get("affected_entities", [])
-            target_names = [_name(ws, t) for t in targets] if targets else []
-            if target_names:
+            # Self-only spells: show "on themselves" instead of repeating the name
+            if targets == [caster_id]:
+                lines.append(f"  {caster} casts {spell} on themselves!")
+            elif targets:
+                target_names = [_name(ws, t) for t in targets]
                 lines.append(f"  {caster} casts {spell} on {', '.join(target_names)}!")
             else:
                 lines.append(f"  {caster} casts {spell}!")
@@ -302,8 +309,14 @@ def format_events(events, ws: WorldState) -> str:
         elif ev.event_type == "condition_applied":
             name = _name(ws, p.get("entity_id", p.get("target_id", "")))
             condition = p.get("condition", p.get("condition_type", "unknown"))
+            source = p.get("source", "")
             duration = p.get("duration_rounds")
-            if duration:
+            # Spell-sourced conditions: "gains Shield effect" instead of "is now shield"
+            if source.startswith("spell:"):
+                label = condition.replace("_", " ").title()
+                dur_str = f" ({duration} rounds)" if duration else ""
+                lines.append(f"  {name} gains {label} effect{dur_str}")
+            elif duration:
                 lines.append(f"  {name} is now {condition} ({duration} rounds)")
             else:
                 lines.append(f"  {name} is now {condition}")
@@ -353,7 +366,53 @@ def is_combat_over(ws: WorldState) -> Tuple[bool, str]:
 # Main loop
 # ---------------------------------------------------------------------------
 
+_LOG_DIR = Path(__file__).resolve().parent / "runtime_logs"
+
+
+class _TeeWriter:
+    """Tee stdout to a log file while preserving normal output."""
+    def __init__(self, original, logfile):
+        self._original = original
+        self._logfile = logfile
+    def write(self, text):
+        self._original.write(text)
+        self._logfile.write(text)
+    def flush(self):
+        self._original.flush()
+        self._logfile.flush()
+
+
 def main(seed: int = 42, input_fn=input) -> None:
+    # Transcript autologging — only for interactive sessions (not test mocks)
+    log_file = None
+    tee = None
+    if input_fn is input:
+        _LOG_DIR.mkdir(exist_ok=True)
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_path = _LOG_DIR / f"play_{ts}.log"
+        log_file = open(log_path, "w", encoding="utf-8")
+        tee = _TeeWriter(sys.stdout, log_file)
+        sys.stdout = tee
+        # Write LATEST pointer
+        (_LOG_DIR / "LATEST").write_text(log_path.name, encoding="utf-8")
+        # Wrap input to record player commands
+        _real_input = input_fn
+        def _logging_input(prompt=""):
+            text = _real_input(prompt)
+            log_file.write(f"{prompt}{text}\n")
+            return text
+        input_fn = _logging_input
+
+    try:
+        _main_loop(seed, input_fn)
+    finally:
+        if tee is not None:
+            sys.stdout = tee._original
+        if log_file is not None:
+            log_file.close()
+
+
+def _main_loop(seed: int, input_fn) -> None:
     fixture = build_simple_combat_fixture(master_seed=seed)
     ws = fixture.world_state
     init_order = list(ws.active_combat["initiative_order"])
