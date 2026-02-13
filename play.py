@@ -429,14 +429,18 @@ def _main_loop(seed: int, input_fn) -> None:
 
     # Display rolled initiative order
     if fixture.initiative_rolls:
-        print("  Initiative:")
+        print("  Turn Order (d20 + DEX modifier):")
         # Sort rolls by the computed initiative order for display
         order_map = {eid: idx for idx, eid in enumerate(init_order)}
         sorted_rolls = sorted(fixture.initiative_rolls, key=lambda r: order_map.get(r.actor_id, 99))
-        for roll in sorted_rolls:
-            name = ws.entities.get(roll.actor_id, {}).get("name", roll.actor_id)
+        for i, roll in enumerate(sorted_rolls, 1):
+            entity = ws.entities.get(roll.actor_id, {})
+            name = entity.get("name", roll.actor_id)
+            team = entity.get(EF.TEAM, "")
+            marker = "*" if team == "party" else " "
             dex_str = f"+{roll.dex_modifier}" if roll.dex_modifier >= 0 else str(roll.dex_modifier)
-            print(f"    {name:20s}  [{roll.d20_roll}] {dex_str} DEX = {roll.total}")
+            print(f"   {marker} {i}. {name:20s}  {roll.total:2d}  (d20={roll.d20_roll}, DEX {dex_str})")
+        print("     (* = your party)")
         print()
 
     show_status(ws)

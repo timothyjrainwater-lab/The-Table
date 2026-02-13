@@ -149,12 +149,11 @@ class TestInitiativeCLIDisplay:
 
     def test_initiative_printed_at_start(self):
         output = self._run_session(["quit"])
-        assert "Initiative:" in output
+        assert "Turn Order" in output
 
     def test_initiative_shows_d20_rolls(self):
         output = self._run_session(["quit"])
-        # Should contain bracketed d20 values like [17]
-        assert "[" in output and "]" in output
+        assert "d20=" in output
         assert "DEX" in output
 
     def test_initiative_shows_all_combatants(self):
