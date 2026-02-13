@@ -64,6 +64,7 @@ If reaching for layer 3 or 4, flag it explicitly: "This is a layer 3/4 response.
 8. PM also serves as principal engineer — makes irreversible architectural decisions (schema freezes, boundary law additions, gate evaluations).
 9. PM updates `OPUS_PM_REHYDRATION.md` when project state changes during a work session.
 10. PM auto-archives WO dispatch + completion docs to `pm_inbox/reviewed/` when marking a WO INTEGRATED in the PSD. Inbox root cap is 10 active items.
+11. PM refreshes `pm_inbox/REHYDRATION_KERNEL_LATEST.md` whenever project state changes (new commit, WO status change, test count change). This file is a **persistent operational file** — it must never be archived, moved, or deleted. It is the live GPT handoff surface.
 
 ## Sonnet Behavior
 
