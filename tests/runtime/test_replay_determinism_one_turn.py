@@ -84,12 +84,12 @@ class TestReplayDeterminism:
         """Attack scenario produces identical results across 25 runs."""
         fixture = build_simple_combat_fixture(master_seed=42)
         baseline_events, baseline_narration, baseline_hash = self._run_once(
-            fixture, "attack the goblin",
+            fixture, "attack goblin warrior",
         )
 
         for i in range(1, REPLAY_COUNT):
             events, narration, state_hash = self._run_once(
-                fixture, "attack the goblin",
+                fixture, "attack goblin warrior",
             )
             assert events == baseline_events, (
                 f"Run {i}: event log differs from baseline"
@@ -148,7 +148,7 @@ class TestReplayDeterminism:
         results = set()
         for seed in range(10):
             fixture = build_simple_combat_fixture(master_seed=seed)
-            events, _, _ = self._run_once(fixture, "attack the goblin")
+            events, _, _ = self._run_once(fixture, "attack goblin warrior")
             results.add(events)
 
         # With 10 different seeds, we should get at least 2 distinct outcomes
@@ -163,12 +163,12 @@ class TestReplayDeterminism:
         fixture = build_simple_combat_fixture(master_seed=42)
 
         ctrl_a = PlayOneTurnController(event_log=EventLog())
-        ctrl_a.play_turn(fixture, "attack the goblin")
+        ctrl_a.play_turn(fixture, "attack goblin warrior")
         path_a = tmp_path / "events_a.jsonl"
         ctrl_a.event_log.to_jsonl(path_a)
 
         ctrl_b = PlayOneTurnController(event_log=EventLog())
-        ctrl_b.play_turn(fixture, "attack the goblin")
+        ctrl_b.play_turn(fixture, "attack goblin warrior")
         path_b = tmp_path / "events_b.jsonl"
         ctrl_b.event_log.to_jsonl(path_b)
 

@@ -2,8 +2,11 @@
 """D&D 3.5e Combat CLI — play the AIDM engine from your terminal.
 
 Usage:
-    python play.py              # 1v1 Fighter vs Goblin, seed 42
+    python play.py              # 3v3 party combat, seed 42
     python play.py --seed 99    # Same scenario, different dice
+
+Party: Fighter (Aldric), Cleric (Elara), Rogue (Snitch) vs 3 Goblins.
+You control all party members. Enemies act automatically.
 
 Commands during play:
     attack <target>             attack goblin warrior

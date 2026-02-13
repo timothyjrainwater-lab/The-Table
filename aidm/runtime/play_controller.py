@@ -109,15 +109,18 @@ def build_simple_combat_fixture(
     enemy_name: str = "Goblin Warrior",
     enemy_id: str = "goblin_1",
 ) -> ScenarioFixture:
-    """Build a minimal 1-PC-vs-1-enemy combat fixture.
+    """Build a 3v3 party combat fixture.
 
     Returns a ScenarioFixture with:
-      - Level-3 Fighter (longsword, AC 18, 28 HP)
-      - CR 1/3 Goblin (shortbow, AC 15, 5 HP)
-      - Active combat with initiative already rolled
+      - Level-3 Fighter "Aldric" (longsword, AC 18, 28 HP)
+      - Level-3 Cleric "Elara" (heavy mace, AC 17, 21 HP)
+      - Level-3 Rogue "Snitch" (shortsword, AC 15, 18 HP)
+      - 3x CR 1/3 Goblins (5-6 HP each)
+      - Active combat with fixed initiative order
       - Deterministic seed
     """
     entities = {
+        # --- Party ---
         pc_id: {
             EF.ENTITY_ID: pc_id,
             "name": pc_name,
@@ -135,6 +138,42 @@ def build_simple_combat_fixture(
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "medium",
         },
+        "pc_cleric": {
+            EF.ENTITY_ID: "pc_cleric",
+            "name": "Elara",
+            EF.HP_CURRENT: 21,
+            EF.HP_MAX: 21,
+            EF.AC: 17,
+            EF.ATTACK_BONUS: 4,
+            EF.BAB: 2,
+            EF.STR_MOD: 1,
+            EF.DEX_MOD: 0,
+            EF.WIS_MOD: 3,
+            EF.TEAM: "party",
+            EF.WEAPON: "heavy mace",
+            "weapon_damage": "1d8",
+            EF.POSITION: {"x": 2, "y": 3},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+        },
+        "pc_rogue": {
+            EF.ENTITY_ID: "pc_rogue",
+            "name": "Snitch",
+            EF.HP_CURRENT: 18,
+            EF.HP_MAX: 18,
+            EF.AC: 15,
+            EF.ATTACK_BONUS: 5,
+            EF.BAB: 2,
+            EF.STR_MOD: 1,
+            EF.DEX_MOD: 3,
+            EF.TEAM: "party",
+            EF.WEAPON: "shortsword",
+            "weapon_damage": "1d6",
+            EF.POSITION: {"x": 4, "y": 2},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+        },
+        # --- Monsters ---
         enemy_id: {
             EF.ENTITY_ID: enemy_id,
             "name": enemy_name,
@@ -148,11 +187,52 @@ def build_simple_combat_fixture(
             EF.TEAM: "monsters",
             EF.WEAPON: "shortbow",
             "weapon_damage": "1d4",
-            EF.POSITION: {"x": 4, "y": 3},
+            EF.POSITION: {"x": 3, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "small",
+        },
+        "goblin_2": {
+            EF.ENTITY_ID: "goblin_2",
+            "name": "Goblin Archer",
+            EF.HP_CURRENT: 5,
+            EF.HP_MAX: 5,
+            EF.AC: 15,
+            EF.ATTACK_BONUS: 3,
+            EF.BAB: 1,
+            EF.STR_MOD: 0,
+            EF.DEX_MOD: 1,
+            EF.TEAM: "monsters",
+            EF.WEAPON: "shortbow",
+            "weapon_damage": "1d4",
+            EF.POSITION: {"x": 4, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "small",
+        },
+        "goblin_3": {
+            EF.ENTITY_ID: "goblin_3",
+            "name": "Goblin Skirmisher",
+            EF.HP_CURRENT: 6,
+            EF.HP_MAX: 6,
+            EF.AC: 14,
+            EF.ATTACK_BONUS: 4,
+            EF.BAB: 1,
+            EF.STR_MOD: 1,
+            EF.DEX_MOD: 2,
+            EF.TEAM: "monsters",
+            EF.WEAPON: "morningstar",
+            "weapon_damage": "1d6",
+            EF.POSITION: {"x": 2, "y": 5},
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "small",
         },
     }
+
+    # Fixed initiative order: alternating party/monster turns
+    initiative_order = [
+        pc_id, enemy_id,
+        "pc_cleric", "goblin_2",
+        "pc_rogue", "goblin_3",
+    ]
 
     world_state = WorldState(
         ruleset_version="3.5e",
@@ -160,7 +240,7 @@ def build_simple_combat_fixture(
         active_combat={
             "turn_counter": 0,
             "round_index": 0,
-            "initiative_order": [pc_id, enemy_id],
+            "initiative_order": initiative_order,
             "flat_footed_actors": [],
             "aoo_used_this_round": [],
         },

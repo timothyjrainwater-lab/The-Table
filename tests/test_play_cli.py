@@ -134,17 +134,31 @@ class TestCombatOver:
 
     def test_monsters_dead(self):
         fixture = build_simple_combat_fixture()
-        fixture.world_state.entities["goblin_1"][EF.DEFEATED] = True
+        for eid in ("goblin_1", "goblin_2", "goblin_3"):
+            fixture.world_state.entities[eid][EF.DEFEATED] = True
         over, reason = is_combat_over(fixture.world_state)
         assert over is True
         assert "Victory" in reason
 
     def test_party_dead(self):
         fixture = build_simple_combat_fixture()
-        fixture.world_state.entities["pc_fighter"][EF.DEFEATED] = True
+        for eid in ("pc_fighter", "pc_cleric", "pc_rogue"):
+            fixture.world_state.entities[eid][EF.DEFEATED] = True
         over, reason = is_combat_over(fixture.world_state)
         assert over is True
         assert "fallen" in reason
+
+    def test_partial_monsters_dead_not_over(self):
+        fixture = build_simple_combat_fixture()
+        fixture.world_state.entities["goblin_1"][EF.DEFEATED] = True
+        over, _ = is_combat_over(fixture.world_state)
+        assert over is False
+
+    def test_partial_party_dead_not_over(self):
+        fixture = build_simple_combat_fixture()
+        fixture.world_state.entities["pc_fighter"][EF.DEFEATED] = True
+        over, _ = is_combat_over(fixture.world_state)
+        assert over is False
 
 
 # ---------------------------------------------------------------------------
@@ -160,13 +174,21 @@ class TestPickTarget:
     def test_picks_pc_for_monster(self):
         fixture = build_simple_combat_fixture()
         target = pick_enemy_target(fixture.world_state, "goblin_1")
-        assert target == "pc_fighter"
+        # sorted entity IDs: pc_cleric < pc_fighter < pc_rogue
+        assert target == "pc_cleric"
 
     def test_no_target_if_all_defeated(self):
         fixture = build_simple_combat_fixture()
-        fixture.world_state.entities["goblin_1"][EF.DEFEATED] = True
+        for eid in ("goblin_1", "goblin_2", "goblin_3"):
+            fixture.world_state.entities[eid][EF.DEFEATED] = True
         target = pick_enemy_target(fixture.world_state, "pc_fighter")
         assert target is None
+
+    def test_skips_defeated_targets(self):
+        fixture = build_simple_combat_fixture()
+        fixture.world_state.entities["goblin_1"][EF.DEFEATED] = True
+        target = pick_enemy_target(fixture.world_state, "pc_fighter")
+        assert target == "goblin_2"
 
 
 # ---------------------------------------------------------------------------
@@ -359,8 +381,9 @@ class TestFormatEvents:
 
 class TestFullGame:
     def test_combat_completes(self):
-        """Feed enough attacks to ensure combat resolves."""
-        actions = ["attack goblin warrior"] * 20
+        """Feed enough attacks to ensure combat resolves (3v3)."""
+        # Use specific goblin name to avoid ambiguity. 60 commands for 3 PCs.
+        actions = ["attack goblin warrior"] * 60
         action_iter = iter(actions)
 
         def mock_input(prompt=""):
@@ -376,8 +399,7 @@ class TestFullGame:
         """Same seed + same actions = same outcome."""
         results = []
         for _ in range(2):
-            actions = iter(["attack goblin warrior"] * 10)
-            captured = []
+            actions = iter(["attack goblin warrior"] * 60)
 
             def mock_input(prompt="", _actions=actions):
                 try:
@@ -450,8 +472,8 @@ class TestCLISmoke:
         assert "ends their turn" in output
 
     def test_attack_hit_shows_roll_and_damage(self):
-        # seed 100: first attack is a hit
-        output = self._run_session(["attack goblin warrior"] * 5, seed=100)
+        # With 3v3, must use a specific goblin name to avoid ambiguity
+        output = self._run_session(["attack goblin warrior"] * 30, seed=100)
         assert "Roll:" in output
         assert "HIT" in output or "MISS" in output
 
@@ -479,7 +501,7 @@ class TestCLISmoke:
         # get_condition_modifiers which expects dict. The enemy turn calls
         # resolve_attack -> get_condition_modifiers on the target.
         output = self._run_session(
-            ["cast shield on goblin warrior", "attack goblin warrior"] * 5,
+            ["cast shield on goblin warrior", "attack goblin warrior"] * 15,
             seed=42
         )
         # Should not crash — any output means we survived the enemy turn
@@ -510,9 +532,10 @@ class TestGoldenTranscript:
     """Record and verify a canonical session transcript for regression detection."""
 
     def test_seed_42_attack_sequence(self):
-        """Canonical 3-attack session with seed 42. If this changes, something regressed."""
+        """Canonical attack session with seed 42 (3v3). If this changes, something regressed."""
         import io
-        commands = iter(["attack goblin warrior", "attack goblin warrior", "attack goblin warrior"])
+        # Use specific goblin names to avoid ambiguity; 60 commands for 3 PCs
+        commands = iter(["attack goblin warrior"] * 60)
 
         def mock_input(prompt=""):
             try:
@@ -529,9 +552,11 @@ class TestGoldenTranscript:
             sys.stdout = old_stdout
         output = buf.getvalue()
 
-        # Structural assertions — these must always hold for seed 42
+        # Structural assertions — these must always hold for seed 42, 3v3
         assert "D&D 3.5e Combat -- AIDM Engine" in output
         assert "Aldric" in output
+        assert "Elara" in output
+        assert "Snitch" in output
         assert "Goblin Warrior" in output
         assert "Roll:" in output
         assert "vs AC" in output
@@ -543,8 +568,7 @@ class TestGoldenTranscript:
         import io
         outputs = []
         for _ in range(2):
-            commands = iter(["attack goblin warrior", "attack goblin warrior",
-                             "attack goblin warrior", "attack goblin warrior"])
+            commands = iter(["attack goblin warrior"] * 60)
 
             def mock_input(prompt="", _cmds=commands):
                 try:
