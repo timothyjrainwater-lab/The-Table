@@ -256,7 +256,6 @@ LAST UPDATED: 2026-02-13 — Phase 4C queued (10 WOs), 5 research artifacts anch
 - **WO-ENCOUNTER-01**: Expanded fixture from 1v1 to 3v3 with alternating initiative, unique goblin names, standalone 1v1 test fixtures for unit test isolation.
 - **WO-OPS-HYGIENE-01**: Session bootstrap hardened — play.py process detection, dirty-tree RED warnings for tracked files.
 - **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap + hygiene gate), `scripts/record_playtest.py`, `scripts/triage_latest_playtest.py`.
-- **Bugfix**: `conditions.py` list-format tolerance — `get_condition_modifiers()` guards against list-format conditions from play_loop spell resolver (crash found in human playtest).
 - **55 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression).
 
 ### WO-INITIATIVE-01: Initiative System in CLI (2026-02-13)
@@ -264,6 +263,10 @@ LAST UPDATED: 2026-02-13 — Phase 4C queued (10 WOs), 5 research artifacts anch
 - **RAW tie-breaking**: Higher total > higher DEX mod > lexicographic entity_id. `sort_initiative_order()` pure function.
 - **CLI display**: Turn order printed at encounter start with d20 rolls, DEX modifiers, party markers. Turn progression follows initiative order.
 - **15 tests** in test_initiative_cli.py (determinism, tie-breaking, CLI display, turn order).
+
+### WO-CONDFIX-01: Condition Storage Format Unification (2026-02-13)
+- **Fix**: Spell conditions stored as dict format `{condition_id: ConditionInstance dict}` instead of bare strings in list. Canonical `ConditionType` conditions get real modifiers via factory functions; unknown buff labels get zero-modifier dicts.
+- **Files**: `play_loop.py` (apply/remove), `combat_controller.py` (expiry removal), `conditions.py` (graceful unknown-type handling). Gold masters regenerated.
 
 ### Signal Voice — Operator TTS Pipeline (2026-02-13)
 - **scripts/speak.py**: Three-engine pipeline — Kokoro (voice design, CPU) -> Chatterbox (GPU render, voice cloning) -> winsound (playback). Kokoro CPU fallback if no GPU.
@@ -453,7 +456,7 @@ All Phase 1-3, Post-A10, and Wave 1-3 (15 WOs, ~524 new tests) integrated. See L
 
 | WO | Wave | Description | Status |
 |----|------|-------------|--------|
-| WO-CONDFIX-01 | A | Fix condition storage format mismatch | QUEUED (dispatch first) |
+| WO-CONDFIX-01 | A | Fix condition storage format mismatch | INTEGRATED |
 | WO-ROUND-TRACK-01 | A | Round counter display in CLI | QUEUED |
 | WO-FULLATTACK-CLI-01 | B | Full attack action in CLI | QUEUED |
 | WO-MANEUVER-CLI-01 | B | Combat maneuver parsing (6 types) | QUEUED |
@@ -464,11 +467,7 @@ All Phase 1-3, Post-A10, and Wave 1-3 (15 WOs, ~524 new tests) integrated. See L
 | WO-SPELLLIST-CLI-01 | C | Spell list display in CLI | QUEUED |
 | WO-CHARSHEET-CLI-01 | C | Character sheet display in CLI | QUEUED |
 
-### Standalone — FUTURE
-
-| WO | Description | Status |
-|----|-------------|--------|
-| WO-OSS-DICE-001 | Three.js Dice Roller Demo | FUTURE (needs amendments per Jay review) |
+### Standalone: WO-OSS-DICE-001 (Three.js Dice Roller Demo) — FUTURE, needs PO amendments
 
 ### Research Artifacts — ANCHORED (specs only, no code)
 

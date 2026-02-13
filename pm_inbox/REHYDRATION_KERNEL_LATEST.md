@@ -61,17 +61,18 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 77f5981 (chore: research artifact lifecycle enforcement)
+Last commit: af77038 (fix: unify condition storage format — WO-CONDFIX-01)
 Tests collected: 5,371
 Tests passed: 5,323 (16 skipped, HW-gated)
 Stoplight: GREEN
 
 ## Next Work Orders
 
-Phase 4C Forward Progression (10 WOs in 3 waves):
-- Wave A: WO-CONDFIX-01 (condition storage fix), WO-ROUND-TRACK-01 (round display)
+Phase 4C Forward Progression (9 WOs remaining in 3 waves):
+- Wave A: WO-CONDFIX-01 (INTEGRATED), WO-ROUND-TRACK-01 (round display) — dispatch next
 - Wave B: WO-FULLATTACK-CLI-01, WO-MANEUVER-CLI-01, WO-STATUS-EXPAND-01, WO-AOO-DISPLAY-01, WO-VOICE-SIGNAL-01
 - Wave C: WO-SPELLSLOTS-01 (blocked — CP for entity_fields.py), WO-SPELLLIST-CLI-01, WO-CHARSHEET-CLI-01
-Dispatch recommendation: WO-CONDFIX-01 first (foundation fix, unblocks Wave B)
+Dispatch recommendation: WO-ROUND-TRACK-01 next (completes Wave A)
 
 Research anchored: 5 WO-RQ artifacts tracked (see PSD Future Work Queue)
+Voice research fleet (WO-VOICE-RESEARCH-01..05): in flight, spec-only, await synthesis
