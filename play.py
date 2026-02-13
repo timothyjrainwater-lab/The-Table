@@ -68,6 +68,21 @@ def parse_input(text: str) -> Tuple[Optional[str], Any]:
     if not parts:
         return None, None
 
+    # Two-word commands — check before single-word verb split
+    if text.startswith("full attack"):
+        target_ref = text[len("full attack"):].strip()
+        target_ref = _strip_articles(target_ref) if target_ref else None
+        return "full_attack", DeclaredAttackIntent(target_ref=target_ref, weapon=None)
+
+    if text.startswith("bull rush") or text.startswith("bullrush"):
+        prefix_len = len("bull rush") if text.startswith("bull rush") else len("bullrush")
+        target_ref = text[prefix_len:].strip()
+        target_ref = _strip_articles(target_ref) if target_ref else None
+        return "bull_rush", DeclaredAttackIntent(target_ref=target_ref, weapon=None)
+
+    if text.startswith("end turn"):
+        return "end_turn", None
+
     verb = parts[0]
 
     # Attack
@@ -106,8 +121,25 @@ def parse_input(text: str) -> Tuple[Optional[str], Any]:
             target_ref = "__SELF__"
         return "cast", (spell_name, target_ref)
 
+    # Combat maneuvers (single-word verbs)
+    if verb in ("trip", "disarm", "grapple", "overrun"):
+        target_ref = " ".join(parts[1:]) if len(parts) > 1 else None
+        if target_ref:
+            target_ref = _strip_articles(target_ref)
+        return verb, DeclaredAttackIntent(target_ref=target_ref, weapon=None)
+
+    if verb == "sunder":
+        target_ref = " ".join(parts[1:]) if len(parts) > 1 else None
+        target_item = "weapon"
+        if target_ref and target_ref.endswith(" shield"):
+            target_ref = target_ref[:-len(" shield")].strip()
+            target_item = "shield"
+        if target_ref:
+            target_ref = _strip_articles(target_ref)
+        return "sunder", DeclaredAttackIntent(target_ref=target_ref, weapon=target_item)
+
     # End turn
-    if text in ("end turn", "pass", "done", "end"):
+    if text in ("pass", "done", "end"):
         return "end_turn", None
 
     # Help / status
@@ -123,9 +155,16 @@ _HELP_TEXT = """\
   Commands:
     attack <target>             attack goblin warrior
     attack <target> with <wpn>  attack goblin with longsword
+    full attack <target>        full attack goblin warrior
     cast <spell> on <target>    cast magic missile on goblin
     move <x> <y>                move 5 3
-    status                      show HP and positions
+    trip <target>               trip goblin warrior
+    bull rush <target>          bull rush goblin warrior
+    disarm <target>             disarm goblin warrior
+    grapple <target>            grapple goblin warrior
+    sunder <target>             sunder goblin warrior
+    overrun <target>            overrun goblin warrior
+    status                      show HP, AC, BAB, conditions
     end / pass                  end your turn
     help                        show this message
     quit                        exit the game"""
@@ -153,6 +192,22 @@ def resolve_and_execute(
     # Resolve declared intent -> engine intent
     if action_type == "attack":
         resolved = bridge.resolve_attack(actor_id, declared, view)
+    elif action_type == "full_attack":
+        resolved = bridge.resolve_attack(actor_id, declared, view)
+        if isinstance(resolved, ClarificationRequest):
+            return TurnResult(
+                status="requires_clarification", world_state=ws,
+                events=[], turn_index=turn_index, failure_reason=resolved.message,
+            )
+        # Promote AttackIntent to FullAttackIntent
+        from aidm.core.full_attack_resolver import FullAttackIntent
+        entity = ws_copy.entities[actor_id]
+        resolved = FullAttackIntent(
+            attacker_id=actor_id,
+            target_id=resolved.target_id,
+            base_attack_bonus=entity.get(EF.BAB, 1),
+            weapon=resolved.weapon,
+        )
     elif action_type == "move":
         resolved = bridge.resolve_move(actor_id, declared, view)
     elif action_type == "cast":
@@ -161,6 +216,30 @@ def resolve_and_execute(
         cast_intent = CastSpellIntent(spell_name=spell_name)
         actual_target_ref = actor_id if target_ref == "__SELF__" else target_ref
         resolved = bridge.resolve_spell(actor_id, cast_intent, view, target_entity_ref=actual_target_ref)
+    elif action_type in ("bull_rush", "trip", "overrun", "sunder", "disarm", "grapple"):
+        resolved = bridge.resolve_attack(actor_id, declared, view)
+        if isinstance(resolved, ClarificationRequest):
+            return TurnResult(
+                status="requires_clarification", world_state=ws,
+                events=[], turn_index=turn_index, failure_reason=resolved.message,
+            )
+        from aidm.schemas.maneuvers import (
+            BullRushIntent, TripIntent, OverrunIntent,
+            SunderIntent, DisarmIntent, GrappleIntent,
+        )
+        target_id = resolved.target_id
+        if action_type == "bull_rush":
+            resolved = BullRushIntent(attacker_id=actor_id, target_id=target_id)
+        elif action_type == "trip":
+            resolved = TripIntent(attacker_id=actor_id, target_id=target_id)
+        elif action_type == "overrun":
+            resolved = OverrunIntent(attacker_id=actor_id, target_id=target_id)
+        elif action_type == "sunder":
+            resolved = SunderIntent(attacker_id=actor_id, target_id=target_id, target_item=declared.weapon or "weapon")
+        elif action_type == "disarm":
+            resolved = DisarmIntent(attacker_id=actor_id, target_id=target_id)
+        elif action_type == "grapple":
+            resolved = GrappleIntent(attacker_id=actor_id, target_id=target_id)
     else:
         resolved = None
 
@@ -337,6 +416,54 @@ def format_events(events, ws: WorldState) -> str:
                 lines.append(f"  {actor} moves to ({to_x}, {to_y})")
             else:
                 lines.append(f"  Moved to ({to_x}, {to_y})")
+        # AoO events
+        elif ev.event_type == "aoo_triggered":
+            reactor = _name(ws, p.get("reactor_id", ""))
+            provoker = _name(ws, p.get("provoker_id", ""))
+            lines.append(f"  {reactor} makes an attack of opportunity against {provoker}!")
+        elif ev.event_type == "tumble_check":
+            entity = _name(ws, p.get("entity_id", ""))
+            success = p.get("success", False)
+            total = p.get("total", 0)
+            dc = p.get("dc", 15)
+            result_str = "success" if success else "failure"
+            lines.append(f"  {entity} attempts to tumble (DC {dc}: rolled {total} — {result_str}!)")
+        elif ev.event_type == "aoo_avoided_by_tumble":
+            entity = _name(ws, p.get("entity_id", ""))
+            lines.append(f"  {entity} tumbles past safely!")
+        elif ev.event_type == "aoo_blocked_by_cover":
+            reactor = _name(ws, p.get("reactor_id", ""))
+            lines.append(f"  {reactor}'s AoO blocked by cover")
+        # Maneuver events
+        elif ev.event_type in ("bull_rush_declared", "trip_declared", "overrun_declared",
+                               "sunder_declared", "disarm_declared", "grapple_declared"):
+            attacker = _name(ws, p.get("attacker_id", ""))
+            target = _name(ws, p.get("target_id", ""))
+            maneuver = ev.event_type.replace("_declared", "").replace("_", " ")
+            lines.append(f"  {attacker} attempts to {maneuver} {target}!")
+        elif ev.event_type == "opposed_check":
+            attacker_total = p.get("attacker_total", 0)
+            defender_total = p.get("defender_total", 0)
+            lines.append(f"  Opposed check: {attacker_total} vs {defender_total}")
+        elif ev.event_type == "touch_attack_roll":
+            d20 = p.get("d20_result", "?")
+            total = p.get("total", 0)
+            ac = p.get("target_touch_ac", p.get("target_ac", 0))
+            hit = p.get("hit", False)
+            lines.append(f"  Touch attack: [{d20}] = {total} vs Touch AC {ac} -> {'HIT' if hit else 'MISS'}")
+        elif ev.event_type == "overrun_avoided":
+            defender = _name(ws, p.get("defender_id", ""))
+            lines.append(f"  {defender} steps aside!")
+        elif ev.event_type in ("bull_rush_success", "trip_success", "overrun_success",
+                               "sunder_success", "disarm_success", "grapple_success",
+                               "counter_trip_success", "counter_disarm_success"):
+            maneuver = ev.event_type.replace("_success", "").replace("_", " ").title()
+            lines.append(f"  {maneuver} succeeds!")
+        elif ev.event_type in ("bull_rush_failure", "trip_failure", "overrun_failure",
+                               "sunder_failure", "disarm_failure", "grapple_failure",
+                               "counter_trip_failure", "counter_disarm_failure"):
+            maneuver = ev.event_type.replace("_failure", "").replace("_", " ").title()
+            lines.append(f"  {maneuver} fails!")
     return "\n".join(lines) if lines else "  (no visible effect)"
 
 
@@ -347,8 +474,18 @@ def show_status(ws: WorldState) -> None:
             continue
         hp = e.get(EF.HP_CURRENT, "?")
         mx = e.get(EF.HP_MAX, "?")
+        ac = e.get(EF.AC, "?")
+        bab = e.get(EF.BAB, 0)
         pos = e.get(EF.POSITION, {})
-        print(f"  {e.get('name', eid):20s}  HP {hp}/{mx}  ({pos.get('x','?')},{pos.get('y','?')})")
+        pos_str = f"({pos.get('x','?')},{pos.get('y','?')})"
+        conditions = e.get(EF.CONDITIONS, {})
+        if isinstance(conditions, dict) and conditions:
+            cond_str = ", ".join(sorted(conditions.keys()))
+            cond_display = f"  *{cond_str}*"
+        else:
+            cond_display = ""
+        bab_str = f"+{bab}" if bab >= 0 else str(bab)
+        print(f"  {e.get('name', eid):20s}  HP {hp}/{mx}  AC {ac}  BAB {bab_str}  {pos_str}{cond_display}")
 
 
 # ---------------------------------------------------------------------------

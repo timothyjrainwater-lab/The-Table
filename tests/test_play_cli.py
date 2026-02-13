@@ -674,3 +674,257 @@ class TestRoundTracking:
 
         # Both runs must produce identical output including round headers
         assert outputs[0] == outputs[1]
+
+
+# ---------------------------------------------------------------------------
+# Full attack (WO-FULLATTACK-CLI-01)
+# ---------------------------------------------------------------------------
+
+class TestFullAttack:
+    def test_parse_full_attack(self):
+        action, decl = parse_input("full attack goblin warrior")
+        assert action == "full_attack"
+        assert isinstance(decl, DeclaredAttackIntent)
+        assert decl.target_ref == "goblin warrior"
+
+    def test_parse_full_attack_strips_articles(self):
+        action, decl = parse_input("full attack the goblin")
+        assert action == "full_attack"
+        assert decl.target_ref == "goblin"
+
+    def test_parse_full_attack_no_target(self):
+        action, decl = parse_input("full attack")
+        assert action == "full_attack"
+        assert decl.target_ref is None
+
+    def test_full_attack_resolves(self):
+        fixture = build_simple_combat_fixture()
+        declared = DeclaredAttackIntent(target_ref="goblin warrior")
+        result = resolve_and_execute(fixture.world_state, "pc_fighter", "full_attack", declared, 42, 0, 0)
+        assert result.status == "ok"
+        event_types = [e.event_type for e in result.events]
+        assert "attack_roll" in event_types
+
+    def test_full_attack_in_help_text(self):
+        action, _ = parse_input("help")
+        assert action == "help"
+        from play import _HELP_TEXT
+        assert "full attack" in _HELP_TEXT
+
+
+# ---------------------------------------------------------------------------
+# Combat maneuvers (WO-MANEUVER-CLI-01)
+# ---------------------------------------------------------------------------
+
+class TestManeuvers:
+    def test_parse_trip(self):
+        action, decl = parse_input("trip goblin warrior")
+        assert action == "trip"
+        assert decl.target_ref == "goblin warrior"
+
+    def test_parse_bull_rush(self):
+        action, decl = parse_input("bull rush goblin warrior")
+        assert action == "bull_rush"
+        assert decl.target_ref == "goblin warrior"
+
+    def test_parse_bullrush_no_space(self):
+        action, decl = parse_input("bullrush goblin warrior")
+        assert action == "bull_rush"
+        assert decl.target_ref == "goblin warrior"
+
+    def test_parse_disarm(self):
+        action, decl = parse_input("disarm goblin warrior")
+        assert action == "disarm"
+        assert decl.target_ref == "goblin warrior"
+
+    def test_parse_grapple(self):
+        action, decl = parse_input("grapple goblin warrior")
+        assert action == "grapple"
+        assert decl.target_ref == "goblin warrior"
+
+    def test_parse_sunder(self):
+        action, decl = parse_input("sunder goblin warrior")
+        assert action == "sunder"
+        assert decl.target_ref == "goblin warrior"
+        assert decl.weapon == "weapon"
+
+    def test_parse_sunder_shield(self):
+        action, decl = parse_input("sunder goblin warrior shield")
+        assert action == "sunder"
+        assert decl.target_ref == "goblin warrior"
+        assert decl.weapon == "shield"
+
+    def test_parse_overrun(self):
+        action, decl = parse_input("overrun goblin warrior")
+        assert action == "overrun"
+        assert decl.target_ref == "goblin warrior"
+
+    def test_trip_resolves(self):
+        fixture = build_simple_combat_fixture()
+        declared = DeclaredAttackIntent(target_ref="goblin warrior")
+        result = resolve_and_execute(fixture.world_state, "pc_fighter", "trip", declared, 42, 0, 0)
+        assert result.status == "ok"
+        event_types = [e.event_type for e in result.events]
+        assert "trip_declared" in event_types
+
+    def test_maneuver_events_display(self):
+        """Maneuver declared events render in format_events."""
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={
+            "pc_1": {"name": "Aldric"},
+            "goblin_1": {"name": "Goblin"},
+        })
+        events = [Event(
+            event_id=0, event_type="trip_declared", timestamp=0.0,
+            payload={"attacker_id": "pc_1", "target_id": "goblin_1"},
+        )]
+        output = format_events(events, ws)
+        assert "Aldric attempts to trip Goblin!" in output
+
+    def test_opposed_check_display(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={})
+        events = [Event(
+            event_id=0, event_type="opposed_check", timestamp=0.0,
+            payload={"attacker_total": 15, "defender_total": 12},
+        )]
+        output = format_events(events, ws)
+        assert "15 vs 12" in output
+
+    def test_maneuver_help_text(self):
+        from play import _HELP_TEXT
+        assert "trip" in _HELP_TEXT
+        assert "bull rush" in _HELP_TEXT
+        assert "disarm" in _HELP_TEXT
+        assert "grapple" in _HELP_TEXT
+        assert "sunder" in _HELP_TEXT
+        assert "overrun" in _HELP_TEXT
+
+
+# ---------------------------------------------------------------------------
+# Expanded status (WO-STATUS-EXPAND-01)
+# ---------------------------------------------------------------------------
+
+class TestExpandedStatus:
+    def _run_session(self, commands, seed=42):
+        import io
+        action_iter = iter(commands)
+
+        def mock_input(prompt=""):
+            try:
+                return next(action_iter)
+            except StopIteration:
+                return "quit"
+
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            main(seed=seed, input_fn=mock_input)
+        finally:
+            sys.stdout = old_stdout
+        return buf.getvalue()
+
+    def test_status_shows_ac(self):
+        output = self._run_session(["status", "quit"])
+        assert "AC" in output
+
+    def test_status_shows_bab(self):
+        output = self._run_session(["status", "quit"])
+        assert "BAB" in output
+
+    def test_status_still_shows_hp(self):
+        output = self._run_session(["status", "quit"])
+        assert "HP" in output
+
+    def test_status_still_hides_defeated(self):
+        fixture = build_simple_combat_fixture()
+        fixture.world_state.entities["goblin_1"][EF.DEFEATED] = True
+        import io
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            from play import show_status
+            show_status(fixture.world_state)
+        finally:
+            sys.stdout = old_stdout
+        output = buf.getvalue()
+        assert "Goblin Warrior" not in output
+
+    def test_status_shows_conditions_when_present(self):
+        fixture = build_simple_combat_fixture()
+        fixture.world_state.entities["goblin_1"][EF.CONDITIONS] = {
+            "prone": {"condition_type": "prone", "source": "test", "modifiers": {}, "applied_at_event_id": 0, "notes": None}
+        }
+        import io
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            from play import show_status
+            show_status(fixture.world_state)
+        finally:
+            sys.stdout = old_stdout
+        output = buf.getvalue()
+        assert "*prone*" in output
+
+
+# ---------------------------------------------------------------------------
+# AoO display (WO-AOO-DISPLAY-01)
+# ---------------------------------------------------------------------------
+
+class TestAoODisplay:
+    def test_aoo_triggered_display(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={
+            "goblin_1": {"name": "Goblin"},
+            "pc_1": {"name": "Aldric"},
+        })
+        events = [Event(
+            event_id=0, event_type="aoo_triggered", timestamp=0.0,
+            payload={"reactor_id": "goblin_1", "provoker_id": "pc_1", "trigger_reason": "movement"},
+        )]
+        output = format_events(events, ws)
+        assert "attack of opportunity" in output
+        assert "Goblin" in output
+        assert "Aldric" in output
+
+    def test_tumble_check_display(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"pc_1": {"name": "Aldric"}})
+        events = [Event(
+            event_id=0, event_type="tumble_check", timestamp=0.0,
+            payload={"entity_id": "pc_1", "success": True, "total": 18, "dc": 15, "d20_roll": 14},
+        )]
+        output = format_events(events, ws)
+        assert "tumble" in output
+        assert "DC 15" in output
+        assert "18" in output
+        assert "success" in output
+
+    def test_aoo_avoided_display(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"pc_1": {"name": "Aldric"}})
+        events = [Event(
+            event_id=0, event_type="aoo_avoided_by_tumble", timestamp=0.0,
+            payload={"entity_id": "pc_1", "reactor_id": "goblin_1"},
+        )]
+        output = format_events(events, ws)
+        assert "tumbles past" in output
+
+    def test_aoo_blocked_by_cover_display(self):
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={"goblin_1": {"name": "Goblin"}})
+        events = [Event(
+            event_id=0, event_type="aoo_blocked_by_cover", timestamp=0.0,
+            payload={"reactor_id": "goblin_1", "provoker_id": "pc_1", "cover_type": "partial"},
+        )]
+        output = format_events(events, ws)
+        assert "blocked by cover" in output
