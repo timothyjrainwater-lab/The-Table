@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — Phase 4C queued (10 WOs), 5 research artifacts anchored. 5371 tests collected, 5323 passed, 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-13 — Phase 4C Wave A COMPLETE (2 WOs), Wave B QUEUED (5 WOs). 5376 tests collected, 5353 passed, 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -256,7 +256,7 @@ LAST UPDATED: 2026-02-13 — Phase 4C queued (10 WOs), 5 research artifacts anch
 - **WO-ENCOUNTER-01**: Expanded fixture from 1v1 to 3v3 with alternating initiative, unique goblin names, standalone 1v1 test fixtures for unit test isolation.
 - **WO-OPS-HYGIENE-01**: Session bootstrap hardened — play.py process detection, dirty-tree RED warnings for tracked files.
 - **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap + hygiene gate), `scripts/record_playtest.py`, `scripts/triage_latest_playtest.py`.
-- **55 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression).
+- **63 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression, round tracking).
 
 ### WO-INITIATIVE-01: Initiative System in CLI (2026-02-13)
 - **Initiative rolling**: `roll_initiative_for_all_actors()` in `aidm/core/initiative.py` — d20 + DEX modifier per actor, deterministic via RNGManager seed.
@@ -268,6 +268,10 @@ LAST UPDATED: 2026-02-13 — Phase 4C queued (10 WOs), 5 research artifacts anch
 - **Fix**: Spell conditions stored as dict format `{condition_id: ConditionInstance dict}` instead of bare strings in list. Canonical `ConditionType` conditions get real modifiers via factory functions; unknown buff labels get zero-modifier dicts.
 - **Files**: `play_loop.py` (apply/remove), `combat_controller.py` (expiry removal), `conditions.py` (graceful unknown-type handling). Gold masters regenerated.
 
+### WO-ROUND-TRACK-01: Round Counter Display in CLI (2026-02-13)
+- **Round headers**: `=== Round N ===` printed at each initiative cycle boundary. `round_index` in `active_combat` incremented at each boundary.
+- **Files**: `play.py` (`_main_loop` round tracking), `tests/test_play_cli.py` (5 new tests). Completes Wave A.
+
 ### Signal Voice — Operator TTS Pipeline (2026-02-13)
 - **scripts/speak.py**: Three-engine pipeline — Kokoro (voice design, CPU) -> Chatterbox (GPU render, voice cloning) -> winsound (playback). Kokoro CPU fallback if no GPU.
 - **Voice profile "Arbor"**: am_michael seed, speed 0.88, exaggeration 0.15, Chatterbox Original tier. Calm, grounded, neutral-operational readback.
@@ -278,7 +282,7 @@ LAST UPDATED: 2026-02-13 — Phase 4C queued (10 WOs), 5 research artifacts anch
 
 ## Test Count
 
-**Total: 5371 tests collected** (5323 passed, 16 skipped hardware-gated)
+**Total: 5376 tests collected** (5353 passed, 16 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -457,7 +461,7 @@ All Phase 1-3, Post-A10, and Wave 1-3 (15 WOs, ~524 new tests) integrated. See L
 | WO | Wave | Description | Status |
 |----|------|-------------|--------|
 | WO-CONDFIX-01 | A | Fix condition storage format mismatch | INTEGRATED |
-| WO-ROUND-TRACK-01 | A | Round counter display in CLI | QUEUED |
+| WO-ROUND-TRACK-01 | A | Round counter display in CLI | INTEGRATED |
 | WO-FULLATTACK-CLI-01 | B | Full attack action in CLI | QUEUED |
 | WO-MANEUVER-CLI-01 | B | Combat maneuver parsing (6 types) | QUEUED |
 | WO-STATUS-EXPAND-01 | B | Expanded status display (AC, BAB, conditions) | QUEUED |
