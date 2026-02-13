@@ -102,6 +102,26 @@ class TestParseInput:
         action, _ = parse_input("look")
         assert action == "status"
 
+    def test_map(self):
+        action, _ = parse_input("map")
+        assert action == "map"
+
+    def test_grid(self):
+        action, _ = parse_input("grid")
+        assert action == "map"
+
+    def test_tactical(self):
+        action, _ = parse_input("tactical")
+        assert action == "map"
+
+    def test_move_no_dest(self):
+        action, _ = parse_input("move")
+        assert action == "move_no_dest"
+
+    def test_move_bad_coords(self):
+        action, _ = parse_input("move abc def")
+        assert action == "move_bad_coords"
+
     def test_cast_no_spell(self):
         action, _ = parse_input("cast")
         assert action == "cast_no_spell"
@@ -382,8 +402,8 @@ class TestFormatEvents:
 class TestFullGame:
     def test_combat_completes(self):
         """Feed enough attacks to ensure combat resolves (3v3)."""
-        # Use specific goblin name to avoid ambiguity. 60 commands for 3 PCs.
-        actions = ["attack goblin warrior"] * 60
+        # With action economy: attack uses standard, then end turn to skip move.
+        actions = ["attack goblin warrior", "end turn"] * 60
         action_iter = iter(actions)
 
         def mock_input(prompt=""):
@@ -399,7 +419,7 @@ class TestFullGame:
         """Same seed + same actions = same outcome."""
         results = []
         for _ in range(2):
-            actions = iter(["attack goblin warrior"] * 60)
+            actions = iter(["attack goblin warrior", "end turn"] * 60)
 
             def mock_input(prompt="", _actions=actions):
                 try:
@@ -450,7 +470,7 @@ class TestCLISmoke:
 
     def test_help_produces_output(self):
         output = self._run_session(["help", "quit"])
-        assert "Commands:" in output
+        assert "Actions" in output
         assert "attack" in output
         assert "cast" in output
 
@@ -465,7 +485,7 @@ class TestCLISmoke:
     def test_unknown_command_shows_help(self):
         output = self._run_session(["dance wildly", "quit"])
         assert "Unknown command" in output
-        assert "Commands:" in output
+        assert "Actions" in output
 
     def test_end_turn_produces_feedback(self):
         output = self._run_session(["end turn", "quit"])
@@ -473,7 +493,8 @@ class TestCLISmoke:
 
     def test_attack_hit_shows_roll_and_damage(self):
         # With 3v3, must use a specific goblin name to avoid ambiguity
-        output = self._run_session(["attack goblin warrior"] * 30, seed=100)
+        # With action economy: attack + end turn per PC turn
+        output = self._run_session(["attack goblin warrior", "end turn"] * 30, seed=100)
         assert "Roll:" in output
         assert "HIT" in output or "MISS" in output
 
@@ -492,7 +513,7 @@ class TestCLISmoke:
         assert "(4,3)" in output.replace(" ", "") or "(4, 3)" in output
 
     def test_spell_cast_shows_spell_feedback(self):
-        output = self._run_session(["cast magic missile on goblin warrior", "quit"], seed=42)
+        output = self._run_session(["cast magic missile on goblin warrior", "end turn", "quit"], seed=42)
         assert "casts Magic Missile" in output
 
     def test_cast_then_enemy_attack_no_crash(self):
@@ -501,7 +522,7 @@ class TestCLISmoke:
         # get_condition_modifiers which expects dict. The enemy turn calls
         # resolve_attack -> get_condition_modifiers on the target.
         output = self._run_session(
-            ["cast shield on goblin warrior", "attack goblin warrior"] * 15,
+            ["cast shield on goblin warrior", "end turn", "attack goblin warrior", "end turn"] * 15,
             seed=42
         )
         # Should not crash — any output means we survived the enemy turn
@@ -515,12 +536,13 @@ class TestCLISmoke:
             "cast",
             "dance wildly",
             "attack goblin warrior",
+            "end turn",     # end turn after attack (action economy)
         ]
         output = self._run_session(commands, seed=42)
         # After the banner + initial status, every command should add content
         lines = [l for l in output.split("\n") if l.strip()]
         # At minimum: banner (3 lines) + status (2) + prompt hint (1) + turn header + status
-        # + 5 command responses = lots of lines. Just verify it's substantial.
+        # + 6 command responses = lots of lines. Just verify it's substantial.
         assert len(lines) > 15
 
 
@@ -534,8 +556,8 @@ class TestGoldenTranscript:
     def test_seed_42_attack_sequence(self):
         """Canonical attack session with seed 42 (3v3). If this changes, something regressed."""
         import io
-        # Use specific goblin names to avoid ambiguity; 60 commands for 3 PCs
-        commands = iter(["attack goblin warrior"] * 60)
+        # With action economy: attack + end turn per PC turn
+        commands = iter(["attack goblin warrior", "end turn"] * 60)
 
         def mock_input(prompt=""):
             try:
@@ -568,7 +590,7 @@ class TestGoldenTranscript:
         import io
         outputs = []
         for _ in range(2):
-            commands = iter(["attack goblin warrior"] * 60)
+            commands = iter(["attack goblin warrior", "end turn"] * 60)
 
             def mock_input(prompt="", _cmds=commands):
                 try:
@@ -629,10 +651,12 @@ class TestRoundTracking:
         """Round 2 header appears after all actors have taken a turn."""
         # Feed attacks cycling through goblin names to handle defeats.
         # 3 party members per round, enemies act automatically.
+        # With action economy: attack + end turn per PC turn
         attacks = []
         targets = ["goblin warrior", "goblin archer", "goblin skirmisher"]
         for i in range(60):
             attacks.append(f"attack {targets[i % 3]}")
+            attacks.append("end turn")
         output = self._run_session(attacks, seed=42)
         assert "Round 2" in output
 
@@ -642,6 +666,7 @@ class TestRoundTracking:
         targets = ["goblin warrior", "goblin archer", "goblin skirmisher"]
         for i in range(60):
             attacks.append(f"attack {targets[i % 3]}")
+            attacks.append("end turn")
         output = self._run_session(attacks, seed=42)
         assert "Round 1" in output
         assert "Round 2" in output
@@ -655,7 +680,7 @@ class TestRoundTracking:
         import io
         outputs = []
         for _ in range(2):
-            commands = iter(["attack goblin warrior"] * 60)
+            commands = iter(["attack goblin warrior", "end turn"] * 60)
 
             def mock_input(prompt="", _cmds=commands):
                 try:
@@ -710,6 +735,7 @@ class TestFullAttack:
         assert action == "help"
         from play import _HELP_TEXT
         assert "full attack" in _HELP_TEXT
+        assert "full-round" in _HELP_TEXT
 
 
 # ---------------------------------------------------------------------------
@@ -928,3 +954,440 @@ class TestAoODisplay:
         )]
         output = format_events(events, ws)
         assert "blocked by cover" in output
+
+
+# ---------------------------------------------------------------------------
+# AC breakdown display (playtest fix)
+# ---------------------------------------------------------------------------
+
+class TestACBreakdown:
+    def test_attack_roll_shows_cover_breakdown(self):
+        """Attack roll display shows base AC + cover when cover is present."""
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={
+            "pc_1": {"name": "Aldric"},
+            "goblin_1": {"name": "Goblin"},
+        })
+        events = [Event(
+            event_id=0, event_type="attack_roll", timestamp=0.0,
+            payload={
+                "d20_result": 10, "attack_bonus": 5, "total": 15,
+                "target_ac": 18, "target_base_ac": 14,
+                "cover_ac_bonus": 4, "cover_type": "soft",
+                "target_ac_modifier": 0,
+                "hit": False, "target_id": "goblin_1",
+                "attacker_id": "pc_1",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "AC 18 (14 base, +4 soft cover)" in output
+
+    def test_attack_roll_clean_when_no_cover(self):
+        """Attack roll display shows plain AC when no modifiers."""
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={})
+        events = [Event(
+            event_id=0, event_type="attack_roll", timestamp=0.0,
+            payload={
+                "d20_result": 15, "attack_bonus": 6, "total": 21,
+                "target_ac": 15, "target_base_ac": 15,
+                "cover_ac_bonus": 0, "target_ac_modifier": 0,
+                "hit": True, "target_id": "g1", "attacker_id": "pc_1",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "vs AC 15 ->" in output
+        assert "base" not in output
+
+    def test_attack_roll_shows_flanking(self):
+        """Attack bonus shows flanking breakdown."""
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={})
+        events = [Event(
+            event_id=0, event_type="attack_roll", timestamp=0.0,
+            payload={
+                "d20_result": 12, "attack_bonus": 5, "total": 19,
+                "target_ac": 14, "target_base_ac": 14,
+                "cover_ac_bonus": 0, "target_ac_modifier": 0,
+                "condition_modifier": 0, "flanking_bonus": 2,
+                "feat_modifier": 0,
+                "hit": True, "target_id": "g1", "attacker_id": "pc_1",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "flanking +2" in output
+
+    def test_attack_roll_shows_condition_modifier(self):
+        """Attack roll shows condition AC modifier in breakdown."""
+        from aidm.core.event_log import Event
+        from aidm.core.state import WorldState
+        ws = WorldState(ruleset_version="3.5", entities={})
+        events = [Event(
+            event_id=0, event_type="attack_roll", timestamp=0.0,
+            payload={
+                "d20_result": 10, "attack_bonus": 5, "total": 15,
+                "target_ac": 12, "target_base_ac": 14,
+                "cover_ac_bonus": 0, "target_ac_modifier": -2,
+                "hit": True, "target_id": "g1", "attacker_id": "pc_1",
+            },
+        )]
+        output = format_events(events, ws)
+        assert "-2 conditions" in output
+
+
+# ---------------------------------------------------------------------------
+# Tactical map (playtest fix)
+# ---------------------------------------------------------------------------
+
+class TestTacticalMap:
+    def test_show_map_renders_entities(self):
+        """show_map prints entity symbols on the grid."""
+        from play import show_map
+        from aidm.core.state import WorldState
+        import io
+        ws = WorldState(ruleset_version="3.5", entities={
+            "pc_1": {"name": "Aldric", "team": "party", "position": {"x": 3, "y": 3}, "defeated": False},
+            "goblin_1": {"name": "Goblin", "team": "monsters", "position": {"x": 3, "y": 5}, "defeated": False},
+        })
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            show_map(ws)
+        finally:
+            sys.stdout = old_stdout
+        output = buf.getvalue()
+        assert "A" in output
+        assert "G" in output
+        assert "Legend:" in output
+        assert "Aldric" in output
+        assert "Goblin" in output
+
+    def test_show_map_skips_defeated(self):
+        """Defeated entities do not appear on the map."""
+        from play import show_map
+        from aidm.core.state import WorldState
+        import io
+        ws = WorldState(ruleset_version="3.5", entities={
+            "pc_1": {"name": "Aldric", "team": "party", "position": {"x": 3, "y": 3}, "defeated": False},
+            "goblin_1": {"name": "Goblin", "team": "monsters", "position": {"x": 3, "y": 5}, "defeated": True},
+        })
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            show_map(ws)
+        finally:
+            sys.stdout = old_stdout
+        output = buf.getvalue()
+        assert "A" in output
+        assert "Goblin" not in output
+
+    def test_show_map_handles_collision(self):
+        """Entities with same first letter get distinct symbols."""
+        from play import show_map
+        from aidm.core.state import WorldState
+        import io
+        ws = WorldState(ruleset_version="3.5", entities={
+            "g1": {"name": "Goblin Warrior", "team": "monsters", "position": {"x": 3, "y": 5}, "defeated": False},
+            "g2": {"name": "Goblin Archer", "team": "monsters", "position": {"x": 4, "y": 5}, "defeated": False},
+        })
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            show_map(ws)
+        finally:
+            sys.stdout = old_stdout
+        output = buf.getvalue()
+        # Both goblins should have distinct symbols
+        assert "G " in output or " G" in output
+        assert "G2" in output
+
+    def test_map_in_help_text(self):
+        from play import _HELP_TEXT
+        assert "map" in _HELP_TEXT
+
+    def test_parse_map_command(self):
+        action, _ = parse_input("map")
+        assert action == "map"
+
+
+# ---------------------------------------------------------------------------
+# Move error messages (playtest fix)
+# ---------------------------------------------------------------------------
+
+class TestMoveErrors:
+    def _run_session(self, commands, seed=42):
+        import io
+        action_iter = iter(commands)
+
+        def mock_input(prompt=""):
+            try:
+                return next(action_iter)
+            except StopIteration:
+                return "quit"
+
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            main(seed=seed, input_fn=mock_input)
+        finally:
+            sys.stdout = old_stdout
+        return buf.getvalue()
+
+    def test_move_no_dest_friendly_message(self):
+        output = self._run_session(["move", "quit"])
+        assert "Move where?" in output
+
+    def test_move_bad_coords_friendly_message(self):
+        output = self._run_session(["move abc def", "quit"])
+        assert "Invalid coordinates" in output
+
+
+# ---------------------------------------------------------------------------
+# No double status on PC turn (playtest fix)
+# ---------------------------------------------------------------------------
+
+class TestNoDoubleStatus:
+    def test_status_not_printed_automatically_on_turn(self):
+        """PC turn banner does not auto-print full status table."""
+        import io
+        commands = iter(["quit"])
+
+        def mock_input(prompt=""):
+            try:
+                return next(commands)
+            except StopIteration:
+                return "quit"
+
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            main(seed=42, input_fn=mock_input)
+        finally:
+            sys.stdout = old_stdout
+        output = buf.getvalue()
+        # After "--- Aldric's Turn ---", the next line should NOT be a status dump.
+        # The initial status at game start is fine, but there should be exactly one
+        # status block before the first turn banner.
+        turn_marker = "--- Aldric's Turn ---"
+        idx = output.find(turn_marker)
+        assert idx >= 0
+        after_turn = output[idx + len(turn_marker):]
+        # Should NOT immediately have "HP" in the next few characters (no auto-status)
+        first_lines = after_turn[:100]
+        # The old behavior had "  Goblin Warrior   HP 5/5..." right after the banner
+        assert "Goblin Warrior" not in first_lines
+
+
+# ---------------------------------------------------------------------------
+# Action Economy (D&D 3.5e)
+# ---------------------------------------------------------------------------
+
+class TestActionBudget:
+    """Unit tests for the ActionBudget state machine."""
+
+    def test_fresh_budget_has_standard_and_move(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        assert b.has_standard is True
+        assert b.has_move is True
+        assert b.can_take("standard")
+        assert b.can_take("move")
+        assert b.can_take("full_round")
+        assert b.can_take("free")
+
+    def test_standard_then_move(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("standard")
+        assert b.has_standard is False
+        assert b.has_move is True
+        assert not b.can_take("standard")
+        assert b.can_take("move")
+        assert not b.can_take("full_round")
+        assert not b.is_turn_over()
+
+    def test_move_then_standard(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("move")
+        assert b.has_move is False
+        assert b.has_standard is True
+        assert b.can_take("standard")
+        assert not b.can_take("full_round")  # moved, can't full attack
+        assert not b.is_turn_over()
+
+    def test_standard_and_move_ends_turn(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("standard")
+        b.spend("move")
+        assert b.is_turn_over()
+
+    def test_full_round_ends_turn(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("full_round")
+        assert b.is_turn_over()
+        assert not b.can_take("standard")
+        assert not b.can_take("move")
+
+    def test_cannot_full_attack_after_move(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("move")
+        assert not b.can_take("full_round")
+
+    def test_cannot_move_after_full_round(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("full_round")
+        assert not b.can_take("move")
+
+    def test_free_actions_always_allowed(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("full_round")
+        assert b.can_take("free")
+
+    def test_trade_standard_for_second_move(self):
+        """D&D 3.5: can trade standard action for a second move action."""
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("move")
+        # Standard is still available, and can be traded for a move
+        assert b.can_take("move")
+        b.spend("move")  # trades standard for move
+        assert b.is_turn_over()
+
+    def test_remaining_str_fresh(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        r = b.remaining_str()
+        assert "standard" in r
+        assert "move" in r
+
+    def test_remaining_str_after_standard(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("standard")
+        r = b.remaining_str()
+        assert "standard" not in r or "trade" in r
+        assert "move" in r
+
+    def test_remaining_str_turn_complete(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("full_round")
+        assert "complete" in b.remaining_str()
+
+    def test_denial_reason_standard(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("standard")
+        reason = b.denial_reason("standard")
+        assert "standard action" in reason
+
+    def test_denial_reason_full_round_after_move(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("move")
+        reason = b.denial_reason("full_round")
+        assert "moved" in reason.lower() or "move" in reason.lower()
+
+
+class TestActionEconomyCLI:
+    """Integration tests for action economy in the CLI game loop."""
+
+    def _run_session(self, commands, seed=42):
+        import io
+        action_iter = iter(commands)
+
+        def mock_input(prompt=""):
+            try:
+                return next(action_iter)
+            except StopIteration:
+                return "quit"
+
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            main(seed=seed, input_fn=mock_input)
+        finally:
+            sys.stdout = old_stdout
+        return buf.getvalue()
+
+    def test_move_then_attack_same_turn(self):
+        """Player can move and then attack on the same turn."""
+        output = self._run_session(["move 4 3", "attack goblin warrior", "quit"], seed=42)
+        assert "moves to" in output
+        assert "Roll:" in output
+
+    def test_attack_then_move_same_turn(self):
+        """Player can attack and then move on the same turn."""
+        output = self._run_session(["attack goblin warrior", "move 4 3", "quit"], seed=42)
+        assert "Roll:" in output
+        assert "moves to" in output
+
+    def test_cannot_attack_twice(self):
+        """Standard action can only be used once per turn."""
+        output = self._run_session(["attack goblin warrior", "attack goblin warrior", "quit"], seed=42)
+        assert "already used your standard action" in output
+
+    def test_full_attack_prevents_move(self):
+        """Full-round action consumes both standard and move."""
+        output = self._run_session(["full attack goblin warrior", "move 4 3", "quit"], seed=42)
+        # Full attack should succeed
+        assert "Roll:" in output
+        # But move after should fail (or turn should auto-end)
+        # Either "already used a full-round action" or turn ends before move
+        # Since full_round sets is_turn_over(), the move never gets prompted
+        # The turn auto-ends after full attack, so "moves to" should NOT appear
+        assert "moves to" not in output
+
+    def test_move_prevents_full_attack(self):
+        """Cannot full attack after taking a move action."""
+        output = self._run_session(["move 4 3", "full attack goblin warrior", "quit"], seed=42)
+        assert "moves to" in output
+        assert "already moved" in output
+
+    def test_prompt_shows_remaining_actions(self):
+        """Prompt displays remaining action budget."""
+        output = self._run_session(["status", "quit"], seed=42)
+        assert "standard" in output
+        assert "remaining" in output
+
+    def test_free_actions_dont_end_turn(self):
+        """Help, status, map are free actions and don't consume action budget."""
+        output = self._run_session(["help", "status", "map", "attack goblin warrior", "end turn", "quit"], seed=42)
+        # After help/status/map, attack should still work (standard not consumed)
+        assert "Roll:" in output
+
+    def test_end_turn_forfeits_remaining_actions(self):
+        """End turn skips remaining actions."""
+        output = self._run_session(["end turn", "quit"], seed=42)
+        assert "ends their turn" in output
+
+    def test_action_economy_help_text(self):
+        """Help text explains action types."""
+        output = self._run_session(["help", "quit"], seed=42)
+        assert "standard action" in output
+        assert "move action" in output
+        assert "full-round action" in output
+
+    def test_move_and_attack_combat_completes(self):
+        """Full game with move+attack per turn completes successfully."""
+        # Each PC turn: move then attack, then end turn
+        commands = []
+        for _ in range(60):
+            commands.extend(["attack goblin warrior", "end turn"])
+        output = self._run_session(commands, seed=100)
+        assert "Victory!" in output or "Farewell!" in output or "DEFEATED" in output

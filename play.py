@@ -21,6 +21,7 @@ import argparse
 import os
 import sys
 from copy import deepcopy
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional, Tuple
@@ -55,6 +56,131 @@ _ATTACK_VERBS = {
     "shoot", "fire", "swing", "punch", "kick", "smite",
 }
 _MOVE_VERBS = {"move", "go", "walk", "run", "step"}
+
+
+# ---------------------------------------------------------------------------
+# Action Economy (D&D 3.5e)
+# ---------------------------------------------------------------------------
+# Each turn a character gets: 1 standard + 1 move + 1 swift + free actions
+# OR: 1 full-round + 1 swift + free actions
+# OR: 2 move actions (trade standard for move) + 1 swift + free actions
+# A 5-foot step is allowed if no move action was taken.
+
+# Action cost classification for each CLI action type
+_ACTION_COST = {
+    "attack":       "standard",
+    "cast":         "standard",      # most spells are standard action
+    "trip":         "standard",
+    "bull_rush":    "standard",      # actually full-round in RAW, simplified
+    "disarm":       "standard",
+    "grapple":      "standard",
+    "sunder":       "standard",
+    "overrun":      "standard",      # actually part of a charge/move in RAW
+    "full_attack":  "full_round",
+    "move":         "move",
+    "end_turn":     "end",
+    "help":         "free",
+    "status":       "free",
+    "map":          "free",
+}
+
+
+@dataclass
+class ActionBudget:
+    """Tracks action economy for one turn following D&D 3.5e rules."""
+    has_standard: bool = True
+    has_move: bool = True
+    has_swift: bool = True
+    used_full_round: bool = False
+    moved: bool = False          # True if a move action was taken (prevents full attack)
+
+    def can_take(self, cost: str) -> bool:
+        """Check if the actor can afford this action cost."""
+        if cost == "free" or cost == "end":
+            return True
+        if cost == "standard":
+            if self.used_full_round:
+                return False
+            return self.has_standard
+        if cost == "move":
+            if self.used_full_round:
+                return False
+            # Can trade standard action for a second move
+            return self.has_move or self.has_standard
+        if cost == "full_round":
+            if self.moved or not self.has_standard or not self.has_move:
+                return False
+            if self.used_full_round:
+                return False
+            return True
+        if cost == "swift":
+            return self.has_swift
+        return False
+
+    def spend(self, cost: str) -> None:
+        """Consume the action slot for this cost."""
+        if cost == "free" or cost == "end":
+            return
+        if cost == "standard":
+            self.has_standard = False
+        elif cost == "move":
+            if self.has_move:
+                self.has_move = False
+                self.moved = True
+            elif self.has_standard:
+                # Trade standard action for a second move
+                self.has_standard = False
+                self.moved = True
+        elif cost == "full_round":
+            self.has_standard = False
+            self.has_move = False
+            self.used_full_round = True
+        elif cost == "swift":
+            self.has_swift = False
+
+    def is_turn_over(self) -> bool:
+        """True if no meaningful actions remain (standard and move both spent)."""
+        if self.used_full_round:
+            return True
+        return not self.has_standard and not self.has_move
+
+    def remaining_str(self) -> str:
+        """Short string showing what actions the player can still take."""
+        parts = []
+        if self.used_full_round:
+            return "turn complete"
+        if self.has_standard:
+            parts.append("standard")
+        if self.has_move:
+            parts.append("move")
+        elif self.has_standard:
+            # Can still trade standard for move
+            parts.append("move (trade standard)")
+        if not parts:
+            return "turn complete"
+        return ", ".join(parts) + " remaining"
+
+    def denial_reason(self, cost: str) -> str:
+        """Explain why an action can't be taken."""
+        if cost == "standard":
+            if self.used_full_round:
+                return "You already used a full-round action this turn."
+            return "You already used your standard action this turn."
+        if cost == "move":
+            if self.used_full_round:
+                return "You already used a full-round action this turn."
+            return "You have no move actions left this turn."
+        if cost == "full_round":
+            if self.moved:
+                return "You already moved this turn. Full attack requires your entire turn (no movement except a 5-ft step)."
+            if not self.has_standard:
+                return "You already used your standard action. Full attack requires both standard and move actions."
+            if not self.has_move:
+                return "You already used your move action. Full attack requires both standard and move actions."
+            return "You cannot take a full-round action right now."
+        if cost == "swift":
+            return "You already used your swift action this turn."
+        return "You can't do that right now."
 
 
 # ---------------------------------------------------------------------------
@@ -103,8 +229,8 @@ def parse_input(text: str) -> Tuple[Optional[str], Any]:
             try:
                 return "move", MoveIntent(destination=Position(x=int(coords[0]), y=int(coords[1])))
             except ValueError:
-                pass
-        return "move", MoveIntent(destination=None)
+                return "move_bad_coords", None
+        return "move_no_dest", None
 
     # Cast
     if verb == "cast":
@@ -147,26 +273,31 @@ def parse_input(text: str) -> Tuple[Optional[str], Any]:
         return "help", None
     if verb in ("status", "hp", "look"):
         return "status", None
+    if verb in ("map", "grid", "tactical"):
+        return "map", None
 
     return None, None
 
 
 _HELP_TEXT = """\
-  Commands:
-    attack <target>             attack goblin warrior
-    attack <target> with <wpn>  attack goblin with longsword
-    full attack <target>        full attack goblin warrior
-    cast <spell> on <target>    cast magic missile on goblin
-    move <x> <y>                move 5 3
-    trip <target>               trip goblin warrior
-    bull rush <target>          bull rush goblin warrior
-    disarm <target>             disarm goblin warrior
-    grapple <target>            grapple goblin warrior
-    sunder <target>             sunder goblin warrior
-    overrun <target>            overrun goblin warrior
+  Actions (each turn: 1 standard + 1 move, OR 1 full-round):
+    attack <target>             standard action — single melee attack
+    attack <target> with <wpn>  standard action — attack with specific weapon
+    full attack <target>        full-round action — all attacks (if BAB allows)
+    cast <spell> on <target>    standard action — cast a spell
+    move <x> <y>                move action — move to adjacent square
+    trip <target>               standard action — trip attempt
+    bull rush <target>          standard action — bull rush attempt
+    disarm <target>             standard action — disarm attempt
+    grapple <target>            standard action — grapple attempt
+    sunder <target>             standard action — sunder attempt
+    overrun <target>            standard action — overrun attempt
+  Info (free actions — don't end your turn):
     status                      show HP, AC, BAB, conditions
-    end / pass                  end your turn
+    map                         show tactical grid
     help                        show this message
+  Turn control:
+    end / pass                  end your turn (forfeit remaining actions)
     quit                        exit the game"""
 
 
@@ -366,7 +497,38 @@ def format_events(events, ws: WorldState) -> str:
             total = p.get("total", 0)
             ac = p.get("target_ac", 0)
             hit = p.get("hit", False)
-            lines.append(f"  Roll: [{d20}] + {bonus} = {total} vs AC {ac} -> {'HIT' if hit else 'MISS'}")
+            # AC breakdown: show modifiers when effective AC differs from base
+            base_ac = p.get("target_base_ac", ac)
+            ac_parts = []
+            cover_bonus = p.get("cover_ac_bonus", 0)
+            cond_mod = p.get("target_ac_modifier", 0)
+            if cover_bonus:
+                cover_type = p.get("cover_type", "cover")
+                ac_parts.append(f"+{cover_bonus} {cover_type} cover")
+            if cond_mod > 0:
+                ac_parts.append(f"+{cond_mod} conditions")
+            elif cond_mod < 0:
+                ac_parts.append(f"{cond_mod} conditions")
+            if ac_parts:
+                ac_str = f"AC {ac} ({base_ac} base, {', '.join(ac_parts)})"
+            else:
+                ac_str = f"AC {ac}"
+            # Attack bonus breakdown: show modifiers when present
+            atk_parts = []
+            atk_cond = p.get("condition_modifier", 0)
+            flank = p.get("flanking_bonus", 0)
+            feat_mod = p.get("feat_modifier", 0)
+            if atk_cond:
+                atk_parts.append(f"conditions {atk_cond:+d}")
+            if flank:
+                atk_parts.append(f"flanking +{flank}")
+            if feat_mod:
+                atk_parts.append(f"feat {feat_mod:+d}")
+            if atk_parts:
+                bonus_str = f"{bonus} ({', '.join(atk_parts)})"
+            else:
+                bonus_str = str(bonus)
+            lines.append(f"  Roll: [{d20}] + {bonus_str} = {total} vs {ac_str} -> {'HIT' if hit else 'MISS'}")
         elif ev.event_type == "damage_roll":
             dice = p.get("damage_dice", "?")
             final = p.get("final_damage", 0)
@@ -488,6 +650,85 @@ def show_status(ws: WorldState) -> None:
         print(f"  {e.get('name', eid):20s}  HP {hp}/{mx}  AC {ac}  BAB {bab_str}  {pos_str}{cond_display}")
 
 
+def show_map(ws: WorldState) -> None:
+    """Render an ASCII tactical grid bounded to the active combat region."""
+    # Collect live entity positions
+    entities = {}
+    for eid in sorted(ws.entities):
+        e = ws.entities[eid]
+        if e.get(EF.DEFEATED, False):
+            continue
+        pos = e.get(EF.POSITION, {})
+        x, y = pos.get("x"), pos.get("y")
+        if x is not None and y is not None:
+            entities[eid] = (x, y)
+
+    if not entities:
+        print("  (no entities on the map)")
+        return
+
+    # Compute bounding box with 1-cell padding
+    xs = [p[0] for p in entities.values()]
+    ys = [p[1] for p in entities.values()]
+    min_x, max_x = min(xs) - 1, max(xs) + 1
+    min_y, max_y = min(ys) - 1, max(ys) + 1
+
+    # Build symbol table: first letter of name, handle collisions with numbers
+    symbols = {}
+    used_symbols = {}
+    for eid in sorted(ws.entities):
+        e = ws.entities[eid]
+        if e.get(EF.DEFEATED, False):
+            continue
+        if eid not in entities:
+            continue
+        name = e.get("name", eid)
+        team = e.get(EF.TEAM, "")
+        sym = name[0].upper()
+        # Handle collision: append a digit
+        if sym in used_symbols and used_symbols[sym] != eid:
+            for n in range(2, 10):
+                candidate = f"{sym}{n}"
+                if candidate not in used_symbols:
+                    sym = candidate
+                    break
+        used_symbols[sym] = eid
+        symbols[eid] = (sym, team)
+
+    # Build grid (y increases upward, but we print top-down)
+    width = max_x - min_x + 1
+    # Column header
+    col_header = "     "
+    for x in range(min_x, max_x + 1):
+        col_header += f"{x:>2} "
+    print(col_header)
+
+    for y in range(max_y, min_y - 1, -1):
+        row = f"  {y:>2} "
+        for x in range(min_x, max_x + 1):
+            cell = " ."
+            for eid, (ex, ey) in entities.items():
+                if ex == x and ey == y:
+                    sym, team = symbols[eid]
+                    cell = f" {sym}" if len(sym) == 1 else f"{sym}"
+                    break
+            row += f"{cell} "
+        print(row)
+
+    # Legend
+    print()
+    print("  Legend:")
+    for eid in sorted(ws.entities):
+        if eid not in entities:
+            continue
+        e = ws.entities[eid]
+        sym, team = symbols[eid]
+        name = e.get("name", eid)
+        marker = "*" if team == "party" else " "
+        x, y = entities[eid]
+        print(f"    {marker}{sym} = {name} ({x},{y})")
+
+
 # ---------------------------------------------------------------------------
 # Combat state
 # ---------------------------------------------------------------------------
@@ -607,9 +848,12 @@ def _main_loop(seed: int, input_fn) -> None:
             if team == "party":
                 # Player turn
                 print(f"\n--- {name}'s Turn ---")
-                show_status(ws)
+                budget = ActionBudget()
 
                 while True:
+                    # Show remaining actions
+                    remaining = budget.remaining_str()
+                    print(f"  [{remaining}]")
                     try:
                         text = input_fn(f"\n{name}> ")
                     except (EOFError, KeyboardInterrupt):
@@ -633,12 +877,27 @@ def _main_loop(seed: int, input_fn) -> None:
                     if action_type == "status":
                         show_status(ws)
                         continue
+                    if action_type == "map":
+                        show_map(ws)
+                        continue
                     if action_type == "cast_no_spell":
                         print("  Cast what? Try: cast magic missile on goblin")
+                        continue
+                    if action_type == "move_no_dest":
+                        print("  Move where? Try: move 5 3")
+                        continue
+                    if action_type == "move_bad_coords":
+                        print("  Invalid coordinates. Try: move 5 3")
                         continue
                     if action_type == "end_turn":
                         print(f"  {name} ends their turn.")
                         break
+
+                    # --- Action economy enforcement ---
+                    cost = _ACTION_COST.get(action_type, "standard")
+                    if not budget.can_take(cost):
+                        print(f"  {budget.denial_reason(cost)}")
+                        continue
 
                     result = resolve_and_execute(ws, actor_id, action_type, declared, seed, turn_index, next_event_id)
 
@@ -651,7 +910,13 @@ def _main_loop(seed: int, input_fn) -> None:
                         ws = result.world_state
                         next_event_id += len(result.events)
                         turn_index += 1
-                        break
+                        budget.spend(cost)
+
+                        # Check if turn is over (all actions spent)
+                        if budget.is_turn_over():
+                            break
+                        # Otherwise, player can take more actions this turn
+                        continue
                     else:
                         print(f"  Failed: {result.failure_reason or result.status}")
                         continue
