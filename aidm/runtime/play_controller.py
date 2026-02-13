@@ -21,6 +21,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from aidm.core.event_log import Event, EventLog
+from aidm.core.initiative import roll_initiative_for_all_actors, InitiativeRoll
 from aidm.core.play_loop import TurnContext, TurnResult as BoxTurnResult, execute_turn
 from aidm.core.rng_manager import RNGManager
 from aidm.core.state import FrozenWorldStateView, WorldState
@@ -95,6 +96,7 @@ class ScenarioFixture:
     turn_index: int = 0
     next_event_id: int = 0
     timestamp: float = 0.0
+    initiative_rolls: Optional[List[InitiativeRoll]] = None
 
 
 # ---------------------------------------------------------------------------
@@ -227,12 +229,13 @@ def build_simple_combat_fixture(
         },
     }
 
-    # Fixed initiative order: alternating party/monster turns
-    initiative_order = [
-        pc_id, enemy_id,
-        "pc_cleric", "goblin_2",
-        "pc_rogue", "goblin_3",
+    # Roll initiative using the deterministic initiative system (CP-14)
+    rng = RNGManager(master_seed)
+    actors = [
+        (eid, entities[eid].get(EF.DEX_MOD, 0))
+        for eid in entities
     ]
+    initiative_rolls, initiative_order = roll_initiative_for_all_actors(actors, rng)
 
     world_state = WorldState(
         ruleset_version="3.5e",
@@ -253,6 +256,7 @@ def build_simple_combat_fixture(
         turn_index=0,
         next_event_id=0,
         timestamp=0.0,
+        initiative_rolls=initiative_rolls,
     )
 
 

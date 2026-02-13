@@ -426,6 +426,19 @@ def _main_loop(seed: int, input_fn) -> None:
     print("  D&D 3.5e Combat -- AIDM Engine")
     print("=" * 50)
     print()
+
+    # Display rolled initiative order
+    if fixture.initiative_rolls:
+        print("  Initiative:")
+        # Sort rolls by the computed initiative order for display
+        order_map = {eid: idx for idx, eid in enumerate(init_order)}
+        sorted_rolls = sorted(fixture.initiative_rolls, key=lambda r: order_map.get(r.actor_id, 99))
+        for roll in sorted_rolls:
+            name = ws.entities.get(roll.actor_id, {}).get("name", roll.actor_id)
+            dex_str = f"+{roll.dex_modifier}" if roll.dex_modifier >= 0 else str(roll.dex_modifier)
+            print(f"    {name:20s}  [{roll.d20_roll}] {dex_str} DEX = {roll.total}")
+        print()
+
     show_status(ws)
     print()
     print("Type 'help' for commands, or 'quit' to exit.")
