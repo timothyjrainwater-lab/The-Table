@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — WO-ENCOUNTER-01 + WO-OPS-HYGIENE-01 INTEGRATED. 5356 tests collected, 5308 passed, 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-13 — WO-INITIATIVE-01 + Signal Voice INTEGRATED. 5371 tests collected, 5323 passed, 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -259,11 +259,23 @@ LAST UPDATED: 2026-02-13 — WO-ENCOUNTER-01 + WO-OPS-HYGIENE-01 INTEGRATED. 535
 - **Bugfix**: `conditions.py` list-format tolerance — `get_condition_modifiers()` guards against list-format conditions from play_loop spell resolver (crash found in human playtest).
 - **55 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression).
 
+### WO-INITIATIVE-01: Initiative System in CLI (2026-02-13)
+- **Initiative rolling**: `roll_initiative_for_all_actors()` in `aidm/core/initiative.py` — d20 + DEX modifier per actor, deterministic via RNGManager seed.
+- **RAW tie-breaking**: Higher total > higher DEX mod > lexicographic entity_id. `sort_initiative_order()` pure function.
+- **CLI display**: Turn order printed at encounter start with d20 rolls, DEX modifiers, party markers. Turn progression follows initiative order.
+- **15 tests** in test_initiative_cli.py (determinism, tie-breaking, CLI display, turn order).
+
+### Signal Voice — Operator TTS Pipeline (2026-02-13)
+- **scripts/speak.py**: Three-engine pipeline — Kokoro (voice design, CPU) -> Chatterbox (GPU render, voice cloning) -> winsound (playback). Kokoro CPU fallback if no GPU.
+- **Voice profile "Arbor"**: am_michael seed, speed 0.88, exaggeration 0.15, Chatterbox Original tier. Calm, grounded, neutral-operational readback.
+- **Reference clips**: Kokoro fp32 24kHz native (no downsample) in `models/voices/signal_reference_*.wav`. Three voice seeds tracked (michael, adam, george).
+- **Volume**: 50% default, PCM-level attenuation. CLI: `python scripts/speak.py "message"`.
+
 ---
 
 ## Test Count
 
-**Total: 5356 tests collected** (5308 passed, 16 skipped hardware-gated)
+**Total: 5371 tests collected** (5323 passed, 16 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -283,7 +295,7 @@ LAST UPDATED: 2026-02-13 — WO-ENCOUNTER-01 + WO-OPS-HYGIENE-01 INTEGRATED. 535
 - `aidm/interaction/` — intent_bridge.py (WO-038)
 - `aidm/runtime/` — session.py, session_orchestrator.py, bootstrap.py, runner.py, display.py, ipc_serialization.py, play_controller.py
 - `play.py` — Playable CLI entry point (keyword parser, turn execution, enemy AI, event display, transcript autologging)
-- `scripts/` — verify_session_start.py, record_playtest.py, triage_latest_playtest.py, audit_snapshot.py
+- `scripts/` — verify_session_start.py, record_playtest.py, triage_latest_playtest.py, audit_snapshot.py, speak.py (operator signal voice)
 - `aidm/immersion/` — 8 modules: stt/tts/image adapters, audio_mixer, contextual_grid, attribution, clarification_loop, voice_intent_parser, chatterbox_tts_adapter
 - `aidm/spark/` — model_registry, spark_adapter, llamacpp_adapter, grammar_shield, dm_persona
 - `aidm/server/` — app.py (Starlette ASGI + WebSocket route)
@@ -441,30 +453,11 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 **No work items are greenlit for implementation.** All future work requires explicit authorization.
 
-### Phases 1-3 + Post-A10 — COMPLETE (2026-02-11)
+### Phases 1-3 + Post-A10 + Waves 1-3 — COMPLETE
 
-All Phase 1-3 WOs and Post-A10 verification integrated. 30+ WOs delivered. See git log and Locked Systems for details.
+All Phase 1-3, Post-A10, and Wave 1-3 (15 WOs, ~524 new tests) integrated. See Locked Systems for details.
 
-### Wave 1-3 (Phase 0 Foundation) — INTEGRATED (2026-02-13)
-
-15 WOs delivered across 3 waves. All accepted. See Wave 1/2/3 entries in Locked Systems.
-
-| Wave | WOs | Focus | New Tests |
-|------|-----|-------|-----------|
-| 1 | AD007-IMPL, BUGFIX-BATCH, CONTENT-PACK-SCHEMA, RULEBOOK-MODEL, VOCAB-REGISTRY, OSS-REVISE | Foundation schemas + bugfixes | ~159 |
-| 2 | CONTENT-EXTRACT-001/002/003 | IP-clean content extraction (spells/creatures/feats) | ~96 |
-| 3 | WORLDCOMPILE-SCAFFOLD/LEXICON/SEMANTICS/NPC, DISCOVERY-BACKEND, VOICE-RESOLVER, WEBSOCKET-BRIDGE | World compiler pipeline + backend + WS bridge | ~269 |
-
-### Pending Dispatches (Not Yet Completed)
-
-None. All dispatched WOs have completion reports.
-
-### Canceled / Superseded
-
-| WO | Disposition |
-|----|-------------|
-| WO-CODE-INTENT-002 | **CANCELED** — superseded by WO-BUGFIX-BATCH-001 (D-01 fix) |
-| WO-INTENT-002 | **CANCELED** — conflicting scope with WO-CODE-INTENT-002; core work absorbed by bugfix batch |
+### Canceled: WO-CODE-INTENT-002, WO-INTENT-002 (superseded by BUGFIX-BATCH)
 
 ### Phase 4 — ACTIVE (Playable CLI)
 
@@ -476,7 +469,7 @@ None. All dispatched WOs have completion reports.
 | WO-OPS-FOUNDATION-01 | Session bootstrap + playtest logger | INTEGRATED |
 | WO-ENCOUNTER-01 | Expand 1v1 to 3v3 party | INTEGRATED |
 | WO-OPS-HYGIENE-01 | Session bootstrap hardening | INTEGRATED |
-| WO-INITIATIVE-01 | Initiative system in CLI | FUTURE |
+| WO-INITIATIVE-01 | Initiative system in CLI | INTEGRATED |
 | WO-FULLATTACK-CLI-01 | Full attack action in CLI | FUTURE |
 | WO-SPELLSLOTS-01 | Spell slot tracking | FUTURE |
 | WO-OSS-DICE-001 | Three.js Dice Roller Demo | FUTURE (needs amendments per Jay review) |

@@ -11,6 +11,7 @@ These bullets define how agents **act**, not what they're **allowed** to build. 
 1. Run `python scripts/verify_session_start.py`, paste output verbatim. No work begins until bootstrap confirmed.
 2. If RED warnings appear (stale processes, dirty tree), resolve before proceeding.
 3. Read `PROJECT_STATE_DIGEST.md` for current state. Do not assume prior session knowledge survived.
+4. On context reset, restore from `docs/ops/REHYDRATION_KERNEL.md` before any work.
 
 ---
 
@@ -84,4 +85,6 @@ If reaching for layer 3 or 4, flag it explicitly: "This is a layer 3/4 response.
 
 ---
 
-> **REHYDRATION COPY:** After editing this file, also update `pm_inbox/aegis_rehydration/STANDING_OPS_CONTRACT.md`
+> **Canonical location:** `docs/ops/STANDING_OPS_CONTRACT.md`
+> **Rehydration copy:** `pm_inbox/aegis_rehydration/STANDING_OPS_CONTRACT.md`
+> **Rehydration kernel:** `docs/ops/REHYDRATION_KERNEL.md`
