@@ -16,6 +16,7 @@ Two categories:
 1. **Wiring WOs** — Connect existing resolvers to CLI parser + display (LOW risk, 0 breaks)
 2. **Fix WOs** — Correct known bugs/mismatches before adding features (MEDIUM risk, test updates)
 3. **Contract WOs** — Require CP approval for frozen files (HIGH risk, deferred)
+4. **Ops WOs** — Operator tooling and signal infrastructure (LOW risk, scripts/ only)
 
 ---
 
@@ -232,6 +233,66 @@ elif action_type == "full_attack":
 
 ---
 
+#### WO-VOICE-SIGNAL-01 — Report-Ready Audio Signal
+
+**Risk:** LOW | **Effort:** Small | **Breaks:** 0 expected
+
+**Problem:** The voice pipeline (`scripts/speak.py`, Arbor profile, Chatterbox backend) shipped at 7c09f58 and can speak arbitrary text on demand. But there is no automated routing — when an agent posts a completion report or dispatch package, Thunder gets no audible cue. The operator must visually scan for state changes.
+
+**Spec Origin:** Thunder-defined signal format:
+```
+=== SIGNAL: REPORT_READY ===
+WO-XXXX — Completion Report
+Status: GREEN
+
+<report body follows>
+```
+
+**Scope:**
+1. **Signal parser** in `scripts/speak.py`:
+   - New function `parse_signal(text: str) -> Optional[dict]` — detects leading `=== SIGNAL: REPORT_READY ===` line
+   - Extracts first non-empty line after banner as spoken summary
+   - Returns `{"signal_type": "REPORT_READY", "summary": "...", "body": "..."}`
+   - Returns `None` if no signal line found
+
+2. **Attention chime**:
+   - Deterministic tone synthesis: 440Hz sine, 200ms, 16-bit PCM, 24kHz — generated at runtime via `struct.pack`, no external deps
+   - New function `_generate_chime() -> bytes` returning WAV bytes
+   - Played before spoken summary via `_play_wav()`
+
+3. **Signal-aware speak mode**:
+   - New CLI flag: `--signal` — reads stdin, parses for signal line, plays chime + speaks summary
+   - New CLI flag: `--full` — with `--signal`, also speaks the full body after summary
+   - Without `--signal`, behavior unchanged (backward compatible)
+   - Pipeline: detect signal → play chime → speak summary via Arbor → optionally speak body
+
+4. **Operator hook** (VS Code task or shell alias):
+   - Document a VS Code task definition in `scripts/README_VOICE.md`: "SPEAK LATEST REPORT"
+   - Task reads from a known drop path (`pm_inbox/REPORT_INCOMING.md`) and pipes to `speak.py --signal`
+   - Alternative: shell alias `signal-report` that does the same
+   - No automatic chat interception — operator-triggered only
+
+**Files:**
+- `scripts/speak.py` (add `parse_signal()`, `_generate_chime()`, `--signal`/`--full` flags)
+- `scripts/README_VOICE.md` (new — VS Code task definition + shell alias docs)
+- `tests/test_speak_signal.py` (new — ~6 tests: parser, chime generation, CLI flag routing)
+
+**Key Constraints:**
+- No frozen contracts touched
+- No engine logic modified
+- Chime is pure math (sine wave synthesis) — no asset files needed
+- Backward compatible: existing `speak.py "text"` usage unchanged
+- Signal format is parse-only — agents adopt the `=== SIGNAL:` header convention voluntarily
+
+**Signal Usage Rules (for agents):**
+- Use only for completion reports, dispatch packages, or CP approvals
+- Do not use for routine chatter or minor clarifications
+- Keep first spoken line to one sentence max
+
+**Acceptance:** `echo "=== SIGNAL: REPORT_READY ===\nWO-CONDFIX-01 complete. All tests pass." | python scripts/speak.py --signal` plays chime then speaks summary. Parser returns None for text without signal line. Existing speak.py usage unchanged.
+
+---
+
 ### Wave C: Game Feel (After Waves A+B)
 
 #### WO-SPELLSLOTS-01 — Spell Slot Tracking
@@ -308,6 +369,7 @@ WAVE B (Parallel-safe after Wave A)
   WO-MANEUVER-CLI-01     (medium, 0 breaks, ~12 new tests)
   WO-STATUS-EXPAND-01    (small, 0 breaks, ~5 new tests)
   WO-AOO-DISPLAY-01      (micro, 0 breaks, ~4 new tests)
+  WO-VOICE-SIGNAL-01     (small, 0 breaks, ~6 new tests)  [scripts/ only]
 
 WAVE C (After Waves A+B, sequential)
   [CP for entity_fields.py — PO approval required]
@@ -332,11 +394,12 @@ WAVE C (After Waves A+B, sequential)
 | WO-MANEUVER-CLI-01 | LOW | 0 | ~12 | No |
 | WO-STATUS-EXPAND-01 | LOW | 0 | ~5 | No |
 | WO-AOO-DISPLAY-01 | LOW | 0 | ~4 | No |
+| WO-VOICE-SIGNAL-01 | LOW | 0 | ~6 | No |
 | WO-SPELLSLOTS-01 | HIGH | ~15 | ~10 | **YES** (entity_fields.py) |
 | WO-SPELLLIST-CLI-01 | LOW | 0 | ~4 | No |
 | WO-CHARSHEET-CLI-01 | LOW | 0 | ~5 | No |
 
-**Total new tests:** ~53
+**Total new tests:** ~59
 **Total test updates:** ~21
 **Frozen contract changes:** 1 (WO-SPELLSLOTS-01 only)
 
@@ -344,7 +407,7 @@ WAVE C (After Waves A+B, sequential)
 
 ## Post-Package State
 
-After all 9 WOs, the CLI will expose:
+After all 10 WOs, the CLI will expose:
 - Single attack, full attack, 6 combat maneuvers
 - Movement with visible AoO consequences
 - Spellcasting with slot tracking and spell list
@@ -352,6 +415,7 @@ After all 9 WOs, the CLI will expose:
 - Expanded status with AC, BAB, conditions
 - Character sheet inspection
 - Condition modifiers actually affecting combat
+- Audio signal on completion reports (chime + spoken summary via Arbor)
 
 Phase 4 remaining after this package:
 - WO-OSS-DICE-001 (Three.js dice roller — needs PO amendments)
@@ -364,6 +428,6 @@ Phase 4 remaining after this package:
 
 **Immediate (Wave A):** Dispatch WO-CONDFIX-01 now. Foundation fix, unblocks condition-dependent features.
 
-**Parallel (Wave B):** After Wave A completes, all 4 Wave B WOs can be dispatched to separate agents simultaneously (non-overlapping file sections in play.py — parser, display, status, events).
+**Parallel (Wave B):** After Wave A completes, all 5 Wave B WOs can be dispatched to separate agents simultaneously (non-overlapping file ownership: play.py parser, play.py display, play.py status, play.py events, scripts/speak.py).
 
 **Deferred (Wave C):** Begin CP drafting for entity_fields.py in parallel with Wave B execution.
