@@ -1,9 +1,9 @@
 # Opus PM Rehydration Packet
 
-> **Last Updated:** 2026-02-11
+> **Last Updated:** 2026-02-13
 > **PM:** Opus (Claude Opus 4.6) — full PM authority delegated by Thunder
 > **Canonical Plan v1:** `docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md` (status: **CLOSED** — WO-026 PASSED, all 7 steps complete)
-> **Canonical Plan v2:** `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` (status: **ACTIVE** — Phase 1 ready for dispatch)
+> **Canonical Plan v2:** `docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md` (status: **ACTIVE** — Phases 1-3 COMPLETE, Phase 4 ACTIVE)
 
 ---
 
@@ -25,9 +25,9 @@
 
 ```
 PLAN v1:     CLOSED — 26/26 WOs complete, A1-A7 all PASSED
-PLAN v2:     ACTIVE — Phase 1 COMPLETE (5/5 WOs delivered), A8 audit pending
-TESTS:       3302 passing
-NEXT:        Execute A8 (Spark Integration Proof) audit checkpoint → close Phase 1 → begin Phase 2
+PLAN v2:     ACTIVE — Phases 1-3 COMPLETE (A8, A9, A10 PASSED). Phase 4 ACTIVE (6/10 WOs INTEGRATED).
+TESTS:       5308 passing (5356 collected, 16 skipped hardware-gated)
+NEXT:        Phase 4 FUTURE queue: WO-INITIATIVE-01, WO-FULLATTACK-CLI-01, WO-SPELLSLOTS-01
 ```
 
 **For current WO status and step details, see PROJECT_STATE_DIGEST.md**
@@ -58,34 +58,18 @@ NEXT:        Execute A8 (Spark Integration Proof) audit checkpoint → close Pha
 
 ## PENDING DISPATCH
 
-**Phase 1: COMPLETE — No dispatches pending.**
+**Phase 1: COMPLETE. Phase 2: COMPLETE. Phase 3: COMPLETE. Phase 4: ACTIVE.**
 
-All 5 Phase 1 WOs delivered:
-- WO-027 Spark Adapter ✓
-- WO-028 Template Fallback ✓
-- WO-029 Kill Switch Suite ✓
-- WO-030 Narration Pipeline Wiring ✓
-- WO-031 Grammar Shield ✓
+Phase 4 (Playable CLI) — 6 WOs INTEGRATED:
+- WO-PLAYABLE-LOOP-01, WO-MOVE-01, WO-SELFTARGET-01, WO-OPS-FOUNDATION-01, WO-ENCOUNTER-01, WO-OPS-HYGIENE-01
 
-**Next gate:** A8 (Spark Integration Proof) audit checkpoint → closes Phase 1
+Phase 4 FUTURE queue (not yet dispatched):
+- WO-INITIATIVE-01 — Initiative system in CLI
+- WO-FULLATTACK-CLI-01 — Full attack action in CLI
+- WO-SPELLSLOTS-01 — Spell slot tracking
+- WO-OSS-DICE-001 — Three.js Dice Roller Demo (needs amendments per Jay review)
 
-**After A8:** Phase 2 (Content Breadth + Narration Bridge, WO-032→WO-037) drafting begins
-
-**Research (parallel with all implementation WOs):**
-- RQ-SPARK-001 — 3 sub-dispatches (A/B/C) — ALL DELIVERED ✓
-- RQ-NARR-001 — 3 sub-dispatches (A/B/C) — ALL DELIVERED ✓
-- Synthesis (sub-Q8 for each RQ) — READY to compile from findings
-
-**New Governance:**
-- Tactical Integrity Doctrine (`docs/governance/TACTICAL_INTEGRITY_DOCTRINE.md`) — APPROVED
-  - Anti-mercy enforcement, CR as RAW law, prescriptive tactical envelopes
-  - Detection pipeline + drift metrics spec for Phase 2
-  - Weight-level debiasing (DPO/abliteration) sequenced as Phase 3+ if measured drift warrants
-
-**Protocol:**
-- When dispatch presented: Add entry here
-- When Thunder confirms paste: Update PROJECT_STATE_DIGEST.md, clear this field
-- Always check pm_inbox/ before entering STANDBY
+**Next action:** Dispatch next Phase 4 WO from FUTURE queue (recommend WO-INITIATIVE-01 or WO-FULLATTACK-CLI-01).
 
 ---
 
@@ -138,9 +122,9 @@ All 5 Phase 1 WOs delivered:
 
 **Audit Checkpoints (see execution plans for full framework):**
 - A1-A7: PASSED (Plan v1 — all closed)
-- A8: Spark Integration Proof — after Plan v2 Phase 1
-- A9: Content Integration Proof — after Plan v2 Phase 2
-- A10: Playability Proof — after Plan v2 Phase 3
+- A8: Spark Integration Proof — PASSED (Phase 1 closed)
+- A9: Content Integration Proof — PASSED (Phase 2 closed)
+- A10: Playability Proof — PASSED (Phase 3 closed)
 - A11: Ship Gate — after Plan v2 Phase 4
 
 ---
