@@ -21,7 +21,10 @@ sources/
 
 # Generated output and scratch files
 output/
-models/
+models/*
+!models/voices/
+models/voices/*
+!models/voices/signal_reference_*.wav
 runtime_logs/
 nul
 srd_fixture_temp.json
