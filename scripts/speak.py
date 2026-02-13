@@ -7,6 +7,8 @@ Usage (from project root):
     python scripts/speak.py --volume 0.3 "Tests passing"
     python scripts/speak.py --backend kokoro "Fallback test"
     python scripts/speak.py --list-personas
+    echo "=== SIGNAL: REPORT_READY ===\\nWO done." | python scripts/speak.py --signal
+    echo "=== SIGNAL: REPORT_READY ===\\nSummary.\\nBody text." | python scripts/speak.py --signal --full
 
 Backend priority:
     1. Chatterbox (GPU, CUDA) — higher quality, emotion control
@@ -25,11 +27,13 @@ Called by the AI co-pilot to voice high-value signals:
 
 import argparse
 import io
+import math
 import struct
 import sys
 import tempfile
 import wave
 from pathlib import Path
+from typing import Optional
 
 # Project root = parent of scripts/
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -82,6 +86,116 @@ def _attenuate_wav(wav_bytes: bytes, volume: float) -> bytes:
         wf_out.writeframes(raw_out)
 
     return buf_out.getvalue()
+
+
+# ---------------------------------------------------------------------------
+# Signal parsing
+# ---------------------------------------------------------------------------
+
+def parse_signal(text: str) -> Optional[dict]:
+    """Detect === SIGNAL: REPORT_READY === header and extract summary + body.
+
+    Args:
+        text: Raw text that may contain a signal block.
+
+    Returns:
+        Dict with 'signal_type', 'summary', 'body' if signal found, else None.
+    """
+    lines = text.strip().split("\n")
+    if not lines or "=== SIGNAL:" not in lines[0]:
+        return None
+    signal_type = lines[0].split("SIGNAL:")[1].split("===")[0].strip()
+    # First non-empty line after banner = summary
+    summary = ""
+    body_lines = []
+    found_summary = False
+    for line in lines[1:]:
+        if not found_summary:
+            if line.strip():
+                summary = line.strip()
+                found_summary = True
+        else:
+            body_lines.append(line)
+    return {
+        "signal_type": signal_type,
+        "summary": summary,
+        "body": "\n".join(body_lines).strip(),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Chime generation (pure math — no external audio files)
+# ---------------------------------------------------------------------------
+
+def _generate_chime() -> bytes:
+    """Generate 440Hz sine wave chime, 200ms, 16-bit PCM, 24kHz.
+
+    Returns WAV bytes ready for playback. No external files needed.
+    """
+    sample_rate = 24000
+    duration = 0.2
+    frequency = 440
+    num_samples = int(sample_rate * duration)
+    samples = []
+    for i in range(num_samples):
+        t = i / sample_rate
+        # Apply fade envelope (10ms attack, 10ms release)
+        envelope = 1.0
+        if t < 0.01:
+            envelope = t / 0.01
+        elif t > duration - 0.01:
+            envelope = (duration - t) / 0.01
+        value = int(16000 * envelope * math.sin(2 * math.pi * frequency * t))
+        samples.append(struct.pack('<h', max(-32768, min(32767, value))))
+    pcm = b''.join(samples)
+
+    # Build WAV file in memory
+    buf = io.BytesIO()
+    with wave.open(buf, "wb") as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)  # 16-bit
+        wf.setframerate(sample_rate)
+        wf.writeframes(pcm)
+    return buf.getvalue()
+
+
+# ---------------------------------------------------------------------------
+# Sentence-boundary chunking (TD-023 fix)
+# ---------------------------------------------------------------------------
+
+def _chunk_by_sentence(text: str, max_words: int = 55) -> list:
+    """Split text at sentence boundaries to stay under Chatterbox generation ceiling.
+
+    Chatterbox has a ~60-80 word generation ceiling. Text exceeding this limit
+    is split at sentence boundaries ('. ') so each chunk can be generated and
+    played sequentially without mid-sentence truncation.
+
+    Args:
+        text: Input text to chunk.
+        max_words: Maximum words per chunk (default 55, conservative margin).
+
+    Returns:
+        List of text chunks, each ending with a period.
+    """
+    sentences = text.replace(".\n", ". ").split(". ")
+    chunks = []
+    current = []
+    current_words = 0
+    for sentence in sentences:
+        sentence = sentence.strip()
+        if not sentence:
+            continue
+        word_count = len(sentence.split())
+        if current_words + word_count > max_words and current:
+            chunks.append(". ".join(current) + ".")
+            current = [sentence]
+            current_words = word_count
+        else:
+            current.append(sentence)
+            current_words += word_count
+    if current:
+        chunks.append(". ".join(current) + ".")
+    return chunks if chunks else [text]
 
 
 # ---------------------------------------------------------------------------
@@ -288,11 +402,39 @@ def main() -> None:
         "--list-personas", action="store_true",
         help="List available voice personas"
     )
+    parser.add_argument(
+        "--signal", action="store_true",
+        help="Parse stdin for signal block (chime + spoken summary)"
+    )
+    parser.add_argument(
+        "--full", action="store_true",
+        help="With --signal, also speak full body text (chunked at sentence boundaries)"
+    )
     args = parser.parse_args()
 
     if args.list_personas:
         list_personas()
         return
+
+    # Signal mode: parse stdin for signal block
+    if args.signal:
+        text = sys.stdin.read()
+        result = parse_signal(text)
+        if result is None:
+            sys.exit(0)  # No signal found — silent exit
+        # Play chime
+        chime = _generate_chime()
+        if args.volume < 1.0:
+            chime = _attenuate_wav(chime, args.volume)
+        _play_wav(chime)
+        # Speak summary (Chatterbox only — no Kokoro fallback for signal voice)
+        speak(result["summary"], args.persona, args.volume, backend="chatterbox")
+        # Optionally speak full body, chunked at sentence boundaries
+        if args.full and result["body"]:
+            chunks = _chunk_by_sentence(result["body"])
+            for chunk in chunks:
+                speak(chunk, args.persona, args.volume, backend="chatterbox")
+        sys.exit(0)
 
     if not args.text:
         text = sys.stdin.read().strip()
