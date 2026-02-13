@@ -203,7 +203,7 @@ def test_assemble_attack_hit(frozen_view):
     assert brief.severity == "severe"  # 4/10 = 40%
     assert not brief.target_defeated
     assert brief.provenance_tag == "[DERIVED]"
-    assert brief.source_event_ids == [1, 2]
+    assert brief.source_event_ids == (1, 2)
 
 
 def test_assemble_attack_miss(frozen_view):
@@ -344,7 +344,7 @@ def test_assemble_with_previous_narrations(frozen_view):
         previous_narrations=previous_narrations,
     )
 
-    assert brief.previous_narrations == previous_narrations
+    assert brief.previous_narrations == tuple(previous_narrations)
 
 
 def test_assemble_with_scene_description(frozen_view):

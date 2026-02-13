@@ -97,17 +97,17 @@ class NarrativeBrief:
     target_defeated: bool = False
 
     # Gear affordance (WO-056, AD-005 Layer 3)
-    visible_gear: Optional[List[str]] = None  # Display names, NOT item_ids
+    visible_gear: Optional[tuple] = None  # Display names, NOT item_ids
 
     # Presentation semantics (AD-007 Layer B)
     presentation_semantics: Optional[AbilityPresentationEntry] = None
 
     # Scene context (for continuity)
-    previous_narrations: List[str] = field(default_factory=list)
+    previous_narrations: tuple = ()
     scene_description: Optional[str] = None
 
     # Provenance tracking
-    source_event_ids: List[int] = field(default_factory=list)
+    source_event_ids: tuple = ()
     provenance_tag: str = "[DERIVED]"
 
     def to_dict(self) -> Dict[str, Any]:
@@ -129,15 +129,15 @@ class NarrativeBrief:
             "condition_removed": self.condition_removed,
             "maneuver_type": self.maneuver_type,
             "target_defeated": self.target_defeated,
-            "visible_gear": self.visible_gear,
+            "visible_gear": list(self.visible_gear) if self.visible_gear else self.visible_gear,
             "presentation_semantics": (
                 self.presentation_semantics.to_dict()
                 if self.presentation_semantics is not None
                 else None
             ),
-            "previous_narrations": self.previous_narrations,
+            "previous_narrations": list(self.previous_narrations),
             "scene_description": self.scene_description,
-            "source_event_ids": self.source_event_ids,
+            "source_event_ids": list(self.source_event_ids),
             "provenance_tag": self.provenance_tag,
         }
 
@@ -164,15 +164,15 @@ class NarrativeBrief:
             condition_removed=data.get("condition_removed"),
             maneuver_type=data.get("maneuver_type"),
             target_defeated=data.get("target_defeated", False),
-            visible_gear=data.get("visible_gear"),
+            visible_gear=tuple(data.get("visible_gear")) if data.get("visible_gear") is not None else None,
             presentation_semantics=(
                 AbilityPresentationEntry.from_dict(data["presentation_semantics"])
                 if data.get("presentation_semantics") is not None
                 else None
             ),
-            previous_narrations=data.get("previous_narrations", []),
+            previous_narrations=tuple(data.get("previous_narrations", ())),
             scene_description=data.get("scene_description"),
-            source_event_ids=data.get("source_event_ids", []),
+            source_event_ids=tuple(data.get("source_event_ids", ())),
             provenance_tag=data.get("provenance_tag", "[DERIVED]"),
         )
 
@@ -620,11 +620,11 @@ def assemble_narrative_brief(
         condition_removed=condition_removed,
         maneuver_type=maneuver_type,
         target_defeated=target_defeated,
-        visible_gear=visible_gear,
+        visible_gear=tuple(visible_gear) if visible_gear else None,
         presentation_semantics=presentation_semantics,
-        previous_narrations=previous_narrations or [],
+        previous_narrations=tuple(previous_narrations) if previous_narrations else (),
         scene_description=scene_description,
-        source_event_ids=event_ids,
+        source_event_ids=tuple(event_ids),
         provenance_tag="[DERIVED]",
     )
 

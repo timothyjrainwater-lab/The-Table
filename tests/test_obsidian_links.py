@@ -57,7 +57,8 @@ def test_citation_with_obsidian_uri():
     )
 
     note_path = build_rulebook_page_note_path("PHB", 157)
-    enhanced = with_obsidian_uri(original, "DnD", note_path)
+    uri = build_obsidian_uri("DnD", note_path)
+    enhanced = with_obsidian_uri(original, uri)
 
     assert enhanced.source_id == "681f92bc94ff"
     assert enhanced.short_name == "PHB"
@@ -78,7 +79,7 @@ def test_with_obsidian_uri_preserves_all_fields():
         rule_id="ability_scores.con"
     )
 
-    enhanced = with_obsidian_uri(original, "MyVault", "test.md")
+    enhanced = with_obsidian_uri(original, build_obsidian_uri("MyVault", "test.md"))
 
     assert enhanced.source_id == original.source_id
     assert enhanced.short_name == original.short_name

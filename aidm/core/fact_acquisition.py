@@ -63,14 +63,19 @@ class FactRequest:
     entity_id: str
     """Entity to query facts for."""
 
-    required_attributes: List[str]
-    """Attributes that must be provided."""
+    required_attributes: tuple
+    """Attributes that must be provided (frozen tuple for immutability)."""
 
     context: Optional[str] = None
     """Optional context hint for Spark."""
 
     timeout_ms: int = 5000
     """Timeout in milliseconds (default 5000)."""
+
+    def __post_init__(self):
+        """Freeze mutable list→tuple if passed as list."""
+        if isinstance(self.required_attributes, list):
+            object.__setattr__(self, 'required_attributes', tuple(self.required_attributes))
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary.
@@ -99,7 +104,7 @@ class FactRequest:
         return cls(
             request_id=data["request_id"],
             entity_id=data["entity_id"],
-            required_attributes=list(data["required_attributes"]),
+            required_attributes=tuple(data["required_attributes"]),
             context=data.get("context"),
             timeout_ms=data.get("timeout_ms", 5000),
         )
@@ -133,6 +138,12 @@ class FactResponse:
 
     error: Optional[str] = None
     """Error message if not valid."""
+
+    def __post_init__(self):
+        """Freeze mutable dict field for immutability contract."""
+        from types import MappingProxyType
+        if isinstance(self.facts, dict):
+            object.__setattr__(self, 'facts', MappingProxyType(self.facts))
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary.
@@ -201,12 +212,9 @@ class ValidationResult:
     """List of validation warning messages."""
 
     def __post_init__(self):
-        """Ensure list fields are properly initialized for frozen dataclass."""
-        # For frozen dataclass, we need to use object.__setattr__
-        if not isinstance(self.errors, list):
-            object.__setattr__(self, 'errors', list(self.errors))
-        if not isinstance(self.warnings, list):
-            object.__setattr__(self, 'warnings', list(self.warnings))
+        """WO-AUDIT-003: Freeze mutable containers in frozen dataclass."""
+        object.__setattr__(self, 'errors', tuple(self.errors))
+        object.__setattr__(self, 'warnings', tuple(self.warnings))
 
 
 # ==============================================================================
@@ -236,13 +244,13 @@ class AcquisitionResult:
     """Error messages if any."""
 
     def __post_init__(self):
-        """Ensure fields are properly initialized for frozen dataclass."""
-        if not isinstance(self.acquired_facts, dict):
-            object.__setattr__(self, 'acquired_facts', dict(self.acquired_facts))
-        if not isinstance(self.defaulted_facts, dict):
-            object.__setattr__(self, 'defaulted_facts', dict(self.defaulted_facts))
-        if not isinstance(self.errors, list):
-            object.__setattr__(self, 'errors', list(self.errors))
+        """WO-AUDIT-003: Freeze mutable containers in frozen dataclass."""
+        from types import MappingProxyType
+        if isinstance(self.acquired_facts, dict):
+            object.__setattr__(self, 'acquired_facts', MappingProxyType(self.acquired_facts))
+        if isinstance(self.defaulted_facts, dict):
+            object.__setattr__(self, 'defaulted_facts', MappingProxyType(self.defaulted_facts))
+        object.__setattr__(self, 'errors', tuple(self.errors))
 
 
 # ==============================================================================
@@ -299,7 +307,7 @@ class FactAcquisitionManager:
         return FactRequest(
             request_id=request_id,
             entity_id=entity_id,
-            required_attributes=list(missing_attrs),
+            required_attributes=tuple(missing_attrs),
             context=context,
             timeout_ms=timeout_ms,
         )

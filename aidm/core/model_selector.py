@@ -35,13 +35,10 @@ from aidm.schemas.hardware_capability import (
     HardwareTier,
 )
 
-# Spark model registry (single source of truth for model data)
-try:
-    from aidm.spark.model_registry import ModelRegistry as SparkModelRegistry
-    SPARK_REGISTRY_AVAILABLE = True
-except ImportError:
-    SPARK_REGISTRY_AVAILABLE = False
-    SparkModelRegistry = None  # type: ignore
+# NOTE: Model registry data is consumed from models.yaml at runtime.
+# BL-004: Box must NOT import from Spark. Spark registers itself at
+# runtime wiring, not via static import in core/.
+# (Violation fixed 2026-02-13 per WO-AUDIT-004)
 
 # Configure logging
 logger = logging.getLogger(__name__)

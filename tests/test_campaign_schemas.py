@@ -78,10 +78,9 @@ class TestSessionZeroConfig:
         assert "preparation_depth" in errors[0]
 
     def test_validate_empty_ruleset_id(self):
-        """Empty ruleset_id should produce error."""
-        config = SessionZeroConfig(ruleset_id="")
-        errors = config.validate()
-        assert any("ruleset_id" in e for e in errors)
+        """Empty ruleset_id should raise ValueError at construction."""
+        with pytest.raises(ValueError, match="ruleset_id must not be empty"):
+            SessionZeroConfig(ruleset_id="")
 
     def test_amendments_append_only(self):
         """Amendments should be append-only."""
@@ -305,18 +304,14 @@ class TestPrepJob:
         assert len(job.validate()) == 0
 
     def test_validate_invalid_job_type(self):
-        """Invalid job_type should produce error."""
-        job = PrepJob(job_type="INVALID_TYPE")
-        errors = job.validate()
-        assert len(errors) == 1
-        assert "job_type" in errors[0]
+        """Invalid job_type should raise ValueError at construction."""
+        with pytest.raises(ValueError, match="Invalid job_type"):
+            PrepJob(job_type="INVALID_TYPE")
 
     def test_validate_invalid_status(self):
-        """Invalid status should produce error."""
-        job = PrepJob(status="exploded")
-        errors = job.validate()
-        assert len(errors) == 1
-        assert "status" in errors[0]
+        """Invalid status should raise ValueError at construction."""
+        with pytest.raises(ValueError, match="Invalid status"):
+            PrepJob(status="exploded")
 
     def test_all_job_types_valid(self):
         """All defined job types should validate."""
@@ -380,12 +375,13 @@ class TestAssetRecord:
     """Tests for AssetRecord."""
 
     def test_create_default(self):
-        """Should create record with defaults."""
-        record = AssetRecord()
+        """Should create record with defaults (semantic_key required)."""
+        record = AssetRecord(semantic_key="test:asset:v1")
 
         assert record.kind == "PLACEHOLDER"
         assert record.provenance == "GENERATED"
         assert record.regen_policy == "REGEN_ON_MISS"
+        assert record.semantic_key == "test:asset:v1"
 
     def test_deterministic_asset_id(self):
         """Same inputs should produce same asset_id."""
@@ -423,10 +419,9 @@ class TestAssetRecord:
         assert len(record.validate()) == 0
 
     def test_validate_invalid_kind(self):
-        """Invalid kind should produce error."""
-        record = AssetRecord(kind="VIDEO", semantic_key="test")
-        errors = record.validate()
-        assert any("kind" in e for e in errors)
+        """Invalid kind should raise ValueError at construction."""
+        with pytest.raises(ValueError, match="Invalid kind"):
+            AssetRecord(kind="VIDEO", semantic_key="test")
 
     def test_validate_invalid_provenance(self):
         """Invalid provenance should produce error."""
@@ -441,10 +436,9 @@ class TestAssetRecord:
         assert any("regen_policy" in e for e in errors)
 
     def test_validate_empty_semantic_key(self):
-        """Empty semantic_key should produce error."""
-        record = AssetRecord(semantic_key="")
-        errors = record.validate()
-        assert any("semantic_key" in e for e in errors)
+        """Empty semantic_key should raise ValueError at construction."""
+        with pytest.raises(ValueError, match="semantic_key must not be empty"):
+            AssetRecord(semantic_key="")
 
     def test_all_kinds_valid(self):
         """All defined kinds should validate."""

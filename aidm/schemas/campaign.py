@@ -69,6 +69,13 @@ class SessionZeroConfig:
     amendments: List[Dict[str, Any]] = field(default_factory=list)
     """Append-only ruleset amendments applied after initial config."""
 
+    def __post_init__(self) -> None:
+        """Validate structural invariants on construction."""
+        if not self.config_schema_version:
+            raise ValueError("config_schema_version must not be empty")
+        if not self.ruleset_id:
+            raise ValueError("ruleset_id must not be empty")
+
     def validate(self) -> List[str]:
         """Validate config values. Returns list of errors (empty = valid)."""
         errors = []
@@ -220,6 +227,15 @@ class CampaignManifest:
     tool_versions: Dict[str, str] = field(default_factory=dict)
     """Optional version pinning for tools (e.g., {'python': '3.11'})."""
 
+    def __post_init__(self) -> None:
+        """Validate structural invariants on construction."""
+        if not self.campaign_id:
+            raise ValueError("campaign_id must not be empty")
+        if not self.engine_version:
+            raise ValueError("engine_version must not be empty")
+        if not self.config_schema_version:
+            raise ValueError("config_schema_version must not be empty")
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
         return {
@@ -303,6 +319,19 @@ class PrepJob:
 
     error: Optional[str] = None
     """Error message if status == 'failed'."""
+
+    def __post_init__(self) -> None:
+        """Validate structural invariants on construction."""
+        valid_types = ("INIT_SCAFFOLD", "SEED_ASSETS", "BUILD_START_STATE", "VALIDATE_READY")
+        if self.job_type not in valid_types:
+            raise ValueError(
+                f"Invalid job_type: '{self.job_type}'. Must be one of {valid_types}."
+            )
+        valid_statuses = ("pending", "running", "done", "failed")
+        if self.status not in valid_statuses:
+            raise ValueError(
+                f"Invalid status: '{self.status}'. Must be one of {valid_statuses}."
+            )
 
     def compute_output_hash(self) -> str:
         """Compute deterministic hash of outputs."""
@@ -399,6 +428,16 @@ class AssetRecord:
 
     regen_policy: str = "REGEN_ON_MISS"
     """What to do if asset is missing: REGEN_ON_MISS | FAIL_ON_MISS."""
+
+    def __post_init__(self) -> None:
+        """Validate structural invariants on construction."""
+        if not self.semantic_key:
+            raise ValueError("semantic_key must not be empty")
+        valid_kinds = ("PLACEHOLDER", "PORTRAIT", "SCENE", "AMBIENT_AUDIO", "MAP", "HANDOUT")
+        if self.kind not in valid_kinds:
+            raise ValueError(
+                f"Invalid kind: '{self.kind}'. Must be one of {valid_kinds}."
+            )
 
     def validate(self) -> List[str]:
         """Validate asset record fields. Returns list of errors."""

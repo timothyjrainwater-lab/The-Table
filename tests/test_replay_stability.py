@@ -243,7 +243,7 @@ class TestNarrativeBriefRoundTrip:
             weapon_name="longsword",
             damage_type="slashing",
             target_defeated=False,
-            source_event_ids=[100, 101, 102],
+            source_event_ids=(100, 101, 102),
         )
 
         serialized = brief.to_dict()
@@ -303,7 +303,7 @@ class TestNarrativeBriefRoundTrip:
         assert restored.outcome_summary == ""
         assert restored.severity == "minor"
         assert restored.target_defeated is False
-        assert restored.source_event_ids == []
+        assert restored.source_event_ids == ()
         assert restored.provenance_tag == "[DERIVED]"
 
     def test_real_orchestrator_brief_round_trip(self):

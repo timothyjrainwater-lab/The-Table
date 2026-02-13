@@ -747,7 +747,15 @@ class SpellResolver:
         base_roll = self._save_rng.randint(1, 20)
         save_bonus = target.get_save_bonus(save_type)
         total_roll = base_roll + save_bonus + cover_bonus
-        saved = total_roll >= dc
+
+        # PHB p.177: Natural 1 on a saving throw is always a failure,
+        # natural 20 is always a success (regardless of modifiers/DC).
+        if base_roll == 20:
+            saved = True
+        elif base_roll == 1:
+            saved = False
+        else:
+            saved = total_roll >= dc
 
         modifiers = []
         if cover_bonus > 0:

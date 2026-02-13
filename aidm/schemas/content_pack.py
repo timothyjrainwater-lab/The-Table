@@ -40,7 +40,7 @@ def _to_json_value(val: Any) -> Any:
     """Convert a dataclass field value to a JSON-serializable form."""
     if isinstance(val, tuple):
         return [_to_json_value(v) for v in val]
-    if isinstance(val, dict):
+    if isinstance(val, Mapping):
         return {k: _to_json_value(v) for k, v in val.items()}
     return val
 
@@ -403,10 +403,16 @@ class MechanicalCreatureTemplate:
 
     def __post_init__(self) -> None:
         # Fix mutable default for speed_modes and ac_components
+        # WO-AUDIT-003: Freeze dict fields to prevent post-construction mutation
+        from types import MappingProxyType
         if self.speed_modes is None:
-            object.__setattr__(self, "speed_modes", {})
+            object.__setattr__(self, "speed_modes", MappingProxyType({}))
+        elif isinstance(self.speed_modes, dict):
+            object.__setattr__(self, "speed_modes", MappingProxyType(self.speed_modes))
         if self.ac_components is None:
-            object.__setattr__(self, "ac_components", {})
+            object.__setattr__(self, "ac_components", MappingProxyType({}))
+        elif isinstance(self.ac_components, dict):
+            object.__setattr__(self, "ac_components", MappingProxyType(self.ac_components))
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to JSON-compatible dict."""
@@ -547,8 +553,12 @@ class MechanicalFeatTemplate:
     source_id: str = ""
 
     def __post_init__(self) -> None:
+        # WO-AUDIT-003: Freeze dict fields to prevent post-construction mutation
+        from types import MappingProxyType
         if self.prereq_ability_scores is None:
-            object.__setattr__(self, "prereq_ability_scores", {})
+            object.__setattr__(self, "prereq_ability_scores", MappingProxyType({}))
+        elif isinstance(self.prereq_ability_scores, dict):
+            object.__setattr__(self, "prereq_ability_scores", MappingProxyType(self.prereq_ability_scores))
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to JSON-compatible dict."""
@@ -610,8 +620,12 @@ class ContentPack:
     extraction_versions: Dict[str, str] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
+        # WO-AUDIT-003: Freeze dict fields to prevent post-construction mutation
+        from types import MappingProxyType
         if self.extraction_versions is None:
-            object.__setattr__(self, "extraction_versions", {})
+            object.__setattr__(self, "extraction_versions", MappingProxyType({}))
+        elif isinstance(self.extraction_versions, dict):
+            object.__setattr__(self, "extraction_versions", MappingProxyType(self.extraction_versions))
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to JSON-compatible dict."""

@@ -656,8 +656,11 @@ def apply_full_attack_events(world_state: WorldState, events: List[Event]) -> Wo
     Returns:
         Updated world state (new instance)
     """
-    # Deep copy entities
-    entities = {eid: e.copy() for eid, e in world_state.entities.items()}
+    # Deep copy entities — must use deepcopy, not shallow .copy(),
+    # because entity dicts contain nested structures (conditions lists, etc.)
+    # that would be shared references with shallow copy.
+    from copy import deepcopy
+    entities = {eid: deepcopy(e) for eid, e in world_state.entities.items()}
 
     for event in events:
         if event.event_type == "hp_changed":
@@ -674,5 +677,5 @@ def apply_full_attack_events(world_state: WorldState, events: List[Event]) -> Wo
     return WorldState(
         ruleset_version=world_state.ruleset_version,
         entities=entities,
-        active_combat=world_state.active_combat.copy() if world_state.active_combat else None
+        active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None
     )

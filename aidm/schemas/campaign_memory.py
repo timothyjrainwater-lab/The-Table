@@ -154,7 +154,7 @@ class CharacterEvidenceEntry:
     session_id: str
     """Session where this evidence occurred"""
 
-    evidence_type: str
+    evidence_type: EvidenceType
     """Type of evidence (must match EvidenceType values)"""
 
     description: str
@@ -175,7 +175,7 @@ class CharacterEvidenceEntry:
     deity_ref: Optional[str] = None
     """Deity reference for clerics/paladins (optional)"""
 
-    alignment_axis_tags: List[str] = field(default_factory=list)
+    alignment_axis_tags: List[AlignmentAxisTag] = field(default_factory=list)
     """Alignment axis tags (not final alignment, just tags)"""
 
     citations: List[Dict[str, Any]] = field(default_factory=list)
@@ -319,7 +319,7 @@ class ClueCard:
     description: str = ""
     """Clue description"""
 
-    status: str = "unresolved"
+    status: ClueStatus = "unresolved"
     """Clue status (unresolved/partial/resolved)"""
 
     links: List[str] = field(default_factory=list)

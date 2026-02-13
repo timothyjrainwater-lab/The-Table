@@ -1284,7 +1284,7 @@ class TestMultiEventPipeline:
         assert brief.target_defeated
         assert brief.severity == "lethal"
         assert brief.spell_name == "disintegrate"
-        assert brief.source_event_ids == [1003, 1004, 1005]
+        assert brief.source_event_ids == (1003, 1004, 1005)
 
     def test_provenance_tracks_all_events(self, frozen):
         """source_event_ids collects all event IDs."""
@@ -1302,5 +1302,5 @@ class TestMultiEventPipeline:
             narration_token="attack_hit",
             frozen_view=frozen,
         )
-        assert brief.source_event_ids == [1, 2, 3]
+        assert brief.source_event_ids == (1, 2, 3)
         assert brief.provenance_tag == "[DERIVED]"

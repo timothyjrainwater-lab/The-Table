@@ -1066,3 +1066,173 @@ class TestDiceRolling:
         rolls, total = resolver._roll_dice("2d6-2")
         assert len(rolls) == 2
         assert total == sum(rolls) - 2
+
+# ==============================================================================
+# TESTS: Natural 1/20 on Spell Saving Throws (WO-AUDIT-002)
+# ==============================================================================
+
+class TestNatural1And20SpellSaves:
+    """PHB p.177: Natural 1 always fails, natural 20 always succeeds on saves.
+
+    WO-AUDIT-002: spell_resolver._resolve_save must honor natural 1/20 rules
+    the same way save_resolver.resolve_save does.
+    """
+
+    def test_natural_1_always_fails_despite_high_modifier(self, grid, spell_registry):
+        """Natural 1 on save roll -> save fails even with very high save bonus.
+
+        PHB p.177: A natural 1 is always a failure.
+        """
+        from unittest.mock import patch, MagicMock
+
+        rng = RNGManager(master_seed=7777)
+        resolver = create_spell_resolver(grid, rng, spell_registry)
+
+        grid.place_entity("caster_nat1", Position(0, 0), SizeCategory.MEDIUM)
+        grid.place_entity("target_nat1", Position(4, 0), SizeCategory.MEDIUM)
+
+        caster = CasterStats(
+            caster_id="caster_nat1",
+            position=Position(0, 0),
+            caster_level=5,
+            spell_dc_base=10,  # DC = 10 + 3 (spell level) = 13 for hold_person
+        )
+        # Extremely high Will save: +50. Total would be 1+50=51, well above DC 13.
+        # But a natural 1 must still fail.
+        target = TargetStats(
+            entity_id="target_nat1",
+            position=Position(4, 0),
+            hit_points=50,
+            max_hit_points=50,
+            will_save=50,
+        )
+
+        # Patch the save RNG stream to always return 1
+        original_randint = resolver._save_rng.randint
+        resolver._save_rng.randint = lambda a, b: 1
+
+        intent = SpellCastIntent(
+            caster_id=caster.caster_id,
+            spell_id="hold_person",  # Will save negates, level 3
+            target_entity_id="target_nat1",
+        )
+        result = resolver.resolve_spell(intent, caster, {"target_nat1": target})
+
+        # Restore original
+        resolver._save_rng.randint = original_randint
+
+        # Natural 1: save MUST fail despite +50 bonus
+        assert result.saves_made.get("target_nat1") is False, (
+            "Natural 1 must always fail the save per PHB p.177"
+        )
+        # Failed save on hold_person -> paralyzed condition applied
+        assert ("target_nat1", "paralyzed") in result.conditions_applied
+
+    def test_natural_20_always_succeeds_despite_low_modifier(self, grid, spell_registry):
+        """Natural 20 on save roll -> save succeeds even with very low save bonus.
+
+        PHB p.177: A natural 20 is always a success.
+        """
+        rng = RNGManager(master_seed=8888)
+        resolver = create_spell_resolver(grid, rng, spell_registry)
+
+        grid.place_entity("caster_nat20", Position(0, 0), SizeCategory.MEDIUM)
+        grid.place_entity("target_nat20", Position(4, 0), SizeCategory.MEDIUM)
+
+        caster = CasterStats(
+            caster_id="caster_nat20",
+            position=Position(0, 0),
+            caster_level=20,
+            spell_dc_base=30,  # DC = 30 + 3 = 33 for hold_person
+        )
+        # Extremely low Will save: -10. Total would be 20+(-10)=10, well below DC 33.
+        # But a natural 20 must still succeed.
+        target = TargetStats(
+            entity_id="target_nat20",
+            position=Position(4, 0),
+            hit_points=50,
+            max_hit_points=50,
+            will_save=-10,
+        )
+
+        # Patch the save RNG stream to always return 20
+        original_randint = resolver._save_rng.randint
+        resolver._save_rng.randint = lambda a, b: 20
+
+        intent = SpellCastIntent(
+            caster_id=caster.caster_id,
+            spell_id="hold_person",  # Will save negates, level 3
+            target_entity_id="target_nat20",
+        )
+        result = resolver.resolve_spell(intent, caster, {"target_nat20": target})
+
+        # Restore original
+        resolver._save_rng.randint = original_randint
+
+        # Natural 20: save MUST succeed despite -10 bonus and DC 33
+        assert result.saves_made.get("target_nat20") is True, (
+            "Natural 20 must always succeed the save per PHB p.177"
+        )
+        # Successful save on hold_person -> no paralyzed condition
+        assert ("target_nat20", "paralyzed") not in result.conditions_applied
+
+    def test_normal_save_rolls_use_modifier_correctly(self, grid, spell_registry):
+        """Normal rolls (not 1 or 20) still compare total vs DC correctly.
+
+        Ensures the natural 1/20 fix did not break normal save logic.
+        """
+        rng = RNGManager(master_seed=9999)
+        resolver = create_spell_resolver(grid, rng, spell_registry)
+
+        grid.place_entity("caster_norm", Position(0, 0), SizeCategory.MEDIUM)
+        grid.place_entity("target_norm", Position(4, 0), SizeCategory.MEDIUM)
+
+        caster = CasterStats(
+            caster_id="caster_norm",
+            position=Position(0, 0),
+            caster_level=5,
+            spell_dc_base=10,  # DC = 10 + 3 = 13 for hold_person
+        )
+
+        # --- Case A: roll 10, bonus +5 -> total 15 >= DC 13 -> save succeeds ---
+        target_a = TargetStats(
+            entity_id="target_norm",
+            position=Position(4, 0),
+            hit_points=50,
+            max_hit_points=50,
+            will_save=5,
+        )
+
+        original_randint = resolver._save_rng.randint
+        resolver._save_rng.randint = lambda a, b: 10
+
+        intent = SpellCastIntent(
+            caster_id=caster.caster_id,
+            spell_id="hold_person",
+            target_entity_id="target_norm",
+        )
+        result_a = resolver.resolve_spell(intent, caster, {"target_norm": target_a})
+
+        assert result_a.saves_made.get("target_norm") is True, (
+            "Roll 10 + bonus 5 = 15 >= DC 13 should succeed"
+        )
+
+        # --- Case B: roll 5, bonus +2 -> total 7 < DC 13 -> save fails ---
+        target_b = TargetStats(
+            entity_id="target_norm",
+            position=Position(4, 0),
+            hit_points=50,
+            max_hit_points=50,
+            will_save=2,
+        )
+
+        resolver._save_rng.randint = lambda a, b: 5
+
+        result_b = resolver.resolve_spell(intent, caster, {"target_norm": target_b})
+
+        # Restore original
+        resolver._save_rng.randint = original_randint
+
+        assert result_b.saves_made.get("target_norm") is False, (
+            "Roll 5 + bonus 2 = 7 < DC 13 should fail"
+        )

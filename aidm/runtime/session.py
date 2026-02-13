@@ -331,10 +331,17 @@ class RuntimeSession:
         # Resolve through engine
         result, new_state = self.engine_resolver(intent, self.world_state, self.rng)
 
-        # Update intent with result reference
-        intent.result_id = result.result_id
-        intent.resolved_at = timestamp
-        intent.status = IntentStatus.RESOLVED
+        # Update intent with result reference.
+        # The intent is frozen (CONFIRMED), so normal attribute assignment goes
+        # through IntentObject.__setattr__ which permits only the resolution
+        # fields.  We use object.__setattr__() explicitly to make it obvious
+        # that we are writing to a frozen object on purpose and to guarantee
+        # we never accidentally trigger descriptor / property side-effects.
+        object.__setattr__(intent, "result_id", result.result_id)
+        object.__setattr__(intent, "resolved_at", timestamp)
+        # Transition status via the lifecycle guard so the valid-transition
+        # check still fires.
+        intent.transition_to(IntentStatus.RESOLVED, timestamp=timestamp)
 
         # Update world state
         self.world_state = new_state

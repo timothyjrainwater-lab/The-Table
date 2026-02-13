@@ -113,6 +113,28 @@ def get_threatened_squares(
     return threatened
 
 
+def _extract_maneuver_params(action_name, intent, world_state):
+    """Extract common parameters for target-only maneuver AoO provocation.
+
+    All target-only maneuvers (trip, disarm, grapple, overrun, sunder) share
+    the same extraction pattern: attacker provokes, target gets the AoO,
+    and we need the attacker's position for threat calculation.
+
+    Returns:
+        Tuple of (provoking_action, provoker_id, target_only, target_id, from_pos)
+    """
+    from aidm.schemas.entity_fields import EF
+    provoker_id = intent.attacker_id
+    target_id = intent.target_id
+    from_pos = None
+    provoker = world_state.entities.get(provoker_id)
+    if provoker:
+        pos_dict = provoker.get(EF.POSITION)
+        if pos_dict:
+            from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
+    return action_name, provoker_id, True, target_id, from_pos
+
+
 def check_aoo_triggers(
     world_state: WorldState,
     actor_id: str,
@@ -192,63 +214,33 @@ def check_aoo_triggers(
 
     elif isinstance(intent, TripIntent):
         # Trip provokes from TARGET only (unarmed attack)
-        provoking_action = "trip"
-        provoker_id = intent.attacker_id
-        target_only = True
-        target_id = intent.target_id
-        provoker = world_state.entities.get(provoker_id)
-        if provoker:
-            pos_dict = provoker.get(EF.POSITION)
-            if pos_dict:
-                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
+        provoking_action, provoker_id, target_only, target_id, from_pos = (
+            _extract_maneuver_params("trip", intent, world_state)
+        )
 
     elif isinstance(intent, OverrunIntent):
         # Overrun provokes from TARGET only (entering their space)
-        provoking_action = "overrun"
-        provoker_id = intent.attacker_id
-        target_only = True
-        target_id = intent.target_id
-        provoker = world_state.entities.get(provoker_id)
-        if provoker:
-            pos_dict = provoker.get(EF.POSITION)
-            if pos_dict:
-                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
+        provoking_action, provoker_id, target_only, target_id, from_pos = (
+            _extract_maneuver_params("overrun", intent, world_state)
+        )
 
     elif isinstance(intent, SunderIntent):
         # Sunder provokes from TARGET only
-        provoking_action = "sunder"
-        provoker_id = intent.attacker_id
-        target_only = True
-        target_id = intent.target_id
-        provoker = world_state.entities.get(provoker_id)
-        if provoker:
-            pos_dict = provoker.get(EF.POSITION)
-            if pos_dict:
-                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
+        provoking_action, provoker_id, target_only, target_id, from_pos = (
+            _extract_maneuver_params("sunder", intent, world_state)
+        )
 
     elif isinstance(intent, DisarmIntent):
         # Disarm provokes from TARGET only
-        provoking_action = "disarm"
-        provoker_id = intent.attacker_id
-        target_only = True
-        target_id = intent.target_id
-        provoker = world_state.entities.get(provoker_id)
-        if provoker:
-            pos_dict = provoker.get(EF.POSITION)
-            if pos_dict:
-                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
+        provoking_action, provoker_id, target_only, target_id, from_pos = (
+            _extract_maneuver_params("disarm", intent, world_state)
+        )
 
     elif isinstance(intent, GrappleIntent):
         # Grapple provokes from TARGET only
-        provoking_action = "grapple"
-        provoker_id = intent.attacker_id
-        target_only = True
-        target_id = intent.target_id
-        provoker = world_state.entities.get(provoker_id)
-        if provoker:
-            pos_dict = provoker.get(EF.POSITION)
-            if pos_dict:
-                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
+        provoking_action, provoker_id, target_only, target_id, from_pos = (
+            _extract_maneuver_params("grapple", intent, world_state)
+        )
 
     # TODO CP-15: Add ranged attack and spellcasting provocation once those intents exist
     # elif isinstance(intent, RangedAttackIntent):
@@ -602,7 +594,7 @@ def aoo_dealt_damage(events: List[Event]) -> bool:
     for event in events:
         if event.event_type == "hp_changed":
             # Damage dealt if HP decreased
-            hp_change = event.payload.get("hp_change", 0)
-            if hp_change < 0:
+            delta = event.payload.get("delta", 0)
+            if delta < 0:
                 return True
     return False

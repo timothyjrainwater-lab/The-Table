@@ -114,25 +114,23 @@ def build_citation(hit: "SearchHit") -> Citation:
     )
 
 
-def with_obsidian_uri(citation: Citation, vault_name: str, note_path: str) -> Citation:
+def with_obsidian_uri(citation: Citation, obsidian_uri: str) -> Citation:
     """
     Create a new Citation with Obsidian URI attached.
 
     Args:
         citation: Original citation
-        vault_name: Obsidian vault name
-        note_path: Path to note within vault
+        obsidian_uri: Pre-built Obsidian URI string (use aidm.core.obsidian_links
+                      to construct this at the call site, NOT in schemas layer)
 
     Returns:
         New Citation instance with obsidian_uri populated
     """
-    from aidm.core.obsidian_links import build_obsidian_uri
-
     return Citation(
         source_id=citation.source_id,
         short_name=citation.short_name,
         page=citation.page,
         span=citation.span,
         rule_id=citation.rule_id,
-        obsidian_uri=build_obsidian_uri(vault_name, note_path)
+        obsidian_uri=obsidian_uri,
     )

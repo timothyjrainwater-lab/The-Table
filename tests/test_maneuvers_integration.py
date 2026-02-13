@@ -348,8 +348,8 @@ class TestAoODamageDetection:
             Event(event_id=0, event_type="attack_roll", timestamp=0.0, payload={"hit": True}),
             Event(event_id=1, event_type="hp_changed", timestamp=0.1, payload={
                 "entity_id": "target",
-                "hp_change": -10,
-                "new_hp": 40,
+                "delta": -10,
+                "hp_after": 40,
             }),
         ]
 
@@ -372,8 +372,8 @@ class TestAoODamageDetection:
         events = [
             Event(event_id=0, event_type="hp_changed", timestamp=0.0, payload={
                 "entity_id": "target",
-                "hp_change": 5,  # Healing
-                "new_hp": 45,
+                "delta": 5,  # Healing
+                "hp_after": 45,
             }),
         ]
 

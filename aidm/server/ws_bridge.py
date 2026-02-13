@@ -75,8 +75,11 @@ class WebSocketBridge:
         self._default_actor_id = default_actor_id
         # Active sessions: session_id -> orchestrator instance
         self._sessions: Dict[str, Any] = {}
-        # Connection -> session_id mapping
-        self._connections: Dict[int, str] = {}
+        # Lock guarding session creation to prevent race conditions
+        # (WO-AUDIT-005: concurrent WebSocket connects must not create duplicate sessions)
+        self._session_lock = asyncio.Lock()
+        # Connection -> session_id mapping (keyed by UUID, not id(websocket))
+        self._connections: Dict[str, str] = {}
 
     @property
     def sessions(self) -> Dict[str, Any]:
@@ -94,7 +97,7 @@ class WebSocketBridge:
         6. Handle disconnect (pause session, preserve state)
         """
         await websocket.accept()
-        conn_id = id(websocket)
+        conn_id = str(uuid.uuid4())
         session_id: Optional[str] = None
 
         try:
@@ -107,7 +110,7 @@ class WebSocketBridge:
             self._connections[conn_id] = session_id
 
             # Create or resume session
-            session = self._get_or_create_session(session_id)
+            session = await self._get_or_create_session(session_id)
 
             # Send session state snapshot
             snapshot = self._build_session_state(session_id, session, join_msg.msg_id)
@@ -180,12 +183,18 @@ class WebSocketBridge:
 
         return SessionControl.from_dict(data)
 
-    def _get_or_create_session(self, session_id: str) -> Any:
-        """Get existing session or create a new one via factory."""
-        if session_id not in self._sessions:
-            session = self._factory(session_id)
-            self._sessions[session_id] = session
-        return self._sessions[session_id]
+    async def _get_or_create_session(self, session_id: str) -> Any:
+        """Get existing session or create a new one via factory.
+
+        Uses async lock to prevent race conditions when concurrent
+        WebSocket connections attempt to create the same session.
+        (WO-AUDIT-005)
+        """
+        async with self._session_lock:
+            if session_id not in self._sessions:
+                session = self._factory(session_id)
+                self._sessions[session_id] = session
+            return self._sessions[session_id]
 
     def _build_session_state(
         self,

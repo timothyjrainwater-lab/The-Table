@@ -23,7 +23,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Protocol, runtime_checkable
 
 from aidm.core.compile_stages._base import CompileContext, CompileStage  # canonical
 from aidm.schemas.world_compile import (
@@ -36,6 +36,29 @@ from aidm.schemas.world_compile import (
     IV_001,
     IV_005,
 )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Content Pack Protocol
+# ═══════════════════════════════════════════════════════════════════════
+
+@runtime_checkable
+class ContentPackProtocol(Protocol):
+    """Minimal protocol for content pack representations.
+
+    Both ContentPackStub and ContentPackLoader from aidm.lens implement this.
+    Allows the compiler to accept either type without coupling to aidm.lens.
+    """
+
+    @property
+    def pack_id(self) -> str:
+        """Content pack identifier."""
+        ...
+
+    @property
+    def content_hash(self) -> str:
+        """SHA-256 hash of the content pack data."""
+        ...
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -162,7 +185,7 @@ def _hash_file(file_path: Path) -> str:
     return h.hexdigest()
 
 
-def _run_stage_0(context: CompileContext, inputs: CompileInputs, content_pack: ContentPackStub) -> StageResult:
+def _run_stage_0(context: CompileContext, inputs: CompileInputs, content_pack: ContentPackProtocol) -> StageResult:
     """Stage 0: Validate inputs + create workspace.
 
     1. Validate all required inputs against schemas (§1.3)
@@ -253,7 +276,7 @@ def _run_stage_0(context: CompileContext, inputs: CompileInputs, content_pack: C
 def _run_stage_8(
     context: CompileContext,
     inputs: CompileInputs,
-    content_pack: ContentPackStub,
+    content_pack: ContentPackProtocol,
     stage_results: List[StageResult],
 ) -> StageResult:
     """Stage 8: Finalize hashes + write manifest + compile report.
@@ -441,6 +464,12 @@ class WorldCompiler:
         compiler.register_stage(SemanticsStage())
         report = compiler.compile()
 
+    Args:
+        inputs: CompileInputs with all configuration and seeds.
+        content_pack: Optional content pack (ContentPackStub, ContentPackLoader,
+                      or any object implementing ContentPackProtocol).
+                      If None, creates an empty ContentPackStub.
+
     The compiler handles:
     - Stage 0 (validation) and Stage 8 (finalization) automatically
     - Dependency ordering via topological sort
@@ -452,7 +481,7 @@ class WorldCompiler:
     def __init__(
         self,
         inputs: CompileInputs,
-        content_pack: Optional[ContentPackStub] = None,
+        content_pack: Optional[ContentPackProtocol] = None,
     ) -> None:
         self._inputs = inputs
         self._content_pack = content_pack or ContentPackStub(pack_id=inputs.content_pack_id)

@@ -54,11 +54,15 @@ class WorldState:
         return hash_bytes.hex()
 
     def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for serialization."""
+        """Convert to dictionary for serialization.
+
+        Returns a deep copy so callers cannot mutate the original state.
+        """
+        from copy import deepcopy
         return {
             "ruleset_version": self.ruleset_version,
-            "entities": self.entities,
-            "active_combat": self.active_combat,
+            "entities": deepcopy(self.entities),
+            "active_combat": deepcopy(self.active_combat),
         }
 
     @classmethod
@@ -165,20 +169,21 @@ class FrozenWorldStateView:
     def _wrap_nested_dict(self, d: Dict[str, Any]) -> MappingProxyType:
         """Recursively wrap nested dicts for read-only access.
 
-        Wraps the top-level dict and any nested dicts (e.g., entity data)
+        Wraps the top-level dict and ALL nested dicts at any depth
         in MappingProxyType. This prevents in-place mutation like:
             view.entities["pc1"]["hp"] = 0  # Raises TypeError
+            view.entities["pc1"]["conditions"]["stunned"] = True  # Also raises
 
         Args:
             d: Dictionary to wrap
 
         Returns:
-            MappingProxyType view of the dictionary with nested dicts also wrapped
+            MappingProxyType view of the dictionary with all nested dicts wrapped
         """
         wrapped = {}
         for key, value in d.items():
             if isinstance(value, dict):
-                wrapped[key] = MappingProxyType(value)
+                wrapped[key] = self._wrap_nested_dict(value)
             else:
                 wrapped[key] = value
         return MappingProxyType(wrapped)

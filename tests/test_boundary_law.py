@@ -47,13 +47,38 @@ import pytest
 # BL-001 through BL-006: Import Boundary Enforcement
 # ═══════════════════════════════════════════════════════════════════════
 
+def _is_type_checking_guard(node: ast.If) -> bool:
+    """Check if an `if` node is `if TYPE_CHECKING:` guard."""
+    test = node.test
+    # if TYPE_CHECKING:
+    if isinstance(test, ast.Name) and test.id == "TYPE_CHECKING":
+        return True
+    # if typing.TYPE_CHECKING:
+    if isinstance(test, ast.Attribute) and test.attr == "TYPE_CHECKING":
+        return True
+    return False
+
+
 def _extract_imports_from_file(filepath: Path) -> list[str]:
-    """Extract all import module names from a Python file using AST."""
+    """Extract all runtime import module names from a Python file using AST.
+
+    Skips imports guarded by `if TYPE_CHECKING:` blocks, since those are
+    annotation-only imports that create no runtime dependency.
+    """
     with open(filepath, "r", encoding="utf-8") as f:
         tree = ast.parse(f.read(), filename=str(filepath))
 
+    # Collect AST nodes that live inside `if TYPE_CHECKING:` blocks
+    type_checking_nodes: set[int] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.If) and _is_type_checking_guard(node):
+            for child in ast.walk(node):
+                type_checking_nodes.add(id(child))
+
     imports = []
     for node in ast.walk(tree):
+        if id(node) in type_checking_nodes:
+            continue
         if isinstance(node, ast.Import):
             for alias in node.names:
                 imports.append(alias.name)
@@ -91,6 +116,45 @@ class TestBL001_SparkMustNotImportCore:
 
         assert violations == [], (
             f"BL-001 VIOLATION: SPARK imports aidm.core (state access breach):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_spark_to_lens_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/spark"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.lens"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-001 VIOLATION: SPARK imports aidm.lens (layer bypass):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_spark_to_immersion_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/spark"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.immersion"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-001 VIOLATION: SPARK imports aidm.immersion (layer violation):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_spark_to_server_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/spark"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.server"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-001 VIOLATION: SPARK imports aidm.server (layer violation):\n"
             + "\n".join(f"  - {v}" for v in violations)
         )
 
@@ -141,6 +205,32 @@ class TestBL003_NarrationMustNotImportCore:
             + "\n".join(f"  - {v}" for v in violations)
         )
 
+    def test_no_narration_to_immersion_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/narration"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.immersion"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-003 VIOLATION: NARRATION imports aidm.immersion (layer violation):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_narration_to_server_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/narration"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.server"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-003 VIOLATION: NARRATION imports aidm.server (layer violation):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
 
 class TestBL004_BoxMustNotImportNarration:
     """BL-004: BOX must never import from aidm.narration.
@@ -162,6 +252,58 @@ class TestBL004_BoxMustNotImportNarration:
 
         assert violations == [], (
             f"BL-004 VIOLATION: BOX imports aidm.narration (presentation dependency):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_core_to_lens_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/core"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.lens"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-004 VIOLATION: BOX imports aidm.lens (layer violation):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_core_to_spark_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/core"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.spark"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-004 VIOLATION: BOX imports aidm.spark (layer violation):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_core_to_immersion_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/core"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.immersion"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-004 VIOLATION: BOX imports aidm.immersion (layer violation):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_no_core_to_server_imports(self):
+        violations = []
+        for filepath in _get_py_files("aidm/core"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith("aidm.server"):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"BL-004 VIOLATION: BOX imports aidm.server (layer violation):\n"
             + "\n".join(f"  - {v}" for v in violations)
         )
 
@@ -265,6 +407,109 @@ class TestBL006_NoStdlibRandomOutsideRNGManager:
                 f"BL-006 VIOLATION: {filepath.name} imports stdlib random "
                 "(only rng_manager.py may import random)"
             )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# BL-MATRIX: Full Boundary Matrix Enforcement
+# ═══════════════════════════════════════════════════════════════════════
+
+
+# The definitive boundary matrix. Each entry maps a source layer directory
+# to a list of forbidden target aidm.* module prefixes that it must never
+# import. This encodes the full layered architecture.
+_BOUNDARY_MATRIX: dict[str, list[str]] = {
+    "aidm/schemas":    ["aidm.core", "aidm.lens", "aidm.spark", "aidm.narration", "aidm.immersion", "aidm.server"],
+    "aidm/core":       ["aidm.lens", "aidm.spark", "aidm.narration", "aidm.immersion", "aidm.server"],
+    "aidm/lens":       ["aidm.spark", "aidm.narration", "aidm.immersion", "aidm.server"],
+    "aidm/spark":      ["aidm.immersion", "aidm.server"],
+    "aidm/narration":  ["aidm.immersion", "aidm.server"],
+    "aidm/immersion":  ["aidm.server"],
+}
+
+
+class TestFullBoundaryMatrix:
+    """Comprehensive boundary matrix test — the definitive "no violations" gate.
+
+    WHY: Individual BL-00x tests cover specific pairs for human readability,
+    but gaps can slip through when new layers are added. This test encodes the
+    COMPLETE boundary matrix as a data structure and checks every single
+    forbidden import pair systematically.
+
+    If this test passes, every layer respects the architectural hierarchy.
+    If it fails, the violation message names the exact file, source layer,
+    and forbidden target.
+
+    WHAT BREAKS: Everything — this is the master boundary enforcement gate.
+    """
+
+    @pytest.mark.parametrize(
+        "source_dir,forbidden_prefix",
+        [
+            (source, target)
+            for source, targets in _BOUNDARY_MATRIX.items()
+            for target in targets
+        ],
+        ids=[
+            f"{source.split('/')[-1]}-must-not-import-{target.split('.')[-1]}"
+            for source, targets in _BOUNDARY_MATRIX.items()
+            for target in targets
+        ],
+    )
+    def test_full_boundary_matrix(self, source_dir: str, forbidden_prefix: str):
+        """Each (source_dir, forbidden_prefix) pair must have zero violations."""
+        violations = []
+        for filepath in _get_py_files(source_dir):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                if imp.startswith(forbidden_prefix):
+                    violations.append(f"{filepath.name} imports {imp}")
+
+        source_label = source_dir.split("/")[-1].upper()
+        target_label = forbidden_prefix.split(".")[-1].upper()
+        assert violations == [], (
+            f"BOUNDARY MATRIX VIOLATION: {source_label} imports {target_label} "
+            f"({source_dir} -> {forbidden_prefix}):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
+
+
+class TestSchemasMustNotImportImplementation:
+    """Schemas must be a pure data-definition layer with zero implementation imports.
+
+    WHY: aidm/schemas/ defines the shared data contracts (dataclasses, enums,
+    type aliases) that all layers depend on. If schemas import from any
+    implementation layer (core, lens, spark, narration, immersion, server),
+    they create circular dependencies and couple data definitions to runtime
+    behaviour.
+
+    Schemas may only import from: stdlib, third-party packages, and other
+    schemas. Never from aidm implementation packages.
+
+    WHAT BREAKS: Circular imports, layer independence, schema portability.
+    """
+
+    _IMPLEMENTATION_LAYERS = [
+        "aidm.core",
+        "aidm.lens",
+        "aidm.spark",
+        "aidm.narration",
+        "aidm.immersion",
+        "aidm.server",
+    ]
+
+    def test_schemas_must_not_import_implementation(self):
+        violations = []
+        for filepath in _get_py_files("aidm/schemas"):
+            imports = _extract_imports_from_file(filepath)
+            for imp in imports:
+                for forbidden in self._IMPLEMENTATION_LAYERS:
+                    if imp.startswith(forbidden):
+                        violations.append(f"{filepath.name} imports {imp}")
+
+        assert violations == [], (
+            f"SCHEMA BOUNDARY VIOLATION: aidm/schemas/ imports implementation layers:\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
 
 
 # ═══════════════════════════════════════════════════════════════════════

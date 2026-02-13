@@ -8,6 +8,7 @@ Immutable after loading. Consumed by the World Compiler pipeline.
 BOUNDARY LAW (BL-003): No imports from aidm/core/.
 """
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -306,6 +307,20 @@ class ContentPackLoader:
     @property
     def pack_id(self) -> str:
         return self._pack_id
+
+    @property
+    def content_hash(self) -> str:
+        """Compute SHA-256 hash of the content pack data.
+
+        Deterministic hash over all spells, creatures, and feats, sorted by ID.
+        """
+        data = {
+            "spells": [s.to_dict() for s in self._spells],
+            "creatures": [c.to_dict() for c in self._creatures],
+            "feats": [f.to_dict() for f in self._feats],
+        }
+        serialized = json.dumps(data, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
     @property
     def source_ids(self) -> tuple:

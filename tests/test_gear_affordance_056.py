@@ -114,7 +114,7 @@ class TestVisibleGearField:
             "visible_gear": ["Torch", "Rope, Hemp (50 ft.)"],
         }
         brief = NarrativeBrief.from_dict(data)
-        assert brief.visible_gear == ["Torch", "Rope, Hemp (50 ft.)"]
+        assert brief.visible_gear == ("Torch", "Rope, Hemp (50 ft.)")
 
     def test_visible_gear_missing_from_dict(self):
         """visible_gear defaults to None when missing from dict."""

@@ -19,7 +19,8 @@ Reference: docs/runtime/IPC_CONTRACT.md
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from types import MappingProxyType
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 
 class EngineResultStatus(Enum):
@@ -181,7 +182,18 @@ class EngineResult:
     metadata: Optional[Dict[str, Any]] = None
 
     def __post_init__(self):
-        """Freeze the result immediately after creation."""
+        """Freeze the result immediately after creation.
+
+        WO-AUDIT-003: Convert mutable containers to immutable forms.
+        List → tuple, Dict → MappingProxyType to prevent post-construction mutation.
+        """
+        # Freeze mutable containers before marking as frozen
+        object.__setattr__(self, "events", tuple(self.events))
+        object.__setattr__(self, "rolls", tuple(self.rolls))
+        object.__setattr__(self, "state_changes", tuple(self.state_changes))
+        if self.metadata is not None:
+            from types import MappingProxyType
+            object.__setattr__(self, "metadata", MappingProxyType(self.metadata))
         # Mark as frozen to prevent modification
         object.__setattr__(self, "_frozen", True)
 
@@ -203,7 +215,7 @@ class EngineResult:
             "intent_id": self.intent_id,
             "status": self.status.value,
             "resolved_at": self.resolved_at.isoformat(),
-            "events": self.events,
+            "events": list(self.events),
             "rolls": [r.to_dict() for r in self.rolls],
             "state_changes": [sc.to_dict() for sc in self.state_changes],
             "rng_initial_offset": self.rng_initial_offset,
@@ -215,7 +227,7 @@ class EngineResult:
         if self.failure_reason is not None:
             result["failure_reason"] = self.failure_reason
         if self.metadata is not None:
-            result["metadata"] = self.metadata
+            result["metadata"] = dict(self.metadata)
 
         return result
 
@@ -250,14 +262,15 @@ class EngineResult:
         object.__setattr__(result, "intent_id", data.get("intent_id", ""))
         object.__setattr__(result, "status", status)
         object.__setattr__(result, "resolved_at", resolved_at)
-        object.__setattr__(result, "events", data.get("events", []))
-        object.__setattr__(result, "rolls", rolls)
-        object.__setattr__(result, "state_changes", state_changes)
+        object.__setattr__(result, "events", tuple(data.get("events", [])))
+        object.__setattr__(result, "rolls", tuple(rolls))
+        object.__setattr__(result, "state_changes", tuple(state_changes))
         object.__setattr__(result, "rng_initial_offset", data.get("rng_initial_offset", 0))
         object.__setattr__(result, "rng_final_offset", data.get("rng_final_offset", 0))
         object.__setattr__(result, "narration_token", data.get("narration_token"))
         object.__setattr__(result, "failure_reason", data.get("failure_reason"))
-        object.__setattr__(result, "metadata", data.get("metadata"))
+        _meta = data.get("metadata")
+        object.__setattr__(result, "metadata", MappingProxyType(_meta) if _meta else None)
         object.__setattr__(result, "_frozen", True)
 
         return result
@@ -392,14 +405,14 @@ class EngineResultBuilder:
         object.__setattr__(result, "intent_id", self.intent_id)
         object.__setattr__(result, "status", status)
         object.__setattr__(result, "resolved_at", resolved_at)
-        object.__setattr__(result, "events", self.events)
-        object.__setattr__(result, "rolls", self.rolls)
-        object.__setattr__(result, "state_changes", self.state_changes)
+        object.__setattr__(result, "events", tuple(self.events))
+        object.__setattr__(result, "rolls", tuple(self.rolls))
+        object.__setattr__(result, "state_changes", tuple(self.state_changes))
         object.__setattr__(result, "rng_initial_offset", self.rng_initial_offset)
         object.__setattr__(result, "rng_final_offset", self.rng_current_offset)
         object.__setattr__(result, "narration_token", self.narration_token)
         object.__setattr__(result, "failure_reason", failure_reason)
-        object.__setattr__(result, "metadata", self.metadata if self.metadata else None)
+        object.__setattr__(result, "metadata", MappingProxyType(self.metadata) if self.metadata else None)
         object.__setattr__(result, "_frozen", True)
 
         return result

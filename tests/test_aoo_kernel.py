@@ -731,3 +731,145 @@ def test_dict_weapon_data_still_works():
     # AoO should trigger with dict weapon_data
     aoo_triggered = [e for e in result.events if e.event_type == "aoo_triggered"]
     assert len(aoo_triggered) == 1
+
+
+# ==============================================================================
+# WO-AUDIT-001: aoo_dealt_damage() unit tests
+# ==============================================================================
+
+def test_aoo_dealt_damage_returns_true_on_positive_damage():
+    """WO-AUDIT-001: aoo_dealt_damage() returns True when AoO dealt damage.
+
+    Verifies that the function correctly reads the 'delta' field from
+    hp_changed event payloads (not the old incorrect 'hp_change' key).
+    A negative delta means HP decreased, i.e. damage was dealt.
+    """
+    from aidm.core.aoo import aoo_dealt_damage
+    from aidm.core.event_log import Event
+
+    events = [
+        Event(
+            event_id=0,
+            event_type='aoo_triggered',
+            timestamp=1.0,
+            payload={
+                'reactor_id': 'fighter',
+                'provoker_id': 'goblin_1',
+                'provoking_action': 'disarm',
+            },
+        ),
+        Event(
+            event_id=1,
+            event_type='attack_roll',
+            timestamp=1.01,
+            payload={
+                'attacker_id': 'fighter',
+                'target_id': 'goblin_1',
+                'hit': True,
+                'd20_result': 18,
+                'total': 23,
+                'target_ac': 15,
+            },
+        ),
+        Event(
+            event_id=2,
+            event_type='hp_changed',
+            timestamp=1.02,
+            payload={
+                'entity_id': 'goblin_1',
+                'hp_before': 10,
+                'hp_after': 5,
+                'delta': -5,
+                'source': 'attack_damage',
+            },
+        ),
+    ]
+
+    assert aoo_dealt_damage(events) is True
+
+
+def test_aoo_dealt_damage_returns_false_on_zero_damage():
+    """WO-AUDIT-001: aoo_dealt_damage() returns False when AoO dealt 0 damage.
+
+    When delta is 0, no damage was dealt (e.g., DR absorbed all damage).
+    The function should return False so disarm/grapple auto-fail does NOT fire.
+    """
+    from aidm.core.aoo import aoo_dealt_damage
+    from aidm.core.event_log import Event
+
+    events = [
+        Event(
+            event_id=0,
+            event_type='aoo_triggered',
+            timestamp=1.0,
+            payload={
+                'reactor_id': 'fighter',
+                'provoker_id': 'goblin_1',
+                'provoking_action': 'grapple',
+            },
+        ),
+        Event(
+            event_id=1,
+            event_type='attack_roll',
+            timestamp=1.01,
+            payload={
+                'attacker_id': 'fighter',
+                'target_id': 'goblin_1',
+                'hit': True,
+                'd20_result': 15,
+                'total': 20,
+                'target_ac': 15,
+            },
+        ),
+        Event(
+            event_id=2,
+            event_type='hp_changed',
+            timestamp=1.02,
+            payload={
+                'entity_id': 'goblin_1',
+                'hp_before': 10,
+                'hp_after': 10,
+                'delta': 0,
+                'source': 'attack_damage',
+            },
+        ),
+    ]
+
+    assert aoo_dealt_damage(events) is False
+
+
+def test_aoo_dealt_damage_returns_false_when_no_hp_changed_events():
+    """WO-AUDIT-001: aoo_dealt_damage() returns False when no hp_changed events.
+
+    When the AoO missed (no hp_changed event emitted), no damage was dealt.
+    """
+    from aidm.core.aoo import aoo_dealt_damage
+    from aidm.core.event_log import Event
+
+    events = [
+        Event(
+            event_id=0,
+            event_type='aoo_triggered',
+            timestamp=1.0,
+            payload={
+                'reactor_id': 'fighter',
+                'provoker_id': 'goblin_1',
+                'provoking_action': 'disarm',
+            },
+        ),
+        Event(
+            event_id=1,
+            event_type='attack_roll',
+            timestamp=1.01,
+            payload={
+                'attacker_id': 'fighter',
+                'target_id': 'goblin_1',
+                'hit': False,
+                'd20_result': 3,
+                'total': 8,
+                'target_ac': 15,
+            },
+        ),
+    ]
+
+    assert aoo_dealt_damage(events) is False

@@ -119,3 +119,66 @@ def test_hash_is_hex_string():
     assert isinstance(hash_value, str)
     assert len(hash_value) == 64  # SHA256 hex = 64 chars
     assert all(c in "0123456789abcdef" for c in hash_value)
+
+
+# ==============================================================================
+# Tests for to_dict() deep copy (WO-AUDIT-009)
+# ==============================================================================
+
+
+def test_to_dict_returns_independent_copy():
+    """to_dict() must return a deep copy — mutating it must not affect state."""
+    state = WorldState(
+        ruleset_version="dnd3.5",
+        entities={"pc1": {"hp": 20, "name": "Fighter"}},
+        active_combat={"round": 1},
+    )
+
+    exported = state.to_dict()
+    exported["entities"]["pc1"]["hp"] = 0
+    exported["active_combat"]["round"] = 99
+
+    # Original state must be untouched
+    assert state.entities["pc1"]["hp"] == 20
+    assert state.active_combat["round"] == 1
+
+
+def test_to_dict_nested_dicts_are_independent():
+    """Nested dicts inside entities must also be independent copies."""
+    state = WorldState(
+        ruleset_version="dnd3.5",
+        entities={"pc1": {"conditions": {"stunned": False, "prone": False}}},
+    )
+
+    exported = state.to_dict()
+    exported["entities"]["pc1"]["conditions"]["stunned"] = True
+
+    assert state.entities["pc1"]["conditions"]["stunned"] is False
+
+
+# ==============================================================================
+# Tests for FrozenWorldStateView recursive wrapping (WO-AUDIT-009)
+# ==============================================================================
+
+
+def test_frozen_view_blocks_nested_dict_mutation():
+    """FrozenWorldStateView must block mutation at ANY depth, not just 2 levels."""
+    from aidm.core.state import FrozenWorldStateView
+
+    state = WorldState(
+        ruleset_version="dnd3.5",
+        entities={"pc1": {"conditions": {"stunned": False}, "hp": 20}},
+    )
+    view = FrozenWorldStateView(state)
+
+    # Level 1: can't reassign entities
+    with pytest.raises(Exception):
+        view.entities = {}
+
+    # Level 2: can't reassign entity fields
+    with pytest.raises(TypeError):
+        view.entities["pc1"]["hp"] = 0
+
+    # Level 3: can't mutate nested dicts inside entity fields
+    with pytest.raises(TypeError):
+        view.entities["pc1"]["conditions"]["stunned"] = True

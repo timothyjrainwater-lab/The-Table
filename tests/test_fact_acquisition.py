@@ -140,7 +140,7 @@ class TestFactRequestSchema:
         )
         assert request.request_id == "req-001"
         assert request.entity_id == "goblin_01"
-        assert request.required_attributes == ["size", "position"]
+        assert request.required_attributes == ("size", "position")
         assert request.context == "combat encounter"
         assert request.timeout_ms == 3000
 
@@ -191,7 +191,7 @@ class TestFactRequestSchema:
         request = FactRequest.from_dict(data)
         assert request.request_id == "req-005"
         assert request.entity_id == "orc_01"
-        assert request.required_attributes == ["hit_points"]
+        assert request.required_attributes == ("hit_points",)
         assert request.timeout_ms == 6000
 
 
@@ -283,8 +283,8 @@ class TestValidationResultSchema:
         """Create a valid ValidationResult."""
         result = ValidationResult(valid=True, errors=[], warnings=[])
         assert result.valid is True
-        assert result.errors == []
-        assert result.warnings == []
+        assert result.errors == ()
+        assert result.warnings == ()
 
     def test_invalid_result_with_errors(self):
         """Create an invalid ValidationResult with errors."""
@@ -345,7 +345,7 @@ class TestRequestGeneration:
         )
         assert isinstance(request, FactRequest)
         assert request.entity_id == "goblin_01"
-        assert request.required_attributes == ["size", "hit_points"]
+        assert request.required_attributes == ("size", "hit_points")
 
     def test_request_id_is_unique(self, manager_with_fixed_uuid):
         """Each request gets a unique ID."""
