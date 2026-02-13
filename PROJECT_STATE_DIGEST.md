@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — Phase 4C Wave A COMPLETE (2 WOs), Wave B QUEUED (5 WOs). 5376 tests collected, 5353 passed, 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-13 — Phase 4C Waves A+B COMPLETE (7 WOs). Wave C QUEUED (3 WOs, 1 blocked). 5420 tests collected, 5397 passed, 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -256,7 +256,7 @@ LAST UPDATED: 2026-02-13 — Phase 4C Wave A COMPLETE (2 WOs), Wave B QUEUED (5 
 - **WO-ENCOUNTER-01**: Expanded fixture from 1v1 to 3v3 with alternating initiative, unique goblin names, standalone 1v1 test fixtures for unit test isolation.
 - **WO-OPS-HYGIENE-01**: Session bootstrap hardened — play.py process detection, dirty-tree RED warnings for tracked files.
 - **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap + hygiene gate), `scripts/record_playtest.py`, `scripts/triage_latest_playtest.py`.
-- **63 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression, round tracking).
+- **89 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression, round tracking, full attack, maneuvers, expanded status, AoO display).
 
 ### WO-INITIATIVE-01: Initiative System in CLI (2026-02-13)
 - **Initiative rolling**: `roll_initiative_for_all_actors()` in `aidm/core/initiative.py` — d20 + DEX modifier per actor, deterministic via RNGManager seed.
@@ -272,6 +272,14 @@ LAST UPDATED: 2026-02-13 — Phase 4C Wave A COMPLETE (2 WOs), Wave B QUEUED (5 
 - **Round headers**: `=== Round N ===` printed at each initiative cycle boundary. `round_index` in `active_combat` incremented at each boundary.
 - **Files**: `play.py` (`_main_loop` round tracking), `tests/test_play_cli.py` (5 new tests). Completes Wave A.
 
+### Wave B: CLI Capability Wiring (2026-02-13)
+- **WO-FULLATTACK-CLI-01**: `full attack <target>` invokes `FullAttackIntent` pipeline via `play_loop.py`. Parser promotes `AttackIntent` to `FullAttackIntent` using entity BAB.
+- **WO-MANEUVER-CLI-01**: 6 maneuver commands (trip/bull rush/disarm/grapple/sunder/overrun). Parser builds typed intents from `aidm/schemas/maneuvers.py`. Events rendered in `format_events()`.
+- **WO-STATUS-EXPAND-01**: `show_status()` displays HP, AC, BAB, position, and active conditions (`*prone, shaken*`).
+- **WO-AOO-DISPLAY-01**: `aoo_triggered`, `tumble_check`, `aoo_avoided_by_tumble`, `aoo_blocked_by_cover` events rendered.
+- **WO-VOICE-SIGNAL-01**: Signal parser (`=== SIGNAL: REPORT_READY ===`), 440Hz chime, sentence-boundary chunking (fixes TD-023), `--signal`/`--full` CLI flags. Standing ops rule added.
+- **44 new tests** (26 in test_play_cli.py, 18 in test_speak_signal.py). 89 total in test_play_cli.py.
+
 ### Signal Voice — Operator TTS Pipeline (2026-02-13)
 - **scripts/speak.py**: Three-engine pipeline — Kokoro (voice design, CPU) -> Chatterbox (GPU render, voice cloning) -> winsound (playback). Kokoro CPU fallback if no GPU.
 - **Voice profile "Arbor"**: am_michael seed, speed 0.88, exaggeration 0.15, Chatterbox Original tier. Calm, grounded, neutral-operational readback.
@@ -282,7 +290,7 @@ LAST UPDATED: 2026-02-13 — Phase 4C Wave A COMPLETE (2 WOs), Wave B QUEUED (5 
 
 ## Test Count
 
-**Total: 5376 tests collected** (5353 passed, 16 skipped hardware-gated)
+**Total: 5420 tests collected** (5397 passed, 16 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -446,44 +454,26 @@ Real-time gameplay optimization, NLP/semantic search, rule interpretation (retri
 
 **No work items are greenlit for implementation.** All future work requires explicit authorization.
 
-### Phases 1-3 + Post-A10 + Waves 1-3 — COMPLETE
+### Phases 1-3 + Post-A10 + Waves 1-3 + Phase 4A/4B — COMPLETE
 
-All Phase 1-3, Post-A10, and Wave 1-3 (15 WOs, ~524 new tests) integrated. See Locked Systems for details.
+All Phase 1-3, Post-A10, Wave 1-3, and Phase 4A/4B integrated. See Locked Systems for details. Canceled: WO-CODE-INTENT-002, WO-INTENT-002 (superseded).
 
-### Canceled: WO-CODE-INTENT-002, WO-INTENT-002 (superseded by BUGFIX-BATCH)
-
-### Phase 4A/4B — COMPLETE (Playable CLI Foundation)
-
-7 WOs integrated: WO-PLAYABLE-LOOP-01 (CLI entry point), WO-MOVE-01 (movement), WO-SELFTARGET-01 (self-cast), WO-OPS-FOUNDATION-01 (bootstrap), WO-ENCOUNTER-01 (3v3 fixture), WO-OPS-HYGIENE-01 (hardening), WO-INITIATIVE-01 (initiative + turn order). See Locked Systems for details.
-
-### Phase 4C — QUEUED (CLI Capability Wiring) — See `docs/planning/PHASE4C_FORWARD_PROGRESSION.md`
+### Phase 4C — CLI Capability Wiring — See `docs/planning/PHASE4C_FORWARD_PROGRESSION.md`
 
 | WO | Wave | Description | Status |
 |----|------|-------------|--------|
 | WO-CONDFIX-01 | A | Fix condition storage format mismatch | INTEGRATED |
 | WO-ROUND-TRACK-01 | A | Round counter display in CLI | INTEGRATED |
-| WO-FULLATTACK-CLI-01 | B | Full attack action in CLI | QUEUED |
-| WO-MANEUVER-CLI-01 | B | Combat maneuver parsing (6 types) | QUEUED |
-| WO-STATUS-EXPAND-01 | B | Expanded status display (AC, BAB, conditions) | QUEUED |
-| WO-AOO-DISPLAY-01 | B | AoO event display in CLI | QUEUED |
-| WO-VOICE-SIGNAL-01 | B | Agent-triggered voice signal on WO completion | QUEUED |
+| WO-FULLATTACK-CLI-01 | B | Full attack action in CLI | INTEGRATED |
+| WO-MANEUVER-CLI-01 | B | Combat maneuver parsing (6 types) | INTEGRATED |
+| WO-STATUS-EXPAND-01 | B | Expanded status display (AC, BAB, conditions) | INTEGRATED |
+| WO-AOO-DISPLAY-01 | B | AoO event display in CLI | INTEGRATED |
+| WO-VOICE-SIGNAL-01 | B | Agent-triggered voice signal on WO completion | INTEGRATED |
 | WO-SPELLSLOTS-01 | C | Spell slot tracking (blocked — CP for entity_fields.py) | BLOCKED |
 | WO-SPELLLIST-CLI-01 | C | Spell list display in CLI | QUEUED |
 | WO-CHARSHEET-CLI-01 | C | Character sheet display in CLI | QUEUED |
 
-### Standalone: WO-OSS-DICE-001 (Three.js Dice Roller Demo) — FUTURE, needs PO amendments
-
-### Research Artifacts — ANCHORED (specs only, no code)
-
-| WO-RQ ID | Topic | Status | File |
-|----------|-------|--------|------|
-| WO-RQ-AUDIOFIRST-CLI-CONTRACT-01 | Audio-first CLI output grammar | COMPLETE | `docs/planning/research/RQ_AUDIOFIRST_CLI_CONTRACT_V1.md` |
-| WO-RQ-LLM-CALL-TYPING-01 | Lens/Spark typed-call schemas | COMPLETE | `docs/planning/research/RQ_LLM_TYPED_CALL_CONTRACT.md` |
-| WO-RQ-SPARK-BOUNDARYPRESSURE-01 | Boundary pressure runtime signal | COMPLETE | `docs/planning/research/RQ_SPARK_BOUNDARY_PRESSURE.md` |
-| WO-RQ-UNKNOWN-TAXONOMY-01 | Unknown handling policy | DRAFT | `docs/planning/research/RQ_UNKNOWN_HANDLING_POLICY.md` |
-| WO-RQ-PROSODIC-001 | Prosodic schema for TTS | DRAFT | `docs/planning/PROSODIC_SCHEMA_DRAFT.md` |
-
-See `docs/planning/PHASE4C_FORWARD_PROGRESSION.md` for full WO definitions and sequencing.
+### Standalone + Research — WO-OSS-DICE-001 FUTURE. 5 WO-RQ research artifacts anchored (see `docs/planning/research/`). Voice research fleet (WO-VOICE-RESEARCH-01..05) delivered.
 
 ---
 

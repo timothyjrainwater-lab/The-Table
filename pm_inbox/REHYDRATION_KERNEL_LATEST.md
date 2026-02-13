@@ -61,18 +61,18 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 44451e7 (feat: round counter and turn display — WO-ROUND-TRACK-01)
-Tests collected: 5,376
-Tests passed: 5,353 (16 skipped, HW-gated)
+Last commit: cfd52f6 (feat: signal parsing, chime, sentence chunking — WO-VOICE-SIGNAL-01)
+Tests collected: 5,420
+Tests passed: 5,397 (16 skipped, HW-gated)
 Stoplight: GREEN
 
 ## Next Work Orders
 
-Phase 4C Forward Progression (8 WOs remaining in 2 waves):
-- Wave A: COMPLETE (WO-CONDFIX-01 + WO-ROUND-TRACK-01 integrated)
-- Wave B: WO-FULLATTACK-CLI-01, WO-MANEUVER-CLI-01, WO-STATUS-EXPAND-01, WO-AOO-DISPLAY-01, WO-VOICE-SIGNAL-01 — packets staged, ready for parallel dispatch
-- Wave C: WO-SPELLSLOTS-01 (blocked — CP for entity_fields.py), WO-SPELLLIST-CLI-01, WO-CHARSHEET-CLI-01
-Dispatch recommendation: Wave B parallel dispatch (5 WOs, non-overlapping file scope)
+Phase 4C Forward Progression — Waves A+B COMPLETE (7 WOs integrated):
+- Wave A: COMPLETE (WO-CONDFIX-01, WO-ROUND-TRACK-01)
+- Wave B: COMPLETE (WO-FULLATTACK-CLI-01, WO-MANEUVER-CLI-01, WO-STATUS-EXPAND-01, WO-AOO-DISPLAY-01, WO-VOICE-SIGNAL-01)
+- Wave C: WO-SPELLSLOTS-01 (BLOCKED — CP for entity_fields.py), WO-SPELLLIST-CLI-01 (QUEUED), WO-CHARSHEET-CLI-01 (QUEUED)
+Dispatch recommendation: Wave C blocked pending CP decision. No new dispatch authorized.
 
 Research anchored: 5 WO-RQ artifacts tracked (see PSD Future Work Queue)
 Voice research fleet (WO-VOICE-RESEARCH-01..05): deliveries landed, synthesis pending PM review
