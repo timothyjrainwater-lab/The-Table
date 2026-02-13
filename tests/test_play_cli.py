@@ -586,3 +586,91 @@ class TestGoldenTranscript:
             outputs.append(buf.getvalue())
 
         assert outputs[0] == outputs[1], "Transcript not deterministic — output differs between runs"
+
+
+# ---------------------------------------------------------------------------
+# Round tracking (WO-ROUND-TRACK-01)
+# ---------------------------------------------------------------------------
+
+class TestRoundTracking:
+    """Verify round counter display and boundary detection."""
+
+    def _run_session(self, commands, seed=42):
+        """Run a CLI session with given commands, return captured stdout."""
+        import io
+        action_iter = iter(commands)
+
+        def mock_input(prompt=""):
+            try:
+                return next(action_iter)
+            except StopIteration:
+                return "quit"
+
+        buf = io.StringIO()
+        old_stdout = sys.stdout
+        sys.stdout = buf
+        try:
+            main(seed=seed, input_fn=mock_input)
+        finally:
+            sys.stdout = old_stdout
+        return buf.getvalue()
+
+    def test_round_1_header_appears(self):
+        """Round 1 header visible at start of combat."""
+        output = self._run_session(["quit"])
+        assert "Round 1" in output
+
+    def test_round_header_format(self):
+        """Round header uses === Round N === format."""
+        output = self._run_session(["quit"])
+        assert "==================== Round 1 ====================" in output
+
+    def test_round_2_appears_after_full_initiative_cycle(self):
+        """Round 2 header appears after all actors have taken a turn."""
+        # Feed attacks cycling through goblin names to handle defeats.
+        # 3 party members per round, enemies act automatically.
+        attacks = []
+        targets = ["goblin warrior", "goblin archer", "goblin skirmisher"]
+        for i in range(60):
+            attacks.append(f"attack {targets[i % 3]}")
+        output = self._run_session(attacks, seed=42)
+        assert "Round 2" in output
+
+    def test_round_counter_increments_sequentially(self):
+        """Round numbers appear in order: 1, 2, 3..."""
+        attacks = []
+        targets = ["goblin warrior", "goblin archer", "goblin skirmisher"]
+        for i in range(60):
+            attacks.append(f"attack {targets[i % 3]}")
+        output = self._run_session(attacks, seed=42)
+        assert "Round 1" in output
+        assert "Round 2" in output
+        # Verify Round 1 appears before Round 2
+        r1_pos = output.index("Round 1")
+        r2_pos = output.index("Round 2")
+        assert r1_pos < r2_pos
+
+    def test_round_header_deterministic(self):
+        """Round headers are identical between two runs with same seed."""
+        import io
+        outputs = []
+        for _ in range(2):
+            commands = iter(["attack goblin warrior"] * 60)
+
+            def mock_input(prompt="", _cmds=commands):
+                try:
+                    return next(_cmds)
+                except StopIteration:
+                    return "quit"
+
+            buf = io.StringIO()
+            old_stdout = sys.stdout
+            sys.stdout = buf
+            try:
+                main(seed=42, input_fn=mock_input)
+            finally:
+                sys.stdout = old_stdout
+            outputs.append(buf.getvalue())
+
+        # Both runs must produce identical output including round headers
+        assert outputs[0] == outputs[1]

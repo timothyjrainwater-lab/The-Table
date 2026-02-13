@@ -421,6 +421,7 @@ def _main_loop(seed: int, input_fn) -> None:
     init_order = list(ws.active_combat["initiative_order"])
     turn_index = 0
     next_event_id = 0
+    round_number = 1
 
     print("=" * 50)
     print("  D&D 3.5e Combat -- AIDM Engine")
@@ -447,6 +448,8 @@ def _main_loop(seed: int, input_fn) -> None:
     print()
     print("Type 'help' for commands, or 'quit' to exit.")
     print()
+
+    print(f"\n{'=' * 20} Round {round_number} {'=' * 20}")
 
     while True:
         over, reason = is_combat_over(ws)
@@ -531,6 +534,11 @@ def _main_loop(seed: int, input_fn) -> None:
             over, reason = is_combat_over(ws)
             if over:
                 break
+
+        # Round boundary — all actors have acted, new round begins
+        round_number += 1
+        ws.active_combat["round_index"] = round_number - 1
+        print(f"\n{'=' * 20} Round {round_number} {'=' * 20}")
 
 
 if __name__ == "__main__":
