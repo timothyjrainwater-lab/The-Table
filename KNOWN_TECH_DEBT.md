@@ -189,6 +189,7 @@ All entity field accesses now use canonical constants from entity_fields.py.
 | TD-020 | Sneak attack visibility check | MEDIUM | BLOCKED | NO — requires visibility system |
 | TD-021 | box_events.py string-based type detection | LOW | LOW PRIORITY | NO — defer unless causing issues |
 | TD-022 | Flanking cosine float precision | LOW | LOW PRIORITY | NO — defer unless test failures |
+| TD-023 | Chatterbox truncation on long text | HIGH | ACTIVE | YES — via WO-VOICE-SIGNAL-01 chunking |
 
 ---
 
@@ -350,3 +351,20 @@ deferred and MUST NOT be fixed without a dedicated WO and explicit project-owner
 **The problem:** The cosine-based 135-degree angle check for flanking has floating-point precision risk at the exact boundary. Two attackers positioned at exactly 135 degrees apart may or may not qualify for flanking depending on floating-point rounding.
 
 **Correct behavior for agents:** Edge case, defer unless test failures are observed. The current implementation uses standard floating-point comparison which works for all practical grid positions. An epsilon-based comparison could be added if boundary failures appear in testing.
+
+---
+
+### TD-023: Chatterbox Generation Length Ceiling — Truncation on Long Text
+**Status:** ACTIVE — affects production voice output
+**File:** `scripts/speak.py`
+**Discovered:** 2026-02-13 (voice readback test with ~120-word input truncated mid-sentence)
+
+**The problem:** Chatterbox TTS has a generation token/sample limit. Text exceeding ~60-80 words produces audio that cuts off mid-sentence. This is a hard ceiling in the model's sampling loop, not a configuration issue.
+
+**Impact:** HIGH for audio-first CLI output. Any spoken content (status reports, narration, signal readback) exceeding the limit will truncate. This is a product defect, not a cosmetic issue.
+
+**Required fix (scoped in WO-VOICE-SIGNAL-01):** Implement sentence-boundary chunking in `speak()`. Split text at `. ` boundaries, generate each chunk separately via Chatterbox, play sequentially with natural pause between chunks.
+
+**Constraint:** Kokoro CPU fallback is NOT acceptable quality for production operator-facing audio. If Chatterbox is unavailable, voice output fails silently rather than degrading to Kokoro.
+
+**Correct behavior for agents:** When calling `speak.py` before WO-VOICE-SIGNAL-01 ships, keep text under 60 words per call. For longer content, make multiple sequential calls at sentence boundaries.

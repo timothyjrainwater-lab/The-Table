@@ -287,6 +287,8 @@ Status: GREEN
 - Chime is pure math (sine wave synthesis) — no asset files needed
 - Backward compatible: existing `speak.py "text"` usage unchanged
 - Signal format is parse-only — agents adopt the `=== SIGNAL:` header convention voluntarily
+- **Chatterbox-only for production voice.** Kokoro CPU fallback is NOT acceptable quality for operator-facing audio. If Chatterbox is unavailable (no GPU), voice output fails silently rather than degrading to Kokoro. The `--backend auto` default must prefer Chatterbox and NOT fall through.
+- **Sentence-boundary chunking for long text.** Chatterbox has a generation length ceiling (~60-80 words). Text exceeding this limit must be split at sentence boundaries (period + space), each chunk generated and played sequentially. Truncation mid-sentence is a product defect.
 
 **Signal Usage Rules (for agents):**
 - Use only for completion reports, dispatch packages, or CP approvals
