@@ -96,6 +96,8 @@ def parse_input(text: str) -> Tuple[Optional[str], Any]:
                 spell_name, target_ref = rest.split(sep, 1)
                 spell_name, target_ref = spell_name.strip(), _strip_articles(target_ref.strip())
                 break
+        if target_ref and target_ref.lower() in ("self", "me", "myself"):
+            target_ref = "__SELF__"
         return "cast", (spell_name, target_ref)
 
     # End turn
@@ -151,7 +153,8 @@ def resolve_and_execute(
         spell_name, target_ref = declared
         from aidm.schemas.intents import CastSpellIntent
         cast_intent = CastSpellIntent(spell_name=spell_name)
-        resolved = bridge.resolve_spell(actor_id, cast_intent, view, target_entity_ref=target_ref)
+        actual_target_ref = actor_id if target_ref == "__SELF__" else target_ref
+        resolved = bridge.resolve_spell(actor_id, cast_intent, view, target_entity_ref=actual_target_ref)
     else:
         resolved = None
 

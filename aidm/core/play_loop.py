@@ -1073,8 +1073,8 @@ def execute_turn(
             narration = "full_attack_complete"
 
         elif isinstance(combat_intent, StepMoveIntent):
-            # CP-15: Movement stub (full movement resolution deferred to CP-16)
-            # AoOs have already been resolved above; movement itself is a stub
+            # CP-15/CP-16: Movement resolution
+            # AoOs have already been resolved above; now resolve movement
             events.append(Event(
                 event_id=current_event_id,
                 event_type="movement_declared",
@@ -1083,11 +1083,24 @@ def execute_turn(
                     "actor_id": combat_intent.actor_id,
                     "from_pos": {"x": combat_intent.from_pos.x, "y": combat_intent.from_pos.y},
                     "to_pos": {"x": combat_intent.to_pos.x, "y": combat_intent.to_pos.y},
-                    "note": "CP-15 movement stub (full resolution deferred to CP-16)"
                 }
             ))
             current_event_id += 1
-            narration = "movement_stub"
+
+            # Update entity position in world state
+            entities = deepcopy(world_state.entities)
+            if combat_intent.actor_id in entities:
+                entities[combat_intent.actor_id][EF.POSITION] = {
+                    "x": combat_intent.to_pos.x,
+                    "y": combat_intent.to_pos.y
+                }
+                world_state = WorldState(
+                    ruleset_version=world_state.ruleset_version,
+                    entities=entities,
+                    active_combat=world_state.active_combat
+                )
+
+            narration = "movement_complete"
 
         # CP-18A: Mounted movement intent
         elif isinstance(combat_intent, MountedMoveIntent):

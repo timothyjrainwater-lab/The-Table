@@ -106,6 +106,21 @@ class TestParseInput:
         action, _ = parse_input("cast")
         assert action == "cast_no_spell"
 
+    def test_cast_on_self(self):
+        action, decl = parse_input("cast shield on self")
+        assert action == "cast"
+        assert decl == ("shield", "__SELF__")
+
+    def test_cast_on_me(self):
+        action, decl = parse_input("cast mage armor on me")
+        assert action == "cast"
+        assert decl == ("mage armor", "__SELF__")
+
+    def test_cast_on_myself(self):
+        action, decl = parse_input("cast bull's strength on myself")
+        assert action == "cast"
+        assert decl == ("bull's strength", "__SELF__")
+
 
 # ---------------------------------------------------------------------------
 # is_combat_over
@@ -447,6 +462,12 @@ class TestCLISmoke:
     def test_valid_move_shows_destination(self):
         output = self._run_session(["move 4 3", "quit"], seed=42)
         assert "moves to" in output
+
+    def test_move_updates_position(self):
+        """After moving, status should show the new position."""
+        output = self._run_session(["move 4 3", "status", "quit"], seed=42)
+        # Aldric starts at (3,3), moves to (4,3) — status should reflect new pos
+        assert "(4,3)" in output.replace(" ", "") or "(4, 3)" in output
 
     def test_spell_cast_shows_spell_feedback(self):
         output = self._run_session(["cast magic missile on goblin warrior", "quit"], seed=42)
