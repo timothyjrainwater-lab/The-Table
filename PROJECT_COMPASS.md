@@ -75,6 +75,8 @@ These are **ratified and non-negotiable**. All code must comply.
 
 **5,144 tests collected. 5,121 passing (99.55%). 7 fail (Chatterbox TTS, external dep). 16 skipped (hardware-gated).**
 
+> **For canonical, machine-verified test counts and runtimes, run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md).** The numbers above may be stale.
+
 ### Engine Core (~4,500 lines, 180+ core tests)
 
 | Subsystem | File | Status |

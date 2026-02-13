@@ -264,7 +264,7 @@ LAST UPDATED: 2026-02-13 — Wave 1-3 WOs INTEGRATED (15 WOs). 5144 tests collec
 
 **Total: 5144 tests collected** (5121 passed, 7 failed chatterbox env, 16 skipped hardware-gated)
 
-> Per-subsystem breakdown omitted for context weight. Run `pytest --co -q` for current counts. Wave 1-3: +~496 new tests from 15 WOs (foundation schemas, content extraction, world compiler, discovery backend, voice resolver).
+> **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
 ---
 
@@ -413,7 +413,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Critical Invariants
 
-- All tests must pass in < 5 seconds (currently ~100s at 5144 tests — rule predates scale)
+- All tests must pass within <25ms avg / <120s total (see docs/STATE.md for current actuals)
 - All serialization must use sorted keys (deterministic JSON)
 - Event IDs must be strictly monotonic
 - RNG streams must remain isolated (combat, initiative, policy, saves)

@@ -7,7 +7,7 @@ fix these items waste context, break tests, and introduce regressions.
 
 REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/KNOWN_TECH_DEBT.md
 
-LAST UPDATED: 2026-02-13 (5,144 tests)
+LAST UPDATED: 2026-02-13 (5,254+ tests)
 -->
 
 # Known Technical Debt
@@ -183,6 +183,12 @@ All entity field accesses now use canonical constants from entity_fields.py.
 | TD-014 | Narration templates hardcoded | LOW | CLOSED | N/A — fixed in audit remediation |
 | TD-015 | Shallow copy in conditions.py | MEDIUM | CLOSED | N/A — fixed in audit remediation |
 | TD-016 | BL-017/018 in runner.py CLI | LOW | ACCEPTED | NO — intentional at CLI boundary |
+| TD-017 | Tumble DC hardcoded to 15 | MEDIUM | BLOCKED | NO — requires multi-threat tracking |
+| TD-018 | Spell Resistance not implemented | MEDIUM | BLOCKED | NO — requires SR field in entity schema |
+| TD-019 | Grapple asymmetric (target-only) | LOW | DEFERRED | NO — by design (G-T3C mitigation) |
+| TD-020 | Sneak attack visibility check | MEDIUM | BLOCKED | NO — requires visibility system |
+| TD-021 | box_events.py string-based type detection | LOW | LOW PRIORITY | NO — defer unless causing issues |
+| TD-022 | Flanking cosine float precision | LOW | LOW PRIORITY | NO — defer unless test failures |
 
 ---
 
@@ -279,3 +285,68 @@ The guardrails specify that bootstrap.py must not generate IDs/timestamps. Howev
 
 **Logged as known debt:** 2026-02-10
 **Comments added to code:** Lines 205-206, 292-295
+
+---
+
+## Category 6: Audit Findings — Deferred (2026-02-13 Opus Audit)
+
+Items discovered during the WO-AUDIT-007 comprehensive Opus audit. These are intentionally
+deferred and MUST NOT be fixed without a dedicated WO and explicit project-owner approval.
+
+### TD-017: Tumble DC Hardcoded to 15
+**Status:** BLOCKED — requires multi-threat tracking
+**File:** `aidm/core/aoo.py`
+
+**The problem:** PHB says Tumble DC = 15 + number of threatening enemies, but current code hardcodes DC 15. The "+number of threatening enemies" component requires a multi-threat tracking system that does not yet exist.
+
+**Correct behavior for agents:** Do not fix without a dedicated WO and multi-threat tracking implementation. The current hardcoded DC 15 is correct for the single-threat case.
+
+---
+
+### TD-018: Spell Resistance Not Implemented
+**Status:** BLOCKED — requires SR field in entity schema
+**File:** `aidm/core/spell_resolver.py`
+
+**The problem:** D&D 3.5e Spell Resistance check (d20 + caster level vs SR) is not implemented. The entity schema does not currently include an SR field, so there is no data to check against.
+
+**Correct behavior for agents:** Do not fix without an entity schema extension that adds the SR field. Implementing the check without the schema field would require hardcoding or guessing SR values.
+
+---
+
+### TD-019: Grapple Asymmetric (Target-Only Condition)
+**Status:** DEFERRED — by design (G-T3C mitigation)
+**File:** `aidm/core/maneuver_resolver.py`
+
+**The problem:** Grapple applies the grappled condition only to the target, not to the attacker. In D&D 3.5e, both participants in a grapple are considered grappled. This is a known simplification adopted as part of the G-T3C (Grapple Tier-3 Complexity) mitigation strategy.
+
+**Correct behavior for agents:** Accept as intentional for current scope. Symmetric grapple would require tracking mutual conditions, which adds significant complexity to the condition system.
+
+---
+
+### TD-020: Sneak Attack Visibility Check Not Implemented
+**Status:** BLOCKED — requires visibility system integration
+**File:** `aidm/core/sneak_attack.py`
+
+**The problem:** Sneak attack relies on the caller to assert that visibility conditions are met (target denied Dex, flanked, etc.). The sneak attack resolver does not independently verify visibility. This means an incorrect caller could grant sneak attack damage when the target can actually see the attacker.
+
+**Correct behavior for agents:** Do not fix without visibility system integration. The current trust-the-caller approach is documented and tested; the fix requires wiring the visibility resolver into the sneak attack check.
+
+---
+
+### TD-021: box_events.py Brittle String-Based Type Detection
+**Status:** LOW PRIORITY
+**File:** `aidm/schemas/box_events.py`
+
+**The problem:** Uses string-based isinstance checks for tuple conversion instead of a type registry pattern. This is fragile if type names change or new types are added without updating the string checks.
+
+**Correct behavior for agents:** Low risk, defer unless causing issues. The current implementation works correctly for all existing event types. A type registry refactor would be cleaner but is not urgent.
+
+---
+
+### TD-022: Flanking Cosine Float Precision at 135-Degree Boundary
+**Status:** LOW PRIORITY
+**File:** `aidm/core/flanking.py`
+
+**The problem:** The cosine-based 135-degree angle check for flanking has floating-point precision risk at the exact boundary. Two attackers positioned at exactly 135 degrees apart may or may not qualify for flanking depending on floating-point rounding.
+
+**Correct behavior for agents:** Edge case, defer unless test failures are observed. The current implementation uses standard floating-point comparison which works for all practical grid positions. An epsilon-based comparison could be added if boundary failures appear in testing.

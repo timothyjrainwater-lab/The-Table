@@ -1,28 +1,26 @@
 # Project Coherence Doctrine
 
-> **SCOPE CLARIFICATION ADDENDUM (2026-02-12, RWO-003)**
+> **SCOPE CLARIFICATION ADDENDUM (2026-02-13, WO-AUDIT-007)**
 >
 > This doctrine was written in Feb 2025 (CP-07D) when the project had 1,225 tests
-> and no immersion adapter implementations. Several specific claims are now stale:
+> and no immersion adapter implementations. Several specific claims have been updated:
 >
-> 1. **"Production Voice Integration" is listed as Out of Scope (Section: Scope
->    Boundaries).** However, the M3 Immersion Layer (delivered under the 7-step
->    execution plan) implemented STT, TTS, Image, and AudioMixer adapters with
+> 1. **"Production Voice Integration" scope clarified (2026-02-13, WO-AUDIT-007).**
+>    The M3 Immersion Layer delivered STT, TTS, Image, and AudioMixer adapters with
 >    Protocol-based interfaces, stub defaults, and real backend wiring (Kokoro TTS,
 >    Whisper STT, SDXL Image). These adapters are non-authoritative (they cannot
 >    mutate WorldState or affect deterministic replay) and are governed by
->    `docs/IMMERSION_BOUNDARY.md`. The doctrine's intent -- that voice is
->    "structured intents only" for the deterministic runtime -- remains correct;
->    the immersion layer operates outside the deterministic boundary.
+>    `docs/IMMERSION_BOUNDARY.md`. The Scope Boundaries section has been updated:
+>    voice pipeline integration (STT→intent, narration→TTS) is In Scope (M3);
+>    voice model training / custom voice synthesis remains Out of Scope.
 >
-> 2. **Test Runtime Invariant says "< 5 seconds" (Section 3).** The test suite
->    has grown from 1,225 tests to 3,753 tests. Current runtime is ~51 seconds.
->    The per-test average (~13.6ms) exceeds the original 4ms target. This rule
->    predates the current scale and needs re-baselining (tracked as separate work
->    item in DOC_DRIFT_LEDGER.md).
+> 2. **Test Runtime Invariant (Section 3) — RE-BASELINED (2026-02-13, WO-AUDIT-007).**
+>    The original "<5 seconds" target was set at ~1,200 tests. The suite has grown
+>    to 5,254+ tests. Section 3 now reads: "<25ms average per test AND <120s total
+>    for full suite." The original 4ms/test enforcement threshold is superseded.
 >
-> 3. **Current Status line in Section 3 says "1225 tests in ~3.7 seconds."** This
->    is a snapshot from Feb 2025. Current counts are in `PROJECT_STATE_DIGEST.md`.
+> 3. **Current Status line in Section 3 updated (2026-02-13, WO-AUDIT-007).** Now
+>    reads "5,254+ tests." For current counts, see `PROJECT_STATE_DIGEST.md`.
 >
 > **The core architectural principles (Sections 1-8) remain binding.** The scope
 > boundaries should be read in light of the addendum above.
@@ -30,7 +28,7 @@
 > **For current project state, see:** `PROJECT_STATE_DIGEST.md`
 > **For document precedence, see:** `docs/CURRENT_CANON.md`
 
-**Last Updated**: 2025-02-08 (CP-07D)
+**Last Updated**: 2026-02-13 (WO-AUDIT-007)
 **Status**: Locked (Project Governance)
 
 ## Purpose
@@ -78,18 +76,18 @@ All instruction packets must conform to this doctrine. Deviations require explic
 
 ### 3. Test Runtime Invariant
 
-**Rule**: Full test suite MUST complete in **< 5 seconds** (≤ 4ms per test average).
+**Rule**: Full test suite MUST complete in **<25ms average per test AND <120s total for full suite** (re-baselined 2026-02-13 at 5,254 tests; original <5s target was set at ~1,200 tests).
 
 **Rationale**: Fast tests enable rapid iteration and prevent test suite bloat.
 The threshold scales with test count: original 435 tests at ~1.5s → ~3.4ms/test.
 
 **Enforcement**:
 - Monitor test runtime in CI
-- Reject patches that slow per-test average above 4ms
+- Reject patches that slow per-test average above 25ms
 - Use mocking/stubbing for slow external dependencies
 - Keep unit tests focused and isolated
 
-**Current Status**: 1225 tests in ~3.7 seconds (~3.0ms/test) ✅
+**Current Status**: 5,254+ tests ✅
 
 ### 4. Deterministic Hashing (Not Cryptographic)
 
@@ -187,6 +185,13 @@ The threshold scales with test count: original 435 tests at ~1.5s → ~3.4ms/tes
 - Declare→Point→Confirm interaction pattern
 - Grid coordinates for targeting
 
+✅ **Voice Pipeline Integration (M3 Immersion Layer)**:
+- STT→intent pipeline (Whisper STT → structured intents)
+- Narration→TTS pipeline (Kokoro TTS)
+- Protocol-based adapter interfaces with stub defaults
+- Non-authoritative: cannot mutate WorldState or affect deterministic replay
+- Governed by `docs/IMMERSION_BOUNDARY.md`
+
 ### Out of Scope
 
 ❌ **Campaign Planning UI/Workflows**:
@@ -212,9 +217,10 @@ The threshold scales with test count: original 435 tests at ~1.5s → ~3.4ms/tes
 - System retrieves text, doesn't parse/interpret rules
 - Human DM or future LLM prep layer interprets rules
 
-❌ **Production Voice Integration**:
-- Voice layer defined as structured intents only
-- No actual ASR/TTS implementation
+❌ **Voice Model Training / Custom Voice Synthesis**:
+- Training custom voice models
+- Fine-tuning TTS voices
+- Custom ASR model development
 
 ❌ **UI Implementation**:
 - Contracts defined (grid points, intents)
@@ -299,6 +305,11 @@ If a deviation from this doctrine is required:
 
 ## Version History
 
+- **2026-02-13 (WO-AUDIT-007)**: Re-baselined test runtime invariant, clarified voice scope
+  - Test runtime: <25ms avg per test AND <120s total (at 5,254+ tests)
+  - Voice pipeline integration (STT→intent, narration→TTS) moved to In Scope
+  - Voice model training / custom voice synthesis remains Out of Scope
+  - Updated stale test counts throughout
 - **2025-02-08 (CP-07D)**: Initial doctrine creation
   - Locked scope boundaries (LLM, campaign continuity, test runtime)
   - Clarified terminology (stable hashing, not cryptographic)
