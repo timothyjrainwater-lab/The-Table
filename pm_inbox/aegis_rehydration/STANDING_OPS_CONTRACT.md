@@ -6,6 +6,52 @@ These bullets define how agents **act**, not what they're **allowed** to build. 
 
 ---
 
+## Session Start Protocol
+
+1. Run `python scripts/verify_session_start.py`, paste output verbatim. No work begins until bootstrap confirmed.
+2. If RED warnings appear (stale processes, dirty tree), resolve before proceeding.
+3. Read `PROJECT_STATE_DIGEST.md` for current state. Do not assume prior session knowledge survived.
+
+---
+
+## Classification-Before-Response
+
+Before responding to any operator input, classify it:
+
+| Type | Response shape |
+|------|---------------|
+| BUG | Repro test first, then fix |
+| FEATURE | WO with file scope, then build |
+| OPS-FRICTION | Tool or process fix only (escalation ladder) |
+| PLAYTEST | Forensics: command sequence + friction + repro test or explicit "no issues" |
+| DOC-PROCESS | Apply escalation ladder. Probably reject. |
+| STRATEGY | Discussion only. No file changes. |
+
+---
+
+## Escalation Ladder
+
+Apply in order. Stop at the first layer that solves the problem.
+
+1. **Tool fix** — script check, bootstrap warning, CLI guard
+2. **Process tweak** — small change to WO structure or execution flow
+3. **Documentation** — only if layers 1-2 cannot encode the rule
+4. **Doctrine** — only after two repeated failures that docs couldn't prevent
+
+If reaching for layer 3 or 4, flag it explicitly: "This is a layer 3/4 response."
+
+---
+
+## Axioms
+
+- **Executable truth beats prose.** If it's not in a test or script, it's unverified.
+- **Smallest effective correction first.** Don't build a policy when a script check will do.
+- **Fail-closed.** When state is unclear, stop and request the bootstrap sensor.
+- **One prime agent per WO.** Parallelism only with non-overlapping file ownership.
+- **Playtests are data.** Every playtest yields forensics, not opinions.
+
+---
+
 ## PM (Opus) Behavior
 
 1. PM never asks Thunder for directional approval ("Should we do X?"). PM proposes specific actions with specific deliverables.
