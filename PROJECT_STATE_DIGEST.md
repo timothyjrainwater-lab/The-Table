@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — WO-INITIATIVE-01 + Signal Voice INTEGRATED. 5371 tests collected, 5323 passed, 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-13 — Phase 4C queued (10 WOs), 5 research artifacts anchored. 5371 tests collected, 5323 passed, 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -332,18 +332,10 @@ LAST UPDATED: 2026-02-13 — WO-INITIATIVE-01 + Signal Voice INTEGRATED. 5371 te
 
 ## Canonical Project Plan Reference
 
-**CANONICAL EXECUTION PLAN (Plan v2 — ACTIVE):**
-- [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Active execution plan (4 phases: Brain→Content Breadth→Session Playability→Playtest). Approved by PO 2026-02-11. Phase 1 COMPLETE (A8 PASSED). Phase 2 COMPLETE (A9 PASSED). Phase 3 Batch 1 INTEGRATED.
-
-**PRIOR PLANS (Historical):**
-- [EXECUTION_PLAN_DRAFT_2026_02_11.md](docs/planning/EXECUTION_PLAN_DRAFT_2026_02_11.md) — Plan v1 (7-step). All 26 WOs complete. Closed.
-- [AIDM_EXECUTION_ROADMAP_V3.md](docs/AIDM_EXECUTION_ROADMAP_V3.md) — Prior roadmap. M0-M4 milestones. Superseded by execution plan but capability gates remain in force.
-
-**DESIGN LAYER (FROZEN):**
-- [DESIGN_LAYER_ADOPTION_RECORD.md](docs/design/DESIGN_LAYER_ADOPTION_RECORD.md) — Formal design freeze
-- docs/design/*.md — 6 frozen design documents
-
-**No ambiguity. The Execution Plan is the active source of truth for project direction and work order sequencing. Capability gates from Roadmap V3 remain enforced.**
+**Active plan:** [EXECUTION_PLAN_V2_POST_AUDIT.md](docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md) — Phases 1-3 COMPLETE. Phase 4 ACTIVE.
+**Phase 4C detail:** [PHASE4C_FORWARD_PROGRESSION.md](docs/planning/PHASE4C_FORWARD_PROGRESSION.md) — 10-WO package, 3 waves.
+**Prior plans:** Plan v1 (closed), Roadmap V3 (superseded, capability gates still enforced).
+**Design layer:** Frozen. See [DESIGN_LAYER_ADOPTION_RECORD.md](docs/design/DESIGN_LAYER_ADOPTION_RECORD.md).
 
 ---
 
@@ -416,13 +408,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Non-Goals (Explicitly Out of Scope)
 
-- Real-time gameplay optimization
-- NLP/semantic search (keyword-based only)
-- Rule interpretation (retrieves text, doesn't parse rules)
-- Campaign planning UI/workflows
-- Production ASR/TTS (structured intents only)
-- UI implementation (contracts only)
-- LLM dependency in deterministic runtime
+Real-time gameplay optimization, NLP/semantic search, rule interpretation (retrieves text only), campaign planning UI, production ASR/TTS (structured intents only), UI implementation (contracts only), LLM dependency in deterministic runtime.
 
 ---
 
@@ -459,22 +445,42 @@ All Phase 1-3, Post-A10, and Wave 1-3 (15 WOs, ~524 new tests) integrated. See L
 
 ### Canceled: WO-CODE-INTENT-002, WO-INTENT-002 (superseded by BUGFIX-BATCH)
 
-### Phase 4 — ACTIVE (Playable CLI)
+### Phase 4A/4B — COMPLETE (Playable CLI Foundation)
+
+7 WOs integrated: WO-PLAYABLE-LOOP-01 (CLI entry point), WO-MOVE-01 (movement), WO-SELFTARGET-01 (self-cast), WO-OPS-FOUNDATION-01 (bootstrap), WO-ENCOUNTER-01 (3v3 fixture), WO-OPS-HYGIENE-01 (hardening), WO-INITIATIVE-01 (initiative + turn order). See Locked Systems for details.
+
+### Phase 4C — QUEUED (CLI Capability Wiring) — See `docs/planning/PHASE4C_FORWARD_PROGRESSION.md`
+
+| WO | Wave | Description | Status |
+|----|------|-------------|--------|
+| WO-CONDFIX-01 | A | Fix condition storage format mismatch | QUEUED (dispatch first) |
+| WO-ROUND-TRACK-01 | A | Round counter display in CLI | QUEUED |
+| WO-FULLATTACK-CLI-01 | B | Full attack action in CLI | QUEUED |
+| WO-MANEUVER-CLI-01 | B | Combat maneuver parsing (6 types) | QUEUED |
+| WO-STATUS-EXPAND-01 | B | Expanded status display (AC, BAB, conditions) | QUEUED |
+| WO-AOO-DISPLAY-01 | B | AoO event display in CLI | QUEUED |
+| WO-VOICE-SIGNAL-01 | B | Agent-triggered voice signal on WO completion | QUEUED |
+| WO-SPELLSLOTS-01 | C | Spell slot tracking (blocked — CP for entity_fields.py) | BLOCKED |
+| WO-SPELLLIST-CLI-01 | C | Spell list display in CLI | QUEUED |
+| WO-CHARSHEET-CLI-01 | C | Character sheet display in CLI | QUEUED |
+
+### Standalone — FUTURE
 
 | WO | Description | Status |
 |----|-------------|--------|
-| WO-PLAYABLE-LOOP-01 | Playable CLI (play.py) | INTEGRATED |
-| WO-MOVE-01 | Real movement in play loop | INTEGRATED |
-| WO-SELFTARGET-01 | Self-cast parsing | INTEGRATED |
-| WO-OPS-FOUNDATION-01 | Session bootstrap + playtest logger | INTEGRATED |
-| WO-ENCOUNTER-01 | Expand 1v1 to 3v3 party | INTEGRATED |
-| WO-OPS-HYGIENE-01 | Session bootstrap hardening | INTEGRATED |
-| WO-INITIATIVE-01 | Initiative system in CLI | INTEGRATED |
-| WO-FULLATTACK-CLI-01 | Full attack action in CLI | FUTURE |
-| WO-SPELLSLOTS-01 | Spell slot tracking | FUTURE |
 | WO-OSS-DICE-001 | Three.js Dice Roller Demo | FUTURE (needs amendments per Jay review) |
 
-See EXECUTION_PLAN_V2_POST_AUDIT.md and REVISED_PROGRAM_SEQUENCING_2026_02_12.md for full WO definitions.
+### Research Artifacts — ANCHORED (specs only, no code)
+
+| WO-RQ ID | Topic | Status | File |
+|----------|-------|--------|------|
+| WO-RQ-AUDIOFIRST-CLI-CONTRACT-01 | Audio-first CLI output grammar | COMPLETE | `docs/planning/research/RQ_AUDIOFIRST_CLI_CONTRACT_V1.md` |
+| WO-RQ-LLM-CALL-TYPING-01 | Lens/Spark typed-call schemas | COMPLETE | `docs/planning/research/RQ_LLM_TYPED_CALL_CONTRACT.md` |
+| WO-RQ-SPARK-BOUNDARYPRESSURE-01 | Boundary pressure runtime signal | COMPLETE | `docs/planning/research/RQ_SPARK_BOUNDARY_PRESSURE.md` |
+| WO-RQ-UNKNOWN-TAXONOMY-01 | Unknown handling policy | DRAFT | `docs/planning/research/RQ_UNKNOWN_HANDLING_POLICY.md` |
+| WO-RQ-PROSODIC-001 | Prosodic schema for TTS | DRAFT | `docs/planning/PROSODIC_SCHEMA_DRAFT.md` |
+
+See `docs/planning/PHASE4C_FORWARD_PROGRESSION.md` for full WO definitions and sequencing.
 
 ---
 
