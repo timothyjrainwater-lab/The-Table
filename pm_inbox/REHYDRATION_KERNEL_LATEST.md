@@ -77,26 +77,29 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 35942fe (chore: adopt Two-Force Protocol, convert BURST-001 to READY BRICK)
-Tests passed: 5,438 (7 failed Chatterbox GPU-gated, 16 skipped HW-gated)
-CLI tests: 130 passed
+Last commit: 30d0afc (docs: add Action Economy Audit — correctness bugs and gap inventory)
+Tests passed: 5,510 (16 skipped HW-gated)
+CLI tests: 130 passed + 49 movement tests
 Stoplight: GREEN
 
-**Uncommitted work (staged for next commit):**
-- Action economy implementation (ActionBudget class, turn loop rewrite) in `play.py`
-- 24 new tests + updated sequences in `tests/test_play_cli.py`
-- BURST-003 binary decisions resolved in `pm_inbox/BURST_INTAKE_QUEUE.md`
-- Stale planning docs archived (PHASE4B, PHASE4C, EXECUTION_PLAN_V2)
+**Recent integrations (not yet WO-tracked):**
+- Movement v1 (CP-16): FullMoveIntent + Dijkstra pathfinding + speed enforcement + 5/10/5 diagonal + enemy blocking + per-square AoO (commit 9b9aa31)
+- Action Economy Audit: 10 correctness bugs identified (4 HIGH), contamination matrix, Tier 0-4 priority ranking (commit 30d0afc)
+
+**Untracked files (not committed):**
+- 4 voice research docs in `docs/research/VOICE_*.md`
+- `pm_inbox/research/` directory
 
 ## Active Work Surfaces
 
-**Phase 4C — Waves A+B COMPLETE, playtest fixes COMPLETE:**
-All 7 Waves A+B WOs integrated. Additional playtest fixes implemented post-wave:
-- Action economy enforcement (D&D 3.5e ActionBudget — standard + move per turn)
-- AC breakdown display (base + cover + conditions in attack rolls)
-- ASCII tactical map (`show_map()`, `map` command)
-- Move error messages (friendly guidance for bad coords, no destination)
-- No double status on turn start
+**Phase 4C — Waves A+B COMPLETE, Movement v1 INTEGRATED, Audit COMPLETE:**
+All 7 Waves A+B WOs integrated. CP-16 Movement v1 implemented and committed (retroactive — no WO existed). Action Economy Audit delivered with 10 correctness bugs and Tier 0-4 priority ranking.
+
+**Tier 0 Correctness Bugs (from audit) — NEEDS WOs:**
+- BUG-1: Two-handed STR 1.5x not applied (attack_resolver.py, full_attack_resolver.py)
+- BUG-2: Full attack doesn't stop on target death (full_attack_resolver.py)
+- BUG-3: Prone AC not differentiated melee/ranged (conditions.py, attack_resolver.py)
+- BUG-4: Helpless AC not differentiated melee/ranged (conditions.py)
 
 **Phase 4C — Wave C: 3 WOs remaining:**
 - WO-SPELLSLOTS-01: BLOCKED on CP for `entity_fields.py` (frozen contract)
@@ -109,4 +112,4 @@ All 7 Waves A+B WOs integrated. Additional playtest fixes implemented post-wave:
 
 **BURST-002 (Model/Runtime Constraint Envelope):** NOT STARTED.
 
-**PM posture:** IDLE. No dispatch pending. Awaiting operator signal (DC-01..DC-05 resolution, Wave C CP decision, or BURST-002 priority).
+**PM posture:** ACTIVE. PSD and rehydration kernel updated. Next: write WOs for Tier 0 correctness bugs. Awaiting operator signal for priority sequencing.

@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — Phase 4C Waves A+B COMPLETE (7 WOs). Wave C QUEUED (3 WOs, 1 blocked). 5420 tests collected, 5397 passed, 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-13 — Phase 4C Waves A+B COMPLETE (7 WOs). Wave C QUEUED (3 WOs, 1 blocked). Movement v1 (CP-16) INTEGRATED. Action Economy Audit complete (10 correctness bugs identified, 4 HIGH). 5510 tests collected, 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -243,13 +243,7 @@ LAST UPDATED: 2026-02-13 — Phase 4C Waves A+B COMPLETE (7 WOs). Wave C QUEUED 
 - 3 WOs: CONTENT-EXTRACT-001 (605 spells, 25 tests), CONTENT-EXTRACT-002 (273 creatures, 36 tests), CONTENT-EXTRACT-003 (109 feats, 35 tests). All IP-clean templates in `aidm/data/content_pack/`.
 
 ### Wave 3: World Compiler + Backend (2026-02-13)
-- **WO-WORLDCOMPILE-SCAFFOLD-001**: WorldCompiler pipeline harness with CompileStage ABC, topological sort, Stage 0 (validation), Stage 8 (finalize/hashing), CompileReport in `aidm/core/world_compiler.py` + `aidm/schemas/world_compile.py`. 52 tests.
-- **WO-WORLDCOMPILE-LEXICON-001**: LexiconStage (Stage 1) — stub-mode name generation, VocabularyRegistry output in `aidm/core/compile_stages/lexicon.py`. 25 tests.
-- **WO-WORLDCOMPILE-SEMANTICS-001**: SemanticsStage (Stage 3) — mechanical-to-semantics mapping (delivery mode, staging, scale, VFX/SFX tags) in `aidm/core/compile_stages/semantics.py`. 58 tests.
-- **WO-WORLDCOMPILE-NPC-001**: NPCArchetypeStage (Stage 4) — 8 NPC archetypes + 6 doctrine profiles, MonsterDoctrine-compatible conversion in `aidm/core/compile_stages/npc_archetypes.py` + `aidm/schemas/npc_archetype.py`. 44 tests.
-- **WO-DISCOVERY-BACKEND-001**: DiscoveryLog (Lens-tier) with KnowledgeEvent, monotonic tier progression, field gating via REVEAL_SPEC in `aidm/lens/discovery_log.py`. 39 tests.
-- **WO-VOICE-RESOLVER-001**: Free-text keyword extraction + persona scoring in `aidm/lens/voice_resolver.py`. 23 tests.
-- **WO-WEBSOCKET-BRIDGE-001**: WebSocket protocol schema (ClientMessage/ServerMessage frozen dataclasses), Starlette ASGI app, ws_bridge handler in `aidm/schemas/ws_protocol.py` + `aidm/server/`. 28 tests.
+- 7 WOs: WORLDCOMPILE-SCAFFOLD-001 (pipeline harness + Stage 0/8, 52 tests), WORLDCOMPILE-LEXICON-001 (Stage 1 name gen, 25 tests), WORLDCOMPILE-SEMANTICS-001 (Stage 3 mechanical→semantics, 58 tests), WORLDCOMPILE-NPC-001 (Stage 4 archetypes + doctrine, 44 tests), DISCOVERY-BACKEND-001 (knowledge events + tier progression, 39 tests), VOICE-RESOLVER-001 (keyword extraction, 23 tests), WEBSOCKET-BRIDGE-001 (ws protocol + ASGI app, 28 tests).
 
 ### Playable CLI + Playtest Infrastructure (2026-02-13)
 - **play.py**: Terminal combat CLI — keyword parser (attack/cast/move/status/help), IntentBridge resolution, execute_turn wiring, enemy AI, event formatting, transcript autologging to `runtime_logs/`. 3v3 party fixture (Fighter/Cleric/Rogue vs 3 Goblins).
@@ -258,27 +252,21 @@ LAST UPDATED: 2026-02-13 — Phase 4C Waves A+B COMPLETE (7 WOs). Wave C QUEUED 
 - **Playtest tooling**: `scripts/verify_session_start.py` (session bootstrap + hygiene gate), `scripts/record_playtest.py`, `scripts/triage_latest_playtest.py`.
 - **89 tests** in test_play_cli.py (parser, combat logic, display formatting, CLI smoke, golden transcript, determinism, crash regression, round tracking, full attack, maneuvers, expanded status, AoO display).
 
-### WO-INITIATIVE-01: Initiative System in CLI (2026-02-13)
-- **Initiative rolling**: `roll_initiative_for_all_actors()` in `aidm/core/initiative.py` — d20 + DEX modifier per actor, deterministic via RNGManager seed.
-- **RAW tie-breaking**: Higher total > higher DEX mod > lexicographic entity_id. `sort_initiative_order()` pure function.
-- **CLI display**: Turn order printed at encounter start with d20 rolls, DEX modifiers, party markers. Turn progression follows initiative order.
-- **15 tests** in test_initiative_cli.py (determinism, tie-breaking, CLI display, turn order).
+### Phase 4C Waves A+B: CLI Capability Wiring (2026-02-13)
+- **Wave A**: WO-CONDFIX-01 (condition storage format fix), WO-ROUND-TRACK-01 (round counter display).
+- **Wave B**: WO-FULLATTACK-CLI-01 (full attack pipeline), WO-MANEUVER-CLI-01 (6 maneuver commands), WO-STATUS-EXPAND-01 (HP/AC/BAB/conditions display), WO-AOO-DISPLAY-01 (AoO event rendering), WO-VOICE-SIGNAL-01 (440Hz chime + sentence chunking).
+- **133 tests** across test_play_cli.py (89) + test_speak_signal.py (18) + test_initiative_cli.py (15) + condition gold masters.
 
-### WO-CONDFIX-01: Condition Storage Format Unification (2026-02-13)
-- **Fix**: Spell conditions stored as dict format `{condition_id: ConditionInstance dict}` instead of bare strings in list. Canonical `ConditionType` conditions get real modifiers via factory functions; unknown buff labels get zero-modifier dicts.
-- **Files**: `play_loop.py` (apply/remove), `combat_controller.py` (expiry removal), `conditions.py` (graceful unknown-type handling). Gold masters regenerated.
+### Movement v1 — CP-16: Multi-Square Movement (2026-02-13)
+- **FullMoveIntent**: Schema with path contiguity validation, 5/10/5 diagonal cost rule (PHB p.148), terrain cost multiplier support.
+- **Dijkstra pathfinding**: Cost-optimal pathfinding in `movement_resolver.py` — enemy blocking, ally pass-through, speed enforcement via `EF.BASE_SPEED`, orthogonal-first deterministic tie-breaking.
+- **Integration**: `play_loop.py` routes FullMoveIntent with per-square AoO + defeat abort. `play.py` CLI `move X Y` command, enemy AI moves toward closest target before attacking. `play_controller.py` fixture entities populated with `EF.BASE_SPEED` (30ft standard, 20ft cleric heavy armor).
+- **49 tests** in test_movement_v1.py (schema, pathfinding, build_full_move_intent, play_loop execution, enemy AI, CLI integration, step cost, occupied squares).
 
-### WO-ROUND-TRACK-01: Round Counter Display in CLI (2026-02-13)
-- **Round headers**: `=== Round N ===` printed at each initiative cycle boundary. `round_index` in `active_combat` incremented at each boundary.
-- **Files**: `play.py` (`_main_loop` round tracking), `tests/test_play_cli.py` (5 new tests). Completes Wave A.
-
-### Wave B: CLI Capability Wiring (2026-02-13)
-- **WO-FULLATTACK-CLI-01**: `full attack <target>` invokes `FullAttackIntent` pipeline via `play_loop.py`. Parser promotes `AttackIntent` to `FullAttackIntent` using entity BAB.
-- **WO-MANEUVER-CLI-01**: 6 maneuver commands (trip/bull rush/disarm/grapple/sunder/overrun). Parser builds typed intents from `aidm/schemas/maneuvers.py`. Events rendered in `format_events()`.
-- **WO-STATUS-EXPAND-01**: `show_status()` displays HP, AC, BAB, position, and active conditions (`*prone, shaken*`).
-- **WO-AOO-DISPLAY-01**: `aoo_triggered`, `tumble_check`, `aoo_avoided_by_tumble`, `aoo_blocked_by_cover` events rendered.
-- **WO-VOICE-SIGNAL-01**: Signal parser (`=== SIGNAL: REPORT_READY ===`), 440Hz chime, sentence-boundary chunking (fixes TD-023), `--signal`/`--full` CLI flags. Standing ops rule added.
-- **44 new tests** (26 in test_play_cli.py, 18 in test_speak_signal.py). 89 total in test_play_cli.py.
+### Action Economy Audit (2026-02-13)
+- **docs/research/ACTION_ECONOMY_AUDIT.md**: Complete mechanical inventory — 13 sections covering movement, action economy, attacks, AoO, maneuvers, combat state machine, entity model, feats, spellcasting.
+- **10 correctness bugs identified** (4 HIGH): BUG-1 two-handed STR 1.5x, BUG-2 full attack overkill, BUG-3 prone AC not melee/ranged-differentiated, BUG-4 helpless AC same issue. Tier 0-4 priority ranking.
+- **Contamination matrix**: Documents which systems can/cannot be meaningfully playtested with current movement implementation.
 
 ### Signal Voice — Operator TTS Pipeline (2026-02-13)
 - **scripts/speak.py**: Three-engine pipeline — Kokoro (voice design, CPU) -> Chatterbox (GPU render, voice cloning) -> winsound (playback). Kokoro CPU fallback if no GPU.
@@ -290,7 +278,7 @@ LAST UPDATED: 2026-02-13 — Phase 4C Waves A+B COMPLETE (7 WOs). Wave C QUEUED 
 
 ## Test Count
 
-**Total: 5420 tests collected** (5397 passed, 16 skipped hardware-gated)
+**Total: 5510 tests collected** (16 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -469,9 +457,19 @@ All Phase 1-3, Post-A10, Wave 1-3, and Phase 4A/4B integrated. See Locked System
 | WO-STATUS-EXPAND-01 | B | Expanded status display (AC, BAB, conditions) | INTEGRATED |
 | WO-AOO-DISPLAY-01 | B | AoO event display in CLI | INTEGRATED |
 | WO-VOICE-SIGNAL-01 | B | Agent-triggered voice signal on WO completion | INTEGRATED |
+| CP-16 (retroactive) | — | Movement v1: multi-square Dijkstra pathfinding | INTEGRATED |
 | WO-SPELLSLOTS-01 | C | Spell slot tracking (blocked — CP for entity_fields.py) | BLOCKED |
 | WO-SPELLLIST-CLI-01 | C | Spell list display in CLI | QUEUED |
 | WO-CHARSHEET-CLI-01 | C | Character sheet display in CLI | QUEUED |
+
+### Tier 0 Correctness Bugs — See `docs/research/ACTION_ECONOMY_AUDIT.md` Section X
+
+| Bug ID | Description | Severity | WO Status |
+|--------|-------------|----------|-----------|
+| BUG-1 | Two-handed STR 1.5x not applied | HIGH | NEEDS WO |
+| BUG-2 | Full attack doesn't stop on target death | HIGH | NEEDS WO |
+| BUG-3 | Prone AC not differentiated melee/ranged | HIGH | NEEDS WO |
+| BUG-4 | Helpless AC not differentiated melee/ranged | HIGH | NEEDS WO |
 
 ### Standalone + Research — WO-OSS-DICE-001 FUTURE. 5 WO-RQ research artifacts anchored (see `docs/planning/research/`). Voice research fleet (WO-VOICE-RESEARCH-01..05) delivered.
 
