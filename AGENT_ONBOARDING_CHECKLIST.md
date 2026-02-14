@@ -226,7 +226,7 @@ The `**Lifecycle:**` field is **mandatory** (enforced by test). Valid values: `N
 **After creating a file in pm_inbox, you MUST:**
 1. Add a one-line entry to `pm_inbox/PM_BRIEFING_CURRENT.md` under the appropriate section
 2. This is the PM's entry point — if it's not in the briefing, the PM may not see your file
-3. **Output an operator relay block** — a fenced code block in your chat output containing only the content the PM needs to make a decision. The Operator copy-pastes this into the PM's context window. The file is the archive; the relay block is what the PM actually reads. Keep it to the minimum needed for the PM to verdict — typically just the Action Items section. The Operator controls what enters the PM's context window; your job is to make that relay one click.
+3. **Output an operator relay block** — a fenced code block in your chat output containing a **one-line pointer**: just the filename and verdict action (e.g., `MEMO_SESSION_FINDINGS — PM verdict needed`). Do NOT compress the memo into the relay block. The PM already has the briefing for context; if the PM needs detail, the PM opens the file. The relay block is a signal, not a summary. The Operator copy-pastes this one-liner into the PM's context window — one click, zero context waste.
 
 **Inbox cap:** 15 active `.md` files maximum (enforced by test). If you're near the cap, note it in your debrief.
 

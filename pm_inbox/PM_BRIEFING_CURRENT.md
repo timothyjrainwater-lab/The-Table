@@ -23,6 +23,7 @@
 ## Needs PM to Draft WOs (no dispatch docs exist yet)
 
 - [ ] **Governance CE WOs** — PM decisions delivered (in reviewed/WO_SET_PM_CONTEXT_EFFICIENCY.md) but no individual dispatch docs drafted. 6 items.
+- [ ] **[MEMO_IDLE_NOTIFICATION_FORGE_QUIET]** — Add Rule 22 to Standing Ops: idle agents play "Thunder, the forge is quiet" via speak.py. Uses existing Arbor voice infra. Zero code changes, 1 rule addition. PM verdict needed.
 
 ## Active Operational Files
 
