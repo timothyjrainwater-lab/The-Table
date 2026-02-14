@@ -451,3 +451,24 @@ Compress the dump into a structured memo:
 - **Deferred Items** (not blocking) — one sentence each
 
 **Why two passes:** Pass 1 prevents context loss. Pass 2 respects the PM's context window budget. Writing the compressed version directly causes the agent to skip things that seemed unimportant but weren't. Writing only the full dump overwhelms the PM.
+
+### 15.6 Methodology Maintenance Protocol
+
+The `methodology/` directory contains a domain-independent extract of this project's multi-agent coordination patterns. It is also published as a standalone repo at:
+
+**https://github.com/timothyjrainwater-lab/multi-agent-coordination-framework**
+
+**When to update `methodology/`:**
+- A new coordination failure is discovered → add to `patterns/COORDINATION_FAILURE_TAXONOMY.md`
+- A new pattern is codified (new section in this file, new template, new enforcement rule) → create or update the corresponding pattern/template in `methodology/`
+- An existing pattern is revised based on experience → update the methodology version
+
+**When to sync to the standalone repo:**
+- After any commit that modifies files in `methodology/` in this repo
+- Sync command: from `methodology/` directory, copy files to the standalone repo clone and push
+- The PM or PO is responsible for triggering the sync — builder agents do NOT push to external repos without explicit instruction
+
+**What does NOT go in `methodology/`:**
+- D&D-specific rules, schemas, or verification details
+- Project-specific file paths, bug IDs, or WO identifiers (use generic examples instead)
+- Anything that requires knowledge of this project's architecture to understand

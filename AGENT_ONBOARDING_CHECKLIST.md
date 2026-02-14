@@ -139,6 +139,8 @@ These are the five most common mistakes agents make on this project. Memorize th
 | "What RNG stream do I use?" | See `AGENT_DEVELOPMENT_GUIDELINES.md` Section 5 |
 | "What capability gates are open?" | See `PROJECT_STATE_DIGEST.md` → Capability Gate Status |
 | "What spells can I implement?" | Only Tier 1. See `docs/CP-18A-SPELL-TIER-MANIFEST.md` |
+| "Where do coordination patterns live?" | `methodology/` — domain-independent extract, also published externally |
+| "I discovered a new coordination pattern" | Add to `methodology/patterns/`, update `methodology/README.md`, note in debrief |
 
 ---
 
