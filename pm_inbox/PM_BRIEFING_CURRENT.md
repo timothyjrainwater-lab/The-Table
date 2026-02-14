@@ -22,7 +22,7 @@
 
 ## Needs PM to Draft WOs (no dispatch docs exist yet)
 
-- [ ] **Governance session WO** — Bundle: 6 CE items + Rule 22 idle notification + bidirectional relay convention (PM→builder code blocks). One dispatch doc for one builder session.
+- [ ] **Governance session WO** — Bundle: 6 CE items + Rule 22 idle notification (builder: "forge is quiet" + PM: "PM is on standby") + bidirectional relay convention (PM→builder code blocks). One dispatch doc for one builder session.
 
 ## Active Operational Files
 
