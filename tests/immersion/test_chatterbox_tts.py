@@ -40,6 +40,10 @@ def adapter():
 def mock_audio_tensor():
     """Create a mock torch tensor that behaves like Chatterbox output."""
     torch = pytest.importorskip("torch", reason="PyTorch not properly installed")
+    try:
+        import torch.nn  # noqa: F401 — verify real PyTorch, not a stub
+    except (ImportError, ModuleNotFoundError):
+        pytest.skip("PyTorch installation is broken (torch.nn not available)")
     # 0.5 seconds of sine wave at 24kHz
     t = torch.linspace(0, 0.5, 12000)
     audio = torch.sin(2 * 3.14159 * 440 * t).unsqueeze(0)  # (1, 12000)

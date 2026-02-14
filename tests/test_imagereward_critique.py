@@ -23,6 +23,9 @@ from unittest.mock import Mock, MagicMock, patch
 # Mock torch and ImageReward at module level (before imports)
 # =============================================================================
 
+_original_torch = sys.modules.get('torch')
+_original_imagereward = sys.modules.get('ImageReward')
+
 # Create mock torch module
 mock_torch = MagicMock()
 mock_torch.cuda.is_available.return_value = False
@@ -43,6 +46,20 @@ from aidm.schemas.image_critique import (
     DEFAULT_CRITIQUE_RUBRIC,
 )
 from aidm.core.image_critique_adapter import ImageCritiqueAdapter, create_image_critic
+
+
+@pytest.fixture(autouse=True, scope="module")
+def _restore_torch_after_module():
+    """Restore original sys.modules entries after this test module completes."""
+    yield
+    if _original_torch is not None:
+        sys.modules['torch'] = _original_torch
+    else:
+        sys.modules.pop('torch', None)
+    if _original_imagereward is not None:
+        sys.modules['ImageReward'] = _original_imagereward
+    else:
+        sys.modules.pop('ImageReward', None)
 
 
 # =============================================================================
