@@ -1,21 +1,23 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (TTS cold start research sprint drafted)
+**Last updated:** 2026-02-14 (H0 bundle COMMITTED — all 3 WOs recovered and committed)
 
 ---
 
 ## Requires Operator Action (NOW)
 
+- [ ] **Relay H0 completion report to PM** — `pm_inbox/WO-H0-BUNDLE_COMPLETION.md`. All 3 H0 WOs committed (GAP-B-001, VERSION-MVP, GOV-SESSION-001). 5,581 tests pass. PM needs to review and approve gate lift.
 - [ ] **Review PM Synthesis Memo** — `pm_inbox/MEMO_RESEARCH_SPRINT_SYNTHESIS.md`. Roadmap with 4 Horizons. All 11 RQs synthesized.
-- [ ] **Dispatch WO-GAP-B-001** — `pm_inbox/WO-GAP-B-001_DISPATCH.md`. Connect Layer B to pipeline (~10 lines + TruthChannel). Parallel-safe.
-- [ ] **Dispatch WO-VERSION-MVP** — `pm_inbox/WO-VERSION-MVP_DISPATCH.md`. 3 minimum viable version changes. CampaignManifest only. Parallel-safe.
-- [ ] **Dispatch WO-GOV-SESSION-001** — `pm_inbox/WO-GOV-SESSION-001_DISPATCH.md`. 8 governance deliverables (BL-021, Rule 22, relay convention, 5-role docs, CE items). Parallel-safe.
 - [ ] **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
-- [ ] **Review WO-TTS-COLD-START-RESEARCH** — `pm_inbox/WO-TTS-COLD-START-RESEARCH_DISPATCH.md`. 6 RQs: cold start breakdown, VRAM footprint, persistent server, subprocess keep-alive, Kokoro fast path, streaming TTS. Informs WO-TTS-CHUNKING scope.
+- [x] ~~Dispatch WO-GAP-B-001~~ — **COMMITTED** (`e9a9371`)
+- [x] ~~Dispatch WO-VERSION-MVP~~ — **COMMITTED** (`eac5061`)
+- [x] ~~Dispatch WO-GOV-SESSION-001~~ — **COMMITTED** (`c168f3d`)
+- [x] ~~Dispatch WO-VOICE-HOOK-001~~ — **IMPLEMENTED** (`.claude/settings.json` — SessionEnd hook)
+- [ ] **Dispatch WO-TTS-COLD-START-RESEARCH** — `pm_inbox/WO-TTS-COLD-START-RESEARCH_DISPATCH.md`. PM-REVIEWED (ACCEPTED). 6 RQs. H1-adjacent, parallel-safe. Can dispatch now.
 
-## Awaiting Dispatch (BLOCKED behind H0 completion)
+## Awaiting Dispatch (BLOCKED behind PM review of H0 completion)
 
-- [ ] **RED block lift** — After H0 WOs complete. Preflight already PASSED.
+- [ ] **RED block lift** — After PM reviews H0 completion report. Preflight already PASSED. All code committed.
 - [ ] **WO-WEAPON-PLUMBING-001** — Bundle: is_ranged + disarm mods + sunder grip. Horizon 1.
 - [ ] **Resolver deduplication** — Second P4 WO after weapon plumbing. Horizon 1.
 
@@ -36,10 +38,12 @@
 ## Active Operational Files
 
 - `BURST_INTAKE_QUEUE.md` — BURST-001 thru 004 (1 READY, 2 NOT STARTED, 1 PARTIAL)
-- `WO-GAP-B-001_DISPATCH.md` — **DISPATCH-READY**
-- `WO-VERSION-MVP_DISPATCH.md` — **DISPATCH-READY**
-- `WO-GOV-SESSION-001_DISPATCH.md` — **DISPATCH-READY**
-- `WO-TTS-COLD-START-RESEARCH_DISPATCH.md` — 6 RQs. Awaiting PM review.
+- `WO-H0-BUNDLE_COMPLETION.md` — **H0 completion report. Awaiting PM review.**
+- `WO-GAP-B-001_DISPATCH.md` — **COMPLETE** (`e9a9371`). Ready to archive.
+- `WO-VERSION-MVP_DISPATCH.md` — **COMPLETE** (`eac5061`). Ready to archive.
+- `WO-GOV-SESSION-001_DISPATCH.md` — **COMPLETE** (`c168f3d`). Ready to archive.
+- `WO-VOICE-HOOK-001_DISPATCH.md` — **COMPLETE** (`.claude/settings.json`). Ready to archive.
+- `WO-TTS-COLD-START-RESEARCH_DISPATCH.md` — **PM-REVIEWED, DISPATCH-READY** (H1-adjacent, parallel-safe)
 - `WO-RESEARCH-SPRINT-001_DISPATCH.md` — 11 RQs, ALL COMPLETE. Ready to archive.
 - `WO-RESEARCH-SPRINT-001_COMPLETION.md` — Builder completion report. Ready to archive.
 - `HANDOFF_TTS_COLD_START_RESEARCH.md` — BS Buddy research handoff. Operationalized into WO-TTS-COLD-START-RESEARCH. Ready to archive.
