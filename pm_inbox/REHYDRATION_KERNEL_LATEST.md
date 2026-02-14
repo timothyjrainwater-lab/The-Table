@@ -77,13 +77,13 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 1da6377 — fix: I-AMB-02 (TWF penalties respect off-hand weapon weight)
+Last commit: 3c49e22 — docs: handoff — pm_inbox hygiene gap identified, needs WO
 Tests passed: 5,277 (15 skipped) — **GREEN. 0 failures.**
-Stoplight: **YELLOW — Fix WOs nearly complete, 2 items remain, 7 AMBIGUOUS Operator decisions pending**
+Stoplight: **YELLOW — All fix WOs COMPLETE, 7 AMBIGUOUS Operator decisions pending, PSD update + RED block lift remain**
 
 **Verification COMPLETE:** 338 formulas verified across 9 domains. 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist. Domain A re-verified with research cross-reference — 4 verdicts reclassified WRONG→AMBIGUOUS (cover design decision in RQ-BOX-001).
 
-**Fix WO status — ALL COMMITTED (9 commits, covering 11 WOs):**
+**Fix WO status — ALL 13 WOs RESOLVED (11 commits covering all 13 WOs):**
 - `ca76c8e` WO-FIX-13: Colossal footprint 36 (6x6)
 - `acf88bb` WO-FIX-10 partial: SIZE_ORDER 9 categories
 - `16f24f7` WO-FIX-10 partial: soft cover inversion + water fall damage
@@ -93,33 +93,37 @@ Stoplight: **YELLOW — Fix WOs nearly complete, 2 items remain, 7 AMBIGUOUS Ope
 - `df3a958` WO-FIX-03/04: condition AC melee/ranged + Panicked/Fatigued/Exhausted
 - `cb05060` WO-FIX-06: concentration DC includes spell level
 - `1da6377` WO-FIX-14: TWF penalties respect off-hand weapon weight
+- `fcf712e` WO-FIX-11: trip/disarm/grapple action type = varies (was marked RETIRED, then implemented)
+- `b52d8d8` WO-FIX-12 F2/F3: hardcoded XP table levels 11-20 from DMG
 
 **Fix WO status — RETIRED:**
-- WO-FIX-11 (G-PLAY-71-86): Maneuvers use Intent isinstance routing, not a string cost table. No code target exists. RETIRED by Operator.
+- WO-FIX-05 (cover values): Retired — design decision, not a bug. Documented in RQ-BOX-001.
 
-**Fix WO status — NEEDS DESK CHECK:**
-- WO-FIX-12 (BUG-F2/F3): XP table levels 11-20 — agent silently failed (3/7 failure rate). Desk check WO at `pm_inbox/WO-FIX-12-DESKCHECK.md`.
+**Additional fix commits:**
+- `f581d44` fix: test isolation — sys.modules torch mock + TTS skip guard
 
 **Fix phase artifacts:**
-- `docs/verification/WRONG_VERDICTS_MASTER.md` — 30 WRONG verdicts in 12 active fix WOs (FIX-WO-05+11 retired)
+- `docs/verification/WRONG_VERDICTS_MASTER.md` — 30 WRONG verdicts in 12 active fix WOs (FIX-WO-05 retired)
 - `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` — 28 AMBIGUOUS verdicts, 7 need Operator decision
 - `pm_inbox/FIX_WO_DISPATCH_PACKET.md` — full dispatch packet with all 13 WOs
 
 **OPEN QUESTION (Operator decisions still pending):**
 - 7 AMBIGUOUS verdicts need Operator decision (see AMBIGUOUS_VERDICTS_DECISION_LOG.md)
 
-**Known process issue:** 3 of 7 builder agents reported completion without persisting code changes. Operator caught during commit review and re-executed. Gap 1 failure mode confirmed. **Mitigation for future WOs:** Add `git diff <target_files>` verification step to WO completion protocol.
-
-**WO authoring lesson (from WO-FIX-03):** Schema WOs must trace the full path: schema definition → aggregation functions → serialization (to_dict/from_dict) → consumer code. WO-FIX-03 missed `aidm/core/conditions.py` (aggregation) and serialization methods; Operator caught during re-execution.
+**Lessons learned (fix phase):**
+- 3 of 7 builder agents reported completion without persisting code changes. Operator caught during commit review. **Mitigation:** `git diff <target_files>` verification step in WO completion protocol.
+- Schema WOs must trace the full path: definition → aggregation → serialization → consumer. WO-FIX-03 missed `aidm/core/conditions.py` and serialization methods.
+- WO-FIX-11 was initially RETIRED (action cost table doesn't exist as described), but then successfully implemented by changing action type classification in `play.py`. Lesson: "no code target" may mean the WO spec was wrong, not that no fix is possible.
 
 **Schema note:** `ActiveSpellEffect` gained `spell_level: int = 0` field (cb05060). Callers creating concentration effects should pass spell_level for correct DC calculation.
 
-**Context window discipline:** PM context is reserved for coordination only. All fix implementation dispatched to builder agents via WOs. See plan Section 13. **Hard boundary — see PM Execution Boundary section below.**
+**Context window discipline:** PM context is reserved for coordination only. All fix implementation dispatched to builder agents via WOs. **Hard boundary — see PM Execution Boundary section below.**
+
+**Process gap identified:** `pm_inbox/` has no triage protocol, lifecycle management, or cleanup enforcement. See `pm_inbox/HANDOFF_PM_INBOX_HYGIENE.md`. Related to WO-GOV-03 and WO-GOV-04.
 
 **Untracked files (not committed):**
 - 4 voice research docs in `docs/research/VOICE_*.md`
 - `pm_inbox/research/` directory
-- `methodology/` directory
 
 ## PM Execution Boundary (HARD CONSTRAINT)
 
@@ -152,10 +156,10 @@ The PM agent MUST NOT perform any of the following actions. These are builder-on
 
 ## Active Work Surfaces
 
-**BONE-LAYER VERIFICATION — FIX PHASE (YELLOW — nearly complete):**
-Verification complete. 13 fix WOs drafted. 11 WOs committed across 9 commits. Test suite GREEN (5,277 passed, 0 failures). Two items remain: WO-FIX-11 reclassified (needs Operator confirmation), WO-FIX-12 F2/F3 needs desk check.
+**BONE-LAYER VERIFICATION — FIX PHASE (YELLOW — all WOs resolved, gate items remain):**
+Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemented and committed (11 original commits + 2 new), 1 retired (WO-FIX-05 cover values). Test suite GREEN (5,277 passed, 0 failures). Test isolation fixed (f581d44).
 
-**Fix WO progress:**
+**Fix WO progress — ALL COMPLETE:**
 - [x] WO-FIX-01 (BUG-1/8/9) — COMMITTED (a386b81)
 - [x] WO-FIX-02 (BUG-2) — COMMITTED (a386b81)
 - [x] WO-FIX-03 (BUG-3/4) — COMMITTED (df3a958)
@@ -165,21 +169,22 @@ Verification complete. 13 fix WOs drafted. 11 WOs committed across 9 commits. Te
 - [x] WO-FIX-08 (B-BUG-2) — COMMITTED (d293242)
 - [x] WO-FIX-09 (B-BUG-4) — COMMITTED (d293242)
 - [x] WO-FIX-10 (E-BUG-01/02/03) — COMMITTED (16f24f7 + acf88bb)
-- [~] WO-FIX-11 (G-PLAY-71-86) — **RETIRED**: Maneuvers use Intent isinstance routing, not a string cost table. No "action cost table" exists to fix. Operator decision: RETIRE.
-- [~] WO-FIX-12 (BUG-F1/F2/F3) — F1 COMMITTED (23d4f4d). F2/F3 (XP table): agent silently failed, needs desk check (`pm_inbox/WO-FIX-12-DESKCHECK.md`).
+- [x] WO-FIX-11 (G-PLAY-71-86) — COMMITTED (fcf712e). Initially marked RETIRED, then implemented: action type = varies for trip/disarm/grapple.
+- [x] WO-FIX-12 (BUG-F1/F2/F3) — F1 COMMITTED (23d4f4d). F2/F3 COMMITTED (b52d8d8): hardcoded XP table levels 11-20 from DMG.
 - [x] WO-FIX-13 (I-GEOM-291) — COMMITTED (ca76c8e)
 - [x] WO-FIX-14 (I-AMB-02) — COMMITTED (1da6377)
 
 **Remaining completion gate items:**
 - [x] All fix WO code changes committed and tested
 - [x] Test suite confirmed GREEN (5,277 passed, 15 skipped, 0 failures)
-- [x] WO-FIX-11 — RETIRED by Operator (no code target exists)
-- [ ] WO-FIX-12 F2/F3 desk check — WO drafted (`pm_inbox/WO-FIX-12-DESKCHECK.md`), awaiting dispatch
+- [x] WO-FIX-11 — COMMITTED (fcf712e)
+- [x] WO-FIX-12 F2/F3 — COMMITTED (b52d8d8)
+- [x] Test isolation fixed (f581d44)
 - [ ] Operator reviews and approves 7 AMBIGUOUS decisions
 - [ ] PSD updated to reflect fix phase completion
 - [ ] RED block lifted by Operator
 
-**ALL OF THE FOLLOWING ARE BLOCKED behind completion gate:**
+**ALL OF THE FOLLOWING ARE BLOCKED behind completion gate (3 items remain):**
 
 - Phase 4C Wave C (3 WOs) — BLOCKED
 - BURST-001/002/003 — BLOCKED
@@ -187,7 +192,7 @@ Verification complete. 13 fix WOs drafted. 11 WOs committed across 9 commits. Te
 - All playtesting — BLOCKED
 - WO_SET_METHODOLOGY_REFINEMENT (6 governance WOs, commit f1013ba) — BLOCKED
 
-**PM posture:** ACTIVE. Fix phase nearly complete. Tests GREEN. Remaining: (1) dispatch WO-FIX-12 desk check, (2) 7 AMBIGUOUS Operator decisions, (3) PSD update + RED block lift.
+**PM posture:** ACTIVE. Fix phase code COMPLETE. Tests GREEN. **Remaining gate items:** (1) 7 AMBIGUOUS Operator decisions, (2) PSD update, (3) RED block lift by Operator.
 
 ---
 
@@ -226,12 +231,12 @@ OPERATOR ACTION REQUIRED: [what Thunder needs to do, or IDLE]
 ```
 
 ### Step 4: Resume Work (Agent action)
-Based on current state (fix phase active):
-- If uncommitted fix WO changes exist: draft a builder WO to test, commit, and finalize
-- If fix WOs remain unimplemented: draft a builder WO per the dispatch packet (`pm_inbox/FIX_WO_DISPATCH_PACKET.md`)
-- If test suite has known failures: draft a builder WO to stabilize tests
-- If all fixes committed and tests GREEN: ask Operator about 7 AMBIGUOUS decisions
-- If AMBIGUOUS decisions resolved and tests GREEN: update PSD, request RED block lift
+Based on current state (fix phase code COMPLETE, gate items remain):
+- All 13 fix WOs are resolved (12 committed, 1 retired). Tests GREEN. No code work remains.
+- If 7 AMBIGUOUS decisions still pending: ask Operator to review them (see `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md`)
+- If AMBIGUOUS decisions resolved: update PSD, request RED block lift from Operator
+- If RED block lifted: unblock Phase 4C Wave C, BURST-001/002/003, governance WOs, feature work, playtesting
+- If pm_inbox hygiene WO needed: scope `pm_inbox/HANDOFF_PM_INBOX_HYGIENE.md` into a governance WO
 
 ### What NOT To Do During Handover
 - Do NOT re-read the formula inventory (builder reference, not PM reference)
