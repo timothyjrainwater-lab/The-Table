@@ -33,7 +33,7 @@ After the Compass, read these for operational detail. The order matters.
 | 5 | `KNOWN_TECH_DEBT.md` | Things that look broken but are intentionally deferred | Prevents you from wasting work "fixing" deferred items |
 | 6 | `VERIFICATION_GUIDELINES.md` | Verification pitfalls, verdict decision tree, error taxonomy | Required for verification/re-verification work orders. Optional for pure coding WOs. |
 
-**Do NOT read** superseded action plans — use `docs/planning/REVISED_PROGRAM_SEQUENCING_2026_02_12.md` for the current roadmap.
+**Do NOT read** superseded action plans — use `docs/planning/archived/REVISED_PROGRAM_SEQUENCING_2026_02_12.md` for the current roadmap.
 
 ---
 
