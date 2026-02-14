@@ -71,6 +71,8 @@ When you create a file in pm_inbox:
 
 The PM reads memos and writes verdicts. All physical actions are builder-executed.
 
+**How content reaches the PM:** The PM does not open inbox files directly. The Operator controls what enters the PM's context window by copy-pasting relay blocks that builders output in chat. When a builder creates an inbox file, the builder also outputs a fenced code block containing only the content the PM needs to make a decision. The Operator copy-pastes this relay block into the PM session. The inbox file is the archive; the relay block is the delivery vehicle. This gives the Operator precise control over PM context consumption.
+
 **What the PM does:**
 1. Reads `PM_BRIEFING_CURRENT.md` to identify items needing decisions
 2. Opens files, reads content, writes verdict edits (lifecycle state changes, decision annotations)

@@ -71,6 +71,7 @@ Pass 3 is a required `## Retrospective` section in the MEMO file, enforced by `t
 - Pass 1 (full dump): `pm_inbox/DEBRIEF_[SESSION_ID].md` — archived for reference
 - Pass 2 (PM summary): `pm_inbox/MEMO_[SHORT_TITLE].md` — this is what the PM reads
 - Pass 3 (retrospective): `## Retrospective` section in the MEMO file (mandatory, test-enforced)
+- **Operator relay block**: a fenced code block in your chat output containing only the PM-facing content (typically Action Items + enough context to verdict). The Operator copy-pastes this into the PM's context window. The memo file is the archive; the relay block is the actual delivery vehicle. One click, no file opening.
 
 ---
 
@@ -80,3 +81,4 @@ Pass 3 is a required `## Retrospective` section in the MEMO file, enforced by `t
 - **Don't combine memos.** One memo per session. If a session produces multiple unrelated findings, that's still one memo — the PM triages internally.
 - **Date everything.** Context windows don't have timestamps. The PM needs to know which memo is most recent when two memos conflict.
 - **"Session scope" in the header is critical.** It tells the PM what this session was supposed to be doing, which frames everything that follows.
+- **Always output an operator relay block.** When you write a memo file, also output a fenced code block in chat containing the PM-facing content the Operator needs to relay. The PM never opens inbox files directly — the Operator controls what enters the PM's context window by copy-pasting relay blocks. Design the relay block so the PM can verdict from it alone without reading the full file.
