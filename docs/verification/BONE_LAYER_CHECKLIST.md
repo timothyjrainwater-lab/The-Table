@@ -16,16 +16,16 @@
 | C | Saves & Spells | 2 | 21 | 21 | 15 | 3 | 1 | 2 | COMPLETE |
 | G | Initiative & Turn | 3 | 10 | 10 | 6 | 2 | 2 | 0 | COMPLETE |
 | E | Movement & Terrain | 5 | 34 | 34 | 24 | 3 | 3 | 4 | COMPLETE |
-| F | Char Progression | 4 | 77 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
+| F | Char Progression | 4 | 77 | 77 | 68 | 5 | 3 | 1 | COMPLETE |
 | H | Skill System | 1 | 6 | 6 | 4 | 0 | 1 | 1 | COMPLETE |
 | I | Geometry & Size | 10 | 49 | 49 | 40 | 1 | 2 | 6 | COMPLETE |
-| **TOTAL** | | **38** | **334** | **257** | **183** | **29** | **21** | **24** | **IN PROGRESS** |
+| **TOTAL** | | **38** | **334** | **334** | **251** | **34** | **24** | **25** | **ALL DOMAINS COMPLETE** |
 
 ---
 
 ## Completion Gate
 
-- [ ] All 9 domains show status COMPLETE
+- [x] All 9 domains show status COMPLETE
 - [ ] All WRONG verdicts have corresponding fix WOs
 - [ ] All AMBIGUOUS verdicts have documented design decisions
 - [ ] Operator has reviewed and approved AMBIGUOUS decisions
@@ -48,6 +48,7 @@
 | 2026-02-14 | Builder (Opus 4.6) | A | 53 | 7 | (pending commit) |
 | 2026-02-14 | Builder (Opus 4.6) | C | 21 | 3 | (pending commit) |
 | 2026-02-14 | Builder (Opus 4.6) | D (re-verify) | 57 | 8 | Grappled 3.5e/PF divergence found, verdict CORRECT→AMBIGUOUS |
+| 2026-02-14 | Builder (Opus 4.6) | F | 77 | 5 | (pending commit) |
 
 ---
 
