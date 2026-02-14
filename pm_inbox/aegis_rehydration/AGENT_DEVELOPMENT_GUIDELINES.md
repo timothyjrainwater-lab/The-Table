@@ -469,6 +469,8 @@ Pass 3 is the highest-signal output for methodology refinement. The debrief capt
 
 **After writing both files, update `pm_inbox/PM_BRIEFING_CURRENT.md`** with one-line entries for each new file. This is the PM's entry point — files not in the briefing may be missed.
 
+**After delivering your completion report, if no further work is queued,** trigger the idle notification: `echo "=== SIGNAL: REPORT_READY ===" && echo "Thunder, the forge is quiet." | python scripts/speak.py --signal`. This signals the Operator that the agent is idle and awaiting direction. See Standing Ops Rule 22.
+
 **Why three passes:** Pass 1 prevents context loss. Pass 2 respects the PM's context window budget. Pass 3 captures operational judgment that neither facts nor summaries preserve — the kind of insight that only exists while the agent is still inside the problem. Writing the compressed version directly causes the agent to skip things that seemed unimportant but weren't. Writing only the full dump overwhelms the PM. Skipping the retrospective loses the meta-observations that improve the system for the next agent.
 
 ### 15.6 Methodology Maintenance Protocol
