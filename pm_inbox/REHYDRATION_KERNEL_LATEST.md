@@ -77,7 +77,7 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: ae531a5 (chore: update PSD + rehydration kernel, dispatch WO-BUGFIX-TIER0-001)
+Last commit: c5e04ac (docs: dispatch 9 bone-layer verification WOs)
 Tests passed: 5,510 (16 skipped HW-gated)
 CLI tests: 130 passed + 49 movement tests
 Stoplight: **RED — Bone-layer formula verification blocking ALL work**
@@ -103,4 +103,56 @@ Stoplight: **RED — Bone-layer formula verification blocking ALL work**
 - All feature work — BLOCKED
 - All playtesting — BLOCKED
 
-**PM posture:** ACTIVE. Coordinating bone-layer verification. Next action: dispatch Domain D (Conditions & Modifiers) as first verification iteration WO when Operator is ready.
+**PM posture:** ACTIVE. Coordinating bone-layer verification. 9 verification WOs written and committed. Wave 1 (8 parallel: D,B,C,E,F,G,H,I) ready for dispatch. Wave 2 (A) dispatches after Domain D completes.
+
+---
+
+## PM Context Window Handover Protocol
+
+When a PM context window expires and a new PM agent is initialized, the Operator follows this exact sequence. The goal is **minimal context consumption** — the new PM reads only what it needs to resume, in the right order, and nothing else.
+
+### Step 1: Identity Paste (Operator action)
+Paste this exact block into the new session as the first message:
+
+```
+You are the PM agent (Aegis/Opus) for a D&D 3.5e combat engine project. Product Owner is Thunder. Your context window is a critical finite resource — do NOT use it for implementation work. You coordinate only.
+
+Read these files in this exact order, then report SYSTEM STATUS:
+1. pm_inbox/REHYDRATION_KERNEL_LATEST.md (this file — your operating rules)
+2. docs/verification/BONE_LAYER_CHECKLIST.md (progress tracker — tells you where work stands)
+3. docs/verification/BONE_LAYER_VERIFICATION_PLAN.md (execution plan — Sections 1-2 and 7-9 only, skip the rest unless needed)
+
+Do NOT read: PROJECT_STATE_DIGEST.md (too long for rehydration), FORMULA_INVENTORY.md (builder reference only), any source code files, any completion reports you haven't been asked to review.
+
+After reading, report: stoplight, last commit, verification progress, and next PM action.
+```
+
+### Step 2: New PM Self-Orients (Agent action)
+The new PM reads the 3 files in order (kernel = ~110 lines, checklist = ~50 lines, plan Sections 1-2 + 7-9 = ~80 lines). Total context consumed: ~240 lines. This gives the PM:
+- Operating rules (kernel)
+- What's done and what's not (checklist)
+- How to execute the next iteration (plan)
+
+### Step 3: PM Reports Status (Agent action)
+The new PM must report:
+```
+SYSTEM STATUS: [stoplight], [last commit], [test count], [verification X/9 domains complete]
+NEXT PM ACTION: [what to do next based on checklist state]
+OPERATOR ACTION REQUIRED: [what Thunder needs to do, or IDLE]
+```
+
+### Step 4: Resume Work (Agent action)
+Based on checklist state:
+- If domains are IN PROGRESS with no completion report: ask Operator for completion report
+- If completion reports are pending review: review them (Operator pastes the report)
+- If domains are NOT STARTED and WOs exist: tell Operator to dispatch them
+- If all Wave 1 domains are COMPLETE: dispatch WO-VERIFY-A (Wave 2)
+- If all domains COMPLETE: draft fix WOs from aggregated WRONG verdicts
+
+### What NOT To Do During Handover
+- Do NOT re-read the formula inventory (builder reference, not PM reference)
+- Do NOT explore the codebase
+- Do NOT read source files
+- Do NOT re-derive anything that's already in the checklist or plan
+- Do NOT update the kernel until you have new information to add
+- Do NOT read completion reports proactively — wait for Operator to paste them
