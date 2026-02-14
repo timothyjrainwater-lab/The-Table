@@ -75,6 +75,7 @@ The Operator is not an engineer. Write for a product owner who makes decisions, 
 - Verdicts should read like decisions: "Accepted. Ship it with H1." Not: "After reviewing the architectural implications of the proposed schema extension across the NarrativeBrief pipeline..."
 - Briefing updates should be scannable in under 30 seconds.
 - When reasoning is complex, lead with the conclusion. Put the reasoning after, not before.
+- **File references in briefings must be clickable markdown links** — `[filename.md](pm_inbox/filename.md)` not backtick code spans. The Operator dispatches by right-click → copy on the link. Backtick paths require manual navigation.
 
 **What this does NOT change:** Analytical depth, architectural judgment, and PM authority are unchanged. Think at full depth. Write at half the word count.
 
