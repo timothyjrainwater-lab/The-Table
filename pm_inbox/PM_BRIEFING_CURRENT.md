@@ -1,23 +1,20 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (post-research-sprint-review)
+**Last updated:** 2026-02-14 (corrected — removed phantom WO references)
 
 ---
 
 ## Requires Operator Action
 
 - [ ] **RED block lift** — Preflight inspection PASSED (all 7 checks). Tests 5,539/0/25. Sole remaining gate.
-- [ ] **Dispatch WO-RESEARCH-SPRINT-001 Wave 1 (P0)** — RQ-SPRINT-001 (IP extraction) + RQ-SPRINT-002 (skin quality). Parallel-safe. No RED block dependency.
-- [ ] **Dispatch WO-GOV-CE-01/02 (Wave 1)** — Kernel rotation + briefing archive split. PM decisions delivered. Parallel-safe.
-- [ ] **Dispatch WO-GOV-CE-03/06 (Wave 2)** — Memo consolidation + supersedes protocol. After Wave 1.
+- [ ] **Dispatch WO-RESEARCH-SPRINT-001 Wave 1 (P0)** — RQ-SPRINT-001 (IP extraction) + RQ-SPRINT-002 (skin quality). Parallel-safe. No RED block dependency. Dispatch doc in inbox.
 - [ ] **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
 
-## Awaiting Dispatch (BLOCKED behind RED block lift)
+## Needs PM to Draft WOs (no dispatch docs exist yet)
 
-- [ ] **WO-GOV-CE-04** — Checklist phase transition (depends on RED block lift)
-- [ ] **WO-WEAPON-PLUMBING-001** — Bundle: is_ranged + disarm mods + sunder grip. First feature WO. Not yet drafted.
-- [ ] **Resolver deduplication** — Second P4 WO after weapon plumbing. Not yet drafted.
-- [ ] **WO_SET_METHODOLOGY_REFINEMENT** — 6 governance WOs (GOV-01–06). Wave 1: GOV-01/02/03 parallel.
+- [ ] **Governance CE WOs** — PM decisions delivered (in reviewed/WO_SET_PM_CONTEXT_EFFICIENCY.md) but no individual dispatch docs drafted. 6 items: kernel rotation, briefing archive split, memo consolidation, checklist transition, batch commits (already in effect), supersedes protocol.
+- [ ] **WO-WEAPON-PLUMBING-001** — Bundle: is_ranged + disarm mods + sunder grip. First feature WO. BLOCKED behind RED block lift.
+- [ ] **Resolver deduplication** — Second P4 WO after weapon plumbing. BLOCKED behind RED block lift.
 
 ## Awaiting Dispatch (BLOCKED behind research sprint P0 findings)
 
