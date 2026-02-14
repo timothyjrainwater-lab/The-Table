@@ -6,7 +6,7 @@
 
 ## Stoplight: GREEN
 
-H0 complete. 5,641 tests pass (6 pre-existing failures). H1 WO batch: 5 of 7 WOs completed. 2 remaining dispatch-ready.
+H0 complete. 5,775 tests pass. H1 WO batch: 7 of 7 WOs completed. Integration gap identified — see strategic posture memo.
 
 ## Recently Completed
 
@@ -15,6 +15,8 @@ H0 complete. 5,641 tests pass (6 pre-existing failures). H1 WO batch: 5 of 7 WOs
 - **WO-WEAPON-PLUMBING-001** — PM ACCEPTED. 34 tests, gold master pass. 3 dormant fixes live.
 - **WO-TTS-CHUNKING-001** — PM ACCEPTED. Adapter-level chunking, speak.py refactored.
 - **WO-BRIEF-WIDTH-001** — PM ACCEPTED. Causal chain propagation through 6 maneuver resolvers. Multi-target + conditions landed in prior session.
+- **WO-COMPILE-VALIDATE-001** — EXECUTED. CT-001–007 cross-validation + content_id emission + contraindications. Commit `fb05aef`. Debrief filed. PM review pending.
+- **WO-NARRATION-VALIDATOR-001** — EXECUTED. P0 negative rules + P1 structural rules + narration persistence hook. 46 tests. Commit `2d923ed`. Debrief filed. PM review pending.
 
 ## PM Verdicts Delivered This Review
 
@@ -32,15 +34,10 @@ H0 complete. 5,641 tests pass (6 pre-existing failures). H1 WO batch: 5 of 7 WOs
 
 ## Requires Operator Action (NOW)
 
-1. **Dispatch WO-NARRATION-VALIDATOR-001** — [WO-NARRATION-VALIDATOR-001_DISPATCH.md](pm_inbox/WO-NARRATION-VALIDATOR-001_DISPATCH.md)
-   Runtime P0 negative rules + P1 structural rules + narration persistence hook. Delivery footer added. Parallel-safe.
+1. **Route strategic posture memo to PM** — [MEMO_STRATEGIC_POSTURE_INTEGRATION_GAP.md](pm_inbox/MEMO_STRATEGIC_POSTURE_INTEGRATION_GAP.md)
+   Builder assessment: infrastructure is extensive, end-to-end integration is missing. The next high-value work is connecting dots, not adding more pipes. PM should review before queuing H2.
 
-2. **Dispatch WO-COMPILE-VALIDATE-001** — [WO-COMPILE-VALIDATE-001_DISPATCH.md](pm_inbox/WO-COMPILE-VALIDATE-001_DISPATCH.md)
-   CT-001–007 cross-validation + content_id emission + contraindications population. Delivery footer added. Parallel-safe.
-
-3. **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
-
-Both WOs are parallel-safe — dispatch simultaneously.
+2. **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
 
 ## PM Action Queue
 
@@ -58,10 +55,11 @@ Both WOs are parallel-safe — dispatch simultaneously.
 ## Active Operational Files
 
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (1 READY, 2 NOT STARTED, 1 PARTIAL)
-- [WO-NARRATION-VALIDATOR-001_DISPATCH.md](pm_inbox/WO-NARRATION-VALIDATOR-001_DISPATCH.md) — **DISPATCH-READY** (Delivery footer + narration persistence added)
-- [WO-COMPILE-VALIDATE-001_DISPATCH.md](pm_inbox/WO-COMPILE-VALIDATE-001_DISPATCH.md) — **DISPATCH-READY** (Delivery footer + contraindications population added)
-- [MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md](pm_inbox/MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md) — **NEW, PM review needed** (4 findings: _concatenate_wav duplication, oversized sentence passthrough, --full mode change, test overlap)
-- [MEMO_COMPILE_NARRATION_BUILDER_FINDINGS.md](pm_inbox/MEMO_COMPILE_NARRATION_BUILDER_FINDINGS.md) — **NEW, PM review needed** (5 findings: pipeline registration gap, content_id dormant, test pollution, maneuver pattern inconsistency, inbox hygiene)
+- [WO-NARRATION-VALIDATOR-001_DISPATCH.md](pm_inbox/WO-NARRATION-VALIDATOR-001_DISPATCH.md) — **EXECUTED** (builder committed: `2d923ed`)
+- [WO-COMPILE-VALIDATE-001_DISPATCH.md](pm_inbox/WO-COMPILE-VALIDATE-001_DISPATCH.md) — **EXECUTED** (builder committed: `fb05aef`)
+- [MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md](pm_inbox/MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md) — **NEW, PM review needed** (5 findings)
+- [MEMO_COMPILE_NARRATION_BUILDER_FINDINGS.md](pm_inbox/MEMO_COMPILE_NARRATION_BUILDER_FINDINGS.md) — **NEW, PM review needed** (13 findings)
+- [MEMO_STRATEGIC_POSTURE_INTEGRATION_GAP.md](pm_inbox/MEMO_STRATEGIC_POSTURE_INTEGRATION_GAP.md) — **NEW, PM review needed — HIGHEST PRIORITY** (strategic: infrastructure vs integration inflection point)
 
 ## Persistent Files
 
