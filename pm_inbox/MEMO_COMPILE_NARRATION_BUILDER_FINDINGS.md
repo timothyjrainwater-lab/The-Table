@@ -2,6 +2,7 @@
 **From:** Agent (Opus 4.6), relaying builder debrief
 **Date:** 2026-02-14
 **Lifecycle:** NEW
+**Builder commits:** `fb05aef` (COMPILE-VALIDATE), `2d923ed` (NARRATION-VALIDATOR)
 
 ---
 
@@ -54,3 +55,27 @@ The following recommendations synthesize builder findings with operational conte
 - **Test isolation WO** — The ~47 phantom failures (#3) need proper setup/teardown to prevent shared state between test files. This is a CI reliability issue that compounds as the test suite grows. Recommend a dedicated WO to identify and fix state leaks in `test_spark_adapter.py` and `test_template_narration_contract.py`.
 - **Wire CrossValidateStage in production** — Finding #1 and the builder's "automated gap monitoring" suggestion point to the same thing: the stage exists but doesn't run. Wiring it into the default WorldCompiler stage list would make cross-validation automatic rather than test-only.
 - **Resolver pattern unification** — The causal_chain_id inconsistency (#4) could be bundled into the resolver deduplication WO already in the PM action queue (P4). No separate WO needed.
+
+## Builder Post-Commit Findings (Second Pass)
+
+Builder committed both WOs (`fb05aef`, `2d923ed`) and flagged three additional items:
+
+### 6. SPELL_REGISTRY content_id Population (Follow-Up WO)
+
+SPELL_REGISTRY entries in `aidm/schemas/spell_definitions.py` don't set `content_id`. Until someone populates those (e.g., `content_id="spell.fireball_003"`), the runtime pipeline won't activate for actual gameplay. Reinforces finding #2. Builder suggests a dedicated WO to map runtime spell IDs to compile-time content_ids.
+
+### 7. No Full Pipeline Integration Test
+
+CrossValidateStage tests call `stage.execute()` directly with hand-written JSON. No test runs `WorldCompiler.compile()` with RulebookStage + SemanticsStage + CrossValidateStage all registered. If RulebookStage output format drifts from what CrossValidateStage expects, it won't be caught until a real compile.
+
+**Builder suggests:** WO for end-to-end compile with all stages registered, verifying cross-validation catches a deliberately bad entry.
+
+### 8. Fail-Open Behavior on Missing Dependencies
+
+CrossValidateStage depends on `("semantics", "rulebook")`. If a production caller registers CrossValidateStage without RulebookStage, the topological sort runs it but `rule_registry.json` won't exist — the stage gracefully skips, meaning validation silently doesn't happen. Builder flags this as either fine (fail-open for optional stages) or a latent bug (should warn louder).
+
+**PM decision needed:** Fail-open acceptable, or should missing dependency raise a warning?
+
+### Test Results
+
+5,775 tests pass, 14 failures (all pre-existing TTS/torchaudio environment issues). Zero regressions from either WO.

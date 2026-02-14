@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-14 — Bone-layer verification COMPLETE. Fix phase COMPLETE (13 WOs, all committed). AMBIGUOUS decisions ALL RESOLVED (28 verdicts). Tests GREEN (5,532 passed, 24 skipped). RED BLOCK LIFTED pending Operator confirmation. See `docs/verification/BONE_LAYER_CHECKLIST.md`.
+LAST UPDATED: 2026-02-14 — WO-WEAPON-PLUMBING-001 INTEGRATED. Weapon type/range_increment plumbed through attack resolvers, disarm modifiers activated, sunder grip multiplier activated. Tests GREEN (5,775 passed, 15 skipped, 14 pre-existing failures unrelated). See Locked Systems.
 -->
 
 # Project State Digest
@@ -275,6 +275,12 @@ LAST UPDATED: 2026-02-14 — Bone-layer verification COMPLETE. Fix phase COMPLET
 - **Test isolation**: sys.modules torch mock + TTS skip guard (f581d44).
 - **Key files**: `docs/verification/BONE_LAYER_CHECKLIST.md`, `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md`, `docs/verification/WRONG_VERDICTS_MASTER.md`.
 
+### WO-WEAPON-PLUMBING-001: Weapon Data Pipeline (2026-02-14)
+- **Weapon dataclass**: Added `weapon_type` (light/one-handed/two-handed/ranged/natural) and `range_increment` fields with `is_ranged`/`is_light` derived properties. Default `weapon_type="one-handed"` preserves existing entities.
+- **Pipeline**: Intent bridge handles dict `EF.WEAPON`, attack/full_attack resolvers use `is_ranged` detection, AoO weapon construction updated.
+- **Activated fixes**: B-AMB-04 disarm weapon type modifiers (+4 two-handed / -4 light), sunder grip multiplier (1.5x two-handed / 0.5x off-hand).
+- **34 tests** in test_weapon_plumbing.py.
+
 ### Signal Voice — Operator TTS Pipeline (2026-02-13)
 - **scripts/speak.py**: Three-engine pipeline — Kokoro (voice design, CPU) -> Chatterbox (GPU render, voice cloning) -> winsound (playback). Kokoro CPU fallback if no GPU.
 - **Voice profile "Arbor"**: am_michael seed, speed 0.88, exaggeration 0.15, Chatterbox Original tier. Calm, grounded, neutral-operational readback.
@@ -285,7 +291,7 @@ LAST UPDATED: 2026-02-14 — Bone-layer verification COMPLETE. Fix phase COMPLET
 
 ## Test Count
 
-**Total: 5,532 tests collected** (24 skipped hardware-gated)
+**Total: 5,790 tests collected** (15 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -418,7 +424,7 @@ Frozen modules may NOT be modified without an explicit CP (design rationale + br
 
 ## Non-Goals (Explicitly Out of Scope)
 
-Real-time gameplay optimization, NLP/semantic search, rule interpretation (retrieves text only), campaign planning UI, production ASR/TTS (structured intents only), UI implementation (contracts only), LLM dependency in deterministic runtime.
+Real-time optimization, NLP/semantic search, rule interpretation, campaign planning UI, production ASR/TTS, UI implementation, LLM in deterministic runtime.
 
 ---
 
@@ -449,9 +455,7 @@ Real-time gameplay optimization, NLP/semantic search, rule interpretation (retri
 
 **No work items are greenlit for implementation.** All future work requires explicit authorization.
 
-### Phases 1-3 + Post-A10 + Waves 1-3 + Phase 4A/4B — COMPLETE
-
-All Phase 1-3, Post-A10, Wave 1-3, and Phase 4A/4B integrated. See Locked Systems for details. Canceled: WO-CODE-INTENT-002, WO-INTENT-002 (superseded).
+### Phases 1-3 + Post-A10 + Waves 1-3 + Phase 4A/4B — COMPLETE (see Locked Systems)
 
 ### Phase 4C — CLI Capability Wiring — See `docs/planning/PHASE4C_FORWARD_PROGRESSION.md`
 
@@ -478,21 +482,10 @@ All Phase 1-3, Post-A10, Wave 1-3, and Phase 4A/4B integrated. See Locked System
 | BUG-3 | Prone AC not differentiated melee/ranged | HIGH | INTEGRATED (WO-FIX-03, df3a958) |
 | BUG-4 | Helpless AC not differentiated melee/ranged | HIGH | INTEGRATED (WO-FIX-03, df3a958) |
 
-### Standalone + Research — WO-OSS-DICE-001 FUTURE. 5 WO-RQ research artifacts anchored (see `docs/planning/research/`). Voice research fleet (WO-VOICE-RESEARCH-01..05) delivered.
+### Standalone + Research — WO-OSS-DICE-001 FUTURE. Voice research fleet delivered. See `docs/planning/research/`.
 
 ---
 
 ## Completion Protocol
 
-When a WO is INTEGRATED, the PM updates this file per the PSD Update Protocol in the header:
-
-1. **Locked Systems**: Add 3-5 line compressed entry (name, key capabilities, test count, files)
-2. **Test Count**: Update total
-3. **Future Work Queue**: Update status table (DISPATCHED → INTEGRATED)
-4. **Size gate**: Verify file stays under 500 lines. If not, compress older entries first.
-5. **Sync**: Copy to pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md
-
-**Do NOT:**
-- Add detailed field-by-field, method-by-method history entries
-- Duplicate information already in source code or WO dispatch docs
-- Append without checking the 500-line gate
+See PSD Update Protocol in file header comment. Key: 3-5 line compressed Locked Systems entry, update test count, update Future Work Queue, enforce 500-line gate, sync rehydration copy.
