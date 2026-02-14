@@ -85,6 +85,45 @@ def test_xp_award_clamps_party_level():
 
 
 # ==============================================================================
+# XP TABLE LEVELS 11-20 (DMG Table 2-6, BUG-F2/F3)
+# ==============================================================================
+
+def test_xp_table_level_11_negative_deltas():
+    """Level 11: negative deltas use graduated values, not flat 150."""
+    assert calculate_xp_award(party_level=11, party_size=4, defeated_cr=10.0) == 500   # delta -1
+    assert calculate_xp_award(party_level=11, party_size=4, defeated_cr=9.0) == 450    # delta -2
+    assert calculate_xp_award(party_level=11, party_size=4, defeated_cr=8.0) == 400    # delta -3
+    assert calculate_xp_award(party_level=11, party_size=4, defeated_cr=4.0) == 200    # delta -7
+
+
+def test_xp_table_level_15_values():
+    """Level 15: spot-check delta 0, negative, and positive."""
+    assert calculate_xp_award(party_level=15, party_size=4, defeated_cr=15.0) == 850   # delta 0
+    assert calculate_xp_award(party_level=15, party_size=4, defeated_cr=14.0) == 700   # delta -1
+    assert calculate_xp_award(party_level=15, party_size=4, defeated_cr=16.0) == 1700  # delta +1
+
+
+def test_xp_table_level_20_positive_deltas():
+    """Level 20: positive delta values."""
+    assert calculate_xp_award(party_level=20, party_size=4, defeated_cr=21.0) == 2200  # delta +1
+    assert calculate_xp_award(party_level=20, party_size=4, defeated_cr=22.0) == 3300  # delta +2
+
+
+def test_xp_table_level_18_cr_too_low_gives_zero():
+    """Level 18 vs CR 1 (delta -17): too far below, gives 0."""
+    assert calculate_xp_award(party_level=18, party_size=4, defeated_cr=1.0) == 0
+
+
+def test_xp_table_levels_11_20_delta_zero_progression():
+    """Delta 0 values for levels 11-20 increase by 50 per level."""
+    expected = {11: 650, 12: 700, 13: 750, 14: 800, 15: 850,
+                16: 900, 17: 950, 18: 1000, 19: 1050, 20: 1100}
+    for level, xp in expected.items():
+        actual = calculate_xp_award(party_level=level, party_size=4, defeated_cr=float(level))
+        assert actual == xp, f"Level {level} delta 0: expected {xp}, got {actual}"
+
+
+# ==============================================================================
 # MULTICLASS XP PENALTY TESTS (PHB p.60)
 # ==============================================================================
 
