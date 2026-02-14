@@ -77,14 +77,14 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 30d0afc (docs: add Action Economy Audit — correctness bugs and gap inventory)
+Last commit: ae531a5 (chore: update PSD + rehydration kernel, dispatch WO-BUGFIX-TIER0-001)
 Tests passed: 5,510 (16 skipped HW-gated)
 CLI tests: 130 passed + 49 movement tests
-Stoplight: GREEN
+Stoplight: **RED — Bone-layer formula verification blocking ALL work**
 
-**Recent integrations (not yet WO-tracked):**
-- Movement v1 (CP-16): FullMoveIntent + Dijkstra pathfinding + speed enforcement + 5/10/5 diagonal + enemy blocking + per-square AoO (commit 9b9aa31)
-- Action Economy Audit: 10 correctness bugs identified (4 HIGH), contamination matrix, Tier 0-4 priority ranking (commit 30d0afc)
+**RED BLOCK active:** `docs/verification/BONE_LAYER_VERIFICATION_PLAN.md` defines execution plan. 303 formulas, 9 domains, 22 files. Tracking at `docs/verification/BONE_LAYER_CHECKLIST.md`. Formula reference at `docs/verification/FORMULA_INVENTORY.md`. No feature work, bug fixes, or playtesting until verification GREEN.
+
+**Context window discipline:** PM context is reserved for coordination only. All verification execution is dispatched to builder agents via WOs. See plan Section 13.
 
 **Untracked files (not committed):**
 - 4 voice research docs in `docs/research/VOICE_*.md`
@@ -92,24 +92,15 @@ Stoplight: GREEN
 
 ## Active Work Surfaces
 
-**Phase 4C — Waves A+B COMPLETE, Movement v1 INTEGRATED, Audit COMPLETE:**
-All 7 Waves A+B WOs integrated. CP-16 Movement v1 implemented and committed (retroactive — no WO existed). Action Economy Audit delivered with 10 correctness bugs and Tier 0-4 priority ranking.
+**BONE-LAYER VERIFICATION — RED BLOCK (active):**
+303 formulas across 9 domains, 22 files. Execution plan at `docs/verification/BONE_LAYER_VERIFICATION_PLAN.md`. Checklist at `docs/verification/BONE_LAYER_CHECKLIST.md`. Inventory at `docs/verification/FORMULA_INVENTORY.md`. PM dispatches iteration WOs to builders; PM does NOT execute verification directly (context window discipline).
 
-**Tier 0 Correctness Bugs (from audit) — NEEDS WOs:**
-- BUG-1: Two-handed STR 1.5x not applied (attack_resolver.py, full_attack_resolver.py)
-- BUG-2: Full attack doesn't stop on target death (full_attack_resolver.py)
-- BUG-3: Prone AC not differentiated melee/ranged (conditions.py, attack_resolver.py)
-- BUG-4: Helpless AC not differentiated melee/ranged (conditions.py)
+**ALL OF THE FOLLOWING ARE BLOCKED behind verification GREEN:**
 
-**Phase 4C — Wave C: 3 WOs remaining:**
-- WO-SPELLSLOTS-01: BLOCKED on CP for `entity_fields.py` (frozen contract)
-- WO-SPELLLIST-CLI-01: QUEUED (can show spell names without slots)
-- WO-CHARSHEET-CLI-01: QUEUED (no blocker)
+- WO-BUGFIX-TIER0-001: Tier 0 bug fixes (BUG-1/2/3/4) — BLOCKED
+- Phase 4C Wave C (3 WOs) — BLOCKED
+- BURST-001/002/003 — BLOCKED
+- All feature work — BLOCKED
+- All playtesting — BLOCKED
 
-**BURST-001 (Voice-First Reliability Membrane):** READY BRICK. 5 binary decisions (DC-01..DC-05) await operator resolution. See `pm_inbox/BURST_INTAKE_QUEUE.md`.
-
-**BURST-003 (Tactical Snapshot):** PARTIALLY IMPLEMENTED. ASCII grid done. AoE preview remains (1 binary decision open).
-
-**BURST-002 (Model/Runtime Constraint Envelope):** NOT STARTED.
-
-**PM posture:** ACTIVE. PSD and rehydration kernel updated. Next: write WOs for Tier 0 correctness bugs. Awaiting operator signal for priority sequencing.
+**PM posture:** ACTIVE. Coordinating bone-layer verification. Next action: dispatch Domain D (Conditions & Modifiers) as first verification iteration WO when Operator is ready.

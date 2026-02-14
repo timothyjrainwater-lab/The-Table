@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-13 — Phase 4C Waves A+B COMPLETE (7 WOs). Wave C QUEUED (3 WOs, 1 blocked). Movement v1 (CP-16) INTEGRATED. Action Economy Audit complete (10 correctness bugs identified, 4 HIGH). 5510 tests collected, 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-14 — **RED BLOCK: Bone-layer formula verification in progress. ALL feature work, bug fixes, playtesting, and builder dispatches BLOCKED until verification GREEN.** See `docs/verification/BONE_LAYER_VERIFICATION_PLAN.md`. 303 formulas across 9 domains, 22 files. 5510 tests collected, 16 skipped (hardware-gated).
 -->
 
 # Project State Digest
@@ -466,10 +466,10 @@ All Phase 1-3, Post-A10, Wave 1-3, and Phase 4A/4B integrated. See Locked System
 
 | Bug ID | Description | Severity | WO Status |
 |--------|-------------|----------|-----------|
-| BUG-1 | Two-handed STR 1.5x not applied | HIGH | NEEDS WO |
-| BUG-2 | Full attack doesn't stop on target death | HIGH | NEEDS WO |
-| BUG-3 | Prone AC not differentiated melee/ranged | HIGH | NEEDS WO |
-| BUG-4 | Helpless AC not differentiated melee/ranged | HIGH | NEEDS WO |
+| BUG-1 | Two-handed STR 1.5x not applied | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
+| BUG-2 | Full attack doesn't stop on target death | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
+| BUG-3 | Prone AC not differentiated melee/ranged | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
+| BUG-4 | Helpless AC not differentiated melee/ranged | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
 
 ### Standalone + Research — WO-OSS-DICE-001 FUTURE. 5 WO-RQ research artifacts anchored (see `docs/planning/research/`). Voice research fleet (WO-VOICE-RESEARCH-01..05) delivered.
 
