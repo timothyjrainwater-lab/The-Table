@@ -41,8 +41,9 @@ from aidm.schemas.maneuvers import (
     BullRushIntent, TripIntent, OverrunIntent,
     SunderIntent, DisarmIntent, GrappleIntent,
     OpposedCheckResult, ManeuverResult, TouchAttackResult,
-    get_size_modifier,
+    get_size_modifier, get_standard_attack_size_modifier,
 )
+from aidm.core.attack_resolver import parse_damage_dice, roll_dice
 from aidm.schemas.conditions import (
     create_prone_condition, create_grappled_condition,
 )
@@ -75,9 +76,18 @@ def _get_dex_modifier(world_state: WorldState, entity_id: str) -> int:
 
 
 def _get_size_modifier(world_state: WorldState, entity_id: str) -> int:
-    """Get entity's size modifier for combat maneuvers."""
+    """Get entity's SPECIAL size modifier for combat maneuver opposed checks."""
     size_category = _get_entity_field(world_state, entity_id, EF.SIZE_CATEGORY, "medium")
     return get_size_modifier(size_category)
+
+
+def _get_standard_attack_size_modifier(world_state: WorldState, entity_id: str) -> int:
+    """Get entity's STANDARD attack size modifier (PHB Table 8-1).
+
+    Used for touch attacks to initiate maneuvers and sunder attack rolls.
+    """
+    size_category = _get_entity_field(world_state, entity_id, EF.SIZE_CATEGORY, "medium")
+    return get_standard_attack_size_modifier(size_category)
 
 
 def _get_stability_bonus(world_state: WorldState, entity_id: str) -> int:
@@ -494,11 +504,12 @@ def resolve_trip(
     current_event_id += 1
     current_timestamp += 0.01
 
-    # Calculate touch attack bonus (BAB + Str + size)
+    # Calculate touch attack bonus (BAB + Str + STANDARD attack size modifier)
+    # WO-FIX-07: Touch attack to initiate trip uses STANDARD attack size modifier (PHB Table 8-1)
     attacker_bab = _get_bab(world_state, attacker_id)
     attacker_str = _get_str_modifier(world_state, attacker_id)
-    attacker_size = _get_size_modifier(world_state, attacker_id)
-    touch_attack_bonus = attacker_bab + attacker_str + attacker_size
+    attacker_std_size = _get_standard_attack_size_modifier(world_state, attacker_id)
+    touch_attack_bonus = attacker_bab + attacker_str + attacker_std_size
 
     # Roll touch attack
     touch_result = _roll_touch_attack(rng, attacker_id, target_id, world_state, touch_attack_bonus)
@@ -538,7 +549,9 @@ def resolve_trip(
         return events, world_state, result
 
     # Touch attack hit - proceed to opposed check
-    # Attacker uses Str + size, Defender uses max(Str, Dex) + size + stability
+    # Opposed check uses SPECIAL size modifier (not standard attack)
+    # Attacker uses Str + special size, Defender uses max(Str, Dex) + special size + stability
+    attacker_size = _get_size_modifier(world_state, attacker_id)
     attacker_modifier = attacker_str + attacker_size
 
     defender_str = _get_str_modifier(world_state, target_id)
@@ -856,7 +869,19 @@ def resolve_overrun(
         )
     else:
         # Overrun failure - attacker pushed back
-        attacker_prone = check_result.margin <= -5  # Failure by 5+ means prone
+        # WO-FIX-08: Opposed STR check to determine if attacker falls prone (PHB p.157)
+        # Both sides roll new d20s; uses SPECIAL size modifier; defender wins ties
+        combat_rng = rng.stream("combat")
+        prone_attacker_roll = combat_rng.randint(1, 20)
+        prone_defender_roll = combat_rng.randint(1, 20)
+        prone_attacker_str = _get_str_modifier(world_state, attacker_id)
+        prone_defender_str = _get_str_modifier(world_state, target_id)
+        prone_attacker_special_size = _get_size_modifier(world_state, attacker_id)
+        prone_defender_special_size = _get_size_modifier(world_state, target_id)
+        prone_attacker_total = prone_attacker_roll + prone_attacker_str + prone_attacker_special_size
+        prone_defender_total = prone_defender_roll + prone_defender_str + prone_defender_special_size
+        # Defender wins ties
+        attacker_prone = prone_defender_total >= prone_attacker_total
 
         # Update attacker position (pushed back 5 feet)
         attacker_pos = _get_entity_field(world_state, attacker_id, EF.POSITION, {"x": 0, "y": 0})
@@ -898,6 +923,16 @@ def resolve_overrun(
                 "pushed_back": 5,
                 "attacker_prone": attacker_prone,
                 "margin": check_result.margin,
+                "prone_check": {
+                    "attacker_roll": prone_attacker_roll,
+                    "attacker_str_mod": prone_attacker_str,
+                    "attacker_special_size_mod": prone_attacker_special_size,
+                    "attacker_total": prone_attacker_total,
+                    "defender_roll": prone_defender_roll,
+                    "defender_str_mod": prone_defender_str,
+                    "defender_special_size_mod": prone_defender_special_size,
+                    "defender_total": prone_defender_total,
+                },
                 "hazard_triggered": falling_result is not None,
                 "falling_damage": falling_result.total_damage if falling_result else 0,
             },
@@ -998,14 +1033,15 @@ def resolve_sunder(
     current_timestamp += 0.01
 
     # Calculate attack roll modifiers
+    # WO-FIX-07: Sunder attack rolls use STANDARD attack size modifier (PHB Table 8-1)
     attacker_bab = _get_bab(world_state, attacker_id)
     attacker_str = _get_str_modifier(world_state, attacker_id)
-    attacker_size = _get_size_modifier(world_state, attacker_id)
+    attacker_size = _get_standard_attack_size_modifier(world_state, attacker_id)
     attacker_modifier = attacker_bab + attacker_str + attacker_size
 
     defender_bab = _get_bab(world_state, target_id)
     defender_str = _get_str_modifier(world_state, target_id)
-    defender_size = _get_size_modifier(world_state, target_id)
+    defender_size = _get_standard_attack_size_modifier(world_state, target_id)
     defender_modifier = defender_bab + defender_str + defender_size
 
     # Roll opposed attack rolls
@@ -1022,10 +1058,17 @@ def resolve_sunder(
     current_timestamp += 0.01
 
     if check_result.attacker_wins:
-        # Roll damage (use 1d8 as default weapon damage)
-        combat_rng = rng.stream("combat")
-        damage_roll = combat_rng.randint(1, 8)
-        damage_bonus = attacker_str  # Add Str to damage
+        # WO-FIX-09: Roll damage using attacker's actual weapon damage dice
+        attacker_entity = world_state.entities.get(attacker_id, {})
+        weapon_data = attacker_entity.get(EF.WEAPON)
+        if weapon_data and isinstance(weapon_data, dict):
+            damage_dice_expr = weapon_data.get("damage_dice", "1d8")
+        else:
+            damage_dice_expr = "1d8"  # Fallback if no weapon data
+        num_dice, die_size = parse_damage_dice(damage_dice_expr)
+        damage_rolls = roll_dice(num_dice, die_size, rng)
+        damage_roll = sum(damage_rolls)
+        damage_bonus = attacker_str  # Add Str to damage per normal melee rules
         total_damage = max(0, damage_roll + damage_bonus)
 
         events.append(Event(
@@ -1036,6 +1079,8 @@ def resolve_sunder(
                 "attacker_id": attacker_id,
                 "target_id": target_id,
                 "target_item": intent.target_item,
+                "damage_dice": damage_dice_expr,
+                "damage_rolls": damage_rolls,
                 "damage_roll": damage_roll,
                 "damage_bonus": damage_bonus,
                 "total_damage": total_damage,
@@ -1375,11 +1420,12 @@ def resolve_grapple(
         )
         return events, world_state, result
 
-    # Calculate touch attack bonus (BAB + Str + size)
+    # Calculate touch attack bonus (BAB + Str + STANDARD attack size modifier)
+    # WO-FIX-07: Touch attack to initiate grapple uses STANDARD attack size modifier (PHB Table 8-1)
     attacker_bab = _get_bab(world_state, attacker_id)
     attacker_str = _get_str_modifier(world_state, attacker_id)
-    attacker_size = _get_size_modifier(world_state, attacker_id)
-    touch_attack_bonus = attacker_bab + attacker_str + attacker_size
+    attacker_std_size = _get_standard_attack_size_modifier(world_state, attacker_id)
+    touch_attack_bonus = attacker_bab + attacker_str + attacker_std_size
 
     # Roll touch attack
     touch_result = _roll_touch_attack(rng, attacker_id, target_id, world_state, touch_attack_bonus)
@@ -1417,7 +1463,8 @@ def resolve_grapple(
         return events, world_state, result
 
     # Touch attack hit - proceed to opposed grapple check
-    # Grapple check = BAB + Str + size modifier
+    # Grapple check = BAB + Str + SPECIAL size modifier (not standard attack size)
+    attacker_size = _get_size_modifier(world_state, attacker_id)
     attacker_grapple_modifier = attacker_bab + attacker_str + attacker_size
 
     defender_bab = _get_bab(world_state, target_id)

@@ -21,8 +21,25 @@ from typing import Dict, Any, Optional, List, Literal
 
 
 # ==============================================================================
-# SIZE MODIFIER SCALE (PHB p.154)
+# SIZE MODIFIER SCALES (PHB Table 8-1 & p.154)
 # ==============================================================================
+
+STANDARD_ATTACK_SIZE_MODIFIER: Dict[str, int] = {
+    "fine": 8,
+    "diminutive": 4,
+    "tiny": 2,
+    "small": 1,
+    "medium": 0,
+    "large": -1,
+    "huge": -2,
+    "gargantuan": -4,
+    "colossal": -8,
+}
+"""Standard attack size modifiers (PHB Table 8-1).
+
+Used for melee/ranged attack rolls, including the initial touch attack
+to initiate a combat maneuver (trip, grapple) and sunder attack rolls.
+"""
 
 SIZE_MODIFIER_SCALE: Dict[str, int] = {
     "fine": -16,
@@ -35,14 +52,15 @@ SIZE_MODIFIER_SCALE: Dict[str, int] = {
     "gargantuan": 12,
     "colossal": 16,
 }
-"""Standard size modifiers for combat maneuvers (Bull Rush, Trip, Overrun, Sunder, Disarm).
+"""Special size modifiers for combat maneuver opposed checks (PHB p.154).
 
-Grapple uses the same scale for grapple check modifiers.
+Used for the opposed check portion of grapple, bull rush, trip, overrun, etc.
+NOT used for the initial touch attack or attack roll to initiate the maneuver.
 """
 
 
 def get_size_modifier(size_category: str) -> int:
-    """Get size modifier for a given size category.
+    """Get SPECIAL size modifier for a given size category (opposed checks).
 
     Args:
         size_category: Size category string (lowercase)
@@ -57,6 +75,27 @@ def get_size_modifier(size_category: str) -> int:
     if normalized not in SIZE_MODIFIER_SCALE:
         raise ValueError(f"Unknown size category: {size_category}")
     return SIZE_MODIFIER_SCALE[normalized]
+
+
+def get_standard_attack_size_modifier(size_category: str) -> int:
+    """Get STANDARD attack size modifier for a given size category (attack rolls).
+
+    Used for melee touch attacks to initiate maneuvers and sunder attack rolls.
+    PHB Table 8-1.
+
+    Args:
+        size_category: Size category string (lowercase)
+
+    Returns:
+        Size modifier integer
+
+    Raises:
+        ValueError: If size category is unknown
+    """
+    normalized = size_category.lower().strip()
+    if normalized not in STANDARD_ATTACK_SIZE_MODIFIER:
+        raise ValueError(f"Unknown size category: {size_category}")
+    return STANDARD_ATTACK_SIZE_MODIFIER[normalized]
 
 
 # ==============================================================================
