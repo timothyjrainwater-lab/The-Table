@@ -382,8 +382,11 @@ def get_twf_penalties(entity: Dict[str, Any], has_light_offhand: bool) -> Tuple[
     feats = entity.get(EF.FEATS, [])
 
     if FeatID.TWO_WEAPON_FIGHTING in feats:
-        # TWF feat: -2/-2 (PHB p.102)
-        return (-2, -2)
+        # TWF feat: -2/-2 with light off-hand, -4/-4 with heavy (PHB p.105)
+        if has_light_offhand:
+            return (-2, -2)
+        else:
+            return (-4, -4)
     else:
         # No feat: -6/-10 or -4/-8 with light off-hand (PHB p.160)
         if has_light_offhand:

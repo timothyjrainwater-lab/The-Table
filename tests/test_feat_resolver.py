@@ -508,9 +508,16 @@ class TestTwoWeaponFighting:
         assert off == -10
 
     def test_twf_feat_reduces_penalties(self):
-        """TWF feat: -2 main, -2 off (PHB p.102)."""
+        """TWF feat with heavy off-hand: -4/-4 (PHB p.105)."""
         entity = {EF.FEATS: [FeatID.TWO_WEAPON_FIGHTING]}
         main, off = get_twf_penalties(entity, has_light_offhand=False)
+        assert main == -4  # Heavy off-hand: -4/-4
+        assert off == -4
+
+    def test_twf_feat_light_offhand(self):
+        """TWF feat with light off-hand: -2/-2 (PHB p.105)."""
+        entity = {EF.FEATS: [FeatID.TWO_WEAPON_FIGHTING]}
+        main, off = get_twf_penalties(entity, has_light_offhand=True)
         assert main == -2
         assert off == -2
 
