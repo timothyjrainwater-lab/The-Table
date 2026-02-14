@@ -46,3 +46,11 @@ Builder confirmed:
 ## Retrospective
 
 The highest-signal items are #1 (pipeline registration gap) and #3 (test pollution). The registration gap means production compilations don't run cross-validation even though the stage exists — this is either intentional or a silent gap. The test pollution is a CI reliability issue that erodes trust in green test runs. Both are worth PM decisions before they compound.
+
+## Operator-Level Recommendations (Session Review)
+
+The following recommendations synthesize builder findings with operational context:
+
+- **Test isolation WO** — The ~47 phantom failures (#3) need proper setup/teardown to prevent shared state between test files. This is a CI reliability issue that compounds as the test suite grows. Recommend a dedicated WO to identify and fix state leaks in `test_spark_adapter.py` and `test_template_narration_contract.py`.
+- **Wire CrossValidateStage in production** — Finding #1 and the builder's "automated gap monitoring" suggestion point to the same thing: the stage exists but doesn't run. Wiring it into the default WorldCompiler stage list would make cross-validation automatic rather than test-only.
+- **Resolver pattern unification** — The causal_chain_id inconsistency (#4) could be bundled into the resolver deduplication WO already in the PM action queue (P4). No separate WO needed.
