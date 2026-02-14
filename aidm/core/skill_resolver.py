@@ -12,7 +12,7 @@ Reference: Player's Handbook 3.5e, Chapter 4 (Skills)
 from dataclasses import dataclass
 from typing import Optional
 
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.skills import SKILLS, SkillDefinition
 
@@ -126,7 +126,7 @@ def resolve_skill_check(
     entity: dict,
     skill_id: str,
     dc: int,
-    rng: RNGManager,
+    rng: RNGProvider,
     circumstance_modifier: int = 0,
 ) -> SkillCheckResult:
     """Resolve a skill check against a fixed DC.
@@ -188,7 +188,7 @@ def resolve_opposed_check(
     opponent: dict,
     actor_skill: str,
     opponent_skill: str,
-    rng: RNGManager,
+    rng: RNGProvider,
     actor_circumstance: int = 0,
     opponent_circumstance: int = 0,
 ) -> OpposedCheckResult:

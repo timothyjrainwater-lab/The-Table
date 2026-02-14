@@ -44,6 +44,17 @@ class Weapon:
     """WO-FIX-01: Weapon grip for STR-to-damage multiplier (PHB p.113).
     'two-handed' = 1.5x STR, 'off-hand' = 0.5x STR, 'one-handed' = 1x STR."""
 
+    weapon_type: str = "one-handed"
+    """WO-WEAPON-PLUMBING-001: Weapon type category (PHB p.113/p.155).
+    Values: 'light', 'one-handed', 'two-handed', 'ranged', 'natural'.
+    Affects disarm modifiers (+4 two-handed, -4 light) and is_ranged derivation.
+    Default 'one-handed' preserves existing behavior."""
+
+    range_increment: int = 0
+    """WO-WEAPON-PLUMBING-001: Range increment in feet (PHB p.113).
+    0 = melee weapon. Positive = ranged weapon.
+    Max range = range_increment * 10 (10 increments per SRD)."""
+
     def __post_init__(self):
         """Validate weapon data."""
         if not self.damage_dice:
@@ -72,6 +83,25 @@ class Weapon:
         valid_grips = {"one-handed", "two-handed", "off-hand"}
         if self.grip not in valid_grips:
             raise ValueError(f"grip must be one of {valid_grips}, got {self.grip}")
+
+        # WO-WEAPON-PLUMBING-001: Validate weapon type
+        valid_weapon_types = {"light", "one-handed", "two-handed", "ranged", "natural"}
+        if self.weapon_type not in valid_weapon_types:
+            raise ValueError(f"weapon_type must be one of {valid_weapon_types}, got {self.weapon_type}")
+
+        # WO-WEAPON-PLUMBING-001: Validate range increment
+        if self.range_increment < 0:
+            raise ValueError(f"range_increment must be >= 0, got {self.range_increment}")
+
+    @property
+    def is_ranged(self) -> bool:
+        """Derived: True if weapon_type is 'ranged' (PHB p.113)."""
+        return self.weapon_type == "ranged"
+
+    @property
+    def is_light(self) -> bool:
+        """Derived: True if weapon_type is 'light' (PHB p.155)."""
+        return self.weapon_type == "light"
 
 
 @dataclass

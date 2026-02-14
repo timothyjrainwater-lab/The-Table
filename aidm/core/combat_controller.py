@@ -18,7 +18,7 @@ from aidm.core.event_log import Event
 from aidm.core.state import WorldState
 from aidm.core.play_loop import execute_turn, TurnContext, TurnResult
 from aidm.core.initiative import roll_initiative_for_all_actors, InitiativeRoll
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.doctrine import MonsterDoctrine
 from aidm.schemas.entity_fields import EF
 # WO-015: Duration tracker for spell effects
@@ -146,7 +146,7 @@ class CombatRoundResult:
 def start_combat(
     world_state: WorldState,
     actors: List[Tuple[str, int]],  # (actor_id, dex_modifier)
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int = 0,
     timestamp: float = 0.0,
     misc_modifiers: Dict[str, int] = None
@@ -217,7 +217,7 @@ def start_combat(
 def execute_combat_round(
     world_state: WorldState,
     doctrines: Dict[str, MonsterDoctrine],
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int = 0,
     timestamp: float = 0.0,
     narration_service: Optional[Any] = None,  # WO-030: GuardedNarrationService

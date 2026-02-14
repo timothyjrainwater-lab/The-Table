@@ -35,7 +35,7 @@ from copy import deepcopy
 from typing import List, Dict, Any, Optional, Tuple, Union
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.maneuvers import (
     BullRushIntent, TripIntent, OverrunIntent,
@@ -95,6 +95,29 @@ def _get_stability_bonus(world_state: WorldState, entity_id: str) -> int:
     return _get_entity_field(world_state, entity_id, EF.STABILITY_BONUS, 0)
 
 
+def _get_weapon_type(world_state: WorldState, entity_id: str) -> str:
+    """Get entity's weapon type from EF.WEAPON dict data.
+
+    WO-WEAPON-PLUMBING-001: Returns 'one-handed' default if no weapon_type in data.
+    Handles both string and dict EF.WEAPON patterns.
+    """
+    weapon_data = _get_entity_field(world_state, entity_id, EF.WEAPON)
+    if weapon_data and isinstance(weapon_data, dict):
+        return weapon_data.get("weapon_type", "one-handed")
+    return "one-handed"
+
+
+def _get_weapon_grip(world_state: WorldState, entity_id: str) -> str:
+    """Get entity's weapon grip from EF.WEAPON dict data.
+
+    WO-WEAPON-PLUMBING-001: Returns 'one-handed' default if no grip in data.
+    """
+    weapon_data = _get_entity_field(world_state, entity_id, EF.WEAPON)
+    if weapon_data and isinstance(weapon_data, dict):
+        return weapon_data.get("grip", "one-handed")
+    return "one-handed"
+
+
 def _get_bab(world_state: WorldState, entity_id: str) -> int:
     """Get entity's Base Attack Bonus. Defaults to attack_bonus field if available."""
     entity = world_state.entities.get(entity_id)
@@ -120,7 +143,7 @@ def _is_entity_defeated(world_state: WorldState, entity_id: str) -> bool:
 
 
 def _roll_opposed_check(
-    rng: RNGManager,
+    rng: RNGProvider,
     attacker_modifier: int,
     defender_modifier: int,
     check_type: str
@@ -155,7 +178,7 @@ def _roll_opposed_check(
 
 
 def _roll_touch_attack(
-    rng: RNGManager,
+    rng: RNGProvider,
     attacker_id: str,
     target_id: str,
     world_state: WorldState,
@@ -201,11 +224,12 @@ def _roll_touch_attack(
 def resolve_bull_rush(
     intent: BullRushIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     aoo_events: Optional[List[Event]] = None,
     aoo_defeated: bool = False,
+    causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
     """Resolve a Bull Rush maneuver.
 
@@ -244,15 +268,20 @@ def resolve_bull_rush(
     target_id = intent.target_id
 
     # Emit bull_rush_declared event
+    bull_rush_payload = {
+        "attacker_id": attacker_id,
+        "target_id": target_id,
+        "is_charge": intent.is_charge,
+    }
+    # WO-BRIEF-WIDTH-001: Propagate causal chain
+    if causal_chain_id is not None:
+        bull_rush_payload["causal_chain_id"] = causal_chain_id
+        bull_rush_payload["chain_position"] = 1
     events.append(Event(
         event_id=current_event_id,
         event_type="bull_rush_declared",
         timestamp=current_timestamp,
-        payload={
-            "attacker_id": attacker_id,
-            "target_id": target_id,
-            "is_charge": intent.is_charge,
-        },
+        payload=bull_rush_payload,
         citations=[{"source_id": "681f92bc94ff", "page": 154}],  # PHB Bull Rush
     ))
     current_event_id += 1
@@ -353,19 +382,24 @@ def resolve_bull_rush(
         )
 
         # Emit success event
+        bull_rush_success_payload = {
+            "attacker_id": attacker_id,
+            "target_id": target_id,
+            "pushed_distance": push_distance,
+            "new_attacker_pos": new_attacker_pos,
+            "new_defender_pos": new_defender_pos,
+            "hazard_triggered": falling_result is not None,
+            "falling_damage": falling_result.total_damage if falling_result else 0,
+        }
+        # WO-BRIEF-WIDTH-001: Propagate causal chain
+        if causal_chain_id is not None:
+            bull_rush_success_payload["causal_chain_id"] = causal_chain_id
+            bull_rush_success_payload["chain_position"] = 1
         events.append(Event(
             event_id=current_event_id,
             event_type="bull_rush_success",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "pushed_distance": push_distance,
-                "new_attacker_pos": new_attacker_pos,
-                "new_defender_pos": new_defender_pos,
-                "hazard_triggered": falling_result is not None,
-                "falling_damage": falling_result.total_damage if falling_result else 0,
-            },
+            payload=bull_rush_success_payload,
             citations=[{"source_id": "681f92bc94ff", "page": 154}],
         ))
         current_event_id += 1
@@ -409,19 +443,24 @@ def resolve_bull_rush(
         current_timestamp += len(hazard_events) * 0.01
 
         # Emit failure event
+        bull_rush_fail_payload = {
+            "attacker_id": attacker_id,
+            "target_id": target_id,
+            "attacker_pushed_back": 5,
+            "new_attacker_pos": new_attacker_pos,
+            "attacker_prone": False,  # Origin occupied check simplified
+            "hazard_triggered": falling_result is not None,
+            "falling_damage": falling_result.total_damage if falling_result else 0,
+        }
+        # WO-BRIEF-WIDTH-001: Propagate causal chain
+        if causal_chain_id is not None:
+            bull_rush_fail_payload["causal_chain_id"] = causal_chain_id
+            bull_rush_fail_payload["chain_position"] = 1
         events.append(Event(
             event_id=current_event_id,
             event_type="bull_rush_failure",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "attacker_pushed_back": 5,
-                "new_attacker_pos": new_attacker_pos,
-                "attacker_prone": False,  # Origin occupied check simplified
-                "hazard_triggered": falling_result is not None,
-                "falling_damage": falling_result.total_damage if falling_result else 0,
-            },
+            payload=bull_rush_fail_payload,
             citations=[{"source_id": "681f92bc94ff", "page": 154}],
         ))
         current_event_id += 1
@@ -448,11 +487,12 @@ def resolve_bull_rush(
 def resolve_trip(
     intent: TripIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     aoo_events: Optional[List[Event]] = None,
     aoo_defeated: bool = False,
+    causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
     """Resolve a Trip maneuver.
 
@@ -491,14 +531,19 @@ def resolve_trip(
     target_id = intent.target_id
 
     # Emit trip_declared event
+    trip_declared_payload = {
+        "attacker_id": attacker_id,
+        "target_id": target_id,
+    }
+    # WO-BRIEF-WIDTH-001: Propagate causal chain
+    if causal_chain_id is not None:
+        trip_declared_payload["causal_chain_id"] = causal_chain_id
+        trip_declared_payload["chain_position"] = 1
     events.append(Event(
         event_id=current_event_id,
         event_type="trip_declared",
         timestamp=current_timestamp,
-        payload={
-            "attacker_id": attacker_id,
-            "target_id": target_id,
-        },
+        payload=trip_declared_payload,
         citations=[{"source_id": "681f92bc94ff", "page": 158}],
     ))
     current_event_id += 1
@@ -527,16 +572,21 @@ def resolve_trip(
 
     # If touch attack misses, trip fails
     if not touch_result.hit:
+        trip_fail_payload = {
+            "attacker_id": attacker_id,
+            "target_id": target_id,
+            "reason": "touch_attack_missed",
+            "counter_trip_allowed": False,
+        }
+        # WO-BRIEF-WIDTH-001: Propagate causal chain
+        if causal_chain_id is not None:
+            trip_fail_payload["causal_chain_id"] = causal_chain_id
+            trip_fail_payload["chain_position"] = 1
         events.append(Event(
             event_id=current_event_id,
             event_type="trip_failure",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "reason": "touch_attack_missed",
-                "counter_trip_allowed": False,
-            },
+            payload=trip_fail_payload,
             citations=[{"source_id": "681f92bc94ff", "page": 158}],
         ))
         current_event_id += 1
@@ -580,15 +630,20 @@ def resolve_trip(
         condition = create_prone_condition(source="trip_attack", applied_at_event_id=current_event_id)
         world_state = apply_condition(world_state, target_id, condition)
 
+        trip_success_payload = {
+            "attacker_id": attacker_id,
+            "target_id": target_id,
+            "condition_applied": "prone",
+        }
+        # WO-BRIEF-WIDTH-001: Propagate causal chain
+        if causal_chain_id is not None:
+            trip_success_payload["causal_chain_id"] = causal_chain_id
+            trip_success_payload["chain_position"] = 1
         events.append(Event(
             event_id=current_event_id,
             event_type="trip_success",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "condition_applied": "prone",
-            },
+            payload=trip_success_payload,
             citations=[{"source_id": "681f92bc94ff", "page": 158}],
         ))
         current_event_id += 1
@@ -615,16 +670,21 @@ def resolve_trip(
         )
     else:
         # Trip failed - defender may counter-trip
+        trip_fail2_payload = {
+            "attacker_id": attacker_id,
+            "target_id": target_id,
+            "reason": "opposed_check_lost",
+            "counter_trip_allowed": True,
+        }
+        # WO-BRIEF-WIDTH-001: Propagate causal chain
+        if causal_chain_id is not None:
+            trip_fail2_payload["causal_chain_id"] = causal_chain_id
+            trip_fail2_payload["chain_position"] = 1
         events.append(Event(
             event_id=current_event_id,
             event_type="trip_failure",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "reason": "opposed_check_lost",
-                "counter_trip_allowed": True,
-            },
+            payload=trip_fail2_payload,
             citations=[{"source_id": "681f92bc94ff", "page": 158}],
         ))
         current_event_id += 1
@@ -725,11 +785,12 @@ def resolve_trip(
 def resolve_overrun(
     intent: OverrunIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     aoo_events: Optional[List[Event]] = None,
     aoo_defeated: bool = False,
+    causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
     """Resolve an Overrun maneuver.
 
@@ -767,16 +828,20 @@ def resolve_overrun(
     target_id = intent.target_id
 
     # Emit overrun_declared event
+    overrun_declared_payload = {
+        "attacker_id": attacker_id,
+        "target_id": target_id,
+        "is_charge": intent.is_charge,
+        "defender_avoids": intent.defender_avoids,
+    }
+    if causal_chain_id is not None:
+        overrun_declared_payload["causal_chain_id"] = causal_chain_id
+        overrun_declared_payload["chain_position"] = 1
     events.append(Event(
         event_id=current_event_id,
         event_type="overrun_declared",
         timestamp=current_timestamp,
-        payload={
-            "attacker_id": attacker_id,
-            "target_id": target_id,
-            "is_charge": intent.is_charge,
-            "defender_avoids": intent.defender_avoids,
-        },
+        payload=overrun_declared_payload,
         citations=[{"source_id": "681f92bc94ff", "page": 157}],
     ))
     current_event_id += 1
@@ -843,6 +908,7 @@ def resolve_overrun(
                 "attacker_id": attacker_id,
                 "defender_id": target_id,
                 "condition_applied": "prone",
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 157}],
         ))
@@ -935,6 +1001,7 @@ def resolve_overrun(
                 },
                 "hazard_triggered": falling_result is not None,
                 "falling_damage": falling_result.total_damage if falling_result else 0,
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 157}],
         ))
@@ -976,11 +1043,12 @@ def resolve_overrun(
 def resolve_sunder(
     intent: SunderIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     aoo_events: Optional[List[Event]] = None,
     aoo_defeated: bool = False,
+    causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
     """Resolve a Sunder maneuver (DEGRADED).
 
@@ -1018,15 +1086,19 @@ def resolve_sunder(
     target_id = intent.target_id
 
     # Emit sunder_declared event
+    sunder_declared_payload = {
+        "attacker_id": attacker_id,
+        "target_id": target_id,
+        "target_item": intent.target_item,
+    }
+    if causal_chain_id is not None:
+        sunder_declared_payload["causal_chain_id"] = causal_chain_id
+        sunder_declared_payload["chain_position"] = 1
     events.append(Event(
         event_id=current_event_id,
         event_type="sunder_declared",
         timestamp=current_timestamp,
-        payload={
-            "attacker_id": attacker_id,
-            "target_id": target_id,
-            "target_item": intent.target_item,
-        },
+        payload=sunder_declared_payload,
         citations=[{"source_id": "681f92bc94ff", "page": 158}],
     ))
     current_event_id += 1
@@ -1068,7 +1140,14 @@ def resolve_sunder(
         num_dice, die_size = parse_damage_dice(damage_dice_expr)
         damage_rolls = roll_dice(num_dice, die_size, rng)
         damage_roll = sum(damage_rolls)
-        damage_bonus = attacker_str  # Add Str to damage per normal melee rules
+        # WO-WEAPON-PLUMBING-001: Apply grip multiplier to STR damage (PHB p.113)
+        weapon_grip = _get_weapon_grip(world_state, attacker_id)
+        if weapon_grip == "two-handed":
+            damage_bonus = int(attacker_str * 1.5)
+        elif weapon_grip == "off-hand":
+            damage_bonus = int(attacker_str * 0.5)
+        else:
+            damage_bonus = attacker_str
         total_damage = max(0, damage_roll + damage_bonus)
 
         events.append(Event(
@@ -1085,6 +1164,7 @@ def resolve_sunder(
                 "damage_bonus": damage_bonus,
                 "total_damage": total_damage,
                 "note": "DEGRADED: Narrative only, no persistent state change",
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 158}],
         ))
@@ -1105,6 +1185,7 @@ def resolve_sunder(
                 "attacker_id": attacker_id,
                 "target_id": target_id,
                 "target_item": intent.target_item,
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 158}],
         ))
@@ -1126,12 +1207,13 @@ def resolve_sunder(
 def resolve_disarm(
     intent: DisarmIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     aoo_events: Optional[List[Event]] = None,
     aoo_defeated: bool = False,
     aoo_dealt_damage: bool = False,
+    causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
     """Resolve a Disarm maneuver (DEGRADED).
 
@@ -1170,14 +1252,18 @@ def resolve_disarm(
     target_id = intent.target_id
 
     # Emit disarm_declared event
+    disarm_declared_payload = {
+        "attacker_id": attacker_id,
+        "target_id": target_id,
+    }
+    if causal_chain_id is not None:
+        disarm_declared_payload["causal_chain_id"] = causal_chain_id
+        disarm_declared_payload["chain_position"] = 1
     events.append(Event(
         event_id=current_event_id,
         event_type="disarm_declared",
         timestamp=current_timestamp,
-        payload={
-            "attacker_id": attacker_id,
-            "target_id": target_id,
-        },
+        payload=disarm_declared_payload,
         citations=[{"source_id": "681f92bc94ff", "page": 155}],
     ))
     current_event_id += 1
@@ -1194,6 +1280,7 @@ def resolve_disarm(
                 "target_id": target_id,
                 "reason": "aoo_dealt_damage",
                 "counter_disarm_allowed": False,
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
@@ -1220,19 +1307,17 @@ def resolve_disarm(
     # B-AMB-04: Disarm weapon type modifiers (PHB p.155)
     # Two-handed weapon: +4 to opposed check
     # Light weapon: -4 to opposed check
-    # TODO: Activate when weapon type (light/one-handed/two-handed) is available
-    # in entity weapon data. Currently EF.WEAPON stores a name string or a dict
-    # with damage_dice but no weapon_type field. When P4-D weapon plumbing lands:
-    #   attacker_weapon_type = _get_weapon_type(world_state, attacker_id)
-    #   if attacker_weapon_type == "two-handed":
-    #       attacker_modifier += 4
-    #   elif attacker_weapon_type == "light":
-    #       attacker_modifier -= 4
-    #   defender_weapon_type = _get_weapon_type(world_state, target_id)
-    #   if defender_weapon_type == "two-handed":
-    #       defender_modifier += 4
-    #   elif defender_weapon_type == "light":
-    #       defender_modifier -= 4
+    # WO-WEAPON-PLUMBING-001: Activated (was TODO pending P4-D weapon plumbing)
+    attacker_weapon_type = _get_weapon_type(world_state, attacker_id)
+    if attacker_weapon_type == "two-handed":
+        attacker_modifier += 4
+    elif attacker_weapon_type == "light":
+        attacker_modifier -= 4
+    defender_weapon_type = _get_weapon_type(world_state, target_id)
+    if defender_weapon_type == "two-handed":
+        defender_modifier += 4
+    elif defender_weapon_type == "light":
+        defender_modifier -= 4
 
     # Roll opposed attack rolls
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "disarm")
@@ -1258,6 +1343,7 @@ def resolve_disarm(
                 "target_id": target_id,
                 "weapon_dropped": True,
                 "note": "DEGRADED: Narrative only, no persistent state change",
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
@@ -1279,6 +1365,7 @@ def resolve_disarm(
                 "target_id": target_id,
                 "reason": "opposed_check_lost",
                 "counter_disarm_allowed": True,
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
@@ -1356,12 +1443,13 @@ def resolve_disarm(
 def resolve_grapple(
     intent: GrappleIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     aoo_events: Optional[List[Event]] = None,
     aoo_defeated: bool = False,
     aoo_dealt_damage: bool = False,
+    causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
     """Resolve a Grapple maneuver (DEGRADED - Grapple-Lite).
 
@@ -1402,14 +1490,18 @@ def resolve_grapple(
     target_id = intent.target_id
 
     # Emit grapple_declared event
+    grapple_declared_payload = {
+        "attacker_id": attacker_id,
+        "target_id": target_id,
+    }
+    if causal_chain_id is not None:
+        grapple_declared_payload["causal_chain_id"] = causal_chain_id
+        grapple_declared_payload["chain_position"] = 1
     events.append(Event(
         event_id=current_event_id,
         event_type="grapple_declared",
         timestamp=current_timestamp,
-        payload={
-            "attacker_id": attacker_id,
-            "target_id": target_id,
-        },
+        payload=grapple_declared_payload,
         citations=[{"source_id": "681f92bc94ff", "page": 155}],
     ))
     current_event_id += 1
@@ -1425,6 +1517,7 @@ def resolve_grapple(
                 "attacker_id": attacker_id,
                 "target_id": target_id,
                 "reason": "aoo_dealt_damage",
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
@@ -1467,6 +1560,7 @@ def resolve_grapple(
                 "attacker_id": attacker_id,
                 "target_id": target_id,
                 "reason": "touch_attack_missed",
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
@@ -1516,6 +1610,7 @@ def resolve_grapple(
                 "target_id": target_id,
                 "condition_applied": "grappled",
                 "note": "DEGRADED: Unidirectional condition (target only), no attacker state change",
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 156}],
         ))
@@ -1550,6 +1645,7 @@ def resolve_grapple(
                 "attacker_id": attacker_id,
                 "target_id": target_id,
                 "reason": "opposed_check_lost",
+                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 156}],
         ))
@@ -1577,12 +1673,13 @@ ManeuverIntent = Union[
 def resolve_maneuver(
     intent: ManeuverIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     aoo_events: Optional[List[Event]] = None,
     aoo_defeated: bool = False,
     aoo_dealt_damage: bool = False,
+    causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
     """Unified dispatcher for all combat maneuver resolution.
 
@@ -1597,21 +1694,22 @@ def resolve_maneuver(
         aoo_events: Events from AoO resolution (optional)
         aoo_defeated: True if attacker was defeated by AoO
         aoo_dealt_damage: True if any AoO dealt damage (for Disarm/Grapple auto-fail)
+        causal_chain_id: WO-BRIEF-WIDTH-001: Optional chain ID for causal linking
 
     Returns:
         Tuple of (events, updated_world_state, ManeuverResult)
     """
     if isinstance(intent, BullRushIntent):
-        return resolve_bull_rush(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated)
+        return resolve_bull_rush(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, causal_chain_id)
     elif isinstance(intent, TripIntent):
-        return resolve_trip(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated)
+        return resolve_trip(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, causal_chain_id)
     elif isinstance(intent, OverrunIntent):
-        return resolve_overrun(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated)
+        return resolve_overrun(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, causal_chain_id)
     elif isinstance(intent, SunderIntent):
-        return resolve_sunder(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated)
+        return resolve_sunder(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, causal_chain_id)
     elif isinstance(intent, DisarmIntent):
-        return resolve_disarm(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, aoo_dealt_damage)
+        return resolve_disarm(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, aoo_dealt_damage, causal_chain_id)
     elif isinstance(intent, GrappleIntent):
-        return resolve_grapple(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, aoo_dealt_damage)
+        return resolve_grapple(intent, world_state, rng, next_event_id, timestamp, aoo_events, aoo_defeated, aoo_dealt_damage, causal_chain_id)
     else:
         raise ValueError(f"Unknown maneuver intent type: {type(intent)}")

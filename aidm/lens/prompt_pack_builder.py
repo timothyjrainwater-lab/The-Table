@@ -121,7 +121,23 @@ class PromptPackBuilder:
             weapon_name=brief.weapon_name,
             damage_type=brief.damage_type,
             condition_applied=brief.condition_applied,
+            condition_removed=brief.condition_removed,
             target_defeated=brief.target_defeated,
+            # WO-BRIEF-WIDTH-001: Multi-target, causal chain, condition stack
+            additional_targets=[
+                {"name": t[0], "severity": t[1], "defeated": t[2]}
+                for t in brief.additional_targets
+            ] if brief.additional_targets else None,
+            causal_chain_id=brief.causal_chain_id,
+            chain_position=brief.chain_position,
+            active_conditions=(
+                list(brief.active_conditions)
+                if brief.active_conditions else None
+            ),
+            actor_conditions=(
+                list(brief.actor_conditions)
+                if brief.actor_conditions else None
+            ),
             scene_description=brief.scene_description,
             visible_gear=brief.visible_gear,
             # WO-GAP-B-001: Layer B presentation semantics

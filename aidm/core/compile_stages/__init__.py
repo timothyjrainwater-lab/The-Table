@@ -6,6 +6,7 @@ one or more artifacts in the compile workspace.
 
 from aidm.core.compile_stages._base import CompileContext, CompileStage, StageResult
 from aidm.core.compile_stages.bestiary import BestiaryStage
+from aidm.core.compile_stages.cross_validate import CrossValidateStage
 from aidm.core.compile_stages.lexicon import LexiconStage
 from aidm.core.compile_stages.npc_archetypes import NPCArchetypeStage
 from aidm.core.compile_stages.rulebook import RulebookStage
@@ -15,6 +16,7 @@ __all__ = [
     "BestiaryStage",
     "CompileContext",
     "CompileStage",
+    "CrossValidateStage",
     "LexiconStage",
     "NPCArchetypeStage",
     "RulebookStage",

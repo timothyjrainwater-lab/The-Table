@@ -23,7 +23,7 @@ from aidm.schemas.leveling import (
     LevelUpResult,
 )
 from aidm.schemas.entity_fields import EF
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 
 
 def calculate_xp_award(
@@ -163,7 +163,7 @@ def check_level_up(entity: dict) -> Optional[LevelUpResult]:
 def apply_level_up(
     entity: dict,
     class_name: str,
-    rng: RNGManager,
+    rng: RNGProvider,
 ) -> tuple[dict, LevelUpResult]:
     """Apply level-up changes to entity.
 

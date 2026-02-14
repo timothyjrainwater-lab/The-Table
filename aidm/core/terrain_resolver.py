@@ -30,7 +30,7 @@ from copy import deepcopy
 from typing import List, Dict, Any, Optional, Tuple
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.terrain import (
@@ -572,7 +572,7 @@ def resolve_falling(
     entity_id: str,
     fall_distance: int,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
     landing_position: Optional[Dict[str, int]] = None,
@@ -792,7 +792,7 @@ def resolve_forced_movement_with_hazards(
     push_direction: Tuple[int, int],
     push_distance: int,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float
 ) -> Tuple[List[Event], WorldState, Dict[str, int], Optional[FallingResult]]:

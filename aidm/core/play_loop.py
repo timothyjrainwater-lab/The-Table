@@ -38,6 +38,7 @@ WO-015 SCOPE:
 - Concentration break on caster damage
 """
 
+import uuid
 from copy import deepcopy
 from typing import List, Dict, Any, Optional, Union, Tuple, Literal
 from dataclasses import dataclass
@@ -50,7 +51,7 @@ from aidm.core.tactical_policy import evaluate_tactics, TacticalPolicyResult
 from aidm.schemas.attack import AttackIntent, Weapon, StepMoveIntent, FullMoveIntent
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
 from aidm.core.full_attack_resolver import FullAttackIntent, resolve_full_attack, apply_full_attack_events
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.core.aoo import check_aoo_triggers, resolve_aoo_sequence, aoo_dealt_damage  # CP-15/CP-18
 # CP-18A: Mounted combat imports
 from aidm.schemas.mounted_combat import MountedMoveIntent, DismountIntent, MountIntent
@@ -325,7 +326,7 @@ def _make_condition_dict(condition: str, source: str, event_id: int) -> Dict[str
 def _resolve_spell_cast(
     intent: SpellCastIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     grid: Optional[BattleGrid],
     next_event_id: int,
     timestamp: float,
@@ -584,7 +585,7 @@ def _check_concentration_break(
     caster_id: str,
     damage_dealt: int,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
 ) -> Tuple[List[Event], WorldState]:
@@ -733,7 +734,7 @@ def execute_turn(
     turn_ctx: TurnContext,
     doctrine: Optional[MonsterDoctrine] = None,
     combat_intent: Optional[Union[AttackIntent, FullAttackIntent]] = None,
-    rng: Optional[RNGManager] = None,
+    rng: Optional[RNGProvider] = None,
     next_event_id: int = 0,
     timestamp: float = 0.0,
     narration_service: Optional[Any] = None,  # WO-030: GuardedNarrationService
@@ -999,6 +1000,13 @@ def execute_turn(
         if rng is None:
             raise ValueError("RNG manager required for combat intent resolution")
 
+        # WO-BRIEF-WIDTH-001: Generate causal_chain_id for maneuver intents
+        # Maneuvers can trigger causal chains (e.g., bull rush → AoO → trip)
+        causal_chain_id = None
+        if isinstance(combat_intent, (BullRushIntent, TripIntent, OverrunIntent,
+                                      SunderIntent, DisarmIntent, GrappleIntent)):
+            causal_chain_id = f"{type(combat_intent).__name__}_{turn_ctx.turn_index}_{uuid.uuid4().hex[:8]}"
+
         # CP-15: Check for AoO triggers before resolving main action
         aoo_triggers = check_aoo_triggers(world_state, turn_ctx.actor_id, combat_intent)
 
@@ -1009,7 +1017,8 @@ def execute_turn(
                 world_state=world_state,
                 rng=rng,
                 next_event_id=current_event_id,
-                timestamp=timestamp + 0.1
+                timestamp=timestamp + 0.1,
+                causal_chain_id=causal_chain_id,
             )
 
             # Emit AoO events
@@ -1348,6 +1357,7 @@ def execute_turn(
                 aoo_events=None,  # AoO events already added to events list
                 aoo_defeated=False,  # Already handled in AoO section above
                 aoo_dealt_damage=aoo_damage,
+                causal_chain_id=causal_chain_id,
             )
 
             events.extend(maneuver_events)

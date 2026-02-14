@@ -27,7 +27,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 
 
@@ -156,7 +156,7 @@ def resolve_environmental_damage(
     position: Dict[str, int],
     hazard_type: str,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
 ) -> Tuple[List[Event], WorldState, EnvironmentalDamageResult]:
@@ -296,7 +296,7 @@ def resolve_spiked_pit_damage(
     entity_id: str,
     position: Dict[str, int],
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
 ) -> Tuple[List[Event], WorldState, EnvironmentalDamageResult]:
@@ -336,7 +336,7 @@ def check_and_resolve_entry_hazard(
     entity_id: str,
     position: Dict[str, int],
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float,
 ) -> Tuple[List[Event], WorldState, Optional[EnvironmentalDamageResult]]:

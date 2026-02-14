@@ -27,7 +27,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Literal
 from aidm.core.state import WorldState, FrozenWorldStateView
 from aidm.core.event_log import Event
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.core.initiative import roll_initiative_for_all_actors, InitiativeRoll
 from aidm.schemas.entity_fields import EF
 
@@ -345,7 +345,7 @@ class SceneManager:
         self,
         scene: SceneState,
         world_state: WorldState,
-        rng: RNGManager,
+        rng: RNGProvider,
         trigger_condition: str = "on_entry",
     ) -> Optional[EncounterResult]:
         """Trigger an encounter in the current scene.
@@ -425,7 +425,7 @@ class SceneManager:
         self,
         rest_type: Literal["8_hours", "long_term_care", "bed_rest"],
         world_state: WorldState,
-        rng: RNGManager,
+        rng: RNGProvider,
     ) -> RestResult:
         """Process rest healing for party members.
 

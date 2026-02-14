@@ -17,7 +17,7 @@ Deterministic Tie-Breaking:
 
 from dataclasses import dataclass
 from typing import List, Dict, Any, Tuple
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 
 
 @dataclass
@@ -53,7 +53,7 @@ class InitiativeRoll:
 def roll_initiative(
     actor_id: str,
     dex_modifier: int,
-    rng: RNGManager,
+    rng: RNGProvider,
     misc_modifier: int = 0
 ) -> InitiativeRoll:
     """
@@ -109,7 +109,7 @@ def sort_initiative_order(rolls: List[InitiativeRoll]) -> List[str]:
 
 def roll_initiative_for_all_actors(
     actors: List[Tuple[str, int]],  # (actor_id, dex_modifier)
-    rng: RNGManager,
+    rng: RNGProvider,
     misc_modifiers: Dict[str, int] = None
 ) -> Tuple[List[InitiativeRoll], List[str]]:
     """

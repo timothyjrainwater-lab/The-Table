@@ -17,6 +17,7 @@ from pathlib import Path
 from aidm.core.event_log import Event, EventLog
 from aidm.core.state import WorldState
 from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.intent_lifecycle import IntentObject, IntentStatus
 from aidm.schemas.engine_result import EngineResult, EngineResultStatus
 
@@ -343,7 +344,7 @@ def create_test_resolver():
     def test_resolver(
         intent: IntentObject,
         world_state: WorldState,
-        rng: RNGManager,
+        rng: RNGProvider,
     ) -> EngineResult:
         # Get the combat stream and track RNG usage
         combat_rng = rng.stream("combat")

@@ -161,49 +161,10 @@ def _generate_chime() -> bytes:
 
 
 # ---------------------------------------------------------------------------
-# Sentence-boundary chunking (TD-023 fix)
-# ---------------------------------------------------------------------------
-
-def _chunk_by_sentence(text: str, max_words: int = 55) -> list:
-    """Split text at sentence boundaries to stay under Chatterbox generation ceiling.
-
-    Chatterbox has a ~60-80 word generation ceiling. Text exceeding this limit
-    is split at sentence boundaries ('. ') so each chunk can be generated and
-    played sequentially without mid-sentence truncation.
-
-    Args:
-        text: Input text to chunk.
-        max_words: Maximum words per chunk (default 55, conservative margin).
-
-    Returns:
-        List of text chunks, each ending with a period.
-    """
-    sentences = text.replace(".\n", ". ").split(". ")
-    chunks = []
-    current = []
-    current_words = 0
-    for sentence in sentences:
-        sentence = sentence.strip()
-        if not sentence:
-            continue
-        word_count = len(sentence.split())
-        if current_words + word_count > max_words and current:
-            chunks.append(". ".join(current) + ".")
-            current = [sentence]
-            current_words = word_count
-        else:
-            current.append(sentence)
-            current_words += word_count
-    if current:
-        chunks.append(". ".join(current) + ".")
-    return chunks if chunks else [text]
-
-
-# ---------------------------------------------------------------------------
 # Backend: Chatterbox (GPU)
 # ---------------------------------------------------------------------------
 
-def _speak_chatterbox(text: str, persona: str, reference: Optional[str] = None) -> bytes:
+def _speak_chatterbox(text: str, persona: str, reference: Optional[str] = None, exaggeration: Optional[float] = None, speed: Optional[float] = None) -> bytes:
     """Synthesize via Chatterbox TTS (GPU) with persona-driven voice.
 
     Looks up the persona by ID from the adapter's registry, applies its
@@ -215,6 +176,8 @@ def _speak_chatterbox(text: str, persona: str, reference: Optional[str] = None) 
         persona: Persona ID string (e.g. "dm_narrator", "villainous")
         reference: Optional path to reference WAV file. If provided, overrides
                    the persona's default reference audio.
+        exaggeration: Optional exaggeration override (0.0-1.0).
+        speed: Optional speed override (0.5-2.0).
 
     Returns WAV bytes, or raises on failure.
     """
@@ -242,14 +205,14 @@ def _speak_chatterbox(text: str, persona: str, reference: Optional[str] = None) 
     else:
         ref_path = default_ref
 
-    # Build effective persona with resolved reference
+    # Build effective persona with resolved reference and CLI overrides
     effective = VoicePersona(
         persona_id=resolved.persona_id,
         name=resolved.name,
         voice_model=resolved.voice_model,
-        speed=resolved.speed,
+        speed=speed if speed is not None else resolved.speed,
         pitch=resolved.pitch,
-        exaggeration=resolved.exaggeration,
+        exaggeration=exaggeration if exaggeration is not None else resolved.exaggeration,
         reference_audio=ref_path,
     )
 
@@ -283,7 +246,7 @@ def _speak_kokoro(text: str, persona: str) -> bytes:
 # Main speak function
 # ---------------------------------------------------------------------------
 
-def speak(text: str, persona: str = "dm_narrator", volume: float = DEFAULT_VOLUME, backend: str = "auto", reference: Optional[str] = None) -> bool:
+def speak(text: str, persona: str = "dm_narrator", volume: float = DEFAULT_VOLUME, backend: str = "auto", reference: Optional[str] = None, exaggeration: Optional[float] = None, speed: Optional[float] = None) -> bool:
     """Synthesize and play text.
 
     Args:
@@ -292,6 +255,8 @@ def speak(text: str, persona: str = "dm_narrator", volume: float = DEFAULT_VOLUM
         volume: Volume level 0.0-1.0 (default 0.5)
         backend: "auto", "chatterbox", or "kokoro"
         reference: Optional path to reference WAV for voice cloning
+        exaggeration: Optional exaggeration override (0.0-1.0)
+        speed: Optional speed override (0.5-2.0)
 
     Returns:
         True if audio played successfully
@@ -301,7 +266,7 @@ def speak(text: str, persona: str = "dm_narrator", volume: float = DEFAULT_VOLUM
     # Try backends in priority order
     if backend in ("auto", "chatterbox"):
         try:
-            wav_bytes = _speak_chatterbox(text, persona, reference=reference)
+            wav_bytes = _speak_chatterbox(text, persona, reference=reference, exaggeration=exaggeration, speed=speed)
         except Exception as e:
             if backend == "chatterbox":
                 print(f"[speak] Chatterbox failed: {e}", file=sys.stderr)
@@ -430,6 +395,14 @@ def main() -> None:
         "--reference",
         help="Path to reference WAV file for voice cloning (overrides persona default)"
     )
+    parser.add_argument(
+        "--exaggeration", type=float,
+        help="Emotional exaggeration 0.0-1.0 (overrides persona default). Higher = more expressive."
+    )
+    parser.add_argument(
+        "--speed", type=float,
+        help="Speech speed 0.5-2.0 (overrides persona default). Lower = slower."
+    )
     args = parser.parse_args()
 
     if args.list_personas:
@@ -448,12 +421,10 @@ def main() -> None:
             chime = _attenuate_wav(chime, args.volume)
         _play_wav(chime)
         # Speak summary (Chatterbox only — no Kokoro fallback for signal voice)
-        speak(result["summary"], args.persona, args.volume, backend="chatterbox", reference=args.reference)
-        # Optionally speak full body, chunked at sentence boundaries
+        speak(result["summary"], args.persona, args.volume, backend="chatterbox", reference=args.reference, exaggeration=args.exaggeration, speed=args.speed)
+        # Optionally speak full body (adapter handles chunking internally)
         if args.full and result["body"]:
-            chunks = _chunk_by_sentence(result["body"])
-            for chunk in chunks:
-                speak(chunk, args.persona, args.volume, backend="chatterbox", reference=args.reference)
+            speak(result["body"], args.persona, args.volume, backend="chatterbox", reference=args.reference, exaggeration=args.exaggeration, speed=args.speed)
         sys.exit(0)
 
     if not args.text:
@@ -463,7 +434,7 @@ def main() -> None:
     else:
         text = args.text
 
-    ok = speak(text, args.persona, args.volume, args.backend, reference=args.reference)
+    ok = speak(text, args.persona, args.volume, args.backend, reference=args.reference, exaggeration=args.exaggeration, speed=args.speed)
     sys.exit(0 if ok else 1)
 
 

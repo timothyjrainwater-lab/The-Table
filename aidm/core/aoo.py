@@ -36,7 +36,7 @@ from aidm.core.state import WorldState
 from aidm.schemas.attack import AttackIntent, StepMoveIntent
 from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 
 
@@ -365,9 +365,10 @@ def check_aoo_triggers(
 def resolve_aoo_sequence(
     triggers: List[AooTrigger],
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
-    timestamp: float
+    timestamp: float,
+    causal_chain_id: Optional[str] = None,
 ) -> AooSequenceResult:
     """
     Resolve a sequence of AoOs in deterministic order.
@@ -378,6 +379,7 @@ def resolve_aoo_sequence(
         rng: RNG manager
         next_event_id: Starting event ID
         timestamp: Starting timestamp
+        causal_chain_id: WO-BRIEF-WIDTH-001: Optional chain ID for causal linking
 
     Returns:
         AooSequenceResult with defeat status, events, and reactor IDs
@@ -473,15 +475,20 @@ def resolve_aoo_sequence(
                     pass
 
         # Emit aoo_triggered event
+        aoo_payload = {
+            "reactor_id": trigger.reactor_id,
+            "provoker_id": trigger.provoker_id,
+            "provoking_action": trigger.provoking_action
+        }
+        # WO-BRIEF-WIDTH-001: Propagate causal chain
+        if causal_chain_id is not None:
+            aoo_payload["causal_chain_id"] = causal_chain_id
+            aoo_payload["chain_position"] = 2  # AoO is always a continuation
         events.append(Event(
             event_id=current_event_id,
             event_type="aoo_triggered",
             timestamp=current_timestamp,
-            payload={
-                "reactor_id": trigger.reactor_id,
-                "provoker_id": trigger.provoker_id,
-                "provoking_action": trigger.provoking_action
-            },
+            payload=aoo_payload,
             citations=[{"source_id": "681f92bc94ff", "page": 137}]  # PHB AoO
         ))
         current_event_id += 1
@@ -536,7 +543,12 @@ def resolve_aoo_sequence(
             damage_dice=weapon_data.get("damage_dice", "1d4"),
             damage_bonus=weapon_data.get("damage_bonus", 0),
             damage_type=weapon_data.get("damage_type", "bludgeoning"),
-            critical_multiplier=weapon_data.get("critical_multiplier", 2)
+            critical_multiplier=weapon_data.get("critical_multiplier", 2),
+            critical_range=weapon_data.get("critical_range", 20),
+            is_two_handed=weapon_data.get("is_two_handed", False),
+            grip=weapon_data.get("grip", "one-handed"),
+            weapon_type=weapon_data.get("weapon_type", "one-handed"),
+            range_increment=weapon_data.get("range_increment", 0),
         )
 
         # Create AoO attack intent

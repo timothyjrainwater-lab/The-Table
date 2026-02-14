@@ -70,7 +70,16 @@ class TruthChannel:
     weapon_name: Optional[str] = None        # Weapon name string
     damage_type: Optional[str] = None        # e.g., "slashing", "fire"
     condition_applied: Optional[str] = None  # e.g., "prone", "stunned"
+    condition_removed: Optional[str] = None  # e.g., "prone" (WO-BRIEF-WIDTH-001 bug fix)
     target_defeated: bool = False            # Whether target was defeated
+    # Multi-target (WO-BRIEF-WIDTH-001)
+    additional_targets: Optional[List[dict]] = None  # [{name, severity, defeated}, ...]
+    # Causal chain (WO-BRIEF-WIDTH-001)
+    causal_chain_id: Optional[str] = None
+    chain_position: int = 0                  # 0=standalone, 1=first, 2+=continuation
+    # Condition stack (WO-BRIEF-WIDTH-001)
+    active_conditions: Optional[List[str]] = None   # All conditions currently on target
+    actor_conditions: Optional[List[str]] = None    # Conditions on actor affecting this action
     scene_description: Optional[str] = None  # Brief location context
     visible_gear: Optional[List[str]] = None  # AD-005 Layer 3: externally visible gear
     # AD-007 Layer B: presentation semantics (WO-GAP-B-001)
@@ -219,8 +228,23 @@ class PromptPack:
             sections.append(f"Damage Type: {self.truth.damage_type}")
         if self.truth.condition_applied:
             sections.append(f"Condition Applied: {self.truth.condition_applied}")
+        if self.truth.condition_removed:
+            sections.append(f"Condition Removed: {self.truth.condition_removed}")
         if self.truth.target_defeated:
             sections.append("Target Defeated: yes")
+        # WO-BRIEF-WIDTH-001: Multi-target, causal chain, condition stack
+        if self.truth.additional_targets:
+            target_strs = []
+            for t in self.truth.additional_targets:
+                defeated_tag = " (defeated)" if t.get("defeated") else ""
+                target_strs.append(f"{t['name']} [{t['severity']}]{defeated_tag}")
+            sections.append(f"Additional Targets: {'; '.join(target_strs)}")
+        if self.truth.causal_chain_id:
+            sections.append(f"Causal Chain: {self.truth.causal_chain_id} (position {self.truth.chain_position})")
+        if self.truth.active_conditions:
+            sections.append(f"Target Conditions: {', '.join(sorted(self.truth.active_conditions))}")
+        if self.truth.actor_conditions:
+            sections.append(f"Actor Conditions: {', '.join(sorted(self.truth.actor_conditions))}")
         if self.truth.scene_description:
             sections.append(f"Scene: {self.truth.scene_description}")
         if self.truth.visible_gear:
@@ -320,7 +344,13 @@ class PromptPack:
                 "weapon_name": self.truth.weapon_name,
                 "damage_type": self.truth.damage_type,
                 "condition_applied": self.truth.condition_applied,
+                "condition_removed": self.truth.condition_removed,
                 "target_defeated": self.truth.target_defeated,
+                "additional_targets": self.truth.additional_targets,
+                "causal_chain_id": self.truth.causal_chain_id,
+                "chain_position": self.truth.chain_position,
+                "active_conditions": sorted(self.truth.active_conditions) if self.truth.active_conditions else None,
+                "actor_conditions": sorted(self.truth.actor_conditions) if self.truth.actor_conditions else None,
                 "scene_description": self.truth.scene_description,
                 "visible_gear": sorted(self.truth.visible_gear) if self.truth.visible_gear else None,
                 "delivery_mode": self.truth.delivery_mode,

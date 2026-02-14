@@ -392,12 +392,17 @@ class IntentBridge:
 
         # Case 1: No weapon name specified - use default
         if weapon_name is None or weapon_name.strip() == "":
-            default_weapon_name = actor.get(EF.WEAPON)
+            default_weapon = actor.get(EF.WEAPON)
 
-            if default_weapon_name:
-                # Entity has default weapon name - resolve it
+            # WO-WEAPON-PLUMBING-001: Handle dict weapon data pattern
+            if isinstance(default_weapon, dict):
+                weapon = self._build_weapon_from_dict(default_weapon)
+                return (weapon, attack_bonus)
+
+            if default_weapon:
+                # Entity has default weapon name string - resolve it
                 weapon_data = actor.get("weapon_damage", "1d6")
-                weapon = self._build_weapon_from_data(default_weapon_name, weapon_data)
+                weapon = self._build_weapon_from_data(default_weapon, weapon_data)
                 return (weapon, attack_bonus)
 
             # No default weapon - use unarmed strike
@@ -406,15 +411,22 @@ class IntentBridge:
                 damage_dice="1d3",
                 damage_bonus=str_mod,
                 damage_type="bludgeoning",
+                weapon_type="natural",
             )
             return (weapon, attack_bonus)
 
         # Case 2: Weapon name specified - match against equipment
         weapon_name_lower = weapon_name.strip().lower()
 
-        # Check if weapon matches entity's weapon field
-        entity_weapon = actor.get(EF.WEAPON, "").lower()
-        if entity_weapon == weapon_name_lower:
+        # WO-WEAPON-PLUMBING-001: Check if EF.WEAPON is a dict
+        entity_weapon = actor.get(EF.WEAPON)
+        if isinstance(entity_weapon, dict):
+            weapon = self._build_weapon_from_dict(entity_weapon)
+            return (weapon, attack_bonus)
+
+        # String pattern: check if weapon name matches entity's weapon field
+        entity_weapon_str = (entity_weapon or "").lower()
+        if entity_weapon_str == weapon_name_lower:
             weapon_data = actor.get("weapon_damage", "1d6")
             weapon = self._build_weapon_from_data(weapon_name, weapon_data)
             return (weapon, attack_bonus)
@@ -480,6 +492,34 @@ class IntentBridge:
             damage_dice=damage_dice,
             damage_bonus=damage_bonus,
             damage_type=damage_type,
+        )
+
+    def _build_weapon_from_dict(
+        self,
+        weapon_data: dict,
+    ) -> Weapon:
+        """Build Weapon object from entity weapon data dict.
+
+        WO-WEAPON-PLUMBING-001: Handles the dict pattern where EF.WEAPON stores
+        full weapon data (damage_dice, damage_bonus, damage_type, weapon_type,
+        range_increment, grip, etc.).
+
+        Args:
+            weapon_data: Dict from entity's EF.WEAPON field
+
+        Returns:
+            Weapon object with all fields populated from dict (defaults for missing)
+        """
+        return Weapon(
+            damage_dice=weapon_data.get("damage_dice", "1d4"),
+            damage_bonus=weapon_data.get("damage_bonus", 0),
+            damage_type=weapon_data.get("damage_type", "bludgeoning"),
+            critical_multiplier=weapon_data.get("critical_multiplier", 2),
+            critical_range=weapon_data.get("critical_range", 20),
+            is_two_handed=weapon_data.get("is_two_handed", False),
+            grip=weapon_data.get("grip", "one-handed"),
+            weapon_type=weapon_data.get("weapon_type", "one-handed"),
+            range_increment=weapon_data.get("range_increment", 0),
         )
 
     def _resolve_spell_name(

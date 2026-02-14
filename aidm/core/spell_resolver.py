@@ -24,7 +24,7 @@ from aidm.core.truth_packets import (
     STPType, STPBuilder, StructuredTruthPacket, SavingThrowPayload,
     DamageRollPayload, AoEPayload, ConditionPayload
 )
-from aidm.core.rng_manager import RNGManager, DeterministicRNG
+from aidm.core.rng_protocol import RNGProvider
 from aidm.core.cover_resolver import calculate_cover, CoverDegree
 
 
@@ -401,14 +401,14 @@ class SpellResolver:
     - AoE rasterization for area targeting
     - LOS/LOE checking for targeting validation
     - Cover calculation for reflex bonuses
-    - RNGManager for deterministic rolls
+    - RNGProvider for deterministic rolls
     - STPBuilder for audit trail generation
     """
 
     def __init__(
         self,
         grid: BattleGrid,
-        rng: RNGManager,
+        rng: RNGProvider,
         spell_registry: Dict[str, SpellDefinition],
         turn: int = 0,
         initiative: int = 0
@@ -417,7 +417,7 @@ class SpellResolver:
 
         Args:
             grid: BattleGrid for spatial queries
-            rng: RNGManager for deterministic rolls
+            rng: RNGProvider for deterministic rolls
             spell_registry: Dictionary of spell_id -> SpellDefinition
             turn: Current combat turn (for STPs)
             initiative: Current initiative count (for STPs)
@@ -967,7 +967,7 @@ class SpellResolver:
 
 def create_spell_resolver(
     grid: BattleGrid,
-    rng: RNGManager,
+    rng: RNGProvider,
     spell_registry: Dict[str, SpellDefinition],
     turn: int = 0,
     initiative: int = 0
@@ -976,7 +976,7 @@ def create_spell_resolver(
 
     Args:
         grid: BattleGrid for spatial queries
-        rng: RNGManager for deterministic rolls
+        rng: RNGProvider for deterministic rolls
         spell_registry: Dictionary of spell definitions
         turn: Current turn number
         initiative: Current initiative count
@@ -1000,7 +1000,7 @@ def create_spell_resolver(
 def check_concentration_on_damage(
     caster: Dict[str, Any],
     damage_taken: int,
-    rng: RNGManager,
+    rng: RNGProvider,
     duration_tracker: 'DurationTracker',
     spell_level: int = 0,
 ) -> Tuple[bool, Optional[Any], List[Any]]:

@@ -15,7 +15,7 @@ from dataclasses import dataclass
 
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.saves import SaveContext, SaveType, SaveOutcome, EffectSpec, SRCheck
 from aidm.core.conditions import get_condition_modifiers, apply_condition
 from aidm.schemas.entity_fields import EF
@@ -118,7 +118,7 @@ def check_spell_resistance(
     sr_check: SRCheck,
     world_state: WorldState,
     target_id: str,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float
 ) -> Tuple[bool, List[Event]]:
@@ -184,7 +184,7 @@ def check_spell_resistance(
 def resolve_save(
     save_context: SaveContext,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float
 ) -> Tuple[SaveOutcome, List[Event]]:

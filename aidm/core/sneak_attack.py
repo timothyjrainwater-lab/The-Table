@@ -36,7 +36,7 @@ CITATIONS:
 from typing import List, Optional, Tuple
 
 from aidm.core.state import WorldState
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 
 
@@ -180,7 +180,7 @@ def is_sneak_attack_eligible(
 
 def roll_sneak_attack_damage(
     num_dice: int,
-    rng: RNGManager,
+    rng: RNGProvider,
 ) -> Tuple[int, str, List[int]]:
     """Roll sneak attack damage dice.
 
@@ -211,7 +211,7 @@ def calculate_sneak_attack(
     attacker_id: str,
     target_id: str,
     is_flanking: bool,
-    rng: RNGManager,
+    rng: RNGProvider,
     is_ranged: bool = False,
     range_ft: float = 5.0,
 ) -> Tuple[bool, int, str, List[int], str]:

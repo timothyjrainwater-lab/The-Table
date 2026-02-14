@@ -24,6 +24,7 @@ from copy import deepcopy
 from aidm.core.state import WorldState
 from aidm.core.event_log import Event, EventLog
 from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 
 
 # ============================================================================
@@ -188,7 +189,7 @@ class ReplayReport:
 # Event Reducer (AC-09: All mutating events must have handlers)
 # ============================================================================
 
-def reduce_event(state: WorldState, event: Event, rng_manager: RNGManager) -> WorldState:
+def reduce_event(state: WorldState, event: Event, rng_manager: RNGProvider) -> WorldState:
     """
     Single reducer function that applies an event to state.
 

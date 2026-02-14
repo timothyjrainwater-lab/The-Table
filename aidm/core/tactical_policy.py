@@ -15,7 +15,7 @@ from aidm.schemas.policy import (
 )
 from aidm.schemas.policy_config import PolicyVarietyConfig
 from aidm.core.state import WorldState
-from aidm.core.rng_manager import DeterministicRNG
+from aidm.core.rng_protocol import RandomStream
 from aidm.schemas.entity_fields import EF
 
 
@@ -255,7 +255,7 @@ def score_candidate(candidate: TacticCandidate, features: Dict[str, Any]) -> Sco
 def select_tactic(
     ranked: List[ScoredTactic],
     policy_config: Optional[PolicyVarietyConfig],
-    policy_rng: Optional[DeterministicRNG]
+    policy_rng: Optional[RandomStream]
 ) -> tuple[Optional[ScoredTactic], Optional[Dict[str, Any]]]:
     """
     Select a tactic from ranked candidates.
@@ -304,7 +304,7 @@ def evaluate_tactics(
     world_state: WorldState,
     actor_id: str,
     policy_config: Optional[PolicyVarietyConfig] = None,
-    policy_rng: Optional[DeterministicRNG] = None
+    policy_rng: Optional[RandomStream] = None
 ) -> TacticalPolicyResult:
     """
     Evaluate and score tactics for an actor within doctrine constraints.

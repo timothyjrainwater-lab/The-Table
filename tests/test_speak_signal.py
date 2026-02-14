@@ -13,7 +13,8 @@ import wave
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts"))
 
-from speak import parse_signal, _generate_chime, _chunk_by_sentence
+from speak import parse_signal, _generate_chime
+from aidm.immersion.tts_chunking import chunk_by_sentence as _chunk_by_sentence
 
 
 # ---------------------------------------------------------------------------

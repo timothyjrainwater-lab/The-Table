@@ -102,6 +102,17 @@ class NarrativeBrief:
     maneuver_type: Optional[str] = None
     target_defeated: bool = False
 
+    # Multi-target (WO-BRIEF-WIDTH-001)
+    additional_targets: tuple = ()  # ((name: str, severity: str, defeated: bool), ...)
+
+    # Causal chain (WO-BRIEF-WIDTH-001)
+    causal_chain_id: Optional[str] = None
+    chain_position: int = 0  # 0=standalone, 1=first, 2+=continuation
+
+    # Condition stack (WO-BRIEF-WIDTH-001)
+    active_conditions: tuple = ()   # All conditions currently on target
+    actor_conditions: tuple = ()    # Conditions on actor affecting this action
+
     # Gear affordance (WO-056, AD-005 Layer 3)
     visible_gear: Optional[tuple] = None  # Display names, NOT item_ids
 
@@ -135,6 +146,14 @@ class NarrativeBrief:
             "condition_removed": self.condition_removed,
             "maneuver_type": self.maneuver_type,
             "target_defeated": self.target_defeated,
+            "additional_targets": [
+                {"name": t[0], "severity": t[1], "defeated": t[2]}
+                for t in self.additional_targets
+            ],
+            "causal_chain_id": self.causal_chain_id,
+            "chain_position": self.chain_position,
+            "active_conditions": list(self.active_conditions),
+            "actor_conditions": list(self.actor_conditions),
             "visible_gear": list(self.visible_gear) if self.visible_gear else self.visible_gear,
             "presentation_semantics": (
                 self.presentation_semantics.to_dict()
@@ -170,6 +189,14 @@ class NarrativeBrief:
             condition_removed=data.get("condition_removed"),
             maneuver_type=data.get("maneuver_type"),
             target_defeated=data.get("target_defeated", False),
+            additional_targets=tuple(
+                (t["name"], t["severity"], t["defeated"])
+                for t in data.get("additional_targets", [])
+            ),
+            causal_chain_id=data.get("causal_chain_id"),
+            chain_position=data.get("chain_position", 0),
+            active_conditions=tuple(data.get("active_conditions", ())),
+            actor_conditions=tuple(data.get("actor_conditions", ())),
             visible_gear=tuple(data.get("visible_gear")) if data.get("visible_gear") is not None else None,
             presentation_semantics=(
                 AbilityPresentationEntry.from_dict(data["presentation_semantics"])
@@ -285,6 +312,41 @@ def get_entity_hp_data(
     return (current_hp, max_hp)
 
 
+def get_entity_conditions(
+    entity_id: str,
+    frozen_view: FrozenWorldStateView,
+) -> tuple:
+    """Get active condition names for an entity from FrozenWorldStateView.
+
+    Returns condition type names only (Spark-safe). No modifier data.
+
+    Args:
+        entity_id: Entity ID to query
+        frozen_view: FrozenWorldStateView for read-only state access
+
+    Returns:
+        Tuple of condition name strings (e.g., ("prone", "grappled"))
+    """
+    entities = frozen_view.entities
+
+    if entity_id not in entities:
+        return ()
+
+    entity_data = entities[entity_id]
+    conditions_data = entity_data.get("conditions", {})
+
+    if not conditions_data:
+        return ()
+
+    # Return condition type keys (these are display-safe names like "prone", "grappled")
+    # Note: FrozenWorldStateView wraps dicts in MappingProxyType, so we use
+    # hasattr(.keys) rather than isinstance(dict) to support both.
+    if not hasattr(conditions_data, "keys"):
+        return ()
+
+    return tuple(sorted(conditions_data.keys()))
+
+
 # ══════════════════════════════════════════════════════════════════════════
 # Gear Affordance Resolution (WO-056, AD-005 Layer 3)
 # ══════════════════════════════════════════════════════════════════════════
@@ -377,6 +439,11 @@ def assemble_narrative_brief(
     target_defeated = False
     event_ids = []
     content_id = None
+    # WO-BRIEF-WIDTH-001: Multi-target tracking
+    damage_by_target: Dict[str, Dict[str, Any]] = {}  # {target_id: {damage, defeated}}
+    # WO-BRIEF-WIDTH-001: Causal chain tracking
+    causal_chain_id = None
+    chain_position = 0
 
     for event in events:
         # Track event IDs for provenance
@@ -406,22 +473,28 @@ def assemble_narrative_brief(
                 or payload.get("attacker_id")
                 or actor_id
             )
-            target_id = (
+            dmg_target = (
                 event.get("target")
                 or payload.get("target_id")
                 or target_id
             )
-            damage_dealt = (
+            target_id = dmg_target
+            dmg_amount = (
                 event.get("damage")
                 or payload.get("final_damage")
                 or payload.get("damage_total")
                 or 0
             )
+            damage_dealt = dmg_amount
             damage_type = (
                 event.get("damage_type")
                 or payload.get("damage_type")
                 or damage_type
             )
+            # WO-BRIEF-WIDTH-001: Track damage per target for multi-target assembly
+            if dmg_target:
+                entry = damage_by_target.setdefault(dmg_target, {"damage": 0, "defeated": False})
+                entry["damage"] += dmg_amount
 
         elif event_type == "concealment_miss":
             actor_id = payload.get("attacker_id", actor_id)
@@ -444,12 +517,17 @@ def assemble_narrative_brief(
                 damage_dealt = abs(delta)
 
         elif event_type == "entity_defeated":
-            target_id = (
+            defeated_target = (
                 event.get("target")
                 or payload.get("entity_id")
                 or target_id
             )
+            target_id = defeated_target
             target_defeated = True
+            # WO-BRIEF-WIDTH-001: Track defeated per target
+            if defeated_target:
+                entry = damage_by_target.setdefault(defeated_target, {"damage": 0, "defeated": False})
+                entry["defeated"] = True
 
         # === CONDITION EVENTS ===
         elif event_type == "condition_applied":
@@ -587,12 +665,21 @@ def assemble_narrative_brief(
 
         # Extract content_id from any event (WO-GAP-B-001)
         if content_id is None:
-            content_id = (
-                event.get("content_id")
-                or payload.get("content_id")
-                if payload is not event
-                else event.get("content_id")
-            )
+            content_id = event.get("content_id")
+            if content_id is None and payload is not event:
+                content_id = payload.get("content_id")
+
+        # WO-BRIEF-WIDTH-001: Extract causal_chain_id from any event
+        if causal_chain_id is None:
+            causal_chain_id = event.get("causal_chain_id")
+            if causal_chain_id is None and payload is not event:
+                causal_chain_id = payload.get("causal_chain_id")
+            if causal_chain_id is not None:
+                chain_position = (
+                    event.get("chain_position")
+                    or (payload.get("chain_position") if payload is not event else None)
+                    or 1
+                )
 
     # Resolve entity names from FrozenWorldStateView
     actor_name = resolve_entity_name(actor_id, frozen_view) if actor_id else "someone"
@@ -611,6 +698,30 @@ def assemble_narrative_brief(
     elif target_defeated:
         severity = "lethal"
 
+    # WO-BRIEF-WIDTH-001: Assemble additional_targets from multi-target damage tracking
+    additional_targets = ()
+    if len(damage_by_target) > 1:
+        # Primary target is the one already set as target_id
+        # Additional targets are all others
+        additional = []
+        for tid, tdata in damage_by_target.items():
+            if tid == target_id:
+                continue
+            t_name = resolve_entity_name(tid, frozen_view)
+            t_hp_before, t_hp_max = get_entity_hp_data(tid, frozen_view)
+            t_severity = compute_severity(
+                damage=tdata["damage"],
+                target_hp_before=t_hp_before,
+                target_hp_max=t_hp_max,
+                target_defeated=tdata["defeated"],
+            )
+            additional.append((t_name, t_severity, tdata["defeated"]))
+        additional_targets = tuple(additional)
+
+    # WO-BRIEF-WIDTH-001: Query active conditions from FrozenWorldStateView
+    active_conditions = get_entity_conditions(target_id, frozen_view) if target_id else ()
+    actor_conditions = get_entity_conditions(actor_id, frozen_view) if actor_id else ()
+
     # WO-GAP-B-001: Look up presentation semantics from registry by content_id
     if presentation_registry is not None and content_id is not None:
         registry_entry = presentation_registry.get_ability_semantics(content_id)
@@ -628,6 +739,9 @@ def assemble_narrative_brief(
         condition_removed=condition_removed,
         maneuver_type=maneuver_type,
         target_defeated=target_defeated,
+        additional_targets=additional_targets,
+        causal_chain_id=causal_chain_id,
+        chain_position=chain_position,
     )
 
     # Assemble NarrativeBrief
@@ -644,6 +758,11 @@ def assemble_narrative_brief(
         condition_removed=condition_removed,
         maneuver_type=maneuver_type,
         target_defeated=target_defeated,
+        additional_targets=additional_targets,
+        causal_chain_id=causal_chain_id,
+        chain_position=chain_position,
+        active_conditions=active_conditions,
+        actor_conditions=actor_conditions,
         visible_gear=tuple(visible_gear) if visible_gear else None,
         presentation_semantics=presentation_semantics,
         previous_narrations=tuple(previous_narrations) if previous_narrations else (),
@@ -663,8 +782,63 @@ def _build_outcome_summary(
     condition_removed: Optional[str],
     maneuver_type: Optional[str],
     target_defeated: bool,
+    additional_targets: tuple = (),
+    causal_chain_id: Optional[str] = None,
+    chain_position: int = 0,
 ) -> str:
-    """Build natural language outcome summary (WO-046B).
+    """Build natural language outcome summary (WO-046B + WO-BRIEF-WIDTH-001).
+
+    Handles all narration tokens emitted by play_loop.py.
+    WO-BRIEF-WIDTH-001: Appends multi-target and causal chain context.
+    """
+    base = _build_base_outcome_summary(
+        action_type=action_type,
+        actor_name=actor_name,
+        target_name=target_name,
+        weapon_name=weapon_name,
+        spell_name=spell_name,
+        condition_applied=condition_applied,
+        condition_removed=condition_removed,
+        maneuver_type=maneuver_type,
+        target_defeated=target_defeated,
+    )
+    return _append_context_suffixes(base, additional_targets, causal_chain_id, chain_position)
+
+
+def _append_context_suffixes(
+    base: str,
+    additional_targets: tuple = (),
+    causal_chain_id: Optional[str] = None,
+    chain_position: int = 0,
+) -> str:
+    """Append multi-target and causal chain context to outcome summary.
+
+    WO-BRIEF-WIDTH-001: If additional_targets is non-empty, appends target count.
+    If causal_chain_id is set and chain_position > 1, notes triggered action.
+    """
+    suffixes = []
+    if additional_targets:
+        total = 1 + len(additional_targets)  # primary + additional
+        suffixes.append(f"affecting {total} targets")
+    if causal_chain_id and chain_position > 1:
+        suffixes.append("triggered by a prior action")
+    if suffixes:
+        return f"{base}, {', '.join(suffixes)}"
+    return base
+
+
+def _build_base_outcome_summary(
+    action_type: str,
+    actor_name: str,
+    target_name: Optional[str],
+    weapon_name: Optional[str],
+    spell_name: Optional[str],
+    condition_applied: Optional[str],
+    condition_removed: Optional[str],
+    maneuver_type: Optional[str],
+    target_defeated: bool,
+) -> str:
+    """Build base natural language outcome summary (WO-046B).
 
     Handles all narration tokens emitted by play_loop.py:
     - Attack: attack_hit, attack_miss, critical, full_attack_complete

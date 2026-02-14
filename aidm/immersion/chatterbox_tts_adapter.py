@@ -21,6 +21,7 @@ import os
 import wave
 from typing import Any, Dict, List, Optional
 
+from aidm.immersion.tts_chunking import chunk_by_sentence
 from aidm.schemas.immersion import VoicePersona
 
 logger = logging.getLogger(__name__)
@@ -278,6 +279,10 @@ class ChatterboxTTSAdapter:
     ) -> bytes:
         """Synthesize text to WAV audio bytes.
 
+        Auto-chunks input at sentence boundaries (max 55 words per chunk)
+        to avoid Chatterbox's ~60-80 word generation ceiling, then
+        concatenates the WAV output into a single result.
+
         Auto-selects Turbo or Original based on text length and persona.
 
         Args:
@@ -296,17 +301,22 @@ class ChatterboxTTSAdapter:
 
         effective_persona = self._resolve_persona(persona)
         ref_audio = self._resolve_reference_audio(effective_persona)
-        use_turbo = self._select_tier(text, effective_persona, force_turbo)
+
+        chunks = chunk_by_sentence(text)
+        wav_parts: List[bytes] = []
 
         try:
-            if use_turbo:
-                audio_tensor = self._synthesize_turbo(text, ref_audio)
-            else:
-                audio_tensor = self._synthesize_original(
-                    text, ref_audio, effective_persona.exaggeration
-                )
+            for chunk in chunks:
+                use_turbo = self._select_tier(chunk, effective_persona, force_turbo)
+                if use_turbo:
+                    audio_tensor = self._synthesize_turbo(chunk, ref_audio)
+                else:
+                    audio_tensor = self._synthesize_original(
+                        chunk, ref_audio, effective_persona.exaggeration
+                    )
+                wav_parts.append(_tensor_to_wav(audio_tensor, SAMPLE_RATE))
 
-            wav_bytes = _tensor_to_wav(audio_tensor, SAMPLE_RATE)
+            wav_bytes = _concatenate_wav(wav_parts) if len(wav_parts) > 1 else wav_parts[0]
             self._synthesis_count += 1
             return wav_bytes
 
@@ -444,6 +454,45 @@ def _tensor_to_empty_wav() -> bytes:
         wf.setframerate(SAMPLE_RATE)
         wf.writeframes(b"")
     return buf.getvalue()
+
+
+def _concatenate_wav(wav_parts: List[bytes]) -> bytes:
+    """Concatenate multiple WAV byte segments into a single WAV file.
+
+    All parts must share the same channel count, sample width, and frame rate.
+    The output has a single correct WAV header followed by all PCM data.
+
+    Args:
+        wav_parts: List of WAV-encoded byte strings.
+
+    Returns:
+        Single concatenated WAV byte string.
+    """
+    if not wav_parts:
+        return _tensor_to_empty_wav()
+    if len(wav_parts) == 1:
+        return wav_parts[0]
+
+    # Read params from first part
+    first_buf = io.BytesIO(wav_parts[0])
+    with wave.open(first_buf, "rb") as wf:
+        params = wf.getparams()
+
+    # Collect all raw PCM frames
+    all_frames: list[bytes] = []
+    for part in wav_parts:
+        buf = io.BytesIO(part)
+        with wave.open(buf, "rb") as wf:
+            all_frames.append(wf.readframes(wf.getnframes()))
+
+    # Write single WAV with combined frames
+    out_buf = io.BytesIO()
+    with wave.open(out_buf, "wb") as wf:
+        wf.setnchannels(params.nchannels)
+        wf.setsampwidth(params.sampwidth)
+        wf.setframerate(params.framerate)
+        wf.writeframes(b"".join(all_frames))
+    return out_buf.getvalue()
 
 
 # ==============================================================================

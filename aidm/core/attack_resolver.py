@@ -58,10 +58,10 @@ from typing import List, Tuple
 
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.attack import AttackIntent
 from aidm.core.conditions import get_condition_modifiers
-from aidm.core.targeting_resolver import evaluate_target_legality  # CP-18A-T&V
+from aidm.core.targeting_resolver import evaluate_target_legality, get_entity_position  # CP-18A-T&V
 from aidm.schemas.entity_fields import EF
 
 
@@ -97,7 +97,7 @@ def parse_damage_dice(dice_expr: str) -> Tuple[int, int]:
     return num_dice, die_size
 
 
-def roll_dice(num_dice: int, die_size: int, rng: RNGManager) -> List[int]:
+def roll_dice(num_dice: int, die_size: int, rng: RNGProvider) -> List[int]:
     """
     Roll multiple dice using deterministic RNG.
 
@@ -116,7 +116,7 @@ def roll_dice(num_dice: int, die_size: int, rng: RNGManager) -> List[int]:
 def resolve_attack(
     intent: AttackIntent,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float
 ) -> List[Event]:
@@ -158,12 +158,17 @@ def resolve_attack(
     if intent.target_id not in world_state.entities:
         raise ValueError(f"Target not found in world state: {intent.target_id}")
 
+    # WO-WEAPON-PLUMBING-001: Compute actual range between attacker and target
+    attacker_pos = get_entity_position(world_state, intent.attacker_id)
+    target_pos = get_entity_position(world_state, intent.target_id)
+    range_ft = attacker_pos.distance_to(target_pos)
+
     # CP-18A-T&V: Validate targeting legality BEFORE any RNG access
     legality = evaluate_target_legality(
         actor_id=intent.attacker_id,
         target_id=intent.target_id,
         world_state=world_state,
-        max_range=100  # TODO: Use weapon range when available
+        max_range=(intent.weapon.range_increment * 10) if intent.weapon.is_ranged else 100,  # WO-WEAPON-PLUMBING-001: ranged=weapon data; melee=legacy 100ft cap
     )
 
     if not legality.is_legal:
@@ -197,7 +202,7 @@ def resolve_attack(
     terrain_higher_ground = get_higher_ground_bonus(world_state, intent.attacker_id, intent.target_id)
 
     # CP-19: Check cover between attacker and defender
-    cover_result = check_cover(world_state, intent.attacker_id, intent.target_id, is_melee=True)
+    cover_result = check_cover(world_state, intent.attacker_id, intent.target_id, is_melee=not intent.weapon.is_ranged)
 
     # CP-19: If total cover, cannot target
     if cover_result.blocks_targeting:
@@ -223,8 +228,8 @@ def resolve_attack(
     # Build context for feat modifier computation
     feat_context = {
         "weapon_name": "unknown",  # Placeholder until weapon tracking exists
-        "range_ft": 5,  # Assume melee range for now
-        "is_ranged": False,  # TODO: Detect from weapon type
+        "range_ft": range_ft,  # WO-WEAPON-PLUMBING-001: actual range from positions
+        "is_ranged": intent.weapon.is_ranged,  # WO-WEAPON-PLUMBING-001: from weapon type
         "is_twf": False,  # TODO: Detect from attack intent
         "power_attack_penalty": intent.power_attack_penalty,  # WO-034-FIX: from intent
         "is_two_handed": intent.weapon.is_two_handed,  # WO-034-FIX: from weapon

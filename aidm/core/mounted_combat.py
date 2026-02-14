@@ -24,7 +24,7 @@ from dataclasses import dataclass
 from typing import Tuple, List, Optional, Dict, Any
 from aidm.core.state import WorldState
 from aidm.core.event_log import Event
-from aidm.core.rng_manager import RNGManager
+from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.position import Position  # CP-001: Canonical position type
 from aidm.schemas.mounted_combat import (
     MountedState, MountedMoveIntent, DismountIntent, MountIntent, SaddleType
@@ -369,7 +369,7 @@ def trigger_forced_dismount(
     mount_id: str,
     reason: str,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float
 ) -> Tuple[WorldState, List[Event]]:
@@ -518,7 +518,7 @@ def check_unconscious_fall(
     rider_id: str,
     mounted_state_data: Dict[str, Any],
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float
 ) -> Tuple[WorldState, List[Event]]:
@@ -593,7 +593,7 @@ def handle_mounted_condition_change(
     condition_type: str,
     condition_applied: bool,
     world_state: WorldState,
-    rng: RNGManager,
+    rng: RNGProvider,
     next_event_id: int,
     timestamp: float
 ) -> Tuple[WorldState, List[Event]]:

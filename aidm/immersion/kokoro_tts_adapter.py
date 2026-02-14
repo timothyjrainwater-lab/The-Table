@@ -23,6 +23,7 @@ import struct
 import wave
 from typing import Any, Dict, List, Optional, Tuple
 
+from aidm.immersion.tts_chunking import chunk_by_sentence
 from aidm.schemas.immersion import VoicePersona
 
 
@@ -291,6 +292,45 @@ def _float_to_int16(samples: List[float]) -> bytes:
     return struct.pack(f"<{len(int16_samples)}h", *int16_samples)
 
 
+def _concatenate_wav(wav_parts: List[bytes]) -> bytes:
+    """Concatenate multiple WAV byte segments into a single WAV file.
+
+    All parts must share the same channel count, sample width, and frame rate.
+    The output has a single correct WAV header followed by all PCM data.
+
+    Args:
+        wav_parts: List of WAV-encoded byte strings.
+
+    Returns:
+        Single concatenated WAV byte string.
+    """
+    if not wav_parts:
+        return _encode_wav(b"")
+    if len(wav_parts) == 1:
+        return wav_parts[0]
+
+    # Read params from first part
+    first_buf = io.BytesIO(wav_parts[0])
+    with wave.open(first_buf, "rb") as wf:
+        params = wf.getparams()
+
+    # Collect all raw PCM frames
+    all_frames: list[bytes] = []
+    for part in wav_parts:
+        buf = io.BytesIO(part)
+        with wave.open(buf, "rb") as wf:
+            all_frames.append(wf.readframes(wf.getnframes()))
+
+    # Write single WAV with combined frames
+    out_buf = io.BytesIO()
+    with wave.open(out_buf, "wb") as wf:
+        wf.setnchannels(params.nchannels)
+        wf.setsampwidth(params.sampwidth)
+        wf.setframerate(params.framerate)
+        wf.writeframes(b"".join(all_frames))
+    return out_buf.getvalue()
+
+
 # ==============================================================================
 # KOKORO TTS ADAPTER
 # ==============================================================================
@@ -340,6 +380,10 @@ class KokoroTTSAdapter:
     ) -> bytes:
         """Synthesize text to WAV audio bytes.
 
+        Auto-chunks input at sentence boundaries (max 55 words per chunk)
+        to improve latency on long narration, then concatenates the WAV
+        output into a single result.
+
         Args:
             text: Text to synthesize (should be clean, no SSML)
             persona: Voice persona — accepts VoicePersona, str (voice map key),
@@ -364,24 +408,28 @@ class KokoroTTSAdapter:
             # Get voice ID from persona
             voice_id = self._resolve_voice(effective_persona)
 
-            # Generate audio samples
-            # Kokoro returns audio as numpy array or list of floats
-            audio_samples, sample_rate = self._generate_audio(
-                kokoro, text, voice_id, effective_persona.speed
-            )
+            chunks = chunk_by_sentence(text)
+            wav_parts: List[bytes] = []
 
-            # Resample to target rate if needed
-            if sample_rate != OUTPUT_SAMPLE_RATE:
-                audio_samples = _resample_simple(
-                    audio_samples, sample_rate, OUTPUT_SAMPLE_RATE
+            for chunk in chunks:
+                # Generate audio samples
+                audio_samples, sample_rate = self._generate_audio(
+                    kokoro, chunk, voice_id, effective_persona.speed
                 )
 
-            # Convert to 16-bit PCM
-            pcm_bytes = _float_to_int16(audio_samples)
+                # Resample to target rate if needed
+                if sample_rate != OUTPUT_SAMPLE_RATE:
+                    audio_samples = _resample_simple(
+                        audio_samples, sample_rate, OUTPUT_SAMPLE_RATE
+                    )
 
-            # Encode as WAV
-            wav_bytes = _encode_wav(pcm_bytes)
+                # Convert to 16-bit PCM
+                pcm_bytes = _float_to_int16(audio_samples)
 
+                # Encode as WAV
+                wav_parts.append(_encode_wav(pcm_bytes))
+
+            wav_bytes = _concatenate_wav(wav_parts) if len(wav_parts) > 1 else wav_parts[0]
             self._synthesis_count += 1
             return wav_bytes
 
