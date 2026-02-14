@@ -61,6 +61,7 @@ Both WOs are parallel-safe — dispatch simultaneously.
 - [WO-NARRATION-VALIDATOR-001_DISPATCH.md](pm_inbox/WO-NARRATION-VALIDATOR-001_DISPATCH.md) — **DISPATCH-READY** (Delivery footer + narration persistence added)
 - [WO-COMPILE-VALIDATE-001_DISPATCH.md](pm_inbox/WO-COMPILE-VALIDATE-001_DISPATCH.md) — **DISPATCH-READY** (Delivery footer + contraindications population added)
 - [MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md](pm_inbox/MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md) — **NEW, PM review needed** (4 findings: _concatenate_wav duplication, oversized sentence passthrough, --full mode change, test overlap)
+- [MEMO_COMPILE_NARRATION_BUILDER_FINDINGS.md](pm_inbox/MEMO_COMPILE_NARRATION_BUILDER_FINDINGS.md) — **NEW, PM review needed** (5 findings: pipeline registration gap, content_id dormant, test pollution, maneuver pattern inconsistency, inbox hygiene)
 
 ## Persistent Files
 
