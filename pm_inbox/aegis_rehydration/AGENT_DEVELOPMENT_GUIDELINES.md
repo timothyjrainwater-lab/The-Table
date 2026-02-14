@@ -459,6 +459,8 @@ Every dispatch or work order must be executable by an agent with zero prior cont
 
 Test: Could a fresh agent with no conversation history execute this dispatch using only the dispatch file and the files it references? If not, add the missing context.
 
+**External dependency rule:** When a WO depends on external APIs, tool schemas, or documentation that isn't in the repo (e.g., Claude Code hooks spec, third-party library APIs, platform-specific schemas), the WO drafter must inline the relevant reference material directly in the dispatch doc or in a companion reference file cited by the dispatch. Builders should not need to web-search for specs mid-implementation — that burns disposable context on research instead of execution. If the drafter doesn't have the reference material, route a pre-research task to the assistant or BS Buddy first, then incorporate the findings into the dispatch.
+
 ### 15.4 Cross-File Consistency Gate
 
 When a status, count, verdict, or classification changes, update **ALL** files that reference it in the same commit. Partial updates create inconsistencies that compound across context boundaries.
