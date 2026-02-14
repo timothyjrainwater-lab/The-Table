@@ -11,15 +11,15 @@
 | Domain | Description | Files | Formulas | Verified | Correct | Wrong | Ambiguous | Uncited | Status |
 |--------|-------------|-------|----------|----------|---------|-------|-----------|---------|--------|
 | D | Conditions & Modifiers | 2 | 57 | 57 | 38 | 8 | 5 | 6 | COMPLETE |
-| A | Attack Resolution | 9 | 53 | 53 | 38 | 5 | 6 | 4 | COMPLETE |
+| A | Attack Resolution | 9 | 57 | 57 | 42 | 5 | 6 | 4 | COMPLETE |
 | B | Combat Maneuvers | 2 | 27 | 27 | 18 | 5 | 3 | 1 | COMPLETE |
-| C | Saves & Spells | 2 | 21 | 21 | 15 | 3 | 1 | 2 | COMPLETE |
+| C | Saves & Spells | 2 | 21 | 21 | 15 | 1 | 3 | 2 | COMPLETE |
 | G | Initiative & Turn | 3 | 10 | 10 | 6 | 2 | 2 | 0 | COMPLETE |
 | E | Movement & Terrain | 5 | 34 | 34 | 24 | 3 | 3 | 4 | COMPLETE |
 | F | Char Progression | 5 | 77 | 77 | 68 | 5 | 3 | 1 | COMPLETE |
 | H | Skill System | 1 | 6 | 6 | 4 | 0 | 1 | 1 | COMPLETE |
 | I | Geometry & Size | 10 | 49 | 49 | 40 | 1 | 2 | 6 | COMPLETE |
-| **TOTAL** | | **39** | **334** | **334** | **251** | **32** | **26** | **25** | **ALL DOMAINS COMPLETE** |
+| **TOTAL** | | **39** | **338** | **338** | **255** | **30** | **28** | **25** | **ALL DOMAINS COMPLETE** |
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Verified by:** Claude Opus 4.6
 **Date:** 2026-02-14
-**Formulas verified:** 53
+**Formulas verified:** 57
 **Summary:** 38 CORRECT, 5 WRONG, 6 AMBIGUOUS, 4 UNCITED
 
 **Re-verified by:** Claude Opus 4.6 (independent re-verification pass)
@@ -885,15 +885,99 @@ All WRONG verdicts consolidated:
 
 ---
 
+## Re-Verification Additions (2026-02-14, independent pass)
+
+The following formulas were NOT included in the initial 53-formula verification but are SRD-relevant rules implemented in Domain A source files. They were found during the re-verification cross-reference with prior research documents (PF Delta Index, Skip Williams Designer Intent, FAQ Mining Results, Community RAW Argument Survey, RQ-BOX-001).
+
+### Previously Unverified Formulas
+
+---
+
+FORMULA ID: A-sneak-attack-45-52
+FILE: aidm/core/sneak_attack.py
+LINE: 45-52
+CODE: `SNEAK_ATTACK_IMMUNE_TYPES = frozenset({"undead", "construct", "ooze", "plant", "elemental", "incorporeal"})`
+RULE SOURCE: PHB p.50: "A rogue can sneak attack only living creatures with discernible anatomies." / SRD Creature Types: undead, constructs, oozes, plants, and elementals are immune to critical hits (and therefore sneak attack). Incorporeal creatures are also immune to critical hits.
+EXPECTED: undead, construct, ooze, plant, elemental, incorporeal
+ACTUAL: frozenset({"undead", "construct", "ooze", "plant", "elemental", "incorporeal"})
+VERDICT: CORRECT
+NOTES: All 6 entries match SRD. Note that "incorporeal" is technically a special quality/subtype rather than a creature type, but the SRD confirms incorporeal creatures are immune to critical hits. The code handles this by checking the string value against the set regardless of whether it's a type or subtype. Correct.
+
+---
+
+FORMULA ID: A-sneak-attack-161
+FILE: aidm/core/sneak_attack.py
+LINE: 161-162
+CODE: `if is_target_immune(world_state, target_id): return (False, "target_immune")`
+RULE SOURCE: PHB p.50: Sneak attack immunity check
+EXPECTED: Check creature type, critical hit immunity flag, and sneak attack immunity flag
+ACTUAL: is_target_immune checks creature_type against SNEAK_ATTACK_IMMUNE_TYPES, immune_to_critical_hits flag, and immune_to_sneak_attack flag
+VERDICT: CORRECT
+NOTES: The immunity check properly gates sneak attack eligibility. Three checks: (1) creature type in immune set, (2) explicit critical hit immunity, (3) explicit sneak attack immunity. All correct per SRD.
+
+---
+
+FORMULA ID: A-reach-381-398
+FILE: aidm/core/reach_resolver.py
+LINE: 381-398
+CODE: `if weapon_reach_ft > natural_reach_ft: return _get_ring_at_distance(distance_squares=weapon_reach_ft // 5) else: return get_threatened_squares(reach_ft=natural_reach_ft)`
+RULE SOURCE: PHB p.157: "Most [reach weapons] deal double damage on a successful charge. They have reach, so you can use them to strike opponents 10 feet away, but you can't use them against an adjacent foe." / Skip Williams "All About Cover" (SW-0002): Reach weapon threat is exclusive — threatens at reach distance, NOT adjacent.
+EXPECTED: Reach weapon creates "donut" pattern — threatens only at weapon reach distance, not at natural reach. Natural/non-reach weapon threatens 1 through natural_reach.
+ACTUAL: Code correctly branches: weapon_reach > natural_reach → ring at exact weapon distance only. Otherwise → standard natural reach (1 to reach_squares).
+VERDICT: CORRECT
+NOTES: Confirmed by Skip Williams (SW-0002) designer intent ruling. The "dead zone" at 5 feet for Medium creature with reach weapon is intentional. Cross-verified with FAQ entry RQ-BOX-002-F-0002.
+
+---
+
+FORMULA ID: A-flanking-86-88
+FILE: aidm/core/flanking.py
+LINE: 86-88
+CODE: `if entity_hp <= 0: return False` (in _is_threatening)
+RULE SOURCE: SRD Combat: Threatened Squares — "You threaten all squares into which you can make a melee attack." Dead/dying creatures cannot attack.
+EXPECTED: Creatures at HP <= 0 do not threaten (cannot make attacks)
+ACTUAL: Returns False (not threatening) when hp <= 0
+VERDICT: CORRECT
+NOTES: Dead/dying/disabled creatures cannot make attacks, therefore cannot threaten. The hp <= 0 check correctly implements this. Note: the same simplified defeat threshold as A-attack-resolver-442.
+
+---
+
+### Research Cross-Reference Findings
+
+The following prior research documents were consulted during re-verification. Key findings that affect Domain A verdicts:
+
+1. **RQ-BOX-001 (Geometric Engine)** — Documented the deliberate 4-tier cover system design (Finding 3). This led to the BUG-10 reclassification from WRONG to AMBIGUOUS. The cover values (+2/+1 half, +5/+2 three-quarters) are an intentional design divergence from the SRD's binary cover system.
+
+2. **Skip Williams "All About Cover" (SW-0006)** — Confirmed the corner-to-corner algorithm. RAW says attacker picks best corner (1×4 = 4 lines). Code traces 4×4 = 16 lines for granularity. This divergence is already documented as C-AMB-01 in the AMBIGUOUS decisions log.
+
+3. **Skip Williams "All About AoO" (SW-0002)** — Confirmed reach weapon donut-pattern threat. Code correctly implements this in reach_resolver.py:381-398.
+
+4. **PF Delta Index (PF-DELTA-0001)** — Confirms 3.5e's combat maneuver diversity was a known problem. The CMB/CMD unification shows the SRD approach is fragile. Code's current per-maneuver implementation is correct for SRD but should be documented as a known complexity risk.
+
+5. **FAQ Mining (RQ-BOX-002-F-0001)** — Confirms "soft cover" from creatures is a FAQ-introduced concept (not RAW). The code's cover_resolver.py handles creature cover via the same line-tracing algorithm, which is a reasonable implementation. No formula error found.
+
+6. **Community RAW Survey (Finding A-1)** — PHB vs DMG enhancement bonus contradiction for hardness/HP. Not directly in Domain A scope but noted for future equipment verification.
+
+### Updated Formula Count
+
+| Category | Initial | Re-verification | Delta |
+|----------|---------|-----------------|-------|
+| Total formulas | 53 | 57 | +4 new |
+| CORRECT | 38 | 42 | +4 new (all correct) |
+| WRONG | 7 | 5 | -2 (BUG-10 reclassified) |
+| AMBIGUOUS | 4 | 6 | +2 (BUG-10 reclassified) |
+| UNCITED | 4 | 4 | no change |
+
+---
+
 ## Summary Statistics
 
 | Category | Count |
 |----------|-------|
-| CORRECT | 38 |
+| CORRECT | 42 |
 | WRONG | 5 |
 | AMBIGUOUS | 6 |
 | UNCITED | 4 |
-| **TOTAL** | **53** |
+| **TOTAL** | **57** |
 
 ### Bug Severity Assessment
 

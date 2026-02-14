@@ -2,7 +2,7 @@
 
 **Generated:** 2026-02-14
 **Source:** 9 domain verification files (DOMAIN_A through DOMAIN_I)
-**Total WRONG verdicts:** 34
+**Total WRONG verdicts:** 30 (was 34; 4 reclassified to AMBIGUOUS — BUG-10 ×2 from Domain A, BUG-C-001/003 from Domain C)
 **Purpose:** Aggregate all WRONG verdicts for fix WO creation. No code changes — this is a tracking and dispatch artifact.
 
 ---
@@ -12,15 +12,15 @@
 | Domain | WRONG Count | Bugs |
 |--------|-------------|------|
 | D — Conditions & Modifiers | 8 | BUG-3, BUG-4, BUG-5, BUG-6, BUG-7, + 3 duplicates of BUG-3/4 pattern |
-| A — Attack Resolution | 7 | BUG-1, BUG-2, BUG-8, BUG-9, BUG-10 (2 locations each for 8/9/10) |
+| A — Attack Resolution | 5 | BUG-1, BUG-2, BUG-8, BUG-9 (2 locations each for 8/9) — BUG-10 RECLASSIFIED to AMBIGUOUS |
 | B — Combat Maneuvers | 5 | B-BUG-1 through B-BUG-5 |
-| C — Saves & Spells | 3 | BUG-C-001, BUG-C-002, BUG-C-003 |
+| C — Saves & Spells | 1 | BUG-C-002 — BUG-C-001, BUG-C-003 RECLASSIFIED to AMBIGUOUS (cover design decision) |
 | E — Movement & Terrain | 3 | E-BUG-01, E-BUG-02, E-BUG-03 |
 | F — Char Progression | 5 | BUG-F1, BUG-F2, BUG-F3, + 2 sub-bugs in XP table |
 | G — Initiative & Turn | 2 | G-PLAY-71-86 (3 entries in 1 table) |
 | H — Skill System | 0 | — |
 | I — Geometry & Size | 1 | I-GEOM-291 |
-| **TOTAL** | **34** | |
+| **TOTAL** | **30** | |
 
 ---
 
@@ -28,7 +28,7 @@
 
 | Severity | Count | Bug IDs |
 |----------|-------|---------|
-| HIGH | 8 | BUG-1, BUG-3, BUG-4, BUG-10, B-BUG-2, E-BUG-02, BUG-C-002 (+BUG-C-001/003 same root) |
+| HIGH | 6 | BUG-1, BUG-3, BUG-4, B-BUG-2, E-BUG-02, BUG-C-002 (+BUG-C-001/003 same root, reclassified per BUG-10) |
 | MEDIUM | 16 | BUG-2, BUG-5, BUG-6, BUG-7, B-BUG-1, B-BUG-3, B-BUG-5, E-BUG-01, E-BUG-03, BUG-F2, BUG-F3, G-PLAY-71-86 (3 entries), I-GEOM-291 |
 | LOW | 6 | BUG-8, BUG-9, B-BUG-4, BUG-F1 |
 | TRIVIAL | 2 | BUG-8, BUG-9 fix complexity |
@@ -104,23 +104,12 @@ Bugs are grouped into fix WOs by affected file/subsystem to minimize context swi
 
 ---
 
-### FIX-WO-05: Cover Bonus Values (HIGH — 3 bugs, 1 file)
+### FIX-WO-05: Cover Bonus Values (RECLASSIFIED — documented design decision)
 
-**Bugs:** BUG-10, BUG-C-001, BUG-C-003
-**Files:** `aidm/core/cover_resolver.py`
-**Effort:** MEDIUM — design decision needed on cover tier system
-
-| Bug | Location | Fix |
-|-----|----------|-----|
-| BUG-10 | cover_resolver.py:97-98 | HALF_COVER: change ac=2,ref=1 to ac=4,ref=2. THREE_QUARTERS: change ac=5,ref=2 to ac=7,ref=3. **OR** collapse to SRD two-tier (standard +4/+2, improved +8/+4) and remap thresholds. |
-| BUG-C-001 | cover_resolver.py:96-99 | Same root cause as BUG-10. Reflex values are wrong. |
-| BUG-C-003 | cover_resolver.py:96-99 | Same root cause as BUG-10. Duplicate entry confirming the values are wrong from save perspective. |
-
-**Design decision required:** SRD has two cover tiers (standard +4/+2, improved +8/+4). Code has four tiers (none, half, three-quarters, total). Options:
-- **(a)** Keep 4-tier system, fix values to SRD-adjacent: half=+4/+2, three-quarters=+8/+4 (maps half→standard, three-quarters→improved)
-- **(b)** Collapse to SRD 2-tier: standard (+4/+2) and improved (+8/+4) only, plus total
-
-**Test impact:** All cover-related AC and Reflex save tests will need updated expected values.
+**Status:** RECLASSIFIED from WRONG to AMBIGUOUS during re-verification (2026-02-14).
+**Rationale:** BUG-10 cover values (+2/+1 half, +5/+2 three-quarters) are documented in RQ-BOX-001 Finding 3 as an intentional 4-tier graduated cover system. This is a deliberate design divergence from the SRD's binary cover model, based on prior research wave decisions. BUG-C-001 and BUG-C-003 (Domain C) share the same root cause and should also be reclassified.
+**Bugs:** ~~BUG-10, BUG-C-001, BUG-C-003~~ → Moved to AMBIGUOUS_VERDICTS_DECISION_LOG.md
+**Action:** No fix WO needed. Design decision already documented. Operator should confirm during AMBIGUOUS review.
 
 ---
 
