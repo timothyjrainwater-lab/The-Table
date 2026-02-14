@@ -40,6 +40,10 @@ class Weapon:
     """WO-034-FIX: Whether weapon is wielded two-handed (PHB p.98).
     Affects Power Attack damage ratio (1:2 instead of 1:1)."""
 
+    grip: str = "one-handed"
+    """WO-FIX-01: Weapon grip for STR-to-damage multiplier (PHB p.113).
+    'two-handed' = 1.5x STR, 'off-hand' = 0.5x STR, 'one-handed' = 1x STR."""
+
     def __post_init__(self):
         """Validate weapon data."""
         if not self.damage_dice:
@@ -63,6 +67,11 @@ class Weapon:
         # 19-20 for longswords/rapiers, 18-20 for keen weapons)
         if not (1 <= self.critical_range <= 20):
             raise ValueError(f"critical_range must be 1-20, got {self.critical_range}")
+
+        # WO-FIX-01: Validate grip
+        valid_grips = {"one-handed", "two-handed", "off-hand"}
+        if self.grip not in valid_grips:
+            raise ValueError(f"grip must be one of {valid_grips}, got {self.grip}")
 
 
 @dataclass

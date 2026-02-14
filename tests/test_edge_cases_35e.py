@@ -110,11 +110,17 @@ def test_natural_20_always_hits_even_against_extreme_ac():
 
 
 # ==============================================================================
-# EDGE CASE 3: Damage floor is 0 with condition penalties (PHB p.145)
+# EDGE CASE 3: Damage floor is 1 on hit, before DR (PHB p.113)
+# WO-FIX-01 (BUG-8/9): Updated from 0 to 1 — a hit always deals min 1 damage
 # ==============================================================================
 
 def test_damage_cannot_go_negative_from_condition_penalties():
-    """Condition damage penalties can reduce damage to 0 but not below."""
+    """Condition damage penalties cannot reduce damage below 1 on a hit (PHB p.113).
+
+    WO-FIX-01 (BUG-8/9): Minimum damage on a successful hit is 1 before DR.
+    Even with condition penalties that would make raw damage negative,
+    the floor is 1 (not 0). DR may then reduce final_damage to 0.
+    """
     world_state = WorldState(
         ruleset_version="3.5e",
         entities={
@@ -124,7 +130,8 @@ def test_damage_cannot_go_negative_from_condition_penalties():
     )
 
     # Sickened gives -2 damage. With damage_bonus=0 and 1d4, min roll is 1.
-    # base_damage = 1 + 0 = 1, condition = -2 → max(0, 1-2) = 0
+    # base_damage = 1 + 0 + 0 = 1, condition = -2 → raw = -1
+    # WO-FIX-01: max(1, -1) = 1 (min 1 on hit, before DR)
     sickened = create_sickened_condition(source="poison", applied_at_event_id=0)
     world_state = apply_condition(world_state, "fighter", sickened)
 
@@ -143,11 +150,11 @@ def test_damage_cannot_go_negative_from_condition_penalties():
         damage_events = [e for e in events if e.event_type == "damage_roll"]
         if damage_events:
             dmg = damage_events[0].payload
-            # damage_total should never be negative
-            assert dmg["damage_total"] >= 0
+            # WO-FIX-01: damage_total must be >= 1 on a hit (before DR)
+            assert dmg["damage_total"] >= 1
             if dmg["damage_rolls"] == [1]:
-                # base_damage = 1, condition = -2, result should be 0
-                assert dmg["damage_total"] == 0
+                # WO-FIX-01: min 1 on hit (was 0 before fix)
+                assert dmg["damage_total"] == 1
                 return
 
     pytest.fail("Could not find min damage roll in 5000 seeds")

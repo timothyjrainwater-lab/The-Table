@@ -294,15 +294,24 @@ def resolve_single_attack_with_critical(
         # Roll base damage
         damage_rolls = roll_dice(num_dice, die_size, rng)
         # PHB p.113: STR modifier applies to melee damage
-        base_damage = sum(damage_rolls) + weapon.damage_bonus + str_modifier
+        # WO-FIX-01 (BUG-1): STR-to-damage multiplier based on weapon grip (PHB p.113)
+        weapon_grip = weapon.grip
+        if weapon_grip == "two-handed":
+            str_to_damage = int(str_modifier * 1.5)
+        elif weapon_grip == "off-hand":
+            str_to_damage = int(str_modifier * 0.5)
+        else:
+            str_to_damage = str_modifier
+
+        base_damage = sum(damage_rolls) + weapon.damage_bonus + str_to_damage
         # CP-16: condition damage modifier, WO-034: feat damage modifier
         base_damage_with_modifiers = base_damage + condition_damage_modifier + feat_damage_modifier
 
         # WO-FIX-002: Apply critical multiplier (PHB p.140)
         if is_critical:
-            damage_total = max(0, base_damage_with_modifiers * weapon.critical_multiplier)
+            damage_total = max(1, base_damage_with_modifiers * weapon.critical_multiplier)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
         else:
-            damage_total = max(0, base_damage_with_modifiers)
+            damage_total = max(1, base_damage_with_modifiers)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
 
         # WO-050B: Sneak Attack precision damage (PHB p.50)
         # Added AFTER critical multiplier — precision damage is NOT multiplied on crits
@@ -541,7 +550,10 @@ def resolve_full_attack(
     current_event_id += 1
 
     # Resolve each attack in sequence
+    # WO-FIX-02 (BUG-2): Track HP per-attack and break on defeat
     total_damage = 0
+    current_hp = hp_current
+    attacks_executed = 0
 
     for attack_index, raw_attack_bonus in enumerate(attack_bonuses):
         # WO-FIX-003: Apply all modifiers to each iterative attack bonus
@@ -588,6 +600,12 @@ def resolve_full_attack(
 
         events.extend(attack_events)
         total_damage += damage
+        current_hp -= damage
+        attacks_executed += 1
+
+        # WO-FIX-02 (BUG-2): Stop attacking defeated targets
+        if current_hp <= 0 and damage > 0:
+            break  # Target defeated -- remaining attacks not executed
 
     # Apply accumulated damage to HP
     if total_damage > 0:
@@ -598,7 +616,7 @@ def resolve_full_attack(
         events.append(Event(
             event_id=current_event_id,
             event_type="hp_changed",
-            timestamp=timestamp + 0.5 * len(attack_bonuses),
+            timestamp=timestamp + 0.5 * attacks_executed,
             payload={
                 "entity_id": intent.target_id,
                 "hp_before": hp_before,
@@ -614,7 +632,7 @@ def resolve_full_attack(
             events.append(Event(
                 event_id=current_event_id,
                 event_type="entity_defeated",
-                timestamp=timestamp + 0.5 * len(attack_bonuses) + 0.1,
+                timestamp=timestamp + 0.5 * attacks_executed + 0.1,
                 payload={
                     "entity_id": intent.target_id,
                     "hp_final": hp_after,
@@ -628,13 +646,13 @@ def resolve_full_attack(
     events.append(Event(
         event_id=current_event_id,
         event_type="full_attack_end",
-        timestamp=timestamp + 0.5 * len(attack_bonuses) + 0.2,
+        timestamp=timestamp + 0.5 * attacks_executed + 0.2,
         payload={
             "attacker_id": intent.attacker_id,
             "target_id": intent.target_id,
             "total_damage": total_damage,
             "num_hits": sum(1 for e in events if e.event_type == "damage_roll"),
-            "num_attacks": len(attack_bonuses)
+            "num_attacks": attacks_executed
         }
     ))
     current_event_id += 1

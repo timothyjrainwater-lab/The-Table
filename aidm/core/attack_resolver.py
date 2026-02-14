@@ -360,15 +360,24 @@ def resolve_attack(
         feat_context["is_two_handed"] = intent.weapon.is_two_handed  # WO-034-FIX
         feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)
 
-        base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_modifier
+        # WO-FIX-01 (BUG-1): STR-to-damage multiplier based on weapon grip (PHB p.113)
+        weapon_grip = intent.weapon.grip
+        if weapon_grip == "two-handed":
+            str_to_damage = int(str_modifier * 1.5)
+        elif weapon_grip == "off-hand":
+            str_to_damage = int(str_modifier * 0.5)
+        else:
+            str_to_damage = str_modifier
+
+        base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_to_damage
         # CP-16: Apply condition damage modifier, WO-034: Apply feat damage modifier
         base_damage_with_modifiers = base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier
 
         # WO-FIX-002: Apply critical multiplier (PHB p.140)
         if is_critical:
-            damage_total = max(0, base_damage_with_modifiers * intent.weapon.critical_multiplier)
+            damage_total = max(1, base_damage_with_modifiers * intent.weapon.critical_multiplier)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
         else:
-            damage_total = max(0, base_damage_with_modifiers)
+            damage_total = max(1, base_damage_with_modifiers)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
 
         # WO-050B: Sneak Attack precision damage (PHB p.50)
         # Added AFTER critical multiplier — precision damage is NOT multiplied on crits
