@@ -253,8 +253,8 @@ def check_cover(
             blocks_aoo=True,
             blocks_targeting=False,
         )
-    elif soft_cover and is_melee:
-        # Soft cover only applies to melee attacks
+    elif soft_cover and not is_melee:
+        # Soft cover from creatures applies to ranged attacks only (PHB p.152)
         return CoverCheckResult(
             attacker_id=attacker_id,
             defender_id=defender_id,
@@ -609,14 +609,20 @@ def resolve_falling(
     # Calculate damage dice
     damage_dice = calculate_falling_damage(fall_distance, is_intentional)
 
-    # Into water: reduced damage (degraded per design doc)
+    # Into water: reduced damage (DMG p.304)
+    # Water fall damage is nonlethal 1d3 per 10ft beyond free zone.
+    is_water_fall = False
     if is_into_water and water_depth >= 10:
-        # First 20 feet into deep water = no damage
-        if fall_distance <= 20:
+        is_water_fall = True
+        # DC 15 Swim check: if passed, first 20 feet = no damage
+        combat_rng_check = rng.stream("combat")
+        swim_check = combat_rng_check.randint(1, 20)  # d20 roll for swim check
+        free_distance = 20 if swim_check >= 15 else 0  # DC 15 Swim check
+        if fall_distance <= free_distance:
             damage_dice = 0
         else:
-            # Beyond 20 feet: 1d6 per 10 feet (simplified)
-            damage_dice = max(0, (fall_distance - 20) // 10)
+            # Beyond free zone: 1d3 nonlethal per 10 feet (DMG p.304)
+            damage_dice = max(0, (fall_distance - free_distance) // 10)
 
     # Emit fall_triggered event
     events.append(Event(
@@ -641,7 +647,8 @@ def resolve_falling(
 
     if damage_dice > 0:
         combat_rng = rng.stream("combat")
-        damage_rolls = [combat_rng.randint(1, 6) for _ in range(damage_dice)]
+        die_size = 3 if is_water_fall else 6  # Water falls: d3 nonlethal (DMG p.304)
+        damage_rolls = [combat_rng.randint(1, die_size) for _ in range(damage_dice)]
         total_damage = sum(damage_rolls)
 
     # Create FallingResult

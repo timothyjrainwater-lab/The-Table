@@ -407,9 +407,9 @@ class TestGetFootprintSquares:
         assert len(squares) == 16
 
     def test_colossal_footprint(self):
-        """Colossal creature occupies 5x5 = 25 squares."""
+        """Colossal creature occupies 6x6 = 36 squares."""
         squares = get_footprint_squares(Position(x=0, y=0), SizeCategory.COLOSSAL)
-        assert len(squares) == 25
+        assert len(squares) == 36
 
 
 # ==============================================================================

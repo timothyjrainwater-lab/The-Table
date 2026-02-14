@@ -628,3 +628,117 @@ class TestIsBetween:
         # (2,1) is near the line from (0,0) to (4,3) â€” cross product = 4*1 - 3*2 = -2, |cross| = 2
         # seg_len = max(4,3) = 4, 2 <= 4, so yes
         assert _is_between(0, 0, 4, 3, 2, 1) is True
+
+
+# ==============================================================================
+# WO-FIX-10: E-BUG-01 — Soft cover applies to ranged only, not melee
+# ==============================================================================
+
+class TestSoftCoverRangedOnly:
+    """Soft cover from creatures applies to ranged attacks, not melee (PHB p.152)."""
+
+    def _make_world_with_blocker(self):
+        """Create world where creature blocks line between attacker and defender."""
+        return WorldState(
+            ruleset_version="3.5e",
+            entities={
+                "archer": {
+                    EF.ENTITY_ID: "archer",
+                    EF.TEAM: "party",
+                    EF.HP_CURRENT: 30,
+                    EF.HP_MAX: 30,
+                    EF.AC: 14,
+                    EF.DEFEATED: False,
+                    EF.POSITION: {"x": 0, "y": 0},
+                    EF.ELEVATION: 0,
+                },
+                "blocker": {
+                    EF.ENTITY_ID: "blocker",
+                    EF.TEAM: "party",
+                    EF.HP_CURRENT: 20,
+                    EF.HP_MAX: 20,
+                    EF.AC: 12,
+                    EF.DEFEATED: False,
+                    EF.POSITION: {"x": 2, "y": 2},
+                    EF.ELEVATION: 0,
+                },
+                "target": {
+                    EF.ENTITY_ID: "target",
+                    EF.TEAM: "monsters",
+                    EF.HP_CURRENT: 20,
+                    EF.HP_MAX: 20,
+                    EF.AC: 14,
+                    EF.DEFEATED: False,
+                    EF.POSITION: {"x": 4, "y": 4},
+                    EF.ELEVATION: 0,
+                },
+            },
+            active_combat={
+                "initiative_order": ["archer", "blocker", "target"],
+                "terrain_map": {
+                    "0,0": {"position": {"x": 0, "y": 0}, "elevation": 0, "movement_cost": 1},
+                    "2,2": {"position": {"x": 2, "y": 2}, "elevation": 0, "movement_cost": 1},
+                    "4,4": {"position": {"x": 4, "y": 4}, "elevation": 0, "movement_cost": 1},
+                },
+            }
+        )
+
+    def test_ranged_attack_through_occupied_square_gets_soft_cover(self):
+        """Ranged attack through occupied square: soft cover applies (PHB p.152)."""
+        ws = self._make_world_with_blocker()
+        result = check_cover(ws, "archer", "target", is_melee=False)
+        assert result.cover_type == CoverType.SOFT
+        assert result.ac_bonus == 4
+
+    def test_melee_attack_through_occupied_square_no_soft_cover(self):
+        """Melee attack through occupied square: soft cover does NOT apply."""
+        ws = self._make_world_with_blocker()
+        result = check_cover(ws, "archer", "target", is_melee=True)
+        assert result.cover_type is None
+        assert result.ac_bonus == 0
+
+
+# ==============================================================================
+# WO-FIX-10: E-BUG-02 — Water fall damage uses d3, not d6
+# ==============================================================================
+
+class TestWaterFallDamage:
+    """Water fall damage uses d3 nonlethal, not d6 lethal (DMG p.304)."""
+
+    def test_water_fall_uses_d3_not_d6(self):
+        """Water fall damage rolls should use d3 (max 3), not d6."""
+        ws = WorldState(
+            ruleset_version="3.5e",
+            entities={
+                "swimmer": {
+                    EF.ENTITY_ID: "swimmer",
+                    EF.TEAM: "party",
+                    EF.HP_CURRENT: 50,
+                    EF.HP_MAX: 50,
+                    EF.AC: 12,
+                    EF.DEFEATED: False,
+                    EF.POSITION: {"x": 5, "y": 5},
+                    EF.ELEVATION: 0,
+                },
+            },
+            active_combat={
+                "initiative_order": ["swimmer"],
+                "terrain_map": {},
+            }
+        )
+        # Fall 50 feet into deep water — should produce d3 rolls
+        rng = RNGManager(master_seed=42)
+        events, new_state, result = resolve_falling(
+            entity_id="swimmer",
+            fall_distance=50,
+            world_state=ws,
+            rng=rng,
+            next_event_id=0,
+            timestamp=0.0,
+            is_into_water=True,
+            water_depth=20,
+        )
+        # All damage rolls must be 1-3 (d3), never 4-6
+        assert result.damage_dice > 0, "Should have some damage dice for 50ft water fall"
+        for roll in result.damage_rolls:
+            assert 1 <= roll <= 3, f"Water fall roll {roll} exceeds d3 range (1-3)"
