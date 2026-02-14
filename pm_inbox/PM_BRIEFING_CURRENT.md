@@ -10,14 +10,28 @@ H0 complete. 5,581 tests pass. RED block lifted. H1 WO batch complete.
 
 ## Requires Operator Action (NOW)
 
-- [ ] **Dispatch WO-WEAPON-PLUMBING-001** — [WO-WEAPON-PLUMBING-001_DISPATCH.md](pm_inbox/WO-WEAPON-PLUMBING-001_DISPATCH.md). is_ranged + disarm mods + sunder grip. Highest-impact H1 item. Activates 3 dormant fixes.
-- [ ] **Dispatch WO-RNG-PROTOCOL-001** — [WO-RNG-PROTOCOL-001_DISPATCH.md](pm_inbox/WO-RNG-PROTOCOL-001_DISPATCH.md). RNGProvider Protocol extraction. Type-level refactor, zero logic changes. Parallel-safe.
-- [ ] **Dispatch WO-TTS-COLD-START-RESEARCH** — [WO-TTS-COLD-START-RESEARCH_DISPATCH.md](pm_inbox/WO-TTS-COLD-START-RESEARCH_DISPATCH.md). 6 RQs. Parallel-safe.
-- [ ] **Dispatch WO-TTS-CHUNKING-001** — [WO-TTS-CHUNKING-001_DISPATCH.md](pm_inbox/WO-TTS-CHUNKING-001_DISPATCH.md). Sentence-boundary chunking into adapter layer. Fixes silent truncation (TD-023). Parallel-safe.
-- [ ] **Dispatch WO-BRIEF-WIDTH-001** — [WO-BRIEF-WIDTH-001_DISPATCH.md](pm_inbox/WO-BRIEF-WIDTH-001_DISPATCH.md). Multi-target + causal chains + condition stacking. Fixes 6/9 narration stress-test failures. Parallel-safe.
-- [ ] **Dispatch WO-NARRATION-VALIDATOR-001** — [WO-NARRATION-VALIDATOR-001_DISPATCH.md](pm_inbox/WO-NARRATION-VALIDATOR-001_DISPATCH.md). Runtime P0 negative rules (RV-001/002/008) + P1 structural rules. Depends on WO-BRIEF-WIDTH-001 for condition fields.
-- [ ] **Dispatch WO-COMPILE-VALIDATE-001** — [WO-COMPILE-VALIDATE-001_DISPATCH.md](pm_inbox/WO-COMPILE-VALIDATE-001_DISPATCH.md). CT-001 through CT-007 cross-validation + content_id emission in resolver events. Activates GAP-B-001 pipeline.
-- [ ] **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
+1. **Dispatch WO-WEAPON-PLUMBING-001** — [WO-WEAPON-PLUMBING-001_DISPATCH.md](pm_inbox/WO-WEAPON-PLUMBING-001_DISPATCH.md)
+   is_ranged + disarm mods + sunder grip. Highest-impact H1 item. Activates 3 dormant fixes.
+
+2. **Dispatch WO-RNG-PROTOCOL-001** — [WO-RNG-PROTOCOL-001_DISPATCH.md](pm_inbox/WO-RNG-PROTOCOL-001_DISPATCH.md)
+   RNGProvider Protocol extraction. Type-level refactor, zero logic changes. Parallel-safe.
+
+3. **Dispatch WO-TTS-COLD-START-RESEARCH** — [WO-TTS-COLD-START-RESEARCH_DISPATCH.md](pm_inbox/WO-TTS-COLD-START-RESEARCH_DISPATCH.md)
+   6 RQs. Parallel-safe.
+
+4. **Dispatch WO-TTS-CHUNKING-001** — [WO-TTS-CHUNKING-001_DISPATCH.md](pm_inbox/WO-TTS-CHUNKING-001_DISPATCH.md)
+   Sentence-boundary chunking into adapter layer. Fixes silent truncation (TD-023). Parallel-safe.
+
+5. **Dispatch WO-BRIEF-WIDTH-001** — [WO-BRIEF-WIDTH-001_DISPATCH.md](pm_inbox/WO-BRIEF-WIDTH-001_DISPATCH.md)
+   Multi-target + causal chains + condition stacking. Fixes 6/9 narration stress-test failures. Parallel-safe.
+
+6. **Dispatch WO-NARRATION-VALIDATOR-001** — [WO-NARRATION-VALIDATOR-001_DISPATCH.md](pm_inbox/WO-NARRATION-VALIDATOR-001_DISPATCH.md)
+   Runtime P0 negative rules (RV-001/002/008) + P1 structural rules. Depends on WO-BRIEF-WIDTH-001 for condition fields.
+
+7. **Dispatch WO-COMPILE-VALIDATE-001** — [WO-COMPILE-VALIDATE-001_DISPATCH.md](pm_inbox/WO-COMPILE-VALIDATE-001_DISPATCH.md)
+   CT-001 through CT-007 cross-validation + content_id emission in resolver events. Activates GAP-B-001 pipeline.
+
+8. **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
 
 **Dispatch guidance:**
 - WO-WEAPON-PLUMBING-001, WO-RNG-PROTOCOL-001, WO-TTS-COLD-START-RESEARCH, WO-TTS-CHUNKING-001 — all parallel-safe, dispatch simultaneously.
