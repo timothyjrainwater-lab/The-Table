@@ -82,7 +82,7 @@ If reaching for layer 3 or 4, flag it explicitly: "This is a layer 3/4 response.
 18. "Planned" is not "dispatched." "Drafted" is not "approved." "Discussed" is not "decided." Use precise verbs.
 19. If an agent is idle, its state is **IDLE**. Not "waiting," not "ready," not "standing by." IDLE.
 20. No agent modifies frozen milestones or frozen contracts without an explicit CP approved by Thunder.
-21. **Voice Signal on Completion:** On WO completion, the executing agent calls `python scripts/speak.py --signal` with the signal block piped to stdin. Signal triggers only for completion reports, dispatch packages, or CP approvals — not routine messages. Signal format: `=== SIGNAL: REPORT_READY ===\n<one-line summary>\n<optional body>`.
+21. **Voice Signal — Operator Attention Required:** Any agent (builder or PM) that produces output requiring Operator action calls `python scripts/speak.py --signal` with the signal block piped to stdin. Triggers: completion reports, dispatch packages, CP approvals, verdict deliveries, synthesis memos, or any output tagged `OPERATOR ACTION REQUIRED`. Does NOT trigger for routine messages, mid-work status updates, or clarifying questions. Signal format: `=== SIGNAL: REPORT_READY ===\n<one-line summary>\n<optional body>`.
 22. **Idle Notification:** When a builder has completed all assigned work, delivered its completion report, and has no further dispatch queued, it calls: `echo "=== SIGNAL: REPORT_READY ===" && echo "Thunder, the forge is quiet." | python scripts/speak.py --signal`. This signals the Operator that the agent is idle and awaiting direction. Triggers once per idle transition — not repeatedly. Not triggered mid-WO, not triggered when waiting on a clarifying question answer.
 
 ---
