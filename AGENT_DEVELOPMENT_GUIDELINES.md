@@ -461,6 +461,23 @@ Test: Could a fresh agent with no conversation history execute this dispatch usi
 
 **External dependency rule:** When a WO depends on external APIs, tool schemas, or documentation that isn't in the repo (e.g., Claude Code hooks spec, third-party library APIs, platform-specific schemas), the WO drafter must inline the relevant reference material directly in the dispatch doc or in a companion reference file cited by the dispatch. Builders should not need to web-search for specs mid-implementation — that burns disposable context on research instead of execution. If the drafter doesn't have the reference material, route a pre-research task to the assistant or BS Buddy first, then incorporate the findings into the dispatch.
 
+**Mandatory delivery footer:** Every WO dispatch must end with a `## Delivery` section containing:
+
+```
+## Delivery
+
+After all success criteria pass:
+1. `git add` all changed/new files
+2. `git commit -m "feat: WO-XXX — [short description]"`
+3. Record the commit hash
+4. Write your debrief (Section 15.5) with the commit hash in the header
+5. Update `pm_inbox/PM_BRIEFING_CURRENT.md`
+
+Code that exists only in the working tree is unverifiable and at risk of loss.
+```
+
+This footer is mandatory for all dispatches. The PM must include it. Builders who receive a dispatch without this footer should still commit (it's in the onboarding checklist and projectInstructions), but the footer makes the expectation explicit at point of dispatch.
+
 ### 15.4 Cross-File Consistency Gate
 
 When a status, count, verdict, or classification changes, update **ALL** files that reference it in the same commit. Partial updates create inconsistencies that compound across context boundaries.

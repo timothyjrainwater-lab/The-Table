@@ -125,6 +125,7 @@ These are the five most common mistakes agents make on this project. Memorize th
 5. **DO NOT** "fix" items listed in `KNOWN_TECH_DEBT.md` unless explicitly asked — they are intentionally deferred
 6. **DO NOT** close a session after WO completion without writing a debrief — knowledge dies with your context window (Section 15.5). This applies even if the WO says "read-only" or "do not modify files" — the debrief is about the work, not part of it.
 7. **DO NOT** add a file to `pm_inbox/` without also updating `pm_inbox/PM_BRIEFING_CURRENT.md` — the PM won't see it otherwise
+8. **DO NOT** write a completion report or debrief without first running `git add` + `git commit` (Rule 15a). Code that exists only in the working tree is unverifiable and at risk of loss. If the session is ending and commit is impossible, write `UNCOMMITTED` in the debrief header and list all affected files.
 
 ---
 
@@ -156,11 +157,12 @@ Every completion packet follows this process:
 4. Implement (fill in logic to make tests pass)
 5. Run full test suite (`python -m pytest tests/ -v --tb=short`)
 6. Verify 5,100+ tests still pass
-7. Update `PROJECT_STATE_DIGEST.md` (test counts, module inventory, CP history)
-8. Update `AGENT_DEVELOPMENT_GUIDELINES.md` if new patterns or pitfalls were discovered
-9. Write post-completion debrief (Section 15.5 — three-pass: full dump, PM summary, then operational retrospective)
-10. Update `pm_inbox/PM_BRIEFING_CURRENT.md` with entries for any new pm_inbox files
-11. Use `CP_TEMPLATE.md` for the standard CP decisions document format
+7. **`git add` + `git commit` all code changes.** This is mandatory — Rule 15a. Code that only exists in the working tree is invisible to the PM and at risk of being lost. Use a descriptive message: `feat: WO-XXX — [short description]`. Include the commit hash in your debrief.
+8. Update `PROJECT_STATE_DIGEST.md` (test counts, module inventory, CP history)
+9. Update `AGENT_DEVELOPMENT_GUIDELINES.md` if new patterns or pitfalls were discovered
+10. Write post-completion debrief (Section 15.5 — three-pass: full dump, PM summary, then operational retrospective). Include the commit hash from step 7 in the header.
+11. Update `pm_inbox/PM_BRIEFING_CURRENT.md` with entries for any new pm_inbox files
+12. Use `CP_TEMPLATE.md` for the standard CP decisions document format
 
 ---
 

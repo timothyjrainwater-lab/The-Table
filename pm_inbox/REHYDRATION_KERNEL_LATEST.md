@@ -211,6 +211,8 @@ The PM agent MUST NOT perform any of the following actions. These are builder-on
 
 **Briefing guard:** The briefing must not list any WO under "Requires Operator Action" unless a corresponding dispatch document exists in `pm_inbox/` root. Items where PM decisions exist but no dispatch doc has been drafted belong under "Needs PM to Draft WOs."
 
+**Mandatory delivery footer on all WO dispatches:** Every WO dispatch must end with a `## Delivery` section instructing the builder to `git add` + `git commit` before writing the debrief, and to include the commit hash in the debrief header. See AGENT_DEVELOPMENT_GUIDELINES.md Section 15.3. This exists because builders do not read Standing Ops — they only see the dispatch doc and onboarding checklist. If the dispatch doesn't say "commit," the builder won't commit.
+
 **Incident trigger:** If the PM executes a builder action, Operator should invoke CONTEXT DRIFT WARNING and downgrade stoplight to YELLOW. PM must acknowledge the boundary violation and return to coordination posture.
 
 ---
