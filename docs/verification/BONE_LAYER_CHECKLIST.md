@@ -19,7 +19,7 @@
 | F | Char Progression | 4 | 77 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
 | H | Skill System | 1 | 6 | 6 | 4 | 0 | 1 | 1 | COMPLETE |
 | I | Geometry & Size | 10 | 49 | 49 | 40 | 1 | 2 | 6 | COMPLETE |
-| **TOTAL** | | **38** | **334** | **204** | **145** | **22** | **17** | **20** | **IN PROGRESS** |
+| **TOTAL** | | **38** | **334** | **257** | **183** | **29** | **21** | **24** | **IN PROGRESS** |
 
 ---
 
@@ -45,6 +45,9 @@
 | 2026-02-14 | Builder (Opus 4.6) | H | 6 | 0 | (pending commit) |
 | 2026-02-14 | Builder (Opus 4.6) | H (re-verify) | 6 | 0 | (pending commit) |
 | 2026-02-14 | Builder (Opus 4.6) | E | 34 | 3 | (pending commit) |
+| 2026-02-14 | Builder (Opus 4.6) | A | 53 | 7 | (pending commit) |
+| 2026-02-14 | Builder (Opus 4.6) | C | 21 | 3 | (pending commit) |
+| 2026-02-14 | Builder (Opus 4.6) | D (re-verify) | 57 | 8 | Grappled 3.5e/PF divergence found, verdict CORRECT→AMBIGUOUS |
 
 ---
 
