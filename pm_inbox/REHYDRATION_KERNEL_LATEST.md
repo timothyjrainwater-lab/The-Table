@@ -152,6 +152,10 @@ The PM agent MUST NOT perform any of the following actions. These are builder-on
 
 **Dispatch chain:** PM drafts WO → PM presents WO to Operator → **Operator dispatches WO to builder agent.** The PM never directly spawns, manages, or communicates with builder agents. The Operator is the physical dispatch layer — the PM's output is always a document (WO, Brick, memo), never an agent invocation.
 
+**WO_SET dispatch rule:** A WO_SET (batch of related WO proposals) is a *proposal vehicle*, not an *execution vehicle*. When the PM verdicts a WO_SET, the PM must draft individual `WO-*_DISPATCH.md` files for each approved item before setting the WO_SET lifecycle to ARCHIVE. A verdicted WO_SET with no corresponding dispatch documents is an incomplete action — the operator has nothing to hand to a builder.
+
+**Briefing guard:** The briefing must not list any WO under "Requires Operator Action" unless a corresponding dispatch document exists in `pm_inbox/` root. Items where PM decisions exist but no dispatch doc has been drafted belong under "Needs PM to Draft WOs."
+
 **Incident trigger:** If the PM executes a builder action, Operator should invoke CONTEXT DRIFT WARNING and downgrade stoplight to YELLOW. PM must acknowledge the boundary violation and return to coordination posture.
 
 ---

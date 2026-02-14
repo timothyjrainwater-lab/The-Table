@@ -13,7 +13,7 @@
 ## Needs PM to Draft WOs (no dispatch docs exist yet)
 
 - [ ] **Governance CE WOs** — PM decisions delivered (in reviewed/WO_SET_PM_CONTEXT_EFFICIENCY.md) but no individual dispatch docs drafted. 6 items: kernel rotation, briefing archive split, memo consolidation, checklist transition, batch commits (already in effect), supersedes protocol.
-- [ ] **WO_SET dispatch gap fix (A+B)** — Prose rule in README + kernel handover, briefing guard rule. PM verdicted, needs builder to execute edits.
+- [x] **WO_SET dispatch gap fix (A+B)** — DONE. Prose rule + briefing guard added to kernel (primary) and README (builder copy).
 - [ ] **WO-WEAPON-PLUMBING-001** — Bundle: is_ranged + disarm mods + sunder grip. First feature WO. BLOCKED behind RED block lift.
 - [ ] **Resolver deduplication** — Second P4 WO after weapon plumbing. BLOCKED behind RED block lift.
 

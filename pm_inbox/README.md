@@ -82,6 +82,10 @@ The PM reads memos and writes verdicts. All physical actions are builder-execute
 3. Update `PM_BRIEFING_CURRENT.md` (check off completed items, add new entries)
 4. Execute any actions the PM's verdict specifies
 
+**WO_SET dispatch rule:** A WO_SET is a *proposal vehicle*, not an *execution vehicle*. When the PM verdicts a WO_SET, the PM must draft individual `WO-*_DISPATCH.md` files for each approved item before setting the WO_SET lifecycle to ARCHIVE. A verdicted WO_SET with no corresponding dispatch documents is an incomplete action. (Primary copy of this rule lives in the rehydration kernel.)
+
+**Briefing guard:** The briefing must not list any WO under "Requires Operator Action" unless a corresponding dispatch document exists in `pm_inbox/` root. Items where PM decisions exist but no dispatch doc has been drafted belong under "Needs PM to Draft WOs."
+
 ## Subdirectories
 
 ### `reviewed/`
