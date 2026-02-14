@@ -77,14 +77,19 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: c5e04ac (docs: dispatch 9 bone-layer verification WOs)
+Last commit: (pending commit — aggregation artifacts)
 Tests passed: 5,510 (16 skipped HW-gated)
 CLI tests: 130 passed + 49 movement tests
-Stoplight: **RED — Bone-layer formula verification blocking ALL work**
+Stoplight: **RED — Bone-layer verification COMPLETE, fix phase pending Operator decisions**
 
-**RED BLOCK active:** `docs/verification/BONE_LAYER_VERIFICATION_PLAN.md` defines execution plan. 303 formulas, 9 domains, 22 files. Tracking at `docs/verification/BONE_LAYER_CHECKLIST.md`. Formula reference at `docs/verification/FORMULA_INVENTORY.md`. No feature work, bug fixes, or playtesting until verification GREEN.
+**Verification COMPLETE:** 334 formulas verified across 9 domains. 251 CORRECT, 32 WRONG, 26 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist.
 
-**Context window discipline:** PM context is reserved for coordination only. All verification execution is dispatched to builder agents via WOs. See plan Section 13.
+**Fix phase artifacts:**
+- `docs/verification/WRONG_VERDICTS_MASTER.md` — 32 WRONG verdicts aggregated into 13 fix WOs
+- `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` — 26 AMBIGUOUS verdicts, 6 need Operator decision
+- Supersedes WO-BUGFIX-TIER0-001 (BUG-1/2/3/4 now covered by FIX-WO-01/02/03)
+
+**Context window discipline:** PM context is reserved for coordination only. All fix implementation dispatched to builder agents via WOs. See plan Section 13.
 
 **Untracked files (not committed):**
 - 4 voice research docs in `docs/research/VOICE_*.md`
@@ -92,18 +97,24 @@ Stoplight: **RED — Bone-layer formula verification blocking ALL work**
 
 ## Active Work Surfaces
 
-**BONE-LAYER VERIFICATION — RED BLOCK (active):**
-303 formulas across 9 domains, 22 files. Execution plan at `docs/verification/BONE_LAYER_VERIFICATION_PLAN.md`. Checklist at `docs/verification/BONE_LAYER_CHECKLIST.md`. Inventory at `docs/verification/FORMULA_INVENTORY.md`. PM dispatches iteration WOs to builders; PM does NOT execute verification directly (context window discipline).
+**BONE-LAYER VERIFICATION — FIX PHASE (RED BLOCK still active):**
+Verification execution complete. 13 fix WOs drafted. Awaiting Operator decisions on 6 AMBIGUOUS verdicts before fix dispatch. Checklist at `docs/verification/BONE_LAYER_CHECKLIST.md`. Fix WOs at `docs/verification/WRONG_VERDICTS_MASTER.md`.
 
-**ALL OF THE FOLLOWING ARE BLOCKED behind verification GREEN:**
+**Remaining completion gate items:**
+- [ ] Operator reviews and approves 6 AMBIGUOUS decisions
+- [ ] PSD updated to reflect verification completion
+- [ ] RED block lifted by Operator
+- Then: Fix WOs dispatched to builders in priority order
 
-- WO-BUGFIX-TIER0-001: Tier 0 bug fixes (BUG-1/2/3/4) — BLOCKED
+**ALL OF THE FOLLOWING ARE BLOCKED behind verification GREEN + fixes integrated:**
+
+- FIX-WO-01 through FIX-WO-13: Bone-layer bug fixes — READY for dispatch after Operator decisions
 - Phase 4C Wave C (3 WOs) — BLOCKED
 - BURST-001/002/003 — BLOCKED
 - All feature work — BLOCKED
 - All playtesting — BLOCKED
 
-**PM posture:** ACTIVE. Coordinating bone-layer verification. 9 verification WOs written and committed. Wave 1 (8 parallel: D,B,C,E,F,G,H,I) ready for dispatch. Wave 2 (A) dispatches after Domain D completes.
+**PM posture:** ACTIVE. Verification complete. Aggregation artifacts written. Awaiting Operator review of AMBIGUOUS decisions before dispatching fix WOs.
 
 ---
 

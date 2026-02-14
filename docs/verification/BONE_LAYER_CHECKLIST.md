@@ -11,7 +11,7 @@
 | Domain | Description | Files | Formulas | Verified | Correct | Wrong | Ambiguous | Uncited | Status |
 |--------|-------------|-------|----------|----------|---------|-------|-----------|---------|--------|
 | D | Conditions & Modifiers | 2 | 57 | 57 | 38 | 8 | 5 | 6 | COMPLETE |
-| A | Attack Resolution | 9 | 53 | 53 | 38 | 7 | 4 | 4 | COMPLETE |
+| A | Attack Resolution | 9 | 53 | 53 | 38 | 5 | 6 | 4 | COMPLETE |
 | B | Combat Maneuvers | 2 | 27 | 27 | 18 | 5 | 3 | 1 | COMPLETE |
 | C | Saves & Spells | 2 | 21 | 21 | 15 | 3 | 1 | 2 | COMPLETE |
 | G | Initiative & Turn | 3 | 10 | 10 | 6 | 2 | 2 | 0 | COMPLETE |
@@ -19,16 +19,16 @@
 | F | Char Progression | 5 | 77 | 77 | 68 | 5 | 3 | 1 | COMPLETE |
 | H | Skill System | 1 | 6 | 6 | 4 | 0 | 1 | 1 | COMPLETE |
 | I | Geometry & Size | 10 | 49 | 49 | 40 | 1 | 2 | 6 | COMPLETE |
-| **TOTAL** | | **39** | **334** | **334** | **251** | **34** | **24** | **25** | **ALL DOMAINS COMPLETE** |
+| **TOTAL** | | **39** | **334** | **334** | **251** | **32** | **26** | **25** | **ALL DOMAINS COMPLETE** |
 
 ---
 
 ## Completion Gate
 
 - [x] All 9 domains show status COMPLETE
-- [ ] All WRONG verdicts have corresponding fix WOs
-- [ ] All AMBIGUOUS verdicts have documented design decisions
-- [ ] Operator has reviewed and approved AMBIGUOUS decisions
+- [x] All WRONG verdicts have corresponding fix WOs → `docs/verification/WRONG_VERDICTS_MASTER.md` (13 fix WOs covering 32 bugs)
+- [x] All AMBIGUOUS verdicts have documented design decisions → `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` (26 verdicts, 6 need Operator decision)
+- [ ] Operator has reviewed and approved AMBIGUOUS decisions (6 decisions pending)
 - [ ] PSD updated to reflect verification completion
 - [ ] RED block lifted by Operator
 
@@ -49,6 +49,8 @@
 | 2026-02-14 | Builder (Opus 4.6) | C | 21 | 3 | (pending commit) |
 | 2026-02-14 | Builder (Opus 4.6) | D (re-verify) | 57 | 8 | Grappled 3.5e/PF divergence found, verdict CORRECT→AMBIGUOUS |
 | 2026-02-14 | Builder (Opus 4.6) | F | 77 | 5 | (pending commit) |
+| 2026-02-14 | Builder (Opus 4.6) | A (re-verify) | 53 | 5 | BUG-10 cover values WRONG→AMBIGUOUS (RQ-BOX-001 documented design decision) |
+| 2026-02-14 | PM (Opus 4.6) | ALL | — | — | Aggregated 32 WRONG into 13 fix WOs + 26 AMBIGUOUS into decision log |
 
 ---
 

@@ -3,7 +3,11 @@
 **Verified by:** Claude Opus 4.6
 **Date:** 2026-02-14
 **Formulas verified:** 53
-**Summary:** 38 CORRECT, 7 WRONG, 4 AMBIGUOUS, 4 UNCITED
+**Summary:** 38 CORRECT, 5 WRONG, 6 AMBIGUOUS, 4 UNCITED
+
+**Re-verified by:** Claude Opus 4.6 (independent re-verification pass)
+**Re-verification date:** 2026-02-14
+**Re-verification result:** All 53 line numbers confirmed matching source code. All CORRECT/WRONG/UNCITED verdicts confirmed. BUG-10 (cover values) reclassified WRONG→AMBIGUOUS: documented design decision in RQ-BOX-001 Finding 3. Cover thresholds (+2/+1 half, +5/+2 three-quarters) are intentional homebrew divergence from SRD's binary +4/+2 and +8/+4 system. The 3.5e SRD simplified cover from the 3.0e graduated system; the code's graduated approach is a deliberate design choice per the geometric engine research document.
 
 ---
 
@@ -748,8 +752,8 @@ CODE: `(5, 8): (CoverDegree.HALF_COVER, 2, 1)`
 RULE SOURCE: SRD Combat: Cover — "Cover provides a +4 bonus to AC... Cover grants a +2 bonus on Reflex saves."
 EXPECTED: Half cover = +4 AC, +2 Reflex saves
 ACTUAL: ac=2, ref=1
-VERDICT: WRONG
-NOTES: **BUG-10 (NEW).** SRD Cover rules state: "A low wall, for instance, provides cover, and gives you a +4 bonus to AC and a +2 bonus on Reflex saves." The code implements half cover as +2 AC and +1 Reflex, which is HALF of the SRD values. The SRD does not define "half cover" as a distinct category with reduced bonuses — it defines cover (+4 AC, +2 Ref) and improved cover (+8 AC, +4 Ref, evasion). The code appears to have invented a "half cover" interpolation that doesn't match RAW. SRD cover: +4 AC, +2 Ref. SRD improved cover: +8 AC, +4 Ref. The code's +2/+1 and +5/+2 values don't appear in the SRD.
+VERDICT: AMBIGUOUS
+NOTES: **RECLASSIFIED (re-verification): WRONG→AMBIGUOUS.** SRD Cover rules state: "A low wall, for instance, provides cover, and gives you a +4 bonus to AC and a +2 bonus on Reflex saves." The code implements half cover as +2 AC and +1 Reflex, which is HALF of the SRD values. The SRD does not define "half cover" as a distinct category — it defines cover (+4 AC, +2 Ref) and improved cover (+8 AC, +4 Ref, evasion). The code's +2/+1 is a deliberate interpolation documented in RQ-BOX-001 Finding 3 (Deterministic Cover Resolution), which defines a four-tier graduated system based on corner-to-corner line blocking ratios. This is an intentional design divergence from the SRD's binary cover system, adopting a more granular approach similar to the 3.0e graduated cover model. The design decision is explicitly documented in the geometric engine research and the WO-002 completion report.
 
 ---
 
@@ -762,8 +766,8 @@ CODE: `(9, 12): (CoverDegree.THREE_QUARTERS_COVER, 5, 2)`
 RULE SOURCE: SRD Combat: Cover — standard cover: +4 AC, +2 Reflex; improved cover: +8 AC, +4 Reflex
 EXPECTED: SRD does not define "three-quarters cover" as a category. Closest matches: standard cover (+4 AC, +2 Ref) or improved cover (+8 AC, +4 Ref).
 ACTUAL: ac=5, ref=2
-VERDICT: WRONG
-NOTES: **BUG-10 CONTINUED.** The +5 AC / +2 Reflex values for "three-quarters cover" don't match any SRD cover category. The SRD defines: (1) Cover: +4 AC, +2 Reflex. (2) Improved Cover: +8 AC, +4 Reflex. There is no +5/+2 or +7/+3 category in the SRD. The task description stated "Half cover = +4 AC/+2 Ref; Three-quarters = +7 AC/+3 Ref" but even those values (+7/+3) don't match the SRD. The SRD cover system is binary (cover or improved cover), not a gradient. The code's interpolated values are homebrew. Should implement: cover = +4 AC, +2 Ref and improved cover = +8 AC, +4 Ref, with the line-count thresholds determining which category applies.
+VERDICT: AMBIGUOUS
+NOTES: **RECLASSIFIED (re-verification): WRONG→AMBIGUOUS.** The +5 AC / +2 Reflex values for "three-quarters cover" don't match any SRD cover category. The SRD defines: (1) Cover: +4 AC, +2 Reflex. (2) Improved Cover: +8 AC, +4 Reflex. However, this is a documented design decision in RQ-BOX-001 Finding 3, which intentionally creates a four-tier graduated cover system based on corner-to-corner line blocking ratios. The three-quarters tier (+5/+2) is an intentional interpolation between standard cover and improved cover. Same design rationale as the half cover entry above. This divergence from SRD is documented in the geometric engine research and WO-002 completion report.
 
 ---
 
@@ -815,12 +819,11 @@ All WRONG verdicts consolidated:
 - **Actual:** `max(0, ...)`
 - **Impact:** Same as BUG-8 but for non-critical hits
 
-### BUG-10: Cover AC and Reflex bonus values don't match SRD (2 thresholds)
+### BUG-10: RECLASSIFIED TO AMBIGUOUS — Cover values are documented design decision
 - **Locations:** cover_resolver.py:97-98
-- **SRD Rule:** Cover = +4 AC, +2 Reflex. Improved Cover = +8 AC, +4 Reflex. SRD has no "half cover" (+2/+1) or "three-quarters cover" (+5/+2).
-- **Expected:** HALF_COVER -> +4 AC, +2 Ref. THREE_QUARTERS_COVER -> +8 AC, +4 Ref (treated as improved cover) OR collapse to two-tier system matching SRD.
-- **Actual:** HALF_COVER = +2 AC, +1 Ref. THREE_QUARTERS_COVER = +5 AC, +2 Ref.
-- **Impact:** Defenders receive less cover protection than SRD mandates. Half cover gives half the correct AC bonus. Three-quarters cover gives a non-SRD interpolated value.
+- **SRD Rule:** Cover = +4 AC, +2 Reflex. Improved Cover = +8 AC, +4 Reflex.
+- **Code:** HALF_COVER = +2 AC, +1 Ref. THREE_QUARTERS_COVER = +5 AC, +2 Ref.
+- **Re-verification finding:** These values are documented in RQ-BOX-001 Finding 3 as an intentional four-tier graduated cover system. The research wave intentionally adopted a more granular model than the SRD's binary system. Reclassified from WRONG to AMBIGUOUS — this is a design decision, not a bug.
 
 ### Cross-domain bugs confirmed to propagate into Domain A
 
@@ -887,8 +890,8 @@ All WRONG verdicts consolidated:
 | Category | Count |
 |----------|-------|
 | CORRECT | 38 |
-| WRONG | 7 |
-| AMBIGUOUS | 4 |
+| WRONG | 5 |
+| AMBIGUOUS | 6 |
 | UNCITED | 4 |
 | **TOTAL** | **53** |
 
@@ -900,7 +903,7 @@ All WRONG verdicts consolidated:
 | BUG-2 (no early break) | MEDIUM — functional issue for AI combat, no rule violation per se | LOW — add HP check in loop |
 | BUG-8 (min damage crit) | LOW — edge case when attacker has significant penalties | TRIVIAL — change max(0,...) to max(1,...) |
 | BUG-9 (min damage non-crit) | LOW — same edge case as BUG-8 | TRIVIAL — change max(0,...) to max(1,...) |
-| BUG-10 (cover values) | HIGH — cover bonuses consistently wrong for all covered targets | MEDIUM — redesign cover tier system to match SRD |
+| BUG-10 (cover values) | ~~HIGH~~ RECLASSIFIED to AMBIGUOUS — documented design decision (RQ-BOX-001) | N/A — design choice |
 
 ### Domain D Cross-References
 
