@@ -641,3 +641,38 @@ def test_dismount_intent_rejects_empty_rider():
     """Tier 2: DismountIntent rejects empty rider_id."""
     with pytest.raises(ValueError, match="rider_id cannot be empty"):
         DismountIntent(rider_id="")
+
+
+# ==============================================================================
+# WO-FIX-10: E-BUG-03 — SIZE_ORDER complete with all 9 SRD sizes
+# ==============================================================================
+
+class TestSizeOrderComplete:
+    """SIZE_ORDER must include all 9 SRD size categories."""
+
+    def test_colossal_in_size_order_returns_8(self):
+        """Colossal is the largest size, index 8."""
+        from aidm.core.mounted_combat import SIZE_ORDER
+        assert SIZE_ORDER["colossal"] == 8
+
+    def test_fine_in_size_order_returns_0(self):
+        """Fine is the smallest size, index 0."""
+        from aidm.core.mounted_combat import SIZE_ORDER
+        assert SIZE_ORDER["fine"] == 0
+
+    def test_diminutive_in_size_order_returns_1(self):
+        """Diminutive is index 1."""
+        from aidm.core.mounted_combat import SIZE_ORDER
+        assert SIZE_ORDER["diminutive"] == 1
+
+    def test_size_order_has_9_entries(self):
+        """SIZE_ORDER should have exactly 9 entries (all SRD sizes)."""
+        from aidm.core.mounted_combat import SIZE_ORDER
+        assert len(SIZE_ORDER) == 9
+
+    def test_size_order_monotonic(self):
+        """SIZE_ORDER values should be strictly increasing from fine to colossal."""
+        from aidm.core.mounted_combat import SIZE_ORDER
+        expected = ["fine", "diminutive", "tiny", "small", "medium", "large", "huge", "gargantuan", "colossal"]
+        for i in range(len(expected) - 1):
+            assert SIZE_ORDER[expected[i]] < SIZE_ORDER[expected[i + 1]]

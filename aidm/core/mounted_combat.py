@@ -664,7 +664,10 @@ def handle_mounted_condition_change(
 # ============================================================================
 
 # Size ordering for higher ground comparison
-SIZE_ORDER = {"tiny": 0, "small": 1, "medium": 2, "large": 3, "huge": 4, "gargantuan": 5}
+SIZE_ORDER = {
+    "fine": 0, "diminutive": 1, "tiny": 2, "small": 3,
+    "medium": 4, "large": 5, "huge": 6, "gargantuan": 7, "colossal": 8
+}
 
 
 def get_mounted_attack_bonus(
@@ -710,8 +713,8 @@ def get_mounted_attack_bonus(
     mount_size = mount.get(EF.MOUNT_SIZE, "large")  # Default horse is Large
     target_size = target.get("size", "medium")      # Default humanoid is Medium
 
-    mount_size_val = SIZE_ORDER.get(mount_size.lower(), 2)
-    target_size_val = SIZE_ORDER.get(target_size.lower(), 2)
+    mount_size_val = SIZE_ORDER.get(mount_size.lower(), 4)
+    target_size_val = SIZE_ORDER.get(target_size.lower(), 4)
 
     if mount_size_val > target_size_val:
         return 1  # +1 higher ground bonus
