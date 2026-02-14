@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (friction memo verdicted — filed as BURST-004)
+**Last updated:** 2026-02-14 (idle notification verdicted, session artifacts archived)
 
 ---
 
@@ -22,15 +22,12 @@
 
 ## Needs PM to Draft WOs (no dispatch docs exist yet)
 
-- [ ] **Governance CE WOs** — PM decisions delivered (in reviewed/WO_SET_PM_CONTEXT_EFFICIENCY.md) but no individual dispatch docs drafted. 6 items.
-- [ ] **[MEMO_IDLE_NOTIFICATION_FORGE_QUIET]** — Add Rule 22 to Standing Ops: idle agents play "Thunder, the forge is quiet" via speak.py. Uses existing Arbor voice infra. Zero code changes, 1 rule addition. PM verdict needed.
+- [ ] **Governance CE WOs + Rule 22** — PM decisions delivered (in reviewed/WO_SET_PM_CONTEXT_EFFICIENCY.md). 6 CE items + Rule 22 idle notification ("forge is quiet"). Bundle into one governance builder session. No individual dispatch docs drafted yet.
 
 ## Active Operational Files
 
 - `BURST_INTAKE_QUEUE.md` — BURST-001 thru 004 (1 READY, 2 NOT STARTED, 1 PARTIAL)
 - `WO-RESEARCH-SPRINT-001_DISPATCH.md` — 11 RQs, PM reviewed. Wave 1 ready for Operator dispatch.
-- `HANDOFF_DISPATCH_GAP_AND_RELAY_CONVENTION.md` — Session handoff for next builder.
-- `MEMO_DISPATCH_GAP_AND_RELAY_SESSION.md` — Session debrief. No action items (all verdicted). Retrospective included.
 
 ## Persistent Files
 
