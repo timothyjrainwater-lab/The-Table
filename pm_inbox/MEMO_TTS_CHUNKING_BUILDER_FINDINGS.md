@@ -32,3 +32,15 @@ Previously: each chunk was a separate `speak()` call with potential gaps between
 ## Retrospective
 
 Builder executed cleanly within WO scope, flagged 4 items without over-stepping. The `_concatenate_wav` duplication is the highest-signal item — it's the kind of silent drift that compounds. The oversized sentence issue is real but unlikely in practice (D&D narration text is typically well-punctuated).
+
+## Builder Process Feedback (Second Pass)
+
+### What the builder validated:
+- **WO "Binary Decisions" section** eliminates the biggest builder time sink (ambiguity). Decision #5 ("Does speak.py keep its chunker? No.") and Decision #6 ("Build it anyway — streaming is not guaranteed") each prevented a round-trip clarification. Builder called this "the best-structured dispatch I've worked from."
+- **"Files NOT to Change" section** is an effective scope guardrail — keep in every WO template.
+- **Adapter pattern** (Kokoro/Chatterbox) is consistent enough that "same pattern as Change 2" was actually executable.
+- **Test infrastructure** (mock fixtures, skip markers, unit/integration split) required zero scaffolding work.
+
+### One additional finding:
+
+**5. tests/immersion/ vs tests/ split inconsistency.** TTS tests are split between `tests/immersion/test_kokoro_tts.py` and root-level `tests/test_speak_signal.py`. The speak signal tests now import from `aidm.immersion.tts_chunking` but live outside the immersion test directory. Minor — but as immersion-layer tests grow, a consistent home reduces hunting. Candidate for a future cleanup pass alongside finding #4.
