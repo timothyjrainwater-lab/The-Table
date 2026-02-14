@@ -108,7 +108,8 @@ Stoplight: **YELLOW — All fix WOs COMPLETE, 7 AMBIGUOUS Operator decisions pen
 - `pm_inbox/FIX_WO_DISPATCH_PACKET.md` — full dispatch packet with all 13 WOs
 
 **OPEN QUESTION (Operator decisions still pending):**
-- 7 AMBIGUOUS verdicts need Operator decision (see AMBIGUOUS_VERDICTS_DECISION_LOG.md)
+- ALL 7 AMBIGUOUS verdicts RESOLVED by Operator (2026-02-14). 4 KEEP, 3 FIX-SRD.
+- 3 FIX-SRD items need code changes: B-AMB-02/H-AMB-01 (initiator wins ties), B-AMB-04 (disarm weapon mods), E-AMB-03 (5ft step threshold >= 2). WO drafted: `pm_inbox/WO-AMBFIX-001_DISPATCH.md`.
 
 **Lessons learned (fix phase):**
 - 3 of 7 builder agents reported completion without persisting code changes. Operator caught during commit review. **Mitigation:** `git diff <target_files>` verification step in WO completion protocol.
@@ -180,7 +181,8 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - [x] WO-FIX-11 — COMMITTED (fcf712e)
 - [x] WO-FIX-12 F2/F3 — COMMITTED (b52d8d8)
 - [x] Test isolation fixed (f581d44)
-- [ ] Operator reviews and approves 7 AMBIGUOUS decisions
+- [x] Operator reviews and approves 7 AMBIGUOUS decisions (4 KEEP, 3 FIX-SRD)
+- [ ] 3 FIX-SRD micro-fixes dispatched and committed (WO-AMBFIX-001)
 - [ ] PSD updated to reflect fix phase completion
 - [ ] RED block lifted by Operator
 
@@ -192,7 +194,7 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - All playtesting — BLOCKED
 - WO_SET_METHODOLOGY_REFINEMENT (6 governance WOs, commit f1013ba) — BLOCKED
 
-**PM posture:** ACTIVE. Fix phase code COMPLETE. Tests GREEN. **Remaining gate items:** (1) 7 AMBIGUOUS Operator decisions, (2) PSD update, (3) RED block lift by Operator.
+**PM posture:** ACTIVE. Fix phase code COMPLETE. Tests GREEN. **Remaining gate items:** (1) WO-AMBFIX-001 dispatch (3 FIX-SRD code changes), (2) PSD update, (3) RED block lift by Operator.
 
 **Post-fix forward path (PM-assessed, see `pm_inbox/MEMO_POST_FIX_PHASE_ACTION_PLAN.md`):**
 - Wave 1 (immediate, parallel-safe): P1-A sunder grip multiplier, P1-C register narration marker, P1-D fix TestPerformance tests. All micro-WOs.

@@ -10,11 +10,13 @@
 
 ## Requires Operator Action
 
-- [ ] **7 AMBIGUOUS verdicts** — see `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md`. Completion gate item.
+- [x] **7 AMBIGUOUS verdicts** — ALL RESOLVED (4 KEEP, 3 FIX-SRD). Recorded in decision log.
 - [ ] **XP table spot-check (P1-B)** — Operator verifies 5+ cells from levels 14-20 against physical DMG Table 2-6 (p.38).
+- [ ] **Dispatch WO-AMBFIX-001** — 3 FIX-SRD code changes (opposed ties, disarm mods, 5ft step threshold). Ready for builder dispatch.
 
 ## Awaiting Dispatch (Builder WOs — Ready)
 
+- [ ] **[WO-AMBFIX-001_DISPATCH]** 3 FIX-SRD micro-fixes from AMBIGUOUS decisions — READY, completion gate item
 - [ ] **[WO_SET_METHODOLOGY_REFINEMENT]** 6 governance WOs (GOV-01–06) — recommend Wave 1: GOV-01/02/03 in parallel. BLOCKED behind RED block lift.
 - [ ] **[WO-BUGFIX-TIER0-001_DISPATCH]** 4 HIGH correctness bugs from Action Economy Audit — ready for dispatch after RED block lift.
 

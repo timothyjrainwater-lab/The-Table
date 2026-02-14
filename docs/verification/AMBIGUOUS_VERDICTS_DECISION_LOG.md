@@ -32,7 +32,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — accept over-restriction until action economy system (CP-17+) adds move-action-only support
   - `FIX-SRD` — add `move_action_only` field to ConditionModifiers, set Nauseated to use it
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### D-AMB-02: Paralyzed — ac_modifier=-4 (same as Helpless, melee/ranged issue)
 - **Formula:** D-conditions-schema-504
@@ -58,7 +58,7 @@ For each AMBIGUOUS verdict:
   - `FIX-SRD` — change to `loses_dex_to_ac=True` (contextual, only vs non-grappling opponents)
   - `FIX-PF` — keep `-4 Dex` as current code (simpler, handles the common case)
   - `KEEP` — same as FIX-PF, document as intentional Pathfinder adoption
-- **DECISION:** ____________
+- **DECISION:** KEEP (Operator: PF -4 Dex is softer and more balanced, especially for higher-level play)
 
 ### D-AMB-05: Grappled — negative Dex modifier impact on AC
 - **Formula:** D-UNCITED-06
@@ -78,7 +78,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — accept HP <= 0 as "out of fight" simplification for current tier
   - `FIX-SRD` — implement three-state HP system (disabled/dying/dead) — significant architectural change
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### A-AMB-02: Flanking angle threshold (135 degrees)
 - **Formula:** A-flanking-49
@@ -88,7 +88,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — 135 degrees is the standard VTT interpretation
   - `FIX-SRD` — implement exact "line through center" test (more complex, marginal accuracy improvement)
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### A-AMB-03: Chebyshev distance for reach
 - **Formula:** A-reach-116-118
@@ -98,7 +98,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — Chebyshev is the standard digital implementation for reach
   - `FIX-SRD` — use 5-10-5-10 distance for reach checks (inconsistent with most VTTs)
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### A-AMB-04: Critical damage multiplication vs re-rolling
 - **Formula:** A-attack-resolver-369
@@ -108,7 +108,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — multiplication is the universal digital standard
   - `FIX-SRD` — re-roll dice (more variance, matches physical play exactly)
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### A-AMB-05: Cover AC bonus values (reclassified from WRONG — BUG-10)
 - **Formula:** A-cover-resolver-97-98
@@ -119,7 +119,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — 4-tier graduated cover is the documented design decision from RQ-BOX-001
   - `FIX-SRD` — collapse to SRD 2-tier: standard (+4/+2) and improved (+8/+4)
-- **DECISION:** ____________
+- **DECISION:** KEEP (Operator: 4-tier graduated cover enhances tactical depth, intentional design per RQ-BOX-001)
 
 ### A-AMB-06: Cover Reflex bonus values (reclassified from WRONG — BUG-10 cascade)
 - **Formula:** A-cover-resolver-97-98 (Reflex component)
@@ -139,7 +139,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — simplified Touch AC is acceptable for current tier (most entities don't have these bonuses)
   - `FIX-SRD` — add all applicable bonus types to Touch AC calculation
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### B-AMB-02: Opposed check tie-breaking (ties to defender)
 - **Formula:** B-MR-131
@@ -150,7 +150,7 @@ For each AMBIGUOUS verdict:
   - `KEEP` — defender-wins-ties is simpler, avoids re-roll loops
   - `FIX-SRD` — implement two-step tie-break (compare modifiers, then re-roll)
   - `FIX-PF` — convert to CMD-based system (major rework)
-- **DECISION:** ____________
+- **DECISION:** FIX-SRD (Operator: initiator wins ties promotes active gameplay, aligns with RAW. Change defender-wins to initiator-wins.)
 
 ### B-AMB-03: Bull rush failure — no occupied-square prone check
 - **Formula:** B-MR-370
@@ -160,7 +160,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — simplified, no occupied-square tracking for bull rush failure
   - `FIX-SRD` — add occupied-square check on bull rush failure
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 *Note: B-AMB-4/5/6 from domain file (disarm weapon type modifiers, overrun charge bonus) are counted in the checklist's 3 AMBIGUOUS. The domain file listed 6 entries but B-AMB-4 and B-AMB-5 are the same issue (attacker/defender sides of disarm).*
 
@@ -172,7 +172,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — simplified, consistent with Pathfinder approach
   - `FIX-SRD` — add weapon type modifiers to disarm
-- **DECISION:** ____________
+- **DECISION:** FIX-SRD (Operator: weapon size/type modifiers add tactical depth to disarm. Implement +4 two-handed, -4 light per SRD.)
 
 ### B-AMB-05: Overrun charge bonus (+2)
 - **Formula:** B-MR-797
@@ -182,7 +182,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — reasonable interpretation, grants charge bonus to overrun
   - `FIX-SRD` — remove overrun charge bonus (SRD doesn't explicitly grant it)
-- **DECISION:** ____________
+- **DECISION:** KEEP (Operator: overrun benefits from charge bonus for consistency with bull rush)
 
 ---
 
@@ -196,7 +196,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — 4-tier threshold mapping is a reasonable geometric interpretation
   - `CUSTOM` — define different threshold boundaries
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### C-AMB-02: Cover Reflex save bonus values (reclassified from BUG-C-001/003)
 - **Formula:** C-SAVE-COVER (Reflex component)
@@ -219,7 +219,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — accept as simplification (code comments say "DEGRADED")
   - `FIX-SRD` — implement DC 15 check + nonlethal conversion for first die
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### E-AMB-02: Bareback saddle — unconscious rider stay chance
 - **Formula:** E-MC-05
@@ -228,7 +228,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — 50% for bareback (SRD doesn't specify a lower value)
   - `CUSTOM` — lower percentage for bareback (e.g., 25%)
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### E-AMB-03: 5-foot step in difficult terrain — threshold >= 4 vs >= 2
 - **Formula:** E-TR-14
@@ -238,7 +238,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `FIX-SRD` — change threshold from >= 4 to >= 2
   - `KEEP` — document as intentional house rule (allows tactical movement in moderate terrain)
-- **DECISION:** ____________
+- **DECISION:** FIX-SRD (Operator: SRD rule prevents infinite kiting, maintains strategic importance of difficult terrain. Change threshold from >= 4 to >= 2.)
 
 ---
 
@@ -252,7 +252,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — 4/N scaling is a valid interpretation of the DMG guidance
   - `FIX-SRD` — change to total-pool division
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### F-AMB-02: Multiclass penalty minimum 0
 - **Formula:** F-EXP-117
@@ -261,7 +261,7 @@ For each AMBIGUOUS verdict:
 - **Impact:** Edge case only — 5 unbalanced classes would hit 0%. Clamping is defensive.
 - **Options:**
   - `KEEP` — defensive clamping is correct behavior
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### F-AMB-03: STR 30+ encumbrance formula (integer arithmetic)
 - **Formula:** F-ENC-89
@@ -270,7 +270,7 @@ For each AMBIGUOUS verdict:
 - **Impact:** Code produces correct results but relies on Python integer division behavior
 - **Options:**
   - `KEEP` — mathematically correct, standard implementation
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ---
 
@@ -285,7 +285,7 @@ For each AMBIGUOUS verdict:
   - `KEEP` — deterministic tie-breaking is acceptable for a simulation engine
   - `FIX-SRD` — use total initiative modifier for step 1, re-roll for step 2
   - `CUSTOM` — use total initiative modifier for step 1, keep actor_id for step 2
-- **DECISION:** ____________
+- **DECISION:** KEEP (Operator: deterministic tiebreaker is efficient and consistent for simulation engine)
 
 ### G-AMB-02: Round tracking convention (0-indexed vs 1-indexed)
 - **Formula:** G-PLAY-ROUND
@@ -294,7 +294,7 @@ For each AMBIGUOUS verdict:
 - **Impact:** Not a rules violation. Risk of off-by-one if systems are combined without conversion.
 - **Options:**
   - `KEEP` — document the convention, no code change needed
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ---
 
@@ -308,7 +308,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — simpler, avoids re-roll loops (same decision as B-AMB-02)
   - `FIX-SRD` — two-step tie-break with re-roll
-- **DECISION:** ____________
+- **DECISION:** FIX-SRD (cascades from B-AMB-02 — initiator wins ties)
 
 ---
 
@@ -323,7 +323,7 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `KEEP` — accept as CP-20 design decision (simplified hazards)
   - `FIX-SRD` — implement 1d4 spikes x 1d6 each
-- **DECISION:** ____________
+- **DECISION:** KEEP (PM recommendation accepted)
 
 ### I-AMB-02: TWF penalties ignore heavy off-hand when feat is present
 - **Formula:** I-FEAT-386
@@ -334,48 +334,49 @@ For each AMBIGUOUS verdict:
 - **Options:**
   - `FIX-SRD` — use `has_light_offhand` parameter when TWF feat is present
   - `KEEP` — treat as simplification
-- **DECISION:** ____________
+- **DECISION:** FIX-SRD (already fixed in commit 1da6377 — WO-FIX-14)
 
 ---
 
 ## Quick Reference — All Decisions Needed
 
-| ID | Domain | Short Description | Recommended |
-|----|--------|-------------------|-------------|
-| D-AMB-01 | D | Nauseated blocks all actions | KEEP |
-| D-AMB-04 | D | Grappled: PF -4 Dex vs 3.5e loses-Dex | Operator choice |
-| A-AMB-01 | A | HP <= 0 defeated (no dying/disabled) | KEEP |
-| A-AMB-02 | A | Flanking 135 degrees | KEEP |
-| A-AMB-03 | A | Chebyshev reach | KEEP |
-| A-AMB-04 | A | Crit multiply vs re-roll | KEEP |
-| A-AMB-05 | A | Cover AC values (4-tier vs SRD 2-tier) | Operator choice |
-| A-AMB-06 | A | Cover Reflex values (cascade from A-AMB-05) | Cascade |
-| B-AMB-01 | B | Touch AC simplified | KEEP |
-| B-AMB-02 | B | Opposed ties to defender | Operator choice |
-| B-AMB-03 | B | Bull rush no occupied-square prone | KEEP |
-| B-AMB-04 | B | Disarm no weapon type mods | Operator choice |
-| B-AMB-05 | B | Overrun charge bonus | Operator choice |
-| C-AMB-01 | C | Cover tier thresholds | KEEP |
-| C-AMB-02 | C | Cover Reflex values (cascade from A-AMB-05) | Cascade |
-| E-AMB-01 | E | Intentional fall first 10ft free | KEEP |
-| E-AMB-02 | E | Bareback 50% stay | KEEP |
-| E-AMB-03 | E | 5ft step difficult terrain threshold | Operator choice |
-| F-AMB-01 | F | XP 4/N scaling | KEEP |
-| F-AMB-02 | F | Multiclass penalty min 0 | KEEP |
-| F-AMB-03 | F | STR 30+ encumbrance int math | KEEP |
-| G-AMB-01 | G | Init tiebreak Dex only + actor_id | Operator choice |
-| G-AMB-02 | G | Round tracking 0-index vs 1-index | KEEP |
-| H-AMB-01 | H | Opposed check active wins ties | Link to B-AMB-02 |
-| I-AMB-01 | I | Spiked pit 1d6 simplified | KEEP |
-| I-AMB-02 | I | TWF ignores heavy off-hand | FIX-SRD |
+| ID | Domain | Short Description | Recommended | Decision |
+|----|--------|-------------------|-------------|----------|
+| D-AMB-01 | D | Nauseated blocks all actions | KEEP | **KEEP** |
+| D-AMB-04 | D | Grappled: PF -4 Dex vs 3.5e loses-Dex | Operator choice | **KEEP** |
+| A-AMB-01 | A | HP <= 0 defeated (no dying/disabled) | KEEP | **KEEP** |
+| A-AMB-02 | A | Flanking 135 degrees | KEEP | **KEEP** |
+| A-AMB-03 | A | Chebyshev reach | KEEP | **KEEP** |
+| A-AMB-04 | A | Crit multiply vs re-roll | KEEP | **KEEP** |
+| A-AMB-05 | A | Cover AC values (4-tier vs SRD 2-tier) | Operator choice | **KEEP** |
+| A-AMB-06 | A | Cover Reflex values (cascade from A-AMB-05) | Cascade | **KEEP** (cascade) |
+| B-AMB-01 | B | Touch AC simplified | KEEP | **KEEP** |
+| B-AMB-02 | B | Opposed ties to defender | Operator choice | **FIX-SRD** |
+| B-AMB-03 | B | Bull rush no occupied-square prone | KEEP | **KEEP** |
+| B-AMB-04 | B | Disarm no weapon type mods | Operator choice | **FIX-SRD** |
+| B-AMB-05 | B | Overrun charge bonus | Operator choice | **KEEP** |
+| C-AMB-01 | C | Cover tier thresholds | KEEP | **KEEP** |
+| C-AMB-02 | C | Cover Reflex values (cascade from A-AMB-05) | Cascade | **KEEP** (cascade) |
+| E-AMB-01 | E | Intentional fall first 10ft free | KEEP | **KEEP** |
+| E-AMB-02 | E | Bareback 50% stay | KEEP | **KEEP** |
+| E-AMB-03 | E | 5ft step difficult terrain threshold | Operator choice | **FIX-SRD** |
+| F-AMB-01 | F | XP 4/N scaling | KEEP | **KEEP** |
+| F-AMB-02 | F | Multiclass penalty min 0 | KEEP | **KEEP** |
+| F-AMB-03 | F | STR 30+ encumbrance int math | KEEP | **KEEP** |
+| G-AMB-01 | G | Init tiebreak Dex only + actor_id | Operator choice | **KEEP** |
+| G-AMB-02 | G | Round tracking 0-index vs 1-index | KEEP | **KEEP** |
+| H-AMB-01 | H | Opposed check active wins ties | Link to B-AMB-02 | **FIX-SRD** (cascade) |
+| I-AMB-01 | I | Spiked pit 1d6 simplified | KEEP | **KEEP** |
+| I-AMB-02 | I | TWF ignores heavy off-hand | FIX-SRD | **FIX-SRD** (fixed) |
+
+**All decisions resolved.** 22 KEEP, 4 FIX-SRD (B-AMB-02/H-AMB-01, B-AMB-04, E-AMB-03, I-AMB-02). I-AMB-02 already fixed in 1da6377.
+
+**FIX-SRD items requiring code changes (3):**
+1. B-AMB-02/H-AMB-01: Change opposed check ties from defender-wins to initiator-wins
+2. B-AMB-04: Add weapon type modifiers to disarm (+4 two-handed, -4 light)
+3. E-AMB-03: Change 5-foot step difficult terrain threshold from >= 4 to >= 2
 
 **Auto-resolved (no operator input needed):** D-AMB-02, D-AMB-03, D-AMB-05, A-AMB-06, C-AMB-02, F-AMB-02, F-AMB-03, G-AMB-02
-
-**Operator decisions needed (7):** D-AMB-04, A-AMB-05 (cover design), B-AMB-02/H-AMB-01 (linked), B-AMB-04, B-AMB-05, E-AMB-03, G-AMB-01
-
-**PM recommends KEEP (12):** D-AMB-01, A-AMB-01, A-AMB-02, A-AMB-03, A-AMB-04, B-AMB-01, B-AMB-03, C-AMB-01, E-AMB-01, E-AMB-02, F-AMB-01, I-AMB-01
-
-**PM recommends FIX-SRD (1):** I-AMB-02 (TWF off-hand — the parameter already exists, just needs to be used)
 
 ---
 
