@@ -121,6 +121,12 @@ class NarrationTemplates:
         "hp_changed": "{target} takes {damage} damage.",
         "damage_applied": "{target} suffers {damage} damage.",
 
+        # ── Spell outcomes ──────────────────────────────────────────
+        "spell_damage_dealt": "{actor}'s spell strikes {target}, dealing {damage} damage.",
+        "spell_no_effect": "{actor}'s spell fizzles against {target}.",
+        "spell_cast_success": "{actor} casts a spell.",
+        "spell_resisted": "{target} resists {actor}'s spell!",
+
         # ── Combat lifecycle ─────────────────────────────────────────
         "combat_started": "Combat begins! All combatants roll for initiative.",
         "combat_round_started": "A new round of combat begins.",
