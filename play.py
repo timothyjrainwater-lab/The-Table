@@ -71,10 +71,10 @@ _MOVE_VERBS = {"move", "go", "walk", "run", "step"}
 _ACTION_COST = {
     "attack":       "standard",
     "cast":         "standard",      # most spells are standard action
-    "trip":         "standard",
+    "trip":         "varies",        # PHB: can substitute for a melee attack
     "bull_rush":    "standard",      # actually full-round in RAW, simplified
-    "disarm":       "standard",
-    "grapple":      "standard",
+    "disarm":       "varies",        # PHB: can substitute for a melee attack
+    "grapple":      "varies",        # PHB: can substitute for a melee attack
     "sunder":       "standard",
     "overrun":      "standard",      # actually part of a charge/move in RAW
     "full_attack":  "full_round",
@@ -99,7 +99,8 @@ class ActionBudget:
         """Check if the actor can afford this action cost."""
         if cost == "free" or cost == "end":
             return True
-        if cost == "standard":
+        if cost == "standard" or cost == "varies":
+            # TODO: "varies" should also allow substitution for a melee attack in full attack
             if self.used_full_round:
                 return False
             return self.has_standard
@@ -122,7 +123,7 @@ class ActionBudget:
         """Consume the action slot for this cost."""
         if cost == "free" or cost == "end":
             return
-        if cost == "standard":
+        if cost == "standard" or cost == "varies":
             self.has_standard = False
         elif cost == "move":
             if self.has_move:
@@ -163,7 +164,7 @@ class ActionBudget:
 
     def denial_reason(self, cost: str) -> str:
         """Explain why an action can't be taken."""
-        if cost == "standard":
+        if cost == "standard" or cost == "varies":
             if self.used_full_round:
                 return "You already used a full-round action this turn."
             return "You already used your standard action this turn."

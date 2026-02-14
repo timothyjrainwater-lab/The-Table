@@ -1302,6 +1302,35 @@ class TestActionBudget:
         reason = b.denial_reason("full_round")
         assert "moved" in reason.lower() or "move" in reason.lower()
 
+    # WO-FIX-11: Trip/Disarm/Grapple action type = "varies"
+
+    def test_trip_action_type_is_varies(self):
+        from play import _ACTION_COST
+        assert _ACTION_COST["trip"] == "varies"
+
+    def test_disarm_action_type_is_varies(self):
+        from play import _ACTION_COST
+        assert _ACTION_COST["disarm"] == "varies"
+
+    def test_grapple_action_type_is_varies(self):
+        from play import _ACTION_COST
+        assert _ACTION_COST["grapple"] == "varies"
+
+    def test_varies_action_uses_standard(self):
+        """'varies' actions consume the standard action slot."""
+        from play import ActionBudget
+        b = ActionBudget()
+        assert b.can_take("varies")
+        b.spend("varies")
+        assert b.has_standard is False
+        assert not b.can_take("varies")
+
+    def test_varies_not_available_after_full_round(self):
+        from play import ActionBudget
+        b = ActionBudget()
+        b.spend("full_round")
+        assert not b.can_take("varies")
+
 
 class TestActionEconomyCLI:
     """Integration tests for action economy in the CLI game loop."""
