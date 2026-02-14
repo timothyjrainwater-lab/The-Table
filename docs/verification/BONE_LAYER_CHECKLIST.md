@@ -16,10 +16,10 @@
 | C | Saves & Spells | 2 | 21 | 21 | 15 | 3 | 1 | 2 | COMPLETE |
 | G | Initiative & Turn | 3 | 10 | 10 | 6 | 2 | 2 | 0 | COMPLETE |
 | E | Movement & Terrain | 5 | 34 | 34 | 24 | 3 | 3 | 4 | COMPLETE |
-| F | Char Progression | 4 | 77 | 77 | 68 | 5 | 3 | 1 | COMPLETE |
+| F | Char Progression | 5 | 77 | 77 | 68 | 5 | 3 | 1 | COMPLETE |
 | H | Skill System | 1 | 6 | 6 | 4 | 0 | 1 | 1 | COMPLETE |
 | I | Geometry & Size | 10 | 49 | 49 | 40 | 1 | 2 | 6 | COMPLETE |
-| **TOTAL** | | **38** | **334** | **334** | **251** | **34** | **24** | **25** | **ALL DOMAINS COMPLETE** |
+| **TOTAL** | | **39** | **334** | **334** | **251** | **34** | **24** | **25** | **ALL DOMAINS COMPLETE** |
 
 ---
 
