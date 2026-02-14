@@ -1,61 +1,57 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (WO-SMOKE-TEST-002 redelivered. 4/4 fixes confirmed, 7 exploratory scenarios exercised, 3 findings.)
+**Last updated:** 2026-02-14 (WO-CONDITION-EXTRACTION-FIX delivered. Smoke test now 44/44 PASS. Condition extraction bug resolved.)
 
 ---
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,526 unit tests pass. Smoke test 002 passes 43/44 stages. 4/4 prior fixes confirmed in running system. Melee, multi-target, condition, self-buff, healing, dead-target-edge, and sequential-combat paths exercised. **The building stands up, and the plumbing works.**
+5,528 unit tests pass. Smoke test 002 passes 44/44 stages. 4/4 prior fixes confirmed. Condition extraction fix resolves last failing stage. **The building stands up, and the plumbing works.**
 
-## Smoke Test Results (WO-SMOKE-TEST-002, commit pending)
+## Smoke Test Results (post WO-CONDITION-EXTRACTION-FIX)
 
-**43/44 stages PASS.** Regression 14/14 PASS. Gap verification 4/4 CONFIRMED. 7 exploratory scenarios exercised. Commit `3af90d3`.
+**44/44 stages PASS.** Regression 14/14 PASS. Gap verification 4/4 CONFIRMED. 7 exploratory scenarios PASS. D6 (condition extraction) now PASS.
 
 | Section | Result |
 |---|---|
 | Regression (14 original stages) | 14/14 PASS |
 | Gap verification (4 fixes) | 4/4 CONFIRMED |
-| Scenario B: Melee attack | PASS — fighter hits goblin, damage_type=slashing, entity names resolved |
-| Scenario C: Multi-target fireball | PASS — 3 goblins hit, additional_targets captured in NarrativeBrief |
-| Scenario D: Hold Person + NarrationValidator | PASS (43/44) — condition applied, validator invoked |
-| Scenario E: Self-buff (Shield) | PASS — spell_buff_applied, SELF target, no crash |
-| Scenario F: Healing (Cure Light Wounds) | PASS — spell_healed, positive hp_changed delta |
-| Scenario G: Spell on dead entity | PASS — AoE resolves on defeated entity (finding: no filter) |
-| Scenario H: Sequential combat | PASS — melee then spell, state accumulates, validator PASS |
+| Scenario B: Melee attack | PASS |
+| Scenario C: Multi-target fireball | PASS |
+| Scenario D: Hold Person + NarrationValidator | PASS (44/44) — condition extracted, validator invoked |
+| Scenario E: Self-buff (Shield) | PASS |
+| Scenario F: Healing (Cure Light Wounds) | PASS |
+| Scenario G: Spell on dead entity | PASS |
+| Scenario H: Sequential combat | PASS |
 
-**New findings (3):**
+**Remaining findings (2):**
 
-1. **NarrativeBrief condition extraction bug** — `narrative_brief.py:537-547`. Assembler checks `payload.get("condition_type")` but play_loop emits `payload["condition"]`. Same issue for target: assembler checks `target_id`, event uses `entity_id`. Pure-debuff spells get `condition_applied=None` and `target_name=None`. ~4 line fix.
-2. **Multi-target template gap** — Template narration references primary target only. `additional_targets` data is in the brief but templates don't use it. Design boundary, not bug.
-3. **AoE hits defeated entities** — Fireball at dead goblin's position still deals damage (HP goes further negative). Spell resolver does not filter defeated entities from AoE targets. Low severity.
-
-**NarrationValidator status:** INVOKED in Scenarios D and H. Returned PASS with 0 violations on template-generated narration. The validator is importable and callable — no longer "NOT TESTED."
+1. ~~**NarrativeBrief condition extraction bug**~~ — **FIXED** by WO-CONDITION-EXTRACTION-FIX
+2. **Multi-target template gap** — Design boundary, not bug. Templates reference primary target only.
+3. **AoE hits defeated entities** — Low severity. Spell resolver does not filter defeated entities from AoE targets.
 
 ## WO Verdicts This Session
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-SMOKE-TEST-002 | **DELIVERED** | `3af90d3` |
+| WO-CONDITION-EXTRACTION-FIX | **DELIVERED** | `acdf410` |
+| WO-SMOKE-TEST-002 | **ACCEPTED** | `84301f3` |
 | WO-SMOKE-TEST-001 | **ACCEPTED** | `d0d9dc2` |
 | WO-SPELL-NARRATION-POLISH | **ACCEPTED** | `2b2a47b` |
 | WO-CONTENT-ID-POPULATION | **ACCEPTED** | `532ae16` |
 | WO-FRAMEWORK-UPDATE-001 | **ACCEPTED** | `d62b37a` (pushed to framework repo) |
 | WO-FRAMEWORK-UPDATE-002 | **ACKNOWLEDGED** — not PM-drafted, Operator-executed | `aaecfef` (PR #1) |
 
-## Requires PM Decision
-
-1. **Spark LLM Selection — what model goes in the chair?** — [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md)
-   Architecture assumes an LLM in the Spark cage. No model has been selected. Blocks vertical slice completion. API vs local vs hybrid? Model size? Offline requirement? PM to decide.
-
 ## Requires Operator Action (NOW)
 
-1. **Review WO-SMOKE-TEST-002 debrief** — [DEBRIEF_WO-SMOKE-TEST-002.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-002.md)
-   43/44 PASS. 4/4 fixes confirmed. 7 exploratory scenarios, 3 findings. PM to decide if findings warrant follow-up WOs.
+1. **Review WO-CONDITION-EXTRACTION-FIX debrief** — [DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md](pm_inbox/DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md)
+   44/44 smoke test PASS. Condition extraction bug fixed. 2 new tests. PM to accept.
 
-2. **NarrativeBrief condition extraction fix** — ~4 lines in `aidm/lens/narrative_brief.py`. Condition-applying spells (Hold Person, Slow, etc.) produce empty brief fields. Should be a targeted fix WO.
+2. **Decision: AoE defeated-entity filter** — Low severity
+   Smoke test Finding 3: AoE spells damage already-defeated entities (HP goes further negative). Rules-incorrect but no crash. Draft fix WO or park?
 
-3. **AoE defeated-entity filter** — `aidm/core/spell_resolver.py`. AoE spells do not skip defeated entities. Low severity but rules-incorrect. Could be bundled with condition extraction fix.
+3. **Spark LLM Selection** — H2 blocker, parked
+   [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — What model goes in the Spark cage? Blocks vertical slice. Not blocking current integration work.
 
 ## PM Action Queue — CLEARED
 
@@ -85,12 +81,15 @@ All 4 items from previous queue resolved:
 - WO-COMPILE-VALIDATE-001 — CT-001–007 + content_id emission + contraindications (`fb05aef`)
 - WO-NARRATION-VALIDATOR-001 — P0 negative rules + narration persistence (`2d923ed`)
 - **WO-SMOKE-TEST-001** — End-to-end integration demo, 14/14 PASS (`d0d9dc2`)
-- **WO-SMOKE-TEST-002** — Post-fix regression + 7 exploratory scenarios, 43/44 PASS, 4/4 fixes confirmed
+- **WO-SMOKE-TEST-002** — Post-fix regression + 7 exploratory scenarios, 43/44→44/44 PASS
+- **WO-CONDITION-EXTRACTION-FIX** — Condition event key alignment, 44/44 PASS
 
 ## Active Operational Files
 
+- [DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md](pm_inbox/DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md) — DELIVERED, awaiting PM review
+- [WO-CONDITION-EXTRACTION-FIX_DISPATCH.md](pm_inbox/WO-CONDITION-EXTRACTION-FIX_DISPATCH.md) — DELIVERED
 - [WO-SMOKE-TEST-002_DISPATCH.md](pm_inbox/WO-SMOKE-TEST-002_DISPATCH.md) — DELIVERED
-- [DEBRIEF_WO-SMOKE-TEST-002.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-002.md) — DELIVERED, awaiting PM review
+- [DEBRIEF_WO-SMOKE-TEST-002.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-002.md) — PM REVIEWED, ACCEPTED
 - [WO-CONTENT-ID-POPULATION_DISPATCH.md](pm_inbox/WO-CONTENT-ID-POPULATION_DISPATCH.md) — DELIVERED
 - [DEBRIEF_WO-CONTENT-ID-POPULATION.md](pm_inbox/DEBRIEF_WO-CONTENT-ID-POPULATION.md) — PM REVIEWED, ACCEPTED
 - [WO-SPELL-NARRATION-POLISH_DISPATCH.md](pm_inbox/WO-SPELL-NARRATION-POLISH_DISPATCH.md) — DELIVERED

@@ -538,17 +538,27 @@ def assemble_narrative_brief(
             target_id = (
                 event.get("target")
                 or payload.get("target_id")
+                or payload.get("entity_id")
                 or target_id
             )
             condition_applied = (
                 event.get("condition")
                 or payload.get("condition_type")
+                or payload.get("condition")
                 or condition_applied
             )
 
         elif event_type == "condition_removed":
-            target_id = payload.get("entity_id", target_id)
-            condition_removed = payload.get("condition_type", condition_removed)
+            target_id = (
+                payload.get("entity_id")
+                or payload.get("target_id")
+                or target_id
+            )
+            condition_removed = (
+                payload.get("condition_type")
+                or payload.get("condition")
+                or condition_removed
+            )
 
         # === SPELL EVENTS ===
         elif event_type == "spell_cast":

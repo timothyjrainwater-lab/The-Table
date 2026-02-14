@@ -869,6 +869,60 @@ class TestConditionEvents:
         assert "no longer" in brief.outcome_summary
         assert "prone" in brief.outcome_summary
 
+    def test_condition_applied_with_spell_style_keys(self, frozen):
+        """condition_applied with payload.entity_id + payload.condition (spell path).
+
+        WO-CONDITION-EXTRACTION-FIX: play_loop emits condition_applied events
+        with payload={"entity_id": ..., "condition": ...}. The assembler must
+        extract both fields via fallback chain.
+        """
+        events = [
+            {
+                "event_id": 602,
+                "type": "condition_applied",
+                "payload": {
+                    "entity_id": "goblin_1",
+                    "condition": "paralyzed",
+                    "source": "spell:hold_person",
+                },
+            },
+        ]
+        brief = assemble_narrative_brief(
+            events=events,
+            narration_token="condition_applied",
+            frozen_view=frozen,
+        )
+        assert brief.condition_applied == "paralyzed"
+        assert brief.target_name == "Goblin Warrior"
+        assert "paralyzed" in brief.outcome_summary
+
+    def test_condition_removed_with_spell_style_keys(self, frozen):
+        """condition_removed with payload.condition (spell/concentration path).
+
+        WO-CONDITION-EXTRACTION-FIX: play_loop emits condition_removed events
+        with payload={"entity_id": ..., "condition": ...} when concentration breaks.
+        """
+        events = [
+            {
+                "event_id": 603,
+                "type": "condition_removed",
+                "payload": {
+                    "entity_id": "fighter_1",
+                    "condition": "paralyzed",
+                    "reason": "concentration_broken",
+                },
+            },
+        ]
+        brief = assemble_narrative_brief(
+            events=events,
+            narration_token="condition_removed",
+            frozen_view=frozen,
+        )
+        assert brief.condition_removed == "paralyzed"
+        assert brief.target_name == "Aldric the Bold"
+        assert "no longer" in brief.outcome_summary
+        assert "paralyzed" in brief.outcome_summary
+
 
 # ══════════════════════════════════════════════════════════════════════════
 # CONCEALMENT & TARGETING TESTS
