@@ -164,12 +164,15 @@ Every completion packet follows this process:
 
 ---
 
-## Step 7: When in Doubt
+## Step 7: Dispatch Authority & When in Doubt
+
+**When the operator hands you a WO dispatch, execute it immediately.** The dispatch is your authorization. Do not ask "shall I proceed?" or "want me to run this?" — the operator transferring the WO is the go signal. Read the dispatch, understand the scope, and start working.
 
 | Situation | Action |
 |-----------|--------|
+| You received a WO dispatch from the operator | **Execute immediately.** The dispatch is your authorization. |
 | Unsure if feature crosses a capability gate | **STOP.** Flag as GATE VIOLATION per communication protocol |
-| Multiple valid implementation approaches | Flag as ARCHITECTURAL AMBIGUITY, propose options, wait for approval |
+| Multiple valid implementation approaches within a WO | Pick the simplest approach that satisfies the spec. Note your choice in the debrief. Only escalate if the WO spec is ambiguous or contradictory. |
 | Something looks like a bug in existing code | Check `KNOWN_TECH_DEBT.md` first — it may be intentional |
 | Need a new entity field | Add to `entity_fields.py` FIRST, then use the constant everywhere |
 | Need a new RNG stream | Document it, add to guidelines, use a descriptive name |
