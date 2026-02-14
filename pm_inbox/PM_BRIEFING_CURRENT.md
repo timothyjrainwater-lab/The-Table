@@ -21,6 +21,7 @@
 ## Active Operational Files
 
 - `BURST_INTAKE_QUEUE.md` — BURST-001 READY BRICK, BURST-002 NOT STARTED, BURST-003 PARTIAL
+- `HANDOFF_GOVERNANCE_REFINEMENT_SESSION.md` — Context handover for next builder (pm_inbox hygiene, dispatch fluidity, decision-only protocol)
 
 ## Persistent Files
 
