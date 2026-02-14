@@ -293,6 +293,19 @@ If you are an agent picking up this work cold:
 - **WO-BUGFIX-TIER0-001**: Fixes for 4 known bugs. BLOCKED behind this verification (the fix WO may expand once verification finds more bugs).
 - **PROJECT_STATE_DIGEST.md**: Will be updated when verification completes.
 - **REHYDRATION_KERNEL_LATEST.md**: Will reference this plan as the active blocking work.
+- **Outlier/edge-case research** (in `docs/research/`, `pm_inbox/research/`, `pm_inbox/reviewed/`): Prior research into critical edge cases, errata, and Pathfinder corrections. Builders verifying AMBIGUOUS formulas should check these artifacts for existing design decisions before flagging as unresolved.
+
+## 11a. Post-Verification: IP Skin-Stripping Phase
+
+**This phase is BLOCKED behind verification GREEN + all fix WOs INTEGRATED.**
+
+After the bone layer is verified correct and all bugs fixed, the next phase strips all SRD/D&D naming from the codebase, replacing it with algorithmic identifiers. This requires:
+
+1. **Translation index**: A complete SRD-name → algorithmic-name mapping produced from the verification records. Each verified formula gets an IP-clean algorithmic name (e.g., "Prone" → "condition_posture_ground", "Sneak Attack" → "precision_damage_flanked").
+2. **Controlled rename pass**: Code rename using the translation index as lookup. Tests updated in the same pass. No formula logic changes — names only.
+3. **Verification anchor preservation**: The translation index is the permanent bridge between the SRD source (used for verification) and the production code (IP-clean). It must be maintained as a reference artifact.
+
+**IMPORTANT**: Do NOT begin skin-stripping during or before verification. The SRD names are verification anchors — they are how we confirm correctness against source material. Renaming before verification is proven complete would break the audit trail.
 
 ---
 
