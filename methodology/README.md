@@ -77,6 +77,7 @@ Reusable solutions to specific coordination problems. Each pattern documents the
 | [Concurrent Session Protocol](patterns/CONCURRENT_SESSION_PROTOCOL.md) | Parallel sessions conflict on shared files | How to manage file ownership across sessions |
 | [PM Context Compression](patterns/PM_CONTEXT_COMPRESSION.md) | Human coordinator can't read everything | How to structure information flow to a bandwidth-limited human |
 | [Coordination Failure Taxonomy](patterns/COORDINATION_FAILURE_TAXONOMY.md) | Same mistakes repeat across projects | Categorized catalog of what goes wrong and why |
+| [Enforcement Hierarchy](patterns/ENFORCEMENT_HIERARCHY.md) | Corrections don't stick across sessions | 3-tier model: test-enforced > process-enforced > prose-enforced |
 
 ### Templates
 Ready-to-use file templates for implementing the patterns in your own project.
@@ -142,9 +143,24 @@ This is a living framework. If you're using these patterns on your own multi-age
 
 ---
 
+## Operational Notes
+
+### VPN / Restricted Network Environments
+
+This framework was built behind the Great Firewall of China, accessing GitHub, AI APIs, and documentation through a VPN. If you're working in a similar environment:
+
+- **SSL certificate revocation checks may fail.** Git pushes can fail with `CRYPT_E_REVOCATION_OFFLINE`. Fix: `git config http.sslBackend openssl` in the affected repo.
+- **API latency is variable.** LLM agent sessions may time out or drop mid-conversation. This makes the handoff protocol and artifact primacy pattern even more critical — if your session drops unexpectedly, pinned artifacts are all that survives.
+- **Multiple AI providers may have different accessibility.** Some providers are reachable, others aren't, depending on your VPN routing. This affects which agents you can use in your fleet and is a real constraint on multi-provider coordination.
+- **Context window efficiency matters more.** Higher latency means longer round-trips. Wasting a context window on orientation (because the reading order was wrong) costs more wall-clock time when every API call takes longer.
+
+None of these issues are theoretical. They were encountered during the development of this framework and directly influenced the emphasis on artifact primacy (sessions can drop) and dispatch self-containment (you may not get a chance to clarify).
+
+---
+
 ## License
 
-[Choose your license — MIT recommended for maximum adoption]
+MIT License — use freely, adapt to your projects, share what you learn.
 
 ---
 
