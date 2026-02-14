@@ -25,6 +25,7 @@ class Event:
     payload: Dict[str, Any]
     rng_offset: int = 0
     citations: List[Dict[str, Any]] = field(default_factory=list)
+    event_schema_version: str = "1"
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
@@ -32,8 +33,20 @@ class Event:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "Event":
-        """Create Event from dictionary."""
-        return cls(**data)
+        """Create Event from dictionary.
+
+        Handles backward compatibility: old data without event_schema_version
+        deserializes with default "1".
+        """
+        return cls(
+            event_id=data["event_id"],
+            event_type=data["event_type"],
+            timestamp=data["timestamp"],
+            payload=data["payload"],
+            rng_offset=data.get("rng_offset", 0),
+            citations=data.get("citations", []),
+            event_schema_version=data.get("event_schema_version", "1"),
+        )
 
 
 class EventLog:

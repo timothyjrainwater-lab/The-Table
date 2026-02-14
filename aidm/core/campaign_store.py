@@ -28,6 +28,7 @@ from aidm.schemas.campaign import (
     CampaignPaths,
     SessionZeroConfig,
 )
+from aidm.core.version_check import validate_campaign_version
 
 
 class CampaignStoreError(Exception):
@@ -153,7 +154,9 @@ class CampaignStore:
                 f"Invalid manifest JSON for campaign {campaign_id}: {e}"
             )
 
-        return CampaignManifest.from_dict(data)
+        manifest = CampaignManifest.from_dict(data)
+        validate_campaign_version(manifest.engine_version)
+        return manifest
 
     def save_manifest(self, manifest: CampaignManifest) -> None:
         """Save a campaign manifest to disk.
