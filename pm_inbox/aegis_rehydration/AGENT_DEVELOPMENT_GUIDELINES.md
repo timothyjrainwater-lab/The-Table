@@ -7,7 +7,7 @@ that MUST be followed to maintain project integrity.
 
 REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/AGENT_DEVELOPMENT_GUIDELINES.md
 
-LAST UPDATED: 2026-02-13 (5,144 tests, BL-017/018/020)
+LAST UPDATED: 2026-02-14 (5,144 tests, BL-017/018/020, Section 15 context boundary protocol)
 -->
 
 # Agent Development Guidelines
@@ -398,3 +398,41 @@ def format_hp(frozen_view: FrozenWorldStateView):
 ```
 
 **Full spec:** `docs/governance/BL-020_WORLDSTATE_IMMUTABILITY_AT_NON_ENGINE_BOUNDARIES.md`
+
+---
+
+## 15. Context Boundary Protocol
+
+Agents have perfect recall within a context window and zero recall across context boundaries. These rules ensure institutional knowledge survives rotation.
+
+### 15.1 Artifact Primacy Rule
+
+Any fact that must survive a context boundary **MUST** be written to a file. Conversational knowledge not pinned to an artifact is assumed lost at next context rotation.
+
+This includes:
+- Reclassification decisions and their rationale
+- Bug IDs and their current status
+- Strategic findings that affect future work
+- Cross-domain dependencies discovered during implementation
+
+### 15.2 Handoff Checklist (Before Context Window Closes)
+
+Before a session ends or approaches context limits, verify:
+
+- [ ] State summaries updated (checklist, master lists, iteration log)
+- [ ] PM memo written if strategic findings emerged
+- [ ] Any mid-session reclassifications reflected in ALL affected files
+- [ ] Uncommitted work documented in a handoff file (`pm_inbox/HANDOFF_*.md`)
+- [ ] No implicit knowledge required — next agent can execute from artifacts alone
+
+### 15.3 Dispatch Self-Containment Rule
+
+Every dispatch or work order must be executable by an agent with zero prior context. The dispatch plus the files it cites must contain everything needed. No reliance on "the previous agent will have explained this."
+
+Test: Could a fresh agent with no conversation history execute this dispatch using only the dispatch file and the files it references? If not, add the missing context.
+
+### 15.4 Cross-File Consistency Gate
+
+When a status, count, verdict, or classification changes, update **ALL** files that reference it in the same commit. Partial updates create inconsistencies that compound across context boundaries.
+
+**Evidence:** Domain A re-verification updated the checklist and WRONG_VERDICTS_MASTER but missed `DOMAIN_C_VERIFICATION.md`, creating an inconsistency that required a separate fix commit. The next agent saw conflicting numbers and couldn't determine which was correct without re-reading source files.

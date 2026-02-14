@@ -5,7 +5,7 @@ This file tells new agents EXACTLY what to read, in what order, and what to veri
 before writing a single line of code. It exists because the project has 9+ root-level
 .md files and agents waste context reading them in the wrong order or skipping critical ones.
 
-LAST UPDATED: 2026-02-13 — Wave 1-3 WOs integrated. 5,144 tests collected.
+LAST UPDATED: 2026-02-14 — Wave 1-3 WOs integrated. 5,144 tests collected. VERIFICATION_GUIDELINES.md added.
 -->
 
 # Agent Onboarding Checklist
@@ -31,6 +31,7 @@ After the Compass, read these for operational detail. The order matters.
 | 3 | `AGENT_DEVELOPMENT_GUIDELINES.md` | Coding standards, pitfall avoidance | Contains hard-won bug fixes — ignoring this causes regressions |
 | 4 | `AGENT_COMMUNICATION_PROTOCOL.md` | How to flag concerns, gates, scope creep | Violations cause code reverts |
 | 5 | `KNOWN_TECH_DEBT.md` | Things that look broken but are intentionally deferred | Prevents you from wasting work "fixing" deferred items |
+| 6 | `VERIFICATION_GUIDELINES.md` | Verification pitfalls, verdict decision tree, error taxonomy | Required for verification/re-verification work orders. Optional for pure coding WOs. |
 
 **Do NOT read** superseded action plans — use `docs/planning/REVISED_PROGRAM_SEQUENCING_2026_02_12.md` for the current roadmap.
 
