@@ -21,6 +21,10 @@
 - [ ] **WO-RESEARCH-SPRINT-001 Wave 2 (P1)** — RQ-SPRINT-003/004/005/006/007/011. After P0 review.
 - [ ] **WO-RESEARCH-SPRINT-001 Wave 3 (P2)** — RQ-SPRINT-008/009/010. Non-blocking.
 
+## Requires PM Verdict
+
+- [ ] **MEMO_WO_SET_DISPATCH_GAP.md** — Analysis of the WO_SET→Dispatch gap (verdicted sets archived without individual dispatches drafted). 3 fix options proposed (prose rule, briefing guard, lifecycle extension). PM picks approach.
+
 ## Active Operational Files
 
 - `BURST_INTAKE_QUEUE.md` — BURST-001 READY BRICK, BURST-002 NOT STARTED, BURST-003 PARTIAL

@@ -230,11 +230,6 @@ class TestPMIH004_MemoRetrospective:
     at methodology/templates/SESSION_MEMO_TEMPLATE.md.
     """
 
-    @pytest.mark.xfail(
-        reason="Existing MEMO files predate the retrospective requirement. "
-               "Add ## Retrospective sections to existing MEMOs, then remove this xfail.",
-        strict=False,
-    )
     def test_all_memos_have_retrospective_section(self):
         memo_files = _get_memo_files()
         if not memo_files:
