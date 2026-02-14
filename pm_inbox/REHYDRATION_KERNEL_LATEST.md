@@ -82,12 +82,15 @@ Tests passed: 5,510 (16 skipped HW-gated)
 CLI tests: 130 passed + 49 movement tests
 Stoplight: **RED — Bone-layer verification COMPLETE, fix phase pending Operator decisions**
 
-**Verification COMPLETE:** 334 formulas verified across 9 domains. 251 CORRECT, 32 WRONG, 26 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist.
+**Verification COMPLETE:** 338 formulas verified across 9 domains. 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist. Domain A re-verified with research cross-reference — 4 verdicts reclassified WRONG→AMBIGUOUS (cover design decision in RQ-BOX-001).
 
 **Fix phase artifacts:**
-- `docs/verification/WRONG_VERDICTS_MASTER.md` — 32 WRONG verdicts aggregated into 13 fix WOs
-- `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` — 26 AMBIGUOUS verdicts, 6 need Operator decision
+- `docs/verification/WRONG_VERDICTS_MASTER.md` — 30 WRONG verdicts in 12 active fix WOs (FIX-WO-05 retired)
+- `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` — 28 AMBIGUOUS verdicts, 7 need Operator decision
 - Supersedes WO-BUGFIX-TIER0-001 (BUG-1/2/3/4 now covered by FIX-WO-01/02/03)
+- `pm_inbox/MEMO_REVERIFY_A_FINDINGS.md` — builder memo on research cross-reference gap
+
+**OPEN QUESTION:** Builder estimates 8-10 of remaining 30 WRONG verdicts may be documented design decisions (not bugs) once cross-referenced against research corpus. Remaining 7 domains were not re-verified against research. Operator decision needed: dispatch re-verify with research, or accept current verdicts and fix all 30.
 
 **Context window discipline:** PM context is reserved for coordination only. All fix implementation dispatched to builder agents via WOs. See plan Section 13.
 
@@ -98,10 +101,10 @@ Stoplight: **RED — Bone-layer verification COMPLETE, fix phase pending Operato
 ## Active Work Surfaces
 
 **BONE-LAYER VERIFICATION — FIX PHASE (RED BLOCK still active):**
-Verification execution complete. 13 fix WOs drafted. Awaiting Operator decisions on 6 AMBIGUOUS verdicts before fix dispatch. Checklist at `docs/verification/BONE_LAYER_CHECKLIST.md`. Fix WOs at `docs/verification/WRONG_VERDICTS_MASTER.md`.
+Verification execution complete. 12 active fix WOs drafted. Awaiting Operator decisions on 7 AMBIGUOUS verdicts before fix dispatch. Checklist at `docs/verification/BONE_LAYER_CHECKLIST.md`. Fix WOs at `docs/verification/WRONG_VERDICTS_MASTER.md`.
 
 **Remaining completion gate items:**
-- [ ] Operator reviews and approves 6 AMBIGUOUS decisions
+- [ ] Operator reviews and approves 7 AMBIGUOUS decisions (including cover design)
 - [ ] PSD updated to reflect verification completion
 - [ ] RED block lifted by Operator
 - Then: Fix WOs dispatched to builders in priority order

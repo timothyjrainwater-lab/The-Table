@@ -2,7 +2,7 @@
 
 **Generated:** 2026-02-14
 **Source:** 9 domain verification files (DOMAIN_A through DOMAIN_I)
-**Total AMBIGUOUS verdicts:** 24
+**Total AMBIGUOUS verdicts:** 28 (was 24; +4 reclassified from WRONG during Domain A re-verify)
 **Purpose:** Present all AMBIGUOUS verdicts to Operator for design decisions. Each verdict needs a binary decision: adopt SRD strict, adopt simplification, or adopt Pathfinder correction.
 
 ---
@@ -110,6 +110,23 @@ For each AMBIGUOUS verdict:
   - `FIX-SRD` — re-roll dice (more variance, matches physical play exactly)
 - **DECISION:** ____________
 
+### A-AMB-05: Cover AC bonus values (reclassified from WRONG — BUG-10)
+- **Formula:** A-cover-resolver-97-98
+- **Code:** HALF_COVER = +2 AC, +1 Ref. THREE_QUARTERS = +5 AC, +2 Ref.
+- **SRD says:** Standard cover = +4 AC, +2 Ref. Improved cover = +8 AC, +4 Ref. No "half" or "three-quarters" tiers.
+- **Research finding:** RQ-BOX-001 Finding 3 documents this as an intentional 4-tier graduated cover system. The project adopted a more granular model than the SRD's binary cover.
+- **Reclassification:** Was BUG-10 (WRONG). Reclassified to AMBIGUOUS because it's a documented design decision, not an oversight.
+- **Options:**
+  - `KEEP` — 4-tier graduated cover is the documented design decision from RQ-BOX-001
+  - `FIX-SRD` — collapse to SRD 2-tier: standard (+4/+2) and improved (+8/+4)
+- **DECISION:** ____________
+
+### A-AMB-06: Cover Reflex bonus values (reclassified from WRONG — BUG-10 cascade)
+- **Formula:** A-cover-resolver-97-98 (Reflex component)
+- **Code:** Same values as A-AMB-05, Reflex side
+- **Note:** Same root cause as A-AMB-05. Decision cascades from A-AMB-05.
+- **DECISION:** _CASCADES FROM A-AMB-05_
+
 ---
 
 ## Domain B — Combat Maneuvers (3 AMBIGUOUS)
@@ -169,7 +186,7 @@ For each AMBIGUOUS verdict:
 
 ---
 
-## Domain C — Saves & Spells (1 AMBIGUOUS)
+## Domain C — Saves & Spells (3 AMBIGUOUS — was 1; +2 reclassified from WRONG)
 
 ### C-AMB-01: Cover tier threshold mapping (line-blocking counts)
 - **Formula:** C-SAVE-COVER
@@ -180,6 +197,15 @@ For each AMBIGUOUS verdict:
   - `KEEP` — 4-tier threshold mapping is a reasonable geometric interpretation
   - `CUSTOM` — define different threshold boundaries
 - **DECISION:** ____________
+
+### C-AMB-02: Cover Reflex save bonus values (reclassified from BUG-C-001/003)
+- **Formula:** C-SAVE-COVER (Reflex component)
+- **Code:** Half cover Reflex = +1, Three-quarters Reflex = +2
+- **SRD says:** Standard cover Reflex = +2, Improved cover Reflex = +4
+- **Research finding:** Same as A-AMB-05 — RQ-BOX-001 Finding 3 documents 4-tier graduated cover as intentional design decision
+- **Reclassification:** Was BUG-C-001/BUG-C-003 (WRONG). Reclassified to AMBIGUOUS because same root cause as BUG-10.
+- **Note:** Decision cascades from A-AMB-05.
+- **DECISION:** _CASCADES FROM A-AMB-05_
 
 ---
 
@@ -322,12 +348,15 @@ For each AMBIGUOUS verdict:
 | A-AMB-02 | A | Flanking 135 degrees | KEEP |
 | A-AMB-03 | A | Chebyshev reach | KEEP |
 | A-AMB-04 | A | Crit multiply vs re-roll | KEEP |
+| A-AMB-05 | A | Cover AC values (4-tier vs SRD 2-tier) | Operator choice |
+| A-AMB-06 | A | Cover Reflex values (cascade from A-AMB-05) | Cascade |
 | B-AMB-01 | B | Touch AC simplified | KEEP |
 | B-AMB-02 | B | Opposed ties to defender | Operator choice |
 | B-AMB-03 | B | Bull rush no occupied-square prone | KEEP |
 | B-AMB-04 | B | Disarm no weapon type mods | Operator choice |
 | B-AMB-05 | B | Overrun charge bonus | Operator choice |
 | C-AMB-01 | C | Cover tier thresholds | KEEP |
+| C-AMB-02 | C | Cover Reflex values (cascade from A-AMB-05) | Cascade |
 | E-AMB-01 | E | Intentional fall first 10ft free | KEEP |
 | E-AMB-02 | E | Bareback 50% stay | KEEP |
 | E-AMB-03 | E | 5ft step difficult terrain threshold | Operator choice |
@@ -340,9 +369,9 @@ For each AMBIGUOUS verdict:
 | I-AMB-01 | I | Spiked pit 1d6 simplified | KEEP |
 | I-AMB-02 | I | TWF ignores heavy off-hand | FIX-SRD |
 
-**Auto-resolved (no operator input needed):** D-AMB-02, D-AMB-03, D-AMB-05, F-AMB-02, F-AMB-03, G-AMB-02
+**Auto-resolved (no operator input needed):** D-AMB-02, D-AMB-03, D-AMB-05, A-AMB-06, C-AMB-02, F-AMB-02, F-AMB-03, G-AMB-02
 
-**Operator decisions needed (6):** D-AMB-04, B-AMB-02/H-AMB-01 (linked), B-AMB-04, B-AMB-05, E-AMB-03, G-AMB-01
+**Operator decisions needed (7):** D-AMB-04, A-AMB-05 (cover design), B-AMB-02/H-AMB-01 (linked), B-AMB-04, B-AMB-05, E-AMB-03, G-AMB-01
 
 **PM recommends KEEP (12):** D-AMB-01, A-AMB-01, A-AMB-02, A-AMB-03, A-AMB-04, B-AMB-01, B-AMB-03, C-AMB-01, E-AMB-01, E-AMB-02, F-AMB-01, I-AMB-01
 
