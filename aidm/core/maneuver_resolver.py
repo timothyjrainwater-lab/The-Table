@@ -128,7 +128,7 @@ def _roll_opposed_check(
     """Roll an opposed check deterministically.
 
     Attacker roll consumed first, then defender roll.
-    Ties go to defender (PHB convention).
+    Ties go to initiator (attacker) per B-AMB-02 decision.
     """
     combat_rng = rng.stream("combat")
     attacker_roll = combat_rng.randint(1, 20)
@@ -137,8 +137,8 @@ def _roll_opposed_check(
     attacker_total = attacker_roll + attacker_modifier
     defender_total = defender_roll + defender_modifier
 
-    # Attacker wins only if strictly greater (ties go to defender)
-    attacker_wins = attacker_total > defender_total
+    # Initiator (attacker) wins ties (B-AMB-02 / H-AMB-01)
+    attacker_wins = attacker_total >= defender_total
     margin = attacker_total - defender_total
 
     return OpposedCheckResult(
@@ -1216,6 +1216,23 @@ def resolve_disarm(
     defender_str = _get_str_modifier(world_state, target_id)
     defender_size = _get_size_modifier(world_state, target_id)
     defender_modifier = defender_bab + defender_str + defender_size
+
+    # B-AMB-04: Disarm weapon type modifiers (PHB p.155)
+    # Two-handed weapon: +4 to opposed check
+    # Light weapon: -4 to opposed check
+    # TODO: Activate when weapon type (light/one-handed/two-handed) is available
+    # in entity weapon data. Currently EF.WEAPON stores a name string or a dict
+    # with damage_dice but no weapon_type field. When P4-D weapon plumbing lands:
+    #   attacker_weapon_type = _get_weapon_type(world_state, attacker_id)
+    #   if attacker_weapon_type == "two-handed":
+    #       attacker_modifier += 4
+    #   elif attacker_weapon_type == "light":
+    #       attacker_modifier -= 4
+    #   defender_weapon_type = _get_weapon_type(world_state, target_id)
+    #   if defender_weapon_type == "two-handed":
+    #       defender_modifier += 4
+    #   elif defender_weapon_type == "light":
+    #       defender_modifier -= 4
 
     # Roll opposed attack rolls
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "disarm")

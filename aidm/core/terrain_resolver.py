@@ -155,7 +155,8 @@ def can_run_through(world_state: WorldState, position: Dict[str, int]) -> bool:
 def can_5_foot_step(world_state: WorldState, position: Dict[str, int]) -> bool:
     """Check if 5-foot step is allowed into position.
 
-    Per design doc: Cannot 5-foot step if movement_cost >= 4.
+    Per SRD PHB p.144: Cannot 5-foot step in difficult terrain
+    (movement_cost >= 2). E-AMB-03 decision: FIX-SRD.
 
     Args:
         world_state: Current world state
@@ -167,7 +168,7 @@ def can_5_foot_step(world_state: WorldState, position: Dict[str, int]) -> bool:
     cell = get_terrain_cell(world_state, position)
     if cell is None:
         return True
-    return cell.movement_cost < 4
+    return cell.movement_cost < 2
 
 
 # ==============================================================================

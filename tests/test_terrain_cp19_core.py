@@ -254,8 +254,8 @@ class TestDifficultTerrain:
         assert can_5_foot_step(terrain_with_difficult, {"x": 5, "y": 5})
 
     def test_can_5_foot_step_difficult_terrain(self, terrain_with_difficult):
-        """Can 5-foot step in difficult terrain (cost 2)."""
-        assert can_5_foot_step(terrain_with_difficult, {"x": 6, "y": 5})
+        """Cannot 5-foot step in difficult terrain (cost 2, E-AMB-03)."""
+        assert not can_5_foot_step(terrain_with_difficult, {"x": 6, "y": 5})
 
     def test_cannot_5_foot_step_very_difficult_terrain(self, terrain_with_difficult):
         """Cannot 5-foot step in very difficult terrain (cost 4+)."""
@@ -631,7 +631,7 @@ class TestIsBetween:
 
 
 # ==============================================================================
-# WO-FIX-10: E-BUG-01 — Soft cover applies to ranged only, not melee
+# WO-FIX-10: E-BUG-01 ï¿½ Soft cover applies to ranged only, not melee
 # ==============================================================================
 
 class TestSoftCoverRangedOnly:
@@ -699,7 +699,7 @@ class TestSoftCoverRangedOnly:
 
 
 # ==============================================================================
-# WO-FIX-10: E-BUG-02 — Water fall damage uses d3, not d6
+# WO-FIX-10: E-BUG-02 ï¿½ Water fall damage uses d3, not d6
 # ==============================================================================
 
 class TestWaterFallDamage:
@@ -726,7 +726,7 @@ class TestWaterFallDamage:
                 "terrain_map": {},
             }
         )
-        # Fall 50 feet into deep water — should produce d3 rolls
+        # Fall 50 feet into deep water ï¿½ should produce d3 rolls
         rng = RNGManager(master_seed=42)
         events, new_state, result = resolve_falling(
             entity_id="swimmer",
