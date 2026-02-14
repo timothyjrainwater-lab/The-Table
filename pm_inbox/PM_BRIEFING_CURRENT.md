@@ -28,6 +28,7 @@
 
 - `BURST_INTAKE_QUEUE.md` — BURST-001 thru 004 (1 READY, 2 NOT STARTED, 1 PARTIAL)
 - `WO-RESEARCH-SPRINT-001_DISPATCH.md` — 11 RQs, PM reviewed. Wave 1 ready for Operator dispatch.
+- `HANDOFF_DISPATCH_GAP_AND_RELAY_CONVENTION.md` — Session handoff for next builder.
 
 ## Persistent Files
 
