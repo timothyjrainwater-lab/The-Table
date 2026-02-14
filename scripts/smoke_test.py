@@ -1670,6 +1670,850 @@ def scenario_d_condition_validator() -> Optional[Dict[str, Any]]:
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# SCENARIO E: Self-Buff Spell — Shield on self
+# ══════════════════════════════════════════════════════════════════════════
+
+def scenario_e_self_buff() -> Optional[Dict[str, Any]]:
+    """Scenario E: Cast Shield on self. Exercises non-damage, SELF-targeted spell path."""
+    banner("SCENARIO E: Self-Buff — Shield on Self")
+    result: Dict[str, Any] = {}
+
+    try:
+        from aidm.data.spell_definitions import SPELL_REGISTRY, get_spell
+        from aidm.schemas.entity_fields import EF
+        from aidm.core.play_loop import execute_turn, TurnContext
+        from aidm.core.spell_resolver import SpellCastIntent
+        from aidm.core.state import WorldState, FrozenWorldStateView
+        from aidm.core.rng_manager import RNGManager
+        from aidm.lens.narrative_brief import assemble_narrative_brief
+
+        # E1: Check if shield exists
+        if "shield" not in SPELL_REGISTRY:
+            print("  'shield' not in SPELL_REGISTRY — skipping Scenario E")
+            SCENARIO_RESULTS["E"] = "SKIPPED"
+            record_finding("Shield spell not in SPELL_REGISTRY for self-buff test")
+            return None
+
+        shield = get_spell("shield")
+        print(f"  Spell: {shield.name} (level {shield.level}, target={shield.target_type.value}, "
+              f"effect={shield.effect_type.value})")
+        print(f"  conditions_on_success: {shield.conditions_on_success}")
+        record_pass("E1: Load Shield spell")
+
+        # E2: Create wizard (needs a buff, in a fight)
+        wizard = {
+            EF.ENTITY_ID: "wizard_e",
+            "name": "Thalric the Wary",
+            EF.HP_CURRENT: 20,
+            EF.HP_MAX: 20,
+            EF.AC: 12,
+            EF.ATTACK_BONUS: 2,
+            EF.BAB: 2,
+            EF.STR_MOD: -1,
+            EF.DEX_MOD: 2,
+            EF.INT_MOD: 4,
+            EF.CON_MOD: 0,
+            EF.WIS_MOD: 1,
+            EF.CHA_MOD: 0,
+            EF.SAVE_FORT: 1,
+            EF.SAVE_REF: 3,
+            EF.SAVE_WILL: 5,
+            EF.TEAM: "party",
+            EF.WEAPON: "dagger",
+            EF.POSITION: {"x": 5, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+            "caster_level": 5,
+            "spell_dc_base": 14,
+            "spells_prepared": ["shield"],
+        }
+        # Need a second entity for valid combat state
+        dummy = {
+            EF.ENTITY_ID: "orc_e",
+            "name": "Orc Berserker",
+            EF.HP_CURRENT: 12,
+            EF.HP_MAX: 12,
+            EF.AC: 13,
+            EF.ATTACK_BONUS: 5,
+            EF.BAB: 2,
+            EF.STR_MOD: 3,
+            EF.DEX_MOD: 0,
+            EF.INT_MOD: -1,
+            EF.CON_MOD: 2,
+            EF.WIS_MOD: 0,
+            EF.CHA_MOD: -1,
+            EF.SAVE_FORT: 4,
+            EF.SAVE_REF: 0,
+            EF.SAVE_WILL: 0,
+            EF.TEAM: "monsters",
+            EF.WEAPON: "greataxe",
+            EF.POSITION: {"x": 10, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+        }
+        print(f"  Caster: {wizard['name']} (AC {wizard[EF.AC]})")
+        record_pass("E2: Create entities")
+
+        # E3: Cast Shield on self
+        entities = {
+            wizard[EF.ENTITY_ID]: wizard,
+            dummy[EF.ENTITY_ID]: dummy,
+        }
+        world_state = WorldState(
+            ruleset_version="3.5e",
+            entities=entities,
+            active_combat={
+                "round_index": 1,
+                "turn_counter": 0,
+                "initiative_order": ["wizard_e", "orc_e"],
+                "flat_footed_actors": [],
+                "aoo_used_this_round": [],
+                "duration_tracker": {"effects": []},
+            },
+        )
+
+        rng = RNGManager(master_seed=33)
+
+        intent = SpellCastIntent(
+            caster_id="wizard_e",
+            spell_id="shield",
+        )
+
+        turn_ctx = TurnContext(
+            turn_index=0,
+            actor_id="wizard_e",
+            actor_team="party",
+        )
+
+        print(f"  Intent: Cast Shield (self-targeted)")
+
+        turn_result = execute_turn(
+            world_state=world_state,
+            turn_ctx=turn_ctx,
+            combat_intent=intent,
+            rng=rng,
+            next_event_id=0,
+            timestamp=1.0,
+        )
+        result["turn_result"] = turn_result
+
+        print(f"  Status: {turn_result.status}")
+        print(f"  Narration token: {turn_result.narration}")
+        print(f"  Events emitted: {len(turn_result.events)}")
+        for event in turn_result.events:
+            print(f"    {event.event_type}: {event.payload}")
+
+        event_types = [e.event_type for e in turn_result.events]
+        has_spell_cast = "spell_cast" in event_types
+        has_condition = "condition_applied" in event_types
+
+        # Check if shield condition was applied to caster
+        shield_on_caster = False
+        for event in turn_result.events:
+            if event.event_type == "condition_applied":
+                if event.payload.get("entity_id") == "wizard_e":
+                    shield_on_caster = True
+                    print(f"  Shield condition applied to caster: YES")
+
+        if turn_result.status == "ok":
+            if has_condition and shield_on_caster:
+                record_pass("E3: Cast Shield on self",
+                            f"narration={turn_result.narration}, condition applied to caster")
+            elif has_spell_cast and not has_condition:
+                record_pass("E3: Cast Shield on self",
+                            f"spell_cast emitted but no condition_applied (possible resolver gap)")
+                record_finding("Self-buff spell cast succeeded but no condition_applied event "
+                               "— buff conditions may not be applied by spell resolver")
+            else:
+                record_pass("E3: Cast Shield on self", f"narration={turn_result.narration}")
+        else:
+            record_fail("E3: Cast Shield on self",
+                        f"status={turn_result.status}: {turn_result.failure_reason}")
+
+        # E4: Assemble NarrativeBrief
+        frozen_view = FrozenWorldStateView(turn_result.world_state)
+        event_dicts = [{
+            "event_id": e.event_id, "type": e.event_type,
+            "event_type": e.event_type, "timestamp": e.timestamp,
+            "payload": e.payload, "citations": e.citations,
+        } for e in turn_result.events]
+
+        narration_token = turn_result.narration or "spell_buff_applied"
+        brief = assemble_narrative_brief(
+            events=event_dicts, narration_token=narration_token, frozen_view=frozen_view,
+        )
+        result["brief"] = brief
+
+        print(f"  NarrativeBrief:")
+        print(f"    actor_name: {brief.actor_name}")
+        print(f"    target_name: {brief.target_name}")
+        print(f"    spell_name: {brief.spell_name}")
+        print(f"    condition_applied: {brief.condition_applied}")
+        print(f"    outcome_summary: {brief.outcome_summary}")
+
+        # For self-buff, actor and target should be the same entity
+        if brief.actor_name and brief.target_name:
+            same_entity = brief.actor_name == brief.target_name
+            print(f"  Actor == Target (self-buff): {same_entity}")
+            if not same_entity:
+                record_finding(f"Self-buff: actor_name={brief.actor_name!r} != "
+                               f"target_name={brief.target_name!r} — expected same entity")
+
+        record_pass("E4: NarrativeBrief (self-buff)",
+                     f"actor={brief.actor_name}, spell={brief.spell_name}")
+
+        SCENARIO_RESULTS["E"] = "PASS"
+        return result
+
+    except Exception as exc:
+        record_fail("E: Self-buff scenario", str(exc),
+                     module=traceback.format_exc().splitlines()[-2] if traceback.format_exc() else "",
+                     error=str(exc))
+        traceback.print_exc()
+        SCENARIO_RESULTS["E"] = "FAIL"
+        record_finding(f"Scenario E crashed: {exc}")
+        return None
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# SCENARIO F: Healing Spell — Cure Light Wounds on injured ally
+# ══════════════════════════════════════════════════════════════════════════
+
+def scenario_f_healing() -> Optional[Dict[str, Any]]:
+    """Scenario F: Heal injured ally. Exercises healing event path + narration."""
+    banner("SCENARIO F: Healing — Cure Light Wounds on Injured Ally")
+    result: Dict[str, Any] = {}
+
+    try:
+        from aidm.data.spell_definitions import SPELL_REGISTRY, get_spell
+        from aidm.schemas.entity_fields import EF
+        from aidm.core.play_loop import execute_turn, TurnContext
+        from aidm.core.spell_resolver import SpellCastIntent
+        from aidm.core.state import WorldState, FrozenWorldStateView
+        from aidm.core.rng_manager import RNGManager
+        from aidm.lens.narrative_brief import assemble_narrative_brief
+
+        if "cure_light_wounds" not in SPELL_REGISTRY:
+            print("  'cure_light_wounds' not in SPELL_REGISTRY — skipping Scenario F")
+            SCENARIO_RESULTS["F"] = "SKIPPED"
+            record_finding("Cure Light Wounds not in SPELL_REGISTRY")
+            return None
+
+        clw = get_spell("cure_light_wounds")
+        print(f"  Spell: {clw.name} (level {clw.level}, healing_dice={clw.healing_dice})")
+        record_pass("F1: Load Cure Light Wounds")
+
+        # F2: Create cleric and injured fighter
+        cleric = {
+            EF.ENTITY_ID: "cleric_f",
+            "name": "Brother Aldric",
+            EF.HP_CURRENT: 30,
+            EF.HP_MAX: 30,
+            EF.AC: 18,
+            EF.ATTACK_BONUS: 4,
+            EF.BAB: 3,
+            EF.STR_MOD: 1,
+            EF.DEX_MOD: 0,
+            EF.INT_MOD: 0,
+            EF.CON_MOD: 2,
+            EF.WIS_MOD: 3,
+            EF.CHA_MOD: 1,
+            EF.SAVE_FORT: 5,
+            EF.SAVE_REF: 1,
+            EF.SAVE_WILL: 6,
+            EF.TEAM: "party",
+            EF.WEAPON: "mace",
+            EF.POSITION: {"x": 5, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+            "caster_level": 5,
+            "spell_dc_base": 13,
+            "spells_prepared": ["cure_light_wounds"],
+        }
+
+        injured_fighter = {
+            EF.ENTITY_ID: "fighter_f",
+            "name": "Wounded Kael",
+            EF.HP_CURRENT: 8,   # Injured! (out of 40 max)
+            EF.HP_MAX: 40,
+            EF.AC: 17,
+            EF.ATTACK_BONUS: 7,
+            EF.BAB: 4,
+            EF.STR_MOD: 3,
+            EF.DEX_MOD: 1,
+            EF.INT_MOD: 0,
+            EF.CON_MOD: 2,
+            EF.WIS_MOD: 1,
+            EF.CHA_MOD: 0,
+            EF.SAVE_FORT: 6,
+            EF.SAVE_REF: 2,
+            EF.SAVE_WILL: 2,
+            EF.TEAM: "party",
+            EF.WEAPON: "longsword",
+            EF.POSITION: {"x": 6, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+        }
+
+        print(f"  Cleric: {cleric['name']} (CL {cleric['caster_level']})")
+        print(f"  Patient: {injured_fighter['name']} (HP {injured_fighter[EF.HP_CURRENT]}/{injured_fighter[EF.HP_MAX]})")
+        record_pass("F2: Create entities")
+
+        # F3: Cast CLW on injured fighter
+        entities = {
+            cleric[EF.ENTITY_ID]: cleric,
+            injured_fighter[EF.ENTITY_ID]: injured_fighter,
+        }
+        world_state = WorldState(
+            ruleset_version="3.5e",
+            entities=entities,
+            active_combat={
+                "round_index": 1,
+                "turn_counter": 0,
+                "initiative_order": ["cleric_f", "fighter_f"],
+                "flat_footed_actors": [],
+                "aoo_used_this_round": [],
+                "duration_tracker": {"effects": []},
+            },
+        )
+
+        rng = RNGManager(master_seed=44)
+
+        intent = SpellCastIntent(
+            caster_id="cleric_f",
+            spell_id="cure_light_wounds",
+            target_entity_id="fighter_f",
+        )
+
+        turn_ctx = TurnContext(
+            turn_index=0,
+            actor_id="cleric_f",
+            actor_team="party",
+        )
+
+        print(f"  Intent: Cast Cure Light Wounds on {injured_fighter['name']}")
+
+        turn_result = execute_turn(
+            world_state=world_state,
+            turn_ctx=turn_ctx,
+            combat_intent=intent,
+            rng=rng,
+            next_event_id=0,
+            timestamp=1.0,
+        )
+        result["turn_result"] = turn_result
+
+        print(f"  Status: {turn_result.status}")
+        print(f"  Narration token: {turn_result.narration}")
+        print(f"  Events emitted: {len(turn_result.events)}")
+        for event in turn_result.events:
+            print(f"    {event.event_type}: {event.payload}")
+
+        # Check for positive hp_changed (healing)
+        hp_events = [e for e in turn_result.events if e.event_type == "hp_changed"]
+        healed = False
+        for hp_e in hp_events:
+            delta = hp_e.payload.get("delta", 0)
+            if delta > 0:
+                healed = True
+                print(f"  Healing: {hp_e.payload.get('entity_id')} "
+                      f"{hp_e.payload.get('old_hp')} → {hp_e.payload.get('new_hp')} "
+                      f"(+{delta})")
+
+        if turn_result.status == "ok":
+            if healed:
+                record_pass("F3: Cast Cure Light Wounds",
+                            f"healed! narration={turn_result.narration}")
+            else:
+                record_pass("F3: Cast Cure Light Wounds",
+                            f"no hp_changed with positive delta — narration={turn_result.narration}")
+                if not hp_events:
+                    record_finding("Healing spell cast OK but no hp_changed event emitted")
+        else:
+            record_fail("F3: Cast Cure Light Wounds",
+                        f"status={turn_result.status}: {turn_result.failure_reason}")
+
+        # F4: NarrativeBrief
+        frozen_view = FrozenWorldStateView(turn_result.world_state)
+        event_dicts = [{
+            "event_id": e.event_id, "type": e.event_type,
+            "event_type": e.event_type, "timestamp": e.timestamp,
+            "payload": e.payload, "citations": e.citations,
+        } for e in turn_result.events]
+
+        narration_token = turn_result.narration or "spell_healed"
+        brief = assemble_narrative_brief(
+            events=event_dicts, narration_token=narration_token, frozen_view=frozen_view,
+        )
+        result["brief"] = brief
+
+        print(f"  NarrativeBrief:")
+        print(f"    actor_name: {brief.actor_name}")
+        print(f"    target_name: {brief.target_name}")
+        print(f"    spell_name: {brief.spell_name}")
+        print(f"    outcome_summary: {brief.outcome_summary}")
+        print(f"    severity: {brief.severity}")
+
+        record_pass("F4: NarrativeBrief (healing)")
+
+        SCENARIO_RESULTS["F"] = "PASS"
+        return result
+
+    except Exception as exc:
+        record_fail("F: Healing scenario", str(exc),
+                     module=traceback.format_exc().splitlines()[-2] if traceback.format_exc() else "",
+                     error=str(exc))
+        traceback.print_exc()
+        SCENARIO_RESULTS["F"] = "FAIL"
+        record_finding(f"Scenario F crashed: {exc}")
+        return None
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# SCENARIO G: Edge Case — Spell at already-defeated entity
+# ══════════════════════════════════════════════════════════════════════════
+
+def scenario_g_spell_on_dead() -> Optional[Dict[str, Any]]:
+    """Scenario G: Cast spell at defeated target. Tests intent validation edge case."""
+    banner("SCENARIO G: Edge Case — Spell at Defeated Entity")
+    result: Dict[str, Any] = {}
+
+    try:
+        from aidm.schemas.entity_fields import EF
+        from aidm.core.play_loop import execute_turn, TurnContext
+        from aidm.core.spell_resolver import SpellCastIntent
+        from aidm.schemas.position import Position
+        from aidm.core.state import WorldState
+        from aidm.core.rng_manager import RNGManager
+
+        # G1: Create caster and already-defeated goblin
+        caster = {
+            EF.ENTITY_ID: "wizard_g",
+            "name": "Overkill Ollie",
+            EF.HP_CURRENT: 30,
+            EF.HP_MAX: 30,
+            EF.AC: 14,
+            EF.ATTACK_BONUS: 3,
+            EF.BAB: 2,
+            EF.STR_MOD: 0,
+            EF.DEX_MOD: 2,
+            EF.INT_MOD: 3,
+            EF.CON_MOD: 1,
+            EF.WIS_MOD: 1,
+            EF.CHA_MOD: 0,
+            EF.SAVE_FORT: 2,
+            EF.SAVE_REF: 3,
+            EF.SAVE_WILL: 5,
+            EF.TEAM: "party",
+            EF.WEAPON: "quarterstaff",
+            EF.POSITION: {"x": 5, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+            "caster_level": 5,
+            "spell_dc_base": 13,
+            "spells_prepared": ["fireball"],
+        }
+
+        dead_goblin = {
+            EF.ENTITY_ID: "dead_goblin_g",
+            "name": "Very Dead Goblin",
+            EF.HP_CURRENT: -5,
+            EF.HP_MAX: 5,
+            EF.AC: 15,
+            EF.ATTACK_BONUS: 3,
+            EF.BAB: 1,
+            EF.STR_MOD: 0,
+            EF.DEX_MOD: 1,
+            EF.INT_MOD: -1,
+            EF.CON_MOD: 0,
+            EF.WIS_MOD: 0,
+            EF.CHA_MOD: -1,
+            EF.SAVE_FORT: 1,
+            EF.SAVE_REF: 3,
+            EF.SAVE_WILL: 0,
+            EF.TEAM: "monsters",
+            EF.WEAPON: "shortbow",
+            EF.POSITION: {"x": 10, "y": 10},
+            EF.DEFEATED: True,  # Already defeated!
+            EF.SIZE_CATEGORY: "small",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+        }
+
+        print(f"  Caster: {caster['name']}")
+        print(f"  Target: {dead_goblin['name']} (HP {dead_goblin[EF.HP_CURRENT]}, DEFEATED={dead_goblin[EF.DEFEATED]})")
+        record_pass("G1: Create entities (one defeated)")
+
+        # G2: Cast fireball at dead goblin's position (AoE — should still fire)
+        entities = {
+            caster[EF.ENTITY_ID]: caster,
+            dead_goblin[EF.ENTITY_ID]: dead_goblin,
+        }
+        world_state = WorldState(
+            ruleset_version="3.5e",
+            entities=entities,
+            active_combat={
+                "round_index": 1,
+                "turn_counter": 0,
+                "initiative_order": ["wizard_g", "dead_goblin_g"],
+                "flat_footed_actors": [],
+                "aoo_used_this_round": [],
+                "duration_tracker": {"effects": []},
+            },
+        )
+
+        rng = RNGManager(master_seed=66)
+
+        # AoE spell at the dead goblin's position — interesting: AoE doesn't validate individual targets
+        intent = SpellCastIntent(
+            caster_id="wizard_g",
+            spell_id="fireball",
+            target_position=Position(x=10, y=10),
+        )
+
+        turn_ctx = TurnContext(
+            turn_index=0,
+            actor_id="wizard_g",
+            actor_team="party",
+        )
+
+        print(f"  Intent: Fireball at ({intent.target_position.x}, {intent.target_position.y}) "
+              f"— targeting defeated goblin's position")
+
+        turn_result = execute_turn(
+            world_state=world_state,
+            turn_ctx=turn_ctx,
+            combat_intent=intent,
+            rng=rng,
+            next_event_id=0,
+            timestamp=1.0,
+        )
+        result["turn_result"] = turn_result
+
+        print(f"  Status: {turn_result.status}")
+        print(f"  Narration token: {turn_result.narration}")
+        print(f"  Events: {len(turn_result.events)}")
+        for event in turn_result.events:
+            print(f"    {event.event_type}: {event.payload}")
+
+        # Check if the defeated entity was re-damaged
+        hp_events = [e for e in turn_result.events if e.event_type == "hp_changed"]
+        re_damaged = any(e.payload.get("entity_id") == "dead_goblin_g" for e in hp_events)
+        double_defeat = any(
+            e.event_type == "entity_defeated" and e.payload.get("entity_id") == "dead_goblin_g"
+            for e in turn_result.events
+        )
+
+        print(f"  Defeated entity re-damaged: {re_damaged}")
+        print(f"  Double entity_defeated event: {double_defeat}")
+
+        if turn_result.status == "ok":
+            record_pass("G2: Fireball at dead goblin position",
+                        f"status=ok, narration={turn_result.narration}")
+            if re_damaged:
+                record_finding("AoE spell damages already-defeated entity (HP went further negative). "
+                               "Spell resolver does not filter defeated entities from AoE targets.")
+            if double_defeat:
+                record_finding("Double entity_defeated event emitted for already-defeated entity. "
+                               "defeat check does not guard against already-defeated.")
+        else:
+            record_pass("G2: Fireball at dead goblin position",
+                        f"rejected: {turn_result.failure_reason}")
+
+        SCENARIO_RESULTS["G"] = "PASS"
+        return result
+
+    except Exception as exc:
+        record_fail("G: Spell-on-dead scenario", str(exc),
+                     module=traceback.format_exc().splitlines()[-2] if traceback.format_exc() else "",
+                     error=str(exc))
+        traceback.print_exc()
+        SCENARIO_RESULTS["G"] = "FAIL"
+        record_finding(f"Scenario G crashed: {exc}")
+        return None
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# SCENARIO H: Sequential Actions — melee then spell in same session
+# ══════════════════════════════════════════════════════════════════════════
+
+def scenario_h_sequential() -> Optional[Dict[str, Any]]:
+    """Scenario H: Two combat turns in sequence. Tests event accumulation + state mutation."""
+    banner("SCENARIO H: Sequential Actions — Melee then Spell")
+    result: Dict[str, Any] = {}
+
+    try:
+        from aidm.schemas.entity_fields import EF
+        from aidm.schemas.attack import Weapon, AttackIntent
+        from aidm.core.play_loop import execute_turn, TurnContext
+        from aidm.core.spell_resolver import SpellCastIntent
+        from aidm.schemas.position import Position
+        from aidm.core.state import WorldState, FrozenWorldStateView
+        from aidm.core.rng_manager import RNGManager
+        from aidm.lens.narrative_brief import assemble_narrative_brief
+        from aidm.narration.narration_validator import NarrationValidator
+        from aidm.narration.narrator import NarrationTemplates
+
+        # H1: Create 3 entities — fighter, wizard, and a tough ogre
+        fighter = {
+            EF.ENTITY_ID: "fighter_h",
+            "name": "Sir Brennan",
+            EF.HP_CURRENT: 45,
+            EF.HP_MAX: 45,
+            EF.AC: 18,
+            EF.ATTACK_BONUS: 8,
+            EF.BAB: 5,
+            EF.STR_MOD: 3,
+            EF.DEX_MOD: 1,
+            EF.INT_MOD: 0,
+            EF.CON_MOD: 2,
+            EF.WIS_MOD: 1,
+            EF.CHA_MOD: 1,
+            EF.SAVE_FORT: 6,
+            EF.SAVE_REF: 2,
+            EF.SAVE_WILL: 2,
+            EF.TEAM: "party",
+            EF.WEAPON: "greatsword",
+            EF.POSITION: {"x": 5, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+        }
+        wizard = {
+            EF.ENTITY_ID: "wizard_h",
+            "name": "Elara the Evoker",
+            EF.HP_CURRENT: 28,
+            EF.HP_MAX: 28,
+            EF.AC: 14,
+            EF.ATTACK_BONUS: 3,
+            EF.BAB: 2,
+            EF.STR_MOD: 0,
+            EF.DEX_MOD: 2,
+            EF.INT_MOD: 3,
+            EF.CON_MOD: 1,
+            EF.WIS_MOD: 1,
+            EF.CHA_MOD: 0,
+            EF.SAVE_FORT: 2,
+            EF.SAVE_REF: 3,
+            EF.SAVE_WILL: 5,
+            EF.TEAM: "party",
+            EF.WEAPON: "quarterstaff",
+            EF.POSITION: {"x": 3, "y": 5},
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "medium",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+            "caster_level": 5,
+            "spell_dc_base": 13,
+            "spells_prepared": ["fireball"],
+        }
+        ogre = {
+            EF.ENTITY_ID: "ogre_h",
+            "name": "Groknak the Immovable",
+            EF.HP_CURRENT: 50,
+            EF.HP_MAX: 50,
+            EF.AC: 16,
+            EF.ATTACK_BONUS: 8,
+            EF.BAB: 4,
+            EF.STR_MOD: 5,
+            EF.DEX_MOD: -1,
+            EF.INT_MOD: -2,
+            EF.CON_MOD: 3,
+            EF.WIS_MOD: 0,
+            EF.CHA_MOD: -1,
+            EF.SAVE_FORT: 7,
+            EF.SAVE_REF: 0,
+            EF.SAVE_WILL: 1,
+            EF.TEAM: "monsters",
+            EF.WEAPON: "greatclub",
+            EF.POSITION: {"x": 6, "y": 5},  # Adjacent to fighter
+            EF.DEFEATED: False,
+            EF.SIZE_CATEGORY: "large",
+            EF.BASE_SPEED: 30,
+            EF.CONDITIONS: {},
+        }
+
+        print(f"  Fighter: {fighter['name']} at ({fighter[EF.POSITION]['x']},{fighter[EF.POSITION]['y']})")
+        print(f"  Wizard:  {wizard['name']} at ({wizard[EF.POSITION]['x']},{wizard[EF.POSITION]['y']})")
+        print(f"  Ogre:    {ogre['name']} HP {ogre[EF.HP_CURRENT]}/{ogre[EF.HP_MAX]} "
+              f"at ({ogre[EF.POSITION]['x']},{ogre[EF.POSITION]['y']})")
+        record_pass("H1: Create 3-entity combat")
+
+        entities = {
+            fighter[EF.ENTITY_ID]: fighter,
+            wizard[EF.ENTITY_ID]: wizard,
+            ogre[EF.ENTITY_ID]: ogre,
+        }
+        world_state = WorldState(
+            ruleset_version="3.5e",
+            entities=entities,
+            active_combat={
+                "round_index": 1,
+                "turn_counter": 0,
+                "initiative_order": ["fighter_h", "wizard_h", "ogre_h"],
+                "flat_footed_actors": [],
+                "aoo_used_this_round": [],
+                "duration_tracker": {"effects": []},
+            },
+        )
+        rng = RNGManager(master_seed=88)
+
+        # H2: Turn 1 — Fighter attacks ogre with greatsword
+        greatsword = Weapon(
+            damage_dice="2d6",
+            damage_bonus=0,
+            damage_type="slashing",
+            critical_multiplier=2,
+            critical_range=19,
+            grip="two-handed",
+            weapon_type="two-handed",
+            is_two_handed=True,
+        )
+        attack_intent = AttackIntent(
+            attacker_id="fighter_h",
+            target_id="ogre_h",
+            attack_bonus=fighter[EF.ATTACK_BONUS],
+            weapon=greatsword,
+        )
+        turn_ctx_1 = TurnContext(turn_index=0, actor_id="fighter_h", actor_team="party")
+
+        print(f"\n  === TURN 1: Fighter attacks Ogre ===")
+        turn_result_1 = execute_turn(
+            world_state=world_state, turn_ctx=turn_ctx_1,
+            combat_intent=attack_intent, rng=rng,
+            next_event_id=0, timestamp=1.0,
+        )
+        result["turn_result_1"] = turn_result_1
+
+        print(f"  Status: {turn_result_1.status}, narration: {turn_result_1.narration}")
+        ogre_hp_after_melee = None
+        for event in turn_result_1.events:
+            if event.event_type == "hp_changed":
+                ogre_hp_after_melee = event.payload.get("new_hp")
+                print(f"  Ogre HP: {event.payload.get('old_hp')} → {ogre_hp_after_melee}")
+
+        if turn_result_1.status == "ok":
+            record_pass("H2: Turn 1 — Fighter attacks ogre",
+                        f"narration={turn_result_1.narration}")
+        else:
+            record_fail("H2: Turn 1 — Fighter attacks ogre",
+                        f"status={turn_result_1.status}")
+
+        # H3: Turn 2 — Wizard casts fireball at ogre (using updated state!)
+        updated_state = turn_result_1.world_state
+
+        spell_intent = SpellCastIntent(
+            caster_id="wizard_h",
+            spell_id="fireball",
+            target_position=Position(x=6, y=5),  # Ogre position
+        )
+        turn_ctx_2 = TurnContext(turn_index=1, actor_id="wizard_h", actor_team="party")
+
+        print(f"\n  === TURN 2: Wizard casts Fireball at Ogre ===")
+        turn_result_2 = execute_turn(
+            world_state=updated_state, turn_ctx=turn_ctx_2,
+            combat_intent=spell_intent, rng=rng,
+            next_event_id=len(turn_result_1.events), timestamp=2.0,
+        )
+        result["turn_result_2"] = turn_result_2
+
+        print(f"  Status: {turn_result_2.status}, narration: {turn_result_2.narration}")
+        ogre_hp_after_spell = None
+        for event in turn_result_2.events:
+            if event.event_type == "hp_changed" and event.payload.get("entity_id") == "ogre_h":
+                ogre_hp_after_spell = event.payload.get("new_hp")
+                print(f"  Ogre HP: {event.payload.get('old_hp')} → {ogre_hp_after_spell}")
+            if event.event_type == "entity_defeated":
+                print(f"  DEFEATED: {event.payload.get('entity_id')}")
+
+        if turn_result_2.status == "ok":
+            record_pass("H3: Turn 2 — Wizard fireballs ogre",
+                        f"narration={turn_result_2.narration}")
+        else:
+            record_fail("H3: Turn 2 — Wizard fireballs ogre",
+                        f"status={turn_result_2.status}")
+
+        # H4: Verify state continuity — ogre HP should reflect both hits
+        ogre_state = turn_result_2.world_state.entities.get("ogre_h", {})
+        final_hp = ogre_state.get(EF.HP_CURRENT, "???")
+        defeated = ogre_state.get(EF.DEFEATED, False)
+        print(f"\n  State continuity check:")
+        print(f"    Ogre started: {ogre[EF.HP_CURRENT]}/{ogre[EF.HP_MAX]}")
+        print(f"    After melee:  {ogre_hp_after_melee}")
+        print(f"    After spell:  {ogre_hp_after_spell}")
+        print(f"    Final state:  HP={final_hp}, defeated={defeated}")
+
+        # Verify damage accumulated correctly
+        if ogre_hp_after_spell is not None and final_hp != "???":
+            if final_hp == ogre_hp_after_spell:
+                record_pass("H4: State continuity verified",
+                            f"sequential damage accumulated correctly, final HP={final_hp}")
+            else:
+                record_fail("H4: State continuity",
+                            f"final HP mismatch: state says {final_hp}, event says {ogre_hp_after_spell}")
+                record_finding("State continuity mismatch between world_state.entities and hp_changed event")
+        else:
+            record_pass("H4: State continuity", f"final HP={final_hp}, defeated={defeated}")
+
+        # H5: Run NarrationValidator on the spell narration
+        try:
+            frozen_view = FrozenWorldStateView(turn_result_2.world_state)
+            event_dicts = [{
+                "event_id": e.event_id, "type": e.event_type,
+                "event_type": e.event_type, "timestamp": e.timestamp,
+                "payload": e.payload, "citations": e.citations,
+            } for e in turn_result_2.events]
+
+            narration_token = turn_result_2.narration or "spell_damage_dealt"
+            brief = assemble_narrative_brief(
+                events=event_dicts, narration_token=narration_token, frozen_view=frozen_view,
+            )
+
+            template = NarrationTemplates.get_template(narration_token, brief.severity)
+            try:
+                narration_text = template.format(
+                    actor=brief.actor_name, target=brief.target_name or "the target",
+                    weapon="fireball", damage=0,
+                )
+            except KeyError:
+                narration_text = template
+
+            validator = NarrationValidator()
+            val_result = validator.validate(narration_text, brief)
+            print(f"  NarrationValidator: {val_result.verdict} ({len(val_result.violations)} violations)")
+            for v in val_result.violations:
+                print(f"    {v.rule_id} [{v.severity}]: {v.detail}")
+
+            record_pass("H5: NarrationValidator on sequential combat",
+                        f"verdict={val_result.verdict}")
+        except Exception as exc:
+            record_fail("H5: NarrationValidator on sequential combat", str(exc), error=str(exc))
+
+        SCENARIO_RESULTS["H"] = "PASS"
+        return result
+
+    except Exception as exc:
+        record_fail("H: Sequential actions scenario", str(exc),
+                     module=traceback.format_exc().splitlines()[-2] if traceback.format_exc() else "",
+                     error=str(exc))
+        traceback.print_exc()
+        SCENARIO_RESULTS["H"] = "FAIL"
+        record_finding(f"Scenario H crashed: {exc}")
+        return None
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # STAGE 7: Summary (Updated for WO-SMOKE-TEST-002)
 # ══════════════════════════════════════════════════════════════════════════
 
@@ -1695,6 +2539,10 @@ def stage_7_summary() -> None:
     scenario_b = SCENARIO_RESULTS.get("B", "NOT RUN")
     scenario_c = SCENARIO_RESULTS.get("C", "NOT RUN")
     scenario_d = SCENARIO_RESULTS.get("D", "NOT RUN")
+    scenario_e = SCENARIO_RESULTS.get("E", "NOT RUN")
+    scenario_f = SCENARIO_RESULTS.get("F", "NOT RUN")
+    scenario_g = SCENARIO_RESULTS.get("G", "NOT RUN")
+    scenario_h = SCENARIO_RESULTS.get("H", "NOT RUN")
 
     # Per-stage detail table
     total = len(STAGE_RESULTS)
@@ -1719,13 +2567,21 @@ def stage_7_summary() -> None:
     print(f"  Scenario B (melee): {scenario_b}")
     print(f"  Scenario C (multi-target): {scenario_c}")
     print(f"  Scenario D (condition + validator): {scenario_d}")
+    print(f"  Scenario E (self-buff): {scenario_e}")
+    print(f"  Scenario F (healing): {scenario_f}")
+    print(f"  Scenario G (spell on dead): {scenario_g}")
+    print(f"  Scenario H (sequential actions): {scenario_h}")
+    exploratory_count = sum(1 for s in SCENARIO_RESULTS.values() if s in ("PASS", "FAIL"))
+    print(f"  Exploratory scenarios run: {exploratory_count}")
 
     if NEW_FINDINGS:
-        print(f"  New findings:")
+        print(f"  New findings ({len(NEW_FINDINGS)}):")
         for f in NEW_FINDINGS:
             print(f"    - {f}")
     else:
         print(f"  New findings: (none)")
+
+    print(f"  Total findings: {len(NEW_FINDINGS)}")
 
     print(f"  Total: {passed} of {total} stages passed")
     print(f"  ════════════════════════════════════════════════════")
@@ -1764,8 +2620,8 @@ def stage_7_summary() -> None:
 def main() -> int:
     print()
     print("╔══════════════════════════════════════════════════════════════════╗")
-    print("║  WO-SMOKE-TEST-002: Post-Fix Regression + New Scenarios        ║")
-    print("║  Regression (14) + Gap Verify (4) + Melee + Multi + Condition  ║")
+    print("║  WO-SMOKE-TEST-002: Post-Fix Regression + Exploratory Scenarios║")
+    print("║  Regression (14) + Gap Verify (4) + 7 Exploratory Scenarios    ║")
     print("╚══════════════════════════════════════════════════════════════════╝")
 
     # ── Scenario A: Regression — original fireball pipeline ──
@@ -1806,6 +2662,18 @@ def main() -> int:
 
     # ── Scenario D: Condition Spell + NarrationValidator ──
     condition_result = scenario_d_condition_validator()
+
+    # ── Scenario E: Self-Buff (Shield) ──
+    buff_result = scenario_e_self_buff()
+
+    # ── Scenario F: Healing (Cure Light Wounds) ──
+    heal_result = scenario_f_healing()
+
+    # ── Scenario G: Edge Case — Spell at Defeated Entity ──
+    dead_result = scenario_g_spell_on_dead()
+
+    # ── Scenario H: Sequential Actions — Melee then Spell ──
+    seq_result = scenario_h_sequential()
 
     # ── Summary ──
     stage_7_summary()
