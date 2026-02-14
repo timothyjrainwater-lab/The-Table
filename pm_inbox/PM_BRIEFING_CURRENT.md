@@ -23,11 +23,14 @@
 ## Needs PM to Draft WOs (no dispatch docs exist yet)
 
 - [ ] **Governance CE WOs + Rule 22** — PM decisions delivered (in reviewed/WO_SET_PM_CONTEXT_EFFICIENCY.md). 6 CE items + Rule 22 idle notification ("forge is quiet"). Bundle into one governance builder session. No individual dispatch docs drafted yet.
+- [ ] **[MEMO_OPERATOR_RELAY_REFINEMENTS]** — Bundles PM idle signal ("PM is on standby") + bidirectional relay convention (PM outputs verdicts in code blocks for Operator one-click relay to builders). Supersedes MEMO_PM_IDLE_SIGNAL. PM verdict needed.
 
 ## Active Operational Files
 
 - `BURST_INTAKE_QUEUE.md` — BURST-001 thru 004 (1 READY, 2 NOT STARTED, 1 PARTIAL)
 - `WO-RESEARCH-SPRINT-001_DISPATCH.md` — 11 RQs, PM reviewed. Wave 1 ready for Operator dispatch.
+- `MEMO_OPERATOR_RELAY_REFINEMENTS.md` — Bundled: PM idle signal + bidirectional relay. PM verdict needed.
+- `MEMO_PM_IDLE_SIGNAL.md` — Superseded by MEMO_OPERATOR_RELAY_REFINEMENTS. Archive when PM verdicts consolidated memo.
 
 ## Persistent Files
 
