@@ -77,9 +77,9 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: e521288 — chore: update kernel for PM handoff — all 13 fix WOs resolved
+Last commit: e7c0aa8 — docs: codify PM decision-only principle across governance docs
 Tests passed: 5,532 (24 skipped) — **GREEN. 0 failures.**
-Stoplight: **YELLOW — All fix WOs COMPLETE, 7 AMBIGUOUS Operator decisions pending, PSD update + RED block lift remain**
+Stoplight: **YELLOW — All fix WOs + AMBIGUOUS fixes COMPLETE. PSD update + RED block lift remain.**
 
 **Verification COMPLETE:** 338 formulas verified across 9 domains. 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist. Domain A re-verified with research cross-reference — 4 verdicts reclassified WRONG→AMBIGUOUS (cover design decision in RQ-BOX-001).
 
@@ -101,15 +101,16 @@ Stoplight: **YELLOW — All fix WOs COMPLETE, 7 AMBIGUOUS Operator decisions pen
 
 **Additional fix commits:**
 - `f581d44` fix: test isolation — sys.modules torch mock + TTS skip guard
+- `f517592` fix: B-AMB-02/04, E-AMB-03 — opposed ties (initiator wins), disarm weapon mods (TODO until weapon plumbing), 5ft step threshold >= 2
 
 **Fix phase artifacts:**
 - `docs/verification/WRONG_VERDICTS_MASTER.md` — 30 WRONG verdicts in 12 active fix WOs (FIX-WO-05 retired)
-- `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` — 28 AMBIGUOUS verdicts, 7 need Operator decision
-- `pm_inbox/FIX_WO_DISPATCH_PACKET.md` — full dispatch packet with all 13 WOs
+- `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` — 28 AMBIGUOUS verdicts, ALL RESOLVED (22 KEEP, 4 FIX-SRD)
+- `pm_inbox/reviewed/FIX_WO_DISPATCH_PACKET.md` — full dispatch packet with all 13 WOs (archived)
 
-**OPEN QUESTION (Operator decisions still pending):**
-- ALL 7 AMBIGUOUS verdicts RESOLVED by Operator (2026-02-14). 4 KEEP, 3 FIX-SRD.
-- 3 FIX-SRD items need code changes: B-AMB-02/H-AMB-01 (initiator wins ties), B-AMB-04 (disarm weapon mods), E-AMB-03 (5ft step threshold >= 2). WO drafted: `pm_inbox/WO-AMBFIX-001_DISPATCH.md`.
+**AMBIGUOUS verdicts — ALL RESOLVED (2026-02-14):**
+- 7 Operator decisions: 4 KEEP (D-AMB-04, A-AMB-05, B-AMB-05, G-AMB-01), 3 FIX-SRD (B-AMB-02/H-AMB-01, B-AMB-04, E-AMB-03)
+- 3 FIX-SRD code changes COMMITTED in f517592. B-AMB-04 disarm mods implemented as TODO (activates when weapon plumbing lands).
 
 **Lessons learned (fix phase):**
 - 3 of 7 builder agents reported completion without persisting code changes. Operator caught during commit review. **Mitigation:** `git diff <target_files>` verification step in WO completion protocol.
@@ -182,11 +183,11 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - [x] WO-FIX-12 F2/F3 — COMMITTED (b52d8d8)
 - [x] Test isolation fixed (f581d44)
 - [x] Operator reviews and approves 7 AMBIGUOUS decisions (4 KEEP, 3 FIX-SRD)
-- [ ] 3 FIX-SRD micro-fixes dispatched and committed (WO-AMBFIX-001)
+- [x] 3 FIX-SRD micro-fixes dispatched and committed (f517592 — WO-AMBFIX-001)
 - [ ] PSD updated to reflect fix phase completion
 - [ ] RED block lifted by Operator
 
-**ALL OF THE FOLLOWING ARE BLOCKED behind completion gate (3 items remain):**
+**ALL OF THE FOLLOWING ARE BLOCKED behind completion gate (2 items remain):**
 
 - Phase 4C Wave C (3 WOs) — BLOCKED
 - BURST-001/002/003 — BLOCKED
@@ -194,7 +195,7 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - All playtesting — BLOCKED
 - WO_SET_METHODOLOGY_REFINEMENT (6 governance WOs, commit f1013ba) — BLOCKED
 
-**PM posture:** ACTIVE. Fix phase code COMPLETE. Tests GREEN. **Remaining gate items:** (1) WO-AMBFIX-001 dispatch (3 FIX-SRD code changes), (2) PSD update, (3) RED block lift by Operator.
+**PM posture:** ACTIVE. Fix phase COMPLETE. AMBIGUOUS decisions ALL RESOLVED and committed. Tests GREEN. **Remaining gate items:** (1) PSD update, (2) RED block lift by Operator.
 
 **Post-fix forward path (PM-assessed, see `pm_inbox/MEMO_POST_FIX_PHASE_ACTION_PLAN.md`):**
 - Wave 1 (immediate, parallel-safe): P1-A sunder grip multiplier, P1-C register narration marker, P1-D fix TestPerformance tests. All micro-WOs.

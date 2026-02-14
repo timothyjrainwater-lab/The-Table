@@ -29,7 +29,7 @@
 - [x] All WRONG verdicts have corresponding fix WOs → `docs/verification/WRONG_VERDICTS_MASTER.md` (13 fix WOs covering 32 bugs)
 - [x] All AMBIGUOUS verdicts have documented design decisions → `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` (28 verdicts, all resolved)
 - [x] Operator has reviewed and approved AMBIGUOUS decisions (7 decisions: 4 KEEP, 3 FIX-SRD)
-- [ ] 3 FIX-SRD micro-WOs dispatched and committed (B-AMB-02/H-AMB-01, B-AMB-04, E-AMB-03)
+- [x] 3 FIX-SRD micro-WOs dispatched and committed (f517592 — B-AMB-02/H-AMB-01, B-AMB-04, E-AMB-03)
 - [ ] PSD updated to reflect verification completion
 - [ ] RED block lifted by Operator
 
