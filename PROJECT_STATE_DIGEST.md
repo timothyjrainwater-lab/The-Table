@@ -22,7 +22,7 @@ When a WO is INTEGRATED, the PM updates the PSD as follows:
   6. Sync the rehydration copy (pm_inbox/aegis_rehydration/PROJECT_STATE_DIGEST.md)
 Field-level detail belongs in source code and WO dispatch docs, not here.
 
-LAST UPDATED: 2026-02-14 — **RED BLOCK: Bone-layer formula verification in progress. ALL feature work, bug fixes, playtesting, and builder dispatches BLOCKED until verification GREEN.** See `docs/verification/BONE_LAYER_VERIFICATION_PLAN.md`. 303 formulas across 9 domains, 22 files. 5510 tests collected, 16 skipped (hardware-gated).
+LAST UPDATED: 2026-02-14 — Bone-layer verification COMPLETE. Fix phase COMPLETE (13 WOs, all committed). AMBIGUOUS decisions ALL RESOLVED (28 verdicts). Tests GREEN (5,532 passed, 24 skipped). RED BLOCK LIFTED pending Operator confirmation. See `docs/verification/BONE_LAYER_CHECKLIST.md`.
 -->
 
 # Project State Digest
@@ -268,6 +268,13 @@ LAST UPDATED: 2026-02-14 — **RED BLOCK: Bone-layer formula verification in pro
 - **10 correctness bugs identified** (4 HIGH): BUG-1 two-handed STR 1.5x, BUG-2 full attack overkill, BUG-3 prone AC not melee/ranged-differentiated, BUG-4 helpless AC same issue. Tier 0-4 priority ranking.
 - **Contamination matrix**: Documents which systems can/cannot be meaningfully playtested with current movement implementation.
 
+### Bone-Layer Formula Verification + Fix Phase (2026-02-14)
+- **338 formulas verified** across 9 domains (A-I). Results: 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED.
+- **13 fix WOs** resolved all 30 WRONG verdicts (12 implemented, 1 retired). 11 commits: grip multiplier, full attack termination, condition AC, concentration DC, maneuver touch attacks, size ordering, XP table, action types, TWF penalties, terrain/environment fixes.
+- **28 AMBIGUOUS verdicts** all resolved: 22 KEEP (documented design decisions), 4 FIX-SRD (opposed ties, disarm mods, 5ft step threshold, TWF off-hand — all committed). 3 auto-fix, 2 cascade.
+- **Test isolation**: sys.modules torch mock + TTS skip guard (f581d44).
+- **Key files**: `docs/verification/BONE_LAYER_CHECKLIST.md`, `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md`, `docs/verification/WRONG_VERDICTS_MASTER.md`.
+
 ### Signal Voice — Operator TTS Pipeline (2026-02-13)
 - **scripts/speak.py**: Three-engine pipeline — Kokoro (voice design, CPU) -> Chatterbox (GPU render, voice cloning) -> winsound (playback). Kokoro CPU fallback if no GPU.
 - **Voice profile "Arbor"**: am_michael seed, speed 0.88, exaggeration 0.15, Chatterbox Original tier. Calm, grounded, neutral-operational readback.
@@ -278,7 +285,7 @@ LAST UPDATED: 2026-02-14 — **RED BLOCK: Bone-layer formula verification in pro
 
 ## Test Count
 
-**Total: 5510 tests collected** (16 skipped hardware-gated)
+**Total: 5,532 tests collected** (24 skipped hardware-gated)
 
 > **Canonical counts are machine-generated.** Run `python scripts/audit_snapshot.py` or see [`docs/STATE.md`](docs/STATE.md) for verified numbers. The counts above may be stale.
 
@@ -462,14 +469,14 @@ All Phase 1-3, Post-A10, Wave 1-3, and Phase 4A/4B integrated. See Locked System
 | WO-SPELLLIST-CLI-01 | C | Spell list display in CLI | QUEUED |
 | WO-CHARSHEET-CLI-01 | C | Character sheet display in CLI | QUEUED |
 
-### Tier 0 Correctness Bugs — See `docs/research/ACTION_ECONOMY_AUDIT.md` Section X
+### Tier 0 Correctness Bugs — RESOLVED via Bone-Layer Fix Phase
 
 | Bug ID | Description | Severity | WO Status |
 |--------|-------------|----------|-----------|
-| BUG-1 | Two-handed STR 1.5x not applied | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
-| BUG-2 | Full attack doesn't stop on target death | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
-| BUG-3 | Prone AC not differentiated melee/ranged | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
-| BUG-4 | Helpless AC not differentiated melee/ranged | HIGH | WO-BUGFIX-TIER0-001 DISPATCHED |
+| BUG-1 | Two-handed STR 1.5x not applied | HIGH | INTEGRATED (WO-FIX-01, a386b81) |
+| BUG-2 | Full attack doesn't stop on target death | HIGH | INTEGRATED (WO-FIX-02, a386b81) |
+| BUG-3 | Prone AC not differentiated melee/ranged | HIGH | INTEGRATED (WO-FIX-03, df3a958) |
+| BUG-4 | Helpless AC not differentiated melee/ranged | HIGH | INTEGRATED (WO-FIX-03, df3a958) |
 
 ### Standalone + Research — WO-OSS-DICE-001 FUTURE. 5 WO-RQ research artifacts anchored (see `docs/planning/research/`). Voice research fleet (WO-VOICE-RESEARCH-01..05) delivered.
 

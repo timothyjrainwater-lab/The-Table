@@ -184,10 +184,10 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - [x] Test isolation fixed (f581d44)
 - [x] Operator reviews and approves 7 AMBIGUOUS decisions (4 KEEP, 3 FIX-SRD)
 - [x] 3 FIX-SRD micro-fixes dispatched and committed (f517592 — WO-AMBFIX-001)
-- [ ] PSD updated to reflect fix phase completion
+- [x] PSD updated to reflect fix phase completion (498 lines, under 500 gate)
 - [ ] RED block lifted by Operator
 
-**ALL OF THE FOLLOWING ARE BLOCKED behind completion gate (2 items remain):**
+**ALL OF THE FOLLOWING ARE BLOCKED behind RED block lift (1 item remains):**
 
 - Phase 4C Wave C (3 WOs) — BLOCKED
 - BURST-001/002/003 — BLOCKED
@@ -195,7 +195,7 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - All playtesting — BLOCKED
 - WO_SET_METHODOLOGY_REFINEMENT (6 governance WOs, commit f1013ba) — BLOCKED
 
-**PM posture:** ACTIVE. Fix phase COMPLETE. AMBIGUOUS decisions ALL RESOLVED and committed. Tests GREEN. **Remaining gate items:** (1) PSD update, (2) RED block lift by Operator.
+**PM posture:** ACTIVE. Fix phase COMPLETE. AMBIGUOUS decisions ALL RESOLVED and committed. PSD updated. Tests GREEN. **Remaining gate item:** RED block lift by Operator.
 
 **Post-fix forward path (PM-assessed, see `pm_inbox/MEMO_POST_FIX_PHASE_ACTION_PLAN.md`):**
 - Wave 1 (immediate, parallel-safe): P1-A sunder grip multiplier, P1-C register narration marker, P1-D fix TestPerformance tests. All micro-WOs.
