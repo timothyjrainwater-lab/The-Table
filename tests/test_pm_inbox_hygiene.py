@@ -63,7 +63,7 @@ VALID_PREFIXES = (
 
 # Regex for valid lifecycle values
 LIFECYCLE_PATTERN = re.compile(
-    r"\*\*Lifecycle:\*\*\s*(NEW|TRIAGED|ACTIONED|ARCHIVE)",
+    r"\*\*Lifecycle:\*\*\s*(NEW|TRIAGED|ACTIONED|ARCHIVE|DISPATCH-READY)",
     re.IGNORECASE,
 )
 

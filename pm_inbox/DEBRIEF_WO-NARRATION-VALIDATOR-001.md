@@ -1,6 +1,7 @@
 # DEBRIEF: WO-NARRATION-VALIDATOR-001
 
 **Builder:** Claude Opus 4.6 (Session 2)
+**Lifecycle:** NEW
 **Commit (source):** 6369806 — `feat: PM review cycle — scope amendments, archive 13 files, builder code stubs`
 **Commit (tests):** 2d923ed — `test(WO-NARRATION-VALIDATOR-001): 46 tests for NarrationValidator rules + integration`
 **Date:** 2026-02-14

@@ -79,3 +79,27 @@ CrossValidateStage depends on `("semantics", "rulebook")`. If a production calle
 ### Test Results
 
 5,775 tests pass, 14 failures (all pre-existing TTS/torchaudio environment issues). Zero regressions from either WO.
+
+## Builder Codebase Friction Points (Third Pass)
+
+Builder flagged 5 codebase friction points during execution:
+
+### 9. StageResult Import Ambiguity
+
+`CompileContext` and `CompileStage` are defined in `compile_stages/_base.py`, but `StageResult` is imported from `aidm/schemas/world_compile.py` in the world compiler. `cross_validate.py` imports from `_base.py`. Builder had to trace through to confirm they're the same class. Making the canonical location explicit (or re-exporting from one place) would save future confusion.
+
+### 10. Two Event Payload Conventions
+
+Some code passes Event dataclass objects with `.payload` dicts; other code passes raw dicts. `narrative_brief.py` handles both with `payload is not event` guards. If events are passed in a third shape, `content_id` extraction silently fails. This is a latent fragility.
+
+### 11. Test File Sizes Growing
+
+`test_compile_cross_validate.py` is 954 lines; `test_brief_width_001.py` is 717 lines. One mega-test-file per WO pattern will eventually produce test files harder to navigate than the code they test. Consider splitting by test class as suite grows past 6,000.
+
+### 12. content_pack_dir Overloaded
+
+`CompileContext.content_pack_dir` points to `workspace`, meaning content pack source data and stage output go to the same directory. Works when files are pre-populated, but surprising. Separate source and output dirs would be cleaner.
+
+### 13. Dead Code in _parse_max_damage
+
+First `_DICE_RE` regex is defined, compiled, and never meaningfully used — function immediately falls through to a simpler inline regex. 3 lines, not urgent, but causes pause on read.

@@ -2,6 +2,7 @@
 
 **Builder:** Agent (Claude Opus 4.6)
 **Date:** 2026-02-14
+**Lifecycle:** NEW
 **Commit:** `2054338` (content_id emission, contraindications, tests) + `6369806` (cross-validation module, CrossValidateStage) + pending (pipeline integration)
 **WO:** WO-COMPILE-VALIDATE-001 — Compile-Time Layer A vs Layer B Cross-Validation + content_id Emission
 **Status:** COMPLETE
