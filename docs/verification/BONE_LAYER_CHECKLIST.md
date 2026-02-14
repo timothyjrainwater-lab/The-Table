@@ -10,16 +10,16 @@
 
 | Domain | Description | Files | Formulas | Verified | Correct | Wrong | Ambiguous | Uncited | Status |
 |--------|-------------|-------|----------|----------|---------|-------|-----------|---------|--------|
-| D | Conditions & Modifiers | 2 | 57 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
+| D | Conditions & Modifiers | 2 | 57 | 57 | 38 | 8 | 5 | 6 | COMPLETE |
 | A | Attack Resolution | 9 | 53 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
 | B | Combat Maneuvers | 2 | 27 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
 | C | Saves & Spells | 2 | 21 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
-| G | Initiative & Turn | 3 | 10 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
+| G | Initiative & Turn | 3 | 10 | 10 | 6 | 2 | 2 | 0 | COMPLETE |
 | E | Movement & Terrain | 5 | 34 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
 | F | Char Progression | 4 | 77 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
 | H | Skill System | 1 | 6 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
-| I | Geometry & Size | 10 | 18 | 0 | 0 | 0 | 0 | 0 | NOT STARTED |
-| **TOTAL** | | **38** | **303** | **0** | **0** | **0** | **0** | **0** | **NOT STARTED** |
+| I | Geometry & Size | 10 | 49 | 49 | 40 | 1 | 2 | 6 | COMPLETE |
+| **TOTAL** | | **38** | **334** | **116** | **85** | **11** | **8** | **12** | **IN PROGRESS** |
 
 ---
 
@@ -38,7 +38,8 @@
 
 | Date | Agent | Domain | Formulas Verified | Wrong Found | Commit |
 |------|-------|--------|-------------------|-------------|--------|
-| — | — | — | — | — | — |
+| 2026-02-14 | Builder (Opus 4.6) | I | 49 | 1 | (pending commit) |
+| 2026-02-14 | Builder (Opus 4.6) | G | 10 | 2 | (pending commit) |
 
 ---
 
