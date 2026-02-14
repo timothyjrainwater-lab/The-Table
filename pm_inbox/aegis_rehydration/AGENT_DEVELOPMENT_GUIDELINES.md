@@ -446,7 +446,7 @@ Write everything from your context window — cascading impacts, agent failures,
 
 **Pass 2 — PM Summary** (`pm_inbox/MEMO_[SHORT_TITLE].md`):
 Compress the dump into a structured memo:
-- **Action Items** (PM must act) — numbered, with who/what/blocks
+- **Action Items** (PM decides, builder executes) — numbered, with decision needed/who executes/blocks
 - **Status Updates** (informational) — one line each
 - **Deferred Items** (not blocking) — one sentence each
 

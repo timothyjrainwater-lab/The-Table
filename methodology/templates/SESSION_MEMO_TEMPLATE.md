@@ -15,12 +15,12 @@ See: [PM Context Compression Pattern](../patterns/PM_CONTEXT_COMPRESSION.md)
 
 ---
 
-## Action Items (PM must act on these)
+## Action Items (PM decides, builder executes)
 
-[Numbered list. Each item has: what needs to happen, who does it, what it blocks. Keep this SHORT — 3-5 items max. If there are more, prioritize.]
+[Numbered list. Each item has: what decision is needed, who executes after verdict, what it blocks. Keep this SHORT — 3-5 items max. If there are more, prioritize.]
 
-1. **[Action]** — [Who does it]. Blocks: [what it blocks, or "nothing"].
-2. **[Action]** — [Who does it]. Blocks: [what it blocks].
+1. **[Decision needed]** — Builder executes: [action after verdict]. Blocks: [what it blocks, or "nothing"].
+2. **[Decision needed]** — Builder executes: [action after verdict]. Blocks: [what it blocks].
 
 ## Status Updates (Informational only)
 
@@ -55,7 +55,7 @@ See: [PM Context Compression Pattern](../patterns/PM_CONTEXT_COMPRESSION.md)
 
 **Pass 1 — Full Dump:** Write everything from your context window — cascading impacts, agent failures, schema additions, WO mismatches, test changes, loose ends. Don't filter. Don't worry about length. This is the raw knowledge capture.
 
-**Pass 2 — PM Summary:** Compress the dump into the memo format above. Action items only include things the PM must actually do. Status updates are one line each. Deferred items get one sentence each.
+**Pass 2 — PM Summary:** Compress the dump into the memo format above. Action items only include decisions the PM must make — not actions the PM must execute. The PM writes verdicts; builders execute. Status updates are one line each. Deferred items get one sentence each.
 
 **Pass 3 — Operational Retrospective:** Reflect on the process itself. This is not what happened — it's what you think about what happened:
 - **Fragility observations** — what parts of the system felt brittle, what nearly broke, what worked better than expected
@@ -76,7 +76,7 @@ Pass 3 is a required `## Retrospective` section in the MEMO file, enforced by `t
 
 ## Usage Notes
 
-- **Action Items are the only section the PM might act on immediately.** Everything else is context. Design your memo so a PM who only reads the Action Items section still gets what they need.
+- **Action Items are the only section the PM might write a verdict on.** Everything else is context. Design your memo so a PM who only reads the Action Items section can write their verdict without reading anything else.
 - **Don't combine memos.** One memo per session. If a session produces multiple unrelated findings, that's still one memo — the PM triages internally.
 - **Date everything.** Context windows don't have timestamps. The PM needs to know which memo is most recent when two memos conflict.
 - **"Session scope" in the header is critical.** It tells the PM what this session was supposed to be doing, which frames everything that follows.

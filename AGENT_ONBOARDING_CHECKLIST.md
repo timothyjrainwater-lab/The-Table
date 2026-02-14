@@ -187,10 +187,12 @@ When you complete a deliverable that needs PM (Aegis) review — work order outp
 | Destination | Who writes there | Purpose |
 |-------------|-----------------|---------|
 | `pm_inbox/` | **Agents** | New deliverables awaiting PM review |
-| `pm_inbox/reviewed/` | **PM/Thunder ONLY** | Reviewed and approved documents |
+| `pm_inbox/reviewed/` | **Agents** (after PM verdict) | Archived documents — PM sets lifecycle to ARCHIVE, builder moves the file |
 | `pm_inbox/aegis_rehydration/` | **PM/Thunder ONLY** | PM context files |
 
-**DO NOT write to `pm_inbox/reviewed/`.** That folder is for documents that have already been reviewed and approved by the PM. Only Thunder or the PM moves files there. If you write directly to `reviewed/`, your deliverable will be treated as misrouted and may be missed.
+**The PM is a decision oracle, not an action taker.** The PM reads memos, writes verdicts (lifecycle changes, decision annotations), and nothing else. All resulting actions — file moves, briefing updates, doc changes — are executed by builders. The PM's context window is the most expensive resource in the system; every action the PM executes is judgment capacity lost.
+
+**`pm_inbox/reviewed/`:** Builders move files here after the PM sets their lifecycle to ARCHIVE. Do not move files there on your own judgment — wait for the PM's verdict edit.
 
 **DO NOT write deliverables to `pm_inbox/aegis_rehydration/`.** That folder contains PM system context. The only exception is **syncing canonical project files** that have rehydration copies (e.g., `AGENT_DEVELOPMENT_GUIDELINES.md`, `PROJECT_STATE_DIGEST.md`, `KNOWN_TECH_DEBT.md`) — those files have headers that explicitly say to sync the rehydration copy after editing.
 
