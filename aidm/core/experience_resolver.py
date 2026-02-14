@@ -173,7 +173,7 @@ def apply_level_up(
     1. Increment EF.LEVEL
     2. Roll hit die (class-dependent) + CON mod, add to EF.HP_MAX and EF.HP_CURRENT
     3. Add skill points (class-dependent + INT mod)
-    4. Grant feat slot every 3rd level (3, 6, 9, 12, 15, 18)
+    4. Grant feat slot at 1st level, then every 3rd level (1, 3, 6, 9, 12, 15, 18)
     5. Grant ability score increase every 4th level (4, 8, 12, 16, 20)
     6. Update BAB per class progression
     7. Update save bonuses per class progression
@@ -226,8 +226,9 @@ def apply_level_up(
     # Calculate skill points
     skill_points = max(1, progression.skill_points_per_level + int_mod)
 
-    # Check for feat slot (every 3rd level)
-    feat_slot_gained = (new_level % 3 == 0)
+    # Check for feat slot (1st level, then every 3rd: 1, 3, 6, 9, 12, 15, 18)
+    # PHB p.22, Table 3-2: Level-Dependent Benefits
+    feat_slot_gained = (new_level == 1 or new_level % 3 == 0)
     if feat_slot_gained:
         new_entity[EF.FEAT_SLOTS] = new_entity.get(EF.FEAT_SLOTS, 0) + 1
 
