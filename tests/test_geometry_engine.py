@@ -230,9 +230,9 @@ class TestSizeCategory:
         assert SizeCategory.GARGANTUAN.grid_size() == 4
 
     def test_footprint_colossal(self):
-        """Colossal occupies 25 squares (5x5)."""
-        assert SizeCategory.COLOSSAL.footprint() == 25
-        assert SizeCategory.COLOSSAL.grid_size() == 5
+        """Colossal occupies 36 squares (6x6)."""
+        assert SizeCategory.COLOSSAL.footprint() == 36
+        assert SizeCategory.COLOSSAL.grid_size() == 6
 
 
 # ==============================================================================

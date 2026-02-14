@@ -283,7 +283,7 @@ class SizeCategory(Enum):
         Large creatures occupy 4 squares (2x2).
         Huge creatures occupy 9 squares (3x3).
         Gargantuan creatures occupy 16 squares (4x4).
-        Colossal creatures occupy 25 squares (5x5).
+        Colossal creatures occupy 36 squares (6x6).
 
         Returns:
             Number of squares occupied
@@ -297,7 +297,7 @@ class SizeCategory(Enum):
             SizeCategory.LARGE: 4,
             SizeCategory.HUGE: 9,
             SizeCategory.GARGANTUAN: 16,
-            SizeCategory.COLOSSAL: 25,
+            SizeCategory.COLOSSAL: 36,
         }
         return footprints[self]
 
