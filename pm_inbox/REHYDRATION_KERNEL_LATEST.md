@@ -194,7 +194,7 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - BURST-001/002/003 — BLOCKED
 - All feature work — BLOCKED
 - All playtesting — BLOCKED
-- WO_SET_METHODOLOGY_REFINEMENT (6 governance WOs, commit f1013ba) — BLOCKED
+- Governance CE WOs (6 items, PM decisions delivered, dispatch docs not yet drafted) — BLOCKED
 
 **PM posture:** ACTIVE. Fix phase COMPLETE. AMBIGUOUS decisions ALL RESOLVED and committed. PSD updated. Tests GREEN (5,539). Preflight inspection PASSED. **Remaining gate item:** RED block lift by Operator.
 

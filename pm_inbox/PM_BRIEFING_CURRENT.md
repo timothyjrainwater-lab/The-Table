@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (corrected — removed phantom WO references)
+**Last updated:** 2026-02-14 (post-dispatch-gap-verdict)
 
 ---
 
@@ -13,6 +13,7 @@
 ## Needs PM to Draft WOs (no dispatch docs exist yet)
 
 - [ ] **Governance CE WOs** — PM decisions delivered (in reviewed/WO_SET_PM_CONTEXT_EFFICIENCY.md) but no individual dispatch docs drafted. 6 items: kernel rotation, briefing archive split, memo consolidation, checklist transition, batch commits (already in effect), supersedes protocol.
+- [ ] **WO_SET dispatch gap fix (A+B)** — Prose rule in README + kernel handover, briefing guard rule. PM verdicted, needs builder to execute edits.
 - [ ] **WO-WEAPON-PLUMBING-001** — Bundle: is_ranged + disarm mods + sunder grip. First feature WO. BLOCKED behind RED block lift.
 - [ ] **Resolver deduplication** — Second P4 WO after weapon plumbing. BLOCKED behind RED block lift.
 
@@ -20,10 +21,6 @@
 
 - [ ] **WO-RESEARCH-SPRINT-001 Wave 2 (P1)** — RQ-SPRINT-003/004/005/006/007/011. After P0 review.
 - [ ] **WO-RESEARCH-SPRINT-001 Wave 3 (P2)** — RQ-SPRINT-008/009/010. Non-blocking.
-
-## Requires PM Verdict
-
-- [ ] **MEMO_WO_SET_DISPATCH_GAP.md** — Analysis of the WO_SET→Dispatch gap (verdicted sets archived without individual dispatches drafted). 3 fix options proposed (prose rule, briefing guard, lifecycle extension). PM picks approach.
 
 ## Active Operational Files
 
