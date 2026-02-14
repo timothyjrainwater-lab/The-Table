@@ -515,6 +515,10 @@ def assemble_narrative_brief(
             delta = payload.get("delta", 0)
             if delta < 0:
                 damage_dealt = abs(delta)
+            # WO-SPELL-NARRATION-POLISH: Extract damage_type from hp_changed
+            # (spell damage path adds damage_type to payload)
+            if payload.get("damage_type"):
+                damage_type = payload["damage_type"]
 
         elif event_type == "entity_defeated":
             defeated_target = (

@@ -66,6 +66,22 @@ class NarrationContext:
             if event.get("type") == "attack_roll":
                 actor_id = event.get("attacker", "")
                 target_id = event.get("target", "")
+            # WO-SPELL-NARRATION-POLISH: Recognise caster_id from spell events
+            if not actor_id and event.get("caster_id"):
+                actor_id = event["caster_id"]
+            payload = event.get("payload", {})
+            if not actor_id and payload.get("caster_id"):
+                actor_id = payload["caster_id"]
+            if not target_id and payload.get("target_id"):
+                target_id = payload["target_id"]
+            # hp_changed uses entity_id for the target
+            if not target_id and payload.get("entity_id"):
+                target_id = payload["entity_id"]
+            # spell_cast uses targets list
+            if not target_id and payload.get("targets"):
+                targets = payload["targets"]
+                if targets and isinstance(targets[0], str):
+                    target_id = targets[0]
             if event.get("weapon"):
                 weapon = event["weapon"]
 
@@ -122,7 +138,7 @@ class NarrationTemplates:
         "damage_applied": "{target} suffers {damage} damage.",
 
         # ── Spell outcomes ──────────────────────────────────────────
-        "spell_damage_dealt": "{actor}'s spell strikes {target}, dealing {damage} damage.",
+        "spell_damage_dealt": "{actor}'s spell strikes {target}, dealing {damage} {damage_type} damage.",
         "spell_no_effect": "{actor}'s spell fizzles against {target}.",
         "spell_cast_success": "{actor} casts a spell.",
         "spell_resisted": "{target} resists {actor}'s spell!",
@@ -311,12 +327,19 @@ class Narrator:
         """
         template = NarrationTemplates.get_template(token)
 
-        # Extract damage from events if present
+        # Extract damage and damage_type from events if present
         damage = 0
+        damage_type = ""
         for event in result.events:
             if event.get("type") == "damage_dealt":
                 damage = event.get("damage", 0)
+                damage_type = event.get("damage_type", "")
                 break
+            # WO-SPELL-NARRATION-POLISH: Also extract from hp_changed (spell path)
+            payload = event.get("payload", {})
+            if event.get("type") == "hp_changed" and payload.get("delta", 0) < 0:
+                damage = abs(payload["delta"])
+                damage_type = payload.get("damage_type", "")
 
         # Format template
         try:
@@ -325,6 +348,7 @@ class Narrator:
                 target=context.target_name,
                 weapon=context.weapon_name,
                 damage=damage,
+                damage_type=damage_type,
             )
         except KeyError:
             # Template has unrecognized placeholder - use as-is

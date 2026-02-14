@@ -1,27 +1,69 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (STRATEGIC REORIENTATION — integration-first, smoke test before any new infrastructure WOs)
+**Last updated:** 2026-02-14 (WO-SPELL-NARRATION-POLISH delivered. damage_type flow + caster_id recognition complete.)
 
 ---
 
-## Stoplight: GREEN (infrastructure) / UNKNOWN (integration)
+## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,775 unit tests pass. Zero end-to-end integration tests exist. We don't know if the system works.
+5,775 unit tests pass. Smoke test passes 14/14 stages. The system produces narration from a spell cast end-to-end. **The building stands up.**
 
-## Strategic Reorientation
+## Smoke Test Results (WO-SMOKE-TEST-001, commit `d0d9dc2`)
 
-Operator directive: stop auditing architecture for theoretical gaps. Run the whole thing. Whatever breaks is the next WO. The project is at the inflection point between "building parts" and "assembling the product."
+**14/14 stages PASS.** Fireball hits goblin for 29 damage, goblin dies, narration prints.
 
-**All speculative WO drafting is suspended** until WO-SMOKE-TEST-001 reports back.
+**Integration gaps — confirmed vs new:**
+
+| Gap | Status |
+|---|---|
+| SPELL_REGISTRY lacks content_id | CONFIRMED — Fireball `content_id` is None |
+| content_id bridge produces None | CONFIRMED — events don't carry content_id |
+| CrossValidateStage not registered | NOT CONFIRMED — all 6 stages registered successfully |
+| NarrationValidator not wired | NOT TESTED — smoke test didn't exercise validation |
+| damage_type doesn't flow to NarrativeBrief | **NEW** — spell resolver emits `hp_changed` not `damage_dealt` |
+| Narrator class ignores `caster_id` | **NEW** — spells use `caster_id`, Narrator looks for `attacker` |
+
+**1 bug fixed in-WO:** `spell_damage_dealt` template missing from NarrationTemplates (4 lines added).
+
+## WO Verdicts This Session
+
+| WO | Verdict | Commit |
+|---|---|---|
+| WO-SMOKE-TEST-001 | **ACCEPTED** | `d0d9dc2` |
+| WO-SPELL-NARRATION-POLISH | **DELIVERED** — awaiting PM review | `2b2a47b` |
+| WO-FRAMEWORK-UPDATE-001 | **ACCEPTED** | `d62b37a` (pushed to framework repo) |
+| WO-FRAMEWORK-UPDATE-002 | **ACKNOWLEDGED** — not PM-drafted, Operator-executed | `aaecfef` (PR #1) |
 
 ## Requires Operator Action (NOW)
 
-1. **Dispatch WO-SMOKE-TEST-001** — [WO-SMOKE-TEST-001_DISPATCH.md](pm_inbox/WO-SMOKE-TEST-001_DISPATCH.md)
-   End-to-end demo: content pack → compile → session → fireball → narration. Whatever breaks becomes the next sprint. **This is the only WO that matters right now.**
+1. **Dispatch WO-CONTENT-ID-POPULATION** — [WO-CONTENT-ID-POPULATION_DISPATCH.md](pm_inbox/WO-CONTENT-ID-POPULATION_DISPATCH.md)
+   Populate content_id on all SPELL_REGISTRY entries + thread through event payloads. Closes smoke test Findings 1+3.
 
-2. **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
+2. ~~**Dispatch WO-SPELL-NARRATION-POLISH**~~ — DELIVERED. damage_type flow + Narrator caster_id recognition. See [DEBRIEF_WO-SPELL-NARRATION-POLISH.md](pm_inbox/DEBRIEF_WO-SPELL-NARRATION-POLISH.md).
 
-## H1 Batch Complete (all PM ACCEPTED)
+~~3. **Merge PR #1**~~ — DONE. Merged to main on framework repo 2026-02-14.
+
+~~4. **XP table spot-check (P1-B)**~~ — DROPPED by PM decision. Verification phase passed, hardcoded values sourced from DMG, no downstream dependency.
+
+## PM Action Queue — CLEARED
+
+All 4 items from previous queue resolved:
+
+- [x] **WO-CONTENT-ID-POPULATION** — DRAFTED → [WO-CONTENT-ID-POPULATION_DISPATCH.md](pm_inbox/WO-CONTENT-ID-POPULATION_DISPATCH.md)
+- [x] **WO-SPELL-NARRATION-POLISH** — DRAFTED → [WO-SPELL-NARRATION-POLISH_DISPATCH.md](pm_inbox/WO-SPELL-NARRATION-POLISH_DISPATCH.md)
+- [x] **Suspended WO evaluation** — All three remain suspended (see verdicts below)
+- [x] **NarrationValidator wiring** — Deferred to future integration hardening WO (not standalone)
+
+### Suspended WO Verdicts
+
+| WO | Verdict | Reason |
+|---|---|---|
+| WO-SPEAK-SERVER | **REMAIN SUSPENDED** | Voice infrastructure, not integration. Belongs in BURST-001 Voice-First track. |
+| WO-FROZEN-VIEW-GUARD | **REMAIN SUSPENDED** | Defensive hardening. Smoke test didn't surface as break point. Draft after integration fixes. |
+| Resolver dedup | **REMAIN SUSPENDED** | Known duplication (Field Manual #5), not a correctness issue. |
+| NarrationValidator wiring | **DEFERRED** | Not tested in smoke test. Bundle into future integration hardening WO. |
+
+## H1+Smoke Batch Complete
 
 - WO-TTS-COLD-START-RESEARCH — 6 RQs, persistent server recommended
 - WO-RNG-PROTOCOL-001 — 19 files, Protocol extraction
@@ -30,35 +72,18 @@ Operator directive: stop auditing architecture for theoretical gaps. Run the who
 - WO-BRIEF-WIDTH-001 — Multi-target + causal chains + conditions
 - WO-COMPILE-VALIDATE-001 — CT-001–007 + content_id emission + contraindications (`fb05aef`)
 - WO-NARRATION-VALIDATOR-001 — P0 negative rules + narration persistence (`2d923ed`)
-
-## Builder Findings — Batch Verdicts
-
-| # | Finding | Verdict |
-|---|---------|---------|
-| 1 | Pipeline registration gap | SMOKE TEST will surface |
-| 2 | content_id bridge dormant | SMOKE TEST will surface |
-| 3 | Test pollution (~47 phantoms) | Tech debt, track |
-| 4 | Pattern inconsistency (maneuver_resolver) | Cosmetic, P4 resolver dedup |
-| 5 | pm_inbox hygiene test | Known, adjust later |
-| 6 | SPELL_REGISTRY content_id | SMOKE TEST will surface |
-| 7 | No full pipeline integration test | IS the smoke test WO |
-| 8 | Fail-open on missing deps | Should warn, bundle into smoke test fixes |
-| 9-13 | Codebase friction | Tech debt, track |
-| TTS #1-5 | Chunking cleanup items | Track, no WO |
-
-## PM Action Queue (SUSPENDED pending smoke test)
-
-- ~~Draft WO-SPEAK-SERVER~~ — SUSPENDED
-- ~~Draft WO-FROZEN-VIEW-GUARD~~ — SUSPENDED
-- ~~Resolver deduplication~~ — SUSPENDED
-- [ ] **Review WO-SMOKE-TEST-001 debrief when it arrives** — break points become next sprint
+- **WO-SMOKE-TEST-001** — End-to-end integration demo, 14/14 PASS (`d0d9dc2`)
 
 ## Active Operational Files
 
-- [WO-SMOKE-TEST-001_DISPATCH.md](pm_inbox/WO-SMOKE-TEST-001_DISPATCH.md) — **DISPATCH-READY (HIGHEST PRIORITY)**
+- [WO-CONTENT-ID-POPULATION_DISPATCH.md](pm_inbox/WO-CONTENT-ID-POPULATION_DISPATCH.md) — DISPATCH-READY, awaiting Operator dispatch
+- [WO-SPELL-NARRATION-POLISH_DISPATCH.md](pm_inbox/WO-SPELL-NARRATION-POLISH_DISPATCH.md) — DELIVERED
+- [DEBRIEF_WO-SPELL-NARRATION-POLISH.md](pm_inbox/DEBRIEF_WO-SPELL-NARRATION-POLISH.md) — NEW, awaiting PM review
+- [DEBRIEF_WO-WEAPON-PLUMBING-001.md](pm_inbox/DEBRIEF_WO-WEAPON-PLUMBING-001.md) — NEW, UNCOMMITTED, awaiting commit + PM review
+- [DEBRIEF_WO-SMOKE-TEST-001.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-001.md) — PM REVIEWED, ACCEPTED
+- [DEBRIEF_WO-FRAMEWORK-UPDATE-001.md](pm_inbox/DEBRIEF_WO-FRAMEWORK-UPDATE-001.md) — PM REVIEWED, ACCEPTED
+- [WO-FRAMEWORK-UPDATE-002_DISPATCH.md](pm_inbox/WO-FRAMEWORK-UPDATE-002_DISPATCH.md) — Operator-executed, COMPLETE
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
-
-*All H1 debriefs, dispatch docs, and builder findings memos archived to `pm_inbox/reviewed/` — PM review complete.*
 
 ## Persistent Files
 

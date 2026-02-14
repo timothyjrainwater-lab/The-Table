@@ -461,6 +461,8 @@ def _resolve_spell_cast(
                     "new_hp": new_hp,
                     "delta": -damage,
                     "source": f"spell:{spell.name}",
+                    "caster_id": intent.caster_id,
+                    **({"damage_type": spell.damage_type.value} if spell.damage_type else {}),
                     **({"content_id": spell.content_id} if spell.content_id else {}),
                 },
                 citations=list(spell.rule_citations),
