@@ -1,7 +1,36 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python scripts/verify_session_start.py:*)",
+      "Bash(python scripts/speak.py:*)",
+      "Bash(python scripts/check_kernel_size.py:*)",
+      "Bash(python scripts/check_inbox_count.py:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git show:*)",
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep"
+    ]
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python scripts/speak.py \"Thunder, session complete.\""
+          }
+        ]
+      }
     ]
   },
   "workspaceTrust": true,

@@ -3,8 +3,8 @@
 **From:** Advisor (Opus 4.6)
 **To:** Builder (next session)
 **Date:** 2026-02-14
-**Lifecycle:** NEW
-**Status:** READY FOR OPERATOR DISPATCH
+**Lifecycle:** PM-REVIEWED (ACCEPTED with amendments — see below)
+**Status:** DISPATCH-READY
 **Scope:** Research + prototype — no production code changes without PM review.
 
 ---
@@ -239,6 +239,17 @@ The sprint is complete when:
 - **Scope control:** The handoff (HANDOFF_TTS_COLD_START_RESEARCH.md) listed 5 research areas. This dispatch restructures them into 6 RQs — splitting "persistent model server" and "subprocess keep-alive" into separate questions because they represent genuinely different architectural approaches with different trade-offs. "External prior art" was folded into RQ-TTS-006 (streaming) where it's most relevant rather than standing alone.
 
 - **Risk:** The primary risk is that VRAM budget (RQ-TTS-002) kills the persistence approach entirely. If Chatterbox + future LLM + future SDXL don't fit in 12GB, the server approach becomes a VRAM management problem rather than a simple "keep it loaded" solution. RQ-TTS-005 (Kokoro fast path) provides a fallback strategy in that case.
+
+---
+
+---
+
+## PM Amendments (2026-02-14)
+
+1. **Horizon assignment:** H1-adjacent (not H0). Does not gate RED block lift. Parallel-safe with H0 WOs — can dispatch immediately.
+2. **WO-TTS-CHUNKING interaction:** If RQ-TTS-003 (persistent server) or RQ-TTS-006 (streaming) findings change the chunking strategy, those findings must be explicitly flagged in the deliverable so PM can adjust WO-TTS-CHUNKING scope before it ships.
+3. **No production code changes:** Prototypes go in `scripts/` or `docs/research/`, not in `aidm/`. Promotion to production requires a separate WO.
+4. **All 6 RQs approved as scoped.** Priority ordering, single-builder-session model, and deliverable paths approved without changes.
 
 ---
 
