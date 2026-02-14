@@ -123,7 +123,7 @@ These are the five most common mistakes agents make on this project. Memorize th
 3. **DO NOT** introduce 5e terminology (advantage, short rest, electric damage, cantrips at will)
 4. **DO NOT** mutate WorldState inside resolver functions — return events only
 5. **DO NOT** "fix" items listed in `KNOWN_TECH_DEBT.md` unless explicitly asked — they are intentionally deferred
-6. **DO NOT** close a session after WO completion without writing a debrief — knowledge dies with your context window (Section 15.5)
+6. **DO NOT** close a session after WO completion without writing a debrief — knowledge dies with your context window (Section 15.5). This applies even if the WO says "read-only" or "do not modify files" — the debrief is about the work, not part of it.
 7. **DO NOT** add a file to `pm_inbox/` without also updating `pm_inbox/PM_BRIEFING_CURRENT.md` — the PM won't see it otherwise
 
 ---

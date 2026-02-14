@@ -439,7 +439,7 @@ When a status, count, verdict, or classification changes, update **ALL** files t
 
 ### 15.5 Builder Debrief Protocol (Post-WO Batch)
 
-After completing a work order or WO batch, the builder agent MUST produce a three-pass debrief before the session closes:
+After completing a work order or WO batch, the builder agent MUST produce a three-pass debrief before the session closes. **This is a standing obligation that applies to every WO, regardless of the WO's scope restrictions.** A read-only WO, an audit WO, or a WO that says "do not modify files" does not exempt you from the debrief — the debrief is a separate deliverable about the work, not part of the work itself.
 
 **Pass 1 — Full Dump** (`pm_inbox/DEBRIEF_[SESSION_ID].md`):
 Write everything from your context window — cascading impacts, agent failures, schema additions, WO mismatches, test changes, loose ends. Don't filter. Don't worry about length. This is raw knowledge capture that prevents context loss.
