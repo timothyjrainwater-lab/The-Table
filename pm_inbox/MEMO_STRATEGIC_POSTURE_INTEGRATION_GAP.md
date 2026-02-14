@@ -44,3 +44,17 @@ These four items turn the infrastructure into a working pipeline. Everything els
 ## Retrospective
 
 The builder's strategic lens is the most valuable output of this session's debrief cycle. The tactical findings (#1-#13 across the two findings memos) are useful for cleanup, but this posture assessment should drive what the PM queues next. The project is at the inflection point between "building parts" and "assembling the product."
+
+## Multi-Agent Coordination Model Observations
+
+Builder identified structural patterns in how the multi-agent system itself operates:
+
+- **Defensive testing**: 5,800 tests for a system that can't play a full session end-to-end. Each WO adds comprehensive tests because builders can't see what other builders are doing. Rational per-agent, but produces deep/narrow coverage instead of broad integration coverage. A human team would share more test infrastructure.
+
+- **Agents outrunning planning**: Dispatches arriving after work is done is a natural consequence of agent speed, not a process failure. If the PM wants dispatches to lead, WOs need to be pre-staged before builders are available.
+
+- **Polite dead code**: Agents leave things that "aren't broken" alone (correct per WO scope), so cleanup never happens organically. Dead code like `_DICE_RE` accumulates. Needs explicit cleanup WOs or a periodic "code hygiene" pass.
+
+- **Infrastructure-to-gameplay ratio**: Each agent builds its piece correctly in isolation. No agent has the scope to wire the full path. Integration work requires a WO that explicitly crosses subsystem boundaries — something the current WO model (scoped to specific modules) doesn't naturally produce.
+
+**Implication for PM:** The next WO batch should include at least one cross-cutting integration WO that spans from content pack → compile → play → narrate → speak. This is a different shape of work than the module-scoped WOs that have driven H0 and H1.
