@@ -4,6 +4,10 @@
 
 ---
 
+## Requires PM Action (Urgent)
+
+- [ ] **[MEMO_DISPATCH_FLUIDITY_AND_STRATEGIC_ASSESSMENT]** 3 decisions needed: scope is_ranged plumbing WO wider (bundle 3 dormant fixes), standardize preflight inspections as phase gate, prioritize resolver deduplication timing. Also documents dispatch fluidity fix and PM decision-only enforcement.
+
 ## Requires Operator Action
 
 - [x] **7 AMBIGUOUS verdicts** — ALL RESOLVED (4 KEEP, 3 FIX-SRD). Recorded in decision log.
