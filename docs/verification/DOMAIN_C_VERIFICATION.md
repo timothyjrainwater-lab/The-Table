@@ -595,23 +595,28 @@ NOTES: The code only implements the "damaged while concentrating" case
 
 ## Bug List
 
-### BUG-C-001: Cover Reflex Save Bonuses Are Wrong
+### BUG-C-001: Cover Reflex Save Bonuses Are Non-SRD (RECLASSIFIED → AMBIGUOUS)
 
 ```
 BUG ID: BUG-C-001
 FORMULA: C-SAVE-COVER
 FILE: aidm/core/cover_resolver.py, lines 96–99
-SEVERITY: WRONG
+SEVERITY: AMBIGUOUS (reclassified from WRONG — Domain A re-verification 2026-02-14)
 DESCRIPTION: Cover Reflex save bonuses use non-SRD values.
   Half cover gives +1 Ref (SRD: +2). Three-quarters gives +2 Ref (SRD: +3).
   The AC bonuses are also wrong (+2/+5 instead of +4/+7) but the AC issue
   is Domain A scope.
+  RECLASSIFICATION: These values are a documented design decision per
+  RQ-BOX-001 Finding 3 (Deterministic Cover Resolution), which specifies a
+  4-tier graduated cover system with intentionally different bonus values
+  than the SRD binary system. Same root cause as Domain A BUG-10.
 SRD REFERENCE: PHB p.150 — Cover table
+DESIGN REFERENCE: docs/research/RQ_BOX_001_GEOMETRIC_ENGINE.md Finding 3
 IMPACT: Any Reflex save against a spell when the target has cover will use
-  an incorrect (too low) cover bonus. Targets with half cover get +1 instead
-  of +2; targets with three-quarters cover get +2 instead of +3.
+  cover bonuses from the project's 4-tier system rather than the SRD binary
+  system. This is by design, not an error.
 CROSS-REFERENCE: Also flagged in Domain I verification (cover_resolver.py
-  cover values).
+  cover values). Domain A BUG-10 (same root cause, reclassified AMBIGUOUS).
 ```
 
 ### BUG-C-002: Concentration DC Missing Spell Level
@@ -631,18 +636,20 @@ IMPACT: All concentration checks after taking damage are easier than they
 ALSO AFFECTS: play_loop.py line 618 has the same incorrect formula.
 ```
 
-### BUG-C-003: Cover Bonus Values Are Non-SRD (Reflex Component)
+### BUG-C-003: Cover Bonus Values Are Non-SRD — Reflex Component (RECLASSIFIED → AMBIGUOUS)
 
 ```
 BUG ID: BUG-C-003
 FORMULA: C-SAVE-COVER
 FILE: aidm/core/cover_resolver.py, lines 96–99
-SEVERITY: WRONG (same root cause as BUG-C-001, listed separately per the
-  inventory which counts this as a save_resolver.py formula consumed from
-  cover_resolver.py)
+SEVERITY: AMBIGUOUS (reclassified from WRONG — Domain A re-verification 2026-02-14)
+  Same root cause as BUG-C-001, listed separately per the inventory which
+  counts this as a save_resolver.py formula consumed from cover_resolver.py.
 DESCRIPTION: Same as BUG-C-001. The cover_resolver.py COVER_THRESHOLDS
-  table has incorrect values for both AC and Reflex bonuses at the half-cover
-  and three-quarters-cover tiers.
+  table uses values from the project's 4-tier graduated cover system
+  (RQ-BOX-001 Finding 3) rather than the SRD binary cover values.
+  This is a documented design decision, not an error.
+DESIGN REFERENCE: docs/research/RQ_BOX_001_GEOMETRIC_ENGINE.md Finding 3
 ```
 
 ---
@@ -689,11 +696,12 @@ DESIGN DECISION NEEDED: Define the mapping from blocked-line counts to
 
 - **15 CORRECT**: The core save formula (base + ability + condition), save-to-ability mappings (Fort/CON, Ref/DEX, Will/WIS), SR check (d20 + CL >= SR), natural 1/20 handling (both files), DC comparison (total >= DC), spell DC computation (10 + spell_level + ability_mod), save-for-half (floor division), save-negates (damage = 0), cure spell caster level cap (min(CL, level*5)), and healing addition all match the SRD exactly.
 
-- **3 WRONG**:
-  - BUG-C-001/003: Cover Reflex save bonuses are non-SRD values (half +1 should be +2; three-quarters +2 should be +3). Root cause is in cover_resolver.py COVER_THRESHOLDS table.
+- **1 WRONG**:
   - BUG-C-002: Concentration DC missing spell level. Code computes DC = 10 + damage; SRD requires DC = 10 + damage + spell_level.
 
-- **1 AMBIGUOUS** (AMB-C-001): Cover tier threshold mapping (how many blocked lines map to "half" vs "three-quarters" cover) is a design interpretation not directly specified in the SRD.
+- **3 AMBIGUOUS**:
+  - AMB-C-001: Cover tier threshold mapping (how many blocked lines map to "half" vs "three-quarters" cover) is a design interpretation not directly specified in the SRD.
+  - BUG-C-001/003 (reclassified from WRONG, 2026-02-14): Cover Reflex save bonuses use the project's 4-tier graduated cover system values (RQ-BOX-001 Finding 3) rather than the SRD binary cover values. Documented design decision, same root cause as Domain A BUG-10.
 
 - **2 UNCITED**:
   - C-SAVE-340: HP subtraction after save damage (hp_after = hp_before - damage). Standard arithmetic with no specific SRD formula citation.
