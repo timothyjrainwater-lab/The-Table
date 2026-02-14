@@ -20,7 +20,7 @@ All agents operate within a five-role architecture. Know your role and its bound
 |------|-----------|-------------|----------|
 | **Operator** (Thunder) | Absolute. Dispatch, overrides. | N/A (human) | Routes work between all agents. |
 | **PM** (Aegis/Opus) | Delegated. Verdicts, WOs, sequencing. | Irreplaceable | Never touches code. Documents only. Kernel owner. |
-| **Assistant** | None. Serves Operator. | Disposable | Reviews builder output, consolidates for PM. Updates briefing only with PM-authored content. Never writes kernel. Inbox janitor — archives reviewed files at session start. |
+| **Agent** | Delegated (ops). Serves Operator. | Disposable | Chief of staff. Translates Operator intent, relays to PM, catches process failures, codifies governance, formats deliverables. Inbox janitor. Never writes kernel. |
 | **Builders** | WO scope only. | Disposable | Code, tests, completion reports. No upstream visibility. |
 | **BS Buddy** (Anvil) | Advisory only. | Disposable | Brainstorming + TTS QA. No execution, no governance. Produces memos and conversation. |
 
