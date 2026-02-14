@@ -30,7 +30,8 @@
 - [x] All AMBIGUOUS verdicts have documented design decisions → `docs/verification/AMBIGUOUS_VERDICTS_DECISION_LOG.md` (28 verdicts, all resolved)
 - [x] Operator has reviewed and approved AMBIGUOUS decisions (7 decisions: 4 KEEP, 3 FIX-SRD)
 - [x] 3 FIX-SRD micro-WOs dispatched and committed (f517592 — B-AMB-02/H-AMB-01, B-AMB-04, E-AMB-03)
-- [ ] PSD updated to reflect verification completion
+- [x] PSD updated to reflect verification completion (0b2b46e)
+- [x] Pre-gate-lift inspection PASSED — all 7 checks (WO-PREFLIGHT-001)
 - [ ] RED block lifted by Operator
 
 ---

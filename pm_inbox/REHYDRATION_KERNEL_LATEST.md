@@ -77,9 +77,9 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: e7c0aa8 — docs: codify PM decision-only principle across governance docs
-Tests passed: 5,532 (24 skipped) — **GREEN. 0 failures.**
-Stoplight: **YELLOW — All fix WOs + AMBIGUOUS fixes COMPLETE. PSD update + RED block lift remain.**
+Last commit: bf232d4 — docs: handoff + PM archival — governance refinement session complete
+Tests passed: 5,539 (25 skipped) — **GREEN. 0 failures.** (per WO-PREFLIGHT-001 inspection)
+Stoplight: **YELLOW — Preflight inspection PASSED. Single remaining gate: RED block lift by Operator.**
 
 **Verification COMPLETE:** 338 formulas verified across 9 domains. 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist. Domain A re-verified with research cross-reference — 4 verdicts reclassified WRONG→AMBIGUOUS (cover design decision in RQ-BOX-001).
 
@@ -158,8 +158,8 @@ The PM agent MUST NOT perform any of the following actions. These are builder-on
 
 ## Active Work Surfaces
 
-**BONE-LAYER VERIFICATION — FIX PHASE (YELLOW — all WOs resolved, gate items remain):**
-Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemented and committed (11 original commits + 2 new), 1 retired (WO-FIX-05 cover values). Test suite GREEN (5,532 passed, 0 failures). Test isolation fixed (f581d44).
+**BONE-LAYER VERIFICATION — FIX PHASE (YELLOW — preflight PASSED, RED block lift remains):**
+Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemented and committed (11 original commits + 2 new), 1 retired (WO-FIX-05 cover values). Test suite GREEN (5,539 passed, 0 failures). Test isolation fixed (f581d44). Pre-gate-lift inspection (WO-PREFLIGHT-001) PASSED all 7 checks.
 
 **Fix WO progress — ALL COMPLETE:**
 - [x] WO-FIX-01 (BUG-1/8/9) — COMMITTED (a386b81)
@@ -178,13 +178,14 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 
 **Remaining completion gate items:**
 - [x] All fix WO code changes committed and tested
-- [x] Test suite confirmed GREEN (5,532 passed, 24 skipped, 0 failures)
+- [x] Test suite confirmed GREEN (5,539 passed, 25 skipped, 0 failures)
 - [x] WO-FIX-11 — COMMITTED (fcf712e)
 - [x] WO-FIX-12 F2/F3 — COMMITTED (b52d8d8)
 - [x] Test isolation fixed (f581d44)
 - [x] Operator reviews and approves 7 AMBIGUOUS decisions (4 KEEP, 3 FIX-SRD)
 - [x] 3 FIX-SRD micro-fixes dispatched and committed (f517592 — WO-AMBFIX-001)
-- [x] PSD updated to reflect fix phase completion (498 lines, under 500 gate)
+- [x] PSD updated to reflect fix phase completion (498 lines, under 500 gate) (0b2b46e)
+- [x] Pre-gate-lift inspection PASSED — all 7 checks (WO-PREFLIGHT-001)
 - [ ] RED block lifted by Operator
 
 **ALL OF THE FOLLOWING ARE BLOCKED behind RED block lift (1 item remains):**
@@ -195,7 +196,7 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - All playtesting — BLOCKED
 - WO_SET_METHODOLOGY_REFINEMENT (6 governance WOs, commit f1013ba) — BLOCKED
 
-**PM posture:** ACTIVE. Fix phase COMPLETE. AMBIGUOUS decisions ALL RESOLVED and committed. PSD updated. Tests GREEN. **Remaining gate item:** RED block lift by Operator.
+**PM posture:** ACTIVE. Fix phase COMPLETE. AMBIGUOUS decisions ALL RESOLVED and committed. PSD updated. Tests GREEN (5,539). Preflight inspection PASSED. **Remaining gate item:** RED block lift by Operator.
 
 **Post-fix forward path (PM-assessed, see `pm_inbox/MEMO_POST_FIX_PHASE_ACTION_PLAN.md`):**
 - Wave 1 (immediate, parallel-safe): P1-A sunder grip multiplier, P1-C register narration marker, P1-D fix TestPerformance tests. All micro-WOs.

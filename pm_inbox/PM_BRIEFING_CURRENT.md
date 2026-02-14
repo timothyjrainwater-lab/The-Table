@@ -1,12 +1,12 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (post-context-efficiency-review)
+**Last updated:** 2026-02-14 (post-preflight-completion)
 
 ---
 
 ## Requires Operator Action
 
-- [ ] **RED block lift** — All code, decisions, and PSD complete. Preflight inspection (WO-PREFLIGHT-001) dispatched. This is the last gate.
+- [ ] **RED block lift** — Preflight inspection PASSED (all 7 checks). Tests 5,539/0/25. This is the sole remaining gate.
 - [ ] **Dispatch WO-GOV-CE-01/02 (Wave 1)** — Kernel rotation + briefing archive split. PM decisions delivered. Parallel-safe.
 - [ ] **Dispatch WO-GOV-CE-03/06 (Wave 2)** — Memo consolidation + supersedes protocol. After Wave 1.
 - [ ] **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
@@ -21,7 +21,6 @@
 ## Active Operational Files
 
 - `BURST_INTAKE_QUEUE.md` — BURST-001 READY BRICK, BURST-002 NOT STARTED, BURST-003 PARTIAL
-- `HANDOFF_GOVERNANCE_REFINEMENT_SESSION.md` — Context handover for next builder (pm_inbox hygiene, dispatch fluidity, decision-only protocol)
 
 ## Persistent Files
 
