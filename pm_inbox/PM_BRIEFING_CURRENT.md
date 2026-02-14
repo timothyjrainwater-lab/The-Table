@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (H0 WOs drafted — all 3 dispatch-ready)
+**Last updated:** 2026-02-14 (TTS cold start research sprint drafted)
 
 ---
 
@@ -11,6 +11,7 @@
 - [ ] **Dispatch WO-VERSION-MVP** — `pm_inbox/WO-VERSION-MVP_DISPATCH.md`. 3 minimum viable version changes. CampaignManifest only. Parallel-safe.
 - [ ] **Dispatch WO-GOV-SESSION-001** — `pm_inbox/WO-GOV-SESSION-001_DISPATCH.md`. 8 governance deliverables (BL-021, Rule 22, relay convention, 5-role docs, CE items). Parallel-safe.
 - [ ] **XP table spot-check (P1-B)** — Non-blocking. 5+ cells from levels 14-20 vs physical DMG.
+- [ ] **Review WO-TTS-COLD-START-RESEARCH** — `pm_inbox/WO-TTS-COLD-START-RESEARCH_DISPATCH.md`. 6 RQs: cold start breakdown, VRAM footprint, persistent server, subprocess keep-alive, Kokoro fast path, streaming TTS. Informs WO-TTS-CHUNKING scope.
 
 ## Awaiting Dispatch (BLOCKED behind H0 completion)
 
@@ -38,8 +39,10 @@
 - `WO-GAP-B-001_DISPATCH.md` — **DISPATCH-READY**
 - `WO-VERSION-MVP_DISPATCH.md` — **DISPATCH-READY**
 - `WO-GOV-SESSION-001_DISPATCH.md` — **DISPATCH-READY**
+- `WO-TTS-COLD-START-RESEARCH_DISPATCH.md` — 6 RQs. Awaiting PM review.
 - `WO-RESEARCH-SPRINT-001_DISPATCH.md` — 11 RQs, ALL COMPLETE. Ready to archive.
 - `WO-RESEARCH-SPRINT-001_COMPLETION.md` — Builder completion report. Ready to archive.
+- `HANDOFF_TTS_COLD_START_RESEARCH.md` — BS Buddy research handoff. Operationalized into WO-TTS-COLD-START-RESEARCH. Ready to archive.
 - `MEMO_RESEARCH_SPRINT_SYNTHESIS.md` — PM synthesis memo + roadmap. Awaiting Operator review.
 
 ## Persistent Files
