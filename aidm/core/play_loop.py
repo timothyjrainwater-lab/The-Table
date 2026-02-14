@@ -614,8 +614,9 @@ def _check_concentration_break(
     if concentration_effect is None:
         return events, world_state
 
-    # Roll Concentration check
-    dc = 10 + damage_dealt
+    # Roll Concentration check (PHB p.69: DC = 10 + damage + spell level)
+    spell_level = getattr(concentration_effect, 'spell_level', 0)
+    dc = 10 + damage_dealt + spell_level
     concentration_bonus = world_state.entities.get(caster_id, {}).get("concentration_bonus", 0)
     roll = rng.stream("combat").randint(1, 20)
     total = roll + concentration_bonus

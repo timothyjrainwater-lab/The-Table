@@ -1002,11 +1002,12 @@ def check_concentration_on_damage(
     damage_taken: int,
     rng: RNGManager,
     duration_tracker: 'DurationTracker',
+    spell_level: int = 0,
 ) -> Tuple[bool, Optional[Any], List[Any]]:
     """Check if concentration is maintained after taking damage.
 
-    PHB p.69: Concentration check (DC = 10 + damage taken) required
-    when caster takes damage while maintaining a concentration spell.
+    PHB p.69: Concentration check (DC = 10 + damage taken + spell level)
+    required when caster takes damage while maintaining a concentration spell.
     Uses Concentration skill.
 
     Args:
@@ -1031,8 +1032,8 @@ def check_concentration_on_damage(
     if not duration_tracker.has_active_concentration(caster_id):
         return (True, None, events)
 
-    # Concentration check: DC = 10 + damage taken
-    dc = 10 + damage_taken
+    # Concentration check: DC = 10 + damage taken + spell level (PHB p.69)
+    dc = 10 + damage_taken + spell_level
 
     from aidm.core.skill_resolver import resolve_skill_check
     from aidm.schemas.skills import SkillID

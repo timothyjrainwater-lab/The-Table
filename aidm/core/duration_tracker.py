@@ -50,6 +50,9 @@ class ActiveSpellEffect:
     condition_applied: Optional[str] = None
     """Condition this effect applies (e.g., 'paralyzed', 'hasted')."""
 
+    spell_level: int = 0
+    """Level of the spell (used for concentration DC calculation)."""
+
     turn_applied: int = 0
     """Turn number when effect was applied."""
 
@@ -469,6 +472,7 @@ def create_effect(
     concentration: bool = False,
     condition: Optional[str] = None,
     turn: int = 0,
+    spell_level: int = 0,
 ) -> ActiveSpellEffect:
     """Factory function to create an ActiveSpellEffect.
 
@@ -494,5 +498,6 @@ def create_effect(
         rounds_remaining=duration_rounds,
         concentration=concentration,
         condition_applied=condition,
+        spell_level=spell_level,
         turn_applied=turn,
     )
