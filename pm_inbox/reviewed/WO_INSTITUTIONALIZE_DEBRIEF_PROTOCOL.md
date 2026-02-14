@@ -4,7 +4,8 @@
 **To:** PM (Aegis)
 **Date:** 2026-02-14
 **Priority:** HIGH — process gap, affects all future WO batches
-**Status:** PROPOSAL — requires PM review before enforcement
+**Status:** COMPLETED — all 4 actions have been implemented. Candidate for archival.
+**Lifecycle:** ARCHIVE
 
 ---
 
@@ -12,7 +13,9 @@
 
 Builder agents complete work orders and close their context windows. The knowledge accumulated during execution — cascading impacts, schema additions, agent failures, test changes, WO mismatches, loose ends — is lost unless explicitly captured. Currently, some sessions write memos, some write handoff files, some write nothing. There is no mandatory post-WO debrief process.
 
-Section 15.5 has been added to `AGENT_DEVELOPMENT_GUIDELINES.md` (commit `61b8b91`) defining a two-pass debrief protocol. This WO makes it institutional — embedded in dispatch templates, onboarding, and enforcement.
+Section 15.5 has been added to `AGENT_DEVELOPMENT_GUIDELINES.md` (commit `61b8b91`) defining a three-pass debrief protocol (dump → distill → reflect). This WO made it institutional — embedded in dispatch templates, onboarding, and enforcement.
+
+**UPDATE (2026-02-14):** All 4 actions below have been completed. The protocol is now three-pass (Pass 3 = `## Retrospective` section in MEMO, enforced by `tests/test_pm_inbox_hygiene.py` PMIH-004). Onboarding checklist Steps 4 and 6 updated. PM briefing file (`PM_BRIEFING_CURRENT.md`) created as the triage entry point. This WO is ready for archival.
 
 ---
 
@@ -37,7 +40,7 @@ All future WO dispatches must include this block at the end, after "What NOT to 
 ```markdown
 ## Post-Completion Debrief (MANDATORY)
 
-Before closing your session, produce a two-pass debrief per Section 15.5
+Before closing your session, produce a three-pass debrief per Section 15.5
 of AGENT_DEVELOPMENT_GUIDELINES.md:
 
 1. **Full Dump** → `pm_inbox/DEBRIEF_[WO-ID].md`
@@ -55,7 +58,7 @@ Both files must be committed before session close.
 Add to `AGENT_ONBOARDING_CHECKLIST.md` Step 6 (CP Workflow), after step 8:
 
 ```markdown
-9. Write post-completion debrief (Section 15.5 — two-pass: dump then distill)
+9. Write post-completion debrief (Section 15.5 — three-pass: dump, distill, reflect)
 ```
 
 Also add to Step 4 (Quick-Reference "DO NOT" List):
@@ -92,9 +95,10 @@ This is a PM-side check, not a test. You can't unit-test "did the agent write a 
 
 The proving-ground project has consumed dozens of context windows. Each one accumulated unique knowledge — which files interact, which tests broke unexpectedly, which WO instructions were ambiguous, which assumptions were wrong. Without a debrief protocol, all of that knowledge dies when the session closes. The next agent starts from scratch, hits the same issues, and wastes another context window discovering the same things.
 
-The debrief protocol captures that knowledge in two forms:
+The debrief protocol captures that knowledge in three forms:
 - **Full dump** — preserves everything for reference (future agents, thesis data, retrospectives)
 - **PM summary** — gives the coordinator actionable intelligence without overwhelming their context window
+- **Operational retrospective** — captures the agent's judgment about the process itself (fragility, governance doc accuracy, methodology insights)
 
 This is the "artifact primacy" principle applied to session output, not just session state.
 
@@ -103,7 +107,7 @@ This is the "artifact primacy" principle applied to session output, not just ses
 ## Files Already Modified
 
 - `AGENT_DEVELOPMENT_GUIDELINES.md` — Section 15.5 added (commit `61b8b91`)
-- `methodology/templates/SESSION_MEMO_TEMPLATE.md` — Template with two-pass process documented
+- `methodology/templates/SESSION_MEMO_TEMPLATE.md` — Template with three-pass process documented
 
 ## Files Requiring PM Action
 

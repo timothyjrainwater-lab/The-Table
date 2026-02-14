@@ -4,6 +4,7 @@
 **To:** PM
 **Date:** 2026-02-14
 **Re:** WO-VERIFY-A re-verification complete; process findings for remaining domains
+**Lifecycle:** NEW
 
 ---
 

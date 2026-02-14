@@ -3,7 +3,8 @@
 **From:** Builder (Opus 4.6)
 **To:** Next agent
 **Date:** 2026-02-14
-**Status:** NOT STARTED — needs scoping and WO
+**Status:** NOT STARTED — superseded by pm_inbox hygiene implementation
+**Lifecycle:** ARCHIVE
 
 ---
 

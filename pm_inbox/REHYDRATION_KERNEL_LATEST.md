@@ -77,8 +77,8 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 3c49e22 — docs: handoff — pm_inbox hygiene gap identified, needs WO
-Tests passed: 5,277 (15 skipped) — **GREEN. 0 failures.**
+Last commit: e521288 — chore: update kernel for PM handoff — all 13 fix WOs resolved
+Tests passed: 5,532 (24 skipped) — **GREEN. 0 failures.**
 Stoplight: **YELLOW — All fix WOs COMPLETE, 7 AMBIGUOUS Operator decisions pending, PSD update + RED block lift remain**
 
 **Verification COMPLETE:** 338 formulas verified across 9 domains. 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist. Domain A re-verified with research cross-reference — 4 verdicts reclassified WRONG→AMBIGUOUS (cover design decision in RQ-BOX-001).
@@ -157,7 +157,7 @@ The PM agent MUST NOT perform any of the following actions. These are builder-on
 ## Active Work Surfaces
 
 **BONE-LAYER VERIFICATION — FIX PHASE (YELLOW — all WOs resolved, gate items remain):**
-Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemented and committed (11 original commits + 2 new), 1 retired (WO-FIX-05 cover values). Test suite GREEN (5,277 passed, 0 failures). Test isolation fixed (f581d44).
+Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemented and committed (11 original commits + 2 new), 1 retired (WO-FIX-05 cover values). Test suite GREEN (5,532 passed, 0 failures). Test isolation fixed (f581d44).
 
 **Fix WO progress — ALL COMPLETE:**
 - [x] WO-FIX-01 (BUG-1/8/9) — COMMITTED (a386b81)
@@ -176,7 +176,7 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 
 **Remaining completion gate items:**
 - [x] All fix WO code changes committed and tested
-- [x] Test suite confirmed GREEN (5,277 passed, 15 skipped, 0 failures)
+- [x] Test suite confirmed GREEN (5,532 passed, 24 skipped, 0 failures)
 - [x] WO-FIX-11 — COMMITTED (fcf712e)
 - [x] WO-FIX-12 F2/F3 — COMMITTED (b52d8d8)
 - [x] Test isolation fixed (f581d44)
@@ -193,6 +193,15 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - WO_SET_METHODOLOGY_REFINEMENT (6 governance WOs, commit f1013ba) — BLOCKED
 
 **PM posture:** ACTIVE. Fix phase code COMPLETE. Tests GREEN. **Remaining gate items:** (1) 7 AMBIGUOUS Operator decisions, (2) PSD update, (3) RED block lift by Operator.
+
+**Post-fix forward path (PM-assessed, see `pm_inbox/MEMO_POST_FIX_PHASE_ACTION_PLAN.md`):**
+- Wave 1 (immediate, parallel-safe): P1-A sunder grip multiplier, P1-C register narration marker, P1-D fix TestPerformance tests. All micro-WOs.
+- Wave 2 (operator-gated): P1-B XP table spot-check (Operator action), P2-A AMBIGUOUS decisions (completion gate).
+- Wave 3 (after RED block lift): P2-C UNCITED triage, P3-A conftest hooks, P3-C .gitignore.
+- Backlog (milestone-level): P4-A circular imports, P4-B god modules, P4-C attack dedup, P4-D weapon stubs (highest impact).
+- **Key risk flagged:** P4-D `is_ranged` hardcoded `False` means WO-FIX-03 Prone/Helpless AC differentiation is correct but dormant for ranged attacks. Known limitation, not a blocker.
+
+**pm_inbox hygiene:** Triage complete. 20 files archived to `pm_inbox/reviewed/`. Inbox at 4 active files (cap 15). See `pm_inbox/PM_BRIEFING_CURRENT.md`.
 
 ---
 

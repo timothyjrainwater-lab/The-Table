@@ -5,6 +5,7 @@
 **Status:** READY for dispatch
 **Scope:** Desk check only — verify whether BUG-F2/F3 (XP table levels 11-20) was actually fixed
 **Estimated effort:** TRIVIAL (read one file, compare to DMG table)
+**Lifecycle:** NEW
 
 ---
 

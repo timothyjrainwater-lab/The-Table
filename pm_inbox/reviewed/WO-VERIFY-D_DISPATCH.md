@@ -5,6 +5,7 @@
 **Risk:** LOW | **Effort:** Medium | **Breaks:** 0 (read-only audit, no code changes)
 **Depends on:** Nothing
 **Parallel with:** WO-VERIFY-B, C, E, F, G, H, I
+**Lifecycle:** NEW
 
 ---
 

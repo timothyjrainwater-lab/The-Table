@@ -4,6 +4,7 @@
 **To:** PM (Aegis)
 **Date:** 2026-02-14
 **Context:** Full-context review of governance docs, all 9 verification domains, research corpus, dispatch infrastructure, and planning files.
+**Lifecycle:** NEW
 
 ---
 

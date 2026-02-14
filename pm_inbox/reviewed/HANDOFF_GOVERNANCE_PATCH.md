@@ -4,6 +4,7 @@
 **To:** Next builder agent
 **Date:** 2026-02-14
 **Status:** READY TO EXECUTE — no dependencies on other sessions
+**Lifecycle:** NEW
 
 ---
 

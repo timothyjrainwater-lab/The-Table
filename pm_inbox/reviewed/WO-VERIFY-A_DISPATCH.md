@@ -5,6 +5,7 @@
 **Risk:** MEDIUM | **Effort:** Large (53 formulas, complex formula chains) | **Breaks:** 0 (read-only audit)
 **Depends on:** WO-VERIFY-D must complete first (condition modifiers feed into attack resolution)
 **Parallel with:** Nothing — this is the final, most critical domain
+**Lifecycle:** NEW
 
 ---
 

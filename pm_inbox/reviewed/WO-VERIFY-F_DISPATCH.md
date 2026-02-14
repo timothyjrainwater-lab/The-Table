@@ -5,6 +5,7 @@
 **Risk:** LOW | **Effort:** Large (77 formulas, mostly table verification) | **Breaks:** 0 (read-only audit)
 **Depends on:** Nothing
 **Parallel with:** WO-VERIFY-D, B, C, E, G, H, I
+**Lifecycle:** NEW
 
 ---
 

@@ -5,6 +5,7 @@
 **Date:** 2026-02-13
 **Re:** Work order WO-OSS-DICE-001 dispatched to Sonnet A
 **Classification:** Pre-execution review — first UI work order
+**Lifecycle:** TRIAGED
 
 ---
 

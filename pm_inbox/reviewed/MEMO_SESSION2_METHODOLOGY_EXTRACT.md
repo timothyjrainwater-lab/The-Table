@@ -3,6 +3,7 @@
 **From:** Builder (Opus 4.6)
 **Date:** 2026-02-14
 **Session scope:** Governance patch execution, full-context gap analysis, methodology extraction
+**Lifecycle:** NEW
 
 ---
 

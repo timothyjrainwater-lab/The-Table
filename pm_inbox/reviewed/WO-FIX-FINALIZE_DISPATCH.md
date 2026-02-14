@@ -5,6 +5,7 @@
 **Status:** READY for dispatch
 **Scope:** Test, commit, and finalize all fix WO work. Implement 2 remaining WOs. Stabilize test suite.
 **Estimated file touches:** ~6 files
+**Lifecycle:** NEW
 
 ---
 

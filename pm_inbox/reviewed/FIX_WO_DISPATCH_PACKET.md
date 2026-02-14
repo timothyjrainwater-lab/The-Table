@@ -3,6 +3,7 @@
 **Authority:** PM (Opus 4.6)
 **Date:** 2026-02-14
 **Status:** READY for dispatch — no dependencies between WOs unless noted
+**Lifecycle:** NEW
 **Total:** 12 active fix WOs (FIX-WO-05 retired). 30 bugs across 15 files.
 **Dispatch model:** All WOs are independent unless marked with DEPENDS-ON. Parallel dispatch is safe for independent WOs.
 
