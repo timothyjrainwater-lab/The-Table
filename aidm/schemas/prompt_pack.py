@@ -27,6 +27,8 @@ import json
 from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 
+from aidm.schemas.presentation_semantics import AbilityPresentationEntry
+
 
 # =============================================================================
 # SCHEMA VERSION
@@ -71,6 +73,15 @@ class TruthChannel:
     target_defeated: bool = False            # Whether target was defeated
     scene_description: Optional[str] = None  # Brief location context
     visible_gear: Optional[List[str]] = None  # AD-005 Layer 3: externally visible gear
+    # AD-007 Layer B: presentation semantics (WO-GAP-B-001)
+    delivery_mode: Optional[str] = None      # e.g., "projectile", "beam", "burst_from_point"
+    staging: Optional[str] = None            # e.g., "travel_then_detonate", "instant"
+    origin_rule: Optional[str] = None        # e.g., "from_caster", "from_chosen_point"
+    scale: Optional[str] = None              # e.g., "subtle", "moderate", "dramatic"
+    vfx_tags: Optional[List[str]] = None     # e.g., ["fire", "explosion"]
+    sfx_tags: Optional[List[str]] = None     # e.g., ["impact", "sizzle"]
+    residue: Optional[List[str]] = None      # Lingering visual effects
+    contraindications: Optional[List[str]] = None  # What Spark must NOT narrate
 
 
 @dataclass(frozen=True)
@@ -214,6 +225,23 @@ class PromptPack:
             sections.append(f"Scene: {self.truth.scene_description}")
         if self.truth.visible_gear:
             sections.append(f"Visible Gear: {', '.join(sorted(self.truth.visible_gear))}")
+        # AD-007 Layer B presentation semantics
+        if self.truth.delivery_mode:
+            sections.append(f"Delivery Mode: {self.truth.delivery_mode}")
+        if self.truth.staging:
+            sections.append(f"Staging: {self.truth.staging}")
+        if self.truth.origin_rule:
+            sections.append(f"Origin: {self.truth.origin_rule}")
+        if self.truth.scale:
+            sections.append(f"Scale: {self.truth.scale}")
+        if self.truth.vfx_tags:
+            sections.append(f"VFX: {', '.join(sorted(self.truth.vfx_tags))}")
+        if self.truth.sfx_tags:
+            sections.append(f"SFX: {', '.join(sorted(self.truth.sfx_tags))}")
+        if self.truth.residue:
+            sections.append(f"Residue: {', '.join(sorted(self.truth.residue))}")
+        if self.truth.contraindications:
+            sections.append(f"Contraindications: {', '.join(sorted(self.truth.contraindications))}")
         sections.append("[/TRUTH]")
         sections.append("")
 
@@ -295,6 +323,14 @@ class PromptPack:
                 "target_defeated": self.truth.target_defeated,
                 "scene_description": self.truth.scene_description,
                 "visible_gear": sorted(self.truth.visible_gear) if self.truth.visible_gear else None,
+                "delivery_mode": self.truth.delivery_mode,
+                "staging": self.truth.staging,
+                "origin_rule": self.truth.origin_rule,
+                "scale": self.truth.scale,
+                "vfx_tags": sorted(self.truth.vfx_tags) if self.truth.vfx_tags else None,
+                "sfx_tags": sorted(self.truth.sfx_tags) if self.truth.sfx_tags else None,
+                "residue": sorted(self.truth.residue) if self.truth.residue else None,
+                "contraindications": sorted(self.truth.contraindications) if self.truth.contraindications else None,
             },
             "memory": {
                 "previous_narrations": list(self.memory.previous_narrations),

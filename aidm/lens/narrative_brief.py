@@ -50,6 +50,12 @@ from typing import Any, Dict, List, Optional
 from aidm.core.state import FrozenWorldStateView
 from aidm.schemas.presentation_semantics import AbilityPresentationEntry
 
+# TYPE_CHECKING import to avoid circular dependency at runtime
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from aidm.lens.presentation_registry import PresentationRegistryLoader
+
 
 @dataclass(frozen=True)
 class NarrativeBrief:
@@ -326,6 +332,7 @@ def assemble_narrative_brief(
     scene_description: Optional[str] = None,
     visible_gear: Optional[List[str]] = None,
     presentation_semantics: Optional[AbilityPresentationEntry] = None,
+    presentation_registry: Optional["PresentationRegistryLoader"] = None,
 ) -> NarrativeBrief:
     """Assemble NarrativeBrief from STP events and FrozenWorldStateView.
 
@@ -352,6 +359,7 @@ def assemble_narrative_brief(
         scene_description: Brief location context
         visible_gear: Display names of externally visible gear (WO-056, AD-005 Layer 3)
         presentation_semantics: AD-007 Layer B semantics for the ability (if applicable)
+        presentation_registry: AD-007 registry for content_id → Layer B lookup (WO-GAP-B-001)
 
     Returns:
         NarrativeBrief with Spark-safe context
@@ -368,6 +376,7 @@ def assemble_narrative_brief(
     damage_dealt = 0
     target_defeated = False
     event_ids = []
+    content_id = None
 
     for event in events:
         # Track event IDs for provenance
@@ -576,6 +585,15 @@ def assemble_narrative_brief(
         elif "weapon_name" in payload and payload is not event:
             weapon_name = payload["weapon_name"]
 
+        # Extract content_id from any event (WO-GAP-B-001)
+        if content_id is None:
+            content_id = (
+                event.get("content_id")
+                or payload.get("content_id")
+                if payload is not event
+                else event.get("content_id")
+            )
+
     # Resolve entity names from FrozenWorldStateView
     actor_name = resolve_entity_name(actor_id, frozen_view) if actor_id else "someone"
     target_name = resolve_entity_name(target_id, frozen_view) if target_id else None
@@ -592,6 +610,12 @@ def assemble_narrative_brief(
         )
     elif target_defeated:
         severity = "lethal"
+
+    # WO-GAP-B-001: Look up presentation semantics from registry by content_id
+    if presentation_registry is not None and content_id is not None:
+        registry_entry = presentation_registry.get_ability_semantics(content_id)
+        if registry_entry is not None:
+            presentation_semantics = registry_entry
 
     # Build outcome summary
     outcome_summary = _build_outcome_summary(

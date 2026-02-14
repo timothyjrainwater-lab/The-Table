@@ -124,6 +124,47 @@ class PromptPackBuilder:
             target_defeated=brief.target_defeated,
             scene_description=brief.scene_description,
             visible_gear=brief.visible_gear,
+            # WO-GAP-B-001: Layer B presentation semantics
+            delivery_mode=(
+                brief.presentation_semantics.delivery_mode.value
+                if brief.presentation_semantics is not None else None
+            ),
+            staging=(
+                brief.presentation_semantics.staging.value
+                if brief.presentation_semantics is not None else None
+            ),
+            origin_rule=(
+                brief.presentation_semantics.origin_rule.value
+                if brief.presentation_semantics is not None else None
+            ),
+            scale=(
+                brief.presentation_semantics.scale.value
+                if brief.presentation_semantics is not None else None
+            ),
+            vfx_tags=(
+                list(brief.presentation_semantics.vfx_tags)
+                if brief.presentation_semantics is not None
+                and brief.presentation_semantics.vfx_tags
+                else None
+            ),
+            sfx_tags=(
+                list(brief.presentation_semantics.sfx_tags)
+                if brief.presentation_semantics is not None
+                and brief.presentation_semantics.sfx_tags
+                else None
+            ),
+            residue=(
+                list(brief.presentation_semantics.residue)
+                if brief.presentation_semantics is not None
+                and brief.presentation_semantics.residue
+                else None
+            ),
+            contraindications=(
+                list(brief.presentation_semantics.contraindications)
+                if brief.presentation_semantics is not None
+                and brief.presentation_semantics.contraindications
+                else None
+            ),
         )
 
     def _build_memory(
