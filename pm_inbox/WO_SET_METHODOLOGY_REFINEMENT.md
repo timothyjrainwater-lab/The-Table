@@ -5,6 +5,7 @@
 **Date:** 2026-02-14
 **Status:** PROPOSAL — requires PM review before dispatch
 **Context:** Full-context review of governance stack, thesis/counter-thesis, all 9 verification domains, research corpus, planning files, and existing scripts.
+**Lifecycle:** NEW
 
 ---
 

@@ -1,33 +1,92 @@
-PM Inbox — Drop Zone for Aegis Review
+# PM Inbox — Drop Zone for Aegis Review
 
 Any deliverable that needs PM (GPT/Aegis) review goes here as a markdown file.
 
 ## Inbox Hygiene Rules
 
 1. **Auto-archive on integration:** When PM marks a WO as INTEGRATED in the PSD, PM also moves the DISPATCH and AGENT completion docs to `pm_inbox/reviewed/`.
-2. **Inbox cap:** pm_inbox root should contain no more than 10 active items (excluding subdirectories). If count exceeds 10, PM triages before any new work.
+2. **Inbox cap (ENFORCED — Tier 1):** pm_inbox root must contain no more than **15 active `.md` files** (excluding persistent operational files and subdirectories). Enforced by `tests/test_pm_inbox_hygiene.py`. If count exceeds 15, triage and archive before adding new files.
 3. **Review cycle:** After review is complete, PM archives the file to `pm_inbox/reviewed/`. Stale files cause confusion.
-4. **No orphan docs:** Every file in pm_inbox root must be either (a) awaiting review, (b) actively referenced by current work, or (c) a persistent operational file (playtest_log, README, REHYDRATION_KERNEL_LATEST).
+4. **No orphan docs:** Every file in pm_inbox root must be either (a) awaiting review, (b) actively referenced by current work, or (c) a persistent operational file.
+5. **Briefing update on intake:** When you add a file to pm_inbox, you MUST also add a one-line entry to `PM_BRIEFING_CURRENT.md` under the appropriate section. This is the PM's entry point — if it's not in the briefing, the PM may not see it.
 
-Naming convention: {AGENT}_{WO-id}_{short_description}.md
-Examples:
-  SONNET-C_WO-M1-01_event_reducer_impl.md
-  OPUS_WO-M1-01_event_reducer_spec.md
+## File Type Prefixes (ENFORCED — Tier 1)
 
-Every file must start with a header block:
-  # [Work Order ID]: [Short Title]
-  **Agent:** [Sonnet-A, Sonnet-B, Sonnet-C, Sonnet-D, or Opus]
-  **Work Order:** [WO-M1-01, etc.]
-  **Date:** [YYYY-MM-DD]
-  **Status:** [Complete | Partial | Blocked]
+Every non-persistent file must use one of these prefixes. Enforced by `tests/test_pm_inbox_hygiene.py`.
 
-## Special Files
+| Prefix | Purpose | Example |
+|--------|---------|---------|
+| `WO-` | Work order dispatch | `WO-VERIFY-A_DISPATCH.md` |
+| `WO_SET` / `WO_SET-` | Batch of related WOs | `WO_SET_METHODOLOGY_REFINEMENT.md` |
+| `MEMO_` / `MEMO-` | Session findings/summary | `MEMO_SESSION2_METHODOLOGY.md` |
+| `DEBRIEF_` / `DEBRIEF-` | Full context dump (Section 15.5 Pass 1) | `DEBRIEF_WO-VERIFY-A.md` |
+| `HANDOFF_` / `HANDOFF-` | Cross-session context transfer | `HANDOFF_PM_INBOX_HYGIENE.md` |
+| `PO_REVIEW` / `PO_REVIEW-` | Product owner review doc | `PO_REVIEW_WO-OSS-DICE-001.md` |
+| `BURST_` / `BURST-` | Research intake queue | `BURST_INTAKE_QUEUE.md` |
+| `FIX_WO` / `FIX_WO-` | Fix work order dispatch packet | `FIX_WO_DISPATCH_PACKET.md` |
+| `WO_INSTITUTIONALIZE` | Institutionalization WO (legacy) | `WO_INSTITUTIONALIZE_DEBRIEF_PROTOCOL.md` |
 
-- **REHYDRATION_KERNEL_LATEST.md** — Compact rehydration block. Must be kept fresh with current repo state. Canonical version at `docs/ops/REHYDRATION_KERNEL.md`.
-- **playtest_log.jsonl** — Structured playtest records (append-only).
+## Lifecycle Header (ENFORCED — Tier 1)
 
-## Rehydration Folder
+Every non-persistent `.md` file must include a `**Lifecycle:**` field in the first 15 lines. Enforced by `tests/test_pm_inbox_hygiene.py`.
 
-**`aegis_rehydration/`** — Contains copies of ALL documents Aegis needs for a full context window rehydration. Instead of hunting for individual files, drag-drop the entire folder contents into GPT. See `aegis_rehydration/README.md` for contents, update protocol, and recommended reading order.
+Valid lifecycle states:
 
-**Important:** The files in `aegis_rehydration/` are copies. When source files change, the copies must be refreshed.
+| State | Meaning | Who sets it |
+|-------|---------|-------------|
+| `NEW` | Just created, PM hasn't read it | Author (agent) on creation |
+| `TRIAGED` | PM has read it, assigned priority | PM after first read |
+| `ACTIONED` | PM has acted on its contents | PM after acting |
+| `ARCHIVE` | Ready to move to `reviewed/` | PM when done |
+
+Example header block:
+```markdown
+# MEMO: Session Findings
+**From:** Builder (Opus 4.6)
+**Date:** 2026-02-14
+**Lifecycle:** NEW
+```
+
+## Persistent Operational Files (Exempt from Prefix/Lifecycle Rules)
+
+These files are always present and are not subject to the naming prefix or lifecycle requirements:
+
+- `README.md` — This file
+- `PM_BRIEFING_CURRENT.md` — Rolling briefing (PM's entry point)
+- `REHYDRATION_KERNEL_LATEST.md` — Compact rehydration block
+- `playtest_log.jsonl` — Structured playtest records (append-only)
+
+## Builder Intake Protocol
+
+When you create a file in pm_inbox:
+
+1. **Choose the correct prefix** from the table above
+2. **Include the lifecycle header** with `**Lifecycle:** NEW` in the first 15 lines
+3. **Add a one-line entry** to `PM_BRIEFING_CURRENT.md` under "Requires PM Action" or "Requires PM Read"
+4. **Check the file count** — if you're near the cap, note it in your debrief
+
+## PM Triage Protocol
+
+When the PM starts a session:
+
+1. Open `PM_BRIEFING_CURRENT.md` — read action items
+2. Scan for any files with `Lifecycle: NEW` not in the briefing (catch rogue additions)
+3. Update lifecycle: `NEW` → `TRIAGED` for files read
+4. Move `Lifecycle: ARCHIVE` files to `reviewed/`
+5. Update the briefing file (check off completed items, add new ones)
+
+## Subdirectories
+
+### `reviewed/`
+**Writer:** PM/Thunder ONLY. Agents NEVER write here.
+Archived completed work. PM moves files here after review.
+
+### `aegis_rehydration/`
+**Writer:** PM/Thunder ONLY.
+PM context files for full context window rehydration. Exception: agents may sync canonical project files (e.g., `AGENT_DEVELOPMENT_GUIDELINES.md`) that have rehydration headers.
+
+### `gpt_rehydration/`
+External LLM onboarding packet (tiered structure).
+
+### `research/`
+Voice-first research synthesis and completion receipts.

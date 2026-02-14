@@ -7,7 +7,7 @@ that MUST be followed to maintain project integrity.
 
 REHYDRATION COPY: After editing this file, also update pm_inbox/aegis_rehydration/AGENT_DEVELOPMENT_GUIDELINES.md
 
-LAST UPDATED: 2026-02-14 (5,144 tests, BL-017/018/020, Section 15 context boundary protocol)
+LAST UPDATED: 2026-02-14 (5,144 tests, BL-017/018/020, Section 15 context boundary protocol, pm_inbox hygiene enforcement)
 -->
 
 # Agent Development Guidelines
@@ -439,7 +439,7 @@ When a status, count, verdict, or classification changes, update **ALL** files t
 
 ### 15.5 Builder Debrief Protocol (Post-WO Batch)
 
-After completing a work order or WO batch, the builder agent MUST produce a two-pass debrief before the session closes:
+After completing a work order or WO batch, the builder agent MUST produce a three-pass debrief before the session closes:
 
 **Pass 1 — Full Dump** (`pm_inbox/DEBRIEF_[SESSION_ID].md`):
 Write everything from your context window — cascading impacts, agent failures, schema additions, WO mismatches, test changes, loose ends. Don't filter. Don't worry about length. This is raw knowledge capture that prevents context loss.
@@ -450,7 +450,26 @@ Compress the dump into a structured memo:
 - **Status Updates** (informational) — one line each
 - **Deferred Items** (not blocking) — one sentence each
 
-**Why two passes:** Pass 1 prevents context loss. Pass 2 respects the PM's context window budget. Writing the compressed version directly causes the agent to skip things that seemed unimportant but weren't. Writing only the full dump overwhelms the PM.
+**Pass 3 — Operational Retrospective** (`## Retrospective` section in the MEMO file):
+After Passes 1-2, add a `## Retrospective` section to the MEMO. This is **mandatory** — enforced by `tests/test_pm_inbox_hygiene.py` (PMIH-004). Reflect on the process itself. This is not what happened — it's what you *think* about what happened:
+- **Fragility observations** — what parts of the system felt brittle, what nearly broke, what worked better than expected
+- **Process feedback** — did the WO instructions match reality? Were governance docs accurate? Did the onboarding sequence help or mislead?
+- **Methodology insights** — did you discover a new pattern, confirm an existing one, or find a case where the methodology didn't apply?
+- **Concerns** — anything that worries you about the system's current state, even if you can't articulate why
+
+Pass 3 is the highest-signal output for methodology refinement. The debrief captures facts; the retrospective captures judgment. Both are valuable but serve different audiences — the debrief serves the PM, the retrospective serves the project's long-term health.
+
+**Required header for both files** (enforced by `tests/test_pm_inbox_hygiene.py`):
+```
+# DEBRIEF: [Session ID or WO ID]
+**From:** [Agent identifier]
+**Date:** [YYYY-MM-DD]
+**Lifecycle:** NEW
+```
+
+**After writing both files, update `pm_inbox/PM_BRIEFING_CURRENT.md`** with one-line entries for each new file. This is the PM's entry point — files not in the briefing may be missed.
+
+**Why three passes:** Pass 1 prevents context loss. Pass 2 respects the PM's context window budget. Pass 3 captures operational judgment that neither facts nor summaries preserve — the kind of insight that only exists while the agent is still inside the problem. Writing the compressed version directly causes the agent to skip things that seemed unimportant but weren't. Writing only the full dump overwhelms the PM. Skipping the retrospective loses the meta-observations that improve the system for the next agent.
 
 ### 15.6 Methodology Maintenance Protocol
 

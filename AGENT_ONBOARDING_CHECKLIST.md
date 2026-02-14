@@ -5,7 +5,7 @@ This file tells new agents EXACTLY what to read, in what order, and what to veri
 before writing a single line of code. It exists because the project has 9+ root-level
 .md files and agents waste context reading them in the wrong order or skipping critical ones.
 
-LAST UPDATED: 2026-02-14 — Wave 1-3 WOs integrated. 5,144 tests collected. VERIFICATION_GUIDELINES.md added.
+LAST UPDATED: 2026-02-14 — Wave 1-3 WOs integrated. 5,144 tests collected. VERIFICATION_GUIDELINES.md added. pm_inbox hygiene enforcement added.
 -->
 
 # Agent Onboarding Checklist
@@ -123,6 +123,8 @@ These are the five most common mistakes agents make on this project. Memorize th
 3. **DO NOT** introduce 5e terminology (advantage, short rest, electric damage, cantrips at will)
 4. **DO NOT** mutate WorldState inside resolver functions — return events only
 5. **DO NOT** "fix" items listed in `KNOWN_TECH_DEBT.md` unless explicitly asked — they are intentionally deferred
+6. **DO NOT** close a session after WO completion without writing a debrief — knowledge dies with your context window (Section 15.5)
+7. **DO NOT** add a file to `pm_inbox/` without also updating `pm_inbox/PM_BRIEFING_CURRENT.md` — the PM won't see it otherwise
 
 ---
 
@@ -156,7 +158,9 @@ Every completion packet follows this process:
 6. Verify 5,100+ tests still pass
 7. Update `PROJECT_STATE_DIGEST.md` (test counts, module inventory, CP history)
 8. Update `AGENT_DEVELOPMENT_GUIDELINES.md` if new patterns or pitfalls were discovered
-9. Use `CP_TEMPLATE.md` for the standard CP decisions document format
+9. Write post-completion debrief (Section 15.5 — three-pass: full dump, PM summary, then operational retrospective)
+10. Update `pm_inbox/PM_BRIEFING_CURRENT.md` with entries for any new pm_inbox files
+11. Use `CP_TEMPLATE.md` for the standard CP decisions document format
 
 ---
 
@@ -190,34 +194,41 @@ When you complete a deliverable that needs PM (Aegis) review — work order outp
 
 **DO NOT write deliverables to `pm_inbox/aegis_rehydration/`.** That folder contains PM system context. The only exception is **syncing canonical project files** that have rehydration copies (e.g., `AGENT_DEVELOPMENT_GUIDELINES.md`, `PROJECT_STATE_DIGEST.md`, `KNOWN_TECH_DEBT.md`) — those files have headers that explicitly say to sync the rehydration copy after editing.
 
-**Naming convention:** `{AGENT}_{WO-id}_{short_description}.md`
-**Examples:**
-- `SONNET-C_WO-M1-01_event_reducer_impl.md`
-- `SONNET-A_WO-M1-02_deterministic_ids.md`
-- `OPUS_WO-M1-01_event_reducer_spec.md`
+**File type prefixes (ENFORCED by `tests/test_pm_inbox_hygiene.py`):**
 
-**Required header block** (first lines of every deliverable file):
+| Prefix | Purpose |
+|--------|---------|
+| `WO-` | Work order dispatch |
+| `WO_SET` | Batch of related WOs |
+| `MEMO_` / `MEMO-` | Session findings/summary |
+| `DEBRIEF_` / `DEBRIEF-` | Full context dump (Section 15.5) |
+| `HANDOFF_` / `HANDOFF-` | Cross-session context transfer |
+| `PO_REVIEW` | Product owner review doc |
+| `BURST_` | Research intake queue |
+| `FIX_WO` | Fix work order dispatch packet |
+
+**Required header block** (first lines of every file):
 ```
-# [Work Order ID]: [Short Title]
-**Agent:** [Your agent identifier, e.g. Sonnet-C, Sonnet-A, Opus]
-**Work Order:** [WO-M1-01, WO-M1-02, etc.]
+# [Type]: [Short Title]
+**From:** [Agent identifier]
 **Date:** [YYYY-MM-DD]
-**Status:** [Complete | Partial | Blocked]
-
-## Summary
-[2-3 sentence summary of what was done]
-
-## Details
-[Full deliverable content below]
+**Status:** [Complete | Partial | Blocked | READY | PROPOSAL]
+**Lifecycle:** NEW
 ```
 
-Thunder will drag-and-drop these files to the PM (Aegis/GPT) for review. After review, files are moved to `pm_inbox/reviewed/` or deleted.
+The `**Lifecycle:**` field is **mandatory** (enforced by test). Valid values: `NEW`, `TRIAGED`, `ACTIONED`, `ARCHIVE`. Always set to `NEW` when you create the file.
+
+**After creating a file in pm_inbox, you MUST:**
+1. Add a one-line entry to `pm_inbox/PM_BRIEFING_CURRENT.md` under the appropriate section
+2. This is the PM's entry point — if it's not in the briefing, the PM may not see your file
+
+**Inbox cap:** 15 active `.md` files maximum (enforced by test). If you're near the cap, note it in your debrief.
 
 **What goes to `pm_inbox/`:**
 - Completed work order deliverables
-- Design decision documents
-- Spec proposals that need PM sign-off
-- Audit reports or analysis results
+- Design decision documents, spec proposals, audit reports
+- Session memos and debriefs (Section 15.5)
+- Handoff documents for cross-session context transfer
 
 **What does NOT go to `pm_inbox/`:**
 - Code files (those stay where they belong in the source tree)

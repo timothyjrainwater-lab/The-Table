@@ -1,4 +1,5 @@
 # Burst Intake Queue
+**Lifecycle:** NEW
 
 Parking lot for research/strategy bursts that need conversion before entering production planning.
 

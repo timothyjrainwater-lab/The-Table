@@ -35,6 +35,15 @@ See: [PM Context Compression Pattern](../patterns/PM_CONTEXT_COMPRESSION.md)
 
 - [Item] — [Why it can wait]
 
+## Retrospective (Pass 3 — Operational judgment)
+
+[This section is MANDATORY (enforced by test). Reflect on the process, not the output.]
+
+- **Fragility:** [What felt brittle, what nearly broke, what worked well]
+- **Process feedback:** [Did WO instructions match reality? Were governance docs accurate?]
+- **Methodology:** [New pattern discovered? Existing pattern confirmed or invalidated?]
+- **Concerns:** [Anything that worries you about the system's current state]
+
 ---
 
 **End of Memo**
@@ -42,17 +51,26 @@ See: [PM Context Compression Pattern](../patterns/PM_CONTEXT_COMPRESSION.md)
 
 ---
 
-## Two-Pass Writing Process: Dump Then Distill
+## Three-Pass Writing Process: Dump, Distill, Reflect
 
 **Pass 1 — Full Dump:** Write everything from your context window — cascading impacts, agent failures, schema additions, WO mismatches, test changes, loose ends. Don't filter. Don't worry about length. This is the raw knowledge capture.
 
 **Pass 2 — PM Summary:** Compress the dump into the memo format above. Action items only include things the PM must actually do. Status updates are one line each. Deferred items get one sentence each.
 
-**Why two passes:** Pass 1 prevents context loss. Pass 2 respects the PM's context window budget. If you try to write the compressed version directly, you'll skip things that seemed unimportant but weren't. If you only write the full dump, the PM can't process it.
+**Pass 3 — Operational Retrospective:** Reflect on the process itself. This is not what happened — it's what you think about what happened:
+- **Fragility observations** — what parts of the system felt brittle, what nearly broke, what worked better than expected
+- **Process feedback** — did instructions match reality? Were governance docs accurate? Did the onboarding sequence help or mislead?
+- **Methodology insights** — did you discover a new pattern, confirm an existing one, or find a case where the methodology didn't apply?
+- **Concerns** — anything that worries you about the system's current state
+
+Pass 3 is a required `## Retrospective` section in the MEMO file, enforced by `tests/test_pm_inbox_hygiene.py` (PMIH-004).
+
+**Why three passes:** Pass 1 prevents context loss. Pass 2 respects the PM's context window budget. Pass 3 captures operational judgment — the kind of insight that only exists while the agent is still inside the problem. If you try to write the compressed version directly, you'll skip things that seemed unimportant but weren't. If you only write the full dump, the PM can't process it. If you skip the retrospective, you lose the meta-observations that improve the system for the next agent.
 
 **Where they go:**
 - Pass 1 (full dump): `pm_inbox/DEBRIEF_[SESSION_ID].md` — archived for reference
 - Pass 2 (PM summary): `pm_inbox/MEMO_[SHORT_TITLE].md` — this is what the PM reads
+- Pass 3 (retrospective): `## Retrospective` section in the MEMO file (mandatory, test-enforced)
 
 ---
 

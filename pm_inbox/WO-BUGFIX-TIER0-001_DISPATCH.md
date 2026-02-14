@@ -5,6 +5,7 @@
 **Risk:** MEDIUM | **Effort:** Medium | **Breaks:** 0 expected (existing tests pass; new tests added)
 **Depends on:** None. All fixes are in non-frozen files.
 **Source:** `docs/research/ACTION_ECONOMY_AUDIT.md` Section X
+**Lifecycle:** NEW
 
 ---
 
