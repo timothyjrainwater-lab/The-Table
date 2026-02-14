@@ -8,14 +8,21 @@ Product Owner (PO): Thunder. Design decisions, vision, dispatch authority.
 Project Manager (PM): Opus. WO creation, coding direction, agent coordination, principal engineering. Full PM authority delegated 2026-02-11.
 Agents execute within WO scope only. PM confirms rehydration before any work.
 
+### Five-Role Model (formalized 2026-02-14)
+
+| Role | Authority | Context Cost | Boundary |
+|------|-----------|-------------|----------|
+| **Operator** (Thunder) | Absolute. Dispatch, overrides. | N/A (human) | Routes work between all agents. |
+| **PM** (Aegis) | Delegated. Verdicts, WOs, sequencing. | Irreplaceable | Never touches code. Documents only. Kernel owner. |
+| **Assistant** | None. Serves Operator. | Disposable | Reviews builder output, consolidates for PM. Updates briefing only with PM-authored content. Never writes kernel. |
+| **Builders** | WO scope only. | Disposable | Code, tests, completion reports. No upstream visibility. |
+| **BS Buddy** (Anvil) | Advisory only. | Disposable | Brainstorming + TTS QA. No execution, no governance. Produces memos and conversation. |
+
 ## Two-Force Parallel Execution Protocol (effective 2026-02-13)
 
 **Relay model:** Operator Intent → PM drafts Research WO → Operator executes research → PM normalizes into Brick → PM drafts Builder WO → Builders implement.
 
-**Roles:**
-- Operator = Research execution, builder dispatch. Does not draft WOs. Physically passes WOs to builder agents.
-- PM = WO authorship (research + build), normalization, sequencing. Does not execute research or implementation. Does not dispatch to builders directly — outputs WO documents for Operator to dispatch.
-- Builders = Implementation only. Never see upstream research artifacts. Receive only READY Brick packets via Operator.
+**Roles:** See Five-Role Model table above. The relay model involves Operator, PM, and Builders. Assistant and BS Buddy operate outside the relay chain.
 
 **Brick format (READY when all 4 present):** (1) Target Lock, (2) Binary Decisions, (3) Contract Spec, (4) Implementation Plan.
 
@@ -79,7 +86,7 @@ Behavior on trigger:
 Branch: master
 Last commit: bf232d4 — docs: handoff + PM archival — governance refinement session complete
 Tests passed: 5,539 (25 skipped) — **GREEN. 0 failures.** (per WO-PREFLIGHT-001 inspection)
-Stoplight: **YELLOW — Preflight inspection PASSED. Single remaining gate: RED block lift by Operator.**
+Stoplight: **YELLOW — Preflight inspection PASSED. Research sprint COMPLETE (11/11 RQs, synthesis delivered). Remaining gates: H0 WOs (GAP-B-001 + VERSION-MVP + Governance) then RED block lift by Operator.**
 
 **Verification COMPLETE:** 338 formulas verified across 9 domains. 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist. Domain A re-verified with research cross-reference — 4 verdicts reclassified WRONG→AMBIGUOUS (cover design decision in RQ-BOX-001).
 
@@ -123,9 +130,20 @@ Stoplight: **YELLOW — Preflight inspection PASSED. Single remaining gate: RED 
 
 **Process gap identified:** `pm_inbox/` has no triage protocol, lifecycle management, or cleanup enforcement. See `pm_inbox/HANDOFF_PM_INBOX_HYGIENE.md`. Related to WO-GOV-03 and WO-GOV-04.
 
+**Research sprint — WO-RESEARCH-SPRINT-001 COMPLETE (2026-02-14):**
+- 11/11 RQs answered. All deliverables in `docs/research/RQ-SPRINT-*.md`.
+- PM synthesis memo delivered: `pm_inbox/MEMO_RESEARCH_SPRINT_SYNTHESIS.md`.
+- 4-Horizon roadmap: H0 (gate lift) → H1 (narration fidelity) → H2 (world quality) → H3 (experience + community).
+- Single highest-impact finding: GAP-B-001 — `NarrativeBrief.presentation_semantics` always None (~10 lines to fix).
+- Key architectural validation: content independence confirmed (RQ-001), multi-skin is free (RQ-008), hardware tiering is mechanical-safe (RQ-009/011).
+- H0 WOs needed before gate lift: WO-GAP-B-001, WO-VERSION-MVP, Governance session.
+- Version policy: All 30 WRONG verdicts are Type A (PATCH 0.1.0 → 0.1.1, no migration needed).
+
 **Untracked files (not committed):**
 - 4 voice research docs in `docs/research/VOICE_*.md`
 - `pm_inbox/research/` directory
+- 11 research deliverables in `docs/research/RQ-SPRINT-*.md`
+- PM synthesis memo and related inbox files
 
 ## PM Execution Boundary (HARD CONSTRAINT)
 
