@@ -435,6 +435,7 @@ def _resolve_spell_cast(
             "spell_level": spell.level,
             "affected_entities": list(resolution.affected_entities),
             "turn_index": turn_index,
+            **({"content_id": spell.content_id} if spell.content_id else {}),
         },
         citations=list(spell.rule_citations),
     ))
@@ -460,6 +461,7 @@ def _resolve_spell_cast(
                     "new_hp": new_hp,
                     "delta": -damage,
                     "source": f"spell:{spell.name}",
+                    **({"content_id": spell.content_id} if spell.content_id else {}),
                 },
                 citations=list(spell.rule_citations),
             ))
@@ -475,6 +477,7 @@ def _resolve_spell_cast(
                     payload={
                         "entity_id": entity_id,
                         "source": f"spell:{spell.name}",
+                        **({"content_id": spell.content_id} if spell.content_id else {}),
                     },
                 ))
                 current_event_id += 1
@@ -497,6 +500,7 @@ def _resolve_spell_cast(
                     "new_hp": new_hp,
                     "delta": healing,
                     "source": f"spell:{spell.name}",
+                    **({"content_id": spell.content_id} if spell.content_id else {}),
                 },
                 citations=list(spell.rule_citations),
             ))
@@ -529,6 +533,7 @@ def _resolve_spell_cast(
                     "condition": condition,
                     "source": f"spell:{spell.name}",
                     "duration_rounds": spell.duration_rounds if spell.duration_rounds > 0 else None,
+                    **({"content_id": spell.content_id} if spell.content_id else {}),
                 },
                 citations=list(spell.rule_citations),
             ))

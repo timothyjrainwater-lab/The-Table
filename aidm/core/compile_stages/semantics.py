@@ -340,6 +340,28 @@ def map_sfx_tags(spell: Dict[str, Any]) -> Tuple[str, ...]:
     return tuple(deduped) if deduped else ("generic_cast",)
 
 
+# Contraindication tags by damage type (WO-COMPILE-VALIDATE-001 §C1)
+CONTRAINDICATIONS_BY_DAMAGE_TYPE: Dict[str, Tuple[str, ...]] = {
+    "fire": ("ice", "frost", "cold", "frozen"),
+    "cold": ("fire", "flame", "burn", "heat"),
+    "acid": ("clean", "pristine", "pure"),
+    "electricity": ("earth", "grounded", "stone"),
+    "sonic": ("silence", "quiet", "stillness"),
+}
+
+
+def map_contraindications(spell: Dict[str, Any]) -> Tuple[str, ...]:
+    """Derive contraindication tags from damage type.
+
+    Abilities with no damage_type or damage_type not in the table
+    get empty contraindications.
+    """
+    damage_type = spell.get("damage_type", "")
+    if damage_type and damage_type in CONTRAINDICATIONS_BY_DAMAGE_TYPE:
+        return CONTRAINDICATIONS_BY_DAMAGE_TYPE[damage_type]
+    return ()
+
+
 def map_spell_to_entry(
     spell: Dict[str, Any],
     provenance: SemanticsProvenance,
@@ -354,6 +376,7 @@ def map_spell_to_entry(
         sfx_tags=map_sfx_tags(spell),
         scale=map_scale(spell),
         provenance=provenance,
+        contraindications=map_contraindications(spell),
     )
 
 
@@ -397,6 +420,7 @@ def map_feat_to_entry(
         sfx_tags=sfx,
         scale=scale,
         provenance=provenance,
+        contraindications=map_contraindications(feat),
     )
 
 

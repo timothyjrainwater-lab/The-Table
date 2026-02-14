@@ -161,6 +161,14 @@ class SpellDefinition:
     rule_citations: Tuple[str, ...] = field(default_factory=tuple)
     """PHB/rulebook page references."""
 
+    content_id: Optional[str] = None
+    """Content pack identifier for Layer B presentation lookup (WO-COMPILE-VALIDATE-001).
+
+    When set, resolver events include this in their payload so the Lens can
+    look up AbilityPresentationEntry from the PresentationSemanticsRegistry.
+    Format: 'spell.{template_id_lower}' (e.g., 'spell.spell_001').
+    """
+
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary."""
         return {
@@ -186,6 +194,7 @@ class SpellDefinition:
             "auto_hit": self.auto_hit,
             "requires_attack_roll": self.requires_attack_roll,
             "rule_citations": list(self.rule_citations),
+            "content_id": self.content_id,
         }
 
 
