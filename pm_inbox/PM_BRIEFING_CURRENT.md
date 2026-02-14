@@ -6,6 +6,7 @@
 
 ## Requires PM Action (Urgent)
 
+- [ ] **[MEMO_NEXT_PHASE_OPERATIONAL_RECOMMENDATIONS]** 7 operational recommendations from builder field assessment — Vault reliability gate, AMBIGUOUS deadlines, is_ranged micro-WO, dispatch template additions, sys.modules fixture, stale-check process, consumer matrix.
 - [ ] **[MEMO_POST_FIX_PHASE_ACTION_PLAN]** Post-fix phase stabilization plan — 13/13 fix WOs committed, 5,532 tests GREEN, forward path recommendations. PM assessment complete (see below).
 
 ## Requires Operator Action
@@ -44,7 +45,6 @@
 - `README.md` — Inbox hygiene rules and conventions
 - `PM_BRIEFING_CURRENT.md` — This file
 - `REHYDRATION_KERNEL_LATEST.md` — Compact PM rehydration block
-- `playtest_log.jsonl` — Playtest event stream
 
 ---
 

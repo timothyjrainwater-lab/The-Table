@@ -54,7 +54,6 @@ These files are always present and are not subject to the naming prefix or lifec
 - `README.md` — This file
 - `PM_BRIEFING_CURRENT.md` — Rolling briefing (PM's entry point)
 - `REHYDRATION_KERNEL_LATEST.md` — Compact rehydration block
-- `playtest_log.jsonl` — Structured playtest records (append-only)
 
 ## Builder Intake Protocol
 
@@ -64,6 +63,7 @@ When you create a file in pm_inbox:
 2. **Include the lifecycle header** with `**Lifecycle:** NEW` in the first 15 lines
 3. **Add a one-line entry** to `PM_BRIEFING_CURRENT.md` under "Requires PM Action" or "Requires PM Read"
 4. **Check the file count** — if you're near the cap, note it in your debrief
+5. **Audit grandfathered items** — when building or updating enforcement rules, review existing items with the same rigor as new entries. Inherited state is the most common source of unquestioned debt.
 
 ## PM Triage Protocol
 

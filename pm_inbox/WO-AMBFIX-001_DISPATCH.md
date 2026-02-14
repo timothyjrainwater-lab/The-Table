@@ -2,6 +2,7 @@
 
 **Authority:** PM (Opus 4.6)
 **Date:** 2026-02-14
+**Lifecycle:** NEW
 **Status:** READY for dispatch
 **Scope:** 3 surgical code changes from Operator AMBIGUOUS verdict decisions
 **Estimated file touches:** 3-4 files

@@ -39,9 +39,7 @@ PERSISTENT_FILES = {
 }
 
 # Non-markdown persistent files (also exempt from .md rules)
-PERSISTENT_NON_MD = {
-    "playtest_log.jsonl",
-}
+PERSISTENT_NON_MD: set[str] = set()
 
 # Recognized file prefixes for non-persistent pm_inbox files.
 # Each prefix maps to a file type category.
