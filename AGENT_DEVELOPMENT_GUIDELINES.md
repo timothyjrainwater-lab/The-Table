@@ -436,3 +436,18 @@ Test: Could a fresh agent with no conversation history execute this dispatch usi
 When a status, count, verdict, or classification changes, update **ALL** files that reference it in the same commit. Partial updates create inconsistencies that compound across context boundaries.
 
 **Evidence:** Domain A re-verification updated the checklist and WRONG_VERDICTS_MASTER but missed `DOMAIN_C_VERIFICATION.md`, creating an inconsistency that required a separate fix commit. The next agent saw conflicting numbers and couldn't determine which was correct without re-reading source files.
+
+### 15.5 Builder Debrief Protocol (Post-WO Batch)
+
+After completing a work order or WO batch, the builder agent MUST produce a two-pass debrief before the session closes:
+
+**Pass 1 — Full Dump** (`pm_inbox/DEBRIEF_[SESSION_ID].md`):
+Write everything from your context window — cascading impacts, agent failures, schema additions, WO mismatches, test changes, loose ends. Don't filter. Don't worry about length. This is raw knowledge capture that prevents context loss.
+
+**Pass 2 — PM Summary** (`pm_inbox/MEMO_[SHORT_TITLE].md`):
+Compress the dump into a structured memo:
+- **Action Items** (PM must act) — numbered, with who/what/blocks
+- **Status Updates** (informational) — one line each
+- **Deferred Items** (not blocking) — one sentence each
+
+**Why two passes:** Pass 1 prevents context loss. Pass 2 respects the PM's context window budget. Writing the compressed version directly causes the agent to skip things that seemed unimportant but weren't. Writing only the full dump overwhelms the PM.
