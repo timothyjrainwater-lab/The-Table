@@ -712,6 +712,13 @@ class SpellResolver:
         # Find all entities in affected squares
         affected_entities = self._grid.get_entities_in_area(affected_squares)
 
+        # Filter out defeated entities (HP <= 0) — dead creatures are objects,
+        # not valid AoE targets (D&D 3.5e rules). WO-AOE-DEFEATED-FILTER.
+        affected_entities = [
+            eid for eid in affected_entities
+            if eid not in targets or targets[eid].hit_points > 0
+        ]
+
         # Generate AoE STP
         aoe_stp = self._stp_builder.aoe_resolution(
             actor_id=intent.caster_id,

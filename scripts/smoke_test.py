@@ -2082,8 +2082,8 @@ def scenario_f_healing() -> Optional[Dict[str, Any]]:
 # ══════════════════════════════════════════════════════════════════════════
 
 def scenario_g_spell_on_dead() -> Optional[Dict[str, Any]]:
-    """Scenario G: Cast spell at defeated target. Tests intent validation edge case."""
-    banner("SCENARIO G: Edge Case — Spell at Defeated Entity")
+    """Scenario G: Cast spell at defeated target. Verifies AoE skips defeated entities."""
+    banner("SCENARIO G: Edge Case — AoE Skips Defeated Entity")
     result: Dict[str, Any] = {}
 
     try:
@@ -2206,7 +2206,7 @@ def scenario_g_spell_on_dead() -> Optional[Dict[str, Any]]:
         for event in turn_result.events:
             print(f"    {event.event_type}: {event.payload}")
 
-        # Check if the defeated entity was re-damaged
+        # Verify defeated entity was NOT re-damaged (WO-AOE-DEFEATED-FILTER)
         hp_events = [e for e in turn_result.events if e.event_type == "hp_changed"]
         re_damaged = any(e.payload.get("entity_id") == "dead_goblin_g" for e in hp_events)
         double_defeat = any(
@@ -2217,20 +2217,18 @@ def scenario_g_spell_on_dead() -> Optional[Dict[str, Any]]:
         print(f"  Defeated entity re-damaged: {re_damaged}")
         print(f"  Double entity_defeated event: {double_defeat}")
 
-        if turn_result.status == "ok":
+        if turn_result.status == "ok" and not re_damaged:
             record_pass("G2: Fireball at dead goblin position",
-                        f"status=ok, narration={turn_result.narration}")
-            if re_damaged:
-                record_finding("AoE spell damages already-defeated entity (HP went further negative). "
-                               "Spell resolver does not filter defeated entities from AoE targets.")
-            if double_defeat:
-                record_finding("Double entity_defeated event emitted for already-defeated entity. "
-                               "defeat check does not guard against already-defeated.")
+                        f"status=ok, dead goblin correctly skipped")
+        elif turn_result.status == "ok" and re_damaged:
+            record_fail("G2: Fireball at dead goblin position",
+                        "AoE still damaged defeated entity",
+                        error="Defeated entity filter not working")
         else:
             record_pass("G2: Fireball at dead goblin position",
                         f"rejected: {turn_result.failure_reason}")
 
-        SCENARIO_RESULTS["G"] = "PASS"
+        SCENARIO_RESULTS["G"] = "PASS" if not re_damaged else "FAIL"
         return result
 
     except Exception as exc:

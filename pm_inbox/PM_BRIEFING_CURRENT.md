@@ -1,12 +1,12 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (WO-CONDITION-EXTRACTION-FIX delivered. Smoke test now 44/44 PASS. Condition extraction bug resolved.)
+**Last updated:** 2026-02-14 (WO-AOE-DEFEATED-FILTER delivered. All 3 smoke test findings resolved. Integration board clear for BURST-001.)
 
 ---
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,528 unit tests pass. Smoke test 002 passes 44/44 stages. 4/4 prior fixes confirmed. Condition extraction fix resolves last failing stage. **The building stands up, and the plumbing works.**
+5,531 unit tests pass. Smoke test 002 passes 44/44 stages. All 3 smoke test findings resolved (condition extraction, AoE filter, multi-target template = design boundary). **Integration board clear.**
 
 ## Smoke Test Results (post WO-CONDITION-EXTRACTION-FIX)
 
@@ -24,17 +24,18 @@
 | Scenario G: Spell on dead entity | PASS |
 | Scenario H: Sequential combat | PASS |
 
-**Remaining findings (2):**
+**Remaining findings (1):**
 
 1. ~~**NarrativeBrief condition extraction bug**~~ — **FIXED** by WO-CONDITION-EXTRACTION-FIX
 2. **Multi-target template gap** — Design boundary, not bug. Templates reference primary target only.
-3. **AoE hits defeated entities** — Low severity. Spell resolver does not filter defeated entities from AoE targets.
+3. ~~**AoE hits defeated entities**~~ — **FIXED** by WO-AOE-DEFEATED-FILTER
 
 ## WO Verdicts This Session
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-CONDITION-EXTRACTION-FIX | **DELIVERED** | `acdf410` |
+| WO-AOE-DEFEATED-FILTER | **DELIVERED** | `4bba1eb` |
+| WO-CONDITION-EXTRACTION-FIX | **ACCEPTED** | `acdf410` |
 | WO-SMOKE-TEST-002 | **ACCEPTED** | `84301f3` |
 | WO-SMOKE-TEST-001 | **ACCEPTED** | `d0d9dc2` |
 | WO-SPELL-NARRATION-POLISH | **ACCEPTED** | `2b2a47b` |
@@ -44,14 +45,23 @@
 
 ## Requires Operator Action (NOW)
 
-1. **Review WO-CONDITION-EXTRACTION-FIX debrief** — [DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md](pm_inbox/DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md)
-   44/44 smoke test PASS. Condition extraction bug fixed. 2 new tests. PM to accept.
+1. **Review WO-AOE-DEFEATED-FILTER debrief** — [DEBRIEF_WO-AOE-DEFEATED-FILTER.md](pm_inbox/DEBRIEF_WO-AOE-DEFEATED-FILTER.md)
 
-2. **Decision: AoE defeated-entity filter** — Low severity
-   Smoke test Finding 3: AoE spells damage already-defeated entities (HP goes further negative). Rules-incorrect but no crash. Draft fix WO or park?
+   44/44 smoke test PASS. AoE now skips defeated entities. 3 new tests. Clears last integration finding.
+
+2. **Resolve BURST-001 binary decisions (5)** — required before PM can draft voice builder WOs
+
+   - DC-01: Chatterbox-only or Kokoro CPU fallback for operator voice?
+   - DC-02: AUTHORITY detector in Phase 1 or deferred to Phase 2?
+   - DC-03: Pressure alerts spoken by DM persona or Arbor?
+   - DC-04: EvidenceValidator full implementation or defer to Phase 2?
+   - DC-05: Golden transcript stability — all non-Spark lines or structural only?
+
+   Reference: [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 section
 
 3. **Spark LLM Selection** — H2 blocker, parked
-   [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — What model goes in the Spark cage? Blocks vertical slice. Not blocking current integration work.
+
+   [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — Not blocking current work. Needed before vertical slice.
 
 ## PM Action Queue — CLEARED
 
@@ -83,10 +93,13 @@ All 4 items from previous queue resolved:
 - **WO-SMOKE-TEST-001** — End-to-end integration demo, 14/14 PASS (`d0d9dc2`)
 - **WO-SMOKE-TEST-002** — Post-fix regression + 7 exploratory scenarios, 43/44→44/44 PASS
 - **WO-CONDITION-EXTRACTION-FIX** — Condition event key alignment, 44/44 PASS
+- **WO-AOE-DEFEATED-FILTER** — AoE skips defeated entities, 44/44 PASS
 
 ## Active Operational Files
 
-- [DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md](pm_inbox/DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md) — DELIVERED, awaiting PM review
+- [DEBRIEF_WO-AOE-DEFEATED-FILTER.md](pm_inbox/DEBRIEF_WO-AOE-DEFEATED-FILTER.md) — DELIVERED, awaiting PM review
+- [WO-AOE-DEFEATED-FILTER_DISPATCH.md](pm_inbox/WO-AOE-DEFEATED-FILTER_DISPATCH.md) — DELIVERED
+- [DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md](pm_inbox/DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md) — PM REVIEWED, ACCEPTED
 - [WO-CONDITION-EXTRACTION-FIX_DISPATCH.md](pm_inbox/WO-CONDITION-EXTRACTION-FIX_DISPATCH.md) — DELIVERED
 - [WO-SMOKE-TEST-002_DISPATCH.md](pm_inbox/WO-SMOKE-TEST-002_DISPATCH.md) — DELIVERED
 - [DEBRIEF_WO-SMOKE-TEST-002.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-002.md) — PM REVIEWED, ACCEPTED
@@ -94,7 +107,7 @@ All 4 items from previous queue resolved:
 - [DEBRIEF_WO-CONTENT-ID-POPULATION.md](pm_inbox/DEBRIEF_WO-CONTENT-ID-POPULATION.md) — PM REVIEWED, ACCEPTED
 - [WO-SPELL-NARRATION-POLISH_DISPATCH.md](pm_inbox/WO-SPELL-NARRATION-POLISH_DISPATCH.md) — DELIVERED
 - [DEBRIEF_WO-SPELL-NARRATION-POLISH.md](pm_inbox/DEBRIEF_WO-SPELL-NARRATION-POLISH.md) — PM REVIEWED, ACCEPTED
-- [DEBRIEF_WO-WEAPON-PLUMBING-001.md](pm_inbox/DEBRIEF_WO-WEAPON-PLUMBING-001.md) — COMMITTED (a9a3c8c), awaiting PM review
+- [DEBRIEF_WO-WEAPON-PLUMBING-001.md](pm_inbox/DEBRIEF_WO-WEAPON-PLUMBING-001.md) — PM REVIEWED, ACCEPTED
 - [DEBRIEF_WO-SMOKE-TEST-001.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-001.md) — PM REVIEWED, ACCEPTED
 - [DEBRIEF_WO-FRAMEWORK-UPDATE-001.md](pm_inbox/DEBRIEF_WO-FRAMEWORK-UPDATE-001.md) — PM REVIEWED, ACCEPTED
 - [WO-FRAMEWORK-UPDATE-002_DISPATCH.md](pm_inbox/WO-FRAMEWORK-UPDATE-002_DISPATCH.md) — Operator-executed, COMPLETE

@@ -483,6 +483,129 @@ class TestAreaSpellResolution:
         # Both targets in the line should be affected
         assert result.success is True
 
+    def test_aoe_skips_defeated_entity(self, grid, spell_registry):
+        """AoE spells skip entities with HP <= 0. WO-AOE-DEFEATED-FILTER."""
+        rng = RNGManager(master_seed=42)
+        resolver = create_spell_resolver(grid, rng, spell_registry)
+
+        grid.place_entity("caster_aoe", Position(0, 0), SizeCategory.MEDIUM)
+        grid.place_entity("alive_target", Position(4, 0), SizeCategory.MEDIUM)
+        grid.place_entity("dead_target", Position(5, 0), SizeCategory.MEDIUM)
+
+        caster = CasterStats(
+            caster_id="caster_aoe",
+            position=Position(0, 0),
+            caster_level=8,
+            spell_dc_base=14,
+        )
+        targets = {
+            "alive_target": TargetStats(
+                entity_id="alive_target",
+                position=Position(4, 0),
+                hit_points=30, max_hit_points=40,
+                ref_save=2,
+            ),
+            "dead_target": TargetStats(
+                entity_id="dead_target",
+                position=Position(5, 0),
+                hit_points=0, max_hit_points=10,
+                ref_save=2,
+            ),
+        }
+
+        intent = SpellCastIntent(
+            caster_id="caster_aoe",
+            spell_id="fireball",
+            target_position=Position(4, 0),
+        )
+        result = resolver.resolve_spell(intent, caster, targets)
+
+        assert "alive_target" in result.affected_entities
+        assert "dead_target" not in result.affected_entities
+
+    def test_aoe_all_defeated_no_crash(self, grid, spell_registry):
+        """AoE at position with only defeated entities produces empty target list."""
+        rng = RNGManager(master_seed=42)
+        resolver = create_spell_resolver(grid, rng, spell_registry)
+
+        grid.place_entity("caster_aoe2", Position(0, 0), SizeCategory.MEDIUM)
+        grid.place_entity("dead_1", Position(4, 0), SizeCategory.MEDIUM)
+        grid.place_entity("dead_2", Position(5, 0), SizeCategory.MEDIUM)
+
+        caster = CasterStats(
+            caster_id="caster_aoe2",
+            position=Position(0, 0),
+            caster_level=8,
+            spell_dc_base=14,
+        )
+        targets = {
+            "dead_1": TargetStats(
+                entity_id="dead_1",
+                position=Position(4, 0),
+                hit_points=-5, max_hit_points=10,
+                ref_save=2,
+            ),
+            "dead_2": TargetStats(
+                entity_id="dead_2",
+                position=Position(5, 0),
+                hit_points=0, max_hit_points=10,
+                ref_save=2,
+            ),
+        }
+
+        intent = SpellCastIntent(
+            caster_id="caster_aoe2",
+            spell_id="fireball",
+            target_position=Position(4, 0),
+        )
+        result = resolver.resolve_spell(intent, caster, targets)
+
+        # No crash, no affected entities
+        assert result.success is True
+        assert "dead_1" not in result.affected_entities
+        assert "dead_2" not in result.affected_entities
+
+    def test_aoe_living_still_damaged(self, grid, spell_registry):
+        """Living entities at same position as defeated entity still take damage."""
+        rng = RNGManager(master_seed=42)
+        resolver = create_spell_resolver(grid, rng, spell_registry)
+
+        grid.place_entity("caster_aoe3", Position(0, 0), SizeCategory.MEDIUM)
+        grid.place_entity("living", Position(4, 0), SizeCategory.MEDIUM)
+        grid.place_entity("corpse", Position(4, 0), SizeCategory.MEDIUM)
+
+        caster = CasterStats(
+            caster_id="caster_aoe3",
+            position=Position(0, 0),
+            caster_level=8,
+            spell_dc_base=14,
+        )
+        targets = {
+            "living": TargetStats(
+                entity_id="living",
+                position=Position(4, 0),
+                hit_points=30, max_hit_points=40,
+                ref_save=2,
+            ),
+            "corpse": TargetStats(
+                entity_id="corpse",
+                position=Position(4, 0),
+                hit_points=0, max_hit_points=10,
+                ref_save=2,
+            ),
+        }
+
+        intent = SpellCastIntent(
+            caster_id="caster_aoe3",
+            spell_id="fireball",
+            target_position=Position(4, 0),
+        )
+        result = resolver.resolve_spell(intent, caster, targets)
+
+        assert "living" in result.affected_entities
+        assert "corpse" not in result.affected_entities
+        assert result.damage_dealt.get("living", 0) > 0
+
 
 # ==============================================================================
 # TESTS: Single Target Spells
