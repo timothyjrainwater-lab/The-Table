@@ -314,6 +314,30 @@ Before submitting any code change, verify:
 - [ ] `DeclaredAttackIntent` (voice) vs `AttackIntent` (combat) — correct one used
 - [ ] Grid position type matches the context (targeting vs AoO vs voice)
 - [ ] Shallow copies of entity dicts don't accidentally share nested references
+- [ ] TTS/model commands use `HF_HUB_OFFLINE=1` prefix (see Section 11a)
+
+---
+
+## 11a. Environment: VPN / HuggingFace Offline Mode
+
+The operator runs a VPN that intermittently blocks connections to `huggingface.co`. When Chatterbox TTS or any HuggingFace model loads, the library does a HEAD request to verify cached weights — and the VPN kills the connection, causing 5 retries with exponential backoff (~30s of hanging) before failing.
+
+**Fix:** Prefix any command that loads a HuggingFace model with `HF_HUB_OFFLINE=1`:
+
+```bash
+# CORRECT — skips network verification, uses local cache
+HF_HUB_OFFLINE=1 python scripts/speak.py --persona villainous "Your text here"
+
+# WRONG — will hang for 30s+ if VPN is active
+python scripts/speak.py --persona villainous "Your text here"
+```
+
+**What this affects:**
+- `scripts/speak.py` (Chatterbox TTS — loads from HuggingFace cache)
+- Any direct use of `faster_whisper` model loading (though `scripts/listen.py` uses a local model path and is unaffected)
+- Any `from_pretrained()` or `WhisperModel()` call that resolves to a HuggingFace repo
+
+**When it's safe to skip:** If the model has never been downloaded, `HF_HUB_OFFLINE=1` will fail because there's no local cache. First-time model downloads require VPN to be disabled temporarily.
 
 ---
 

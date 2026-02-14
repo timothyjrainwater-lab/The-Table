@@ -137,6 +137,41 @@ After adding content_id to event payloads, the existing code in `narrative_brief
 - `aidm/lens/narrative_brief.py` — already handles content_id lookup (GAP-B-001)
 - Gold masters — unless world compilation output changes (WARN metadata)
 
+## PM Amendment (2026-02-14): Contraindications Population
+
+**Bundled scope addition per roadmap audit (MEMO_ROADMAP_AUDIT §3.4). Without this, CT-006 and RV-007 are dead rules.**
+
+### Change C1: Populate `contraindications` in SemanticsStage
+
+In `aidm/core/compile_stages/semantics.py`, when building `AbilityPresentationEntry` objects, generate the `contraindications` tuple based on the ability's `damage_type`:
+
+| damage_type | contraindications |
+|-------------|-------------------|
+| fire | ("ice", "frost", "cold", "frozen") |
+| cold | ("fire", "flame", "burn", "heat") |
+| acid | ("clean", "pristine", "pure") |
+| electricity | ("earth", "grounded", "stone") |
+| sonic | ("silence", "quiet", "stillness") |
+
+This is a ~50-line mapping table. Abilities with no damage_type or damage_type not in the table get empty contraindications (current behavior).
+
+### Additional Success Criteria
+
+- [ ] `contraindications` field populated for fire/cold/acid/electricity/sonic abilities
+- [ ] CT-006 can actually detect a contradiction (test: fire ability with ice VFX tag)
+
+---
+
+## Delivery
+
+When all success criteria are met:
+
+1. `git add` all changed and new files
+2. `git commit` with a descriptive message referencing WO-COMPILE-VALIDATE-001
+3. Write your debrief to `pm_inbox/DEBRIEF_WO-COMPILE-VALIDATE-001.md`
+
+Do NOT submit a debrief without a commit. The commit hash goes in the debrief header.
+
 ---
 
 *End of WO-COMPILE-VALIDATE-001*

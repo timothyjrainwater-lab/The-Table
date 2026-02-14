@@ -143,6 +143,41 @@ The keyword lists (HIT_KEYWORDS, MISS_KEYWORDS, DEFEAT_KEYWORDS, STANDING_KEYWOR
 - `aidm/core/` — no resolver changes
 - Gold masters — no mechanical behavior change
 
+## PM Amendment (2026-02-14): Narration-to-Event Persistence
+
+**Bundled scope addition per roadmap audit (MEMO_ROADMAP_AUDIT §3.2).**
+
+### Change 6: Narration Persistence Hook
+
+At the NarrationValidator output point (after verdict is determined, whether PASS, WARN, or FAIL), persist:
+
+```python
+{
+    "narration_text": str,          # Spark's output (or template fallback)
+    "source_event_ids": tuple,      # From NarrativeBrief.source_event_ids
+    "validation_verdict": str,      # "PASS", "WARN", or "FAIL"
+    "violations": list,             # RuleViolation details (empty if PASS)
+    "timestamp": str                # ISO 8601
+}
+```
+
+Write to a session-scoped JSONL file (e.g., `narration_log.jsonl` alongside the event log). This enables post-session narration quality analysis and is a prerequisite for H3 audit UX (Transparency Gem, Replay Journal).
+
+**Additional success criterion:**
+- [ ] Narration text + source_event_ids + validation verdict persisted to session JSONL after every narration pass
+
+---
+
+## Delivery
+
+When all success criteria are met:
+
+1. `git add` all changed and new files
+2. `git commit` with a descriptive message referencing WO-NARRATION-VALIDATOR-001
+3. Write your debrief to `pm_inbox/DEBRIEF_WO-NARRATION-VALIDATOR-001.md`
+
+Do NOT submit a debrief without a commit. The commit hash goes in the debrief header.
+
 ---
 
 *End of WO-NARRATION-VALIDATOR-001*

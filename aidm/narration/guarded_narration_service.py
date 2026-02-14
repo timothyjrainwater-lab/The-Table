@@ -28,10 +28,12 @@ Reference: docs/design/M1_IMPLEMENTATION_GUARDRAILS.md
 import hashlib
 import json
 import logging
+import os
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional
 
 from aidm.narration.kill_switch_registry import (
     KillSwitchID,
@@ -83,6 +85,12 @@ except ImportError:
 from aidm.narration.contradiction_checker import (
     ContradictionChecker,
     RecommendedAction,
+)
+
+# NarrationValidator import (WO-NARRATION-VALIDATOR-001)
+from aidm.narration.narration_validator import (
+    NarrationValidator,
+    ValidationResult as NVValidationResult,
 )
 
 
@@ -272,7 +280,9 @@ class GuardedNarrationService:
 
     def __init__(self, loaded_model: Optional[Any] = None, use_llm_query_interface: bool = True,
                  kill_switch_registry: Optional[KillSwitchRegistry] = None,
-                 contradiction_checker: Optional[ContradictionChecker] = None):
+                 contradiction_checker: Optional[ContradictionChecker] = None,
+                 narration_validator: Optional[NarrationValidator] = None,
+                 narration_log_path: Optional[str] = None):
         """Initialize guarded narration service.
 
         Args:
@@ -284,10 +294,18 @@ class GuardedNarrationService:
             contradiction_checker: Optional ContradictionChecker for post-hoc
                                   Spark output validation (WO-058). If None,
                                   creates a default instance.
+            narration_validator: Optional NarrationValidator for unified
+                                 narration validation (WO-NARRATION-VALIDATOR-001).
+                                 If None, creates a default instance.
+            narration_log_path: Optional path for narration JSONL log
+                                (WO-NARRATION-VALIDATOR-001 Change 6). If None,
+                                persistence is disabled.
         """
         self.metrics = NarrationMetrics()
         self.kill_switch_registry = kill_switch_registry or KillSwitchRegistry()
         self.contradiction_checker = contradiction_checker or ContradictionChecker()
+        self.narration_validator = narration_validator or NarrationValidator()
+        self.narration_log_path = narration_log_path
         self.loaded_model = loaded_model if SPARK_AVAILABLE else None
 
         # Backward compat: shadow property for _kill_switch_active
@@ -342,6 +360,8 @@ class GuardedNarrationService:
         llm_narration_text = None
         llm_tokens_used = 0
         llm_max_tokens = 150  # default
+        # WO-NARRATION-VALIDATOR-001: Track validation result for persistence
+        validation_result = None
 
         if self.loaded_model is not None and self.loaded_model.model_id != "template-narration":
             try:
@@ -415,6 +435,24 @@ class GuardedNarrationService:
                             llm_narration_text = None  # Fall back to template
                         # ANNOTATE: keep the text but log (Class C, first occurrence)
 
+                # ── WO-NARRATION-VALIDATOR-001: Unified validation ────
+                if llm_narration_text is not None and request.narrative_brief is not None:
+                    validation_result = self.narration_validator.validate(
+                        llm_narration_text, request.narrative_brief,
+                    )
+                    if validation_result.verdict == "FAIL":
+                        logger.warning(
+                            f"NarrationValidator FAIL: {len(validation_result.violations)} violation(s) — "
+                            + ", ".join(v.rule_id for v in validation_result.violations)
+                        )
+                        llm_narration_text = None  # Template fallback
+                    elif validation_result.verdict == "WARN":
+                        logger.info(
+                            f"NarrationValidator WARN: {len(validation_result.violations)} violation(s) — "
+                            + ", ".join(v.rule_id for v in validation_result.violations)
+                        )
+                        # Emit text but log for post-session review
+
             except Exception as e:
                 logger.warning(f"LLM narration failed, falling back to template: {e}")
                 llm_narration_text = None
@@ -460,6 +498,14 @@ class GuardedNarrationService:
             pass  # Drift check happens via check_world_state_drift() method
 
         logger.info(f"Narration generated successfully (hash verified: {hash_after[:8]})")
+
+        # ── WO-NARRATION-VALIDATOR-001 Change 6: Narration Persistence ──
+        self._persist_narration_log(
+            narration_text=narration_text,
+            brief=request.narrative_brief,
+            validation_result=validation_result,
+        )
+
         return NarrationResult(text=narration_text, provenance=provenance)
 
     def check_world_state_drift(self, hash_before: str, hash_after: str) -> bool:
@@ -485,6 +531,52 @@ class GuardedNarrationService:
             self._check_kill005()
             return True
         return False
+
+    def _persist_narration_log(
+        self,
+        narration_text: str,
+        brief: Optional[Any],
+        validation_result: Optional[NVValidationResult],
+    ) -> None:
+        """Persist narration text + validation result to session JSONL.
+
+        WO-NARRATION-VALIDATOR-001 Change 6: Writes one JSON line per narration
+        pass to enable post-session narration quality analysis.
+
+        Args:
+            narration_text: Final narration text (LLM or template)
+            brief: NarrativeBrief (may be None for template-only paths)
+            validation_result: ValidationResult from NarrationValidator (may be None)
+        """
+        if self.narration_log_path is None:
+            return
+
+        source_event_ids = ()
+        if brief is not None:
+            source_event_ids = getattr(brief, "source_event_ids", ())
+
+        verdict = "PASS"
+        violations: List[dict] = []
+        if validation_result is not None:
+            verdict = validation_result.verdict
+            violations = [
+                {"rule_id": v.rule_id, "severity": v.severity, "detail": v.detail}
+                for v in validation_result.violations
+            ]
+
+        entry = {
+            "narration_text": narration_text,
+            "source_event_ids": list(source_event_ids),
+            "validation_verdict": verdict,
+            "violations": violations,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+
+        try:
+            with open(self.narration_log_path, "a", encoding="utf-8") as f:
+                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        except OSError as e:
+            logger.warning(f"Failed to persist narration log: {e}")
 
     def _check_kill005(self) -> None:
         """Check if KILL-005 (consecutive rejections) should fire."""
