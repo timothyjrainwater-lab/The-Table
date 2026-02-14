@@ -60,8 +60,7 @@ Both WOs are parallel-safe — dispatch simultaneously.
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (1 READY, 2 NOT STARTED, 1 PARTIAL)
 - [WO-NARRATION-VALIDATOR-001_DISPATCH.md](pm_inbox/WO-NARRATION-VALIDATOR-001_DISPATCH.md) — **DISPATCH-READY** (Delivery footer + narration persistence added)
 - [WO-COMPILE-VALIDATE-001_DISPATCH.md](pm_inbox/WO-COMPILE-VALIDATE-001_DISPATCH.md) — **DISPATCH-READY** (Delivery footer + contraindications population added)
-- [MEMO_ROADMAP_AUDIT.md](pm_inbox/MEMO_ROADMAP_AUDIT.md) — PM-REVIEWED
-- [MEMO_BUILDER_COMMIT_GAP_AND_SESSION_FINDINGS.md](pm_inbox/MEMO_BUILDER_COMMIT_GAP_AND_SESSION_FINDINGS.md) — PM-REVIEWED
+- [MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md](pm_inbox/MEMO_TTS_CHUNKING_BUILDER_FINDINGS.md) — **NEW, PM review needed** (4 findings: _concatenate_wav duplication, oversized sentence passthrough, --full mode change, test overlap)
 
 ## Persistent Files
 
