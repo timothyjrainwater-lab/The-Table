@@ -90,6 +90,35 @@ If reaching for layer 3 or 4, flag it explicitly: "This is a layer 3/4 response.
 
 ---
 
+## Bidirectional Relay Convention
+
+PM outputs builder-facing instructions in fenced code blocks (` ``` `). The Operator copies the block verbatim and pastes it to the builder terminal. This ensures zero-loss relay of WO instructions and verdicts across context boundaries.
+
+- PM outputs verdicts and WO summaries in fenced code blocks formatted for one-click relay to builders.
+- Operator copies the block verbatim and pastes it to the builder terminal.
+- Builder must NOT edit the kernel (`REHYDRATION_KERNEL_LATEST.md`) — this is a PM-owned document.
+- PM outputs relay blocks in fenced code. Operator pastes to builder terminal.
+
+---
+
+## Batch Commit Convention (CE-01)
+
+One commit per PM action cycle. A single logical action (verdict + briefing update + archive) is one commit, not three. Don't split a single logical PM action across multiple commits.
+
+---
+
+## Kernel Size Gate (CE-03)
+
+`pm_inbox/REHYDRATION_KERNEL_LATEST.md` must not exceed 300 lines. If an update would exceed this, the PM must compress or archive older sections before adding new content. Enforced by `scripts/check_kernel_size.py`.
+
+---
+
+## Inbox File Count Cap (CE-05)
+
+`pm_inbox/` root must contain no more than 15 active `.md` files (excluding persistent operational files: `README.md`, `PM_BRIEFING_CURRENT.md`, `REHYDRATION_KERNEL_LATEST.md`). Enforced by `scripts/check_inbox_count.py`. If a new file would exceed the cap, archive the oldest completed file first.
+
+---
+
 > **Canonical location:** `docs/ops/STANDING_OPS_CONTRACT.md`
 > **Rehydration copy:** `pm_inbox/aegis_rehydration/STANDING_OPS_CONTRACT.md`
 > **Rehydration kernel:** `docs/ops/REHYDRATION_KERNEL.md`

@@ -274,4 +274,17 @@ This defines how all of this becomes a **single-machine, shareable system**.
 
 ---
 
+## 16. BOUNDARY LAW: BL-021 — Events Record Results, Not Formulas
+
+Event payloads must contain **resolved values only** — never formulas, expressions,
+calculations, or computation instructions. The engine computes; the event records the
+outcome. If a payload key suggests a formula (e.g., `formula`, `expression`,
+`calculation`, `equation`, `compute`), the event is encoding process instead of result,
+which violates the engine's authority boundary and breaks replay determinism.
+
+**Enforced by:** `tests/test_boundary_law.py` — structural scan of all event payload
+schemas in `MUTATING_EVENTS` and `INFORMATIONAL_EVENTS`.
+
+---
+
 ## END OF LLM–ENGINE BOUNDARY CONTRACT

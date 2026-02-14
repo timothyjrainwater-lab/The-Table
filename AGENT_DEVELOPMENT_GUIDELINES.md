@@ -12,6 +12,20 @@ LAST UPDATED: 2026-02-14 (5,144 tests, BL-017/018/020, Section 15 context bounda
 
 # Agent Development Guidelines
 
+## 0. Project Roles (Five-Role Model)
+
+All agents operate within a five-role architecture. Know your role and its boundaries.
+
+| Role | Authority | Context Cost | Boundary |
+|------|-----------|-------------|----------|
+| **Operator** (Thunder) | Absolute. Dispatch, overrides. | N/A (human) | Routes work between all agents. |
+| **PM** (Aegis/Opus) | Delegated. Verdicts, WOs, sequencing. | Irreplaceable | Never touches code. Documents only. Kernel owner. |
+| **Assistant** | None. Serves Operator. | Disposable | Reviews builder output, consolidates for PM. Updates briefing only with PM-authored content. Never writes kernel. |
+| **Builders** | WO scope only. | Disposable | Code, tests, completion reports. No upstream visibility. |
+| **BS Buddy** (Anvil) | Advisory only. | Disposable | Brainstorming + TTS QA. No execution, no governance. Produces memos and conversation. |
+
+**Key constraint:** PM context is irreplaceable. Every other role is disposable. Protect PM context above all else.
+
 ## 1. Entity Field Names — CANONICAL CONSTANTS REQUIRED
 
 ### The Problem
@@ -398,6 +412,20 @@ def format_hp(frozen_view: FrozenWorldStateView):
 ```
 
 **Full spec:** `docs/governance/BL-020_WORLDSTATE_IMMUTABILITY_AT_NON_ENGINE_BOUNDARIES.md`
+
+### BL-021: Events Record Results, Not Formulas
+
+**No event payload key may encode a formula, expression, or calculation.** Events are the immutable record of what happened. The engine computes; the event records the outcome. If a payload key contains `formula`, `expression`, `calculation`, `equation`, or `compute`, it is encoding process instead of result.
+
+```python
+# WRONG — payload encodes a formula
+Event(event_type="damage_applied", payload={"damage_formula": "2d6+4", "target_id": "orc"})
+
+# CORRECT — payload records the resolved result
+Event(event_type="damage_applied", payload={"damage": 11, "target_id": "orc"})
+```
+
+**Enforced by:** `tests/test_boundary_law.py` — AST scan of all `payload={}` dict literals in `aidm/`.
 
 ---
 

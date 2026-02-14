@@ -1552,3 +1552,67 @@ class TestBL_AD007_SparkMustNotImportPresentationSemantics:
             f"directly (must receive via NarrativeBrief):\n"
             + "\n".join(f"  - {v}" for v in violations)
         )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# BL-021: Events Record Results, Not Formulas
+# ═══════════════════════════════════════════════════════════════════════
+
+
+class TestBL021_EventsRecordResultsNotFormulas:
+    """BL-021: Event payloads must contain resolved values, not formulas.
+
+    WHY: Events are the immutable record of what happened. If a payload
+    key encodes a formula or expression (e.g., "damage_formula", "ac_calculation"),
+    the event is storing process instead of result. This violates the engine's
+    authority boundary — the engine computes, the event records the outcome.
+
+    WHAT BREAKS: Replay determinism, event log portability, audit trail clarity.
+    """
+
+    # Substrings that indicate a payload key encodes a formula rather than a result.
+    _FORBIDDEN_PATTERNS = ("formula", "expression", "calculation", "equation", "compute")
+
+    def test_no_formula_keys_in_event_payloads(self):
+        """Scan all event payload dict literals in aidm/ for formula-indicative keys.
+
+        Uses AST to find all dict literals that appear as the `payload=` keyword
+        argument (in any call), then checks every string key in those dicts against
+        the forbidden pattern list.
+        """
+        violations = []
+
+        for filepath in _get_py_files("aidm"):
+            with open(filepath, "r", encoding="utf-8") as f:
+                try:
+                    tree = ast.parse(f.read(), filename=str(filepath))
+                except SyntaxError:
+                    continue
+
+            for node in ast.walk(tree):
+                if not isinstance(node, ast.Call):
+                    continue
+                for keyword in getattr(node, "keywords", []):
+                    if keyword.arg != "payload":
+                        continue
+                    # payload= value should be a dict literal
+                    if not isinstance(keyword.value, ast.Dict):
+                        continue
+                    for key_node in keyword.value.keys:
+                        if key_node is None:
+                            continue  # **kwargs unpacking
+                        if isinstance(key_node, ast.Constant) and isinstance(key_node.value, str):
+                            key_lower = key_node.value.lower()
+                            for pattern in self._FORBIDDEN_PATTERNS:
+                                if pattern in key_lower:
+                                    violations.append(
+                                        f"{filepath.name}:{key_node.lineno} — "
+                                        f"payload key \"{key_node.value}\" "
+                                        f"contains \"{pattern}\""
+                                    )
+
+        assert violations == [], (
+            f"BL-021 VIOLATION: Event payloads contain formula-indicative keys "
+            f"(events must record results, not formulas):\n"
+            + "\n".join(f"  - {v}" for v in violations)
+        )
