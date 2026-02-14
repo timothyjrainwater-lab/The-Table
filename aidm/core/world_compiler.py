@@ -461,7 +461,9 @@ class WorldCompiler:
     Usage:
         compiler = WorldCompiler(inputs, content_pack)
         compiler.register_stage(LexiconStage())
+        compiler.register_stage(RulebookStage())
         compiler.register_stage(SemanticsStage())
+        compiler.register_stage(CrossValidateStage())  # Stage 4: Layer A/B cross-validation
         report = compiler.compile()
 
     Args:
