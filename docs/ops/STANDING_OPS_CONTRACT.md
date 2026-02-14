@@ -73,10 +73,16 @@ If reaching for layer 3 or 4, flag it explicitly: "This is a layer 3/4 response.
 13. Sonnet agents execute within WO scope only. If a Sonnet agent discovers something out of scope, it documents the finding and continues — it does not fix, refactor, or expand scope.
 14. Sonnet agents do not make architectural decisions. If a decision is required, the agent stops and flags it for Opus/PM.
 15. Sonnet agents run the full test suite before declaring a WO complete. Zero regressions required.
+15a. **Commit-Before-Report Rule:** Builders MUST `git add` + `git commit` all code changes BEFORE writing a completion report or debrief. A completion report without a commit hash is invalid — the PM cannot verify work that exists only in the working tree. If the session is ending and commit is impossible, the builder MUST document uncommitted files in the debrief so the Operator can recover the work.
 
 ## Thunder Behavior
 
 16. Thunder dispatches by pasting WO text directly into agent context. Verbal descriptions ("go do M2 stuff") are not dispatches.
+
+## Assistant Behavior
+
+16a. **Inbox Archival Duty:** At the start of each assistant session, scan `pm_inbox/` root for files with lifecycle `PM-REVIEWED`, `INTEGRATED`, or `ARCHIVE`. Move these to `pm_inbox/reviewed/`. Update `PM_BRIEFING_CURRENT.md` to remove archived entries. This is a standing obligation — the assistant is the inbox janitor.
+16b. **Stale-WO Detection:** At session start, check `PM_BRIEFING_CURRENT.md` for any WO listed as "IN EXECUTION." If a WO has been in execution with no corresponding completion report in `pm_inbox/` for the current session, flag it to the Operator: "WO-XXX shows IN EXECUTION but has no completion report. Check if the builder session died." This catches orphaned builder work early.
 
 ## Universal Rules
 

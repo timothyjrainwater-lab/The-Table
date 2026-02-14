@@ -14,7 +14,7 @@ Agents execute within WO scope only. PM confirms rehydration before any work.
 |------|-----------|-------------|----------|
 | **Operator** (Thunder) | Absolute. Dispatch, overrides. | N/A (human) | Routes work between all agents. |
 | **PM** (Aegis) | Delegated. Verdicts, WOs, sequencing. | Irreplaceable | Never touches code. Documents only. Kernel owner. |
-| **Assistant** | None. Serves Operator. | Disposable | Reviews builder output, consolidates for PM. Updates briefing only with PM-authored content. Never writes kernel. |
+| **Assistant** | None. Serves Operator. | Disposable | Reviews builder output, consolidates for PM. Updates briefing only with PM-authored content. Never writes kernel. Inbox janitor — archives reviewed files at session start. |
 | **Builders** | WO scope only. | Disposable | Code, tests, completion reports. No upstream visibility. |
 | **BS Buddy** (Anvil) | Advisory only. | Disposable | Brainstorming + TTS QA. No execution, no governance. Produces memos and conversation. |
 
@@ -119,9 +119,9 @@ Behavior on trigger:
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: bf232d4 — docs: handoff + PM archival — governance refinement session complete
-Tests passed: 5,539 (25 skipped) — **GREEN. 0 failures.** (per WO-PREFLIGHT-001 inspection)
-Stoplight: **YELLOW — Preflight inspection PASSED. Research sprint COMPLETE (11/11 RQs, synthesis delivered). Remaining gates: H0 WOs (GAP-B-001 + VERSION-MVP + Governance) then RED block lift by Operator.**
+Last commit: f1f1ec6 — chore: inbox hygiene — archive 10 completed files, commit voice research docs
+Tests passed: 5,581 (14 skipped) — **GREEN.**
+Stoplight: **GREEN — RED block LIFTED (2026-02-14). H0 WOs complete (GAP-B-001, VERSION-MVP, GOV-SESSION-001). All gates passed. Normal operations.**
 
 **Verification COMPLETE:** 338 formulas verified across 9 domains. 255 CORRECT, 30 WRONG, 28 AMBIGUOUS, 25 UNCITED. All domains marked COMPLETE in checklist. Domain A re-verified with research cross-reference — 4 verdicts reclassified WRONG→AMBIGUOUS (cover design decision in RQ-BOX-001).
 
@@ -215,8 +215,13 @@ The PM agent MUST NOT perform any of the following actions. These are builder-on
 
 ## Active Work Surfaces
 
-**BONE-LAYER VERIFICATION — FIX PHASE (YELLOW — preflight PASSED, RED block lift remains):**
-Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemented and committed (11 original commits + 2 new), 1 retired (WO-FIX-05 cover values). Test suite GREEN (5,539 passed, 0 failures). Test isolation fixed (f581d44). Pre-gate-lift inspection (WO-PREFLIGHT-001) PASSED all 7 checks.
+**BONE-LAYER VERIFICATION — COMPLETE. RED BLOCK LIFTED.**
+Verification complete. 13 fix WOs resolved. H0 WOs (GAP-B-001, VERSION-MVP, GOV-SESSION-001) committed. Test suite GREEN (5,581 passed). All gates passed. Feature work, playtesting, and H1 WOs are now UNBLOCKED.
+
+**H0 WO commits:**
+- `eac5061` WO-VERSION-MVP: campaign version gate + event schema version
+- `e9a9371` WO-GAP-B-001: connect Layer B presentation semantics to pipeline
+- `c168f3d` WO-GOV-SESSION-001: 8 governance deliverables (BL-021, relay, roles, CE items)
 
 **Fix WO progress — ALL COMPLETE:**
 - [x] WO-FIX-01 (BUG-1/8/9) — COMMITTED (a386b81)
@@ -243,17 +248,21 @@ Verification complete. 13 fix WOs drafted. **All 13 resolved** — 12 implemente
 - [x] 3 FIX-SRD micro-fixes dispatched and committed (f517592 — WO-AMBFIX-001)
 - [x] PSD updated to reflect fix phase completion (498 lines, under 500 gate) (0b2b46e)
 - [x] Pre-gate-lift inspection PASSED — all 7 checks (WO-PREFLIGHT-001)
-- [ ] RED block lifted by Operator
+- [x] RED block lifted by PM (2026-02-14) — H0 completion report reviewed, all gates passed
 
-**ALL OF THE FOLLOWING ARE BLOCKED behind RED block lift (1 item remains):**
+**UNBLOCKED (H1 queue — PM to draft WOs):**
 
-- Phase 4C Wave C (3 WOs) — BLOCKED
-- BURST-001/002/003 — BLOCKED
-- All feature work — BLOCKED
-- All playtesting — BLOCKED
-- Governance CE WOs (6 items, PM decisions delivered, dispatch docs not yet drafted) — BLOCKED
+- WO-WEAPON-PLUMBING-001 — is_ranged + disarm mods + sunder grip. Highest-impact H1 item.
+- WO-TTS-CHUNKING — Sentence-boundary TTS chunking (TD-023).
+- WO-BRIEF-WIDTH — NarrativeBrief multi-target + causal chains + conditions.
+- WO-NARRATION-VALIDATOR — Runtime validation: P0 negative rules + P1 positive validation.
+- WO-COMPILE-VALIDATE — Compile-time Layer A vs B cross-validation.
+- WO-RNG-PROTOCOL — RNGProvider Protocol extraction.
+- Resolver deduplication — P4 WO after weapon plumbing.
+- BURST-001/002/003 — backlog items.
+- Playtesting — unblocked.
 
-**PM posture:** ACTIVE. Fix phase COMPLETE. AMBIGUOUS decisions ALL RESOLVED and committed. PSD updated. Tests GREEN (5,539). Preflight inspection PASSED. **Remaining gate item:** RED block lift by Operator.
+**PM posture:** ACTIVE. RED block LIFTED. H1 WO drafting is next. Tests GREEN (5,581).
 
 **Post-fix forward path (PM-assessed, see `pm_inbox/MEMO_POST_FIX_PHASE_ACTION_PLAN.md`):**
 - Wave 1 (immediate, parallel-safe): P1-A sunder grip multiplier, P1-C register narration marker, P1-D fix TestPerformance tests. All micro-WOs.

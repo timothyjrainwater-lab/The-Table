@@ -20,7 +20,7 @@ All agents operate within a five-role architecture. Know your role and its bound
 |------|-----------|-------------|----------|
 | **Operator** (Thunder) | Absolute. Dispatch, overrides. | N/A (human) | Routes work between all agents. |
 | **PM** (Aegis/Opus) | Delegated. Verdicts, WOs, sequencing. | Irreplaceable | Never touches code. Documents only. Kernel owner. |
-| **Assistant** | None. Serves Operator. | Disposable | Reviews builder output, consolidates for PM. Updates briefing only with PM-authored content. Never writes kernel. |
+| **Assistant** | None. Serves Operator. | Disposable | Reviews builder output, consolidates for PM. Updates briefing only with PM-authored content. Never writes kernel. Inbox janitor — archives reviewed files at session start. |
 | **Builders** | WO scope only. | Disposable | Code, tests, completion reports. No upstream visibility. |
 | **BS Buddy** (Anvil) | Advisory only. | Disposable | Brainstorming + TTS QA. No execution, no governance. Produces memos and conversation. |
 
@@ -493,7 +493,10 @@ Pass 3 is the highest-signal output for methodology refinement. The debrief capt
 **From:** [Agent identifier]
 **Date:** [YYYY-MM-DD]
 **Lifecycle:** NEW
+**Commit:** [hash] or UNCOMMITTED (see below)
 ```
+
+**Commit-hash requirement:** The `**Commit:**` line is mandatory. If you committed your code changes, include the hash. If the session is ending before you can commit, write `UNCOMMITTED` and list the affected files so the Operator can recover the work. A completion report with no commit hash and no `UNCOMMITTED` marker is invalid — it leaves the PM unable to verify what actually shipped.
 
 **After writing both files, update `pm_inbox/PM_BRIEFING_CURRENT.md`** with one-line entries for each new file. This is the PM's entry point — files not in the briefing may be missed.
 
