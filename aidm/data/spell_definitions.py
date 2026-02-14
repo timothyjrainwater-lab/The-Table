@@ -43,6 +43,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,  # Instantaneous
         concentration=False,
         rule_citations=("PHB p.231",),
+        content_id="spell.fireball_003",
     ),
 
     "burning_hands": SpellDefinition(
@@ -62,6 +63,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,
         concentration=False,
         rule_citations=("PHB p.207",),
+        content_id="spell.burning_hands_003",
     ),
 
     "lightning_bolt": SpellDefinition(
@@ -81,6 +83,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,
         concentration=False,
         rule_citations=("PHB p.248",),
+        content_id="spell.lightning_bolt_003",
     ),
 
     "cone_of_cold": SpellDefinition(
@@ -100,6 +103,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,
         concentration=False,
         rule_citations=("PHB p.212",),
+        content_id="spell.cone_of_cold_003",
     ),
 
     # ==========================================================================
@@ -124,6 +128,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         auto_hit=True,  # Auto-hit (no attack roll needed)
         rule_citations=("PHB p.251",),
+        content_id="spell.magic_missile_003",
     ),
 
     "scorching_ray": SpellDefinition(
@@ -144,6 +149,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         requires_attack_roll=True,
         rule_citations=("PHB p.274",),
+        content_id="spell.scorching_ray_003",
     ),
 
     "acid_arrow": SpellDefinition(
@@ -164,6 +170,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         requires_attack_roll=True,
         rule_citations=("PHB p.253",),
+        content_id="spell.acid_arrow_003",
     ),
 
     # ==========================================================================
@@ -188,6 +195,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,
         concentration=False,
         rule_citations=("PHB p.215",),
+        content_id="spell.cure_light_wounds_003",
     ),
 
     "cure_moderate_wounds": SpellDefinition(
@@ -208,6 +216,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,
         concentration=False,
         rule_citations=("PHB p.216",),
+        content_id="spell.cure_moderate_wounds_003",
     ),
 
     "cure_serious_wounds": SpellDefinition(
@@ -228,6 +237,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,
         concentration=False,
         rule_citations=("PHB p.216",),
+        content_id="spell.cure_serious_wounds_003",
     ),
 
     # ==========================================================================
@@ -252,6 +262,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("mage_armor",),
         rule_citations=("PHB p.249",),
+        content_id="spell.mage_armor_003",
     ),
 
     "bulls_strength": SpellDefinition(
@@ -272,6 +283,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("bulls_strength",),  # +4 enhancement to STR
         rule_citations=("PHB p.207",),
+        content_id="spell.bulls_strength_003",
     ),
 
     "shield": SpellDefinition(
@@ -292,6 +304,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("shield",),  # +4 shield bonus to AC
         rule_citations=("PHB p.278",),
+        content_id="spell.shield_003",
     ),
 
     "haste": SpellDefinition(
@@ -312,6 +325,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("hasted",),
         rule_citations=("PHB p.239",),
+        content_id="spell.haste_003",
     ),
 
     # ==========================================================================
@@ -336,6 +350,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("paralyzed",),
         rule_citations=("PHB p.241",),
+        content_id="spell.hold_person_003",
     ),
 
     "slow": SpellDefinition(
@@ -356,6 +371,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("slowed",),
         rule_citations=("PHB p.280",),
+        content_id="spell.slow_003",
     ),
 
     "blindness_deafness": SpellDefinition(
@@ -376,6 +392,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("blinded",),  # Caster chooses blind or deaf
         rule_citations=("PHB p.206",),
+        content_id="spell.blindness_deafness_003",
     ),
 
     "web": SpellDefinition(
@@ -396,6 +413,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("entangled",),
         rule_citations=("PHB p.301",),
+        content_id="spell.web_003",
     ),
 
     # ==========================================================================
@@ -419,6 +437,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=10,  # Concentration, up to 1 min/level
         concentration=True,
         rule_citations=("PHB p.219",),
+        content_id="spell.detect_magic_003",
     ),
 
     "light": SpellDefinition(
@@ -438,6 +457,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=100,  # 10 min/level
         concentration=False,
         rule_citations=("PHB p.248",),
+        content_id="spell.light_003",
     ),
 
     # ==========================================================================
@@ -464,6 +484,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("resistance",),  # +1 resistance bonus to saves
         rule_citations=("PHB p.272",),
+        content_id="spell.resistance_003",
     ),
 
     "guidance": SpellDefinition(
@@ -484,6 +505,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("guidance",),  # +1 competence bonus to attack/save/skill
         rule_citations=("PHB p.238",),
+        content_id="spell.guidance_003",
     ),
 
     "mending": SpellDefinition(
@@ -504,6 +526,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,  # Instantaneous
         concentration=False,
         rule_citations=("PHB p.253",),
+        content_id="spell.mending_003",
     ),
 
     "read_magic": SpellDefinition(
@@ -523,6 +546,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=100,  # 10 min/level
         concentration=False,
         rule_citations=("PHB p.269",),
+        content_id="spell.read_magic_003",
     ),
 
     # ── LEVEL 1 SPELLS (6 new) ──
@@ -545,6 +569,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("blessed",),  # +1 morale attack & fear saves
         rule_citations=("PHB p.205",),
+        content_id="spell.bless_003",
     ),
 
     "bane": SpellDefinition(
@@ -565,6 +590,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("bane",),  # -1 morale attack & fear saves
         rule_citations=("PHB p.203",),
+        content_id="spell.bane_003",
     ),
 
     "grease": SpellDefinition(
@@ -585,6 +611,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("prone",),  # Balance DC 10 or fall prone
         rule_citations=("PHB p.237",),
+        content_id="spell.grease_003",
     ),
 
     "sleep": SpellDefinition(
@@ -605,6 +632,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("unconscious",),  # HD-limited: affects 4 HD max, lowest HD first
         rule_citations=("PHB p.280", "HD-limited effect: no save, affects 4 HD, lowest HD first"),
+        content_id="spell.sleep_003",
     ),
 
     "entangle": SpellDefinition(
@@ -625,6 +653,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("entangled",),
         rule_citations=("PHB p.227",),
+        content_id="spell.entangle_003",
     ),
 
     "color_spray": SpellDefinition(
@@ -645,6 +674,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("stunned",),  # Simplified: stunned for all HD
         rule_citations=("PHB p.210", "Effect varies by HD"),
+        content_id="spell.color_spray_003",
     ),
 
     # ── LEVEL 2 SPELLS (7 new) ──
@@ -667,6 +697,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("invisible",),  # Breaks on attack
         rule_citations=("PHB p.245",),
+        content_id="spell.invisibility_003",
     ),
 
     "mirror_image": SpellDefinition(
@@ -687,6 +718,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("mirror_image",),  # 1d4+1 duplicates
         rule_citations=("PHB p.254", "Creates 1d4+1 duplicates"),
+        content_id="spell.mirror_image_003",
     ),
 
     "cats_grace": SpellDefinition(
@@ -707,6 +739,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("cats_grace",),  # +4 DEX
         rule_citations=("PHB p.208",),
+        content_id="spell.cats_grace_003",
     ),
 
     "bears_endurance": SpellDefinition(
@@ -727,6 +760,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("bears_endurance",),  # +4 CON
         rule_citations=("PHB p.203",),
+        content_id="spell.bears_endurance_003",
     ),
 
     "owls_wisdom": SpellDefinition(
@@ -747,6 +781,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("owls_wisdom",),  # +4 WIS
         rule_citations=("PHB p.259",),
+        content_id="spell.owls_wisdom_003",
     ),
 
     "resist_energy": SpellDefinition(
@@ -767,6 +802,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("resist_energy",),  # Resistance 10 to chosen energy
         rule_citations=("PHB p.272",),
+        content_id="spell.resist_energy_003",
     ),
 
     "silence": SpellDefinition(
@@ -787,6 +823,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("silenced",),  # No sound, blocks verbal spells
         rule_citations=("PHB p.279",),
+        content_id="spell.silence_003",
     ),
 
     # ── LEVEL 3 SPELLS (5 new) ──
@@ -809,6 +846,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=(),  # Caster level check to remove effects
         rule_citations=("PHB p.223", "Caster level check required"),
+        content_id="spell.dispel_magic_003",
     ),
 
     "protection_from_energy": SpellDefinition(
@@ -829,6 +867,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("protection_from_energy",),  # Absorbs 12/level (max 120)
         rule_citations=("PHB p.266",),
+        content_id="spell.protection_from_energy_003",
     ),
 
     "magic_circle_against_evil": SpellDefinition(
@@ -849,6 +888,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("magic_circle_evil",),  # +2 deflection AC, +2 resistance saves
         rule_citations=("PHB p.249",),
+        content_id="spell.magic_circle_against_evil_003",
     ),
 
     "fly": SpellDefinition(
@@ -869,6 +909,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("flying",),  # Fly speed 60ft
         rule_citations=("PHB p.232",),
+        content_id="spell.fly_003",
     ),
 
     "stinking_cloud": SpellDefinition(
@@ -889,6 +930,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=True,  # Concentration required
         conditions_on_fail=("nauseated",),  # Nauseated 1d4+1 rounds
         rule_citations=("PHB p.284",),
+        content_id="spell.stinking_cloud_003",
     ),
 
     # ── LEVEL 4 SPELLS (6 new) ──
@@ -911,6 +953,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,  # Instantaneous
         concentration=False,
         rule_citations=("PHB p.215",),
+        content_id="spell.cure_critical_wounds_003",
     ),
 
     "stoneskin": SpellDefinition(
@@ -931,6 +974,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("stoneskin",),  # DR 10/adamantine (max 150 absorbed)
         rule_citations=("PHB p.284", "DR 10/adamantine, max 150 damage absorbed"),
+        content_id="spell.stoneskin_003",
     ),
 
     "wall_of_fire": SpellDefinition(
@@ -950,6 +994,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=1,  # Concentration + 1 round/level (PHB p.298)
         concentration=True,  # Concentration required
         rule_citations=("PHB p.298",),
+        content_id="spell.wall_of_fire_003",
     ),
 
     "dimension_door": SpellDefinition(
@@ -969,6 +1014,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,  # Instantaneous
         concentration=False,
         rule_citations=("PHB p.221", "Teleport up to range"),
+        content_id="spell.dimension_door_003",
     ),
 
     "greater_invisibility": SpellDefinition(
@@ -989,6 +1035,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_success=("greater_invisibility",),  # Invisible even while attacking
         rule_citations=("PHB p.245",),
+        content_id="spell.greater_invisibility_003",
     ),
 
     "ice_storm": SpellDefinition(
@@ -1008,6 +1055,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,  # Instantaneous
         concentration=False,
         rule_citations=("PHB p.243", "3d6 bludgeoning + 2d6 cold, no save"),
+        content_id="spell.ice_storm_003",
     ),
 
     # ── LEVEL 5 SPELLS (5 new) ──
@@ -1030,6 +1078,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("paralyzed",),
         rule_citations=("PHB p.241",),
+        content_id="spell.hold_monster_003",
     ),
 
     "wall_of_stone": SpellDefinition(
@@ -1049,6 +1098,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=-1,  # Permanent
         concentration=False,
         rule_citations=("PHB p.299", "Create stone wall, permanent"),
+        content_id="spell.wall_of_stone_003",
     ),
 
     "raise_dead": SpellDefinition(
@@ -1069,6 +1119,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=0,  # Instantaneous
         concentration=False,
         rule_citations=("PHB p.268", "Restore life, -1 level"),
+        content_id="spell.raise_dead_003",
     ),
 
     "telekinesis": SpellDefinition(
@@ -1088,6 +1139,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=1,  # 1 round/level
         concentration=True,  # Concentration required
         rule_citations=("PHB p.292", "Move 25lb/level, concentration"),
+        content_id="spell.telekinesis_003",
     ),
 
     "baleful_polymorph": SpellDefinition(
@@ -1108,6 +1160,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         concentration=False,
         conditions_on_fail=("polymorphed",),  # Transform into animal
         rule_citations=("PHB p.202",),
+        content_id="spell.baleful_polymorph_003",
     ),
 
 }
