@@ -4,6 +4,10 @@
 
 ---
 
+## Requires PM Verdict
+
+- [ ] **MEMO_WORKFLOW_FRICTION_DETECTION.md** — Research question: can workflow stutters (like the dispatch gap) become self-identifying rather than operator-dependent? 3 approaches proposed. PM decides scope and filing (RQ, governance WO, or BURST entry).
+
 ## Requires Operator Action
 
 - [ ] **RED block lift** — Preflight inspection PASSED (all 7 checks). Tests 5,539/0/25. Sole remaining gate.
