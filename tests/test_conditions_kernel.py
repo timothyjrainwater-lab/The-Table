@@ -414,7 +414,8 @@ def test_helpless_condition_modifiers():
 
     # Query modifiers
     modifiers = get_condition_modifiers(world_state, "goblin")
-    assert modifiers.ac_modifier == -4  # Melee attacks get +4 bonus
+    assert modifiers.ac_modifier_melee == -4  # Melee attacks get +4 bonus (PHB p.310)
+    assert modifiers.ac_modifier_ranged == 0  # Ranged attacks get no special bonus
     assert modifiers.loses_dex_to_ac is True
     assert modifiers.actions_prohibited is True
     assert modifiers.auto_hit_if_helpless is True
@@ -579,7 +580,7 @@ def test_panicked_condition_modifiers():
     assert mods.fort_save_modifier == -2
     assert mods.ref_save_modifier == -2
     assert mods.will_save_modifier == -2
-    assert mods.loses_dex_to_ac is True
+    assert mods.loses_dex_to_ac is False  # BUG-5 fix: Panicked does NOT lose Dex to AC (PHB p.311)
 
 
 def test_nauseated_condition_modifiers():
@@ -615,7 +616,8 @@ def test_paralyzed_condition_modifiers():
     ws = _make_world_state()
     ws = apply_condition(ws, "goblin", create_paralyzed_condition("hold_person", 0))
     mods = get_condition_modifiers(ws, "goblin")
-    assert mods.ac_modifier == -4
+    assert mods.ac_modifier_melee == -4  # Helpless: melee +4 bonus
+    assert mods.ac_modifier_ranged == 0  # Helpless: no ranged bonus
     assert mods.loses_dex_to_ac is True
     assert mods.auto_hit_if_helpless is True
     assert mods.actions_prohibited is True
@@ -637,7 +639,8 @@ def test_unconscious_condition_modifiers():
     ws = _make_world_state()
     ws = apply_condition(ws, "goblin", create_unconscious_condition("knockout", 0))
     mods = get_condition_modifiers(ws, "goblin")
-    assert mods.ac_modifier == -4
+    assert mods.ac_modifier_melee == -4  # Helpless: melee +4 bonus
+    assert mods.ac_modifier_ranged == 0  # Helpless: no ranged bonus
     assert mods.loses_dex_to_ac is True
     assert mods.auto_hit_if_helpless is True
     assert mods.actions_prohibited is True

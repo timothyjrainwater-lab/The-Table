@@ -239,8 +239,15 @@ def resolve_attack(
 
     # Get target AC (base AC + condition modifiers + cover bonus)
     base_ac = target.get(EF.AC, 10)  # Default AC 10 if not specified
-    # CP-16: condition modifier, CP-19: cover bonus
-    target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
+    # CP-16: condition modifier (melee/ranged differentiated), CP-19: cover bonus
+    is_melee = not feat_context.get("is_ranged", False)
+    if is_melee and defender_modifiers.ac_modifier_melee != 0:
+        condition_ac = defender_modifiers.ac_modifier_melee
+    elif not is_melee and defender_modifiers.ac_modifier_ranged != 0:
+        condition_ac = defender_modifiers.ac_modifier_ranged
+    else:
+        condition_ac = defender_modifiers.ac_modifier
+    target_ac = base_ac + condition_ac + cover_result.ac_bonus
 
     # Step 1: Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier + flanking)
     combat_rng = rng.stream("combat")
@@ -304,7 +311,7 @@ def resolve_attack(
             "total": total,
             "target_ac": target_ac,
             "target_base_ac": base_ac,  # CP-16: Track base AC separately
-            "target_ac_modifier": defender_modifiers.ac_modifier,  # CP-16
+            "target_ac_modifier": condition_ac,  # CP-16 (melee/ranged differentiated)
             "hit": hit,
             "is_natural_20": is_natural_20,
             "is_natural_1": is_natural_1,

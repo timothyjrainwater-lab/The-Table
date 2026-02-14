@@ -61,7 +61,13 @@ class ConditionModifiers:
     """
 
     ac_modifier: int = 0
-    """Modifier to Armor Class (e.g., -4 for prone vs melee)"""
+    """Modifier to Armor Class (applied to all attacks unless melee/ranged specific)"""
+
+    ac_modifier_melee: int = 0
+    """Modifier to AC against melee attacks only (overrides ac_modifier if non-zero)"""
+
+    ac_modifier_ranged: int = 0
+    """Modifier to AC against ranged attacks only (overrides ac_modifier if non-zero)"""
 
     attack_modifier: int = 0
     """Modifier to attack rolls (e.g., -2 for shaken)"""
@@ -102,6 +108,8 @@ class ConditionModifiers:
         """Convert to dictionary for serialization."""
         return {
             "ac_modifier": self.ac_modifier,
+            "ac_modifier_melee": self.ac_modifier_melee,
+            "ac_modifier_ranged": self.ac_modifier_ranged,
             "attack_modifier": self.attack_modifier,
             "damage_modifier": self.damage_modifier,
             "dex_modifier": self.dex_modifier,
@@ -120,6 +128,8 @@ class ConditionModifiers:
         """Create from dictionary."""
         return cls(
             ac_modifier=data.get("ac_modifier", 0),
+            ac_modifier_melee=data.get("ac_modifier_melee", 0),
+            ac_modifier_ranged=data.get("ac_modifier_ranged", 0),
             attack_modifier=data.get("attack_modifier", 0),
             damage_modifier=data.get("damage_modifier", 0),
             dex_modifier=data.get("dex_modifier", 0),
@@ -205,7 +215,8 @@ def create_prone_condition(source: str, applied_at_event_id: int) -> ConditionIn
         condition_type=ConditionType.PRONE,
         source=source,
         modifiers=ConditionModifiers(
-            ac_modifier=-4,  # vs melee (resolvers apply based on attack type)
+            ac_modifier_melee=-4,  # -4 AC vs melee (PHB p.311)
+            ac_modifier_ranged=4,  # +4 AC vs ranged (PHB p.311)
             attack_modifier=-4,  # melee attacks only
             standing_triggers_aoo=True  # Metadata: standing provokes (PHB p. 311)
         ),
@@ -278,7 +289,8 @@ def create_helpless_condition(source: str, applied_at_event_id: int) -> Conditio
         condition_type=ConditionType.HELPLESS,
         source=source,
         modifiers=ConditionModifiers(
-            ac_modifier=-4,  # Melee attacks get +4 bonus
+            ac_modifier_melee=-4,  # Melee attacks get +4 bonus (PHB p.310)
+            ac_modifier_ranged=0,  # Ranged attacks get no special bonus
             loses_dex_to_ac=True,  # Dex = 0
             auto_hit_if_helpless=True,  # Metadata: coup de grace eligible
             actions_prohibited=True  # Metadata: cannot take actions
@@ -427,11 +439,11 @@ def create_panicked_condition(source: str, applied_at_event_id: int) -> Conditio
         modifiers=ConditionModifiers(
             fort_save_modifier=-2,
             ref_save_modifier=-2,
-            will_save_modifier=-2,
-            loses_dex_to_ac=True  # Cannot defend effectively while fleeing
+            will_save_modifier=-2
+            # Note: Panicked does NOT lose Dex to AC per PHB p.311
         ),
         applied_at_event_id=applied_at_event_id,
-        notes="Panicked: drops items, flees, -2 saves, loses Dex to AC"
+        notes="Panicked: drops items, flees, -2 saves"
     )
 
 
@@ -465,6 +477,7 @@ def create_fatigued_condition(source: str, applied_at_event_id: int) -> Conditio
         source=source,
         modifiers=ConditionModifiers(
             attack_modifier=-1,  # -2 STR → -1 melee attack (from STR penalty)
+            damage_modifier=-1,  # -2 STR → -1 melee damage (PHB p.308)
             dex_modifier=-2  # -2 DEX affects AC, Reflex, ranged
         ),
         applied_at_event_id=applied_at_event_id,
@@ -483,6 +496,7 @@ def create_exhausted_condition(source: str, applied_at_event_id: int) -> Conditi
         source=source,
         modifiers=ConditionModifiers(
             attack_modifier=-3,  # -6 STR → -3 melee attack (from STR penalty)
+            damage_modifier=-3,  # -6 STR → -3 melee damage (PHB p.308)
             dex_modifier=-6  # -6 DEX affects AC, Reflex, ranged
         ),
         applied_at_event_id=applied_at_event_id,
@@ -501,7 +515,8 @@ def create_paralyzed_condition(source: str, applied_at_event_id: int) -> Conditi
         condition_type=ConditionType.PARALYZED,
         source=source,
         modifiers=ConditionModifiers(
-            ac_modifier=-4,  # Effective Dex 0 + helpless
+            ac_modifier_melee=-4,  # Helpless: melee +4 bonus (PHB p.311)
+            ac_modifier_ranged=0,  # Helpless: no ranged bonus
             loses_dex_to_ac=True,
             auto_hit_if_helpless=True,
             actions_prohibited=True,
@@ -538,7 +553,8 @@ def create_unconscious_condition(source: str, applied_at_event_id: int) -> Condi
         condition_type=ConditionType.UNCONSCIOUS,
         source=source,
         modifiers=ConditionModifiers(
-            ac_modifier=-4,
+            ac_modifier_melee=-4,  # Helpless: melee +4 bonus (PHB p.311)
+            ac_modifier_ranged=0,  # Helpless: no ranged bonus
             loses_dex_to_ac=True,
             auto_hit_if_helpless=True,
             actions_prohibited=True,

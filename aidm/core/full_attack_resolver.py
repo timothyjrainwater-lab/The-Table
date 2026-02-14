@@ -505,7 +505,15 @@ def resolve_full_attack(
 
     # Get target AC (base AC + condition modifiers + cover bonus) — WO-FIX-003
     base_ac = target.get(EF.AC, 10)
-    target_ac = base_ac + defender_modifiers.ac_modifier + cover_result.ac_bonus
+    # CP-16: melee/ranged differentiated condition AC
+    is_melee = not feat_context.get("is_ranged", False)
+    if is_melee and defender_modifiers.ac_modifier_melee != 0:
+        condition_ac = defender_modifiers.ac_modifier_melee
+    elif not is_melee and defender_modifiers.ac_modifier_ranged != 0:
+        condition_ac = defender_modifiers.ac_modifier_ranged
+    else:
+        condition_ac = defender_modifiers.ac_modifier
+    target_ac = base_ac + condition_ac + cover_result.ac_bonus
 
     hp_current = target.get(EF.HP_CURRENT, 0)
 
@@ -527,7 +535,7 @@ def resolve_full_attack(
             "num_attacks": len(attack_bonuses),
             "attack_bonuses": attack_bonuses,
             "condition_attack_modifier": attacker_modifiers.attack_modifier,  # CP-16
-            "condition_ac_modifier": defender_modifiers.ac_modifier,  # CP-16
+            "condition_ac_modifier": condition_ac,  # CP-16
             "mounted_bonus": mounted_bonus,  # CP-18A
             "terrain_higher_ground": terrain_higher_ground,  # CP-19
             "cover_type": cover_result.cover_type,  # CP-19
@@ -585,7 +593,7 @@ def resolve_full_attack(
             terrain_higher_ground=terrain_higher_ground,
             feat_attack_modifier=feat_attack_modifier,
             target_base_ac=base_ac,
-            target_ac_modifier=defender_modifiers.ac_modifier,
+            target_ac_modifier=condition_ac,
             cover_type=cover_result.cover_type,
             cover_ac_bonus=cover_result.ac_bonus,
             dr_amount=dr_amount,

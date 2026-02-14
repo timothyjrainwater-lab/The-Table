@@ -63,6 +63,8 @@ def get_condition_modifiers(
 
     # Aggregate modifiers
     total_ac = 0
+    total_ac_melee = 0
+    total_ac_ranged = 0
     total_attack = 0
     total_damage = 0
     total_dex = 0
@@ -90,6 +92,8 @@ def get_condition_modifiers(
         mods = condition.modifiers
 
         total_ac += mods.ac_modifier
+        total_ac_melee += mods.ac_modifier_melee
+        total_ac_ranged += mods.ac_modifier_ranged
         total_attack += mods.attack_modifier
         total_damage += mods.damage_modifier
         total_dex += mods.dex_modifier
@@ -105,6 +109,8 @@ def get_condition_modifiers(
 
     return ConditionModifiers(
         ac_modifier=total_ac,
+        ac_modifier_melee=total_ac_melee,
+        ac_modifier_ranged=total_ac_ranged,
         attack_modifier=total_attack,
         damage_modifier=total_damage,
         dex_modifier=total_dex,
