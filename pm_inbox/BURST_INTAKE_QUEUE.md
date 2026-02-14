@@ -94,6 +94,23 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 
 **Next action:** Only AoE preview remains. Operator resolves DC-2 (confirm-gated or display-only). PM drafts 1 builder WO for AoE overlay integration.
 
+### BURST-004: Workflow Friction Self-Detection — NOT STARTED
+
+**Target Lock:** Make workflow stutters (dispatch gaps, hesitation loops, scope-restriction evasion) self-identifying rather than operator-dependent.
+
+**Status:** NOT STARTED — research question identified, 3 candidate approaches assessed in memo. PM verdict: defer until 3+ builder cycles confirm whether A+B fix and briefing guard are sufficient.
+
+**Candidate approaches:**
+1. Checkpoint assertions at lifecycle transitions (partially implemented via A+B fix)
+2. Briefing as anomaly detection surface (implemented via briefing guard rule)
+3. Agent friction self-reporting (unproven, needs lightweight pilot to assess feasibility)
+
+**Binary decisions (needed if escalated):**
+1. Friction reporting: structured debrief subsection, or real-time flag during execution?
+2. Checkpoint scope: per-artifact-type, or generalized transition validator?
+
+**Next action:** Monitor for recurrence. If 3+ new stutter categories appear in next builder cycles, escalate to governance WO with Approach 3 pilot.
+
 ---
 
 ## Completed Bursts
