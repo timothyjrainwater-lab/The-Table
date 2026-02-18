@@ -11,6 +11,8 @@ Usage:
     python scripts/smoke_test.py --fuzz-count 50    # 50 fuzz iterations
     python scripts/smoke_test.py --fuzz-seed 99     # reproducible fuzz
     python scripts/smoke_test.py --no-fuzz          # skip fuzzer
+    python scripts/smoke_test.py --collect-all      # continue past failures
+    python scripts/smoke_test.py --replay abc12345  # replay one scenario
 """
 
 from __future__ import annotations
@@ -60,6 +62,7 @@ from smoke_scenarios.manual import (
     scenario_h_sequential,
 )
 from smoke_scenarios.fuzzer import run_fuzz
+from smoke_scenarios.hooligan import run_hooligan, HOOLIGAN_RESULTS, HOOLIGAN_FINDINGS
 
 
 def stage_1_content_pack() -> Optional[Dict[str, Any]]:
@@ -892,6 +895,12 @@ def stage_7_summary() -> None:
         "B": "melee", "C": "multi-target", "D": "condition + validator",
         "E": "self-buff", "F": "healing", "G": "spell on dead",
         "H": "sequential actions",
+        "H-001": "ready action (Tier B)", "H-002": "grapple spell effect (Tier B)",
+        "H-003": "fireball self (Tier A)", "H-004": "full attack corpse (Tier A)",
+        "H-005": "delay forever (Tier B)", "H-006": "drop equipment (Tier B)",
+        "H-007": "charge off map (Tier B)", "H-008": "CLW on undead (Tier A)",
+        "H-009": "coup de grace self (Tier B)", "H-010": "buff stack (Tier A)",
+        "H-011": "fireball party (Tier A)", "H-012": "improvised weapon (Tier B)",
     }
 
     # Fuzz results
@@ -932,6 +941,15 @@ def stage_7_summary() -> None:
     exploratory_count = sum(1 for s in SCENARIO_RESULTS.values() if s in ("PASS", "FAIL"))
     print(f"  Exploratory scenarios run: {exploratory_count}")
 
+    # Hooligan summary
+    hooligan_pass = sum(1 for v in HOOLIGAN_RESULTS.values() if v == "PASS")
+    hooligan_finding = sum(1 for v in HOOLIGAN_RESULTS.values() if v == "FINDING")
+    hooligan_crash = sum(1 for v in HOOLIGAN_RESULTS.values() if v == "CRASH")
+    hooligan_total = len(HOOLIGAN_RESULTS)
+    if hooligan_total > 0:
+        print(f"  Hooligan: {hooligan_pass} PASS, {hooligan_finding} FINDING, "
+              f"{hooligan_crash} CRASH out of {hooligan_total}")
+
     if fuzz_total > 0:
         print(f"  Fuzzer: {fuzz_pass} PASS, {fuzz_finding} FINDING, "
               f"{fuzz_crash} CRASH out of {fuzz_total}")
@@ -966,7 +984,7 @@ def stage_7_summary() -> None:
 
     # Final verdict
     print()
-    if failed == 0 and fuzz_crash == 0:
+    if failed == 0 and fuzz_crash == 0 and hooligan_crash == 0:
         print("  All stages passed.")
     else:
         if failed > 0:
@@ -988,11 +1006,15 @@ def main() -> int:
                         help="RNG seed for fuzzer reproducibility (default: 42)")
     parser.add_argument("--no-fuzz", action="store_true",
                         help="Skip the generative fuzzer phase")
+    parser.add_argument("--collect-all", action="store_true",
+                        help="Continue past fuzzer failures (default: stop on first)")
+    parser.add_argument("--replay", type=str, default=None, metavar="SCENARIO_ID",
+                        help="Replay a single fuzzer scenario by ScenarioID")
     args = parser.parse_args()
 
     print()
     print("+" + "=" * 68 + "+")
-    print("|  Smoke Test: Regression + Manual Scenarios + Generative Fuzzer   |")
+    print("|  Smoke Test: Regression + Manual + Hooligan + Fuzzer            |")
     print("+" + "=" * 68 + "+")
 
     # -- Phase 1: Regression -- original fireball pipeline --
@@ -1036,9 +1058,17 @@ def main() -> int:
     scenario_g_spell_on_dead()
     scenario_h_sequential()
 
-    # -- Phase 3: Generative Fuzzer --
+    # -- Phase 3: The Hooligan Protocol --
+    run_hooligan()
+
+    # -- Phase 4: Generative Fuzzer --
     if not args.no_fuzz:
-        run_fuzz(fuzz_count=args.fuzz_count, seed=args.fuzz_seed)
+        run_fuzz(
+            fuzz_count=args.fuzz_count,
+            seed=args.fuzz_seed,
+            collect_all=args.collect_all,
+            replay_scenario_id=args.replay,
+        )
 
     # -- Summary --
     stage_7_summary()
@@ -1046,7 +1076,8 @@ def main() -> int:
     # Return exit code
     stage_failed = any(r["status"] != "PASS" for r in STAGE_RESULTS)
     fuzz_crashed = any(r["status"] == "CRASH" for r in FUZZ_RESULTS)
-    return 1 if (stage_failed or fuzz_crashed) else 0
+    hooligan_crashed = any(v == "CRASH" for v in HOOLIGAN_RESULTS.values())
+    return 1 if (stage_failed or fuzz_crashed or hooligan_crashed) else 0
 
 
 if __name__ == "__main__":

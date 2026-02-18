@@ -1,16 +1,16 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (WO-ORACLE-SURVEY DELIVERED. 7/7 sections complete. Strongest overlap: WorkingSet + Event Sourcing. Weakest: StoryState.)
+**Last updated:** 2026-02-18 (WO-FUZZER-DETERMINISM-GATES DELIVERED. Provable reproducibility: ScenarioID hashes, event log digests, FUZZ RECEIPT, stop-on-failure, replay mode.)
 
 ---
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,804 unit tests pass. Smoke test passes 44/44 stages + 20-scenario fuzzer (19 PASS, 1 FINDING). **Integration board clear.**
+5,804 unit tests pass. Smoke test passes 44/44 stages + 20-scenario fuzzer (19 PASS, 1 FINDING). Fuzzer has provable determinism gates: ScenarioID hashes, event log digests, FUZZ RECEIPT line, stop-on-first-failure default, `--collect-all` and `--replay` modes. Meta-tests: 6/6 PASS. **Integration board clear.**
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
-**44/44 stages PASS. Fuzzer: 19/20 PASS, 1 FINDING.** Modular structure: `scripts/smoke_scenarios/` with common.py, manual.py, fuzzer.py. Orchestrator: `scripts/smoke_test.py` (thin wrapper). Meta-tests: 2/2 PASS.
+**44/44 stages PASS. Fuzzer: 19/20 PASS, 1 FINDING. Determinism: 6/6 meta-tests PASS.** Modular structure: `scripts/smoke_scenarios/` with common.py, manual.py, fuzzer.py. Orchestrator: `scripts/smoke_test.py` (thin wrapper). Determinism gates: ScenarioID (sha256 of spec), event_digest (sha256 of cleaned events), FUZZ RECEIPT, stop-on-failure, `--collect-all`, `--replay`.
 
 | Section | Result |
 |---|---|
@@ -37,6 +37,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-FUZZER-DETERMINISM-GATES | **ACCEPTED** | `a0c47f3` |
 | WO-ORACLE-SURVEY | **COMPLETE** | (this session — research only, no code) |
 | WO-SMOKE-FUZZER | **ACCEPTED** (determinism gates deferred to patch WO) | `ac67327` |
 | WO-AOE-DEFEATED-FILTER | **ACCEPTED** | `4bba1eb` |
@@ -52,7 +53,7 @@
 
 1. ~~**Dispatch WO-SMOKE-FUZZER**~~ — **ACCEPTED** (`ac67327`). Modular structure landed. 19/20 PASS, 1 Cone of Cold finding. Determinism gates (Change 2a) not implemented — patch WO drafted.
 
-2. **Dispatch WO-FUZZER-DETERMINISM-GATES** — Ready for dispatch. Adds ScenarioID hashing, event log digests, FUZZ RECEIPT, stop-on-failure, `--collect-all`. Small WO, 2 files.
+2. ~~**Dispatch WO-FUZZER-DETERMINISM-GATES**~~ — **ACCEPTED.** ScenarioID hashes, event log digests, FUZZ RECEIPT, stop-on-failure, `--collect-all`, `--replay`. 6/6 meta-tests PASS. **FINDING:** `payload.cast_id` uses `uuid4()` (not RNG-seeded), stripped from digest. PM decision needed: determinize cast_id in future WO?
 
 3. ~~**Dispatch WO-ORACLE-SURVEY**~~ — **COMPLETE.** Survey delivered: [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md). 7/7 sections. Strongest overlap: WorkingSet (PromptPack), Event Sourcing (EventLog + replay_runner). Weakest: StoryState (no threads/clocks). Key finding: provenance.py W3C PROV-DM exists but not wired to EventLog.
 
@@ -106,6 +107,7 @@ All 4 items from previous queue resolved:
 - **WO-AOE-DEFEATED-FILTER** — AoE skips defeated entities, 44/44 PASS
 
 - **WO-SMOKE-FUZZER** — Generative fuzzer, modular smoke infrastructure (`ac67327`)
+- **WO-FUZZER-DETERMINISM-GATES** — Provable reproducibility gates for fuzzer (`a0c47f3`)
 - **WO-ORACLE-SURVEY** — Oracle v5.2 overlap mapping (research, no code)
 
 ## Active Operational Files
