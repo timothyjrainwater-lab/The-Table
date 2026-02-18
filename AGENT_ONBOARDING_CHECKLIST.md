@@ -37,6 +37,12 @@ After the Compass, read these for operational detail. The order matters.
 
 ---
 
+## Step 1B: Read the Field Manual
+
+Read `BUILDER_FIELD_MANUAL.md`. It contains operational tradecraft — codebase gotchas, test suite quirks, and environment friction points that cost previous builders debugging cycles. 10 entries, under 200 lines. This is not rules or architecture — it's "things you'll hit if nobody tells you."
+
+---
+
 ## Step 2: Verify the Project Compiles and Tests Pass
 
 Before writing any code, run:
@@ -52,6 +58,29 @@ python -m pytest tests/ -v --tb=short
 - Runtime ~100 seconds for full suite (use `pytest -m "not slow"` for ~30s fast suite)
 
 If this doesn't pass, STOP. Do not proceed. Report the failure.
+
+---
+
+## Step 2.5: Run Builder Preflight Canaries
+
+After tests pass, run the preflight to validate GPU pipelines. Full spec: `pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md`.
+
+### Pipeline Check (BLOCKING)
+
+```bash
+python scripts/preflight_canary.py
+```
+
+This runs fixed image + voice canaries twice each and prints PASS/FAIL. If either fails, STOP. Report the failure.
+
+### Skill Artifacts (After Canaries Pass)
+
+1. **Image:** Read prompt rules in `pm_inbox/MEMO_IMAGE_GEN_WALKTHROUGH.md`. Generate one portrait of any subject. No other guidance. Save to `image_cache/`.
+2. **Voice:** Read persona registry in `aidm/immersion/chatterbox_tts_adapter.py` (lines 45-119). Choose any non-reserved persona. Write 1-2 sentences for any character. Generate via `speak.py`.
+
+**Reserved profiles (off-limits):** `npc_elderly` (Mrs. Slate), Arbor signal reference, `builder_signal` (Builder Herald).
+
+Log all results in `pm_inbox/PREFLIGHT_CANARY_LOG.md`.
 
 ---
 
@@ -185,7 +214,7 @@ Every completion packet follows this process:
 
 ## Step 8: PM Review Inbox
 
-When you complete a deliverable that needs PM (Aegis) review — work order output, design doc, spec, audit report, or any artifact the PM should evaluate — write it to `pm_inbox/` as a markdown file.
+When you complete a deliverable that needs PM (Slate) review — work order output, design doc, spec, audit report, or any artifact the PM should evaluate — write it to `pm_inbox/` as a markdown file.
 
 ### FILE ROUTING (MANDATORY)
 
