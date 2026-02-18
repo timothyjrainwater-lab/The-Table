@@ -54,7 +54,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-ORACLE-01 | **COMPLETE** — 22/22 Gate A PASS, no-backflow PASS, 0 regressions | `(pending)` |
+| WO-ORACLE-01 | **COMPLETE** — 22/22 Gate A PASS, no-backflow PASS, 0 regressions | `4c5526a` |
 | WO-SMOKE-TEST-003 | **ACCEPTED** — 5 PASS, 7 FINDING (6 coverage gap + 1 schema gap), 0 CRASH | `4b3168f` |
 | WO-FUZZER-DETERMINISM-GATES | **ACCEPTED** | `e128342` |
 | WO-ORACLE-SURVEY | **ACCEPTED** (research, no code) | `7b4268f` |
