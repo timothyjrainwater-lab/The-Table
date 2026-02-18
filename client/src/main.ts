@@ -1,19 +1,24 @@
 /**
- * Main entry — Table UI Phase 1 (Slice 0).
+ * Main entry — Table UI Phase 2 (Slice 1).
  *
  * - Three.js scene with table surface and zone boundaries
  * - 3 camera postures (STANDARD, DOWN, LEAN_FORWARD) with smooth transitions
  * - WebSocket connection to backend
- * - PENDING round trip (PendingRoll → DiceTowerDropIntent)
- * - BeatIntent display on table surface
+ * - PENDING round trip (PendingRoll -> DiceTowerDropIntent)
+ * - BeatIntent card as first TableObject with pick/drag/drop
+ * - Zone constraint enforcement
+ * - Keyboard-only path for pick/drag/drop
  *
- * Authority: WO-UI-01, DOCTRINE_04_TABLE_UI_MEMO_V4.
+ * Authority: WO-UI-01, WO-UI-02, DOCTRINE_04_TABLE_UI_MEMO_V4.
  */
 
 import * as THREE from 'three';
 import { CameraPostureController, PostureName } from './camera';
 import { WsBridge } from './ws-bridge';
 import { BeatIntentCard } from './beat-intent-card';
+import { TableObjectRegistry } from './table-object';
+import { DragInteraction } from './drag-interaction';
+import { ZONES } from './zones';
 
 // ---------------------------------------------------------------------------
 // Scene setup
@@ -69,38 +74,31 @@ tableMesh.receiveShadow = true;
 scene.add(tableMesh);
 
 // Zone boundaries — wireframe rectangles marking table zones
-function addZone(
-  x: number, z: number,
-  w: number, h: number,
-  color: number, label: string
-): void {
+// Uses zone definitions from zones.ts for consistency with backend
+for (const z of ZONES) {
+  const w = z.halfWidth * 2;
+  const h = z.halfHeight * 2;
+
   const zoneGeo = new THREE.PlaneGeometry(w, h);
   const zoneMat = new THREE.MeshBasicMaterial({
-    color,
+    color: z.color,
     transparent: true,
     opacity: 0.15,
     side: THREE.DoubleSide,
   });
   const zoneMesh = new THREE.Mesh(zoneGeo, zoneMat);
   zoneMesh.rotation.x = -Math.PI / 2;
-  zoneMesh.position.set(x, 0.01, z);
+  zoneMesh.position.set(z.centerX, 0.01, z.centerZ);
   scene.add(zoneMesh);
 
   // Wireframe border
   const edges = new THREE.EdgesGeometry(zoneGeo);
-  const lineMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.5 });
+  const lineMat = new THREE.LineBasicMaterial({ color: z.color, transparent: true, opacity: 0.5 });
   const wireframe = new THREE.LineSegments(edges, lineMat);
   wireframe.rotation.x = -Math.PI / 2;
-  wireframe.position.set(x, 0.02, z);
+  wireframe.position.set(z.centerX, 0.02, z.centerZ);
   scene.add(wireframe);
 }
-
-// Map zone (center)
-addZone(0, -0.5, 6, 4, 0x4488ff, 'map');
-// Player zone (near edge)
-addZone(0, 3, 10, 1.5, 0x44ff88, 'player');
-// DM zone (far edge)
-addZone(0, -3.5, 10, 1.5, 0xff4444, 'dm');
 
 // ---------------------------------------------------------------------------
 // WebSocket bridge
@@ -114,10 +112,43 @@ const bridge = new WsBridge(WS_URL);
 bridge.connect();
 
 // ---------------------------------------------------------------------------
-// BeatIntent card (Change 6)
+// TableObject registry + BeatIntent card (Changes 1, 3)
 // ---------------------------------------------------------------------------
 
+const registry = new TableObjectRegistry();
 const beatCard = new BeatIntentCard(scene, bridge);
+registry.add(beatCard);
+beatCard.onSpawn();
+
+// ---------------------------------------------------------------------------
+// Drag interaction system (Changes 2, 4, 5)
+// ---------------------------------------------------------------------------
+
+let cameraLocked = false;
+
+const dragInteraction = new DragInteraction(
+  registry,
+  camera,
+  renderer,
+  scene,
+  bridge,
+  {
+    onDragStart: () => { cameraLocked = true; },
+    onDragEnd: () => { cameraLocked = false; },
+  },
+);
+
+// Listen for server acknowledgments of position updates
+bridge.on('table_object_state', (data) => {
+  const objectId = data.object_id as string;
+  const position = data.position as [number, number, number];
+  const zone = data.zone as string;
+  dragInteraction.applyServerAck(objectId, position, zone);
+});
+
+// ---------------------------------------------------------------------------
+// BeatIntent data (Change 3 — preserve WO-UI-01 behavior)
+// ---------------------------------------------------------------------------
 
 // Listen for state_update messages that carry BeatIntent data
 bridge.on('state_update', (data) => {
@@ -145,7 +176,7 @@ bridge.on('beat_intent', (data) => {
 });
 
 // ---------------------------------------------------------------------------
-// PENDING round trip (Change 5)
+// PENDING round trip (preserved from WO-UI-01)
 // ---------------------------------------------------------------------------
 
 const pendingOverlay = document.getElementById('pending-overlay')!;
@@ -196,13 +227,16 @@ pendingOverlay.addEventListener('click', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Raycaster for BeatIntent card click
+// BeatIntent card click (non-drag click sends DeclareActionIntent)
 // ---------------------------------------------------------------------------
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 renderer.domElement.addEventListener('click', (event) => {
+  // Don't process clicks during or just after drag
+  if (dragInteraction.dragging) return;
+
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
@@ -214,12 +248,15 @@ renderer.domElement.addEventListener('click', (event) => {
 });
 
 // ---------------------------------------------------------------------------
-// Camera posture keyboard controls
+// Camera posture keyboard controls (disabled during drag)
 // ---------------------------------------------------------------------------
 
 const postureLabel = document.getElementById('posture-label')!;
 
 window.addEventListener('keydown', (event) => {
+  // Camera controls disabled during drag (doctrine §17)
+  if (cameraLocked) return;
+
   let target: PostureName | null = null;
   switch (event.key) {
     case '1': target = 'STANDARD'; break;
@@ -252,6 +289,7 @@ function animate(): void {
   requestAnimationFrame(animate);
   const dt = clock.getDelta();
   postureCtrl.update(dt);
+  dragInteraction.updateFocusHighlight();
   renderer.render(scene, camera);
 }
 

@@ -1,22 +1,38 @@
 /**
- * BeatIntent display — renders the latest BeatIntent as a 3D text card
- * on the table surface.
+ * BeatIntent card — a TableObject that displays the latest BeatIntent as a
+ * 3D text card on the table surface.
  *
- * Clicking the card sends a DeclareActionIntent REQUEST over WebSocket.
+ * Clicking the card (without drag) sends a DeclareActionIntent REQUEST.
+ * Dragging the card moves it to a new position with zone constraints.
+ *
+ * Authority: WO-UI-01 (original), WO-UI-02 (TableObject promotion).
  */
 
 import * as THREE from 'three';
 import { WsBridge } from './ws-bridge';
+import { TableObject, TableObjectPosition } from './table-object';
 
-export class BeatIntentCard {
-  readonly mesh: THREE.Mesh;
+let cardCounter = 0;
+
+export class BeatIntentCard implements TableObject {
+  readonly id: string;
+  readonly kind = 'card';
+  position: TableObjectPosition;
+  zone: string;
+  pickable = true;
+  readonly object3D: THREE.Mesh;
+
   private textCanvas: HTMLCanvasElement;
   private textCtx: CanvasRenderingContext2D;
   private texture: THREE.CanvasTexture;
   private bridge: WsBridge;
   private currentBeatId: string | null = null;
 
-  constructor(scene: THREE.Scene, bridge: WsBridge) {
+  // Pick visual state
+  private baseMaterial: THREE.MeshStandardMaterial;
+
+  constructor(scene: THREE.Scene, bridge: WsBridge, id?: string) {
+    this.id = id ?? `card_${++cardCounter}`;
     this.bridge = bridge;
 
     // Canvas for text rendering
@@ -28,18 +44,65 @@ export class BeatIntentCard {
 
     // Card geometry — a flat rectangle on the table
     const geo = new THREE.PlaneGeometry(3, 1.5);
-    const mat = new THREE.MeshStandardMaterial({
+    this.baseMaterial = new THREE.MeshStandardMaterial({
       map: this.texture,
       side: THREE.DoubleSide,
     });
-    this.mesh = new THREE.Mesh(geo, mat);
-    this.mesh.rotation.x = -Math.PI / 2;
-    this.mesh.position.set(0, 0.05, 0); // Slightly above table surface
-    this.mesh.name = 'beat_intent_card';
-    scene.add(this.mesh);
+    this.object3D = new THREE.Mesh(geo, this.baseMaterial);
+    this.object3D.rotation.x = -Math.PI / 2;
+    this.object3D.position.set(0, 0.05, 3); // Start in player zone
+    this.object3D.name = 'beat_intent_card';
 
+    this.position = { x: 0, y: 0.05, z: 3 };
+    this.zone = 'player';
+
+    scene.add(this.object3D);
     this.renderText('Waiting for BeatIntent...', '', '');
   }
+
+  // Alias for backward compat with main.ts raycast hit detection
+  get mesh(): THREE.Mesh {
+    return this.object3D as THREE.Mesh;
+  }
+
+  // -----------------------------------------------------------------------
+  // TableObject lifecycle
+  // -----------------------------------------------------------------------
+
+  onSpawn(): void {
+    // Already added to scene in constructor
+  }
+
+  onPick(): void {
+    // Slight elevation + emissive glow
+    this.object3D.position.y = this.position.y + 0.1;
+    this.baseMaterial.emissive.setHex(0x333355);
+    this.baseMaterial.emissiveIntensity = 0.5;
+  }
+
+  onDrag(position: TableObjectPosition): void {
+    this.object3D.position.set(position.x, position.y, position.z);
+  }
+
+  onDrop(zone: string): void {
+    // Settle back to table surface height
+    this.object3D.position.set(this.position.x, this.position.y, this.position.z);
+    this.baseMaterial.emissive.setHex(0x000000);
+    this.baseMaterial.emissiveIntensity = 0;
+  }
+
+  onDestroy(): void {
+    if (this.object3D.parent) {
+      this.object3D.parent.remove(this.object3D);
+    }
+    this.baseMaterial.dispose();
+    (this.object3D as THREE.Mesh).geometry.dispose();
+    this.texture.dispose();
+  }
+
+  // -----------------------------------------------------------------------
+  // BeatIntent data
+  // -----------------------------------------------------------------------
 
   update(beatType: string, pacingMode: string, beatId: string, targetHandles: string[]): void {
     this.currentBeatId = beatId;
@@ -69,6 +132,10 @@ export class BeatIntentCard {
       },
     });
   }
+
+  // -----------------------------------------------------------------------
+  // Text rendering
+  // -----------------------------------------------------------------------
 
   private renderText(line1: string, line2: string, line3: string): void {
     const ctx = this.textCtx;
