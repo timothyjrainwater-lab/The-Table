@@ -187,6 +187,55 @@ class BeatHistory:
         self.beats_since_player_action = 0
         self.last_permission_beat = 0
 
+    @classmethod
+    def from_events(cls, events, current_scene_id: Optional[str] = None) -> BeatHistory:
+        """Reconstruct BeatHistory from event log replay.
+
+        Processes director_beat_selected, nudge_selected, and scene
+        transition events to rebuild scene-scoped state.
+
+        Events consumed:
+            - director_beat_selected: increments beat counters, tracks player action
+            - nudge_selected: records nudge fired
+            - scene_start: resets scene-scoped counters (if scene_id changes)
+
+        If current_scene_id is provided, only events matching that scene are
+        counted for scene-scoped counters.  If None, all events are counted
+        (single-scene assumption).
+        """
+        bh = cls()
+
+        for event in events:
+            if not hasattr(event, "event_type"):
+                continue
+
+            if event.event_type == "scene_start":
+                payload = event.payload
+                scene_id = payload.get("scene_id")
+                # Reset on scene transition.
+                if current_scene_id is None or scene_id == current_scene_id:
+                    bh.reset_scene()
+
+            elif event.event_type == "director_beat_selected":
+                payload = event.payload
+                scene_id = payload.get("scene_id")
+                # Skip events from other scenes if filtering.
+                if current_scene_id is not None and scene_id != current_scene_id:
+                    continue
+
+                had_player_action = payload.get("had_player_action", False)
+                bh.record_beat(had_player_action=had_player_action)
+
+                if payload.get("permission_prompt", False):
+                    bh.record_permission()
+
+                # If this beat had a nudge, record it.
+                nudge_type = payload.get("nudge_type", "NONE")
+                if nudge_type != "NONE":
+                    bh.record_nudge()
+
+        return bh
+
 
 def make_beat_intent(
     scene_id: Optional[str],

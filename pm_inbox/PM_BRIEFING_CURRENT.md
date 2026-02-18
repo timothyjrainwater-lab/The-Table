@@ -1,12 +1,12 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (Director spec v0 drafted. WO-DIRECTOR-01 DISPATCH-READY. Oracle integration preflight folded into Director cycle per Operator directive.)
+**Last updated:** 2026-02-18 (WO-DIRECTOR-02 DISPATCH-READY. Director Phase 2: BeatIntent→Lens integration + EV-033/EV-034 emission.)
 
 ---
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,824 unit tests pass (5,624 excluding pre-existing TTS/inbox failures). Smoke test passes 49/49 stages + 12 hooligan scenarios (5 PASS, 7 FINDING, 0 CRASH) + 20-scenario fuzzer (19 PASS, 1 FINDING). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. No-backflow: PASS. Integration board clear.**
+5,840 unit tests pass (5,640 excluding pre-existing TTS/inbox failures). Smoke test passes 49/49 stages + 12 hooligan scenarios (5 PASS, 7 FINDING, 0 CRASH) + 20-scenario fuzzer (19 PASS, 1 FINDING). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. No-backflow: PASS. Integration board clear.**
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
@@ -54,7 +54,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-DIRECTOR-01 | *(pending PM verdict)* — 18/18 Gate D PASS, 0 regressions. Director Phase 1: BeatIntent + NudgeDirective + DirectorPolicy + DirectorPromptPack. EV-033/EV-034 deferred (no invocation site in Phase 1). Field Manual #26 candidate. | `8a695ff` |
+| WO-DIRECTOR-02 | *(pending PM verdict)* — 14/14 Gate E PASS, 0 regressions. Director Phase 2: BeatIntent→Lens integration, EV-033/EV-034 emission, BeatHistory.from_events(), PromptPack schema extension. Field Manual #27 candidate. | `b0c19ae` |
+| WO-DIRECTOR-01 | **ACCEPTED** — 18/18 Gate D PASS, 0 regressions. 6/7 contract changes delivered. EV-033/EV-034 deferred (no invocation site — Phase 2). Field Manual #26 added. | `d38b988` |
 | WO-ORACLE-03 | **ACCEPTED** — 24/24 Gate C PASS, 0 regressions. Oracle event reducer parallel to replay_runner. No EventLog modifications. Field Manual #25 added. | `6029236` |
 | WO-ORACLE-02 | **ACCEPTED** — 23/23 Gate B PASS, 0 regressions. canonical.py updated to handle MappingProxyType via `Mapping` ABC. Field Manual #24 added. | `4245e38` |
 | WO-ORACLE-01 | **ACCEPTED** — 22/22 Gate A PASS, no-backflow PASS, 0 regressions. Builder used `canonical_short_hash` for fact_id (defensible deviation from ambiguous spec). | `4c5526a` |
@@ -73,12 +74,14 @@
 
 ## Requires Operator Action (NOW)
 
-1. **Review WO-DIRECTOR-01 debrief and issue verdict.**
+1. **Review WO-DIRECTOR-02 debrief and issue verdict.**
 
-   [DEBRIEF_WO-DIRECTOR-01.md](pm_inbox/DEBRIEF_WO-DIRECTOR-01.md) — Director Phase 1 complete. 18/18 Gate D. EV-033/EV-034 deferred (no invocation site). Field Manual #26 candidate.
+   [DEBRIEF_WO-DIRECTOR-02.md](pm_inbox/DEBRIEF_WO-DIRECTOR-02.md) — Director Phase 2 complete. 14/14 Gate E. BeatIntent→Lens pipeline wired. EV-033/EV-034 implemented. BeatHistory reconstructible from events. Field Manual #27 candidate.
 
 ### Previous Dispatches (All Accepted)
 
+- ~~WO-DIRECTOR-02~~ — *(pending verdict)*.
+- ~~WO-DIRECTOR-01~~ — ACCEPTED (`d38b988`). 18/18 Gate D. Field Manual #26 added.
 - ~~WO-ORACLE-03~~ — ACCEPTED (`6029236`). 24/24 Gate C. Field Manual #25 added.
 - ~~WO-ORACLE-02~~ — ACCEPTED (`4245e38`). 23/23 Gate B. Field Manual #24 added.
 - ~~WO-ORACLE-01~~ — ACCEPTED (`4c5526a`). 22/22 Gate A. Field Manual #22-23 added.
@@ -105,31 +108,31 @@
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director~~ **DIRECTOR PHASE 1 COMPLETE** → UI → Roleplay
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ **DIRECTOR COMPLETE** → UI → Roleplay
 
-**Doctrine files:**
-- [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
-- [DOCTRINE_02_GOLDEN_TICKET_V12.txt](pm_inbox/DOCTRINE_02_GOLDEN_TICKET_V12.txt) — Product doctrine
-- [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
-- [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
-- [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
-- [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec
-- [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — Session Lifecycle spec
-- [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) — Director spec (NEW)
+**Doctrine files** (in `pm_inbox/doctrine/`):
+- [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
+- [DOCTRINE_02_GOLDEN_TICKET_V12.txt](pm_inbox/doctrine/DOCTRINE_02_GOLDEN_TICKET_V12.txt) — Product doctrine
+- [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/doctrine/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
+- [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/doctrine/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
+- [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/doctrine/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
+- [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec
+- [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/doctrine/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — Session Lifecycle spec
+- [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) — Director spec
 
 ## PM Action Queue — Doctrine Memo Formalization
 
-**Source:** [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 formalized decisions from Aegis/Anvil.
+**Source:** [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/reviewed/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 formalized decisions from Aegis/Anvil (archived).
 
 **Sequencing rule:** None of these block WO-ORACLE-01 (Phase 1). Lens memo must exist before WO-ORACLE-02 (Phase 2). Session lifecycle must exist before WO-ORACLE-03 (Phase 3). The rest follow the build order.
 
 | # | Memo | Source Section | Blocks | Status |
 |---|---|---|---|---|
-| 1 | **Lens spec** (WorkingSet → PromptPack, mask enforcement) | §4 | WO-ORACLE-02 | **DONE** — [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) |
-| 2 | **Session lifecycle spec** (save/load/cold-boot/resume) | §2 | WO-ORACLE-03 | **DONE** — [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) |
+| 1 | **Lens spec** (WorkingSet → PromptPack, mask enforcement) | §4 | WO-ORACLE-02 | **DONE** — [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_06_LENS_SPEC_V0.txt) |
+| 2 | **Session lifecycle spec** (save/load/cold-boot/resume) | §2 | WO-ORACLE-03 | **DONE** — [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/doctrine/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) |
 | 3 | **CampaignManifest spec** (intake, PDF compile) | §1 | Worldgen pipeline | PENDING |
 | 4 | **Worldgen pipeline spec** (worldgen/sessiongen boundary) | §3 | Worldgen WO | PENDING |
-| 5 | **Director spec** (beat selector, read-only) | §5 | Director WO | **DONE** — [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) |
+| 5 | **Director spec** (beat selector, read-only) | §5 | Director WO | **DONE** — [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) |
 | 6 | **Companion Mode + Teaching Nudges spec** | §6 + §7 | Companion WO | PENDING |
 
 Packaging (§8) remains a lightweight "ship posture" doc — deferred until closer to distribution.
@@ -165,26 +168,22 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - **WO-ORACLE-02** — WorkingSet compiler + PromptPack compiler + AllowedToSayEnvelope, Gate B (23/23 PASS)
 - **WO-ORACLE-03** — SaveSnapshot + Compaction + CompactionRegistry + cold_boot(), Gate C (24/24 PASS)
 - **WO-DIRECTOR-01** — Director Phase 1: BeatIntent + NudgeDirective + DirectorPolicy + DirectorPromptPack, Gate D (18/18 PASS)
+- **WO-DIRECTOR-02** — Director Phase 2: BeatIntent→Lens integration + EV-033/EV-034 + BeatHistory.from_events(), Gate E (14/14 PASS)
 
 ## Active Operational Files
 
-- [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
-- [DOCTRINE_02_GOLDEN_TICKET_V12.txt](pm_inbox/DOCTRINE_02_GOLDEN_TICKET_V12.txt) — Product doctrine (TRUTH)
-- [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
-- [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
-- [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
-- [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec
-- [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — Session Lifecycle spec
-- [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) — Director spec
-- [WO-DIRECTOR-01_DISPATCH.md](pm_inbox/WO-DIRECTOR-01_DISPATCH.md) — Director Phase 1 dispatch (DISPATCH-READY)
-- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked pending Director — Oracle now COMPLETE)
+**Root** (6 files — cap: 10):
+- [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
+- [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
+- [README.md](pm_inbox/README.md) — Inbox hygiene rules
+- [WO-DIRECTOR-02_DISPATCH.md](pm_inbox/WO-DIRECTOR-02_DISPATCH.md) — Director Phase 2 dispatch (transient — archives with verdict)
+- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
 - [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — H2 blocker, parked
-- [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md) — Oracle v5.2 overlap mapping (reference)
-- [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 doctrine decisions, 6 memos queued (Lens + Session Lifecycle DONE, 4 remaining)
-- [MEMO_TABLE_MOOD_SUBSYSTEM.md](pm_inbox/MEMO_TABLE_MOOD_SUBSYSTEM.md) — TableMood subsystem spec (PARKED — Lens/Director phase)
-- [MEMO_RIFFSPACE_IMPROV_PIPELINE.md](pm_inbox/MEMO_RIFFSPACE_IMPROV_PIPELINE.md) — RiffSpace improvisation pipeline (PARKED — Lens/Director phase)
 
-All WO-ORACLE-01, WO-ORACLE-02, and WO-ORACLE-03 artifacts archived to `pm_inbox/reviewed/archive_smoke_oracle/`.
+**Doctrine** (8 files in `pm_inbox/doctrine/` — permanent reference):
+- DOCTRINE_01 through DOCTRINE_08 (see Doctrine files section above)
+
+**Archived this cycle:** WO-DIRECTOR-01 dispatch + debrief → `pm_inbox/reviewed/archive_director/`. Previous Oracle/smoke/fuzzer artifacts in `pm_inbox/reviewed/archive_smoke_oracle/`. Dispositioned memos in `pm_inbox/reviewed/`.
 
 ## Persistent Files
 

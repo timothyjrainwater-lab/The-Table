@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 from aidm.oracle.canonical import canonical_json
 from aidm.oracle.working_set import WorkingSet
@@ -54,8 +54,19 @@ class AllowedToSayEnvelope:
         }
 
 
+# Pacing mode → StyleChannel pacing hint mapping (Director Spec v0 §3.1).
+_PACING_MAP = {
+    "NORMAL": None,       # default — no hint
+    "SLOW_BURN": "SLOW_BURN",
+    "ACCELERATE": "ACCELERATE",
+    "CLIMAX": "CLIMAX",
+}
+
+
 def compile_promptpack(
     working_set: WorkingSet,
+    beat_intent=None,
+    nudge_directive=None,
 ) -> tuple:
     """Compile a WorkingSet into (PromptPack, AllowedToSayEnvelope).
 
@@ -64,20 +75,41 @@ def compile_promptpack(
            allowmention_handles — already filtered by Oracle compiler)
         2. Extract compactions_slice → MemoryChannel (if present)
         3. Extract directives → TaskChannel + OutputContract
-        4. Apply default StyleChannel (no Director input in Phase 2)
-        5. Assemble PromptPack
-        6. Compute promptpack_hash
-        7. Build AllowedToSayEnvelope
-        8. Return (PromptPack, AllowedToSayEnvelope)
+        4. Apply StyleChannel with Director pacing hint (if BeatIntent provided)
+        5. Apply NudgeDirective metadata to TaskChannel (if provided)
+        6. If BeatIntent has target_handles, foreground those in TruthChannel
+        7. Assemble PromptPack
+        8. Compute promptpack_hash
+        9. Build AllowedToSayEnvelope
+       10. Return (PromptPack, AllowedToSayEnvelope)
+
+    When beat_intent is None: existing Phase 1 behavior (no Director input).
+    When nudge_directive is None or type=NONE: no nudge metadata added.
 
     No truncation: WorkingSet slices are already budget-constrained.
     """
     # Step 1: Build TruthChannel from facts_slice.
     # Facts are Oracle-curated content.  Map to TruthChannel fields.
-    # In Phase 2 the TruthChannel carries Oracle facts as outcome_summary.
+    # If BeatIntent has target_handles, foreground those facts first.
+    facts_list = list(working_set.facts_slice)
+
+    if beat_intent is not None and beat_intent.target_handles:
+        target_set = set(beat_intent.target_handles)
+        # Partition: foregrounded facts first, then remaining (stable order).
+        foregrounded = []
+        remaining = []
+        for i, fact_payload in enumerate(facts_list):
+            # Check if any key in the fact matches a target handle.
+            fact_id = fact_payload.get("fact_id", "")
+            stable_key = fact_payload.get("stable_key", "")
+            if fact_id in target_set or stable_key in target_set:
+                foregrounded.append(fact_payload)
+            else:
+                remaining.append(fact_payload)
+        facts_list = foregrounded + remaining
+
     truth_parts = []
-    for fact_payload in working_set.facts_slice:
-        # Each fact payload is a dict — render as deterministic string.
+    for fact_payload in facts_list:
         parts = []
         for key in sorted(fact_payload.keys()):
             parts.append(f"{key}: {fact_payload[key]}")
@@ -102,11 +134,34 @@ def compile_promptpack(
     )
 
     # Step 3: Build TaskChannel + OutputContract from directives.
-    task = TaskChannel()
+    # Include nudge metadata if NudgeDirective has type != NONE.
+    nudge_type = None
+    nudge_target_handle = None
+    nudge_reason_code = None
+    permission_prompt = False
+
+    if nudge_directive is not None and nudge_directive.type != "NONE":
+        nudge_type = nudge_directive.type
+        nudge_target_handle = nudge_directive.target_handle
+        nudge_reason_code = nudge_directive.reason_code
+
+    if beat_intent is not None:
+        permission_prompt = beat_intent.permission_prompt
+
+    task = TaskChannel(
+        nudge_type=nudge_type,
+        nudge_target_handle=nudge_target_handle,
+        nudge_reason_code=nudge_reason_code,
+        permission_prompt=permission_prompt,
+    )
     contract = OutputContract()
 
-    # Step 4: Default StyleChannel (no Director input).
-    style = StyleChannel()
+    # Step 4: StyleChannel with Director pacing hint.
+    pacing_hint = None
+    if beat_intent is not None:
+        pacing_hint = _PACING_MAP.get(beat_intent.pacing_mode)
+
+    style = StyleChannel(pacing_hint=pacing_hint)
 
     # Step 5: Assemble PromptPack.
     pack = PromptPack(

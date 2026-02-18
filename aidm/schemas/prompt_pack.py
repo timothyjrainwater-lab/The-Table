@@ -126,6 +126,12 @@ class TaskChannel:
     # For NPC dialogue
     npc_name: Optional[str] = None      # NPC speaking (for npc_dialogue task)
     npc_personality: Optional[str] = None  # Brief personality descriptor
+    # Director nudge metadata (Phase 2 — from NudgeDirective)
+    nudge_type: Optional[str] = None      # SPOTLIGHT_NUDGE / CALLBACK_NUDGE / etc. (None = no nudge)
+    nudge_target_handle: Optional[str] = None  # target handle for nudge
+    nudge_reason_code: Optional[str] = None    # deterministic reason tag
+    # Director permission prompt flag (Phase 2 — from BeatIntent)
+    permission_prompt: bool = False       # whether Spark should include a permission prompt
 
 
 @dataclass(frozen=True)
@@ -140,6 +146,8 @@ class StyleChannel:
     humor: str = "none"           # none / dry / wry / comedic
     grittiness: str = "moderate"  # clean / moderate / gritty
     dm_persona: str = "authoritative"  # authoritative / friendly / menacing
+    # Director pacing hint (Phase 2 — from BeatIntent.pacing_mode)
+    pacing_hint: Optional[str] = None   # NORMAL / SLOW_BURN / ACCELERATE / CLIMAX (None = default)
     # NPC voice identity (for npc_dialogue tasks)
     npc_voice_id: Optional[str] = None  # Maps to TTS persona if available
 
@@ -299,6 +307,14 @@ class PromptPack:
         sections.append("Forbidden:")
         for item in self.task.forbidden_content:
             sections.append(f"- {item}")
+        if self.task.nudge_type:
+            sections.append(f"Nudge: {self.task.nudge_type}")
+            if self.task.nudge_target_handle:
+                sections.append(f"Nudge Target: {self.task.nudge_target_handle}")
+            if self.task.nudge_reason_code:
+                sections.append(f"Nudge Reason: {self.task.nudge_reason_code}")
+        if self.task.permission_prompt:
+            sections.append("Permission Prompt: yes")
         sections.append("[/TASK]")
         sections.append("")
 
@@ -309,6 +325,8 @@ class PromptPack:
         sections.append(f"Humor: {self.style.humor}")
         sections.append(f"Grittiness: {self.style.grittiness}")
         sections.append(f"Persona: {self.style.dm_persona}")
+        if self.style.pacing_hint:
+            sections.append(f"Pacing: {self.style.pacing_hint}")
         if self.style.npc_voice_id:
             sections.append(f"Voice: {self.style.npc_voice_id}")
         sections.append("[/STYLE]")
@@ -375,6 +393,10 @@ class PromptPack:
                 "forbidden_content": list(self.task.forbidden_content),
                 "npc_name": self.task.npc_name,
                 "npc_personality": self.task.npc_personality,
+                "nudge_type": self.task.nudge_type,
+                "nudge_target_handle": self.task.nudge_target_handle,
+                "nudge_reason_code": self.task.nudge_reason_code,
+                "permission_prompt": self.task.permission_prompt,
             },
             "style": {
                 "verbosity": self.style.verbosity,
@@ -382,6 +404,7 @@ class PromptPack:
                 "humor": self.style.humor,
                 "grittiness": self.style.grittiness,
                 "dm_persona": self.style.dm_persona,
+                "pacing_hint": self.style.pacing_hint,
                 "npc_voice_id": self.style.npc_voice_id,
             },
             "contract": {
