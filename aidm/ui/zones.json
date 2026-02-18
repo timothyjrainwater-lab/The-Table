@@ -1,0 +1,26 @@
+[
+  {
+    "name": "player",
+    "centerX": 0.0,
+    "centerZ": 3.0,
+    "halfWidth": 5.0,
+    "halfHeight": 0.75,
+    "color": "0x44ff88"
+  },
+  {
+    "name": "map",
+    "centerX": 0.0,
+    "centerZ": -0.5,
+    "halfWidth": 3.0,
+    "halfHeight": 2.0,
+    "color": "0x4488ff"
+  },
+  {
+    "name": "dm",
+    "centerX": 0.0,
+    "centerZ": -3.5,
+    "halfWidth": 5.0,
+    "halfHeight": 0.75,
+    "color": "0xff4444"
+  }
+]

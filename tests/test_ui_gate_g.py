@@ -1,6 +1,6 @@
 """Gate G tests — Table UI Phase 2 backend contracts.
 
-13 tests across 5 gate categories (UI-G1 through UI-G5).
+16 tests across 6 gate categories (UI-G1 through UI-G6).
 
 Categories:
     UI-G1: TableObject types (3 tests)
@@ -8,14 +8,18 @@ Categories:
     UI-G3: Registry consistency (2 tests)
     UI-G4: Hard bans — static scan (2 tests)
     UI-G5: Drift guards (3 tests)
+    UI-G6: Zone authority gates (3 tests)
 
-Authority: WO-UI-02, WO-UI-DRIFT-GUARD, DOCTRINE_04_TABLE_UI_MEMO_V4.
+Authority: WO-UI-02, WO-UI-DRIFT-GUARD, WO-UI-ZONE-AUTHORITY, DOCTRINE_04_TABLE_UI_MEMO_V4.
 """
 from __future__ import annotations
 
 import ast
 import dataclasses
+import json
+import math
 import re
+import typing
 from pathlib import Path
 
 import pytest
@@ -99,28 +103,26 @@ class TestUIG2ZoneValidation:
     def test_position_update_to_invalid_zone_rejected(self):
         """Position update to invalid zone is rejected."""
         # Zone that doesn't exist
-        error = validate_zone_position((0.0, 0.05, 0.0), "dungeon")
-        assert error is not None
-        assert "Invalid zone" in error
+        result = validate_zone_position((0.0, 0.05, 0.0), "dungeon")
+        assert result is False
 
         # Valid zone name but position outside that zone's bounds
-        error = validate_zone_position((0.0, 0.05, 3.0), "dm")
-        assert error is not None
-        assert "not within zone" in error
+        result = validate_zone_position((0.0, 0.05, 3.0), "dm")
+        assert result is False
 
     def test_position_update_to_valid_zone_accepted(self):
         """Position update to valid zone is accepted."""
         # Player zone center
-        error = validate_zone_position((0.0, 0.05, 3.0), "player")
-        assert error is None
+        result = validate_zone_position((0.0, 0.05, 3.0), "player")
+        assert result is True
 
         # Map zone center
-        error = validate_zone_position((0.0, 0.05, -0.5), "map")
-        assert error is None
+        result = validate_zone_position((0.0, 0.05, -0.5), "map")
+        assert result is True
 
         # DM zone center
-        error = validate_zone_position((0.0, 0.05, -3.5), "dm")
-        assert error is None
+        result = validate_zone_position((0.0, 0.05, -3.5), "dm")
+        assert result is True
 
         # zone_for_position confirms zone detection
         assert zone_for_position(0.0, 3.0) == "player"
@@ -329,3 +331,184 @@ class TestUIG5DriftGuards:
         assert not violations, (
             f"Teaching string violations in table_objects.py: {violations}"
         )
+
+
+# ---------------------------------------------------------------------------
+# UI-G6: Zone authority gates (3 tests)
+# ---------------------------------------------------------------------------
+
+class TestUIG6ZoneAuthority:
+    """Zone authority gates — single source of truth, return type, frustum."""
+
+    @staticmethod
+    def _project_root() -> Path:
+        return Path(__file__).resolve().parent.parent
+
+    def test_validate_zone_position_returns_bool(self):
+        """validate_zone_position return annotation is bool (not Optional[str])."""
+        hints = typing.get_type_hints(validate_zone_position)
+        assert hints["return"] is bool, (
+            f"Expected return annotation bool, got {hints['return']}"
+        )
+
+    def test_zone_parity_no_hardcoded_zone_coordinates(self):
+        """No hardcoded zone boundary coordinates outside zones.json (UI-G6).
+
+        Scans table_objects.py and zones.ts for numeric patterns that look
+        like zone coordinate tuples/arrays. The only zone data source should
+        be aidm/ui/zones.json.
+        """
+        root = self._project_root()
+        zones_json_path = root / "aidm" / "ui" / "zones.json"
+        assert zones_json_path.exists(), "zones.json must exist"
+
+        # Load zones.json as the authoritative source
+        zones = json.loads(zones_json_path.read_text(encoding="utf-8"))
+        assert len(zones) == 3, f"Expected 3 zones, got {len(zones)}"
+
+        # Scan Python: table_objects.py should NOT contain literal zone tuples
+        py_file = root / "aidm" / "ui" / "table_objects.py"
+        py_content = py_file.read_text(encoding="utf-8")
+
+        # Pattern: look for tuples like (0.0, -0.5, 3.0, 2.0) — 4-element
+        # numeric tuples that match zone bound shapes
+        zone_tuple_pattern = re.compile(
+            r'\(\s*-?\d+\.?\d*\s*,\s*-?\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*\)'
+        )
+        py_matches = zone_tuple_pattern.findall(py_content)
+        assert not py_matches, (
+            f"Hardcoded zone coordinate tuples in table_objects.py: {py_matches}"
+        )
+
+        # Scan TypeScript: zones.ts should NOT contain literal zone arrays
+        ts_file = root / "client" / "src" / "zones.ts"
+        ts_content = ts_file.read_text(encoding="utf-8")
+
+        # Pattern: look for lines with centerX/centerZ/halfWidth/halfHeight
+        # numeric literals (not from JSON import)
+        # A hardcoded zone def looks like:
+        #   { name: 'player', centerX: 0, centerZ: 3, halfWidth: 5, ...}
+        hardcoded_zone_pattern = re.compile(
+            r"centerX:\s*-?\d+\.?\d*\s*,\s*centerZ:\s*-?\d+\.?\d*\s*,"
+            r"\s*halfWidth:\s*\d+\.?\d*\s*,\s*halfHeight:\s*\d+\.?\d*"
+        )
+        ts_matches = hardcoded_zone_pattern.findall(ts_content)
+        assert not ts_matches, (
+            f"Hardcoded zone coordinates in zones.ts: {ts_matches}"
+        )
+
+    def test_camera_frustum_zones_visible_from_standard(self):
+        """All zone centers are visible from STANDARD camera posture (UI-G6).
+
+        Pure Python frustum containment check using Three.js-equivalent math.
+        Camera params from client/src/camera.ts and client/src/main.ts.
+        """
+        root = self._project_root()
+        zones_json_path = root / "aidm" / "ui" / "zones.json"
+        zones = json.loads(zones_json_path.read_text(encoding="utf-8"))
+
+        # Camera parameters (source: client/src/main.ts lines 36-41)
+        fov_deg = 60
+        aspect = 16 / 9  # common default; test uses a reasonable aspect
+        near = 0.1
+        far = 100.0
+
+        # Camera postures (source: client/src/camera.ts lines 21-34)
+        postures = {
+            "STANDARD": {
+                "position": (0.0, 5.0, 8.0),
+                "lookAt": (0.0, 0.0, 0.0),
+            },
+            "DOWN": {
+                "position": (0.0, 8.0, 3.0),
+                "lookAt": (0.0, 0.0, 1.0),
+            },
+            "LEAN_FORWARD": {
+                "position": (0.0, 4.0, 4.0),
+                "lookAt": (0.0, 0.0, -2.0),
+            },
+        }
+
+        def _normalize(v):
+            length = math.sqrt(v[0]**2 + v[1]**2 + v[2]**2)
+            if length == 0:
+                return (0, 0, 0)
+            return (v[0]/length, v[1]/length, v[2]/length)
+
+        def _cross(a, b):
+            return (
+                a[1]*b[2] - a[2]*b[1],
+                a[2]*b[0] - a[0]*b[2],
+                a[0]*b[1] - a[1]*b[0],
+            )
+
+        def _sub(a, b):
+            return (a[0]-b[0], a[1]-b[1], a[2]-b[2])
+
+        def _dot(a, b):
+            return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]
+
+        def _mat4_mul(m, v4):
+            """Multiply 4x4 matrix (row-major list of 16) by vec4."""
+            result = [0.0, 0.0, 0.0, 0.0]
+            for i in range(4):
+                result[i] = sum(m[i*4+j] * v4[j] for j in range(4))
+            return result
+
+        def _build_view_matrix(pos, look_at):
+            """Build a view (lookAt) matrix — Three.js convention."""
+            forward = _normalize(_sub(pos, look_at))
+            right = _normalize(_cross((0, 1, 0), forward))
+            up = _cross(forward, right)
+            return [
+                right[0], right[1], right[2], -_dot(right, pos),
+                up[0], up[1], up[2], -_dot(up, pos),
+                forward[0], forward[1], forward[2], -_dot(forward, pos),
+                0, 0, 0, 1,
+            ]
+
+        def _build_projection_matrix(fov_deg_, aspect_, near_, far_):
+            """Build a perspective projection matrix — Three.js convention."""
+            fov_rad = math.radians(fov_deg_)
+            top = near_ * math.tan(fov_rad / 2)
+            bottom = -top
+            right = top * aspect_
+            left = -right
+            return [
+                2*near_/(right-left), 0, (right+left)/(right-left), 0,
+                0, 2*near_/(top-bottom), (top+bottom)/(top-bottom), 0,
+                0, 0, -(far_+near_)/(far_-near_), -2*far_*near_/(far_-near_),
+                0, 0, -1, 0,
+            ]
+
+        def _is_point_in_frustum(point, view_mat, proj_mat):
+            """Check if a 3D point is within the camera frustum."""
+            # Transform to view space
+            p4 = [point[0], point[1], point[2], 1.0]
+            view_p = _mat4_mul(view_mat, p4)
+            # Transform to clip space
+            clip_p = _mat4_mul(proj_mat, view_p)
+            w = clip_p[3]
+            if w == 0:
+                return False
+            # NDC coordinates
+            ndc_x = clip_p[0] / w
+            ndc_y = clip_p[1] / w
+            ndc_z = clip_p[2] / w
+            # Check if within [-1, 1] for all axes
+            return (-1 <= ndc_x <= 1) and (-1 <= ndc_y <= 1) and (-1 <= ndc_z <= 1)
+
+        proj_mat = _build_projection_matrix(fov_deg, aspect, near, far)
+
+        # Test: every zone center is visible from at least STANDARD posture
+        standard = postures["STANDARD"]
+        view_mat = _build_view_matrix(standard["position"], standard["lookAt"])
+
+        for zone in zones:
+            # Zone center at y=0 (table surface)
+            point = (zone["centerX"], 0.0, zone["centerZ"])
+            visible = _is_point_in_frustum(point, view_mat, proj_mat)
+            assert visible, (
+                f"Zone {zone['name']!r} center {point} is NOT visible "
+                f"from STANDARD posture"
+            )

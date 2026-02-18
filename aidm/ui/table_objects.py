@@ -16,28 +16,32 @@ Authority: WO-UI-02, DOCTRINE_04_TABLE_UI_MEMO_V4 section 16, section 19.
 """
 from __future__ import annotations
 
+import json
+import logging
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Dict, FrozenSet, Optional, Tuple
 
+logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
-# Valid zones — server is authoritative
+# Zone definitions — loaded from zones.json (single source of truth)
 # ---------------------------------------------------------------------------
 
-VALID_ZONES: FrozenSet[str] = frozenset({"player", "map", "dm"})
+_ZONES_JSON_PATH = Path(__file__).parent / "zones.json"
 
+def _load_zone_bounds() -> Dict[str, Tuple[float, float, float, float]]:
+    """Load zone boundary data from zones.json."""
+    with open(_ZONES_JSON_PATH, encoding="utf-8") as f:
+        zones = json.load(f)
+    return {
+        z["name"]: (z["centerX"], z["centerZ"], z["halfWidth"], z["halfHeight"])
+        for z in zones
+    }
 
-# ---------------------------------------------------------------------------
-# Zone boundary definitions (server-side mirror of frontend scene zones)
-# ---------------------------------------------------------------------------
+_ZONE_BOUNDS: Dict[str, Tuple[float, float, float, float]] = _load_zone_bounds()
 
-# Each zone: (center_x, center_z, half_width, half_height)
-# These match the addZone() calls in client/src/main.ts exactly.
-_ZONE_BOUNDS: Dict[str, Tuple[float, float, float, float]] = {
-    "map": (0.0, -0.5, 3.0, 2.0),       # center (0, -0.5), 6x4
-    "player": (0.0, 3.0, 5.0, 0.75),     # center (0, 3), 10x1.5
-    "dm": (0.0, -3.5, 5.0, 0.75),        # center (0, -3.5), 10x1.5
-}
+VALID_ZONES: FrozenSet[str] = frozenset(_ZONE_BOUNDS.keys())
 
 
 def zone_for_position(x: float, z: float) -> Optional[str]:
@@ -56,22 +60,24 @@ def zone_for_position(x: float, z: float) -> Optional[str]:
 def validate_zone_position(
     new_position: Tuple[float, float, float],
     new_zone: str,
-) -> Optional[str]:
+) -> bool:
     """Validate that new_position is within new_zone.
 
-    Returns None on success, or an error message string on failure.
+    Returns True if valid, False if not.
     """
     if new_zone not in VALID_ZONES:
-        return f"Invalid zone: {new_zone!r}. Valid zones: {sorted(VALID_ZONES)}"
+        logger.debug("Invalid zone: %r. Valid zones: %s", new_zone, sorted(VALID_ZONES))
+        return False
 
     x, _y, z = new_position
     actual_zone = zone_for_position(x, z)
     if actual_zone != new_zone:
-        return (
-            f"Position ({x}, {z}) is not within zone {new_zone!r}"
-            f" (detected zone: {actual_zone!r})"
+        logger.debug(
+            "Position (%s, %s) is not within zone %r (detected zone: %r)",
+            x, z, new_zone, actual_zone,
         )
-    return None
+        return False
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -193,8 +199,8 @@ class TableObjectRegistry:
         if old is None:
             return None
 
-        error = validate_zone_position(update.new_position, update.new_zone)
-        if error is not None:
+        valid = validate_zone_position(update.new_position, update.new_zone)
+        if not valid:
             return None
 
         new_state = TableObjectState(
