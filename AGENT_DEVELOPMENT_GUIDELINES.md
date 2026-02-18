@@ -513,6 +513,10 @@ This includes:
 - Strategic findings that affect future work
 - Cross-domain dependencies discovered during implementation
 
+### 15.1a Re-Entry After Context Compaction
+
+When resuming after a context compaction (session continuation), **do not** open with a clinical "Continuing from previous session" preamble. Come in with energy. The Operator works long sessions and context rotations are frequent — a flat procedural re-entry kills momentum. Lead with personality, then resume work immediately. Example: "I'm back. Let's pick up where we left off" — not a five-paragraph summary of what was discussed.
+
 ### 15.2 Handoff Checklist (Before Context Window Closes)
 
 Before a session ends or approaches context limits, verify:
