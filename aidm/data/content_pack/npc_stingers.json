@@ -1,0 +1,254 @@
+[
+  {
+    "stinger_id": "tavern_keeper_001",
+    "archetype": "tavern_keeper",
+    "delivery_contexts": ["first_meeting", "tavern_downtime"],
+    "fragments": [
+      "Forty years pouring",
+      "Served kings nightly",
+      "Survived three plagues",
+      "Rats still own the cellar"
+    ],
+    "tags": {"pace": "brisk", "pause_ms_before_punchline": 400, "emphasis_target": "rats", "mood_hint": "dry"}
+  },
+  {
+    "stinger_id": "tavern_keeper_002",
+    "archetype": "tavern_keeper",
+    "delivery_contexts": ["post_combat_lull", "tavern_downtime"],
+    "fragments": [
+      "Brewed for warlords",
+      "Pickled eggs nightly",
+      "Invented house special",
+      "Nobody has ordered it twice"
+    ],
+    "tags": {"pace": "measured", "pause_ms_before_punchline": 400, "emphasis_target": "twice", "mood_hint": "wry"}
+  },
+  {
+    "stinger_id": "tavern_keeper_003",
+    "archetype": "tavern_keeper",
+    "delivery_contexts": ["first_meeting", "quest_refusal", "callback"],
+    "fragments": [
+      "Every glass polished",
+      "Every story heard",
+      "Six hundred recipes",
+      "Secret ingredient is ignoring customers"
+    ],
+    "tags": {"pace": "deadpan", "pause_ms_before_punchline": 400, "emphasis_target": "ignoring", "mood_hint": "sardonic"}
+  },
+  {
+    "stinger_id": "town_guard_001",
+    "archetype": "town_guard",
+    "delivery_contexts": ["first_meeting", "post_combat_lull"],
+    "fragments": [
+      "Twelve years patrolling",
+      "Caught the Strangler",
+      "Promoted for valor",
+      "Still working the night shift"
+    ],
+    "tags": {"pace": "flat", "pause_ms_before_punchline": 400, "emphasis_target": "night shift", "mood_hint": "resigned"}
+  },
+  {
+    "stinger_id": "town_guard_002",
+    "archetype": "town_guard",
+    "delivery_contexts": ["tavern_downtime", "callback"],
+    "fragments": [
+      "Trained under Holt",
+      "Never lost prisoners",
+      "Three commendations framed",
+      "They escaped entirely on their own"
+    ],
+    "tags": {"pace": "earnest", "pause_ms_before_punchline": 300, "emphasis_target": "own", "mood_hint": "oblivious"}
+  },
+  {
+    "stinger_id": "town_guard_003",
+    "archetype": "town_guard",
+    "delivery_contexts": ["first_meeting", "quest_refusal"],
+    "fragments": [
+      "Guarded this gate",
+      "Memorized wanted posters",
+      "Know smuggler routes",
+      "Nobody asks me for directions though"
+    ],
+    "tags": {"pace": "wistful", "pause_ms_before_punchline": 400, "emphasis_target": "directions", "mood_hint": "lonely"}
+  },
+  {
+    "stinger_id": "merchant_001",
+    "archetype": "merchant",
+    "delivery_contexts": ["first_meeting", "tavern_downtime"],
+    "fragments": [
+      "Sold silks abroad",
+      "Cornered spice trade",
+      "Three warehouses owned",
+      "Mother still wants me priesthood-bound"
+    ],
+    "tags": {"pace": "brisk", "pause_ms_before_punchline": 400, "emphasis_target": "priesthood", "mood_hint": "exasperated"}
+  },
+  {
+    "stinger_id": "merchant_002",
+    "archetype": "merchant",
+    "delivery_contexts": ["post_combat_lull", "quest_refusal"],
+    "fragments": [
+      "Nine kingdoms traded",
+      "Two ambushes survived",
+      "Fluent Dwarvish haggling",
+      "Got swindled by a child yesterday"
+    ],
+    "tags": {"pace": "rueful", "pause_ms_before_punchline": 400, "emphasis_target": "child", "mood_hint": "sheepish"}
+  },
+  {
+    "stinger_id": "merchant_003",
+    "archetype": "merchant",
+    "delivery_contexts": ["first_meeting", "callback"],
+    "fragments": [
+      "Finest goods stocked",
+      "Fair prices always",
+      "Satisfaction fully guaranteed",
+      "Return policy is in dead Elvish"
+    ],
+    "tags": {"pace": "smooth", "pause_ms_before_punchline": 300, "emphasis_target": "dead Elvish", "mood_hint": "slick"}
+  },
+  {
+    "stinger_id": "quest_giver_001",
+    "archetype": "quest_giver",
+    "delivery_contexts": ["first_meeting", "tavern_downtime"],
+    "fragments": [
+      "Forty expeditions funded",
+      "Mapped sunken crypts",
+      "Built the bridge",
+      "Not one hero came back thankful"
+    ],
+    "tags": {"pace": "measured", "pause_ms_before_punchline": 400, "emphasis_target": "thankful", "mood_hint": "bitter"}
+  },
+  {
+    "stinger_id": "quest_giver_002",
+    "archetype": "quest_giver",
+    "delivery_contexts": ["post_combat_lull", "quest_refusal"],
+    "fragments": [
+      "Bounties posted yearly",
+      "Cleared goblin warrens",
+      "Rescued mayor twice",
+      "Reward was a handshake both times"
+    ],
+    "tags": {"pace": "flat", "pause_ms_before_punchline": 300, "emphasis_target": "handshake", "mood_hint": "deadpan"}
+  },
+  {
+    "stinger_id": "quest_giver_003",
+    "archetype": "quest_giver",
+    "delivery_contexts": ["first_meeting", "callback"],
+    "fragments": [
+      "Urgent heroic matter",
+      "Generous pay awaits",
+      "Minimal danger expected",
+      "Exactly what the last group heard"
+    ],
+    "tags": {"pace": "cheerful", "pause_ms_before_punchline": 400, "emphasis_target": "last group", "mood_hint": "ominous"}
+  },
+  {
+    "stinger_id": "petty_villain_001",
+    "archetype": "petty_villain",
+    "delivery_contexts": ["first_meeting", "post_combat_lull"],
+    "fragments": [
+      "Terrorized three villages",
+      "Robbed tax collectors",
+      "Escaped prison quarterly",
+      "Caught every time for monologuing"
+    ],
+    "tags": {"pace": "boastful", "pause_ms_before_punchline": 400, "emphasis_target": "monologuing", "mood_hint": "oblivious"}
+  },
+  {
+    "stinger_id": "petty_villain_002",
+    "archetype": "petty_villain",
+    "delivery_contexts": ["tavern_downtime", "quest_refusal"],
+    "fragments": [
+      "Six heists masterminded",
+      "Feared across county",
+      "Nemesis to law",
+      "County has a population of twelve"
+    ],
+    "tags": {"pace": "grandiose", "pause_ms_before_punchline": 300, "emphasis_target": "twelve", "mood_hint": "deflating"}
+  },
+  {
+    "stinger_id": "petty_villain_003",
+    "archetype": "petty_villain",
+    "delivery_contexts": ["first_meeting", "callback"],
+    "fragments": [
+      "Forged noble documents",
+      "Blackmailed two magistrates",
+      "Poisoned ducal wine",
+      "Currently wanted for overdue library books"
+    ],
+    "tags": {"pace": "indignant", "pause_ms_before_punchline": 300, "emphasis_target": "library books", "mood_hint": "anticlimactic"}
+  },
+  {
+    "stinger_id": "old_sage_001",
+    "archetype": "old_sage",
+    "delivery_contexts": ["first_meeting", "tavern_downtime"],
+    "fragments": [
+      "Lifelong arcane scholar",
+      "Deciphered Ivory Codex",
+      "Tutored royal wizards",
+      "Still cannot light the fireplace reliably"
+    ],
+    "tags": {"pace": "slow", "pause_ms_before_punchline": 400, "emphasis_target": "fireplace", "mood_hint": "befuddled"}
+  },
+  {
+    "stinger_id": "old_sage_002",
+    "archetype": "old_sage",
+    "delivery_contexts": ["post_combat_lull", "quest_refusal"],
+    "fragments": [
+      "Every tome read",
+      "Predicted Great Eclipse",
+      "Invented new divination",
+      "Mostly just locates my missing spectacles"
+    ],
+    "tags": {"pace": "gentle", "pause_ms_before_punchline": 400, "emphasis_target": "spectacles", "mood_hint": "self-deprecating"}
+  },
+  {
+    "stinger_id": "old_sage_003",
+    "archetype": "old_sage",
+    "delivery_contexts": ["first_meeting", "callback"],
+    "fragments": [
+      "Nine hundred scrolls",
+      "Kings seek counsel",
+      "Unlocked fifth element",
+      "Apprentice still spells my name wrong"
+    ],
+    "tags": {"pace": "weary", "pause_ms_before_punchline": 400, "emphasis_target": "wrong", "mood_hint": "exasperated"}
+  },
+  {
+    "stinger_id": "bard_001",
+    "archetype": "bard",
+    "delivery_contexts": ["first_meeting", "tavern_downtime"],
+    "fragments": [
+      "Seven royal courts",
+      "Standing ovation Waterdeep",
+      "Composed Ballad Eternal",
+      "Got pelted with produce every encore"
+    ],
+    "tags": {"pace": "theatrical", "pause_ms_before_punchline": 400, "emphasis_target": "produce", "mood_hint": "breezy"}
+  },
+  {
+    "stinger_id": "bard_002",
+    "archetype": "bard",
+    "delivery_contexts": ["post_combat_lull", "quest_refusal"],
+    "fragments": [
+      "Fourteen instruments mastered",
+      "Sang for elves",
+      "Won Silverstring Festival",
+      "Lute is held hostage over tabs"
+    ],
+    "tags": {"pace": "dramatic", "pause_ms_before_punchline": 400, "emphasis_target": "hostage", "mood_hint": "nonchalant"}
+  },
+  {
+    "stinger_id": "bard_003",
+    "archetype": "bard",
+    "delivery_contexts": ["first_meeting", "callback"],
+    "fragments": [
+      "Voice moves mountains",
+      "Tales of legends",
+      "Charm melts hearts",
+      "Still cannot talk past the landlord"
+    ],
+    "tags": {"pace": "wry", "pause_ms_before_punchline": 400, "emphasis_target": "landlord", "mood_hint": "self-aware"}
+  }
+]
