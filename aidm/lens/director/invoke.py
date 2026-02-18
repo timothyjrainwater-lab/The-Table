@@ -60,6 +60,7 @@ def invoke_director(
     active_thread_handles: Tuple[str, ...] = (),
     dormant_thread_handles: Tuple[str, ...] = (),
     active_clock_handles: Tuple[str, ...] = (),
+    style_capsule=None,
 ) -> DirectorInvocationResult:
     """Orchestrate Director into the Lens→PromptPack pipeline.
 
@@ -84,6 +85,7 @@ def invoke_director(
         active_thread_handles=active_thread_handles,
         dormant_thread_handles=dormant_thread_handles,
         active_clock_handles=active_clock_handles,
+        style_capsule=style_capsule,
     )
 
     # Step 2: Run deterministic beat selection with audit trail.

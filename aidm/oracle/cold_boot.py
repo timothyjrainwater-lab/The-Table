@@ -16,6 +16,7 @@ from aidm.core.event_log import Event, EventLog
 from aidm.oracle.facts_ledger import Fact, FactsLedger, make_fact
 from aidm.oracle.unlock_state import UnlockEntry, UnlockState
 from aidm.oracle.story_state import StoryState, StoryStateLog
+from aidm.oracle.table_mood import MoodObservation, TableMoodStore
 from aidm.oracle.working_set import (
     CompilationPolicy,
     ScopeCursor,
@@ -189,6 +190,7 @@ def _reduce_oracle_event(
     unlock_state: UnlockState,
     story_state_log: StoryStateLog | None,
     event: Event,
+    table_mood_store: TableMoodStore | None = None,
 ) -> StoryStateLog | None:
     """Map a single event to Oracle store mutations.
 
@@ -199,6 +201,7 @@ def _reduce_oracle_event(
         - oracle_story_init: initialize StoryStateLog
         - scene_start, scene_end, mode_changed, world_id_set:
           apply to StoryStateLog
+        - mood_observation: append to TableMoodStore (if provided)
 
     Unknown event types are silently ignored.
     """
@@ -240,6 +243,20 @@ def _reduce_oracle_event(
     elif event_type in ("scene_start", "scene_end", "mode_changed", "world_id_set"):
         if story_state_log is not None:
             story_state_log.apply(event_type, payload)
+
+    elif event_type == "mood_observation":
+        if table_mood_store is not None:
+            obs = MoodObservation(
+                observation_id=payload["observation_id"],
+                source=payload["source"],
+                scope=payload["scope"],
+                tags=tuple(payload["tags"]),
+                scene_id=payload["scene_id"],
+                provenance_event_id=payload["provenance_event_id"],
+                confidence=payload.get("confidence"),
+                evidence=payload.get("evidence"),
+            )
+            table_mood_store.append(obs)
 
     return story_state_log
 

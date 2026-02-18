@@ -1,16 +1,19 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (WO-UI-04 DISPATCH-READY. Protocol formalization + roll_result freeze. Clearing S0 integration debt from WO-UI-03.)
+**Last updated:** 2026-02-18 (WO-DIRECTOR-03 DELIVERED. TableMood + StyleCapsule + scene lifecycle. 149/149 gate tests. Roster formalized: Slate=PM, Anvil=BS Buddy, Aegis=GPT. Comedy stingers Phase 1 approved, next on build order.)
 
 ---
 
 ## Inbox
 
 - **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — Full TTS pipeline reference. How voice output works now, what changed, what not to break. Acknowledged. Remains in root as reference while voice work is adjacent to active targets.
+- **[PARKED] [MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md](pm_inbox/MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md)** — Staccato credential-stack comedy pattern for NPC dialogue. Phase 1 WO approved (content subsystem only). Queued after Director Phase 3.
+- **[PARKED] [MEMO_COMEDY_STINGER_REPO_MAPPING.md](pm_inbox/MEMO_COMEDY_STINGER_REPO_MAPPING.md)** — Implementation spec + repo mapping for comedy stinger subsystem. Paired with loadout memo above. Phase 1 WO approved.
+- **[ACCEPTED] MEMO_NAME_DISPUTE_ANVIL.md** — Roster callsigns formalized. Archived to `reviewed/`.
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,669 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 19/19 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake). No-backflow: PASS. Integration board clear.**
+5,893 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). No-backflow: PASS. Integration board clear.**
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
@@ -58,7 +61,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-UI-04 | | |
+| WO-DIRECTOR-03 | **DELIVERED** — 149/149 gate tests (133 existing + 16 new Gate H). 0 regressions (5,893 suite). 7/7 contract changes delivered (Change 5 scene lifecycle already existed). TableMood store in `aidm/oracle/table_mood.py`, StyleCapsule in `aidm/lens/style_capsule.py`, DirectorPromptPack extended with optional style_capsule, pacing modulation via `_resolve_pacing_mode()`, cold_boot reducer extended for mood_observation events. Field Manual #34 added. | `7a1d5cb` |
+| WO-UI-04 | **ACCEPTED** — 133/133 gate tests (130 existing + 3 new UI-G8). 0 regressions (5,877 suite). 6/6 contract changes delivered. `RollResult` frozen dataclass in new `ws_protocol.py`, `MESSAGE_REGISTRY` + `parse_message()` dispatcher, wildcard handler migrated to typed, UI-G8 gates (protocol registry, roll roundtrip, wildcard removal). Builder Radar fully compliant (first since rejection gate codified). Field Manual #33 added. | `db66426` |
 | WO-UI-03 | **ACCEPTED** — 130/130 gate tests (127 existing + 3 new UI-G7). 0 regressions (5,669 suite). 6/6 contract changes delivered. DiceObject d20, dice tray/tower zones, PENDING_ROLL→CONFIRMED handshake, deterministic result-reveal, fidget idle animation. Invented `roll_result` message type (not yet formalized in ws_protocol.py — Field Manual #32). Builder Radar present but format non-compliant (substantive content, wrong labels — enforcement tightened for next WO). Field Manual #32 added. | `f149d2d` |
 | WO-UI-ZONE-AUTHORITY | **ACCEPTED** — 127/127 gate tests (124 existing + 3 new UI-G6). 0 regressions (5,871 suite). 6/6 contract changes delivered. zones.json single source of truth, Python loader, TS import, validate_zone_position → bool, zone parity gate, camera frustum gate. Two defensible divergences: color field added to schema, tsconfig rootDir removed for cross-root import. Builder Radar incomplete (first WO under new format — tolerated). Field Manual #29 updated, #31 added. | `40fa32a` |
 | WO-UI-DRIFT-GUARD | **ACCEPTED** — 3/3 UI-G5 drift guard tests, Gate G 13/13 PASS, 0 regressions (124/124 total). No production code changes. No canonical path, no backflow imports, no teaching strings — all confirmed. Field Manual #30 added. `validate_zone_position` returns `Optional[str]` internally (noted, not user-facing). | `04058c3` |
@@ -84,14 +88,16 @@
 
 ## Requires Operator Action (NOW)
 
-1. **[DISPATCH-READY] [WO-UI-04_DISPATCH.md](pm_inbox/WO-UI-04_DISPATCH.md)** — WebSocket protocol formalization + `roll_result` freeze + integration tests.
-   Narrowly scoped to protocol hardening. NOT new UI objects. Clears S0 debt from WO-UI-03's invented `roll_result` message type. 6 contract changes, 4 hard stops, 3 guardrails.
+1. **[DELIVERED] [WO-DIRECTOR-03_DISPATCH.md](pm_inbox/WO-DIRECTOR-03_DISPATCH.md)** — Director Phase 3: TableMood + StyleCapsule + scene lifecycle. 7/7 contract changes delivered, 16 Gate H tests PASS, 0 regressions. Awaiting PM acceptance.
 
-**Planned sequence after WO-UI-04:**
-UI Phase 4 (protocol) → Director Phase 3 → Spark LLM selection → BURST-001
+**After WO-DIRECTOR-03 acceptance:** Comedy Stingers Phase 1 WO (quarantined content subsystem) → Spark LLM selection → BURST-001.
+
+**Planned sequence:** ~~Director Phase 3~~ → **Comedy Stingers Phase 1** → Spark LLM Selection → BURST-001
 
 ### Previous Dispatches (All Accepted)
 
+- ~~WO-DIRECTOR-03~~ — DELIVERED (`7a1d5cb`). 149/149 gate tests. TableMood store, StyleCapsule, Director pacing modulation, cold_boot mood reducer, Gate H. Field Manual #34 added. Builder Radar fully compliant.
+- ~~WO-UI-04~~ — ACCEPTED (`db66426`). 133/133 gate tests. `RollResult` frozen dataclass, message registry, typed handler migration, UI-G8 gates. Field Manual #33 added. Builder Radar fully compliant.
 - ~~WO-UI-03~~ — ACCEPTED (`f149d2d`). 130/130 gate tests. Dice tray/tower, PENDING_ROLL handshake, UI-G7 gates. Field Manual #32 added.
 - ~~WO-UI-ZONE-AUTHORITY~~ — ACCEPTED (`40fa32a`). 127/127 gate tests. zones.json single source of truth, 3 UI-G6 gates. Field Manual #29 updated, #31 added.
 - ~~WO-UI-DRIFT-GUARD~~ — ACCEPTED (`04058c3`). 3/3 UI-G5 drift guards. Gate G 13/13. Field Manual #30 added.
@@ -106,7 +112,7 @@ UI Phase 4 (protocol) → Director Phase 3 → Spark LLM selection → BURST-001
 - ~~WO-ORACLE-SURVEY~~ — ACCEPTED (`7b4268f`).
 - ~~WO-SMOKE-TEST-003~~ — ACCEPTED (`4b3168f`).
 
-## Oracle Implementation Direction (Aegis Memo, 2026-02-18)
+## Oracle Implementation Direction (Aegis/GPT Memo, 2026-02-18)
 
 **THIN SPINE FIRST, then add organs one at a time.**
 
@@ -124,7 +130,7 @@ UI Phase 4 (protocol) → Director Phase 3 → Spark LLM selection → BURST-001
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ **DIRECTOR COMPLETE** → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ **UI PHASE 3 COMPLETE** → **UI Phase 4 (Protocol Formalization)** ← DISPATCH-READY → Director Phase 3 → Spark LLM Selection → BURST-001
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 DELIVERED** → **Comedy Stingers Phase 1** → Spark LLM Selection → BURST-001
 
 **Doctrine files** (in `pm_inbox/doctrine/`):
 - [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
@@ -138,7 +144,7 @@ UI Phase 4 (protocol) → Director Phase 3 → Spark LLM selection → BURST-001
 
 ## PM Action Queue — Doctrine Memo Formalization
 
-**Source:** [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/reviewed/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 formalized decisions from Aegis/Anvil (archived).
+**Source:** [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/reviewed/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 formalized decisions from Aegis (GPT)/Anvil (archived).
 
 **Sequencing rule:** None of these block WO-ORACLE-01 (Phase 1). Lens memo must exist before WO-ORACLE-02 (Phase 2). Session lifecycle must exist before WO-ORACLE-03 (Phase 3). The rest follow the build order.
 
@@ -190,22 +196,27 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - **WO-UI-DRIFT-GUARD** — 3 UI-G5 drift guard tests, Gate G now 13/13 PASS, total 124 gate tests
 - **WO-UI-ZONE-AUTHORITY** — zones.json single source of truth, validate_zone_position → bool, 3 UI-G6 gates, Gate G now 16/16 PASS, total 127 gate tests
 - **WO-UI-03** — Dice tray + dice tower + PENDING_ROLL handshake, 3 UI-G7 gates, Gate G now 19/19 PASS, total 130 gate tests
+- **WO-UI-04** — WebSocket protocol formalization + roll_result freeze, 3 UI-G8 gates, Gate G now 22/22 PASS, total 133 gate tests
+- **WO-DIRECTOR-03** — Director Phase 3: TableMood + StyleCapsule + pacing modulation + cold_boot mood reducer, 16 Gate H tests, total 149 gate tests
 
 ## Active Operational Files
 
-**Root** (7 files — cap: 10):
+**Root** (9 files — cap: 10):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
 - [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — H2 blocker, parked
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference (BS Buddy, acknowledged)
-- [WO-UI-04_DISPATCH.md](pm_inbox/WO-UI-04_DISPATCH.md) — DISPATCH-READY: protocol formalization + roll_result freeze
+- [WO-DIRECTOR-03_DISPATCH.md](pm_inbox/WO-DIRECTOR-03_DISPATCH.md) — **DELIVERED** — TableMood + StyleCapsule + scene lifecycle
+- [DEBRIEF_WO-DIRECTOR-03.md](pm_inbox/DEBRIEF_WO-DIRECTOR-03.md) — Debrief (awaiting PM acceptance)
+- [MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md](pm_inbox/MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md) — Comedy loadout pattern (PARKED, Phase 1 approved)
+- [MEMO_COMEDY_STINGER_REPO_MAPPING.md](pm_inbox/MEMO_COMEDY_STINGER_REPO_MAPPING.md) — Comedy stinger implementation spec (PARKED, paired with above)
 
 **Doctrine** (8 files in `pm_inbox/doctrine/` — permanent reference):
 - DOCTRINE_01 through DOCTRINE_08 (see Doctrine files section above)
 
-**Archived this cycle:** WO-UI-01 + WO-UI-02 + WO-UI-DRIFT-GUARD + WO-UI-ZONE-AUTHORITY + WO-UI-03 dispatch + debrief → `pm_inbox/reviewed/archive_ui/`. WO-DIRECTOR-01 + WO-DIRECTOR-02 → `pm_inbox/reviewed/archive_director/`. Previous Oracle/smoke/fuzzer artifacts in `pm_inbox/reviewed/archive_smoke_oracle/`. Dispositioned memos (MEMO_EMOTION_CLIP_ROUTER, DEBRIEF_VOICE_PIPELINE_UPGRADE) in `pm_inbox/reviewed/`. Legacy subdirectories (aegis_rehydration, gpt_rehydration, research) in `pm_inbox/reviewed/legacy_pm_inbox/`.
+**Archived this cycle:** WO-UI-01 + WO-UI-02 + WO-UI-DRIFT-GUARD + WO-UI-ZONE-AUTHORITY + WO-UI-03 + WO-UI-04 dispatch + debrief → `pm_inbox/reviewed/archive_ui/`. WO-DIRECTOR-01 + WO-DIRECTOR-02 → `pm_inbox/reviewed/archive_director/`. Previous Oracle/smoke/fuzzer artifacts in `pm_inbox/reviewed/archive_smoke_oracle/`. MEMO_NAME_DISPUTE_ANVIL → `pm_inbox/reviewed/`. Dispositioned memos (MEMO_EMOTION_CLIP_ROUTER, DEBRIEF_VOICE_PIPELINE_UPGRADE) in `pm_inbox/reviewed/`. Legacy subdirectories (aegis_rehydration, gpt_rehydration, research) in `pm_inbox/reviewed/legacy_pm_inbox/`.
 
 ## Persistent Files
 

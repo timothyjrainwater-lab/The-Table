@@ -10,9 +10,12 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import Any, Dict, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Dict, Optional, Tuple
 
 from aidm.oracle.canonical import canonical_json, canonical_short_hash
+
+if TYPE_CHECKING:
+    from aidm.lens.style_capsule import StyleCapsule
 
 
 # Valid beat types (Director Spec v0 §2.3).
@@ -129,9 +132,10 @@ class DirectorPromptPack:
     beats_since_player_action: int
     canonical_bytes: bytes
     bytes_hash: str
+    style_capsule: Optional["StyleCapsule"] = None
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        result = {
             "scene_id": self.scene_id,
             "campaign_id": self.campaign_id,
             "mode": self.mode,
@@ -146,6 +150,9 @@ class DirectorPromptPack:
             "beats_since_player_action": self.beats_since_player_action,
             "bytes_hash": self.bytes_hash,
         }
+        if self.style_capsule is not None:
+            result["style_capsule"] = self.style_capsule.to_dict()
+        return result
 
 
 @dataclass
@@ -304,6 +311,7 @@ def compile_director_promptpack(
     active_thread_handles: Tuple[str, ...] = (),
     dormant_thread_handles: Tuple[str, ...] = (),
     active_clock_handles: Tuple[str, ...] = (),
+    style_capsule: Optional["StyleCapsule"] = None,
 ) -> DirectorPromptPack:
     """Compile DirectorPromptPack from WorkingSet + beat history.
 
@@ -329,6 +337,10 @@ def compile_director_promptpack(
         "beats_since_player_action": beat_history.beats_since_player_action,
     }
 
+    # Include style_capsule in pre_hash for deterministic bytes when present.
+    if style_capsule is not None:
+        pre_hash["style_capsule"] = style_capsule.to_dict()
+
     canonical_bytes = canonical_json(pre_hash)
     bytes_hash = hashlib.sha256(canonical_bytes).hexdigest()
 
@@ -347,4 +359,5 @@ def compile_director_promptpack(
         beats_since_player_action=beat_history.beats_since_player_action,
         canonical_bytes=canonical_bytes,
         bytes_hash=bytes_hash,
+        style_capsule=style_capsule,
     )

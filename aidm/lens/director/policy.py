@@ -57,6 +57,25 @@ class SelectBeatResult:
     suppressions: Tuple[Suppression, ...] = ()
 
 
+def _resolve_pacing_mode(dpp: DirectorPromptPack) -> str:
+    """Resolve BeatIntent pacing_mode from StyleCapsule modulation.
+
+    StyleCapsule pacing_mode mapping:
+        "push"    → "ACCELERATE"
+        "breathe" → "SLOW_BURN"
+        "normal"  → "NORMAL"
+        None      → "NORMAL" (backward-compatible default)
+    """
+    if dpp.style_capsule is None:
+        return "NORMAL"
+    capsule_mode = dpp.style_capsule.pacing_mode
+    if capsule_mode == "push":
+        return "ACCELERATE"
+    if capsule_mode == "breathe":
+        return "SLOW_BURN"
+    return "NORMAL"
+
+
 def select_beat(
     dpp: DirectorPromptPack,
     beat_history: BeatHistory,
@@ -88,6 +107,13 @@ def select_beat(
 
     # Determine if permission prompt should attach.
     needs_permission = _needs_permission(beat_history, pins, scene_id)
+
+    # StyleCapsule modulation: recap_needed forces permission prompt.
+    if dpp.style_capsule is not None and dpp.style_capsule.recap_needed:
+        needs_permission = True
+
+    # Resolve pacing mode from StyleCapsule (modulation, not override).
+    pacing_mode = _resolve_pacing_mode(dpp)
 
     # P1: PENDING_OBLIGATION
     if dpp.pending_state:
@@ -129,7 +155,7 @@ def select_beat(
                 beat_sequence=beat_seq,
                 beat_type="ENVIRONMENTAL",
                 target_handles=(target,) if target else (),
-                pacing_mode="NORMAL",
+                pacing_mode=pacing_mode,
                 permission_prompt=needs_permission,
             ),
             make_nudge_directive(
@@ -153,14 +179,14 @@ def select_beat(
     # Phase 1: no dormant thread re-entry model.
     # Deferred — always falls through.
 
-    # P7: DEFAULT — ENVIRONMENTAL, NORMAL pacing, no nudge.
+    # P7: DEFAULT — ENVIRONMENTAL, resolved pacing, no nudge.
     return (
         make_beat_intent(
             scene_id=scene_id,
             beat_sequence=beat_seq,
             beat_type="ENVIRONMENTAL",
             target_handles=(),
-            pacing_mode="NORMAL",
+            pacing_mode=pacing_mode,
             permission_prompt=needs_permission,
         ),
         make_nudge_directive(
@@ -263,6 +289,13 @@ def select_beat_with_audit(
     )
     needs_permission = _needs_permission(beat_history, pins, scene_id)
 
+    # StyleCapsule modulation: recap_needed forces permission prompt.
+    if dpp.style_capsule is not None and dpp.style_capsule.recap_needed:
+        needs_permission = True
+
+    # Resolve pacing mode from StyleCapsule (modulation, not override).
+    pacing_mode = _resolve_pacing_mode(dpp)
+
     # P1: PENDING_OBLIGATION
     if dpp.pending_state:
         return SelectBeatResult(
@@ -294,7 +327,7 @@ def select_beat_with_audit(
                 beat_sequence=beat_seq,
                 beat_type="ENVIRONMENTAL",
                 target_handles=(target,) if target else (),
-                pacing_mode="NORMAL",
+                pacing_mode=pacing_mode,
                 permission_prompt=needs_permission,
             ),
             nudge=make_nudge_directive(
@@ -316,7 +349,7 @@ def select_beat_with_audit(
             beat_sequence=beat_seq,
             beat_type="ENVIRONMENTAL",
             target_handles=(),
-            pacing_mode="NORMAL",
+            pacing_mode=pacing_mode,
             permission_prompt=needs_permission,
         ),
         nudge=make_nudge_directive(
