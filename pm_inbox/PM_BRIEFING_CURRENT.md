@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-19 (WO-DIRECTOR-03 ACCEPTED at `9705298`. 149/149 gate tests, 5,893 suite. Director Phase 3 complete. Preflight canary system live. No active WO. Next: Comedy Stingers Phase 1.)
+**Last updated:** 2026-02-19 (WO-COMEDY-STINGERS-P1 dispatched. 149/149 gate tests, 5,893 suite. Kernel trimmed at `b5d2aa3`.)
 
 ---
 
@@ -12,6 +12,7 @@
 - **[READ] [MEMO_TTS_MONOLOGUE_WALKTHROUGH.md](pm_inbox/MEMO_TTS_MONOLOGUE_WALKTHROUGH.md)** — TTS monologue 10-step walkthrough. Persona resolution, tier selection, sentence chunking, GPU synthesis.
 - **[PARKED] [MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md](pm_inbox/MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md)** — Staccato credential-stack comedy pattern for NPC dialogue. Phase 1 WO approved (content subsystem only). Queued after Director Phase 3.
 - **[PARKED] [MEMO_COMEDY_STINGER_REPO_MAPPING.md](pm_inbox/MEMO_COMEDY_STINGER_REPO_MAPPING.md)** — Implementation spec + repo mapping for comedy stinger subsystem. Paired with loadout memo above. Phase 1 WO approved.
+- **[READ] [MEMO_TTS_GHOST_FOG_RESEARCH.md](pm_inbox/MEMO_TTS_GHOST_FOG_RESEARCH.md)** — Ghost fog voice research: ref_b = spectral register, ref_a = exotic NPC, composite = ogre warrior. Exaggeration sweet spot 0.15–0.4. 13 A/B tests with timing data. Three monster voice registers discovered. Acknowledged. Reference for future monster voice work.
 - **[ACCEPTED] MEMO_NAME_DISPUTE_ANVIL.md** — Roster callsigns formalized. Archived to `reviewed/`.
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
@@ -91,11 +92,13 @@
 
 ## Requires Operator Action (NOW)
 
-No active WO. All dispatched work accepted.
+**WO-COMEDY-STINGERS-P1 — DISPATCHED.** Standalone comedy stinger content subsystem (schema + bank + validator + selector + tests). No pipeline wiring. Dispatch doc: [WO-COMEDY-STINGERS-P1_DISPATCH.md](pm_inbox/WO-COMEDY-STINGERS-P1_DISPATCH.md).
 
-**Next dispatch:** Comedy Stingers Phase 1 WO — PM to draft when Thunder gives the go-ahead.
+**Action:** Thunder dispatches to a builder.
 
-**Planned sequence:** ~~Director Phase 3~~ → **Comedy Stingers Phase 1** → Spark LLM Selection → BURST-001
+**Preflight canary compliance: ZERO entries.** `pm_inbox/PREFLIGHT_CANARY_LOG.md` is empty. Script exists (`scripts/preflight_canary.py`), onboarding checklist mandates it (Step 2.5), but no builder has run it. `image_cache/` contains only Slate/operator artifacts (0 builder portraits). The Comedy Stingers builder will be the first test of whether the canary gate is actually being followed. — *Flagged by Anvil, 2026-02-19.*
+
+**Planned sequence:** ~~Director Phase 3~~ → ~~Comedy Stingers Phase 1~~ (DISPATCHED) → Spark LLM Selection → BURST-001
 
 ### Previous Dispatches (All Accepted)
 
@@ -133,7 +136,7 @@ No active WO. All dispatched work accepted.
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → **Comedy Stingers Phase 1** → Spark LLM Selection → BURST-001
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ (DISPATCHED) → Spark LLM Selection → BURST-001
 
 **Doctrine files** (in `pm_inbox/doctrine/`):
 - [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
@@ -204,7 +207,7 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 
 ## Active Operational Files
 
-**Root** (12 files — over cap, needs review):
+**Root** (13 files — 3 over cap, needs review):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
@@ -217,8 +220,9 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log (manual entries)
 - [MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md](pm_inbox/MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md) — Comedy loadout pattern (PARKED, Phase 1 approved)
 - [MEMO_COMEDY_STINGER_REPO_MAPPING.md](pm_inbox/MEMO_COMEDY_STINGER_REPO_MAPPING.md) — Comedy stinger implementation spec (PARKED, paired with above)
+- [MEMO_TTS_GHOST_FOG_RESEARCH.md](pm_inbox/MEMO_TTS_GHOST_FOG_RESEARCH.md) — Ghost fog voice research (NEW, from Anvil session)
 
-**Note:** Root is 2 over the 10-file cap. Walkthrough memos (IMAGE_GEN, TTS_MONOLOGUE) and preflight files are reference material — consider archiving after 3-5 builder sessions to bring count under cap.
+**Note:** Root is 3 over the 10-file cap. Walkthrough memos (IMAGE_GEN, TTS_MONOLOGUE) and preflight files are reference material — consider archiving to bring count under cap.
 
 **Doctrine** (8 files in `pm_inbox/doctrine/` — permanent reference):
 - DOCTRINE_01 through DOCTRINE_08 (see Doctrine files section above)
