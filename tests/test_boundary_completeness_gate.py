@@ -43,6 +43,7 @@ LAYERS = {
     "examples": -1,   # Example scripts — no rank restriction
     "services": -1,   # Deprecated shim layer — redirects to lens/
     "ui": -1,         # UI layer — consumes from all layers
+    "oracle": 0,      # Oracle stores — persistence infrastructure, same rank as core
 }
 
 # Prohibited import directions: (importing_layer, forbidden_source_layer)
@@ -61,6 +62,11 @@ PROHIBITED_IMPORTS = [
     ("spark", "server"),
     ("narration", "immersion"),
     ("narration", "server"),
+    ("oracle", "lens"),
+    ("oracle", "spark"),
+    ("oracle", "narration"),
+    ("oracle", "immersion"),
+    ("oracle", "server"),
 ]
 
 
