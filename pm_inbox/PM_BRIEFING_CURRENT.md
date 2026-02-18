@@ -1,16 +1,16 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-14 (WO-AOE-DEFEATED-FILTER delivered. All 3 smoke test findings resolved. Integration board clear for BURST-001.)
+**Last updated:** 2026-02-18 (WO-SMOKE-FUZZER complete. Generative fuzzer landed, modular smoke infrastructure operational.)
 
 ---
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,531 unit tests pass. Smoke test 002 passes 44/44 stages. All 3 smoke test findings resolved (condition extraction, AoE filter, multi-target template = design boundary). **Integration board clear.**
+5,804 unit tests pass. Smoke test passes 44/44 stages + 20-scenario fuzzer (19 PASS, 1 FINDING). **Integration board clear.**
 
-## Smoke Test Results (post WO-CONDITION-EXTRACTION-FIX)
+## Smoke Test Results (post WO-SMOKE-FUZZER)
 
-**44/44 stages PASS.** Regression 14/14 PASS. Gap verification 4/4 CONFIRMED. 7 exploratory scenarios PASS. D6 (condition extraction) now PASS.
+**44/44 stages PASS. Fuzzer: 19/20 PASS, 1 FINDING.** Modular structure: `scripts/smoke_scenarios/` with common.py, manual.py, fuzzer.py. Orchestrator: `scripts/smoke_test.py` (thin wrapper). Meta-tests: 2/2 PASS.
 
 | Section | Result |
 |---|---|
@@ -18,23 +18,27 @@
 | Gap verification (4 fixes) | 4/4 CONFIRMED |
 | Scenario B: Melee attack | PASS |
 | Scenario C: Multi-target fireball | PASS |
-| Scenario D: Hold Person + NarrationValidator | PASS (44/44) — condition extracted, validator invoked |
+| Scenario D: Hold Person + NarrationValidator | PASS |
 | Scenario E: Self-buff (Shield) | PASS |
 | Scenario F: Healing (Cure Light Wounds) | PASS |
 | Scenario G: Spell on dead entity | PASS |
 | Scenario H: Sequential combat | PASS |
+| **Fuzzer (20 random spells, seed=42)** | **19 PASS, 1 FINDING** |
 
-**Remaining findings (1):**
+**Fuzzer findings (1):**
 
-1. ~~**NarrativeBrief condition extraction bug**~~ — **FIXED** by WO-CONDITION-EXTRACTION-FIX
-2. **Multi-target template gap** — Design boundary, not bug. Templates reference primary target only.
-3. ~~**AoE hits defeated entities**~~ — **FIXED** by WO-AOE-DEFEATED-FILTER
+1. **Cone of Cold: damage_type is None** — Spell has damage_dice=10d6 but NarrativeBrief.damage_type is not populated. Likely an assembler gap for AoE damage spells where no hp_changed event fires (targets may save for zero or take damage but damage_type extraction misses the path).
+
+**Remaining findings from manual scenarios (1):**
+
+1. **Multi-target template gap** — Design boundary, not bug. Templates reference primary target only.
 
 ## WO Verdicts This Session
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-AOE-DEFEATED-FILTER | **DELIVERED** | `4bba1eb` |
+| WO-SMOKE-FUZZER | **COMPLETE** | (this session) |
+| WO-AOE-DEFEATED-FILTER | **ACCEPTED** | `4bba1eb` |
 | WO-CONDITION-EXTRACTION-FIX | **ACCEPTED** | `acdf410` |
 | WO-SMOKE-TEST-002 | **ACCEPTED** | `84301f3` |
 | WO-SMOKE-TEST-001 | **ACCEPTED** | `d0d9dc2` |
@@ -45,23 +49,26 @@
 
 ## Requires Operator Action (NOW)
 
-1. **Review WO-AOE-DEFEATED-FILTER debrief** — [DEBRIEF_WO-AOE-DEFEATED-FILTER.md](pm_inbox/DEBRIEF_WO-AOE-DEFEATED-FILTER.md)
+1. ~~**Dispatch WO-SMOKE-FUZZER**~~ — **COMPLETE.** Modular structure landed. Fuzzer operational (19/20 PASS, 1 Cone of Cold damage_type finding).
 
-   44/44 smoke test PASS. AoE now skips defeated entities. 3 new tests. Clears last integration finding.
+2. **Dispatch WO-ORACLE-SURVEY** — Ready for dispatch. Can run in parallel with Hooligan now.
 
-2. **Resolve BURST-001 binary decisions (5)** — required before PM can draft voice builder WOs
+3. **Dispatch WO-SMOKE-TEST-003** — Ready for dispatch. Modular structure dependency satisfied by WO-SMOKE-FUZZER.
 
-   - DC-01: Chatterbox-only or Kokoro CPU fallback for operator voice?
-   - DC-02: AUTHORITY detector in Phase 1 or deferred to Phase 2?
-   - DC-03: Pressure alerts spoken by DM persona or Arbor?
-   - DC-04: EvidenceValidator full implementation or defer to Phase 2?
-   - DC-05: Golden transcript stability — all non-Spark lines or structural only?
+   "The Hooligan Protocol" — 12 adversarial edge-case scenarios testing engine boundary behavior under legal-but-unusual 3.5e actions. PM triage: 5 Tier A (must resolve correctly), 7 Tier B (must not crash — coverage gaps are findings, not bugs). PM amendments applied: modular structure dependency, 4-section debrief format, Tier A/B triage notes.
 
-   Reference: [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 section
+## Doctrine Adoption (2026-02-18)
 
-3. **Spark LLM Selection** — H2 blocker, parked
+**GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-   [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — Not blocking current work. Needed before vertical slice.
+**Build order:** Smoke fuzzer → Oracle survey (parallel) → Hooligan (after fuzzer) → Oracle implementation → Lens/Director → UI → Roleplay
+
+**Doctrine files:**
+- [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
+- [DOCTRINE_02_GOLDEN_TICKET_V12.txt](pm_inbox/DOCTRINE_02_GOLDEN_TICKET_V12.txt) — Product doctrine
+- [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
+- [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
+- [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
 
 ## PM Action Queue — CLEARED
 
@@ -97,21 +104,15 @@ All 4 items from previous queue resolved:
 
 ## Active Operational Files
 
-- [DEBRIEF_WO-AOE-DEFEATED-FILTER.md](pm_inbox/DEBRIEF_WO-AOE-DEFEATED-FILTER.md) — DELIVERED, awaiting PM review
-- [WO-AOE-DEFEATED-FILTER_DISPATCH.md](pm_inbox/WO-AOE-DEFEATED-FILTER_DISPATCH.md) — DELIVERED
-- [DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md](pm_inbox/DEBRIEF_WO-CONDITION-EXTRACTION-FIX.md) — PM REVIEWED, ACCEPTED
-- [WO-CONDITION-EXTRACTION-FIX_DISPATCH.md](pm_inbox/WO-CONDITION-EXTRACTION-FIX_DISPATCH.md) — DELIVERED
-- [WO-SMOKE-TEST-002_DISPATCH.md](pm_inbox/WO-SMOKE-TEST-002_DISPATCH.md) — DELIVERED
-- [DEBRIEF_WO-SMOKE-TEST-002.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-002.md) — PM REVIEWED, ACCEPTED
-- [WO-CONTENT-ID-POPULATION_DISPATCH.md](pm_inbox/WO-CONTENT-ID-POPULATION_DISPATCH.md) — DELIVERED
-- [DEBRIEF_WO-CONTENT-ID-POPULATION.md](pm_inbox/DEBRIEF_WO-CONTENT-ID-POPULATION.md) — PM REVIEWED, ACCEPTED
-- [WO-SPELL-NARRATION-POLISH_DISPATCH.md](pm_inbox/WO-SPELL-NARRATION-POLISH_DISPATCH.md) — DELIVERED
-- [DEBRIEF_WO-SPELL-NARRATION-POLISH.md](pm_inbox/DEBRIEF_WO-SPELL-NARRATION-POLISH.md) — PM REVIEWED, ACCEPTED
-- [DEBRIEF_WO-WEAPON-PLUMBING-001.md](pm_inbox/DEBRIEF_WO-WEAPON-PLUMBING-001.md) — PM REVIEWED, ACCEPTED
-- [DEBRIEF_WO-SMOKE-TEST-001.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-001.md) — PM REVIEWED, ACCEPTED
-- [DEBRIEF_WO-FRAMEWORK-UPDATE-001.md](pm_inbox/DEBRIEF_WO-FRAMEWORK-UPDATE-001.md) — PM REVIEWED, ACCEPTED
-- [WO-FRAMEWORK-UPDATE-002_DISPATCH.md](pm_inbox/WO-FRAMEWORK-UPDATE-002_DISPATCH.md) — Operator-executed, COMPLETE
-- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
+- [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
+- [DOCTRINE_02_GOLDEN_TICKET_V12.txt](pm_inbox/DOCTRINE_02_GOLDEN_TICKET_V12.txt) — Product doctrine (TRUTH)
+- [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
+- [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
+- [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
+- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked pending Oracle-first)
+- [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — H2 blocker, parked
+
+All H1 + smoke test dispatches and debriefs archived to `pm_inbox/reviewed/archive_h1_smoke/`.
 
 ## Persistent Files
 
