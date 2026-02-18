@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (WO-SMOKE-FUZZER complete. Generative fuzzer landed, modular smoke infrastructure operational.)
+**Last updated:** 2026-02-18 (WO-ORACLE-SURVEY DELIVERED. 7/7 sections complete. Strongest overlap: WorkingSet + Event Sourcing. Weakest: StoryState.)
 
 ---
 
@@ -37,7 +37,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-SMOKE-FUZZER | **COMPLETE** | (this session) |
+| WO-ORACLE-SURVEY | **COMPLETE** | (this session — research only, no code) |
+| WO-SMOKE-FUZZER | **ACCEPTED** (determinism gates deferred to patch WO) | `ac67327` |
 | WO-AOE-DEFEATED-FILTER | **ACCEPTED** | `4bba1eb` |
 | WO-CONDITION-EXTRACTION-FIX | **ACCEPTED** | `acdf410` |
 | WO-SMOKE-TEST-002 | **ACCEPTED** | `84301f3` |
@@ -49,11 +50,13 @@
 
 ## Requires Operator Action (NOW)
 
-1. ~~**Dispatch WO-SMOKE-FUZZER**~~ — **COMPLETE.** Modular structure landed. Fuzzer operational (19/20 PASS, 1 Cone of Cold damage_type finding).
+1. ~~**Dispatch WO-SMOKE-FUZZER**~~ — **ACCEPTED** (`ac67327`). Modular structure landed. 19/20 PASS, 1 Cone of Cold finding. Determinism gates (Change 2a) not implemented — patch WO drafted.
 
-2. **Dispatch WO-ORACLE-SURVEY** — Ready for dispatch. Can run in parallel with Hooligan now.
+2. **Dispatch WO-FUZZER-DETERMINISM-GATES** — Ready for dispatch. Adds ScenarioID hashing, event log digests, FUZZ RECEIPT, stop-on-failure, `--collect-all`. Small WO, 2 files.
 
-3. **Dispatch WO-SMOKE-TEST-003** — Ready for dispatch. Modular structure dependency satisfied by WO-SMOKE-FUZZER.
+3. ~~**Dispatch WO-ORACLE-SURVEY**~~ — **COMPLETE.** Survey delivered: [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md). 7/7 sections. Strongest overlap: WorkingSet (PromptPack), Event Sourcing (EventLog + replay_runner). Weakest: StoryState (no threads/clocks). Key finding: provenance.py W3C PROV-DM exists but not wired to EventLog.
+
+4. **Dispatch WO-SMOKE-TEST-003** — Ready for dispatch. Modular structure dependency satisfied by WO-SMOKE-FUZZER.
 
    "The Hooligan Protocol" — 12 adversarial edge-case scenarios testing engine boundary behavior under legal-but-unusual 3.5e actions. PM triage: 5 Tier A (must resolve correctly), 7 Tier B (must not crash — coverage gaps are findings, not bugs). PM amendments applied: modular structure dependency, 4-section debrief format, Tier A/B triage notes.
 
@@ -101,6 +104,9 @@ All 4 items from previous queue resolved:
 - **WO-SMOKE-TEST-002** — Post-fix regression + 7 exploratory scenarios, 43/44→44/44 PASS
 - **WO-CONDITION-EXTRACTION-FIX** — Condition event key alignment, 44/44 PASS
 - **WO-AOE-DEFEATED-FILTER** — AoE skips defeated entities, 44/44 PASS
+
+- **WO-SMOKE-FUZZER** — Generative fuzzer, modular smoke infrastructure (`ac67327`)
+- **WO-ORACLE-SURVEY** — Oracle v5.2 overlap mapping (research, no code)
 
 ## Active Operational Files
 
