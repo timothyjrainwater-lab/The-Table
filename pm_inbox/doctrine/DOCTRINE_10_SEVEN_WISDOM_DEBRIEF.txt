@@ -1,0 +1,193 @@
+DOCTRINE_10: Seven Wisdom Debrief — Research WO Completion Format
+=================================================================
+
+Type: PROC (process format)
+Origin: Thunder directive, 2026-02-19. Derived from DOCTRINE_09
+        (Seven Wisdom governance principles). Format stress-tested
+        against WO-SPARK-LLM-SELECTION findings.
+
+STATUS: ADOPTED — Thunder directive, 2026-02-19.
+
+-------------------------------------------------------------
+
+PURPOSE
+
+Research and evaluation WOs produce constraints, not artifacts.
+Their debriefs should compress into decision fuel, not narration.
+
+The Seven Wisdom Debrief replaces the standard debrief format
+for WOs classified as RESEARCH or EVALUATION (no committed code).
+Code WOs retain the standard format (Scope Accuracy, Discovery
+Log, Methodology Challenge, Field Manual Entry, Builder Radar).
+
+-------------------------------------------------------------
+
+SCOPE LOCK
+
+This format applies ONLY to WOs that:
+- Produce findings, recommendations, or measurements
+- Do NOT commit code to the repository
+- Are classified as research, evaluation, survey, or benchmark
+
+If a WO commits code, it uses the standard debrief format.
+No exceptions. No "this code WO is basically research."
+
+-------------------------------------------------------------
+
+THE SEVEN SLOTS
+
+Each slot is a category of surprise. Each must be filled.
+If no finding exists for a slot, write "No finding" — do not
+omit the slot. Each slot must end with an explicit routing tag.
+
+Routing tags: GAP | GATE | DOCTRINE | KILL-PATH | CONFIRMED
+
+  1. TOOLCHAIN CEILING
+     What broke before you even started. Environment, dependency,
+     or infrastructure barriers that blocked or constrained the
+     intended approach.
+     Ends with: → [routing tag]
+
+  2. DOMINANT PERFORMANCE TERM
+     What actually matters vs what the dispatch assumed mattered.
+     The single variable that most determines success or failure
+     of the evaluated approach.
+     Ends with: → [routing tag]
+
+  3. BUDGET MARGIN + VARIANCE
+     How close to the constraint edge, and is the margin stable.
+     Quantify the margin. Identify variance sources that could
+     flip pass to fail.
+     Ends with: → [routing tag]
+
+  4. ARCHITECTURE VALIDATION
+     Did the plan survive contact with reality. State whether the
+     dispatch's core hypothesis was confirmed, partially confirmed,
+     or falsified. If falsified, state what replaced it.
+     Ends with: → [routing tag]
+
+  5. CONTRACT SENSITIVITY
+     What assumptions aren't portable. Formats, schemas, stop
+     sequences, API contracts, or configuration that worked in
+     test but may not transfer to production or other candidates.
+     Ends with: → [routing tag]
+
+  6. STABILITY SOAK
+     What happens on cycle five, not cycle one. Findings from
+     repeated execution: leaks, cleanup variance, nondeterminism,
+     degradation, warm-up effects.
+     Ends with: → [routing tag]
+
+  7. WINNER + CONDITIONAL
+     Who won, why, and what flips the answer. State the
+     recommendation, the rationale, and the specific condition
+     under which a different candidate or approach would win.
+     Ends with: → [routing tag]
+
+-------------------------------------------------------------
+
+RADAR (MANDATORY — appended after the seven slots)
+
+Same three lines as the standard debrief format:
+  Line 1: **Trap.** Hidden dependency or trap.
+  Line 2: **Drift.** Current drift risk.
+  Line 3: **Near stop.** What got close to triggering a stop.
+
+Plus one additional line for research WOs:
+  Line 4: **Counter.** What would have invalidated this finding.
+
+All four lines must be present with labels. Missing or unlabeled
+lines trigger REJECT. No partial accept.
+
+-------------------------------------------------------------
+
+REJECTION GATE
+
+A Seven Wisdom Debrief is REJECTED if:
+- Any of the seven slots is omitted (not filled or marked
+  "No finding")
+- Any slot lacks a routing tag (GAP/GATE/DOCTRINE/KILL-PATH/
+  CONFIRMED)
+- Any Radar line is missing or unlabeled (all four required)
+- The debrief is used on a code WO (scope lock violation)
+
+-------------------------------------------------------------
+
+EXAMPLE (abbreviated, from WO-SPARK-LLM-SELECTION)
+
+  1. TOOLCHAIN CEILING: llama-cpp-python 0.3.4 pre-built CUDA
+     wheels lack qwen3/gemma3 arch support. Two of three original
+     candidates could not load. → GAP
+
+  2. DOMINANT PERFORMANCE TERM: Model load time (2.7-12.8s), not
+     inference speed (0.8-2.3s), dominates the stall budget under
+     sequential posture. → GATE
+
+  3. BUDGET MARGIN + VARIANCE: 0.55s margin against 8.0s budget.
+     Chatterbox swap times estimated, not measured. Variance source:
+     actual Chatterbox load could bust the budget. → GAP
+
+  4. ARCHITECTURE VALIDATION: Sequential posture (Path B, batch
+     per turn) confirmed. Sub-linear scaling for multi-beat turns
+     validated (3 narrations in 3.5s vs 3x0.8s theoretical). → CONFIRMED
+
+  5. CONTRACT SENSITIVITY: Stop sequence \\n\\n triggered 1-token
+     output on Gemma 2 healing prompt. Stop sequences must be
+     validated per model, not assumed universal. → GATE
+
+  6. STABILITY SOAK: VRAM at load time varies 7,463-10,467 MB
+     across swap cycles. CUDA allocator fragmentation, not leak.
+     Production needs explicit cleanup protocol. → GAP
+
+  7. WINNER + CONDITIONAL: Qwen2.5 7B Instruct (Q4_K_M). Only
+     candidate to pass all 5 gates. Conditional: re-evaluate
+     Qwen3 8B when llama-cpp-python is upgraded to 0.3.5+. → CONFIRMED
+
+  Radar:
+  Trap. Pre-built CUDA wheel ceiling blocks half the candidate set.
+  Drift. 0.55s budget margin with estimated Chatterbox times.
+  Near stop. All candidates fail S2 if Qwen2.5 had also failed.
+  Counter. If Chatterbox swap measures under 1.0s per phase,
+  margin doubles and LLaMA 3.1 may pass S2.
+
+Note: This example references WO-SPARK-LLM-SELECTION for
+illustration only. Point-in-time numbers belong in the debrief,
+not in this doctrine document.
+
+-------------------------------------------------------------
+
+RELATIONSHIP TO OTHER DOCTRINE
+
+- DOCTRINE_09 (Seven Wisdom): Governance principles. This
+  document operationalizes principle #5 ("Decisions decay
+  unless sealed") and #7 ("Protect the operator") into a
+  debrief format that seals findings as governance objects.
+
+- Standard debrief format (kernel §Communication Style):
+  Retained for code WOs. The Seven Wisdom Debrief is an
+  alternative, not a replacement.
+
+- Builder Radar rejection gate (kernel §Communication Style):
+  Extended with Line 4 (Counter) for research WOs only.
+  Code WO Radar remains three lines.
+
+-------------------------------------------------------------
+
+USAGE
+
+PM classifies each WO as CODE or RESEARCH at dispatch time.
+The classification determines which debrief format the builder
+uses. If classification is ambiguous, default to CODE format
+(it is strictly more detailed).
+
+The PM reads the seven slots and routing tags to determine
+what governance objects each finding produces:
+  GAP → enters GAP register, tracked in briefing
+  GATE → becomes a gate test in the next related WO
+  DOCTRINE → candidates for doctrine update or new doctrine
+  KILL-PATH → path is eliminated, recorded in briefing
+  CONFIRMED → hypothesis validated, no action needed
+
+-------------------------------------------------------------
+
+End of doctrine.

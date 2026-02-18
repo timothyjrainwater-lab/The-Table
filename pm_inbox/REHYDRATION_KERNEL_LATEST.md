@@ -92,14 +92,17 @@ The Operator is not an engineer. Write for a product owner who makes decisions.
 - File references in briefings must be clickable markdown links.
 - Action items use numbered lists with blank lines between entries.
 
-**Builder debrief cap:** 500 words max. Five mandatory sections: (0) Scope Accuracy; (1) Discovery Log; (2) Methodology Challenge; (3) Field Manual Entry; (4) Builder Radar; (5) Focus Questions (if assigned).
+**Builder debrief — CODE WOs:** 500 words max. Five mandatory sections: (0) Scope Accuracy; (1) Discovery Log; (2) Methodology Challenge; (3) Field Manual Entry; (4) Builder Radar; (5) Focus Questions (if assigned).
 
-**Builder Radar (Section 4, mandatory, 3 lines):**
+**Builder debrief — RESEARCH WOs:** Seven Wisdom Debrief format (DOCTRINE_10). Seven slots, each with routing tag (GAP/GATE/DOCTRINE/KILL-PATH/CONFIRMED). Four-line Radar (Trap/Drift/Near stop/Counter). PM classifies WO as CODE or RESEARCH at dispatch time.
+
+**Builder Radar (Section 4, mandatory):**
 - Line 1: **Trap.** Hidden dependency or trap.
 - Line 2: **Drift.** Current drift risk.
 - Line 3: **Near stop.** What got close to triggering a stop condition.
+- Line 4 (RESEARCH WOs only): **Counter.** What would have invalidated this finding.
 
-**Radar enforcement (REJECTION GATE):** All 3 lines must be present with labels. Missing/unlabeled Radar → REJECT debrief. No partial accept.
+**Radar enforcement (REJECTION GATE):** All required lines must be present with labels (3 for code, 4 for research). Missing/unlabeled Radar → REJECT debrief. No partial accept. Research WO debriefs also rejected if any of the 7 slots is omitted or lacks a routing tag.
 
 **Debrief focus question bank (PM picks 0-2 per dispatch):** Missing assumption, Saving gate, Spec divergence, PM writing change, Underspecified anchor, Micro-gate suggestion, Cognitive load.
 
@@ -155,7 +158,7 @@ Smoke: 44/44 PASS. Hooligan: 5/12 PASS, 7 FINDING. Fuzzer: 19/20 PASS, 1 FINDING
 
 Audio pillar: adopted on paper, no code until BURST-001.
 
-**Doctrine files** in `pm_inbox/doctrine/`: DOCTRINE_01 (anchor index) through DOCTRINE_08 (Director spec).
+**Doctrine files** in `pm_inbox/doctrine/`: DOCTRINE_01-08 (`SPEC` — subsystem specs), DOCTRINE_09 (`GOV` — governance principles), DOCTRINE_10 (`PROC` — Seven Wisdom Debrief format).
 
 **Oracle fact_id hash pin:** `canonical_short_hash(canonical_json(payload))` from `aidm/oracle/canonical.py` is the ONLY function for Oracle content-addressed IDs. No second path. See DOCTRINE_06 §7.
 
@@ -202,8 +205,8 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 
 **Parked items:** BURST-001 thru 004, cast_id determinism, Tier B coverage gaps (7 hooligan findings). Table vision memo filed (MEMO_TABLE_VISION_SPATIAL_SPEC), parked until visual pass.
 
-**PM posture:** IDLE. No active WO. Next: Spark LLM Selection research WO (local model only — API ruled out by offline doctrine).
-**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → **Spark LLM Selection** → BURST-001.
+**PM posture:** ACTIVE. WO-SPARK-LLM-SELECTION **ACCEPTED with findings.** Qwen2.5 7B Instruct (Q4_K_M) selected as interim Spark cage model. Sequential VRAM confirmed. Path B batch-per-turn architecture. 4 findings surfaced (GAP-B toolchain gap, tight budget margin, S4 load spikes, DLL fix). Eval infra retained for Qwen3 re-eval. Next: BURST-001.
+**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → ~~Spark LLM Selection~~ (ACCEPTED) → **BURST-001**.
 
 ---
 

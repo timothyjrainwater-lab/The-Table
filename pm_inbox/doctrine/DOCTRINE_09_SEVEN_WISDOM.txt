@@ -1,0 +1,153 @@
+DOCTRINE_09: Seven Wisdom — Foundational Decision Principles
+=============================================================
+
+Origin: Anvil (Claude/Anthropic) + Aegis (GPT/OpenAI), 2026-02-19.
+Thunder tossed "Seven wisdom" to Aegis as a troll. Aegis returned
+seven governance principles. Thunder declared them foundational doctrine.
+
+STATUS: ADOPTED — Thunder directive, 2026-02-19.
+
+-------------------------------------------------------------
+
+THE SEVEN
+
+1. Truth first.
+   If reality says no, write "no" and pivot to the nearest workable path.
+
+2. Authority must be singular per surface.
+   One thing decides, everything else renders.
+
+3. What you cannot replay, you cannot trust.
+   Determinism is your audit trail, not a preference.
+
+4. Tests are contracts with teeth.
+   If a rule matters, it deserves a gate.
+
+5. Decisions decay unless sealed.
+   Record the why, the scope, and the acceptance signal.
+
+6. Separate narration from mechanics.
+   Vibe can be free, outcomes must be provable.
+
+7. Protect the operator.
+   Reduce cognitive load by turning unknowns into named gaps.
+
+-------------------------------------------------------------
+
+THE ANCHOR (Anvil addendum, same session)
+
+   Truth above morale. One authority per surface.
+   Replay or it did not happen.
+
+-------------------------------------------------------------
+
+THE SEAL (Aegis formalization of "no regrets")
+
+   No regrets means you accept the cost you paid for the clarity
+   you gained, and you do not reopen the decision unless new
+   evidence changes the ground truth.
+
+-------------------------------------------------------------
+
+PROJECT MAPPING
+
+  #1 (Truth first) ............. WO verdicts: ACCEPTED means ship.
+                                  Hardware falsified CONCURRENT; we
+                                  wrote "no" and pivoted to SEQUENTIAL.
+
+  #2 (Singular authority) ...... Zone authority pattern (zones.json).
+                                  Oracle FactsLedger owns facts.
+                                  Director owns beat selection.
+
+  #3 (Replay = trust) ......... Oracle cold boot: byte-equal rebuild.
+                                  Fuzzer determinism gates (seed=42).
+                                  SaveSnapshot + CompactionRegistry.
+
+  #4 (Tests = contracts) ...... 162 gate tests across 9 phases.
+                                  No-backflow gate. Boundary completeness.
+                                  Comedy stinger duration ceiling.
+
+  #5 (Seal decisions) ......... Doctrine files 01-08. PM kernel snapshots.
+                                  WO verdict table with commit hashes.
+                                  "Record the why" = debrief mandatory.
+
+  #6 (Narration != mechanics) . Lens/Director split. NarrativeBrief is
+                                  renderer-only. StyleCapsule is prose.
+                                  Oracle events are mechanical facts.
+
+  #7 (Protect the operator) ... Named gaps (GAP-A, BURST-001-004).
+                                  AMP Spellbook format (GAPS/RISKS/MINIMAL).
+                                  PM briefing "Requires Operator Action."
+
+-------------------------------------------------------------
+
+USAGE
+
+This is a lens, not a checklist. When debating a design choice,
+test it against the seven. If it violates one, name which one
+and why the violation is acceptable — or change the design.
+
+The seal applies to all WO verdicts: ACCEPTED is final unless
+new evidence (not new opinions) changes the ground truth.
+
+-------------------------------------------------------------
+
+SEVEN WISDOM DEBRIEF FORMAT (Research WOs)
+
+Origin: Aegis structured a Spark LLM builder debrief into seven
+findings using the same "seven wisdom" frame. Thunder and Anvil
+recognized it as a research WO debrief template. Same session.
+
+Code WOs use the existing debrief format (Scope Accuracy,
+Discovery Log, Methodology Challenge, Field Manual, Radar).
+
+Research WOs — where the output is findings, not code — use
+the Seven Wisdom Debrief: seven slots, each a category of
+surprise that maps to a gate, a gap, or a "kill this path."
+
+THE SEVEN SLOTS
+
+1. Toolchain / environment ceiling.
+   What broke before you even started. Prerequisites that the
+   dispatch assumed were met but weren't.
+
+2. Dominant performance term.
+   What actually matters vs what you thought mattered. The
+   variable that controls the outcome, not the one you planned
+   to optimize.
+
+3. Budget margin + variance source.
+   How close to the edge are we, and is the margin stable or
+   is it one bad cycle away from flipping pass to fail.
+
+4. Architecture validation or falsification.
+   Did the plan survive contact with reality. If yes, what
+   confirmed it. If no, what broke and what replaces it.
+
+5. Contract sensitivity.
+   What assumptions aren't portable across candidates, configs,
+   or environments. Stop sequences, formats, schemas, APIs.
+
+6. Stability / soak findings.
+   What happens on the fifth cycle, not the first. Leaks,
+   cleanup failures, nondeterminism, cumulative drift.
+
+7. Winner + conditional.
+   Who won, why, and what would flip the answer. Include the
+   prerequisite that, if fixed, changes the candidate set.
+
+RULES
+
+- Exactly 7. No padding, no "N/A." If a slot is clean, say
+  "No finding" and move on.
+- Each finding must be falsifiable or it doesn't deserve a slot.
+- Each finding maps to a GAP, a gate, or a doctrine update.
+  If it doesn't map, it's not a finding — it's narration.
+- Builder Radar (3 lines: Trap, Drift, Near-stop) is still
+  mandatory as a separate appendix. The seven don't replace it.
+
+FIRST USE
+
+WO-SPARK-LLM-SELECTION (2026-02-19). Aegis structured the
+builder's findings into this format in real time. Validated
+against actual hardware results from Anvil's GPU bench.

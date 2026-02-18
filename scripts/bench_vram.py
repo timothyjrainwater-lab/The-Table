@@ -29,7 +29,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 TURBO_SNAPSHOT = r"C:\Users\Thunder\.cache\huggingface\hub\models--ResembleAI--chatterbox-turbo\snapshots\749d1c1a46eb10492095d68fbcf55691ccf137cd"
 
-REFERENCE_WAV = str(PROJECT_ROOT / "models" / "voices" / "signal_reference_michael_24k.wav")
+REFERENCE_WAV = str(PROJECT_ROOT / "models" / "voices" / "npc_male.wav")
 TEST_TEXT = "The fighter raises his sword and charges across the stone bridge."
 
 

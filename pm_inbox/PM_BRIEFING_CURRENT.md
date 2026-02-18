@@ -1,20 +1,16 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-19 (WO-COMEDY-STINGERS-P1 ACCEPTED at `e4ac5c1`. 162/162 gate tests (149 existing + 13 Gate I). Suite: 5,978 passed. Comedy stinger subsystem live.)
+**Last updated:** 2026-02-19 (WO-SPARK-LLM-SELECTION ACCEPTED with findings. Qwen2.5 7B Instruct selected. 4 findings surfaced: GAP-B toolchain gap, tight budget margin, S4 load spikes, DLL directory fix. Dispatch + debrief archived.)
 
 ---
 
 ## Inbox
 
-- **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — Full TTS pipeline reference. How voice output works now, what changed, what not to break. Acknowledged. Remains in root as reference while voice work is adjacent to active targets.
-- **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Builder preflight canary system: one script, two canaries (image+voice), manual log. MVP shipped. Script: `scripts/preflight_canary.py`. Log: `pm_inbox/PREFLIGHT_CANARY_LOG.md`.
-- **[READ] [MEMO_IMAGE_GEN_WALKTHROUGH.md](pm_inbox/MEMO_IMAGE_GEN_WALKTHROUGH.md)** — SDXL portrait generation walkthrough. Prompt engineering rules, CLIP 77-token limit, NF4 quantization known issue.
-- **[READ] [MEMO_TTS_MONOLOGUE_WALKTHROUGH.md](pm_inbox/MEMO_TTS_MONOLOGUE_WALKTHROUGH.md)** — TTS monologue 10-step walkthrough. Persona resolution, tier selection, sentence chunking, GPU synthesis.
-- **[PARKED] [MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md](pm_inbox/MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md)** — Staccato credential-stack comedy pattern for NPC dialogue. Phase 1 WO approved (content subsystem only). Queued after Director Phase 3.
-- **[PARKED] [MEMO_COMEDY_STINGER_REPO_MAPPING.md](pm_inbox/MEMO_COMEDY_STINGER_REPO_MAPPING.md)** — Implementation spec + repo mapping for comedy stinger subsystem. Paired with loadout memo above. Phase 1 WO approved.
-- **[READ] [MEMO_TTS_GHOST_FOG_RESEARCH.md](pm_inbox/MEMO_TTS_GHOST_FOG_RESEARCH.md)** — Ghost fog voice research: ref_b = spectral register, ref_a = exotic NPC, composite = ogre warrior. Exaggeration sweet spot 0.15–0.4. 13 A/B tests with timing data. Three monster voice registers discovered. Acknowledged. Reference for future monster voice work.
-- **[NEW] [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md)** — Table visual identity: recessed vault poker table in dim library. Three camera postures as embodied human motion (STANDARD/DOWN/LEAN FORWARD). Zone layout, mood rules, realism constraints. Thunder vision + Aegis synthesis. Candidate for doctrine adoption.
-- **[ACCEPTED] MEMO_NAME_DISPUTE_ANVIL.md** — Roster callsigns formalized. Archived to `reviewed/`.
+- **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — Full TTS pipeline reference. Remains in root while voice work is adjacent.
+- **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Builder preflight canary system. Script: `scripts/preflight_canary.py`. Log: `pm_inbox/PREFLIGHT_CANARY_LOG.md`.
+- **[NEW] [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md)** — Table visual identity: recessed vault poker table, three camera postures, mood rules. Candidate for doctrine adoption. Parked until visual pass.
+
+**Archived this pass (11 files):** DEBRIEF_WO-COMEDY-STINGERS-P1 + WO-COMEDY-STINGERS-P1_DISPATCH + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION → `reviewed/`. WO-SPARK-LLM-SELECTION_DISPATCH + WO-SPARK-LLM-SELECTION_RESEARCH_PREP + DEBRIEF_WO-SPARK-LLM-SELECTION → `reviewed/archive_spark_llm/`.
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
@@ -66,6 +62,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-SPARK-LLM-SELECTION | **ACCEPTED with findings** — Research + evaluation WO (no code changes). 6/6 deliverables. Qwen2.5 7B Instruct (Q4_K_M) selected — only candidate to pass all 5 gates (5/5). Quality 24.0/25, load time 2.69s, VRAM 5,818 MB. Scope deviation: Qwen3→Qwen2.5, Gemma3→Gemma2 (llama-cpp-python 0.3.4 arch gap — defensible). Radar compliant. **4 findings:** (1) GAP-B HIGH — llama-cpp-python blocks Qwen3/Gemma3, need VS Build Tools; (2) Budget margin 0.55s — Chatterbox swap times estimated not measured; (3) S4 load spikes in loops 2-3; (4) GAP-C DLL directory fix needed. Eval infra (`scripts/spark_eval.py`) retained for Qwen3 re-eval. | (research WO, no commit) |
 | WO-COMEDY-STINGERS-P1 | **ACCEPTED** — 162/162 gate tests (149 existing + 13 new Gate I). 0 regressions (5,978 suite). 6/6 deliverables landed. Frozen `Stinger` dataclass with `__post_init__` immutability, 3 public functions (validate/select/render), 21 stingers (3×7 archetypes), 13 gate tests. Immutability gate caught mutable containers — fixed via `__post_init__`. Duration ceiling (6.0s) enforces staccato rhythm as designed. Builder Radar fully compliant. Field Manual #35 needed (immutability gate). | `e4ac5c1` |
 | WO-DIRECTOR-03 | **ACCEPTED** — 149/149 gate tests (133 existing + 16 new Gate H). 0 regressions (5,893 suite). 7/7 contract changes delivered (Change 5 scene lifecycle already existed). TableMood store in `aidm/oracle/table_mood.py`, StyleCapsule in `aidm/lens/style_capsule.py`, DirectorPromptPack extended with optional style_capsule, pacing modulation via `_resolve_pacing_mode()`, cold_boot reducer extended for mood_observation events. Field Manual #34 added. | `9705298` |
 | WO-UI-04 | **ACCEPTED** — 133/133 gate tests (130 existing + 3 new UI-G8). 0 regressions (5,877 suite). 6/6 contract changes delivered. `RollResult` frozen dataclass in new `ws_protocol.py`, `MESSAGE_REGISTRY` + `parse_message()` dispatcher, wildcard handler migrated to typed, UI-G8 gates (protocol registry, roll roundtrip, wildcard removal). Builder Radar fully compliant (first since rejection gate codified). Field Manual #33 added. | `db66426` |
@@ -94,16 +91,21 @@
 
 ## Requires Operator Action (NOW)
 
-No active WO. All dispatched work accepted.
+**SPARK LLM SELECTION COMPLETE.** Qwen2.5 7B Instruct (Q4_K_M) selected as interim Spark cage model. Sequential VRAM posture confirmed. Path B (batch-per-turn) is the operational architecture.
 
-**Preflight canary compliance: ZERO entries.** `pm_inbox/PREFLIGHT_CANARY_LOG.md` is empty. Script exists (`scripts/preflight_canary.py`), onboarding checklist mandates it (Step 2.5), but no builder has run it. — *Flagged by Anvil, 2026-02-19.*
+**Before BURST-001, two things must be measured (not estimated):**
+1. **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates for both phases. If actual is 2.0s+, the budget busts. (FINDING-2 from verdict.)
+2. **llama-cpp-python upgrade path** — Install VS Build Tools on command deck and compile llama-cpp-python 0.3.16 from source. This unblocks Qwen3 8B and Gemma 3 12B evaluation. (GAP-B from debrief.)
 
-**Next dispatch:** Spark LLM Selection — PM to draft when Thunder gives the go-ahead.
+**Integration follow-up (WO scope):** Wire Qwen2.5 into Spark cage — models.yaml entry, DLL directory fix (GAP-C), `n_ctx=2048` for narration, sequential lifecycle manager (load/unload orchestration). This is BURST-001 scope or a pre-BURST wiring WO.
 
-**Planned sequence:** ~~Director Phase 3~~ → ~~Comedy Stingers Phase 1~~ (ACCEPTED) → **Spark LLM Selection** → BURST-001
+**GAP-A (low priority):** `dm_persona.py:83` references `NarrativeBrief` without importing it. Runtime-functional (duck typing), static analysis only.
+
+**Planned sequence:** ~~Director Phase 3~~ → ~~Comedy Stingers Phase 1~~ (ACCEPTED) → ~~Spark LLM Selection~~ (ACCEPTED) → **BURST-001**
 
 ### Previous Dispatches (All Accepted)
 
+- ~~WO-SPARK-LLM-SELECTION~~ — ACCEPTED with findings (research WO, no commit). Qwen2.5 7B Instruct selected (5/5 gates). Sequential VRAM confirmed. Eval infra retained. 4 findings surfaced. **SPARK LLM SELECTION COMPLETE.**
 - ~~WO-COMEDY-STINGERS-P1~~ — ACCEPTED (`e4ac5c1`). 162/162 gate tests (149 + 13 Gate I). Frozen Stinger schema, 21 stingers (3×7), validate/select/render, immutability gate caught and fixed. Builder Radar fully compliant. Field Manual #35 needed.
 - ~~WO-DIRECTOR-03~~ — ACCEPTED (`9705298`). 149/149 gate tests. TableMood store, StyleCapsule, Director pacing modulation, cold_boot mood reducer, Gate H 16/16. Field Manual #34 added. Builder Radar fully compliant. **DIRECTOR PHASE 3 COMPLETE.**
 - ~~WO-UI-04~~ — ACCEPTED (`db66426`). 133/133 gate tests. `RollResult` frozen dataclass, message registry, typed handler migration, UI-G8 gates. Field Manual #33 added. Builder Radar fully compliant.
@@ -139,17 +141,25 @@ No active WO. All dispatched work accepted.
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → **Spark LLM Selection** → BURST-001
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → **BURST-001**
 
-**Doctrine files** (in `pm_inbox/doctrine/`):
-- [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
-- [DOCTRINE_02_GOLDEN_TICKET_V12.txt](pm_inbox/doctrine/DOCTRINE_02_GOLDEN_TICKET_V12.txt) — Product doctrine
-- [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/doctrine/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
-- [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/doctrine/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
-- [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/doctrine/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
-- [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec
-- [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/doctrine/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — Session Lifecycle spec
-- [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) — Director spec
+**Doctrine files** (in `pm_inbox/doctrine/` — 10 files, permanent reference):
+
+*Subsystem specs (SPEC):*
+- [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — `SPEC` Anchor index + gap register
+- [DOCTRINE_02_GOLDEN_TICKET_V12.txt](pm_inbox/doctrine/DOCTRINE_02_GOLDEN_TICKET_V12.txt) — `SPEC` Product doctrine
+- [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/doctrine/DOCTRINE_03_ORACLE_MEMO_V52.txt) — `SPEC` Oracle subsystem
+- [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/doctrine/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — `SPEC` UI subsystem
+- [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/doctrine/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — `SPEC` Image gen subsystem
+- [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_06_LENS_SPEC_V0.txt) — `SPEC` Lens subsystem
+- [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/doctrine/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — `SPEC` Session lifecycle
+- [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) — `SPEC` Director subsystem
+
+*Governance (GOV):*
+- [DOCTRINE_09_SEVEN_WISDOM.txt](pm_inbox/doctrine/DOCTRINE_09_SEVEN_WISDOM.txt) — `GOV` Foundational decision principles (Anvil + Aegis, 2026-02-19)
+
+*Process (PROC):*
+- [DOCTRINE_10_SEVEN_WISDOM_DEBRIEF.txt](pm_inbox/doctrine/DOCTRINE_10_SEVEN_WISDOM_DEBRIEF.txt) — `PROC` Research WO debrief format — 7 slots + routing tags + 4-line Radar (2026-02-19)
 
 ## PM Action Queue — Doctrine Memo Formalization
 
@@ -208,30 +218,26 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - **WO-UI-04** — WebSocket protocol formalization + roll_result freeze, 3 UI-G8 gates, Gate G now 22/22 PASS, total 133 gate tests
 - **WO-DIRECTOR-03** — Director Phase 3: TableMood + StyleCapsule + pacing modulation + cold_boot mood reducer, 16 Gate H tests, total 149 gate tests
 - **WO-COMEDY-STINGERS-P1** — Comedy stinger content subsystem: frozen Stinger schema, 21 stingers (3×7 archetypes), validate/select/render, 13 Gate I tests, total 162 gate tests
+- **WO-SPARK-LLM-SELECTION** — Local LLM selection for Spark cage: Qwen2.5 7B Instruct (Q4_K_M) selected, 5/5 gates, sequential VRAM posture confirmed, eval infra retained for Qwen3 re-eval
 
 ## Active Operational Files
 
-**Root** (13 files — 3 over cap, needs review):
+**Root** (8 files — 2 under cap):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
-- [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — H2 blocker, parked
-- [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference (acknowledged)
-- [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system (live)
-- [MEMO_IMAGE_GEN_WALKTHROUGH.md](pm_inbox/MEMO_IMAGE_GEN_WALKTHROUGH.md) — Image gen walkthrough (reference)
-- [MEMO_TTS_MONOLOGUE_WALKTHROUGH.md](pm_inbox/MEMO_TTS_MONOLOGUE_WALKTHROUGH.md) — TTS monologue walkthrough (reference)
-- [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log (manual entries)
-- [MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md](pm_inbox/MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md) — Comedy loadout pattern (PARKED, Phase 1 approved)
-- [MEMO_COMEDY_STINGER_REPO_MAPPING.md](pm_inbox/MEMO_COMEDY_STINGER_REPO_MAPPING.md) — Comedy stinger implementation spec (PARKED, paired with above)
-- [MEMO_TTS_GHOST_FOG_RESEARCH.md](pm_inbox/MEMO_TTS_GHOST_FOG_RESEARCH.md) — Ghost fog voice research (NEW, from Anvil session)
+- [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
+- [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
+- [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md) — Table vision (parked until visual pass)
+- [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 
-**Note:** Root is 3 over the 10-file cap. Walkthrough memos (IMAGE_GEN, TTS_MONOLOGUE) and preflight files are reference material — consider archiving to bring count under cap.
+**Note:** Root is at 8 files. 2 slots available for BURST-001 dispatch + debrief.
 
-**Doctrine** (8 files in `pm_inbox/doctrine/` — permanent reference):
-- DOCTRINE_01 through DOCTRINE_08 (see Doctrine files section above)
+**Doctrine** (10 files in `pm_inbox/doctrine/` — permanent reference, type-labeled SPEC/GOV/PROC):
+- DOCTRINE_01 through DOCTRINE_10 (see Doctrine files section above)
 
-**Archived this cycle:** WO-UI-01 + WO-UI-02 + WO-UI-DRIFT-GUARD + WO-UI-ZONE-AUTHORITY + WO-UI-03 + WO-UI-04 dispatch + debrief → `pm_inbox/reviewed/archive_ui/`. WO-DIRECTOR-01 + WO-DIRECTOR-02 + WO-DIRECTOR-03 dispatch + debrief → `pm_inbox/reviewed/archive_director/`. Previous Oracle/smoke/fuzzer artifacts in `pm_inbox/reviewed/archive_smoke_oracle/`. MEMO_NAME_DISPUTE_ANVIL → `pm_inbox/reviewed/`. Dispositioned memos (MEMO_EMOTION_CLIP_ROUTER, DEBRIEF_VOICE_PIPELINE_UPGRADE) in `pm_inbox/reviewed/`. Legacy subdirectories (aegis_rehydration, gpt_rehydration, research) in `pm_inbox/reviewed/legacy_pm_inbox/`.
+**Archived this cycle:** WO-COMEDY-STINGERS-P1 dispatch + debrief + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `pm_inbox/reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION → `pm_inbox/reviewed/`. WO-UI-* dispatch + debrief → `archive_ui/`. WO-DIRECTOR-* → `archive_director/`. Oracle/smoke/fuzzer → `archive_smoke_oracle/`. Legacy → `legacy_pm_inbox/`.
 
 ## Persistent Files
 
