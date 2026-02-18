@@ -138,7 +138,7 @@ Behavior: Stoplight downgrades. Slate requests sensor and halts until rehydrated
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: e4ac5c1 — WO-COMEDY-STINGERS-P1 (comedy stinger content subsystem)
+Last commit: 73f5e26 — docs: table vision spatial spec memo + briefing update
 Tests passed: 5,978 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
 Gate tests: 162/162 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13). No-backflow: PASS.
@@ -200,10 +200,10 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 
 ## Active State
 
-**Parked items:** BURST-001 thru 004, MEMO_SPARK_LLM_SELECTION (H2 blocker), cast_id determinism, Tier B coverage gaps (7 hooligan findings).
+**Parked items:** BURST-001 thru 004, cast_id determinism, Tier B coverage gaps (7 hooligan findings). Table vision memo filed (MEMO_TABLE_VISION_SPATIAL_SPEC), parked until visual pass.
 
-**PM posture:** IDLE. No active WO. Comedy Stingers P1 accepted. Spark LLM Selection next.
-**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → Spark LLM Selection → BURST-001.
+**PM posture:** IDLE. No active WO. Next: Spark LLM Selection research WO (local model only — API ruled out by offline doctrine).
+**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → **Spark LLM Selection** → BURST-001.
 
 ---
 
