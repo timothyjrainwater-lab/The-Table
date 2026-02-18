@@ -50,7 +50,7 @@ def zone_for_position(x: float, z: float) -> Optional[str]:
     Checks zones in priority order: player, map, dm.
     If a position falls in overlapping zones, the first match wins.
     """
-    for zone_name in ("player", "map", "dm"):
+    for zone_name in _ZONE_BOUNDS:
         cx, cz, hw, hh = _ZONE_BOUNDS[zone_name]
         if (cx - hw) <= x <= (cx + hw) and (cz - hh) <= z <= (cz + hh):
             return zone_name

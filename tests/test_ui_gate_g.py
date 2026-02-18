@@ -1,6 +1,6 @@
-"""Gate G tests — Table UI Phase 2 backend contracts.
+"""Gate G tests — Table UI Phase 2+3 backend contracts.
 
-16 tests across 6 gate categories (UI-G1 through UI-G6).
+19 tests across 7 gate categories (UI-G1 through UI-G7).
 
 Categories:
     UI-G1: TableObject types (3 tests)
@@ -9,8 +9,10 @@ Categories:
     UI-G4: Hard bans — static scan (2 tests)
     UI-G5: Drift guards (3 tests)
     UI-G6: Zone authority gates (3 tests)
+    UI-G7: Dice tray / dice tower / PENDING_ROLL handshake (3 tests)
 
-Authority: WO-UI-02, WO-UI-DRIFT-GUARD, WO-UI-ZONE-AUTHORITY, DOCTRINE_04_TABLE_UI_MEMO_V4.
+Authority: WO-UI-02, WO-UI-03, WO-UI-DRIFT-GUARD, WO-UI-ZONE-AUTHORITY,
+    DOCTRINE_04_TABLE_UI_MEMO_V4.
 """
 from __future__ import annotations
 
@@ -97,8 +99,8 @@ class TestUIG2ZoneValidation:
     def test_valid_zone_names_defined_and_enumerable(self):
         """Valid zone names are defined and enumerable."""
         assert isinstance(VALID_ZONES, frozenset)
-        assert VALID_ZONES == frozenset({"player", "map", "dm"})
-        assert len(VALID_ZONES) == 3
+        assert VALID_ZONES == frozenset({"player", "map", "dm", "dice_tray", "dice_tower"})
+        assert len(VALID_ZONES) == 5
 
     def test_position_update_to_invalid_zone_rejected(self):
         """Position update to invalid zone is rejected."""
@@ -124,10 +126,20 @@ class TestUIG2ZoneValidation:
         result = validate_zone_position((0.0, 0.05, -3.5), "dm")
         assert result is True
 
+        # Dice tray zone center
+        result = validate_zone_position((4.5, 0.3, 1.75), "dice_tray")
+        assert result is True
+
+        # Dice tower zone center
+        result = validate_zone_position((4.5, 0.3, 0.5), "dice_tower")
+        assert result is True
+
         # zone_for_position confirms zone detection
         assert zone_for_position(0.0, 3.0) == "player"
         assert zone_for_position(0.0, -0.5) == "map"
         assert zone_for_position(0.0, -3.5) == "dm"
+        assert zone_for_position(4.5, 1.75) == "dice_tray"
+        assert zone_for_position(4.5, 0.5) == "dice_tower"
         assert zone_for_position(10.0, 10.0) is None  # outside all zones
 
 
@@ -364,7 +376,7 @@ class TestUIG6ZoneAuthority:
 
         # Load zones.json as the authoritative source
         zones = json.loads(zones_json_path.read_text(encoding="utf-8"))
-        assert len(zones) == 3, f"Expected 3 zones, got {len(zones)}"
+        assert len(zones) == 5, f"Expected 5 zones, got {len(zones)}"
 
         # Scan Python: table_objects.py should NOT contain literal zone tuples
         py_file = root / "aidm" / "ui" / "table_objects.py"
@@ -512,3 +524,164 @@ class TestUIG6ZoneAuthority:
                 f"Zone {zone['name']!r} center {point} is NOT visible "
                 f"from STANDARD posture"
             )
+
+
+# ---------------------------------------------------------------------------
+# UI-G7: Dice tray / tower / PENDING_ROLL handshake (3 tests)
+# ---------------------------------------------------------------------------
+
+class TestUIG7DiceTrayTower:
+    """UI Phase 3 gates — no mechanical authority, handshake determinism, replay stability."""
+
+    @staticmethod
+    def _project_root() -> Path:
+        return Path(__file__).resolve().parent.parent
+
+    def test_no_mechanical_authority_in_client(self):
+        """No RNG calls, roll resolution, or modifier application in client/src/.
+
+        Scans all .ts files in client/src/ for banned patterns:
+        Math.random, crypto.getRandomValues, dice roll functions,
+        and modifier arithmetic that would bypass Box authority.
+        """
+        root = self._project_root()
+        client_src = root / "client" / "src"
+        assert client_src.exists(), "client/src/ must exist"
+
+        banned_patterns = [
+            # Direct RNG
+            re.compile(r"Math\.random\s*\("),
+            re.compile(r"crypto\.getRandomValues\s*\("),
+            # Roll resolution — functions that compute roll outcomes
+            re.compile(r"function\s+roll[A-Z_]"),
+            re.compile(r"const\s+roll\s*="),
+            re.compile(r"let\s+roll\s*="),
+            # d20 roll computation (not string literals like 'd20')
+            re.compile(r"\+\s*Math\.floor\s*\("),
+            # Modifier application that would imply roll resolution
+            re.compile(r"attackBonus|attack_bonus|damageBonus|damage_bonus", re.IGNORECASE),
+        ]
+
+        violations = []
+        for ts_file in client_src.glob("*.ts"):
+            content = ts_file.read_text(encoding="utf-8")
+            for pattern in banned_patterns:
+                matches = pattern.findall(content)
+                if matches:
+                    violations.append(
+                        f"{ts_file.name}: matches '{pattern.pattern}' ({len(matches)}x)"
+                    )
+
+        assert not violations, (
+            f"Mechanical authority violations in client/src/: {violations}"
+        )
+
+    def test_pending_handshake_determinism(self):
+        """PENDING_ROLL → CONFIRMED transition is deterministic.
+
+        Given identical PendingRoll inputs, the same DiceTowerDropIntent
+        produces the same state transition. No implicit timeouts.
+        """
+        from aidm.ui.pending import (
+            PendingRoll,
+            PendingStateMachine,
+            DiceTowerDropIntent,
+        )
+
+        # Run the same scenario multiple times — must produce identical results
+        results = []
+        for _ in range(5):
+            sm = PendingStateMachine()
+
+            # Emit identical PENDING_ROLL
+            cancelled = sm.emit(PendingRoll(spec="1d20", pending_handle="roll_001"))
+            assert cancelled is None  # No prior PENDING
+
+            # Verify active
+            assert sm.active is not None
+            assert isinstance(sm.active, PendingRoll)
+            assert sm.active.pending_handle == "roll_001"
+
+            # Resolve with matching DiceTowerDropIntent
+            resolved = sm.resolve(
+                DiceTowerDropIntent(
+                    dice_ids=("d20",),
+                    pending_roll_handle="roll_001",
+                )
+            )
+            results.append(resolved)
+
+            # Verify cleared
+            assert sm.active is None
+
+        # All runs must produce True (resolved)
+        assert all(r is True for r in results), (
+            f"Non-deterministic handshake results: {results}"
+        )
+
+        # Mismatched handle must not resolve
+        sm2 = PendingStateMachine()
+        sm2.emit(PendingRoll(spec="1d20", pending_handle="roll_002"))
+        not_resolved = sm2.resolve(
+            DiceTowerDropIntent(
+                dice_ids=("d20",),
+                pending_roll_handle="wrong_handle",
+            )
+        )
+        assert not_resolved is False, "Mismatched handle should not resolve"
+        assert sm2.active is not None, "PENDING should still be active after failed resolve"
+
+    def test_replay_stability(self):
+        """Same PENDING_ROLL → confirm → result sequence produces same final state.
+
+        Replay guarantee: if the event log replays, the state machine
+        arrives at the same state.
+        """
+        from aidm.ui.pending import (
+            PendingRoll,
+            PendingStateMachine,
+            DiceTowerDropIntent,
+        )
+
+        def _run_sequence() -> list:
+            """Run a deterministic sequence and capture state transitions."""
+            sm = PendingStateMachine()
+            states = []
+
+            # Step 1: Emit PENDING_ROLL for attack
+            sm.emit(PendingRoll(spec="1d20+5", pending_handle="atk_001"))
+            states.append(("emit_atk", type(sm.active).__name__ if sm.active else None))
+
+            # Step 2: Player drops dice
+            r1 = sm.resolve(DiceTowerDropIntent(
+                dice_ids=("d20",),
+                pending_roll_handle="atk_001",
+            ))
+            states.append(("resolve_atk", r1, sm.active))
+
+            # Step 3: Emit PENDING_ROLL for saving throw
+            sm.emit(PendingRoll(spec="1d20", pending_handle="save_001"))
+            states.append(("emit_save", type(sm.active).__name__ if sm.active else None))
+
+            # Step 4: New PENDING cancels previous (if any)
+            sm.emit(PendingRoll(spec="1d20+3", pending_handle="save_002"))
+            states.append(("emit_save2", type(sm.active).__name__ if sm.active else None))
+
+            # Step 5: Resolve second save
+            r2 = sm.resolve(DiceTowerDropIntent(
+                dice_ids=("d20",),
+                pending_roll_handle="save_002",
+            ))
+            states.append(("resolve_save2", r2, sm.active))
+
+            return states
+
+        # Run the sequence twice — must produce identical state traces
+        trace_a = _run_sequence()
+        trace_b = _run_sequence()
+
+        assert trace_a == trace_b, (
+            f"Replay divergence detected:\n"
+            f"  Run A: {trace_a}\n"
+            f"  Run B: {trace_b}"
+        )

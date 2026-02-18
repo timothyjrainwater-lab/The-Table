@@ -23,6 +23,8 @@ export interface DragCallbacks {
   onDragStart?: () => void;
   /** Called when drag ends — re-enable camera controls. */
   onDragEnd?: () => void;
+  /** Called when an object is successfully dropped in a zone. */
+  onDrop?: (obj: TableObject, zone: string) => void;
 }
 
 /**
@@ -200,6 +202,7 @@ export class DragInteraction {
       picked.zone = zone;
       picked.onDrop(zone);
       this._sendPositionUpdate(picked, dropPos, zone);
+      if (this.callbacks.onDrop) this.callbacks.onDrop(picked, zone);
     } else {
       // Invalid zone — snap back
       this._snapBack(picked);
@@ -390,6 +393,7 @@ export class DragInteraction {
       picked.zone = zone;
       picked.onDrop(zone);
       this._sendPositionUpdate(picked, dropPos, zone);
+      if (this.callbacks.onDrop) this.callbacks.onDrop(picked, zone);
     } else {
       this._snapBack(picked);
     }

@@ -22,5 +22,21 @@
     "halfWidth": 5.0,
     "halfHeight": 0.75,
     "color": "0xff4444"
+  },
+  {
+    "name": "dice_tray",
+    "centerX": 4.5,
+    "centerZ": 1.75,
+    "halfWidth": 1.0,
+    "halfHeight": 0.5,
+    "color": "0xffaa44"
+  },
+  {
+    "name": "dice_tower",
+    "centerX": 4.5,
+    "centerZ": 0.5,
+    "halfWidth": 0.75,
+    "halfHeight": 0.5,
+    "color": "0xff66aa"
   }
 ]
