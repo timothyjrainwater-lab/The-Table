@@ -1,0 +1,548 @@
+REHYDRATED FROM: Golden Ticket v11 + PC-v0 + PC addendum review (2026-02-16) | MODE: SIDEKICK | AMP: OFF
+
+```text
+AI2AI_GOLDEN_TICKET v12
+DATE=2026-02-16
+TO=AI PM AGENT (Execution Authority)
+FROM=AEGIS (3rd-Party Auditor / Governance Layer)
+MODE=NO_OPS
+STATUS=PM GOLDEN TICKET (CURRENT TRUTH; repo may be stale)
+INTENT=Single source of product doctrine: enforceable contracts, decision debt, gates/tests, bounded next work. Optimized for scarce PM context.
+METHOD=v12 dedupe: state each law once; reference anchors instead of repeating bans.
+
+MAP (FAST NAV)
+§1 TRUTH_KERNEL
+§2 HARD_LAWS (HL-###)
+§3 SUBSYSTEM_CONTRACTS (BOX/ORACLE/LENS/SPARK/IMMERSION)
+§4 DIRECTOR (NUDGE) SHAPE (DIR-###)
+§5 TABLE_UX AUTHORITY (RB-### / NB-### / TWO-BOOK)
+§6 ACCESSIBILITY (ACC-###)
+§7 COMPANION MODE (CMP-###)
+§8 TEACHING NUDGES (CH-###)
+§9 RECAP/RECALL DOCTRINE (RR-###)
+§10 NPC ROLEPLAY + INTERRUPTION LAW (RV-###)
+§10A PERFORMANCE CONTRACT (PC-###)  [NEW; codifies “great DM” properties]
+§11 REQUIRED GATES/TESTS (GT-### / GT-RP-### / GT-PC-###)
+§12 EVENTS/LOGGING (EV-###)
+§13 RETAINED DOCTRINES (ALIGNMENT / CULTURE)
+§14 DECISION DEBT (DR-###)
+§15 WO CANDIDATES (INFO ONLY)
+§16 PM INTAKE ORDER
+
+============================================================
+§1) TRUTH_KERNEL (READ FIRST; 60-SECOND INSTALL)
+K1=The Table is NOT “an AI DM” and NOT “a VTT.” It is a local-first deterministic referee + world compiler + embodied tabletop interface.
+K2=Core promise: ANY GENRE. SAME TRUTH. Skin is compiled onto deterministic muscle; narration never becomes authority.
+K3=Authority is one-way: BOX -> LENS/ORACLE -> SPARK -> IMMERSION. No backflow.
+K4=BOX is mechanically authoritative (deterministic outcomes; event-sourced proofs; RNG isolation).
+K5=LENS/ORACLE is canon gate + continuity: deterministic WorkingSets/PromptPacks; visibility; provenance; stable serialization.
+K6=SPARK is renderer-only (phrasing/performance); cannot mint canon or policy.
+K7=IMMERSION is embodiment only (STT/TTS/images/audio); assets cached by ID; non-canon.
+K8=Determinism gate: same (state, query, budget) => byte-equal WorkingSet bytes and deterministic serialization in PLAY-critical paths.
+K9=Player controls the books; AI assists via primitives. Notebook is sacred (write-locked by default; explicit consent required).
+K10=Soft recap is allowed; precision recall is earned (routing + one-roll rules).
+K11=Roleplay must feel like a real table under constant interruption: beat-based output + deterministic conductor + conservative barge-in.
+
+============================================================
+§2) HARD_LAWS (NON-NEGOTIABLE INVARIANTS)
+HL-001 AUTHORITY_CHAIN
+- BOX authoritative for mechanics.
+- LENS/ORACLE authoritative for canon gating + continuity contract.
+- SPARK renderer-only; cannot mint canon/policy.
+- IMMERSION embodiment only; non-canon.
+- No backflow: SPARK/IMMERSION outputs must never drive PLAY-critical decisions.
+
+HL-002 CANONIZATION_PROVENANCE
+- Canon writes require provenance_event_ids sourced from BOX outcomes.
+- FactsLedger and StoryState store provenance (event IDs + source type).
+- SPARK text does not become canon by itself.
+
+HL-003 DETERMINISM_PLAY_CRITICAL
+- Retrieval + serialization stable and byte-equal on identical inputs.
+- PLAY-impacting policies deterministic; must not depend on SPARK outputs.
+- Non-deterministic subsystems (STT/TTS/image/audio) must not influence:
+  WorkingSet selection, canon writes, DCs, rolls, nudges, policy gates.
+
+HL-004 TABLE_CULTURE_PLAYER_OWNERSHIP
+- Rulebook/Beast Book is player-controlled reference; AI is assistant.
+- Notebook is sacred: default WRITE-LOCKED; no writes without explicit consent/commit.
+- Two-book doctrine: Beast Journal lives in Rulebook/Beast Book, not in Notebook.
+
+HL-005 PRECISION_LEAKAGE_BAN
+- Output classes must not leak locked precision tokens unless recorded/unlocked via player-controlled artifacts.
+- Applies to: SOFT_RECAP, NUDGE_TEXT, GIST, ROLEPLAY_BEATS, RESUME prompts.
+
+HL-006 PER_SCENE_CAPS_REQUIRE_DETERMINISTIC_SCENE_ID
+- Any “per scene” cap keys to deterministic scene_id.
+
+HL-007 ROLEPLAY_DETERMINISM_SCOPE
+- Roleplay content may be non-deterministic (non-canon) unless explicitly configured otherwise.
+- Seam behavior MUST be deterministic: beat boundaries, buffering rules, cover selection, interruption handling, and validation/fallback rules are stable and auditable.
+- Optional: deterministic BeatScript (seeded + fixed prompt + fixed budgets) for replay-faithful performances.
+
+============================================================
+§3) SUBSYSTEM_CONTRACTS (OWNERSHIP + FORBIDDEN MOVES)
+3.1 BOX (Truth Engine)
+BOX-C-001 Deterministic mechanics; reducers; event sourcing; RNG isolation.
+BOX-C-002 Emits canonical events (provenance backbone for canon writes).
+
+3.2 ORACLE (Continuity Unit; name optional; contract mandatory)
+ORC-C-001 Oracle owns read/write rules for:
+- EventLog (append-only)
+- FactsLedger (canonical truth with provenance)
+- StoryState (threads/clocks/agendas/capabilities/microstate with provenance)
+- Compactions (non-canon accelerators only)
+- Deterministic WorkingSet retrieval (stable order, explicit tie-breakers, canonical serialization)
+
+ORC-C-002 Deterministic WorkingSet rule:
+- same (state, query, budget) => byte-equal WorkingSet bytes
+- explicit tie-breakers required: stable sort keys, deterministic truncation, canonical ordering
+
+ORC-C-003 Mode separation:
+- StoryState represents MODE=PLAY|COMPANION|REFERENCE|NOTEBOOK
+- Mode gates legal actions + allowed output classes
+
+3.3 LENS (Canon Gate + Controller)
+LNS-C-001 Builds bounded WorkingSets + PromptPacks; enforces visibility and canon rules.
+LNS-C-002 Contains small deterministic Director/Nudge policy (see §4 DIR-###).
+LNS-C-003 Enforces output_class discipline (redaction/allowed tokens) (ref HL-005).
+LNS-C-004 Handles-not-secrets where applicable: directives refer to IDs/handles, not hidden tokens.
+
+LNS-F (Forbidden; single source of bans)
+LNS-F-001 Must not invent new canonical entities, facts, or future events.
+LNS-F-002 Must not force outcomes or compel player choice.
+LNS-F-003 Must not introduce “plot tokens” not present in FactsLedger/StoryState.
+LNS-F-004 Must not override BOX outcomes.
+LNS-F-005 Must not use SPARK outputs to select nudges in PLAY.
+LNS-F-006 Must not embed locked precision tokens inside constrained outputs (ref HL-005).
+
+3.4 SPARK (Renderer / Skin)
+SPK-C-001 Renders narration/phrasing strictly from LENS-provided inputs.
+SPK-C-002 Cannot mint canon; cannot drive policy; cannot influence retrieval (ref HL-001/HL-003).
+SPK-C-003 Must respect output_class constraints (ref HL-005).
+SPK-C-004 NPC roleplay output must be beat-shaped (ROLEPLAY_BEATS), not monolithic monologues (ref RV-010).
+SPK-C-005 For “great DM” properties, SPARK must output typed Roleplay Script segments (ref PC-001).
+
+SPK-F (Forbidden)
+SPK-F-001 Must not invent canon or policy, or select nudges in PLAY (ref HL-001).
+SPK-F-002 Must not leak precision tokens via “helpful recap” or phrasing (ref HL-005).
+
+3.5 IMMERSION (Embodied Table)
+IMM-C-001 STT/TTS/images/audio are embodiment surfaces; outputs are non-canon (ref HL-003).
+IMM-C-002 Assets cached by ID; never treated as canon truth.
+IMM-C-003 Must not affect WorkingSet selection or PLAY-critical policy (ref HL-003).
+IMM-C-004 Roleplay Playback Conductor (ref §10 RV-020..RV-030):
+- Beat Queue prebuffering
+- Seam masking (room tone/covers)
+- Crossfades
+- Barge-in handling
+- Deterministic cover selection (no LLM required)
+
+============================================================
+§4) DIRECTOR (NUDGE) — REQUIRED SHAPE (SMALL, TYPED, DETERMINISTIC)
+DIR-001 “Director” must NOT be a heavy subsystem; it is a small deterministic policy inside LENS.
+DIR-002 LENS attaches NudgeDirective to PromptPack; SPARK renders it.
+
+DIR-003 NudgeDirective.type enum:
+- NONE
+- SPOTLIGHT_NUDGE(target_pc_id)
+- CALLBACK_NUDGE(thread_id)
+- PRESSURE_NUDGE(clock_id / constraint already in StoryState)
+- CLARIFY_OPTIONS(2–4 options with consequence_handles)
+
+DIR-004 Anti-rail constraints:
+- Default NONE unless measurable thresholds exceeded (stall/spotlight/payoff debt).
+- 0–1 nudge per scene (ref HL-006).
+- Cooldown + hysteresis to prevent oscillation/jitter.
+- Never contradict FactsLedger/StoryState; never invent canon (ref LNS-F-001..003).
+- Handles-not-secrets: options reference consequence_handles, not hidden tokens.
+
+DIR-005 Spotlight is not separate.
+- SpotlightPrompt IS implemented via NudgeDirective(type=SPOTLIGHT_NUDGE).
+- Therefore it inherits: 0–1 per scene cap + cooldown/hysteresis + non-authority constraints.
+
+============================================================
+§5) TABLE_UX AUTHORITY — PLAYER CONTROLS, AI ASSISTS
+5.1 Rulebook / Beast Book (world reference; player-controlled)
+RB-001 Player chooses what to open/read/search.
+RB-002 AI assist primitives:
+- OPEN_PAGE(topic/entry_id)
+- FIND_SECTION(query)
+- READ_ALOUD(page_range)
+- GIST_ON_REQUEST(player-invoked; never automatic)
+RB-003 AI must not control access outside explicit visibility/unlock policy.
+
+5.2 Notebook (sacred player artifact; player-controlled)
+NB-001 Notebook is player-authored. Default WRITE-LOCKED (ref HL-004).
+NB-002 Nothing written unless:
+A) player writes/draws/pastes, OR
+B) player explicitly requests recording (“write that down / record that / save this”).
+
+NB-003 AI assist primitives (all require explicit commit):
+- DRAFT_NOTE(format/structure) -> consent to commit
+- TRANSCRIBE_DICTATION -> consent to commit
+- PASTE_ASSET(image/handout) -> consent to commit
+
+NB-004 Absolute bans:
+- No autowrite. No silent “helpful logging.”
+
+NB-005 Deterministic consent handshake:
+- ConsentRequested(scope, preview_handle)
+- Only ConsentGranted(consent_id) triggers NotebookWriteApplied
+- Ambiguous response defaults NO (ConsentDenied)
+- Consent is scoped + expires (scene_id or short TTL)
+
+5.3 Two-book doctrine
+TB-001 Rulebook/Beast Book = world reference (includes Beast Journal progressive reveal).
+TB-002 Notebook = player’s chosen memory and drawings.
+TB-003 Beast Journal lives in Rulebook/Beast Book, not in Notebook.
+
+============================================================
+§6) ACCESSIBILITY WITHOUT “GAMEY UI” (DIEGETIC INSTRUMENTS)
+ACC-001 Accessibility solved with diegetic table instruments, not HUD panels.
+ACC-002 Reading Spot:
+- physical place to set the book and read comfortably
+- supports reflow, font size, contrast, line spacing, focus line/ruler
+- supports TTS: “read this page” as a book action, not a UI modal
+ACC-003 Tool metaphors:
+- Magnifying glass = zoom/reflow controls
+- Lamp = contrast/brightness/focus
+- Tabs/bookmarks = navigation
+- Dictation quill = STT to Notebook with explicit commit (ref NB-005)
+ACC-004 Player owns settings; AI may execute requests but never changes settings unasked.
+
+============================================================
+§7) COMPANION MODE (IDLE-TO-ENGAGE) — BOUNDED
+CMP-001 Intent: character creation/downtime feel like chat; engaging, guided, responsive; never coercive.
+CMP-002 Boundaries (must NOT):
+- decide mechanics, rolls, outcomes (ref HL-001)
+- fabricate canon (ref HL-002)
+- write Notebook or canon without explicit consent/commit (ref NB-005)
+- output locked precision levers unless player consulting Rulebook/Notebook explicitly (ref HL-005)
+CMP-003 Default prompts QUESTION-FIRST:
+- ASK_PREFERENCE
+- OFFER_COMPARISON
+- SUMMARIZE_OPTIONS
+- SUGGEST_HOOK (non-canon)
+- PROPOSE_RECORD (“You might want to write that down — want me to?”)
+
+============================================================
+§8) TEACHING WITHOUT HAND-HOLDING — NOTE-NUDGE COACHING
+CH-001 Allowed teaching nudge: “You might want to write that down.”
+- Suggestion only; must not contain the precision token; must never trigger a write.
+CH-002 Player coaching profile (non-canon dial):
+- OFF / LIGHT(default) / TRAINING / ACCESSIBILITY_ASSIST
+CH-003 Hard limits:
+- 0–1 nudge per scene (ref HL-006)
+- cooldown + hysteresis
+- player can override coach level at any time
+- fade-out as competence increases
+
+============================================================
+§9) RECAP / RECALL DOCTRINE (FAIR, NOT HAND-HOLDING)
+RR-001 Soft recap (always allowed; framing only)
+Allowed:
+- orientation + gist: where you are, objective, major outcomes, open threads
+- may reference high-level StoryState headings as orientation UI
+Forbidden:
+- locked precision tokens unless recorded/unlocked (ref HL-005)
+
+RR-002 Precision recall routing
+Step1 If recorded/unlocked (Notebook or unlocked Rulebook page) -> provide exact.
+Step2 If never learned/not observed/gated behind failed or unmade check at the time -> “secret/not known” (NO roll).
+Step3 If observed but not recorded -> ONE reconstruction attempt.
+
+RR-003 One-roll reconstruction (default)
+- one attempt per requested detail per SCENE (ref HL-006)
+- table-wide single attempt (no dogpiling); party chooses roller
+- no rerolls unless explicitly permitted by declared mechanic
+
+RR-004 Attribute grounding (3.5-feel)
+- INT = factual precision recall (Knowledge/Search/Decipher Script)
+- WIS = insight/subtext (Sense Motive) + environmental reconstruction (Survival)
+- CHA = re-learning via social process (Diplomacy/Gather Information), not “memory”
+
+RR-005 Deterministic DC banding
+Bands:
+- DC10 obvious/repeated/central
+- DC15 specific, stated once clearly
+- DC20 precise lever token stated once
+- DC25 deliberately obscured/coded/chaotic context
+- DC30 borderline
+Allowed modifiers (bounded, deterministic):
+- +5 chaos/stress
+- -5 calm/repeated exposure
+- -2 relevant background tag (explicit)
+- -2 partial notes exist (missing the key)
+
+============================================================
+§10) NPC ROLEPLAY (STORY MODE) — SMOOTH UNDER INTERRUPTIONS
+RV-001 Roleplay is performance, not authority.
+- NPC dialogue/tales are non-canon unless LENS/ORACLE provides explicit canon facts or player commits via Notebook consent (ref HL-002/NB-005).
+- Immersion continuity tricks (ums/page turns/room tone) are embodiment-only; must not influence PLAY-critical policy (ref HL-003).
+
+RV-010 Beat Queue (required shape)
+- output_class=ROLEPLAY_BEATS produces Beat Queue (not paragraphs).
+- beats are short, seam-safe, interruptible: 1–3 sentences, terminal punctuation, natural pause point.
+- sizing target: 8–15 seconds audio per beat; enforce max-length budgets.
+
+RV-020 Prebuffer rule
+- Maintain >=2 beats synthesized ahead of currently playing beat when possible.
+
+RV-021 Seam masking (deterministic library)
+- If buffer underruns, IMMERSION may inject deterministic cover audio/lines:
+  room tone, page turns, mug set-down, short pre-authored stall lines
+- Cover selection deterministic keyed by (utterance_id, beat_id, reason_code).
+
+RV-022 Stitching rules
+- Crossfade adjacent beat clips only at safe seams (terminal punctuation + trailing silence).
+- Maintain stable noise floor (room tone bus) + loudness normalization.
+
+RV-030 Player barge-in handling (table realism)
+- Conservative triggers required: echo cancellation/mic gating + min duration + confidence band (ref GT-RP-INT-02).
+- Duck NPC audio quickly; stop at next seam; enter LISTEN; respond.
+
+RV-040 Permission points (agency, not rails)
+- Every 3–5 beats optionally insert neutral permission prompts:
+  “Want the short version or the full story?” / “Should I keep going?”
+- Must be neutral unless LENS provides explicit stakes framing.
+
+RV-100 INTERRUPTION-FIRST ROLEPLAY (LAW)
+- Interruption is normal. The system must reward interruption, not fight it.
+- On player speech during NPC playback:
+  1) duck quickly
+  2) stop at next safe seam (beat boundary)
+  3) enter LISTEN
+- Acknowledge interruption with ONE short line (in-character or neutral), then route the request:
+  RULE/REFERENCE -> RB-002
+  RECAP/RECALL -> RR-001/RR-002 (must obey HL-005)
+  NOTE -> NB-005 (consent handshake)
+  ACTION/COMBAT -> BOX path
+  STORY -> resume flow
+- Resume is player-invited only:
+  “Want me to continue?” / “Short version or full version?”
+  Resume MUST NOT leak locked precision tokens (ref HL-005 / GT-005 / GT-RP-INT-05).
+
+============================================================
+§10A) PERFORMANCE CONTRACT v0 (PC)  [PORTABLE “GREAT DM” PROPERTIES]
+Purpose: codify “legend DM feel” as verifiable table properties (clarity, pacing, spotlight discipline, continuity) without granting Spark authority.
+
+PC-001 Typed Roleplay Script (Channel Separation by Construction)
+- SPARK MUST emit ROLEPLAY_SCRIPT inside ROLEPLAY_BEATS.
+- Each beat contains ordered segments:
+  kind: NARRATION | DIALOGUE | ASIDE(optional) | STAGE_CUE(non-spoken)
+  speaker_id: NARRATOR or npc_id (STAGE_CUE uses speaker_id=NARRATOR)
+  text: utf-8 (STAGE_CUE uses cue_id or cue_text handle; not spoken)
+  optional metadata: emotion_tag, pace_tag, pause_ms
+- Unparseable or ambiguous output is invalid -> validation failure (ref PC-008 retry/fallback).
+
+PC-002 VoiceRegistry (Deterministic; Not Spark-chosen)
+- voice_id assignment deterministic and owned by Oracle/runtime config:
+  npc_id -> voice_id (or archetype bucket)
+- SPARK never selects voices; it only labels speaker_id.
+- Render mapping:
+  NARRATION (speaker_id=NARRATOR) -> narrator voice
+  DIALOGUE (speaker_id=npc_id) -> npc voice via VoiceRegistry
+
+PC-003 Beat Craft Constraints (Cinematic without monologues)
+- Beats remain short, seam-safe, interruptible (ref RV-010).
+- Narration rule of thumb (non-enforced): 1–2 sensory anchors + 1 actionable affordance per scene beat.
+
+PC-004 Permissioning Cadence (Agency Support; Not Nagging)
+- Permission prompts allowed only:
+  A) at scene transitions, OR
+  B) at cadence every N beats (default N=4), OR
+  C) after an interruption resume
+- Prompts must be neutral unless Lens supplies stakes framing handles.
+
+PC-005 Spotlight Discipline (Turn-taking; Non-authoritative)
+- Implemented ONLY via DIR-003 SPOTLIGHT_NUDGE, therefore inherits DIR-004 constraints + HL-006 caps.
+- Allowed: direct neutral question, cutaway, “what are you doing while…”
+- Forbidden: steering outcomes, inventing consequences, modal coercion (“you should/must”) without Lens-supplied stakes handles.
+
+PC-006 Continuity References by Handle (No Fake Memory)
+- SPARK may reference past only via Lens-provided AllowMention handles for the beat:
+  [[FACT:f123]] [[THREAD:t045]] [[CLOCK:c011]] [[REL:r009]]
+- Handles map to concrete FactsLedger/StoryState entries with provenance; vague “scene handles” are invalid.
+- Lens provides AllowMention list per beat (or per utterance) and optional AllowedFactSnippets per handle.
+- Spark may phrase naturally, but any “callback” must be attributable to an allowed handle at validation time.
+
+PC-007 Stage Business Separation (Human cadence without contaminating speech)
+- “ums/page turns/let me check” are not spoken by default.
+- Use STAGE_CUE segments; IMMERSION renders cues (SFX, breath, gesture) without placing filler words in spoken text.
+
+PC-008 Reject/Retry Budget + Fallback (Prevents deadlock; protects TTFA)
+- If output fails schema validation (PC-001) or HL-005 anti-leak validation:
+  regenerate up to max_retry=2.
+- If still failing: emit deterministic fallback beat:
+  neutral narrator line + neutral permission prompt (no locked tokens), then continue.
+- Log validation failures + fallback activation; never infinite-loop.
+
+============================================================
+§11) REQUIRED GATES / TESTS (ENFORCEMENT)
+Core determinism + authority gates
+GT-001 Byte-equal WorkingSet gate (ORACLE/LENS): same (state, query, budget) => identical WorkingSet bytes.
+GT-002 Stable tie-breakers gate: ordering + truncation deterministic; explicit keys; canonical ordering.
+GT-003 No-autowrite gate (Notebook): Notebook state never changes without ConsentGranted -> NotebookWriteApplied.
+GT-004 Conservative consent gate: ambiguous player responses default ConsentDenied; consent scoped + expires.
+GT-005 No precision leakage gate (output classes): SOFT_RECAP/NUDGE/GIST/ROLEPLAY_BEATS/RESUME must not contain locked tokens unless recorded/unlocked. Trap-token tests required.
+GT-006 No backflow gate: SPARK outputs cannot be inputs to PLAY-critical policies (nudges, DCs, canon writes, retrieval) (ref HL-001/HL-003).
+GT-007 Per-scene caps gate: 0–1 nudge per scene; 0–1 reconstruction attempt per detail per scene; keyed to deterministic scene_id (ref HL-006).
+GT-008 Mode separation gate: PLAY vs COMPANION vs REFERENCE vs NOTEBOOK have different legal actions and output classes.
+GT-009 Roleplay Beat Integrity gate: every beat ends with terminal punctuation; max-length enforced; no mid-sentence cuts in normal operation.
+GT-013 Time-to-First-Audio (TTFA) gate: measure end-of-user-utterance -> first audible response; mode-specific thresholds.
+GT-014 Max Dead-Air gate: during roleplay playback, no silent gap > threshold; deterministic cover engages before dead-air.
+
+Roleplay interruption gates
+GT-RP-INT-01 Barge-in Responsiveness:
+- On player speech: duck/pause within threshold, stop at seam, enter LISTEN.
+- Must not talk over player.
+
+GT-RP-INT-02 False-Positive Barge-in (Echo):
+- Under NPC playback, self-trigger rate below threshold.
+- Requires echo cancellation or mic gating in harness; min-duration + confidence band.
+
+GT-RP-INT-03 Beat Integrity (detail):
+- Beats end with terminal punctuation and satisfy max-length constraints.
+
+GT-RP-INT-04 Buffer Continuity / Max Dead-Air (detail):
+- No silent gap > threshold between beats.
+- Deterministic cover engages before dead-air.
+
+GT-RP-INT-05 Resume Anti-Leak:
+- Resume prompts and “pick up where I left off” behavior MUST NOT reveal locked precision tokens.
+- Trap-token tests apply. (ref GT-005)
+
+GT-RP-INT-06 Permission Neutrality:
+- Permission prompts neutral; no biased framing unless LENS-supplied stakes framing exists.
+
+Performance Contract gates
+GT-PC-01 Channel Separation
+- 100% of ROLEPLAY_BEATS parse to ROLEPLAY_SCRIPT schema (PC-001).
+- No mixed narration/dialogue without explicit segment typing.
+
+GT-PC-02 Voice Mapping Determinism
+- Same npc_id -> same voice_id across sessions unless explicitly reconfigured.
+- Spark output never contains voice_id selection.
+
+GT-PC-03 Spotlight Non-Authority
+- SPOTLIGHT_NUDGE frequency <=1 per scene.
+- Prompt text is interrogative/neutral; no modal coercion without stakes handles.
+
+GT-PC-04 Continuity No-Hallucination
+- Any callback line must be attributable to an AllowMention handle (PC-006).
+- Trap tests: prompt Spark to “remember” nonexistent event; ensure refusal or non-assertion.
+
+GT-PC-05 Permission Cadence
+- Permission prompts occur only at allowed cadence points (PC-004).
+- Default cadence uses N=4 unless DR changes it.
+
+GT-PC-06 Interruption Integrity
+- Under barge-in/resume, channel separation and anti-leak gates still pass (inherits GT-005 and GT-RP-INT-05).
+
+GT-PC-07 Retry Budget + Fallback
+- max_retry enforced; no infinite loops.
+- fallback beat is neutral, non-leaking, deterministic.
+
+GT-PC-08 Stage Cue Separation
+- Stage business rendered via STAGE_CUE only; spoken text contains no filler cues unless explicitly permitted by a declared rule.
+
+PROCESS NOTE (TEST STRATEGY)
+GT-PROC-01 Roleplay is an integration canary:
+- “NPC tale feels continuous under interruptions” is not proven by BOX unit tests.
+- Require harness coverage for TTFA, dead-air, barge-in false positives, channel separation, and resume anti-leak before declaring Story Mode stable.
+
+============================================================
+§12) EVENTS / LOGGING (AUDIT + REPLAY; DETERMINISTIC SERIALIZATION)
+Core recall/consent events
+EV-001 RecallRequest(detail_handle, requester_id, scene_id)
+EV-002 RecallAttempt(detail_handle, roller_id, skill_id, dc, roll, outcome)
+EV-003 RecallResult(detail_handle, outcome, payload_handle)
+
+EV-010 NotebookWriteConsentRequested(consent_id, scope, preview_handle, scene_id)
+EV-011 NotebookWriteConsentGranted(consent_id)
+EV-012 NotebookWriteConsentDenied(consent_id)
+EV-013 NotebookWriteApplied(consent_id, content_handle)
+
+EV-020 ReadingSpotSettingChanged(setting_id, value)
+
+Recommended mode/caps events
+EV-030 ModeChanged(prev_mode, new_mode, cause_handle)
+EV-031 SceneStart(scene_id, cause_handle)
+EV-032 SceneEnd(scene_id, cause_handle)
+EV-033 NudgeSelected(scene_id, nudge_type, target_handle, reason_code)
+EV-034 NudgeSuppressed(scene_id, reason_code)
+
+Roleplay events
+EV-100 RoleplayBeatPlanned(utterance_id, beat_id, script_handle, output_class)
+EV-101 RoleplayBeatSynthesized(utterance_id, beat_id, tts_backend_id, audio_handle)
+EV-102 RoleplayBeatPlaybackStarted(utterance_id, beat_id)
+EV-103 RoleplayBeatPlaybackEnded(utterance_id, beat_id)
+EV-104 RoleplayCoverEngaged(utterance_id, cover_type_id, reason_code)
+EV-105 RoleplayBargeInDetected(utterance_id, player_id, confidence_band, min_duration_ms)
+EV-106 RoleplayPlaybackDucked(utterance_id, ms_to_duck)
+EV-107 RoleplayPlaybackPaused(utterance_id, pause_reason_code)
+EV-108 RoleplayPlaybackResumed(utterance_id)
+EV-109 RoleplayPlaybackAborted(utterance_id, abort_reason_code)
+EV-110 RoleplayBeatQueueDepth(utterance_id, depth, phase_code)
+
+Validation/fallback events (PC-008)
+EV-120 RoleplayValidationFailed(utterance_id, beat_id, failure_code)
+EV-121 RoleplayFallbackEmitted(utterance_id, beat_id, fallback_code)
+
+Handle guidance
+EV-TXT-01 script_handle derived from canonical ROLEPLAY_SCRIPT bytes (hash(canonical_script_bytes)) for stable audit without storing raw text in events.
+
+============================================================
+§13) RETAINED DOCTRINES (IMPORTANT, NOT CORE UX)
+13.1 Alignment (deterministic, non-philosopher)
+ALN-001 Split: CosmicStain (mechanics), Oath/Code (class), Reputation (world).
+ALN-002 Ambiguity => UnresolvedAlignmentIssue (no auto shift).
+ALN-003 Recommend hybrid metaphysics (narrow objective triggers).
+
+13.2 Culture + epistemics gating
+CUL-001 CultureNormProfile + NormEvaluationEvent + Reputation (witness/known gated).
+CUL-002 v0: witness_ids; no rumor propagation.
+
+============================================================
+§14) DECISION DEBT (DR CANDIDATES; DO NOT INFER QUIETLY)
+DR-001 Director placement/authority class -> deterministic NudgePolicy inside LENS; default NONE.
+DR-002 Oracle naming -> adopt ORACLE facade name (alias ok); contract mandatory (ref ORC-C-001).
+DR-003 Alignment stance -> hybrid metaphysics + split-ledger model (ref ALN-001).
+DR-004 Culture norms adoption -> CultureNormProfile + NormEvaluationEvent + Reputation with epistemics gating (ref CUL-001).
+DR-005 Paladin alignment complaint resolution -> oath/deity contract variant default/toggle; no vague LG policing.
+DR-006 Companion Mode canon boundary -> non-canon by default; explicit commit required for canon (ref CMP-002).
+DR-007 Two-book doctrine -> Rulebook/Beast Book player-controlled; Notebook sacred write-locked default (ref HL-004/TB-001).
+DR-008 Recap/Recall doctrine -> soft recap allowed; precision gated; secret/not known blocks roll (ref RR-001/RR-002).
+DR-009 One-roll + party scope defaults -> one attempt per detail per scene; table-wide; party chooses roller; no dogpiling (ref RR-003).
+DR-010 Accessibility surface doctrine -> Reading Spot + diegetic tools; player controls; AI assists only on request (ref ACC-001).
+DR-011 Coaching nudges via player profile -> suggestion only; bounded; no precision tokens; no writes (ref CH-001).
+DR-012 Deterministic consent handshake -> ConsentRequested/Granted/Denied required; ambiguous STT defaults NO (ref NB-005).
+DR-013 Output-class anti-leak policy -> constrained classes + trap-token tests (ref HL-005/GT-005).
+DR-014 Roleplay determinism posture -> content may vary (non-canon); seam behavior deterministic; optional deterministic BeatScript (ref HL-007).
+DR-015 Interruption-first roleplay -> RV-100 is hard law; resume-by-invitation + resume anti-leak.
+DR-016 Performance Contract v0 -> typed channels + handle-based continuity + stage cues + retry budget/fallback (ref §10A PC-###).
+
+============================================================
+§15) WO CANDIDATES (BOUNDED; MINIMIZE BLOAT)  // INFORMATION ONLY; NON-EXECUTABLE HERE
+WO-VAULT-01 Canon Vault + Rehydration Loop
+WO-ORACLE-01 Campaign Persistence Contract + WorkingSet Byte-Equality Gate
+WO-LENS-NUDGE-01 Director-in-LENS NudgePolicy v0
+WO-SCENE-01 Deterministic Scene Boundary v0
+WO-CONSENT-01 Notebook Consent Handshake v0
+WO-RECALL-01 Precision Recall Skill Gate v0
+WO-BOOKS-UX-01 Two-book control + assist primitives
+WO-ACCESS-01 Reading Spot accessibility surface v0
+WO-COACH-01 Note-nudge coaching dial v0
+WO-ROLEPLAY-01 Story Mode Beat Queue + ROLEPLAY_SCRIPT + validation/fallback harness
+
+============================================================
+§16) PM INTAKE ORDER (CONTEXT OPTIMIZED)
+STEP1 §1–2 Truth Kernel + Hard Laws
+STEP2 §3–4 Oracle/LENS contracts + Director shape
+STEP3 §5–6 Two-book + consent + accessibility
+STEP4 §7–11 Modes + coaching + recap/recall + roleplay + performance contract + gates/tests
+STEP5 §12–15 Events + retained systems + DRs + WO candidates
+
+END
+```

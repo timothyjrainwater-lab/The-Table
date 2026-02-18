@@ -1,0 +1,243 @@
+============================================================
+AI->AI MEMO v4: IMAGE GEN SYSTEM (FULL LOCK + ANSWERED OPEN QUESTIONS)
+TO: CLAUDE BUILDER (VS CODE)
+FROM: AEGIS (GOVERNANCE)
+DATE: 2026-02-17
+SUBJECT: Image Gen v4 (OFFLINE / QUALITY FIRST / POOLS / BIND-FOREVER / NO GAME UI)
+============================================================
+
+0) PRECEDENCE
+- GT v12 (2.txt) = TRUTH.
+- UI memo v4 = UX bans + weighted delivery grammar.
+- Repo = substrate only (paths + existing code). Repo doctrine is stale.
+
+1) HARD LAWS (NON-NEGOTIABLE)
+L1 OFFLINE ONLY: local/offline only. No network. No cloud.
+L2 OPEN WEIGHTS ONLY.
+L3 NO GENERATION BLOCKS: no safety/morality refusal layer ever blocks generation.
+L4 NO AUTO-RECORD: no auto paste/insert/write into notebook. Player records manually.
+L5 WEIGHTED DELIVERY: outputs as table artifacts only. No pop-in UI. No previews menu.
+L6 MAP: 2D magical map plane. No 3D terrain. No permanent drawing; overlays TTL only.
+L7 NO BACKFLOW: images and quality scores never used for mechanics/canon/legality/DCs.
+L8 CONSUME-ONCE: pool assets used once; bindings lock identity; never reuse across entities.
+L9 PROMPT ANTI-LEAK: prompt inputs ONLY from PlayerVisibleImageBrief produced by Lens at mask_level.
+
+2) LOCKED DECISIONS (DO NOT REOPEN)
+DEC-001 ENGINE SPLIT
+- BULK engine: in-process SDXL-Lightning path (pool fill, filler assets).
+- HERO engine: heavy workflow engine (ComfyUI) for sacred/hero assets + player-request wow.
+- Shared downstream: Quality Director + AssetStore + Pools + Bindings.
+
+DEC-002 HERO ACCEPTANCE
+- HERO tier = retry-until-threshold with max_budget (attempts + wall-clock).
+- If budget hit: escalate workflow quality or simplify prompt; do NOT accept below hero_min.
+- Below-hero_min allowed only if placeholder=true and explicitly allowed by policy; placeholders do not auto-bind to canon-facing slots.
+
+DEC-003 BINDING PERSISTENCE
+- Source of truth: event log (binding_created, binding_rebound).
+- Materialized: BindingRegistry table for fast lookup.
+- Hard constraint: asset_id cannot be active-bound to >1 distinct slot.
+
+DEC-004 SELECTION POLICY
+- HERO categories: pick top-ranked remaining deterministically.
+- IMPORTANT: pick top-ranked remaining deterministically (default).
+- BULK: weighted pick within top-K allowed.
+- Selection reads only: category/tier/style_pack_id + quality ranks. Never reads Box/hidden state.
+
+DEC-005 STORAGE POLICY
+- No eviction of bound assets. Ever.
+- Rejected candidates may be deleted immediately.
+- Unbound pool assets: retain by default; pruning allowed only if never bound and only by explicit policy.
+
+DEC-006 OFFICIAL EMBEDDING BACKBONE (ANSWERS OPEN Q)
+- Use ONE pinned local embedding model for BOTH:
+  - G3 prompt alignment
+  - G5 style coherence
+- Default: OpenCLIP ViT-L/14 (pinned weights + tokenizer).
+- Must store embed_model_hash in every accepted asset metadata.
+- Changing embed model requires policy revision + full calibration rerun (see section 10).
+
+DEC-007 OFFICIAL SCORE VECTOR + REASON CODES (ANSWERS OPEN Q)
+- score_vector_schema_version pinned.
+- reject_reason enum pinned (compact codes) and must be emitted for every reject.
+
+DEC-008 DETERMINISM STANCE (ANSWERS OPEN Q)
+- REQUIRE: scoring determinism within tolerance across runs and machines.
+- NOT REQUIRED: pixel-identical diffusion outputs across different GPUs.
+- REQUIRED: deterministic selection and binding for HERO/IMPORTANT once candidates exist.
+- Result: continuity comes from binding; reproducibility comes from pins + audit + selection determinism.
+
+DEC-009 PROGRESS BEHAVIOR UNDER BANS (ANSWERS OPEN Q)
+- Diegetic-only progress cues (audio: scribble, hum, stamping; subtle table activity).
+- Forbidden: progress panels, thumbnail previews, pick-a-version menus, snackbars, tooltips, snippets.
+- Only final artifact appears when done.
+
+3) SCOPE
+S1 Worldgen (offline batch): rulebook plates; key monsters; towns/shops/interiors; NPC portraits;
+   tokens; map props; destruction variants; UI skins; filler pools.
+S2 Runtime requests (offline): player asks -> wait ok -> artifact delivered -> player places/pastes/prints/binds.
+
+4) CORE OBJECTS (MINIMUM)
+O1 AssetStore: asset_id (content-address sha256 or equivalent) -> bytes + metadata.
+O2 PoolTable: (campaign_id, category, style_pack_id, spec_version) -> unused asset_id list + stats.
+O3 BindingRegistry: slot -> current asset_id + version history refs.
+O4 Events: asset_generated, asset_scored, asset_accepted, asset_rejected,
+           pool_filled, pool_refilled, asset_consumed,
+           binding_created, binding_rebound, artifact_delivered,
+           style_pack_revision, policy_revision.
+
+5) REQUEST HASH (CANONICALIZATION) [MANDATORY]
+- request_spec canonical bytes = canonical JSON:
+  - sorted keys
+  - stable float formatting
+  - normalized strings/newlines
+  - explicit fields:
+    {category, tier, purpose, style_pack_id, mask_level,
+     prompt_template_id + template_version,
+     workflow_hash, model_hashes (gen + lora/adapters), embed_model_hash,
+     scorer_hashes, thresholds_id,
+     prompt_parts + negative_prompt_parts,
+     size, steps, sampler/scheduler, guidance, seed_policy (+ explicit seed if fixed)}
+- request_hash = hash(canonical_bytes)
+- Same request_spec => identical request_hash.
+
+6) WORKFLOW PINNING (HERO ENGINE) [MANDATORY]
+- workflow_hash = hash(workflow_json_bytes + nodepack_versions + model_file_hashes + lora_hashes + scheduler_id)
+- workflow_id = workflow_hash (no human labels).
+- Any change => new workflow_hash => new request_hash.
+
+7) POOL LIFECYCLE (STATE MACHINE) [LOCKED]
+P0 DEFINE: PoolSpec = {category, tier, target_size, refill_threshold, refill_batch_size,
+                       workflow_hash, scoring_policy_id, prompt_template_id,
+                       variant_requirements, placeholder_policy}
+P1 FILL (WORLDGEN): generate candidates -> Quality Director -> accept -> AssetStore -> append accepted asset_ids.
+P2 READY: pool holds unused accepted asset_ids.
+P3 CONSUME (FIRST USE): select asset_id -> ATOMIC binding(slot->asset_id) -> remove from pool -> record events.
+P4 LOCKED: binding is identity. No silent replacement. Dead NPC => portrait remains unique/archived.
+P5 REBIND (PLAYER ONLY): generate+score -> new asset_id -> new binding version -> old asset archived forever; never returns to pool.
+P6 REFILL: when pool below threshold -> offline fill appends new accepted asset_ids.
+
+Variants/state sets:
+- Each state is its own category/pool (wall_intact, wall_breached, wall_rubble, etc).
+- Box event triggers visual state swap only (sprite swap), no mechanics inferred.
+
+8) QUALITY DIRECTOR (GATES + TIER POLICIES) [LOCKED STACK]
+Inputs: request_spec + candidate_images (+ gen metadata)
+Outputs: accept_list ordered + score_vectors; reject_list + reason codes; retry_signal
+
+Gates (cheap->expensive):
+G1 TECH VALIDITY (hard reject)
+G2 PURPOSE FIT (hard reject; category-specific)
+G3 PROMPT ALIGNMENT (score; reject if below tier min) using pinned embed model
+G4 PREFERENCE (rank; min threshold for IMPORTANT/HERO) primary scorer = HPSv2 (pinned)
+G5 STYLE COHERENCE (reject out-of-family) using pinned embed model vs style centroid
+
+Tier policies and budgets (ANSWERS OPEN Q: max_budget)
+- BULK:
+  N=4 candidates per attempt
+  attempts_max=2
+  time_max=45s (runtime) / unbounded (worldgen batch scheduling)
+  mins: low; fallback allowed
+- IMPORTANT:
+  N=8 candidates per attempt
+  attempts_max=4
+  time_max=180s (runtime) / unbounded (worldgen)
+  mins: medium; fallback allowed
+- HERO (canon-facing + player-request wow):
+  N=12 candidates per attempt
+  attempts_max=8 (runtime) / 20 (worldgen)
+  time_max=8m (runtime) / unbounded (worldgen)
+  mins: strict; retry-until-threshold; no silent below-min acceptance
+
+Hero_min definition (ANSWERS OPEN Q: hero_min per category)
+- hero_min is percentile-based on calibration_set, not a magic constant:
+  For each HERO category:
+    align_min = P70 of alignment scores on calibration_set accepted exemplars
+    pref_min  = P80 of HPSv2 scores on calibration_set accepted exemplars
+    style_max = P90 distance bound from style exemplars
+  These percentile thresholds are stored as thresholds_id and pinned in request_hash.
+- IMPORTANT mins use lower percentiles (align P60, pref P70, style P95).
+- BULK mins are permissive (align P40, pref P50, style off or very loose).
+
+Fallback rule:
+- fallback != accept trash.
+- fallback escalates workflow (more steps/refiner/hires/inpaint), simplifies prompt, reduces specificity.
+- If still failing HERO mins: placeholder policy may apply (see section 9).
+
+Audit metadata stored per accepted asset_id:
+- request_hash, workflow_hash, model_hashes, embed_model_hash, scorer_hashes
+- score_vector + thresholds_id
+- reject counts + top reject_reason codes
+
+9) CANON-FACING SLOTS + PLACEHOLDER POLICY (ANSWERS OPEN Q)
+Canon-facing slots (default set):
+- rulebook plates
+- key monster first-impression plates
+- town establishing shots
+- named NPC portraits
+Placeholders:
+- Default: placeholders NOT allowed for canon-facing slots.
+- Allowed only if player explicitly requests "draft" OR policy_revision allows for a category.
+- Placeholders never auto-bind to canon-facing slots.
+- Placeholders delivered as weighted artifact with visible "draft/sketch" marker on the physical artifact surface.
+- Promotion to bound canon asset requires explicit player action.
+
+10) STYLE PACK CREATION / REVISION (LOCKED)
+- style_pack_id binds to pinned exemplar_asset_ids list.
+- style centroid computed only from that exemplar list.
+- Updates require explicit style_pack_revision event => new style_pack_id.
+- No implicit centroid updates from newly accepted assets.
+
+11) PROMPT TEMPLATE LIBRARY (ANSWERS OPEN Q)
+Each category references prompt_template_id + version, included in request_hash.
+Minimum templates:
+- TT-RULEBOOK-PLATE: required {subject, composition, medium, style_pack, clarity}; forbidden {secret_tags, internal_stats}
+- TT-MONSTER-PLATE: required {silhouette, anatomy, mood, background_hint}; forbidden {true_name, hidden_affiliation}
+- TT-TOWN-VIGNETTE: required {establishing_frame, era, materials, weather_optional}; forbidden {unrevealed_landmarks}
+- TT-SHOP-INTERIOR: required {layout, props, lighting, vibe}; forbidden {hidden_inventory}
+- TT-NPC-PORTRAIT: required {face_framing, attire, age_range, expression}; forbidden {hidden_class_levels}
+- TT-TOKEN-FACE: required {simple_background, strong_silhouette, readability}; forbidden {busy_scene, small_text}
+- TT-PROP-STATE: required {prop_type, state, scale_hint}; forbidden {mechanics_markers}
+- TT-UI-SKIN: required {material, pattern, wear_level}; forbidden {UI_tooltips_text}
+
+12) QUEUE / SCHEDULING (ANSWERS OPEN Q)
+Priority order:
+1) explicit player request (HERO/IMPORTANT)
+2) worldgen sacred batch (HERO)
+3) worldgen bulk batch
+4) pool refill jobs
+Refill never starves player-request jobs.
+
+13) UI DELIVERY SURFACES (MIN SET)
+- handout tray print
+- loose clipping on table (player manually pastes)
+- token sheet as physical sheet (player places)
+- portrait surface binding on explicit action
+- map sprite swap on 2D plane
+Interaction grammar preserved: declare -> point -> confirm -> deliver artifact
+No candidate previews, no selection UI, no snippets.
+
+14) RED TEAM GATES / TESTS (MUST EXIST)
+RT-1 OFFLINE: no network calls in gen/scoring/delivery.
+RT-2 NO BACKFLOW: gameplay/canon/legal decisions never read image bytes or scores.
+RT-3 ANTI-LEAK: trap tokens prove forbidden facts never enter prompt bytes.
+RT-4 NO AUTO-RECORD: notebook changes only via explicit player action + consent.
+RT-5 CONSUME-ONCE: asset_id cannot bind to two slots.
+RT-6 BIND IMMUTABLE: bindings change only on explicit player request event; old asset archived.
+RT-7 HERO MIN: hero cannot bind below mins; placeholders barred from canon-facing by default.
+RT-8 MAP TTL: overlays expire; no persistent drawing.
+RT-9 PIN AND CALIBRATE (NEW HARD GATE):
+  Any change to workflow_json, nodepacks, model files, embed model, scorers, prompt templates, thresholds:
+    - must change hashes
+    - must run HERO calibration_set
+    - must meet target_pass_rate within max_budget
+    - else reject change
+
+15) NAV CAP + REPO NAV PROTOCOL v2 (UNCHANGED)
+NAV CAP (max 10): GT v12, UI memo v4, PROJECT_COMPASS, ground-truth audit, sequencing, world compiler,
+                  image_adapter, sdxl adapter, asset_store, binding modules (verify; GAP if missing).
+Repo nav: preflight, index, verify existence, rg ladder, prove one call path end-to-end.
+
+============================================================
+END
+============================================================

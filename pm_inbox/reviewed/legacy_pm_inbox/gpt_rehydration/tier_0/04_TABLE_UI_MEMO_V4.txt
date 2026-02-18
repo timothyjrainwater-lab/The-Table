@@ -1,0 +1,198 @@
+REHYDRATED FROM: AI2AI_GOLDEN_TICKET v12 (2.txt) + UI-MEMO v3.0 + SOURCE/REUSE INSIGHTS (GitHub parts-bin) | MODE: MEMO | AMP: ON
+
+AI2AI UI MEMO v4.0 — “THE TABLE” BUTTER PATH (CLAUDE 4.6 IMPORT)
+TRUTH: Golden Ticket v12 is law. Repo is stale doctrine, valid only for scope/paths/interfaces. If conflict: delete memo detail, follow GT.
+
+0) PURPOSE
+- Give Claude 4.6 an execution-grade UI spec + sourcing strategy to reach “butter” feel while preserving GT invariants.
+
+1) INVARIANTS (REFERENCE ONLY)
+- No backflow; Box authority; Lens/Oracle canon gate; Spark renderer-only; Immersion non-canon (GT HL-001/HL-003/HL-004/HL-005)
+- Notebook consent + default write-lock (GT NB-005)
+- Interruption-first BEATS for spoken output (GT RV-100 + PC typed segments)
+- Director is small + Lens-only (DIR caps; no rails)
+
+2) UI THESIS (REAL TABLE COMPILER RULE)
+- Any “how should UI behave?” question resolves to: “what happens at a real D&D table?”
+- Interaction grammar is fixed:
+  DECLARE (voice or sheet-click) -> POINT (token/area/placement) -> CONFIRM (runtime) -> RECORD (only with consent)
+- UI emits REQUEST_* only; runtime emits STATE/EVENT only. UI never asserts legality/outcomes.
+
+3) HARD BANS (NON-NEGOTIABLE)
+- NO TOOLTIP UI. NO POPOVERS. NO HOVER CARDS. NO FLOATING INFO WINDOWS.
+- NO SNIPPETS anywhere (search results, denials, hover, etc.).
+- NO MAP DRAWING / PERMANENT MARKS. Only ephemeral indication overlays.
+- NO GAMY MENUS for play actions (cast/attack/end turn/roll buttons). Menu is last resort for tool-substitution only.
+
+4) TABLE OBJECT SET (MIN ASSETS, MAX FEEL)
+Physical artifacts that exist:
+- Table surface (zones)
+- MagicMap plane (2D parchment; angled perspective)
+- Tokens (round image chips)
+- Rulebook (spellbook; read-only)
+- CharacterSheet (read-only; 2 sheets x 2 sides; every important modifier visible)
+- Notebook (only writable artifact)
+- Handout printer slot + handoff tray
+- Recycle well (retrievable discard)
+- Dice tray (felt) + dice tower (ritual)
+
+No extra accessory props (no rulers/templates/chips/tents). Those become ephemeral overlays or finger-tool actions.
+
+5) CAMERA POSTURES (VIEWS ARE POSTURES)
+- STANDARD: seated table view
+- DOWN: reading/writing view (sheet + notebook + rulebook)
+- LEAN_FORWARD: map engagement view (angled; no top-down god cam)
+- Transitions must be “butter”: smooth, fast, interruptible, never fight the player.
+
+6) DECLARE CHANNELS (REAL TABLE + ACCESSIBILITY)
+- Primary: voice declare (table-authentic)
+- Secondary/accessible: click on sheet line (Search, Attack, Spell entry) to DECLARE without menus
+- Keyboard-only path required for disabled players:
+  - focus select object, choose destination/area, confirm, end turn, pick dice, drop dice
+
+7) PENDING HANDSHAKES (REMOVE RADIAL AS GAME MENU)
+All play-critical interactions are driven by runtime-issued pending states with diegetic cues:
+- PENDING_ROLL(spec): tower plaque shows dice formula only (no DC)
+- PENDING_POINT(targeting): subtle “ready” state on map/tokens
+- PENDING_AOE(params): map enters placement mode (overlay appears while placing)
+- PENDING_SEARCH: map enables AREA INDICATION overlay (see Section 10)
+
+Without PENDING_* cues, UI will drift into a gamy action menu. Treat as S0.
+
+8) RADIAL FINGER MENU (LAST RESORT / TOOL-SUBSTITUTION ONLY)
+Radial exists only to replace physical tools you’d use at a table:
+- MARK: notebook ink tools only (pen/highlighter/eraser); never on map
+- CLIP/COPY: copy region/page from rulebook/handout into notebook (COPY ONLY; never delete canon)
+- ATTACH: paste into notebook; pin/unpin props; bundle/stack handouts
+- ORGANIZE: tags/bookmarks/ribbons; tidy fan-stack
+- PLACE: ephemeral overlays only (measure, AoE placement during PENDING, target highlight, area indication)
+Forbidden wedges:
+- ROLL
+- CAST/ATTACK/END TURN
+- ANY “do the action” verbs that bypass declare->point->confirm
+
+9) DENIAL BEHAVIOR (SOFT, TABLE-AUTHENTIC, NO UI EXPLANATIONS)
+- Spoken line only:
+  “You can’t do that right now. Check the rulebook.”
+- Provide a physical “?” stamp ON THE SURFACE involved (sheet line / map edge near action / object corner).
+- Clicking the “?” opens the rulebook directly to rule_ref anchor/page.
+- No explanatory UI. No “because X.” No floating reason window.
+- rule_ref must be RULES-ONLY reference (never world/secret state). If uncertain, open to the closest rules section ribbon/index.
+
+CharacterSheet parity:
+- Right-click/long-press a stat/line places “?” stamp on that line.
+- Click “?” -> open rulebook to governing rule_ref.
+
+10) MAP INDICATION (POINTING, NOT DRAWING)
+Real table: you point or trace an area; it’s temporary.
+UI:
+- AREA INDICATION overlay tool:
+  - gesture: click-hold + drag lasso/brush to indicate region
+  - overlay is ephemeral (visible while dragging; linger about 8 seconds; fades; cleared on resolve/cancel)
+  - emits MAP_AREA_INTENT(kind=SEARCH|AIM|DISCUSS, polygon, context_handle)
+- Highlighting alone never executes anything. Execution requires a DECLARED action (e.g., Search) + runtime confirm.
+- Runtime may normalize internally to squares if mechanic requires; visuals remain non-ink overlay.
+
+11) DICE (FIDGET + RITUAL; AUTHORITATIVE ONLY VIA TOWER)
+- Dice tray is primary fidget object (physics ok; cosmetic).
+- Authoritative roll requires:
+  PENDING_ROLL(spec) -> player selects correct dice -> drops into tower -> runtime validates -> Box result -> UI animates forced outcome.
+- Practice rolls:
+  - allowed anytime in tower/tray; cosmetic only; never creates Box events or affects play.
+- No roll buttons. No radial roll.
+
+12) HANDOUTS (PRINTED, OWNED, CLEAN)
+- DM handouts do not pop-in. They print/roll out of player-edge slot into tray.
+- Handouts are read-only on table.
+- Handouts become writable only after paste-in to notebook (keeps persistence clean).
+- Player actions:
+  - pick up/read
+  - paste into notebook (becomes clipping)
+  - discard into recycle well (retrievable)
+- Auto-tidy:
+  - if cluttered, create a FanStack (organizational only), always retrievable 2 actions or less, supports PIN.
+
+13) RULEBOOK (SPELLBOOK; NO EBOOK)
+- Read-only canon.
+- Navigation: page flips, ribbons, player side-tags.
+- Search (if present): TITLE + PAGE/SECTION only. No snippets.
+- AI assist allowed only as primitives:
+  open/find/read/gist-on-request, and only from visible/unlocked content. No extra panels.
+
+14) NOTEBOOK (ONLY WRITABLE ARTIFACT)
+- Fixed pages; page-turn.
+- Tools: pen/highlighter/eraser; lasso; undo/redo (session-local); after save behaves like ink (erase manually).
+- Paste-in clippings (rulebook copies, handouts) are resizable/rotatable; layered; then writable.
+
+15) PERSISTENCE (DETERMINISTIC PLAYER ARTIFACTS)
+- Notebook persisted deterministic JSON (schema_versioned).
+- Handouts persist by identity + state (in tray/fanstack/pasted/discard).
+- Table layout resets to tidy baseline next session (real table cleanup), but kept piles persist as stacks.
+- Discard well persists (trash pile), retrievable.
+
+16) UI <-> RUNTIME CONTRACT (S0)
+- UI sends REQUEST_* only (intents/parameters).
+- Runtime returns STATE/EVENT only (+ rule_ref on denial).
+- Minimum REQUEST set (update as needed, keep small):
+  - DECLARE_ACTION_INTENT(action_kind, source_ref)  (voice or sheet-click)
+  - TOKEN_MOVE_INTENT(token_id, to_square)
+  - TOKEN_TARGET_INTENT(token_id, target_ref)
+  - AOE_PLACE_INTENT(shape, origin, orientation, params)
+  - MAP_AREA_INTENT(kind, polygon, context_handle)
+  - DICE_TOWER_DROP_INTENT(dice_ids, pending_roll_handle)
+  - HANDOUT_READ_INTENT(handout_id)
+  - HANDOUT_PASTE_TO_NOTEBOOK_INTENT(handout_id, page_id, transform)
+  - HANDOUT_DISCARD_INTENT(handout_id)
+  - HANDOUT_RETRIEVE_INTENT(handout_id)
+  - RULEBOOK_OPEN_REF_INTENT(rule_ref)
+  - NOTEBOOK_STROKE_ADD_INTENT(page_id, stroke)
+  - NOTEBOOK_EDIT_INTENT(...)
+- Preview rule:
+  - overlays may visualize only what runtime has requested (PENDING_*) or deterministic geometry identical to Box.
+  - UI never infers hidden facts; no backflow.
+
+17) “BUTTER HARNESS” (HOW CLAUDE CONVERGES ON FEEL)
+Claude cannot “feel” without numbers. Build a harness early.
+Metrics:
+- TTFA: launch -> can pick up a die
+- input-to-feedback latency: pointer-down -> highlight; drag -> follow
+- page-turn start latency
+- frame time median and p95
+- mis-grab rate; accidental camera move rate
+Hard gates:
+- static ban checks for tooltip/popover/snippet strings/components
+- denial must route to rulebook open (never explain inline)
+- authoritative rolls only via PENDING_ROLL + tower drop
+
+18) GITHUB SOURCING STRATEGY (PARTS BIN, NOT FRAMEWORK)
+Principle: import mature primitives; wrap behind Table doctrine; license-gate.
+Vendor policy:
+- License gate first (prefer MIT/BSD/Apache). Copyleft (GPL/AGPL) only if explicitly accepted.
+- Isolation: third_party/ or pinned deps.
+- Wrapper layer: your code calls wrappers, not vendor APIs directly.
+Target primitives to source:
+- Dice visuals with forced outcomes (Box authoritative; UI forced landing)
+- Drag/pick/place patterns for Three.js objects
+- Page flip and book UX primitives
+- Canvas drawing primitives (notebook pages)
+- Physics engine if needed (prefer minimal; dice only)
+- WebSocket or IPC scaffolding patterns
+
+19) BUILD ORDER (FASTEST PATH TO “BUTTER”)
+Slice 0: camera postures + smooth transitions + zones
+Slice 1: base TableObject system + pick/drag/drop constraints
+Slice 2: dice tray fidget + dice tower ritual (PENDING_ROLL)
+Slice 3: rulebook open/jump + “?” stamps (no snippets, no tooltips)
+Slice 4: notebook ink + paste-in
+Slice 5: handout printer slot + tray + fanstack + recycle well
+Slice 6: map tokens + ephemeral overlays (measure/AoE/area indication)
+Slice 7: runtime integration (declare->point->confirm across all above)
+
+20) DRIFT TRAPS (DO NOT DO THESE)
+- Adding helper UI panels because it’s “easier”
+- Explaining denials in UI text (leaks + gamy feel)
+- Making radial an action menu
+- Making dice physics authoritative
+- Allowing any persistent map drawing
+
+END v4.0

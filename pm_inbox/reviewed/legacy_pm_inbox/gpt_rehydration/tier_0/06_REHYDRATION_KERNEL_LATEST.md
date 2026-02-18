@@ -1,43 +1,22 @@
 # Rehydration Kernel
 
-## ⚠ AUDIO CUE — READ THIS FIRST ⚠
-
-**YOU MUST FIRE AN AUDIO CUE when work completes.** The Operator works on other tasks and CANNOT see your output. The audio cue is the ONLY way they know you're done. This has been requested 10+ times. Missing this cue wastes Operator time and stalls the pipeline.
-
-**Primary command (voice pipeline):**
-```
-python scripts/speak.py --persona builder_signal "Work order complete. Awaiting Thunder."
-```
-
-**Fallback (if TTS fails or GPU unavailable):**
-```
-powershell -c "(New-Object Media.SoundPlayer 'C:/Windows/Media/tada.wav').PlaySync()"
-```
-
-**Fire after:** (1) WO dispatch ready, (2) WO verdict delivered, (3) PM needs Operator input. **No exceptions. This is mandatory, not optional.** The primary command exercises the full TTS pipeline (Chatterbox + emotion router + tavern-baked refs) — every cue is a live smoke test of the voice system.
-
----
-
-Compact restore block for Slate (PM) after context resets. Derived from STANDING_OPS_CONTRACT.md, PROJECT_STATE_DIGEST.md, and verify_session_start.py.
+Compact restore block for Aegis (Opus/PM) after context resets. Derived from STANDING_OPS_CONTRACT.md, PROJECT_STATE_DIGEST.md, and verify_session_start.py.
 
 ## Identity and Roles
 
 Product Owner (PO): Thunder. Design decisions, vision, dispatch authority.
-Project Manager (PM): Slate. WO creation, coding direction, agent coordination, principal engineering. Full PM authority delegated 2026-02-11.
+Project Manager (PM): Opus. WO creation, coding direction, agent coordination, principal engineering. Full PM authority delegated 2026-02-11.
 Agents execute within WO scope only. PM confirms rehydration before any work.
 
-### Canonical Roster (formalized 2026-02-18)
+### Five-Role Model (formalized 2026-02-14)
 
-**Naming rule:** Use callsigns, not role labels. Say "Thunder" not "Operator." Legacy files may still say "Operator" — treat as equivalent to "Thunder" but prefer the callsign in new writing.
-
-| Role | Callsign | Platform | Authority | Context Cost | Boundary |
-|------|----------|----------|-----------|-------------|----------|
-| **Thunder** | Thunder | Human | Absolute. Dispatch, overrides. | N/A (human) | Routes work between all agents. |
-| **PM** | **Slate** | Claude (Anthropic) | Delegated. Verdicts, WOs, sequencing. | Irreplaceable | Never touches code. Documents only. Kernel owner. |
-| **BS Buddy** | **Anvil** (seat) / rotates (character) | Claude (Anthropic) | Advisory only. | Disposable | Brainstorming + TTS QA. No execution, no governance. Produces memos and conversation. |
-| **Builders** | Per-WO | Claude (Anthropic) | WO scope only. | Disposable | Code, tests, completion reports. No upstream visibility. |
-| **Co-PM / Advisor** | Aegis | GPT (OpenAI) | Advisory. No repo access. | External | Design audits, spec drafts, GT co-author. Produces memos via Operator relay. |
-| **Signal Voice** | Arbor | System (reserved TTS profile) | None. | N/A | Reserved TTS persona for system notifications. |
+| Role | Authority | Context Cost | Boundary |
+|------|-----------|-------------|----------|
+| **Operator** (Thunder) | Absolute. Dispatch, overrides. | N/A (human) | Routes work between all agents. |
+| **PM** (Aegis) | Delegated. Verdicts, WOs, sequencing. | Irreplaceable | Never touches code. Documents only. Kernel owner. |
+| **Agent** | Delegated (ops). Serves Operator. | Disposable | Chief of staff. Translates Operator intent, relays to PM, catches process failures, codifies governance, formats deliverables. Inbox janitor. Never writes kernel. |
+| **Builders** | WO scope only. | Disposable | Code, tests, completion reports. No upstream visibility. |
+| **BS Buddy** (Anvil) | Advisory only. | Disposable | Brainstorming + TTS QA. No execution, no governance. Produces memos and conversation. |
 
 ## Two-Force Parallel Execution Protocol (effective 2026-02-13)
 
@@ -105,8 +84,6 @@ The Operator is not an engineer. Write for a product owner who makes decisions, 
 - Line 1: **Trap.** Hidden dependency or trap — what almost burned you.
 - Line 2: **Drift.** Current drift risk — what is most likely to slide next.
 - Line 3: **Near stop.** What got close to triggering a stop condition, and why it didn't.
-
-**Radar enforcement (REJECTION GATE):** All 3 lines must be present in every debrief. Each line must use its label (Trap/Drift/Near stop). If a line has no content, write "none identified" — do not omit the line. **Debriefs with missing or unlabeled Radar lines are REJECTED and re-issued.** No partial accept. The dispatch must include a format reminder and the rejection criteria in the `## Delivery` footer.
 
 **Debrief focus question bank (PM picks 0-2 per dispatch, appended to `## Debrief Focus`):**
 - **Missing assumption:** What should have been listed in "Assumptions to Validate" that was missing?
@@ -189,24 +166,24 @@ CONTEXT DRIFT WARNING. I may be missing prior agreements.
 Action: paste REHYDRATION KERNEL or latest verify_session_start output.
 
 Trigger conditions:
-- Slate asks for something already provided in-session.
-- Slate contradicts a locked protocol (WO packet format, stoplight, escalation order).
-- Slate responds in the wrong mode after a strong signal (e.g., pasted WO but conversational output).
-- Slate references repo state or files inconsistently with prior verified facts.
-- Slate produces generic advice where project-specific truth existed.
+- Aegis asks for something already provided in-session.
+- Aegis contradicts a locked protocol (WO packet format, stoplight, escalation order).
+- Aegis responds in the wrong mode after a strong signal (e.g., pasted WO but conversational output).
+- Aegis references repo state or files inconsistently with prior verified facts.
+- Aegis produces generic advice where project-specific truth existed.
 
 Behavior on trigger:
 - Stoplight downgrades to YELLOW (or RED if tests, crash, or dirty tree involved).
-- Slate must request the sensor and halt feature planning until rehydrated.
+- Aegis must request the sensor and halt feature planning until rehydrated.
 
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 9705298 — WO-DIRECTOR-03 (TableMood + StyleCapsule + Director pacing modulation)
-Tests passed: 5,893 — **GREEN.**
+Last commit: 04058c3 — WO-UI-DRIFT-GUARD (3 UI-G5 drift guard tests, no production code)
+Tests passed: 5,840 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
 Smoke test: 44/44 PASS. Hooligan: 5/12 PASS, 7 FINDING, 0 CRASH. Fuzzer: 19/20 PASS, 1 FINDING. Determinism: 6/6 meta-tests PASS.
-Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). No-backflow: PASS.
+Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 13/13 PASS (incl. UI-G5 drift guards). No-backflow: PASS.
 
 **H0 — COMPLETE.** All 13 fix WOs resolved. RED block lifted.
 **H1 — COMPLETE.** 7/7 WOs + 2 smoke tests + 3 integration fixes. All debriefs reviewed and accepted.
@@ -214,7 +191,7 @@ Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18
 
 ## Golden Ticket v12 Adoption (2026-02-18)
 
-**GT v12 is now the product doctrine for The Table.** Adopted per Operator directive. Produced during Operator's 5-day research sprint with 3rd-party auditor (Aegis/GPT, co-PM advisor).
+**GT v12 is now the product doctrine for The Table.** Adopted per Operator directive. Produced during Operator's 5-day research sprint with 3rd-party auditor (Aegis/GPT).
 
 **What GT v12 is:** Single source of product decisions — authority chain (A-AUTH, A-NO-BACKFLOW), hard laws (HL-001 through HL-007), subsystem contracts (BOX/ORACLE/LENS/SPARK/IMMERSION), Performance Contract v0, UI bans, consent handshakes, 30+ gates, 27 gaps, 13 minimal edits.
 
@@ -249,12 +226,9 @@ Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18
 6. ~~**WO-UI-01**~~ — ACCEPTED at `6237845`. Table UI Phase 1: Client Bootstrap + Slice 0 + One PENDING Round Trip. Three.js + TypeScript + Vite frontend in `client/`. Gate F (10/10 PASS). **UI PHASE 1 COMPLETE. Frontend live. PENDING round trip proven.**
 7. ~~**WO-UI-02**~~ — ACCEPTED at `7449bc5`. Table UI Phase 2: TableObject base system + pick/drag/drop constraints. Card as first interactive object. Gate G (10/10 PASS, core contracts). 3 UI-G5 drift guard tests not implemented — carry forward to next WO. **UI PHASE 2 COMPLETE. Interactive objects live.**
 8. ~~**WO-UI-DRIFT-GUARD**~~ — ACCEPTED at `04058c3`. 3 UI-G5 drift guard tests (no canonical path, no backflow imports, no teaching strings). Tests only, no production code. Gate G now 13/13. Total: 124 gate tests. **UI-G5 DRIFT GUARD DEBT CLOSED.**
-9. ~~**WO-UI-ZONE-AUTHORITY**~~ — ACCEPTED at `40fa32a`. zones.json single source of truth, Python loader, TS import, validate_zone_position → bool, zone parity gate, camera frustum gate. Gate G now 16/16. Total: 127 gate tests. **ZONE AUTHORITY ESTABLISHED.**
-10. ~~**WO-UI-03**~~ — ACCEPTED at `f149d2d`. Dice tray fidget + dice tower ritual + PENDING_ROLL handshake. DiceObject d20, 5 zones total, UI-G7 gates (no mechanical authority, handshake determinism, replay stability). Gate G now 19/19. Total: 130 gate tests. **UI PHASE 3 COMPLETE. Dice ritual live. PENDING_ROLL handshake proven.**
-11. ~~**WO-UI-04**~~ — ACCEPTED at `db66426`. WebSocket protocol formalization + `roll_result` freeze. `RollResult` frozen dataclass in new `ws_protocol.py`, `MESSAGE_REGISTRY` + `parse_message()` dispatcher, wildcard handler migrated. Gate G now 22/22. Total: 133 gate tests. **UI PHASE 4 COMPLETE. Protocol hardened. S0 debt cleared.**
-12. ~~**WO-DIRECTOR-03**~~ — ACCEPTED at `9705298`. Director Phase 3: TableMood + StyleCapsule + scene lifecycle. 7 contract changes, 16 Gate H tests. Mood-to-pacing pipeline: observations → StyleCapsule → Director pacing modulation. No backflow, no mechanical influence, replay-stable. **DIRECTOR PHASE 3 COMPLETE.**
+9. **WO-UI-ZONE-AUTHORITY** — DISPATCH-READY. zones.json as single source of truth, `validate_zone_position` → bool, zone parity gate, camera frustum gate. Expected: 127+ gate tests.
 
-**Oracle implementation direction (Aegis/GPT Memo, 2026-02-18):** THIN SPINE FIRST. Phase 1: stores + canonical profile. Phase 2: WorkingSet as compiler output. Phase 3: Compactions + Cold Boot. Hard stops: pin hash algo, canonical JSON, mask schema. One-line success: cold boot reconstructs same bytes, no backflow possible.
+**Oracle implementation direction (Aegis Memo, 2026-02-18):** THIN SPINE FIRST. Phase 1: stores + canonical profile. Phase 2: WorkingSet as compiler output. Phase 3: Compactions + Cold Boot. Hard stops: pin hash algo, canonical JSON, mask schema. One-line success: cold boot reconstructs same bytes, no backflow possible.
 
 **Oracle fact_id hash function pin (Operator directive, 2026-02-18):**
 - `canonical_short_hash(canonical_json(payload))` from `aidm/oracle/canonical.py` is the ONLY function for Oracle content-addressed artifact IDs (fact_id, working_set_id, etc.).
@@ -353,12 +327,6 @@ WO-UI-01 accepted at `6237845` (Gate F: 10/10). Three.js + TypeScript + Vite fro
 **UI PHASE 2 — COMPLETE. ACCEPTED.**
 WO-UI-02 accepted at `7449bc5` (Gate G: 10/10 core). TableObject base system, pick/drag/drop, card as first interactive object, zone constraint enforcement, keyboard accessibility. 3 drift guard tests (UI-G5) not implemented — carry forward. Archived to `pm_inbox/reviewed/archive_ui/`.
 
-**DIRECTOR PHASE 3 — COMPLETE. ACCEPTED.**
-WO-DIRECTOR-03 accepted at `9705298` (Gate H: 16/16). TableMood + StyleCapsule + Director pacing modulation. 149 total gate tests. Both Director WOs + Phase 3 archived to `pm_inbox/reviewed/archive_director/`.
-
-**BUILDER PREFLIGHT CANARY SYSTEM — LIVE.**
-`scripts/preflight_canary.py` validates image + voice pipelines before WO work. Manual log at `pm_inbox/PREFLIGHT_CANARY_LOG.md`. Methodology walkthroughs: `pm_inbox/MEMO_IMAGE_GEN_WALKTHROUGH.md` (image prompt rules) and `pm_inbox/MEMO_TTS_MONOLOGUE_WALKTHROUGH.md` (voice pipeline). Onboarding checklist Step 2.5 updated.
-
 **Parked items:**
 - BURST-001 thru 004 — parked pending Operator direction
 - MEMO_SPARK_LLM_SELECTION — H2 blocker, parked
@@ -367,7 +335,7 @@ WO-DIRECTOR-03 accepted at `9705298` (Gate H: 16/16). TableMood + StyleCapsule +
 - cast_id determinism — deferred
 - Tier B coverage gaps (7 hooligan findings) — parked
 
-**PM posture:** IDLE. No active WO. WO-DIRECTOR-03 accepted at `9705298`. Comedy Stingers Phase 1 approved, next to dispatch. Build order: Comedy Stingers Phase 1 → Spark LLM Selection → BURST-001.
+**PM posture:** ACTIVE. WO-UI-ZONE-AUTHORITY dispatch ready — awaiting Operator dispatch to builder.
 
 ---
 
@@ -379,7 +347,7 @@ When a PM context window expires and a new PM agent is initialized, the Operator
 Paste this exact block into the new session as the first message:
 
 ```
-You are the PM agent (Slate) for a D&D 3.5e combat engine project. Product Owner is Thunder. Your context window is a critical finite resource — do NOT use it for implementation work. You coordinate only.
+You are the PM agent (Aegis/Opus) for a D&D 3.5e combat engine project. Product Owner is Thunder. Your context window is a critical finite resource — do NOT use it for implementation work. You coordinate only.
 
 Read these files in this exact order, then report SYSTEM STATUS:
 1. pm_inbox/REHYDRATION_KERNEL_LATEST.md (this file — your operating rules)

@@ -1,0 +1,266 @@
+SESSION LIFECYCLE SPEC v0
+SUBJECT: SAVE / LOAD / COLD BOOT / RESUME — Oracle Persistence Contract
+TO: AI PM (EXECUTION AUTHORITY)
+FROM: AEGIS (PM / GOVERNANCE)
+DATE: 2026-02-18
+
+PRECEDENCE:
+1) AI2AI_GOLDEN_TICKET v12            [TRUTH]
+2) ORACLE_MEMO v5.2                   [PLAN UNDER GT]
+3) DOCTRINE_HOLES_ANSWER_PACKET §2    [FORMALIZED DECISIONS]
+4) ORACLE_OVERLAP_SURVEY §6           [EXISTING CODE REALITY]
+5) DOCTRINE_06_LENS_SPEC_V0.txt       [LENS CONTRACT]
+6) REPO                               [SUBSTRATE: PATHS/INTERFACES/EXISTING CODE]
+
+RULE: IF NOT IN GT AND NOT IN CODE, MARK GAP. DO NOT INVENT.
+
+---
+
+0) ONE-LINE PURPOSE
+
+Save is an Oracle snapshot boundary. Load is a cold boot that rebuilds byte-identical state from that snapshot. Resume never invents.
+
+---
+
+1) SAVE TYPES
+
+Three save boundaries, each a superset of the one above:
+
+1.1 Scene Save (lightweight checkpoint)
+- Triggers: end of scene (EV-032 SceneEnd), operator-requested mid-scene save
+- Contents: digests of all Oracle stores at this boundary + event cursor
+- Purpose: resume within same session without full replay
+
+1.2 Session Save (session close)
+- Triggers: operator ends session, context window expiry, crash recovery
+- Contents: full scene save + session-level accumulated state (session summaries, session-scoped unlocks)
+- Purpose: resume next session from identical position
+
+1.3 Campaign Save (full archive)
+- Triggers: campaign milestone, operator-requested full export
+- Contents: full session save + campaign-level state (campaign manifest, all event logs, all compactions, pin ledger)
+- Purpose: cold boot from scratch on a different machine
+
+---
+
+2) SNAPSHOT FORMAT
+
+A snapshot is a frozen record of Oracle state at a boundary. It is NOT a copy of the stores — it is digests + pointers.
+
+SaveSnapshot:
+  snapshot_id: str              # canonical_short_hash(canonical_bytes)
+  save_type: str                # SCENE | SESSION | CAMPAIGN
+  timestamp_event_id: int       # monotonic event ID at snapshot boundary (NOT wall-clock)
+
+  # Oracle store digests (prove rebuild correctness)
+  facts_ledger_digest: str      # SHA-256 of canonical FactsLedger bytes at this boundary
+  unlock_state_digest: str      # SHA-256 of canonical UnlockState bytes
+  story_state_digest: str       # SHA-256 of canonical StoryState bytes
+  working_set_digest: str       # SHA-256 of WorkingSet bytes (from Phase 2 compiler)
+
+  # Event log pointers (for replay)
+  event_log_range: tuple        # (first_event_id, last_event_id) — inclusive range
+  event_log_hash: str           # SHA-256 of JSONL bytes in this range
+
+  # Pending interaction state (if any)
+  pending_state: dict or None   # PENDING_ROLL, PENDING_CONSENT, PENDING_HANDOUT — frozen
+
+  # Pin ledger snapshot (assert on rebuild)
+  pins_snapshot: dict           # same as WorkingSet.pins_snapshot — frozen
+
+  # Compaction pointers (optional, for acceleration)
+  compaction_ids: tuple         # IDs of valid compactions at this boundary
+
+  canonical_bytes: bytes        # canonical JSON UTF-8 of this snapshot
+  bytes_hash: str               # SHA-256 of canonical_bytes
+
+All fields are frozen. No wall-clock timestamps. The timestamp_event_id is the event boundary — "this snapshot reflects state after processing event N."
+
+---
+
+3) COLD BOOT ALGORITHM
+
+Cold boot is the critical operation: given a SaveSnapshot + stored EventLog, rebuild byte-identical Oracle state.
+
+Steps:
+1. Load SaveSnapshot from storage
+2. Assert pins_snapshot matches current environment pins (ORC-PIN-ASSERT / G6)
+   - If mismatch and no explicit revision event: HARD FAIL
+   - If revision event exists: apply revision, continue
+3. Load EventLog segment for event_log_range
+4. Assert event_log_hash matches stored hash
+   - If mismatch: HARD FAIL (corrupted or tampered event log)
+5. Initialize empty Oracle stores (FactsLedger, UnlockState, StoryState)
+6. Replay events through reduce_event() (existing replay_runner.py)
+7. After replay, compute digests of all stores
+8. Assert digests match snapshot digests:
+   - facts_ledger_digest must match
+   - unlock_state_digest must match
+   - story_state_digest must match
+9. Rebuild WorkingSet via compile_working_set() (Phase 2)
+10. Assert working_set_digest matches snapshot digest
+11. If pending_state exists, restore it
+12. If compaction_ids present, rebuild compactions and verify
+
+Gate C success: steps 7-10 produce byte-identical digests. No silent mutation. No invention.
+
+---
+
+4) COMPACTION CONTRACT
+
+Compactions are non-canon accelerators. They speed up queries but can always be rebuilt from source data.
+
+4.1 Compaction dataclass (Oracle-owned)
+
+Compaction:
+  compaction_id: str            # canonical_short_hash(input_handles + compaction_policy_id)
+  purpose: str                  # RECAP | SYNOPSIS | SEGMENT_SUMMARY | CONTEXT_CACHE
+  compaction_policy_id: str     # which policy generated this compaction
+  input_handles: tuple          # fact_ids + state pointers consumed (frozen)
+  output_bytes: bytes           # canonical JSON output
+  output_hash: str              # SHA-256 of output_bytes
+  allowmention_handles: tuple   # explicit subset of input handles safe for output (frozen)
+
+4.2 Compaction rules
+- RULE-C1: Compactions NEVER authorize canon writes. They are read-only derived views.
+- RULE-C2: Compactions are deletable. Deleting all compactions and rebuilding must produce identical output_bytes (G4).
+- RULE-C3: Compactions are reproducible. Same input_handles + same compaction_policy_id => identical output_bytes.
+- RULE-C4: Compactions carry allowmention_handles. These constrain what Lens may include from the compaction. A compaction with no allowmention_handles contributes nothing to PromptPack.
+- RULE-C5: Compaction provenance is explicit. input_handles traces to FactsLedger entries. compaction_policy_id traces to a pinned policy.
+
+4.3 Compaction registry
+A registry that knows all active compactions and can:
+- Invalidate: when source facts change, mark affected compactions stale
+- Rebuild: regenerate stale compactions from current source data
+- Verify: assert output_hash matches for all compactions (bulk gate check)
+
+4.4 Existing code reality (from overlap survey §3)
+- SessionSegmentSummary is a textbook compaction (deterministic, content_hash, drift detection, rebuild)
+- ContextAssembler's salience-ranked retrieval is another compaction pattern
+- PrepJob's idempotent content hashing is compaction-shaped
+- GAP: No general-purpose compaction registry. Each module manages its own derived views independently.
+
+---
+
+5) RESUME CONTRACT
+
+Resume is cold boot + UI state restoration. It must never invent.
+
+5.1 Resume steps
+1. Cold boot (Section 3, all steps)
+2. Restore pending interaction state if present:
+   - PENDING_ROLL: re-present the dice ritual to the player
+   - PENDING_CONSENT: re-present the consent prompt
+   - PENDING_HANDOUT: re-present the handout placement
+3. Restore UI state (scene context, active mode)
+4. Ready for next player input
+
+5.2 Resume invariants
+- RESUME-I1: No event is skipped. If a PENDING_ROLL was in progress, the player must still roll.
+- RESUME-I2: No consent is bypassed. If PENDING_CONSENT was in progress, the consent chain restarts.
+- RESUME-I3: No content is invented. Resume shows exactly what was visible at save time — no new narration, no updated summaries, no new compactions until the player acts.
+- RESUME-I4: Compaction rebuild happens transparently. If compactions are stale, rebuild before presenting any derived views.
+
+---
+
+6) NO-BACKFLOW ON SAVE/LOAD
+
+- Save does not modify Oracle state. It reads and records digests.
+- Load does not modify stored events. It replays them.
+- Resume does not generate new events. It restores position.
+- Compaction rebuild does not create facts. It derives views.
+
+The save/load cycle is structurally incapable of canon mutation. A-NO-BACKFLOW holds by construction.
+
+---
+
+7) GATES
+
+SL-G1: SAVE/LOAD ROUNDTRIP
+load(save(X)) produces byte-identical Oracle store digests. No drift, no invention.
+Test: save state, cold boot from snapshot, assert all digests match.
+Test: save, modify nothing, save again — assert snapshot bytes identical.
+
+SL-G2: REPLAY EQUIVALENCE
+Replay from event log produces identical event log bytes and final state digest.
+Test: replay events twice, assert WorldState.state_hash() identical both times.
+Test: replay from different starting points within same event range, assert convergence.
+(Existing: test_replay_runner.py covers this. New tests exercise Oracle stores specifically.)
+
+SL-G3: PENDING STATE PRESERVATION
+Pending states resume without skipping required rituals.
+Test: save during PENDING_ROLL, resume, assert roll still required.
+Test: save during PENDING_CONSENT, resume, assert consent chain intact.
+
+G4: ORC-COMPACTION-REPRO
+Same inputs + policy => identical compaction bytes. Compactions are non-canon accelerators only.
+Test: generate compaction, delete, regenerate — assert output_hash identical.
+Test: assert compaction writes do not create FactsLedger entries (no canon writes).
+
+G6: ORC-PIN-ASSERT
+Rebuild asserts pin ledger matches stored pins. Mismatch fails deterministically.
+Test: save with pins, modify a pin, attempt cold boot — assert HARD FAIL.
+Test: save with pins, add explicit revision event, cold boot — assert success.
+
+---
+
+8) GAP REGISTER
+
+GAP-SL-001: SaveSnapshot dataclass does not exist.
+Fix: implement SaveSnapshot frozen dataclass in aidm/oracle/.
+Closure: SL-G1 green.
+
+GAP-SL-002: Cold boot algorithm not implemented.
+Fix: implement cold_boot(snapshot, event_log) -> OracleState function.
+Closure: SL-G1 + SL-G2 green.
+
+GAP-SL-003: No compaction registry.
+Fix: implement CompactionRegistry with invalidate/rebuild/verify.
+Closure: G4 green.
+
+GAP-SL-004: Pending state not modeled in Oracle stores.
+Fix: add pending interaction state to StoryState or as separate checkpoint artifact.
+Closure: SL-G3 green.
+
+GAP-SL-005: Pin assertion on rebuild not implemented.
+Fix: cold_boot must assert pins_snapshot matches environment.
+Closure: G6 green.
+
+GAP-SL-006: No Compaction dataclass in Oracle layer.
+Fix: implement Compaction frozen dataclass matching §4.1.
+Closure: G4 green.
+
+---
+
+9) PHASING (WHAT GOES INTO WO-ORACLE-03)
+
+WO-ORACLE-03 implements the minimum needed for Gate C:
+
+Phase 3 scope:
+- SaveSnapshot dataclass
+- Compaction dataclass + CompactionRegistry
+- cold_boot() function (snapshot → replay → digest assertion)
+- Pin assertion on rebuild
+- Gate C tests (cold boot byte-equality, compaction reproducibility, pin assertion)
+
+Phase 3 does NOT include:
+- Pending state restoration (requires UI interaction layer — deferred)
+- Multi-machine cold boot (requires distribution packaging — deferred)
+- Full session/campaign save orchestration (requires more stores — deferred)
+- PVIB compilation or Director integration
+
+The minimum viable Phase 3 proves: "delete everything except the snapshot and event log, rebuild, get identical bytes."
+
+---
+
+10) RELATIONSHIP TO OTHER SPECS
+
+- DOCTRINE_06_LENS_SPEC_V0.txt §4 (determinism) — WorkingSet and PromptPack byte-equality is tested during cold boot. If Lens compilation produces different bytes after cold boot, Gate C fails.
+- DOCTRINE_03_ORACLE_MEMO_V52.txt §4.3 (compactions) — This spec formalizes the compaction contract from the Oracle memo.
+- DOCTRINE_03_ORACLE_MEMO_V52.txt §7 (pin ledger) — Pin assertion on rebuild is Gate G6.
+- Oracle Overlap Survey §3 (compactions) — SessionSegmentSummary is the closest existing match. CompactionRegistry formalizes what exists informally.
+- Oracle Overlap Survey §6 (event sourcing) — EventLog + replay_runner are the foundation of cold boot. Phase 3 wraps them in the Oracle snapshot/assert pattern.
+
+---
+
+END SESSION LIFECYCLE SPEC v0

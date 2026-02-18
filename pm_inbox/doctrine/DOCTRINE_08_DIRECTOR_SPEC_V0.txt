@@ -1,0 +1,337 @@
+DIRECTOR SPEC v0
+SUBJECT: DIRECTOR — Small Deterministic Beat Selector + Nudge Policy
+TO: AI PM (EXECUTION AUTHORITY)
+FROM: AEGIS (PM / GOVERNANCE)
+DATE: 2026-02-18
+
+PRECEDENCE:
+1) AI2AI_GOLDEN_TICKET v12 ss4          [TRUTH — DIR-001..DIR-005]
+2) DOCTRINE_HOLES_ANSWER_PACKET ss5     [FORMALIZED DECISIONS]
+3) DOCTRINE_06_LENS_SPEC_V0.txt         [LENS CONTRACT — DirectorPromptPack, inputs/outputs]
+4) DOCTRINE_03_ORACLE_MEMO_V52.txt      [ORACLE CONTRACT — WorkingSet, StoryState]
+5) DOCTRINE_07_SESSION_LIFECYCLE_V0.txt  [SESSION LIFECYCLE — determinism on cold boot]
+6) REPO                                  [SUBSTRATE: PATHS/INTERFACES/EXISTING CODE]
+
+RULE: IF NOT IN GT AND NOT IN CODE, MARK GAP. DO NOT INVENT.
+
+---
+
+0) ONE-LINE PURPOSE
+
+Director is a small, deterministic, read-only beat selector inside Lens. It chooses "what happens next" from existing Oracle content. It never invents canon, writes stores, or overrides Box outcomes.
+
+---
+
+1) WHAT DIRECTOR IS (AND IS NOT)
+
+Director IS:
+- a deterministic policy: same inputs => same beat selection (no entropy, no randomness)
+- a beat selector: chooses next beat_id from a known beat menu derived from StoryState
+- a nudge emitter: attaches 0-1 NudgeDirective per scene to PromptPack (DIR-002)
+- read-only to Oracle stores (FactsLedger, StoryState, UnlockState, Compactions)
+- Lens-resident: Director logic lives inside the Lens layer (DIR-001, LNS-C-002)
+
+Director IS NOT:
+- a storyteller (Spark renders; Director selects)
+- a mechanics decider (Box is authoritative; Director never evaluates DCs, rolls, or legality)
+- a canon writer (no Oracle writes; no fact creation; no synthesis promotion)
+- a heavy subsystem (DIR-001: "must NOT be a heavy subsystem"; it is a small deterministic policy)
+- a truncator (Oracle owns truncation; Director receives pre-truncated inputs via DirectorPromptPack)
+
+---
+
+2) INPUTS
+
+2.1 DirectorPromptPack (from Lens — ONLY input channel)
+Director receives ONLY DirectorPromptPack from Lens (doctrine holes ss5: "never raw Oracle").
+Contents (from Lens spec ss3.2):
+- scene context: current scene_id, recent events (handles only), active threads (handles only)
+- pacing state: recent beat types, timing counters, stall detection metrics
+- NO locked precision content (HL-005 enforced by Lens before Director sees it)
+- NO mechanical data (DCs, rolls, hit points — those are Box-only)
+
+2.2 Scope cursor (embedded in DirectorPromptPack)
+- world_id, campaign_id, scene_id, mode
+- Director only operates in MODE=PLAY (other modes have no beat selection)
+
+2.3 Beat menu (derived from StoryState via DirectorPromptPack)
+- Active thread handles with priority hints
+- Active clock handles with urgency indicators
+- Scene beat history (what beats have already fired this scene)
+- Available beat types: ADVANCE_THREAD, INTRODUCE_NPC, REVEAL_CLUE, ENVIRONMENTAL, COMBAT_TRANSITION, SCENE_TRANSITION, PERMISSION_PROMPT
+
+---
+
+3) OUTPUTS
+
+3.1 BeatIntent (primary output — feeds back to Lens for PromptPack compilation)
+BeatIntent:
+  beat_id: str                # deterministic: hash(scene_id + beat_sequence_number)
+  beat_type: str              # from available beat types enum
+  target_handles: tuple       # Oracle handles to foreground (thread_id, npc_id, location_id, etc)
+  pacing_mode: str            # NORMAL | SLOW_BURN | ACCELERATE | CLIMAX
+  permission_prompt: bool     # True if this beat should include a permission prompt (PC-004)
+
+BeatIntent is a reference document — it contains handles and type tags, not content text.
+Lens compiles the referenced handles into PromptPack channels using mask rules.
+Spark renders from PromptPack. Director never produces renderable text.
+
+3.2 NudgeDirective (optional output — 0-1 per scene, attached to PromptPack)
+NudgeDirective (from GT DIR-003):
+  type: enum                  # NONE | SPOTLIGHT_NUDGE | CALLBACK_NUDGE | PRESSURE_NUDGE | CLARIFY_OPTIONS
+  target_handle: str or None  # target_pc_id, thread_id, clock_id, or None
+  consequence_handles: tuple  # for CLARIFY_OPTIONS: 2-4 option handles (not hidden tokens)
+  reason_code: str            # deterministic tag explaining why this nudge fired
+
+NudgeDirective is metadata, not content. Spark renders nudges into natural language.
+If type=NONE, no nudge is emitted (default state — DIR-004).
+
+3.3 What Director does NOT output
+- No narration text (Spark-only)
+- No mechanical values (Box-only)
+- No new facts (Oracle-only)
+- No new handles (Director references existing handles; never mints)
+- No voice assignments (VoiceRegistry, not Director — PC-002)
+
+---
+
+4) DETERMINISM CONTRACT
+
+DIR-DET-1: same (DirectorPromptPack bytes, beat history) => identical BeatIntent bytes.
+DIR-DET-2: same inputs => identical NudgeDirective (including type=NONE when no nudge fires).
+DIR-DET-3: Director introduces no entropy. No randomness, no timestamps, no wall-clock data, no UUIDs.
+DIR-DET-4: Beat selection follows deterministic priority rules (Section 5). No "creative" deviation.
+DIR-DET-5: Director state survives cold boot. BeatIntent history is reconstructible from event log replay (EV-100 series).
+
+---
+
+5) BEAT SELECTION POLICY (DETERMINISTIC PRIORITY RULES)
+
+Director selects the next beat using a deterministic priority cascade. Each rule is evaluated in order; the first rule that fires produces the BeatIntent.
+
+5.1 Priority cascade (evaluated in order):
+P1: PENDING_OBLIGATION — If a pending interaction exists (PENDING_ROLL, PENDING_CONSENT, PENDING_HANDOUT), emit no beat. Director is inert during pending states.
+P2: SCENE_TRANSITION — If scene end conditions are met (from StoryState scene lifecycle), emit SCENE_TRANSITION beat.
+P3: STALL_DETECTION — If no player action for N beats (configurable threshold), emit SPOTLIGHT_NUDGE targeting least-recently-active PC. Threshold is a policy pin.
+P4: THREAD_PAYOFF — If an active thread has reached its payoff condition (clock expired, clue threshold met), emit ADVANCE_THREAD targeting that thread.
+P5: PRESSURE_ESCALATION — If an active clock is within urgency threshold, emit PRESSURE_NUDGE with clock handle.
+P6: CALLBACK_OPPORTUNITY — If a dormant thread has a natural re-entry point given current scene context, emit CALLBACK_NUDGE with thread handle.
+P7: DEFAULT — Emit BeatIntent with beat_type=ENVIRONMENTAL, pacing_mode=NORMAL, no nudge. This is the "nothing special, keep going" state.
+
+5.2 Anti-rail constraints (from GT DIR-004):
+- Default is NONE/ENVIRONMENTAL unless measurable thresholds are exceeded.
+- 0-1 nudge per scene (HL-006). If a nudge has already fired this scene, all nudge-producing rules (P3, P5, P6) are suppressed.
+- Cooldown: after a nudge fires, Director enters cooldown for C beats (configurable pin). During cooldown, only P1/P2 can fire.
+- Hysteresis: stall detection requires sustained inactivity (N consecutive beats), not a single missed beat.
+- Handles-not-secrets: all target_handles and consequence_handles reference Oracle entries, never hidden tokens (DIR-004).
+
+5.3 Permission prompt cadence (from GT PC-004):
+Permission prompts (neutral "want me to continue?" / "short or full version?") are attached to BeatIntent at:
+A) Scene transitions (always)
+B) Every N beats (default N=4, configurable pin)
+C) After interruption resume (always)
+Permission prompts are neutral unless Lens provides explicit stakes framing handles.
+
+---
+
+6) NO-AUTHORITY CONSTRAINTS
+
+DIR-AUTH-1: Director does not write to any Oracle store. Read-only access only, and only via DirectorPromptPack (never raw store access).
+DIR-AUTH-2: Director does not create new facts. Every handle in BeatIntent traces to an existing Oracle store entry.
+DIR-AUTH-3: Director does not promote synthesis to canon. If a beat references synthesized content, the synthesized tag is preserved.
+DIR-AUTH-4: Director does not evaluate mechanics. No DCs, no roll interpretation, no combat resolution, no legality checks.
+DIR-AUTH-5: Director does not override Box outcomes. If Box resolves an action, Director accepts the result.
+DIR-AUTH-6: Any Director suggestion requiring new canon becomes a "proposal" that routes through operator consent path, not an automatic write (DIR-G2).
+DIR-AUTH-7: Director does not select voices (VoiceRegistry owns voice mapping — PC-002).
+DIR-AUTH-8: Director does not truncate or reorder WorkingSet content. Oracle truncates; Lens routes; Director selects beats.
+
+---
+
+7) NUDGE POLICY DETAILS
+
+7.1 SPOTLIGHT_NUDGE (DIR-003, DIR-005, PC-005)
+- Fires when a PC has been inactive for stall_threshold beats.
+- Target: least-recently-active PC (deterministic — stable sort by last_action_beat_id).
+- Prompt style: interrogative/neutral ("What are you doing while...?" / cutaway question). Never modal coercion.
+- Inherits all DIR-004 constraints + HL-006 caps.
+- Spark renders the nudge text; Director provides only the target_pc_id and reason_code.
+
+7.2 CALLBACK_NUDGE (DIR-003)
+- Fires when a dormant thread has a natural re-entry point given current scene context.
+- Target: thread_id from StoryState.
+- Requires the thread to be in DORMANT state with a re-entry condition that matches current scene parameters.
+- Director does not evaluate whether the callback "makes narrative sense" — it checks structural conditions only (thread state, scene overlap, recency).
+
+7.3 PRESSURE_NUDGE (DIR-003)
+- Fires when an active clock is within urgency_threshold of expiry.
+- Target: clock_id from StoryState.
+- Director references the clock handle; Spark renders urgency into narration.
+- "Clock" is a StoryState construct (ticking counter with expiry condition). Director reads it; never writes it.
+
+7.4 CLARIFY_OPTIONS (DIR-003)
+- Fires when scene context presents a branching decision point with 2-4 explicit options.
+- Options are consequence_handles — Oracle entries that represent known possible outcomes.
+- Director never invents options. All consequence_handles must exist in FactsLedger or StoryState.
+- Handles-not-secrets: options reference IDs, not hidden tokens (DIR-004).
+
+---
+
+8) EXISTING CODE REALITY
+
+What exists (SATISFIED or PARTIAL):
+- StoryState with scene_id, active threads/clocks pointers (aidm/oracle/story_state.py — from WO-ORACLE-01)
+- WorkingSet compilation (aidm/oracle/working_set.py — from WO-ORACLE-02)
+- PromptPack five-channel structure (aidm/schemas/prompt_pack.py)
+- PromptPackBuilder with style/task/truth channels (aidm/lens/prompt_pack_builder.py)
+- AllowedToSayEnvelope audit artifact (aidm/lens/promptpack_compiler.py — from WO-ORACLE-02)
+- NarrativeBrief as one-way valve (aidm/lens/narrative_brief.py)
+- Event logging infrastructure (aidm/core/event_log.py)
+
+What is GREENFIELD:
+- BeatIntent dataclass
+- NudgeDirective dataclass (GT DIR-003 defines the type enum; no implementation exists)
+- DirectorPolicy (the deterministic priority cascade)
+- DirectorPromptPack compilation (Lens spec ss3.2 defines shape; no compiler exists)
+- Beat history tracking (scene-scoped beat sequence counter)
+- Stall detection / thread payoff / pressure escalation / callback logic
+- NudgeSelected / NudgeSuppressed event emission (GT EV-033, EV-034)
+
+What is DEFERRED (not in WO-DIRECTOR-01 scope):
+- TableMood integration (PARKED — Lens/Director Phase 2+)
+- RiffSpace improvisation pipeline (PARKED)
+- PVIB compilation (Phase 3)
+- Full Spark integration (Spark renders from PromptPack; Spark changes are a separate WO)
+
+---
+
+9) PHASING
+
+Phase 1 (WO-DIRECTOR-01 scope — CURRENT):
+- BeatIntent dataclass (frozen, canonical bytes, deterministic)
+- NudgeDirective dataclass (frozen, canonical bytes, type enum from GT DIR-003)
+- DirectorPolicy: deterministic priority cascade (Section 5) with configurable thresholds as policy pins
+- DirectorPromptPack compilation in Lens (subset compiler from WorkingSet)
+- Beat history tracking (scene-scoped, reconstructible from event log)
+- NudgeSelected / NudgeSuppressed event emission (GT EV-033, EV-034)
+- Oracle integration preflight gate: one test exercising Oracle -> Lens -> Director -> BeatIntent round-trip (per Operator directive: fold smoke into Director cycle)
+- Gate D tests (Section 10)
+
+Phase 1 does NOT include:
+- TableMood / StyleCapsule integration (PARKED)
+- Spark-side rendering of NudgeDirective (separate WO)
+- Full scene lifecycle automation (scene end detection requires EV-031/EV-032 producers)
+- CLARIFY_OPTIONS consequence handle resolution (requires richer StoryState thread model)
+- Permission prompt content generation (Spark-side)
+
+Phase 2 (Director + Spark integration):
+- Spark rendering of BeatIntent + NudgeDirective into narration
+- Permission prompt rendering
+- TableMood -> StyleCapsule -> StyleChannel pipeline
+- Full scene lifecycle (EV-031/EV-032 driven scene boundaries)
+
+Phase 3 (Full pipeline):
+- CLARIFY_OPTIONS with full consequence handle model
+- Advanced thread/clock lifecycle
+- Director-driven scene transitions
+- Integration with Worldgen sessiongen boundary
+
+---
+
+10) GATES
+
+DIR-G1: REFERENCES NOT CONTENT
+Director outputs (BeatIntent, NudgeDirective) contain handles/IDs only, never content text.
+Test: inspect BeatIntent and NudgeDirective fields — assert no free-text content fields.
+Test: compile BeatIntent, assert all target_handles resolve to existing Oracle store entries.
+
+DIR-G2: NEW CANON REQUIRES CONSENT
+Any Director output that would require creating new Oracle entries routes through operator consent path.
+Test: feed Director a scenario requiring new content — assert it emits a consent proposal, not a direct write.
+Test: assert Director code contains no Oracle store write calls (static import scan).
+
+DIR-G3: READ-ONLY ENFORCED MECHANICALLY
+Director code never imports from or calls write methods on Oracle stores, Box interfaces, or Spark interfaces.
+Test: static import scan of Director module — no prohibited imports per boundary completeness gate.
+Test: Director receives DirectorPromptPack only, never raw Oracle store references.
+
+DIR-G4: DETERMINISM
+Same (DirectorPromptPack bytes, beat history) => identical (BeatIntent bytes, NudgeDirective bytes).
+Test: run Director twice with identical inputs, assert output bytes match.
+Test: cold boot, replay events, run Director — assert identical BeatIntent sequence.
+
+DIR-G5: ANTI-RAIL (NUDGE CAPS)
+0-1 nudge per scene. Cooldown enforced. Hysteresis prevents oscillation.
+Test: simulate stall scenario — assert exactly 1 nudge fires, then cooldown suppresses subsequent nudges.
+Test: simulate rapid stall/unstall — assert hysteresis prevents false nudge.
+Test: count nudges across full scene — assert <=1.
+
+DIR-G6: HANDLES-NOT-SECRETS
+All handles in BeatIntent and NudgeDirective reference existing Oracle entries. No hidden tokens appear.
+Test: inject locked_precision_handles into DirectorPromptPack — assert none appear in Director output.
+Test: assert all target_handles and consequence_handles are members of DirectorPromptPack.allowmention_handles.
+
+DIR-G7: ORACLE INTEGRATION PREFLIGHT
+Oracle -> WorkingSet -> Lens -> DirectorPromptPack -> Director -> BeatIntent round-trip produces deterministic output.
+Test: construct Oracle stores, compile WorkingSet, compile DirectorPromptPack, run Director — assert BeatIntent is valid and deterministic.
+Test: repeat after cold boot — assert identical BeatIntent.
+
+---
+
+11) GAP REGISTER
+
+GAP-D-001: BeatIntent dataclass does not exist.
+Fix: implement BeatIntent frozen dataclass in aidm/lens/director/ (or aidm/director/ — see GAP-D-007).
+Closure: DIR-G1 green.
+
+GAP-D-002: NudgeDirective dataclass does not exist.
+Fix: implement NudgeDirective frozen dataclass with type enum from GT DIR-003.
+Closure: DIR-G1 green.
+
+GAP-D-003: DirectorPolicy (beat selection cascade) does not exist.
+Fix: implement deterministic priority cascade with configurable threshold pins.
+Closure: DIR-G4 + DIR-G5 green.
+
+GAP-D-004: DirectorPromptPack compilation does not exist.
+Fix: implement subset compiler in Lens layer that produces DirectorPromptPack from WorkingSet.
+Closure: DIR-G3 + DIR-G7 green.
+
+GAP-D-005: Beat history tracking does not exist.
+Fix: implement scene-scoped beat counter reconstructible from event log (EV-100 series or new lightweight event).
+Closure: DIR-G4 green (deterministic sequence).
+
+GAP-D-006: NudgeSelected / NudgeSuppressed events not emitted.
+Fix: emit EV-033 and EV-034 from Director when nudge fires or is suppressed.
+Closure: audit trail for DIR-G5.
+
+GAP-D-007: Director module placement decision.
+GT DIR-001 says "Director is a small deterministic policy inside LENS" (LNS-C-002). This could mean:
+A) Director code lives in aidm/lens/director/ (subdirectory of Lens)
+B) Director code lives in aidm/director/ (sibling of Lens, read-only to Lens outputs)
+Decision: A is more faithful to GT ("inside LENS"). B is cleaner for boundary gate. Builder should confirm and register in boundary completeness gate if creating new package.
+
+---
+
+12) RELATIONSHIP TO OTHER SPECS
+
+Oracle -> Lens -> Director: Oracle produces WorkingSet. Lens compiles DirectorPromptPack (subset). Director selects beats and nudges. Lens compiles final PromptPack incorporating BeatIntent. Spark renders.
+
+The data flow is:
+  Oracle stores -> compile_working_set() -> WorkingSet bytes
+  WorkingSet -> compile_director_promptpack() -> DirectorPromptPack bytes
+  DirectorPromptPack -> DirectorPolicy.select_beat() -> BeatIntent + NudgeDirective
+  (WorkingSet + BeatIntent) -> compile_promptpack() -> PromptPack bytes
+  PromptPack -> Spark -> narration
+
+No backflow: Director cannot write Oracle. Spark cannot write Director or Lens or Oracle. A-NO-BACKFLOW enforced structurally.
+
+Related specs:
+- DOCTRINE_06_LENS_SPEC_V0.txt ss2.5, ss3.2 — DirectorPromptPack shape, beat intent as Lens input
+- DOCTRINE_03_ORACLE_MEMO_V52.txt ss4.2 — StoryState threads/clocks that Director reads
+- DOCTRINE_07_SESSION_LIFECYCLE_V0.txt — Director state reconstructible via cold boot (no separate persistence needed; event replay reconstructs beat history)
+- GT ss10A PC-004 — Permission prompt cadence (Director enforces timing)
+- GT ss10A PC-005 — Spotlight discipline (Director implements via SPOTLIGHT_NUDGE)
+- GT ss10A PC-006 — Continuity references by handle (Director references, Spark renders)
+
+---
+
+END DIRECTOR SPEC v0

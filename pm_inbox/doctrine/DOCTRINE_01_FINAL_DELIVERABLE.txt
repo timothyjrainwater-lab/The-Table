@@ -1,0 +1,135 @@
+REHYDRATED FROM: GT v12, UI v4, ImageGen v4, Oracle v5.2, MemoFinal FULL, RP-NEXT-02 | MODE: Sidekick unless Cast Spellbook | AMP: as requested
+
+SOURCES
+GT v12: /mnt/data/Golden Ticket (1).txt
+UI v4.0: /mnt/data/table_ui_memo_v4.txt
+ImageGen v4: /mnt/data/image_gen_memo_v4.txt
+Oracle v5.2: /mnt/data/oracle_memo_v5_2_rewrite(1).txt
+Repo substrate only (doctrine stale): https://github.com/timothyjrainwater-lab/The-Table (GitHub)
+
+TRUTH AND PRECEDENCE
+P1 GT v12 is truth. Any conflict, GT wins.
+P2 UI, ImageGen, Oracle are plans under GT. Any conflict with GT, delete memo detail.
+P3 Repo is stale for doctrine. Repo is valid only for file paths, interfaces, and existing code reality.
+P4 If not in GT and not proven in code, mark GAP. Do not invent.
+P5 If bytespec, hash algo, schema, mask enum, or event IDs are ambiguous, STOP and mark GAP.
+
+ANCHOR INDEX (USE THESE INSTEAD OF RESTATING)
+A-AUTH Separation of powers. Box authoritative. Oracle canon and memory organ. Spark renderer-only. Immersion embodiment-only.
+A-NO-BACKFLOW Nothing from Spark or Immersion may affect canon, legality, DCs, or mechanics.
+A-PROGRESS Progress is gate-bound only. If not tied to a named gate, it is not progress.
+
+A-RULES-OPEN Rulebook is always openable. Rules are never gated. New players must never be blocked from learning.
+A-TRACE Mechanics transparency on request. Explain single resolution with inputs, math, outcomes, and rule_ref citations.
+A-SECRETS Hidden causes allowed. Player-facing: "You do not know why right now. We can talk about it after." Full truth still logged.
+
+A-DEBRIEF Safe-boundary offer. Ask: "Do you want a debrief?" Log offer and accept/decline. Persist player preference debrief_mode.
+A-ORACLE-SPINE Oracle v0 objects: FactsLedger, StoryState pointers, Compactions deterministic non-canon, UnlockState, WorkingSet deterministic bytes.
+A-ORACLE-TRUNC Oracle is the sole truncator for any bytes entering WorkingSet or prompts. Lens routes only, no silent clipping.
+A-WORLDGEN-COMMIT Worldgen is closed to player. Automatic end-of-worldgen commit freezes pin ledger for the snapshot. Rebuild must match or hard fail unless explicit revision exists.
+
+A-UI-BANS UI kernel bans: no tooltips, popovers, hover cards, snippets, floating info windows, gamy action menus. Denial line only routes to rulebook at rule_ref.
+A-DICE Authoritative rolls require PENDING_ROLL then physical dice tower ritual then Box result. Practice rolls are cosmetic only.
+
+A-IMG-PILLAR Offline local open-weights only. No refusal layer. No previews, pick menus, or progress panels. No auto notebook write. Map is 2D magical plane. Weighted artifacts, player placed. No backflow from images or scores.
+A-IMG-BULK-EVOLVE BULK may bind when continuity needs it. Binding is deterministic and logged. Promotion and injury events can trigger deterministic regen to upgraded art. Identity stable; gear and wounds change by canon events. Scars persist by default.
+
+A-AUDIO-PILLAR Audio is embodiment only. Offline only. No backflow. No canon writes. No mechanics influence.
+A-AUDIO-PHASE Audio is generated only during worldgen or sessiongen. Runtime only selects and plays stored audio.
+A-AUDIO-PACK Worldgen and sessiongen compile an AudioPack with SFX, MusicBeds, Motifs, Stingers, and SongAssets. Stored and replayed by asset_id.
+A-AUDIO-QUALITY Mandatory AudioQualityAudit. Multi-sample reject loop. Regen until pass (bounded by pinned regen_budget), then quality-preserving fallback. No fail-to-silence.
+A-AUDIO-SONGS Bard songs are first-class reusable artifacts (hymns, repertoire, popular songs). Songs are clue drivers: they may convey clue-grade content beyond current certainty, but must never reveal exact locked precision tokens. Songs never auto-canonize; canon requires confirmation by play events or explicit recording with consent.
+
+EXEC SUMMARY (ONE LINE)
+Hold A-AUTH and A-NO-BACKFLOW constant, build Oracle until ORC cold boot and precision leak gates are green, and do not claim progress without gates.
+
+GAPS REGISTER
+GAP-001 S0 Oracle recall event IDs drift. Use GT canonical EV-001 EV-002 EV-003 only. Closure: G-ORC-RECALL.
+GAP-002 S0 Consent and write event IDs drift. Use GT canonical EV-010..EV-013 only. Closure: G-UI-NOTEBOOK.
+GAP-003 S0 EV-033 conflict. EV-033 is NudgeSelected. Do not reuse for SceneResume. Closure: schema and log assertion gate.
+
+GAP-004 S0 Hash algorithm not explicit. Must pin canonical algo and encoding globally (recommend sha256 hex). Closure: G-ORC-PIN and G-IMG-HASH and G-AUD-ASSET-REPLAY.
+GAP-005 S0 Canonical JSON profile not closed. Must pin canonical_json_profile bytespec. Closure: G-ORC-COLD-BOOT.
+GAP-006 S0 mask_level and mask_matrix not GT-canonical. Must be schema-locked and bound to UnlockState. Closure: G-ORC-PRECISION.
+GAP-007 S0 PVIB schema missing. Must be schema-locked, mask safe, UnlockState bound, precision leak safe. Closure: G-IMG-ANTILEAK.
+GAP-008 S0 UI runtime message contracts not schema-locked. REQUEST_ PENDING_ STATE_ EVENT_ must be versioned and validated. Closure: G-UI-PENDING.
+
+GAP-009 S0 UI bans exist only in memo, not GT. Promote A-UI-BANS into GT and enforce scan. Closure: G-UI-BAN-SCAN.
+GAP-010 S0 Dice ritual exists only in memo, not GT. Promote A-DICE into GT. Closure: G-UI-DICE.
+GAP-011 S0 ImageGen pillar exists only in memo, not GT. Promote A-IMG-PILLAR into GT and enforce scan. Closure: G-IMG-BAN-SCAN.
+GAP-012 S0 ORC gate cluster not first-class in GT. Promote ORC gates into GT. Closure: all ORC gates below.
+GAP-013 S1 Doctrine distribution pinning not specified. Add doctrine pin manifest and verify-on-boot. Closure: G-ORC-PIN.
+
+GAP-014 S1 Image calibration_set and thresholds not grounded. Pin policy objects and revisions. Closure: G-IMG-HERO.
+GAP-015 S1 Image selection total order and BULK seed derivation not specified. Must pin ordering, seed derivation, and logging. Closure: G-IMG-BULK.
+GAP-016 S0 Multiple truncators risk. Enforce A-ORACLE-TRUNC. Closure: G-ORC-SINGLE-TRUNC.
+GAP-017 S0 Worldgen commit not in GT. Enforce A-WORLDGEN-COMMIT. Closure: G-ORC-WORLDGEN.
+GAP-018 S1 NPC portrait evolution not specified. Enforce A-IMG-BULK-EVOLVE including scars persistence. Closure: G-IMG-NPC-EVOLVE.
+
+GAP-019 S0 Debrief event IDs not GT-canonical. Behavior is locked by A-DEBRIEF but IDs must be assigned in GT. Closure: G-ORC-DEBRIEF-PREF.
+GAP-020 S1 Hidden-cause policy not formalized. Enforce A-SECRETS plus A-DEBRIEF offer. Closure: G-UI-HIDDEN-CAUSE.
+
+GAP-021 S0 Audio generator picks not pinned in GT or code. Must pin generator_id and generator_version for SFX, beds, and singing, and store them in canonical_request_bytes. Closure: G-AUD-ASSET-REPLAY and G-AUD-OFFLINE.
+GAP-022 S0 Audio canonical_request_bytes bytespec not pinned (prompt normalization, duration, seed derivation, conditioning). Closure: G-AUD-ASSET-REPLAY.
+GAP-023 S0 AudioQualityAudit thresholds not pinned (clipping, loudness window, silence ratio, noise floor, bandwidth floor). Closure: G-AUD-QUALITY-FLOOR.
+GAP-024 S0 SongBrief schema not pinned and not bound to Oracle precision locks. Closure: G-AUD-SONG-CLUE-SAFE.
+GAP-025 S1 AudioPack schema and binding semantics not pinned (reusable song assets vs reusable cues). Closure: G-AUD-PACK-COLD-BOOT.
+GAP-026 S1 Audio scoring model drift risk if using embedding scorer (pin checkpoint, version). Closure: G-AUD-SEMANTIC-SCORE.
+GAP-027 S1 License review gate needed before distribution (dev first; commercial later). Closure: non-blocking now, required at ship.
+
+MINIMAL EDIT SET (LOWEST DELTA THAT STABILIZES)
+E-001 Canonicalize event IDs to GT for recall and consent write. Close EV-033 conflict.
+E-002 Pin global hash algorithm and canonical_json_profile.
+E-003 Schema-lock mask_level, mask_matrix, UnlockState binding, and PVIB.
+E-004 Schema-lock UI runtime contracts and enforce PENDING-only control.
+E-005 Promote A-UI-BANS, A-DICE, A-IMG-PILLAR, and ORC gate cluster into GT.
+E-006 Enforce A-ORACLE-TRUNC and A-WORLDGEN-COMMIT.
+E-007 Specify ImageGen ordering and seed derivation, then implement A-IMG-BULK-EVOLVE including scars persistence.
+E-008 Add A-SECRETS and A-DEBRIEF to GT with GT-canonical event IDs and debrief_mode persistence.
+
+E-009 Add audio pillar anchors into GT as Immersion-only contracts: A-AUDIO-PILLAR, A-AUDIO-PHASE, A-AUDIO-PACK, A-AUDIO-QUALITY, A-AUDIO-SONGS.
+E-010 Define AudioPack schema and storage contracts (asset_id, sha256, generator pin ledger, provenance event id).
+E-011 Define AudioQualityAudit thresholds and reject loop policy including regen_budget and quality-preserving fallback.
+E-012 Define SongBrief schema bound to Oracle precision locks; allow clue-grade output without exact locked precision leaks; forbid auto canonization.
+E-013 Pin audio generator ids and versions for SFX, beds, and singing; pin semantic scorer checkpoint if used.
+
+REQUIRED GATES (PASS FAIL, NO DONE WITHOUT GREEN)
+G-ORC-COLD-BOOT Rebuild WorkingSet from stores only; bytes hash matches golden.
+G-ORC-PRECISION Locked precision tokens never appear exactly in WorkingSet bytes, Spark prompt, narration, or PVIB unless unlocked or rolled or recorded.
+G-ORC-RECALL RecallRequest Attempt Result always logged as EV-001 EV-002 EV-003. No alternates.
+G-ORC-COMPACTION Same inputs and policy yield identical compaction bytes. Compactions are non-canon accelerators only.
+G-ORC-NO-BACKFLOW Enforce A-NO-BACKFLOW at interfaces and selection.
+G-ORC-PIN Assert pin ledger on rebuild. Mismatch fails unless explicit revision exists.
+G-ORC-SINGLE-TRUNC Enforce A-ORACLE-TRUNC. No secondary truncators.
+G-ORC-WORLDGEN Enforce A-WORLDGEN-COMMIT. Pins freeze at end-of-worldgen commit. Rebuild asserts.
+G-ORC-DEBRIEF-PREF DebriefOffered and Accepted Declined logged, and debrief_mode persists and replays identically.
+
+G-UI-BAN-SCAN Static scan for banned UI patterns in A-UI-BANS.
+G-UI-PENDING Play-critical actions require runtime-issued PENDING_.
+G-UI-DICE Enforce A-DICE.
+G-UI-NOTEBOOK Enforce consent chain EV-010..EV-013 and default write-lock.
+G-UI-TRACE Enforce A-TRACE and A-RULES-OPEN.
+G-UI-HIDDEN-CAUSE Enforce A-SECRETS and safe-boundary A-DEBRIEF offer.
+
+G-IMG-HASH Deterministic request_hash and workflow_hash from canonical bytes and pinned hash algo.
+G-IMG-ANTILEAK Precision leak traps never appear in prompt bytes unless unlocked or rolled or recorded.
+G-IMG-BAN-SCAN Static scan for forbidden ImageGen UI patterns in A-IMG-PILLAR.
+G-IMG-OFFLINE No network calls during gen, scoring, or delivery.
+G-IMG-NO-BACKFLOW Enforce A-NO-BACKFLOW for images and scores.
+G-IMG-HERO HERO meets thresholds derived from pinned calibration_set and policy objects.
+G-IMG-BULK BULK ordering and seed derivation pinned, selection logged, replay stable.
+G-IMG-NPC-EVOLVE Enforce A-IMG-BULK-EVOLVE including scars persistence and promotion and injury regen.
+
+G-AUD-OFFLINE No network calls during audio gen, scoring, storage, or playback.
+G-AUD-ASSET-REPLAY Every accepted audio artifact is stored and replayed by asset_id. No silent regeneration; regen requires explicit regen event and produces new asset_id.
+G-AUD-PACK-COLD-BOOT Rebuild AudioPack index from stores only; hashes match; bindings stable.
+G-AUD-QUALITY-FLOOR AudioQualityAudit thresholds pass (no clipping, loudness window, silence ratio cap, noise floor cap, bandwidth floor). Regen until pass, bounded by regen_budget, then quality-preserving fallback (never silence).
+G-AUD-SEMANTIC-SCORE If semantic scoring is used, scorer checkpoint is pinned and asserted; similarity meets pinned thresholds.
+G-AUD-SONG-CLUE-SAFE Songs never emit exact locked precision tokens. Songs include at least one actionable clue element. Songs are labeled clue-grade not proof-grade. Songs never auto-canonize. No auto notebook write without consent.
+G-AUD-NO-BACKFLOW Audio scores, popularity, or playback metadata cannot influence Oracle canon, legality, DCs, or Box outcomes.
+
+STOP CONDITIONS
+STOP-001 If bytespec, hash algo, schema, mask enum, or event IDs are ambiguous, STOP and mark GAP.
+STOP-002 Any backflow from Spark or Immersion into canon, legality, DCs, or mechanics, STOP.
+STOP-003 Any UI that violates bans or adds gamy affordances, STOP.
+STOP-004 Any claim of progress not tied to gates, STOP.

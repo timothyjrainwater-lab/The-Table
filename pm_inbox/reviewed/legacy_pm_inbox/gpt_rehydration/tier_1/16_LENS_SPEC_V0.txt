@@ -1,0 +1,279 @@
+LENS SUBSYSTEM SPEC v0
+SUBJECT: LENS CONTRACT — WorkingSet-to-PromptPack Compiler + Mask Enforcement Engine
+TO: AI PM (EXECUTION AUTHORITY)
+FROM: AEGIS (PM / GOVERNANCE)
+DATE: 2026-02-18
+
+PRECEDENCE:
+1) AI2AI_GOLDEN_TICKET v12            [TRUTH]
+2) ORACLE_MEMO v5.2                   [PLAN UNDER GT]
+3) DOCTRINE_HOLES_ANSWER_PACKET §4    [FORMALIZED DECISIONS]
+4) ORACLE_OVERLAP_SURVEY §5           [EXISTING CODE REALITY]
+5) REPO                               [SUBSTRATE: PATHS/INTERFACES/EXISTING CODE]
+
+RULE: IF NOT IN GT AND NOT IN CODE, MARK GAP. DO NOT INVENT.
+
+---
+
+0) ONE-LINE PURPOSE
+
+Lens is a deterministic compiler: Oracle WorkingSet bytes + mask rules + policy pins => PromptPack bytes + "allowed-to-say" envelope. It selects, masks, cites, and formats. It never invents facts, writes canon, or truncates.
+
+---
+
+1) WHAT LENS IS (AND IS NOT)
+
+Lens IS:
+- a pure compiler from Oracle-owned inputs to consumer-ready outputs
+- the mask enforcement engine (precision tokens, visibility tiers, lock state)
+- a citation router (every included fact traceable to Oracle store entry or operator-promoted synthesis)
+- deterministic: same inputs + same pins => byte-identical PromptPack bytes
+
+Lens IS NOT:
+- a truncator (A-ORACLE-TRUNC: Oracle is the sole truncator; Lens routes slices, never clips)
+- a fact inventor (no synthesis, no gap-filling, no hallucination patching)
+- a canon writer (no Oracle writes; read-only to all Oracle stores)
+- a decision maker (Director selects beats; Lens compiles what Director + Oracle provide)
+
+---
+
+2) INPUTS
+
+2.1 WorkingSet bytes (from Oracle, Section 4.5 of Oracle v5.2)
+- working_set_id = hash(canonical_bytes)
+- world_id, campaign_id, scene_id
+- mode (from EV-030 ModeChanged)
+- policy_ids: mask_matrix_id, ordering_policy_id, truncation_policy_id, budget_policy_id, compaction_policy_id
+- pins snapshot (Section 7 of Oracle v5.2)
+- allowmention_handles (facts/state/rule_refs permitted; PC-006)
+- locked_precision_handles (explicitly locked; default deny)
+- slices: facts_slice, state_slice, compactions_slice (optional)
+- directives: output_class constraints, channel separation, "why -> rule_ref open only"
+- bytes (canonical JSON UTF-8) + bytes_hash
+
+WorkingSet is ALREADY truncated by Oracle. Lens receives the final budget-constrained slices. Lens MUST NOT re-truncate, re-order, or silently clip any slice content.
+
+2.2 Mask rules (from Oracle UnlockState + WorkingSet)
+- allowmention_handles: the complete set of facts/handles Lens may include
+- locked_precision_handles: handles whose exact content is forbidden in output
+- mask_matrix_id: the policy governing visibility tiers per consumer
+- KnowledgeTier (existing: UNKNOWN < HEARD_OF < SEEN < FOUGHT < STUDIED)
+
+2.3 Policy pins (from WorkingSet pins snapshot)
+- All pins are asserted, not derived. Lens does not compute pins; it receives and includes them.
+
+2.4 Scope cursor (from WorkingSet)
+- world_id, campaign_id, scene_id, mode
+- These determine which consumer-specific compilation rules apply.
+
+2.5 Director beat intent (optional, Phase 2+)
+- beat_id, pacing_mode, beat_type
+- Director is read-only to Oracle and receives its own DirectorPromptPack from Lens
+- In Phase 1, Lens compiles without Director input (default pacing)
+
+---
+
+3) OUTPUTS
+
+3.1 PromptPack (primary output — feeds Spark)
+Five-channel structure (existing in repo: aidm/schemas/prompt_pack.py):
+- TruthChannel: hard constraints from facts_slice (mask-safe subset)
+- MemoryChannel: retrieved facts, session summaries, compactions (token-budget-aware)
+- TaskChannel: task definition, output bounds, forbidden content list
+- StyleChannel: tone parameters, persona, pacing hints
+- OutputContract: machine-checkable constraints (length bounds, forbidden tokens, required elements)
+
+Serialization: json.dumps(sort_keys=True, ensure_ascii=True, separators=(',',':')). No trailing newline. Floats FORBIDDEN. SHA-256 hash of canonical bytes stored as promptpack_hash.
+
+3.2 DirectorPromptPack (secondary output — feeds Director, Phase 2+)
+Subset of PromptPack containing only what Director needs for beat selection:
+- scene context (current scene, recent events, active threads)
+- pacing state (recent beat types, timing)
+- NO locked precision content
+- NO mechanical data
+
+3.3 "Allowed-to-say" envelope
+Metadata block emitted alongside PromptPack:
+- allowed_handles: list of Oracle handles included in this PromptPack
+- locked_handles: list of handles explicitly excluded due to precision lock
+- mask_matrix_id applied
+- promptpack_hash
+- working_set_id (input traceability)
+
+This envelope is the audit artifact. Post-hoc verification can check: "did Spark receive any handle not in allowed_handles?" If yes, leak.
+
+3.4 PVIB (PlayerVisibleImageBrief) (Phase 2+, when ImageGen pipeline exists)
+- Compiled from Oracle allowmention_handles only
+- Schema-locked and validated
+- Never contains locked precision tokens unless unlocked/rolled/recorded (HL-005)
+- Delivered as weighted artifact; no previews, no pick menus
+
+---
+
+4) DETERMINISM CONTRACT
+
+LENS-DET-1: same (WorkingSet bytes, mask rules, policy pins, scope cursor) => byte-identical PromptPack bytes.
+LENS-DET-2: same inputs => identical promptpack_hash (SHA-256 of canonical PromptPack bytes).
+LENS-DET-3: Lens introduces no entropy. No randomness, no timestamps, no wall-clock data, no UUIDs in output.
+LENS-DET-4: ordering within PromptPack channels follows WorkingSet slice ordering only. Lens does not re-sort.
+
+---
+
+5) MASK ENFORCEMENT CONTRACT
+
+MASK-1: Locked precision tokens (locked_precision_handles) NEVER appear as exact strings in any Lens output (PromptPack, DirectorPromptPack, PVIB, allowed-to-say envelope).
+MASK-2: Only handles present in allowmention_handles may appear in PromptPack content. Any handle NOT in allowmention_handles is excluded — not redacted, not gisted, absent.
+MASK-3: KnowledgeTier gates apply per entity: fields not revealed at the entity's current tier are absent from output (existing pattern: MaskedEntityView returns absent fields, not redacted fields).
+MASK-4: Gist references are permitted for locked content only when the WorkingSet explicitly provides a gist_payload for the handle. Lens does not generate gists.
+MASK-5: The "allowed-to-say" envelope is the complete manifest. If a handle appears in PromptPack bytes but not in allowed_handles, that is a gate failure (LENS-G2).
+
+---
+
+6) NO-AUTHORITY CONSTRAINTS
+
+AUTH-1: Lens does not write to any Oracle store (FactsLedger, StoryState, UnlockState, Compactions). Read-only access only.
+AUTH-2: Lens does not create new facts. Every fact in PromptPack traces to an Oracle store entry.
+AUTH-3: Lens does not promote synthesis to canon. Synthesized-filler content retains its "synthesized" tag through Lens.
+AUTH-4: Lens does not evaluate mechanics, DCs, or legality. Those are Box-only (A-AUTH).
+AUTH-5: Lens does not truncate WorkingSet slices. Oracle owns truncation (A-ORACLE-TRUNC). Lens formats and routes the already-truncated slices into channels.
+
+---
+
+7) HASH FUNCTION PIN (OPERATOR DIRECTIVE)
+
+PIN-1: The canonical hash function for all Oracle content-addressed artifacts is:
+- Algorithm: SHA-256
+- Encoding: hexadecimal lowercase
+- Prefix length for short hashes: 16 characters
+- Implementation: canonical_short_hash() from aidm/oracle/canonical.py
+
+PIN-2: fact_id in FactsLedger uses canonical_short_hash(canonical_json(payload)).
+- This was established by WO-ORACLE-01 (commit 4c5526a).
+- The builder chose canonical_short_hash over compute_value_hash because canonical_json forbids floats (correct for determinism) while compute_value_hash uses default=str (silently serializes floats).
+- This is the ONLY path for content-addressed fact IDs. Do not reintroduce compute_value_hash as a second path.
+
+PIN-3: compute_value_hash() from aidm/core/provenance.py remains valid for its original purpose (W3C PROV-DM entity hashing in ProvenanceStore). It is NOT used for Oracle artifact IDs.
+
+PIN-4: Lens outputs (promptpack_hash, working_set_id verification) use the same SHA-256 algorithm. Implementation via canonical_short_hash for IDs, full hex digest for content hashes.
+
+---
+
+8) EXISTING CODE REALITY (from Oracle Overlap Survey §5)
+
+What exists (SATISFIED):
+- PromptPack five-channel structure with deterministic serialization (aidm/schemas/prompt_pack.py)
+- PromptPackBuilder assembles from NarrativeBrief + memory + style (aidm/lens/prompt_pack_builder.py)
+- NarrativeBrief as one-way valve / containment boundary (aidm/lens/narrative_brief.py)
+- ContextAssembler with salience ranking and token budget (aidm/lens/context_assembler.py)
+- SessionSegmentSummary as deterministic compaction (aidm/lens/segment_summarizer.py)
+- KnowledgeMask with progressive revelation and default-deny (aidm/schemas/knowledge_mask.py)
+- FrozenWorldStateView for mutation prevention (aidm/core/state.py)
+- Deterministic serialization pattern: json.dumps(sort_keys=True) + SHA-256
+
+What is PARTIAL:
+- PromptPackBuilder takes pre-assembled components, not Oracle store references. It needs a "compile from WorkingSet" entry point.
+- KnowledgeMask is entity-focused. Needs generalization to arbitrary content handles for fact-level visibility.
+- No formal rebuild-from-stores mechanism (runtime doesn't verify "this build matches previous build").
+
+What is GREENFIELD:
+- "Allowed-to-say" envelope (audit artifact for mask verification)
+- DirectorPromptPack (subset compilation for Director)
+- PVIB compilation pipeline
+- WorkingSet-to-PromptPack compiler entry point (the function that takes WorkingSet bytes and emits PromptPack bytes)
+
+---
+
+9) PHASING
+
+Phase 1 (WO-ORACLE-02 scope):
+- WorkingSet compiler: Oracle stores => WorkingSet bytes (Oracle-side, not Lens)
+- PromptPack compiler: WorkingSet bytes => PromptPack bytes (Lens-side)
+- Gate B: cold boot byte-equality (same stores => same WorkingSet => same PromptPack)
+- "Allowed-to-say" envelope emitted alongside PromptPack
+- Mask enforcement: locked_precision_handles excluded from output
+- No Director integration (default pacing)
+- No PVIB (no ImageGen pipeline yet)
+- No Spark changes (PromptPack format unchanged; only the compilation path changes)
+
+Phase 2 (Director integration):
+- DirectorPromptPack compilation
+- Director beat intent as Lens input
+- StyleCapsule from TableMood (when TableMood exists)
+- Pacing hints in StyleChannel
+
+Phase 3 (Full pipeline):
+- PVIB compilation
+- Per-consumer mask differentiation
+- Full rebuild-from-stores with runtime checksum verification
+
+---
+
+10) GATES
+
+LENS-G1: DETERMINISM
+Same (WorkingSet bytes, mask rules, policy pins, scope cursor) => byte-identical PromptPack bytes.
+Test: compile twice from identical inputs, assert bytes match.
+Test: compile, serialize, deserialize, recompile — assert bytes match.
+
+LENS-G2: MASK ENFORCEMENT (RED-TEAM)
+Locked precision tokens never appear as exact strings in PromptPack bytes, DirectorPromptPack bytes, PVIB bytes, or allowed-to-say envelope.
+Test: inject known locked tokens into WorkingSet, compile, assert absent from all outputs.
+Test: inject handles NOT in allowmention_handles, compile, assert absent from output.
+
+LENS-G3: ATTRIBUTION
+Every fact included in PromptPack is traceable to an Oracle store entry or operator-promoted synthesis.
+Test: for each content block in PromptPack, verify corresponding handle exists in allowed_handles and maps to a FactsLedger entry or synthesized-filler.
+
+LENS-G4: NO-TRUNCATION
+Lens output contains all content from WorkingSet slices without clipping, reordering, or silent removal.
+Test: diff WorkingSet slice content against PromptPack channel content — assert no data loss.
+Test: assert Lens code contains no token-counting or budget-enforcement logic (that belongs to Oracle).
+
+LENS-G5: NO-BACKFLOW (structural)
+Lens code never imports from or calls write methods on Oracle stores, Box interfaces, or Spark interfaces.
+Test: static import scan of Lens module — no prohibited imports per boundary completeness gate.
+
+---
+
+11) GAP REGISTER
+
+GAP-L-001: WorkingSet-to-PromptPack compiler function does not exist. PromptPackBuilder takes pre-assembled components.
+Fix: implement compile_promptpack(working_set: WorkingSet) -> (PromptPack, AllowedToSayEnvelope).
+Closure: LENS-G1 green.
+
+GAP-L-002: "Allowed-to-say" envelope not implemented.
+Fix: emit AllowedToSayEnvelope alongside PromptPack with handle manifest.
+Closure: LENS-G2 + LENS-G3 green.
+
+GAP-L-003: KnowledgeMask generalization from entity-focused to handle-focused.
+Fix: extend mask enforcement to arbitrary content handles, not just entity stat tiers.
+Closure: LENS-G2 green for fact-level content.
+
+GAP-L-004: No runtime rebuild verification (checksum comparison across builds).
+Fix: store promptpack_hash, compare on rebuild.
+Closure: LENS-G1 runtime enforcement.
+
+GAP-L-005: DirectorPromptPack compilation does not exist (Phase 2).
+Fix: implement subset compiler for Director inputs.
+Closure: Phase 2 gate.
+
+GAP-L-006: PVIB compilation pipeline does not exist (Phase 2+).
+Fix: implement PVIB compiler from allowmention_handles.
+Closure: Phase 3 gate + G-IMG-ANTILEAK.
+
+---
+
+12) RELATIONSHIP TO OTHER SUBSYSTEMS
+
+Oracle -> Lens: Oracle produces WorkingSet bytes (truncated, budget-constrained, mask-annotated). Lens consumes.
+Lens -> Spark: Lens produces PromptPack bytes. Spark renders narration from PromptPack.
+Lens -> Director: Lens produces DirectorPromptPack. Director selects beats. (Phase 2+)
+Lens -> ImageGen: Lens produces PVIB. ImageGen produces visual artifacts. (Phase 3+)
+
+No backflow: Spark, Director, and ImageGen cannot write to Lens or Oracle. A-NO-BACKFLOW enforced structurally (LENS-G5).
+
+TableMood -> Lens: TableMood provides style hints (pacing mode, humor window, beat length). These influence StyleChannel only, never TruthChannel or mask state. (Phase 2+, when TableMood exists. Currently PARKED.)
+
+---
+
+END LENS SUBSYSTEM SPEC v0

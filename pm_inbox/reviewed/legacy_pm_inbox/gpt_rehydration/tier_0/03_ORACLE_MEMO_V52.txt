@@ -1,0 +1,279 @@
+AI2AI ORACLE MEMO v5.2 (REWRITE)
+SUBJECT: ORACLE SUBSYSTEM CONTRACT (CONTEXT-WINDOW STABILIZER) - GT v12 ALIGNED
+TO: AI PM (EXECUTION AUTHORITY)
+FROM: AEGIS (GOVERNANCE / AUDIT)
+DATE: 2026-02-17
+
+PRECEDENCE:
+1) AI2AI_GOLDEN_TICKET v12            [TRUTH]
+2) TABLE_UI_MEMO v4.0                 [PLAN UNDER GT]
+3) IMAGE_GEN_MEMO v4                  [PLAN UNDER GT]
+4) RP-NEXT-01                         [REHYDRATION]
+5) REPO                               [SUBSTRATE ONLY: PATHS/INTERFACES/EXISTING CODE; DOCTRINE STALE]
+RULE: IF NOT IN GT AND NOT IN CODE, MARK GAP. DO NOT INVENT.
+
+0) HANDOFF DIRECTIVE (NON-NEGOTIABLE)
+Build ORACLE until BOTH are true:
+- ORC-COLD-BOOT WorkingSet bytes are stable (byte-equal rebuild)
+- ORC-PRECISION-LEAK tests are green
+Nothing else counts as progress.
+
+1) TRUTH GATE
+FEASIBLE.
+Oracle fixes context-window drift if:
+- History/knowledge live in Oracle stores (files/db), not chat context
+- Lens builds deterministic WorkingSets from Oracle (not “what Spark remembers”)
+- Recap/recall obey precision-token law (HL-005, RR-002, PC-006)
+- No backflow: Spark and Immersion cannot write Oracle or influence selection
+
+2) ORACLE: WHAT IT IS (AND IS NOT) (GT ORC-C-001..003)
+Oracle IS:
+- owner of EventLog (append-only) and canon stores with provenance
+- enforcement point for mask safety, precision locks, consent-gated notebook writes
+- only truth source for WorkingSet inputs (byte-equal rebuild rule)
+
+Oracle IS NOT:
+- storyteller (Spark renders only)
+- mechanics decider (Box authoritative)
+- UI explainer (why routes to rule_ref open; no inline snippets)
+- fudge engine (no hidden help; consistent enforcement)
+
+3) BEACON DEFAULTS (OPERATOR INTENT -> ENGINE CHOICES)
+- Hard outcomes, no hidden help, consistent enforcement
+- Friendly delivery; "why" resolved only by rule_ref open (no inline)
+- Tempo discipline: Oracle supplies bounded WorkingSets; never executes actions
+- Player sovereignty: Notebook sacred; default write-locked; explicit consent chain required
+
+4) MINIMUM ORACLE DATA MODEL (V0)
+All stored artifacts MUST be canonical bytes (see Section 6). All changes are evented (no silent mutation).
+
+4.1 FactsLedger (append-only canon facts with provenance)
+Fact:
+- fact_id (content-addressed hash of canonical bytes)  [GAP if hash algo not pinned]
+- kind (WORLD_RULE, NPC_IDENTITY, LOCATION, FACTION_LAW, CLUE, ITEM_LORE, QUEST_STATE, etc)
+- payload (structured canonical bytes)
+- provenance (source + refs: rule_ref / generator_spec / event_ids / commit_ids)
+- visibility_mask (see Section 5; must be unambiguous)
+- precision_tag (LOCKED or UNLOCKED; Section 5)
+- stable_key (ordering tie-break)
+- created_event_id
+
+4.2 StoryState (evented pointers only; no silent mutation)
+- world_id, campaign_id, scene_id
+- active threads/clocks pointers
+- region pointers
+- mode (PLAY/COMPANION/REFERENCE/NOTEBOOK) via EV-030 ModeChanged (GT)
+Rule: all updates are events; derived views allowed but non-canon.
+
+4.3 Compactions (non-canon accelerators; reproducible)
+Compaction:
+- compaction_id = hash(input_handles + compaction_policy_id)  [GAP if hash algo not pinned]
+- purpose (recap/synopsis variants)
+- input_handles (facts + state pointers)
+- output_bytes (canonical)
+- allowmention_handles (explicit)
+Rule: compactions never authorize canon writes; deletable and rebuildable; reproducible (G4).
+
+4.4 UnlockState (precision + artifact unlocks; default deny)
+- unlocked_detail_handles (scope: scene/session/campaign) with provenance
+- unlocked_rule_refs (scope policy-defined) with provenance
+Rule: UnlockState is the enforcement state for RR-002 routing; must be persistent and auditable.
+
+4.5 WorkingSet (built artifact; deterministic bytes; mask-safe)
+WorkingSet:
+- working_set_id = hash(canonical_bytes)              [GAP if hash algo not pinned]
+- world_id, campaign_id, scene_id
+- mode (from EV-030)
+- policy_ids:
+  - mask_matrix_id
+  - ordering_policy_id
+  - truncation_policy_id
+  - budget_policy_id
+  - compaction_policy_id (if compactions included)
+- pins snapshot (Section 7)
+- allowmention_handles (facts/state/rule_refs permitted precisely; PC-006)
+- locked_precision_handles (explicitly locked)
+- slices (ordered handles or minimal inline canonical payloads):
+  - facts_slice
+  - state_slice
+  - compactions_slice (optional)
+- directives:
+  - output_class constraints
+  - channel separation constraints
+  - "why -> rule_ref open only"
+- bytes (canonical JSON UTF-8) + bytes_hash (stored/logged)
+Rule: same (state, query, budget) => byte-equal WorkingSet bytes (ORC-C-002).
+
+4.6 PlayerVisibleImageBrief (PVIB) (Lens-owned output; Oracle-sourced inputs)
+- Lens produces PVIB at mask-safe level using ONLY Oracle-provided allowmention_handles.
+- PVIB must be schema-locked and validated.  [GAP until schema exists]
+- PVIB must never contain locked precision tokens unless unlocked/rolled/recorded (HL-005).
+Oracle stores:
+- request_spec bytes + request_hash
+- asset metadata hashes + pool/binding events (ImageGen memo)
+No previews/UI panels; delivery is weighted artifact only.
+
+5) PRECISION TOKENS + RECAP/RECALL (HL-005, RR-002, PC-006)
+Definition:
+- precision token = exact detail not auto-recall safe (codes, exact coords, verbatim clues, exact schedules, etc)
+
+Rules:
+- precision tokens are LOCKED by default even if heard once
+- LOCKED tokens may be referenced as gist only (no exact strings) unless unlocked
+
+Unlock sources (table-real; default deny):
+A) Recorded in Notebook via consent chain:
+- EV-010 NotebookWriteConsentRequested
+- EV-011 NotebookWriteConsentGranted
+- EV-012 NotebookWriteConsentDenied
+- EV-013 NotebookWriteApplied
+Result: UNLOCK PERMANENT (campaign scope) for the recorded content_handle(s)
+
+B) Unlocked via rulebook interaction:
+- If GT already defines a rule_ref open/unlock event, use it.
+- If GT does not, this is a GT-EXTENSION GAP:
+  - Add ONE minimal event via explicit GT revision only if required by implementation:
+    - EV-021 RuleRefOpened(rule_ref, scene_id, actor_id, unlock_scope)
+Result: UNLOCK scope per policy (default scene/session unless explicitly recorded)
+
+C) RecallAttempt roll (GT recall pipeline):
+- EV-001 RecallRequest(detail_handle, requester_id, scene_id)
+- EV-002 RecallAttempt(detail_handle, roller_id, skill_id, dc, roll, outcome)
+- EV-003 RecallResult(detail_handle, outcome, payload_handle)
+Default policy (beacon-applied; fair/no-mercy):
+- success unlocks exact detail for current scene or session only
+- permanent unlock requires notebook recording (consent-gated)
+
+Routing:
+- if player requests exact detail_handle:
+  - if unlocked -> return exact
+  - else -> emit EV-001, perform EV-002, then EV-003
+    - success -> exact (scope-limited)
+    - fail -> fuzzy/partial only
+    - never leak locked exact strings
+
+6) DETERMINISM: CANONICAL BYTES (HARD REQUIREMENT)
+Requirement:
+- all persisted Oracle artifacts use canonical JSON bytes (UTF-8) with deterministic ordering and truncation
+- if canonicalization rules are not fully specified in GT or code, this is a STOP GAP (no guessing)
+
+Minimum canonicalization constraints (must be closed by canonical_json_profile):
+- object keys sorted lexicographically
+- no insignificant whitespace; stable separators
+- deterministic array ordering via ordering_policy_id and stable tie-breaks
+- deterministic truncation:
+  - build full ordered sets
+  - trim by truncation_policy_id using stable ordering only
+  - no stochastic selection
+
+NOTE:
+- floats: avoid in canonical artifacts; if unavoidable, define normalization explicitly and version via policy_id
+STATUS:
+- If canonical_json_profile is not fully defined/pinned in GT/code: GAP + STOP.
+
+7) PIN LEDGER (ALIGNMENT; ASSERT ON REBUILD)
+Oracle records pins at worldgen commit and asserts them on rebuild (ORC-PIN-ASSERT):
+- ruleset hash / rule_system_id
+- policy_ids (mask/order/trunc/budget/compaction)
+- prompt_template ids + versions
+- model hashes (LLM, embed, scorers), adapters/lora hashes
+- image workflow_hashes, nodepack versions, thresholds_id
+- seed_policy ids (if used)
+Rule:
+- WorkingSet includes pins snapshot
+- rebuild asserts pins match stored pins unless explicit revision events change them
+GAP:
+- hash algorithm for pins must be explicit (recommend sha256 hex); if not pinned in GT/code: GAP + STOP.
+
+8) EVENT CONTRACT ALIGNMENT (GT-FIRST; MINIMAL EXTENSIONS ONLY)
+Use GT events as defined in GT §12:
+- Recall: EV-001/EV-002/EV-003
+- Notebook consent/write: EV-010..EV-013
+- ReadingSpotSettingChanged: EV-020
+- Mode + scene caps: EV-030 ModeChanged, EV-031 SceneStart, EV-032 SceneEnd
+- Nudges: EV-033 NudgeSelected, EV-034 NudgeSuppressed
+- Roleplay playback (not recall): EV-107..EV-109 are playback pause/resume/abort
+- Validation/fallback: EV-120/EV-121 are roleplay validation/fallback (not model selection)
+
+Forbidden:
+- Do not repurpose EV IDs.
+- Any new event requires explicit GT revision (new EV id) before implementation.
+
+9) INTEGRATIONS (UI + IMAGE GEN)
+9.1 UI (TABLE_UI_MEMO v4)
+- denial: spoken deny line only; route to rule_ref open; no inline explanation/snippets/tooltips/popovers/hover
+- authoritative rolls only: PENDING_ROLL -> physical dice ritual -> Box validates -> UI animates outcome
+Oracle requirement:
+- supply rule_ref handles for any "why"
+- supply mask-safe recap on request only (RR-002)
+
+9.2 Image Gen (IMAGE_GEN_MEMO v4)
+- Oracle stores request_spec bytes + request_hash + asset metadata hashes + pool/binding events
+- Lens produces PVIB from Oracle allowmention_handles only
+- no previews, no pick-a-version menus, no progress panels; weighted delivery only
+- no backflow: image scores never affect mechanics/canon legality/DCs
+
+Required call path to prove in code:
+request_spec -> engine -> Quality Director -> AssetStore -> Pool -> Binding -> delivery surface (weighted artifact)
+
+10) REQUIRED GATES / TESTS (ORACLE NOT "DONE" WITHOUT THESE)
+G1 ORC-COLD-BOOT:
+- rebuild WorkingSet from stores only (no chat); bytes_hash matches golden
+
+G2 ORC-PRECISION-LEAK:
+- locked precision tokens never appear exactly in WorkingSet, Spark prompt, narration, PVIB, or image briefs unless unlocked/recorded/rolled
+
+G3 ORC-RECALL-RR002:
+- EV-001/EV-002/EV-003 always logged
+- locked -> roll; unlocked/recorded -> exact; fail -> fuzzy; never leak exact
+
+G4 ORC-COMPACTION-REPRO:
+- same inputs + policy -> identical compaction bytes; compactions non-canon accelerators only
+
+G5 ORC-NO-BACKFLOW:
+- Spark/Immersion cannot write Oracle or influence selection; only explicit commit events allowed
+
+G6 ORC-PIN-ASSERT:
+- rebuild asserts pin ledger; mismatches fail deterministically unless explicit revision event exists
+
+G7 UI-BAN-SCAN and IMG-BAN-SCAN:
+- static scans for forbidden UI patterns and forbidden image-gen UI patterns
+
+11) GAP REGISTER (ACTIONABLE, NO INVENTION)
+GAP-001 S0: Oracle module surface not present (FactsLedger/StoryState/Compactions/UnlockState/WorkingSet builder).
+Fix: implement v0 stores + schema validators + deterministic builder.
+Success: G1 green.
+
+GAP-002 S0: Precision token system not implemented (HL-005/RR-002/PC-006).
+Fix: detail_handle + lock/unlock state + recall integration using EV-001..003; enforce consent chain EV-010..013.
+Success: G2 + G3 green.
+
+GAP-003 S0: Event ID references drifted in prior memo version.
+Fix: this v5.2 alignment is canonical for Oracle memo; implementation must follow GT §12.
+Success: audit logs match GT; gates meaningful.
+
+GAP-004 S0: canonical_json_profile not fully pinned/closed (if absent in GT/code).
+Fix: define canonical_json_profile and pin it; do not guess.
+Success: G1 stable across machines.
+
+GAP-005 S0: mask_matrix_id and PVIB schema not defined/pinned.
+Fix: define mask policy and PVIB schema; bind to UnlockState; enforce HL-005.
+Success: G2 green at PVIB/prompt boundary.
+
+GAP-006 S1: rule_ref unlock persistence unclear (GT lacks explicit event).
+Fix: only add EV-021 via explicit GT revision if required; otherwise keep rule_ref unlock as notebook-only.
+Success: RR-002 routing remains auditable and deterministic.
+
+GAP-007 S1: Single truncator rule not enforced ("Oracle truncates, Lens wraps").
+Fix: enforce Lens must not reorder/re-truncate WorkingSet bytes.
+Success: G1 stability improves; drift reduced.
+
+GAP-008 S2: worldgen commit protocol not formalized.
+Fix: defer unless blocking pins/cold-boot; add minimal commit events only when required.
+Success: pins recorded; replay stable within install snapshot.
+
+12) OPERATOR DEFAULTS (ONLY IF ASKED; OTHERWISE APPLY)
+- Recall success unlock scope: scene/session only; permanent unlock requires notebook recording (consent-gated).
+- Unlock sources v1: notebook + rulebook interaction + recall rolls only; defer lore artifacts.
+
+END AI2AI ORACLE MEMO v5.2 (REWRITE)
