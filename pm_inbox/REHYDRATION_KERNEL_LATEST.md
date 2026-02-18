@@ -141,7 +141,7 @@ Behavior: Stoplight downgrades. Slate requests sensor and halts until rehydrated
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 73f5e26 — docs: table vision spatial spec memo + briefing update
+Last commit: b439541 — docs: WO-SPARK-LLM-SELECTION verdict + DOCTRINE_09/10 + archive pass
 Tests passed: 5,978 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
 Gate tests: 162/162 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13). No-backflow: PASS.
@@ -203,10 +203,10 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 
 ## Active State
 
-**Parked items:** BURST-001 thru 004, cast_id determinism, Tier B coverage gaps (7 hooligan findings). Table vision memo filed (MEMO_TABLE_VISION_SPATIAL_SPEC), parked until visual pass.
+**Parked items:** BURST-002 thru 004, cast_id determinism, Tier B coverage gaps (7 hooligan findings). Table vision memo filed (MEMO_TABLE_VISION_SPATIAL_SPEC), parked until visual pass.
 
-**PM posture:** ACTIVE. WO-SPARK-LLM-SELECTION **ACCEPTED with findings.** Qwen2.5 7B Instruct (Q4_K_M) selected as interim Spark cage model. Sequential VRAM confirmed. Path B batch-per-turn architecture. 4 findings surfaced (GAP-B toolchain gap, tight budget margin, S4 load spikes, DLL fix). Eval infra retained for Qwen3 re-eval. Next: BURST-001.
-**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → ~~Spark LLM Selection~~ (ACCEPTED) → **BURST-001**.
+**PM posture:** ACTIVE. BURST-001 scoping complete — DC-01 through DC-05 resolved (reliability/control-plane, batch-per-turn, hybrid STT, sensor events only, gates B1-B5). Next PM action: read playbook + research artifacts, draft Tier 1 builder WOs.
+**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → ~~Spark LLM Selection~~ (ACCEPTED) → **BURST-001** (SCOPING COMPLETE, Tier 1 WO drafting next).
 
 ---
 

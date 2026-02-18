@@ -17,21 +17,33 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 
 ## READY Bricks
 
-### BURST-001: Voice-First Reliability Membrane — READY BRICK
+### BURST-001: Voice-First Reliability Membrane — SCOPING COMPLETE
 
 **Target Lock:** Speech input becomes deterministic, confirm-gated, and measurable.
 
-**Status:** READY BRICK — All research complete. Playbook synthesized. 5 binary decisions await operator resolution.
+**Status:** SCOPING COMPLETE — Binary decisions resolved (Thunder + Aegis, 2026-02-19). PM to draft Tier 1 builder WOs.
+
+**Binary Decisions (RESOLVED):**
+
+| DC | Question | Answer | Authority |
+|---|---|---|---|
+| DC-01 | BURST-001 focus | **A: Reliability/control-plane** — single-path audio, routing correctness, logging, replayability | Thunder via Aegis proposal, Slate concurrence |
+| DC-02 | Runtime posture for voice work | **B: Batch-per-turn** — generate all lines, synthesize in one batch. Aligns with sequential VRAM posture. | Thunder via Aegis proposal, Slate concurrence |
+| DC-03 | STT source of truth | **C: Hybrid** — Win+H stays operator UX; local STT (faster-whisper/whisper.cpp+VAD) for product loop | Thunder via Aegis proposal, Slate concurrence |
+| DC-04 | Data handling / backflow safety | **B: Sensor events only** — STT produces non-canon sensor events (audio chunk+hash+transcript). Lens may read, Oracle canon protected. No backflow. | Thunder via Aegis proposal, Slate concurrence |
+| DC-05 | Gates | **Accept B1-B5** (see below) | Thunder via Aegis proposal, Slate concurrence |
+
+**Gates (B1-B5):**
+- **B1: Single-path playback.** No duplicate chimes, no double voice, one emitter per event.
+- **B2: Deterministic routing.** Same inputs choose the same persona, register, and reference set.
+- **B3: Swap timing instrumentation.** Measure load, unload, TTFT, first-audio; report separately.
+- **B4: Soak stability.** 10 cycles without VRAM creep or routing degradation.
+- **B5: Sensor log replay.** Same audio chunks produce same transcript and same downstream events.
 
 **Brick Outputs:**
 
 1. **Target Lock:** Speech input becomes deterministic, confirm-gated, and measurable.
-2. **Binary Decisions (5, operator resolution required):**
-   - DC-01: Chatterbox-only or Kokoro CPU fallback for operator voice?
-   - DC-02: AUTHORITY detector in Phase 1 or deferred to Phase 2?
-   - DC-03: Pressure alerts spoken by DM persona or Arbor?
-   - DC-04: EvidenceValidator full implementation or defer to Phase 2?
-   - DC-05: Golden transcript stability — all non-Spark lines or structural only?
+2. **Binary Decisions:** RESOLVED (see table above).
 3. **Contract Spec:** Voice-First Reliability Playbook (`pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`) — 547 lines covering unified control-plane model, 7 boundary invariants, CLI grammar (G-01..G-07), 2PC protocol, failure policy (11 classes), Spark failure cascade, template fallback guarantees, metrics/observability (15 compliance checks), prosodic control (PAS v0.1), MVVL definition (10 GREEN thresholds).
 4. **Implementation Plan:** 19 WOs across 5 tiers (Spec Freeze → Instrumentation → Parser/Grammar → UX Prompts → Evaluation Harness). Critical path: 1.1 → 3.1 → 3.2 → 3.3 → 3.4 → 5.5. Parallel opportunities: Tiers 2 and 4.1-4.2 alongside Tier 3.
 
@@ -42,9 +54,7 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 - WO-VOICE-RESEARCH-04: UX Turn-Taking & Confirmation (`docs/research/VOICE_UX_TURNTAKING_AND_CONFIRMATION.md`)
 - WO-VOICE-RESEARCH-05: Synthesis Playbook (`pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`)
 
-**Blocking gate:** DC-01 through DC-05 must be resolved by operator before PM drafts Tier 2+ builder WOs.
-
-**Next action:** Operator resolves 5 binary decisions. PM then drafts Tier 1 spec-freeze WOs as first builder packets.
+**Next action:** PM drafts Tier 1 builder WOs (spec freeze) from resolved decisions + playbook.
 
 ---
 
