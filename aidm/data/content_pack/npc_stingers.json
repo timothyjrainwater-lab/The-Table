@@ -19,9 +19,9 @@
       "Brewed for warlords",
       "Pickled eggs nightly",
       "Invented house special",
-      "Nobody has ordered it twice"
+      "Wife left me over the recipe"
     ],
-    "tags": {"pace": "measured", "pause_ms_before_punchline": 400, "emphasis_target": "twice", "mood_hint": "wry"}
+    "tags": {"pace": "measured", "pause_ms_before_punchline": 400, "emphasis_target": "wife", "mood_hint": "wry"}
   },
   {
     "stinger_id": "tavern_keeper_003",
@@ -43,9 +43,9 @@
       "Twelve years patrolling",
       "Caught the Strangler",
       "Promoted for valor",
-      "Still working the night shift"
+      "Wife gets pension if I quit"
     ],
-    "tags": {"pace": "flat", "pause_ms_before_punchline": 400, "emphasis_target": "night shift", "mood_hint": "resigned"}
+    "tags": {"pace": "flat", "pause_ms_before_punchline": 400, "emphasis_target": "pension", "mood_hint": "trapped"}
   },
   {
     "stinger_id": "town_guard_002",
@@ -67,9 +67,9 @@
       "Guarded this gate",
       "Memorized wanted posters",
       "Know smuggler routes",
-      "Nobody asks me for directions though"
+      "Gate been stuck open for years"
     ],
-    "tags": {"pace": "wistful", "pause_ms_before_punchline": 400, "emphasis_target": "directions", "mood_hint": "lonely"}
+    "tags": {"pace": "wistful", "pause_ms_before_punchline": 400, "emphasis_target": "stuck open", "mood_hint": "absurd"}
   },
   {
     "stinger_id": "merchant_001",
@@ -115,9 +115,9 @@
       "Forty expeditions funded",
       "Mapped sunken crypts",
       "Built the bridge",
-      "Not one hero came back thankful"
+      "Not one hero bothered saying thanks"
     ],
-    "tags": {"pace": "measured", "pause_ms_before_punchline": 400, "emphasis_target": "thankful", "mood_hint": "bitter"}
+    "tags": {"pace": "measured", "pause_ms_before_punchline": 400, "emphasis_target": "thanks", "mood_hint": "bitter"}
   },
   {
     "stinger_id": "quest_giver_002",
@@ -187,7 +187,7 @@
       "Lifelong arcane scholar",
       "Deciphered Ivory Codex",
       "Tutored royal wizards",
-      "Still cannot light the fireplace reliably"
+      "Locked myself out the tower again"
     ],
     "tags": {"pace": "slow", "pause_ms_before_punchline": 400, "emphasis_target": "fireplace", "mood_hint": "befuddled"}
   },
@@ -199,7 +199,7 @@
       "Every tome read",
       "Predicted Great Eclipse",
       "Invented new divination",
-      "Mostly just locates my missing spectacles"
+      "Cat knocked the crystal ball off"
     ],
     "tags": {"pace": "gentle", "pause_ms_before_punchline": 400, "emphasis_target": "spectacles", "mood_hint": "self-deprecating"}
   },
@@ -211,7 +211,7 @@
       "Nine hundred scrolls",
       "Kings seek counsel",
       "Unlocked fifth element",
-      "Apprentice still spells my name wrong"
+      "Apprentice burned the scrolls last Tuesday"
     ],
     "tags": {"pace": "weary", "pause_ms_before_punchline": 400, "emphasis_target": "wrong", "mood_hint": "exasperated"}
   },
@@ -223,7 +223,7 @@
       "Seven royal courts",
       "Standing ovation Waterdeep",
       "Composed Ballad Eternal",
-      "Got pelted with produce every encore"
+      "Banned from Waterdeep for the encore"
     ],
     "tags": {"pace": "theatrical", "pause_ms_before_punchline": 400, "emphasis_target": "produce", "mood_hint": "breezy"}
   },
@@ -235,7 +235,7 @@
       "Fourteen instruments mastered",
       "Sang for elves",
       "Won Silverstring Festival",
-      "Lute is held hostage over tabs"
+      "Pawned the lute for bar tabs"
     ],
     "tags": {"pace": "dramatic", "pause_ms_before_punchline": 400, "emphasis_target": "hostage", "mood_hint": "nonchalant"}
   },
@@ -247,7 +247,7 @@
       "Voice moves mountains",
       "Tales of legends",
       "Charm melts hearts",
-      "Still cannot talk past the landlord"
+      "Charm does not work on creditors"
     ],
     "tags": {"pace": "wry", "pause_ms_before_punchline": 400, "emphasis_target": "landlord", "mood_hint": "self-aware"}
   }
