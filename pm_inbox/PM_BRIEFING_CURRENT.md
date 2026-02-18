@@ -1,12 +1,12 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (Session Lifecycle spec drafted. WO-ORACLE-03 dispatch drafted. Operator direction: Option A — Session Lifecycle first, then WO-ORACLE-03.)
+**Last updated:** 2026-02-18 (Director spec v0 drafted. WO-DIRECTOR-01 DISPATCH-READY. Oracle integration preflight folded into Director cycle per Operator directive.)
 
 ---
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,804 unit tests pass (5,559 excluding pre-existing TTS/inbox failures). Smoke test passes 49/49 stages + 12 hooligan scenarios (5 PASS, 7 FINDING, 0 CRASH) + 20-scenario fuzzer (19 PASS, 1 FINDING). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. No-backflow: PASS. Integration board clear.**
+5,824 unit tests pass (5,624 excluding pre-existing TTS/inbox failures). Smoke test passes 49/49 stages + 12 hooligan scenarios (5 PASS, 7 FINDING, 0 CRASH) + 20-scenario fuzzer (19 PASS, 1 FINDING). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. No-backflow: PASS. Integration board clear.**
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
@@ -54,7 +54,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-ORACLE-03 | — 24/24 Gate C PASS, 0 regressions. Oracle event reducer parallel to replay_runner. No EventLog modifications. | `ae59a02` |
+| WO-DIRECTOR-01 | *(pending PM verdict)* — 18/18 Gate D PASS, 0 regressions. Director Phase 1: BeatIntent + NudgeDirective + DirectorPolicy + DirectorPromptPack. EV-033/EV-034 deferred (no invocation site in Phase 1). Field Manual #26 candidate. | `8a695ff` |
+| WO-ORACLE-03 | **ACCEPTED** — 24/24 Gate C PASS, 0 regressions. Oracle event reducer parallel to replay_runner. No EventLog modifications. Field Manual #25 added. | `6029236` |
 | WO-ORACLE-02 | **ACCEPTED** — 23/23 Gate B PASS, 0 regressions. canonical.py updated to handle MappingProxyType via `Mapping` ABC. Field Manual #24 added. | `4245e38` |
 | WO-ORACLE-01 | **ACCEPTED** — 22/22 Gate A PASS, no-backflow PASS, 0 regressions. Builder used `canonical_short_hash` for fact_id (defensible deviation from ambiguous spec). | `4c5526a` |
 | WO-SMOKE-TEST-003 | **ACCEPTED** — 5 PASS, 7 FINDING (6 coverage gap + 1 schema gap), 0 CRASH | `4b3168f` |
@@ -72,12 +73,13 @@
 
 ## Requires Operator Action (NOW)
 
-1. **Dispatch WO-ORACLE-03.** Session Lifecycle spec is drafted. WO-ORACLE-03 dispatch is ready. Operator needs to dispatch to a builder.
+1. **Review WO-DIRECTOR-01 debrief and issue verdict.**
 
-   [WO-ORACLE-03_DISPATCH.md](pm_inbox/WO-ORACLE-03_DISPATCH.md) — Compactions + Cold Boot + Gate C (cold boot byte-equality + compaction reproducibility + pin assertion). 22 tests minimum.
+   [DEBRIEF_WO-DIRECTOR-01.md](pm_inbox/DEBRIEF_WO-DIRECTOR-01.md) — Director Phase 1 complete. 18/18 Gate D. EV-033/EV-034 deferred (no invocation site). Field Manual #26 candidate.
 
 ### Previous Dispatches (All Accepted)
 
+- ~~WO-ORACLE-03~~ — ACCEPTED (`6029236`). 24/24 Gate C. Field Manual #25 added.
 - ~~WO-ORACLE-02~~ — ACCEPTED (`4245e38`). 23/23 Gate B. Field Manual #24 added.
 - ~~WO-ORACLE-01~~ — ACCEPTED (`4c5526a`). 22/22 Gate A. Field Manual #22-23 added.
 - ~~WO-SMOKE-FUZZER~~ — ACCEPTED (`ac67327`)
@@ -93,7 +95,7 @@
 |---|---|---|
 | **Phase 1: Oracle Spine** ← COMPLETE | FactsLedger, UnlockState, minimal StoryState. Canonical profile. | Gate A: store determinism — **22/22 PASS** |
 | **Phase 2: WorkingSet** ← COMPLETE | Deterministic compiler pass from stores → WorkingSet bytes + PromptPack compiler | Gate B: cold boot byte-equality — **23/23 PASS** |
-| Phase 3: Compactions + Cold Boot ← DISPATCH-READY | Prove byte-equal rebuild from stores only | Gate C: cold boot + compaction repro + pin assert |
+| **Phase 3: Compactions + Cold Boot** ← COMPLETE | Prove byte-equal rebuild from stores only | Gate C: cold boot + compaction repro + pin assert — **24/24 PASS** |
 
 **Hard stops (must pin before or during Phase 1):** Hash algorithm, canonical JSON bytespec profile, mask_level/mask_matrix schema.
 
@@ -103,7 +105,7 @@
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → **Oracle Phase 3 (Compactions)** ← DISPATCH-READY → Director → UI → Roleplay
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director~~ **DIRECTOR PHASE 1 COMPLETE** → UI → Roleplay
 
 **Doctrine files:**
 - [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
@@ -112,7 +114,8 @@
 - [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
 - [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
 - [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec
-- [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — Session Lifecycle spec (NEW)
+- [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — Session Lifecycle spec
+- [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) — Director spec (NEW)
 
 ## PM Action Queue — Doctrine Memo Formalization
 
@@ -126,7 +129,7 @@
 | 2 | **Session lifecycle spec** (save/load/cold-boot/resume) | §2 | WO-ORACLE-03 | **DONE** — [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) |
 | 3 | **CampaignManifest spec** (intake, PDF compile) | §1 | Worldgen pipeline | PENDING |
 | 4 | **Worldgen pipeline spec** (worldgen/sessiongen boundary) | §3 | Worldgen WO | PENDING |
-| 5 | **Director spec** (beat selector, read-only) | §5 | Director WO | PENDING |
+| 5 | **Director spec** (beat selector, read-only) | §5 | Director WO | **DONE** — [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) |
 | 6 | **Companion Mode + Teaching Nudges spec** | §6 + §7 | Companion WO | PENDING |
 
 Packaging (§8) remains a lightweight "ship posture" doc — deferred until closer to distribution.
@@ -160,6 +163,8 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - **WO-SMOKE-TEST-003** — The Hooligan Protocol, 12 adversarial edge cases (5 PASS, 7 FINDING, 0 CRASH)
 - **WO-ORACLE-01** — Oracle Spine: FactsLedger, UnlockState, StoryState, canonical JSON profile, Gate A (22/22 PASS)
 - **WO-ORACLE-02** — WorkingSet compiler + PromptPack compiler + AllowedToSayEnvelope, Gate B (23/23 PASS)
+- **WO-ORACLE-03** — SaveSnapshot + Compaction + CompactionRegistry + cold_boot(), Gate C (24/24 PASS)
+- **WO-DIRECTOR-01** — Director Phase 1: BeatIntent + NudgeDirective + DirectorPolicy + DirectorPromptPack, Gate D (18/18 PASS)
 
 ## Active Operational Files
 
@@ -170,15 +175,16 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
 - [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec
 - [DOCTRINE_07_SESSION_LIFECYCLE_V0.txt](pm_inbox/DOCTRINE_07_SESSION_LIFECYCLE_V0.txt) — Session Lifecycle spec
-- [WO-ORACLE-03_DISPATCH.md](pm_inbox/WO-ORACLE-03_DISPATCH.md) — Compactions + Cold Boot dispatch (DISPATCH-READY)
-- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked pending Oracle completion)
+- [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) — Director spec
+- [WO-DIRECTOR-01_DISPATCH.md](pm_inbox/WO-DIRECTOR-01_DISPATCH.md) — Director Phase 1 dispatch (DISPATCH-READY)
+- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked pending Director — Oracle now COMPLETE)
 - [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — H2 blocker, parked
 - [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md) — Oracle v5.2 overlap mapping (reference)
 - [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 doctrine decisions, 6 memos queued (Lens + Session Lifecycle DONE, 4 remaining)
 - [MEMO_TABLE_MOOD_SUBSYSTEM.md](pm_inbox/MEMO_TABLE_MOOD_SUBSYSTEM.md) — TableMood subsystem spec (PARKED — Lens/Director phase)
 - [MEMO_RIFFSPACE_IMPROV_PIPELINE.md](pm_inbox/MEMO_RIFFSPACE_IMPROV_PIPELINE.md) — RiffSpace improvisation pipeline (PARKED — Lens/Director phase)
 
-All WO-ORACLE-01 and WO-ORACLE-02 artifacts archived to `pm_inbox/reviewed/archive_smoke_oracle/`.
+All WO-ORACLE-01, WO-ORACLE-02, and WO-ORACLE-03 artifacts archived to `pm_inbox/reviewed/archive_smoke_oracle/`.
 
 ## Persistent Files
 
