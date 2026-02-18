@@ -1,16 +1,16 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (WO-FUZZER-DETERMINISM-GATES DELIVERED. Provable reproducibility: ScenarioID hashes, event log digests, FUZZ RECEIPT, stop-on-failure, replay mode.)
+**Last updated:** 2026-02-18 (WO-SMOKE-TEST-003 DELIVERED. Hooligan Protocol: 12 adversarial scenarios, 5 PASS, 7 FINDING, 0 CRASH.)
 
 ---
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,804 unit tests pass. Smoke test passes 44/44 stages + 20-scenario fuzzer (19 PASS, 1 FINDING). Fuzzer has provable determinism gates: ScenarioID hashes, event log digests, FUZZ RECEIPT line, stop-on-first-failure default, `--collect-all` and `--replay` modes. Meta-tests: 6/6 PASS. **Integration board clear.**
+5,804 unit tests pass. Smoke test passes 49/49 stages + 12 hooligan scenarios (5 PASS, 7 FINDING, 0 CRASH) + 20-scenario fuzzer (19 PASS, 1 FINDING). **Integration board clear.**
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
-**44/44 stages PASS. Fuzzer: 19/20 PASS, 1 FINDING. Determinism: 6/6 meta-tests PASS.** Modular structure: `scripts/smoke_scenarios/` with common.py, manual.py, fuzzer.py. Orchestrator: `scripts/smoke_test.py` (thin wrapper). Determinism gates: ScenarioID (sha256 of spec), event_digest (sha256 of cleaned events), FUZZ RECEIPT, stop-on-failure, `--collect-all`, `--replay`.
+**44/44 stages PASS. Hooligan: 5/12 PASS, 7/12 FINDING, 0 CRASH. Fuzzer: 19/20 PASS, 1 FINDING. Determinism: 6/6 meta-tests PASS.** Modular structure: `scripts/smoke_scenarios/` with common.py, manual.py, fuzzer.py, hooligan.py. Orchestrator: `scripts/smoke_test.py`.
 
 | Section | Result |
 |---|---|
@@ -23,7 +23,24 @@
 | Scenario F: Healing (Cure Light Wounds) | PASS |
 | Scenario G: Spell on dead entity | PASS |
 | Scenario H: Sequential combat | PASS |
+| **Hooligan H-002: Grapple spell effect (Tier B)** | **PASS** — correctly denied |
+| **Hooligan H-003: Fireball self (Tier A)** | **PASS** — caster took 27 self-damage |
+| **Hooligan H-004: Full attack corpse (Tier A)** | **PASS** — correctly denied |
+| **Hooligan H-010: 10-buff stack (Tier A)** | **PASS** — 8 buffs, 16 conditions, 0 errors |
+| **Hooligan H-011: Fireball party (Tier A)** | **PASS** — 4 friendlies hit |
 | **Fuzzer (20 random spells, seed=42)** | **19 PASS, 1 FINDING** |
+
+**Hooligan findings (7):**
+
+| Scenario | Severity | Description |
+|---|---|---|
+| H-001 | coverage_gap | No ReadyIntent resolver (PHB p.160) |
+| H-005 | coverage_gap | No DelayIntent resolver (PHB p.160) |
+| H-006 | coverage_gap | No DropItem/Unequip resolver (PHB p.142) |
+| H-007 | coverage_gap | No ChargeIntent resolver (PHB p.154) |
+| H-008 | missing_mechanic | CLW on undead: no creature_type in entity schema (PHB p.215-216) |
+| H-009 | coverage_gap | No CoupDeGraceIntent resolver (PHB p.153) |
+| H-012 | coverage_gap | Weapon schema rejects weapon_type='improvised' (PHB p.113) |
 
 **Fuzzer findings (1):**
 
@@ -37,9 +54,10 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-FUZZER-DETERMINISM-GATES | **ACCEPTED** | `a0c47f3` |
-| WO-ORACLE-SURVEY | **COMPLETE** | (this session — research only, no code) |
-| WO-SMOKE-FUZZER | **ACCEPTED** (determinism gates deferred to patch WO) | `ac67327` |
+| WO-SMOKE-TEST-003 | **DELIVERED** — awaiting PM review | `3372207` |
+| WO-FUZZER-DETERMINISM-GATES | **ACCEPTED** | `e128342` |
+| WO-ORACLE-SURVEY | **ACCEPTED** (research, no code) | `7b4268f` |
+| WO-SMOKE-FUZZER | **ACCEPTED** (determinism gates now landed) | `ac67327` |
 | WO-AOE-DEFEATED-FILTER | **ACCEPTED** | `4bba1eb` |
 | WO-CONDITION-EXTRACTION-FIX | **ACCEPTED** | `acdf410` |
 | WO-SMOKE-TEST-002 | **ACCEPTED** | `84301f3` |
@@ -57,9 +75,7 @@
 
 3. ~~**Dispatch WO-ORACLE-SURVEY**~~ — **COMPLETE.** Survey delivered: [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md). 7/7 sections. Strongest overlap: WorkingSet (PromptPack), Event Sourcing (EventLog + replay_runner). Weakest: StoryState (no threads/clocks). Key finding: provenance.py W3C PROV-DM exists but not wired to EventLog.
 
-4. **Dispatch WO-SMOKE-TEST-003** — Ready for dispatch. Modular structure dependency satisfied by WO-SMOKE-FUZZER.
-
-   "The Hooligan Protocol" — 12 adversarial edge-case scenarios testing engine boundary behavior under legal-but-unusual 3.5e actions. PM triage: 5 Tier A (must resolve correctly), 7 Tier B (must not crash — coverage gaps are findings, not bugs). PM amendments applied: modular structure dependency, 4-section debrief format, Tier A/B triage notes.
+4. ~~**Dispatch WO-SMOKE-TEST-003**~~ — **DELIVERED.** Hooligan Protocol: 12 adversarial scenarios, 5 PASS, 7 FINDING (6 coverage gaps + 1 missing mechanic), 0 CRASH. See [DEBRIEF_WO-SMOKE-TEST-003.md](pm_inbox/DEBRIEF_WO-SMOKE-TEST-003.md).
 
 ## Doctrine Adoption (2026-02-18)
 
@@ -107,8 +123,9 @@ All 4 items from previous queue resolved:
 - **WO-AOE-DEFEATED-FILTER** — AoE skips defeated entities, 44/44 PASS
 
 - **WO-SMOKE-FUZZER** — Generative fuzzer, modular smoke infrastructure (`ac67327`)
-- **WO-FUZZER-DETERMINISM-GATES** — Provable reproducibility gates for fuzzer (`a0c47f3`)
-- **WO-ORACLE-SURVEY** — Oracle v5.2 overlap mapping (research, no code)
+- **WO-FUZZER-DETERMINISM-GATES** — Provable reproducibility gates for fuzzer (`e128342`)
+- **WO-ORACLE-SURVEY** — Oracle v5.2 overlap mapping, research only (`7b4268f`)
+- **WO-SMOKE-TEST-003** — The Hooligan Protocol, 12 adversarial edge cases (5 PASS, 7 FINDING, 0 CRASH)
 
 ## Active Operational Files
 
