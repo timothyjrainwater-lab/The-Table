@@ -129,28 +129,41 @@ def parse_signal(text: str) -> Optional[dict]:
 # ---------------------------------------------------------------------------
 
 def _generate_chime() -> bytes:
-    """Generate 440Hz sine wave chime, 200ms, 16-bit PCM, 24kHz.
+    """Generate a two-note ascending herald chime, 16-bit PCM, 24kHz.
 
-    Returns WAV bytes ready for playback. No external files needed.
+    Two clean tones: C5 (523Hz) then E5 (659Hz), each 150ms with
+    a 50ms gap. Bright and confident — a herald's bell, not a doorbell.
+
+    Returns WAV bytes ready for playback. No external audio files needed.
     """
     sample_rate = 24000
-    duration = 0.2
-    frequency = 440
-    num_samples = int(sample_rate * duration)
-    samples = []
-    for i in range(num_samples):
-        t = i / sample_rate
-        # Apply fade envelope (10ms attack, 10ms release)
-        envelope = 1.0
-        if t < 0.01:
-            envelope = t / 0.01
-        elif t > duration - 0.01:
-            envelope = (duration - t) / 0.01
-        value = int(16000 * envelope * math.sin(2 * math.pi * frequency * t))
-        samples.append(struct.pack('<h', max(-32768, min(32767, value))))
-    pcm = b''.join(samples)
+    note_duration = 0.15
+    gap_duration = 0.05
+    fade_ms = 0.008  # 8ms attack/release
 
-    # Build WAV file in memory
+    def _make_tone(frequency: float) -> list:
+        num_samples = int(sample_rate * note_duration)
+        tone = []
+        for i in range(num_samples):
+            t = i / sample_rate
+            envelope = 1.0
+            if t < fade_ms:
+                envelope = t / fade_ms
+            elif t > note_duration - fade_ms:
+                envelope = (note_duration - t) / fade_ms
+            # Add a soft second harmonic for warmth
+            value = int(12000 * envelope * (
+                math.sin(2 * math.pi * frequency * t)
+                + 0.3 * math.sin(2 * math.pi * frequency * 2 * t)
+            ))
+            tone.append(struct.pack('<h', max(-32768, min(32767, value))))
+        return tone
+
+    gap_samples = int(sample_rate * gap_duration)
+    gap = [struct.pack('<h', 0)] * gap_samples
+
+    pcm = b''.join(_make_tone(523.25) + gap + _make_tone(659.25))
+
     buf = io.BytesIO()
     with wave.open(buf, "wb") as wf:
         wf.setnchannels(1)
@@ -184,7 +197,7 @@ def _speak_chatterbox(text: str, persona: str, reference: Optional[str] = None, 
     from aidm.immersion.chatterbox_tts_adapter import ChatterboxTTSAdapter
     from aidm.schemas.immersion import VoicePersona
 
-    # Default reference clip (used when persona has no reference_audio set)
+    # Default reference clip (used when no other reference is found)
     default_ref = str(PROJECT_ROOT / "models" / "voices" / "signal_reference_michael_24k.wav")
 
     adapter = ChatterboxTTSAdapter(
@@ -197,13 +210,15 @@ def _speak_chatterbox(text: str, persona: str, reference: Optional[str] = None, 
     # Resolve persona from adapter registry (handles string lookup)
     resolved = adapter._resolve_persona(persona)
 
-    # Apply reference audio: CLI override > persona field > default
+    # Apply reference audio: CLI override > persona field > adapter auto-discovery > default
     if reference:
         ref_path = reference
     elif resolved.reference_audio:
         ref_path = resolved.reference_audio
     else:
-        ref_path = default_ref
+        # Try adapter's auto-discovery (looks for {persona_id}.wav in voices_dir)
+        discovered = adapter._resolve_reference_audio(resolved)
+        ref_path = discovered if discovered else default_ref
 
     # Build effective persona with resolved reference and CLI overrides
     effective = VoicePersona(

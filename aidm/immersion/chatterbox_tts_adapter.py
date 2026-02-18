@@ -21,6 +21,7 @@ import os
 import wave
 from typing import Any, Dict, List, Optional
 
+from aidm.immersion.emotion_router import resolve_emotion_clip
 from aidm.immersion.tts_chunking import chunk_by_sentence
 from aidm.schemas.immersion import VoicePersona
 
@@ -40,6 +41,14 @@ _TURBO_WORD_THRESHOLD = 20
 # ==============================================================================
 # VOICE PERSONA DEFINITIONS
 # ==============================================================================
+
+# RESERVED VOICE PROFILES — do not use for other purposes:
+#   Arbor (Signal Voice): signal_reference_michael_24k.wav + speed 0.88, pitch 1.0, exaggeration 0.15
+#   Mrs. Slate (PM):      npc_elderly persona + models/voices/npc_elderly.wav legacy reference
+#                          speed 0.85, pitch 0.95, exaggeration 0.3, Original tier, no emotion routing
+#                          Declared canonical by Thunder 2026-02-18. This is her voice. Forever.
+#   Builder (Herald):     heroic.wav reference + speed 1.05, pitch 1.0, exaggeration 0.4
+#                          WO completion voice. Confident, clear, brisk. Assigned by Slate.
 
 # D&D voice personas — reference_audio paths are relative to voices_dir
 _CHATTERBOX_PERSONAS: List[VoicePersona] = [
@@ -106,6 +115,15 @@ _CHATTERBOX_PERSONAS: List[VoicePersona] = [
         speed=1.0,
         pitch=1.0,
         exaggeration=0.6,
+    ),
+    VoicePersona(
+        persona_id="builder_signal",
+        name="Builder Herald",
+        voice_model="chatterbox",
+        speed=1.05,
+        pitch=1.0,
+        exaggeration=0.4,
+        reference_audio="heroic.wav",
     ),
 ]
 
@@ -276,6 +294,8 @@ class ChatterboxTTSAdapter:
         text: str,
         persona: Optional[Any] = None,
         force_turbo: bool = False,
+        mood: Optional[str] = None,
+        scene_tag: Optional[str] = None,
     ) -> bytes:
         """Synthesize text to WAV audio bytes.
 
@@ -285,10 +305,19 @@ class ChatterboxTTSAdapter:
 
         Auto-selects Turbo or Original based on text length and persona.
 
+        When mood is provided, the emotion router selects a register-specific
+        reference clip (e.g., dm_narrator__angry__v1.wav) instead of the
+        default neutral clip.  Falls back to the legacy single clip if no
+        register-specific clip exists on disk.
+
         Args:
             text: Text to synthesize
             persona: VoicePersona, str (persona_id lookup), or None (default)
             force_turbo: Force Turbo tier regardless of text length
+            mood: Optional AudioMood for emotion register selection
+                  ("neutral", "peaceful", "tense", "combat", "dramatic")
+            scene_tag: Optional scene sub-tag for dramatic overrides
+                       (e.g., "triumph" routes dramatic→neutral instead of grief)
 
         Returns:
             WAV audio bytes (24kHz mono 16-bit PCM)
@@ -300,7 +329,9 @@ class ChatterboxTTSAdapter:
             return _tensor_to_empty_wav()
 
         effective_persona = self._resolve_persona(persona)
-        ref_audio = self._resolve_reference_audio(effective_persona)
+        ref_audio = self._resolve_reference_audio(
+            effective_persona, mood=mood, scene_tag=scene_tag,
+        )
 
         chunks = chunk_by_sentence(text)
         wav_parts: List[bytes] = []
@@ -396,12 +427,31 @@ class ChatterboxTTSAdapter:
             )
         return self._default_persona
 
-    def _resolve_reference_audio(self, persona: VoicePersona) -> Optional[str]:
+    def _resolve_reference_audio(
+        self,
+        persona: VoicePersona,
+        mood: Optional[str] = None,
+        scene_tag: Optional[str] = None,
+    ) -> Optional[str]:
         """Resolve persona to a reference audio file path.
 
-        Checks persona.reference_audio first, then looks in voices_dir.
+        When mood is provided, checks for a register-specific acted clip
+        first via the emotion router.  Falls back to persona.reference_audio,
+        then to voices_dir/{persona_id}.wav.
+
         Returns None if no reference audio available (uses default voice).
         """
+        # Emotion-routed clip (register-specific)
+        if mood and self._voices_dir:
+            routed = resolve_emotion_clip(
+                persona_id=persona.persona_id,
+                mood=mood,
+                voices_dir=self._voices_dir,
+                scene_tag=scene_tag,
+            )
+            if routed:
+                return routed
+
         # Direct path on persona
         if persona.reference_audio:
             path = persona.reference_audio

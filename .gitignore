@@ -25,7 +25,7 @@ output/
 models/*
 !models/voices/
 models/voices/*
-!models/voices/signal_reference_*.wav
+!models/voices/*.wav
 runtime_logs/
 nul
 srd_fixture_temp.json
@@ -38,3 +38,9 @@ demo_tts_audio.py
 # Frontend (client/) build artifacts and dependencies
 client/node_modules/
 client/dist/
+
+# Generated image cache (SDXL output — not committed)
+image_cache/
+
+# Python virtual environments
+.venvs/
