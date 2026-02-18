@@ -13,6 +13,7 @@
 - **[PARKED] [MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md](pm_inbox/MEMO_NPC_COMEDY_LOADOUT_SYSTEM.md)** — Staccato credential-stack comedy pattern for NPC dialogue. Phase 1 WO approved (content subsystem only). Queued after Director Phase 3.
 - **[PARKED] [MEMO_COMEDY_STINGER_REPO_MAPPING.md](pm_inbox/MEMO_COMEDY_STINGER_REPO_MAPPING.md)** — Implementation spec + repo mapping for comedy stinger subsystem. Paired with loadout memo above. Phase 1 WO approved.
 - **[READ] [MEMO_TTS_GHOST_FOG_RESEARCH.md](pm_inbox/MEMO_TTS_GHOST_FOG_RESEARCH.md)** — Ghost fog voice research: ref_b = spectral register, ref_a = exotic NPC, composite = ogre warrior. Exaggeration sweet spot 0.15–0.4. 13 A/B tests with timing data. Three monster voice registers discovered. Acknowledged. Reference for future monster voice work.
+- **[NEW] [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md)** — Table visual identity: recessed vault poker table in dim library. Three camera postures as embodied human motion (STANDARD/DOWN/LEAN FORWARD). Zone layout, mood rules, realism constraints. Thunder vision + Aegis synthesis. Candidate for doctrine adoption.
 - **[ACCEPTED] MEMO_NAME_DISPUTE_ANVIL.md** — Roster callsigns formalized. Archived to `reviewed/`.
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
