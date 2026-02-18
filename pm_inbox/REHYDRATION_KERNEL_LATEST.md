@@ -138,13 +138,13 @@ Behavior: Stoplight downgrades. Slate requests sensor and halts until rehydrated
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: 9705298 — WO-DIRECTOR-03 (TableMood + StyleCapsule + Director pacing modulation)
-Tests passed: 5,893 — **GREEN.**
+Last commit: e4ac5c1 — WO-COMEDY-STINGERS-P1 (comedy stinger content subsystem)
+Tests passed: 5,978 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
-Gate tests: 149/149 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16). No-backflow: PASS.
+Gate tests: 162/162 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13). No-backflow: PASS.
 Smoke: 44/44 PASS. Hooligan: 5/12 PASS, 7 FINDING. Fuzzer: 19/20 PASS, 1 FINDING.
 
-**Completed subsystems:** H0 fixes (13 WOs), H1 smoke (7 WOs + 2 smoke tests + 3 integration fixes), Verification (338 formulas, 9 domains), Oracle (3 phases, 69 gate tests), Director (3 phases, 48 gate tests), UI (4 phases + drift guards + zone authority, 32 gate tests). All archived. See PM_BRIEFING_CURRENT.md for full WO history.
+**Completed subsystems:** H0 fixes (13 WOs), H1 smoke (7 WOs + 2 smoke tests + 3 integration fixes), Verification (338 formulas, 9 domains), Oracle (3 phases, 69 gate tests), Director (3 phases, 48 gate tests), UI (4 phases + drift guards + zone authority, 32 gate tests), Comedy Stingers P1 (13 gate tests). All archived. See PM_BRIEFING_CURRENT.md for full WO history.
 
 ## Golden Ticket v12
 
@@ -183,6 +183,7 @@ Audio pillar: adopted on paper, no code until BURST-001.
 1. `## Delivery` footer (commit + debrief instructions, Radar format reminder)
 2. `## Integration Seams` (or "No integration seams")
 3. `## Assumptions to Validate` (3-5 assumptions, or "fully determined")
+4. `## Preflight` — one line: `Run python scripts/preflight_canary.py and log results in pm_inbox/PREFLIGHT_CANARY_LOG.md before starting work.`
 Optional: `## Debrief Focus` (1-2 questions from bank)
 
 **Key dispatch rules:**
@@ -201,8 +202,8 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 
 **Parked items:** BURST-001 thru 004, MEMO_SPARK_LLM_SELECTION (H2 blocker), cast_id determinism, Tier B coverage gaps (7 hooligan findings).
 
-**PM posture:** ACTIVE. WO-COMEDY-STINGERS-P1 dispatched. Awaiting builder completion report.
-**Build order:** ~~Comedy Stingers Phase 1~~ (DISPATCHED) → Spark LLM Selection → BURST-001.
+**PM posture:** IDLE. No active WO. Comedy Stingers P1 accepted. Spark LLM Selection next.
+**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → Spark LLM Selection → BURST-001.
 
 ---
 

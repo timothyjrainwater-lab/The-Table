@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-19 (WO-COMEDY-STINGERS-P1 dispatched. 149/149 gate tests, 5,893 suite. Kernel trimmed at `b5d2aa3`.)
+**Last updated:** 2026-02-19 (WO-COMEDY-STINGERS-P1 ACCEPTED at `e4ac5c1`. 162/162 gate tests (149 existing + 13 Gate I). Suite: 5,978 passed. Comedy stinger subsystem live.)
 
 ---
 
@@ -17,7 +17,7 @@
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,893 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). No-backflow: PASS. Integration board clear.**
+5,978 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). No-backflow: PASS. Integration board clear.**
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
@@ -65,6 +65,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-COMEDY-STINGERS-P1 | **ACCEPTED** — 162/162 gate tests (149 existing + 13 new Gate I). 0 regressions (5,978 suite). 6/6 deliverables landed. Frozen `Stinger` dataclass with `__post_init__` immutability, 3 public functions (validate/select/render), 21 stingers (3×7 archetypes), 13 gate tests. Immutability gate caught mutable containers — fixed via `__post_init__`. Duration ceiling (6.0s) enforces staccato rhythm as designed. Builder Radar fully compliant. Field Manual #35 needed (immutability gate). | `e4ac5c1` |
 | WO-DIRECTOR-03 | **ACCEPTED** — 149/149 gate tests (133 existing + 16 new Gate H). 0 regressions (5,893 suite). 7/7 contract changes delivered (Change 5 scene lifecycle already existed). TableMood store in `aidm/oracle/table_mood.py`, StyleCapsule in `aidm/lens/style_capsule.py`, DirectorPromptPack extended with optional style_capsule, pacing modulation via `_resolve_pacing_mode()`, cold_boot reducer extended for mood_observation events. Field Manual #34 added. | `9705298` |
 | WO-UI-04 | **ACCEPTED** — 133/133 gate tests (130 existing + 3 new UI-G8). 0 regressions (5,877 suite). 6/6 contract changes delivered. `RollResult` frozen dataclass in new `ws_protocol.py`, `MESSAGE_REGISTRY` + `parse_message()` dispatcher, wildcard handler migrated to typed, UI-G8 gates (protocol registry, roll roundtrip, wildcard removal). Builder Radar fully compliant (first since rejection gate codified). Field Manual #33 added. | `db66426` |
 | WO-UI-03 | **ACCEPTED** — 130/130 gate tests (127 existing + 3 new UI-G7). 0 regressions (5,669 suite). 6/6 contract changes delivered. DiceObject d20, dice tray/tower zones, PENDING_ROLL→CONFIRMED handshake, deterministic result-reveal, fidget idle animation. Invented `roll_result` message type (not yet formalized in ws_protocol.py — Field Manual #32). Builder Radar present but format non-compliant (substantive content, wrong labels — enforcement tightened for next WO). Field Manual #32 added. | `f149d2d` |
@@ -92,16 +93,17 @@
 
 ## Requires Operator Action (NOW)
 
-**WO-COMEDY-STINGERS-P1 — DISPATCHED.** Standalone comedy stinger content subsystem (schema + bank + validator + selector + tests). No pipeline wiring. Dispatch doc: [WO-COMEDY-STINGERS-P1_DISPATCH.md](pm_inbox/WO-COMEDY-STINGERS-P1_DISPATCH.md).
+No active WO. All dispatched work accepted.
 
-**Action:** Thunder dispatches to a builder.
+**Preflight canary compliance: ZERO entries.** `pm_inbox/PREFLIGHT_CANARY_LOG.md` is empty. Script exists (`scripts/preflight_canary.py`), onboarding checklist mandates it (Step 2.5), but no builder has run it. — *Flagged by Anvil, 2026-02-19.*
 
-**Preflight canary compliance: ZERO entries.** `pm_inbox/PREFLIGHT_CANARY_LOG.md` is empty. Script exists (`scripts/preflight_canary.py`), onboarding checklist mandates it (Step 2.5), but no builder has run it. `image_cache/` contains only Slate/operator artifacts (0 builder portraits). The Comedy Stingers builder will be the first test of whether the canary gate is actually being followed. — *Flagged by Anvil, 2026-02-19.*
+**Next dispatch:** Spark LLM Selection — PM to draft when Thunder gives the go-ahead.
 
-**Planned sequence:** ~~Director Phase 3~~ → ~~Comedy Stingers Phase 1~~ (DISPATCHED) → Spark LLM Selection → BURST-001
+**Planned sequence:** ~~Director Phase 3~~ → ~~Comedy Stingers Phase 1~~ (ACCEPTED) → **Spark LLM Selection** → BURST-001
 
 ### Previous Dispatches (All Accepted)
 
+- ~~WO-COMEDY-STINGERS-P1~~ — ACCEPTED (`e4ac5c1`). 162/162 gate tests (149 + 13 Gate I). Frozen Stinger schema, 21 stingers (3×7), validate/select/render, immutability gate caught and fixed. Builder Radar fully compliant. Field Manual #35 needed.
 - ~~WO-DIRECTOR-03~~ — ACCEPTED (`9705298`). 149/149 gate tests. TableMood store, StyleCapsule, Director pacing modulation, cold_boot mood reducer, Gate H 16/16. Field Manual #34 added. Builder Radar fully compliant. **DIRECTOR PHASE 3 COMPLETE.**
 - ~~WO-UI-04~~ — ACCEPTED (`db66426`). 133/133 gate tests. `RollResult` frozen dataclass, message registry, typed handler migration, UI-G8 gates. Field Manual #33 added. Builder Radar fully compliant.
 - ~~WO-UI-03~~ — ACCEPTED (`f149d2d`). 130/130 gate tests. Dice tray/tower, PENDING_ROLL handshake, UI-G7 gates. Field Manual #32 added.
@@ -136,7 +138,7 @@
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ (DISPATCHED) → Spark LLM Selection → BURST-001
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → **Spark LLM Selection** → BURST-001
 
 **Doctrine files** (in `pm_inbox/doctrine/`):
 - [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
@@ -204,6 +206,7 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - **WO-UI-03** — Dice tray + dice tower + PENDING_ROLL handshake, 3 UI-G7 gates, Gate G now 19/19 PASS, total 130 gate tests
 - **WO-UI-04** — WebSocket protocol formalization + roll_result freeze, 3 UI-G8 gates, Gate G now 22/22 PASS, total 133 gate tests
 - **WO-DIRECTOR-03** — Director Phase 3: TableMood + StyleCapsule + pacing modulation + cold_boot mood reducer, 16 Gate H tests, total 149 gate tests
+- **WO-COMEDY-STINGERS-P1** — Comedy stinger content subsystem: frozen Stinger schema, 21 stingers (3×7 archetypes), validate/select/render, 13 Gate I tests, total 162 gate tests
 
 ## Active Operational Files
 
