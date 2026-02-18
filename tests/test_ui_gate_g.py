@@ -1,18 +1,21 @@
 """Gate G tests — Table UI Phase 2 backend contracts.
 
-10 tests across 4 gate categories (UI-G1 through UI-G4).
+13 tests across 5 gate categories (UI-G1 through UI-G5).
 
 Categories:
     UI-G1: TableObject types (3 tests)
     UI-G2: Zone validation (3 tests)
     UI-G3: Registry consistency (2 tests)
     UI-G4: Hard bans — static scan (2 tests)
+    UI-G5: Drift guards (3 tests)
 
-Authority: WO-UI-02, DOCTRINE_04_TABLE_UI_MEMO_V4.
+Authority: WO-UI-02, WO-UI-DRIFT-GUARD, DOCTRINE_04_TABLE_UI_MEMO_V4.
 """
 from __future__ import annotations
 
+import ast
 import dataclasses
+import re
 from pathlib import Path
 
 import pytest
@@ -210,3 +213,119 @@ class TestUIG4HardBans:
             assert not name.startswith(verb), (
                 f"Type {name} starts with banned verb '{verb}'"
             )
+
+
+# ---------------------------------------------------------------------------
+# UI-G5: Drift guards (3 tests)
+# ---------------------------------------------------------------------------
+
+class TestUIG5DriftGuards:
+    """Static drift guards — no canonical path, no backflow imports, no teaching strings."""
+
+    @staticmethod
+    def _project_root() -> Path:
+        return Path(__file__).resolve().parent.parent
+
+    def test_no_canonical_path_for_table_object_types(self):
+        """ObjectPositionUpdate/TableObjectState not registered in EventLog or replay_runner.
+
+        Neither type should appear as a registered event type, reducer case,
+        or import in aidm/core/event_log.py or aidm/core/replay_runner.py.
+        """
+        root = self._project_root()
+        banned_names = {"ObjectPositionUpdate", "TableObjectState"}
+        violations = []
+
+        for rel_path in ("aidm/core/event_log.py", "aidm/core/replay_runner.py"):
+            src_file = root / rel_path
+            if not src_file.exists():
+                continue
+            content = src_file.read_text(encoding="utf-8")
+            for name in banned_names:
+                if name in content:
+                    violations.append(f"{rel_path} references {name}")
+
+        assert not violations, (
+            f"UI types leaked into canonical path: {violations}"
+        )
+
+    def test_no_backflow_imports_in_ui_boundary(self):
+        """aidm/ui/ modules do not import from Oracle, EventLog, replay_runner, Lens, or Immersion.
+
+        The UI boundary layer must not depend on canonical state layers.
+        """
+        root = self._project_root()
+        ui_dir = root / "aidm" / "ui"
+        banned_import_prefixes = (
+            "aidm.oracle",
+            "aidm.core.event_log",
+            "aidm.core.replay_runner",
+            "aidm.core.provenance",
+            "aidm.lens",
+            "aidm.immersion",
+        )
+        violations = []
+
+        for src_file in ui_dir.glob("*.py"):
+            try:
+                tree = ast.parse(src_file.read_text(encoding="utf-8"))
+            except SyntaxError:
+                continue
+
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    for alias in node.names:
+                        for prefix in banned_import_prefixes:
+                            if alias.name.startswith(prefix):
+                                violations.append(
+                                    f"{src_file.name}: import {alias.name}"
+                                )
+                elif isinstance(node, ast.ImportFrom):
+                    if node.module:
+                        for prefix in banned_import_prefixes:
+                            if node.module.startswith(prefix):
+                                violations.append(
+                                    f"{src_file.name}: from {node.module} import ..."
+                                )
+
+        assert not violations, (
+            f"Backflow imports in aidm/ui/: {violations}"
+        )
+
+    def test_no_teaching_strings_in_table_objects(self):
+        """Zone validation code in table_objects.py has no user-facing explanation strings.
+
+        Static scan for banned patterns: tooltip, popover, error_message,
+        explanation, reason, because, cannot, can't, invalid.*zone.*message.
+        """
+        root = self._project_root()
+        src_file = root / "aidm" / "ui" / "table_objects.py"
+        content = src_file.read_text(encoding="utf-8").lower()
+
+        banned_tokens = [
+            "tooltip",
+            "popover",
+            "error_message",
+            "explanation",
+            "reason",
+            "because",
+            "cannot",
+            "can't",
+        ]
+        banned_patterns = [
+            re.compile(r"invalid.*zone.*message", re.IGNORECASE),
+        ]
+
+        violations = []
+        for token in banned_tokens:
+            if token in content:
+                violations.append(f"contains '{token}'")
+
+        original_content = src_file.read_text(encoding="utf-8")
+        for pattern in banned_patterns:
+            if pattern.search(original_content):
+                violations.append(f"matches pattern '{pattern.pattern}'")
+
+        assert not violations, (
+            f"Teaching string violations in table_objects.py: {violations}"
+        )
