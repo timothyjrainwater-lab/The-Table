@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D&amp;D 3.5 Table</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { overflow: hidden; background: #1a1a2e; }
+      canvas { display: block; }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        color: #c8c8d0;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 13px;
+        pointer-events: none;
+        z-index: 10;
+        user-select: none;
+      }
+      #hud .key { color: #7b7bff; }
+      #pending-overlay {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #ffe066;
+        font-family: 'Consolas', monospace;
+        font-size: 16px;
+        background: rgba(0,0,0,0.7);
+        padding: 10px 24px;
+        border-radius: 6px;
+        border: 1px solid #ffe066;
+        display: none;
+        z-index: 20;
+        cursor: pointer;
+        pointer-events: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">
+      <div><span class="key">[1]</span> Standard &nbsp; <span class="key">[2]</span> Down &nbsp; <span class="key">[3]</span> Lean Forward</div>
+      <div id="posture-label">Posture: STANDARD</div>
+      <div id="ws-status">WS: disconnected</div>
+    </div>
+    <div id="pending-overlay">Click to drop dice</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

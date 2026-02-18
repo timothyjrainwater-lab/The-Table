@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (WO-DIRECTOR-02 DISPATCH-READY. Director Phase 2: BeatIntent→Lens integration + EV-033/EV-034 emission.)
+**Last updated:** 2026-02-18 (WO-UI-01 DISPATCH-READY. Table UI Phase 1: Client Bootstrap + Slice 0 + One PENDING Round Trip.)
 
 ---
 
@@ -54,7 +54,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-DIRECTOR-02 | *(pending PM verdict)* — 14/14 Gate E PASS, 0 regressions. Director Phase 2: BeatIntent→Lens integration, EV-033/EV-034 emission, BeatHistory.from_events(), PromptPack schema extension. Field Manual #27 candidate. | `b0c19ae` |
+| WO-UI-01 | _(pending PM verdict)_ — 10/10 Gate F PASS, 0 regressions (111/111 total). 7/7 contract changes delivered. Frontend bootstrap (Three.js+TS+Vite), 3 camera postures, PENDING/REQUEST types, PENDING round trip, BeatIntent display. Field Manual #28 added. | `d172999` |
+| WO-DIRECTOR-02 | **ACCEPTED** — 14/14 Gate E PASS, 0 regressions. All 7 contract changes delivered. invoke_director() orchestrates full pipeline. EV-033/EV-034 live. BeatHistory reconstructible from events. Field Manual #27 added. | `0834f4e` |
 | WO-DIRECTOR-01 | **ACCEPTED** — 18/18 Gate D PASS, 0 regressions. 6/7 contract changes delivered. EV-033/EV-034 deferred (no invocation site — Phase 2). Field Manual #26 added. | `d38b988` |
 | WO-ORACLE-03 | **ACCEPTED** — 24/24 Gate C PASS, 0 regressions. Oracle event reducer parallel to replay_runner. No EventLog modifications. Field Manual #25 added. | `6029236` |
 | WO-ORACLE-02 | **ACCEPTED** — 23/23 Gate B PASS, 0 regressions. canonical.py updated to handle MappingProxyType via `Mapping` ABC. Field Manual #24 added. | `4245e38` |
@@ -74,13 +75,13 @@
 
 ## Requires Operator Action (NOW)
 
-1. **Review WO-DIRECTOR-02 debrief and issue verdict.**
+1. **Dispatch WO-UI-01 to a builder.**
 
-   [DEBRIEF_WO-DIRECTOR-02.md](pm_inbox/DEBRIEF_WO-DIRECTOR-02.md) — Director Phase 2 complete. 14/14 Gate E. BeatIntent→Lens pipeline wired. EV-033/EV-034 implemented. BeatHistory reconstructible from events. Field Manual #27 candidate.
+   [WO-UI-01_DISPATCH.md](pm_inbox/WO-UI-01_DISPATCH.md) — Table UI Phase 1: Client Bootstrap + Slice 0 + One PENDING Round Trip. Three.js + TypeScript + Vite in `client/`, 3 camera postures, PENDING/REQUEST handshake types, one end-to-end PENDING round trip over WebSocket, BeatIntent display on table surface. 7 contract changes. 10 Gate F tests + 0 regressions on Gates A-E.
 
 ### Previous Dispatches (All Accepted)
 
-- ~~WO-DIRECTOR-02~~ — *(pending verdict)*.
+- ~~WO-DIRECTOR-02~~ — ACCEPTED (`0834f4e`). 14/14 Gate E. Field Manual #27 added.
 - ~~WO-DIRECTOR-01~~ — ACCEPTED (`d38b988`). 18/18 Gate D. Field Manual #26 added.
 - ~~WO-ORACLE-03~~ — ACCEPTED (`6029236`). 24/24 Gate C. Field Manual #25 added.
 - ~~WO-ORACLE-02~~ — ACCEPTED (`4245e38`). 23/23 Gate B. Field Manual #24 added.
@@ -108,7 +109,7 @@
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ **DIRECTOR COMPLETE** → UI → Roleplay
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ **DIRECTOR COMPLETE** → **UI Phase 1 (Table Surface)** ← CURRENT → UI Phase 2+ → Roleplay
 
 **Doctrine files** (in `pm_inbox/doctrine/`):
 - [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
@@ -176,14 +177,14 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
-- [WO-DIRECTOR-02_DISPATCH.md](pm_inbox/WO-DIRECTOR-02_DISPATCH.md) — Director Phase 2 dispatch (transient — archives with verdict)
+- [WO-UI-01_DISPATCH.md](pm_inbox/WO-UI-01_DISPATCH.md) — UI Phase 1 dispatch (transient — archives with verdict)
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
 - [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — H2 blocker, parked
 
 **Doctrine** (8 files in `pm_inbox/doctrine/` — permanent reference):
 - DOCTRINE_01 through DOCTRINE_08 (see Doctrine files section above)
 
-**Archived this cycle:** WO-DIRECTOR-01 dispatch + debrief → `pm_inbox/reviewed/archive_director/`. Previous Oracle/smoke/fuzzer artifacts in `pm_inbox/reviewed/archive_smoke_oracle/`. Dispositioned memos in `pm_inbox/reviewed/`.
+**Archived this cycle:** WO-DIRECTOR-01 + WO-DIRECTOR-02 dispatch + debrief → `pm_inbox/reviewed/archive_director/`. Previous Oracle/smoke/fuzzer artifacts in `pm_inbox/reviewed/archive_smoke_oracle/`. Dispositioned memos in `pm_inbox/reviewed/`.
 
 ## Persistent Files
 

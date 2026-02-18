@@ -1,4 +1,5 @@
 /artifacts/
+.cache/
 __pycache__/
 *.pyc
 *.pyo
@@ -33,3 +34,7 @@ extract_trust.py
 demo_orpheus_audition.py
 demo_orpheus_remaining.py
 demo_tts_audio.py
+
+# Frontend (client/) build artifacts and dependencies
+client/node_modules/
+client/dist/
