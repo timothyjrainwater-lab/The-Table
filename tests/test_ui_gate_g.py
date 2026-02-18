@@ -1,6 +1,6 @@
-"""Gate G tests — Table UI Phase 2+3 backend contracts.
+"""Gate G tests — Table UI Phase 2+3+4 backend contracts.
 
-19 tests across 7 gate categories (UI-G1 through UI-G7).
+22 tests across 8 gate categories (UI-G1 through UI-G8).
 
 Categories:
     UI-G1: TableObject types (3 tests)
@@ -10,8 +10,9 @@ Categories:
     UI-G5: Drift guards (3 tests)
     UI-G6: Zone authority gates (3 tests)
     UI-G7: Dice tray / dice tower / PENDING_ROLL handshake (3 tests)
+    UI-G8: Protocol registry + roll_result formalization (3 tests)
 
-Authority: WO-UI-02, WO-UI-03, WO-UI-DRIFT-GUARD, WO-UI-ZONE-AUTHORITY,
+Authority: WO-UI-02, WO-UI-03, WO-UI-04, WO-UI-DRIFT-GUARD, WO-UI-ZONE-AUTHORITY,
     DOCTRINE_04_TABLE_UI_MEMO_V4.
 """
 from __future__ import annotations
@@ -684,4 +685,158 @@ class TestUIG7DiceTrayTower:
             f"Replay divergence detected:\n"
             f"  Run A: {trace_a}\n"
             f"  Run B: {trace_b}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# UI-G8: Protocol registry + roll_result formalization (3 tests)
+# ---------------------------------------------------------------------------
+
+class TestUIG8ProtocolRegistry:
+    """WO-UI-04 gates — message registry, roll_result roundtrip, wildcard removal."""
+
+    @staticmethod
+    def _project_root() -> Path:
+        return Path(__file__).resolve().parent.parent
+
+    def test_protocol_registry_rejects_unknown_types(self):
+        """Unknown message types are rejected by the registry (UI-G8-protocol-registry).
+
+        Also verifies that roll_result IS registered — proving the registry
+        is load-bearing, not decorative.
+        """
+        from aidm.ui.ws_protocol import (
+            MESSAGE_REGISTRY,
+            RollResult,
+            parse_message,
+        )
+
+        # Unknown type must raise ValueError
+        with pytest.raises(ValueError, match="Unknown message type"):
+            parse_message({"type": "garbage_nonexistent_type"})
+
+        # Message with no type field must raise ValueError
+        with pytest.raises(ValueError, match="no 'type' or 'msg_type'"):
+            parse_message({"d20_result": 15, "total": 20, "success": True})
+
+        # roll_result IS registered
+        assert "roll_result" in MESSAGE_REGISTRY
+        assert MESSAGE_REGISTRY["roll_result"] is RollResult
+
+        # Prove registry is load-bearing: removing roll_result would break
+        # parsing of roll_result messages
+        saved = MESSAGE_REGISTRY.pop("roll_result")
+        try:
+            with pytest.raises(ValueError, match="Unknown message type"):
+                parse_message({
+                    "type": "roll_result",
+                    "d20_result": 15,
+                    "total": 20,
+                    "success": True,
+                })
+        finally:
+            MESSAGE_REGISTRY["roll_result"] = saved
+
+    def test_roll_result_roundtrip_deterministic(self):
+        """Full dice handshake → RollResult round-trip is deterministic (UI-G8-roll-roundtrip).
+
+        1. Create PENDING_ROLL state
+        2. Simulate DiceTowerDropIntent
+        3. Produce roll_result via RollResult.to_dict()
+        4. Deserialize via RollResult.from_dict()
+        5. Assert field values match
+        6. Assert replay-stable (same inputs → same to_dict() bytes)
+        """
+        from aidm.ui.pending import (
+            PendingRoll,
+            PendingStateMachine,
+            DiceTowerDropIntent,
+        )
+        from aidm.ui.ws_protocol import RollResult, parse_message
+
+        # Step 1: Create PENDING_ROLL state
+        sm = PendingStateMachine()
+        sm.emit(PendingRoll(spec="1d20+5", pending_handle="atk_042"))
+        assert sm.active is not None
+
+        # Step 2: Simulate DiceTowerDropIntent
+        resolved = sm.resolve(
+            DiceTowerDropIntent(dice_ids=("d20",), pending_roll_handle="atk_042")
+        )
+        assert resolved is True
+        assert sm.active is None
+
+        # Step 3: Produce roll_result via RollResult.to_dict()
+        result = RollResult(d20_result=17, total=22, success=True)
+        raw = result.to_dict()
+        assert raw == {
+            "type": "roll_result",
+            "d20_result": 17,
+            "total": 22,
+            "success": True,
+        }
+
+        # Step 4: Deserialize via from_dict() and parse_message()
+        restored = RollResult.from_dict(raw)
+        assert restored == result
+        assert restored.d20_result == 17
+        assert restored.total == 22
+        assert restored.success is True
+
+        # Also test via parse_message() dispatch
+        parsed = parse_message(raw)
+        assert isinstance(parsed, RollResult)
+        assert parsed == result
+
+        # Step 5+6: Replay stability — same inputs → identical to_dict()
+        results = []
+        for _ in range(10):
+            r = RollResult(d20_result=17, total=22, success=True)
+            results.append(json.dumps(r.to_dict(), sort_keys=True))
+
+        assert len(set(results)) == 1, (
+            f"Non-deterministic RollResult serialization: {set(results)}"
+        )
+
+    def test_roll_result_not_in_wildcard_handler(self):
+        """roll_result is consumed via typed handler, not wildcard sniffing (UI-G8).
+
+        Scans main.ts for the wildcard handler block and verifies that
+        roll_result / ROLL_RESULT checks are NOT inside the wildcard
+        callback. A dedicated bridge.on('roll_result', ...) must exist.
+        """
+        root = self._project_root()
+        main_ts = root / "client" / "src" / "main.ts"
+        content = main_ts.read_text(encoding="utf-8")
+
+        # Find the wildcard handler block: bridge.on('*', (data) => { ... });
+        wildcard_start = content.find("bridge.on('*'")
+        assert wildcard_start != -1, "Expected wildcard handler in main.ts"
+
+        # Find the closing }); of the wildcard handler callback
+        # Search for the first }); after the wildcard start
+        wildcard_end = content.find("});", wildcard_start)
+        assert wildcard_end != -1, "Could not find wildcard handler closing"
+        wildcard_block = content[wildcard_start:wildcard_end + 3]
+
+        # The wildcard block must NOT contain roll_result sniffing
+        roll_result_patterns = [
+            "isRollResult",
+            "'roll_result'",
+            '"roll_result"',
+            "'ROLL_RESULT'",
+            '"ROLL_RESULT"',
+        ]
+        violations = []
+        for pattern in roll_result_patterns:
+            if pattern in wildcard_block:
+                violations.append(f"wildcard handler contains {pattern}")
+
+        assert not violations, (
+            f"roll_result still consumed via wildcard handler: {violations}"
+        )
+
+        # Verify a dedicated typed handler exists
+        assert "bridge.on('roll_result'" in content, (
+            "No dedicated bridge.on('roll_result', ...) handler found in main.ts"
         )

@@ -194,7 +194,7 @@ bridge.on('beat_intent', (data) => {
 });
 
 // ---------------------------------------------------------------------------
-// PENDING_ROLL → Dice Tray → Dice Tower → Result Handshake (WO-UI-03)
+// PENDING_ROLL → Dice Tray → Dice Tower → Result Handshake (WO-UI-03/04)
 // ---------------------------------------------------------------------------
 
 bridge.on('*', (data) => {
@@ -226,33 +226,28 @@ bridge.on('*', (data) => {
     pendingOverlay.style.display = 'none';
     d20.deactivate();
   }
+});
 
-  // Check for roll result from Box (authoritative outcome)
-  const isRollResult = (
-    msgType === 'roll_result' ||
-    updateType === 'roll_result' ||
-    (delta && delta.type === 'ROLL_RESULT')
-  );
+// Typed roll_result handler — formalized in WO-UI-04 (no wildcard sniffing)
+bridge.on('roll_result', (data) => {
+  const delta = data.delta as Record<string, unknown> | undefined;
+  const face = (data.d20_result || delta?.d20_result || 0) as number;
+  const total = (data.total || delta?.total || 0) as number;
+  const success = (data.success || delta?.success) as boolean | undefined;
 
-  if (isRollResult) {
-    const face = (data.d20_result || delta?.d20_result || 0) as number;
-    const total = (data.total || delta?.total || 0) as number;
-    const success = (data.success || delta?.success) as boolean | undefined;
+  // Trigger result-reveal animation with authoritative face value
+  d20.showResult(face);
 
-    // Trigger result-reveal animation with authoritative face value
-    d20.showResult(face);
+  // Update overlay with result
+  const successText = success !== undefined ? (success ? ' — HIT' : ' — MISS') : '';
+  pendingOverlay.textContent = `RESULT: ${face} (total: ${total})${successText}`;
+  pendingOverlay.style.display = 'block';
 
-    // Update overlay with result
-    const successText = success !== undefined ? (success ? ' — HIT' : ' — MISS') : '';
-    pendingOverlay.textContent = `RESULT: ${face} (total: ${total})${successText}`;
-    pendingOverlay.style.display = 'block';
-
-    // Clear overlay after animation completes
-    setTimeout(() => {
-      pendingOverlay.style.display = 'none';
-      d20.deactivate();
-    }, 2000);
-  }
+  // Clear overlay after animation completes
+  setTimeout(() => {
+    pendingOverlay.style.display = 'none';
+    d20.deactivate();
+  }, 2000);
 });
 
 // Overlay click: legacy path (still works as fallback for direct confirmation)
