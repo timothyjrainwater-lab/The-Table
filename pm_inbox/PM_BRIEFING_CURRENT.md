@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-18 (WO-ORACLE-01 COMPLETE. Oracle Spine Phase 1 delivered — 5 store files, 22 Gate A tests PASS, no-backflow PASS.)
+**Last updated:** 2026-02-18 (Lens v0 spec memo drafted. WO-ORACLE-02 dispatch drafted. RiffSpace memo triaged — PARKED. Operator direction: Option A — Lens memo first, then WO-ORACLE-02.)
 
 ---
 
@@ -54,7 +54,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-ORACLE-01 | **COMPLETE** — 22/22 Gate A PASS, no-backflow PASS, 0 regressions | `4c5526a` |
+| WO-ORACLE-02 | — 23/23 Gate B PASS, 0 regressions. canonical.py updated to handle MappingProxyType via `Mapping` ABC. | `09ad53d` |
+| WO-ORACLE-01 | **ACCEPTED** — 22/22 Gate A PASS, no-backflow PASS, 0 regressions. Builder used `canonical_short_hash` for fact_id (defensible deviation from ambiguous spec). | `4c5526a` |
 | WO-SMOKE-TEST-003 | **ACCEPTED** — 5 PASS, 7 FINDING (6 coverage gap + 1 schema gap), 0 CRASH | `4b3168f` |
 | WO-FUZZER-DETERMINISM-GATES | **ACCEPTED** | `e128342` |
 | WO-ORACLE-SURVEY | **ACCEPTED** (research, no code) | `7b4268f` |
@@ -70,16 +71,19 @@
 
 ## Requires Operator Action (NOW)
 
-1. **Accept WO-ORACLE-01** — Oracle Spine Phase 1 delivered. Review debrief: [DEBRIEF_WO-ORACLE-01.md](pm_inbox/DEBRIEF_WO-ORACLE-01.md). 7 new files + 1 boundary gate registration. Gate A: 22/22 PASS. No-backflow: PASS.
-2. **Draft WO-ORACLE-02** — Phase 2: WorkingSet compiler. Depends on Lens spec memo (PM Action Queue #1). Not yet started.
+1. **Dispatch WO-ORACLE-02.** Lens v0 spec memo is drafted. WO-ORACLE-02 dispatch is ready. Operator needs to dispatch to a builder.
+
+   [WO-ORACLE-02_DISPATCH.md](pm_inbox/WO-ORACLE-02_DISPATCH.md) — WorkingSet compiler + PromptPack compiler + Gate B (cold boot byte-equality). 20 tests minimum.
+
+2. **Triage RiffSpace memo (optional).** New memo arrived: [MEMO_RIFFSPACE_IMPROV_PIPELINE.md](pm_inbox/MEMO_RIFFSPACE_IMPROV_PIPELINE.md) — bounded improvisation pipeline for Spark. PM assessment: PARKED (Lens/Director phase, deeply downstream). Confirm or override.
 
 ### Previous Dispatches (All Accepted)
 
-- ~~WO-ORACLE-01~~ — COMPLETE (pending commit hash)
+- ~~WO-ORACLE-01~~ — ACCEPTED (`4c5526a`). 22/22 Gate A. Field Manual #22-23 added.
 - ~~WO-SMOKE-FUZZER~~ — ACCEPTED (`ac67327`)
-- ~~WO-FUZZER-DETERMINISM-GATES~~ — ACCEPTED (`e128342`). FINDING: `cast_id` uses `uuid4()`, stripped from digest.
-- ~~WO-ORACLE-SURVEY~~ — ACCEPTED (`7b4268f`). Survey: [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md).
-- ~~WO-SMOKE-TEST-003~~ — ACCEPTED (`4b3168f`). 5 PASS, 7 FINDING, 0 CRASH.
+- ~~WO-FUZZER-DETERMINISM-GATES~~ — ACCEPTED (`e128342`).
+- ~~WO-ORACLE-SURVEY~~ — ACCEPTED (`7b4268f`).
+- ~~WO-SMOKE-TEST-003~~ — ACCEPTED (`4b3168f`).
 
 ## Oracle Implementation Direction (Aegis Memo, 2026-02-18)
 
@@ -99,7 +103,7 @@
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → **Lens/Director** ← NEXT → UI → Roleplay
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → **Oracle Phase 2 (WorkingSet)** ← DISPATCH-READY → Lens/Director → UI → Roleplay
 
 **Doctrine files:**
 - [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/DOCTRINE_01_FINAL_DELIVERABLE.txt) — Anchor index + gap register
@@ -107,6 +111,7 @@
 - [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
 - [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
 - [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
+- [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec (NEW)
 
 ## PM Action Queue — Doctrine Memo Formalization
 
@@ -116,7 +121,7 @@
 
 | # | Memo | Source Section | Blocks | Status |
 |---|---|---|---|---|
-| 1 | **Lens spec** (WorkingSet → PromptPack, mask enforcement) | §4 | WO-ORACLE-02 | PENDING |
+| 1 | **Lens spec** (WorkingSet → PromptPack, mask enforcement) | §4 | WO-ORACLE-02 | **DONE** — [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) |
 | 2 | **Session lifecycle spec** (save/load/cold-boot/resume) | §2 | WO-ORACLE-03 | PENDING |
 | 3 | **CampaignManifest spec** (intake, PDF compile) | §1 | Worldgen pipeline | PENDING |
 | 4 | **Worldgen pipeline spec** (worldgen/sessiongen boundary) | §3 | Worldgen WO | PENDING |
@@ -161,14 +166,16 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - [DOCTRINE_03_ORACLE_MEMO_V52.txt](pm_inbox/DOCTRINE_03_ORACLE_MEMO_V52.txt) — Oracle subsystem spec
 - [DOCTRINE_04_TABLE_UI_MEMO_V4.txt](pm_inbox/DOCTRINE_04_TABLE_UI_MEMO_V4.txt) — UI spec
 - [DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt](pm_inbox/DOCTRINE_05_IMAGE_GEN_MEMO_V4.txt) — Image gen spec
+- [DOCTRINE_06_LENS_SPEC_V0.txt](pm_inbox/DOCTRINE_06_LENS_SPEC_V0.txt) — Lens subsystem spec (NEW)
+- [WO-ORACLE-02_DISPATCH.md](pm_inbox/WO-ORACLE-02_DISPATCH.md) — WorkingSet compiler dispatch (DISPATCH-READY)
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked pending Oracle-first)
 - [MEMO_SPARK_LLM_SELECTION.md](pm_inbox/MEMO_SPARK_LLM_SELECTION.md) — H2 blocker, parked
-- [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md) — Oracle v5.2 overlap mapping (input for WO-ORACLE-01+)
-- [WO-ORACLE-01_DISPATCH.md](pm_inbox/WO-ORACLE-01_DISPATCH.md) — Oracle Spine (Phase 1) — COMPLETE
-- [DEBRIEF_WO-ORACLE-01.md](pm_inbox/DEBRIEF_WO-ORACLE-01.md) — Oracle Spine debrief
-- [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 doctrine decisions, 6 memos queued (PARKED until Phase 2)
+- [SURVEY_ORACLE_OVERLAP.md](pm_inbox/SURVEY_ORACLE_OVERLAP.md) — Oracle v5.2 overlap mapping (reference)
+- [MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md](pm_inbox/MEMO_DOCTRINE_HOLES_ANSWER_PACKET.md) — 8 doctrine decisions, 6 memos queued (Lens memo DONE, 5 remaining)
+- [MEMO_TABLE_MOOD_SUBSYSTEM.md](pm_inbox/MEMO_TABLE_MOOD_SUBSYSTEM.md) — TableMood subsystem spec (PARKED — Lens/Director phase)
+- [MEMO_RIFFSPACE_IMPROV_PIPELINE.md](pm_inbox/MEMO_RIFFSPACE_IMPROV_PIPELINE.md) — RiffSpace improvisation pipeline (PARKED — Lens/Director phase)
 
-All H1 + smoke + fuzzer + hooligan dispatches and debriefs archived to `pm_inbox/reviewed/archive_h1_smoke/` and `pm_inbox/reviewed/archive_smoke_oracle/`.
+All WO-ORACLE-01 artifacts archived to `pm_inbox/reviewed/archive_smoke_oracle/`.
 
 ## Persistent Files
 

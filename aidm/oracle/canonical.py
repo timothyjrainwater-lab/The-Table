@@ -18,13 +18,21 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Mapping
 from typing import Any
 
 
 class _FloatBlockEncoder(json.JSONEncoder):
-    """JSON encoder that rejects float values anywhere in the object graph."""
+    """JSON encoder that rejects float values anywhere in the object graph.
 
-    def default(self, o: Any) -> Any:  # pragma: no cover — fallback path
+    Handles ``MappingProxyType`` (and any ``Mapping``) transparently so that
+    frozen dataclass containers round-trip through canonical serialization.
+    """
+
+    def default(self, o: Any) -> Any:
+        # MappingProxyType is a Mapping but not a dict — convert for JSON.
+        if isinstance(o, Mapping):
+            return dict(o)
         raise TypeError(f"canonical_json forbids type {type(o).__name__}: {o!r}")
 
     def encode(self, o: Any) -> str:
@@ -37,7 +45,7 @@ class _FloatBlockEncoder(json.JSONEncoder):
                 f"Floats are forbidden in canonical Oracle artifacts (got {o!r}). "
                 "Convert to int or str before serialization."
             )
-        if isinstance(o, dict):
+        if isinstance(o, Mapping):
             for k, v in o.items():
                 if isinstance(k, float):
                     raise TypeError(
