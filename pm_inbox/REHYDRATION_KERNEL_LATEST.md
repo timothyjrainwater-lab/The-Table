@@ -142,12 +142,30 @@ Behavior: Stoplight downgrades. Slate requests sensor and halts until rehydrated
 
 Branch: master
 Last commit: b439541 — docs: WO-SPARK-LLM-SELECTION verdict + DOCTRINE_09/10 + archive pass
-Tests passed: 5,978 — **GREEN.**
+**Uncommitted:** WO-VOICE-GRAMMAR-SPEC-001 deliverables (3 files), WO-VOICE-UNKNOWN-SPEC-001 deliverables (3 files), PRS-01 contract, Aegis audit memo, emblem image, PM tracking updates, STT cleanup archive. Commit pending Thunder authorization.
+Tests passed: 5,997 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
-Gate tests: 162/162 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13). No-backflow: PASS.
+Gate tests: 256/256 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13 + J:27 + K:67). No-backflow: PASS.
 Smoke: 44/44 PASS. Hooligan: 5/12 PASS, 7 FINDING. Fuzzer: 19/20 PASS, 1 FINDING.
 
-**Completed subsystems:** H0 fixes (13 WOs), H1 smoke (7 WOs + 2 smoke tests + 3 integration fixes), Verification (338 formulas, 9 domains), Oracle (3 phases, 69 gate tests), Director (3 phases, 48 gate tests), UI (4 phases + drift guards + zone authority, 32 gate tests), Comedy Stingers P1 (13 gate tests). All archived. See PM_BRIEFING_CURRENT.md for full WO history.
+**Completed subsystems:** H0 fixes (13 WOs), H1 smoke (7 WOs + 2 smoke tests + 3 integration fixes), Verification (338 formulas, 9 domains), Oracle (3 phases, 69 gate tests), Director (3 phases, 48 gate tests), UI (4 phases + drift guards + zone authority, 32 gate tests), Comedy Stingers P1 (13 gate tests), CLI Grammar Contract (27 gate tests), Unknown Handling Policy (67 gate tests). All archived. See PM_BRIEFING_CURRENT.md for full WO history.
+
+## Publishing Readiness (PRS-01)
+
+**PRS-01 DRAFTED** — `docs/contracts/PUBLISHING_READINESS_SPEC.md`. Parallel track to BURST-001. 9 publish gates (P1-P9), RC evidence packet orchestrator, allow/blocklist, license ledger, offline guarantee, IP hygiene, privacy posture, donation policy.
+
+**Key decisions (Thunder, 2026-02-19):**
+- GitHub Releases: YES (tagged releases with RC evidence packet).
+- Donation links: PRESENT, GATED (go live only when P1-P9 PASS on tagged release).
+- Operational artifacts: CURATED (templates, exemplary dispatches/debriefs, snapshot pack).
+
+**Audit notes:** No volatile counts in PRS-01 or doctrine-adjacent artifacts. PRS-01 has its own hard gates — not perpetual intent.
+
+**Source:** Aegis audit memo consumed → `pm_inbox/reviewed/MEMO_PRS01_AEGIS_AUDIT.md`.
+
+**Builder WO sequence (after spec freeze):** ~6 WOs estimated (scan scripts, license ledger, offline proof, first-run test, privacy docs, RC orchestrator). See PRS-01 Appendix A.
+
+**Durable acceptance rule (DR-PRS-01):** "We do not consider publishing until all publish gates PASS on a signed commit and the RC evidence packet exists and matches that commit exactly."
 
 ## Golden Ticket v12
 
@@ -205,8 +223,14 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 
 **Parked items:** BURST-002 thru 004, cast_id determinism, Tier B coverage gaps (7 hooligan findings). Table vision memo filed (MEMO_TABLE_VISION_SPATIAL_SPEC), parked until visual pass.
 
-**PM posture:** ACTIVE. BURST-001 scoping complete — DC-01 through DC-05 resolved (reliability/control-plane, batch-per-turn, hybrid STT, sensor events only, gates B1-B5). Next PM action: read playbook + research artifacts, draft Tier 1 builder WOs.
-**Build order:** ~~Comedy Stingers Phase 1~~ (ACCEPTED) → ~~Spark LLM Selection~~ (ACCEPTED) → **BURST-001** (SCOPING COMPLETE, Tier 1 WO drafting next).
+**PM posture:** ACTIVE. Two parallel tracks:
+1. **BURST-001** — Voice-first reliability. Tier 1.1 ACCEPTED, Tier 1.2 ACCEPTED. Both archived. Next: draft Tier 1.3 (Typed Calls).
+2. **PRS-01** — Publishing readiness. Spec drafted, awaiting Thunder review. Builder WOs follow after spec freeze.
+
+**Uncommitted backlog:** ~20 files (Grammar Spec deliverables, Unknown Handling deliverables, PRS-01 contract, Aegis audit memo, emblem image, PM tracking updates, STT cleanup archive, voice spec archive). Commit needed.
+
+**Build order (BURST-001):** ~~Comedy Stingers Phase 1~~ → ~~Spark LLM Selection~~ → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) → 1.4 → Tier 2-5.
+**Build order (PRS-01):** **Spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001.
 
 ---
 

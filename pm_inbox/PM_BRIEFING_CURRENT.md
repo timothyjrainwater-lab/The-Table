@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-19 (WO-SPARK-LLM-SELECTION ACCEPTED with findings. Qwen2.5 7B Instruct selected. 4 findings surfaced: GAP-B toolchain gap, tight budget margin, S4 load spikes, DLL directory fix. Dispatch + debrief archived.)
+**Last updated:** 2026-02-19 (WO-VOICE-UNKNOWN-SPEC-001 ACCEPTED — Tier 1.2 Unknown Handling Policy freeze. 67 Gate K tests, contract doc, validator script. Gate count 189→256.)
 
 ---
 
@@ -9,12 +9,21 @@
 - **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — Full TTS pipeline reference. Remains in root while voice work is adjacent.
 - **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Builder preflight canary system. Script: `scripts/preflight_canary.py`. Log: `pm_inbox/PREFLIGHT_CANARY_LOG.md`.
 - **[NEW] [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md)** — Table visual identity: recessed vault poker table, three camera postures, mood rules. Candidate for doctrine adoption. Parked until visual pass.
+- **[NEW] [MEMO_DARK_FACTORY_PATTERNS.md](pm_inbox/MEMO_DARK_FACTORY_PATTERNS.md)** — Two actionable patterns from Level 5 "dark factory" industry analysis: (1) Holdout scenario suite — behavioral tests outside builder context to prevent teach-to-the-test; candidate WO `WO-HOLDOUT-SCENARIOS-001`. (2) Digital twin universe — deferred, local-first architecture eliminates primary need. Includes mapping of our operation against the 5-level framework (we operate at Level 4-5).
+- **[NEW] [MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK.md](pm_inbox/MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK.md)** — Crosswalk of 22 principles from 7 Nate B Jones videos against the Seven Wisdoms. 20/22 implemented (13 exact match, 7 strong match). 2 gaps already tracked (holdout scenarios, digital twin). Validates independent convergence with industry best practice. CV/marketing positioning value noted.
+- **[NEW] [MEMO_SPARK_ANVIL_HARNESS.md](pm_inbox/MEMO_SPARK_ANVIL_HARNESS.md)** — Anvil (Claude API) as Spark LLM during dev/testing. Bidirectional integration test: forward (pipeline validation) + reverse (doctrine-aware mechanical audit). Solves 3 open problems: BURST-001 e2e testing, holdout scenario suite, hooligan expansion. Also enables first playable D&D session. Candidate WO: `WO-SPARK-ANVIL-HARNESS-001`. The game IS the test.
+- ~~WO-VOICE-GRAMMAR-SPEC-001~~ — ACCEPTED. Archived to `reviewed/archive_voice_spec/`.
+- ~~WO-VOICE-UNKNOWN-SPEC-001~~ — ACCEPTED. Archived to `reviewed/archive_voice_spec/`.
+- ~~MEMO_STT_CLEANUP_LAYER~~ — ARCHIVED to `reviewed/`. Operator tooling, no WO needed.
+
+**New contracts this pass:**
+- **[DRAFTED] [PUBLISHING_READINESS_SPEC.md](docs/contracts/PUBLISHING_READINESS_SPEC.md)** — PRS-01: 9 publish gates (P1-P9), RC evidence packet, allow/blocklist, license ledger, offline guarantee, IP hygiene, privacy posture, donation policy. Aegis audit consumed → `pm_inbox/reviewed/MEMO_PRS01_AEGIS_AUDIT.md`. 3 binary decisions resolved by Thunder. Parallel to BURST-001.
 
 **Archived this pass (11 files):** DEBRIEF_WO-COMEDY-STINGERS-P1 + WO-COMEDY-STINGERS-P1_DISPATCH + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION → `reviewed/`. WO-SPARK-LLM-SELECTION_DISPATCH + WO-SPARK-LLM-SELECTION_RESEARCH_PREP + DEBRIEF_WO-SPARK-LLM-SELECTION → `reviewed/archive_spark_llm/`.
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,978 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). No-backflow: PASS. Integration board clear.**
+5,997 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). No-backflow: PASS. Integration board clear.**
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
@@ -62,6 +71,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-VOICE-UNKNOWN-SPEC-001 | **ACCEPTED** — 3/3 deliverables. Unknown Handling Contract (`docs/contracts/UNKNOWN_HANDLING_CONTRACT.md`), 67 Gate K tests (K-01..K-10, all PASS), validator script (`scripts/check_unknown_handling.py`). 36 T-* signals tested (dispatch said 35, research had 36 — builder caught it). VoiceEvent fixture schema extensible for Tier 3. T-BLEED-01 pinned YELLOW (research said "YELLOW or RED" — correct call). FC-AMBIG-06 untested (no T-* signal in research — noted, not a gap). Radar compliant. | (pending commit) |
+| WO-VOICE-GRAMMAR-SPEC-001 | **ACCEPTED** — 3/3 deliverables. CLI Grammar Contract (`docs/contracts/CLI_GRAMMAR_CONTRACT.md`), 27 Gate J tests (all PASS), validator script (`scripts/check_cli_grammar.py`). G-01 regex tightened (improvement). NARRATION/RESULT classifier heuristic noted for Tier 3. No code changes to engine. | (pending commit) |
 | WO-SPARK-LLM-SELECTION | **ACCEPTED with findings** — Research + evaluation WO (no code changes). 6/6 deliverables. Qwen2.5 7B Instruct (Q4_K_M) selected — only candidate to pass all 5 gates (5/5). Quality 24.0/25, load time 2.69s, VRAM 5,818 MB. Scope deviation: Qwen3→Qwen2.5, Gemma3→Gemma2 (llama-cpp-python 0.3.4 arch gap — defensible). Radar compliant. **4 findings:** (1) GAP-B HIGH — llama-cpp-python blocks Qwen3/Gemma3, need VS Build Tools; (2) Budget margin 0.55s — Chatterbox swap times estimated not measured; (3) S4 load spikes in loops 2-3; (4) GAP-C DLL directory fix needed. Eval infra (`scripts/spark_eval.py`) retained for Qwen3 re-eval. | (research WO, no commit) |
 | WO-COMEDY-STINGERS-P1 | **ACCEPTED** — 162/162 gate tests (149 existing + 13 new Gate I). 0 regressions (5,978 suite). 6/6 deliverables landed. Frozen `Stinger` dataclass with `__post_init__` immutability, 3 public functions (validate/select/render), 21 stingers (3×7 archetypes), 13 gate tests. Immutability gate caught mutable containers — fixed via `__post_init__`. Duration ceiling (6.0s) enforces staccato rhythm as designed. Builder Radar fully compliant. Field Manual #35 needed (immutability gate). | `e4ac5c1` |
 | WO-DIRECTOR-03 | **ACCEPTED** — 149/149 gate tests (133 existing + 16 new Gate H). 0 regressions (5,893 suite). 7/7 contract changes delivered (Change 5 scene lifecycle already existed). TableMood store in `aidm/oracle/table_mood.py`, StyleCapsule in `aidm/lens/style_capsule.py`, DirectorPromptPack extended with optional style_capsule, pacing modulation via `_resolve_pacing_mode()`, cold_boot reducer extended for mood_observation events. Field Manual #34 added. | `9705298` |
@@ -91,20 +102,33 @@
 
 ## Requires Operator Action (NOW)
 
-**SPARK LLM SELECTION COMPLETE.** Qwen2.5 7B Instruct (Q4_K_M) selected as interim Spark cage model. Sequential VRAM posture confirmed. Path B (batch-per-turn) is the operational architecture.
+**WO-VOICE-UNKNOWN-SPEC-001 ACCEPTED.** Builder deliverables uncommitted.
 
-**Before BURST-001, two things must be measured (not estimated):**
-1. **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates for both phases. If actual is 2.0s+, the budget busts. (FINDING-2 from verdict.)
-2. **llama-cpp-python upgrade path** — Install VS Build Tools on command deck and compile llama-cpp-python 0.3.16 from source. This unblocks Qwen3 8B and Gemma 3 12B evaluation. (GAP-B from debrief.)
+**WO-VOICE-GRAMMAR-SPEC-001 ACCEPTED.** Builder deliverables uncommitted.
 
-**Integration follow-up (WO scope):** Wire Qwen2.5 into Spark cage — models.yaml entry, DLL directory fix (GAP-C), `n_ctx=2048` for narration, sequential lifecycle manager (load/unload orchestration). This is BURST-001 scope or a pre-BURST wiring WO.
+**PRS-01 DRAFTED.** Awaiting Thunder review.
 
-**GAP-A (low priority):** `dm_persona.py:83` references `NarrativeBrief` without importing it. Runtime-functional (duck typing), static analysis only.
+1. **Commit pending.** Two accepted WOs (Tier 1.1 + 1.2) + PRS-01 + Aegis audit memo + emblem + PM tracking updates. Thunder to commit or authorize PM commit.
 
-**Planned sequence:** ~~Director Phase 3~~ → ~~Comedy Stingers Phase 1~~ (ACCEPTED) → ~~Spark LLM Selection~~ (ACCEPTED) → **BURST-001**
+2. **PRS-01 review.** Thunder to review `docs/contracts/PUBLISHING_READINESS_SPEC.md` and confirm or amend.
+
+3. **Next BURST-001 dispatch.** After commit, PM drafts Tier 1.3 (WO-VOICE-TYPED-CALL-SPEC-001 — Typed Calls). No dispatch doc exists yet.
+
+**Still needed before voice code lands (deferred, not blocking Tier 1 spec freeze):**
+- **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates. (FINDING-2 from Spark LLM verdict.)
+- **llama-cpp-python upgrade path** — VS Build Tools + compile from source. Unblocks Qwen3/Gemma3 re-eval. (GAP-B from Spark LLM debrief.)
+- **Integration wiring WO** — Wire Qwen2.5 into Spark cage (models.yaml, DLL fix, n_ctx=2048, sequential lifecycle manager). Timing TBD.
+
+**GAP-A (low priority):** `dm_persona.py:83` missing import. Runtime-functional.
+
+**Planned sequence (BURST-001):** ~~Spark LLM Selection~~ (ACCEPTED) → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) → WO-VOICE-PRESSURE-SPEC-001 (1.4) → Tier 2 → Tier 3 → Tier 4 → Tier 5
+
+**Planned sequence (PRS-01):** **PRS-01 spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001
 
 ### Previous Dispatches (All Accepted)
 
+- ~~WO-VOICE-UNKNOWN-SPEC-001~~ — ACCEPTED (pending commit). 67 Gate K tests (all PASS). Unknown Handling Contract frozen (7 failure classes, STOPLIGHT, clarification budget), validator script. 36 T-* signals tested. Field Manual #37 needed (VoiceEvent extensibility).
+- ~~WO-VOICE-GRAMMAR-SPEC-001~~ — ACCEPTED (pending commit). 27 Gate J tests (all PASS). CLI Grammar Contract frozen, validator script. First BURST-001 Tier 1 WO. Field Manual #36 needed (G-01 regex tightening).
 - ~~WO-SPARK-LLM-SELECTION~~ — ACCEPTED with findings (research WO, no commit). Qwen2.5 7B Instruct selected (5/5 gates). Sequential VRAM confirmed. Eval infra retained. 4 findings surfaced. **SPARK LLM SELECTION COMPLETE.**
 - ~~WO-COMEDY-STINGERS-P1~~ — ACCEPTED (`e4ac5c1`). 162/162 gate tests (149 + 13 Gate I). Frozen Stinger schema, 21 stingers (3×7), validate/select/render, immutability gate caught and fixed. Builder Radar fully compliant. Field Manual #35 needed.
 - ~~WO-DIRECTOR-03~~ — ACCEPTED (`9705298`). 149/149 gate tests. TableMood store, StyleCapsule, Director pacing modulation, cold_boot mood reducer, Gate H 16/16. Field Manual #34 added. Builder Radar fully compliant. **DIRECTOR PHASE 3 COMPLETE.**
@@ -141,7 +165,7 @@
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → **BURST-001**
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) | **PRS-01** (DRAFTED, parallel track — review → builder WOs)
 
 **Doctrine files** (in `pm_inbox/doctrine/` — 10 files, permanent reference):
 
@@ -176,7 +200,7 @@
 | 5 | **Director spec** (beat selector, read-only) | §5 | Director WO | **DONE** — [DOCTRINE_08_DIRECTOR_SPEC_V0.txt](pm_inbox/doctrine/DOCTRINE_08_DIRECTOR_SPEC_V0.txt) |
 | 6 | **Companion Mode + Teaching Nudges spec** | §6 + §7 | Companion WO | PENDING |
 
-Packaging (§8) remains a lightweight "ship posture" doc — deferred until closer to distribution.
+Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.md`).
 
 ### Suspended WO Verdicts
 
@@ -219,10 +243,12 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - **WO-DIRECTOR-03** — Director Phase 3: TableMood + StyleCapsule + pacing modulation + cold_boot mood reducer, 16 Gate H tests, total 149 gate tests
 - **WO-COMEDY-STINGERS-P1** — Comedy stinger content subsystem: frozen Stinger schema, 21 stingers (3×7 archetypes), validate/select/render, 13 Gate I tests, total 162 gate tests
 - **WO-SPARK-LLM-SELECTION** — Local LLM selection for Spark cage: Qwen2.5 7B Instruct (Q4_K_M) selected, 5/5 gates, sequential VRAM posture confirmed, eval infra retained for Qwen3 re-eval
+- **WO-VOICE-GRAMMAR-SPEC-001** — CLI Grammar Contract freeze: binding contract (G-01..G-07 + AP-01..AP-07 + line types + voice routing), 27 Gate J tests, validator script. First BURST-001 Tier 1 WO.
+- **WO-VOICE-UNKNOWN-SPEC-001** — Unknown Handling Policy freeze: binding contract (7 failure classes + STOPLIGHT + clarification budget + cross-cutting rules), 67 Gate K tests (36 T-* signals), validator script. BURST-001 Tier 1.2.
 
 ## Active Operational Files
 
-**Root** (8 files — 2 under cap):
+**Root** (8 files — 2 slots free):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
@@ -232,12 +258,7 @@ Packaging (§8) remains a lightweight "ship posture" doc — deferred until clos
 - [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md) — Table vision (parked until visual pass)
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 
-**Note:** Root is at 8 files. 2 slots available for BURST-001 dispatch + debrief.
-
-**Doctrine** (10 files in `pm_inbox/doctrine/` — permanent reference, type-labeled SPEC/GOV/PROC):
-- DOCTRINE_01 through DOCTRINE_10 (see Doctrine files section above)
-
-**Archived this cycle:** WO-COMEDY-STINGERS-P1 dispatch + debrief + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `pm_inbox/reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION → `pm_inbox/reviewed/`. WO-UI-* dispatch + debrief → `archive_ui/`. WO-DIRECTOR-* → `archive_director/`. Oracle/smoke/fuzzer → `archive_smoke_oracle/`. Legacy → `legacy_pm_inbox/`.
+**Archived this cycle:** WO-VOICE-GRAMMAR-SPEC-001 dispatch + debrief + WO-VOICE-UNKNOWN-SPEC-001 dispatch + debrief → `pm_inbox/reviewed/archive_voice_spec/`. WO-COMEDY-STINGERS-P1 dispatch + debrief + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `pm_inbox/reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION + MEMO_STT_CLEANUP_LAYER → `pm_inbox/reviewed/`. WO-UI-* dispatch + debrief → `archive_ui/`. WO-DIRECTOR-* → `archive_director/`. Oracle/smoke/fuzzer → `archive_smoke_oracle/`. Legacy → `legacy_pm_inbox/`.
 
 ## Persistent Files
 

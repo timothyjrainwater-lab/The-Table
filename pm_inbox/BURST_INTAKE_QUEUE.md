@@ -44,7 +44,7 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 
 1. **Target Lock:** Speech input becomes deterministic, confirm-gated, and measurable.
 2. **Binary Decisions:** RESOLVED (see table above).
-3. **Contract Spec:** Voice-First Reliability Playbook (`pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`) — 547 lines covering unified control-plane model, 7 boundary invariants, CLI grammar (G-01..G-07), 2PC protocol, failure policy (11 classes), Spark failure cascade, template fallback guarantees, metrics/observability (15 compliance checks), prosodic control (PAS v0.1), MVVL definition (10 GREEN thresholds).
+3. **Contract Spec:** Voice-First Reliability Playbook (`pm_inbox/reviewed/legacy_pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`) — 547 lines covering unified control-plane model, 7 boundary invariants, CLI grammar (G-01..G-07), 2PC protocol, failure policy (11 classes), Spark failure cascade, template fallback guarantees, metrics/observability (15 compliance checks), prosodic control (PAS v0.1), MVVL definition (10 GREEN thresholds).
 4. **Implementation Plan:** 19 WOs across 5 tiers (Spec Freeze → Instrumentation → Parser/Grammar → UX Prompts → Evaluation Harness). Critical path: 1.1 → 3.1 → 3.2 → 3.3 → 3.4 → 5.5. Parallel opportunities: Tiers 2 and 4.1-4.2 alongside Tier 3.
 
 **Research Artifacts (complete, do not send to builders):**
@@ -52,9 +52,9 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 - WO-VOICE-RESEARCH-02: Failure Taxonomy & Unknown Policy (`docs/research/VOICE_FAILURE_TAXONOMY_AND_UNKNOWN_POLICY.md`)
 - WO-VOICE-RESEARCH-03: Metrics & Telemetry Spec (`docs/research/VOICE_METRICS_AND_TELEMETRY_SPEC.md`)
 - WO-VOICE-RESEARCH-04: UX Turn-Taking & Confirmation (`docs/research/VOICE_UX_TURNTAKING_AND_CONFIRMATION.md`)
-- WO-VOICE-RESEARCH-05: Synthesis Playbook (`pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`)
+- WO-VOICE-RESEARCH-05: Synthesis Playbook (`pm_inbox/reviewed/legacy_pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`)
 
-**Next action:** PM drafts Tier 1 builder WOs (spec freeze) from resolved decisions + playbook.
+**Next action:** Tier 1.1 ACCEPTED, Tier 1.2 ACCEPTED. Both archived. PM to draft Tier 1.3 (WO-VOICE-TYPED-CALL-SPEC-001 — Typed Calls). Source: WO-VOICE-RESEARCH-01 (Voice Control Plane Contract) and playbook Section 2. Remaining: 1.4 Boundary Pressure after 1.3.
 
 ---
 
@@ -125,4 +125,14 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 
 ## Completed Bursts
 
-(None yet — BURST-001 is READY BRICK but not yet dispatched for build.)
+(None yet — BURST-001 is READY BRICK, first builder WO ACCEPTED. PRS-01 is a parallel contract track, not a burst.)
+
+## Parallel Tracks (Non-Burst)
+
+### PRS-01: Publishing Readiness Spec — DRAFTED
+
+**Contract:** `docs/contracts/PUBLISHING_READINESS_SPEC.md`
+**Origin:** Aegis audit memo (2026-02-19), normalized by Slate with Thunder decisions.
+**Status:** DRAFTED — awaiting Thunder review. Not a burst (no research WO needed). Spec-to-WO pipeline.
+**Builder WO sequence:** ~6 WOs after spec freeze (see PRS-01 Appendix A).
+**Relationship:** Parallel to BURST-001. Neither blocks the other.

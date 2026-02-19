@@ -23,6 +23,10 @@ Win+H replacement:
 
 No profanity filter. No censorship. What you say is what you get.
 
+Post-transcription cleanup (enabled by default, disable with --no-cleanup):
+    Tier A: Remove fillers (um, uh, like), collapse duplicates, fix whitespace
+    Tier B: Project dictionary — fix callsigns, terms, known homophones
+
 Requires: faster-whisper, sounddevice, pyperclip, pynput
 """
 
@@ -272,8 +276,9 @@ def _do_transcribe_and_output(
     model_name: str,
     device: str,
     compute_type: str,
+    use_cleanup: bool = True,
 ) -> Optional[str]:
-    """Stop recording, transcribe, and send output. Returns transcribed text or None."""
+    """Stop recording, transcribe, clean up, and send output. Returns transcribed text or None."""
     beep_stop()
     audio_bytes = recorder.stop()
     duration = len(audio_bytes) / (SAMPLE_RATE * 2)  # 2 bytes per sample
@@ -287,6 +292,17 @@ def _do_transcribe_and_output(
     try:
         text = transcribe_audio(audio_bytes, model_name, device, compute_type)
         if text:
+            # Apply STT cleanup (Tier A + B) unless disabled
+            if use_cleanup:
+                try:
+                    from stt_cleanup import cleanup
+                    raw = text
+                    text = cleanup(text)
+                    if text != raw:
+                        print(f"  [RAW] \"{raw[:60]}{'...' if len(raw) > 60 else ''}\"")
+                except ImportError:
+                    pass  # stt_cleanup not available — skip silently
+
             print(f"  {SYM_DONE} \"{text[:60]}{'...' if len(text) > 60 else ''}\"")
             output_fn(text)
             beep_done()
@@ -307,6 +323,7 @@ def run_hold_to_talk(
     device: str,
     compute_type: str,
     audio_device: Optional[int],
+    use_cleanup: bool = True,
 ) -> None:
     """Hold-to-talk mode: hold the hotkey to record, release to transcribe."""
     from pynput import keyboard
@@ -319,6 +336,7 @@ def run_hold_to_talk(
 
     print(f"\n  Dictation ready. Hold [{hotkey}] to talk, release to transcribe.")
     print(f"  Output mode: {mode}")
+    print(f"  Cleanup: {'ON' if use_cleanup else 'OFF'}")
     print(f"  Press Ctrl+C to quit.\n")
 
     # Pre-load the model
@@ -348,7 +366,7 @@ def run_hold_to_talk(
 
         if is_recording and not _check_hotkey():
             is_recording = False
-            _do_transcribe_and_output(recorder, output_fn, model_name, device, compute_type)
+            _do_transcribe_and_output(recorder, output_fn, model_name, device, compute_type, use_cleanup)
             print(f"  {SYM_READY}", end="\r", flush=True)
 
     with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
@@ -365,6 +383,7 @@ def run_toggle_to_talk(
     device: str,
     compute_type: str,
     audio_device: Optional[int],
+    use_cleanup: bool = True,
 ) -> None:
     """Toggle mode: tap hotkey to start recording, tap again to stop (like Win+H)."""
     from pynput import keyboard
@@ -380,6 +399,7 @@ def run_toggle_to_talk(
 
     print(f"\n  Dictation ready. Tap [{hotkey}] to start/stop recording.")
     print(f"  Output mode: {mode}")
+    print(f"  Cleanup: {'ON' if use_cleanup else 'OFF'}")
     print(f"  Max recording: {max_recording_secs:.0f}s")
     print(f"  Press Ctrl+C to quit.\n")
 
@@ -428,7 +448,7 @@ def run_toggle_to_talk(
         _busy = True
         try:
             _erase_hotkey_char_async()
-            _do_transcribe_and_output(recorder, output_fn, model_name, device, compute_type)
+            _do_transcribe_and_output(recorder, output_fn, model_name, device, compute_type, use_cleanup)
             print(f"  {SYM_READY}", end="\r", flush=True)
         finally:
             _busy = False
@@ -487,6 +507,7 @@ def run_once(
     audio_device: Optional[int],
     max_silence_secs: float = 2.0,
     max_duration_secs: float = 30.0,
+    use_cleanup: bool = True,
 ) -> None:
     """One-shot mode: record immediately, stop on silence or Enter, transcribe, exit.
 
@@ -525,7 +546,7 @@ def run_once(
         time.sleep(0.1)
 
     listener.stop()
-    result = _do_transcribe_and_output(recorder, output_fn, model_name, device, compute_type)
+    result = _do_transcribe_and_output(recorder, output_fn, model_name, device, compute_type, use_cleanup)
 
     if result:
         print(f"  Done. Text {'pasted' if mode == 'paste' else 'typed'}.", flush=True)
@@ -610,8 +631,8 @@ def main() -> None:
     )
     parser.add_argument(
         "--model",
-        default="small.en",
-        help="Whisper model name (default: small.en). Options: tiny.en, base.en, small.en, medium.en",
+        default="medium.en",
+        help="Whisper model name (default: medium.en). Options: tiny.en, base.en, small.en, medium.en, large-v3",
     )
     parser.add_argument(
         "--device",
@@ -630,6 +651,11 @@ def main() -> None:
         action="store_true",
         help="List available audio input devices and exit",
     )
+    parser.add_argument(
+        "--no-cleanup",
+        action="store_true",
+        help="Disable post-transcription cleanup (filler removal, dictionary corrections)",
+    )
 
     args = parser.parse_args()
 
@@ -638,10 +664,13 @@ def main() -> None:
         return
 
     compute_type = "float16" if args.device == "cuda" else "int8"
+    use_cleanup = not args.no_cleanup
 
     print("=" * 50)
     print("  WHISPER DICTATION")
     print("  No filter. No censorship. Your words.")
+    if use_cleanup:
+        print("  + STT Cleanup (Tier A + B)")
     print("=" * 50)
 
     if args.trigger == "once":
@@ -651,6 +680,7 @@ def main() -> None:
             device=args.device,
             compute_type=compute_type,
             audio_device=args.audio_device,
+            use_cleanup=use_cleanup,
         )
     elif args.trigger == "toggle":
         run_toggle_to_talk(
@@ -660,6 +690,7 @@ def main() -> None:
             device=args.device,
             compute_type=compute_type,
             audio_device=args.audio_device,
+            use_cleanup=use_cleanup,
         )
     else:
         run_hold_to_talk(
@@ -669,6 +700,7 @@ def main() -> None:
             device=args.device,
             compute_type=compute_type,
             audio_device=args.audio_device,
+            use_cleanup=use_cleanup,
         )
 
 
