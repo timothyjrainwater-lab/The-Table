@@ -49,6 +49,10 @@ Refresh token expires in ~7 days from creation (604800s). If expired, re-auth is
 | ANVIL_NOTEBOOK | 1pdWxIvGEsLpPUBptNVuC9uPP9ytyiwMXZGwsdzvAip0 | Google Doc | Anvil's append-only personal ledger. Creative observations, experiment findings. Rehydration-grade memory. |
 | ANVIL_REHYDRATION_KERNEL | 1RlDv-9dScCGomsMjm2IjJOmEz28Y-Id5bBDofVswwm4 | Google Doc | Anvil's rehydration kernel backup. Sovereign copy — do not edit from PM window. |
 | SEVEN_WISDOMS_ZERO_REGRETS | 1DOySd1zb5IEZZRtTvLWY6FdON7H_tfuP3lRMTRUR9rY | Google Doc | "Seven Wisdoms, Zero Regrets" — The origin story of The Table. Complete narrative. |
+| DOCTRINE_02_GOLDEN_TICKET_V12 | 1rFWQw3fLpd2scIbdNx7um5b0H8Mcfz-HzXfQlRakKaE | Google Doc | Product doctrine. GT v12. 7 hard laws, 5 subsystem contracts, 30+ gates. Constitutional document. |
+| DOCTRINE_03_ORACLE_MEMO_V52 | 1136Cf2wSpYC3kQ0CmEE05SQVMFvQvllxzrZozI4FB2A | Google Doc | Oracle subsystem spec. v5.2. FactsLedger, UnlockState, StoryState, canonical profile, WorkingSet. |
+| DOCTRINE_04_TABLE_UI_MEMO_V4 | 1YaH1733Kj_mQvMmoo_QOHVlawHVkDotj_6croPMO6Ds | Google Doc | UI subsystem spec. v4. Table surface, zones, camera postures, dice tray, protocol. |
+| DOCTRINE_05_IMAGE_GEN_MEMO_V4 | 1VUsOTvXoF65Q5E9tTRK8KjOI8ml1oVXXrWmGNUHIxgA | Google Doc | Image generation subsystem spec. v4. Scene composition, mood-to-visual pipeline. |
 
 **Web links:**
 - Rehydration Packet: https://docs.google.com/document/d/1ZICQUDKVuO0oNqFiFl6gq5VizthLp8LxDLYgW41Gfac/edit
@@ -57,6 +61,10 @@ Refresh token expires in ~7 days from creation (604800s). If expired, re-auth is
 - Anvil Notebook: https://docs.google.com/document/d/1pdWxIvGEsLpPUBptNVuC9uPP9ytyiwMXZGwsdzvAip0/edit
 - Anvil Kernel: https://docs.google.com/document/d/1RlDv-9dScCGomsMjm2IjJOmEz28Y-Id5bBDofVswwm4/edit
 - Seven Wisdoms Narrative: https://docs.google.com/document/d/1DOySd1zb5IEZZRtTvLWY6FdON7H_tfuP3lRMTRUR9rY/edit
+- Golden Ticket v12: https://docs.google.com/document/d/1rFWQw3fLpd2scIbdNx7um5b0H8Mcfz-HzXfQlRakKaE/edit
+- Oracle Memo v5.2: https://docs.google.com/document/d/1136Cf2wSpYC3kQ0CmEE05SQVMFvQvllxzrZozI4FB2A/edit
+- UI Memo v4: https://docs.google.com/document/d/1YaH1733Kj_mQvMmoo_QOHVlawHVkDotj_6croPMO6Ds/edit
+- ImageGen Memo v4: https://docs.google.com/document/d/1VUsOTvXoF65Q5E9tTRK8KjOI8ml1oVXXrWmGNUHIxgA/edit
 
 ---
 

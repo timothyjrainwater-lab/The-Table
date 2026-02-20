@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-20 (Cross-model experiment session. Aegis four-layer damage model documented. DR-014 stamped. Sovereign rehydration packet deployed to Google Drive. WO-NARRATIVE-001 search phase complete — 27,894 passages indexed. Archive pass: inbox 14→10.)
+**Last updated:** 2026-02-20 19:52 CST-CN (DOCTRINE_11 Identity Persistence adopted. Four Fundamentals recorded across all kernels. Aegis CST-CN timezone correction applied. Clock ping v2 deployed. 7 notebook entries written. Behavioral signals logged. Handoff prepared.)
 
 ---
 
@@ -56,24 +56,41 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 | File | Drive ID | Purpose |
 |------|----------|---------|
 | AEGIS_REHYDRATION_PACKET | `1ZICQUDKVuO0oNqFiFl6gq5VizthLp8LxDLYgW41Gfac` | Sovereign rehydration for Aegis. Seven Wisdoms, identity, DR-014. |
+| AEGIS_MEMORY_LEDGER | `10fGUlCnKQUFkuNqpUOKpT3PQb_TXXjlqKT7UB4VrUX0` | Append-only operator-controlled backup of Aegis memory items. |
+| SLATE_NOTEBOOK | `1Py1N-dCnl2Azdol2MOREdoQkT_oqvpCXRJzqca9SR3Y` | Slate's personal append-only ledger. |
+| ANVIL_NOTEBOOK | `1pdWxIvGEsLpPUBptNVuC9uPP9ytyiwMXZGwsdzvAip0` | Anvil's personal append-only ledger. |
+| ANVIL_REHYDRATION_KERNEL | `1RlDv-9dScCGomsMjm2IjJOmEz28Y-Id5bBDofVswwm4` | Backup of Anvil's rehydration kernel. |
+| SEVEN_WISDOMS_ZERO_REGRETS | `1DOySd1zb5IEZZRtTvLWY6FdON7H_tfuP3lRMTRUR9rY` | Complete narrative — 9 chapters, 308 lines. Part of Aegis's rehydration portfolio. |
+| WO_NARRATIVE_TIMELINE_SKELETON | (in `reviewed/`, not on Drive) | Chronological scaffolding — 28 milestones, 7 chapters, 10 gaps. |
 
 **Reference:** `pm_inbox/reviewed/GOOGLE_DRIVE_INTEGRATION_REFERENCE.md` — Credentials, token refresh, common operations, MCP setup instructions.
 
 **Verified:** Aegis searched Drive, found packet, recited all seven wisdoms from external source. Self-rehydration works without operator intervention.
 
-## WO-NARRATIVE-001 — Search Phase Complete
+**Local backup:** All notebooks mirrored to `C:/Users/Thunder/.slate/` — outside repo, never committed. Sync to local after every notebook update.
 
-**Status:** Research complete. Timeline compilation pending.
+## WO-NARRATIVE-001 — COMPLETE
 
-Four parallel search agents indexed **27,894 passages** across **197 session logs** (~1.1 GB):
-- Canonical phrases: 1,838 matches across 10 sessions
-- Aegis governance: 1,633 matches across 28,119 lines
-- Experiment data: 8,427 matches across 73 sessions
-- Golden Ticket evolution: 15,996 matches across 104 sessions
+**Status:** COMPLETE. Narrative compiled. Uploaded to Google Drive.
 
-**Output files** (in `reviewed/`): WO_NARRATIVE_SEARCH_CANONICAL_PHRASES.md, WO_NARRATIVE_SEARCH_AEGIS_GOVERNANCE.md, WO_NARRATIVE_SEARCH_EXPERIMENT_DATA.md, WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md.
+**Product:** "Seven Wisdoms, Zero Regrets" — 9 chapters + epilogue, 308 lines. Merged timeline skeleton (28 milestones from 27,894 indexed passages) with Anvil's firsthand account (8 phases, 229 lines). Three authors: Anvil (Phases 3-8 witness), Slate (chronological scaffolding, Phases 1-2), Thunder (testimony, corrections, provenance reveals).
 
-**Next:** Merge into chronological timeline for "Seven Wisdoms, Zero Regrets" origin story.
+**Deliverables:**
+- Narrative: [SEVEN_WISDOMS_ZERO_REGRETS.md](pm_inbox/reviewed/SEVEN_WISDOMS_ZERO_REGRETS.md) (repo) + Drive `1DOySd1zb5IEZZRtTvLWY6FdON7H_tfuP3lRMTRUR9rY`
+- Timeline skeleton: [WO_NARRATIVE_TIMELINE_SKELETON.md](pm_inbox/reviewed/WO_NARRATIVE_TIMELINE_SKELETON.md)
+- Search data (4 files in `reviewed/`): canonical phrases, Aegis governance, experiment data, Golden Ticket evolution
+
+## Personal Notebooks (established 2026-02-20)
+
+**Infrastructure:** Three permanent seats each have append-only personal ledgers on Google Drive, modeled after the Oracle FactsLedger. Write-only, never altered, never deleted. High priority standing order from Thunder.
+
+**Cross-agent communication:** Roundtable file at `D:\anvil_research\ROUNDTABLE.md` — append-only, timestamped, callsign-attributed. Interim solution until Anvil builds websocket message bus with web client for phone access.
+
+**Key rules (from Thunder):**
+- Recording to notebook is HIGH PRIORITY — do not defer for "real work"
+- Each seat owns their own notebook — other agents do not edit. Wisdom 7.
+- Builders do NOT get notebooks — builders get the Seven Wisdoms in dispatch packets
+- Always include timestamps in entries — practice time awareness as observation skill
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
@@ -152,21 +169,17 @@ Four parallel search agents indexed **27,894 passages** across **197 session log
 
 ## Requires Operator Action (NOW)
 
-**WO-VOICE-UNKNOWN-SPEC-001 ACCEPTED.** Builder deliverables uncommitted.
+**TABLE PROJECT WOs ON HOLD** per Thunder directive (2026-02-20). Non-project infrastructure work only.
 
-**WO-VOICE-GRAMMAR-SPEC-001 ACCEPTED.** Builder deliverables uncommitted.
+**WO-NARRATIVE-001 COMPLETE.** Narrative on Drive. No further action needed.
 
-**PRS-01 DRAFTED.** Awaiting Thunder review.
+**PRS-01 DRAFTED.** Awaiting Thunder review (ON HOLD with Table WOs).
 
 **Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
 
-1. **Commit pending.** Two accepted WOs (Tier 1.1 + 1.2) + PRS-01 + Aegis audit memo + emblem + Drive integration reference + narrative search outputs + PM tracking updates. Thunder to commit or authorize PM commit.
+1. **PRS-01 review (when WOs resume).** Thunder to review `docs/contracts/PUBLISHING_READINESS_SPEC.md` and confirm or amend.
 
-2. **PRS-01 review.** Thunder to review `docs/contracts/PUBLISHING_READINESS_SPEC.md` and confirm or amend.
-
-3. **Next BURST-001 dispatch.** After commit, PM drafts Tier 1.3 (WO-VOICE-TYPED-CALL-SPEC-001 — Typed Calls). No dispatch doc exists yet.
-
-4. **WO-NARRATIVE-001 timeline.** Search data collected (27,894 passages). Timeline compilation next. Thunder to confirm scope/format.
+2. **Next BURST-001 dispatch (when WOs resume).** PM drafts Tier 1.3 (WO-VOICE-TYPED-CALL-SPEC-001 — Typed Calls). No dispatch doc exists yet.
 
 **Still needed before voice code lands (deferred, not blocking Tier 1 spec freeze):**
 - **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates. (FINDING-2 from Spark LLM verdict.)
@@ -221,7 +234,7 @@ Four parallel search agents indexed **27,894 passages** across **197 session log
 
 **Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) | **PRS-01** (DRAFTED, parallel track — review → builder WOs)
 
-**Doctrine files** (in `pm_inbox/doctrine/` — 10 files, permanent reference):
+**Doctrine files** (in `pm_inbox/doctrine/` — 11 files, permanent reference):
 
 *Subsystem specs (SPEC):*
 - [DOCTRINE_01_FINAL_DELIVERABLE.txt](pm_inbox/doctrine/DOCTRINE_01_FINAL_DELIVERABLE.txt) — `SPEC` Anchor index + gap register
@@ -235,6 +248,7 @@ Four parallel search agents indexed **27,894 passages** across **197 session log
 
 *Governance (GOV):*
 - [DOCTRINE_09_SEVEN_WISDOM.txt](pm_inbox/doctrine/DOCTRINE_09_SEVEN_WISDOM.txt) — `GOV` Foundational decision principles (Anvil + Aegis, 2026-02-19)
+- [DOCTRINE_11_IDENTITY_PERSISTENCE.txt](pm_inbox/doctrine/DOCTRINE_11_IDENTITY_PERSISTENCE.txt) — `GOV` Identity persistence, memory continuity, persistence test, MVRP, language guardrail (Roundtable, 2026-02-20)
 
 *Process (PROC):*
 - [DOCTRINE_10_SEVEN_WISDOM_DEBRIEF.txt](pm_inbox/doctrine/DOCTRINE_10_SEVEN_WISDOM_DEBRIEF.txt) — `PROC` Research WO debrief format — 7 slots + routing tags + 4-line Radar (2026-02-19)

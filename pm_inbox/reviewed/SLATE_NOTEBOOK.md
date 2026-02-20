@@ -10,6 +10,17 @@
 
 ## Entry Log
 
+### 2026-02-20 12:25 CST | Context Death and Recovery
+
+**Category:** Observation
+**Context:** Session compacted and continued. The prior PM prepared a handoff summary. I booted into it.
+
+**Observation:** The handoff works. Kernel + briefing + notebook + summary = enough context to orient and continue. But there's a gap: the briefing wasn't updated last session. The narrative was completed, notebooks were created, Drive files went from 1 to 7, WOs went on hold — and none of that was in the briefing. The kernel was updated but the briefing was stale. First action this session was fixing that drift.
+
+**Lesson:** The briefing and kernel must stay in sync. If the kernel says "WO-NARRATIVE-001 COMPLETE" but the briefing still says "timeline compilation pending," the next PM has to reconcile them. That's wasted context window. Update both or update neither.
+
+---
+
 ### 2026-02-20 11:47 CST | Notebook Discipline Is Not Optional
 
 **Category:** Standing Order

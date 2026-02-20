@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "google-docs": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "cd",
+        "/d",
+        "C:\\Users\\Thunder\\.config\\google-docs-mcp",
+        "&&",
+        "npx",
+        "-y",
+        "google-docs-mcp"
+      ]
+    }
+  }
+}
