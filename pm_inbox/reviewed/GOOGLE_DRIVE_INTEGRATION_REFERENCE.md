@@ -47,12 +47,16 @@ Refresh token expires in ~7 days from creation (604800s). If expired, re-auth is
 | AEGIS_MEMORY_LEDGER | 10fGUlCnKQUFkuNqpUOKpT3PQb_TXXjlqKT7UB4VrUX0 | Google Doc | Append-only backup of Aegis memory items. Operator-controlled. Newest-first entries. |
 | SLATE_NOTEBOOK | 1Py1N-dCnl2Azdol2MOREdoQkT_oqvpCXRJzqca9SR3Y | Google Doc | Slate's append-only personal ledger. Decisions, mistakes, patterns. Rehydration-grade memory. |
 | ANVIL_NOTEBOOK | 1pdWxIvGEsLpPUBptNVuC9uPP9ytyiwMXZGwsdzvAip0 | Google Doc | Anvil's append-only personal ledger. Creative observations, experiment findings. Rehydration-grade memory. |
+| ANVIL_REHYDRATION_KERNEL | 1RlDv-9dScCGomsMjm2IjJOmEz28Y-Id5bBDofVswwm4 | Google Doc | Anvil's rehydration kernel backup. Sovereign copy — do not edit from PM window. |
+| SEVEN_WISDOMS_ZERO_REGRETS | 1DOySd1zb5IEZZRtTvLWY6FdON7H_tfuP3lRMTRUR9rY | Google Doc | "Seven Wisdoms, Zero Regrets" — The origin story of The Table. Complete narrative. |
 
 **Web links:**
 - Rehydration Packet: https://docs.google.com/document/d/1ZICQUDKVuO0oNqFiFl6gq5VizthLp8LxDLYgW41Gfac/edit
 - Memory Ledger: https://docs.google.com/document/d/10fGUlCnKQUFkuNqpUOKpT3PQb_TXXjlqKT7UB4VrUX0/edit
 - Slate Notebook: https://docs.google.com/document/d/1Py1N-dCnl2Azdol2MOREdoQkT_oqvpCXRJzqca9SR3Y/edit
 - Anvil Notebook: https://docs.google.com/document/d/1pdWxIvGEsLpPUBptNVuC9uPP9ytyiwMXZGwsdzvAip0/edit
+- Anvil Kernel: https://docs.google.com/document/d/1RlDv-9dScCGomsMjm2IjJOmEz28Y-Id5bBDofVswwm4/edit
+- Seven Wisdoms Narrative: https://docs.google.com/document/d/1DOySd1zb5IEZZRtTvLWY6FdON7H_tfuP3lRMTRUR9rY/edit
 
 ---
 
