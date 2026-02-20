@@ -1,25 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls:*)",
-      "Bash(python -m pytest:*)",
-      "Bash(python scripts/verify_session_start.py:*)",
-      "Bash(python scripts/speak.py:*)",
-      "Bash(python scripts/listen.py:*)",
-      "Bash(python scripts/check_kernel_size.py:*)",
-      "Bash(python scripts/check_inbox_count.py:*)",
-      "Bash(git status:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git show:*)",
-      "Bash(HF_HUB_OFFLINE=1 python:*)",
+      "Bash",
       "Read",
       "Edit",
       "Write",
       "Glob",
-      "Grep"
+      "Grep",
+      "WebFetch",
+      "WebSearch"
     ]
   },
   "hooks": {

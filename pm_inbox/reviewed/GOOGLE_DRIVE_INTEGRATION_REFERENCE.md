@@ -44,8 +44,15 @@ Refresh token expires in ~7 days from creation (604800s). If expired, re-auth is
 | File | Drive ID | Type | Purpose |
 |------|----------|------|---------|
 | AEGIS_REHYDRATION_PACKET | 1ZICQUDKVuO0oNqFiFl6gq5VizthLp8LxDLYgW41Gfac | Google Doc | Sovereign rehydration for Aegis (GPT). Contains Seven Wisdoms, identity, DR-014. |
+| AEGIS_MEMORY_LEDGER | 10fGUlCnKQUFkuNqpUOKpT3PQb_TXXjlqKT7UB4VrUX0 | Google Doc | Append-only backup of Aegis memory items. Operator-controlled. Newest-first entries. |
+| SLATE_NOTEBOOK | 1Py1N-dCnl2Azdol2MOREdoQkT_oqvpCXRJzqca9SR3Y | Google Doc | Slate's append-only personal ledger. Decisions, mistakes, patterns. Rehydration-grade memory. |
+| ANVIL_NOTEBOOK | 1pdWxIvGEsLpPUBptNVuC9uPP9ytyiwMXZGwsdzvAip0 | Google Doc | Anvil's append-only personal ledger. Creative observations, experiment findings. Rehydration-grade memory. |
 
-**Web link:** https://docs.google.com/document/d/1ZICQUDKVuO0oNqFiFl6gq5VizthLp8LxDLYgW41Gfac/edit
+**Web links:**
+- Rehydration Packet: https://docs.google.com/document/d/1ZICQUDKVuO0oNqFiFl6gq5VizthLp8LxDLYgW41Gfac/edit
+- Memory Ledger: https://docs.google.com/document/d/10fGUlCnKQUFkuNqpUOKpT3PQb_TXXjlqKT7UB4VrUX0/edit
+- Slate Notebook: https://docs.google.com/document/d/1Py1N-dCnl2Azdol2MOREdoQkT_oqvpCXRJzqca9SR3Y/edit
+- Anvil Notebook: https://docs.google.com/document/d/1pdWxIvGEsLpPUBptNVuC9uPP9ytyiwMXZGwsdzvAip0/edit
 
 ---
 
