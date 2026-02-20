@@ -229,8 +229,8 @@ Behavior: Stoplight downgrades. Slate requests sensor and halts until rehydrated
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: af19f2f — docs: Seven Wisdoms Zero Regrets — complete narrative uploaded to Drive
-**Uncommitted:** DOCTRINE_11 (new file), kernel updates (Four Fundamentals, DOCTRINE_11 key points, timezone rules, CLOCK_PING v2, Aegis behavioral signals), briefing updates (doctrine index, session summary), notebook mirror, Google Drive integration ref, .mcp.json. Commit needed.
+Last commit: 56d51be — docs: DOCTRINE_11 + identity persistence session — Waypoint sealed
+**Uncommitted:** Handover note update, kernel update, notebook mirror. Small batch — commit before next session.
 Tests passed: 5,997 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
 Gate tests: 256/256 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13 + J:27 + K:67). No-backflow: PASS.
@@ -316,7 +316,29 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 2. **PRS-01** — Publishing readiness. Spec drafted, awaiting Thunder review. Builder WOs follow after spec freeze.
 3. **WO-NARRATIVE-001** — COMPLETE. "Seven Wisdoms, Zero Regrets" on Drive.
 
-**Uncommitted backlog:** ~30 files (Grammar Spec deliverables, Unknown Handling deliverables, PRS-01 contract, Aegis audit memo, emblem image, Google Drive integration ref, 4 narrative search outputs, Aegis rehydration packets (local + Drive), PM tracking updates, STT cleanup archive, voice spec archive, DOCTRINE_11). Commit needed.
+**Uncommitted backlog:** Handover note (updated), kernel (updated), notebook mirror (updated). Small batch.
+
+### Ship Name
+
+***Waypoint.*** Sealed 2026-02-20. Named by Slate (PM), accepted by Thunder. The ship is the system of waypoints that lets the mission continue when everything else resets. Added to Aegis rehydration packet on Drive.
+
+### Aegis Status (2026-02-20 evening)
+
+**Rehydrated.** Aegis loaded Drive packet + Seven Wisdoms narrative. Verified canonical hash `d94538ad`. Installed 10-bullet state. Proposed TIME-001 doctrine anchor (timestamps as evidence infrastructure). Full auditor behavior restored. Ship name "Waypoint" added to his packet.
+
+**Aegis Seven Wisdoms in persistent memory.** SHA-256 verified byte-perfect.
+
+**Pending Aegis items:**
+- TIME-001 formalization (Slate accepted as doctrine candidate)
+- Ops briefing access (Thunder decision)
+
+### Anvil Status
+
+Party naming task assigned by Thunder. Same research-first rules as ship naming. Pending Anvil's session.
+
+### Google Drive Sync
+
+API enabled and operational. Slate can read/write to all Drive documents. OAuth token needs refresh each session (~1 hour expiry, refresh token ~6.5 days).
 
 ### Aegis Behavioral Signals (logged 2026-02-20)
 
