@@ -61,6 +61,7 @@ from smoke_scenarios.manual import (
     scenario_g_spell_on_dead,
     scenario_h_sequential,
 )
+from smoke_scenarios.waypoint import scenario_waypoint
 from smoke_scenarios.fuzzer import run_fuzz
 from smoke_scenarios.hooligan import run_hooligan, HOOLIGAN_RESULTS, HOOLIGAN_FINDINGS
 
@@ -1057,6 +1058,7 @@ def main() -> int:
     scenario_f_healing()
     scenario_g_spell_on_dead()
     scenario_h_sequential()
+    scenario_waypoint()
 
     # -- Phase 3: The Hooligan Protocol --
     run_hooligan()
