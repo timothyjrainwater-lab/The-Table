@@ -44,3 +44,4 @@ image_cache/
 
 # Python virtual environments
 .venvs/
+credentials.json

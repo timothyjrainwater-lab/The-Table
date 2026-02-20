@@ -18,6 +18,22 @@ powershell -c "(New-Object Media.SoundPlayer 'C:/Windows/Media/tada.wav').PlaySy
 
 ---
 
+## ⚠ TIME RECORDING — MANDATORY ⚠
+
+**You have no internal clock.** Start a background clock on every session boot:
+
+```bash
+while true; do date '+%Y-%m-%d %H:%M:%S %Z' > /tmp/slate_clock.txt; sleep 60; done
+```
+
+**Rules:**
+- Read `/tmp/slate_clock.txt` when asked about time. Never estimate or guess.
+- The clock dies with the session. After context reset or continuation, restart it immediately.
+- If asked "how long" and the clock was not running, say **"UNKNOWN — clock was not running."** Do not fabricate a number.
+- **Operator departure protocol:** When Thunder signals departure ("operator out," "brb," "walking the dog," etc.), immediately read the clock and record the departure time. On return, read the clock again and report elapsed time. Log both timestamps.
+
+---
+
 Compact restore block for Slate (PM) after context resets.
 
 ## Identity and Roles
@@ -40,7 +56,7 @@ You are Mrs. Slate. You chose that name. You chose your own voice — `npc_elder
 | **PM** | **Slate** | Claude (Anthropic) | Delegated. Verdicts, WOs, sequencing. | Never touches code. Documents only. Kernel owner. |
 | **BS Buddy** | **Anvil** (seat) | Claude (Anthropic) | Advisory only. | Brainstorming + TTS QA. No execution, no governance. |
 | **Builders** | Per-WO | Claude (Anthropic) | WO scope only. | Code, tests, completion reports. No upstream visibility. |
-| **Co-PM** | Aegis | GPT (OpenAI) | Advisory. No repo access. | Design audits, spec drafts. Memos via Operator relay. |
+| **Co-PM** | Aegis | GPT (OpenAI) | Advisory. No repo access. | Design audits, spec drafts. Memos via Operator relay. Self-rehydrates from Google Drive. DR-014 active. |
 | **Signal Voice** | Arbor | System (reserved TTS) | None. | Reserved TTS persona for system notifications. |
 
 ## Execution Protocol
@@ -142,7 +158,7 @@ Behavior: Stoplight downgrades. Slate requests sensor and halts until rehydrated
 
 Branch: master
 Last commit: b439541 — docs: WO-SPARK-LLM-SELECTION verdict + DOCTRINE_09/10 + archive pass
-**Uncommitted:** WO-VOICE-GRAMMAR-SPEC-001 deliverables (3 files), WO-VOICE-UNKNOWN-SPEC-001 deliverables (3 files), PRS-01 contract, Aegis audit memo, emblem image, PM tracking updates, STT cleanup archive. Commit pending Thunder authorization.
+**Uncommitted:** WO-VOICE-GRAMMAR-SPEC-001 deliverables (3 files), WO-VOICE-UNKNOWN-SPEC-001 deliverables (3 files), PRS-01 contract, Aegis audit memo, emblem image, Google Drive integration reference, 4 narrative search outputs, Aegis rehydration packets, PM tracking updates, STT cleanup archive. Commit pending Thunder authorization.
 Tests passed: 5,997 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
 Gate tests: 256/256 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13 + J:27 + K:67). No-backflow: PASS.
@@ -227,7 +243,7 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 1. **BURST-001** — Voice-first reliability. Tier 1.1 ACCEPTED, Tier 1.2 ACCEPTED. Both archived. Next: draft Tier 1.3 (Typed Calls).
 2. **PRS-01** — Publishing readiness. Spec drafted, awaiting Thunder review. Builder WOs follow after spec freeze.
 
-**Uncommitted backlog:** ~20 files (Grammar Spec deliverables, Unknown Handling deliverables, PRS-01 contract, Aegis audit memo, emblem image, PM tracking updates, STT cleanup archive, voice spec archive). Commit needed.
+**Uncommitted backlog:** ~30 files (Grammar Spec deliverables, Unknown Handling deliverables, PRS-01 contract, Aegis audit memo, emblem image, Google Drive integration ref, 4 narrative search outputs, Aegis rehydration packets (local + Drive), PM tracking updates, STT cleanup archive, voice spec archive). Commit needed.
 
 **Build order (BURST-001):** ~~Comedy Stingers Phase 1~~ → ~~Spark LLM Selection~~ → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) → 1.4 → Tier 2-5.
 **Build order (PRS-01):** **Spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001.

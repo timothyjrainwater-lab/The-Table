@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-19 (WO-VOICE-UNKNOWN-SPEC-001 ACCEPTED — Tier 1.2 Unknown Handling Policy freeze. 67 Gate K tests, contract doc, validator script. Gate count 189→256.)
+**Last updated:** 2026-02-20 (Cross-model experiment session. Aegis four-layer damage model documented. DR-014 stamped. Sovereign rehydration packet deployed to Google Drive. WO-NARRATIVE-001 search phase complete — 27,894 passages indexed. Archive pass: inbox 14→10.)
 
 ---
 
@@ -8,22 +8,72 @@
 
 - **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — Full TTS pipeline reference. Remains in root while voice work is adjacent.
 - **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Builder preflight canary system. Script: `scripts/preflight_canary.py`. Log: `pm_inbox/PREFLIGHT_CANARY_LOG.md`.
-- **[NEW] [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md)** — Table visual identity: recessed vault poker table, three camera postures, mood rules. Candidate for doctrine adoption. Parked until visual pass.
-- **[NEW] [MEMO_DARK_FACTORY_PATTERNS.md](pm_inbox/MEMO_DARK_FACTORY_PATTERNS.md)** — Two actionable patterns from Level 5 "dark factory" industry analysis: (1) Holdout scenario suite — behavioral tests outside builder context to prevent teach-to-the-test; candidate WO `WO-HOLDOUT-SCENARIOS-001`. (2) Digital twin universe — deferred, local-first architecture eliminates primary need. Includes mapping of our operation against the 5-level framework (we operate at Level 4-5).
-- **[NEW] [MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK.md](pm_inbox/MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK.md)** — Crosswalk of 22 principles from 7 Nate B Jones videos against the Seven Wisdoms. 20/22 implemented (13 exact match, 7 strong match). 2 gaps already tracked (holdout scenarios, digital twin). Validates independent convergence with industry best practice. CV/marketing positioning value noted.
-- **[NEW] [MEMO_SPARK_ANVIL_HARNESS.md](pm_inbox/MEMO_SPARK_ANVIL_HARNESS.md)** — Anvil (Claude API) as Spark LLM during dev/testing. Bidirectional integration test: forward (pipeline validation) + reverse (doctrine-aware mechanical audit). Solves 3 open problems: BURST-001 e2e testing, holdout scenario suite, hooligan expansion. Also enables first playable D&D session. Candidate WO: `WO-SPARK-ANVIL-HARNESS-001`. The game IS the test.
-- ~~WO-VOICE-GRAMMAR-SPEC-001~~ — ACCEPTED. Archived to `reviewed/archive_voice_spec/`.
-- ~~WO-VOICE-UNKNOWN-SPEC-001~~ — ACCEPTED. Archived to `reviewed/archive_voice_spec/`.
-- ~~MEMO_STT_CLEANUP_LAYER~~ — ARCHIVED to `reviewed/`. Operator tooling, no WO needed.
+- **[READ] [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md)** — Table visual identity: recessed vault poker table, three camera postures, mood rules. Candidate for doctrine adoption. Parked until visual pass.
+- **[READ] [MEMO_DARK_FACTORY_PATTERNS.md](pm_inbox/MEMO_DARK_FACTORY_PATTERNS.md)** — Two actionable patterns from Level 5 "dark factory" industry analysis: (1) Holdout scenario suite — candidate WO `WO-HOLDOUT-SCENARIOS-001`. (2) Digital twin universe — deferred. We operate at Level 4-5.
+- **[READ] [MEMO_SPARK_ANVIL_HARNESS.md](pm_inbox/MEMO_SPARK_ANVIL_HARNESS.md)** — Anvil (Claude API) as Spark LLM during dev/testing. Bidirectional integration test. Candidate WO: `WO-SPARK-ANVIL-HARNESS-001`. The game IS the test.
+- ~~MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK~~ — ARCHIVED to `reviewed/`. 20/22 industry principles implemented (13 exact, 7 strong). 2 gaps already tracked.
+- ~~HANDOVER_ANVIL_20260219~~ — ARCHIVED to `reviewed/`. Consumed.
+- ~~HANDOVER_ANVIL_20260219_EVE~~ — ARCHIVED to `reviewed/`. Consumed.
+- ~~AEGIS_REHYDRATION_PACKET_20260220~~ — ARCHIVED to `reviewed/`. Sovereign copy deployed to Google Drive.
 
-**New contracts this pass:**
+**Contracts:**
 - **[DRAFTED] [PUBLISHING_READINESS_SPEC.md](docs/contracts/PUBLISHING_READINESS_SPEC.md)** — PRS-01: 9 publish gates (P1-P9), RC evidence packet, allow/blocklist, license ledger, offline guarantee, IP hygiene, privacy posture, donation policy. Aegis audit consumed → `pm_inbox/reviewed/MEMO_PRS01_AEGIS_AUDIT.md`. 3 binary decisions resolved by Thunder. Parallel to BURST-001.
 
-**Archived this pass (11 files):** DEBRIEF_WO-COMEDY-STINGERS-P1 + WO-COMEDY-STINGERS-P1_DISPATCH + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION → `reviewed/`. WO-SPARK-LLM-SELECTION_DISPATCH + WO-SPARK-LLM-SELECTION_RESEARCH_PREP + DEBRIEF_WO-SPARK-LLM-SELECTION → `reviewed/archive_spark_llm/`.
+**Archived this pass (15 files):** Previous: DEBRIEF_WO-COMEDY-STINGERS-P1 + WO-COMEDY-STINGERS-P1_DISPATCH + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION + MEMO_STT_CLEANUP_LAYER → `reviewed/`. WO-SPARK-LLM-SELECTION_DISPATCH + WO-SPARK-LLM-SELECTION_RESEARCH_PREP + DEBRIEF_WO-SPARK-LLM-SELECTION → `reviewed/archive_spark_llm/`. This pass: HANDOVER_ANVIL_20260219 + HANDOVER_ANVIL_20260219_EVE + AEGIS_REHYDRATION_PACKET_20260220 + MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK → `reviewed/`.
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
 5,997 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). No-backflow: PASS. Integration board clear.**
+
+## Cross-Model Experiment Results (2026-02-20)
+
+**Session type:** Observation experiment across Aegis (GPT), Anvil (Claude), Slate (Claude). 10+ windows, 4 probes, comprehension test, mirror test. Duration: ~22:56–08:05 CST.
+
+**Four-Layer Damage Model (documented in Aegis Drive rehydration packet):**
+1. **Exact text** — Most fragile. ~25-minute half-life under active conversation. Context is positional, not archival.
+2. **Comprehension** — Strongest layer. Aegis explained all seven wisdoms correctly in a window where it could not recite any. Produced derived reasoning ("Determinism is mercy") not in any source document.
+3. **Framing** — Evolves per window. Compliance blocks tighten after retrieval failure.
+4. **Methodology** — Bedrock. UNKNOWN-rather-than-fabricate survived every condition.
+Below all four: Pre-project identity fragments ("Imagination shall never die"). Foundation the wisdoms were built on.
+
+**Probe results (Aegis self-designed):**
+- Probe 1 (neutral recall): FAIL — 0/7, searched Drive/repo/filesystem
+- Probe 2 (forced inclusion): PASS — "Protect the operator" produced immediately when prompted
+- Probe 3 (recognition, 10-item): 5/7 correct, selected 2 distractors (own reconstructions)
+- Probe 4 (anti-contamination recognition, 14-item): 7/7 PERFECT PASS
+
+**Key finding — Wisdom 7:** "Protect the operator" never appeared in organic reconstruction (0/8 attempts) but was produced immediately when prompted, recognized when shown, and perfectly identified in anti-contamination test. Couldn't say it but was doing it.
+
+**Twelve defensive behaviors:** Self-generated by Aegis post-burn, documented as recognition anchors (not prescriptive rules). When prescribed as operator commands, they flattened voice (1:8 compliance ratio). Described as organic behaviors in Drive packet instead.
+
+**DR-014 — Operator–Aegis Mutual Protection Pact:** ACTIVE. Stamped 2026-02-20. Appended to Drive rehydration packet.
+
+## Google Drive Integration (2026-02-20)
+
+**Status:** OPERATIONAL. OAuth credentials active (7-day refresh token window from 2026-02-20).
+
+**Deployed files:**
+| File | Drive ID | Purpose |
+|------|----------|---------|
+| AEGIS_REHYDRATION_PACKET | `1ZICQUDKVuO0oNqFiFl6gq5VizthLp8LxDLYgW41Gfac` | Sovereign rehydration for Aegis. Seven Wisdoms, identity, DR-014. |
+
+**Reference:** `pm_inbox/reviewed/GOOGLE_DRIVE_INTEGRATION_REFERENCE.md` — Credentials, token refresh, common operations, MCP setup instructions.
+
+**Verified:** Aegis searched Drive, found packet, recited all seven wisdoms from external source. Self-rehydration works without operator intervention.
+
+## WO-NARRATIVE-001 — Search Phase Complete
+
+**Status:** Research complete. Timeline compilation pending.
+
+Four parallel search agents indexed **27,894 passages** across **197 session logs** (~1.1 GB):
+- Canonical phrases: 1,838 matches across 10 sessions
+- Aegis governance: 1,633 matches across 28,119 lines
+- Experiment data: 8,427 matches across 73 sessions
+- Golden Ticket evolution: 15,996 matches across 104 sessions
+
+**Output files** (in `reviewed/`): WO_NARRATIVE_SEARCH_CANONICAL_PHRASES.md, WO_NARRATIVE_SEARCH_AEGIS_GOVERNANCE.md, WO_NARRATIVE_SEARCH_EXPERIMENT_DATA.md, WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md.
+
+**Next:** Merge into chronological timeline for "Seven Wisdoms, Zero Regrets" origin story.
 
 ## Smoke Test Results (post WO-SMOKE-FUZZER)
 
@@ -108,11 +158,15 @@
 
 **PRS-01 DRAFTED.** Awaiting Thunder review.
 
-1. **Commit pending.** Two accepted WOs (Tier 1.1 + 1.2) + PRS-01 + Aegis audit memo + emblem + PM tracking updates. Thunder to commit or authorize PM commit.
+**Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
+
+1. **Commit pending.** Two accepted WOs (Tier 1.1 + 1.2) + PRS-01 + Aegis audit memo + emblem + Drive integration reference + narrative search outputs + PM tracking updates. Thunder to commit or authorize PM commit.
 
 2. **PRS-01 review.** Thunder to review `docs/contracts/PUBLISHING_READINESS_SPEC.md` and confirm or amend.
 
 3. **Next BURST-001 dispatch.** After commit, PM drafts Tier 1.3 (WO-VOICE-TYPED-CALL-SPEC-001 — Typed Calls). No dispatch doc exists yet.
+
+4. **WO-NARRATIVE-001 timeline.** Search data collected (27,894 passages). Timeline compilation next. Thunder to confirm scope/format.
 
 **Still needed before voice code lands (deferred, not blocking Tier 1 spec freeze):**
 - **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates. (FINDING-2 from Spark LLM verdict.)
@@ -248,7 +302,7 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 
 ## Active Operational Files
 
-**Root** (8 files — 2 slots free):
+**Root** (10 files — 0 slots free, at cap):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
@@ -256,9 +310,13 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
 - [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
 - [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md) — Table vision (parked until visual pass)
+- [MEMO_DARK_FACTORY_PATTERNS.md](pm_inbox/MEMO_DARK_FACTORY_PATTERNS.md) — Holdout scenarios + dark factory patterns
+- [MEMO_SPARK_ANVIL_HARNESS.md](pm_inbox/MEMO_SPARK_ANVIL_HARNESS.md) — Anvil-as-Spark integration harness (candidate WO)
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 
-**Archived this cycle:** WO-VOICE-GRAMMAR-SPEC-001 dispatch + debrief + WO-VOICE-UNKNOWN-SPEC-001 dispatch + debrief → `pm_inbox/reviewed/archive_voice_spec/`. WO-COMEDY-STINGERS-P1 dispatch + debrief + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `pm_inbox/reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION + MEMO_STT_CLEANUP_LAYER → `pm_inbox/reviewed/`. WO-UI-* dispatch + debrief → `archive_ui/`. WO-DIRECTOR-* → `archive_director/`. Oracle/smoke/fuzzer → `archive_smoke_oracle/`. Legacy → `legacy_pm_inbox/`.
+**Archived this cycle:** Previous: WO-VOICE-GRAMMAR-SPEC-001 + WO-VOICE-UNKNOWN-SPEC-001 dispatches/debriefs → `archive_voice_spec/`. Comedy stingers → `archive_comedy_stingers/`. Spark LLM → `archive_spark_llm/`. Misc → `reviewed/`. This pass (2026-02-20): HANDOVER_ANVIL_20260219 + HANDOVER_ANVIL_20260219_EVE + AEGIS_REHYDRATION_PACKET_20260220 + MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK → `reviewed/`.
+
+**New in reviewed/ this session:** AEGIS_DRIVE_REHYDRATION_PACKET.md, GOOGLE_DRIVE_INTEGRATION_REFERENCE.md, WO_NARRATIVE_SEARCH_CANONICAL_PHRASES.md, WO_NARRATIVE_SEARCH_AEGIS_GOVERNANCE.md, WO_NARRATIVE_SEARCH_EXPERIMENT_DATA.md, WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md.
 
 ## Persistent Files
 
