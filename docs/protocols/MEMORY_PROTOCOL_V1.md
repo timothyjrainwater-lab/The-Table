@@ -282,4 +282,3 @@ This is the canonical PM database. Lists live here. The capsule points here.
 2. **Bridge harness Mode A** — Replay-driven prompt compilation tool. Queue behind RV-007. Becomes correctness-enabling once validators are hardened and need real engine truth frames. CODE WO.
 3. **Bridge harness Mode B** — Live session bridge. Queue behind Mode A. Needed for "Thunder plays / Spark narrates" continuous operation.
 4. **Aegis memory** — If Aegis adopts this protocol, same pattern: `aegis_diary/` with same structure.
-5. **Aegis memory** — If Aegis adopts this protocol, same pattern: `aegis_diary/` with same structure.
