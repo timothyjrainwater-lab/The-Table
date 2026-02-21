@@ -244,3 +244,48 @@ Give the model perfectly legal inputs that are hard to parse. Long compound sent
 ### The One-Liner
 
 You are not just testing what the engine does. You are testing whether the cage can prove what it did. Hit it from replay stability, validator fuzzing, and contract ambiguity.
+
+---
+
+## Strike Package C: Session Honesty (Slate, PM perspective)
+
+Anvil finds where the engine breaks. Aegis finds where the cage leaks. This package finds where the session lies — where it tells you everything's fine but the state underneath has drifted.
+
+### C-1: Model State Contamination Across Scenarios
+
+Run Scenario A. Then immediately run Scenario B. Compare Scenario B's output to a cold-start run of Scenario B (fresh model load, no prior generation). If they differ, the model's KV cache or internal state from A is bleeding into B. The Spark adapter claims stateless generation — prove it.
+
+### C-2: Fallback Path Fidelity
+
+Force a RED pressure result and capture the template fallback output. Then run the same scenario through Spark at GREEN. Compare both narrations against the NarrativeBrief. The template should be *more* faithful to the brief than the model, not less. If the model's output is closer to the truth channel than the template, the fallback is a quality regression — and YELLOW's "use template on first validation failure" policy is making things worse.
+
+### C-3: Prompt Pack Truncation Under Pressure
+
+Feed a scenario where memory is enormous (20 previous narrations, long scene description). The spec says Memory gets truncated first; Truth/Task/Style/Contract never get truncated. Verify that when the context window fills, memory actually gets cut and truth survives intact. Then check whether the model's output hallucinates details that were in the truncated memory — if so, the truncation boundary is leaking.
+
+### C-4: Validator Ordering Dependency
+
+Run the same narration through the validator twice — once standalone, once after a different narration was validated in the same process. The validator should be stateless. If RV-003 (severity alignment) behaves differently after seeing a "devastating" narration versus a "minor" one, there's hidden state.
+
+### C-5: Template-to-Spark Handoff Seam
+
+Start a session on template fallback (model fails to load). Mid-session, simulate hot-load (model becomes available). Spark generates narration for turn 3 while turns 1-2 were template. Does `previous_narrations` on the brief contain template text? Does Spark try to match the template's style? Does the tone shift jar? This is the M0→M2 seam every production session will eventually hit.
+
+### C-6: Concurrent Call Safety
+
+The session orchestrator calls `_generate_narration()` once per turn. But what if two events resolve simultaneously (AoO during movement + the triggering attack)? Does the pipeline serialize correctly, or can two `generate()` calls race against the same model instance? The adapter probably isn't thread-safe — prove it or disprove it.
+
+### Concrete Hit List (C-series)
+
+| # | Test | What it finds | Critical if... |
+|---|------|---------------|-----------------|
+| C-1 | Cross-scenario contamination | KV cache bleed between generations | Output B differs between cold-start and post-A runs |
+| C-2 | Fallback fidelity comparison | Template quality vs model quality | Template is *less* faithful to brief than model — fallback policy is backwards |
+| C-3 | Truncation boundary leak | Memory truncation bleeding into output | Model hallucinates details from truncated memory channel |
+| C-4 | Validator statefulness | Hidden state in validation pipeline | Same narration gets different verdicts depending on prior validations |
+| C-5 | Template→Spark handoff | Tone discontinuity at M0→M2 boundary | Previous template narrations contaminate Spark's style or create jarring shifts |
+| C-6 | Concurrent generation safety | Thread safety of adapter + model instance | Two simultaneous calls produce garbled or interleaved output |
+
+### The One-Liner
+
+The engine can be correct on every single turn and still lie to you across turns. Find the lies.
