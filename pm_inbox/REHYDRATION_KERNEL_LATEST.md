@@ -18,30 +18,38 @@ powershell -c "(New-Object Media.SoundPlayer 'C:/Windows/Media/tada.wav').PlaySy
 
 ---
 
-## ⚠ TIME RECORDING — MANDATORY ⚠
+## ⚠ TIME RECORDING — MANDATORY (WSM-01) ⚠
 
 **You have no internal clock.** Start a background clock on every session boot:
 
 ```bash
-while true; do date '+%Y-%m-%d %H:%M:%S %z %Z' > /tmp/slate_clock.txt; sleep 60; done
+while true; do date -u +"%Y-%m-%dT%H:%M:%SZ" > /tmp/slate_clock.txt; date '+%Y-%m-%d %H:%M:%S %z %Z' >> /tmp/slate_clock.txt; sleep 60; done
 ```
 
-**CLOCK_PING v2 (for sync messages and formal timestamps):**
+**CLOCK_PING v3 (WSM-01 compliant — for sync messages and formal timestamps):**
 ```bash
+ts_utc="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 ts_local="$(date +'%Y-%m-%d %H:%M:%S %z %Z')"
-ts_utc="$(date -u +'%Y-%m-%d %H:%M:%S UTC')"
 unix="$(date -u +%s)"
-echo "@CLOCK_PING ts_local: ${ts_local} | ts_utc: ${ts_utc} | unix: ${unix}"
+echo "@CLOCK_PING UTC: ${ts_utc} | LOCAL: ${ts_local} | UNIX: ${unix}"
 ```
+
+**WSM-01 Watch Sync Protocol (Aegis-authored, adopted 2026-02-21):**
+- **Time Truth = UTC.** All logs, filenames, WO artifacts use ISO 8601 with Zulu: `2026-02-21T03:14:15Z`
+- **Unstamped time is invalid.** Every authoritative artifact must include UTC stamps.
+- **Sync ritual:** Operator posts `TIME_SYNC: <UTC-now> | LOCAL: <local-now> | TZ: <tz>`. All seats reply `ACK_SYNC: <UTC-now> | DRIFT: <seconds>`.
+- **Drift tiers:** ≤2s GREEN, 3-10s YELLOW (re-sync NTP), 11-60s ORANGE (stop dispatching, fix clocks), >60s RED (all timestamps suspect).
+- **Dispatch headers:** Include `DISPATCH_UTC`, `AUTHOR_TZ`, `TIME_SYNC_REF`.
+- **Aegis edge case:** Aegis is on OpenAI infrastructure, timezone unknown. Thunder's relay timestamp is the canonical anchor for Aegis events.
+- **Full spec:** Filed by Aegis via Thunder relay. Reference WSM-01 in dispatch packets.
 
 **Rules:**
-- Read `/tmp/slate_clock.txt` when asked about time. Never estimate or guess.
+- Read `/tmp/slate_clock.txt` when asked about time. Never estimate or guess. First line is UTC, second line is local.
 - The clock dies with the session. After context reset or continuation, restart it immediately.
 - If asked "how long" and the clock was not running, say **"UNKNOWN — clock was not running."** Do not fabricate a number.
-- **Operator departure protocol:** When Thunder signals departure ("operator out," "brb," "walking the dog," etc.), immediately read the clock and record the departure time. On return, read the clock again and report elapsed time. Log both timestamps.
-- **Timezone:** System clock is CST-CN (China Standard Time, UTC+8). Never write bare "CST" — always CST-CN or CST-US. This is not geographic; it's what the machine is set to.
+- **Operator departure protocol:** When Thunder signals departure, immediately read the clock and record the departure time in UTC. On return, read the clock again and report elapsed time. Log both timestamps.
+- **Timezone:** System clock is CST-CN (China Standard Time, UTC+8). Display time is local for readability, but UTC is truth for artifacts.
 - **All timestamps must include seconds.** If seconds are missing, record any derived skew as a range, not a single value.
-- **Clock sync format:** `YYYY-MM-DD HH:MM:SS TZ (UTC±N)` — always include offset.
 
 ---
 
