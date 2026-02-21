@@ -205,10 +205,10 @@ class TestTurnOrderFollowsInitiative:
         # For seed 42, the first actor is determined by dice
         first_team = fixture.world_state.entities[first_actor].get(EF.TEAM, "")
         if first_team == "party":
-            assert f"--- {first_name}'s Turn ---" in output
+            assert f"{first_name}'s Turn" in output
         else:
-            # Enemy turn: "--- <name> attacks <target>! ---" or "--- <name>'s Turn (moves toward...) ---"
-            assert f"--- {first_name}" in output
+            # Enemy turn: "{name}'s Turn"
+            assert f"{first_name}'s Turn" in output
 
     def test_order_stable_across_rounds(self):
         """Initiative order doesn't change between rounds."""

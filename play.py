@@ -567,7 +567,7 @@ def format_events(events, ws: WorldState) -> str:
         elif ev.event_type == "spell_cast_failed":
             reason = p.get("reason", "unknown reason")
             spell = p.get("spell_name", p.get("spell_id", "spell"))
-            lines.append(f"  Spell failed ({spell}): {reason}")
+            lines.append(f"[RESOLVE] Spell failed ({spell}): {reason}")
         elif ev.event_type == "attack_roll":
             d20 = p.get("d20_result", "?")
             bonus = p.get("attack_bonus", 0)
@@ -605,11 +605,15 @@ def format_events(events, ws: WorldState) -> str:
                 bonus_str = f"{bonus} ({', '.join(atk_parts)})"
             else:
                 bonus_str = str(bonus)
-            lines.append(f"  Roll: [{d20}] + {bonus_str} = {total} vs {ac_str} -> {'HIT' if hit else 'MISS'}")
+            lines.append(f"[RESOLVE] Attack roll: [{d20}]+{bonus_str} = {total} vs {ac_str} \u2192 {'HIT' if hit else 'MISS'}")
+            if hit:
+                lines.append("The attack strikes true.")
+            else:
+                lines.append("The attack goes wide.")
         elif ev.event_type == "damage_roll":
             dice = p.get("damage_dice", "?")
             final = p.get("final_damage", 0)
-            lines.append(f"  Damage: {dice} -> {final} hp")
+            lines.append(f"[RESOLVE] Damage: {dice} = {final}")
         elif ev.event_type == "hp_changed":
             name = _name(ws, p.get("entity_id", ""))
             hp_before = p.get("hp_before") if p.get("hp_before") is not None else p.get("old_hp", "?")
@@ -619,14 +623,14 @@ def format_events(events, ws: WorldState) -> str:
                 spell_name = source[len("spell:"):]
                 delta = p.get("delta", 0)
                 if delta > 0:
-                    lines.append(f"  {name}: healed {delta} HP ({spell_name}) — HP {hp_before} -> {hp_after}")
+                    lines.append(f"[RESOLVE] HP: {hp_before} \u2192 {hp_after} (+{delta}, {spell_name})")
                 else:
-                    lines.append(f"  {name}: {abs(delta)} damage ({spell_name}) — HP {hp_before} -> {hp_after}")
+                    lines.append(f"[RESOLVE] HP: {hp_before} \u2192 {hp_after} ({delta}, {spell_name})")
             else:
-                lines.append(f"  {name}: HP {hp_before} -> {hp_after}")
+                lines.append(f"[RESOLVE] HP: {hp_before} \u2192 {hp_after}")
         elif ev.event_type == "entity_defeated":
             name = _name(ws, p.get("entity_id", ""))
-            lines.append(f"  *** {name} is DEFEATED! ***")
+            lines.append(f"{name} is DEFEATED.")
         elif ev.event_type == "condition_applied":
             name = _name(ws, p.get("entity_id", p.get("target_id", "")))
             condition = p.get("condition", p.get("condition_type", "unknown"))
@@ -635,12 +639,14 @@ def format_events(events, ws: WorldState) -> str:
             # Spell-sourced conditions: "gains Shield effect" instead of "is now shield"
             if source.startswith("spell:"):
                 label = condition.replace("_", " ").title()
-                dur_str = f" ({duration} rounds)" if duration else ""
-                lines.append(f"  {name} gains {label} effect{dur_str}")
+                lines.append(f"  {name} gains {label} effect")
+                if duration:
+                    lines.append(f"  [RESOLVE] {label}: {duration} rounds remaining")
             elif duration:
-                lines.append(f"  {name} is now {condition} ({duration} rounds)")
+                lines.append(f"{name} is {condition.upper()}.")
+                lines.append(f"  [RESOLVE] {condition.replace('_', ' ')}: {duration} rounds remaining")
             else:
-                lines.append(f"  {name} is now {condition}")
+                lines.append(f"{name} is {condition.upper()}.")
         elif ev.event_type == "condition_removed":
             name = _name(ws, p.get("entity_id", ""))
             condition = p.get("condition", "unknown")
@@ -654,49 +660,49 @@ def format_events(events, ws: WorldState) -> str:
             actor = _name(ws, p.get("actor_id", ""))
             if distance_ft and distance_ft > 5:
                 if actor:
-                    lines.append(f"  {actor} moves to ({to_x}, {to_y}) [{distance_ft} ft]")
+                    lines.append(f"[RESOLVE] Move: ({to_x},{to_y}), {distance_ft} ft")
                 else:
-                    lines.append(f"  Moved to ({to_x}, {to_y}) [{distance_ft} ft]")
+                    lines.append(f"[RESOLVE] Move: ({to_x},{to_y}), {distance_ft} ft")
             else:
                 if actor:
-                    lines.append(f"  {actor} moves to ({to_x}, {to_y})")
+                    lines.append(f"[RESOLVE] Move: ({to_x},{to_y})")
                 else:
-                    lines.append(f"  Moved to ({to_x}, {to_y})")
+                    lines.append(f"[RESOLVE] Move: ({to_x},{to_y})")
         # AoO events
         elif ev.event_type == "aoo_triggered":
             reactor = _name(ws, p.get("reactor_id", ""))
             provoker = _name(ws, p.get("provoker_id", ""))
-            lines.append(f"  {reactor} makes an attack of opportunity against {provoker}!")
+            lines.append(f"[RESOLVE] {reactor} makes an attack of opportunity against {provoker}")
         elif ev.event_type == "tumble_check":
             entity = _name(ws, p.get("entity_id", ""))
             success = p.get("success", False)
             total = p.get("total", 0)
             dc = p.get("dc", 15)
             result_str = "success" if success else "failure"
-            lines.append(f"  {entity} attempts to tumble (DC {dc}: rolled {total} — {result_str}!)")
+            lines.append(f"[RESOLVE] Tumble check DC {dc}: rolled {total} \u2192 {result_str}")
         elif ev.event_type == "aoo_avoided_by_tumble":
             entity = _name(ws, p.get("entity_id", ""))
-            lines.append(f"  {entity} tumbles past safely!")
+            lines.append(f"[RESOLVE] {entity} tumbles past safely")
         elif ev.event_type == "aoo_blocked_by_cover":
             reactor = _name(ws, p.get("reactor_id", ""))
-            lines.append(f"  {reactor}'s AoO blocked by cover")
+            lines.append(f"[RESOLVE] {reactor}'s AoO blocked by cover")
         # Maneuver events
         elif ev.event_type in ("bull_rush_declared", "trip_declared", "overrun_declared",
                                "sunder_declared", "disarm_declared", "grapple_declared"):
             attacker = _name(ws, p.get("attacker_id", ""))
             target = _name(ws, p.get("target_id", ""))
             maneuver = ev.event_type.replace("_declared", "").replace("_", " ")
-            lines.append(f"  {attacker} attempts to {maneuver} {target}!")
+            lines.append(f"[RESOLVE] {attacker} attempts to {maneuver} {target}")
         elif ev.event_type == "opposed_check":
             attacker_total = p.get("attacker_total", 0)
             defender_total = p.get("defender_total", 0)
-            lines.append(f"  Opposed check: {attacker_total} vs {defender_total}")
+            lines.append(f"[RESOLVE] Opposed check: {attacker_total} vs {defender_total}")
         elif ev.event_type == "touch_attack_roll":
             d20 = p.get("d20_result", "?")
             total = p.get("total", 0)
             ac = p.get("target_touch_ac", p.get("target_ac", 0))
             hit = p.get("hit", False)
-            lines.append(f"  Touch attack: [{d20}] = {total} vs Touch AC {ac} -> {'HIT' if hit else 'MISS'}")
+            lines.append(f"[RESOLVE] Touch attack: [{d20}] = {total} vs Touch AC {ac} \u2192 {'HIT' if hit else 'MISS'}")
         elif ev.event_type == "overrun_avoided":
             defender = _name(ws, p.get("defender_id", ""))
             lines.append(f"  {defender} steps aside!")
@@ -704,12 +710,12 @@ def format_events(events, ws: WorldState) -> str:
                                "sunder_success", "disarm_success", "grapple_success",
                                "counter_trip_success", "counter_disarm_success"):
             maneuver = ev.event_type.replace("_success", "").replace("_", " ").title()
-            lines.append(f"  {maneuver} succeeds!")
+            lines.append(f"[RESOLVE] {maneuver} succeeds")
         elif ev.event_type in ("bull_rush_failure", "trip_failure", "overrun_failure",
                                "sunder_failure", "disarm_failure", "grapple_failure",
                                "counter_trip_failure", "counter_disarm_failure"):
             maneuver = ev.event_type.replace("_failure", "").replace("_", " ").title()
-            lines.append(f"  {maneuver} fails!")
+            lines.append(f"[RESOLVE] {maneuver} fails")
     return "\n".join(lines) if lines else "  (no visible effect)"
 
 
@@ -733,7 +739,7 @@ def show_status(ws: WorldState) -> None:
         bab_str = f"+{bab}" if bab >= 0 else str(bab)
         speed = e.get(EF.BASE_SPEED, 30)
         speed_sq = speed // 5
-        print(f"  {e.get('name', eid):20s}  HP {hp}/{mx}  AC {ac}  BAB {bab_str}  Spd {speed_sq}sq  {pos_str}{cond_display}")
+        print(f"[AIDM] {e.get('name', eid):20s}  HP {hp}/{mx}  AC {ac}  BAB {bab_str}  Spd {speed_sq}sq  {pos_str}{cond_display}")
 
 
 def show_map(ws: WorldState) -> None:
@@ -887,9 +893,7 @@ def _main_loop(seed: int, input_fn) -> None:
     next_event_id = 0
     round_number = 1
 
-    print("=" * 50)
-    print("  D&D 3.5e Combat -- AIDM Engine")
-    print("=" * 50)
+    print("[AIDM] D&D 3.5e Combat -- AIDM Engine")
     print()
 
     # Display rolled initiative order
@@ -913,14 +917,12 @@ def _main_loop(seed: int, input_fn) -> None:
     print("Type 'help' for commands, or 'quit' to exit.")
     print()
 
-    print(f"\n{'=' * 20} Round {round_number} {'=' * 20}")
+    print(f"\n[AIDM] Round {round_number}")
 
     while True:
         over, reason = is_combat_over(ws)
         if over:
-            print(f"\n{'=' * 50}")
-            print(f"  {reason}")
-            print(f"{'=' * 50}")
+            print(f"\n[AIDM] {reason}")
             return
 
         for actor_id in init_order:
@@ -933,7 +935,7 @@ def _main_loop(seed: int, input_fn) -> None:
 
             if team == "party":
                 # Player turn
-                print(f"\n--- {name}'s Turn ---")
+                print(f"\n{name}'s Turn")
                 budget = ActionBudget()
 
                 while True:
@@ -941,7 +943,8 @@ def _main_loop(seed: int, input_fn) -> None:
                     remaining = budget.remaining_str()
                     print(f"  [{remaining}]")
                     try:
-                        text = input_fn(f"\n{name}> ")
+                        print("Your action?")
+                        text = input_fn("> ")
                     except (EOFError, KeyboardInterrupt):
                         print("\nFarewell!")
                         return
@@ -1012,9 +1015,9 @@ def _main_loop(seed: int, input_fn) -> None:
                 if target is None:
                     continue
                 if _is_adjacent(ws, actor_id, target):
-                    print(f"\n--- {name} attacks {_name(ws, target)}! ---")
+                    print(f"\n{name}'s Turn")
                 else:
-                    print(f"\n--- {name}'s Turn (moves toward {_name(ws, target)}) ---")
+                    print(f"\n{name}'s Turn")
                 result = run_enemy_turn(ws, actor_id, seed, turn_index, next_event_id)
                 print(format_events(result.events, ws))
                 if result.status == "ok":
@@ -1029,7 +1032,7 @@ def _main_loop(seed: int, input_fn) -> None:
         # Round boundary — all actors have acted, new round begins
         round_number += 1
         ws.active_combat["round_index"] = round_number - 1
-        print(f"\n{'=' * 20} Round {round_number} {'=' * 20}")
+        print(f"\n[AIDM] Round {round_number}")
 
 
 if __name__ == "__main__":

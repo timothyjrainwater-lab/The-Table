@@ -535,7 +535,7 @@ class TestCLIMovementIntegration:
     def test_move_multiple_squares(self):
         """Player can move more than 1 square."""
         output = self._run_session(["move 3 1", "quit"], seed=42)
-        assert "moves to (3, 1)" in output
+        assert "[RESOLVE] Move: (3,1)" in output
 
     def test_move_shows_distance(self):
         """Multi-square move shows distance in feet."""
