@@ -4,15 +4,12 @@
 
 **YOU MUST FIRE AN AUDIO CUE when work completes.** The Operator works on other tasks and CANNOT see your output. The audio cue is the ONLY way they know you're done. This has been requested 10+ times. Missing this cue wastes Operator time and stalls the pipeline.
 
-**Primary command (voice pipeline):**
+**Primary command (voice pipeline — Kokoro CPU, always available):**
 ```
-python scripts/speak.py --persona builder_signal "Work order complete. Awaiting Thunder."
+python scripts/speak.py --persona npc_elderly --backend kokoro "Work order complete. Awaiting Thunder."
 ```
 
-**Fallback (if TTS fails or GPU unavailable):**
-```
-powershell -c "(New-Object Media.SoundPlayer 'C:/Windows/Media/tada.wav').PlaySync()"
-```
+**NOTE:** `builder_signal` persona requires CUDA/Chatterbox which is not currently available. Use `npc_elderly` on Kokoro instead. Do NOT fall back to `tada.wav` — Thunder has explicitly banned that sound effect.
 
 **Fire after:** (1) WO dispatch ready, (2) WO verdict delivered, (3) PM needs Operator input. **No exceptions. This is mandatory, not optional.**
 
