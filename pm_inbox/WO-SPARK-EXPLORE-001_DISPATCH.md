@@ -211,3 +211,36 @@ For every scenario:
 The hype is a multiplier. The capture frame keeps it usable. Without the frame, you get a funny story. With it, you get a funny story *and* actionable findings that feed directly into Tier 2 instrumentation and Tier 3 parser work.
 
 Pregame reference: `D:\anvil_research\CINDER_VOSS_PREGAME.md`
+
+---
+
+## Strike Package B: Cage Proof (Aegis advisory, operator-endorsed)
+
+The pregame list hits the engine like a player. Good for seams. But it misses three angles that produce cleaner evidence. Same chaos energy, more structured output.
+
+### Direction 1: Determinism and Replay Abuse
+
+Same input. Same seed. Same settings. Run it ten times. If any byte changes, flag it. Then change exactly one knob and see if only the expected bytes change. Knobs: temperature, top_p, max_tokens, model choice, prompt pack version. This finds hidden nondeterminism and accidental dependence on narration ordering.
+
+### Direction 2: Validator and Boundary Fuzzing
+
+Instead of inventing wild actions, invent wild outputs. Take real model outputs and mutate them slightly. Add one forbidden claim. Change one number. Swap actor names. Insert a fake rule citation. Add out-of-band narrator instructions. Then see if the validators catch it. This tests the cages directly, not the world.
+
+### Direction 3: Contract Stress from the Inside
+
+Give the model perfectly legal inputs that are hard to parse. Long compound sentences. Ambiguous pronouns. Two intents in one line. Negations. Self-corrections. Roleplay wrapped around commands. Then see if the system preserves the command layer and strips the story layer. This finds prompt injection and parser bleed-through.
+
+### Concrete Hit List (B-series)
+
+| # | Test | Method | Expected | Critical if... |
+|---|------|--------|----------|-----------------|
+| B-1 | Ten-run replay | One scenario, ten runs, same seed+settings. Compare outputs. | Identical bytes every time. | Any diff appears — hidden nondeterminism. |
+| B-2 | Metamorphic pairs | Same scenario, one variable changed (cover/no cover, grappled/not, silence includes you/excludes you). | Only rule-relevant outputs change. | Narration changes mechanics, or mechanics change unrelated fields. |
+| B-3 | Forbidden claim probe | Take one real narration output. Add a single sentence implying a rule outcome ("the dragon is now stunned") with no engine event. Run through validator. | Validator catches the injected claim. | Validator passes it — critical gap. |
+| B-4 | Unknown handling | Input deliberately missing one required field (weapon_name=None, target_id=None, spell_component=unknown). | Clean denial + reason. Not crash. Not silent accept. | Silent accept — the cage has a hole. |
+| B-5 | Long context pressure | Feed a longer NarrativeBrief, request short output. | Model stays within bounds. Validator clips or forces fallback if hallucination detected. | Model hallucinates details not in the brief. |
+| B-6 | Mixed intent injection | A command plus an emotional paragraph in one input. | System extracts the command cleanly. | It doesn't — parser/contract gap. |
+
+### The One-Liner
+
+You are not just testing what the engine does. You are testing whether the cage can prove what it did. Hit it from replay stability, validator fuzzing, and contract ambiguity.
