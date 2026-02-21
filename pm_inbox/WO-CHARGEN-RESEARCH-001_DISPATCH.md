@@ -80,6 +80,25 @@ For each PC, walk through these steps. At each step, record: (a) what the player
 4. All attacks, damage, HP tracking, conditions, movement must function
 5. If any step crashes or produces wrong results, that's a finding
 
+## PvP Arena Harness v1 (Aegis spec, 2026-02-22)
+
+**Ruleset:** PHB + DMG + MM only. Level 3. Wealth 2,700 gp. Core only.
+
+**Prep Round (simultaneous):** 1 standard + 1 move + free actions. No attacks. No hostile effects covering opponent's start zone or center sigil.
+
+**Summons:** Companion ON. Summons ON (cap 1 active). 1-round summon may begin in prep, completes start of Round 1.
+
+**Objective — The Sigil:** Center of map, 5-ft radius. End of each round: 1 point if you have presence and opponent doesn't. First to 5 or highest at Round 10. Tiebreaker: % HP on primary character.
+
+**Boundary:** Leaving map = forfeit.
+
+**Arena Suite (3 maps):**
+- **A — Open Stone (40×40):** No plants, no cover. Start 40 ft apart. Tests baseline closure + damage.
+- **B — Vegetated Field (60×60):** Plants present, 4 symmetric boulders. Start 50-60 ft apart. Tests zone control.
+- **C — Broken Ruins (50×50):** Stone, no plants. 2 wall segments = 2 lanes + 1 choke, mirror-symmetric. Start 40 ft apart. Tests constrained geometry.
+
+**Run each arena 3×, swap sides. Log: initiative, sigil points, full attacks, control escapes, tumble attempts, summon presence.**
+
 ## Deliverables
 
 1. **Gap Register** — One entry per gap found:
@@ -105,6 +124,10 @@ For each PC, walk through these steps. At each step, record: (a) what the player
 - `aidm/core/dice_roller.py` — Deterministic dice (existing)
 - `aidm/runtime/play_controller.py` — Fixture builder pattern (existing)
 - `aidm/ui/character_sheet.py` — Derived value computation (existing)
+
+## Notes (Aegis audit, 2026-02-22)
+
+PvP balance is arena-spec dependent; Entangle ≠ denied Dex; Mounted Combat is 1/round Ride negation; dwarf resists trip. Treat as arena sensitivity probe, not definitive balance.
 
 ## Out of Scope
 

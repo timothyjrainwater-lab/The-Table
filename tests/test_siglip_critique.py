@@ -198,18 +198,18 @@ def test_siglip_critic_high_similarity_passes():
 
                 result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
-            assert result.passed is True
-            assert result.overall_severity == SeverityLevel.ACCEPTABLE
-            assert result.overall_score == 0.85
-            assert result.rejection_reason is None
-            assert result.critique_method == "siglip_reference_comparison"
+                assert result.passed is True
+                assert result.overall_severity == SeverityLevel.ACCEPTABLE
+                assert result.overall_score == 0.85
+                assert result.rejection_reason is None
+                assert result.critique_method == "siglip_reference_comparison"
 
-            # Check identity dimension
-            identity_dims = [d for d in result.dimensions if d.dimension == DimensionType.IDENTITY_MATCH]
-            assert len(identity_dims) == 1
-            identity_dim = identity_dims[0]
-            assert identity_dim.severity == SeverityLevel.ACCEPTABLE
-            assert identity_dim.measurement_method == "siglip_embedding_similarity"
+                # Check identity dimension
+                identity_dims = [d for d in result.dimensions if d.dimension == DimensionType.IDENTITY_MATCH]
+                assert len(identity_dims) == 1
+                identity_dim = identity_dims[0]
+                assert identity_dim.severity == SeverityLevel.ACCEPTABLE
+                assert identity_dim.measurement_method == "siglip_embedding_similarity"
 
 
 def test_siglip_critic_low_similarity_fails():
@@ -225,16 +225,16 @@ def test_siglip_critic_low_similarity_fails():
 
                 result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
-            assert result.passed is False
-            assert result.rejection_reason is not None
-            assert "low identity similarity" in result.rejection_reason.lower()
-            assert result.critique_method == "siglip_reference_comparison"
+                assert result.passed is False
+                assert result.rejection_reason is not None
+                assert "low identity similarity" in result.rejection_reason.lower()
+                assert result.critique_method == "siglip_reference_comparison"
 
-            # Check identity dimension
-            identity_dims = [d for d in result.dimensions if d.dimension == DimensionType.IDENTITY_MATCH]
-            assert len(identity_dims) == 1
-            identity_dim = identity_dims[0]
-            assert identity_dim.severity in [SeverityLevel.MINOR, SeverityLevel.MAJOR]
+                # Check identity dimension
+                identity_dims = [d for d in result.dimensions if d.dimension == DimensionType.IDENTITY_MATCH]
+                assert len(identity_dims) == 1
+                identity_dim = identity_dims[0]
+                assert identity_dim.severity in [SeverityLevel.MINOR, SeverityLevel.MAJOR]
 
 
 # =============================================================================
@@ -412,31 +412,36 @@ def test_siglip_critic_roundtrip_through_factory():
 # CritiqueResult Schema Compliance Tests
 # =============================================================================
 
+# =============================================================================
+# CritiqueResult Schema Compliance Tests
+# =============================================================================
+
 def test_siglip_critic_result_schema_compliance():
     """SigLIPCritiqueAdapter returns schema-compliant CritiqueResult."""
     critic = SigLIPCritiqueAdapter()
-    image_bytes = generate_test_image_bytes()
-    anchor_bytes = generate_test_image_bytes()
 
-    # Mock load and _compute_similarity to avoid real model dependencies
+    # Mock load, _compute_similarity and _load_image_from_bytes
     with patch.object(critic, 'load'):
         with patch.object(critic, '_compute_similarity', return_value=0.75):
             with patch.object(critic, '_load_image_from_bytes', return_value=Image.new('RGB', (512, 512))):
+                image_bytes = generate_test_image_bytes()
+                anchor_bytes = generate_test_image_bytes()
+
                 result = critic.critique(image_bytes, DEFAULT_CRITIQUE_RUBRIC, anchor_image_bytes=anchor_bytes)
 
-    # Schema compliance checks
-    assert isinstance(result.passed, bool)
-    assert isinstance(result.overall_severity, SeverityLevel)
-    assert isinstance(result.overall_score, float)
-    assert 0.0 <= result.overall_score <= 1.0
-    assert isinstance(result.critique_method, str)
-    assert len(result.dimensions) == 5  # All 5 dimension types
+                # Schema compliance checks
+                assert isinstance(result.passed, bool)
+                assert isinstance(result.overall_severity, SeverityLevel)
+                assert isinstance(result.overall_score, float)
+                assert 0.0 <= result.overall_score <= 1.0
+                assert isinstance(result.critique_method, str)
+                assert len(result.dimensions) == 5  # All 5 dimension types
 
-    # Check all dimensions
-    for dim in result.dimensions:
-        assert isinstance(dim.dimension, DimensionType)
-        assert isinstance(dim.severity, SeverityLevel)
-        assert isinstance(dim.score, float)
-        assert 0.0 <= dim.score <= 1.0
-        assert isinstance(dim.reason, str)
-        assert isinstance(dim.measurement_method, str)
+                # Check all dimensions
+                for dim in result.dimensions:
+                    assert isinstance(dim.dimension, DimensionType)
+                    assert isinstance(dim.severity, SeverityLevel)
+                    assert isinstance(dim.score, float)
+                    assert 0.0 <= dim.score <= 1.0
+                    assert isinstance(dim.reason, str)
+                    assert isinstance(dim.measurement_method, str)
