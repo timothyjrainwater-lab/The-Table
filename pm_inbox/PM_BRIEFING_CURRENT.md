@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-20 19:52 CST-CN (DOCTRINE_11 Identity Persistence adopted. Four Fundamentals recorded across all kernels. Aegis CST-CN timezone correction applied. Clock ping v2 deployed. 7 notebook entries written. Behavioral signals logged. Handoff prepared.)
+**Last updated:** 2026-02-21 01:45 CST-CN (WO-WAYPOINT-002 + WO-WAYPOINT-003 drafted. Hygiene pass: 3 memos archived, root at 9. Waypoint findings burn-down sequence ready.)
 
 ---
 
@@ -23,7 +23,7 @@
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,997 unit tests pass (excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). No-backflow: PASS. Integration board clear.**
+5,997 unit tests pass + 31 new WO-WAYPOINT-001 tests (6,028 total, excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). Waypoint: 5/5 PASS (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation — 14 pass, 1 skip). No-backflow: PASS. Integration board clear.**
 
 ## Cross-Model Experiment Results (2026-02-20)
 
@@ -138,6 +138,7 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-WAYPOINT-001 | **ACCEPTED with findings** — 6/6 deliverables. 5/5 gate tests GREEN (14 pass, 1 skip). 0 regressions (6,028 suite). Full table loop: 3 JSON fixtures loaded, 3 turns executed (Hold Person → Spot check + Power Attack → paralyzed actor), live→replay determinism proven, 10x replay consistency, time isolation confirmed. Aegis tightenings: all 3 applied (modifier breakdown proof, live→replay normalized, real intent to paralyzed actor). **3 findings:** (1) FINDING-WAYPOINT-01 — `play_loop` does not enforce `actions_prohibited` on actor conditions (Branch B confirmed); (2) FINDING-WAYPOINT-02 — `weapon_name="unknown"` in attack_resolver silently disables Weapon Focus matching; (3) FINDING-WAYPOINT-03 — event payload uses `d20_result` not `d20_roll`. **1 skip:** W-3 `weapon_name` in NarrativeBrief (not extracted from attack events — frozen scope). A9 divergence handled via replay-compatible initial state. Radar compliant (3/3 labeled lines). Field Manual #38 needed (replay initial state workaround). | `dddcd9e` |
 | WO-VOICE-UNKNOWN-SPEC-001 | **ACCEPTED** — 3/3 deliverables. Unknown Handling Contract (`docs/contracts/UNKNOWN_HANDLING_CONTRACT.md`), 67 Gate K tests (K-01..K-10, all PASS), validator script (`scripts/check_unknown_handling.py`). 36 T-* signals tested (dispatch said 35, research had 36 — builder caught it). VoiceEvent fixture schema extensible for Tier 3. T-BLEED-01 pinned YELLOW (research said "YELLOW or RED" — correct call). FC-AMBIG-06 untested (no T-* signal in research — noted, not a gap). Radar compliant. | (pending commit) |
 | WO-VOICE-GRAMMAR-SPEC-001 | **ACCEPTED** — 3/3 deliverables. CLI Grammar Contract (`docs/contracts/CLI_GRAMMAR_CONTRACT.md`), 27 Gate J tests (all PASS), validator script (`scripts/check_cli_grammar.py`). G-01 regex tightened (improvement). NARRATION/RESULT classifier heuristic noted for Tier 3. No code changes to engine. | (pending commit) |
 | WO-SPARK-LLM-SELECTION | **ACCEPTED with findings** — Research + evaluation WO (no code changes). 6/6 deliverables. Qwen2.5 7B Instruct (Q4_K_M) selected — only candidate to pass all 5 gates (5/5). Quality 24.0/25, load time 2.69s, VRAM 5,818 MB. Scope deviation: Qwen3→Qwen2.5, Gemma3→Gemma2 (llama-cpp-python 0.3.4 arch gap — defensible). Radar compliant. **4 findings:** (1) GAP-B HIGH — llama-cpp-python blocks Qwen3/Gemma3, need VS Build Tools; (2) Budget margin 0.55s — Chatterbox swap times estimated not measured; (3) S4 load spikes in loops 2-3; (4) GAP-C DLL directory fix needed. Eval infra (`scripts/spark_eval.py`) retained for Qwen3 re-eval. | (research WO, no commit) |
@@ -169,17 +170,17 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 ## Requires Operator Action (NOW)
 
-**TABLE PROJECT WOs ON HOLD** per Thunder directive (2026-02-20). Non-project infrastructure work only.
+**ALL TABLE PROJECT OPERATIONS ON HOLD** per Thunder directive (2026-02-21). This includes WO-WAYPOINT-002, -003, BURST-001, PRS-01, and all parked items.
 
-**WO-NARRATIVE-001 COMPLETE.** Narrative on Drive. No further action needed.
+**WO-WAYPOINT-002 DRAFTED (ON HOLD).** Condition action denial. Dispatch: [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md).
 
-**PRS-01 DRAFTED.** Awaiting Thunder review (ON HOLD with Table WOs).
+**WO-WAYPOINT-003 DRAFTED (ON HOLD).** Weapon name plumbing. Dispatch: [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md).
 
-**Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
+**Aegis relay ready.** Waypoint results, tightenings confirmed, findings listed.
 
-1. **PRS-01 review (when WOs resume).** Thunder to review `docs/contracts/PUBLISHING_READINESS_SPEC.md` and confirm or amend.
+**Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days. Notebook entries 19-20 still pending Drive sync.
 
-2. **Next BURST-001 dispatch (when WOs resume).** PM drafts Tier 1.3 (WO-VOICE-TYPED-CALL-SPEC-001 — Typed Calls). No dispatch doc exists yet.
+1. **Direction needed.** All table work parked. Awaiting Thunder's next directive.
 
 **Still needed before voice code lands (deferred, not blocking Tier 1 spec freeze):**
 - **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates. (FINDING-2 from Spark LLM verdict.)
@@ -192,8 +193,11 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **Planned sequence (PRS-01):** **PRS-01 spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001
 
-### Previous Dispatches (All Accepted)
+### Dispatches
 
+- **[READY] WO-WAYPOINT-002** — Condition action denial: play_loop enforces `actions_prohibited`. 5 gate tests (WP2-0 through WP2-4). Updates Waypoint W-2 from Branch B→A. Fixes FINDING-WAYPOINT-01. Dispatch: [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md).
+- **[READY — after -002] WO-WAYPOINT-003** — Weapon name plumbing: feat context gets real weapon name + NarrativeBrief weapon_name + d20_result doc note. 6 gate tests (WP3-0 through WP3-5). Fixes FINDING-WAYPOINT-02 + FINDING-WAYPOINT-03. Dispatch: [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md).
+- ~~WO-WAYPOINT-001~~ — ACCEPTED with findings (`dddcd9e`). 5/5 gate tests (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation). 6,028 suite, 0 regressions. Full table loop proven. 3 findings: `actions_prohibited` not enforced, `weapon_name="unknown"` blocks Weapon Focus, `d20_result` field name mismatch. A9 divergence handled. Radar compliant. **WAYPOINT MAIDEN VOYAGE COMPLETE.**
 - ~~WO-VOICE-UNKNOWN-SPEC-001~~ — ACCEPTED (pending commit). 67 Gate K tests (all PASS). Unknown Handling Contract frozen (7 failure classes, STOPLIGHT, clarification budget), validator script. 36 T-* signals tested. Field Manual #37 needed (VoiceEvent extensibility).
 - ~~WO-VOICE-GRAMMAR-SPEC-001~~ — ACCEPTED (pending commit). 27 Gate J tests (all PASS). CLI Grammar Contract frozen, validator script. First BURST-001 Tier 1 WO. Field Manual #36 needed (G-01 regex tightening).
 - ~~WO-SPARK-LLM-SELECTION~~ — ACCEPTED with findings (research WO, no commit). Qwen2.5 7B Instruct selected (5/5 gates). Sequential VRAM confirmed. Eval infra retained. 4 findings surfaced. **SPARK LLM SELECTION COMPLETE.**
@@ -232,7 +236,7 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) | **PRS-01** (DRAFTED, parallel track — review → builder WOs)
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → ~~WO-WAYPOINT-001~~ **WAYPOINT MAIDEN VOYAGE COMPLETE** → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) | **PRS-01** (DRAFTED, parallel track — review → builder WOs)
 
 **Doctrine files** (in `pm_inbox/doctrine/` — 11 files, permanent reference):
 
@@ -313,22 +317,20 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 - **WO-SPARK-LLM-SELECTION** — Local LLM selection for Spark cage: Qwen2.5 7B Instruct (Q4_K_M) selected, 5/5 gates, sequential VRAM posture confirmed, eval infra retained for Qwen3 re-eval
 - **WO-VOICE-GRAMMAR-SPEC-001** — CLI Grammar Contract freeze: binding contract (G-01..G-07 + AP-01..AP-07 + line types + voice routing), 27 Gate J tests, validator script. First BURST-001 Tier 1 WO.
 - **WO-VOICE-UNKNOWN-SPEC-001** — Unknown Handling Policy freeze: binding contract (7 failure classes + STOPLIGHT + clarification budget + cross-cutting rules), 67 Gate K tests (36 T-* signals), validator script. BURST-001 Tier 1.2.
+- **WO-WAYPOINT-001** — Waypoint maiden voyage: full table loop determinism proof. 3 JSON fixtures, 3-turn combat (Hold Person + Spot check + Power Attack + paralyzed actor), 5 gate tests (W-0 through W-4), smoke scenario. 3 findings (actions_prohibited, weapon_name, d20_result). **WAYPOINT PROVEN.**
 
 ## Active Operational Files
 
-**Root** (10 files — 0 slots free, at cap):
+**Root** (7 files — 3 slots free):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
 - [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
-- [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md) — Table vision (parked until visual pass)
-- [MEMO_DARK_FACTORY_PATTERNS.md](pm_inbox/MEMO_DARK_FACTORY_PATTERNS.md) — Holdout scenarios + dark factory patterns
-- [MEMO_SPARK_ANVIL_HARNESS.md](pm_inbox/MEMO_SPARK_ANVIL_HARNESS.md) — Anvil-as-Spark integration harness (candidate WO)
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 
-**Archived this cycle:** Previous: WO-VOICE-GRAMMAR-SPEC-001 + WO-VOICE-UNKNOWN-SPEC-001 dispatches/debriefs → `archive_voice_spec/`. Comedy stingers → `archive_comedy_stingers/`. Spark LLM → `archive_spark_llm/`. Misc → `reviewed/`. This pass (2026-02-20): HANDOVER_ANVIL_20260219 + HANDOVER_ANVIL_20260219_EVE + AEGIS_REHYDRATION_PACKET_20260220 + MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK → `reviewed/`.
+**Archived this cycle:** Previous: WO-VOICE-GRAMMAR-SPEC-001 + WO-VOICE-UNKNOWN-SPEC-001 dispatches/debriefs → `archive_voice_spec/`. Comedy stingers → `archive_comedy_stingers/`. Spark LLM → `archive_spark_llm/`. Misc → `reviewed/`. 2026-02-20: HANDOVER_ANVIL_20260219 + HANDOVER_ANVIL_20260219_EVE + AEGIS_REHYDRATION_PACKET_20260220 + MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK → `reviewed/`. 2026-02-21: WO-WAYPOINT-001_DISPATCH + DEBRIEF_WO-WAYPOINT-001 → `archive_waypoint/`. HANDOVER_SLATE_20260221_EARLY + MEMO_DARK_FACTORY_PATTERNS + MEMO_SPARK_ANVIL_HARNESS + MEMO_TABLE_VISION_SPATIAL_SPEC → `reviewed/`.
 
 **New in reviewed/ this session:** AEGIS_DRIVE_REHYDRATION_PACKET.md, GOOGLE_DRIVE_INTEGRATION_REFERENCE.md, WO_NARRATIVE_SEARCH_CANONICAL_PHRASES.md, WO_NARRATIVE_SEARCH_AEGIS_GOVERNANCE.md, WO_NARRATIVE_SEARCH_EXPERIMENT_DATA.md, WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md.
 
