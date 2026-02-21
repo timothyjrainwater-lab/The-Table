@@ -83,3 +83,15 @@ Builders append one entry per session after running `python scripts/preflight_ca
 - Voice: N/A (canary failed)
 
 **Notes:** WO-WAYPOINT-003 is engine fix + gate tests only — no TTS or image generation required. Image/Voice pipelines are out of scope. Proceeding per WO scope.
+
+### 2026-02-21 — Builder — WO-VOICE-TYPED-CALL-SPEC-001
+
+**Pipeline canaries:**
+- Image: FAIL — SDXL not available (diffusers not installed)
+- Voice: FAIL — Chatterbox not available
+
+**Skill artifacts:**
+- Image: N/A (canary failed)
+- Voice: N/A (canary failed)
+
+**Notes:** WO-VOICE-TYPED-CALL-SPEC-001 is spec freeze + gate tests only — no TTS or image generation required. Proceeding per WO scope.
