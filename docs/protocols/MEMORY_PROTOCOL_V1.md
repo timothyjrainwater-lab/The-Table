@@ -9,6 +9,7 @@
 - v1.0.1: Aegis rulings — kernel split, compaction checkpoint, bridge sequencing.
 - v1.0.2: Anvil rulings — canonical root, findings domains, dual-control enforcement, PM State Register schema.
 - v1.1 (2026-02-22): Canary audit. Charter/Capsule split, checkpoint artifact semantics, Tier 1 graduation, staleness gate, mirror sync trigger, seat verification gate, boot budget.
+- v1.1.1 (2026-02-22): Anvil rehydration observations — capsule deduplication (IDs+status only, register has descriptions), Charter revision marker (mandatory), boot Step 3 absorption directive (read ≠ process).
 
 ---
 
@@ -30,6 +31,7 @@ What goes into the agent's active context at session start. Hard-capped. Compose
 - Agent identity, personality, role boundary
 - Standing orders (audio cue, clock, process rules)
 - Operational doctrine (Seven Wisdoms, execution protocol)
+- **Charter revision line** (mandatory): `Charter revision: YYYY-MM-DD` inside the Charter block. This tells the loading Spark which version of the invariant it's running. Without this, the agent has no way to detect a stale Charter.
 - Changes only through deliberate revision cycle. Not counted against capsule budget.
 
 **Capsule** (variable state — hard-capped at 200-400 tokens):
@@ -104,11 +106,8 @@ This makes capsules consistent across Spark runs, observatory sprints, and PM se
 ## Proven True Now
 - [bullet: what is confirmed working]
 
-## Still Broken
-- [bullet: what is confirmed broken]
-
-## Top Findings (max 3, by severity)
-1. [FINDING-ID] [SEVERITY] — [one line]
+## Active Findings (IDs + status only — register has descriptions)
+- [FINDING-ID] [STATUS]
 
 ## Next Hits (max 3)
 1. [what to do next session]
@@ -118,6 +117,8 @@ This makes capsules consistent across Spark runs, observatory sprints, and PM se
 ```
 
 **Hard cap:** 200-400 tokens. If it doesn't fit, compress harder or split a finding into its own file.
+
+**Duplication rule (Anvil observation, 2026-02-22):** The capsule carries finding IDs and lifecycle status (OPEN, PATCHED, VERIFIED, RESOLVED). It does NOT re-describe the finding. The Findings Register is the canonical description. Carrying descriptions in both places wastes tokens and creates drift risk when one is updated but not the other.
 
 ---
 
@@ -149,7 +150,7 @@ This prevents a fresh agent from inheriting the wrong seat's kernel and operatin
 
 Read the invariant charter section of the kernel. This establishes identity, personality, standing orders, operational doctrine. Fixed-size, rarely changes.
 
-### Step 3: Capsule Load
+### Step 3: Capsule Load + Absorption
 
 Read the variable capsule section. This establishes current priorities, delta, stop conditions, and state register pointer.
 
@@ -157,6 +158,12 @@ Read the variable capsule section. This establishes current priorities, delta, s
 1. Read STATE_DIGEST + FINDINGS_REGISTER from Tier 1
 2. Write a fresh capsule from current Tier 1 state
 3. Resume from fresh capsule
+
+**Absorption (Anvil observation, 2026-02-22):** Reading the capsule is not the same as processing it. After loading, the agent must:
+1. **Adopt the priority stack** as the working agenda (unless operator overrides)
+2. **Check active finding IDs** against the Tier 1 register — if a finding's status changed since the capsule was written, note the discrepancy
+3. **Verify stop conditions** still hold — if any stop condition has been violated, halt and report before proceeding
+4. If any of these checks fail, the capsule is stale even if the timestamp is fresh. Enter RECOVERY MODE.
 
 ### Step 4: Mirror Sync (agents with canonical roots outside repo)
 

@@ -10,8 +10,13 @@
 
 ## Priority Stack (top 3)
 1. Tier 3 (Parser/Grammar) dispatch drafting — next on BURST-001 critical path
-2. Compound narration contract decision (FINDING-HOOLIGAN-03 MEDIUM) — or defer
-3. Tier 1 graduation — briefing WO Verdicts (34 items) and Dispatches (40+ items) exceed 20-item threshold
+2. Compound narration contract decision (FINDING-HOOLIGAN-03) — or defer
+3. Protocol compliance monitoring — boot budgets, checkpoint discipline, graduation cadence
+
+## Active Findings (IDs + status — register has descriptions)
+- FINDING-HOOLIGAN-03 OPEN
+- GAP-A OPEN
+- GAP-B OPEN
 
 ## Stop Conditions
 - If test suite drops below 6,234 or any gate regresses, halt and investigate
@@ -25,6 +30,7 @@
 
 ---
 ## CHARTER (invariant — change only through deliberate revision)
+**Charter revision: 2026-02-22**
 ---
 
 ## AUDIO CUE — MANDATORY
