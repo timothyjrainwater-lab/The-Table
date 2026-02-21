@@ -1,39 +1,40 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-22T19:00Z (03:00+1 CST). **MEMORY PROTOCOL v1.1 SHIPPED. TIER 1 GRADUATED.** Protocol v1.1 complete (15 gaps, 10 drills, drill runbooks). Kernel split executed (412→108 lines). Briefing graduated per D-07: narrative sections → Tier 2, WO Verdicts/Dispatches trimmed to 15. 6,234 tests pass. Root at 10 (at cap). Queue open for Tier 3 (Parser/Grammar).
+**Last updated:** 2026-02-22T22:00Z (06:00+1 CST). **TIER 3 NEARLY COMPLETE.** WO-VOICE-ROUTING-IMPL-001 ACCEPTED (18 Gate R). 6,268 tests pass. Tier 3.1+3.2+3.3 complete. Next: WO-VOICE-GOLDEN-REGEN-001 (3.4).
 
 ---
 
 ## Stoplight: GREEN / GREEN
 
-6,234 tests, 7 pre-existing failures, 2 collection errors. **Gates A-P all PASS. Waypoint GREEN. No-backflow PASS. Integration board clear.**
+6,268 tests, 7 pre-existing failures, 2 collection errors. **Gates A-R all PASS. Waypoint GREEN. No-backflow PASS. Integration board clear.**
 
 | Gate | Tests | Gate | Tests | Gate | Tests |
 |------|-------|------|-------|------|-------|
-| A | 22/22 | G | 22/22 | M | 31/31 |
-| B | 23/23 | H | 16/16 | N | 37/37 |
-| C | 24/24 | I | 13/13 | O | 47/47 |
-| D | 18/18 | J | 27/27 | P | 22/22 |
-| E | 14/14 | K | 67/67 | WP | 5+18+19 |
-| F | 10/10 | L | 32/32 | | |
+| A | 22/22 | G | 22/22 | N | 37/37 |
+| B | 23/23 | H | 16/16 | O | 47/47 |
+| C | 24/24 | I | 13/13 | P | 22/22 |
+| D | 18/18 | J | 27/27 | Q | 16/16 |
+| E | 14/14 | K | 67/67 | R | 18/18 |
+| F | 10/10 | L | 32/32 | WP | 5+18+19 |
+|   |       | M | 31/31 |    |       |
 
-**Gate test total:** 263 (241 BURST-001 + 22 Gate P). Pre-existing: 2 speak_signal, 3 pm_inbox_hygiene, 1 graduated_critique, 1 immersion_authority; 2 collection errors: heuristics_image_critic, ws_bridge.
+**Gate test total:** 297 (275 BURST-001 + 22 Gate P). Pre-existing: 2 speak_signal, 3 pm_inbox_hygiene, 1 graduated_critique, 1 immersion_authority; 2 collection errors: heuristics_image_critic, ws_bridge.
 
 ## Operator Action Queue (max 3)
 
-1. **Next priority: Tier 3 (Parser/Grammar) or compound narration contract?** Voice-First Playbook: 3.1 → 3.2 → 3.3 → 3.4. Or: FINDING-HOOLIGAN-03 MEDIUM (Aegis recommends one-action-per-output).
+1. **WO-VOICE-GOLDEN-REGEN-001 ready to dispatch.** Tier 3.4 — golden transcript baseline regen. No new gate. Dispatch file ready.
 2. **Google Drive refresh token expires ~2026-02-27.** Re-auth required.
 3. **llama-cpp-python upgrade path** — VS Build Tools + compile from source. Unblocks Qwen3/Gemma3. Not blocking.
 
 ## Current Focus (Slate's focused recall)
 
-**Protocol v1.1 shipped. Tier 1 graduation executed this session.** Next PM actions:
-- Tier 3 dispatch draft — waiting on Thunder's priority decision
+**Tier 3 nearly complete. WO-VOICE-ROUTING-IMPL-001 ACCEPTED (18 Gate R).** Next PM actions:
+- Dispatch WO-VOICE-GOLDEN-REGEN-001 (3.4) — baseline regen, last Tier 3 WO
 - Ongoing: protocol compliance (boot budgets, checkpoint discipline)
 
-**Deferred:** Chatterbox swap timing (8.0s budget uses 1.5s estimates). GAP-A LOW (`dm_persona.py:83`).
+**Deferred:** Chatterbox swap timing (8.0s budget uses 1.5s estimates). GAP-A LOW (`dm_persona.py:83`). FINDING-HOOLIGAN-03 MEDIUM (compound narration).
 
-**BURST-001:** ~~Tier 1 Spec Freeze~~ → ~~Tier 2 Instrumentation~~ → ~~RV-007 fix~~ → **Tier 3 (Parser/Grammar)** → Tier 4 → Tier 5
+**BURST-001:** ~~Tier 1 Spec Freeze~~ → ~~Tier 2 Instrumentation~~ → ~~RV-007 fix~~ → **Tier 3 (Parser/Grammar)** [3.1+3.2 DONE, 3.3 DONE, 3.4 next] → Tier 4 → Tier 5
 **PRS-01:** **PRS-01 spec review** → SCAN → LICENSE → OFFLINE → FIRSTRUN → DOCS → ORCHESTRATOR
 
 ## Open Findings
@@ -41,6 +42,7 @@
 | Finding | Severity | Status | Description |
 |---------|----------|--------|-------------|
 | FINDING-HOOLIGAN-03 | MEDIUM | OPEN | RV-001 false positive on compound actions (actor attribution) |
+| FINDING-GRAMMAR-01 | LOW | OPEN | Cosmetic: condition `replace('_',' ')` vs spell `.title()` inconsistency in `play.py:641` |
 | GAP-A | LOW | OPEN | `dm_persona.py:83` missing import (runtime-functional) |
 | GAP-B | HIGH | OPEN | llama-cpp-python blocks Qwen3/Gemma3 (needs VS Build Tools) |
 
@@ -51,11 +53,14 @@
 - **[READ] [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md)** — TUNING-001 observation protocol (research, not build)
 - **[READ] [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md)** — TUNING-001 session ledger
 - **[DRAFTED] [PUBLISHING_READINESS_SPEC.md](docs/contracts/PUBLISHING_READINESS_SPEC.md)** — PRS-01 (parallel to BURST-001)
+- **[FYI] [MEMO_ANVIL_V111_STATUS.md](pm_inbox/MEMO_ANVIL_V111_STATUS.md)** — Anvil kernel v1.1.1 micro-patches (no action needed)
 
 ## WO Verdicts (most recent 15 — older entries archived)
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-VOICE-ROUTING-IMPL-001 | **ACCEPTED** — 18 Gate R, `[RESOLVE]`/`[AIDM]` prefixes, RESULT lines for attacks. | `eaac3a6` |
+| WO-VOICE-GRAMMAR-IMPL-001 | **ACCEPTED** — 16 Gate Q, turn banners + alerts + prompt + round headers. FINDING-GRAMMAR-01 LOW. | `eaac3a6` |
 | WO-SPARK-RV007-001 | **ACCEPTED** — 22 Gate P, RV-009/RV-010 live, FINDING-HOOLIGAN-02 HIGH RESOLVED, FINDING-HOOLIGAN-01 LOW RESOLVED | `42131a3` |
 | WO-SPARK-EXPLORE-001 | **ACCEPTED with findings** — Spark cage operational, 6 findings (3 FIXED, 2 RESOLVED via RV-007, 1 OPEN) | `076c486`..`7c04253` |
 | WO-VOICE-PRESSURE-IMPL-001 | **ACCEPTED** — 37 Gate N, Boundary Pressure Runtime | `0a808a7` |
@@ -69,13 +74,13 @@
 | WO-VOICE-TYPED-CALL-SPEC-001 | **ACCEPTED** — 32 Gate L, Typed Call Contract | `a65acea` |
 | WO-VOICE-PRESSURE-SPEC-001 | **ACCEPTED** — 31 Gate M, Boundary Pressure Contract | `c330db1` |
 | WO-COMEDY-STINGERS-P1 | **ACCEPTED** — 13 Gate I, frozen Stinger schema, 21 stingers | `e4ac5c1` |
-| WO-DIRECTOR-03 | **ACCEPTED** — 16 Gate H, TableMood + StyleCapsule | `9705298` |
-| WO-UI-04 | **ACCEPTED** — 3 UI-G8, RollResult + message registry | `db66426` |
 
 **Full verdict history:** `reviewed/BRIEFING_ARCHIVE_GRADUATION_20260222.md` (18 older entries archived)
 
 ## Dispatches (most recent 15 — older entries archived)
 
+- ~~WO-VOICE-ROUTING-IMPL-001~~ — ACCEPTED (`eaac3a6`). 18 Gate R. `[RESOLVE]`/`[AIDM]` prefixes. **TIER 3.3 COMPLETE.**
+- ~~WO-VOICE-GRAMMAR-IMPL-001~~ — ACCEPTED (`eaac3a6`). 16 Gate Q. Turn banners + alerts + prompt. **TIER 3.1+3.2 COMPLETE.**
 - ~~WO-SPARK-RV007-001~~ — ACCEPTED (`42131a3`). 22 Gate P. Forbidden claims detection. **RV-007 COMPLETE.**
 - ~~WO-SPARK-EXPLORE-001~~ — ACCEPTED with findings (`076c486`..`7c04253`). Spark cage shakeout. **SPARK CAGE OPERATIONAL.**
 - ~~WO-VOICE-PRESSURE-IMPL-001~~ — ACCEPTED (`0a808a7`). 37 Gate N. BURST-001 Tier 2.1.
@@ -89,8 +94,6 @@
 - ~~WO-VOICE-TYPED-CALL-SPEC-001~~ — ACCEPTED (`a65acea`). 32 Gate L. BURST-001 Tier 1.3.
 - ~~WO-VOICE-PRESSURE-SPEC-001~~ — ACCEPTED (`c330db1`). 31 Gate M. **TIER 1 SPEC FREEZE COMPLETE.**
 - ~~WO-COMEDY-STINGERS-P1~~ — ACCEPTED (`e4ac5c1`). 13 Gate I. **COMEDY STINGERS P1 COMPLETE.**
-- ~~WO-DIRECTOR-03~~ — ACCEPTED (`9705298`). 16 Gate H. **DIRECTOR PHASE 3 COMPLETE.**
-- ~~WO-UI-04~~ — ACCEPTED (`db66426`). 3 UI-G8. **UI PHASE 4 COMPLETE.**
 
 **Full dispatch history:** `reviewed/BRIEFING_ARCHIVE_GRADUATION_20260222.md` (14 older entries + H1+Smoke batch archived)
 
