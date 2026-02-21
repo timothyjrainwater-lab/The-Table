@@ -54,7 +54,13 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 - WO-VOICE-RESEARCH-04: UX Turn-Taking & Confirmation (`docs/research/VOICE_UX_TURNTAKING_AND_CONFIRMATION.md`)
 - WO-VOICE-RESEARCH-05: Synthesis Playbook (`pm_inbox/reviewed/legacy_pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`)
 
-**Next action:** Tier 1.1 ACCEPTED, Tier 1.2 ACCEPTED. Both archived. PM to draft Tier 1.3 (WO-VOICE-TYPED-CALL-SPEC-001 — Typed Calls). Source: WO-VOICE-RESEARCH-01 (Voice Control Plane Contract) and playbook Section 2. Remaining: 1.4 Boundary Pressure after 1.3.
+**Next action:** Tier 1.1 ACCEPTED, Tier 1.2 ACCEPTED, Tier 1.3 ACCEPTED (`a65acea`), Tier 1.4 dispatching. After 1.4 lands, Tier 1 spec freeze COMPLETE. Next: Tier 2 (Instrumentation).
+
+**Aegis audit carry-forwards (Tier 1.3):**
+- **Amendment cost:** Frozen 6x7 matrix (6 CallTypes × 7 dimensions). Adding a CallType requires filling all 7 dimensions + Gate L + validator. Future amendment WOs must scope accordingly.
+- **Stage 3 gap:** EvidenceValidator slot is empty. Semantic violations (narrating events that didn't happen) pass the pipeline. Priority candidate for Tier 2.
+- **outcome_assertions not enforceable yet:** OA-01 through OA-06 in Stage 2 require NarrativeBrief runtime access. Regex-enforceable checks (MV-01..MV-09, RC-01..RC-04) are active; structural checks are specified but dormant. Wiring WO must distinguish.
+- **Fallback stubs are placeholders:** TC-INV-03 satisfied structurally. Production-quality authored fallbacks needed in a future narration polish pass.
 
 ---
 
