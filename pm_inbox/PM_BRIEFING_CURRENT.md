@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-21T12:13Z (20:13 CST-CN). **Waypoint burn-down COMPLETE.** -001 accepted with findings, -002 accepted (18 gate tests, actions_prohibited enforced), -003 accepted (19 gate tests, weapon_name plumbed). 51 Waypoint gate tests GREEN. All 3 findings resolved. 6,065 tests total. 279 gates (256 + 5 WP1 + 18 WP2 + estimated from WP3). Root at 10. Queue open for BURST-001 Tier 1.3.
+**Last updated:** 2026-02-21T20:45Z (14:45 CST). **BURST-001 TIER 1 SPEC FREEZE COMPLETE.** All four tiers accepted: 1.1 Grammar (27 Gate J), 1.2 Unknown Handling (67 Gate K), 1.3 Typed Call (32 Gate L), 1.4 Boundary Pressure (31 Gate M). 6,128 tests pass (7 pre-existing failures unrelated). Root at 11. Queue open for Tier 2 (Instrumentation).
 
 ---
 
@@ -22,7 +22,7 @@
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,997 unit tests pass + 31 new WO-WAYPOINT-001 tests (6,028 total, excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). Waypoint: 5/5 PASS (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation — 14 pass, 1 skip). No-backflow: PASS. Integration board clear.**
+5,997 unit tests pass + 31 new WO-WAYPOINT-001 tests (6,028 total, excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). Gate L: 32/32 PASS (Typed Call Contract — 6 CallTypes, input/output schemas, forbidden claims, validation pipeline, invariants). Gate M: 31/31 PASS (Boundary Pressure Contract — 4 triggers, PressureLevels, composite classification, content-agnostic detection, observability). Waypoint: 5/5 PASS (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation — 14 pass, 1 skip). WP2: 18/18 PASS (actions_prohibited enforcement). WP3: 19/19 PASS (weapon_name plumbing). No-backflow: PASS. Integration board clear.**
 
 ## Architecture Session — Aegis/Thunder/Anvil (2026-02-21)
 
@@ -181,11 +181,13 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 ## Requires Operator Action (NOW)
 
-**WAYPOINT BURN-DOWN COMPLETE.** All 3 findings resolved. 51 Waypoint gate tests GREEN. Queue open.
+**BURST-001 TIER 1 SPEC FREEZE COMPLETE.** All four tiers accepted (1.1 Grammar, 1.2 Unknown Handling, 1.3 Typed Call, 1.4 Boundary Pressure). 157 BURST-001 gate tests total (J:27 + K:67 + L:32 + M:31). Queue open for Tier 2 (Instrumentation).
 
-**Next dispatch: WO-VOICE-TYPED-CALL-SPEC-001** (BURST-001 Tier 1.3). Slate drafting.
+**Next: Tier 2 dispatch drafting.** Tier 2 adds observability instrumentation — provenance, pressure logging, validation metrics. PM drafting.
 
-**Aegis relay:** -002 and -003 debriefs ready for audit. Both archived to `reviewed/archive_waypoint/`.
+**Aegis relay:** Tier 1.4 debrief ready for audit. Archived to `reviewed/archive_voice_spec/`.
+
+**Anvil:** Responded in Roundtable re: observable-consciousness repo. Verdict: execute plan as-is, CC-BY-4.0 correct, skip PRS-01 (designed for game repo, not research repo).
 
 **Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
 
@@ -196,16 +198,18 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **GAP-A (low priority):** `dm_persona.py:83` missing import. Runtime-functional.
 
-**Planned sequence (BURST-001):** ~~Spark LLM Selection~~ (ACCEPTED) → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, drafting now) → WO-VOICE-PRESSURE-SPEC-001 (1.4) → Tier 2 → Tier 3 → Tier 4 → Tier 5
+**Planned sequence (BURST-001):** ~~Spark LLM Selection~~ (ACCEPTED) → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-TYPED-CALL-SPEC-001~~ (ACCEPTED, `a65acea`) → ~~WO-VOICE-PRESSURE-SPEC-001~~ (ACCEPTED, `c330db1`) → **TIER 1 FREEZE COMPLETE** → **Tier 2 (Instrumentation)** → Tier 3 → Tier 4 → Tier 5
 
 **Planned sequence (PRS-01):** **PRS-01 spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001
 
 ### Dispatches
 
+- ~~WO-VOICE-TYPED-CALL-SPEC-001~~ — **ACCEPTED** (`a65acea`). 32/32 Gate L tests. Typed Call Contract frozen (6 CallTypes, input/output schemas, forbidden claims parameterized, 3-stage validation pipeline, 4 invariants). MV-09 pattern discovered. BURST-001 Tier 1.3.
+- ~~WO-VOICE-PRESSURE-SPEC-001~~ — **ACCEPTED** (`c330db1`). 31/31 Gate M tests. Boundary Pressure Contract frozen (4 triggers, 3 PressureLevels, fail-closed on RED, content-agnostic detection, 5 invariants). **BURST-001 TIER 1 SPEC FREEZE COMPLETE.**
 - ~~WO-WAYPOINT-002~~ — **ACCEPTED** (`e795bf0`). 18/18 gate tests. actions_prohibited gate in play_loop. 6 conditions blocked (paralyzed, stunned, dazed, nauseated, helpless, unconscious). FINDING-WAYPOINT-01 resolved. Radar compliant. Field Manual #39 needed.
 - ~~WO-WAYPOINT-003~~ — **ACCEPTED** (`01eb51c`). 19 gate tests (18 pass + 1 conditional skip). weapon_name plumbed from EF.WEAPON into feat_context and attack_roll payload. NarrativeBrief weapon extraction now works. W-3 skip resolved. FINDING-WAYPOINT-02 + -03 resolved. Weapon Specialization also wired. Radar compliant. Field Manual #40 needed.
 - ~~WO-WAYPOINT-001~~ — ACCEPTED with findings (`dddcd9e`). 5/5 gate tests. **WAYPOINT MAIDEN VOYAGE COMPLETE.**
-- **[READY — after -002] WO-WAYPOINT-003** — Weapon name plumbing: feat context gets real weapon name + NarrativeBrief weapon_name + d20_result doc note. 6 gate tests (WP3-0 through WP3-5). Fixes FINDING-WAYPOINT-02 + FINDING-WAYPOINT-03. Dispatch: [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md).
+- ~~WO-WAYPOINT-003~~ — **ACCEPTED** (`01eb51c`). 19 gate tests (18 pass + 1 conditional skip). weapon_name plumbed from EF.WEAPON into feat_context and attack_roll payload. NarrativeBrief weapon extraction now works. W-3 skip resolved. FINDING-WAYPOINT-02 + -03 resolved. Weapon Specialization also wired. Radar compliant. Field Manual #40 needed.
 - ~~WO-WAYPOINT-001~~ — ACCEPTED with findings (`dddcd9e`). 5/5 gate tests (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation). 6,028 suite, 0 regressions. Full table loop proven. 3 findings: `actions_prohibited` not enforced, `weapon_name="unknown"` blocks Weapon Focus, `d20_result` field name mismatch. A9 divergence handled. Radar compliant. **WAYPOINT MAIDEN VOYAGE COMPLETE.**
 - ~~WO-VOICE-UNKNOWN-SPEC-001~~ — ACCEPTED (pending commit). 67 Gate K tests (all PASS). Unknown Handling Contract frozen (7 failure classes, STOPLIGHT, clarification budget), validator script. 36 T-* signals tested. Field Manual #37 needed (VoiceEvent extensibility).
 - ~~WO-VOICE-GRAMMAR-SPEC-001~~ — ACCEPTED (pending commit). 27 Gate J tests (all PASS). CLI Grammar Contract frozen, validator script. First BURST-001 Tier 1 WO. Field Manual #36 needed (G-01 regex tightening).
@@ -245,7 +249,7 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → ~~WO-WAYPOINT-001~~ **WAYPOINT MAIDEN VOYAGE COMPLETE** → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) | **PRS-01** (DRAFTED, parallel track — review → builder WOs)
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → ~~WO-WAYPOINT-001~~ **WAYPOINT MAIDEN VOYAGE COMPLETE** → ~~WO-WAYPOINT-002~~ (ACCEPTED) → ~~WO-WAYPOINT-003~~ (ACCEPTED) **WAYPOINT BURN-DOWN COMPLETE** → ~~WO-VOICE-TYPED-CALL-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-PRESSURE-SPEC-001~~ (ACCEPTED) **TIER 1 SPEC FREEZE COMPLETE** → **Tier 2 (Instrumentation)** | **PRS-01** (DRAFTED, parallel track — review → builder WOs)
 
 **Doctrine files** (in `pm_inbox/doctrine/` — 11 files, permanent reference):
 
@@ -326,22 +330,26 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 - **WO-SPARK-LLM-SELECTION** — Local LLM selection for Spark cage: Qwen2.5 7B Instruct (Q4_K_M) selected, 5/5 gates, sequential VRAM posture confirmed, eval infra retained for Qwen3 re-eval
 - **WO-VOICE-GRAMMAR-SPEC-001** — CLI Grammar Contract freeze: binding contract (G-01..G-07 + AP-01..AP-07 + line types + voice routing), 27 Gate J tests, validator script. First BURST-001 Tier 1 WO.
 - **WO-VOICE-UNKNOWN-SPEC-001** — Unknown Handling Policy freeze: binding contract (7 failure classes + STOPLIGHT + clarification budget + cross-cutting rules), 67 Gate K tests (36 T-* signals), validator script. BURST-001 Tier 1.2.
+- **WO-VOICE-TYPED-CALL-SPEC-001** — Typed Call Contract freeze: binding contract (6 CallTypes + input/output schemas + forbidden claims + validation pipeline + invariants), 32 Gate L tests, validator script. BURST-001 Tier 1.3.
+- **WO-VOICE-PRESSURE-SPEC-001** — Boundary Pressure Contract freeze: binding contract (4 triggers + PressureLevels + fail-closed + content-agnostic detection + observability), 31 Gate M tests, validator script. BURST-001 Tier 1.4. **TIER 1 SPEC FREEZE COMPLETE.**
 - **WO-WAYPOINT-001** — Waypoint maiden voyage: full table loop determinism proof. 3 JSON fixtures, 3-turn combat (Hold Person + Spot check + Power Attack + paralyzed actor), 5 gate tests (W-0 through W-4), smoke scenario. 3 findings (actions_prohibited, weapon_name, d20_result). **WAYPOINT PROVEN.**
+- **WO-WAYPOINT-002** — Condition action denial: play_loop enforces actions_prohibited, 6 conditions blocked, 18 gate tests. FINDING-WAYPOINT-01 resolved.
+- **WO-WAYPOINT-003** — Weapon name plumbing: feat_context gets real weapon, NarrativeBrief weapon extraction, d20_result doc note, 19 gate tests. FINDING-WAYPOINT-02 + -03 resolved. **WAYPOINT BURN-DOWN COMPLETE.**
 
 ## Active Operational Files
 
-**Root** (11 files — 1 over cap, acceptable while 2 WO dispatches + 2 TUNING docs are active):
+**Root** (11 files — 1 over cap, acceptable while TUNING docs + WSM-01 are active):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
-- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (parked)
+- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (Tier 2 next)
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
 - [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 - [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
-- [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md) — Condition action denial (READY)
-- [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md) — Weapon name plumbing (READY after -002)
+- [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
+- [HANDOVER_SLATE_20260221_NIGHT.md](pm_inbox/HANDOVER_SLATE_20260221_NIGHT.md) — Latest handoff note
 
 **Archived this cycle:** Previous archives + this session: MEMO_ARCHITECTURE_SESSION_20260221 → `reviewed/`. HANDOVER_SLATE_20260221_POSTMIDNIGHT → `reviewed/`.
 
