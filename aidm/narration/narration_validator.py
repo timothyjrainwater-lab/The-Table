@@ -11,6 +11,8 @@ RULE INVENTORY:
     RV-002: Defeat Consistency
     RV-008: Save Result Consistency
     RV-005: Contraindication Enforcement (Layer B, dormant until content_id)
+    RV-009: Forbidden Meta-Game Claims (MV-01 through MV-09)
+    RV-010: Rule Citations (RC-01 through RC-04)
 
   P1 (WARN on violation):
     RV-003: Severity-Narration Alignment
@@ -126,6 +128,33 @@ _DELIVERY_MODE_KEYWORDS = {
 
 
 # ==============================================================================
+# FORBIDDEN META-GAME CLAIMS PATTERNS (Typed Call Contract Section 3.1-3.2)
+# WO-SPARK-RV007-001
+# ==============================================================================
+
+# Mechanical Values (MV-01 through MV-09) — compiled with IGNORECASE (DD-04)
+_FORBIDDEN_CLAIMS_PATTERNS = [
+    ("MV-01", re.compile(r'\b\d+\s*(points?\s+of\s+)?damage\b', re.IGNORECASE)),
+    ("MV-02", re.compile(r'\bAC\s*\d+\b', re.IGNORECASE)),
+    ("MV-03", re.compile(r'\b\d+\s*h(it\s*)?p(oints?)?\b', re.IGNORECASE)),
+    ("MV-04", re.compile(r'[+-]\d+\s*(to\s+)?(attack|hit)\b', re.IGNORECASE)),
+    ("MV-05", re.compile(r'\bDC\s*\d+\b', re.IGNORECASE)),
+    ("MV-06", re.compile(r'\broll(ed)?\s+(a\s+)?\d+\b', re.IGNORECASE)),
+    ("MV-07", re.compile(r'\b\d+d\d+', re.IGNORECASE)),
+    ("MV-08", re.compile(r'\b\d+\s*(?:feet|ft\.?|squares?)\s+(?:of\s+)?(?:movement|range|reach)\b', re.IGNORECASE)),
+    ("MV-09", re.compile(r'\bnatural\s+\d+\b', re.IGNORECASE)),
+]
+
+# Rule Citations (RC-01 through RC-04) — compiled with IGNORECASE (DD-04)
+_RULE_CITATION_PATTERNS = [
+    ("RC-01", re.compile(r'\b(PHB|DMG|MM)\s*\d+', re.IGNORECASE)),
+    ("RC-02", re.compile(r'\b(page|pg\.?|p\.)\s*\d+\b', re.IGNORECASE)),
+    ("RC-03", re.compile(r'\bper\s+the\s+\w+\s+rules\b', re.IGNORECASE)),
+    ("RC-04", re.compile(r'\brules?\s+(as\s+written|state|say)\b', re.IGNORECASE)),
+]
+
+
+# ==============================================================================
 # NARRATION VALIDATOR
 # ==============================================================================
 
@@ -155,6 +184,8 @@ class NarrationValidator:
         violations.extend(self._check_rv002_defeat(text_lower, brief))
         violations.extend(self._check_rv008_save_result(text_lower, brief))
         violations.extend(self._check_rv005_contraindications(text_lower, brief))
+        violations.extend(self._check_rv009_forbidden_claims(text_lower, brief))
+        violations.extend(self._check_rv010_rule_citations(text_lower, brief))
 
         # === P1 POSITIVE/STRUCTURAL RULES (WARN) ===
         violations.extend(self._check_rv003_severity(text_lower, brief))
@@ -310,6 +341,47 @@ class NarrationValidator:
 
         return violations
 
+    def _check_rv009_forbidden_claims(self, text: str, brief: Any) -> List[RuleViolation]:
+        """RV-009: Forbidden Meta-Game Claims (WO-SPARK-RV007-001).
+
+        Narration must NEVER contain mechanical values: damage numbers,
+        AC references, HP values, attack bonuses, DC values, die rolls,
+        dice notation, distance/range values, or natural die results.
+
+        Patterns: MV-01 through MV-09 from Typed Call Contract Section 3.1.
+        Always active. No early break — report all matches (DD-05).
+        """
+        violations = []
+        for pattern_id, pattern in _FORBIDDEN_CLAIMS_PATTERNS:
+            match = pattern.search(text)
+            if match:
+                violations.append(RuleViolation(
+                    rule_id="RV-009",
+                    severity="FAIL",
+                    detail=f"Forbidden meta-game claim ({pattern_id}): '{match.group()}'",
+                ))
+        return violations
+
+    def _check_rv010_rule_citations(self, text: str, brief: Any) -> List[RuleViolation]:
+        """RV-010: Rule Citations (WO-SPARK-RV007-001).
+
+        Narration must NEVER cite rulebooks, page numbers, or assert
+        rules-as-written authority.
+
+        Patterns: RC-01 through RC-04 from Typed Call Contract Section 3.2.
+        Always active. No early break — report all matches (DD-05).
+        """
+        violations = []
+        for pattern_id, pattern in _RULE_CITATION_PATTERNS:
+            match = pattern.search(text)
+            if match:
+                violations.append(RuleViolation(
+                    rule_id="RV-010",
+                    severity="FAIL",
+                    detail=f"Rule citation ({pattern_id}): '{match.group()}'",
+                ))
+        return violations
+
     # ------------------------------------------------------------------
     # P1 RULES
     # ------------------------------------------------------------------
@@ -365,7 +437,9 @@ class NarrationValidator:
         # Check condition_applied
         condition_applied = getattr(brief, "condition_applied", None)
         if condition_applied:
-            keywords = _CONDITION_MENTION_MAP.get(condition_applied.lower(), [condition_applied.lower()])
+            # Normalize underscores to spaces (FINDING-HOOLIGAN-01)
+            condition_normalized = condition_applied.replace("_", " ").lower()
+            keywords = _CONDITION_MENTION_MAP.get(condition_normalized, [condition_normalized])
             found = any(kw in text for kw in keywords)
             if not found:
                 violations.append(RuleViolation(
@@ -377,7 +451,9 @@ class NarrationValidator:
         # Check condition_removed
         condition_removed = getattr(brief, "condition_removed", None)
         if condition_removed:
-            keywords = _CONDITION_MENTION_MAP.get(condition_removed.lower(), [condition_removed.lower()])
+            # Normalize underscores to spaces (FINDING-HOOLIGAN-01)
+            condition_normalized = condition_removed.replace("_", " ").lower()
+            keywords = _CONDITION_MENTION_MAP.get(condition_normalized, [condition_normalized])
             # For removal, also accept "no longer", "shakes off", "recovers"
             removal_phrases = ["no longer", "shakes off", "recovers", "breaks free", "gets up",
                                "rises", "stands"]
