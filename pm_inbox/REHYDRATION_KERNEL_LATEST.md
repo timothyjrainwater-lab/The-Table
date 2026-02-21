@@ -5,8 +5,8 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-22 (evening continuation)
-**Delta:** Memory protocol v1.1 complete — Appendix A (10 acceptance drills) added + full drill runbooks committed. Briefing split to Operator Action Queue + Current Focus per v1.1 spec. All commits landed.
+**Session:** 2026-02-22 (evening — graduation session)
+**Delta:** Tier 1 graduation executed (D-07). Briefing cut from 366 lines / 5,330 words to 155 lines / 1,282 words. Narrative sections → Tier 2 pointers. WO Verdicts/Dispatches trimmed to 15 each. H1+Smoke batch fully archived. Protocol v1.1 now exercised, not just written.
 
 ## Priority Stack (top 3)
 1. Tier 3 (Parser/Grammar) dispatch drafting — next on BURST-001 critical path
@@ -20,7 +20,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-22T18:00Z
+- Updated: 2026-02-22T19:00Z
 - Briefing carries: gate counts, WO verdicts, dispatch list, build order, open findings, doctrine status
 
 ---
