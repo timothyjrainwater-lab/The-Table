@@ -6,7 +6,10 @@ the llama-cpp-python library for GGUF model loading and inference.
 Reference: docs/design/SPARK_ADAPTER_ARCHITECTURE.md (Section 2)
 """
 
+import ctypes
 import logging
+import os
+import sys
 from pathlib import Path
 from typing import Any, List, Optional
 
@@ -64,10 +67,16 @@ class LlamaCppAdapter(SparkAdapter):
     def _check_llama_cpp_available(self) -> bool:
         """Check if llama-cpp-python is installed.
 
+        On Windows, pre-loads CUDA DLLs from torch and ggml DLLs from
+        llama_cpp before importing, to resolve DLL dependency chain.
+        (GAP-C fix: WO-SPARK-EXPLORE-001)
+
         Returns:
             True if llama-cpp-python is available
         """
         try:
+            if sys.platform == "win32":
+                self._preload_windows_dlls()
             import llama_cpp  # noqa: F401
             return True
         except ImportError:
@@ -76,6 +85,62 @@ class LlamaCppAdapter(SparkAdapter):
                 "Install with: pip install llama-cpp-python"
             )
             return False
+        except RuntimeError as e:
+            logger.warning(f"llama-cpp-python DLL load failed: {e}")
+            return False
+
+    def _preload_windows_dlls(self) -> None:
+        """Pre-load DLLs in dependency order on Windows.
+
+        llama.dll depends on ggml-cuda.dll which depends on CUDA runtime
+        DLLs (cublas, cudart). When no system CUDA Toolkit is installed,
+        these DLLs exist in torch's lib directory. We register both
+        directories and pre-load in order.
+        """
+        import importlib.util
+
+        # Find llama_cpp lib dir without importing the package
+        spec = importlib.util.find_spec("llama_cpp")
+        if spec is None or spec.origin is None:
+            return
+        llama_lib = str(Path(spec.origin).parent / "lib")
+        if not os.path.isdir(llama_lib):
+            return
+
+        # Find torch CUDA DLLs
+        torch_lib = None
+        torch_spec = importlib.util.find_spec("torch")
+        if torch_spec and torch_spec.origin:
+            candidate = str(Path(torch_spec.origin).parent / "lib")
+            if os.path.isdir(candidate):
+                torch_lib = candidate
+
+        # Register DLL directories
+        try:
+            os.add_dll_directory(llama_lib)
+            if torch_lib:
+                os.add_dll_directory(torch_lib)
+        except OSError:
+            return
+
+        # Pre-load CUDA runtime from torch
+        if torch_lib:
+            for cuda_dll in ["cublas64_12.dll", "cublasLt64_12.dll", "cudart64_12.dll"]:
+                dll_path = os.path.join(torch_lib, cuda_dll)
+                if os.path.exists(dll_path):
+                    try:
+                        ctypes.WinDLL(dll_path)
+                    except OSError:
+                        pass
+
+        # Pre-load ggml chain
+        for ggml_dll in ["ggml-base.dll", "ggml-cpu.dll", "ggml.dll", "ggml-cuda.dll", "llama.dll"]:
+            dll_path = os.path.join(llama_lib, ggml_dll)
+            if os.path.exists(dll_path):
+                try:
+                    ctypes.WinDLL(dll_path)
+                except OSError:
+                    pass
 
     def load_model(self, model_id: str) -> LoadedModel:
         """Load model by ID from model registry.

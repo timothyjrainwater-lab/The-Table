@@ -11,10 +11,38 @@
 
 spark:
   # Default model (used if user doesn't override)
-  default: "qwen3-8b-instruct-4bit"
+  default: "qwen25-7b-instruct-4bit"
 
   # Available models (user-selectable)
   models:
+    # ═════════════════════════════════════════════════════════════════
+    # EVAL-SELECTED: Qwen2.5 7B (5/5 gates, WO-SPARK-LLM-SELECTION)
+    # ═════════════════════════════════════════════════════════════════
+
+    - id: "qwen25-7b-instruct-4bit"
+      name: "Qwen2.5 7B Instruct (Q4_K_M)"
+      provider: "llamacpp"
+      path: "models/Qwen2.5-7B-Instruct-Q4_K_M.gguf"
+      quantization: "4bit"
+      max_tokens: 2048
+      max_context_window: 2048
+      min_vram_gb: 6.0
+      min_ram_gb: 16.0
+      supports_streaming: true
+      supports_json_mode: false
+      backend: "llama.cpp"
+      tier: "MEDIUM"
+      fallback_model: "qwen3-4b-instruct-4bit"
+      presets:
+        narration:
+          temperature: 0.8
+          max_tokens: 150
+          stop_sequences: ["</narration>", "\n\n", "==="]
+        query:
+          temperature: 0.3
+          max_tokens: 50
+      description: "Selected by WO-SPARK-LLM-SELECTION. 5/5 eval gates. 24.0/25 quality. 2.69s load. RTX 3080 Ti."
+
     # ═════════════════════════════════════════════════════════════════
     # HIGH TIER: 14B Models (requires ≥8 GB VRAM)
     # ═════════════════════════════════════════════════════════════════
@@ -37,7 +65,7 @@ spark:
         narration:
           temperature: 0.8
           max_tokens: 150
-          stop_sequences: ["</narration>", "\n\n"]
+          stop_sequences: ["</narration>", "\n\n", "==="]
         query:
           temperature: 0.3
           max_tokens: 50
@@ -62,7 +90,7 @@ spark:
         narration:
           temperature: 0.8
           max_tokens: 150
-          stop_sequences: ["</narration>", "\n\n"]
+          stop_sequences: ["</narration>", "\n\n", "==="]
         query:
           temperature: 0.3
           max_tokens: 50
@@ -91,7 +119,7 @@ spark:
         narration:
           temperature: 0.8
           max_tokens: 150
-          stop_sequences: ["</narration>", "\n\n"]
+          stop_sequences: ["</narration>", "\n\n", "==="]
         query:
           temperature: 0.3
           max_tokens: 50
