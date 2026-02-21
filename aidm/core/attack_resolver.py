@@ -227,7 +227,7 @@ def resolve_attack(
 
     # Build context for feat modifier computation
     feat_context = {
-        "weapon_name": "unknown",  # Placeholder until weapon tracking exists
+        "weapon_name": attacker.get(EF.WEAPON, "unknown"),  # WO-WAYPOINT-003: actual weapon name from entity
         "range_ft": range_ft,  # WO-WEAPON-PLUMBING-001: actual range from positions
         "is_ranged": intent.weapon.is_ranged,  # WO-WEAPON-PLUMBING-001: from weapon type
         "is_twf": False,  # TODO: Detect from attack intent
@@ -302,6 +302,7 @@ def resolve_attack(
         payload={
             "attacker_id": intent.attacker_id,
             "target_id": intent.target_id,
+            "weapon_name": feat_context["weapon_name"],  # WO-WAYPOINT-003: for NarrativeBrief extraction
             "d20_result": d20_result,
             "attack_bonus": intent.attack_bonus,
             "condition_modifier": attacker_modifiers.attack_modifier,  # CP-16

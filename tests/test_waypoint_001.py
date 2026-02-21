@@ -488,9 +488,12 @@ class TestW2StateAndModifiers:
     def test_feat_modifier_in_attack_roll(self):
         """Kael's attack_roll event has a feat_modifier field (proves feat system engaged).
 
-        The feat_modifier includes Power Attack penalty (-2).
-        Weapon Focus +1 is NOT applied because the attack_resolver uses
-        weapon_name='unknown' in the feat context (known engine gap).
+        The feat_modifier includes Power Attack penalty (-2) and Weapon Focus +1.
+        WO-WAYPOINT-003: weapon_name plumbing enables Weapon Focus matching.
+        Net feat_modifier = Weapon Focus(+1) + Power Attack(-2) = -1.
+
+        NOTE: The attack_roll payload field for the d20 roll is `d20_result`
+        (not `d20_roll`). This is the canonical payload field name per CP-10.
         """
         _ws, event_log, _briefs = run_scenario()
         attack_rolls = [
@@ -504,11 +507,9 @@ class TestW2StateAndModifiers:
         feat_mod = ar.get("feat_modifier")
         assert feat_mod is not None, "feat_modifier missing from attack_roll payload"
 
-        # Power Attack penalty of 2 → feat_modifier includes -2
-        # Weapon Focus would add +1 but weapon_name='unknown' prevents matching
-        # So feat_modifier == -2 (only Power Attack)
-        assert feat_mod == -2, (
-            f"Expected feat_modifier == -2 (Power Attack penalty), got {feat_mod}"
+        # Weapon Focus +1, Power Attack penalty 2 → -2 + 1 = -1
+        assert feat_mod == -1, (
+            f"Expected feat_modifier == -1 (Weapon Focus +1, Power Attack -2), got {feat_mod}"
         )
 
     def test_attack_roll_math_correct(self):
@@ -627,18 +628,15 @@ class TestW3TranscriptDeterminism:
         )
 
     def test_turn1_brief_has_weapon(self):
-        """Turn 1 brief should have weapon_name populated."""
+        """Turn 1 brief should have weapon_name populated.
+        WO-WAYPOINT-003: weapon_name now flows through attack_roll event payload.
+        """
         _ws, _log, briefs = run_scenario()
         brief1 = briefs[1]
         weapon = brief1.get("weapon_name")
-        # weapon_name may be None if attack resolver doesn't populate it
-        # in the events. The brief assembler extracts from events.
-        # If None, this is a discoverable gap — not a test failure per WO.
-        if weapon is None:
-            pytest.skip(
-                "weapon_name is None in Turn 1 brief — "
-                "assembler does not extract weapon from attack events"
-            )
+        assert weapon == "longsword", (
+            f"Turn 1 brief weapon_name should be 'longsword', got: {weapon}"
+        )
 
 
 # ===========================================================================
