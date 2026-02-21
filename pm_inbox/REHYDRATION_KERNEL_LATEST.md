@@ -1,24 +1,30 @@
 # Slate Rehydration Kernel
 
+---
+## CAPSULE (variable state — update at every checkpoint)
+---
+
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
 **Session:** 2026-02-22
-**Delta:** RV-007 ACCEPTED (22 Gate P). 3-tier memory protocol shipped + Anvil rulings integrated. Kernel split executed per protocol.
+**Delta:** RV-007 ACCEPTED (22 Gate P). Memory protocol shipped through v1.1 (15 gaps resolved). Kernel split executed — Charter + Capsule formalized.
 
 ## Priority Stack (top 3)
 1. Tier 3 (Parser/Grammar) dispatch drafting — next on BURST-001 critical path
 2. Compound narration contract decision (FINDING-HOOLIGAN-03 MEDIUM) — or defer
-3. Anvil mirror sync — D:\anvil_research\ has artifacts not yet mirrored to repo
+3. Tier 1 graduation — briefing WO Verdicts and Dispatches sections exceed 20 items
 
 ## Stop Conditions
 - If test suite drops below 6,234 or any gate regresses, halt and investigate
-- If kernel exceeds 400 tokens, cut — don't expand
+- If capsule section exceeds ~400 tokens, cut — don't expand
 - If briefing and kernel contradict, briefing is truth for state; kernel is truth for process
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-22T10:00Z
+- Updated: 2026-02-22T11:00Z
 - Briefing carries: gate counts, WO verdicts, dispatch list, build order, open findings, doctrine status
 
+---
+## CHARTER (invariant — change only through deliberate revision)
 ---
 
 ## AUDIO CUE — MANDATORY
@@ -76,12 +82,14 @@ Read `/tmp/slate_clock.txt` when asked about time. Never estimate. First line UT
 
 ---
 
-## Memory Protocol (MEMORY_PROTOCOL_V1)
+## Memory Protocol (v1.1)
 
-**Tier 0 (this kernel):** ≤400 tokens of critical state. No lists — counts + stoplight + pointers.
-**Tier 1 (briefing):** `PM_BRIEFING_CURRENT.md` — canonical PM database. Gate counts, dispatches, findings, build order, doctrine.
+**Charter (this section):** Invariant identity + process. ~800 tokens. Changes only through deliberate revision.
+**Capsule (top of this file):** Variable state. ≤400 tokens. Updated at every checkpoint.
+**Tier 1 (briefing):** `PM_BRIEFING_CURRENT.md` — canonical PM database. Gate counts, dispatches, findings, build order, doctrine. Graduate sections >20 items.
 **Tier 2 (archive):** `pm_inbox/reviewed/` — handover notes, debriefs, dispatches.
-**Compaction checkpoint:** No compaction without a new capsule. Dual-control: Thunder calls checkpoint when pressure known; Slate self-checkpoints on stutter/cadence. If you can't remember whether you checkpointed, you didn't.
+**Compaction checkpoint:** No compaction without a new capsule. Dual-control: Thunder calls checkpoint when pressure known; Slate self-checkpoints on stutter/cadence/work-item count. If you can't remember whether you checkpointed, you didn't.
+**Recovery mode:** If boot fails (stale capsule, missing register): load Charter only → scan Tier 1 → write fresh capsule → notify operator → proceed.
 **Notebooks:** HIGH PRIORITY. Append-only, write-only, newest-first. Drive IDs in briefing.
 **Full protocol:** `docs/protocols/MEMORY_PROTOCOL_V1.md`
 
