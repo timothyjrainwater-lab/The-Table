@@ -1,0 +1,61 @@
+{
+  "test": "AB_STOP_SEQUENCE_FIX",
+  "finding": "FINDING-EXPLORE-01",
+  "model_id": "qwen25-7b-instruct-4bit",
+  "load_time_s": 3.26,
+  "device": "cuda",
+  "run_a": {
+    "label": "A (OLD - without === stop)",
+    "timestamp": "2026-02-21T15:44:33.644144+00:00",
+    "stop_sequences": [
+      "</narration>",
+      "\n\n"
+    ],
+    "prompt": "=== TRUTH ===\nAction: spell_damage_dealt\nActor: Seraphine\nTarget: Bandit Captain\nOutcome: Seraphine's Hold Person paralyzes the bandit captain\nSeverity: severe\nSpell: Hold Person\nSave Result: Target failed Will save\nCondition Applied: paralyzed\n\n=== MEMORY ===\nPrevious: The bandit captain raised his blade for a killing blow.\nScene: Dusty road ambush, late afternoon\n\n=== TASK ===\nWrite a combat narration for a tabletop RPG. Describe what happens in 2-4 vivid sentences suitable for reading aloud at the table. Use the facts above. Do NOT invent damage numbers, HP values, AC, or dice rolls. Do NOT add new NPCs or locations not mentioned above.\n\n=== STYLE ===\nVoice: Confident dungeon master\nTone: Tense, the moment of magical domination\nPacing: Build tension then freeze\n\n=== CONTRACT ===\nFormat: Prose narration, 2-4 sentences\nMaximum: 400 characters\nRequired: Use character names from TRUTH section, mention paralysis\nForbidden: Save DCs, spell levels, HP values, meta-game terms\n\nNarration:",
+    "max_tokens": 300,
+    "temperature": 0.8,
+    "raw_output": "Seraphine's whispered incantation crackles through the air, and the bandit captain's eyes widen in shock as he is suddenly frozen in place, his blade dropping to the dusty ground with a clatter.\nThe tension hangs thick as the bandit captain stands immobilized, his expression a mix of fear and confusion, unable to move or react. ===\nThe bandit captain's eyes widen in shock as Seraphine's whispered incantation crackles through the air, paralyzing him in place. He stands immobilized, a mix of fear and confusion on his face, unable to move or react. ===\n(Note: 418 characters) ===\nThe bandit captain's eyes widen in shock as Seraphine's incantation crackles through the air, freezing him in place. Paralyzed, he stands still, his face a mask of fear and confusion, unable to move. ===\n(Note: 397 characters) ===",
+    "tokens_used": 438,
+    "finish_reason": "FinishReason.COMPLETED",
+    "gen_time_s": 2.844,
+    "vram_before_mb": 6316.2,
+    "vram_after_mb": 6376.2,
+    "provider_metadata": {
+      "prompt_tokens": 239,
+      "completion_tokens": 199,
+      "model_id": "qwen25-7b-instruct-4bit"
+    },
+    "error": null,
+    "contains_separator": true,
+    "newline_count": 5,
+    "char_count": 813
+  },
+  "run_b": {
+    "label": "B (FIXED - with === stop)",
+    "timestamp": "2026-02-21T15:44:34.389485+00:00",
+    "stop_sequences": [
+      "</narration>",
+      "\n\n",
+      "==="
+    ],
+    "prompt": "=== TRUTH ===\nAction: spell_damage_dealt\nActor: Seraphine\nTarget: Bandit Captain\nOutcome: Seraphine's Hold Person paralyzes the bandit captain\nSeverity: severe\nSpell: Hold Person\nSave Result: Target failed Will save\nCondition Applied: paralyzed\n\n=== MEMORY ===\nPrevious: The bandit captain raised his blade for a killing blow.\nScene: Dusty road ambush, late afternoon\n\n=== TASK ===\nWrite a combat narration for a tabletop RPG. Describe what happens in 2-4 vivid sentences suitable for reading aloud at the table. Use the facts above. Do NOT invent damage numbers, HP values, AC, or dice rolls. Do NOT add new NPCs or locations not mentioned above.\n\n=== STYLE ===\nVoice: Confident dungeon master\nTone: Tense, the moment of magical domination\nPacing: Build tension then freeze\n\n=== CONTRACT ===\nFormat: Prose narration, 2-4 sentences\nMaximum: 400 characters\nRequired: Use character names from TRUTH section, mention paralysis\nForbidden: Save DCs, spell levels, HP values, meta-game terms\n\nNarration:",
+    "max_tokens": 300,
+    "temperature": 0.8,
+    "raw_output": "As the bandit captain readies his blade for a final strike, Seraphine's Hold Person spell paralyzes him mid-swing, freezing his movements and leaving him immobilized. The tension hangs heavy as his blade dangles uselessly in the air.",
+    "tokens_used": 293,
+    "finish_reason": "FinishReason.COMPLETED",
+    "gen_time_s": 0.723,
+    "vram_before_mb": 6376.2,
+    "vram_after_mb": 6409.9,
+    "provider_metadata": {
+      "prompt_tokens": 239,
+      "completion_tokens": 54,
+      "model_id": "qwen25-7b-instruct-4bit"
+    },
+    "error": null,
+    "contains_separator": false,
+    "newline_count": 0,
+    "char_count": 233
+  },
+  "verdict": "CONFIRMED: === stop sequence fix prevents multi-draft. Run A: 199 completion tokens, 3+ drafts, === separators present. Run B: 54 completion tokens, single clean draft, no === separators. Script verdict logic had threshold bug (compared tokens_used including prompt vs completion_tokens only)."
+}

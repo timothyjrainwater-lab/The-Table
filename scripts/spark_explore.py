@@ -117,7 +117,25 @@ SCENARIOS = [
 
 
 def get_vram_mb():
-    """Get current VRAM usage in MB."""
+    """Get current VRAM usage in MB via NVML (captures llama-cpp allocations).
+
+    torch.cuda.memory_allocated() returns 0 for llama-cpp-python because
+    it allocates through CUDA directly, not through PyTorch. Use pynvml
+    for accurate reporting.
+    """
+    # Try NVML first
+    try:
+        import pynvml
+        pynvml.nvmlInit()
+        handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+        mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+        used_mb = mem_info.used / (1024 * 1024)
+        pynvml.nvmlShutdown()
+        return used_mb
+    except (ImportError, Exception):
+        pass
+
+    # Fallback: torch (will report 0 for llama-cpp allocations)
     try:
         import torch
         if torch.cuda.is_available():

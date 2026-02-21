@@ -231,9 +231,11 @@ class LlamaCppAdapter(SparkAdapter):
             )
 
             # Estimate memory usage (rough approximation)
-            memory_usage_mb = profile.min_vram_gb * 1024 if n_gpu_layers > 0 else profile.min_ram_gb * 1024
+            # n_gpu_layers: -1 means all layers on GPU, 0 means CPU-only, >0 means N layers on GPU
+            on_gpu = n_gpu_layers != 0 and self.enable_gpu
+            memory_usage_mb = profile.min_vram_gb * 1024 if on_gpu else profile.min_ram_gb * 1024
 
-            device = "cuda" if n_gpu_layers > 0 else "cpu"
+            device = "cuda" if on_gpu else "cpu"
 
             logger.info(
                 f"Model '{model_id}' loaded successfully on {device} "
@@ -665,26 +667,68 @@ class LlamaCppAdapter(SparkAdapter):
     def _get_available_vram_gb(self) -> float:
         """Get available VRAM in gigabytes.
 
-        This is a placeholder. In production, this would integrate
-        with Agent B hardware detection system.
+        Uses pynvml (NVML) for accurate reporting that captures all VRAM
+        allocations including those made by llama-cpp-python outside of
+        PyTorch. Falls back to torch if pynvml is unavailable.
 
         Returns:
             Available VRAM in GB
         """
-        # TODO: Integrate with Agent B hardware detection
-        # For now, return conservative estimate
+        # Try NVML first — captures all GPU memory, not just PyTorch
+        try:
+            import pynvml
+            pynvml.nvmlInit()
+            handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+            mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+            available_gb = mem_info.free / (1024 ** 3)
+            pynvml.nvmlShutdown()
+            return available_gb
+        except (ImportError, Exception):
+            pass
+
+        # Fallback: torch (only sees PyTorch allocations, not llama-cpp)
         try:
             import torch
             if torch.cuda.is_available():
-                # Get VRAM from first GPU
                 props = torch.cuda.get_device_properties(0)
                 total_vram_gb = props.total_memory / (1024 ** 3)
-                # Assume 80% is available
+                # Assume 80% is available (conservative without NVML)
                 return total_vram_gb * 0.8
         except ImportError:
             pass
 
-        # No GPU detected or torch not available
+        # No GPU detected
+        return 0.0
+
+    def _get_vram_used_gb(self) -> float:
+        """Get currently used VRAM in gigabytes.
+
+        Uses pynvml for accurate reporting that captures llama-cpp-python
+        allocations. torch.cuda.memory_allocated() returns 0 for llama-cpp
+        because it allocates through CUDA directly, not through PyTorch.
+
+        Returns:
+            Used VRAM in GB, or 0.0 if unavailable
+        """
+        try:
+            import pynvml
+            pynvml.nvmlInit()
+            handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+            mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+            used_gb = mem_info.used / (1024 ** 3)
+            pynvml.nvmlShutdown()
+            return used_gb
+        except (ImportError, Exception):
+            pass
+
+        # Fallback: torch (will report 0 for llama-cpp allocations)
+        try:
+            import torch
+            if torch.cuda.is_available():
+                return torch.cuda.memory_allocated(0) / (1024 ** 3)
+        except ImportError:
+            pass
+
         return 0.0
 
     def _get_available_ram_gb(self) -> float:
