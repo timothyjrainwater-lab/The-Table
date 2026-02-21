@@ -54,7 +54,7 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 - WO-VOICE-RESEARCH-04: UX Turn-Taking & Confirmation (`docs/research/VOICE_UX_TURNTAKING_AND_CONFIRMATION.md`)
 - WO-VOICE-RESEARCH-05: Synthesis Playbook (`pm_inbox/reviewed/legacy_pm_inbox/research/VOICE_FIRST_RELIABILITY_PLAYBOOK.md`)
 
-**Next action:** **TIER 1 SPEC FREEZE COMPLETE.** All four tiers accepted: 1.1 Grammar (`Gate J`), 1.2 Unknown Handling (`Gate K`), 1.3 Typed Call (`Gate L`, `a65acea`), 1.4 Boundary Pressure (`Gate M`, `c330db1`). 157 BURST-001 gate tests total. Next: Tier 2 (Instrumentation) — PM drafting.
+**Next action:** **TIER 2 INSTRUMENTATION COMPLETE.** WO-VOICE-PRESSURE-IMPL-001 (37 Gate N, ACCEPTED `0a808a7`) + WO-VOICE-UK-LOG-001 (47 Gate O, ACCEPTED `0a808a7`). 84 new tests, zero regressions. 241 BURST-001 gate tests total (Tier 1: J:27 + K:67 + L:32 + M:31 = 157; Tier 2: N:37 + O:47 = 84). Next: RV-007 fix (HIGH, from Spark explore findings), then Tier 3 (Parser/Grammar).
 
 **Aegis audit carry-forwards (Tier 1.3):**
 - **Amendment cost:** Frozen 6x7 matrix (6 CallTypes × 7 dimensions). Adding a CallType requires filling all 7 dimensions + Gate L + validator. Future amendment WOs must scope accordingly.

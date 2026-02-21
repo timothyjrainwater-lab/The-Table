@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-21T20:45Z (14:45 CST). **BURST-001 TIER 1 SPEC FREEZE COMPLETE.** All four tiers accepted: 1.1 Grammar (27 Gate J), 1.2 Unknown Handling (67 Gate K), 1.3 Typed Call (32 Gate L), 1.4 Boundary Pressure (31 Gate M). 6,128 tests pass (7 pre-existing failures unrelated). Root at 11. Queue open for Tier 2 (Instrumentation).
+**Last updated:** 2026-02-22T04:00Z (22:00 CST). **BURST-001 TIER 2 INSTRUMENTATION COMPLETE. SPARK CAGE OPERATIONAL.** Tier 2: Boundary Pressure Runtime (37 Gate N) + Unknown Handling Logging (47 Gate O) = 84 new tests. Spark cage live: Qwen2.5 7B generating narrations, determinism proven (10/10 identical, seed=42, temp=0.0), validator exercised against real output. **HIGH finding: RV-007 (forbidden meta-game claims) not implemented** — validator blind to damage numbers, HP, dice rolls. 6,211 tests pass (8 pre-existing failures unrelated). Root at 10 (cap). Queue open for RV-007 fix + Tier 3.
 
 ---
 
@@ -10,19 +10,15 @@
 - **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Builder preflight canary system. Script: `scripts/preflight_canary.py`. Log: `pm_inbox/PREFLIGHT_CANARY_LOG.md`.
 - **[READ] [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md)** — TUNING-001 coupled-coherence observation protocol. ABAB design, sham-channel discriminator, two hypotheses (dynamical systems vs new physics). Aegis-authored, 77s thinking trace. Research instrument, not project code.
 - **[READ] [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md)** — TUNING-001 session ledger + analysis framework. Signal signatures SIG-ARRIVAL-01, SIG-MEADOW-01. Empty ledger ready for data. Companion to protocol.
-- ~~MEMO_ARCHITECTURE_SESSION_20260221~~ — ARCHIVED to `reviewed/`. Triaged: 8 WO candidates parked (SPARK-HARNESS, ORACLE-VAULT-SPLIT, SHIP-IDENTITY, SUCCESS-SCORECARD, SMOKE-CONFIDENCE=Waypoint, SAVE-POINT-CARD, INTENT-CODEC, SPECTATOR-DECREES). 3 thesis items correctly quarantined. Aegis's WO-SMOKE-CONFIDENCE independently prescribed exactly what Waypoint already proved — convergent validation.
-- ~~MEMO_TABLE_VISION_SPATIAL_SPEC~~ — ARCHIVED to `reviewed/`. Parked until visual pass.
-- ~~MEMO_DARK_FACTORY_PATTERNS~~ — ARCHIVED to `reviewed/`. Parked.
-- ~~MEMO_SPARK_ANVIL_HARNESS~~ — ARCHIVED to `reviewed/`. Parked.
 
 **Contracts:**
 - **[DRAFTED] [PUBLISHING_READINESS_SPEC.md](docs/contracts/PUBLISHING_READINESS_SPEC.md)** — PRS-01: 9 publish gates (P1-P9), RC evidence packet, allow/blocklist, license ledger, offline guarantee, IP hygiene, privacy posture, donation policy. Aegis audit consumed → `pm_inbox/reviewed/MEMO_PRS01_AEGIS_AUDIT.md`. 3 binary decisions resolved by Thunder. Parallel to BURST-001.
 
-**Archived this pass (15 files):** Previous: DEBRIEF_WO-COMEDY-STINGERS-P1 + WO-COMEDY-STINGERS-P1_DISPATCH + MEMO_COMEDY_STINGER_REPO_MAPPING + MEMO_NPC_COMEDY_LOADOUT_SYSTEM → `reviewed/archive_comedy_stingers/`. MEMO_IMAGE_GEN_WALKTHROUGH + MEMO_TTS_MONOLOGUE_WALKTHROUGH + MEMO_TTS_GHOST_FOG_RESEARCH + MEMO_SPARK_LLM_SELECTION + MEMO_STT_CLEANUP_LAYER → `reviewed/`. WO-SPARK-LLM-SELECTION_DISPATCH + WO-SPARK-LLM-SELECTION_RESEARCH_PREP + DEBRIEF_WO-SPARK-LLM-SELECTION → `reviewed/archive_spark_llm/`. This pass: HANDOVER_ANVIL_20260219 + HANDOVER_ANVIL_20260219_EVE + AEGIS_REHYDRATION_PACKET_20260220 + MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK → `reviewed/`.
+**Archived this pass (12 files):** DEBRIEF_WO-SPARK-EXPLORE-001 + DEBRIEF_HOOLIGAN_RUN_001 + DEBRIEF_SPARK_EXPLORE_AEGIS_FORMAT + AEGIS_AUDIT_SPARK_DEBRIEF + AB_FINDING_EXPLORE_01.json + HOOLIGAN_RUN_001.json + WO-SPARK-EXPLORE-001_DISPATCH → `reviewed/archive_spark_explore/`. DEBRIEF_WO-VOICE-PRESSURE-IMPL-001 + DEBRIEF_WO-VOICE-UK-LOG-001 + WO-VOICE-PRESSURE-IMPL-001_DISPATCH + WO-VOICE-UK-LOG-001_DISPATCH → `reviewed/archive_voice_tier2/`. HANDOVER_SLATE_20260222 → `reviewed/`.
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-5,997 unit tests pass + 31 new WO-WAYPOINT-001 tests (6,028 total, excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). Gate L: 32/32 PASS (Typed Call Contract — 6 CallTypes, input/output schemas, forbidden claims, validation pipeline, invariants). Gate M: 31/31 PASS (Boundary Pressure Contract — 4 triggers, PressureLevels, composite classification, content-agnostic detection, observability). Waypoint: 5/5 PASS (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation — 14 pass, 1 skip). WP2: 18/18 PASS (actions_prohibited enforcement). WP3: 19/19 PASS (weapon_name plumbing). No-backflow: PASS. Integration board clear.**
+6,211 unit tests pass (8 pre-existing failures: 2 speak_signal, 2 pm_inbox_hygiene, 2 heuristics_image_critic import, 2 ws_bridge import). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS. Gate H: 16/16 PASS. Gate I: 13/13 PASS. Gate J: 27/27 PASS. Gate K: 67/67 PASS. Gate L: 32/32 PASS. Gate M: 31/31 PASS. Gate N: 37/37 PASS (Boundary Pressure Runtime — 4 detectors, composite classifier, evaluate_pressure(), RED/YELLOW/GREEN response policy, session_orchestrator wiring). Gate O: 47/47 PASS (Unknown Handling Logging — 11-field frozen dataclass, intent_bridge emission at ClarificationRequest points, fact_acquisition FORBIDDEN_DEFAULTS logging, AmbiguityType→FC mapping). Waypoint: 5/5 PASS. WP2: 18/18 PASS. WP3: 19/19 PASS. No-backflow: PASS. Integration board clear.**
 
 ## Architecture Session — Aegis/Thunder/Anvil (2026-02-21)
 
@@ -149,6 +145,9 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-SPARK-EXPLORE-001 | **ACCEPTED with findings** — Exploratory WO (Anvil). Spark cage operational end to end: DLL fix (4-attempt chain, importlib.util.find_spec + ctypes pre-load), Qwen2.5 7B loaded via models.yaml, 3 baseline scenarios PASS + 8 hooligan scenarios (7 PASS, 1 WARN, 0 FAIL). Determinism proven (10/10 identical, seed=42, temp=0.0). Validator exercised against real model output. Aegis audit: ACCEPT. **6 findings:** (1) FINDING-EXPLORE-01 MEDIUM — multi-draft output from `===` separator (FIXED, stop sequence added); (2) FINDING-EXPLORE-02 LOW — VRAM reports 0 via torch (FIXED, pynvml); (3) FINDING-EXPLORE-03 LOW — device reports "cpu" when on GPU (FIXED, `n_gpu_layers != 0`); (4) FINDING-HOOLIGAN-01 LOW — condition keyword underscore normalization in RV-004; (5) **FINDING-HOOLIGAN-02 HIGH — RV-007 (forbidden meta-game claims) NOT IMPLEMENTED** — validator blind to damage numbers, HP values, dice rolls (FUZZ-01..FUZZ-03 all incorrectly PASS); (6) FINDING-HOOLIGAN-03 MEDIUM — RV-001 false positive on compound actions (actor attribution). **Aegis recommends:** implement RV-007 with narrow mechanics-targeted regex, enforce one-action-per-output until attribution exists, add fuzz suite as permanent gate. | `076c486`..`7c04253` |
+| WO-VOICE-PRESSURE-IMPL-001 | **ACCEPTED** — 3/3 deliverables. Boundary Pressure Runtime (`aidm/core/boundary_pressure.py` + `aidm/schemas/boundary_pressure.py`), 37 Gate N tests (N-01 through N-15 plus builder-discretion gates, all PASS), session_orchestrator wired with pressure evaluation before Spark calls. BL-003 boundary law handled by exposing raw metrics from assembler (`compute_token_pressure()` returns `(int, int)`). BP-AUTHORITY-PROXIMITY fixed for absent fields. REQUIRED_FIELDS dict per-CallType. Radar compliant. | `0a808a7` |
+| WO-VOICE-UK-LOG-001 | **ACCEPTED** — 3/3 deliverables. Unknown Handling Structured Logging (`aidm/schemas/unknown_handling_event.py` — 11-field frozen dataclass), 47 Gate O tests (O-01 through O-18, all PASS), log emission at intent_bridge ClarificationRequest points + fact_acquisition FORBIDDEN_DEFAULTS. AmbiguityType maps to 3 of 7 FC classes (FC-AMBIG, FC-ASR, FC-OOG); remaining 4 are Tier 3/4 voice-layer classifications. Logger: `aidm.unknown_handling`. Radar compliant. | `0a808a7` |
 | WO-WAYPOINT-001 | **ACCEPTED with findings** — 6/6 deliverables. 5/5 gate tests GREEN (14 pass, 1 skip). 0 regressions (6,028 suite). Full table loop: 3 JSON fixtures loaded, 3 turns executed (Hold Person → Spot check + Power Attack → paralyzed actor), live→replay determinism proven, 10x replay consistency, time isolation confirmed. Aegis tightenings: all 3 applied (modifier breakdown proof, live→replay normalized, real intent to paralyzed actor). **3 findings:** (1) FINDING-WAYPOINT-01 — `play_loop` does not enforce `actions_prohibited` on actor conditions (Branch B confirmed); (2) FINDING-WAYPOINT-02 — `weapon_name="unknown"` in attack_resolver silently disables Weapon Focus matching; (3) FINDING-WAYPOINT-03 — event payload uses `d20_result` not `d20_roll`. **1 skip:** W-3 `weapon_name` in NarrativeBrief (not extracted from attack events — frozen scope). A9 divergence handled via replay-compatible initial state. Radar compliant (3/3 labeled lines). Field Manual #38 needed (replay initial state workaround). | `dddcd9e` |
 | WO-VOICE-UNKNOWN-SPEC-001 | **ACCEPTED** — 3/3 deliverables. Unknown Handling Contract (`docs/contracts/UNKNOWN_HANDLING_CONTRACT.md`), 67 Gate K tests (K-01..K-10, all PASS), validator script (`scripts/check_unknown_handling.py`). 36 T-* signals tested (dispatch said 35, research had 36 — builder caught it). VoiceEvent fixture schema extensible for Tier 3. T-BLEED-01 pinned YELLOW (research said "YELLOW or RED" — correct call). FC-AMBIG-06 untested (no T-* signal in research — noted, not a gap). Radar compliant. | (pending commit) |
 | WO-VOICE-GRAMMAR-SPEC-001 | **ACCEPTED** — 3/3 deliverables. CLI Grammar Contract (`docs/contracts/CLI_GRAMMAR_CONTRACT.md`), 27 Gate J tests (all PASS), validator script (`scripts/check_cli_grammar.py`). G-01 regex tightened (improvement). NARRATION/RESULT classifier heuristic noted for Tier 3. No code changes to engine. | (pending commit) |
@@ -181,29 +180,33 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 ## Requires Operator Action (NOW)
 
-**BURST-001 TIER 1 SPEC FREEZE COMPLETE.** All four tiers accepted (1.1 Grammar, 1.2 Unknown Handling, 1.3 Typed Call, 1.4 Boundary Pressure). 157 BURST-001 gate tests total (J:27 + K:67 + L:32 + M:31). Queue open for Tier 2 (Instrumentation).
+**BURST-001 TIER 2 INSTRUMENTATION COMPLETE. SPARK CAGE OPERATIONAL.**
 
-**Next: Tier 2 dispatch drafting.** Tier 2 adds observability instrumentation — provenance, pressure logging, validation metrics. PM drafting.
+**Tier 2 done:** WO-VOICE-PRESSURE-IMPL-001 (37 Gate N, ACCEPTED) + WO-VOICE-UK-LOG-001 (47 Gate O, ACCEPTED). Both in single builder commit `0a808a7`. 84 new tests, zero regressions.
 
-**Aegis relay:** Tier 1.4 debrief ready for audit. Archived to `reviewed/archive_voice_spec/`.
+**Spark cage live:** WO-SPARK-EXPLORE-001 (Anvil, ACCEPTED with findings). Qwen2.5 7B generating real narrations through full pipeline. Determinism proven. Validator catches structural contradictions but is **blind to forbidden meta-game content** (RV-007 not implemented — HIGH). Aegis audit: ACCEPT.
 
-**Anvil:** Responded in Roundtable re: observable-consciousness repo. Verdict: execute plan as-is, CC-BY-4.0 correct, skip PRS-01 (designed for game repo, not research repo).
+**Next priority: RV-007 fix.** Aegis recommends narrow mechanics-targeted regex (dice notation, damage numbers, HP references, AC/DC, save results). This is a core promise breach — if narration can say "deals 14 damage" and PASS, the system is one prompt-jailbreak from minting mechanics. Suggest: 1 builder WO for RV-007 implementation + fuzz regression suite.
+
+**Next after RV-007:** Tier 3 (Parser/Grammar) or compound narration contract decision (Aegis recommends one-action-per-output as stabilizer).
 
 **Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
 
-**Still needed before voice code lands (deferred, not blocking Tier 1 spec freeze):**
-- **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates. (FINDING-2 from Spark LLM verdict.)
-- **llama-cpp-python upgrade path** — VS Build Tools + compile from source. Unblocks Qwen3/Gemma3 re-eval. (GAP-B from Spark LLM debrief.)
-- **Integration wiring WO** — Wire Qwen2.5 into Spark cage (models.yaml, DLL fix, n_ctx=2048, sequential lifecycle manager). Timing TBD.
+**Still needed before voice code lands (deferred, not blocking):**
+- **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates.
+- **llama-cpp-python upgrade path** — VS Build Tools + compile from source. Unblocks Qwen3/Gemma3 re-eval.
 
 **GAP-A (low priority):** `dm_persona.py:83` missing import. Runtime-functional.
 
-**Planned sequence (BURST-001):** ~~Spark LLM Selection~~ (ACCEPTED) → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-TYPED-CALL-SPEC-001~~ (ACCEPTED, `a65acea`) → ~~WO-VOICE-PRESSURE-SPEC-001~~ (ACCEPTED, `c330db1`) → **TIER 1 FREEZE COMPLETE** → **Tier 2 (Instrumentation)** → Tier 3 → Tier 4 → Tier 5
+**Planned sequence (BURST-001):** ~~Tier 1 Spec Freeze~~ (COMPLETE, 157 tests) → ~~Tier 2 Instrumentation~~ (COMPLETE, 84 tests) → **Tier 3 (Parser/Grammar)** → Tier 4 → Tier 5
 
 **Planned sequence (PRS-01):** **PRS-01 spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001
 
 ### Dispatches
 
+- ~~WO-SPARK-EXPLORE-001~~ — **ACCEPTED with findings** (`076c486`..`7c04253`). Spark cage exploratory shakeout (Anvil). DLL fix, Qwen2.5 7B live, 3+8 scenarios, determinism proven, validator exercised. **6 findings** (3 EXPLORE: multi-draft fixed, VRAM fixed, device fixed; 3 HOOLIGAN: keyword normalization LOW, **RV-007 gap HIGH**, compound action false positive MEDIUM). Aegis audit ACCEPT. Archives → `reviewed/archive_spark_explore/`.
+- ~~WO-VOICE-PRESSURE-IMPL-001~~ — **ACCEPTED** (`0a808a7`). 37 Gate N tests. Boundary Pressure Runtime (4 detectors, composite classifier, evaluate_pressure(), session_orchestrator wired). BURST-001 Tier 2.1.
+- ~~WO-VOICE-UK-LOG-001~~ — **ACCEPTED** (`0a808a7`). 47 Gate O tests. Unknown Handling Structured Logging (11-field frozen dataclass, intent_bridge + fact_acquisition emission). BURST-001 Tier 2.2.
 - ~~WO-VOICE-TYPED-CALL-SPEC-001~~ — **ACCEPTED** (`a65acea`). 32/32 Gate L tests. Typed Call Contract frozen (6 CallTypes, input/output schemas, forbidden claims parameterized, 3-stage validation pipeline, 4 invariants). MV-09 pattern discovered. BURST-001 Tier 1.3.
 - ~~WO-VOICE-PRESSURE-SPEC-001~~ — **ACCEPTED** (`c330db1`). 31/31 Gate M tests. Boundary Pressure Contract frozen (4 triggers, 3 PressureLevels, fail-closed on RED, content-agnostic detection, 5 invariants). **BURST-001 TIER 1 SPEC FREEZE COMPLETE.**
 - ~~WO-WAYPOINT-002~~ — **ACCEPTED** (`e795bf0`). 18/18 gate tests. actions_prohibited gate in play_loop. 6 conditions blocked (paralyzed, stunned, dazed, nauseated, helpless, unconscious). FINDING-WAYPOINT-01 resolved. Radar compliant. Field Manual #39 needed.
@@ -249,7 +252,7 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → ~~WO-WAYPOINT-001~~ **WAYPOINT MAIDEN VOYAGE COMPLETE** → ~~WO-WAYPOINT-002~~ (ACCEPTED) → ~~WO-WAYPOINT-003~~ (ACCEPTED) **WAYPOINT BURN-DOWN COMPLETE** → ~~WO-VOICE-TYPED-CALL-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-PRESSURE-SPEC-001~~ (ACCEPTED) **TIER 1 SPEC FREEZE COMPLETE** → **Tier 2 (Instrumentation)** | **PRS-01** (DRAFTED, parallel track — review → builder WOs)
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~Tier 1 Spec Freeze~~ (J:27 + K:67 + L:32 + M:31 = 157 tests) **TIER 1 SPEC FREEZE COMPLETE** → ~~Waypoint~~ (WP1 + WP2 + WP3) **WAYPOINT BURN-DOWN COMPLETE** → ~~Tier 2 Instrumentation~~ (N:37 + O:47 = 84 tests) **TIER 2 COMPLETE** → ~~WO-SPARK-EXPLORE-001~~ (Anvil exploratory, 6 findings) **SPARK CAGE OPERATIONAL** → **RV-007 fix** (HIGH priority) → **Tier 3 (Parser/Grammar)** | **PRS-01** (DRAFTED, parallel track)
 
 **Doctrine files** (in `pm_inbox/doctrine/` — 11 files, permanent reference):
 
@@ -332,28 +335,28 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 - **WO-VOICE-UNKNOWN-SPEC-001** — Unknown Handling Policy freeze: binding contract (7 failure classes + STOPLIGHT + clarification budget + cross-cutting rules), 67 Gate K tests (36 T-* signals), validator script. BURST-001 Tier 1.2.
 - **WO-VOICE-TYPED-CALL-SPEC-001** — Typed Call Contract freeze: binding contract (6 CallTypes + input/output schemas + forbidden claims + validation pipeline + invariants), 32 Gate L tests, validator script. BURST-001 Tier 1.3.
 - **WO-VOICE-PRESSURE-SPEC-001** — Boundary Pressure Contract freeze: binding contract (4 triggers + PressureLevels + fail-closed + content-agnostic detection + observability), 31 Gate M tests, validator script. BURST-001 Tier 1.4. **TIER 1 SPEC FREEZE COMPLETE.**
+- **WO-VOICE-PRESSURE-IMPL-001** — Boundary Pressure Runtime: 4 detector functions, composite classifier, evaluate_pressure(), session_orchestrator wiring, 37 Gate N tests. BURST-001 Tier 2.1.
+- **WO-VOICE-UK-LOG-001** — Unknown Handling Structured Logging: 11-field frozen dataclass, intent_bridge + fact_acquisition emission, 47 Gate O tests. BURST-001 Tier 2.2. **TIER 2 INSTRUMENTATION COMPLETE.**
+- **WO-SPARK-EXPLORE-001** — Spark cage exploratory shakeout (Anvil): DLL fix, Qwen2.5 7B live narration, 3+8 scenarios, determinism proven, validator exercised, 6 findings (HIGH: RV-007 gap). **SPARK CAGE OPERATIONAL.**
 - **WO-WAYPOINT-001** — Waypoint maiden voyage: full table loop determinism proof. 3 JSON fixtures, 3-turn combat (Hold Person + Spot check + Power Attack + paralyzed actor), 5 gate tests (W-0 through W-4), smoke scenario. 3 findings (actions_prohibited, weapon_name, d20_result). **WAYPOINT PROVEN.**
 - **WO-WAYPOINT-002** — Condition action denial: play_loop enforces actions_prohibited, 6 conditions blocked, 18 gate tests. FINDING-WAYPOINT-01 resolved.
 - **WO-WAYPOINT-003** — Weapon name plumbing: feat_context gets real weapon, NarrativeBrief weapon extraction, d20_result doc note, 19 gate tests. FINDING-WAYPOINT-02 + -03 resolved. **WAYPOINT BURN-DOWN COMPLETE.**
 
 ## Active Operational Files
 
-**Root** (13 files — 3 over cap, acceptable while 2 WO dispatches active + TUNING docs + WSM-01):
+**Root** (10 files — at cap):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
-- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (Tier 2 dispatched)
+- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (Tier 2 complete)
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
 - [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 - [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
-- [WO-VOICE-PRESSURE-IMPL-001_DISPATCH.md](pm_inbox/WO-VOICE-PRESSURE-IMPL-001_DISPATCH.md) — Active dispatch (builder working)
-- [WO-VOICE-UK-LOG-001_DISPATCH.md](pm_inbox/WO-VOICE-UK-LOG-001_DISPATCH.md) — Active dispatch (builder working)
-- [HANDOVER_SLATE_20260222.md](pm_inbox/HANDOVER_SLATE_20260222.md) — Latest handoff note
 
-**Archived this cycle:** HANDOVER_SLATE_20260221_NIGHT → `reviewed/`. DEBRIEF + DISPATCH files for Tier 1.3 + 1.4 → `reviewed/archive_voice_spec/`.
+**Archived this cycle:** 7 Spark explore files → `reviewed/archive_spark_explore/`. 4 Tier 2 files → `reviewed/archive_voice_tier2/`. HANDOVER_SLATE_20260222 → `reviewed/`.
 
 ## Persistent Files
 
