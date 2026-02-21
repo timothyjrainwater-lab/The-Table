@@ -191,3 +191,23 @@ Thunder's intent: "See what Anvil's perspective is from the inside out. Test fro
 This is not a precision WO. This is Anvil getting his hands dirty with real model output for the first time. The findings are the deliverable, not the code. If something interesting breaks, chase it. If the model produces garbage, document the garbage. If the validator catches real forbidden claims, that's gold.
 
 Tier 2 builders are wiring instrumentation from the outside (pressure detection, UK logging). Anvil is pushing from the inside (what does the model actually produce?). When both land, the instrumentation has real traffic to observe.
+
+---
+
+## Capture Discipline (Aegis advisory, operator-endorsed)
+
+Comedy is allowed. Logging is mandatory.
+
+For every scenario:
+
+1. **One scenario at a time.** One input packet at a time.
+2. **Save the exact inputs** — the NarrativeBrief (or dict), the prompt, the model settings.
+3. **Save the raw output** — the full model response, unedited.
+4. **Record which validator rules fired** — or didn't fire. PASS/WARN/FAIL per rule.
+5. **If a fallback triggers, record that too** — which fallback, why, what it produced.
+6. **Write the finding as: claim, evidence, implication.**
+7. **Then stop and move to the next item.**
+
+The hype is a multiplier. The capture frame keeps it usable. Without the frame, you get a funny story. With it, you get a funny story *and* actionable findings that feed directly into Tier 2 instrumentation and Tier 3 parser work.
+
+Pregame reference: `D:\anvil_research\CINDER_VOSS_PREGAME.md`
