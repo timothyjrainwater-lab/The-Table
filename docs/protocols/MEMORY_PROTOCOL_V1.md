@@ -120,17 +120,48 @@ anvil_diary/
 
 Slate's memory is already structured via `pm_inbox/`. No new folder tree.
 
-**Mapping:**
-- **Capsule:** `pm_inbox/REHYDRATION_KERNEL_LATEST.md` (keep under 400 tokens of critical state)
-- **Tier 1:** `pm_inbox/PM_BRIEFING_CURRENT.md` + `pm_inbox/BURST_INTAKE_QUEUE.md`
-- **Tier 2:** `pm_inbox/reviewed/` (organized by WO cycle)
-- **Session index:** Briefing "WO Verdicts" table + handover notes
+**Kernel split (Aegis ruling, 2026-02-22):** The rehydration kernel cannot be both a working prompt payload and the canonical PM database. Carrying lists in Tier 0 causes stutter. Carry counts + stoplight + pointers instead. Let Tier 1 be the database.
+
+**Tier 0 (Capsule):** `pm_inbox/REHYDRATION_KERNEL_LATEST.md` — under 400 tokens. Contains:
+- Identity and role boundary
+- Current priority stack (top 3)
+- Stop conditions (what would invalidate the plan)
+- Delta since last capsule
+- Pointer + hash + timestamp to PM State Register
+
+**Tier 0 (Focused Recall):** Briefing "Requires Operator Action" section — one section, kept tight.
+
+**Tier 1 (PM State Register):** `pm_inbox/PM_BRIEFING_CURRENT.md` + `pm_inbox/BURST_INTAKE_QUEUE.md` — canonical project state. Contains:
+- Gate counts (compact stoplight, not full per-gate breakdowns)
+- Dispatch list (active and completed)
+- Open findings inventory
+- Build order position
+- Doctrine adoption status
+
+**Tier 2 (Archive):** `pm_inbox/reviewed/` — organized by WO cycle.
+
+**Session index:** Briefing "WO Verdicts" table + handover notes.
 
 **Standing orders:**
-1. Kernel is capsule. Keep it compressed.
-2. Briefing "Requires Operator Action" section is focused recall — keep tight.
+1. Kernel is capsule. Under 400 tokens. No lists — counts + stoplight + pointers.
+2. Briefing is Tier 1 register. Canonical. This is where lists live.
 3. Handover notes at session end serve as session diary.
 4. No new folder structure needed.
+
+---
+
+## Compaction Checkpoint (mandatory)
+
+When approaching context pressure, agents perform a **Checkpoint Capsule Refresh** before compaction:
+
+1. Write a fresh capsule to Tier 0 (captures current session state)
+2. Update Tier 1 registers (State Register / PM Briefing)
+3. Record pointers and hashes
+4. Then compaction proceeds
+
+**Rule: No compaction without a new capsule.** Rereading the briefing after compaction works but is manual retrieval, not continuity. The checkpoint makes compaction a controlled boundary instead of a memory cliff.
+
+**Trigger:** If the agent begins stuttering OR is within ~10% of context limit, checkpoint immediately.
 
 ---
 
@@ -156,5 +187,7 @@ Context pressure shows up as measurable backpressure:
 ## Future Extensions (out of scope)
 
 1. **Capsule injection into PromptPack** — Add optional capsule field to `PromptPackBuilder.build()`, gets priority slot in MEMORY channel. CODE WO.
-2. **Bridge harness Mode A** — Replay-driven prompt compilation tool. CODE WO.
-3. **Aegis memory** — If Aegis adopts this protocol, same pattern: `aegis_diary/` with same structure.
+2. **Bridge harness Mode A** — Replay-driven prompt compilation tool. Queue behind RV-007. Becomes correctness-enabling once validators are hardened and need real engine truth frames. CODE WO.
+3. **Bridge harness Mode B** — Live session bridge. Queue behind Mode A. Needed for "Thunder plays / Spark narrates" continuous operation.
+4. **Aegis memory** — If Aegis adopts this protocol, same pattern: `aegis_diary/` with same structure.
+5. **PM State Register schema** — Aegis offered to propose exact fields so the kernel split becomes mechanical and enforceable. Accept when ready.
