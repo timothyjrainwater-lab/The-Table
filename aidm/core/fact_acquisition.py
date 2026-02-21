@@ -10,11 +10,17 @@ Reference: RQ-LENS-001 Finding 5 (Required Attributes Per Entity Class)
 import logging
 import uuid
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 
 from aidm.core.lens_index import LensIndex, SourceTier
+from aidm.schemas.unknown_handling_event import UnknownHandlingEvent
 
 logger = logging.getLogger(__name__)
+uk_logger = logging.getLogger("aidm.unknown_handling")
+
+# Default clarification budget per contract Section 3.1
+_DEFAULT_MAX_CLARIFICATIONS = 2
 
 
 # ==============================================================================
@@ -44,6 +50,38 @@ VALID_SIZE_CATEGORIES = {
     "fine", "diminutive", "tiny", "small", "medium",
     "large", "huge", "gargantuan", "colossal"
 }
+
+
+# ==============================================================================
+# UK-CLASS STRUCTURED LOGGING (WO-VOICE-UK-LOG-001)
+# ==============================================================================
+
+def _emit_forbidden_default_event(
+    missing_attribute: Optional[str],
+    entity_id: str = "",
+    resolution: str = "handled",
+    failure_class: str = "FC-PARTIAL",
+    turn_number: int = 0,
+) -> UnknownHandlingEvent:
+    """Emit a structured UK-class log event for a FORBIDDEN_DEFAULT detection.
+
+    Returns the event for testability.
+    """
+    event = UnknownHandlingEvent(
+        event_type="classification",
+        failure_class=failure_class,
+        sub_class=None,
+        stoplight="RED",
+        clarification_round=0,
+        max_clarifications=_DEFAULT_MAX_CLARIFICATIONS,
+        resolution=resolution,
+        missing_attribute=missing_attribute,
+        turn_number=turn_number,
+        correlation_id=str(uuid.uuid4()),
+        timestamp=datetime.now(timezone.utc).isoformat(),
+    )
+    uk_logger.error("UK FORBIDDEN_DEFAULT: entity=%s %s", entity_id, event.to_dict())
+    return event
 
 
 # ==============================================================================
@@ -354,6 +392,10 @@ class FactAcquisitionManager:
                         f"Missing required attribute '{attr}' "
                         "(no default allowed)"
                     )
+                    _emit_forbidden_default_event(
+                        missing_attribute=attr,
+                        entity_id=response.entity_id,
+                    )
 
         # Rule 3: Type validation for provided facts
         for attr, value in response.facts.items():
@@ -559,6 +601,12 @@ class FactAcquisitionManager:
 
         # Validate entity class
         if entity_class not in VALID_ENTITY_CLASSES:
+            _emit_forbidden_default_event(
+                missing_attribute=None,
+                entity_id=entity_id,
+                resolution="escalated_to_menu",
+                failure_class="FC-OOG",
+            )
             return AcquisitionResult(
                 success=False,
                 entity_id=entity_id,

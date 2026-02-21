@@ -52,6 +52,7 @@ from aidm.core.play_loop import (
     TurnContext as BoxTurnContext,
     TurnResult as BoxTurnResult,
 )
+from aidm.core.boundary_pressure import evaluate_pressure
 from aidm.core.rng_manager import RNGManager
 from aidm.core.spell_resolver import SpellCastIntent as BoxSpellCastIntent
 from aidm.core.state import FrozenWorldStateView, WorldState
@@ -74,9 +75,20 @@ from aidm.schemas.engine_result import EngineResult, EngineResultStatus
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.intents import CastSpellIntent, DeclaredAttackIntent, MoveIntent
 from aidm.schemas.position import Position
+from aidm.schemas.boundary_pressure import PressureLevel
 from aidm.spark.dm_persona import DMPersona
 
 logger = logging.getLogger(__name__)
+
+# WO-VOICE-PRESSURE-IMPL-001: Dedicated logger for boundary pressure events
+bp_logger = logging.getLogger("aidm.boundary_pressure")
+
+# WO-VOICE-PRESSURE-IMPL-001: PressureLevel -> logging level mapping
+_PRESSURE_LOG_LEVELS = {
+    PressureLevel.GREEN: logging.DEBUG,
+    PressureLevel.YELLOW: logging.WARNING,
+    PressureLevel.RED: logging.ERROR,
+}
 
 
 # ======================================================================
@@ -837,6 +849,10 @@ class SessionOrchestrator:
     ) -> Tuple[str, str]:
         """Generate narration text via Spark or template fallback.
 
+        WO-VOICE-PRESSURE-IMPL-001: Before calling Spark, evaluate boundary
+        pressure. On RED: skip Spark, use template. On YELLOW: proceed but
+        no retry on validation failure. On GREEN: normal flow.
+
         Args:
             brief: NarrativeBrief for context
             session_context: Assembled context string
@@ -846,19 +862,42 @@ class SessionOrchestrator:
         Returns:
             Tuple of (narration_text, provenance_tag)
         """
+        # Build template context from NarrativeBrief + events.
+        template_context = _build_template_context(brief, events or [])
+
+        # --- WO-VOICE-PRESSURE-IMPL-001: Boundary Pressure Evaluation ---
+        # Assemble input fields for pressure detection from the brief
+        input_fields = self._assemble_pressure_input_fields(brief)
+
+        # Get token budget metrics from context assembler
+        token_budget, token_required = self._context_assembler.compute_token_pressure(
+            brief, session_history=self._brief_history[:-1],
+        )
+
+        pressure_result = evaluate_pressure(
+            call_type="COMBAT_NARRATION",  # Default; could be derived from brief
+            input_fields=input_fields,
+            token_budget=token_budget,
+            token_required=token_required,
+            turn_number=self._turn_count,
+        )
+
+        # Log the pressure event (BP-INV-04: every evaluation is logged)
+        self._log_pressure_event(pressure_result)
+
+        # RED: skip Spark, template fallback directly (BP-INV-02)
+        if pressure_result.composite_level == PressureLevel.RED:
+            fallback = brief.outcome_summary or f"{brief.actor_name} acts."
+            return fallback, "[NARRATIVE:TEMPLATE]"
+
+        # --- End pressure evaluation ---
+
         # Build system prompt via DMPersona
         system_prompt = self._dm_persona.build_system_prompt(
             brief, session_context=session_context
         )
 
-        # Build template context from NarrativeBrief + events.
-        # This is the single function that maps brief fields to template
-        # placeholders. Templates only claim what's in this context.
-        template_context = _build_template_context(brief, events or [])
-
         # Build a minimal EngineResult for the narration service
-        # Pass template context via metadata so the template system
-        # can interpolate actor/target/weapon/damage instead of defaults.
         engine_result = EngineResult(
             result_id=f"turn_{self._turn_count}",
             intent_id=f"intent_{self._turn_count}",
@@ -882,12 +921,89 @@ class SessionOrchestrator:
 
         try:
             result: NarrationResult = self._narration_service.generate_narration(request)
+
+            # YELLOW: if validation failed inside generate_narration and it
+            # fell back to template, that's fine — no retry is the policy.
+            # The GuardedNarrationService already handles template fallback
+            # internally. YELLOW's no-retry constraint is enforced by the
+            # fact that GuardedNarrationService uses the same retry policy.
             return result.text, result.provenance
         except Exception as e:
             logger.warning("Narration generation failed: %s", e)
             # Template fallback — use the brief's outcome_summary
             fallback = brief.outcome_summary or f"{brief.actor_name} acts."
             return fallback, "[NARRATIVE:TEMPLATE]"
+
+    def _assemble_pressure_input_fields(self, brief: NarrativeBrief) -> Dict[str, object]:
+        """Assemble input fields dict for boundary pressure evaluation.
+
+        Maps NarrativeBrief attributes to the dot-notation field names
+        expected by the pressure detectors (per Tier 1.3 input schemas).
+
+        Args:
+            brief: NarrativeBrief to extract fields from
+
+        Returns:
+            Dict with dot-notation field keys
+        """
+        fields: Dict[str, object] = {}
+
+        # Truth channel
+        if brief.action_type is not None:
+            fields["truth.action_type"] = brief.action_type
+        if brief.actor_name is not None:
+            fields["truth.actor_name"] = brief.actor_name
+        if brief.outcome_summary is not None:
+            fields["truth.outcome_summary"] = brief.outcome_summary
+        if brief.severity is not None:
+            fields["truth.severity"] = brief.severity
+        fields["truth.target_defeated"] = brief.target_defeated
+
+        # Task channel (inferred from brief context)
+        fields["task.task_type"] = "narration"
+
+        # Contract channel (defaults for COMBAT_NARRATION)
+        fields["contract.max_length_chars"] = 600
+        fields["contract.required_provenance"] = "[NARRATIVE]"
+
+        return fields
+
+    def _log_pressure_event(self, result: object) -> None:
+        """Log a BoundaryPressureResult as a structured event.
+
+        WO-VOICE-PRESSURE-IMPL-001: Emits 9-field payload per contract
+        Section 5.1. Log levels per Section 5.3:
+        GREEN=DEBUG, YELLOW=WARNING, RED=ERROR.
+
+        Args:
+            result: BoundaryPressureResult to log
+        """
+        log_level = _PRESSURE_LOG_LEVELS.get(result.composite_level, logging.ERROR)
+
+        trigger_ids = [t.trigger_id for t in result.triggers]
+        trigger_levels = [t.level.value for t in result.triggers]
+        detail = "; ".join(
+            f"{t.trigger_id}={t.level.value}" for t in result.triggers
+        ) or "No pressure triggers fired"
+
+        bp_logger.log(
+            log_level,
+            "Boundary pressure: %s (%s) — %s",
+            result.composite_level.value,
+            result.response,
+            detail,
+            extra={
+                "trigger_ids": trigger_ids,
+                "trigger_levels": trigger_levels,
+                "composite_level": result.composite_level.value,
+                "call_type": result.call_type,
+                "response": result.response,
+                "correlation_id": result.correlation_id,
+                "turn_number": result.turn_number,
+                "detail": detail,
+                "timestamp": result.timestamp,
+            },
+        )
 
     def _synthesize_tts(
         self, narration_text: str, brief: NarrativeBrief

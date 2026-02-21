@@ -8,7 +8,10 @@ Architecture: Boundary layer between interaction and combat resolution
 Reference: BL-020 (FrozenWorldStateView for read-only state access)
 """
 
+import logging
+import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from typing import Optional, List, Tuple
 from enum import Enum
 
@@ -19,6 +22,9 @@ from aidm.core.spell_resolver import SpellCastIntent
 from aidm.core.state import FrozenWorldStateView
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.spell_definitions import SPELL_REGISTRY
+from aidm.schemas.unknown_handling_event import UnknownHandlingEvent
+
+uk_logger = logging.getLogger("aidm.unknown_handling")
 
 
 # ==============================================================================
@@ -65,6 +71,94 @@ class ClarificationRequest:
         """Ensure candidates is a tuple."""
         if not isinstance(self.candidates, tuple):
             object.__setattr__(self, 'candidates', tuple(self.candidates))
+
+
+# ==============================================================================
+# AMBIGUITY → FAILURE CLASS MAPPING (OD-02)
+# ==============================================================================
+
+AMBIGUITY_TO_FAILURE_CLASS = {
+    AmbiguityType.TARGET_AMBIGUOUS: "FC-AMBIG",
+    AmbiguityType.TARGET_NOT_FOUND: "FC-ASR",
+    AmbiguityType.WEAPON_AMBIGUOUS: "FC-AMBIG",
+    AmbiguityType.WEAPON_NOT_FOUND: "FC-ASR",
+    AmbiguityType.SPELL_NOT_FOUND: "FC-ASR",
+    AmbiguityType.DESTINATION_OUT_OF_BOUNDS: "FC-OOG",
+}
+
+# Default clarification budget per contract Section 3.1
+_DEFAULT_MAX_CLARIFICATIONS = 2
+
+
+def _emit_classification_event(
+    clarification: ClarificationRequest,
+    turn_number: int = 0,
+    clarification_round: int = 0,
+    resolution: str = "pending",
+) -> UnknownHandlingEvent:
+    """Emit a structured UK-class log event for a ClarificationRequest.
+
+    Returns the event for testability.
+    """
+    failure_class = AMBIGUITY_TO_FAILURE_CLASS.get(
+        clarification.ambiguity_type
+    )
+    # YELLOW for recoverable ambiguity, RED for not-found
+    if clarification.ambiguity_type in (
+        AmbiguityType.TARGET_AMBIGUOUS,
+        AmbiguityType.WEAPON_AMBIGUOUS,
+    ):
+        stoplight = "YELLOW"
+    elif clarification.ambiguity_type == AmbiguityType.DESTINATION_OUT_OF_BOUNDS:
+        stoplight = "RED"
+    else:
+        # TARGET_NOT_FOUND, WEAPON_NOT_FOUND, SPELL_NOT_FOUND
+        stoplight = "RED"
+
+    event = UnknownHandlingEvent(
+        event_type="classification",
+        failure_class=failure_class,
+        sub_class=None,
+        stoplight=stoplight,
+        clarification_round=clarification_round,
+        max_clarifications=_DEFAULT_MAX_CLARIFICATIONS,
+        resolution=resolution,
+        missing_attribute=None,
+        turn_number=turn_number,
+        correlation_id=str(uuid.uuid4()),
+        timestamp=datetime.now(timezone.utc).isoformat(),
+    )
+
+    if stoplight == "GREEN":
+        uk_logger.debug("UK classification: %s", event.to_dict())
+    elif stoplight == "YELLOW":
+        uk_logger.warning("UK classification: %s", event.to_dict())
+    else:
+        uk_logger.error("UK classification: %s", event.to_dict())
+
+    return event
+
+
+def _emit_green_classification(
+    intent_type: str,
+    turn_number: int = 0,
+) -> UnknownHandlingEvent:
+    """Emit a GREEN classification event for a successfully resolved intent."""
+    event = UnknownHandlingEvent(
+        event_type="classification",
+        failure_class=None,
+        sub_class=None,
+        stoplight="GREEN",
+        clarification_round=0,
+        max_clarifications=_DEFAULT_MAX_CLARIFICATIONS,
+        resolution="handled",
+        missing_attribute=None,
+        turn_number=turn_number,
+        correlation_id=str(uuid.uuid4()),
+        timestamp=datetime.now(timezone.utc).isoformat(),
+    )
+    uk_logger.debug("UK classification: %s", event.to_dict())
+    return event
 
 
 # ==============================================================================
@@ -136,6 +230,7 @@ class IntentBridge:
 
         if isinstance(target_result, ClarificationRequest):
             # Target resolution failed - return clarification request
+            _emit_classification_event(target_result)
             return target_result
 
         target_id = target_result
@@ -143,21 +238,25 @@ class IntentBridge:
         # Resolve weapon
         actor = view.entities.get(actor_id)
         if actor is None:
-            return ClarificationRequest(
+            cr = ClarificationRequest(
                 intent_type="attack",
                 ambiguity_type=AmbiguityType.TARGET_NOT_FOUND,
                 candidates=tuple(),
                 message=f"Actor '{actor_id}' not found in world state",
             )
+            _emit_classification_event(cr)
+            return cr
 
         weapon_result = self._resolve_weapon(declared.weapon, actor)
 
         if isinstance(weapon_result, ClarificationRequest):
+            _emit_classification_event(weapon_result)
             return weapon_result
 
         weapon, attack_bonus = weapon_result
 
         # Build AttackIntent
+        _emit_green_classification("attack")
         return AttackIntent(
             attacker_id=actor_id,
             target_id=target_id,
@@ -192,6 +291,7 @@ class IntentBridge:
         spell_id_result = self._resolve_spell_name(declared.spell_name)
 
         if isinstance(spell_id_result, ClarificationRequest):
+            _emit_classification_event(spell_id_result)
             return spell_id_result
 
         spell_id = spell_id_result
@@ -202,11 +302,13 @@ class IntentBridge:
             target_result = self._resolve_entity_name(target_entity_ref, view, exclude_id=caster_id)
 
             if isinstance(target_result, ClarificationRequest):
+                _emit_classification_event(target_result)
                 return target_result
 
             target_entity_id = target_result
 
         # Build SpellCastIntent
+        _emit_green_classification("spell")
         return SpellCastIntent(
             caster_id=caster_id,
             spell_id=spell_id,
@@ -237,14 +339,17 @@ class IntentBridge:
         """
         # Basic validation: destination must be provided
         if declared.destination is None:
-            return ClarificationRequest(
+            cr = ClarificationRequest(
                 intent_type="move",
                 ambiguity_type=AmbiguityType.DESTINATION_OUT_OF_BOUNDS,
                 candidates=tuple(),
                 message="Move intent requires a destination position",
             )
+            _emit_classification_event(cr)
+            return cr
 
         # Return validated intent
+        _emit_green_classification("move")
         return declared
 
     # ==========================================================================
@@ -562,3 +667,33 @@ class IntentBridge:
             candidates=tuple(available[:10]),
             message=f"Spell '{spell_name}' not found. Available spells: {', '.join(available[:10])}...",
         )
+
+    # ==========================================================================
+    # PRESSURE DETECTION HELPERS (WO-VOICE-PRESSURE-IMPL-001)
+    # ==========================================================================
+
+    @staticmethod
+    def extract_pressure_fields(
+        result: object,
+    ) -> dict:
+        """Extract boundary-pressure-relevant fields from a resolution result.
+
+        WO-VOICE-PRESSURE-IMPL-001: Returns a dict of fields that the
+        session orchestrator can pass to evaluate_pressure() for
+        BP-AMBIGUOUS-INTENT detection.
+
+        Args:
+            result: AttackIntent, SpellCastIntent, MoveIntent, or ClarificationRequest
+
+        Returns:
+            Dict with keys: needs_clarification (bool), candidates (list)
+        """
+        if isinstance(result, ClarificationRequest):
+            return {
+                "needs_clarification": True,
+                "candidates": list(result.candidates),
+            }
+        return {
+            "needs_clarification": False,
+            "candidates": [],
+        }

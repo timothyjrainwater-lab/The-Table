@@ -547,3 +547,50 @@ class ContextAssembler:
         """
         word_count = len(text.split())
         return int(word_count * 1.3)
+
+    def compute_token_pressure(
+        self,
+        brief: Any,
+        session_history: Optional[List[Any]] = None,
+    ) -> Tuple[int, int]:
+        """Compute token budget and required tokens for pressure evaluation.
+
+        WO-VOICE-PRESSURE-IMPL-001: Returns (token_budget, token_required)
+        so the caller can pass these to boundary pressure detection.
+        Does NOT import from aidm.core (BL-003 compliant).
+
+        Args:
+            brief: Current NarrativeBrief
+            session_history: Optional session history
+
+        Returns:
+            Tuple of (token_budget, token_required) where:
+            - token_budget is the assembler's configured budget
+            - token_required is the estimated tokens needed for all content
+        """
+        token_required = 0
+
+        # Priority 1: brief (always required)
+        brief_text = self._format_brief(brief)
+        token_required += self._estimate_tokens(brief_text)
+
+        # Priority 2: scene
+        scene_description = getattr(brief, 'scene_description', None)
+        if scene_description:
+            token_required += self._estimate_tokens(f"Location: {scene_description}")
+
+        # Priority 3: narrations
+        previous_narrations = getattr(brief, 'previous_narrations', None)
+        if previous_narrations:
+            for narr in previous_narrations:
+                text = narr if isinstance(narr, str) else getattr(narr, 'text', str(narr))
+                token_required += self._estimate_tokens(text)
+
+        # Priority 4: session history
+        if session_history:
+            for h in session_history:
+                actor = getattr(h, 'actor_name', 'Unknown')
+                action = getattr(h, 'action_type', 'unknown')
+                token_required += self._estimate_tokens(f"{actor}: {action}")
+
+        return (self.token_budget, token_required)

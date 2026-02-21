@@ -107,3 +107,27 @@ Builders append one entry per session after running `python scripts/preflight_ca
 - Voice: N/A (canary failed)
 
 **Notes:** WO-VOICE-PRESSURE-SPEC-001 is spec freeze + gate tests only — no TTS or image generation required. Proceeding per WO scope.
+
+### 2026-02-21 — Builder — WO-VOICE-UK-LOG-001
+
+**Pipeline canaries:**
+- Image: FAIL — SDXL not available (diffusers not installed)
+- Voice: FAIL — Chatterbox not available
+
+**Skill artifacts:**
+- Image: N/A (canary failed)
+- Voice: N/A (canary failed)
+
+**Notes:** WO-VOICE-UK-LOG-001 is structured logging + gate tests only — no TTS or image generation required. Proceeding per WO scope.
+
+### 2026-02-21 — Builder — WO-VOICE-PRESSURE-IMPL-001
+
+**Pipeline canaries:**
+- Image: FAIL — SDXL not available (diffusers not installed)
+- Voice: FAIL — Chatterbox not available
+
+**Skill artifacts:**
+- Image: N/A (canary failed)
+- Voice: N/A (canary failed)
+
+**Notes:** WO-VOICE-PRESSURE-IMPL-001 is runtime schema + detection logic + structured logging + gate tests — no TTS or image generation required. Proceeding per WO scope.
