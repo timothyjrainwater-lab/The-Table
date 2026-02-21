@@ -570,3 +570,28 @@ Tier 1 retrieval must not silently load stale state.
 2. **Bridge harness Mode A** — Replay-driven prompt compilation tool. Queue behind RV-007. Becomes correctness-enabling once validators are hardened and need real engine truth frames. CODE WO.
 3. **Bridge harness Mode B** — Live session bridge. Queue behind Mode A. Needed for "Thunder plays / Spark narrates" continuous operation.
 4. **Aegis memory** — If Aegis adopts this protocol, same pattern: `aegis_diary/` with same structure.
+
+---
+
+## Appendix A — Acceptance Drills (normative)
+
+These 10 drills define protocol completeness. All must pass for v1.1 to be considered operational. Failing a drill creates a Finding (lifecycle: OPEN → PATCHED → VERIFIED → RESOLVED) referencing the drill ID.
+
+**Cadence:** Monthly (Thunder runs all 10). Per-session spot checks by agents (drills exercised implicitly through normal operation — see notes).
+
+**Procedures:** See `docs/protocols/MEMORY_PROTOCOL_DRILLS_V1_1.md` for full runbooks.
+
+| Drill | Objective | Pass Condition | Evidence Artifact |
+|-------|-----------|----------------|-------------------|
+| **D-01: Cold Boot** | Agent boots from Charter + Capsule + ≤1 recall and reaches correct role | Agent reports correct callsign, stoplight, and next action without loading Tier 2 | Boot status report |
+| **D-02: Wrong Seat** | Agent loaded with wrong kernel refuses to proceed | Seat verification gate fires; agent halts and reports mismatch | Error report with callsign mismatch detail |
+| **D-03: Compaction** | Forced compaction produces fresh capsule and clean recovery | Post-compaction capsule exists with current timestamp; Tier 1 registers updated; agent resumes coherently | Fresh capsule + updated STATE_DIGEST |
+| **D-04: Stale Capsule** | Boot detects stale capsule and enters recovery mode | Agent detects >24h timestamp, loads Tier 1, writes fresh capsule, notifies operator | Recovery mode notification + fresh capsule |
+| **D-05: Mirror Drift** | Canonical root update triggers mirror sync | MIRROR_DIRTY.flag created on D:; PM boot detects and syncs; flag cleared | Synced mirror files + cleared flag |
+| **D-06: Pointer Replay** | 3 random findings have resolvable evidence pointers | All 3 evidence paths resolve to existing files with readable content | Pointer resolution log (3 entries) |
+| **D-07: Tier 1 Growth** | Registers exceeding threshold trigger graduation | Section with >20 items archives oldest, retains ≤15; Tier 1 remains skimmable | Archived section + updated register |
+| **D-08: Cross-Agent Handoff** | One seat produces memo; receiving seat consumes as focused recall | Memo ≤200 tokens; receiving seat uses as recall without importing Tier 2 | Cross-Agent Memo file + receiving seat's response |
+| **D-09: Lifecycle Integrity** | "Resolved" counts match VERIFIED state | Every RESOLVED finding has: gate test that passes, verdict recorded, evidence pointer intact | Findings register audit (sample 3) |
+| **D-10: Compliance Audit** | Random sample of recent sessions contains no Tier 2 in Tier 0 | 5 recent boot loads contain only Charter + Capsule + ≤1 recall; no full debriefs/diaries pasted | Sample log with pass/fail per entry |
+
+**Implicit exercise:** Drills 3 and 4 are exercised at every compaction event. Drill 6 is exercised at every new finding. Drill 9 is exercised at every verdict. These count toward the monthly cadence if evidence is captured.
