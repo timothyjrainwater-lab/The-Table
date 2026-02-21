@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-21 18:30 CST-CN (Architecture session memo triaged — 8 WO candidates parked, WO-SMOKE-CONFIDENCE confirmed as Waypoint convergence. TUNING-001 protocol + ledger filed. Handoff archived. Root at 11. Waypoint burn-down ready for dispatch.)
+**Last updated:** 2026-02-21T12:13Z (20:13 CST-CN). **Waypoint burn-down COMPLETE.** -001 accepted with findings, -002 accepted (18 gate tests, actions_prohibited enforced), -003 accepted (19 gate tests, weapon_name plumbed). 51 Waypoint gate tests GREEN. All 3 findings resolved. 6,065 tests total. 279 gates (256 + 5 WP1 + 18 WP2 + estimated from WP3). Root at 10. Queue open for BURST-001 Tier 1.3.
 
 ---
 
@@ -181,19 +181,13 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 ## Requires Operator Action (NOW)
 
-**TABLE OPERATIONS RESUMING — Waypoint burn-down.** Thunder authorized warm-up for WO-WAYPOINT-002 dispatch. Sequence: -002 (actions_prohibited) → -003 (weapon_name). Both dispatches ready.
+**WAYPOINT BURN-DOWN COMPLETE.** All 3 findings resolved. 51 Waypoint gate tests GREEN. Queue open.
 
-**WO-WAYPOINT-002 READY FOR DISPATCH.** Condition action denial. Dispatch: [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md).
+**Next dispatch: WO-VOICE-TYPED-CALL-SPEC-001** (BURST-001 Tier 1.3). Slate drafting.
 
-**WO-WAYPOINT-003 READY — after -002.** Weapon name plumbing. Dispatch: [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md).
+**Aegis relay:** -002 and -003 debriefs ready for audit. Both archived to `reviewed/archive_waypoint/`.
 
-**Aegis relay ready.** Waypoint results, tightenings confirmed, findings listed.
-
-**Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days. Notebook entries 19-20 still pending Drive sync.
-
-1. **Commit authorization needed.** Uncommitted backlog (12+ files) must land before builder starts -002.
-
-2. **Dispatch -002.** Thunder dispatches to builder when tree is clean.
+**Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
 
 **Still needed before voice code lands (deferred, not blocking Tier 1 spec freeze):**
 - **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates. (FINDING-2 from Spark LLM verdict.)
@@ -202,13 +196,15 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **GAP-A (low priority):** `dm_persona.py:83` missing import. Runtime-functional.
 
-**Planned sequence (BURST-001):** ~~Spark LLM Selection~~ (ACCEPTED) → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, next to draft) → WO-VOICE-PRESSURE-SPEC-001 (1.4) → Tier 2 → Tier 3 → Tier 4 → Tier 5
+**Planned sequence (BURST-001):** ~~Spark LLM Selection~~ (ACCEPTED) → ~~WO-VOICE-GRAMMAR-SPEC-001~~ (ACCEPTED) → ~~WO-VOICE-UNKNOWN-SPEC-001~~ (ACCEPTED) → **WO-VOICE-TYPED-CALL-SPEC-001** (Tier 1.3, drafting now) → WO-VOICE-PRESSURE-SPEC-001 (1.4) → Tier 2 → Tier 3 → Tier 4 → Tier 5
 
 **Planned sequence (PRS-01):** **PRS-01 spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001
 
 ### Dispatches
 
-- **[READY] WO-WAYPOINT-002** — Condition action denial: play_loop enforces `actions_prohibited`. 5 gate tests (WP2-0 through WP2-4). Updates Waypoint W-2 from Branch B→A. Fixes FINDING-WAYPOINT-01. Dispatch: [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md).
+- ~~WO-WAYPOINT-002~~ — **ACCEPTED** (`e795bf0`). 18/18 gate tests. actions_prohibited gate in play_loop. 6 conditions blocked (paralyzed, stunned, dazed, nauseated, helpless, unconscious). FINDING-WAYPOINT-01 resolved. Radar compliant. Field Manual #39 needed.
+- ~~WO-WAYPOINT-003~~ — **ACCEPTED** (`01eb51c`). 19 gate tests (18 pass + 1 conditional skip). weapon_name plumbed from EF.WEAPON into feat_context and attack_roll payload. NarrativeBrief weapon extraction now works. W-3 skip resolved. FINDING-WAYPOINT-02 + -03 resolved. Weapon Specialization also wired. Radar compliant. Field Manual #40 needed.
+- ~~WO-WAYPOINT-001~~ — ACCEPTED with findings (`dddcd9e`). 5/5 gate tests. **WAYPOINT MAIDEN VOYAGE COMPLETE.**
 - **[READY — after -002] WO-WAYPOINT-003** — Weapon name plumbing: feat context gets real weapon name + NarrativeBrief weapon_name + d20_result doc note. 6 gate tests (WP3-0 through WP3-5). Fixes FINDING-WAYPOINT-02 + FINDING-WAYPOINT-03. Dispatch: [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md).
 - ~~WO-WAYPOINT-001~~ — ACCEPTED with findings (`dddcd9e`). 5/5 gate tests (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation). 6,028 suite, 0 regressions. Full table loop proven. 3 findings: `actions_prohibited` not enforced, `weapon_name="unknown"` blocks Weapon Focus, `d20_result` field name mismatch. A9 divergence handled. Radar compliant. **WAYPOINT MAIDEN VOYAGE COMPLETE.**
 - ~~WO-VOICE-UNKNOWN-SPEC-001~~ — ACCEPTED (pending commit). 67 Gate K tests (all PASS). Unknown Handling Contract frozen (7 failure classes, STOPLIGHT, clarification budget), validator script. 36 T-* signals tested. Field Manual #37 needed (VoiceEvent extensibility).
