@@ -167,6 +167,7 @@ INFORMATIONAL_EVENTS: Set[str] = {
     # Meta
     "tactic_selected",
     "action_aborted",
+    "action_denied",
 }
 
 # Dynamic event types (exempt from AC-09, generated at runtime)

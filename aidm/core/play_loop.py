@@ -44,6 +44,7 @@ from typing import List, Dict, Any, Optional, Union, Tuple, Literal
 from dataclasses import dataclass
 
 from aidm.core.event_log import Event, EventLog
+from aidm.core.conditions import get_condition_modifiers
 from aidm.core.state import WorldState, FrozenWorldStateView
 from aidm.schemas.doctrine import MonsterDoctrine
 from aidm.schemas.entity_fields import EF
@@ -795,6 +796,60 @@ def execute_turn(
         }
     ))
     current_event_id += 1
+
+    # WO-WAYPOINT-002: actions_prohibited gate check
+    # If the actor has a condition that sets actions_prohibited=True,
+    # reject any action intent deterministically. The engine says no.
+    condition_mods = get_condition_modifiers(world_state, turn_ctx.actor_id)
+    if condition_mods.actions_prohibited:
+        # Identify which conditions caused the prohibition
+        actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+        actor_conditions = actor_entity.get(EF.CONDITIONS, {})
+        prohibiting_conditions = []
+        if isinstance(actor_conditions, dict):
+            for cond_id, cond_dict in actor_conditions.items():
+                if isinstance(cond_dict, dict):
+                    mods = cond_dict.get("modifiers", {})
+                    if isinstance(mods, dict) and mods.get("actions_prohibited", False):
+                        prohibiting_conditions.append(cond_id)
+
+        # Determine denied intent type
+        denied_intent_type = type(combat_intent).__name__ if combat_intent is not None else "none"
+
+        # Emit action_denied event
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="action_denied",
+            timestamp=timestamp + 0.05,
+            payload={
+                "entity_id": turn_ctx.actor_id,
+                "reason": "actions_prohibited",
+                "denied_intent_type": denied_intent_type,
+                "conditions": prohibiting_conditions,
+                "turn_index": turn_ctx.turn_index,
+            }
+        ))
+        current_event_id += 1
+
+        # Emit turn_end event
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="turn_end",
+            timestamp=timestamp + 0.2,
+            payload={
+                "turn_index": turn_ctx.turn_index,
+                "actor_id": turn_ctx.actor_id,
+                "events_emitted": len(events)
+            }
+        ))
+
+        return TurnResult(
+            status="action_denied",
+            world_state=world_state,
+            events=events,
+            turn_index=turn_ctx.turn_index,
+            failure_reason=f"Actor {turn_ctx.actor_id} cannot act: actions_prohibited ({', '.join(prohibiting_conditions)})"
+        )
 
     # CP-12/CP-15/CP-18: Combat intent validation and routing
     if combat_intent is not None:

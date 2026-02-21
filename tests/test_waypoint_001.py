@@ -190,7 +190,7 @@ def run_scenario(
 
     # ------------------------------------------------------------------
     # Turn 2: Bandit Captain attacks while paralyzed
-    # (Branch B expected — engine resolves it; gap documented)
+    # (Branch A — engine blocks via actions_prohibited gate, WO-WAYPOINT-002)
     # ------------------------------------------------------------------
     weapon_bandit = Weapon(
         damage_dice="1d8",
@@ -312,6 +312,12 @@ def normalize_events(events: List[Event]) -> List[Dict[str, Any]]:
             "entity_defeated", "action_declared",
         ):
             pass  # metadata only
+        elif event.event_type == "action_denied":
+            entry.update({
+                "entity_id": p.get("entity_id"),
+                "reason": p.get("reason"),
+                "denied_intent_type": p.get("denied_intent_type"),
+            })
         else:
             pass  # informational — skip
 
@@ -345,6 +351,9 @@ class TestW0SubsystemCoverage:
 
         # Surface 4: Skill subsystem
         assert "skill_check" in event_types, "skill_check event missing — skill subsystem did not fire"
+
+        # Surface 5: Condition action denial (WO-WAYPOINT-002)
+        assert "action_denied" in event_types, "action_denied event missing — actions_prohibited gate did not fire"
 
     def test_save_exercised(self):
         """Hold Person forces a Will save. The save is exercised via the
@@ -462,15 +471,13 @@ class TestW2StateAndModifiers:
         )
 
     def test_kael_hp_unchanged_after_turn0(self):
-        """Kael was not targeted by Hold Person — HP should remain 45
-        after the full scenario (unless Bandit Captain's Turn 2 attack
-        dealt damage, which is expected via Branch B)."""
+        """Kael was not targeted by Hold Person. With Branch A (WO-WAYPOINT-002),
+        the Bandit Captain's Turn 2 attack is blocked, so Kael takes no damage
+        from that turn. HP should be 45 (full) unless Kael took damage from
+        another source."""
         ws, _log, _briefs = run_scenario()
         kael = ws.entities["kael_ironfist"]
-        # Kael may take damage from Turn 2 (Branch B: paralyzed bandit still attacks)
-        # So we just verify Kael exists and has a valid HP value
-        assert kael.get(EF.HP_CURRENT) is not None
-        assert kael.get(EF.HP_CURRENT) <= 45
+        assert kael.get(EF.HP_CURRENT) == 45
 
     def test_seraphine_hp_unchanged(self):
         """Seraphine was never targeted — HP should be 28."""
@@ -553,12 +560,12 @@ class TestW2StateAndModifiers:
         # Power Attack penalty=2 → +2 damage (one-handed, 1:1 ratio)
         assert feat_dmg == 2, f"Expected feat_modifier == 2 (PA +2 damage), got {feat_dmg}"
 
-    def test_branch_b_finding_documented(self):
-        """FINDING-WAYPOINT-01: play_loop does not enforce actions_prohibited.
+    def test_branch_a_actions_prohibited_enforced(self):
+        """WO-WAYPOINT-002: play_loop enforces actions_prohibited (Branch A).
 
         The paralyzed Bandit Captain submits an AttackIntent in Turn 2.
-        Expected: engine resolves it (Branch B) because play_loop only
-        validates target-not-defeated, not actor-actions-prohibited.
+        Expected: engine blocks it via actions_prohibited gate check.
+        FINDING-WAYPOINT-01 is resolved.
         """
         _ws, event_log, _briefs = run_scenario()
 
@@ -569,16 +576,21 @@ class TestW2StateAndModifiers:
             and e.payload.get("attacker_id") == "bandit_captain"
         ]
 
-        # Branch B: engine resolved the attack despite paralyzed condition
-        # The attack_roll event exists — proof the engine did NOT block.
-        assert len(bandit_attack_rolls) >= 1, (
-            "Expected Branch B (engine resolves paralyzed attack) but no "
-            "attack_roll found for bandit_captain. If Branch A, the engine "
-            "started blocking — this test needs updating."
+        # Branch A: engine blocked the attack — no attack_roll from bandit_captain
+        assert len(bandit_attack_rolls) == 0, (
+            "Expected Branch A (engine blocks paralyzed attack) but "
+            f"found {len(bandit_attack_rolls)} attack_roll event(s) for bandit_captain."
         )
 
-        # Verify the paralyzed condition was present at time of attack
-        # (proven by W-2 test_bandit_captain_paralyzed)
+        # Verify action_denied event was emitted for bandit_captain
+        denial_events = [
+            e for e in event_log.events
+            if e.event_type == "action_denied"
+            and e.payload.get("entity_id") == "bandit_captain"
+        ]
+        assert len(denial_events) >= 1, (
+            "Expected action_denied event for bandit_captain but none found."
+        )
 
 
 # ===========================================================================
