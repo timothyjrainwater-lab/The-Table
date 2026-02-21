@@ -338,22 +338,22 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 
 ## Active Operational Files
 
-**Root** (11 files — 1 over cap, acceptable while TUNING docs + WSM-01 are active):
+**Root** (13 files — 3 over cap, acceptable while 2 WO dispatches active + TUNING docs + WSM-01):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
-- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (Tier 2 next)
+- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (Tier 2 dispatched)
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
 - [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 - [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
-- [HANDOVER_SLATE_20260221_NIGHT.md](pm_inbox/HANDOVER_SLATE_20260221_NIGHT.md) — Latest handoff note
+- [WO-VOICE-PRESSURE-IMPL-001_DISPATCH.md](pm_inbox/WO-VOICE-PRESSURE-IMPL-001_DISPATCH.md) — Active dispatch (builder working)
+- [WO-VOICE-UK-LOG-001_DISPATCH.md](pm_inbox/WO-VOICE-UK-LOG-001_DISPATCH.md) — Active dispatch (builder working)
+- [HANDOVER_SLATE_20260222.md](pm_inbox/HANDOVER_SLATE_20260222.md) — Latest handoff note
 
-**Archived this cycle:** Previous archives + this session: MEMO_ARCHITECTURE_SESSION_20260221 → `reviewed/`. HANDOVER_SLATE_20260221_POSTMIDNIGHT → `reviewed/`.
-
-**New in reviewed/ this session:** AEGIS_DRIVE_REHYDRATION_PACKET.md, GOOGLE_DRIVE_INTEGRATION_REFERENCE.md, WO_NARRATIVE_SEARCH_CANONICAL_PHRASES.md, WO_NARRATIVE_SEARCH_AEGIS_GOVERNANCE.md, WO_NARRATIVE_SEARCH_EXPERIMENT_DATA.md, WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md.
+**Archived this cycle:** HANDOVER_SLATE_20260221_NIGHT → `reviewed/`. DEBRIEF + DISPATCH files for Tier 1.3 + 1.4 → `reviewed/archive_voice_spec/`.
 
 ## Persistent Files
 
