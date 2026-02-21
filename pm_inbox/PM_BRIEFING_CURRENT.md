@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-22T04:00Z (22:00 CST). **BURST-001 TIER 2 INSTRUMENTATION COMPLETE. SPARK CAGE OPERATIONAL.** Tier 2: Boundary Pressure Runtime (37 Gate N) + Unknown Handling Logging (47 Gate O) = 84 new tests. Spark cage live: Qwen2.5 7B generating narrations, determinism proven (10/10 identical, seed=42, temp=0.0), validator exercised against real output. **HIGH finding: RV-007 (forbidden meta-game claims) not implemented** — validator blind to damage numbers, HP, dice rolls. 6,211 tests pass (8 pre-existing failures unrelated). Root at 10 (cap). Queue open for RV-007 fix + Tier 3.
+**Last updated:** 2026-02-22T10:00Z (04:00 CST). **RV-007 RESOLVED. MEMORY PROTOCOL SHIPPED.** Forbidden meta-game claims detection live (RV-009/RV-010, 22 Gate P tests). 3-tier memory protocol formalized for all agents (`docs/protocols/MEMORY_PROTOCOL_V1.md`). Anvil diary infrastructure seeded. 6,234 tests pass (7 pre-existing failures unrelated). Root at 11 (1 over cap — active debrief). Queue open for Tier 3 (Parser/Grammar).
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
-6,211 unit tests pass (8 pre-existing failures: 2 speak_signal, 2 pm_inbox_hygiene, 2 heuristics_image_critic import, 2 ws_bridge import). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS. Gate H: 16/16 PASS. Gate I: 13/13 PASS. Gate J: 27/27 PASS. Gate K: 67/67 PASS. Gate L: 32/32 PASS. Gate M: 31/31 PASS. Gate N: 37/37 PASS (Boundary Pressure Runtime — 4 detectors, composite classifier, evaluate_pressure(), RED/YELLOW/GREEN response policy, session_orchestrator wiring). Gate O: 47/47 PASS (Unknown Handling Logging — 11-field frozen dataclass, intent_bridge emission at ClarificationRequest points, fact_acquisition FORBIDDEN_DEFAULTS logging, AmbiguityType→FC mapping). Waypoint: 5/5 PASS. WP2: 18/18 PASS. WP3: 19/19 PASS. No-backflow: PASS. Integration board clear.**
+6,234 unit tests pass (7 pre-existing failures: 2 speak_signal, 3 pm_inbox_hygiene, 1 graduated_critique heuristics import, 1 immersion_authority import; plus 2 collection errors: heuristics_image_critic, ws_bridge). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS. Gate H: 16/16 PASS. Gate I: 13/13 PASS. Gate J: 27/27 PASS. Gate K: 67/67 PASS. Gate L: 32/32 PASS. Gate M: 31/31 PASS. Gate N: 37/37 PASS. Gate O: 47/47 PASS. Gate P: 22/22 PASS (Forbidden Claims Detection — RV-009 MV-01..MV-09, RV-010 RC-01..RC-04, RV-004 underscore fix, FUZZ regression suite). Waypoint: 5/5 PASS. WP2: 18/18 PASS. WP3: 19/19 PASS. No-backflow: PASS. Integration board clear.**
 
 ## Architecture Session — Aegis/Thunder/Anvil (2026-02-21)
 
@@ -145,6 +145,7 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-SPARK-RV007-001 | **ACCEPTED** — 3/3 deliverables. `_check_rv009_forbidden_claims()` (9 MV patterns, P0 FAIL) + `_check_rv010_rule_citations()` (4 RC patterns, P0 FAIL) in `narration_validator.py`. RV-004 underscore normalization fixed at both condition_applied and condition_removed paths. 22 Gate P tests (dispatch specified 18, builder added 4 extras), all PASS. Zero regressions (6,234 suite). FUZZ-01/02/03 now correctly FAIL. **FINDING-HOOLIGAN-02 (HIGH): RESOLVED. FINDING-HOOLIGAN-01 (LOW): RESOLVED.** No new findings. Radar compliant (3/3 labeled). | `42131a3` |
 | WO-SPARK-EXPLORE-001 | **ACCEPTED with findings** — Exploratory WO (Anvil). Spark cage operational end to end: DLL fix (4-attempt chain, importlib.util.find_spec + ctypes pre-load), Qwen2.5 7B loaded via models.yaml, 3 baseline scenarios PASS + 8 hooligan scenarios (7 PASS, 1 WARN, 0 FAIL). Determinism proven (10/10 identical, seed=42, temp=0.0). Validator exercised against real model output. Aegis audit: ACCEPT. **6 findings:** (1) FINDING-EXPLORE-01 MEDIUM — multi-draft output from `===` separator (FIXED, stop sequence added); (2) FINDING-EXPLORE-02 LOW — VRAM reports 0 via torch (FIXED, pynvml); (3) FINDING-EXPLORE-03 LOW — device reports "cpu" when on GPU (FIXED, `n_gpu_layers != 0`); (4) FINDING-HOOLIGAN-01 LOW — condition keyword underscore normalization in RV-004; (5) **FINDING-HOOLIGAN-02 HIGH — RV-007 (forbidden meta-game claims) NOT IMPLEMENTED** — validator blind to damage numbers, HP values, dice rolls (FUZZ-01..FUZZ-03 all incorrectly PASS); (6) FINDING-HOOLIGAN-03 MEDIUM — RV-001 false positive on compound actions (actor attribution). **Aegis recommends:** implement RV-007 with narrow mechanics-targeted regex, enforce one-action-per-output until attribution exists, add fuzz suite as permanent gate. | `076c486`..`7c04253` |
 | WO-VOICE-PRESSURE-IMPL-001 | **ACCEPTED** — 3/3 deliverables. Boundary Pressure Runtime (`aidm/core/boundary_pressure.py` + `aidm/schemas/boundary_pressure.py`), 37 Gate N tests (N-01 through N-15 plus builder-discretion gates, all PASS), session_orchestrator wired with pressure evaluation before Spark calls. BL-003 boundary law handled by exposing raw metrics from assembler (`compute_token_pressure()` returns `(int, int)`). BP-AUTHORITY-PROXIMITY fixed for absent fields. REQUIRED_FIELDS dict per-CallType. Radar compliant. | `0a808a7` |
 | WO-VOICE-UK-LOG-001 | **ACCEPTED** — 3/3 deliverables. Unknown Handling Structured Logging (`aidm/schemas/unknown_handling_event.py` — 11-field frozen dataclass), 47 Gate O tests (O-01 through O-18, all PASS), log emission at intent_bridge ClarificationRequest points + fact_acquisition FORBIDDEN_DEFAULTS. AmbiguityType maps to 3 of 7 FC classes (FC-AMBIG, FC-ASR, FC-OOG); remaining 4 are Tier 3/4 voice-layer classifications. Logger: `aidm.unknown_handling`. Radar compliant. | `0a808a7` |
@@ -180,15 +181,15 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 ## Requires Operator Action (NOW)
 
-**BURST-001 TIER 2 INSTRUMENTATION COMPLETE. SPARK CAGE OPERATIONAL.**
+**RV-007 RESOLVED. MEMORY PROTOCOL SHIPPED.**
 
-**Tier 2 done:** WO-VOICE-PRESSURE-IMPL-001 (37 Gate N, ACCEPTED) + WO-VOICE-UK-LOG-001 (47 Gate O, ACCEPTED). Both in single builder commit `0a808a7`. 84 new tests, zero regressions.
+**RV-007 done:** WO-SPARK-RV007-001 (22 Gate P, ACCEPTED `42131a3`). Forbidden meta-game claims detection live — RV-009 (9 MV patterns) + RV-010 (4 RC patterns), both P0 FAIL. RV-004 underscore fix landed. FUZZ-01/02/03 all correctly FAIL. FINDING-HOOLIGAN-02 (HIGH) and FINDING-HOOLIGAN-01 (LOW) both RESOLVED.
 
-**Spark cage live:** WO-SPARK-EXPLORE-001 (Anvil, ACCEPTED with findings). Qwen2.5 7B generating real narrations through full pipeline. Determinism proven. Validator catches structural contradictions but is **blind to forbidden meta-game content** (RV-007 not implemented — HIGH). Aegis audit: ACCEPT.
+**Memory protocol shipped:** 3-tier memory standard (`docs/protocols/MEMORY_PROTOCOL_V1.md`). Anvil diary infrastructure seeded (`anvil_diary/`). Aegis rulings applied: Slate kernel splits to capsule (400 tok) + Tier 1 PM State Register; compaction checkpoint mandatory; bridge harness queues behind RV-007.
 
-**Next priority: RV-007 fix.** Aegis recommends narrow mechanics-targeted regex (dice notation, damage numbers, HP references, AC/DC, save results). This is a core promise breach — if narration can say "deals 14 damage" and PASS, the system is one prompt-jailbreak from minting mechanics. Suggest: 1 builder WO for RV-007 implementation + fuzz regression suite.
+**Next priority: Tier 3 (Parser/Grammar).** No dispatch drafted yet. Voice-First Reliability Playbook specifies 19 WOs across 5 tiers; Tier 3 is Parser/Grammar (critical path: 3.1 → 3.2 → 3.3 → 3.4).
 
-**Next after RV-007:** Tier 3 (Parser/Grammar) or compound narration contract decision (Aegis recommends one-action-per-output as stabilizer).
+**Or:** Compound narration contract decision (FINDING-HOOLIGAN-03 MEDIUM — Aegis recommends one-action-per-output as stabilizer).
 
 **Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
 
@@ -198,7 +199,7 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **GAP-A (low priority):** `dm_persona.py:83` missing import. Runtime-functional.
 
-**Planned sequence (BURST-001):** ~~Tier 1 Spec Freeze~~ (COMPLETE, 157 tests) → ~~Tier 2 Instrumentation~~ (COMPLETE, 84 tests) → **Tier 3 (Parser/Grammar)** → Tier 4 → Tier 5
+**Planned sequence (BURST-001):** ~~Tier 1 Spec Freeze~~ (COMPLETE, 157 tests) → ~~Tier 2 Instrumentation~~ (COMPLETE, 84 tests) → ~~RV-007 fix~~ (COMPLETE, 22 tests) → **Tier 3 (Parser/Grammar)** → Tier 4 → Tier 5
 
 **Planned sequence (PRS-01):** **PRS-01 spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001
 
@@ -252,7 +253,7 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 **GT v12 adopted as product doctrine.** Subsystem memos (Oracle v5.2, UI v4, ImageGen v4) accepted as plans-under-GT. Audio pillar adopted on paper, deferred in code until BURST-001. See kernel for full adoption record.
 
-**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~Tier 1 Spec Freeze~~ (J:27 + K:67 + L:32 + M:31 = 157 tests) **TIER 1 SPEC FREEZE COMPLETE** → ~~Waypoint~~ (WP1 + WP2 + WP3) **WAYPOINT BURN-DOWN COMPLETE** → ~~Tier 2 Instrumentation~~ (N:37 + O:47 = 84 tests) **TIER 2 COMPLETE** → ~~WO-SPARK-EXPLORE-001~~ (Anvil exploratory, 6 findings) **SPARK CAGE OPERATIONAL** → **RV-007 fix** (HIGH priority) → **Tier 3 (Parser/Grammar)** | **PRS-01** (DRAFTED, parallel track)
+**Build order:** ~~Smoke fuzzer~~ → ~~Oracle survey~~ → ~~Hooligan~~ → ~~Oracle Phase 1~~ → ~~Oracle Phase 2 (WorkingSet)~~ → ~~Oracle Phase 3 (Compactions)~~ **ORACLE COMPLETE** → ~~Director Phase 1~~ → ~~Director Phase 2 (Integration)~~ → ~~UI Phase 1 (Table Surface)~~ → ~~UI Phase 2 (TableObject + Drag)~~ → ~~UI Drift Guards~~ → ~~UI Zone Authority~~ → ~~UI Phase 3 (Dice Tray + Tower)~~ → ~~UI Phase 4 (Protocol Formalization)~~ **UI PHASE 4 COMPLETE** → ~~Director Phase 3 (TableMood + StyleCapsule)~~ **DIRECTOR PHASE 3 COMPLETE** → ~~Comedy Stingers Phase 1~~ **COMEDY STINGERS P1 COMPLETE** → ~~Spark LLM Selection~~ **SPARK LLM SELECTION COMPLETE** → ~~Tier 1 Spec Freeze~~ (J:27 + K:67 + L:32 + M:31 = 157 tests) **TIER 1 SPEC FREEZE COMPLETE** → ~~Waypoint~~ (WP1 + WP2 + WP3) **WAYPOINT BURN-DOWN COMPLETE** → ~~Tier 2 Instrumentation~~ (N:37 + O:47 = 84 tests) **TIER 2 COMPLETE** → ~~WO-SPARK-EXPLORE-001~~ (Anvil exploratory, 6 findings) **SPARK CAGE OPERATIONAL** → ~~RV-007 fix~~ (P:22, FINDING-HOOLIGAN-02 HIGH RESOLVED, FINDING-HOOLIGAN-01 LOW RESOLVED) **RV-007 COMPLETE** → **Tier 3 (Parser/Grammar)** | **PRS-01** (DRAFTED, parallel track)
 
 **Doctrine files** (in `pm_inbox/doctrine/` — 11 files, permanent reference):
 
@@ -356,7 +357,7 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
 
-**Archived this cycle:** 7 Spark explore files → `reviewed/archive_spark_explore/`. 4 Tier 2 files → `reviewed/archive_voice_tier2/`. HANDOVER_SLATE_20260222 → `reviewed/`.
+**Archived this cycle:** 7 Spark explore files → `reviewed/archive_spark_explore/`. 4 Tier 2 files → `reviewed/archive_voice_tier2/`. WO-SPARK-RV007-001_DISPATCH + DEBRIEF → `reviewed/`. HANDOVER_SLATE_20260222 → `reviewed/`.
 
 ## Persistent Files
 

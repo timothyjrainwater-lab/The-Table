@@ -25,9 +25,11 @@
 
 ## Validator
 
-- **Operational rules:** RV-001 (hit/miss), RV-002 (defeat), RV-003 (severity), RV-004 (condition), RV-005 (contraindication), RV-007 (delivery mode), RV-008 (save result)
-- **MISSING:** RV-009 (forbidden meta-game claims) + RV-010 (rule citations) — dispatched as WO-SPARK-RV007-001
-- **Known issue:** RV-004 underscore normalization (FINDING-HOOLIGAN-01)
+- **Operational rules:** RV-001 (hit/miss), RV-002 (defeat), RV-003 (severity), RV-004 (condition), RV-005 (contraindication), RV-007 (delivery mode), RV-008 (save result), RV-009 (forbidden meta-game claims), RV-010 (rule citations)
+- **RV-009:** 9 MV patterns (damage numbers, HP values, dice rolls, stat blocks, rule names, etc.) — P0 FAIL
+- **RV-010:** 4 RC patterns (PHB/DMG/MM citations, "according to rules", etc.) — P0 FAIL
+- **RV-004:** Underscore normalization fixed (`.replace("_", " ")` at both paths)
+- **Gate P:** 22/22 PASS (forbidden claims detection + FUZZ regression)
 
 ## Pipeline
 
@@ -38,8 +40,6 @@
 
 ## Known Issues
 
-1. **FINDING-HOOLIGAN-02 HIGH** — Validator blind to forbidden meta-game content (damage numbers, HP, dice rolls). WO dispatched.
-2. **FINDING-HOOLIGAN-03 MEDIUM** — RV-001 false positive on compound actions. Needs contract decision.
-3. **FINDING-HOOLIGAN-01 LOW** — RV-004 underscore normalization. Fix scoped in RV-007 WO.
-4. **GAP-A LOW** — `dm_persona.py:83` missing import. Runtime-functional.
-5. **GAP-B HIGH** — llama-cpp-python blocks Qwen3/Gemma3. Needs VS Build Tools + compile from source.
+1. **FINDING-HOOLIGAN-03 MEDIUM** — RV-001 false positive on compound actions. Needs contract decision (one-action-per-output vs per-sentence attribution).
+2. **GAP-A LOW** — `dm_persona.py:83` missing import. Runtime-functional.
+3. **GAP-B HIGH** — llama-cpp-python blocks Qwen3/Gemma3. Needs VS Build Tools + compile from source.

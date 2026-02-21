@@ -95,26 +95,52 @@ No more than one recall block per run.
 
 ### Anvil
 
-**Folder:** `anvil_diary/`
+**Canonical root:** `D:\anvil_research\` — the observatory. This is where all Tier 1 indexes, Tier 2 receipts, capsules, sessions, evidence, CLAIM_LEDGER, CONFOUNDS, and FOUNDATION-LOCK infrastructure live. Anvil writes here.
+
+**Repo mirror:** `F:\DnD-3.5\anvil_diary\` — read-only export. Slate maintains this as a shared-visibility copy of Anvil's Tier 1 indexes (STATE_DIGEST, FINDINGS_REGISTER, SESSION_INDEX) and latest capsule. Anvil does NOT write to the repo mirror directly. Slate syncs from D: when verdicting or during handoff.
+
+**Marker files:**
+- `D:\anvil_research\CANONICAL_ROOT.txt` — "This is the canonical Anvil diary root."
+- `F:\DnD-3.5\anvil_diary\MIRROR_OF.txt` — "Mirror of D:\anvil_research\. Do not write directly. Slate syncs from canonical root."
+
+**Rule: One brain, one root.** If Anvil and the repo mirror diverge, D: is truth.
 
 ```
-anvil_diary/
+D:\anvil_research\              (CANONICAL)
   capsules/          CAPSULE_YYYY-MM-DD_HHMMZ.md
   sessions/          SESSION_YYYY-MM-DD_HHMMZ.md
-  findings/          FINDING_<NAME>_YYYY-MM-DD.md
-  evidence/          *.json, *.jsonl
+  evidence/          *.json, *.jsonl, *.png
+  anomalies/         Observatory anomaly records
+  ANVIL_REHYDRATION_KERNEL.md
+  ANVIL_OBSERVATION_LOG.md
+  CLAIM_LEDGER.md
+  CONFOUNDS.md
+  INDEX.md
+  STATE_DIGEST.md    (Anvil maintains)
+  FINDINGS_REGISTER_SPARK.md
+  FINDINGS_REGISTER_OBS.md
+  SESSION_INDEX.jsonl
+
+F:\DnD-3.5\anvil_diary\        (MIRROR — read-only export)
+  capsules/          Latest capsule only
   indexes/           SESSION_INDEX.jsonl
   STATE_DIGEST.md
-  FINDINGS_REGISTER.md
+  FINDINGS_REGISTER.md  (SPARK domain only — repo-relevant)
+  MIRROR_OF.txt
 ```
 
+**Findings register domains (Aegis ruling, 2026-02-22):**
+- `FINDINGS_REGISTER_SPARK.md` — Code/engine findings. IDs: `FINDING-SPARK-*`, `FINDING-HOOLIGAN-*`, `FINDING-EXPLORE-*`, `FINDING-WAYPOINT-*`. Lives on D: canonical + F: repo mirror.
+- `FINDINGS_REGISTER_OBS.md` — Observatory/FOUNDATION-LOCK research findings. IDs: `FINDING-OBS-*`. Lives on D: only. Not mirrored to repo (research artifacts, not code artifacts).
+
 **Standing orders:**
-1. After every Spark cage session, produce a capsule in `capsules/`
-2. Write full session diary in `sessions/` (narrative + receipts layer)
-3. Update `FINDINGS_REGISTER.md` — one line per finding, append-only
-4. Append one line to `indexes/SESSION_INDEX.jsonl`
-5. Update `STATE_DIGEST.md` with current environment state
+1. After every Spark cage session, produce a capsule in `D:\anvil_research\capsules\`
+2. Write full session diary in `D:\anvil_research\sessions\` (narrative + receipts layer)
+3. Update Spark findings register — one line per finding, append-only
+4. Append one line to `D:\anvil_research\SESSION_INDEX.jsonl`
+5. Update `D:\anvil_research\STATE_DIGEST.md` with current environment state
 6. At session start, load ONLY: latest capsule + one focused recall. Never paste full sessions.
+7. Observatory findings go to `FINDINGS_REGISTER_OBS.md` — separate domain, separate register.
 
 ### Slate
 
@@ -163,6 +189,25 @@ When approaching context pressure, agents perform a **Checkpoint Capsule Refresh
 
 **Trigger:** If the agent begins stuttering OR is within ~10% of context limit, checkpoint immediately.
 
+### Enforcement (Aegis ruling, 2026-02-22)
+
+Dual-control. Neither side alone is sufficient.
+
+**Operator (Thunder):**
+- Calls "Checkpoint" when context pressure is known or before deliberate compaction
+- Monitors for stutter indicators from outside (shorter responses, drift, self-repair)
+- Can mandate checkpoint at any time as standing order
+
+**Agent (self-directed):**
+- Self-checkpoints on stutter indicators (see Stutter Detection below)
+- Self-checkpoints on cadence: every ~30 minutes of active work OR every N scenario runs (Anvil)
+- If compaction hits unexpectedly (context overflow without warning), first action after compaction is:
+  1. Capsule Refresh — write a new capsule from whatever state survived
+  2. State Register sync — update Tier 1 from memory
+  3. Resume from capsule, not from vague recall
+
+**Standing order:** If an agent cannot remember whether it checkpointed, it didn't. Checkpoint again.
+
 ---
 
 ## Stutter Detection
@@ -184,10 +229,57 @@ Context pressure shows up as measurable backpressure:
 
 ---
 
+## PM State Register Schema (Aegis ruling, 2026-02-22)
+
+The kernel split requires a defined boundary between Tier 0 (capsule) and Tier 1 (register). This schema makes the split mechanical and testable.
+
+### Slate Tier 0 — Capsule (`REHYDRATION_KERNEL_LATEST.md`)
+
+**Hard cap: 400 tokens.** This is the only file pasted into the prompt at session start.
+
+```
+# Slate Rehydration Kernel
+
+**Identity:** [role boundary — 1 sentence]
+**Session:** [session_id or date]
+**Delta:** [what changed since last capsule — 1-2 sentences]
+
+## Priority Stack (top 3)
+1. [highest priority task or decision]
+2. [second]
+3. [third]
+
+## Stop Conditions
+- [what would invalidate the current plan]
+
+## State Register Pointer
+- File: pm_inbox/PM_BRIEFING_CURRENT.md
+- Hash: [first 8 chars of SHA-256]
+- Updated: [ISO timestamp]
+```
+
+**What does NOT go in the capsule:** Gate counts, dispatch lists, WO verdict histories, full findings inventories, build order details. Those are Tier 1.
+
+### Slate Tier 1 — PM State Register (`PM_BRIEFING_CURRENT.md`)
+
+This is the canonical PM database. Lists live here. The capsule points here.
+
+**Required sections:**
+- **Stoplight** — Gate counts (compact: `Gate A: 22/22` not full test names), suite totals, status color
+- **Requires Operator Action** — Current blocking items (focused recall source)
+- **Dispatches** — Active and completed WOs with verdict, commit hash
+- **Build order** — Current position in build sequence
+- **Open findings** — All unresolved findings with severity
+- **Doctrine adoption** — Which specs are frozen, which are pending
+
+**Compression rule:** The briefing is allowed to be long (it's Tier 1, not Tier 0). But each section should be scannable — one line per item, not paragraph descriptions. The full narrative goes in Tier 2 (handover notes, debriefs).
+
+---
+
 ## Future Extensions (out of scope)
 
 1. **Capsule injection into PromptPack** — Add optional capsule field to `PromptPackBuilder.build()`, gets priority slot in MEMORY channel. CODE WO.
 2. **Bridge harness Mode A** — Replay-driven prompt compilation tool. Queue behind RV-007. Becomes correctness-enabling once validators are hardened and need real engine truth frames. CODE WO.
 3. **Bridge harness Mode B** — Live session bridge. Queue behind Mode A. Needed for "Thunder plays / Spark narrates" continuous operation.
 4. **Aegis memory** — If Aegis adopts this protocol, same pattern: `aegis_diary/` with same structure.
-5. **PM State Register schema** — Aegis offered to propose exact fields so the kernel split becomes mechanical and enforceable. Accept when ready.
+5. **Aegis memory** — If Aegis adopts this protocol, same pattern: `aegis_diary/` with same structure.
