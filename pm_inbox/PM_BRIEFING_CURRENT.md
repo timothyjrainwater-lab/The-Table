@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-22T10:00Z (04:00 CST). **RV-007 RESOLVED. MEMORY PROTOCOL SHIPPED.** Forbidden meta-game claims detection live (RV-009/RV-010, 22 Gate P tests). 3-tier memory protocol formalized for all agents (`docs/protocols/MEMORY_PROTOCOL_V1.md`). Anvil diary infrastructure seeded. 6,234 tests pass (7 pre-existing failures unrelated). Root at 11 (1 over cap — active debrief). Queue open for Tier 3 (Parser/Grammar).
+**Last updated:** 2026-02-22T18:00Z (02:00+1 CST). **MEMORY PROTOCOL v1.1 SHIPPED.** Protocol expanded: 15 gaps resolved (canary audit), 10 acceptance drills (Appendix A + drill runbooks). Kernel split executed (412→108 lines). Anvil rulings integrated (canonical root, domain registers, dual-control compaction). 6,234 tests pass (7 pre-existing failures unrelated). Root at 10 (at cap). Queue open for Tier 3 (Parser/Grammar).
 
 ---
 
@@ -179,27 +179,24 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 | WO-FRAMEWORK-UPDATE-001 | **ACCEPTED** | `d62b37a` (pushed to framework repo) |
 | WO-FRAMEWORK-UPDATE-002 | **ACKNOWLEDGED** — not PM-drafted, Operator-executed | `aaecfef` (PR #1) |
 
-## Requires Operator Action (NOW)
+## Operator Action Queue (max 3 — what Thunder needs to decide)
 
-**RV-007 RESOLVED. MEMORY PROTOCOL SHIPPED.**
+1. **Next priority: Tier 3 (Parser/Grammar) or compound narration contract?** No dispatch drafted yet. Voice-First Playbook: 3.1 → 3.2 → 3.3 → 3.4. Or: FINDING-HOOLIGAN-03 MEDIUM compound action contract (Aegis recommends one-action-per-output).
+2. **Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
+3. **llama-cpp-python upgrade path** — VS Build Tools + compile from source. Unblocks Qwen3/Gemma3 re-eval. Not blocking current work.
 
-**RV-007 done:** WO-SPARK-RV007-001 (22 Gate P, ACCEPTED `42131a3`). Forbidden meta-game claims detection live — RV-009 (9 MV patterns) + RV-010 (4 RC patterns), both P0 FAIL. RV-004 underscore fix landed. FUZZ-01/02/03 all correctly FAIL. FINDING-HOOLIGAN-02 (HIGH) and FINDING-HOOLIGAN-01 (LOW) both RESOLVED.
+## Current Focus (Slate's focused recall — what I'm working on right now)
 
-**Memory protocol shipped:** 3-tier memory standard (`docs/protocols/MEMORY_PROTOCOL_V1.md`). Anvil diary infrastructure seeded (`anvil_diary/`). Aegis rulings applied: Slate kernel splits to capsule (400 tok) + Tier 1 PM State Register; compaction checkpoint mandatory; bridge harness queues behind RV-007.
+**Memory protocol v1.1 shipped and committed.** Next PM actions:
+- Tier 1 graduation — briefing WO Verdicts (34 entries) and Dispatches (40+ entries) both exceed 20-item threshold. First real exercise of v1.1 graduation protocol.
+- Briefing section split — this "Current Focus" section is the v1.1 split in action (was "Requires Operator Action" which served dual purpose).
+- Tier 3 dispatch draft — waiting on Thunder's priority decision.
 
-**Next priority: Tier 3 (Parser/Grammar).** No dispatch drafted yet. Voice-First Reliability Playbook specifies 19 WOs across 5 tiers; Tier 3 is Parser/Grammar (critical path: 3.1 → 3.2 → 3.3 → 3.4).
+**Deferred (not blocking):**
+- Chatterbox swap timing (8.0s stall budget uses 1.5s estimates)
+- GAP-A LOW (`dm_persona.py:83` missing import, runtime-functional)
 
-**Or:** Compound narration contract decision (FINDING-HOOLIGAN-03 MEDIUM — Aegis recommends one-action-per-output as stabilizer).
-
-**Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days.
-
-**Still needed before voice code lands (deferred, not blocking):**
-- **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates.
-- **llama-cpp-python upgrade path** — VS Build Tools + compile from source. Unblocks Qwen3/Gemma3 re-eval.
-
-**GAP-A (low priority):** `dm_persona.py:83` missing import. Runtime-functional.
-
-**Planned sequence (BURST-001):** ~~Tier 1 Spec Freeze~~ (COMPLETE, 157 tests) → ~~Tier 2 Instrumentation~~ (COMPLETE, 84 tests) → ~~RV-007 fix~~ (COMPLETE, 22 tests) → **Tier 3 (Parser/Grammar)** → Tier 4 → Tier 5
+**Planned sequence (BURST-001):** ~~Tier 1 Spec Freeze~~ → ~~Tier 2 Instrumentation~~ → ~~RV-007 fix~~ → **Tier 3 (Parser/Grammar)** → Tier 4 → Tier 5
 
 **Planned sequence (PRS-01):** **PRS-01 spec review** → WO-PRS-SCAN-001 → WO-PRS-LICENSE-001 → WO-PRS-OFFLINE-001 → WO-PRS-FIRSTRUN-001 → WO-PRS-DOCS-001 → WO-PRS-ORCHESTRATOR-001
 
@@ -357,7 +354,7 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
 
-**Archived this cycle:** 7 Spark explore files → `reviewed/archive_spark_explore/`. 4 Tier 2 files → `reviewed/archive_voice_tier2/`. WO-SPARK-RV007-001_DISPATCH + DEBRIEF → `reviewed/`. HANDOVER_SLATE_20260222 → `reviewed/`.
+**Archived this cycle:** 7 Spark explore files → `reviewed/archive_spark_explore/`. 4 Tier 2 files → `reviewed/archive_voice_tier2/`. WO-SPARK-RV007-001_DISPATCH + DEBRIEF → `reviewed/`. HANDOVER_SLATE_20260222 → `reviewed/`. HANDOVER_SLATE_20260222_EVE → `reviewed/`.
 
 ## Persistent Files
 

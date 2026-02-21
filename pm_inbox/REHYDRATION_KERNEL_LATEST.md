@@ -5,13 +5,13 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-22
-**Delta:** RV-007 ACCEPTED (22 Gate P). Memory protocol shipped through v1.1 (15 gaps resolved). Kernel split executed — Charter + Capsule formalized.
+**Session:** 2026-02-22 (evening continuation)
+**Delta:** Memory protocol v1.1 complete — Appendix A (10 acceptance drills) added + full drill runbooks committed. Briefing split to Operator Action Queue + Current Focus per v1.1 spec. All commits landed.
 
 ## Priority Stack (top 3)
 1. Tier 3 (Parser/Grammar) dispatch drafting — next on BURST-001 critical path
 2. Compound narration contract decision (FINDING-HOOLIGAN-03 MEDIUM) — or defer
-3. Tier 1 graduation — briefing WO Verdicts and Dispatches sections exceed 20 items
+3. Tier 1 graduation — briefing WO Verdicts (34 items) and Dispatches (40+ items) exceed 20-item threshold
 
 ## Stop Conditions
 - If test suite drops below 6,234 or any gate regresses, halt and investigate
@@ -20,7 +20,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-22T11:00Z
+- Updated: 2026-02-22T18:00Z
 - Briefing carries: gate counts, WO verdicts, dispatch list, build order, open findings, doctrine status
 
 ---
