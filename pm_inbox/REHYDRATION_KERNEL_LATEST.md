@@ -298,6 +298,7 @@ Audio pillar: adopted on paper, no code until BURST-001.
 2. `## Integration Seams` (or "No integration seams")
 3. `## Assumptions to Validate` (3-5 assumptions, or "fully determined")
 4. `## Preflight` — one line: `Run python scripts/preflight_canary.py and log results in pm_inbox/PREFLIGHT_CANARY_LOG.md before starting work.`
+5. `## Audio Cue` — MANDATORY in every dispatch: `python scripts/speak.py --persona npc_elderly --backend kokoro "Work order complete. Awaiting Thunder."` Builder fires this when work is done. No exceptions.
 Optional: `## Debrief Focus` (1-2 questions from bank)
 
 **Key dispatch rules:**

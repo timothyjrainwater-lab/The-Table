@@ -227,6 +227,14 @@ File as `pm_inbox/DEBRIEF_WO-WAYPOINT-003.md`. 500 words max. Five mandatory sec
    - **Drift.** Current drift risk.
    - **Near stop.** What got close to triggering a stop condition.
 
+### Audio Cue (MANDATORY)
+
+When all work is complete (commit landed, debrief written), fire this command so the Operator knows you're done:
+
+```
+python scripts/speak.py --persona npc_elderly --backend kokoro "Work order complete. Awaiting Thunder."
+```
+
 ### Debrief Focus Questions
 
 1. **Weapon name source:** Did you use the entity's `EF.WEAPON` field or the `AttackIntent.weapon` object? Why?
