@@ -237,7 +237,7 @@ Behavior: Stoplight downgrades. Slate requests sensor and halts until rehydrated
 ## Current Repo Snapshot
 
 Branch: master
-Last commit: dddcd9e — feat: WO-WAYPOINT-001 — Waypoint maiden voyage, full table loop determinism proof
+Last commit: 58aee5b — docs: WSM-01 watch synchronization methodology + Slate kernel CLOCK_PING v3
 Tests passed: 6,028 — **GREEN.**
 Stoplight: **GREEN (infrastructure) / GREEN (integration).**
 Gate tests: 256/256 PASS (A:22 + B:23 + C:24 + D:18 + E:14 + F:10 + G:22 + H:16 + I:13 + J:27 + K:67). Waypoint: 5/5 PASS (W-0 through W-4). No-backflow: PASS.
@@ -330,7 +330,7 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 - FINDING-WAYPOINT-02: → WO-WAYPOINT-003 (weapon_name plumbing)
 - FINDING-WAYPOINT-03: → WO-WAYPOINT-003 (d20_result doc note, no code rename)
 
-**Uncommitted:** PM briefing, kernel, 2 WO drafts (-002, -003), notebook mirror, archived memos/handoffs, architecture memo, TUNING-001 docs, experiment screenshot. Batch commit pending Thunder authorization.
+**Uncommitted:** Handoff note (HANDOVER_SLATE_20260221_EVE.md), updated kernel + briefing snapshots. Commit before dispatch.
 
 ### Observable-Consciousness Repo (2026-02-21)
 
