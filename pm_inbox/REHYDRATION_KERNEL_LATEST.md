@@ -310,9 +310,9 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 
 **Parked items:** BURST-002 thru 004, cast_id determinism, Tier B coverage gaps (7 hooligan findings). Table vision memo filed (MEMO_TABLE_VISION_SPATIAL_SPEC), parked until visual pass.
 
-**PM posture:** ALL TABLE PROJECT OPERATIONS ON HOLD per Thunder directive (2026-02-21). Aegis auditing observable-consciousness repo for public safety adjustments.
-1. **WO-WAYPOINT-002** — DRAFTED, ON HOLD. Condition action denial. Dispatch: `pm_inbox/WO-WAYPOINT-002_DISPATCH.md`.
-2. **WO-WAYPOINT-003** — DRAFTED, ON HOLD. Weapon name plumbing. Dispatch: `pm_inbox/WO-WAYPOINT-003_DISPATCH.md`.
+**PM posture:** Waypoint burn-down ACTIVE. Table ops resuming for -002 → -003 sequence. Architecture session (Aegis/Thunder/Anvil) triaged — 8 WO candidates parked, TUNING-001 filed. BURST-001, PRS-01 remain parked.
+1. **WO-WAYPOINT-002** — READY FOR DISPATCH. Condition action denial. Dispatch: `pm_inbox/WO-WAYPOINT-002_DISPATCH.md`.
+2. **WO-WAYPOINT-003** — READY after -002. Weapon name plumbing. Dispatch: `pm_inbox/WO-WAYPOINT-003_DISPATCH.md`.
 3. **WO-WAYPOINT-001** — **ACCEPTED** with 3 findings. `dddcd9e`. Archived.
 4. **BURST-001** — ON HOLD. Tier 1.1 ACCEPTED, Tier 1.2 ACCEPTED. Next (when resumed): Tier 1.3.
 5. **PRS-01** — ON HOLD. Spec drafted.
@@ -322,7 +322,7 @@ Optional: `## Debrief Focus` (1-2 questions from bank)
 - FINDING-WAYPOINT-02: → WO-WAYPOINT-003 (weapon_name plumbing)
 - FINDING-WAYPOINT-03: → WO-WAYPOINT-003 (d20_result doc note, no code rename)
 
-**Uncommitted:** PM briefing, kernel, 2 WO drafts (-002, -003), notebook mirror, archived memos/handoffs, experiment screenshot. Batch commit pending Thunder authorization.
+**Uncommitted:** PM briefing, kernel, 2 WO drafts (-002, -003), notebook mirror, archived memos/handoffs, architecture memo, TUNING-001 docs, experiment screenshot. Batch commit pending Thunder authorization.
 
 ### Observable-Consciousness Repo (2026-02-21)
 

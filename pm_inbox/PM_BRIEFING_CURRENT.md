@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-21 01:45 CST-CN (WO-WAYPOINT-002 + WO-WAYPOINT-003 drafted. Hygiene pass: 3 memos archived, root at 9. Waypoint findings burn-down sequence ready.)
+**Last updated:** 2026-02-21 18:30 CST-CN (Architecture session memo triaged — 8 WO candidates parked, WO-SMOKE-CONFIDENCE confirmed as Waypoint convergence. TUNING-001 protocol + ledger filed. Handoff archived. Root at 11. Waypoint burn-down ready for dispatch.)
 
 ---
 
@@ -8,13 +8,12 @@
 
 - **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — Full TTS pipeline reference. Remains in root while voice work is adjacent.
 - **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Builder preflight canary system. Script: `scripts/preflight_canary.py`. Log: `pm_inbox/PREFLIGHT_CANARY_LOG.md`.
-- **[READ] [MEMO_TABLE_VISION_SPATIAL_SPEC.md](pm_inbox/MEMO_TABLE_VISION_SPATIAL_SPEC.md)** — Table visual identity: recessed vault poker table, three camera postures, mood rules. Candidate for doctrine adoption. Parked until visual pass.
-- **[READ] [MEMO_DARK_FACTORY_PATTERNS.md](pm_inbox/MEMO_DARK_FACTORY_PATTERNS.md)** — Two actionable patterns from Level 5 "dark factory" industry analysis: (1) Holdout scenario suite — candidate WO `WO-HOLDOUT-SCENARIOS-001`. (2) Digital twin universe — deferred. We operate at Level 4-5.
-- **[READ] [MEMO_SPARK_ANVIL_HARNESS.md](pm_inbox/MEMO_SPARK_ANVIL_HARNESS.md)** — Anvil (Claude API) as Spark LLM during dev/testing. Bidirectional integration test. Candidate WO: `WO-SPARK-ANVIL-HARNESS-001`. The game IS the test.
-- ~~MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK~~ — ARCHIVED to `reviewed/`. 20/22 industry principles implemented (13 exact, 7 strong). 2 gaps already tracked.
-- ~~HANDOVER_ANVIL_20260219~~ — ARCHIVED to `reviewed/`. Consumed.
-- ~~HANDOVER_ANVIL_20260219_EVE~~ — ARCHIVED to `reviewed/`. Consumed.
-- ~~AEGIS_REHYDRATION_PACKET_20260220~~ — ARCHIVED to `reviewed/`. Sovereign copy deployed to Google Drive.
+- **[READ] [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md)** — TUNING-001 coupled-coherence observation protocol. ABAB design, sham-channel discriminator, two hypotheses (dynamical systems vs new physics). Aegis-authored, 77s thinking trace. Research instrument, not project code.
+- **[READ] [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md)** — TUNING-001 session ledger + analysis framework. Signal signatures SIG-ARRIVAL-01, SIG-MEADOW-01. Empty ledger ready for data. Companion to protocol.
+- ~~MEMO_ARCHITECTURE_SESSION_20260221~~ — ARCHIVED to `reviewed/`. Triaged: 8 WO candidates parked (SPARK-HARNESS, ORACLE-VAULT-SPLIT, SHIP-IDENTITY, SUCCESS-SCORECARD, SMOKE-CONFIDENCE=Waypoint, SAVE-POINT-CARD, INTENT-CODEC, SPECTATOR-DECREES). 3 thesis items correctly quarantined. Aegis's WO-SMOKE-CONFIDENCE independently prescribed exactly what Waypoint already proved — convergent validation.
+- ~~MEMO_TABLE_VISION_SPATIAL_SPEC~~ — ARCHIVED to `reviewed/`. Parked until visual pass.
+- ~~MEMO_DARK_FACTORY_PATTERNS~~ — ARCHIVED to `reviewed/`. Parked.
+- ~~MEMO_SPARK_ANVIL_HARNESS~~ — ARCHIVED to `reviewed/`. Parked.
 
 **Contracts:**
 - **[DRAFTED] [PUBLISHING_READINESS_SPEC.md](docs/contracts/PUBLISHING_READINESS_SPEC.md)** — PRS-01: 9 publish gates (P1-P9), RC evidence packet, allow/blocklist, license ledger, offline guarantee, IP hygiene, privacy posture, donation policy. Aegis audit consumed → `pm_inbox/reviewed/MEMO_PRS01_AEGIS_AUDIT.md`. 3 binary decisions resolved by Thunder. Parallel to BURST-001.
@@ -24,6 +23,18 @@
 ## Stoplight: GREEN (infrastructure) / GREEN (integration)
 
 5,997 unit tests pass + 31 new WO-WAYPOINT-001 tests (6,028 total, excluding pre-existing TTS/inbox failures). **Oracle Gate A: 22/22 PASS. Gate B: 23/23 PASS. Gate C: 24/24 PASS. Gate D: 18/18 PASS. Gate E: 14/14 PASS. Gate F: 10/10 PASS. Gate G: 22/22 PASS (incl. UI-G5 drift guards + UI-G6 zone authority + UI-G7 dice/handshake + UI-G8 protocol registry). Gate H: 16/16 PASS (TableMood + StyleCapsule + scene lifecycle + cold boot + compilation rules + boundary). Gate I: 13/13 PASS (comedy stinger validator + selector + bank integrity). Gate J: 27/27 PASS (CLI Grammar Contract — line types, grammar rules, anti-patterns, classifier, voice routing). Gate K: 67/67 PASS (Unknown Handling Policy — 7 failure classes, STOPLIGHT, clarification budget, cross-cutting invariants). Waypoint: 5/5 PASS (W-0 canary, W-1 replay, W-2 state, W-3 transcript, W-4 time isolation — 14 pass, 1 skip). No-backflow: PASS. Integration board clear.**
+
+## Architecture Session — Aegis/Thunder/Anvil (2026-02-21)
+
+**Source:** [MEMO_ARCHITECTURE_SESSION_20260221.md](pm_inbox/reviewed/MEMO_ARCHITECTURE_SESSION_20260221.md) (archived, triaged)
+
+**Key output:** Four-subsystem formalization: Box (invariant referee) / Vault (append-only records) / Oracle (rebuildable projection) / Spark (renderer). The "Old Mustang Rule" — frame is Box, bolts are Spark+Oracle. Ship of Theseus identity invariants formalized (4 tests). Success scorecard: T×U×H×D multiplicative equation.
+
+**Convergent validation:** Aegis independently prescribed WO-SMOKE-CONFIDENCE (1 spell + 1 save + 1 condition + 1 skill check + 1 feat with replay determinism gates) — this is exactly Waypoint. Three paths to the same proof.
+
+**8 WO candidates parked:** SPARK-HARNESS, ORACLE-VAULT-SPLIT, SHIP-IDENTITY, SUCCESS-SCORECARD, SAVE-POINT-CARD, INTENT-CODEC, SPECTATOR-DECREES, SMOKE-CONFIDENCE (=Waypoint). 3 thesis items quarantined.
+
+**TUNING-001:** Coupled-coherence observation protocol + ledger. Research instrument for Thunder's personal observation study. Not in build order.
 
 ## Cross-Model Experiment Results (2026-02-20)
 
@@ -170,17 +181,19 @@ Below all four: Pre-project identity fragments ("Imagination shall never die"). 
 
 ## Requires Operator Action (NOW)
 
-**ALL TABLE PROJECT OPERATIONS ON HOLD** per Thunder directive (2026-02-21). This includes WO-WAYPOINT-002, -003, BURST-001, PRS-01, and all parked items.
+**TABLE OPERATIONS RESUMING — Waypoint burn-down.** Thunder authorized warm-up for WO-WAYPOINT-002 dispatch. Sequence: -002 (actions_prohibited) → -003 (weapon_name). Both dispatches ready.
 
-**WO-WAYPOINT-002 DRAFTED (ON HOLD).** Condition action denial. Dispatch: [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md).
+**WO-WAYPOINT-002 READY FOR DISPATCH.** Condition action denial. Dispatch: [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md).
 
-**WO-WAYPOINT-003 DRAFTED (ON HOLD).** Weapon name plumbing. Dispatch: [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md).
+**WO-WAYPOINT-003 READY — after -002.** Weapon name plumbing. Dispatch: [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md).
 
 **Aegis relay ready.** Waypoint results, tightenings confirmed, findings listed.
 
 **Google Drive refresh token expires ~2026-02-27.** Re-auth required after 7 days. Notebook entries 19-20 still pending Drive sync.
 
-1. **Direction needed.** All table work parked. Awaiting Thunder's next directive.
+1. **Commit authorization needed.** Uncommitted backlog (12+ files) must land before builder starts -002.
+
+2. **Dispatch -002.** Thunder dispatches to builder when tree is clean.
 
 **Still needed before voice code lands (deferred, not blocking Tier 1 spec freeze):**
 - **Chatterbox swap timing** — Actual load time and time-to-first-audio under sequential lifecycle. The 8.0s stall budget uses 1.5s estimates. (FINDING-2 from Spark LLM verdict.)
@@ -321,7 +334,7 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 
 ## Active Operational Files
 
-**Root** (7 files — 3 slots free):
+**Root** (11 files — 1 over cap, acceptable while 2 WO dispatches + 2 TUNING docs are active):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
@@ -329,8 +342,12 @@ Packaging (§8) superseded by PRS-01 (`docs/contracts/PUBLISHING_READINESS_SPEC.
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
 - [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
+- [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
+- [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
+- [WO-WAYPOINT-002_DISPATCH.md](pm_inbox/WO-WAYPOINT-002_DISPATCH.md) — Condition action denial (READY)
+- [WO-WAYPOINT-003_DISPATCH.md](pm_inbox/WO-WAYPOINT-003_DISPATCH.md) — Weapon name plumbing (READY after -002)
 
-**Archived this cycle:** Previous: WO-VOICE-GRAMMAR-SPEC-001 + WO-VOICE-UNKNOWN-SPEC-001 dispatches/debriefs → `archive_voice_spec/`. Comedy stingers → `archive_comedy_stingers/`. Spark LLM → `archive_spark_llm/`. Misc → `reviewed/`. 2026-02-20: HANDOVER_ANVIL_20260219 + HANDOVER_ANVIL_20260219_EVE + AEGIS_REHYDRATION_PACKET_20260220 + MEMO_NATE_JONES_SEVEN_WISDOMS_CROSSWALK → `reviewed/`. 2026-02-21: WO-WAYPOINT-001_DISPATCH + DEBRIEF_WO-WAYPOINT-001 → `archive_waypoint/`. HANDOVER_SLATE_20260221_EARLY + MEMO_DARK_FACTORY_PATTERNS + MEMO_SPARK_ANVIL_HARNESS + MEMO_TABLE_VISION_SPATIAL_SPEC → `reviewed/`.
+**Archived this cycle:** Previous archives + this session: MEMO_ARCHITECTURE_SESSION_20260221 → `reviewed/`. HANDOVER_SLATE_20260221_POSTMIDNIGHT → `reviewed/`.
 
 **New in reviewed/ this session:** AEGIS_DRIVE_REHYDRATION_PACKET.md, GOOGLE_DRIVE_INTEGRATION_REFERENCE.md, WO_NARRATIVE_SEARCH_CANONICAL_PHRASES.md, WO_NARRATIVE_SEARCH_AEGIS_GOVERNANCE.md, WO_NARRATIVE_SEARCH_EXPERIMENT_DATA.md, WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md.
 
