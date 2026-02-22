@@ -78,6 +78,9 @@ from aidm.schemas.position import Position
 from aidm.schemas.boundary_pressure import PressureLevel
 from aidm.spark.dm_persona import DMPersona
 
+from aidm.immersion.prosodic_preset_manager import ProsodicPresetManager
+from aidm.schemas.immersion import VoicePersona
+
 logger = logging.getLogger(__name__)
 
 # WO-VOICE-PRESSURE-IMPL-001: Dedicated logger for boundary pressure events
@@ -131,6 +134,15 @@ class SessionState(str, Enum):
     COMBAT = "combat"
     REST = "rest"
     DIALOGUE = "dialogue"
+
+
+# WO-VOICE-PAS-PRESETS-001: SessionState -> prosodic preset mode
+_SESSION_TO_PRESET_MODE = {
+    SessionState.COMBAT: "combat",
+    SessionState.EXPLORATION: "scene",
+    SessionState.REST: "reflection",
+    SessionState.DIALOGUE: "scene",
+}
 
 
 # ======================================================================
@@ -361,6 +373,7 @@ class SessionOrchestrator:
         self._brief_history: List[NarrativeBrief] = []
         self._turn_count: int = 0
         self._segment_tracker = SegmentTracker()
+        self._preset_manager = ProsodicPresetManager()
 
     # ------------------------------------------------------------------
     # Properties
@@ -1010,6 +1023,9 @@ class SessionOrchestrator:
     ) -> Optional[bytes]:
         """Synthesize TTS audio from narration text.
 
+        Resolves prosodic preset from session state and applies it to the
+        voice persona before synthesis.
+
         Args:
             narration_text: Text to synthesize
             brief: NarrativeBrief for NPC voice selection
@@ -1026,6 +1042,20 @@ class SessionOrchestrator:
             voice_id = self._dm_persona.get_npc_voice(brief.actor_name)
             if voice_id != self._dm_persona.default_voice:
                 persona = voice_id
+
+        # WO-VOICE-PAS-PRESETS-001: Apply prosodic preset from session state
+        preset_mode = _SESSION_TO_PRESET_MODE.get(
+            self._session_state, "scene"
+        )
+        if isinstance(persona, str):
+            # Wrap string voice_id into a minimal VoicePersona for preset overlay
+            persona = VoicePersona(
+                persona_id=persona, name=persona, voice_model=persona
+            )
+        if persona is None:
+            persona = VoicePersona()
+        persona = self._preset_manager.apply_preset(persona, preset_mode)
+        logger.debug("Applying %s prosodic preset", preset_mode)
 
         try:
             return self._tts.synthesize(narration_text, persona=persona)
