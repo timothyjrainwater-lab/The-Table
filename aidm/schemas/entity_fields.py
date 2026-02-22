@@ -132,6 +132,12 @@ class _EntityFields:
     ENCUMBRANCE_LOAD = "encumbrance_load"          # Current load tier: "light", "medium", "heavy", "overloaded"
     BASE_SPEED = "base_speed"                      # Base movement speed in feet before encumbrance penalties
 
+    # --- Spellcasting (WO-CHARGEN-SPELLCASTING) ---
+    SPELLS_KNOWN = "spells_known"                  # Dict mapping spell_level → list of spell_ids known
+    SPELLS_PREPARED = "spells_prepared"            # Dict mapping spell_level → list of spell_ids prepared
+    SPELL_SLOTS = "spell_slots"                    # Dict mapping spell_level → int (total slots including bonus)
+    CASTER_LEVEL = "caster_level"                  # Int: effective caster level for this class
+
 
 # Singleton instance — import this
 EF = _EntityFields()
