@@ -77,6 +77,7 @@ from aidm.schemas.intents import CastSpellIntent, DeclaredAttackIntent, MoveInte
 from aidm.schemas.position import Position
 from aidm.schemas.boundary_pressure import PressureLevel
 from aidm.spark.dm_persona import DMPersona
+from aidm.voice.line_classifier import filter_spoken_lines
 
 from aidm.immersion.prosodic_preset_manager import ProsodicPresetManager
 from aidm.schemas.immersion import VoicePersona
@@ -840,12 +841,14 @@ class SessionOrchestrator:
         )
 
         # 6. Narration generation (pass summaries for PromptPack path)
-        narration_text, provenance = self._generate_narration(
+        narration_text, provenance, pressure_level = self._generate_narration(
             brief, session_context, events, segment_summaries=segment_summaries,
         )
 
         # 7. TTS synthesis
-        narration_audio = self._synthesize_tts(narration_text, brief)
+        narration_audio = self._synthesize_tts(
+            narration_text, brief, pressure_level=pressure_level,
+        )
 
         return TurnResult(
             success=True,
@@ -859,7 +862,7 @@ class SessionOrchestrator:
         self, brief: NarrativeBrief, session_context: str,
         events: Optional[List[Dict[str, Any]]] = None,
         segment_summaries: Optional[List] = None,
-    ) -> Tuple[str, str]:
+    ) -> Tuple[str, str, PressureLevel]:
         """Generate narration text via Spark or template fallback.
 
         WO-VOICE-PRESSURE-IMPL-001: Before calling Spark, evaluate boundary
@@ -873,7 +876,7 @@ class SessionOrchestrator:
             segment_summaries: WO-060 SessionSegmentSummary objects (newest first)
 
         Returns:
-            Tuple of (narration_text, provenance_tag)
+            Tuple of (narration_text, provenance_tag, pressure_level)
         """
         # Build template context from NarrativeBrief + events.
         template_context = _build_template_context(brief, events or [])
@@ -901,7 +904,7 @@ class SessionOrchestrator:
         # RED: skip Spark, template fallback directly (BP-INV-02)
         if pressure_result.composite_level == PressureLevel.RED:
             fallback = brief.outcome_summary or f"{brief.actor_name} acts."
-            return fallback, "[NARRATIVE:TEMPLATE]"
+            return fallback, "[NARRATIVE:TEMPLATE]", PressureLevel.RED
 
         # --- End pressure evaluation ---
 
@@ -940,12 +943,12 @@ class SessionOrchestrator:
             # The GuardedNarrationService already handles template fallback
             # internally. YELLOW's no-retry constraint is enforced by the
             # fact that GuardedNarrationService uses the same retry policy.
-            return result.text, result.provenance
+            return result.text, result.provenance, pressure_result.composite_level
         except Exception as e:
             logger.warning("Narration generation failed: %s", e)
             # Template fallback — use the brief's outcome_summary
             fallback = brief.outcome_summary or f"{brief.actor_name} acts."
-            return fallback, "[NARRATIVE:TEMPLATE]"
+            return fallback, "[NARRATIVE:TEMPLATE]", pressure_result.composite_level
 
     def _assemble_pressure_input_fields(self, brief: NarrativeBrief) -> Dict[str, object]:
         """Assemble input fields dict for boundary pressure evaluation.
@@ -1015,20 +1018,24 @@ class SessionOrchestrator:
                 "turn_number": result.turn_number,
                 "detail": detail,
                 "timestamp": result.timestamp,
+                "prosodic_modulation": result.composite_level.value,
             },
         )
 
     def _synthesize_tts(
-        self, narration_text: str, brief: NarrativeBrief
+        self, narration_text: str, brief: NarrativeBrief,
+        pressure_level: PressureLevel = PressureLevel.GREEN,
     ) -> Optional[bytes]:
         """Synthesize TTS audio from narration text.
 
         Resolves prosodic preset from session state and applies it to the
-        voice persona before synthesis.
+        voice persona before synthesis. Then applies pressure modulation
+        on top of the mode preset.
 
         Args:
             narration_text: Text to synthesize
             brief: NarrativeBrief for NPC voice selection
+            pressure_level: Current boundary pressure level (default GREEN)
 
         Returns:
             Audio bytes or None if TTS unavailable
@@ -1055,10 +1062,17 @@ class SessionOrchestrator:
         if persona is None:
             persona = VoicePersona()
         persona = self._preset_manager.apply_preset(persona, preset_mode)
-        logger.debug("Applying %s prosodic preset", preset_mode)
+        # WO-IMPL-PRESSURE-ALERTS-001: Apply pressure modulation after mode preset
+        persona = self._preset_manager.apply_pressure_modulation(persona, pressure_level)
+        logger.debug("Applying %s prosodic preset (pressure=%s)", preset_mode, pressure_level.value)
+
+        # WO-IMPL-SALIENCE-FILTER-001: Strip non-spoken lines (S5/S6)
+        spoken_text = filter_spoken_lines(narration_text)
+        if not spoken_text.strip():
+            return None  # Nothing to speak
 
         try:
-            return self._tts.synthesize(narration_text, persona=persona)
+            return self._tts.synthesize(spoken_text, persona=persona)
         except Exception as e:
             logger.warning("TTS synthesis failed: %s", e)
             return None

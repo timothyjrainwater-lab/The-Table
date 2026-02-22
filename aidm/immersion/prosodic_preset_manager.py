@@ -1,18 +1,21 @@
 """Mode-based prosodic preset selection with emphasis clamping.
 
 WO-VOICE-PAS-PRESETS-001 — Tier 4.2
+WO-IMPL-PRESSURE-ALERTS-001 — Tier 4.3 (pressure modulation)
 
 Defines 4 prosodic mode presets (operator, combat, scene, reflection)
 and provides merge logic to overlay preset fields onto an existing
 VoicePersona while preserving voice identity.
 
 Emphasis is clamped per-mode ceiling to prevent over-dramatization.
+Pressure modulation composes AFTER mode presets to adjust voice
+delivery when the system is under boundary pressure.
 """
 
-import copy
 from dataclasses import replace
 from typing import Dict
 
+from aidm.schemas.boundary_pressure import PressureLevel
 from aidm.schemas.immersion import (
     ClarityMode,
     EmphasisLevel,
@@ -120,3 +123,46 @@ class ProsodicPresetManager:
         if _EMPHASIS_ORDER.get(requested, 0) > _EMPHASIS_ORDER.get(ceiling, 0):
             return ceiling
         return requested
+
+    def apply_pressure_modulation(
+        self, persona: VoicePersona, pressure_level: PressureLevel,
+    ) -> VoicePersona:
+        """Overlay pressure-based prosodic adjustments AFTER mode preset.
+
+        Composes on top of the mode preset — never replaces it wholesale.
+
+        GREEN: no-op (return persona unchanged).
+        YELLOW: clarity -> HIGH, emphasis floor -> MEDIUM.
+        RED: tone -> DIRECTIVE, clarity -> HIGH, emphasis -> LOW,
+             pause -> MINIMAL, pace -> 1.0.
+
+        Args:
+            persona: VoicePersona with mode preset already applied.
+            pressure_level: Current boundary pressure level.
+
+        Returns:
+            New VoicePersona with pressure modulation applied.
+        """
+        if pressure_level == PressureLevel.GREEN:
+            return persona
+
+        if pressure_level == PressureLevel.YELLOW:
+            # Floor emphasis to MEDIUM — raise if below, keep if at or above
+            emphasis = persona.emphasis_level
+            if _EMPHASIS_ORDER.get(emphasis, 0) < _EMPHASIS_ORDER[EmphasisLevel.MEDIUM]:
+                emphasis = EmphasisLevel.MEDIUM
+            return replace(
+                persona,
+                clarity_mode=ClarityMode.HIGH,
+                emphasis_level=emphasis,
+            )
+
+        # RED: fail-closed — directive, maximum clarity, minimal pauses
+        return replace(
+            persona,
+            tone_mode=ToneMode.DIRECTIVE,
+            clarity_mode=ClarityMode.HIGH,
+            emphasis_level=EmphasisLevel.LOW,
+            pause_profile=PauseProfile.MINIMAL,
+            pace=1.0,
+        )
