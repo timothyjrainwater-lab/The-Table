@@ -17,6 +17,7 @@ Immersion state is excluded from deterministic replay.
 """
 
 from dataclasses import dataclass, field
+from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
 
@@ -71,6 +72,36 @@ class Transcript:
         )
 
 
+class EmphasisLevel(str, Enum):
+    """Prosodic emphasis level for TTS output."""
+    NONE = "none"
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+
+
+class ToneMode(str, Enum):
+    """Prosodic tone mode for TTS output."""
+    NEUTRAL = "neutral"
+    CALM = "calm"
+    DIRECTIVE = "directive"
+    REFLECTIVE = "reflective"
+    COMBAT = "combat"
+
+
+class PauseProfile(str, Enum):
+    """Prosodic pause profile for TTS output."""
+    MINIMAL = "minimal"
+    MODERATE = "moderate"
+    DRAMATIC = "dramatic"
+
+
+class ClarityMode(str, Enum):
+    """Prosodic clarity mode for TTS output."""
+    NORMAL = "normal"
+    HIGH = "high"
+
+
 @dataclass
 class VoicePersona:
     """TTS persona configuration.
@@ -109,8 +140,29 @@ class VoicePersona:
     Backends that don't support this ignore the field.
     """
 
+    pace: float = 1.0
+    """Prosodic pace multiplier (0.8–1.2). Silently clamped to range."""
+
+    emphasis_level: EmphasisLevel = EmphasisLevel.NONE
+    """Prosodic emphasis level."""
+
+    tone_mode: ToneMode = ToneMode.NEUTRAL
+    """Prosodic tone mode."""
+
+    pause_profile: PauseProfile = PauseProfile.MINIMAL
+    """Prosodic pause profile."""
+
+    pitch_offset: int = 0
+    """Prosodic pitch offset (-2 to +2). Silently clamped to range."""
+
+    clarity_mode: ClarityMode = ClarityMode.NORMAL
+    """Prosodic clarity mode."""
+
     def validate(self) -> List[str]:
-        """Validate persona fields. Returns list of errors."""
+        """Validate persona fields. Returns list of errors.
+
+        Prosodic fields use silent clamping (no errors, just safe values).
+        """
         errors = []
         if not self.persona_id:
             errors.append("persona_id must not be empty.")
@@ -128,6 +180,18 @@ class VoicePersona:
             errors.append(
                 f"exaggeration must be between 0.0 and 1.0, got {self.exaggeration}."
             )
+        # Prosodic fields: silent clamp to safe range
+        self.pace = max(0.8, min(1.2, self.pace))
+        self.pitch_offset = max(-2, min(2, self.pitch_offset))
+        # Enum fields: coerce to default if invalid type
+        if not isinstance(self.emphasis_level, EmphasisLevel):
+            self.emphasis_level = EmphasisLevel.NONE
+        if not isinstance(self.tone_mode, ToneMode):
+            self.tone_mode = ToneMode.NEUTRAL
+        if not isinstance(self.pause_profile, PauseProfile):
+            self.pause_profile = PauseProfile.MINIMAL
+        if not isinstance(self.clarity_mode, ClarityMode):
+            self.clarity_mode = ClarityMode.NORMAL
         return errors
 
     def to_dict(self) -> Dict[str, Any]:
@@ -138,6 +202,12 @@ class VoicePersona:
             "voice_model": self.voice_model,
             "speed": self.speed,
             "pitch": self.pitch,
+            "pace": self.pace,
+            "emphasis_level": self.emphasis_level.value,
+            "tone_mode": self.tone_mode.value,
+            "pause_profile": self.pause_profile.value,
+            "pitch_offset": self.pitch_offset,
+            "clarity_mode": self.clarity_mode.value,
         }
         if self.reference_audio:
             d["reference_audio"] = self.reference_audio
@@ -147,7 +217,32 @@ class VoicePersona:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "VoicePersona":
-        """Create from dictionary."""
+        """Create from dictionary.
+
+        Unknown enum values fall back to safe defaults.
+        Missing prosodic fields use defaults (backward compatibility).
+        """
+        # Safe enum deserialization with fallback to defaults
+        try:
+            emphasis_level = EmphasisLevel(data["emphasis_level"])
+        except (KeyError, ValueError):
+            emphasis_level = EmphasisLevel.NONE
+
+        try:
+            tone_mode = ToneMode(data["tone_mode"])
+        except (KeyError, ValueError):
+            tone_mode = ToneMode.NEUTRAL
+
+        try:
+            pause_profile = PauseProfile(data["pause_profile"])
+        except (KeyError, ValueError):
+            pause_profile = PauseProfile.MINIMAL
+
+        try:
+            clarity_mode = ClarityMode(data["clarity_mode"])
+        except (KeyError, ValueError):
+            clarity_mode = ClarityMode.NORMAL
+
         return cls(
             persona_id=data.get("persona_id", ""),
             name=data.get("name", ""),
@@ -156,6 +251,12 @@ class VoicePersona:
             pitch=data.get("pitch", 1.0),
             reference_audio=data.get("reference_audio", ""),
             exaggeration=data.get("exaggeration", 0.5),
+            pace=data.get("pace", 1.0),
+            emphasis_level=emphasis_level,
+            tone_mode=tone_mode,
+            pause_profile=pause_profile,
+            pitch_offset=data.get("pitch_offset", 0),
+            clarity_mode=clarity_mode,
         )
 
 
