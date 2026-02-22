@@ -54,38 +54,156 @@ class ClassProgression:
         bab_type: BAB progression type ("full", "threequarters", "half")
         good_saves: Tuple of save types with good progression ("fort", "ref", "will")
         skill_points_per_level: Base skill points per level (before INT modifier)
+        class_skills: Tuple of skill_ids that are class skills for this class
+        starting_gold_dice: Dice expression for starting gold (e.g., "6d4x10")
     """
     hit_die: int
     bab_type: str
     good_saves: tuple[str, ...]
     skill_points_per_level: int
+    class_skills: tuple[str, ...] = ()
+    starting_gold_dice: str = ""
 
 
-# Core classes for Phase 2
+# All 11 PHB core classes (PHB Chapter 3)
 CLASS_PROGRESSIONS = {
-    "fighter": ClassProgression(
-        hit_die=10,
+    "barbarian": ClassProgression(
+        hit_die=12,
         bab_type="full",
         good_saves=("fort",),
-        skill_points_per_level=2,
+        skill_points_per_level=4,
+        class_skills=(
+            "climb", "craft", "handle_animal", "intimidate", "jump",
+            "listen", "ride", "survival", "swim",
+        ),
+        starting_gold_dice="4d4x10",
     ),
-    "rogue": ClassProgression(
+    "bard": ClassProgression(
         hit_die=6,
         bab_type="threequarters",
-        good_saves=("ref",),
-        skill_points_per_level=8,
+        good_saves=("ref", "will"),
+        skill_points_per_level=6,
+        class_skills=(
+            "appraise", "balance", "bluff", "climb", "concentration", "craft",
+            "decipher_script", "diplomacy", "disguise", "escape_artist",
+            "gather_information", "hide", "jump", "knowledge_arcana",
+            "knowledge_dungeoneering", "knowledge_nature", "knowledge_religion",
+            "knowledge_the_planes", "listen", "move_silently", "perform",
+            "profession", "sense_motive", "sleight_of_hand", "speak_language",
+            "spellcraft", "swim", "tumble", "use_magic_device",
+        ),
+        starting_gold_dice="4d4x10",
     ),
     "cleric": ClassProgression(
         hit_die=8,
         bab_type="threequarters",
         good_saves=("fort", "will"),
         skill_points_per_level=2,
+        class_skills=(
+            "concentration", "craft", "diplomacy", "heal",
+            "knowledge_arcana", "knowledge_religion", "knowledge_the_planes",
+            "profession", "spellcraft",
+        ),
+        starting_gold_dice="5d4x10",
+    ),
+    "druid": ClassProgression(
+        hit_die=8,
+        bab_type="threequarters",
+        good_saves=("fort", "will"),
+        skill_points_per_level=4,
+        class_skills=(
+            "concentration", "craft", "diplomacy", "handle_animal", "heal",
+            "knowledge_nature", "listen", "profession", "ride",
+            "spellcraft", "spot", "survival", "swim",
+        ),
+        starting_gold_dice="2d4x10",
+    ),
+    "fighter": ClassProgression(
+        hit_die=10,
+        bab_type="full",
+        good_saves=("fort",),
+        skill_points_per_level=2,
+        class_skills=(
+            "climb", "craft", "handle_animal", "intimidate", "jump",
+            "ride", "swim",
+        ),
+        starting_gold_dice="6d4x10",
+    ),
+    "monk": ClassProgression(
+        hit_die=8,
+        bab_type="threequarters",
+        good_saves=("fort", "ref", "will"),
+        skill_points_per_level=4,
+        class_skills=(
+            "balance", "climb", "concentration", "craft", "diplomacy",
+            "escape_artist", "hide", "jump", "knowledge_arcana",
+            "knowledge_religion", "listen", "move_silently", "perform",
+            "profession", "sense_motive", "spot", "swim", "tumble",
+        ),
+        starting_gold_dice="5d4",
+    ),
+    "paladin": ClassProgression(
+        hit_die=10,
+        bab_type="full",
+        good_saves=("fort",),
+        skill_points_per_level=2,
+        class_skills=(
+            "concentration", "craft", "diplomacy", "handle_animal", "heal",
+            "knowledge_religion", "profession", "ride", "sense_motive",
+        ),
+        starting_gold_dice="6d4x10",
+    ),
+    "ranger": ClassProgression(
+        hit_die=8,
+        bab_type="full",
+        good_saves=("fort", "ref"),
+        skill_points_per_level=6,
+        class_skills=(
+            "climb", "concentration", "craft", "handle_animal", "heal",
+            "hide", "jump", "knowledge_dungeoneering", "knowledge_nature",
+            "listen", "move_silently", "profession", "ride", "search",
+            "spot", "survival", "swim", "use_rope",
+        ),
+        starting_gold_dice="6d4x10",
+    ),
+    "rogue": ClassProgression(
+        hit_die=6,
+        bab_type="threequarters",
+        good_saves=("ref",),
+        skill_points_per_level=8,
+        class_skills=(
+            "appraise", "balance", "bluff", "climb", "craft",
+            "decipher_script", "diplomacy", "disable_device", "disguise",
+            "escape_artist", "forgery", "gather_information", "hide",
+            "intimidate", "jump", "listen", "move_silently", "open_lock",
+            "perform", "profession", "search", "sense_motive",
+            "sleight_of_hand", "spot", "swim", "tumble", "use_magic_device",
+            "use_rope",
+        ),
+        starting_gold_dice="5d4x10",
+    ),
+    "sorcerer": ClassProgression(
+        hit_die=4,
+        bab_type="half",
+        good_saves=("will",),
+        skill_points_per_level=2,
+        class_skills=(
+            "bluff", "concentration", "craft", "knowledge_arcana",
+            "profession", "spellcraft",
+        ),
+        starting_gold_dice="3d4x10",
     ),
     "wizard": ClassProgression(
         hit_die=4,
         bab_type="half",
         good_saves=("will",),
         skill_points_per_level=2,
+        class_skills=(
+            "concentration", "craft", "decipher_script", "knowledge_arcana",
+            "knowledge_dungeoneering", "knowledge_nature", "knowledge_religion",
+            "knowledge_the_planes", "profession", "spellcraft",
+        ),
+        starting_gold_dice="3d4x10",
     ),
 }
 
