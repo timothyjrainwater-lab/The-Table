@@ -1,0 +1,27 @@
+# P6 Offline Guarantee — Network Import Exceptions
+#
+# Format: file_path|import_name|justification
+#
+# This file lists network imports that are permitted despite not being behind
+# an explicit opt-in config guard. Each entry must include a justification.
+#
+# Per PRS-01 §P6, network features must be opt-in and default to off.
+# Exceptions are only granted for:
+# 1. Local-only network operations (localhost IPC, not outbound connections)
+# 2. Optional server components that are never started by default
+# 3. Development/test tooling not included in production runtime
+
+# Server package — WebSocket server for optional UI (not started by default)
+aidm/server/app.py|starlette|Optional WebSocket server component — not started in default config, requires explicit uvicorn invocation
+aidm/server/ws_bridge.py|WebSocket|WebSocket server endpoint — only active when user explicitly runs uvicorn server, not default startup
+
+# Client TypeScript — Browser WebSocket client (optional UI component)
+client/src/ws-bridge.ts|WebSocket|Browser WebSocket client — optional UI component, not part of default aidm runtime
+
+# URL encoding utility — not a network call
+aidm/core/obsidian_links.py|urllib.parse|URL encoding for Obsidian markdown links — no network calls, pure string formatting
+
+# Test and tooling scripts — not part of production runtime
+scripts/publish_smoke_no_network.py|socket|Smoke test script that monkey-patches socket to verify no network calls
+tests/test_publish_offline_gate_z.py|socket|Gate test file — test code, not production runtime
+tests/test_publish_offline_gate_z.py|requests|Gate test file — test code string literals, not actual import
