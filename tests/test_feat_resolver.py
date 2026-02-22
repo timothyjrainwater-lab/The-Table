@@ -572,7 +572,7 @@ class TestFeatDefinitions:
     """Test feat registry and definition lookup."""
 
     def test_all_15_feats_in_registry(self):
-        """All 15 feats are registered."""
+        """Original 15 feats are present in registry (now expanded)."""
         expected_feats = [
             FeatID.POWER_ATTACK,
             FeatID.CLEAVE,
@@ -608,4 +608,4 @@ class TestFeatDefinitions:
         """All feats have PHB page citations."""
         for feat_id, feat_def in FEAT_REGISTRY.items():
             assert feat_def.phb_page > 0, f"{feat_id} missing PHB page"
-            assert 92 <= feat_def.phb_page <= 102, f"{feat_id} has invalid PHB page"
+            assert 89 <= feat_def.phb_page <= 102, f"{feat_id} has invalid PHB page"

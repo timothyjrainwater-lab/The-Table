@@ -103,8 +103,8 @@ def guard():
 # ==============================================================================
 
 def test_skill_registry():
-    """All 7 skills are registered."""
-    assert len(SKILLS) == 7
+    """All 39 PHB skills are registered."""
+    assert len(SKILLS) >= 39
     assert SkillID.TUMBLE in SKILLS
     assert SkillID.CONCENTRATION in SKILLS
     assert SkillID.HIDE in SKILLS

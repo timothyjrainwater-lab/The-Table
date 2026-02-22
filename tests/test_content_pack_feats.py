@@ -509,7 +509,7 @@ class TestProvenance:
 # ---------------------------------------------------------------------------
 
 class TestExistingRegistryCoverage:
-    """All 15 feats in the existing FEAT_REGISTRY should have provenance."""
+    """Original 15 feats in the FEAT_REGISTRY should have provenance."""
 
     EXISTING_FEATS = [
         "POWER ATTACK",

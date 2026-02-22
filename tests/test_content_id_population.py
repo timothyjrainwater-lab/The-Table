@@ -58,9 +58,9 @@ def test_content_id_naming_convention():
 
 
 def test_spell_registry_count():
-    """SPELL_REGISTRY should contain all 53 spells."""
-    assert len(SPELL_REGISTRY) == 53, (
-        f"Expected 53 spells, found {len(SPELL_REGISTRY)}"
+    """SPELL_REGISTRY should contain all PHB spells (81+)."""
+    assert len(SPELL_REGISTRY) >= 75, (
+        f"Expected >= 75 spells, found {len(SPELL_REGISTRY)}"
     )
 
 

@@ -4,7 +4,7 @@
 **Document ID:** PRS-01
 **Version:** 1.0
 **Date:** 2026-02-19
-**Status:** DRAFT — Awaiting PM Approval
+**Status:** FROZEN (v1.0 ACCEPTED — Thunder approved 2026-02-23)
 **Authority:** This document is the canonical contract for publishing readiness. No release occurs until all gates in this document PASS on a signed commit and the RC evidence packet exists and matches that commit exactly.
 **Scope:** Release surface definition, publish gates (P1-P9), artifact hygiene, license compliance, offline guarantee, IP hygiene, privacy posture, and donation policy.
 

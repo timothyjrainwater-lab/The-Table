@@ -5,28 +5,31 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-22 (evening — graduation session)
-**Delta:** Tier 1 graduation executed (D-07). Briefing cut from 366 lines / 5,330 words to 155 lines / 1,282 words. Narrative sections → Tier 2 pointers. WO Verdicts/Dispatches trimmed to 15 each. H1+Smoke batch fully archived. Protocol v1.1 now exercised, not just written.
+**Session:** 2026-02-23 (evening — 6 WOs dispatched to builders, Tier 4 COMPLETE)
+**Delta:** 4.3 ACCEPTED (22 Gate V, `83f1674`). 4.4 ACCEPTED (14 Gate W, `a3d06d3`). BURST-001 Tier 4 COMPLETE. 6 WOs dispatched: 5.5 Playtest v1 (4.6 builder) + 5 PRS-01 (lower-tier, gates X/Y/Z/AA/AB, ~34 tests). PRS-01 spec FROZEN. FINDING-CHARGEN-SKILLS-01 RESOLVED (4 stale test counts, fixed by Thunder). Gates A-W all PASS, 407 gate tests.
 
 ## Priority Stack (top 3)
-1. Tier 3 (Parser/Grammar) dispatch drafting — next on BURST-001 critical path
-2. Compound narration contract decision (FINDING-HOOLIGAN-03) — or defer
-3. Protocol compliance monitoring — boot budgets, checkpoint discipline, graduation cadence
+1. Await 5.5 Playtest debrief → verdict → BURST-001 COMPLETE
+2. Await PRS-01 builder debriefs (5 WOs) → verdicts → then draft orchestrator WO
+3. Pipeline clean — no open blockers
 
 ## Active Findings (IDs + status — register has descriptions)
-- FINDING-HOOLIGAN-03 OPEN
-- GAP-A OPEN
-- GAP-B OPEN
+- FINDING-CHARGEN-SKILLS-01 MEDIUM RESOLVED (4 stale test counts, fixed by Thunder)
+- FINDING-HOOLIGAN-03 MEDIUM OPEN (compound narration)
+- FINDING-GRAMMAR-01 LOW OPEN (cosmetic)
+- FINDING-SIGLIP-01 LOW RESOLVED
+- GAP-A LOW OPEN
+- GAP-B HIGH OPEN
 
 ## Stop Conditions
-- If test suite drops below 6,234 or any gate regresses, halt and investigate
+- If test suite drops below 6,342 or any gate regresses, halt and investigate
 - If capsule section exceeds ~400 tokens, cut — don't expand
 - If briefing and kernel contradict, briefing is truth for state; kernel is truth for process
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-22T19:00Z
-- Briefing carries: gate counts, WO verdicts, dispatch list, build order, open findings, doctrine status
+- Updated: 2026-02-23T09:30Z
+- Briefing carries: gate counts (A-W + WP), WO verdicts (20), dispatch list, build order, open findings, doctrine status
 
 ---
 ## CHARTER (invariant — change only through deliberate revision)
@@ -111,4 +114,4 @@ You are the PM agent (Slate). Product Owner is Thunder. Read:
 Report: stoplight, last commit, gate count, next PM action.
 ```
 
-WAITING ON: Thunder — next priority decision (Tier 3 draft or compound narration contract).
+WAITING ON: 6 builder returns. 5.5 Playtest (4.6 builder) — closes BURST-001 on acceptance. 5 PRS-01 WOs (lower-tier builders) — gates X/Y/Z/AA/AB. Anvil fixing chargen test breakage in parallel. Slate idle until debriefs arrive.
