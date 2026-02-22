@@ -44,6 +44,7 @@ LAYERS = {
     "services": -1,   # Deprecated shim layer — redirects to lens/
     "ui": -1,         # UI layer — consumes from all layers
     "oracle": 0,      # Oracle stores — persistence infrastructure, same rank as core
+    "chargen": -1,    # Character generation — shared data/logic
 }
 
 # Prohibited import directions: (importing_layer, forbidden_source_layer)

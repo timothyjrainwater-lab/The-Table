@@ -123,6 +123,9 @@ class _EntityFields:
     # --- Concealment (WO-049) ---
     MISS_CHANCE = "miss_chance"  # Percentile miss chance (0-100), e.g., 20 for blur, 50 for invisibility
 
+    # --- Race (WO-CHARGEN-FOUNDATION-001) ---
+    RACE = "race"                                    # Race ID string (e.g., "dwarf", "halfling")
+
     # --- Inventory & Encumbrance (WO-054, AD-005) ---
     INVENTORY = "inventory"                        # List of item dicts: [{"item_id": "rope_hemp_50ft", "quantity": 1, "stow_location": "external"}, ...]
     STRENGTH_SCORE = "strength_score"              # Raw Strength score (integer), used for carrying capacity
