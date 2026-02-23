@@ -33,8 +33,8 @@
 
 ## Operator Action Queue (max 3)
 
-1. **4 WOs in builder queue.** AoE overlay (BURST-003 DC-2), Spark runtime research (BURST-002), HOOLIGAN-03 fix (Gate K 67→70), GAP-A fix (dm_persona import).
-2. **Await builder debriefs.** AoE + Spark: new features. HOOLIGAN-03 + GAP-A: targeted fixes, no new gates.
+1. **7 WOs in builder queue.** UI-06 (entity tokens), CHARGEN-PHASE3-LEVELUP (Gate V9), GRAMMAR-01 fix, AoE overlay, Spark runtime, HOOLIGAN-03 fix, GAP-A fix (done).
+2. **Await builder debriefs.** Features: UI-06, LEVELUP, AoE, Spark. Fixes: GRAMMAR-01, HOOLIGAN-03.
 3. **Run orchestrator when ready.** `python scripts/build_release_candidate_packet.py` — should generate a clean MANIFEST.
 
 ## Current Focus (Slate's focused recall)
@@ -47,12 +47,12 @@
 
 **Deferred:** Chatterbox swap timing (8.0s budget). GAP-B HIGH (VS Build Tools). FINDING-WORLDGEN-IP-001 (pre-commit bundle scan gate candidate).
 
-**Active dispatches:** WO-BURST-003-AOE-001 (AoE confirm-gated overlay, 10 tests, Gate BURST-003), WO-BURST-002-RESEARCH-001 (Spark runtime envelope, 12 tests), WO-FIX-HOOLIGAN-03 (Gate K 67→70, HOOLIGAN-03 resolved on completion), WO-FIX-GAP-A (dm_persona.py import fix, applied directly).
+**Active dispatches:** WO-BURST-003-AOE-001 (AoE, 10 tests), WO-BURST-002-RESEARCH-001 (Spark runtime, 12 tests), WO-FIX-HOOLIGAN-03 (Gate K 67→70), WO-UI-06 (entity tokens, Gate UI-06 10 tests), WO-CHARGEN-PHASE3-LEVELUP (Gate V9 15 tests), WO-FIX-GRAMMAR-01 (1-line, Gate K regression).
 
 **BURST-001:** ~~Tier 1~~ → ~~Tier 2~~ → ~~RV-007~~ → ~~Tier 3~~ → ~~Tier 4~~ → ~~Tier 5.1-5.4~~ → ~~**5.5 Playtest v1 — ACCEPTED**~~ **BURST-001 COMPLETE.**
 **PRS-01:** ~~Spec review~~ → ~~5 WOs dispatched~~ → ~~**5/5 ACCEPTED**~~ → ~~**SCAN FIX ACCEPTED**~~ → ~~pre-RC cleanup~~ → ~~**ALL GATES GREEN**~~ → ~~**ORCHESTRATOR ACCEPTED**~~ → **commit + IP remediation (WO-PRS-IP-001) → RC READY**
-**UI:** ~~WO-UI-01~~ → ~~WO-UI-02~~ → ~~WO-UI-03~~ → ~~WO-UI-04~~ → ~~WO-UI-05 ACCEPTED pending visual~~ (table surface + atmosphere) → Thunder visual review
-**CHARGEN:** ~~Research~~ → ~~Foundation~~ → ~~Skills~~ → ~~Classes~~ → ~~Feats~~ → ~~Spellcasting~~ → ~~Spell Expansion~~ → ~~**Builder Capstone**~~ → ~~**CHARGEN PHASE 1 COMPLETE**~~ → ~~**WO-CHARGEN-EQUIPMENT-001 (V7 73/73)**~~ → ~~**WO-CHARGEN-MULTICLASS-001 (V8 15/15)**~~ → **CHARGEN PHASE 2 COMPLETE**
+**UI:** ~~WO-UI-01~~ → ~~WO-UI-02~~ → ~~WO-UI-03~~ → ~~WO-UI-04~~ → ~~WO-UI-05 ACCEPTED pending visual~~ (table surface + atmosphere) → **WO-UI-06 DISPATCHED** (entity tokens, HP bars, live WS bridge)
+**CHARGEN:** ~~Research~~ → ~~Foundation~~ → ~~Skills~~ → ~~Classes~~ → ~~Feats~~ → ~~Spellcasting~~ → ~~Spell Expansion~~ → ~~**Builder Capstone**~~ → ~~**CHARGEN PHASE 1 COMPLETE**~~ → ~~**WO-CHARGEN-EQUIPMENT-001 (V7 73/73)**~~ → ~~**WO-CHARGEN-MULTICLASS-001 (V8 15/15)**~~ → ~~**CHARGEN PHASE 2 COMPLETE**~~ → **WO-CHARGEN-PHASE3-LEVELUP DISPATCHED** (Gate V9)
 
 ## Open Findings
 
@@ -65,7 +65,7 @@
 | FINDING-PLAYTEST-F01 | MEDIUM | OPEN | TTS env not provisioned. Neither Chatterbox nor Kokoro installed. 7 TTS-dependent checkpoints validated by proxy (unit tests). Live audio deferred. |
 | FINDING-HOOLIGAN-03 | MEDIUM | DISPATCHED | RV-001 false positive on compound actions — WO-FIX-HOOLIGAN-03 dispatched. Fix: scope `_check_rv001_hit_miss()` to first sentence. Gate K 67→70 on acceptance. |
 | FINDING-CHARGEN-SKILLS-01 | MEDIUM | RESOLVED | Anvil skills WO (`8a9442a`) broke 4 tests (not 3 as originally reported): stale hardcoded counts. Fixed by Thunder. |
-| FINDING-GRAMMAR-01 | LOW | OPEN | Cosmetic: condition `replace('_',' ')` vs spell `.title()` inconsistency in `play.py:641` |
+| FINDING-GRAMMAR-01 | LOW | DISPATCHED | WO-FIX-GRAMMAR-01 dispatched. Condition `replace('_',' ')` → `.title()` in play_loop.py. 1–2 Gate K regression tests. |
 | FINDING-SIGLIP-01 | LOW | RESOLVED | `test_siglip_critique.py` merge conflicts resolved by Anvil (`20797a9`) |
 | GAP-A | LOW | RESOLVED | `dm_persona.py` missing import — `from aidm.lens.narrative_brief import NarrativeBrief` added directly (no WO needed). Applied 2026-02-23. |
 | GAP-B | HIGH | OPEN | llama-cpp-python blocks Qwen3/Gemma3 (needs VS Build Tools) |
@@ -73,6 +73,9 @@
 
 ## Inbox
 
+- **[DISPATCH] [WO-UI-06_DISPATCH.md](pm_inbox/WO-UI-06_DISPATCH.md)** — WebSocket → Three.js live entity tokens (EntityRenderer, entity_state/entity_delta handlers, HP bars, Gate UI-06 10 tests)
+- **[DISPATCH] [WO-CHARGEN-PHASE3-LEVELUP_DISPATCH.md](pm_inbox/WO-CHARGEN-PHASE3-LEVELUP_DISPATCH.md)** — Level-up flow: level_up() delta function, CLASS_FEATURES table, Gate V9 15 tests
+- **[DISPATCH] [WO-FIX-GRAMMAR-01_DISPATCH.md](pm_inbox/WO-FIX-GRAMMAR-01_DISPATCH.md)** — Condition display title-case fix (play_loop.py, 1-line, 1 regression test)
 - **[DISPATCH] [WO-BURST-003-AOE-001_DISPATCH.md](pm_inbox/WO-BURST-003-AOE-001_DISPATCH.md)** — AoE confirm-gated overlay (10 tests, `PendingAoE`, ASCII preview, yes/cancel parser)
 - **[DISPATCH] [WO-BURST-002-RESEARCH-001_DISPATCH.md](pm_inbox/WO-BURST-002-RESEARCH-001_DISPATCH.md)** — Spark runtime constraint envelope (SparkFailureMode, SLA constants, template fallback, TTFT, 12 tests)
 - **[DISPATCH] [WO-FIX-HOOLIGAN-03_DISPATCH.md](pm_inbox/WO-FIX-HOOLIGAN-03_DISPATCH.md)** — RV-001 compound narration fix (Gate K 67→70)
@@ -116,6 +119,9 @@
 
 ## Dispatches (most recent 15 — older entries archived)
 
+- **[DISPATCHED] WO-UI-06** — WebSocket → Three.js live entity tokens. `EntityRenderer` class. `entity_state` + `entity_delta` message handlers. Faction-colored cylinder tokens + HP bar (green→red lerp). `gridToScene()` coordinate transform (1 grid = 0.5 scene units). Gate UI-06 10 tests. Visual gate: Thunder opens browser.
+- **[DISPATCHED] WO-CHARGEN-PHASE3-LEVELUP** — Level-up delta function. `level_up(entity, class_name, new_class_level)` pure function → delta dict. `CLASS_FEATURES` table (11 classes, PHB L1-20). HP roll (seeded RNG, min 1, max on first class level). Feat slot trigger. Skill points. Gate V9 15 tests. Appended to builder.py, no existing functions touched.
+- **[DISPATCHED] WO-FIX-GRAMMAR-01** — Condition display title-case. `replace('_', ' ')` → `replace('_', ' ').title()` in play_loop.py. 1–2 regression tests appended to Gate K. FINDING-GRAMMAR-01 closed on completion.
 - **[DISPATCHED] WO-BURST-003-AOE-001** — AoE confirm-gated overlay. `PendingAoE` frozen dataclass on `WorldState`. ASCII preview (`@`=origin, `*`=AoE, `!`=entity-in-AoE). Parser intercepts yes/cancel. Sensor events: AOE_PREVIEW_CONFIRMED / AOE_PREVIEW_CANCELLED. 10 tests. Gate: BURST-003 (new gate).
 - **[DISPATCHED] WO-BURST-002-RESEARCH-001** — Spark runtime constraint envelope. `SparkFailureMode` enum (6 modes), `SPARK_SLA_PER_CALL` constants per CallType, `TEMPLATE_NARRATION` deterministic fallback, TTFT measurement in `SparkAdapter.generate()`, prep pipeline asset-level catch. 12 tests.
 - **[DISPATCHED] WO-FIX-HOOLIGAN-03** — RV-001 compound narration fix. Scope `_check_rv001_hit_miss()` to first sentence via `. ` split. Gate K 67→70 on acceptance. FINDING-HOOLIGAN-03 closed on completion.
