@@ -32,6 +32,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
+from aidm.lens.narrative_brief import NarrativeBrief
 
 
 @dataclass(frozen=True)

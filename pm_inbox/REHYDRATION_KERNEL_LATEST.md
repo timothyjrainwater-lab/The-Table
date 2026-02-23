@@ -5,13 +5,13 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-23 (late — BURST-001 COMPLETE, CHARGEN PHASE 2 COMPLETE, PRS-01 RC ready pending commit)
-**Delta:** WO-CHARGEN-EQUIPMENT-001 ACCEPTED (V7 73/73): inventory, weapons, real AC, encumbrance, all 11 classes. WO-CHARGEN-MULTICLASS-001 ACCEPTED (V8 15/15): class_mix param, BAB=max, saves=best-per-save, HP=sum-per-class, class_skills=union. Multi-caster: first caster wins, dual-merge deferred. WO-UI-05 ACCEPTED pending Thunder visual (walnut, felt, candlelight, stubs, Math.random→PRNG, Gate G 22/22). P1 FAIL (dirty tree — commit clears). W-15 fails on X-01 (pre-existing Gate X 9/10). Suite: 6,536+ tests.
+**Session:** 2026-02-23 (OPEN — 4 WOs dispatched in parallel)
+**Delta:** Commit `9bf1d3d` base. 4 new WOs dispatched: WO-BURST-003-AOE-001 (AoE confirm-gated overlay, 10 tests), WO-BURST-002-RESEARCH-001 (Spark runtime envelope, 12 tests), WO-FIX-HOOLIGAN-03 (Gate K 67→70), WO-FIX-GAP-A (dm_persona import applied directly). GAP-A RESOLVED. HOOLIGAN-03 DISPATCHED. Suite: 6,536+ tests. All gates green. Next: await builder debriefs.
 
 ## Priority Stack (top 3)
-1. **Commit session** → P1 PASS. All WO artifacts uncommitted.
-2. **Thunder: visual review of table** → WO-UI-05 fully ACCEPTED.
-3. **Nothing else pending.** CHARGEN PHASE 2 COMPLETE. BURST-001 COMPLETE. RC blocked only by P1.
+1. **Await 4 builder debriefs.** AoE (BURST-003-AOE-001), Spark runtime (BURST-002-RESEARCH-001), HOOLIGAN-03 fix, GAP-A confirmed applied.
+2. **On each debrief arrival:** render verdict, update gate count, next WO if chain continues.
+3. **Orchestrator:** `python scripts/build_release_candidate_packet.py` → MANIFEST all green (run post-fix WOs accepted).
 
 ## Active Findings (IDs + status — register has descriptions)
 - FINDING-SCAN-BASELINE-01 MEDIUM RESOLVED (Gate X 9/10 — real violations remain in models/, inbox/)
@@ -19,10 +19,10 @@
 - FINDING-UI05-P2-001 MEDIUM RESOLVED (Math.random → seeded PRNG; Gate G 22/22; W-01–W-14 PASS; W-15 fail = X-01 pre-existing)
 - FINDING-PLAYTEST-F01 MEDIUM OPEN (TTS env not provisioned — live audio deferred)
 - FINDING-CHARGEN-SKILLS-01 MEDIUM RESOLVED (4 stale test counts, fixed by Thunder)
-- FINDING-HOOLIGAN-03 MEDIUM OPEN (compound narration)
+- FINDING-HOOLIGAN-03 MEDIUM DISPATCHED (WO-FIX-HOOLIGAN-03 in builder queue — Gate K 67→70 on acceptance)
 - FINDING-GRAMMAR-01 LOW OPEN (cosmetic)
 - FINDING-SIGLIP-01 LOW RESOLVED
-- GAP-A LOW OPEN
+- GAP-A LOW RESOLVED (import added directly to dm_persona.py 2026-02-23)
 - GAP-B HIGH OPEN
 - FINDING-WORLDGEN-IP-001 HIGH OPEN (names retained as audit anchors — strip only after: ingestion complete → double audit PASS → replace with IDs → then LLM mode + bundle IP scan gate; not current RC blocker)
 

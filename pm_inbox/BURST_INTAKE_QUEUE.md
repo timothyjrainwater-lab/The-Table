@@ -75,26 +75,20 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 
 **Target Lock:** Lock where models can be used (prep vs runtime), what's allowed/forbidden, and failure behavior (degrade vs fail-closed).
 
-**Status:** NOT STARTED — burst identified but no research WO drafted.
+**Status:** WO DISPATCHED — WO-BURST-002-RESEARCH-001 in builder queue. Awaiting debrief.
 
-**Expected outputs:** Gating rules, fallback rules, measurable latency/stability criteria.
+**Binary decisions (RESOLVED — Thunder 2026-02-23):**
+1. Spark failure in prep mode: **skip asset + continue** (degraded prep, not abort)
+2. Spark failure in runtime mode: **template fallback** (TEMPLATE_NARRATION per CallType)
+3. Latency SLA: **per individual LLM call** (not per turn)
 
-**Adjacent existing artifacts:**
-- WO-RQ-SPARK-BOUNDARYPRESSURE-01 (boundary pressure runtime signal) — COMPLETE
-- WO-RQ-LLM-CALL-TYPING-01 (Lens/Spark typed-call schemas) — COMPLETE
-
-**Binary decisions (needed):**
-1. Does Spark failure in prep mode degrade (skip asset) or fail-closed (abort prep)?
-2. Does Spark failure in runtime mode degrade (template fallback) or fail-closed (halt session)?
-3. Is latency SLA enforced per-call or per-turn?
-
-**Next action:** If operator prioritizes, PM drafts research WO for operator execution. Existing RQ artifacts cover partial ground.
+**Next action:** Await WO-BURST-002-RESEARCH-001 builder debrief.
 
 ### BURST-003: Tactical Snapshot (ASCII Grid + AoE Preview) — PARTIALLY IMPLEMENTED
 
 **Target Lock:** Player can see spatial state and predict AoE impact before committing actions.
 
-**Status:** PARTIALLY IMPLEMENTED — ASCII grid (`show_map()`) and `map` command are live. AoE preview remains unbuilt.
+**Status:** WO DISPATCHED — WO-BURST-003-AOE-001 in builder queue. Awaiting debrief.
 
 **What's done:**
 - ASCII grid with auto-sized bounding box, entity symbols, coordinate labels, legend: `show_map()` in `play.py`
@@ -103,17 +97,16 @@ Parking lot for research/strategy bursts that need conversion before entering pr
 - Defeated entities excluded from map
 - 4 tests covering grid rendering, defeated exclusion, symbol collision, command parsing
 
-**What remains:**
-- AoE overlay preview before spell resolution (center square, entities in radius, save DC, confirm prompt)
-- Coordinate roster + distance matrix (optional complement)
+**What remains (in builder queue):**
+- AoE overlay preview before spell resolution (`PendingAoE` dataclass, `@`/`*`/`!` ASCII symbols, confirm-gated yes/cancel)
 
-**Binary decisions — RESOLVED:**
-1. ~~Grid size: fixed 20x20, or bounded to active combat region (auto-sized)?~~ **RESOLVED: Auto-sized** (bounded to active entities + 1-cell padding)
-2. AoE preview: display-only, or confirm-gated (require "yes" before resolution)? **OPEN**
-3. ~~Grid display trigger: automatic every turn, or on-demand (`map` command)?~~ **RESOLVED: On-demand** (`map` command, free action)
-4. ~~Entity symbols: single-letter (A/S/E/G), or first-letter-of-name with collision handling?~~ **RESOLVED: First-letter-of-name with collision handling**
+**Binary decisions — ALL RESOLVED:**
+1. Grid size: **Auto-sized** (bounded to active entities + 1-cell padding)
+2. AoE preview: **Confirm-gated** — require "yes"/"confirm" before resolution; anything else cancels (Thunder 2026-02-23)
+3. Grid display trigger: **On-demand** (`map` command, free action)
+4. Entity symbols: **First-letter-of-name with collision handling**
 
-**Next action:** Only AoE preview remains. Operator resolves DC-2 (confirm-gated or display-only). PM drafts 1 builder WO for AoE overlay integration.
+**Next action:** Await WO-BURST-003-AOE-001 builder debrief.
 
 ### BURST-004: Workflow Friction Self-Detection — NOT STARTED
 
