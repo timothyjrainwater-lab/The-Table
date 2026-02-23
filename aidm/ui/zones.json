@@ -2,9 +2,9 @@
   {
     "name": "player",
     "centerX": 0.0,
-    "centerZ": 5.0,
+    "centerZ": 4.75,
     "halfWidth": 5.0,
-    "halfHeight": 1.0,
+    "halfHeight": 0.80,
     "color": "0x44ff88"
   },
   {
@@ -26,17 +26,17 @@
   {
     "name": "dice_tray",
     "centerX": 4.5,
-    "centerZ": 3.2,
+    "centerZ": 1.75,
     "halfWidth": 1.0,
-    "halfHeight": 0.7,
+    "halfHeight": 0.70,
     "color": "0xffaa44"
   },
   {
     "name": "dice_tower",
     "centerX": 4.5,
-    "centerZ": 3.2,
+    "centerZ": 0.5,
     "halfWidth": 0.75,
-    "halfHeight": 0.5,
+    "halfHeight": 0.50,
     "color": "0xff66aa"
   }
 ]

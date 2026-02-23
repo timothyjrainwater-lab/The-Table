@@ -33,7 +33,7 @@ from aidm.chargen.ability_scores import (
     ability_modifier,
     generate_ability_array,
 )
-from aidm.data.races import RACE_REGISTRY, get_race, apply_racial_mods
+from aidm.data.races import RACE_REGISTRY, get_race, apply_racial_mods, apply_racial_trait_fields
 from aidm.schemas.feats import FEAT_REGISTRY, get_feat_definition
 from aidm.schemas.skills import SKILLS
 from aidm.chargen.spellcasting import (
@@ -498,111 +498,139 @@ def _resolve_multiclass_stats(
     }
 
 
+def _resolve_single_caster_spells(
+    cls: str,
+    lvl: int,
+    casting_score: int,
+    spell_choices: Optional[List[str]],
+) -> Tuple[Dict, Dict, Dict]:
+    """Resolve spell slots, spells_known, spells_prepared for one caster class.
+
+    Returns:
+        Tuple of (spell_slots, spells_known, spells_prepared)
+    """
+    spell_slots = get_spell_slots(cls, lvl, casting_score)
+    spells_known: Dict = {}
+    spells_prepared: Dict = {}
+
+    if cls in SPONTANEOUS_CASTERS:
+        known_counts = get_spells_known_count(cls, lvl) or {}
+        if spell_choices:
+            remaining = list(spell_choices)
+            for spell_level in sorted(known_counts.keys()):
+                count = known_counts[spell_level]
+                available = get_class_spell_list(cls, spell_level)
+                level_spells = []
+                for sid in remaining[:]:
+                    if sid in available and len(level_spells) < count:
+                        level_spells.append(sid)
+                        remaining.remove(sid)
+                if level_spells:
+                    spells_known[spell_level] = level_spells
+        else:
+            spells_known = {sl: [] for sl in known_counts}
+    else:
+        if spell_choices:
+            from aidm.data.spell_definitions import SPELL_REGISTRY
+            for sid in spell_choices:
+                if sid in SPELL_REGISTRY:
+                    spell = SPELL_REGISTRY[sid]
+                    slvl = spell.level
+                    if slvl not in spells_prepared:
+                        spells_prepared[slvl] = []
+                    spells_prepared[slvl].append(sid)
+
+    return spell_slots, spells_known, spells_prepared
+
+
 def _merge_spellcasting(
     class_mix: Dict[str, int],
     final_scores: Dict[str, int],
     spell_choices: Optional[List[str]],
-) -> Tuple[Dict, Dict, Dict, int]:
+    spell_choices_2: Optional[List[str]] = None,
+) -> Dict[str, Any]:
     """Resolve spellcasting for a multiclass character.
 
-    Decision (WO-CHARGEN-MULTICLASS-001): If multiple caster classes are present,
-    each is resolved independently at its own class level. Spell slots and spells
-    known/prepared are keyed by class name when more than one caster class exists.
-    For a single caster class, results are stored flat (same as single-class path).
+    WO-CHARGEN-DUALCASTER-001: Dual-caster support.
+    - 0 casters: returns empty dict
+    - 1 caster: single-caster flat format (SPELL_SLOTS, CASTER_LEVEL, CASTER_CLASS)
+    - 2 casters: alphabetical primary/secondary split with _2 suffix fields for secondary
+    - 3+ casters: raises ValueError
 
     Args:
         class_mix: Dict mapping class name to level
         final_scores: Final ability scores after racial mods
-        spell_choices: Optional list of spell IDs to assign
+        spell_choices: Optional list of spell IDs for primary caster
+        spell_choices_2: Optional list of spell IDs for secondary caster
 
     Returns:
-        Tuple of (spell_slots, spells_known, spells_prepared, caster_level)
+        Dict of entity fields to merge (may be empty)
     """
-    caster_classes = [(cls, lvl) for cls, lvl in class_mix.items() if is_caster(cls)]
+    caster_classes = sorted([cls for cls in class_mix if is_caster(cls)])
 
-    if not caster_classes:
-        return {}, {}, {}, 0
+    if len(caster_classes) == 0:
+        return {}
 
     if len(caster_classes) == 1:
-        # Single caster — use existing flat format
-        cls, lvl = caster_classes[0]
+        cls = caster_classes[0]
+        lvl = class_mix[cls]
         casting_stat = CASTING_ABILITY[cls]
         casting_score = final_scores[casting_stat]
+        spell_slots, spells_known, spells_prepared = _resolve_single_caster_spells(
+            cls, lvl, casting_score, spell_choices
+        )
+        return {
+            EF.SPELL_SLOTS: spell_slots,
+            EF.SPELLS_KNOWN: spells_known,
+            EF.SPELLS_PREPARED: spells_prepared,
+            EF.CASTER_LEVEL: lvl,
+            EF.CASTER_CLASS: cls,
+        }
 
-        spell_slots = get_spell_slots(cls, lvl, casting_score)
-        spells_known: Dict = {}
-        spells_prepared: Dict = {}
+    if len(caster_classes) > 2:
+        raise ValueError("Only two caster classes supported in class_mix")
 
-        if cls in SPONTANEOUS_CASTERS:
-            known_counts = get_spells_known_count(cls, lvl) or {}
-            if spell_choices:
-                remaining = list(spell_choices)
-                for spell_level in sorted(known_counts.keys()):
-                    count = known_counts[spell_level]
-                    available = get_class_spell_list(cls, spell_level)
-                    level_spells = []
-                    for sid in remaining[:]:
-                        if sid in available and len(level_spells) < count:
-                            level_spells.append(sid)
-                            remaining.remove(sid)
-                    if level_spells:
-                        spells_known[spell_level] = level_spells
-            else:
-                spells_known = {lvl: [] for lvl in known_counts}
-        else:
-            if spell_choices:
-                from aidm.data.spell_definitions import SPELL_REGISTRY
-                for sid in spell_choices:
-                    if sid in SPELL_REGISTRY:
-                        spell = SPELL_REGISTRY[sid]
-                        slvl = spell.level
-                        if slvl not in spells_prepared:
-                            spells_prepared[slvl] = []
-                        spells_prepared[slvl].append(sid)
+    # Dual-caster path: alphabetical order is deterministic
+    primary, secondary = caster_classes[0], caster_classes[1]
+    primary_lvl = class_mix[primary]
+    secondary_lvl = class_mix[secondary]
 
-        return spell_slots, spells_known, spells_prepared, lvl
+    primary_casting_score = final_scores[CASTING_ABILITY[primary]]
+    secondary_casting_score = final_scores[CASTING_ABILITY[secondary]]
 
+    primary_slots, primary_known, primary_prepared = _resolve_single_caster_spells(
+        primary, primary_lvl, primary_casting_score, spell_choices
+    )
+    secondary_slots, secondary_known, secondary_prepared = _resolve_single_caster_spells(
+        secondary, secondary_lvl, secondary_casting_score, spell_choices_2
+    )
+
+    result: Dict[str, Any] = {
+        EF.SPELL_SLOTS: primary_slots,
+        EF.CASTER_LEVEL: primary_lvl,
+        EF.CASTER_CLASS: primary,
+        EF.SPELL_SLOTS_2: secondary_slots,
+        EF.CASTER_LEVEL_2: secondary_lvl,
+        EF.CASTER_CLASS_2: secondary,
+    }
+
+    # Primary caster spells (use top-level fields)
+    if primary in SPONTANEOUS_CASTERS:
+        result[EF.SPELLS_KNOWN] = primary_known
+        result[EF.SPELLS_PREPARED] = {}
     else:
-        # Multiple casters — resolve each independently, keyed by class name.
-        # Spell slots from primary (highest-level) caster are stored flat;
-        # secondary casters stored under their class key.
-        # Dual-caster slot merging is deferred per WO scope boundary.
-        primary_cls, primary_lvl = max(caster_classes, key=lambda x: x[1])
-        casting_stat = CASTING_ABILITY[primary_cls]
-        casting_score = final_scores[casting_stat]
-        spell_slots = get_spell_slots(primary_cls, primary_lvl, casting_score)
+        result[EF.SPELLS_KNOWN] = {}
+        result[EF.SPELLS_PREPARED] = primary_prepared
 
-        spells_known: Dict = {}
-        spells_prepared: Dict = {}
+    # Secondary caster spells (use _2 suffix fields)
+    if secondary in SPONTANEOUS_CASTERS:
+        result[EF.SPELLS_KNOWN_2] = secondary_known
+        result[EF.SPELLS_PREPARED_2] = {}
+    else:
+        result[EF.SPELLS_KNOWN_2] = {}
+        result[EF.SPELLS_PREPARED_2] = secondary_prepared
 
-        if primary_cls in SPONTANEOUS_CASTERS:
-            known_counts = get_spells_known_count(primary_cls, primary_lvl) or {}
-            if spell_choices:
-                remaining = list(spell_choices)
-                for spell_level in sorted(known_counts.keys()):
-                    count = known_counts[spell_level]
-                    available = get_class_spell_list(primary_cls, spell_level)
-                    level_spells = []
-                    for sid in remaining[:]:
-                        if sid in available and len(level_spells) < count:
-                            level_spells.append(sid)
-                            remaining.remove(sid)
-                    if level_spells:
-                        spells_known[spell_level] = level_spells
-            else:
-                spells_known = {lvl: [] for lvl in known_counts}
-        else:
-            if spell_choices:
-                from aidm.data.spell_definitions import SPELL_REGISTRY
-                for sid in spell_choices:
-                    if sid in SPELL_REGISTRY:
-                        spell = SPELL_REGISTRY[sid]
-                        slvl = spell.level
-                        if slvl not in spells_prepared:
-                            spells_prepared[slvl] = []
-                        spells_prepared[slvl].append(sid)
-
-        return spell_slots, spells_known, spells_prepared, primary_lvl
+    return result
 
 
 def build_character(
@@ -614,6 +642,7 @@ def build_character(
     feat_choices: Optional[List[str]] = None,
     skill_allocations: Optional[Dict[str, int]] = None,
     spell_choices: Optional[List[str]] = None,
+    spell_choices_2: Optional[List[str]] = None,
     starting_equipment: Optional[Dict[str, int]] = None,
     use_rolled_gold: bool = False,
     class_mix: Optional[Dict[str, int]] = None,
@@ -633,6 +662,7 @@ def build_character(
         feat_choices: List of feat_ids to assign. If None, no feats assigned.
         skill_allocations: Dict of skill_id -> ranks. If None, no skills allocated.
         spell_choices: List of spell_ids for casters. If None, no spells assigned.
+        spell_choices_2: List of spell_ids for second caster (dual-caster multiclass). If None, defaults from class list.
         starting_equipment: Dict of item_id -> quantity. Currently stored only.
         use_rolled_gold: If True, use rolled gold for starting equipment.
         class_mix: Multiclass dict, e.g. {"fighter": 3, "wizard": 2}. If provided,
@@ -657,6 +687,7 @@ def build_character(
             feat_choices=feat_choices,
             skill_allocations=skill_allocations,
             spell_choices=spell_choices,
+            spell_choices_2=spell_choices_2,
             favored_class=favored_class,
         )
 
@@ -820,6 +851,11 @@ def build_character(
     entity[EF.SPELLS_KNOWN] = spells_known
     entity[EF.SPELLS_PREPARED] = spells_prepared
     entity[EF.CASTER_LEVEL] = caster_level
+    if is_caster(class_name):
+        entity[EF.CASTER_CLASS] = class_name
+
+    # --- Racial trait fields (WO-CHARGEN-RACIAL-001) ---
+    apply_racial_trait_fields(entity, race)
 
     # --- Step 11: Equipment (WO-CHARGEN-EQUIPMENT-001) ---
     str_score = final_scores.get("str", 10)
@@ -844,6 +880,7 @@ def _build_multiclass_character(
     feat_choices: Optional[List[str]] = None,
     skill_allocations: Optional[Dict[str, int]] = None,
     spell_choices: Optional[List[str]] = None,
+    spell_choices_2: Optional[List[str]] = None,
     favored_class: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Internal builder for multiclass characters. Called by build_character() when class_mix is set.
@@ -898,8 +935,8 @@ def _build_multiclass_character(
         feats = list(feat_choices[:feat_slot_count])
 
     # --- Spellcasting ---
-    spell_slots, spells_known, spells_prepared, caster_level = _merge_spellcasting(
-        class_mix, final_scores, spell_choices,
+    spell_data = _merge_spellcasting(
+        class_mix, final_scores, spell_choices, spell_choices_2,
     )
 
     # --- Entity ID: sorted class names for stability ---
@@ -960,14 +997,23 @@ def _build_multiclass_character(
         EF.POSITION: (0, 0),
     }
 
-    # Spellcasting fields (always present, empty for non-casters)
-    entity[EF.SPELL_SLOTS] = spell_slots
-    entity[EF.SPELLS_KNOWN] = spells_known
-    entity[EF.SPELLS_PREPARED] = spells_prepared
-    entity[EF.CASTER_LEVEL] = caster_level
+    # Spellcasting fields — merge all returned spell_data keys into entity
+    # For non-casters: spell_data is empty; for single casters: flat fields;
+    # for dual casters: primary flat + secondary _2 fields.
+    if not spell_data:
+        # No casters — populate empty flat fields for consistency
+        entity[EF.SPELL_SLOTS] = {}
+        entity[EF.SPELLS_KNOWN] = {}
+        entity[EF.SPELLS_PREPARED] = {}
+        entity[EF.CASTER_LEVEL] = 0
+    else:
+        entity.update(spell_data)
 
     # Favored class (informational, PHB p.56)
     if favored_class is not None:
         entity["favored_class"] = favored_class
+
+    # Racial trait fields (WO-CHARGEN-RACIAL-001)
+    apply_racial_trait_fields(entity, race)
 
     return entity

@@ -1,16 +1,16 @@
 """Race definitions for D&D 3.5e character creation.
 
 WO-CHARGEN-FOUNDATION-001 (Part B, GAP-CG-002).
+WO-CHARGEN-RACIAL-001: Racial trait mechanical encoding.
 
 All 7 PHB races with complete mechanical data.
-Racial traits are stored as string IDs — mechanical effects are OUT OF SCOPE.
 
 Source: PHB Chapter 2 (Races), pp.12-18.
 """
 
 from dataclasses import dataclass, field
 from types import MappingProxyType
-from typing import Dict, List
+from typing import Any, Dict, List
 
 
 @dataclass(frozen=True)
@@ -280,3 +280,75 @@ def list_races() -> List[str]:
         Sorted list of race_id strings.
     """
     return sorted(RACE_REGISTRY.keys())
+
+
+# ---------------------------------------------------------------------------
+# Racial trait EF field tables (WO-CHARGEN-RACIAL-001)
+# ---------------------------------------------------------------------------
+
+# Maps race_id -> dict of EF field name string -> value to populate.
+# Fields absent from this table are NOT set on the entity (absence = no trait).
+_RACIAL_EF_FIELDS: Dict[str, Dict[str, Any]] = {
+    "dwarf": {
+        "stability_bonus": 4,
+        "save_bonus_poison": 2,
+        "save_bonus_spells": 2,
+        "stonecunning": True,
+        "darkvision_range": 60,
+        "attack_bonus_vs_orcs": 1,
+        "dodge_bonus_vs_giants": 4,
+    },
+    "elf": {
+        "low_light_vision": True,
+        "immune_sleep": True,
+        "save_bonus_enchantment": 2,
+        "automatic_search_doors": True,
+        "racial_skill_bonus": {"listen": 2, "search": 2, "spot": 2},
+    },
+    "halfling": {
+        "racial_save_bonus": 1,
+        "attack_bonus_thrown": 1,
+        "racial_skill_bonus": {"listen": 2, "move_silently": 2},
+    },
+    "gnome": {
+        "low_light_vision": True,
+        "spell_resistance_illusion": 2,
+        "save_bonus_poison": 2,
+        "attack_bonus_vs_kobolds": 1,
+        "illusion_dc_bonus": 1,
+        "dodge_bonus_vs_giants": 4,
+    },
+    "half_elf": {
+        "low_light_vision": True,
+        "immune_sleep": True,
+        "save_bonus_enchantment": 2,
+        "racial_skill_bonus": {
+            "listen": 1,
+            "search": 1,
+            "spot": 1,
+            "diplomacy": 2,
+            "gather_information": 2,
+        },
+    },
+    "half_orc": {
+        "darkvision_range": 60,
+    },
+    # human: no additional EF trait fields beyond bonus feat/skills already handled
+    "human": {},
+}
+
+
+def apply_racial_trait_fields(entity: Dict[str, Any], race_id: str) -> None:
+    """Populate racial trait EF fields on the entity dict (in-place).
+
+    Fields are set only for races that possess the trait.
+    Races without a trait do NOT get a zero/False placeholder — the key is absent.
+
+    WO-CHARGEN-RACIAL-001 §3 (Binary Decision #2).
+
+    Args:
+        entity: Entity dict to mutate in-place.
+        race_id: Race identifier (e.g., "dwarf", "halfling").
+    """
+    for field_key, value in _RACIAL_EF_FIELDS.get(race_id, {}).items():
+        entity[field_key] = value

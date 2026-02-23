@@ -115,8 +115,8 @@ class TestUIG2ZoneValidation:
 
     def test_position_update_to_valid_zone_accepted(self):
         """Position update to valid zone is accepted."""
-        # Player zone center
-        result = validate_zone_position((0.0, 0.05, 3.0), "player")
+        # Player zone center (shelf at z=4.75 after spatial rework)
+        result = validate_zone_position((0.0, 0.05, 4.75), "player")
         assert result is True
 
         # Map zone center
@@ -127,16 +127,16 @@ class TestUIG2ZoneValidation:
         result = validate_zone_position((0.0, 0.05, -3.5), "dm")
         assert result is True
 
-        # Dice tray zone center
+        # Dice tray zone center (tray at z=1.75)
         result = validate_zone_position((4.5, 0.3, 1.75), "dice_tray")
         assert result is True
 
-        # Dice tower zone center
+        # Dice tower zone center (tower at z=0.5)
         result = validate_zone_position((4.5, 0.3, 0.5), "dice_tower")
         assert result is True
 
         # zone_for_position confirms zone detection
-        assert zone_for_position(0.0, 3.0) == "player"
+        assert zone_for_position(0.0, 4.75) == "player"
         assert zone_for_position(0.0, -0.5) == "map"
         assert zone_for_position(0.0, -3.5) == "dm"
         assert zone_for_position(4.5, 1.75) == "dice_tray"

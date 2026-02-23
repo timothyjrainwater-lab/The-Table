@@ -137,6 +137,32 @@ class _EntityFields:
     SPELLS_PREPARED = "spells_prepared"            # Dict mapping spell_level → list of spell_ids prepared
     SPELL_SLOTS = "spell_slots"                    # Dict mapping spell_level → int (total slots including bonus)
     CASTER_LEVEL = "caster_level"                  # Int: effective caster level for this class
+    CASTER_CLASS = "caster_class"                  # Str: name of the primary caster class
+
+    # --- Dual-Caster Spellcasting (WO-CHARGEN-DUALCASTER-001) ---
+    SPELL_SLOTS_2 = "spell_slots_2"                # Second caster class slots
+    SPELLS_PREPARED_2 = "spells_prepared_2"        # Second caster prepared spells
+    SPELLS_KNOWN_2 = "spells_known_2"              # Second caster known spells (spontaneous)
+    CASTER_CLASS_2 = "caster_class_2"              # Name of the second caster class
+    CASTER_LEVEL_2 = "caster_level_2"              # Class level of second caster
+
+    # --- Racial Traits (WO-CHARGEN-RACIAL-001) ---
+    SAVE_BONUS_SPELLS = "save_bonus_spells"        # Racial bonus vs spells and spell-like abilities
+    STONECUNNING = "stonecunning"                  # Bool: +2 Search on stone/underground features
+    ATTACK_BONUS_VS_ORCS = "attack_bonus_vs_orcs"  # +1 attack vs orcs and goblinoids (dwarf)
+    DODGE_BONUS_VS_GIANTS = "dodge_bonus_vs_giants"  # +4 dodge AC vs giants (dwarf, gnome)
+    LOW_LIGHT_VISION = "low_light_vision"          # Bool: low-light vision
+    IMMUNE_SLEEP = "immune_sleep"                  # Bool: immunity to sleep effects
+    SAVE_BONUS_ENCHANTMENT = "save_bonus_enchantment"  # Racial bonus vs enchantment spells
+    AUTOMATIC_SEARCH_DOORS = "automatic_search_doors"  # Bool: 5ft passive search for secret doors
+    RACIAL_SKILL_BONUS = "racial_skill_bonus"      # Dict: {skill_id: bonus_int}
+    RACIAL_SAVE_BONUS = "racial_save_bonus"        # Int: bonus to all saving throws (halfling)
+    ATTACK_BONUS_THROWN = "attack_bonus_thrown"    # Int: bonus to thrown weapon attacks
+    SPELL_RESISTANCE_ILLUSION = "spell_resistance_illusion"  # Int: base SR vs illusion (gnome)
+    ATTACK_BONUS_VS_KOBOLDS = "attack_bonus_vs_kobolds"  # +1 attack vs kobolds/goblinoids (gnome)
+    ILLUSION_DC_BONUS = "illusion_dc_bonus"        # Int: bonus to illusion spell save DCs (gnome)
+    DARKVISION_RANGE = "darkvision_range"          # Int: darkvision range in feet
+    SAVE_BONUS_POISON = "save_bonus_poison"        # Int: racial bonus vs poison saves
 
 
 # Singleton instance — import this
