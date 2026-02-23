@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. UI SLICES 0-7 COMPLETE. PRS-01 RC READY.** Gate K 72/72. HOOLIGAN-03 ACCEPTED. FINDING-HOOLIGAN-03 RESOLVED. **All WOs complete. Anvil on open UI track.**
+**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. UI SLICES 0-7 COMPLETE. PRS-01 RC READY.** Gate K 72/72. HOOLIGAN-03 ACCEPTED. **Anvil full UI workload dispatched: 12 WOs across Tier 1-3. Prerequisite: spatial fix visual confirm.**
 
 ---
 
@@ -40,9 +40,9 @@
 
 ## Operator Action Queue (max 3)
 
-1. **All WOs complete.** Anvil on open UI track (polish + implementation).
-2. **Monitor UI progress.** Flag checkpoints to Slate for commit/review.
-3. **Run orchestrator when ready.** `python scripts/build_release_candidate_packet.py` — should generate a clean MANIFEST.
+1. **Visual confirm spatial fix.** Thunder opens browser — book/notebook flat on shelf? Gates all Tier 1 UI work.
+2. **Anvil executing full UI workload.** 12 WOs: Tier 1 (crystal ball, battle scroll, character sheet), Tier 2 (fog of war, dice bag, token slide, session zero, notebook persist), Tier 3 (settings gem, map lasso, cup holder, bestiary bind, rulebook search).
+3. **Engine track ready.** WO-ENGINE-LEVELUP-WIRE, WO-ENGINE-COMPANION-WIRE, WO-WORLDGEN-INGESTION-001 — ready to draft on command.
 
 ## Current Focus (Slate's focused recall)
 
@@ -55,7 +55,7 @@
 
 **Deferred:** Chatterbox swap timing (8.0s budget). GAP-B HIGH (VS Build Tools). FINDING-WORLDGEN-IP-001.
 
-**Active dispatch:** None. Anvil on open UI track.
+**Active dispatches:** Anvil — WO-UI-ANVIL-FULL-WORKLOAD_20260223.md (12 WOs: crystal ball, battle scroll, character sheet, fog of war, dice bag, token slide, session zero, notebook persist, settings gem, map lasso, cup holder, bestiary bind, rulebook search). Prerequisite: spatial fix visual confirm.
 
 **CHARGEN PHASE 3 COMPLETE:** V10 (companions 25/25) + V11 (racial traits 18/18) + V12 (dual-caster 20/20). `build_animal_companion()` live. All 7 PHB races have mechanical trait fields. `_merge_spellcasting()` handles 0/1/2 caster classes. Dual-caster: alphabetical primary (`cleric < wizard`), separate `_2` suffix fields for secondary. `spell_choices_2` param on `build_character()`. 3+ casters raises ValueError.
 
