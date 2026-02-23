@@ -214,13 +214,21 @@ class NarrationValidator:
 
         If action_type == "attack_hit": must NOT contain miss-language.
         If action_type == "attack_miss": must NOT contain hit-language.
+
+        Scopes check to the first sentence only (primary action narration).
+        Compound narrations may contain language from secondary actors in
+        later sentences — those must not trigger false positives.
         """
         violations = []
         action = getattr(brief, "action_type", "")
 
+        # Scope to first sentence — primary action is narrated first.
+        # If no period found, check full text (single-sentence narrations, unchanged behavior).
+        first_sentence = text.split(". ")[0] if ". " in text else text
+
         if "attack_hit" in action or "critical" in action:
             for pattern in _MISS_PATTERNS:
-                match = pattern.search(text)
+                match = pattern.search(first_sentence)
                 if match:
                     violations.append(RuleViolation(
                         rule_id="RV-001",
@@ -231,7 +239,7 @@ class NarrationValidator:
 
         elif "attack_miss" in action:
             for pattern in _HIT_PATTERNS:
-                match = pattern.search(text)
+                match = pattern.search(first_sentence)
                 if match:
                     violations.append(RuleViolation(
                         rule_id="RV-001",

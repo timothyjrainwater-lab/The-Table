@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. UI SLICES 0-7 COMPLETE. PRS-01 RC READY.** Gate K 69/69. BURST-003 10/10. BURST-002 12/12. V9 20/20. V10 25/25. V11 18/18. V12 20/20. UI-06 10/10. **1 WO still in builder queue: HOOLIGAN-03.**
+**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. UI SLICES 0-7 COMPLETE. PRS-01 RC READY.** Gate K 72/72. HOOLIGAN-03 ACCEPTED. FINDING-HOOLIGAN-03 RESOLVED. **All WOs complete. Anvil on open UI track.**
 
 ---
 
@@ -14,7 +14,7 @@
 | B | 23/23 | H | 16/16 | O | 47/47 |
 | C | 24/24 | I | 13/13 | P | 22/22 |
 | D | 18/18 | J | 27/27 | Q | 16/16 |
-| E | 14/14 | K | 69/69 | R | 18/18 |
+| E | 14/14 | K | 72/72 | R | 18/18 |
 | F | 10/10 | L | 32/32 | S | 31/31 |
 |   |       | M | 31/31 | T | 23/23 |
 |   |       |   |       | U | 20/20 |
@@ -40,8 +40,8 @@
 
 ## Operator Action Queue (max 3)
 
-1. **1 WO in builder queue.** HOOLIGAN-03 fix (Gate K 69→72).
-2. **Await HOOLIGAN-03 debrief.** Fix: scope `_check_rv001_hit_miss()` to first sentence.
+1. **All WOs complete.** Anvil on open UI track (polish + implementation).
+2. **Monitor UI progress.** Flag checkpoints to Slate for commit/review.
 3. **Run orchestrator when ready.** `python scripts/build_release_candidate_packet.py` — should generate a clean MANIFEST.
 
 ## Current Focus (Slate's focused recall)
@@ -55,7 +55,7 @@
 
 **Deferred:** Chatterbox swap timing (8.0s budget). GAP-B HIGH (VS Build Tools). FINDING-WORLDGEN-IP-001.
 
-**Active dispatch:** WO-FIX-HOOLIGAN-03 (Gate K 69→72).
+**Active dispatch:** None. Anvil on open UI track.
 
 **CHARGEN PHASE 3 COMPLETE:** V10 (companions 25/25) + V11 (racial traits 18/18) + V12 (dual-caster 20/20). `build_animal_companion()` live. All 7 PHB races have mechanical trait fields. `_merge_spellcasting()` handles 0/1/2 caster classes. Dual-caster: alphabetical primary (`cleric < wizard`), separate `_2` suffix fields for secondary. `spell_choices_2` param on `build_character()`. 3+ casters raises ValueError.
 
@@ -73,7 +73,7 @@
 | FINDING-ORC-P1-001 | LOW | RESOLVED | P1 dirty tree resolved. Commit `9bf1d3d`. |
 | FINDING-UI05-P2-001 | MEDIUM | RESOLVED | WO-UI-05: scene-builder.ts Math.random replaced with seeded PRNG (`makePrng`). Gate G 22/22 PASS. W-01–W-14 PASS. W-15 fails due to V7 test gap (equipment tests exist, not WO-UI-05 scope). Visual gate pending Thunder review. |
 | FINDING-PLAYTEST-F01 | MEDIUM | OPEN | TTS env not provisioned. Neither Chatterbox nor Kokoro installed. 7 TTS-dependent checkpoints validated by proxy (unit tests). Live audio deferred. |
-| FINDING-HOOLIGAN-03 | MEDIUM | DISPATCHED | RV-001 false positive on compound actions — WO-FIX-HOOLIGAN-03 dispatched. Fix: scope `_check_rv001_hit_miss()` to first sentence. Gate K 67→70 on acceptance. |
+| FINDING-HOOLIGAN-03 | MEDIUM | RESOLVED | WO-FIX-HOOLIGAN-03 ACCEPTED. `_check_rv001_hit_miss()` scoped to first sentence via `. ` split. Gate K 69→72 (49/49 narration validator). FINDING-HOOLIGAN-03 RESOLVED. |
 | FINDING-CHARGEN-SKILLS-01 | MEDIUM | RESOLVED | Anvil skills WO (`8a9442a`) broke 4 tests (not 3 as originally reported): stale hardcoded counts. Fixed by Thunder. |
 | FINDING-GRAMMAR-01 | LOW | RESOLVED | WO-FIX-GRAMMAR-01 ACCEPTED. `play.py:647` `.title()` appended. Gate K 67→69. 2 regression tests. |
 | FINDING-SIGLIP-01 | LOW | RESOLVED | `test_siglip_critique.py` merge conflicts resolved by Anvil (`20797a9`) |
@@ -105,6 +105,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-FIX-HOOLIGAN-03 | **ACCEPTED** — Gate K 72/72 (69+3). `_check_rv001_hit_miss()` scoped to first sentence: `first_sentence = text.split(". ")[0] if ". " in text else text`. K-68: compound hit no false positive. K-69: compound miss no false positive. K-70: single-sentence real violation still caught. 6,702 passed suite-wide, 11 pre-existing failures, 0 new regressions. FINDING-HOOLIGAN-03 RESOLVED. | (pending commit) |
 | WO-UI-06 | **ACCEPTED** — 10/10 Gate UI-06. `entity-renderer.ts`: EntityRenderer class, faction-colored cylinders (player gold/enemy red/npc blue), HP bar (green→red lerp), `gridToScene()` (1 grid=0.5 scene, y=0.08), `upsert()`/`remove()`/`syncRoster()`, `getTokenMeshes()`/`getEntityIdByMesh()`/`getEntityFaction()`. `main.ts` wired: `entity_state`→`syncRoster`, `entity_delta`→`upsert`/`remove`. `demo_entity_tokens.py` provided. | `c7e571e` |
 | WO-UI-SLICES-3-7 | **ACCEPTED** — Doctrine §19 Slices 3-7. `book-object.ts` (PHB rulebook, flipForward/flipBack, openToRef, QuestionStamp). `notebook-object.ts` (notes/transcript/bestiary/handouts, addTranscriptEntry, setSection). `handout-object.ts` (printer slot z=3.82 brass rim, HandoutTray 1.6×1.3m navy felt at z=4.60, fanstack 5-deep, discard ring at trash_hole). `map-overlay.ts` (AoE shapes, MeasureLine, AreaIndicator, pulse). `main.ts` all slices wired. `index.html` AoE confirm gate. Zones.json player centerZ=4.75. Gate G 22/22. | `c7e571e` |
 | WO-CHARGEN-PHASE3-LEVELUP | **ACCEPTED** — 20/20 Gate V9. `level_up(entity, class_name, new_class_level, ...)` pure delta function in `builder.py`. `CLASS_FEATURES` dict (11 classes, PHB L1-20). `_roll_hp_for_level()` seeded RNG, min 1, max on first class level. `_skill_points_for_level()` per-class table + INT mod. Delta shape: hp_gained, feat_slots_gained, feats_added, class_features_gained, spell_slots, skill_points_gained, bab, saves, new_total_level. Pure — no entity mutation. | `c7e571e` |

@@ -659,3 +659,67 @@ class TestNarrationPersistence:
                 assert entry["narration_text"] == f"Narration {i}."
         finally:
             os.unlink(log_path)
+
+
+# ==============================================================================
+# RV-001 COMPOUND NARRATION REGRESSION (WO-FIX-HOOLIGAN-03)
+# ==============================================================================
+
+
+class TestRV001CompoundNarration:
+    """Regression tests: RV-001 must not false-positive on compound narrations.
+
+    In compound turns, the primary action appears in sentence 1.
+    Secondary actors' language in sentence 2+ must not trigger RV-001.
+    """
+
+    def setup_method(self):
+        self.validator = NarrationValidator()
+
+    def test_rv001_compound_hit_no_false_positive(self):
+        """K-68: Hit + secondary 'deflect' in sentence 2 must NOT flag RV-001.
+
+        Text: Kael connects with a slashing blow (hit). Simultaneously,
+        Seraphine's Shield spell activates, deflecting an incoming strike.
+        'deflect' is miss-language but belongs to the secondary actor's spell.
+        """
+        brief = MockBrief(action_type="attack_hit")
+        text = (
+            "kael swings his longsword, connecting with a slashing blow to the goblin's arm. "
+            "simultaneously, seraphine's shield spell activates, deflecting an incoming strike."
+        )
+        result = self.validator.validate(text, brief)
+        assert not any(v.rule_id == "RV-001" for v in result.violations), (
+            "RV-001 false positive: 'deflect' in sentence 2 should not flag a hit action"
+        )
+
+    def test_rv001_compound_miss_no_false_positive(self):
+        """K-69: Miss + secondary 'strike' in sentence 2 must NOT flag RV-001.
+
+        Text: Aldric's sword sweeps wide (miss). The ground trembles as
+        Torgar's warhammer strikes the flagstone nearby.
+        'strike' is hit-language but belongs to the secondary actor.
+        """
+        brief = MockBrief(action_type="attack_miss")
+        text = (
+            "aldric's sword sweeps wide, missing the orc completely. "
+            "the ground trembles as torgar's warhammer strikes the flagstone nearby."
+        )
+        result = self.validator.validate(text, brief)
+        assert not any(v.rule_id == "RV-001" for v in result.violations), (
+            "RV-001 false positive: 'strikes' in sentence 2 should not flag a miss action"
+        )
+
+    def test_rv001_single_sentence_still_catches_real_violation(self):
+        """K-70: Single-sentence hit narration containing miss-language still flags.
+
+        Regression guard: the first-sentence scoping fix must not suppress
+        legitimate single-sentence violations.
+        """
+        brief = MockBrief(action_type="attack_hit")
+        text = "aldric's sword is deflected by the goblin's armor without connecting."
+        result = self.validator.validate(text, brief)
+        assert result.verdict == "FAIL"
+        assert any(v.rule_id == "RV-001" for v in result.violations), (
+            "RV-001 must still flag miss-language in a single-sentence hit narration"
+        )
