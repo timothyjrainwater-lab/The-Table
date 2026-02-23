@@ -30,6 +30,7 @@ from aidm.schemas.prep_pipeline import (
     GeneratedAsset,
     ModelLoadConfig,
 )
+from aidm.schemas.spark_failure import SparkFailure
 
 
 class PrepPipeline:
@@ -97,10 +98,20 @@ class PrepPipeline:
                 # Generate assets
                 assets = self._generate_assets(model_config)
 
-                # Store assets
+                # Store assets — catch SparkFailure per-asset (BURST-002 prep failure policy)
                 for asset in assets:
-                    self._store_asset(asset)
-                    self.manifest.add_asset(asset)
+                    try:
+                        self._store_asset(asset)
+                        self.manifest.add_asset(asset)
+                    except SparkFailure as sf:
+                        asset.status = "prep_failed"
+                        asset.failure_mode = sf.mode.value
+                        self._log(
+                            f"    [SPARK FAILURE] Asset {asset.asset_id} marked prep_failed "
+                            f"({sf.mode.value}). Continuing."
+                        )
+                        self.manifest.add_asset(asset)
+                        # Do NOT abort — continue to next asset
 
                 # Unload model
                 self._unload_model(model_config)

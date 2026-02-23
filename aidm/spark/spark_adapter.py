@@ -20,6 +20,7 @@ from enum import Enum
 from typing import Any, List, Optional
 
 from aidm.spark.model_registry import HardwareTier, ModelProfile
+from aidm.spark.spark_failure import SparkFailureMode
 
 
 # ============================================================================
@@ -79,12 +80,18 @@ class SparkResponse:
         tokens_used: Total tokens consumed (REQUIRED, non-negative)
         provider_metadata: Provider-specific info
         error: Error message if generation failed
+        degraded: True when template narration substituted for model output (BURST-002)
+        failure_mode: SparkFailureMode classifying the failure, or None (BURST-002)
+        fallback_used: True when template narration was substituted (BURST-002)
     """
     text: str
     finish_reason: FinishReason
     tokens_used: int
     provider_metadata: Optional[dict] = None
     error: Optional[str] = None
+    degraded: bool = False
+    failure_mode: Optional[SparkFailureMode] = None
+    fallback_used: bool = False
 
     def __post_init__(self):
         if self.finish_reason == FinishReason.ERROR and not self.error:
@@ -301,21 +308,43 @@ class SparkAdapter(ABC):
         """
         raise NotImplementedError
 
-    def generate(self, request: SparkRequest, loaded_model: Optional[LoadedModel] = None) -> SparkResponse:
+    def generate(self, request: SparkRequest, loaded_model: Optional[LoadedModel] = None,
+                 call_type: Optional[str] = None,
+                 profiler: Optional[Any] = None,
+                 sensor_fn: Optional[Any] = None) -> SparkResponse:
         """Generate text from canonical request (SPARK_PROVIDER_CONTRACT.md §7.1).
 
         Default implementation delegates to generate_text() for backward
         compatibility with existing adapters.
 
+        Adds TTFT measurement (BURST-002 §3.6), per-call timeout enforcement,
+        and graceful degradation to template narration on failure.
+
         Args:
             request: Canonical SPARK request
             loaded_model: Loaded model instance (optional for backward compat)
+            call_type: SparkCallType string for SLA lookup and template narration
+            profiler: Optional callable(bucket, record_dict) for TTFT recording
+            sensor_fn: Optional callable(event_name, **kwargs) for sensor events
 
         Returns:
-            Canonical SPARK response
+            Canonical SPARK response (may be degraded with template narration)
         """
+        import time
+        from aidm.spark.spark_failure import SparkFailure, SparkFailureMode
+        from aidm.spark.spark_sla import SPARK_SLA_PER_CALL, TEMPLATE_NARRATION
+
+        # Resolve timeout for this call type
+        timeout_s: Optional[float] = None
+        if call_type and call_type in SPARK_SLA_PER_CALL:
+            timeout_s = SPARK_SLA_PER_CALL[call_type]["timeout_s"]
+
         # Bridge to legacy generate_text() for existing adapters
         effective_model = loaded_model or getattr(self, '_current_model', None)
+
+        t_call_start = time.perf_counter()
+        t_first_token: float = t_call_start  # default: no streaming; first token = call start
+
         try:
             text = self.generate_text(
                 loaded_model=effective_model,
@@ -324,12 +353,74 @@ class SparkAdapter(ABC):
                 max_tokens=request.max_tokens,
                 stop_sequences=request.stop_sequences or None,
             )
+            t_first_token = time.perf_counter()  # non-streaming: approximate
+            t_complete = time.perf_counter()
+
+            ttft_s = t_first_token - t_call_start
+            inference_s = t_complete - t_call_start
+
+            # Timeout enforcement (post-call check for non-streaming adapters)
+            if timeout_s is not None and inference_s > timeout_s:
+                raise SparkFailure(
+                    SparkFailureMode.INFERENCE_TIMEOUT,
+                    f"Inference took {inference_s:.2f}s, exceeded timeout {timeout_s:.2f}s",
+                )
+
+            # Record TTFT to profiler bucket if provided
+            if profiler is not None:
+                model_id = effective_model.model_id if effective_model else "unknown"
+                profiler("spark_call", {
+                    "call_type": call_type or "UNKNOWN",
+                    "ttft_s": ttft_s,
+                    "inference_s": inference_s,
+                    "model_id": model_id,
+                    "degraded": False,
+                })
+
             return SparkResponse(
                 text=text,
                 finish_reason=FinishReason.COMPLETED,
                 tokens_used=0,  # Unknown from legacy interface
             )
+
+        except SparkFailure as sf:
+            t_complete = time.perf_counter()
+            inference_s = t_complete - t_call_start
+
+            # Build degraded template response
+            template_text = TEMPLATE_NARRATION.get(call_type or "", "") if call_type else ""
+            if not template_text:
+                template_text = "Narration unavailable."
+
+            # Emit sensor event
+            if sensor_fn is not None:
+                sensor_fn("SPARK_DEGRADED", failure_mode=sf.mode, call_type=call_type)
+
+            # Record TTFT to profiler bucket (degraded=True)
+            if profiler is not None:
+                model_id = effective_model.model_id if effective_model else "unknown"
+                profiler("spark_call", {
+                    "call_type": call_type or "UNKNOWN",
+                    "ttft_s": t_first_token - t_call_start,
+                    "inference_s": inference_s,
+                    "model_id": model_id,
+                    "degraded": True,
+                })
+
+            return SparkResponse(
+                text=template_text,
+                finish_reason=FinishReason.ERROR,
+                tokens_used=0,
+                error=str(sf),
+                degraded=True,
+                failure_mode=sf.mode,
+                fallback_used=True,
+            )
+
         except Exception as e:
+            t_complete = time.perf_counter()
+            inference_s = t_complete - t_call_start
+
             return SparkResponse(
                 text="",
                 finish_reason=FinishReason.ERROR,

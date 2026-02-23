@@ -29,6 +29,9 @@ from typing import Any, Optional, Tuple
 from aidm.core.play_loop import TurnContext, TurnResult, execute_turn
 from aidm.core.rng_manager import RNGManager
 from aidm.core.state import FrozenWorldStateView, WorldState
+from aidm.core.aoe_rasterizer import AoEShape, AoEDirection, create_aoe_result
+from aidm.core.pending_aoe import PendingAoE
+from aidm.core.sensor_events import AOE_PREVIEW_CONFIRMED, AOE_PREVIEW_CANCELLED
 from aidm.core.movement_resolver import build_full_move_intent
 from aidm.interaction.intent_bridge import ClarificationRequest, IntentBridge
 from aidm.runtime.display import format_world_summary
@@ -189,12 +192,24 @@ class ActionBudget:
 # Input parsing
 # ---------------------------------------------------------------------------
 
-def parse_input(text: str) -> Tuple[Optional[str], Any]:
-    """Keyword-based parser.  Returns (action_type, declared_intent) or (None, None)."""
+def parse_input(text: str, ws: Optional[WorldState] = None) -> Tuple[Optional[str], Any]:
+    """Keyword-based parser.  Returns (action_type, declared_intent) or (None, None).
+
+    When ws.pending_aoe is set, the parser intercepts yes/cancel to gate the
+    AoE confirmation flow before normal command parsing.
+    """
     text = text.strip().lower()
     parts = text.split()
     if not parts:
         return None, None
+
+    # AoE confirm gate — takes priority when pending_aoe is active
+    if ws is not None and ws.pending_aoe is not None:
+        verb = parts[0]
+        if verb in ("yes", "confirm", "y"):
+            return "aoe_confirm", None
+        # Any other input (including "cancel", "no", "n", "back") cancels
+        return "aoe_cancel", None
 
     # Two-word commands — check before single-word verb split
     if text.startswith("full attack"):
@@ -540,6 +555,287 @@ def run_enemy_turn(
 
 
 # ---------------------------------------------------------------------------
+# AoE Preview Gate
+# ---------------------------------------------------------------------------
+
+_AOE_SHAPES = {AoEShape.BURST, AoEShape.CONE, AoEShape.LINE, AoEShape.CYLINDER, AoEShape.SPHERE}
+
+
+def _compute_save_dc(ws: WorldState, caster_id: str, spell_level: int) -> int:
+    """Compute save DC: 10 + spell_level + ability modifier."""
+    entity = ws.entities.get(caster_id, {})
+    spell_dc_base = entity.get("spell_dc_base", 13)  # 10 + ability_mod
+    return spell_dc_base + spell_level
+
+
+def _show_aoe_preview(
+    ws: WorldState,
+    actor_id: str,
+    spell_name: str,
+    spell_id: str,
+    origin_x: int,
+    origin_y: int,
+) -> Optional[WorldState]:
+    """Compute AoE, render overlay, store PendingAoE on ws.
+
+    Returns updated WorldState with pending_aoe set, or None if spell is
+    unknown or not an AoE spell (caller should fall through to normal cast).
+    """
+    from aidm.data.spell_definitions import SPELL_REGISTRY
+    from copy import deepcopy
+
+    spell = SPELL_REGISTRY.get(spell_id)
+    if spell is None or spell.aoe_shape not in _AOE_SHAPES:
+        return None
+
+    origin = Position(x=origin_x, y=origin_y)
+
+    # Build AoE params from spell definition
+    params: dict = {}
+    if spell.aoe_shape in (AoEShape.BURST, AoEShape.CYLINDER, AoEShape.SPHERE):
+        params["radius_ft"] = spell.aoe_radius_ft or 20
+    elif spell.aoe_shape == AoEShape.CONE:
+        params["length_ft"] = spell.aoe_radius_ft or 15
+        params["direction"] = spell.aoe_direction or AoEDirection.N
+    elif spell.aoe_shape == AoEShape.LINE:
+        params["length_ft"] = spell.aoe_radius_ft or 60
+        params["direction"] = spell.aoe_direction or AoEDirection.N
+    if spell.aoe_shape == AoEShape.CYLINDER:
+        params["height_ft"] = 40  # default cylinder height
+
+    aoe_result = create_aoe_result(spell.aoe_shape, origin, params)
+
+    # Compute save DC
+    save_dc: Optional[int] = None
+    if spell.save_type is not None:
+        save_dc = _compute_save_dc(ws, actor_id, spell.level)
+
+    # Collect live entities
+    live_entities: dict = {}
+    for eid in sorted(ws.entities):
+        e = ws.entities[eid]
+        if e.get(EF.DEFEATED, False):
+            continue
+        pos = e.get(EF.POSITION, {})
+        ex, ey = pos.get("x"), pos.get("y")
+        if ex is not None and ey is not None:
+            live_entities[eid] = (ex, ey)
+
+    # Determine which entities are in AoE
+    aoe_set = {(p.x, p.y) for p in aoe_result.affected_squares}
+    entities_in_aoe = {
+        eid for eid, (ex, ey) in live_entities.items()
+        if (ex, ey) in aoe_set and eid != actor_id
+    }
+
+    # --- Render overlay ---
+    shape_label = spell.aoe_shape.value.capitalize()
+    radius = params.get("radius_ft") or params.get("length_ft", 0)
+    header = f"{spell.name} — {radius}ft {shape_label}"
+    if save_dc is not None and spell.save_type is not None:
+        header += f" — Save DC {save_dc} ({spell.save_type.value.capitalize()})"
+    print(f"\n{header}")
+
+    at_risk = [ws.entities[eid].get("name", eid) for eid in sorted(entities_in_aoe)]
+    at_risk_factions = []
+    for eid in sorted(entities_in_aoe):
+        e = ws.entities[eid]
+        n = e.get("name", eid)
+        team = e.get(EF.TEAM, "unknown")
+        at_risk_factions.append(f"{n} ({team.upper()})")
+
+    sq_count = aoe_result.square_count
+    print(f"Squares in blast: {sq_count}   Entities at risk: {', '.join(at_risk) if at_risk else 'none'}")
+    print()
+
+    # Grid bounding box: AoE squares + 1-cell padding + entities within 2 squares of AoE
+    aoe_xs = [p.x for p in aoe_result.affected_squares]
+    aoe_ys = [p.y for p in aoe_result.affected_squares]
+    all_xs = aoe_xs + [ex for ex, ey in live_entities.values()]
+    all_ys = aoe_ys + [ey for ex, ey in live_entities.values()]
+    if not all_xs:
+        all_xs = [origin_x]
+    if not all_ys:
+        all_ys = [origin_y]
+    grid_min_x = min(all_xs) - 1
+    grid_max_x = max(all_xs) + 1
+    grid_min_y = min(all_ys) - 1
+    grid_max_y = max(all_ys) + 1
+
+    # Build entity symbol table
+    symbols: dict = {}
+    used_symbols: dict = {}
+    for eid in sorted(ws.entities):
+        if eid not in live_entities:
+            continue
+        e = ws.entities[eid]
+        name = e.get("name", eid)
+        sym = name[0].upper()
+        if sym in used_symbols and used_symbols[sym] != eid:
+            for n in range(2, 10):
+                candidate = f"{sym}{n}"
+                if candidate not in used_symbols:
+                    sym = candidate
+                    break
+        used_symbols[sym] = eid
+        symbols[eid] = sym
+
+    # Column header
+    col_header = "     "
+    for x in range(grid_min_x, grid_max_x + 1):
+        col_header += f"{x:>3}"
+    print(col_header)
+
+    for y in range(grid_max_y, grid_min_y - 1, -1):
+        row = f"  {y:>2} "
+        for x in range(grid_min_x, grid_max_x + 1):
+            cell = "  ."
+            # Check if this is the origin
+            if x == origin_x and y == origin_y:
+                # Origin overrides everything else unless an entity is here
+                entity_here = None
+                for eid, (ex, ey) in live_entities.items():
+                    if ex == x and ey == y:
+                        entity_here = eid
+                        break
+                if entity_here:
+                    sym = symbols.get(entity_here, "?")
+                    cell = f"[{sym}]" if len(sym) == 1 else f" {sym}"
+                else:
+                    cell = "  @"
+            elif (x, y) in aoe_set:
+                # Check if entity here
+                entity_here = None
+                for eid, (ex, ey) in live_entities.items():
+                    if ex == x and ey == y:
+                        entity_here = eid
+                        break
+                if entity_here:
+                    sym = symbols.get(entity_here, "?")
+                    cell = f"[{sym}]" if len(sym) == 1 else f" {sym}"
+                    if entity_here != actor_id:
+                        cell = f"  !"  # danger marker
+                else:
+                    cell = "  *"
+            else:
+                # Non-AoE square — show entity if present
+                for eid, (ex, ey) in live_entities.items():
+                    if ex == x and ey == y:
+                        sym = symbols.get(eid, "?")
+                        cell = f"  {sym}" if len(sym) == 1 else f" {sym}"
+                        break
+            row += cell
+        print(row)
+
+    # Legend
+    print()
+    for eid in sorted(entities_in_aoe):
+        e = ws.entities[eid]
+        sym = symbols.get(eid, "?")
+        name = e.get("name", eid)
+        team = e.get(EF.TEAM, "unknown")
+        print(f"    {sym} = {name} ({team.upper()})")
+
+    print()
+    print("Confirm AoE? [yes/cancel]: ", end="", flush=True)
+
+    # Store PendingAoE on WorldState
+    new_ws = deepcopy(ws)
+    new_ws.pending_aoe = PendingAoE(
+        spell_name=spell.name,
+        caster_id=actor_id,
+        origin_x=origin_x,
+        origin_y=origin_y,
+        aoe_result=aoe_result,
+        save_dc=save_dc,
+        _spell_items=tuple(sorted({"spell_id": spell_id, "spell_name": spell.name}.items())),
+    )
+    return new_ws
+
+
+def _confirm_aoe(
+    ws: WorldState,
+    actor_id: str,
+    seed: int,
+    turn_index: int,
+    next_event_id: int,
+) -> Tuple[TurnResult, list]:
+    """Resolve the pending AoE spell and emit sensor events.
+
+    Returns (TurnResult, sensor_events_list).
+    """
+    from aidm.core.spell_resolver import SpellCastIntent
+
+    pending = ws.pending_aoe
+    assert pending is not None, "_confirm_aoe called without pending_aoe"
+
+    spell_id = pending.spell_dict.get("spell_id", "")
+    origin = Position(x=pending.origin_x, y=pending.origin_y)
+
+    # Build SpellCastIntent targeting the origin position
+    cast_intent = SpellCastIntent(
+        caster_id=actor_id,
+        spell_id=spell_id,
+        target_position=origin,
+        target_entity_id=None,
+    )
+
+    # Collect affected entity IDs for sensor event
+    from copy import deepcopy
+    aoe_set = {(p.x, p.y) for p in pending.aoe_result.affected_squares}
+    affected_ids = [
+        eid for eid, e in ws.entities.items()
+        if not e.get(EF.DEFEATED, False)
+        and e.get(EF.POSITION, {}).get("x") is not None
+        and (e[EF.POSITION]["x"], e[EF.POSITION]["y"]) in aoe_set
+        and eid != actor_id
+    ]
+
+    # Clear pending_aoe before resolution
+    ws_for_resolve = ws.clear_pending_aoe()
+
+    rng = RNGManager(seed + turn_index)
+    ws_copy = deepcopy(ws_for_resolve)
+    ctx = TurnContext(
+        turn_index=turn_index,
+        actor_id=actor_id,
+        actor_team=ws_copy.entities.get(actor_id, {}).get(EF.TEAM, "party"),
+    )
+    result = execute_turn(
+        world_state=ws_copy,
+        turn_ctx=ctx,
+        combat_intent=cast_intent,
+        rng=rng,
+        next_event_id=next_event_id,
+        timestamp=float(turn_index),
+    )
+
+    # Emit sensor event
+    sensor_events = [{
+        "event_type": AOE_PREVIEW_CONFIRMED,
+        "spell_name": pending.spell_name,
+        "origin": {"x": pending.origin_x, "y": pending.origin_y},
+        "affected_entity_ids": affected_ids,
+        "caster_id": actor_id,
+    }]
+
+    # Ensure pending_aoe is cleared on the result state
+    if result.status == "ok" and result.world_state.pending_aoe is not None:
+        from copy import deepcopy as _dc
+        new_ws = _dc(result.world_state)
+        new_ws.pending_aoe = None
+        result = TurnResult(
+            status=result.status,
+            world_state=new_ws,
+            events=result.events,
+            turn_index=result.turn_index,
+            failure_reason=result.failure_reason,
+        )
+
+    return result, sensor_events
+
+
+# ---------------------------------------------------------------------------
 # Display
 # ---------------------------------------------------------------------------
 
@@ -644,7 +940,7 @@ def format_events(events, ws: WorldState) -> str:
                     lines.append(f"  [RESOLVE] {label}: {duration} rounds remaining")
             elif duration:
                 lines.append(f"{name} is {condition.upper()}.")
-                lines.append(f"  [RESOLVE] {condition.replace('_', ' ')}: {duration} rounds remaining")
+                lines.append(f"  [RESOLVE] {condition.replace('_', ' ').title()}: {duration} rounds remaining")
             else:
                 lines.append(f"{name} is {condition.upper()}.")
         elif ev.event_type == "condition_removed":
@@ -939,11 +1235,13 @@ def _main_loop(seed: int, input_fn) -> None:
                 budget = ActionBudget()
 
                 while True:
-                    # Show remaining actions
-                    remaining = budget.remaining_str()
-                    print(f"  [{remaining}]")
+                    # Show remaining actions (skip if waiting for AoE confirm)
+                    if ws.pending_aoe is None:
+                        remaining = budget.remaining_str()
+                        print(f"  [{remaining}]")
                     try:
-                        print("Your action?")
+                        if ws.pending_aoe is None:
+                            print("Your action?")
                         text = input_fn("> ")
                     except (EOFError, KeyboardInterrupt):
                         print("\nFarewell!")
@@ -955,7 +1253,7 @@ def _main_loop(seed: int, input_fn) -> None:
                         print("Farewell!")
                         return
 
-                    action_type, declared = parse_input(text)
+                    action_type, declared = parse_input(text, ws)
                     if action_type is None:
                         print("  Unknown command.")
                         print(_HELP_TEXT)
@@ -981,6 +1279,89 @@ def _main_loop(seed: int, input_fn) -> None:
                     if action_type == "end_turn":
                         print(f"  {name} ends their turn.")
                         break
+
+                    # --- AoE confirm gate ---
+                    if action_type == "aoe_cancel":
+                        ws = ws.clear_pending_aoe()
+                        print("  AoE cancelled. No action taken.")
+                        continue
+
+                    if action_type == "aoe_confirm":
+                        result, _sensor_evs = _confirm_aoe(ws, actor_id, seed, turn_index, next_event_id)
+                        if result.status == "requires_clarification":
+                            print(f"  {result.failure_reason}")
+                            ws = ws.clear_pending_aoe()
+                            continue
+                        print(format_events(result.events, ws))
+                        if result.status == "ok":
+                            ws = result.world_state
+                            next_event_id += len(result.events)
+                            turn_index += 1
+                            budget.spend("standard")
+                            if budget.is_turn_over():
+                                break
+                        else:
+                            ws = ws.clear_pending_aoe()
+                            print(f"  Failed: {result.failure_reason or result.status}")
+                        continue
+
+                    # --- Intercept AoE cast spells for preview ---
+                    if action_type == "cast":
+                        spell_name_raw, target_ref = declared
+                        # Resolve spell_id via registry key lookup
+                        from aidm.data.spell_definitions import SPELL_REGISTRY
+                        from aidm.core.aoe_rasterizer import AoEShape as _AoES
+                        spell_id = spell_name_raw.lower().replace(" ", "_")
+                        if spell_id not in SPELL_REGISTRY:
+                            # Try name match
+                            for sid, sdef in SPELL_REGISTRY.items():
+                                if sdef.name.lower() == spell_name_raw.lower():
+                                    spell_id = sid
+                                    break
+                        spell_def = SPELL_REGISTRY.get(spell_id)
+                        if spell_def is not None and spell_def.aoe_shape in _AOE_SHAPES:
+                            # Parse origin from target_ref if it looks like coords "x y" or "(x, y)"
+                            origin_x, origin_y = None, None
+                            if target_ref:
+                                import re as _re
+                                m = _re.search(r'(-?\d+)[,\s]+(-?\d+)', target_ref)
+                                if m:
+                                    origin_x = int(m.group(1))
+                                    origin_y = int(m.group(2))
+                            if origin_x is None:
+                                # Default: target the closest enemy position
+                                best_pos = None
+                                best_dist = 9999
+                                actor_pos_dict = ws.entities.get(actor_id, {}).get(EF.POSITION, {})
+                                ax, ay = actor_pos_dict.get("x", 0), actor_pos_dict.get("y", 0)
+                                for eid, e in ws.entities.items():
+                                    if e.get(EF.TEAM) == ws.entities[actor_id].get(EF.TEAM):
+                                        continue
+                                    if e.get(EF.DEFEATED, False):
+                                        continue
+                                    ep = e.get(EF.POSITION, {})
+                                    ex_, ey_ = ep.get("x", 0), ep.get("y", 0)
+                                    dist = abs(ex_ - ax) + abs(ey_ - ay)
+                                    if dist < best_dist:
+                                        best_dist = dist
+                                        best_pos = (ex_, ey_)
+                                if best_pos:
+                                    origin_x, origin_y = best_pos
+                                else:
+                                    origin_x, origin_y = 0, 0
+
+                            # Check action budget before showing preview
+                            cost = _ACTION_COST.get("cast", "standard")
+                            if not budget.can_take(cost):
+                                print(f"  {budget.denial_reason(cost)}")
+                                continue
+
+                            preview_ws = _show_aoe_preview(ws, actor_id, spell_name_raw, spell_id, origin_x, origin_y)
+                            if preview_ws is not None:
+                                ws = preview_ws
+                                # Don't spend the action yet — wait for confirm
+                                continue
+                            # Fall through to normal cast if not AoE (shouldn't happen)
 
                     # --- Action economy enforcement ---
                     cost = _ACTION_COST.get(action_type, "standard")

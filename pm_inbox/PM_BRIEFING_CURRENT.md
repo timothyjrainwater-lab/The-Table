@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 2 COMPLETE. PRS-01 RC READY.** Gate K 69/69. WO-FIX-GRAMMAR-01 ACCEPTED. GAP-A BL fix applied. **5 WOs still in builder queue: UI-06, CHARGEN-PHASE3-LEVELUP, AoE, Spark runtime, HOOLIGAN-03.**
+**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 2 COMPLETE. PRS-01 RC READY.** Gate K 69/69. BURST-003 AoE 10/10. BURST-002 Spark 12/12. **3 WOs still in builder queue: UI-06, CHARGEN-PHASE3-LEVELUP, HOOLIGAN-03.**
 
 ---
 
@@ -27,14 +27,16 @@
 |   |       |   |       | AB | 6/6 |
 |   |       |   |       | V7 | 73/73 |
 |   |       |   |       | V8 | 15/15 |
+|   |       |   |       | BURST-003 | 10/10 |
+|   |       |   |       | BURST-002 | 12/12 |
 |   |       |   |       | WP | 5+18+19 |
 
 **Gate test total:** 535 (447 + 88 chargen V7+V8). All gates PASS. Chargen gates: V1 39/39, V2 12/12, V3 15/15, V4 15/15, V5 8/8, V6 25/25, V7 73/73, V8 15/15 (202 total). Pre-existing: 2 speak_signal, 3 pm_inbox_hygiene, 1 graduated_critique, 1 immersion_authority; 2 collection errors: heuristics_image_critic, ws_bridge.
 
 ## Operator Action Queue (max 3)
 
-1. **5 WOs in builder queue.** UI-06 (entity tokens), CHARGEN-PHASE3-LEVELUP (Gate V9), AoE overlay, Spark runtime, HOOLIGAN-03 fix.
-2. **Await builder debriefs.** Features: UI-06, LEVELUP, AoE, Spark. Fix: HOOLIGAN-03.
+1. **3 WOs in builder queue.** UI-06 (entity tokens), CHARGEN-PHASE3-LEVELUP (Gate V9), HOOLIGAN-03 fix.
+2. **Await builder debriefs.** Features: UI-06, LEVELUP. Fix: HOOLIGAN-03.
 3. **Run orchestrator when ready.** `python scripts/build_release_candidate_packet.py` — should generate a clean MANIFEST.
 
 ## Current Focus (Slate's focused recall)
@@ -47,7 +49,7 @@
 
 **Deferred:** Chatterbox swap timing (8.0s budget). GAP-B HIGH (VS Build Tools). FINDING-WORLDGEN-IP-001 (pre-commit bundle scan gate candidate).
 
-**Active dispatches:** WO-BURST-003-AOE-001 (AoE, 10 tests), WO-BURST-002-RESEARCH-001 (Spark runtime, 12 tests), WO-FIX-HOOLIGAN-03 (Gate K 69→72), WO-UI-06 (entity tokens, Gate UI-06 10 tests), WO-CHARGEN-PHASE3-LEVELUP (Gate V9 15 tests).
+**Active dispatches:** WO-FIX-HOOLIGAN-03 (Gate K 69→72), WO-UI-06 (entity tokens, Gate UI-06 10 tests), WO-CHARGEN-PHASE3-LEVELUP (Gate V9 15 tests).
 
 **BURST-001:** ~~Tier 1~~ → ~~Tier 2~~ → ~~RV-007~~ → ~~Tier 3~~ → ~~Tier 4~~ → ~~Tier 5.1-5.4~~ → ~~**5.5 Playtest v1 — ACCEPTED**~~ **BURST-001 COMPLETE.**
 **PRS-01:** ~~Spec review~~ → ~~5 WOs dispatched~~ → ~~**5/5 ACCEPTED**~~ → ~~**SCAN FIX ACCEPTED**~~ → ~~pre-RC cleanup~~ → ~~**ALL GATES GREEN**~~ → ~~**ORCHESTRATOR ACCEPTED**~~ → **commit + IP remediation (WO-PRS-IP-001) → RC READY**
@@ -95,6 +97,8 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-BURST-003-AOE-001 | **ACCEPTED** — 10/10 Gate BURST-003. `PendingAoE` frozen dataclass, `WorldState.pending_aoe` (excluded from state_hash/to_dict — ephemeral UI state). `_show_aoe_preview()`: @ origin, * AoE, ! entities at risk. `_confirm_aoe()` resolves via execute_turn, emits AOE_PREVIEW_CONFIRMED. Parser intercepts yes/cancel when pending_aoe active. State-safe on restart: field is None on fresh load, spell never resolved. | (pending commit) |
+| WO-BURST-002-RESEARCH-001 | **ACCEPTED** — 12/12 Gate BURST-002. `SparkFailureMode` enum (6 modes), `SPARK_SLA_PER_CALL` per CallType (timeout_s, p95_target_s), `TEMPLATE_NARRATION` deterministic fallback, TTFT measurement + degraded field in SparkAdapter, prep_pipeline asset-level catch + prep_failed status. Sensor event on runtime failure. Zero new regressions (12 pre-existing failures confirmed as baseline). | (pending commit) |
 | WO-FIX-GRAMMAR-01 | **ACCEPTED** — Gate K 69/69 (67+2). `play.py:647`: `.replace('_',' ')` → `.replace('_',' ').title()`. 1 hit total in file. 2 regression tests appended to `test_unknown_gate_k.py`. FINDING-GRAMMAR-01 RESOLVED. GAP-A BL fix: `TYPE_CHECKING` guard on `NarrativeBrief` import — boundary law PASS. | (pending commit) |
 | WO-CHARGEN-MULTICLASS-001 | **ACCEPTED** — 15/15 Gate V8. `class_mix={"fighter":3,"wizard":2}` param added to `build_character()`. BAB = max across classes (fighter3/wizard2 → BAB 3). Saves = best per save independently. HP = sum of HD per class. Skill points = sum per class. Class skills = union. `favored_class` stored informational. Validation: ValueError on total>20, unknown class, ambiguous params. Multi-caster decision: first caster in mix wins (wizard/cleric → wizard slots only); dual-caster merge deferred. BAB/save table verified vs PHB p.57. Zero V1-V6 regressions. | `9bf1d3d` |
 | WO-CHARGEN-EQUIPMENT-001 | **ACCEPTED** — 73/73 Gate V7. `_assign_starting_equipment()` wired into `build_character()`. All 11 classes: inventory, weapon, real AC. AC table: barbarian 14, bard 13, cleric 15, druid 14, fighter 16, monk 12 (WIS mod applied), paladin 16, ranger 13, rogue 13, sorcerer 11, wizard 11. Monk: unarmed (no weapon field), WIS-to-AC applied. Druid: hide armor (no metal). Arcane casters: quarterstaff, no armor. Encumbrance calculated. Spell component pouch for all 5 caster classes. `starting_equipment` override works. Zero chargen regressions. | `9bf1d3d` |
@@ -128,6 +132,8 @@
 - **[DISPATCHED] WO-BURST-003-AOE-001** — AoE confirm-gated overlay. `PendingAoE` frozen dataclass on `WorldState`. ASCII preview (`@`=origin, `*`=AoE, `!`=entity-in-AoE). Parser intercepts yes/cancel. Sensor events: AOE_PREVIEW_CONFIRMED / AOE_PREVIEW_CANCELLED. 10 tests. Gate: BURST-003 (new gate).
 - **[DISPATCHED] WO-BURST-002-RESEARCH-001** — Spark runtime constraint envelope. `SparkFailureMode` enum (6 modes), `SPARK_SLA_PER_CALL` constants per CallType, `TEMPLATE_NARRATION` deterministic fallback, TTFT measurement in `SparkAdapter.generate()`, prep pipeline asset-level catch. 12 tests.
 - **[DISPATCHED] WO-FIX-HOOLIGAN-03** — RV-001 compound narration fix. Scope `_check_rv001_hit_miss()` to first sentence via `. ` split. Gate K 67→70 on acceptance. FINDING-HOOLIGAN-03 closed on completion.
+- ~~WO-BURST-003-AOE-001~~ — **ACCEPTED**. 10/10 Gate BURST-003. PendingAoE, ASCII overlay, confirm-gated parser.
+- ~~WO-BURST-002-RESEARCH-001~~ — **ACCEPTED**. 12/12 Gate BURST-002. SparkFailureMode, SLA constants, template fallback, TTFT.
 - ~~WO-FIX-GRAMMAR-01~~ — **ACCEPTED**. Gate K 69/69. `play.py:647` title-case fix. BL fixed.
 - ~~WO-CHARGEN-MULTICLASS-001~~ — **ACCEPTED**. Gate V8 15/15. `class_mix` param. BAB/saves/HP/skills/class-skills all correct. Multi-caster: first caster wins (deferred dual-merge). Zero regressions.
 - ~~WO-CHARGEN-EQUIPMENT-001~~ — **ACCEPTED**. Gate V7 73/73. Inventory, weapon, real AC, encumbrance. All 11 classes. Monk WIS-to-AC. W-15 X-01 gap resolved.

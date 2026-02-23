@@ -17,10 +17,13 @@ CANONICAL OWNER: aidm.core.state (this file).
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, Any, Optional
+from typing import TYPE_CHECKING, Dict, Any, Optional
 from types import MappingProxyType
 import hashlib
 import json
+
+if TYPE_CHECKING:
+    from aidm.core.pending_aoe import PendingAoE
 
 
 @dataclass
@@ -30,12 +33,22 @@ class WorldState:
     ruleset_version: str
     entities: Dict[str, Any] = field(default_factory=dict)
     active_combat: Optional[Dict[str, Any]] = None
+    pending_aoe: Optional["PendingAoE"] = field(default=None, compare=False)
+
+    def clear_pending_aoe(self) -> "WorldState":
+        """Return a copy of this WorldState with pending_aoe cleared."""
+        from copy import deepcopy
+        new_ws = deepcopy(self)
+        new_ws.pending_aoe = None
+        return new_ws
 
     def state_hash(self) -> str:
         """
         Compute deterministic hash of world state.
 
         Uses stable key ordering to ensure identical states produce identical hashes.
+        pending_aoe is excluded — it is ephemeral UI state, not part of the
+        canonical game simulation.
         """
         # Convert to JSON with sorted keys for deterministic serialization
         state_dict = {

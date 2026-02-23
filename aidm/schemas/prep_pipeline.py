@@ -223,6 +223,12 @@ class GeneratedAsset:
     generation_method: str = "stub"
     """Generation method ('stub', 'llm', 'image_gen', 'music_gen', 'sfx_gen')."""
 
+    status: str = "ok"
+    """Asset status: 'ok' (generated) or 'prep_failed' (Spark failure during prep)."""
+
+    failure_mode: Optional[str] = None
+    """SparkFailureMode value string if status == 'prep_failed', else None."""
+
     metadata: Dict[str, Any] = field(default_factory=dict)
     """Additional metadata (model used, generation params, etc.)."""
 
@@ -236,6 +242,8 @@ class GeneratedAsset:
             "file_format": self.file_format,
             "content_hash": self.content_hash,
             "generation_method": self.generation_method,
+            "status": self.status,
+            "failure_mode": self.failure_mode,
             "metadata": self.metadata,
         }
 
@@ -250,6 +258,8 @@ class GeneratedAsset:
             file_format=data.get("file_format", ""),
             content_hash=data.get("content_hash", ""),
             generation_method=data.get("generation_method", "stub"),
+            status=data.get("status", "ok"),
+            failure_mode=data.get("failure_mode", None),
             metadata=data.get("metadata", {}),
         )
 
