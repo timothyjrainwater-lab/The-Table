@@ -31,8 +31,10 @@ Reference: docs/planning/EXECUTION_PLAN_V2_POST_AUDIT.md (WO-041)
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
-from aidm.lens.narrative_brief import NarrativeBrief
+from typing import TYPE_CHECKING, Dict, List, Optional
+
+if TYPE_CHECKING:
+    from aidm.lens.narrative_brief import NarrativeBrief
 
 
 @dataclass(frozen=True)

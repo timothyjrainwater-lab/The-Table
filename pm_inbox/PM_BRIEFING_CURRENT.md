@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 2 COMPLETE. PRS-01 RC READY.** 6,536+ tests. Commit `9bf1d3d`. All gates PASS. P1 PASS (committed). WO-UI-05 ACCEPTED (visual gate passed). V7 73/73. V8 15/15. **4 WOs dispatched in parallel: AoE overlay, Spark runtime, HOOLIGAN-03 fix, GAP-A fix.**
+**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 2 COMPLETE. PRS-01 RC READY.** Gate K 69/69. WO-FIX-GRAMMAR-01 ACCEPTED. GAP-A BL fix applied. **5 WOs still in builder queue: UI-06, CHARGEN-PHASE3-LEVELUP, AoE, Spark runtime, HOOLIGAN-03.**
 
 ---
 
@@ -14,7 +14,7 @@
 | B | 23/23 | H | 16/16 | O | 47/47 |
 | C | 24/24 | I | 13/13 | P | 22/22 |
 | D | 18/18 | J | 27/27 | Q | 16/16 |
-| E | 14/14 | K | 67/67 | R | 18/18 |
+| E | 14/14 | K | 69/69 | R | 18/18 |
 | F | 10/10 | L | 32/32 | S | 31/31 |
 |   |       | M | 31/31 | T | 23/23 |
 |   |       |   |       | U | 20/20 |
@@ -33,8 +33,8 @@
 
 ## Operator Action Queue (max 3)
 
-1. **7 WOs in builder queue.** UI-06 (entity tokens), CHARGEN-PHASE3-LEVELUP (Gate V9), GRAMMAR-01 fix, AoE overlay, Spark runtime, HOOLIGAN-03 fix, GAP-A fix (done).
-2. **Await builder debriefs.** Features: UI-06, LEVELUP, AoE, Spark. Fixes: GRAMMAR-01, HOOLIGAN-03.
+1. **5 WOs in builder queue.** UI-06 (entity tokens), CHARGEN-PHASE3-LEVELUP (Gate V9), AoE overlay, Spark runtime, HOOLIGAN-03 fix.
+2. **Await builder debriefs.** Features: UI-06, LEVELUP, AoE, Spark. Fix: HOOLIGAN-03.
 3. **Run orchestrator when ready.** `python scripts/build_release_candidate_packet.py` — should generate a clean MANIFEST.
 
 ## Current Focus (Slate's focused recall)
@@ -47,7 +47,7 @@
 
 **Deferred:** Chatterbox swap timing (8.0s budget). GAP-B HIGH (VS Build Tools). FINDING-WORLDGEN-IP-001 (pre-commit bundle scan gate candidate).
 
-**Active dispatches:** WO-BURST-003-AOE-001 (AoE, 10 tests), WO-BURST-002-RESEARCH-001 (Spark runtime, 12 tests), WO-FIX-HOOLIGAN-03 (Gate K 67→70), WO-UI-06 (entity tokens, Gate UI-06 10 tests), WO-CHARGEN-PHASE3-LEVELUP (Gate V9 15 tests), WO-FIX-GRAMMAR-01 (1-line, Gate K regression).
+**Active dispatches:** WO-BURST-003-AOE-001 (AoE, 10 tests), WO-BURST-002-RESEARCH-001 (Spark runtime, 12 tests), WO-FIX-HOOLIGAN-03 (Gate K 69→72), WO-UI-06 (entity tokens, Gate UI-06 10 tests), WO-CHARGEN-PHASE3-LEVELUP (Gate V9 15 tests).
 
 **BURST-001:** ~~Tier 1~~ → ~~Tier 2~~ → ~~RV-007~~ → ~~Tier 3~~ → ~~Tier 4~~ → ~~Tier 5.1-5.4~~ → ~~**5.5 Playtest v1 — ACCEPTED**~~ **BURST-001 COMPLETE.**
 **PRS-01:** ~~Spec review~~ → ~~5 WOs dispatched~~ → ~~**5/5 ACCEPTED**~~ → ~~**SCAN FIX ACCEPTED**~~ → ~~pre-RC cleanup~~ → ~~**ALL GATES GREEN**~~ → ~~**ORCHESTRATOR ACCEPTED**~~ → **commit + IP remediation (WO-PRS-IP-001) → RC READY**
@@ -65,16 +65,18 @@
 | FINDING-PLAYTEST-F01 | MEDIUM | OPEN | TTS env not provisioned. Neither Chatterbox nor Kokoro installed. 7 TTS-dependent checkpoints validated by proxy (unit tests). Live audio deferred. |
 | FINDING-HOOLIGAN-03 | MEDIUM | DISPATCHED | RV-001 false positive on compound actions — WO-FIX-HOOLIGAN-03 dispatched. Fix: scope `_check_rv001_hit_miss()` to first sentence. Gate K 67→70 on acceptance. |
 | FINDING-CHARGEN-SKILLS-01 | MEDIUM | RESOLVED | Anvil skills WO (`8a9442a`) broke 4 tests (not 3 as originally reported): stale hardcoded counts. Fixed by Thunder. |
-| FINDING-GRAMMAR-01 | LOW | DISPATCHED | WO-FIX-GRAMMAR-01 dispatched. Condition `replace('_',' ')` → `.title()` in play_loop.py. 1–2 Gate K regression tests. |
+| FINDING-GRAMMAR-01 | LOW | RESOLVED | WO-FIX-GRAMMAR-01 ACCEPTED. `play.py:647` `.title()` appended. Gate K 67→69. 2 regression tests. |
 | FINDING-SIGLIP-01 | LOW | RESOLVED | `test_siglip_critique.py` merge conflicts resolved by Anvil (`20797a9`) |
-| GAP-A | LOW | RESOLVED | `dm_persona.py` missing import — `from aidm.lens.narrative_brief import NarrativeBrief` added directly (no WO needed). Applied 2026-02-23. |
+| GAP-A | LOW | RESOLVED | `dm_persona.py` missing import fixed via `TYPE_CHECKING` guard — no runtime BL violation. Boundary law test PASS. |
 | GAP-B | HIGH | OPEN | llama-cpp-python blocks Qwen3/Gemma3 (needs VS Build Tools) |
 | FINDING-WORLDGEN-IP-001 | HIGH | OPEN | Source material names (Mind Flayer, Beholder, etc.) are retained in internal data as **audit anchors** — required for accuracy verification against source. Names cannot be stripped until: (1) source ingestion is complete, (2) double audit confirms every mechanical value (HP, AC, attacks, abilities) matches source material exactly, (3) strip replaces names with IDs. Only after strip is complete can World Gen LLM mode be enabled to apply new skin. Additionally: no post-generation IP scan exists before bundle commit (Recognition Test in `WORLD_COMPILER.md §2.1` specified but not gated). **Full pre-condition chain:** ingestion complete → double audit PASS → name strip → IP scan gate on bundle output → LLM mode enabled. Not a current RC blocker — RC ships stub mode (IDs already). PRS-01 amendment candidate for bundle scan gate. |
 
 ## Inbox
 
+- **[DEBRIEF] [WO-FIX-GRAMMAR-01_DEBRIEF.md](pm_inbox/WO-FIX-GRAMMAR-01_DEBRIEF.md)** — ACCEPTED. play.py:647 `.title()`. Gate K 69/69. BL fix applied.
 - **[DISPATCH] [WO-UI-06_DISPATCH.md](pm_inbox/WO-UI-06_DISPATCH.md)** — WebSocket → Three.js live entity tokens (EntityRenderer, entity_state/entity_delta handlers, HP bars, Gate UI-06 10 tests)
 - **[DISPATCH] [WO-CHARGEN-PHASE3-LEVELUP_DISPATCH.md](pm_inbox/WO-CHARGEN-PHASE3-LEVELUP_DISPATCH.md)** — Level-up flow: level_up() delta function, CLASS_FEATURES table, Gate V9 15 tests
+- **[DISPATCH] [WO-CHARGEN-PHASE3_DISPATCH.md](pm_inbox/WO-CHARGEN-PHASE3_DISPATCH.md)** — Phase 3 chargen: dual-caster merging (V10, 20 tests), animal companions (V11, 25 tests), racial trait encoding (V12, 18 tests). 63 tests total. V11+V12 are parallel-dispatchable.
 - **[DISPATCH] [WO-FIX-GRAMMAR-01_DISPATCH.md](pm_inbox/WO-FIX-GRAMMAR-01_DISPATCH.md)** — Condition display title-case fix (play_loop.py, 1-line, 1 regression test)
 - **[DISPATCH] [WO-BURST-003-AOE-001_DISPATCH.md](pm_inbox/WO-BURST-003-AOE-001_DISPATCH.md)** — AoE confirm-gated overlay (10 tests, `PendingAoE`, ASCII preview, yes/cancel parser)
 - **[DISPATCH] [WO-BURST-002-RESEARCH-001_DISPATCH.md](pm_inbox/WO-BURST-002-RESEARCH-001_DISPATCH.md)** — Spark runtime constraint envelope (SparkFailureMode, SLA constants, template fallback, TTFT, 12 tests)
@@ -93,6 +95,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-FIX-GRAMMAR-01 | **ACCEPTED** — Gate K 69/69 (67+2). `play.py:647`: `.replace('_',' ')` → `.replace('_',' ').title()`. 1 hit total in file. 2 regression tests appended to `test_unknown_gate_k.py`. FINDING-GRAMMAR-01 RESOLVED. GAP-A BL fix: `TYPE_CHECKING` guard on `NarrativeBrief` import — boundary law PASS. | (pending commit) |
 | WO-CHARGEN-MULTICLASS-001 | **ACCEPTED** — 15/15 Gate V8. `class_mix={"fighter":3,"wizard":2}` param added to `build_character()`. BAB = max across classes (fighter3/wizard2 → BAB 3). Saves = best per save independently. HP = sum of HD per class. Skill points = sum per class. Class skills = union. `favored_class` stored informational. Validation: ValueError on total>20, unknown class, ambiguous params. Multi-caster decision: first caster in mix wins (wizard/cleric → wizard slots only); dual-caster merge deferred. BAB/save table verified vs PHB p.57. Zero V1-V6 regressions. | `9bf1d3d` |
 | WO-CHARGEN-EQUIPMENT-001 | **ACCEPTED** — 73/73 Gate V7. `_assign_starting_equipment()` wired into `build_character()`. All 11 classes: inventory, weapon, real AC. AC table: barbarian 14, bard 13, cleric 15, druid 14, fighter 16, monk 12 (WIS mod applied), paladin 16, ranger 13, rogue 13, sorcerer 11, wizard 11. Monk: unarmed (no weapon field), WIS-to-AC applied. Druid: hide armor (no metal). Arcane casters: quarterstaff, no armor. Encumbrance calculated. Spell component pouch for all 5 caster classes. `starting_equipment` override works. Zero chargen regressions. | `9bf1d3d` |
 | WO-UI-05 | **ACCEPTED** — scene-builder.ts delivered + visual gate passed (Thunder direct iteration). Walnut table (procedural grain canvas texture, seeded PRNG), recessed felt vault, player shelf, trash hole + brass ring, cup holder, warm candlelight (3 PointLights + map spot + tray fill + HemisphereLight + ambient), per-lantern flicker, 7 object stubs (crystal ball on pedestal with glow + pulse, dice tower, character sheet with full D&D 3.5e layout, notebook, tome, parchment, d6s). Math.random → `makePrng()` seeded LCG. Gate G 22/22 PASS. | `9bf1d3d` |
@@ -125,6 +128,7 @@
 - **[DISPATCHED] WO-BURST-003-AOE-001** — AoE confirm-gated overlay. `PendingAoE` frozen dataclass on `WorldState`. ASCII preview (`@`=origin, `*`=AoE, `!`=entity-in-AoE). Parser intercepts yes/cancel. Sensor events: AOE_PREVIEW_CONFIRMED / AOE_PREVIEW_CANCELLED. 10 tests. Gate: BURST-003 (new gate).
 - **[DISPATCHED] WO-BURST-002-RESEARCH-001** — Spark runtime constraint envelope. `SparkFailureMode` enum (6 modes), `SPARK_SLA_PER_CALL` constants per CallType, `TEMPLATE_NARRATION` deterministic fallback, TTFT measurement in `SparkAdapter.generate()`, prep pipeline asset-level catch. 12 tests.
 - **[DISPATCHED] WO-FIX-HOOLIGAN-03** — RV-001 compound narration fix. Scope `_check_rv001_hit_miss()` to first sentence via `. ` split. Gate K 67→70 on acceptance. FINDING-HOOLIGAN-03 closed on completion.
+- ~~WO-FIX-GRAMMAR-01~~ — **ACCEPTED**. Gate K 69/69. `play.py:647` title-case fix. BL fixed.
 - ~~WO-CHARGEN-MULTICLASS-001~~ — **ACCEPTED**. Gate V8 15/15. `class_mix` param. BAB/saves/HP/skills/class-skills all correct. Multi-caster: first caster wins (deferred dual-merge). Zero regressions.
 - ~~WO-CHARGEN-EQUIPMENT-001~~ — **ACCEPTED**. Gate V7 73/73. Inventory, weapon, real AC, encumbrance. All 11 classes. Monk WIS-to-AC. W-15 X-01 gap resolved.
 - ~~WO-UI-05~~ — **ACCEPTED pending visual**. scene-builder.ts: walnut + felt + candlelight + stubs. Math.random → seeded PRNG. Gate G 22/22. W-01–W-14 PASS. Visual gate: Thunder opens browser.
