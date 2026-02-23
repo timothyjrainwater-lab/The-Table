@@ -22,10 +22,7 @@ sources/
 
 # Generated output and scratch files
 output/
-models/*
-!models/voices/
-models/voices/*
-!models/voices/*.wav
+models/
 runtime_logs/
 nul
 srd_fixture_temp.json
@@ -45,3 +42,11 @@ image_cache/
 # Python virtual environments
 .venvs/
 credentials.json
+
+# Pre-RC cleanup: binary artifacts not for publishing
+inbox/*.docx
+inbox/extracted/
+pm_inbox/reviewed/experiment_artifacts/*.png
+
+# RC evidence packet (generated artifact — operator-triggered, not committed)
+RC_PACKET/

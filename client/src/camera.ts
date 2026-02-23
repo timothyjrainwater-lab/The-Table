@@ -11,7 +11,7 @@
 
 import * as THREE from 'three';
 
-export type PostureName = 'STANDARD' | 'DOWN' | 'LEAN_FORWARD';
+export type PostureName = 'STANDARD' | 'DOWN' | 'LEAN_FORWARD' | 'DICE_TRAY';
 
 interface PostureConfig {
   position: THREE.Vector3;
@@ -19,17 +19,31 @@ interface PostureConfig {
 }
 
 const POSTURES: Record<PostureName, PostureConfig> = {
+  // Seated at the near edge — looking across the open work zone toward the crystal ball.
+  // lookAt z=1.0 puts natural gaze on the open walnut work area; shelf is below sightline.
   STANDARD: {
-    position: new THREE.Vector3(0, 5, 8),
-    lookAt: new THREE.Vector3(0, 0, 0),
+    position: new THREE.Vector3(0, 2.4, 5.8),
+    lookAt: new THREE.Vector3(0, 0.1, 1.0),
   },
+  // Looking down at the player shelf — sheet, notebook, tome fill the view.
+  // Eye raised slightly, lookAt at shelf surface level so objects are centered.
   DOWN: {
-    position: new THREE.Vector3(0, 8, 3),
-    lookAt: new THREE.Vector3(0, 0, 1),
+    position: new THREE.Vector3(0, 2.2, 5.6),
+    lookAt: new THREE.Vector3(0, -0.03, 4.8),
   },
+  // Steep overhead angle over the vault — map study view.
+  // Eye pulled high and back over the player side, looking down into the vault center.
   LEAN_FORWARD: {
-    position: new THREE.Vector3(0, 4, 4),
-    lookAt: new THREE.Vector3(0, 0, -2),
+    position: new THREE.Vector3(0, 4.5, 1.5),
+    lookAt: new THREE.Vector3(0, 0, -0.5),
+  },
+  // Looking right at the dice station — player turns head toward the tray.
+  // Eye stays near the shelf edge (z≈5.0), shifts right (x≈3.5), drops to
+  // tabletop sightline (y≈1.6). lookAt aims at the tray center so the tower,
+  // felt floor, and loose d6s all read clearly inside the framed tray.
+  DICE_TRAY: {
+    position: new THREE.Vector3(3.5, 1.6, 5.0),
+    lookAt: new THREE.Vector3(4.5, 0.08, 3.2),
   },
 };
 

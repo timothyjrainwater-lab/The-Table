@@ -1,0 +1,80 @@
+# IP Denylist — Non-OGL/Non-SRD Proper Nouns
+# Format: One term per line, case-insensitive matching
+# Lines starting with # are comments
+#
+# This file contains trademarked proper nouns and product identity terms
+# that are NOT part of the d20 System Reference Document (SRD) and should
+# not appear in published source code or documentation.
+#
+# Category: Campaign Settings (non-SRD)
+Greyhawk
+Faerun
+Forgotten Realms
+Eberron
+Dragonlance
+Krynn
+Ravenloft
+Planescape
+Dark Sun
+Athas
+Birthright
+
+# Category: Deities (non-SRD, setting-specific)
+Pelor
+Heironeous
+Moradin
+Corellon Larethian
+Yondalla
+Gruumsh
+Lolth
+Nerull
+Vecna
+Boccob
+Erythnul
+Kord
+Wee Jas
+Hextor
+Olidammara
+St. Cuthbert
+Fharlanghn
+
+# Category: Organizations (non-SRD)
+Harpers
+Zhentarim
+Red Wizards
+Emerald Enclave
+
+# Category: Geographic locations (non-SRD, setting-specific)
+Waterdeep
+Baldur's Gate
+Neverwinter
+Sigil
+Undermountain
+Menzoberranzan
+
+# Category: Monsters (non-SRD, product identity)
+Beholder
+Mind Flayer
+Illithid
+Displacer Beast
+Umber Hulk
+Githyanki
+Githzerai
+Kuo-toa
+Slaad
+Yuan-ti
+
+# Category: Magic items / Artifacts (non-SRD product identity)
+Apparatus of Kwalish
+Mace of St. Cuthbert
+Eye of Vecna
+Hand of Vecna
+
+# Note: The following are SRD terms and should NOT be on this list:
+# - Core races (dwarf, elf, halfling, human, gnome, half-elf, half-orc)
+# - Core classes (fighter, wizard, rogue, cleric, etc.)
+# - Common monsters (goblin, orc, troll, dragon, etc.)
+# - Core spells (fireball, magic missile, cure light wounds, etc.)
+# - Alignments (lawful good, chaotic evil, etc.)
+# - Ability scores (Strength, Dexterity, etc.)
+# - Game mechanics terms (armor class, hit points, saving throw, etc.)

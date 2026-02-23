@@ -1,0 +1,15 @@
+# P2 Known Failures Baseline
+# These test failures are pre-existing and expected. Any P2 failure NOT listed
+# here is a blocking regression. Authority: PRS-01 §9 / WO-PRS-ORCHESTRATOR-001.
+#
+# Last updated: 2026-02-23
+
+# Collection errors (environment-specific imports not available in base venv)
+tests/test_heuristics_image_critic.py   -- collection error: missing image critic dependencies
+tests/test_ws_bridge.py                 -- collection error: missing WebSocket bridge dependencies
+
+# Test suite failures (TTS/PM tooling not provisioned in default environment)
+tests/test_speak_signal.py              -- 2 failures: TTS environment not provisioned (Kokoro/Fish not loaded)
+tests/test_pm_inbox_hygiene.py          -- 3 failures: PM tooling tests (pm_inbox state-dependent)
+tests/test_graduated_critique_orchestrator.py -- 1 failure: orchestrator environment not provisioned
+tests/test_immersion_authority_contract.py    -- ignored: contract tests require specific runtime state

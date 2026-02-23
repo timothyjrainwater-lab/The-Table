@@ -752,6 +752,36 @@
       "size_category": "Medium",
       "provenance": "RAW",
       "source_notes": "PHB Table 7-5 p.116. Exotic one-handed; can be used two-handed as martial."
+    },
+    "greataxe": {
+      "name": "Greataxe",
+      "damage_dice": "1d12",
+      "critical_range": 20,
+      "critical_multiplier": 3,
+      "damage_type": "slashing",
+      "weapon_type": "two-handed",
+      "proficiency_group": "martial",
+      "weight_lb": 12.0,
+      "cost_gp": 20.0,
+      "range_increment_ft": 0,
+      "size_category": "Medium",
+      "provenance": "RAW",
+      "source_notes": "PHB Table 7-5 p.116"
+    },
+    "quarterstaff": {
+      "name": "Quarterstaff",
+      "damage_dice": "1d6",
+      "critical_range": 20,
+      "critical_multiplier": 2,
+      "damage_type": "bludgeoning",
+      "weapon_type": "two-handed",
+      "proficiency_group": "simple",
+      "weight_lb": 4.0,
+      "cost_gp": 0.0,
+      "range_increment_ft": 0,
+      "size_category": "Medium",
+      "provenance": "RAW",
+      "source_notes": "PHB Table 7-5 p.116. Double weapon; can attack with both ends."
     }
   },
   "armor": {

@@ -1016,7 +1016,7 @@ session_entry = SessionLedgerEntry(
     summary="Party explored ancient ruins, defeated goblin warband",
     facts_added=[
         "Found map to hidden temple",
-        "Learned about cult of Vecna"
+        "Learned about the lich's cult"
     ],
     state_changes=[
         "Wizard gained level 3",
@@ -1049,7 +1049,7 @@ evidence = CharacterEvidenceEntry(
     targets=["bandit_chief_1"],
     location_ref="forest_clearing",
     faction_ref="bandits",
-    deity_ref="heironeous",
+    deity_ref="lawful_deity",
     alignment_axis_tags=["lawful", "good"],
     citations=[{"source_id": "681f92bc94ff", "page": 104}]
 )

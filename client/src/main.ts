@@ -1,17 +1,15 @@
 /**
- * Main entry — Table UI Phase 3 (Slice 2).
+ * Main entry — Table UI Slice 3 (WO-UI-05: Visual atmosphere + object stubs).
  *
- * - Three.js scene with table surface and zone boundaries
- * - 3 camera postures (STANDARD, DOWN, LEAN_FORWARD) with smooth transitions
- * - WebSocket connection to backend
- * - PENDING round trip (PendingRoll -> DiceTowerDropIntent)
- * - BeatIntent card as first TableObject with pick/drag/drop
- * - Dice tray with fidget-ready d20 + dice tower drop target
- * - Result-reveal animation driven by Box authoritative outcome
- * - Zone constraint enforcement
- * - Keyboard-only path for pick/drag/drop
+ * - Dark walnut table surface with recessed felt vault
+ * - Warm candlelight atmosphere (3 lantern point lights, flicker animation)
+ * - Physical object stubs: character sheet, notebook, tome, dice bag,
+ *   crystal ball, dice tower, cup holder, scattered clutter
+ * - Shadow pass on all stubs
+ * - Camera postures, WebSocket bridge, dice ritual (from Slice 2) preserved
  *
- * Authority: WO-UI-01, WO-UI-02, WO-UI-03, DOCTRINE_04_TABLE_UI_MEMO_V4.
+ * Authority: WO-UI-05, MEMO_TABLE_VISION_SPATIAL_SPEC, TABLE_SURFACE_UI_SPECIFICATION,
+ *            DOCTRINE_04_TABLE_UI_MEMO_V4.
  */
 
 import * as THREE from 'three';
@@ -22,6 +20,14 @@ import { DiceObject } from './dice-object';
 import { TableObjectRegistry } from './table-object';
 import { DragInteraction } from './drag-interaction';
 import { ZONES } from './zones';
+import {
+  buildTableSurface,
+  buildAtmosphere,
+  buildObjectStubs,
+  updateFlicker,
+  updateCrystalBall,
+} from './scene-builder';
+import type { LanternLight } from './scene-builder';
 
 // ---------------------------------------------------------------------------
 // Scene setup
@@ -29,12 +35,16 @@ import { ZONES } from './zones';
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.35;
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x1a1a2e);
+scene.background = new THREE.Color(0x08060a); // near-black — room beyond table
+scene.fog = new THREE.Fog(0x08060a, 14, 22);  // table floats in darkness
 
 const camera = new THREE.PerspectiveCamera(
   60,
@@ -45,63 +55,16 @@ const camera = new THREE.PerspectiveCamera(
 const postureCtrl = new CameraPostureController(camera);
 
 // ---------------------------------------------------------------------------
-// Lighting
+// Table surface + atmosphere (WO-UI-05)
 // ---------------------------------------------------------------------------
 
-const ambientLight = new THREE.AmbientLight(0x404060, 0.6);
-scene.add(ambientLight);
+const tableSurface = buildTableSurface();
+scene.add(tableSurface);
 
-const dirLight = new THREE.DirectionalLight(0xfff5e0, 0.8);
-dirLight.position.set(5, 10, 5);
-dirLight.castShadow = true;
-scene.add(dirLight);
+const objectStubs = buildObjectStubs();
+scene.add(objectStubs);
 
-const pointLight = new THREE.PointLight(0xff8844, 0.4, 20);
-pointLight.position.set(0, 3, 0);
-scene.add(pointLight);
-
-// ---------------------------------------------------------------------------
-// Table surface + zone boundaries
-// ---------------------------------------------------------------------------
-
-// Main table surface
-const tableGeo = new THREE.PlaneGeometry(12, 8);
-const tableMat = new THREE.MeshStandardMaterial({
-  color: 0x2d1b0e,
-  roughness: 0.8,
-  metalness: 0.1,
-});
-const tableMesh = new THREE.Mesh(tableGeo, tableMat);
-tableMesh.rotation.x = -Math.PI / 2;
-tableMesh.receiveShadow = true;
-scene.add(tableMesh);
-
-// Zone boundaries — wireframe rectangles marking table zones
-// Uses zone definitions from zones.ts for consistency with backend
-for (const z of ZONES) {
-  const w = z.halfWidth * 2;
-  const h = z.halfHeight * 2;
-
-  const zoneGeo = new THREE.PlaneGeometry(w, h);
-  const zoneMat = new THREE.MeshBasicMaterial({
-    color: z.color,
-    transparent: true,
-    opacity: 0.15,
-    side: THREE.DoubleSide,
-  });
-  const zoneMesh = new THREE.Mesh(zoneGeo, zoneMat);
-  zoneMesh.rotation.x = -Math.PI / 2;
-  zoneMesh.position.set(z.centerX, 0.01, z.centerZ);
-  scene.add(zoneMesh);
-
-  // Wireframe border
-  const edges = new THREE.EdgesGeometry(zoneGeo);
-  const lineMat = new THREE.LineBasicMaterial({ color: z.color, transparent: true, opacity: 0.5 });
-  const wireframe = new THREE.LineSegments(edges, lineMat);
-  wireframe.rotation.x = -Math.PI / 2;
-  wireframe.position.set(z.centerX, 0.02, z.centerZ);
-  scene.add(wireframe);
-}
+const lanterns: LanternLight[] = buildAtmosphere(scene);
 
 // ---------------------------------------------------------------------------
 // WebSocket bridge
@@ -313,6 +276,7 @@ window.addEventListener('keydown', (event) => {
     case '1': target = 'STANDARD'; break;
     case '2': target = 'DOWN'; break;
     case '3': target = 'LEAN_FORWARD'; break;
+    case '4': target = 'DICE_TRAY'; break;
   }
   if (target) {
     postureCtrl.setPosture(target);
@@ -335,13 +299,17 @@ window.addEventListener('resize', () => {
 // ---------------------------------------------------------------------------
 
 const clock = new THREE.Clock();
+let elapsed = 0;
 
 function animate(): void {
   requestAnimationFrame(animate);
   const dt = clock.getDelta();
+  elapsed += dt;
   postureCtrl.update(dt);
   d20.updateAnimation(dt);
   dragInteraction.updateFocusHighlight();
+  updateFlicker(lanterns, elapsed);
+  updateCrystalBall(objectStubs, elapsed);
   renderer.render(scene, camera);
 }
 

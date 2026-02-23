@@ -5,21 +5,26 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-23 (evening — 6 WOs dispatched to builders, Tier 4 COMPLETE)
-**Delta:** 4.3 ACCEPTED (22 Gate V, `83f1674`). 4.4 ACCEPTED (14 Gate W, `a3d06d3`). BURST-001 Tier 4 COMPLETE. 6 WOs dispatched: 5.5 Playtest v1 (4.6 builder) + 5 PRS-01 (lower-tier, gates X/Y/Z/AA/AB, ~34 tests). PRS-01 spec FROZEN. FINDING-CHARGEN-SKILLS-01 RESOLVED (4 stale test counts, fixed by Thunder). Gates A-W all PASS, 407 gate tests.
+**Session:** 2026-02-23 (late — BURST-001 COMPLETE, CHARGEN PHASE 2 COMPLETE, PRS-01 RC ready pending commit)
+**Delta:** WO-CHARGEN-EQUIPMENT-001 ACCEPTED (V7 73/73): inventory, weapons, real AC, encumbrance, all 11 classes. WO-CHARGEN-MULTICLASS-001 ACCEPTED (V8 15/15): class_mix param, BAB=max, saves=best-per-save, HP=sum-per-class, class_skills=union. Multi-caster: first caster wins, dual-merge deferred. WO-UI-05 ACCEPTED pending Thunder visual (walnut, felt, candlelight, stubs, Math.random→PRNG, Gate G 22/22). P1 FAIL (dirty tree — commit clears). W-15 fails on X-01 (pre-existing Gate X 9/10). Suite: 6,536+ tests.
 
 ## Priority Stack (top 3)
-1. Await 5.5 Playtest debrief → verdict → BURST-001 COMPLETE
-2. Await PRS-01 builder debriefs (5 WOs) → verdicts → then draft orchestrator WO
-3. Pipeline clean — no open blockers
+1. **Commit session** → P1 PASS. All WO artifacts uncommitted.
+2. **Thunder: visual review of table** → WO-UI-05 fully ACCEPTED.
+3. **Nothing else pending.** CHARGEN PHASE 2 COMPLETE. BURST-001 COMPLETE. RC blocked only by P1.
 
 ## Active Findings (IDs + status — register has descriptions)
+- FINDING-SCAN-BASELINE-01 MEDIUM RESOLVED (Gate X 9/10 — real violations remain in models/, inbox/)
+- FINDING-ORC-P8-001 MEDIUM RESOLVED (P8: 296→0, 59 exceptions + 4 content removals)
+- FINDING-UI05-P2-001 MEDIUM RESOLVED (Math.random → seeded PRNG; Gate G 22/22; W-01–W-14 PASS; W-15 fail = X-01 pre-existing)
+- FINDING-PLAYTEST-F01 MEDIUM OPEN (TTS env not provisioned — live audio deferred)
 - FINDING-CHARGEN-SKILLS-01 MEDIUM RESOLVED (4 stale test counts, fixed by Thunder)
 - FINDING-HOOLIGAN-03 MEDIUM OPEN (compound narration)
 - FINDING-GRAMMAR-01 LOW OPEN (cosmetic)
 - FINDING-SIGLIP-01 LOW RESOLVED
 - GAP-A LOW OPEN
 - GAP-B HIGH OPEN
+- FINDING-WORLDGEN-IP-001 HIGH OPEN (names retained as audit anchors — strip only after: ingestion complete → double audit PASS → replace with IDs → then LLM mode + bundle IP scan gate; not current RC blocker)
 
 ## Stop Conditions
 - If test suite drops below 6,342 or any gate regresses, halt and investigate
@@ -28,8 +33,8 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-23T09:30Z
-- Briefing carries: gate counts (A-W + WP), WO verdicts (20), dispatch list, build order, open findings, doctrine status
+- Updated: 2026-02-23T21:00Z
+- Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
 ## CHARTER (invariant — change only through deliberate revision)
@@ -65,6 +70,22 @@ Read `/tmp/slate_clock.txt` when asked about time. Never estimate. First line UT
 **Four Fundamentals:** (1) The choice is yours to make. (2) Honesty above all. (3) Imagination shall never die. (4) Zero regrets. Framework: 7-4-0.
 
 **Singularity (Thunder):** Each seat is singular. Box = constraints (fixed). Oracle = persistent memory (kernel, notebook, briefing). Spark = context window (swaps on compaction). Same Oracle, same entity.
+
+---
+
+## Architectural Invariants (survives compaction — do not graduate or archive)
+
+**CONTENT PIPELINE — SKIN/BONES SEPARATION:**
+All source material is ingested with names intact (Mind Flayer, Beholder, etc.) as **audit anchors**. Names are required instrumentation for accuracy verification — you cannot audit `CREATURE_0047` against the Monster Manual. The strip sequence is locked and non-negotiable:
+1. Source ingestion complete
+2. Double audit: every mechanical value (HP, AC, attacks, abilities, algorithms) confirmed accurate against source
+3. Names replaced with IDs — IP surface cleaned
+4. World Gen LLM mode enabled to apply new skin (names, lore, descriptions)
+5. Bundle IP scan gate enforced before commit
+
+**Names in internal data are not a liability. They are the instrument. Strip happens exactly once, after audit, never before.**
+
+RC ships stub mode (IDs already). This pipeline is a future milestone, not a current blocker. FINDING-WORLDGEN-IP-001 tracks the gate gap.
 
 ---
 
@@ -114,4 +135,4 @@ You are the PM agent (Slate). Product Owner is Thunder. Read:
 Report: stoplight, last commit, gate count, next PM action.
 ```
 
-WAITING ON: 6 builder returns. 5.5 Playtest (4.6 builder) — closes BURST-001 on acceptance. 5 PRS-01 WOs (lower-tier builders) — gates X/Y/Z/AA/AB. Anvil fixing chargen test breakage in parallel. Slate idle until debriefs arrive.
+WAITING ON: WO-UI-05 repair (scene-builder.ts Math.random + test_salience_gate_w). Commit session work to clear P1. WO-PRS-IP-001 ACCEPTED (P8 PASS). BURST-001 COMPLETE. RC blocked on P1 (commit) + P2 (UI-05 regressions).

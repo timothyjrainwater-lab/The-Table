@@ -1,0 +1,133 @@
+# IP Exceptions — Permitted Uses of Denylist Terms
+# Format: term|file_path|justification (pipe-separated)
+# Lines starting with # are comments
+#
+# This file contains exceptions for IP denylist terms that are permitted
+# in specific files with documented justification.
+# Authority: WO-PRS-IP-001 (2026-02-23) / PRS-01 §8
+#
+# Exception groups:
+#   A — Provenance/audit documents (internal, not shipped game content)
+#   B — Internal design/audit docs (not shipped)
+#   C — Test fixtures (not game content)
+#   D — PM tooling (internal operational documents)
+#   E — Script test fixtures
+
+# ---------------------------------------------------------------------------
+# Group A: config/REUSE_DECISION.json — IP decision register
+# Must reference setting/creature names to document what was excluded from SRD
+# ---------------------------------------------------------------------------
+Eberron|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Eberron campaign setting)
+Ravenloft|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Ravenloft campaign setting)
+Forgotten Realms|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Forgotten Realms campaign setting)
+Faerun|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Faerûn, Forgotten Realms geography)
+Dragonlance|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Dragonlance campaign setting)
+Planescape|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Planescape campaign setting)
+Greyhawk|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Greyhawk campaign setting)
+Krynn|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Krynn, Dragonlance geography)
+Gruumsh|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Gruumsh, WotC deity)
+Pelor|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Pelor, WotC deity)
+Yuan-ti|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Yuan-ti, WotC creature)
+Waterdeep|config/REUSE_DECISION.json|IP decision register — documents excluded non-SRD content (Waterdeep, Forgotten Realms city)
+
+# ---------------------------------------------------------------------------
+# Group A: tools/data/creature_provenance.json — provenance tracking tool
+# Documents creature origin and exclusion decisions; must name excluded creatures
+# ---------------------------------------------------------------------------
+Beholder|tools/data/creature_provenance.json|Provenance tracking tool — records excluded non-SRD creature names
+Displacer Beast|tools/data/creature_provenance.json|Provenance tracking tool — records excluded non-SRD creature names
+Githyanki|tools/data/creature_provenance.json|Provenance tracking tool — records excluded non-SRD creature names
+Githzerai|tools/data/creature_provenance.json|Provenance tracking tool — records excluded non-SRD creature names
+Slaad|tools/data/creature_provenance.json|Provenance tracking tool — records excluded non-SRD creature names
+Umber Hulk|tools/data/creature_provenance.json|Provenance tracking tool — records excluded non-SRD creature names
+Yuan-ti|tools/data/creature_provenance.json|Provenance tracking tool — records excluded non-SRD creature names
+
+# ---------------------------------------------------------------------------
+# Group A: tools/data/creature_extraction_gaps.json — gap analysis document
+# ---------------------------------------------------------------------------
+Mind Flayer|tools/data/creature_extraction_gaps.json|Gap analysis tool — identifies extraction gaps for non-SRD creatures
+
+# ---------------------------------------------------------------------------
+# Group A: EXTRACTED_SOURCES_QUICK_REF.md — source provenance reference
+# ---------------------------------------------------------------------------
+Ravenloft|EXTRACTED_SOURCES_QUICK_REF.md|Source provenance reference — identifies excluded source material
+
+# ---------------------------------------------------------------------------
+# Group A: aidm/data/content_pack/creatures.json — OCR-extracted source data
+# Terms appear in garbled OCR text from source extraction, not shipped game narrative
+# ---------------------------------------------------------------------------
+Mind Flayer|aidm/data/content_pack/creatures.json|OCR-extracted organization pattern text from source material — lowercase garbled OCR, not shipped narrative
+Slaad|aidm/data/content_pack/creatures.json|OCR-extracted attack description text from source material — lowercase garbled OCR, not shipped narrative
+
+# ---------------------------------------------------------------------------
+# Group B: docs/AIDM_CORE_RULESET_AUDIT.md — internal ruleset audit record
+# ---------------------------------------------------------------------------
+Mind Flayer|docs/AIDM_CORE_RULESET_AUDIT.md|Internal ruleset audit — documents non-SRD creature IP status
+Illithid|docs/AIDM_CORE_RULESET_AUDIT.md|Internal ruleset audit — documents non-SRD creature IP status (Illithid = Mind Flayer alternate name)
+Beholder|docs/AIDM_CORE_RULESET_AUDIT.md|Internal ruleset audit — documents non-SRD creature IP status
+
+# ---------------------------------------------------------------------------
+# Group B: docs/AUDIT_REPORT.md — internal design audit document
+# ---------------------------------------------------------------------------
+Ravenloft|docs/AUDIT_REPORT.md|Internal design audit — references campaign setting in audit context
+
+# ---------------------------------------------------------------------------
+# Group B: docs/COMMUNITY_RULES_DEBATES_CATALOG.md — community rules research
+# ---------------------------------------------------------------------------
+Beholder|docs/COMMUNITY_RULES_DEBATES_CATALOG.md|Internal community rules research document — not shipped game content
+
+# ---------------------------------------------------------------------------
+# Group B: docs/design/TABLE_METAPHOR_AND_PLAYER_ARTIFACTS.md — UI design doc
+# ---------------------------------------------------------------------------
+Beholder|docs/design/TABLE_METAPHOR_AND_PLAYER_ARTIFACTS.md|Internal UI design document — not shipped game content
+
+# ---------------------------------------------------------------------------
+# Group C: tests/test_content_pack_creatures.py — test assertions for non-SRD exclusion
+# ---------------------------------------------------------------------------
+Beholder|tests/test_content_pack_creatures.py|Test fixture — verifies non-SRD creature exclusion logic
+Displacer Beast|tests/test_content_pack_creatures.py|Test fixture — verifies non-SRD creature exclusion logic
+Mind Flayer|tests/test_content_pack_creatures.py|Test fixture — verifies non-SRD creature exclusion logic
+Umber Hulk|tests/test_content_pack_creatures.py|Test fixture — verifies non-SRD creature exclusion logic
+
+# ---------------------------------------------------------------------------
+# Group C: tests/test_campaign_memory_schemas.py — schema validation fixtures
+# ---------------------------------------------------------------------------
+Pelor|tests/test_campaign_memory_schemas.py|Test fixture — schema validation using example deity names; not shipped game content
+Heironeous|tests/test_campaign_memory_schemas.py|Test fixture — schema validation using example deity names; not shipped game content
+
+# ---------------------------------------------------------------------------
+# Group C: tests/spec/ compliance documents — test data
+# ---------------------------------------------------------------------------
+Beholder|tests/spec/discovery_log_compliance.md|Compliance spec test data — non-SRD creature used as example in test spec
+Beholder|tests/spec/intent_bridge_compliance.md|Compliance spec test data — non-SRD creature used as example in test spec
+Beholder|tests/spec/world_compiler_compliance.md|Compliance spec test data — non-SRD creature used as example in test spec
+Illithid|tests/spec/world_compiler_compliance.md|Compliance spec test data — non-SRD creature used as example in test spec
+Githyanki|tests/spec/world_compiler_compliance.md|Compliance spec test data — non-SRD creature used as example in test spec
+
+# ---------------------------------------------------------------------------
+# Group D: pm_inbox/PM_BRIEFING_CURRENT.md — PM operational document
+# Terms appear in finding descriptions, not shipped source
+# ---------------------------------------------------------------------------
+Eberron|pm_inbox/PM_BRIEFING_CURRENT.md|PM operational briefing — finding description references IP term, not shipped content
+Ravenloft|pm_inbox/PM_BRIEFING_CURRENT.md|PM operational briefing — finding description references IP term, not shipped content
+Beholder|pm_inbox/PM_BRIEFING_CURRENT.md|PM operational briefing — finding description references IP term, not shipped content
+Mind Flayer|pm_inbox/PM_BRIEFING_CURRENT.md|PM operational briefing — finding description references IP term, not shipped content
+
+# ---------------------------------------------------------------------------
+# Group D: pm_inbox/PREFLIGHT_CANARY_LOG.md — PM operational log
+# ---------------------------------------------------------------------------
+Kord|pm_inbox/PREFLIGHT_CANARY_LOG.md|PM preflight canary log — example deity name used in test canary; not shipped content
+
+# ---------------------------------------------------------------------------
+# Group D: pm_inbox/reviewed/ — archived research and dispatch documents
+# ---------------------------------------------------------------------------
+Pelor|pm_inbox/reviewed/archive_spark_explore/HOOLIGAN_RUN_001.json|Archived hooligan detection test run — example narrative fixture; not shipped content
+Mind Flayer|pm_inbox/reviewed/WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md|Archived research document — historical narrative search artifact; not shipped content
+Illithid|pm_inbox/reviewed/WO_NARRATIVE_SEARCH_GOLDEN_TICKET_EVOLUTION.md|Archived research document — historical narrative search artifact; not shipped content
+Sigil|pm_inbox/reviewed/WO-CHARGEN-RESEARCH-001_DELIVERABLES.md|Archived chargen research — Sigil referenced in planar travel research; not shipped content
+Sigil|pm_inbox/reviewed/WO-CHARGEN-RESEARCH-001_DISPATCH.md|Archived chargen dispatch — Sigil referenced in planar travel research; not shipped content
+
+# ---------------------------------------------------------------------------
+# Group E: scripts/spark_hooligan.py — test fixture for hooligan detection
+# ---------------------------------------------------------------------------
+Pelor|scripts/spark_hooligan.py|Test fixture string for hooligan detection testing — not shipped game content

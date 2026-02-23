@@ -74,8 +74,8 @@ export class DiceObject implements TableObject {
     this.object3D = new THREE.Group();
     this.object3D.add(this.mesh);
 
-    // Default position: dice_tray zone center (from zones.json: 4.5, 1.75)
-    this.position = { x: 4.5, y: 0.3, z: 1.75 };
+    // Default position: dice_tray zone center (from zones.json: 4.5, 3.2)
+    this.position = { x: 4.5, y: 0.3, z: 3.2 };
     this.zone = 'dice_tray';
     this.object3D.position.set(this.position.x, this.position.y, this.position.z);
     this.pickable = false; // Not pickable until a PENDING_ROLL activates it
@@ -136,7 +136,7 @@ export class DiceObject implements TableObject {
     this.resultFace = null;
     this.revealComplete = false;
     this.targetRotation = null;
-    this.position = { x: 4.5, y: 0.3, z: 1.75 };
+    this.position = { x: 4.5, y: 0.3, z: 3.2 };
     this.zone = 'dice_tray';
     this.object3D.position.set(this.position.x, this.position.y, this.position.z);
     this.mesh.rotation.set(0, 0, 0);

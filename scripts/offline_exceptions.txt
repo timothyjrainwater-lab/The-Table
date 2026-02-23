@@ -25,3 +25,9 @@ aidm/core/obsidian_links.py|urllib.parse|URL encoding for Obsidian markdown link
 scripts/publish_smoke_no_network.py|socket|Smoke test script that monkey-patches socket to verify no network calls
 tests/test_publish_offline_gate_z.py|socket|Gate test file — test code, not production runtime
 tests/test_publish_offline_gate_z.py|requests|Gate test file — test code string literals, not actual import
+
+# Playwright venv type definitions — installed dev dependency, not production runtime
+# Scanner does not exclude .venvs/ for TypeScript files; these .d.ts files are type
+# definitions only, no actual network calls made at runtime.
+.venvs/fish_speech/Lib/site-packages/playwright/driver/package/types/protocol.d.ts|fetch|Playwright TypeScript type definition file in venv — dev dependency, not shipped or executed
+.venvs/fish_speech/Lib/site-packages/playwright/driver/package/types/types.d.ts|fetch|Playwright TypeScript type definition file in venv — dev dependency, not shipped or executed

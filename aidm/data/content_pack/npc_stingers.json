@@ -221,9 +221,9 @@
     "delivery_contexts": ["first_meeting", "tavern_downtime"],
     "fragments": [
       "Seven royal courts",
-      "Standing ovation Waterdeep",
+      "Standing ovation, Ironport",
       "Composed Ballad Eternal",
-      "Banned from Waterdeep for the encore"
+      "Banned from Ironport for the encore"
     ],
     "tags": {"pace": "theatrical", "pause_ms_before_punchline": 400, "emphasis_target": "produce", "mood_hint": "breezy"}
   },

@@ -57,6 +57,8 @@ export class BeatIntentCard implements TableObject {
     this.zone = 'player';
 
     scene.add(this.object3D);
+    // Hidden until the backend sends a real BeatIntent — don't litter the table
+    this.object3D.visible = false;
     this.renderText('Waiting for BeatIntent...', '', '');
   }
 
@@ -107,6 +109,7 @@ export class BeatIntentCard implements TableObject {
   update(beatType: string, pacingMode: string, beatId: string, targetHandles: string[]): void {
     this.currentBeatId = beatId;
     const handles = targetHandles.length > 0 ? targetHandles.join(', ') : '(none)';
+    this.object3D.visible = true; // Show once we have real data
     this.renderText(
       `Beat: ${beatType}`,
       `Pacing: ${pacingMode}`,
