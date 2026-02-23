@@ -42,7 +42,7 @@
 
 1. **Visual confirm spatial fix.** Thunder opens browser — book/notebook flat on shelf? Gates all Tier 1 UI work.
 2. **Anvil executing full UI workload.** 12 WOs: Tier 1 (crystal ball, battle scroll, character sheet), Tier 2 (fog of war, dice bag, token slide, session zero, notebook persist), Tier 3 (settings gem, map lasso, cup holder, bestiary bind, rulebook search).
-3. **Engine track in flight.** V13 (companion wire) ACCEPTED 24/24. 4 new condition/XP WOs dispatched: CP-17 (15 tests), CP-18 (10 tests), CP-19 (12 tests), XP-01 (14 tests). WO-WORLDGEN-INGESTION-001 ACCEPTED — ingestion step 1 complete, step 2 (double audit) pending.
+3. **Engine track in flight.** WO-ENGINE-LEVELUP-WIRE (XP-01, 14 tests) — sole active WO. CP-17/CP-18/CP-19 condition WOs dispatched but on hold. V13 companion wire ACCEPTED 24/24. INGESTION ACCEPTED 15/15.
 
 ## Current Focus (Slate's focused recall)
 
