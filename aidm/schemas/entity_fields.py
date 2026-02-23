@@ -146,6 +146,10 @@ class _EntityFields:
     CASTER_CLASS_2 = "caster_class_2"              # Name of the second caster class
     CASTER_LEVEL_2 = "caster_level_2"              # Class level of second caster
 
+    # --- Animal Companion (WO-ENGINE-COMPANION-WIRE) ---
+    COMPANION_OWNER_ID = "companion_owner_id"  # entity_id of the druid/ranger who owns this companion
+    COMPANION_TYPE = "companion_type"          # companion species key: "wolf", "eagle", etc.
+
     # --- Racial Traits (WO-CHARGEN-RACIAL-001) ---
     SAVE_BONUS_SPELLS = "save_bonus_spells"        # Racial bonus vs spells and spell-like abilities
     STONECUNNING = "stonecunning"                  # Bool: +2 Search on stone/underground features

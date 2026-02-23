@@ -65,6 +65,9 @@ from aidm.schemas.maneuvers import (
     SunderIntent, DisarmIntent, GrappleIntent,
 )
 from aidm.core.maneuver_resolver import resolve_maneuver
+# WO-ENGINE-COMPANION-WIRE: Companion summon imports
+from aidm.schemas.intents import SummonCompanionIntent
+from aidm.core.companion_resolver import spawn_companion
 # WO-015: Spellcasting imports
 from aidm.schemas.conditions import ConditionType, ConditionModifiers, ConditionInstance
 from aidm.core.spell_resolver import (
@@ -876,6 +879,9 @@ def execute_turn(
         # WO-015: Spellcasting intents
         elif isinstance(combat_intent, SpellCastIntent):
             intent_actor_id = combat_intent.caster_id
+        # WO-ENGINE-COMPANION-WIRE: Companion summon intent
+        elif isinstance(combat_intent, SummonCompanionIntent):
+            intent_actor_id = turn_ctx.actor_id  # actor declares the summon
         else:
             # Unknown intent type
             raise ValueError(f"Unknown combat intent type: {type(combat_intent)}")
@@ -1059,7 +1065,8 @@ def execute_turn(
                 )
 
         # Validate: RNG must be provided for combat intents
-        if rng is None:
+        # SummonCompanionIntent is exempt — it uses no RNG.
+        if rng is None and not isinstance(combat_intent, SummonCompanionIntent):
             raise ValueError("RNG manager required for combat intent resolution")
 
         # WO-BRIEF-WIDTH-001: Generate causal_chain_id for maneuver intents
@@ -1464,6 +1471,39 @@ def execute_turn(
                 )
                 events.extend(conc_events)
                 current_event_id += len(conc_events)
+
+        elif isinstance(combat_intent, SummonCompanionIntent):
+            # WO-ENGINE-COMPANION-WIRE: spawn companion via event-sourced add_entity
+            summon_result = spawn_companion(
+                owner_id=turn_ctx.actor_id,
+                companion_type=combat_intent.companion_type,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            if summon_result.status == "ok":
+                from aidm.core.replay_runner import reduce_event
+                from aidm.core.rng_manager import RNGManager
+                _stub_rng = RNGManager(0)
+                for evt in summon_result.events:
+                    events.append(evt)
+                    world_state = reduce_event(world_state, evt, _stub_rng)
+                    current_event_id += 1
+                narration = "companion_summoned"
+            else:
+                # Emit validation-failure event and fall through to turn_end
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="intent_validation_failed",
+                    timestamp=timestamp + 0.1,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "reason": summon_result.status,
+                        "detail": summon_result.failure_reason,
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                ))
+                current_event_id += 1
 
     # If no combat intent provided, use policy-based resolution (CP-09 behavior)
     elif doctrine is not None and turn_ctx.actor_team == "monsters":

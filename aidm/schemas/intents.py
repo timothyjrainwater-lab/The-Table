@@ -219,8 +219,42 @@ class RestIntent:
         return cls(rest_type=rest_type)
 
 
+@dataclass
+class SummonCompanionIntent:
+    """Intent to summon an animal companion into the WorldState.
+
+    WO-ENGINE-COMPANION-WIRE
+
+    Emitted when a druid or ranger calls their animal companion to their side.
+    The companion entity is built from aidm.chargen.companions.build_animal_companion()
+    and inserted into WorldState via an add_entity event.
+
+    companion_type must be one of: "wolf", "riding_dog", "eagle", "light_horse", "viper_snake".
+    If companion_type is None the resolver will reject the intent (fail-closed).
+    """
+
+    type: Literal["summon_companion"] = "summon_companion"
+    companion_type: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return {
+            "type": self.type,
+            "companion_type": self.companion_type,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "SummonCompanionIntent":
+        """Create from dictionary."""
+        if data.get("type") != "summon_companion":
+            raise IntentParseError(
+                f"Expected type 'summon_companion', got '{data.get('type')}'"
+            )
+        return cls(companion_type=data.get("companion_type"))
+
+
 # Type alias for all intent types
-Intent = CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent
+Intent = CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent | SummonCompanionIntent
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -248,5 +282,7 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return BuyIntent.from_dict(data)
     elif intent_type == "rest":
         return RestIntent.from_dict(data)
+    elif intent_type == "summon_companion":
+        return SummonCompanionIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. UI SLICES 0-7 COMPLETE. PRS-01 RC READY.** Gate K 72/72. HOOLIGAN-03 ACCEPTED. **Anvil full UI workload dispatched: 12 WOs across Tier 1-3. WO-WORLDGEN-INGESTION-001 ACCEPTED — Gate INGESTION 15/15. Engine track: 4 new WOs dispatched — CP-17 (condition enforcement), CP-18 (condition save modifiers), CP-19 (condition auto-expiry), XP-01 (level-up wire). Companion wiring confirmed already live in execute_turn().**
+**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. UI SLICES 0-7 COMPLETE. PRS-01 RC READY.** Gate K 72/72. HOOLIGAN-03 ACCEPTED. **Anvil full UI workload dispatched: 12 WOs across Tier 1-3. WO-WORLDGEN-INGESTION-001 ACCEPTED — Gate INGESTION 15/15. Engine track: 5 WOs dispatched/accepted — CP-17/CP-18/CP-19 (conditions), XP-01 (level-up), V13 (companion wire ACCEPTED 24/24).**
 
 ---
 
@@ -42,7 +42,7 @@
 
 1. **Visual confirm spatial fix.** Thunder opens browser — book/notebook flat on shelf? Gates all Tier 1 UI work.
 2. **Anvil executing full UI workload.** 12 WOs: Tier 1 (crystal ball, battle scroll, character sheet), Tier 2 (fog of war, dice bag, token slide, session zero, notebook persist), Tier 3 (settings gem, map lasso, cup holder, bestiary bind, rulebook search).
-3. **Engine track in flight.** 4 new WOs dispatched: CP-17 (condition enforcement, 15 tests), CP-18 (condition save modifiers, 10 tests), CP-19 (condition auto-expiry, 12 tests), XP-01 (level-up wire, 14 tests). WO-WORLDGEN-INGESTION-001 ACCEPTED — ingestion step 1 complete, step 2 (double audit) pending. Companion wiring already live — no WO needed.
+3. **Engine track in flight.** V13 (companion wire) ACCEPTED 24/24. 4 new condition/XP WOs dispatched: CP-17 (15 tests), CP-18 (10 tests), CP-19 (12 tests), XP-01 (14 tests). WO-WORLDGEN-INGESTION-001 ACCEPTED — ingestion step 1 complete, step 2 (double audit) pending.
 
 ## Current Focus (Slate's focused recall)
 
@@ -110,6 +110,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-ENGINE-COMPANION-WIRE | **ACCEPTED** — 24/24 Gate V13. `aidm/core/companion_resolver.py`: `spawn_companion()` pure function + `SummonCompanionResult` dataclass. `SummonCompanionIntent` in `aidm/schemas/intents.py` with `parse_intent()` routing. `execute_turn()` in `play_loop.py` wired: actor resolution → `spawn_companion()` → `add_entity` event → `reduce_event()` → companion lands in WorldState. Fail-closed: invalid_type/invalid_actor/actor_not_found/already_active all emit `intent_validation_failed`. New EF: `COMPANION_OWNER_ID`, `COMPANION_TYPE`. Replay-safe: `add_entity` reducer in MUTATING_EVENTS. 6,774 suite-wide, 0 new regressions. | (pending commit) |
 | WO-WORLDGEN-INGESTION-001 | **ACCEPTED** — 15/15 Gate INGESTION. `IngestionStage` in `aidm/core/compile_stages/ingestion.py`. Loads `ContentPackLoader.from_directory()`, classifies validation errors (structural=blocking IC-002, field-length=non-blocking warnings), writes `ingestion_report.json` with content_hash + entity counts. Real pack baseline: 273 creatures, 605 spells, 109 feats; 7 field-length warnings (environment_tags and alignment_tendency >100 chars on 7 creatures — non-blocking, logged for double-audit). Structural errors: 0. IC-001 on missing dir. Dependency chain: `IngestionStage` → downstream stages. Zero regressions (world_compiler 51/51, world_archive 24/24). FINDING-WORLDGEN-IP-001 step 1 ✅. | (pending commit) |
 | WO-FIX-HOOLIGAN-03 | **ACCEPTED** — Gate K 72/72 (69+3). `_check_rv001_hit_miss()` scoped to first sentence: `first_sentence = text.split(". ")[0] if ". " in text else text`. K-68: compound hit no false positive. K-69: compound miss no false positive. K-70: single-sentence real violation still caught. 6,702 passed suite-wide, 11 pre-existing failures, 0 new regressions. FINDING-HOOLIGAN-03 RESOLVED. | (pending commit) |
 | WO-UI-06 | **ACCEPTED** — 10/10 Gate UI-06. `entity-renderer.ts`: EntityRenderer class, faction-colored cylinders (player gold/enemy red/npc blue), HP bar (green→red lerp), `gridToScene()` (1 grid=0.5 scene, y=0.08), `upsert()`/`remove()`/`syncRoster()`, `getTokenMeshes()`/`getEntityIdByMesh()`/`getEntityFaction()`. `main.ts` wired: `entity_state`→`syncRoster`, `entity_delta`→`upsert`/`remove`. `demo_entity_tokens.py` provided. | `c7e571e` |
@@ -147,7 +148,7 @@
 
 ## Dispatches (most recent 15 — older entries archived)
 
-- **[DISPATCHED] WO-ENGINE-LEVELUP-WIRE** — XP award + level-up post-combat dispatcher. Complete `check_level_up()` stub in experience_resolver.py. `_award_xp_for_defeat()` helper called after entity_defeated events. `xp_awarded` + `level_up_applied` events. Gate XP-01 14 tests. NOTE: companion wiring already live (spawn_companion in execute_turn) — WO-ENGINE-COMPANION-WIRE superseded.
+- **[DISPATCHED] WO-ENGINE-LEVELUP-WIRE** — XP award + level-up post-combat dispatcher. Complete `check_level_up()` stub in experience_resolver.py. `_award_xp_for_defeat()` helper called after entity_defeated events. `xp_awarded` + `level_up_applied` events. Gate XP-01 14 tests.
 - **[DISPATCHED] WO-ENGINE-CONDITION-ENFORCE** — CP-17: actions_prohibited gate (execute_turn early exit), prone-stand AoO trigger (standing_triggers_aoo flag), helpless auto-hit in attack_resolver.py (melee only), loses_dex_to_ac in AC calculation. ACTION_DENIED sensor event with condition reason. Gate CP-17 15 tests. Note: existing actions_prohibited gate at play_loop.py:804 is a partial implementation — harden to cover all flagged conditions.
 - **[DISPATCHED] WO-ENGINE-CONDITION-SAVES** — CP-18: condition save modifiers (fort/ref/will) wired into SpellResolver._resolve_save(). `condition_save_mod: int = 0` param. STP modifiers list includes penalty. Gate CP-18 10 tests.
 - **[DISPATCHED] WO-ENGINE-CONDITION-DURATION** — CP-19: DurationTracker.tick_round() wired into execute_turn() at round-end boundary (last actor's turn). condition_expired events with spell attribution. Gate CP-19 12 tests.
