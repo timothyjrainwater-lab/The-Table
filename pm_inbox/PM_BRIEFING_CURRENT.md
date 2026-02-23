@@ -1,12 +1,12 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. PRS-01 RC READY.** Gate K 69/69. BURST-003 10/10. BURST-002 12/12. V10 25/25. V11 18/18. V12 20/20. **2 WOs still in builder queue: UI-06, HOOLIGAN-03.**
+**Last updated:** 2026-02-23. **BURST-001 COMPLETE. CHARGEN PHASE 3 COMPLETE. UI SLICES 0-7 COMPLETE. PRS-01 RC READY.** Gate K 69/69. BURST-003 10/10. BURST-002 12/12. V9 20/20. V10 25/25. V11 18/18. V12 20/20. UI-06 10/10. **1 WO still in builder queue: HOOLIGAN-03.**
 
 ---
 
 ## Stoplight: GREEN
 
-6,536+ tests, 0 gate failures, 2 collection errors. **ALL GATES PASS: A-AB, X 9/10, WP.** Commit `9bf1d3d`. P1 PASS. RC READY.
+6,720+ tests, 0 gate failures, 2 collection errors. **ALL GATES PASS: A-AB, X 9/10, WP, UI-06, V9-V12.** Commit `c7e571e`. P1 PASS. RC READY.
 
 | Gate | Tests | Gate | Tests | Gate | Tests |
 |------|-------|------|-------|------|-------|
@@ -27,32 +27,35 @@
 |   |       |   |       | AB | 6/6 |
 |   |       |   |       | V7 | 73/73 |
 |   |       |   |       | V8 | 15/15 |
+|   |       |   |       | V9 | 20/20 |
 |   |       |   |       | V10 | 25/25 |
 |   |       |   |       | V11 | 18/18 |
 |   |       |   |       | V12 | 20/20 |
+|   |       |   |       | UI-06 | 10/10 |
 |   |       |   |       | BURST-003 | 10/10 |
 |   |       |   |       | BURST-002 | 12/12 |
 |   |       |   |       | WP | 5+18+19 |
 
-**Gate test total:** 598 (447 + 88 chargen V7+V8 + 63 chargen V10-V12). All gates PASS. Chargen gates: V1 39/39, V2 12/12, V3 15/15, V4 15/15, V5 8/8, V6 25/25, V7 73/73, V8 15/15, V10 25/25, V11 18/18, V12 20/20 (265 total). Pre-existing: 2 speak_signal, 3 pm_inbox_hygiene, 1 graduated_critique, 1 immersion_authority; 2 collection errors: heuristics_image_critic, ws_bridge.
+**Gate test total:** 691 (447 + 88 chargen V7+V8 + 83 chargen V9-V12 + 10 UI-06 + 63 chargen Phase 3). All gates PASS. Chargen gates: V1-V6 114, V7 73, V8 15, V9 20, V10 25, V11 18, V12 20 (285 total). Pre-existing: 2 speak_signal, 3 pm_inbox_hygiene, 1 graduated_critique, 1 immersion_authority; 2 collection errors: heuristics_image_critic, ws_bridge.
 
 ## Operator Action Queue (max 3)
 
-1. **2 WOs in builder queue.** UI-06 (entity tokens), HOOLIGAN-03 fix. CHARGEN-PHASE3-LEVELUP (V9) — debrief pending.
-2. **Await builder debriefs.** Feature: UI-06. Fixes: HOOLIGAN-03. V9 levelup also outstanding.
+1. **1 WO in builder queue.** HOOLIGAN-03 fix (Gate K 69→72).
+2. **Await HOOLIGAN-03 debrief.** Fix: scope `_check_rv001_hit_miss()` to first sentence.
 3. **Run orchestrator when ready.** `python scripts/build_release_candidate_packet.py` — should generate a clean MANIFEST.
 
 ## Current Focus (Slate's focused recall)
 
-**BURST-001 COMPLETE. CHARGEN PHASE 2 COMPLETE. P8 PASS. WO-UI-05 ACCEPTED pending Thunder visual. One remaining RC blocker: P1 (commit).**
-- **PRS-01:** WO-PRS-IP-001 ACCEPTED. P8 PASS (0 violations). P1 FAIL (dirty tree — commit clears). All other gates clean.
-- **UI-05:** scene-builder.ts — walnut table, felt vault, candlelight (3 lanterns + hemi + ambient + map spot + tray fill), flicker, crystal ball pulse, object stubs. Math.random → seeded PRNG. Gate G 22/22. W-01–W-14 PASS. W-15 fails on X-01 (pre-existing Gate X 9/10 — not new). Pending Thunder visual review.
-- **Chargen Phase 2 COMPLETE:** V7 (Equipment) 73/73 + V8 (Multiclass) 15/15. `build_character()` now fully functional: inventory, weapons, real AC, encumbrance, multiclass BAB/saves/HP/skills. Multi-caster decision: first caster in class_mix wins (wizard in wizard/cleric pair) — dual-caster merge deferred to future WO.
-- **Deferred from V8:** dual-caster spell merging (wizard+cleric). Single-caster path correct.
+**UI SLICES 0-7 COMPLETE. CHARGEN PHASE 3 COMPLETE. P1 PASS (commit `c7e571e`). RC READY pending HOOLIGAN-03.**
+- **UI Slices 3-7 ACCEPTED:** `book-object.ts` (PHB rulebook, page flip, QuestionStamps), `notebook-object.ts` (notes/transcript/bestiary/handouts), `handout-object.ts` (printer slot + tray 1.6×1.3m navy felt + fanstack + discard ring), `map-overlay.ts` (AoE shapes, measure line, area highlight), `entity-renderer.ts` (+getTokenMeshes), `main.ts` (all slices wired), `index.html` (AoE gate). Gate G 22/22.
+- **Zone realignment:** `zones.json` player centerZ=4.75/halfHeight=0.80 (shelf), dice_tray z=1.75, dice_tower z=0.5. Gate G zone test updated to match.
+- **Chargen Phase 3 COMPLETE:** V9 level_up() 20/20, V10 companions 25/25, V11 racial traits 18/18, V12 dual-caster 20/20. `build_animal_companion()` live. All 7 PHB races have mechanical trait EF fields. `_merge_spellcasting()` handles 0/1/2 caster classes. V9 `level_up()` pure delta, CLASS_FEATURES 11 classes, seeded HP roll.
+- **UI-06 ACCEPTED:** `entity-renderer.ts` EntityRenderer class, faction-colored tokens, HP bar, gridToScene(), Gate UI-06 10/10.
+- **PRS-01:** RC READY. All gates clean. Dirty tree resolved (commit `c7e571e`).
 
-**Deferred:** Chatterbox swap timing (8.0s budget). GAP-B HIGH (VS Build Tools). FINDING-WORLDGEN-IP-001 (pre-commit bundle scan gate candidate).
+**Deferred:** Chatterbox swap timing (8.0s budget). GAP-B HIGH (VS Build Tools). FINDING-WORLDGEN-IP-001.
 
-**Active dispatches:** WO-FIX-HOOLIGAN-03 (Gate K 69→72), WO-UI-06 (entity tokens, Gate UI-06 10 tests), WO-CHARGEN-PHASE3-LEVELUP (Gate V9 15 tests — debrief outstanding).
+**Active dispatch:** WO-FIX-HOOLIGAN-03 (Gate K 69→72).
 
 **CHARGEN PHASE 3 COMPLETE:** V10 (companions 25/25) + V11 (racial traits 18/18) + V12 (dual-caster 20/20). `build_animal_companion()` live. All 7 PHB races have mechanical trait fields. `_merge_spellcasting()` handles 0/1/2 caster classes. Dual-caster: alphabetical primary (`cleric < wizard`), separate `_2` suffix fields for secondary. `spell_choices_2` param on `build_character()`. 3+ casters raises ValueError.
 
@@ -102,9 +105,12 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
-| WO-CHARGEN-DUALCASTER-001 | **ACCEPTED** — 20/20 Gate V12. `_merge_spellcasting()` refactored to dict-returning dual-caster: 0/1/2 caster branching, 3+ raises ValueError. Alphabetical primary assignment (`cleric < wizard`). Primary: `SPELL_SLOTS/CASTER_LEVEL/CASTER_CLASS/SPELLS_PREPARED or SPELLS_KNOWN`. Secondary: `_2` suffix fields. `spell_choices_2` param on `build_character()`. 6 new EF constants. Zero regressions. Debrief anchor: cleric3/WIS12 + wizard3/INT12 both show level-2 slots. | (pending commit) |
-| WO-CHARGEN-COMPANION-001 | **ACCEPTED** — 25/25 Gate V10. `build_animal_companion(parent_entity, companion_type)` in new `aidm/chargen/companions.py`. 5 types: wolf, riding_dog, eagle, light_horse, viper_snake. PHB Table 3-4 progression (7 rows). Effective companion level: druid_lvl + max(0, ranger_lvl−3). Multiattack at eff_lvl ≥ 4. No SPELL_SLOTS/INVENTORY on companion. ENTITY_ID traceable to parent. | (pending commit) |
-| WO-CHARGEN-RACIAL-001 | **ACCEPTED** — 18/18 Gate V11. `apply_racial_trait_fields()` + `_RACIAL_EF_FIELDS` table in `races.py`. 11 new EF constants. All 7 PHB races encoded: dwarf (stability +4, darkvision 60, poison/spell save bonuses, stonecunning, attack vs orcs +1, dodge vs giants +4), elf (low-light, sleep immunity, enchant save +2, auto-search, skill bonuses), halfling (all-save +1, thrown +1, skill bonuses), gnome (low-light, illusion SR 2, poison save +2, kobold +1, illusion DC +1), half-elf (low-light, sleep immunity, enchant save +2, skill bonuses), half-orc (darkvision 60), human (no new fields). Fields absent (not zero) for races without the trait. | (pending commit) |
+| WO-UI-06 | **ACCEPTED** — 10/10 Gate UI-06. `entity-renderer.ts`: EntityRenderer class, faction-colored cylinders (player gold/enemy red/npc blue), HP bar (green→red lerp), `gridToScene()` (1 grid=0.5 scene, y=0.08), `upsert()`/`remove()`/`syncRoster()`, `getTokenMeshes()`/`getEntityIdByMesh()`/`getEntityFaction()`. `main.ts` wired: `entity_state`→`syncRoster`, `entity_delta`→`upsert`/`remove`. `demo_entity_tokens.py` provided. | `c7e571e` |
+| WO-UI-SLICES-3-7 | **ACCEPTED** — Doctrine §19 Slices 3-7. `book-object.ts` (PHB rulebook, flipForward/flipBack, openToRef, QuestionStamp). `notebook-object.ts` (notes/transcript/bestiary/handouts, addTranscriptEntry, setSection). `handout-object.ts` (printer slot z=3.82 brass rim, HandoutTray 1.6×1.3m navy felt at z=4.60, fanstack 5-deep, discard ring at trash_hole). `map-overlay.ts` (AoE shapes, MeasureLine, AreaIndicator, pulse). `main.ts` all slices wired. `index.html` AoE confirm gate. Zones.json player centerZ=4.75. Gate G 22/22. | `c7e571e` |
+| WO-CHARGEN-PHASE3-LEVELUP | **ACCEPTED** — 20/20 Gate V9. `level_up(entity, class_name, new_class_level, ...)` pure delta function in `builder.py`. `CLASS_FEATURES` dict (11 classes, PHB L1-20). `_roll_hp_for_level()` seeded RNG, min 1, max on first class level. `_skill_points_for_level()` per-class table + INT mod. Delta shape: hp_gained, feat_slots_gained, feats_added, class_features_gained, spell_slots, skill_points_gained, bab, saves, new_total_level. Pure — no entity mutation. | `c7e571e` |
+| WO-CHARGEN-DUALCASTER-001 | **ACCEPTED** — 20/20 Gate V12. `_merge_spellcasting()` refactored: 0/1/2 caster branching, 3+ raises ValueError. Alphabetical primary. `SPELL_SLOTS_2/CASTER_LEVEL_2/CASTER_CLASS_2/SPELLS_PREPARED_2/SPELLS_KNOWN_2` for secondary. `spell_choices_2` param on `build_character()`. 6 new EF constants. Zero regressions. | `c7e571e` |
+| WO-CHARGEN-COMPANION-001 | **ACCEPTED** — 25/25 Gate V10. `build_animal_companion()` in `aidm/chargen/companions.py`. 5 types: wolf, riding_dog, eagle, light_horse, viper_snake. PHB Table 3-4 (7 rows). Effective companion level: druid_lvl + max(0, ranger_lvl−3). Multiattack at eff_lvl ≥ 4. No SPELL_SLOTS/INVENTORY. ENTITY_ID traceable to parent. | `c7e571e` |
+| WO-CHARGEN-RACIAL-001 | **ACCEPTED** — 18/18 Gate V11. `apply_racial_trait_fields()` in `races.py`. 11 new EF constants. All 7 PHB races encoded — fields absent (not zero) for races without the trait. | `c7e571e` |
 | WO-BURST-003-AOE-001 | **ACCEPTED** — 10/10 Gate BURST-003. `PendingAoE` frozen dataclass, `WorldState.pending_aoe` (excluded from state_hash/to_dict — ephemeral UI state). `_show_aoe_preview()`: @ origin, * AoE, ! entities at risk. `_confirm_aoe()` resolves via execute_turn, emits AOE_PREVIEW_CONFIRMED. Parser intercepts yes/cancel when pending_aoe active. State-safe on restart: field is None on fresh load, spell never resolved. | (pending commit) |
 | WO-BURST-002-RESEARCH-001 | **ACCEPTED** — 12/12 Gate BURST-002. `SparkFailureMode` enum (6 modes), `SPARK_SLA_PER_CALL` per CallType (timeout_s, p95_target_s), `TEMPLATE_NARRATION` deterministic fallback, TTFT measurement + degraded field in SparkAdapter, prep_pipeline asset-level catch + prep_failed status. Sensor event on runtime failure. Zero new regressions (12 pre-existing failures confirmed as baseline). | (pending commit) |
 | WO-FIX-GRAMMAR-01 | **ACCEPTED** — Gate K 69/69 (67+2). `play.py:647`: `.replace('_',' ')` → `.replace('_',' ').title()`. 1 hit total in file. 2 regression tests appended to `test_unknown_gate_k.py`. FINDING-GRAMMAR-01 RESOLVED. GAP-A BL fix: `TYPE_CHECKING` guard on `NarrativeBrief` import — boundary law PASS. | (pending commit) |
