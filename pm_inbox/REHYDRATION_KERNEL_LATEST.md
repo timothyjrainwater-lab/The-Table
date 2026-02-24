@@ -5,16 +5,16 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-24 (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED — ENGINE-NATURAL-ATTACK 10/10; FINDING-WILDSHAPE-NATURAL-ATTACKS-001 CLOSED)
-**Delta:** Natural attack resolver live. `NaturalAttackIntent` wired. EQUIPMENT_MELDED bypass via deepcopy. WO-ENGINE-PLAY-LOOP-ROUTING-001 DISPATCH-READY. 4 open findings (1 MEDIUM: PLAY-LOOP-ROUTING-001).
+**Session:** 2026-02-24 (ENGINE DISPATCH #9 COMPLETE — WO-ENGINE-NATURAL-ATTACK-001 + WO-ENGINE-PLAY-LOOP-ROUTING-001 both ACCEPTED)
+**Delta:** Natural attack resolver live. 5 class-feature intents routed in execute_turn. Rogue local imports in play_loop.py fixed (UnboundLocalError ×23 resolved). FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED. FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED. 0 MEDIUM findings remain. 3 LOW open.
 
 ## Priority Stack (top 3)
-1. **Dispatch WO-ENGINE-PLAY-LOOP-ROUTING-001.** MEDIUM finding. Rage/Smite/Bardic/WildShape/Revert fall through execute_turn silently. 10 integration tests. Single file: play_loop.py only.
-2. **After play-loop routing ACCEPTED:** LOW findings (bardic duration, wild shape HP/duration) and Thunder-directed work. No other MEDIUM engine gaps.
-3. **UI 2D candidates:** Token interaction, handout tray, fog reveal, notebook consent.
+1. **Thunder to direct next track.** No MEDIUM engine findings remain. ENGINE DISPATCH #9 closed.
+2. **LOW engine findings available:** FINDING-WILDSHAPE-HP-001 (proportional HP swap), FINDING-WILDSHAPE-DURATION-001 (auto-decrement revert), FINDING-BARDIC-DURATION-001 (PHB action-economy maintenance). None blocking.
+3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent.
 
 ## Active Findings (IDs + status — register has descriptions)
-- FINDING-PLAY-LOOP-ROUTING-001 MEDIUM OPEN (execute_turn missing elif branches for Rage/Smite/Bardic/WildShape/RevertForm intents — WO drafted, DISPATCH-READY)
+- FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED (WO-ENGINE-PLAY-LOOP-ROUTING-001 ACCEPTED 10/10 — 5 elif branches wired, rogue imports fixed)
 - FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10)
 - FINDING-WILDSHAPE-HP-001 LOW OPEN (Wild Shape HP simplified formula — PHB proportional swap deferred)
 - FINDING-WILDSHAPE-DURATION-001 LOW OPEN (Wild Shape duration not auto-decremented — DM triggers revert manually)

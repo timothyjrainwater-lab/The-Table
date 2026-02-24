@@ -827,12 +827,54 @@ class RevertFormIntent:
         return cls(actor_id=data["actor_id"])
 
 
+@dataclass
+class NaturalAttackIntent:
+    """Intent to attack with a natural weapon (claw, bite, slam, talon, etc.).
+
+    Used by Wild Shape forms, monsters, and creatures with natural attacks.
+    Bypasses EQUIPMENT_MELDED check in attack_resolver (PHB p.36).
+
+    WO-ENGINE-NATURAL-ATTACK-001
+    """
+
+    type: Literal["natural_attack"] = "natural_attack"
+    attacker_id: str = ""
+    target_id: str = ""
+    attack_name: str = ""
+    """Name of the natural attack (e.g., 'bite', 'claw', 'talon'). Must match an entry
+    in the attacker's EF.NATURAL_ATTACKS list."""
+
+    attack_bonus: int = 0
+    """Total attack bonus (BAB + STR mod + size mod, etc.). Caller assembles."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "attacker_id": self.attacker_id,
+            "target_id": self.target_id,
+            "attack_name": self.attack_name,
+            "attack_bonus": self.attack_bonus,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "NaturalAttackIntent":
+        if data.get("type") != "natural_attack":
+            raise IntentParseError(f"Expected type 'natural_attack', got '{data.get('type')}'")
+        return cls(
+            attacker_id=data["attacker_id"],
+            target_id=data["target_id"],
+            attack_name=data.get("attack_name", ""),
+            attack_bonus=data.get("attack_bonus", 0),
+        )
+
+
 # Type alias for all intent types
 Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent |
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
           TurnUndeadIntent | ReadyActionIntent | AidAnotherIntent | FightDefensivelyIntent |
           TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
-          RageIntent | SmiteEvilIntent | BardicMusicIntent | WildShapeIntent | RevertFormIntent)
+          RageIntent | SmiteEvilIntent | BardicMusicIntent | WildShapeIntent | RevertFormIntent |
+          NaturalAttackIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -896,5 +938,7 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return WildShapeIntent.from_dict(data)
     elif intent_type == "revert_form":
         return RevertFormIntent.from_dict(data)
+    elif intent_type == "natural_attack":
+        return NaturalAttackIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

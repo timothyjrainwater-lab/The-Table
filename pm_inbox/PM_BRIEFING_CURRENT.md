@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-24 (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED). **ENGINE-NATURAL-ATTACK 10/10.** FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED. WO-ENGINE-PLAY-LOOP-ROUTING-001 still DISPATCH-READY. 4 open findings (1 MEDIUM remaining).
+**Last updated:** 2026-02-24 (WO-ENGINE-PLAY-LOOP-ROUTING-001 ACCEPTED). **ENGINE-PLAY-LOOP-ROUTING 10/10.** FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED. ENGINE DISPATCH #9 ALL ACCEPTED. 3 open findings (0 MEDIUM).
 
 ---
 
@@ -101,6 +101,7 @@
 |   |       |   |       | ENGINE-BARDIC-MUSIC | 10/10 |
 |   |       |   |       | ENGINE-WILD-SHAPE | 10/10 |
 |   |       |   |       | ENGINE-NATURAL-ATTACK | 10/10 |
+|   |       |   |       | ENGINE-PLAY-LOOP-ROUTING | 10/10 |
 
 *Note: All Anvil UI gap WOs ACCEPTED. 12/12. Layout pack WOs: LAYOUT-PACK + CAMERAS + OBJECT-LAYOUT + LIGHTING + PHYSICALITY-BASELINE ACCEPTED (38/38 gates). ENGINE-SPELL-SLOTS-001 12/12 + ENGINE-REST-001 12/12 ACCEPTED. ENGINE-GOLD-MASTER-REGEN 9/9 + ENGINE-READIED-ACTION 10/10 + ENGINE-AID-ANOTHER 10/10 + ENGINE-DEFEND 10/10 + ENGINE-FEINT 10/10 — ENGINE DISPATCH #5 ALL ACCEPTED. ENGINE DISPATCH #6 ALL ACCEPTED: ABILITY-DAMAGE 10/10 + WITHDRAW-DELAY 10/10 + CONDITIONS-BLIND-DEAF 19/19 + SUNDER-DISARM-FULL 10/10 + POISON-DISEASE 10/10 (59/59 gate tests). Builder fix: SD-09 spurious Weapon() field names removed. 182 engine gate tests all pass. GATES-V1 blocked on golden frames.*
 
@@ -108,9 +109,9 @@
 
 ## Operator Action Queue (max 3)
 
-1. **WO-ENGINE-PLAY-LOOP-ROUTING-001 READY TO DISPATCH.** Fixes FINDING-PLAY-LOOP-ROUTING-001 (MEDIUM). Rage/Smite/Bardic/WildShape/Revert have no elif in execute_turn — fall through silently. 10 integration tests through execute_turn. Single file: play_loop.py only.
-2. **FINDING-WILDSHAPE-NATURAL-ATTACKS-001 CLOSED.** WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10. Debrief deviation noted and accepted: deepcopy bypass instead of `_resolve_single_attack()` refactor (YAGNI correct). Resolver in new `natural_attack_resolver.py` (cleaner than adding to attack_resolver.py).
-3. **No other high-priority engine gaps.** After play-loop routing: LOW findings (bardic duration, wild shape HP/duration) and any Thunder-directed work.
+1. **ENGINE DISPATCH #9 COMPLETE.** Both WOs ACCEPTED: WO-ENGINE-NATURAL-ATTACK-001 (10/10) + WO-ENGINE-PLAY-LOOP-ROUTING-001 (10/10). All MEDIUM findings closed. Bonus: rogue local imports in play_loop.py fixed (UnboundLocalError in 23 pre-existing tests resolved). No MEDIUM engine gaps remain.
+2. **Next engine work: LOW findings only.** FINDING-WILDSHAPE-HP-001 (proportional HP swap), FINDING-WILDSHAPE-DURATION-001 (auto-decrement revert), FINDING-BARDIC-DURATION-001 (action-economy maintenance). Thunder to direct priority or open next track.
+3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent. Thunder to direct.
 
 ## Current Focus (Slate's focused recall)
 
@@ -136,7 +137,7 @@
 
 | Finding | Severity | Status | Description |
 |---------|----------|--------|-------------|
-| FINDING-PLAY-LOOP-ROUTING-001 | MEDIUM | OPEN | PM inspection 2026-02-24: `execute_turn` elif routing chain has no branches for RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent. These intents fall through to policy/stub blocks. Gate tests pass because they call resolvers directly (bypassing play_loop). WO-ENGINE-PLAY-LOOP-ROUTING-001 drafted — DISPATCH-READY. |
+| FINDING-PLAY-LOOP-ROUTING-001 | MEDIUM | CLOSED | WO-ENGINE-PLAY-LOOP-ROUTING-001 ACCEPTED 10/10 — 5 elif branches wired in execute_turn. Rogue local imports fixed (UnboundLocalError in 23 pre-existing tests). |
 | FINDING-WILDSHAPE-NATURAL-ATTACKS-001 | MEDIUM | CLOSED | WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10 — `natural_attack_resolver.py` live, `NaturalAttackIntent` wired. |
 | FINDING-WILDSHAPE-HP-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape HP uses simplified Con-based formula. PHB proportional HP swap deferred. Non-blocking. |
 | FINDING-WILDSHAPE-DURATION-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape duration not auto-decremented. DM must trigger revert manually. Non-blocking. |
@@ -227,6 +228,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-ENGINE-PLAY-LOOP-ROUTING-001 | **ACCEPTED** — 10/10 Gate ENGINE-PLAY-LOOP-ROUTING (PLR-01..PLR-10). Five elif branches inserted in `play_loop.py` execute_turn between DelayIntent and StepMoveIntent: RageIntent → `activate_rage` (inline `validate_rage` pre-check), SmiteEvilIntent → `resolve_smite_evil` + concentration break, BardicMusicIntent → `resolve_bardic_music`, WildShapeIntent → `resolve_wild_shape`, RevertFormIntent → `resolve_revert_form`. Bonus fix: two rogue `from aidm.core.attack_resolver import apply_attack_events` local imports removed — these were shadowing the module-level import and causing UnboundLocalError across 23 pre-existing tests. All 10 gate tests go through execute_turn (not direct resolver calls). FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED. Zero regressions (85 affected tests). | (pending commit) |
 | WO-ENGINE-NATURAL-ATTACK-001 | **ACCEPTED** — 10/10 Gate ENGINE-NATURAL-ATTACK. New `aidm/core/natural_attack_resolver.py`: `validate_natural_attack()`, `_build_weapon_from_natural_attack()`, `resolve_natural_attack()`. `NaturalAttackIntent(attacker_id, target_id, attack_name, attack_bonus)` added to `intents.py`. EQUIPMENT_MELDED bypass via deepcopy (WO brief proposed `_resolve_single_attack()` refactor — deferred per YAGNI, deepcopy approach accepted). Play_loop routing wired. FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED. Zero regressions. | (pending commit) |
 | WO-ENGINE-ABILITY-DAMAGE-001 | **ACCEPTED** — 10/10 Gate ENGINE-ABILITY-DAMAGE (AD-01..AD-10). 12 new EF fields (STR_DAMAGE/STR_DRAIN through CHA_DAMAGE/CHA_DRAIN). `ability_damage_resolver.py` live: `get_effective_score()`, `get_ability_modifier()`, `apply_ability_damage()`, `heal_ability_damage()`, `expire_ability_damage_regen()`. STR/DEX penalties wired into attack_resolver; CON/DEX/WIS into save_resolver; 1pt/ability heal in rest_resolver; play_loop routing. CON to 0 = dead, STR/DEX to 0 = helpless. Zero regressions. | (pending commit) |
 | WO-ENGINE-WITHDRAW-DELAY-001 | **ACCEPTED** — 10/10 Gate ENGINE-WITHDRAW-DELAY (WD-01..WD-10). `WithdrawIntent`: full-round, first-square AoO suppressed via `active_combat["withdrew_actors"]` set (presence-then-removal). `DelayIntent`: inserts `initiative_scores` dict at combat start, actor moved to lower count. `withdraw_delay_resolver.py` live. AoO suppression wired in aoo.py. Zero regressions. | (pending commit) |
@@ -406,14 +408,12 @@
 - [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
-- [WO-ENGINE-NATURAL-ATTACK-001_DISPATCH.md](pm_inbox/WO-ENGINE-NATURAL-ATTACK-001_DISPATCH.md) — **DISPATCH-READY** — Druid natural attack resolver
-- [WO-ENGINE-PLAY-LOOP-ROUTING-001_DISPATCH.md](pm_inbox/WO-ENGINE-PLAY-LOOP-ROUTING-001_DISPATCH.md) — **DISPATCH-READY** — Wire Rage/Smite/Bardic/WildShape into execute_turn
 - [WO-PRS-IP-001_DISPATCH.md](pm_inbox/WO-PRS-IP-001_DISPATCH.md) — P8 IP exceptions (open work)
 - [WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md](pm_inbox/WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md) — BLOCKED (frozen track, hold)
 - [WO-UI-GATES-V1_DISPATCH.md](pm_inbox/WO-UI-GATES-V1_DISPATCH.md) — BLOCKED (frozen track, hold)
 - [WO-UI-VISREG-PLAYWRIGHT-001_DISPATCH.md](pm_inbox/WO-UI-VISREG-PLAYWRIGHT-001_DISPATCH.md) — BLOCKED on golden frames (frozen track, hold)
 
-**Archived this session:** ~80 files + CONCENTRATION-FIX (voided) + BURST-001-PLAYTEST + MEMO_HORIZON + MEMO_UI_PIVOT_2D + MEMO_2D_RELAYOUT → `reviewed/`
+**Archived this session:** ~80 files + CONCENTRATION-FIX (voided) + BURST-001-PLAYTEST + MEMO_HORIZON + MEMO_UI_PIVOT_2D + MEMO_2D_RELAYOUT → `reviewed/`. ENGINE DISPATCH #9 complete: WO-ENGINE-NATURAL-ATTACK-001_DISPATCH.md + WO-ENGINE-PLAY-LOOP-ROUTING-001_DISPATCH.md archived.
 
 ## Persistent Files
 

@@ -75,6 +75,7 @@ from aidm.schemas.intents import (
     FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
     RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
+    NaturalAttackIntent,
 )
 from aidm.core.companion_resolver import spawn_companion
 # WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
@@ -1422,7 +1423,8 @@ def execute_turn(
     if combat_intent is not None:
         # Determine intent actor based on intent type
         intent_actor_id = None
-        if isinstance(combat_intent, (AttackIntent, FullAttackIntent, CoupDeGraceIntent)):
+        if isinstance(combat_intent, (AttackIntent, FullAttackIntent, CoupDeGraceIntent,
+                                      NaturalAttackIntent)):
             intent_actor_id = combat_intent.attacker_id
         elif isinstance(combat_intent, StepMoveIntent):
             intent_actor_id = combat_intent.actor_id
@@ -2182,6 +2184,89 @@ def execute_turn(
             current_event_id += len(_delay_events)
             narration = "delay_declared"
 
+        # WO-ENGINE-PLAY-LOOP-ROUTING-001: Barbarian Rage
+        elif isinstance(combat_intent, RageIntent):
+            from aidm.core.rage_resolver import activate_rage, validate_rage
+            _rage_actor = world_state.entities.get(combat_intent.actor_id, {})
+            _rage_err = validate_rage(_rage_actor, world_state)
+            if _rage_err:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="intent_validation_failed",
+                    timestamp=timestamp + 0.1,
+                    payload={
+                        "actor_id": combat_intent.actor_id,
+                        "intent_type": "RageIntent",
+                        "reason": _rage_err,
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                ))
+                current_event_id += 1
+            else:
+                _rage_events, world_state = activate_rage(
+                    actor_id=combat_intent.actor_id,
+                    world_state=world_state,
+                    next_event_id=current_event_id,
+                    timestamp=timestamp + 0.1,
+                )
+                events.extend(_rage_events)
+                current_event_id += len(_rage_events)
+            narration = "rage_activated"
+
+        # WO-ENGINE-PLAY-LOOP-ROUTING-001: Paladin Smite Evil
+        elif isinstance(combat_intent, SmiteEvilIntent):
+            from aidm.core.smite_evil_resolver import resolve_smite_evil
+            _smite_events, world_state = resolve_smite_evil(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_smite_events)
+            current_event_id += len(_smite_events)
+            world_state = apply_attack_events(world_state, _smite_events)
+            narration = "smite_evil_resolved"
+
+        # WO-ENGINE-PLAY-LOOP-ROUTING-001: Bardic Music (Inspire Courage)
+        elif isinstance(combat_intent, BardicMusicIntent):
+            from aidm.core.bardic_music_resolver import resolve_bardic_music
+            _bardic_events, world_state = resolve_bardic_music(
+                intent=combat_intent,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_bardic_events)
+            current_event_id += len(_bardic_events)
+            narration = "bardic_music_resolved"
+
+        # WO-ENGINE-PLAY-LOOP-ROUTING-001: Druid Wild Shape
+        elif isinstance(combat_intent, WildShapeIntent):
+            from aidm.core.wild_shape_resolver import resolve_wild_shape
+            _ws_events, world_state = resolve_wild_shape(
+                intent=combat_intent,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_ws_events)
+            current_event_id += len(_ws_events)
+            narration = "wild_shape_resolved"
+
+        # WO-ENGINE-PLAY-LOOP-ROUTING-001: Revert from Wild Shape
+        elif isinstance(combat_intent, RevertFormIntent):
+            from aidm.core.wild_shape_resolver import resolve_revert_form
+            _revert_events, world_state = resolve_revert_form(
+                intent=combat_intent,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_revert_events)
+            current_event_id += len(_revert_events)
+            narration = "revert_form_resolved"
+
         elif isinstance(combat_intent, StepMoveIntent):
             # CP-22: Block 5-foot step if actor is grappling or grappled
             actor_conds = world_state.entities.get(turn_ctx.actor_id, {}).get(EF.CONDITIONS, {})
@@ -2661,6 +2746,21 @@ def execute_turn(
                     current_event_id += len(conc_events)
 
             narration = "charge_complete"
+
+        # WO-ENGINE-NATURAL-ATTACK-001: Natural attack (bite, claw, talon, etc.)
+        elif isinstance(combat_intent, NaturalAttackIntent):
+            from aidm.core.natural_attack_resolver import resolve_natural_attack
+            nat_events, _ = resolve_natural_attack(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp,
+            )
+            events.extend(nat_events)
+            current_event_id += len(nat_events)
+            world_state = apply_attack_events(world_state, nat_events)
+            narration = "natural_attack_resolved"
 
     # If no combat intent provided, use policy-based resolution (CP-09 behavior)
     elif doctrine is not None and turn_ctx.actor_team == "monsters":
