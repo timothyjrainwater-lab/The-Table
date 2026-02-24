@@ -55,6 +55,9 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  /* Far table edge — dark band anchors the top of the surface */
+  border-top: 5px solid var(--walnut-dark);
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.6);
 }
 
 /* ---------------------------------------------------------------
@@ -232,22 +235,26 @@ body {
   transition: width var(--posture-speed) ease-in-out;
 }
 
-/* Orb — small ambient presence */
+/* Orb — small ambient presence, warmer glow at rest */
 #orb {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  border-bottom: 1px solid rgba(92,61,34,0.4);
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid rgba(92,61,34,0.5);
+  background: radial-gradient(ellipse at 50% 0%, rgba(139,105,20,0.15) 0%, transparent 70%);
 }
 
 #orb > div:first-child {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #c8a040, #3a2800);
-  box-shadow: 0 0 16px 4px var(--amber-idle), 0 2px 8px rgba(0,0,0,0.7);
+  background: radial-gradient(circle at 35% 35%, #d4aa48, #3a2800);
+  box-shadow:
+    0 0 24px 8px rgba(255, 180, 60, 0.45),
+    0 0 8px 2px rgba(255, 200, 80, 0.2),
+    0 3px 10px rgba(0,0,0,0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -283,15 +290,17 @@ body {
   background: rgba(0,0,0,0.2);
 }
 
-/* Roll slip tray — scrolls internally */
+/* Roll slip tray — scrolls internally. Dark walnut interior — distinct from map. */
 #slip-tray {
   flex: 1;
   overflow-y: auto;
-  background: linear-gradient(
-    170deg,
-    var(--parchment-aged) 0%,
-    var(--parchment) 60%,
-    var(--parchment-aged) 100%
+  background: var(--walnut-mid);
+  background-image: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.3) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0,0,0,0.2) 100%
   );
   display: flex;
   flex-direction: column;
@@ -303,7 +312,7 @@ body {
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(26, 18, 8, 0.35);
+  color: rgba(244, 234, 213, 0.3);
   font-style: italic;
   text-align: center;
   user-select: none;
@@ -388,7 +397,10 @@ body {
   background: var(--leather-dark);
 }
 
-/* Input focused — shelf items recede */
+/* Dice Bag — separated from document items with a visual gap */
+#shelf-dice-bag {
+  margin-left: 12px;
+}
 #shelf-zone.input-focused .shelf-item {
   opacity: 0.4;
   pointer-events: none;
