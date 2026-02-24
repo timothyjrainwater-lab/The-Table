@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-24 (checkpoint). **ENGINE DISPATCH #8 ACCEPTED — 62/62, 0 new failures. 7,602 passed / 49 pre-existing.** MANEUVER(14)+CLEAVE(10)+RAGE(10)+SMITE(8)+BARDIC(10)+WILDSHAPE(10). UI 2D wave also closed (52/52). All tracks GREEN. No dispatches in flight. **Debrief protocol restored** — 4 open findings registered (1 MEDIUM: WILDSHAPE-NATURAL-ATTACKS). Kernel updated with EF.CLASS_LEVELS pattern, Event constructor signature, dispatch cap (4 WOs max).
+**Last updated:** 2026-02-24 (session continued). **ENGINE DISPATCH #8 ACCEPTED — 62/62.** All tracks GREEN. **WO-ENGINE-NATURAL-ATTACK-001 DRAFTED** — Druid natural attack resolver (MEDIUM finding). New finding registered: FINDING-PLAY-LOOP-ROUTING-001 MEDIUM (RageIntent/SmiteEvilIntent/BardicMusicIntent/WildShapeIntent/RevertFormIntent have no execute_turn routing branches — gate tests call resolvers directly, bypassing play_loop). 5 open findings total (2 MEDIUM).
 
 ---
 
@@ -107,9 +107,9 @@
 
 ## Operator Action Queue (max 3)
 
-1. **All tracks GREEN. Debrief protocol restored.** 4 findings registered from ENGINE DISPATCH #8. One MEDIUM: **FINDING-WILDSHAPE-NATURAL-ATTACKS-001** — Druid cannot attack in Wild Shape. Draft WO-ENGINE-NATURAL-ATTACK-001 before any Druid playtest. Awaiting Thunder's priority call.
-2. **Engine candidates (unstarted):** GRAPPLE-001, GRAPPLE-PIN-001, AOO-WIRE-001, TWF-WIRE-001, CONCENTRATION-FIX, METAMAGIC follow-on. All have dispatch files in pm_inbox. Natural attack resolver should lead next engine dispatch.
-3. **UI 2D candidates:** Token interaction, handout tray wiring, fog reveal UX, consent draw flow (notebook), DM-PANEL v2.
+1. **WO-ENGINE-NATURAL-ATTACK-001 READY TO DISPATCH.** Fixes FINDING-WILDSHAPE-NATURAL-ATTACKS-001 (MEDIUM). Druid in Wild Shape cannot attack — `EF.NATURAL_ATTACKS` set but no code path resolves it. 10-test gate. Dispatch when ready.
+2. **FINDING-PLAY-LOOP-ROUTING-001 MEDIUM OPEN.** `execute_turn` routing chain (play_loop.py) has no elif branches for RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent. Gate tests pass because they call resolvers directly (bypassing play_loop). Needs a wire WO. Candidate for ENGINE DISPATCH #9 secondary slot alongside natural attacks (or standalone if scope warrants).
+3. **Engine candidates (unstarted in inbox):** GRAPPLE-001 ✅ ACCEPTED, AOO-WIRE-001 ✅ ACCEPTED, TWF-WIRE ✅ ACCEPTED, CONCENTRATION-FIX (unstarted). After natural attacks: assess CONCENTRATION-FIX priority + play_loop routing wire.
 
 ## Current Focus (Slate's focused recall)
 
@@ -135,6 +135,7 @@
 
 | Finding | Severity | Status | Description |
 |---------|----------|--------|-------------|
+| FINDING-PLAY-LOOP-ROUTING-001 | MEDIUM | OPEN | PM inspection 2026-02-24: `execute_turn` elif routing chain has no branches for RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent. These intents fall through to policy/stub blocks. Gate tests pass because they call resolvers directly (bypassing play_loop). Needs a play_loop integration wire WO. Candidate for ENGINE DISPATCH #9 secondary slot. |
 | FINDING-WILDSHAPE-NATURAL-ATTACKS-001 | MEDIUM | OPEN | ENGINE DISPATCH #8: `EF.NATURAL_ATTACKS` set by Wild Shape but no code path in `attack_resolver.py` consumes it. Druid in Wild Shape cannot attack. Prioritize WO-ENGINE-NATURAL-ATTACK-001 before any Druid playtest. |
 | FINDING-WILDSHAPE-HP-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape HP uses simplified Con-based formula. PHB proportional HP swap deferred. Non-blocking. |
 | FINDING-WILDSHAPE-DURATION-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape duration not auto-decremented. DM must trigger revert manually. Non-blocking. |
