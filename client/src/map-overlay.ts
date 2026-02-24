@@ -320,15 +320,30 @@ export class AreaIndicator {
 // MapOverlayManager — top-level coordinator (use this in main.ts)
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// PENDING state registry — WO-UI-MAP-01
+// ---------------------------------------------------------------------------
+
+/** Active PENDING kinds that may activate overlays or emit intents. */
+export type OverlayPendingKind = 'PENDING_AOE' | 'PENDING_POINT' | 'PENDING_SEARCH';
+
 /**
  * Manages all ephemeral map overlays: measure line, AoE shape, area highlights.
  *
+ * PENDING gate (WO-UI-MAP-01): overlays only activate when a matching PENDING
+ * kind is active. Activation without PENDING is a no-op (no overlay shown).
+ * Call setPending(kind) before routing WS events; call clearPending() on resolve.
+ *
  * Usage in main.ts:
  *   const overlayMgr = new MapOverlayManager(scene);
+ *   // Set PENDING before enabling overlays:
+ *   overlayMgr.setPending('PENDING_AOE');
  *   bridge.on('aoe_preview',   (data) => overlayMgr.showAoE(data));
  *   bridge.on('aoe_cleared',   ()     => overlayMgr.hideAoE());
+ *   overlayMgr.setPending('PENDING_POINT');
  *   bridge.on('measure_show',  (data) => overlayMgr.showMeasure(data));
  *   bridge.on('measure_hide',  ()     => overlayMgr.hideMeasure());
+ *   overlayMgr.setPending('PENDING_SEARCH');
  *   bridge.on('area_highlight',(data) => overlayMgr.showArea(data));
  *   bridge.on('area_clear',    ()     => overlayMgr.clearArea());
  *   // In render loop: overlayMgr.update(elapsed); (for pulsing)
@@ -337,6 +352,7 @@ export class MapOverlayManager {
   private _measure:  MeasureLine;
   private _aoe:      AoEOverlay;
   private _area:     AreaIndicator;
+  private _activePending: OverlayPendingKind | null = null;
 
   constructor(scene: THREE.Scene) {
     this._measure = new MeasureLine();
@@ -348,9 +364,31 @@ export class MapOverlayManager {
     scene.add(this._area.group);
   }
 
+  // ── PENDING gate ─────────────────────────────────────────────────────────
+
+  /** Activate a PENDING kind — unlocks matching overlay calls. */
+  setPending(kind: OverlayPendingKind): void {
+    this._activePending = kind;
+  }
+
+  /** Resolve/cancel active PENDING — clears all overlays and re-locks gate. */
+  clearPending(): void {
+    this._activePending = null;
+    // Ephemeral: clear all overlays on PENDING resolve (doctrine §16: TTL-only)
+    this._aoe.hide();
+    this._measure.hide();
+    this._area.clear();
+  }
+
+  get activePending(): OverlayPendingKind | null {
+    return this._activePending;
+  }
+
   // ── AoE ─────────────────────────────────────────────────────────────────
 
+  /** Show AoE preview — no-op if PENDING_AOE is not active. */
   showAoE(data: AoEPreviewData): void {
+    if (this._activePending !== 'PENDING_AOE') return;
     this._aoe.show(data);
   }
 
@@ -360,7 +398,9 @@ export class MapOverlayManager {
 
   // ── Measure line ─────────────────────────────────────────────────────────
 
+  /** Show measure line — no-op if PENDING_POINT is not active. */
   showMeasure(fromX: number, fromY: number, toX: number, toY: number): void {
+    if (this._activePending !== 'PENDING_POINT') return;
     this._measure.show(fromX, fromY, toX, toY);
   }
 
@@ -370,7 +410,9 @@ export class MapOverlayManager {
 
   // ── Area highlight ───────────────────────────────────────────────────────
 
+  /** Show area highlight — no-op if PENDING_SEARCH is not active. */
   showArea(squares: Array<[number, number]>, colorHex?: number): void {
+    if (this._activePending !== 'PENDING_SEARCH') return;
     this._area.show(squares, colorHex);
   }
 

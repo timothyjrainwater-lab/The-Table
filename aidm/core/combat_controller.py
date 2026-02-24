@@ -202,7 +202,8 @@ def start_combat(
         "round_index": 0,  # Will increment to 1 when first round starts
         "initiative_order": initiative_order,
         "flat_footed_actors": list(initiative_order),  # All actors start flat-footed
-        "aoo_used_this_round": []  # CP-15: Track AoO usage (reset each round)
+        "aoo_used_this_round": [],  # CP-15: Track AoO usage (reset each round)
+        "grapple_pairs": [],  # CP-22: Active grapple pairs [[initiator_id, target_id], ...]
     }
 
     updated_state = WorldState(
@@ -342,22 +343,15 @@ def execute_combat_round(
     active_combat["flat_footed_actors"] = list(flat_footed_actors)  # Convert set to list for serialization
     active_combat["aoo_used_this_round"] = aoo_used_this_round  # CP-15: Reset for next round
 
-    # Apply the updated active_combat to world_state BEFORE ticking duration
+    # Apply the updated active_combat to world_state BEFORE finishing round
     world_state = WorldState(
         ruleset_version=world_state.ruleset_version,
         entities=deepcopy(world_state.entities),
         active_combat=active_combat,
     )
 
-    # WO-015: Tick duration tracker and expire effects at round end
-    duration_events, world_state = _tick_duration_tracker(
-        world_state=world_state,
-        current_round=current_round,
-        next_event_id=current_event_id,
-        timestamp=current_timestamp,
-    )
-    events.extend(duration_events)
-    current_event_id += len(duration_events)
+    # NOTE: CP-19 — Duration tick is now handled inside execute_turn() at end-of-round
+    # (when last actor completes their turn). No separate tick here to avoid double-ticking.
 
     return CombatRoundResult(
         round_index=current_round,

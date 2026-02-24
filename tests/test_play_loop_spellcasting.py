@@ -58,6 +58,7 @@ def create_combat_state() -> WorldState:
                 EF.SAVE_WILL: 6,
                 "caster_level": 5,
                 "spell_dc_base": 14,  # 10 + 4 INT
+                EF.SPELL_SLOTS: {1: 10, 2: 10, 3: 10, 4: 10, 5: 10},
             },
             "cleric": {
                 EF.HP_CURRENT: 25,
@@ -70,6 +71,7 @@ def create_combat_state() -> WorldState:
                 EF.SAVE_WILL: 7,
                 "caster_level": 5,
                 "spell_dc_base": 15,
+                EF.SPELL_SLOTS: {1: 10, 2: 10, 3: 10, 4: 10, 5: 10},
             },
             "goblin_1": {
                 EF.HP_CURRENT: 6,

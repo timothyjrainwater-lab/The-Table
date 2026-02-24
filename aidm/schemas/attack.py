@@ -135,6 +135,92 @@ class AttackIntent:
 
 
 @dataclass
+class NonlethalAttackIntent:
+    """Intent to perform a nonlethal (subdual) attack.
+
+    PHB p.146: A melee attack declared as nonlethal incurs a -4 penalty to the
+    attack roll. On a hit, damage goes to the nonlethal pool (NONLETHAL_DAMAGE),
+    not to HP directly. When nonlethal damage >= current HP, the target is
+    staggered or unconscious.
+
+    Only valid with melee weapons. Using a lethal weapon to deal nonlethal damage
+    is permitted with the -4 penalty.
+
+    WO-ENGINE-NONLETHAL-001
+    """
+
+    attacker_id: str
+    """Entity performing the nonlethal attack"""
+
+    target_id: str
+    """Entity being attacked"""
+
+    attack_bonus: int
+    """Total attack bonus BEFORE the -4 nonlethal penalty.
+    The resolver applies the -4 penalty internally."""
+
+    weapon: "Weapon"
+    """Weapon being used. Must be melee (range_increment == 0)."""
+
+    def __post_init__(self):
+        if not self.attacker_id:
+            raise ValueError("attacker_id cannot be empty")
+        if not self.target_id:
+            raise ValueError("target_id cannot be empty")
+        if self.weapon.is_ranged:
+            raise ValueError(
+                "NonlethalAttackIntent requires a melee weapon (PHB p.146). "
+                f"Got ranged weapon with range_increment={self.weapon.range_increment}."
+            )
+
+
+@dataclass
+class EnergyDrainAttackIntent:
+    """Intent to perform an energy drain attack (bestow negative levels).
+
+    PHB p.215 (Energy Drain): A creature with the energy drain ability bestows
+    one or more negative levels with a successful melee attack. Each
+    negative level gives the target:
+      -1 penalty to all attack rolls, saves, skill checks, and ability checks
+      -1 to effective level for level-dependent quantities
+      -5 max HP (target loses 5 hp per negative level)
+
+    Uses the standard attack path (resolve_attack) internally; on hit,
+    additionally applies negative_levels_per_hit negative levels.
+
+    The 24h Fortitude save to make permanent vs temporary is DEFERRED.
+
+    WO-ENGINE-ENERGY-DRAIN-001
+    """
+
+    attacker_id: str
+    """Entity performing the energy drain (must be a creature with this ability)."""
+
+    target_id: str
+    """Entity being attacked."""
+
+    attack_bonus: int
+    """Total attack bonus for the attack roll (BAB + STR/misc)."""
+
+    weapon: "Weapon"
+    """Natural weapon used (claw, slam, incorporeal touch, etc.)."""
+
+    negative_levels_per_hit: int = 1
+    """Number of negative levels bestowed on a successful hit.
+    Wight = 1, Vampire = 2."""
+
+    def __post_init__(self):
+        if not self.attacker_id:
+            raise ValueError("attacker_id cannot be empty")
+        if not self.target_id:
+            raise ValueError("target_id cannot be empty")
+        if self.negative_levels_per_hit < 1:
+            raise ValueError(
+                f"negative_levels_per_hit must be >= 1, got {self.negative_levels_per_hit}"
+            )
+
+
+@dataclass
 class GridPosition:
     """2D grid position for movement and positioning.
 

@@ -1,0 +1,91 @@
+import sys
+
+NEW_TESTS = [
+    "",
+    "",
+    "# ---------------------------------------------------------------------------",
+    "# WO-UI-TOKEN-SLIDE-001 -- New tests 11-13",
+    "# ---------------------------------------------------------------------------",
+    "",
+    "",
+    "class TokenSlideSim:",
+    "    """Python simulation of the lerp tween in EntityRenderer.upsert()."""",
+    "",
+    "    def __init__(self):",
+    "        self.pos_x = 0.0",
+    "        self.pos_z = 0.0",
+    "        self._from_x = 0.0",
+    "        self._from_z = 0.0",
+    "        self._to_x = 0.0",
+    "        self._to_z = 0.0",
+    "        self._start_ms = 0.0",
+    "        self._duration_ms = 350.0",
+    "        self._tweening = False",
+    "",
+    "    def upsert_position(self, grid_x, grid_y, now_ms, replay_mode=False):",
+    "        """Mirror of EntityRenderer.upsert() position-change path."""",
+    "        target_x = grid_x * 0.5",
+    "        target_z = grid_y * 0.5",
+    "        if replay_mode:",
+    "            self.pos_x = target_x",
+    "            self.pos_z = target_z",
+    "            self._tweening = False",
+    "            return",
+    "        self._from_x = self.pos_x",
+    "        self._from_z = self.pos_z",
+    "        self._to_x = target_x",
+    "        self._to_z = target_z",
+    "        self._start_ms = now_ms",
+    "        self._tweening = True",
+    "",
+    "    def tick(self, now_ms):",
+    "        """Advance tween to the given timestamp."""",
+    "        if not self._tweening:",
+    "            return",
+    "        t = min((now_ms - self._start_ms) / self._duration_ms, 1.0)",
+    "        self.pos_x = self._from_x + (self._to_x - self._from_x) * t",
+    "        self.pos_z = self._from_z + (self._to_z - self._from_z) * t",
+    "        if t >= 1.0:",
+    "            self._tweening = False",
+    "",
+    "",
+    "class TestTokenSlide:",
+    "",
+    "    def test_ui06_11_slide_midpoint(self):",
+    "        """UI06-11: Slide duration -- position is ~halfway at 175 ms into a 350 ms tween."""",
+    "        sim = TokenSlideSim()",
+    "        sim.upsert_position(0, 0, now_ms=0)",
+    "        sim.upsert_position(4, 0, now_ms=0)",
+    "        sim.tick(175)",
+    "        assert 0.8 < sim.pos_x < 1.2, f"Expected ~1.0 at midpoint, got {sim.pos_x}"",
+    "",
+    "    def test_ui06_12_replay_snap(self):",
+    "        """UI06-12: Replay snap -- replay_mode=True teleports token without tweening."""",
+    "        sim = TokenSlideSim()",
+    "        sim.upsert_position(4, 3, now_ms=0, replay_mode=True)",
+    "        assert abs(sim.pos_x - 2.0) < 0.001, f"Expected x=2.0, got {sim.pos_x}"",
+    "        assert abs(sim.pos_z - 1.5) < 0.001, f"Expected z=1.5, got {sim.pos_z}"",
+    "        assert sim._tweening is False",
+    "",
+    "    def test_ui06_13_mid_tween_update(self):",
+    "        """UI06-13: Mid-tween update -- second move cancels first, starts from current pos."""",
+    "        sim = TokenSlideSim()",
+    "        sim.upsert_position(4, 0, now_ms=0)",
+    "        sim.tick(175)",
+    "        sim.upsert_position(0, 0, now_ms=175)",
+    "        sim.tick(175 + 350)",
+    "        assert abs(sim.pos_x) < 0.05, f"Expected ~0.0 after second tween, got {sim.pos_x}"",
+]
+
+test_path = r"F:/DnD-3.5/tests/test_ui_gate_ui06.py"
+with open(test_path, "r", encoding="utf-8") as f:
+    existing = f.read()
+
+if "TokenSlideSim" in existing:
+    print("Already appended, skipping")
+    sys.exit(0)
+
+addition = chr(10).join(NEW_TESTS) + chr(10)
+with open(test_path, "a", encoding="utf-8") as f:
+    f.write(addition)
+print("Appended " + str(len(addition)) + " chars")

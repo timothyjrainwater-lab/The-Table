@@ -1,0 +1,82 @@
+{
+  "schema": "layout-pack-v1",
+  "objects": [
+    {
+      "name": "CHAR_SHEET",
+      "mesh_name": "stub_character_sheet",
+      "zone": "SHELF_ZONE",
+      "anchor": "shelf_sheet",
+      "position": { "x": -2.6, "y": 0.005, "z": 5.1 },
+      "rotation_y": 0.06,
+      "scale": { "x": 1.4, "y": 1.0, "z": 1.9 },
+      "physics_class": "KINEMATIC_DRAG",
+      "notes": "Paper flat on shelf. Parchment texture."
+    },
+    {
+      "name": "NOTEBOOK",
+      "mesh_name": "stub_notebook",
+      "zone": "SHELF_ZONE",
+      "anchor": "shelf_notebook",
+      "position": { "x": -0.2, "y": 0.01, "z": 5.1 },
+      "rotation_y": -0.08,
+      "scale": { "x": 1.4, "y": 0.08, "z": 1.9 },
+      "physics_class": "KINEMATIC_DRAG",
+      "notes": "Dominant player object. Largest footprint or most central. Must not be tucked."
+    },
+    {
+      "name": "RULEBOOK",
+      "mesh_name": "stub_tome",
+      "zone": "SHELF_ZONE",
+      "anchor": "shelf_rulebook",
+      "position": { "x": 2.0, "y": 0.04, "z": 5.1 },
+      "rotation_y": 0.12,
+      "scale": { "x": 1.2, "y": 0.14, "z": 1.6 },
+      "physics_class": "KINEMATIC_DRAG",
+      "notes": "Thicker than notebook. Burgundy cover. Formal."
+    },
+    {
+      "name": "DICE_BAG",
+      "mesh_name": "stub_dice_bag",
+      "zone": "SHELF_ZONE",
+      "anchor": "shelf_dice_bag",
+      "position": { "x": -4.0, "y": 0.01, "z": 5.1 },
+      "rotation_y": 0.0,
+      "scale": { "x": 0.5, "y": 0.5, "z": 0.5 },
+      "physics_class": "KINEMATIC_DRAG",
+      "notes": "Near left rail. Reachable from dice station without crossing shelf center."
+    },
+    {
+      "name": "CRYSTAL_BALL",
+      "mesh_name": "stub_crystal_ball",
+      "zone": "DM_ZONE",
+      "anchor": "orb_anchor",
+      "position": { "x": 0.0, "y": 1.45, "z": -3.2 },
+      "rotation_y": 0.0,
+      "scale": { "x": 1.0, "y": 1.0, "z": 1.0 },
+      "physics_class": "STATIC",
+      "notes": "Dominant DM-side anchor. Never interactive. Radius 1.4."
+    },
+    {
+      "name": "DICE_TRAY",
+      "mesh_name": "dice_tray_bottom",
+      "zone": "DICE_STATION_ZONE",
+      "anchor": "dice_tray_center",
+      "position": { "x": 4.5, "y": 0.03, "z": 3.8 },
+      "rotation_y": 0.0,
+      "scale": { "x": 1.0, "y": 1.0, "z": 1.0 },
+      "physics_class": "STATIC",
+      "notes": "Walnut frame + felt floor. Player zone — right side, z=3.8 (player-near, not map area)."
+    },
+    {
+      "name": "DICE_TOWER",
+      "mesh_name": "stub_dice_tower",
+      "zone": "DICE_STATION_ZONE",
+      "anchor": "dice_tower_base",
+      "position": { "x": 4.5, "y": 0.62, "z": 3.0 },
+      "rotation_y": 0.0,
+      "scale": { "x": 1.0, "y": 1.0, "z": 1.0 },
+      "physics_class": "STATIC",
+      "notes": "Inside tray unit. Player zone — z=3.0. Opening at top must be visible from DICE_TRAY posture."
+    }
+  ]
+}

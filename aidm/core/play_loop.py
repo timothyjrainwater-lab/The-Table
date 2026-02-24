@@ -74,6 +74,7 @@ from aidm.schemas.intents import (
     ChargeIntent, TurnUndeadIntent, ReadyActionIntent, AidAnotherIntent,
     FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
+    RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
 )
 from aidm.core.companion_resolver import spawn_companion
 # WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
@@ -1295,6 +1296,17 @@ def execute_turn(
     # WO-WAYPOINT-002: actions_prohibited gate check
     # If the actor has a condition that sets actions_prohibited=True,
     # reject any action intent deterministically. The engine says no.
+
+    # WO-ENGINE-CLEAVE-WIRE-001: clear cleave_used_this_turn at start of each turn (PHB p.92)
+    if world_state.active_combat is not None and "cleave_used_this_turn" in world_state.active_combat:
+        _cl_combat = deepcopy(world_state.active_combat)
+        _cl_combat["cleave_used_this_turn"] = set()
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=deepcopy(world_state.entities),
+            active_combat=_cl_combat,
+        )
+
     condition_mods = get_condition_modifiers(world_state, turn_ctx.actor_id)
     if condition_mods.actions_prohibited:
         # Identify which conditions caused the prohibition
@@ -1449,7 +1461,9 @@ def execute_turn(
             intent_actor_id = combat_intent.attacker_id
         elif isinstance(combat_intent, (ReadyActionIntent, AidAnotherIntent,
                                         FightDefensivelyIntent, TotalDefenseIntent,
-                                        FeintIntent)):
+                                        FeintIntent, RageIntent, SmiteEvilIntent, BardicMusicIntent,
+                                        WildShapeIntent, RevertFormIntent,
+                                        AbilityDamageIntent, WithdrawIntent, DelayIntent)):
             intent_actor_id = combat_intent.actor_id
         else:
             # Unknown intent type
@@ -2752,6 +2766,27 @@ def execute_turn(
             timestamp=timestamp,
             rng=rng,
         )
+
+    # WO-ENGINE-BARDIC-MUSIC-001: tick inspire courage buff at end of each turn
+    _has_ic = any(
+        e.get(EF.INSPIRE_COURAGE_ACTIVE, False)
+        for e in world_state.entities.values()
+    )
+    if _has_ic:
+        from aidm.core.bardic_music_resolver import tick_inspire_courage as _tick_ic
+        _ic_events, world_state = _tick_ic(world_state, current_event_id, timestamp + 0.12)
+        events.extend(_ic_events)
+        current_event_id += len(_ic_events)
+
+    # WO-ENGINE-BARBARIAN-RAGE-001: tick rage at end of actor's turn (PHB p.25)
+    _rage_tick_actor = world_state.entities.get(turn_ctx.actor_id, {})
+    if _rage_tick_actor.get(EF.RAGE_ACTIVE, False):
+        from aidm.core.rage_resolver import tick_rage as _tick_rage
+        _rage_tick_evts, world_state = _tick_rage(
+            turn_ctx.actor_id, world_state, current_event_id, timestamp + 0.15
+        )
+        events.extend(_rage_tick_evts)
+        current_event_id += len(_rage_tick_evts)
 
     events.append(Event(
         event_id=current_event_id,

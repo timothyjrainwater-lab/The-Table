@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-02-24T05:50:06.418Z",
+  "source": "window.__cameraController__",
+  "postures": {
+    "STANDARD": {
+      "fov": 55,
+      "near": 0.3,
+      "far": 50,
+      "pos": [
+        0,
+        1.55,
+        7.8
+      ]
+    },
+    "DOWN": {
+      "fov": 42,
+      "near": 0.2,
+      "far": 20,
+      "pos": [
+        0,
+        1.1,
+        7.2
+      ]
+    },
+    "LEAN_FORWARD": {
+      "fov": 58,
+      "near": 0.1,
+      "far": 30,
+      "pos": [
+        0,
+        1.8,
+        3.5
+      ]
+    },
+    "DICE_TRAY": {
+      "fov": 52,
+      "near": 0.3,
+      "far": 30,
+      "pos": [
+        1.5,
+        1.55,
+        6.5
+      ]
+    },
+    "BOOK_READ": {
+      "fov": 38,
+      "near": 0.1,
+      "far": 15,
+      "pos": [
+        2.2,
+        1.1,
+        6.8
+      ]
+    }
+  }
+}

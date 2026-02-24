@@ -1,0 +1,63 @@
+{
+  "schema": "layout-pack-v1",
+  "zones": [
+    {
+      "name": "DM_ZONE",
+      "centerX": 0.0,
+      "centerZ": -3.5,
+      "halfWidth": 5.0,
+      "halfHeight": 0.75,
+      "description": "Far band — orb / DM presence"
+    },
+    {
+      "name": "VAULT_ZONE",
+      "centerX": 0.0,
+      "centerZ": -0.5,
+      "halfWidth": 3.1,
+      "halfHeight": 2.1,
+      "description": "Recessed felt vault — map well. Objects must be below rail level inside this zone."
+    },
+    {
+      "name": "WORK_ZONE",
+      "centerX": 0.0,
+      "centerZ": 2.0,
+      "halfWidth": 3.0,
+      "halfHeight": 1.5,
+      "description": "Open working surface in front of player — loose handouts, loose dice"
+    },
+    {
+      "name": "TRASH_RING_ZONE",
+      "centerX": 2.7,
+      "centerZ": 3.6,
+      "halfWidth": 0.4,
+      "halfHeight": 0.4,
+      "description": "Discard ring — near back of work zone"
+    },
+    {
+      "name": "SHELF_ZONE",
+      "centerX": 0.0,
+      "centerZ": 4.75,
+      "halfWidth": 5.0,
+      "halfHeight": 0.80,
+      "description": "Player shelf strip — sheet, notebook, rulebook, dice bag"
+    },
+    {
+      "name": "DICE_STATION_ZONE",
+      "centerX": 4.5,
+      "centerZ": 1.125,
+      "halfWidth": 1.2,
+      "halfHeight": 1.325,
+      "description": "Right-side dice area — tray + tower. Spans z=-0.2 to z=+2.45."
+    }
+  ],
+  "anchors": {
+    "orb_anchor":       { "x": 0.0,  "y": 1.45, "z": -3.2  },
+    "vault_center":     { "x": 0.0,  "y": 0.0,  "z": -0.5  },
+    "shelf_sheet":      { "x": -2.6, "y": 0.0,  "z": 4.75  },
+    "shelf_notebook":   { "x": -0.2, "y": 0.0,  "z": 4.75  },
+    "shelf_rulebook":   { "x": 2.0,  "y": 0.0,  "z": 4.75  },
+    "shelf_dice_bag":   { "x": -4.0, "y": 0.0,  "z": 4.75  },
+    "dice_tray_center": { "x": 4.5,  "y": 0.065,"z": 1.75  },
+    "dice_tower_base":  { "x": 4.5,  "y": 0.065,"z": 0.5   }
+  }
+}

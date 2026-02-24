@@ -65,6 +65,31 @@ from aidm.core.targeting_resolver import evaluate_target_legality, get_entity_po
 from aidm.schemas.entity_fields import EF
 
 
+def _find_cleave_target(attacker_id: str, killed_id: str, world_state: WorldState):
+    """Find an adjacent enemy to target with a Cleave bonus attack.
+
+    Returns entity ID of first living hostile entity that is not the just-killed one,
+    or None if no valid target exists.
+
+    WO-ENGINE-CLEAVE-WIRE-001
+    """
+    attacker = world_state.entities.get(attacker_id)
+    if attacker is None:
+        return None
+    attacker_team = attacker.get(EF.TEAM, "")
+    for eid, entity in world_state.entities.items():
+        if eid == attacker_id or eid == killed_id:
+            continue
+        if entity.get(EF.DEFEATED, False):
+            continue
+        if entity.get(EF.HP_CURRENT, 0) <= 0:
+            continue
+        if entity.get(EF.TEAM, "") == attacker_team:
+            continue
+        return eid
+    return None
+
+
 def parse_damage_dice(dice_expr: str) -> Tuple[int, int]:
     """
     Parse simple dice expression like '1d8' or '2d6'.
@@ -187,6 +212,23 @@ def resolve_attack(
         ))
 
         # Return early with failure state (no attack roll, no damage, no HP change)
+        return events
+
+    # WO-ENGINE-WILD-SHAPE-001: Block weapon attacks while equipment is melded (PHB p.36)
+    _attacker_entity = world_state.entities.get(intent.attacker_id, {})
+    if _attacker_entity.get(EF.EQUIPMENT_MELDED, False):
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="intent_validation_failed",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "intent_type": "AttackIntent",
+                "reason": "equipment_melded",
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 36}],
+        ))
         return events
 
     # CP-16: Get condition modifiers for attacker and defender
@@ -335,6 +377,11 @@ def resolve_attack(
     # WO-ENGINE-DEFEND-001: Fight defensively attack penalty
     _attacker_temp_mods = attacker.get(EF.TEMPORARY_MODIFIERS, {}) or {}
     _fd_attack_penalty = _attacker_temp_mods.get("fight_defensively_attack", 0)
+    # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus (PHB p.29)
+    _inspire_attack_bonus = (
+        attacker.get(EF.INSPIRE_COURAGE_BONUS, 0)
+        if attacker.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
+    )
 
     attack_bonus_with_conditions = (
         intent.attack_bonus +
@@ -347,6 +394,7 @@ def resolve_attack(
         + _fd_attack_penalty  # WO-ENGINE-DEFEND-001: 0 or negative (e.g. -4)
         + _weapon_broken_penalty  # WO-ENGINE-SUNDER-DISARM-FULL-001: -2 if weapon broken
         + _vs_blinded_bonus  # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: +2 vs blinded
+        + _inspire_attack_bonus  # WO-ENGINE-BARDIC-MUSIC-001: morale bonus to attack
     )
     total = d20_result + attack_bonus_with_conditions
 
@@ -489,7 +537,12 @@ def resolve_attack(
 
         base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_to_damage
         # CP-16: Apply condition damage modifier, WO-034: Apply feat damage modifier
-        base_damage_with_modifiers = base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier
+        # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus to damage (PHB p.29)
+        _inspire_dmg_bonus = (
+            attacker.get(EF.INSPIRE_COURAGE_BONUS, 0)
+            if attacker.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
+        )
+        base_damage_with_modifiers = base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier + _inspire_dmg_bonus
 
         # WO-FIX-002: Apply critical multiplier (PHB p.140)
         if is_critical:
@@ -611,6 +664,55 @@ def resolve_attack(
             events.extend(trans_events)
             current_event_id += len(trans_events)
             # (apply_attack_events reads new event types directly)
+
+            # WO-ENGINE-CLEAVE-WIRE-001: Cleave / Great Cleave bonus attack on kill (PHB p.92/94)
+            if hp_after <= 0:
+                from aidm.core.feat_resolver import can_use_cleave, get_cleave_limit
+                _cleave_attacker = world_state.entities.get(intent.attacker_id, {})
+                if can_use_cleave(_cleave_attacker, intent.target_id, world_state):
+                    _cleave_limit = get_cleave_limit(_cleave_attacker)
+                    _cleave_used_set = set()
+                    if world_state.active_combat is not None:
+                        _cleave_used_set = set(world_state.active_combat.get("cleave_used_this_turn", set()))
+                    _already_cleaved = intent.attacker_id in _cleave_used_set
+                    if _cleave_limit is None or not _already_cleaved:
+                        _cleave_target_id = _find_cleave_target(
+                            intent.attacker_id, intent.target_id, world_state
+                        )
+                        if _cleave_target_id is not None:
+                            # Mark used for Cleave once-per-round (Great Cleave has no limit)
+                            if _cleave_limit == 1 and world_state.active_combat is not None:
+                                world_state.active_combat["cleave_used_this_turn"] = _cleave_used_set | {intent.attacker_id}
+                            _feat_name = "great_cleave" if get_cleave_limit(_cleave_attacker) is None else "cleave"
+                            events.append(Event(
+                                event_id=current_event_id,
+                                event_type="cleave_triggered",
+                                timestamp=timestamp + 0.35,
+                                payload={
+                                    "attacker_id": intent.attacker_id,
+                                    "killed_target_id": intent.target_id,
+                                    "cleave_target_id": _cleave_target_id,
+                                    "feat": _feat_name,
+                                },
+                                citations=[{"source_id": "681f92bc94ff", "page": 92}],
+                            ))
+                            current_event_id += 1
+                            # Bonus attack at same attack bonus as the killing blow
+                            _cleave_intent = AttackIntent(
+                                attacker_id=intent.attacker_id,
+                                target_id=_cleave_target_id,
+                                weapon=intent.weapon,
+                                attack_bonus=intent.attack_bonus,
+                            )
+                            _cleave_events = resolve_attack(
+                                intent=_cleave_intent,
+                                world_state=world_state,
+                                rng=rng,
+                                next_event_id=current_event_id,
+                                timestamp=timestamp + 0.4,
+                            )
+                            events.extend(_cleave_events)
+                            current_event_id += len(_cleave_events)
 
     return events
 

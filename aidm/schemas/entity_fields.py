@@ -50,6 +50,7 @@ class _EntityFields:
 
     # --- Combat Status (CP-10) ---
     DEFEATED = "defeated"
+    CRIT_IMMUNE = "crit_immune"  # Bool: True if creature is immune to critical hits — WO-ENGINE-COUP-DE-GRACE-001
 
     # --- Ability Scores (SKR-002) ---
     BASE_STATS = "base_stats"
@@ -146,9 +147,79 @@ class _EntityFields:
     CASTER_CLASS_2 = "caster_class_2"              # Name of the second caster class
     CASTER_LEVEL_2 = "caster_level_2"              # Class level of second caster
 
+    # --- Rest / Slot Recovery (WO-ENGINE-REST-001) ---
+    SPELL_SLOTS_MAX = "spell_slots_max"            # Dict[int, int] — max slots snapshot at chargen, never decremented
+    SPELL_SLOTS_MAX_2 = "spell_slots_max_2"        # Dict[int, int] — secondary caster max slots snapshot
+
+    # --- Death / Dying (WO-ENGINE-DEATH-DYING-001) ---
+    DYING = "dying"                # Bool: True if HP between -1 and -9 (inclusive)
+    STABLE = "stable"              # Bool: True if formerly dying, now stable (no longer bleeding)
+    DISABLED = "disabled"          # Bool: True if HP == 0 (disabled, not dying)
+
+    # --- Nonlethal Damage (WO-ENGINE-NONLETHAL-001) ---
+    NONLETHAL_DAMAGE = "nonlethal_damage"  # Int: accumulated nonlethal damage. 0 = none.
+
     # --- Animal Companion (WO-ENGINE-COMPANION-WIRE) ---
     COMPANION_OWNER_ID = "companion_owner_id"  # entity_id of the druid/ranger who owns this companion
     COMPANION_TYPE = "companion_type"          # companion species key: "wolf", "eagle", etc.
+
+    # --- Turn Undead (WO-ENGINE-TURN-UNDEAD-001) ---
+    TURN_UNDEAD_USES = "turn_undead_uses"          # Int: remaining turn undead uses today
+    TURN_UNDEAD_USES_MAX = "turn_undead_uses_max"  # Int: max turn uses per day (3 + CHA mod, min 1)
+    IS_UNDEAD = "is_undead"                        # Bool: True if creature is undead type
+
+    # --- Negative Levels (WO-ENGINE-ENERGY-DRAIN-001) ---
+    NEGATIVE_LEVELS = "negative_levels"  # Int: accumulated negative levels (0 = none)
+
+    # --- Ability Damage / Drain (WO-ENGINE-ABILITY-DAMAGE-001) ---
+    STR_DAMAGE = "str_damage"          # Int: temporary STR ability damage (heals 1/night)
+    DEX_DAMAGE = "dex_damage"          # Int: temporary DEX ability damage
+    CON_DAMAGE = "con_damage"          # Int: temporary CON ability damage
+    INT_DAMAGE = "int_damage"          # Int: temporary INT ability damage
+    WIS_DAMAGE = "wis_damage"          # Int: temporary WIS ability damage
+    CHA_DAMAGE = "cha_damage"          # Int: temporary CHA ability damage
+    STR_DRAIN = "str_drain"            # Int: permanent STR drain (does not heal on rest)
+    DEX_DRAIN = "dex_drain"            # Int: permanent DEX drain
+    CON_DRAIN = "con_drain"            # Int: permanent CON drain
+    INT_DRAIN = "int_drain"            # Int: permanent INT drain
+    WIS_DRAIN = "wis_drain"            # Int: permanent WIS drain
+    CHA_DRAIN = "cha_drain"            # Int: permanent CHA drain
+
+    # --- Poison / Disease Tracking (WO-ENGINE-POISON-DISEASE-001) ---
+    ACTIVE_POISONS = "active_poisons"      # List of poison instance dicts
+    ACTIVE_DISEASES = "active_diseases"    # List of disease instance dicts
+
+    # --- Weapon State (WO-ENGINE-SUNDER-DISARM-FULL-001) ---
+    WEAPON_HP = "weapon_hp"            # Int: current HP of wielded weapon
+    WEAPON_HP_MAX = "weapon_hp_max"    # Int: max HP of wielded weapon
+    WEAPON_BROKEN = "weapon_broken"    # Bool: weapon has reached 0 HP (-2 attack penalty)
+    WEAPON_DESTROYED = "weapon_destroyed"  # Bool: weapon is gone
+    DISARMED = "disarmed"              # Bool: entity's weapon knocked away this round
+
+    # --- Barbarian Rage (WO-ENGINE-BARBARIAN-RAGE-001) ---
+    RAGE_ACTIVE = "rage_active"               # Bool: True while raging
+    RAGE_USES_REMAINING = "rage_uses_remaining"  # Int: uses left this day
+    RAGE_ROUNDS_REMAINING = "rage_rounds_remaining"  # Int: rounds left in current rage
+    FATIGUED = "fatigued"                     # Bool: True after rage ends (until rest)
+
+    # --- Paladin Smite Evil (WO-ENGINE-SMITE-EVIL-001) ---
+    SMITE_USES_REMAINING = "smite_uses_remaining"  # Int: smite uses left today
+
+    # --- Bardic Music (WO-ENGINE-BARDIC-MUSIC-001) ---
+    BARDIC_MUSIC_USES_REMAINING = "bardic_music_uses_remaining"  # Int: uses left today
+    INSPIRE_COURAGE_ACTIVE = "inspire_courage_active"   # Bool: inspire courage in effect
+    INSPIRE_COURAGE_BONUS = "inspire_courage_bonus"     # Int: current morale bonus (+1 to +4)
+    INSPIRE_COURAGE_ROUNDS_REMAINING = "inspire_courage_rounds_remaining"  # Int: rounds left
+
+    # --- Wild Shape (WO-ENGINE-WILD-SHAPE-001) ---
+    WILD_SHAPE_USES_REMAINING = "wild_shape_uses_remaining"  # Int: uses left today
+    WILD_SHAPE_ACTIVE = "wild_shape_active"         # Bool: True while wild shaped
+    WILD_SHAPE_FORM = "wild_shape_form"             # Str: current animal form key
+    ORIGINAL_STATS = "original_stats"               # Dict: pre-wild-shape stat snapshot (legacy alias)
+    WILD_SHAPE_SAVED_STATS = "wild_shape_saved_stats"  # Dict: snapshot of original stats on transform
+    WILD_SHAPE_HOURS_REMAINING = "wild_shape_hours_remaining"  # Int: hours left in form
+    EQUIPMENT_MELDED = "equipment_melded"           # Bool: equipment melded into form (weapon attacks blocked)
+    NATURAL_ATTACKS = "natural_attacks"             # List[dict]: natural attack definitions while in form
 
     # --- Racial Traits (WO-CHARGEN-RACIAL-001) ---
     SAVE_BONUS_SPELLS = "save_bonus_spells"        # Racial bonus vs spells and spell-like abilities

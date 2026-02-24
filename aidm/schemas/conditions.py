@@ -24,6 +24,7 @@ class ConditionType(str, Enum):
     PRONE = "prone"
     FLAT_FOOTED = "flat_footed"
     GRAPPLED = "grappled"
+    GRAPPLING = "grappling"
     HELPLESS = "helpless"
 
     # SHOULD-HAVE conditions (CP-16 non-blocking)
@@ -41,6 +42,14 @@ class ConditionType(str, Enum):
     PARALYZED = "paralyzed"
     STAGGERED = "staggered"
     UNCONSCIOUS = "unconscious"
+    PINNED = "pinned"           # WO-ENGINE-GRAPPLE-PIN-001: helpless from grapple escalation
+    TURNED = "turned"           # WO-ENGINE-TURN-UNDEAD-001: undead routed by cleric turning
+
+    # WO-ENGINE-CONDITIONS-BLIND-DEAF-001
+    BLINDED = "blinded"         # 50% miss on own attacks; opponents +2; -2 AC; loses Dex to AC
+    DEAFENED = "deafened"       # 20% verbal spell failure
+    ENTANGLED = "entangled"     # -2 attack, -4 Dex
+    CONFUSED = "confused"       # d100 behavior roll each turn
 
 
 @dataclass
@@ -267,6 +276,24 @@ def create_grappled_condition(source: str, applied_at_event_id: int) -> Conditio
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Grappled: -4 Dex, no normal movement"
+    )
+
+
+def create_grappling_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Grappling condition for the initiator of a grapple.
+
+    PHB p.156: While grappling, attacker also takes -4 Dex, cannot 5-foot step.
+    CP-22: Applied to the grapple initiator when grapple is established.
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.GRAPPLING,
+        source=source,
+        modifiers=ConditionModifiers(
+            dex_modifier=-4,
+            movement_prohibited=True
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Grappling: -4 Dex, no 5-foot step, limited actions"
     )
 
 
@@ -562,4 +589,55 @@ def create_unconscious_condition(source: str, applied_at_event_id: int) -> Condi
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Unconscious: helpless, cannot move or act"
+    )
+
+
+def create_pinned_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Pinned condition instance.
+
+    PHB p.156: A pinned character is helpless — cannot take actions,
+    loses Dexterity to AC (treated as Dex 0), and melee attackers
+    gain +4 bonus (equivalent to attacking helpless target).
+
+    Pinned is more severe than Grappled. Applied when grappler
+    succeeds at a second grapple check against an already-grappled target.
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.PINNED,
+        source=source,
+        modifiers=ConditionModifiers(
+            ac_modifier_melee=-4,        # Melee attackers get +4 (PHB p.310 helpless)
+            ac_modifier_ranged=0,        # Ranged unaffected
+            loses_dex_to_ac=True,        # Dex treated as 0
+            auto_hit_if_helpless=True,   # Coup de grace eligible
+            actions_prohibited=True,     # Cannot take actions
+            movement_prohibited=True,    # Cannot move
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Pinned: helpless, Dex 0, melee +4 bonus, cannot act"
+    )
+
+
+def create_turned_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Turned condition instance.
+
+    PHB p.159 (Turn/Rebuke Undead): A turned undead flees from the cleric as
+    fast as possible for 10 rounds. It cannot attack unless cornered or the
+    only way to reach safety is through the cleric. Turned undead that are
+    commanded by another cleric do not flee but are under that cleric's command.
+
+    WO-ENGINE-TURN-UNDEAD-001:
+    - movement_prohibited=False (must flee; CAN and MUST move away)
+    - actions_prohibited=True (cannot attack while fleeing unless cornered)
+    - No numeric AC/attack modifier (turning is behavioral, not stat-based)
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.TURNED,
+        source=source,
+        modifiers=ConditionModifiers(
+            actions_prohibited=True,    # Cannot attack while fleeing (PHB p.159)
+            movement_prohibited=False,  # Must flee at full speed away from cleric
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Turned: flees from cleric for 10 rounds, cannot attack unless cornered"
     )

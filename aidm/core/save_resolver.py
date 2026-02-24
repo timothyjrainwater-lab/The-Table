@@ -23,6 +23,7 @@ from aidm.schemas.conditions import (
     create_prone_condition,
     create_flat_footed_condition,
     create_grappled_condition,
+    create_grappling_condition,
     create_helpless_condition,
     create_stunned_condition,
     create_dazed_condition,
@@ -35,7 +36,9 @@ from aidm.schemas.conditions import (
     create_exhausted_condition,
     create_paralyzed_condition,
     create_staggered_condition,
-    create_unconscious_condition
+    create_unconscious_condition,
+    create_pinned_condition,
+    create_turned_condition,
 )
 
 
@@ -44,6 +47,7 @@ CONDITION_FACTORIES = {
     "prone": create_prone_condition,
     "flat_footed": create_flat_footed_condition,
     "grappled": create_grappled_condition,
+    "grappling": create_grappling_condition,
     "helpless": create_helpless_condition,
     "stunned": create_stunned_condition,
     "dazed": create_dazed_condition,
@@ -56,7 +60,9 @@ CONDITION_FACTORIES = {
     "exhausted": create_exhausted_condition,
     "paralyzed": create_paralyzed_condition,
     "staggered": create_staggered_condition,
-    "unconscious": create_unconscious_condition
+    "unconscious": create_unconscious_condition,
+    "pinned": create_pinned_condition,
+    "turned": create_turned_condition,
 }
 
 
@@ -108,8 +114,16 @@ def get_save_bonus(
     }
     condition_save_mod = save_mod_map[save_type]
 
+    # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus for fear/charm saves (PHB p.29)
+    # v1: applied to all saves (no descriptor tracking yet; fear/charm are Will saves)
+    # FINDING-BARDIC-SAVE-SCOPE-001: narrow to fear/charm descriptors when descriptor tracking added
+    inspire_courage_bonus = (
+        entity.get(EF.INSPIRE_COURAGE_BONUS, 0)
+        if entity.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
+    )
+
     # Total bonus
-    total_bonus = base_save + ability_mod + condition_save_mod
+    total_bonus = base_save + ability_mod + condition_save_mod + inspire_courage_bonus
 
     return total_bonus
 

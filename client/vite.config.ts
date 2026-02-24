@@ -12,4 +12,9 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
+  test: {
+    environment: 'node',
+    include: ['tests/unit/**/*.test.ts'],
+    reporters: ['verbose'],
+  },
 });

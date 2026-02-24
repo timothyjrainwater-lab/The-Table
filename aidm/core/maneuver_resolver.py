@@ -32,6 +32,7 @@ RNG CONSUMPTION ORDER (per maneuver):
 
 import logging
 from copy import deepcopy
+from dataclasses import dataclass
 from typing import List, Dict, Any, Optional, Tuple, Union
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
@@ -39,15 +40,28 @@ from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.maneuvers import (
     BullRushIntent, TripIntent, OverrunIntent,
-    SunderIntent, DisarmIntent, GrappleIntent,
+    SunderIntent, DisarmIntent, GrappleIntent, GrappleEscapeIntent, PinEscapeIntent,
     OpposedCheckResult, ManeuverResult, TouchAttackResult,
     get_size_modifier, get_standard_attack_size_modifier,
 )
 from aidm.core.attack_resolver import parse_damage_dice, roll_dice
 from aidm.schemas.conditions import (
-    create_prone_condition, create_grappled_condition,
+    create_prone_condition, create_grappled_condition, create_grappling_condition,
+    create_pinned_condition, ConditionType,
 )
-from aidm.core.conditions import apply_condition
+from aidm.core.conditions import apply_condition, remove_condition
+
+
+@dataclass(frozen=True)
+class GrappleResult:
+    """Result of a grapple initiation attempt. CP-22."""
+    success: bool
+    touch_hit: bool
+    initiator_roll: int
+    defender_roll: int
+    initiator_id: str
+    target_id: str
+    events: list
 
 logger = logging.getLogger(__name__)
 
@@ -1037,8 +1051,41 @@ def resolve_overrun(
 
 
 # ==============================================================================
-# SUNDER RESOLUTION (DEGRADED)
+# SUNDER RESOLUTION (FULL — WO-ENGINE-SUNDER-DISARM-FULL-001)
 # ==============================================================================
+
+# Hardness and HP tables PHB p.165
+_ITEM_HARDNESS: Dict[str, int] = {
+    "light": 5,
+    "one-handed": 5,
+    "two-handed": 5,
+    "shield_light": 5,
+    "shield_heavy": 7,
+}
+_ITEM_HP_MAX: Dict[str, int] = {
+    "light": 2,
+    "one-handed": 5,
+    "two-handed": 10,
+    "shield_light": 7,
+    "shield_heavy": 15,
+}
+
+
+def _get_weapon_hp_info(world_state: WorldState, entity_id: str) -> Tuple[int, int, int]:
+    """Return (current_hp, max_hp, hardness) for entity's wielded weapon."""
+    entity = world_state.entities.get(entity_id, {})
+    weapon_data = entity.get(EF.WEAPON)
+    weapon_type = "one-handed"
+    if weapon_data and isinstance(weapon_data, dict):
+        weapon_type = weapon_data.get("weapon_type", "one-handed")
+
+    hardness = _ITEM_HARDNESS.get(weapon_type, 5)
+    hp_max = _ITEM_HP_MAX.get(weapon_type, 5)
+
+    # Read current HP (default to max if not yet set)
+    hp_current = entity.get(EF.WEAPON_HP, hp_max)
+    return hp_current, hp_max, hardness
+
 
 def resolve_sunder(
     intent: SunderIntent,
@@ -1050,11 +1097,10 @@ def resolve_sunder(
     aoo_defeated: bool = False,
     causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
-    """Resolve a Sunder maneuver (DEGRADED).
+    """Resolve a Sunder maneuver (FULL — WO-ENGINE-SUNDER-DISARM-FULL-001).
 
-    PHB p.158-159: Opposed attack rolls. Winner's item takes damage.
-    DEGRADED: Damage is logged for narrative purposes only.
-    No persistent item state change.
+    PHB p.158-159: Opposed attack rolls. Attacker wins → item takes damage
+    minus hardness. At 0 HP: broken (-2 attack). At ≤ -max HP: destroyed.
 
     RNG Consumption Order:
     1. AoO attack rolls (handled externally)
@@ -1105,7 +1151,6 @@ def resolve_sunder(
     current_timestamp += 0.01
 
     # Calculate attack roll modifiers
-    # WO-FIX-07: Sunder attack rolls use STANDARD attack size modifier (PHB Table 8-1)
     attacker_bab = _get_bab(world_state, attacker_id)
     attacker_str = _get_str_modifier(world_state, attacker_id)
     attacker_size = _get_standard_attack_size_modifier(world_state, attacker_id)
@@ -1130,17 +1175,16 @@ def resolve_sunder(
     current_timestamp += 0.01
 
     if check_result.attacker_wins:
-        # WO-FIX-09: Roll damage using attacker's actual weapon damage dice
+        # Roll damage
         attacker_entity = world_state.entities.get(attacker_id, {})
         weapon_data = attacker_entity.get(EF.WEAPON)
         if weapon_data and isinstance(weapon_data, dict):
             damage_dice_expr = weapon_data.get("damage_dice", "1d8")
         else:
-            damage_dice_expr = "1d8"  # Fallback if no weapon data
+            damage_dice_expr = "1d8"
         num_dice, die_size = parse_damage_dice(damage_dice_expr)
         damage_rolls = roll_dice(num_dice, die_size, rng)
         damage_roll = sum(damage_rolls)
-        # WO-WEAPON-PLUMBING-001: Apply grip multiplier to STR damage (PHB p.113)
         weapon_grip = _get_weapon_grip(world_state, attacker_id)
         if weapon_grip == "two-handed":
             damage_bonus = int(attacker_str * 1.5)
@@ -1149,6 +1193,37 @@ def resolve_sunder(
         else:
             damage_bonus = attacker_str
         total_damage = max(0, damage_roll + damage_bonus)
+
+        # Apply hardness and update weapon HP
+        wp_current, wp_max, hardness = _get_weapon_hp_info(world_state, target_id)
+        damage_after_hardness = max(0, total_damage - hardness)
+        new_wp_hp = wp_current - damage_after_hardness
+
+        # Determine broken/destroyed state
+        is_broken = new_wp_hp <= 0 and new_wp_hp > -wp_max
+        is_destroyed = new_wp_hp <= -wp_max
+
+        # Write persistent weapon state to target entity
+        entities = deepcopy(world_state.entities)
+        if target_id in entities:
+            entities[target_id][EF.WEAPON_HP] = new_wp_hp
+            entities[target_id][EF.WEAPON_HP_MAX] = wp_max
+            entities[target_id][EF.WEAPON_BROKEN] = is_broken or is_destroyed
+            entities[target_id][EF.WEAPON_DESTROYED] = is_destroyed
+
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=entities,
+            active_combat=world_state.active_combat,
+        )
+
+        # Determine event type
+        if is_destroyed:
+            item_event_type = "weapon_destroyed"
+        elif is_broken:
+            item_event_type = "weapon_broken"
+        else:
+            item_event_type = "weapon_damaged"
 
         events.append(Event(
             event_id=current_event_id,
@@ -1163,12 +1238,32 @@ def resolve_sunder(
                 "damage_roll": damage_roll,
                 "damage_bonus": damage_bonus,
                 "total_damage": total_damage,
-                "note": "DEGRADED: Narrative only, no persistent state change",
+                "hardness": hardness,
+                "damage_after_hardness": damage_after_hardness,
+                "weapon_hp_old": wp_current,
+                "weapon_hp_new": new_wp_hp,
+                "weapon_broken": is_broken,
+                "weapon_destroyed": is_destroyed,
                 **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 158}],
         ))
         current_event_id += 1
+
+        if item_event_type != "weapon_damaged":
+            events.append(Event(
+                event_id=current_event_id,
+                event_type=item_event_type,
+                timestamp=current_timestamp + 0.01,
+                payload={
+                    "entity_id": target_id,
+                    "weapon_hp": new_wp_hp,
+                    "weapon_broken": entities.get(target_id, {}).get(EF.WEAPON_BROKEN, False),
+                    "weapon_destroyed": is_destroyed,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 158}],
+            ))
+            current_event_id += 1
 
         result = ManeuverResult(
             maneuver_type="sunder",
@@ -1201,7 +1296,7 @@ def resolve_sunder(
 
 
 # ==============================================================================
-# DISARM RESOLUTION (DEGRADED)
+# DISARM RESOLUTION (FULL — WO-ENGINE-SUNDER-DISARM-FULL-001)
 # ==============================================================================
 
 def resolve_disarm(
@@ -1215,11 +1310,12 @@ def resolve_disarm(
     aoo_dealt_damage: bool = False,
     causal_chain_id: Optional[str] = None,
 ) -> Tuple[List[Event], WorldState, ManeuverResult]:
-    """Resolve a Disarm maneuver (DEGRADED).
+    """Resolve a Disarm maneuver (FULL — WO-ENGINE-SUNDER-DISARM-FULL-001).
 
-    PHB p.155: Opposed attack rolls. Success = weapon dropped.
-    DEGRADED: Weapon "drops" narratively but no persistent state change.
-    If AoO deals damage, disarm automatically fails.
+    PHB p.155: Opposed attack rolls.
+    - Attacker wins: target gets DISARMED = True (weapon on ground).
+    - Attacker loses by 10+: attacker gets DISARMED = True (counter-disarm).
+    - If AoO deals damage, disarm automatically fails.
 
     RNG Consumption Order:
     1. AoO attack rolls (handled externally)
@@ -1304,10 +1400,7 @@ def resolve_disarm(
     defender_size = _get_size_modifier(world_state, target_id)
     defender_modifier = defender_bab + defender_str + defender_size
 
-    # B-AMB-04: Disarm weapon type modifiers (PHB p.155)
-    # Two-handed weapon: +4 to opposed check
-    # Light weapon: -4 to opposed check
-    # WO-WEAPON-PLUMBING-001: Activated (was TODO pending P4-D weapon plumbing)
+    # Disarm weapon type modifiers (PHB p.155)
     attacker_weapon_type = _get_weapon_type(world_state, attacker_id)
     if attacker_weapon_type == "two-handed":
         attacker_modifier += 4
@@ -1333,7 +1426,16 @@ def resolve_disarm(
     current_timestamp += 0.01
 
     if check_result.attacker_wins:
-        # Disarm success - weapon "dropped" (narrative only)
+        # Disarm success — set DISARMED on target
+        entities = deepcopy(world_state.entities)
+        if target_id in entities:
+            entities[target_id][EF.DISARMED] = True
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=entities,
+            active_combat=world_state.active_combat,
+        )
+
         events.append(Event(
             event_id=current_event_id,
             event_type="disarm_success",
@@ -1342,9 +1444,16 @@ def resolve_disarm(
                 "attacker_id": attacker_id,
                 "target_id": target_id,
                 "weapon_dropped": True,
-                "note": "DEGRADED: Narrative only, no persistent state change",
                 **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
+            citations=[{"source_id": "681f92bc94ff", "page": 155}],
+        ))
+        current_event_id += 1
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="weapon_disarmed",
+            timestamp=current_timestamp + 0.01,
+            payload={"entity_id": target_id, "disarmed_by": attacker_id},
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
         current_event_id += 1
@@ -1355,7 +1464,8 @@ def resolve_disarm(
             events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
         )
     else:
-        # Disarm failed - defender may counter-disarm
+        # Disarm failed — check for counter-disarm (attacker loses by 10+)
+        margin = check_result.defender_roll - check_result.attacker_roll
         events.append(Event(
             event_id=current_event_id,
             event_type="disarm_failure",
@@ -1364,6 +1474,7 @@ def resolve_disarm(
                 "attacker_id": attacker_id,
                 "target_id": target_id,
                 "reason": "opposed_check_lost",
+                "margin": margin,
                 "counter_disarm_allowed": True,
                 **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
@@ -1372,40 +1483,28 @@ def resolve_disarm(
         current_event_id += 1
         current_timestamp += 0.01
 
-        # Counter-disarm: defender rolls against attacker
-        counter_result = _roll_opposed_check(rng, defender_modifier, attacker_modifier, "counter_disarm")
-
-        events.append(Event(
-            event_id=current_event_id,
-            event_type="opposed_check",
-            timestamp=current_timestamp,
-            payload={
-                **counter_result.to_dict(),
-                "is_counter_disarm": True,
-                "original_attacker": attacker_id,
-                "counter_attacker": target_id,
-            },
-            citations=[{"source_id": "681f92bc94ff", "page": 155}],
-        ))
-        current_event_id += 1
-        current_timestamp += 0.01
-
-        if counter_result.attacker_wins:
-            # Counter-disarm success
+        # PHB p.155: If attacker loses by 10+, attacker drops their weapon
+        if margin >= 10:
+            entities = deepcopy(world_state.entities)
+            if attacker_id in entities:
+                entities[attacker_id][EF.DISARMED] = True
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=entities,
+                active_combat=world_state.active_combat,
+            )
             events.append(Event(
                 event_id=current_event_id,
-                event_type="counter_disarm_success",
+                event_type="attacker_disarmed",
                 timestamp=current_timestamp,
                 payload={
-                    "counter_attacker": target_id,
-                    "target_id": attacker_id,
-                    "weapon_dropped": True,
-                    "note": "DEGRADED: Narrative only, no persistent state change",
+                    "attacker_id": attacker_id,
+                    "target_id": target_id,
+                    "margin": margin,
                 },
                 citations=[{"source_id": "681f92bc94ff", "page": 155}],
             ))
             current_event_id += 1
-
             result = ManeuverResult(
                 maneuver_type="disarm",
                 success=False,
@@ -1413,25 +1512,69 @@ def resolve_disarm(
                 counter_attack_result={"success": True},
             )
         else:
-            # Counter-disarm failed
+            # Normal fail — still roll counter-disarm for consistency with old behavior
+            counter_result = _roll_opposed_check(rng, defender_modifier, attacker_modifier, "counter_disarm")
+
             events.append(Event(
                 event_id=current_event_id,
-                event_type="counter_disarm_failure",
+                event_type="opposed_check",
                 timestamp=current_timestamp,
                 payload={
+                    **counter_result.to_dict(),
+                    "is_counter_disarm": True,
+                    "original_attacker": attacker_id,
                     "counter_attacker": target_id,
-                    "target_id": attacker_id,
                 },
                 citations=[{"source_id": "681f92bc94ff", "page": 155}],
             ))
             current_event_id += 1
+            current_timestamp += 0.01
 
-            result = ManeuverResult(
-                maneuver_type="disarm",
-                success=False,
-                events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
-                counter_attack_result={"success": False},
-            )
+            if counter_result.attacker_wins:
+                entities = deepcopy(world_state.entities)
+                if attacker_id in entities:
+                    entities[attacker_id][EF.DISARMED] = True
+                world_state = WorldState(
+                    ruleset_version=world_state.ruleset_version,
+                    entities=entities,
+                    active_combat=world_state.active_combat,
+                )
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="counter_disarm_success",
+                    timestamp=current_timestamp,
+                    payload={
+                        "counter_attacker": target_id,
+                        "target_id": attacker_id,
+                        "weapon_dropped": True,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 155}],
+                ))
+                current_event_id += 1
+                result = ManeuverResult(
+                    maneuver_type="disarm",
+                    success=False,
+                    events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+                    counter_attack_result={"success": True},
+                )
+            else:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="counter_disarm_failure",
+                    timestamp=current_timestamp,
+                    payload={
+                        "counter_attacker": target_id,
+                        "target_id": attacker_id,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 155}],
+                ))
+                current_event_id += 1
+                result = ManeuverResult(
+                    maneuver_type="disarm",
+                    success=False,
+                    events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+                    counter_attack_result={"success": False},
+                )
 
     return events, world_state, result
 
@@ -1441,35 +1584,24 @@ def resolve_disarm(
 # ==============================================================================
 
 def resolve_grapple(
-    intent: GrappleIntent,
-    world_state: WorldState,
-    rng: RNGProvider,
-    next_event_id: int,
-    timestamp: float,
-    aoo_events: Optional[List[Event]] = None,
-    aoo_defeated: bool = False,
-    aoo_dealt_damage: bool = False,
-    causal_chain_id: Optional[str] = None,
-) -> Tuple[List[Event], WorldState, ManeuverResult]:
-    """Resolve a Grapple maneuver (DEGRADED - Grapple-Lite).
+    intent,
+    world_state,
+    rng,
+    next_event_id,
+    timestamp,
+    aoo_events=None,
+    aoo_defeated=False,
+    aoo_dealt_damage=False,
+    causal_chain_id=None,
+):
+    """Resolve a Grapple maneuver (FULL - CP-22).
 
-    PHB p.155-157: Melee touch attack, then opposed grapple check.
-    DEGRADED (G-T3C Mitigation):
-    - Only applies Grappled condition to target
-    - Attacker does NOT gain any condition (asymmetric)
-    - No pinning, no escape loops, no grapple damage
-    If AoO deals damage, grapple automatically fails.
-
-    RNG Consumption Order:
-    1. AoO attack rolls (handled externally)
-    2. Touch attack roll (d20) - "combat" stream
-    3. Attacker grapple check (d20) - "combat" stream
-    4. Defender grapple check (d20) - "combat" stream
-
-    Returns:
-        Tuple of (events, updated_world_state, ManeuverResult)
+    PHB p.155-157: Touch attack then opposed grapple check.
+    Touch miss => grapple_touch_miss. Check loss => grapple_check_fail.
+    Success: grapple_established + grapple_success + bidirectional conditions.
+    Updates active_combat[grapple_pairs] on success.
     """
-    events: List[Event] = []
+    events = []
     current_event_id = next_event_id
     current_timestamp = timestamp
 
@@ -1489,11 +1621,7 @@ def resolve_grapple(
     attacker_id = intent.attacker_id
     target_id = intent.target_id
 
-    # Emit grapple_declared event
-    grapple_declared_payload = {
-        "attacker_id": attacker_id,
-        "target_id": target_id,
-    }
+    grapple_declared_payload = {"attacker_id": attacker_id, "target_id": target_id}
     if causal_chain_id is not None:
         grapple_declared_payload["causal_chain_id"] = causal_chain_id
         grapple_declared_payload["chain_position"] = 1
@@ -1507,22 +1635,15 @@ def resolve_grapple(
     current_event_id += 1
     current_timestamp += 0.01
 
-    # If AoO dealt any damage, grapple automatically fails
     if aoo_dealt_damage:
         events.append(Event(
             event_id=current_event_id,
             event_type="grapple_failure",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "reason": "aoo_dealt_damage",
-                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
-            },
+            payload={"attacker_id": attacker_id, "target_id": target_id, "reason": "aoo_dealt_damage"},
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
         current_event_id += 1
-
         result = ManeuverResult(
             maneuver_type="grapple",
             success=False,
@@ -1530,14 +1651,11 @@ def resolve_grapple(
         )
         return events, world_state, result
 
-    # Calculate touch attack bonus (BAB + Str + STANDARD attack size modifier)
-    # WO-FIX-07: Touch attack to initiate grapple uses STANDARD attack size modifier (PHB Table 8-1)
     attacker_bab = _get_bab(world_state, attacker_id)
     attacker_str = _get_str_modifier(world_state, attacker_id)
     attacker_std_size = _get_standard_attack_size_modifier(world_state, attacker_id)
     touch_attack_bonus = attacker_bab + attacker_str + attacker_std_size
 
-    # Roll touch attack
     touch_result = _roll_touch_attack(rng, attacker_id, target_id, world_state, touch_attack_bonus)
 
     events.append(Event(
@@ -1550,22 +1668,15 @@ def resolve_grapple(
     current_event_id += 1
     current_timestamp += 0.01
 
-    # If touch attack misses, grapple fails
     if not touch_result.hit:
         events.append(Event(
             event_id=current_event_id,
-            event_type="grapple_failure",
+            event_type="grapple_touch_miss",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "reason": "touch_attack_missed",
-                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
-            },
+            payload={"attacker_id": attacker_id, "target_id": target_id, "reason": "touch_attack_missed"},
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
         ))
         current_event_id += 1
-
         result = ManeuverResult(
             maneuver_type="grapple",
             success=False,
@@ -1573,8 +1684,6 @@ def resolve_grapple(
         )
         return events, world_state, result
 
-    # Touch attack hit - proceed to opposed grapple check
-    # Grapple check = BAB + Str + SPECIAL size modifier (not standard attack size)
     attacker_size = _get_size_modifier(world_state, attacker_id)
     attacker_grapple_modifier = attacker_bab + attacker_str + attacker_size
 
@@ -1583,7 +1692,6 @@ def resolve_grapple(
     defender_size = _get_size_modifier(world_state, target_id)
     defender_grapple_modifier = defender_bab + defender_str + defender_size
 
-    # Roll opposed grapple check
     check_result = _roll_opposed_check(rng, attacker_grapple_modifier, defender_grapple_modifier, "grapple")
 
     events.append(Event(
@@ -1596,22 +1704,118 @@ def resolve_grapple(
     current_event_id += 1
     current_timestamp += 0.01
 
+    # WO-ENGINE-GRAPPLE-PIN-001: Detect pin attempt (already grappling this target)
+    already_grappling = False
+    if world_state.active_combat is not None:
+        grapple_pairs = world_state.active_combat.get("grapple_pairs", [])
+        already_grappling = any(
+            p[0] == attacker_id and p[1] == target_id
+            for p in grapple_pairs
+        )
+    target_already_pinned = ConditionType.PINNED.value in (
+        world_state.entities.get(target_id, {}).get(EF.CONDITIONS, {})
+    )
+    is_pin_attempt = already_grappling and not target_already_pinned
+
+    if is_pin_attempt:
+        # Pin escalation path (PHB p.156)
+        if check_result.attacker_wins:
+            # Remove grappled, apply pinned
+            world_state = remove_condition(world_state, target_id, ConditionType.GRAPPLED.value)
+            pinned_cond = create_pinned_condition(source="grapple_pin", applied_at_event_id=current_event_id)
+            world_state = apply_condition(world_state, target_id, pinned_cond)
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="pin_established",
+                timestamp=current_timestamp,
+                payload={
+                    "attacker_id": attacker_id,
+                    "target_id": target_id,
+                    "attacker_roll": check_result.attacker_roll,
+                    "defender_roll": check_result.defender_roll,
+                    "attacker_total": check_result.attacker_total,
+                    "defender_total": check_result.defender_total,
+                    "condition_applied": ConditionType.PINNED.value,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 156}],
+            ))
+            current_event_id += 1
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="condition_applied",
+                timestamp=current_timestamp,
+                payload={"target_id": target_id, "condition_type": ConditionType.PINNED.value, "source": "grapple_pin"},
+                citations=[{"source_id": "681f92bc94ff", "page": 156}],
+            ))
+            current_event_id += 1
+
+            result = ManeuverResult(
+                maneuver_type="grapple",
+                success=True,
+                events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+                condition_applied=ConditionType.PINNED.value,
+            )
+        else:
+            # Pin attempt failed — target stays grappled
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="pin_attempt_failed",
+                timestamp=current_timestamp,
+                payload={
+                    "attacker_id": attacker_id,
+                    "target_id": target_id,
+                    "attacker_roll": check_result.attacker_roll,
+                    "defender_roll": check_result.defender_roll,
+                    "attacker_total": check_result.attacker_total,
+                    "defender_total": check_result.defender_total,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 156}],
+            ))
+            current_event_id += 1
+
+            result = ManeuverResult(
+                maneuver_type="grapple",
+                success=False,
+                events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+            )
+
+        return events, world_state, result
+
+    # Normal grapple path (not already grappling target)
     if check_result.attacker_wins:
-        # Grapple success - apply Grappled condition to target ONLY (asymmetric)
-        condition = create_grappled_condition(source="grapple_attack", applied_at_event_id=current_event_id)
-        world_state = apply_condition(world_state, target_id, condition)
+        grappled_cond = create_grappled_condition(source="grapple_attack", applied_at_event_id=current_event_id)
+        world_state = apply_condition(world_state, target_id, grappled_cond)
+
+        grappling_cond = create_grappling_condition(source="grapple_attack", applied_at_event_id=current_event_id)
+        world_state = apply_condition(world_state, attacker_id, grappling_cond)
+
+        if world_state.active_combat is not None:
+            active_combat = deepcopy(world_state.active_combat)
+            grapple_pairs = list(active_combat.get("grapple_pairs", []))
+            grapple_pairs.append([attacker_id, target_id])
+            active_combat["grapple_pairs"] = grapple_pairs
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=world_state.entities,
+                active_combat=active_combat,
+            )
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="grapple_established",
+            timestamp=current_timestamp,
+            payload={"attacker_id": attacker_id, "target_id": target_id, "conditions_applied": ["grappled", "grappling"]},
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
+        ))
+        current_event_id += 1
 
         events.append(Event(
             event_id=current_event_id,
             event_type="grapple_success",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "condition_applied": "grappled",
-                "note": "DEGRADED: Unidirectional condition (target only), no attacker state change",
-                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
-            },
+            payload={"attacker_id": attacker_id, "target_id": target_id, "condition_applied": "grappled"},
             citations=[{"source_id": "681f92bc94ff", "page": 156}],
         ))
         current_event_id += 1
@@ -1620,12 +1824,17 @@ def resolve_grapple(
             event_id=current_event_id,
             event_type="condition_applied",
             timestamp=current_timestamp,
-            payload={
-                "target_id": target_id,
-                "condition_type": "grappled",
-                "source": "grapple_attack",
-            },
+            payload={"target_id": target_id, "condition_type": "grappled", "source": "grapple_attack"},
             citations=[{"source_id": "681f92bc94ff", "page": 311}],
+        ))
+        current_event_id += 1
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="condition_applied",
+            timestamp=current_timestamp,
+            payload={"target_id": attacker_id, "condition_type": "grappling", "source": "grapple_attack"},
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
         ))
         current_event_id += 1
 
@@ -1636,21 +1845,14 @@ def resolve_grapple(
             condition_applied="grappled",
         )
     else:
-        # Grapple failed - no effect
         events.append(Event(
             event_id=current_event_id,
-            event_type="grapple_failure",
+            event_type="grapple_check_fail",
             timestamp=current_timestamp,
-            payload={
-                "attacker_id": attacker_id,
-                "target_id": target_id,
-                "reason": "opposed_check_lost",
-                **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
-            },
+            payload={"attacker_id": attacker_id, "target_id": target_id, "reason": "opposed_check_lost"},
             citations=[{"source_id": "681f92bc94ff", "page": 156}],
         ))
         current_event_id += 1
-
         result = ManeuverResult(
             maneuver_type="grapple",
             success=False,
@@ -1660,13 +1862,229 @@ def resolve_grapple(
     return events, world_state, result
 
 
+def resolve_grapple_escape(
+    initiator_id,
+    target_id,
+    world_state,
+    rng,
+    next_event_id,
+    timestamp,
+):
+    """Resolve a grapple escape attempt. CP-22.
+
+    initiator_id: escaping entity (was grappled).
+    target_id: holding entity (was grappling).
+    Escaper wins on tied opposed check (as attacker in _roll_opposed_check).
+    """
+    events = []
+    current_event_id = next_event_id
+    current_timestamp = timestamp
+
+    escaper_bab = _get_bab(world_state, initiator_id)
+    escaper_str = _get_str_modifier(world_state, initiator_id)
+    escaper_size = _get_size_modifier(world_state, initiator_id)
+    escaper_modifier = escaper_bab + escaper_str + escaper_size
+
+    holder_bab = _get_bab(world_state, target_id)
+    holder_str = _get_str_modifier(world_state, target_id)
+    holder_size = _get_size_modifier(world_state, target_id)
+    holder_modifier = holder_bab + holder_str + holder_size
+
+    check_result = _roll_opposed_check(rng, escaper_modifier, holder_modifier, "grapple_escape")
+
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="opposed_check",
+        timestamp=current_timestamp,
+        payload=check_result.to_dict(),
+        citations=[{"source_id": "681f92bc94ff", "page": 156}],
+    ))
+    current_event_id += 1
+    current_timestamp += 0.01
+
+    if check_result.attacker_wins:
+        world_state = remove_condition(world_state, initiator_id, "grappled")
+        world_state = remove_condition(world_state, target_id, "grappling")
+
+        if world_state.active_combat is not None:
+            active_combat = deepcopy(world_state.active_combat)
+            pairs = list(active_combat.get("grapple_pairs", []))
+            pairs = [
+                p for p in pairs
+                if not (
+                    (p[0] == target_id and p[1] == initiator_id) or
+                    (p[0] == initiator_id and p[1] == target_id)
+                )
+            ]
+            active_combat["grapple_pairs"] = pairs
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=world_state.entities,
+                active_combat=active_combat,
+            )
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="grapple_broken",
+            timestamp=current_timestamp,
+            payload={"escaper_id": initiator_id, "holder_id": target_id},
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
+        ))
+        current_event_id += 1
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="condition_removed",
+            timestamp=current_timestamp,
+            payload={"target_id": initiator_id, "condition_type": "grappled", "reason": "grapple_escape"},
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
+        ))
+        current_event_id += 1
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="condition_removed",
+            timestamp=current_timestamp,
+            payload={"target_id": target_id, "condition_type": "grappling", "reason": "grapple_escape"},
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
+        ))
+        current_event_id += 1
+
+    else:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="grapple_escape_failed",
+            timestamp=current_timestamp,
+            payload={"escaper_id": initiator_id, "holder_id": target_id},
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
+        ))
+        current_event_id += 1
+
+    return events, world_state
+
+
+def resolve_pin_escape(
+    intent,
+    world_state,
+    rng,
+    next_event_id,
+    timestamp,
+):
+    """Resolve a pin escape attempt. WO-ENGINE-GRAPPLE-PIN-001.
+
+    PHB p.156: Opposed grapple check (full-round action).
+    On success: pinned condition removed, entity reverts to grappled.
+    On failure: still pinned.
+
+    RNG Consumption Order:
+    1. Escaper's grapple check (d20) — "combat" stream
+    2. Pinner's grapple check (d20) — "combat" stream
+    """
+    events = []
+    current_event_id = next_event_id
+    current_timestamp = timestamp
+
+    initiator_id = intent.attacker_id
+    pinner_id = intent.target_id
+
+    # Verify initiator is actually pinned
+    initiator_conditions = world_state.entities.get(initiator_id, {}).get(EF.CONDITIONS, {})
+    if ConditionType.PINNED.value not in initiator_conditions:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="pin_escape_invalid",
+            timestamp=current_timestamp,
+            payload={
+                "initiator_id": initiator_id,
+                "reason": "not_pinned",
+            }
+        ))
+        return events, world_state, ManeuverResult(
+            maneuver_type="pin_escape", success=False,
+            events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+        )
+
+    # Opposed grapple check
+    initiator_bab = _get_bab(world_state, initiator_id)
+    initiator_str = _get_str_modifier(world_state, initiator_id)
+    initiator_size = _get_size_modifier(world_state, initiator_id)
+    initiator_mod = initiator_bab + initiator_str + initiator_size
+
+    pinner_bab = _get_bab(world_state, pinner_id)
+    pinner_str = _get_str_modifier(world_state, pinner_id)
+    pinner_size = _get_size_modifier(world_state, pinner_id)
+    pinner_mod = pinner_bab + pinner_str + pinner_size
+
+    check = _roll_opposed_check(rng, initiator_mod, pinner_mod, "grapple_escape_pin")
+
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="opposed_check",
+        timestamp=current_timestamp,
+        payload=check.to_dict(),
+        citations=[{"source_id": "681f92bc94ff", "page": 156}],
+    ))
+    current_event_id += 1
+    current_timestamp += 0.01
+
+    if check.attacker_wins:
+        # Escape: remove pinned, reapply grappled (still in grapple_pairs)
+        world_state = remove_condition(world_state, initiator_id, ConditionType.PINNED.value)
+        grappled_cond = create_grappled_condition(
+            source="grapple_reestablish", applied_at_event_id=current_event_id
+        )
+        world_state = apply_condition(world_state, initiator_id, grappled_cond)
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="pin_escape_success",
+            timestamp=current_timestamp,
+            payload={
+                "initiator_id": initiator_id,
+                "pinner_id": pinner_id,
+                "initiator_roll": check.attacker_roll,
+                "pinner_roll": check.defender_roll,
+                "initiator_total": check.attacker_total,
+                "pinner_total": check.defender_total,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
+        ))
+        current_event_id += 1
+
+        return events, world_state, ManeuverResult(
+            maneuver_type="pin_escape", success=True,
+            events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+        )
+    else:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="pin_escape_failed",
+            timestamp=current_timestamp,
+            payload={
+                "initiator_id": initiator_id,
+                "pinner_id": pinner_id,
+                "initiator_roll": check.attacker_roll,
+                "pinner_roll": check.defender_roll,
+                "initiator_total": check.attacker_total,
+                "pinner_total": check.defender_total,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 156}],
+        ))
+        current_event_id += 1
+
+        return events, world_state, ManeuverResult(
+            maneuver_type="pin_escape", success=False,
+            events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+        )
+
+
 # ==============================================================================
 # UNIFIED MANEUVER RESOLUTION DISPATCHER
 # ==============================================================================
 
 ManeuverIntent = Union[
     BullRushIntent, TripIntent, OverrunIntent,
-    SunderIntent, DisarmIntent, GrappleIntent
+    SunderIntent, DisarmIntent, GrappleIntent, GrappleEscapeIntent, PinEscapeIntent
 ]
 
 

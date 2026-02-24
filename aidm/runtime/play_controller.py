@@ -140,6 +140,7 @@ def build_simple_combat_fixture(
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "medium",
             EF.BASE_SPEED: 30,  # PHB: medium humanoid in heavy armor = 20, but fighter has medium armor
+            EF.SPELL_SLOTS: {1: 5, 2: 4, 3: 3, 4: 2, 5: 1},
         },
         "pc_cleric": {
             EF.ENTITY_ID: "pc_cleric",
@@ -159,6 +160,7 @@ def build_simple_combat_fixture(
             EF.DEFEATED: False,
             EF.SIZE_CATEGORY: "medium",
             EF.BASE_SPEED: 20,  # PHB: cleric in heavy armor
+            EF.SPELL_SLOTS: {1: 5, 2: 4, 3: 3, 4: 2, 5: 1},
         },
         "pc_rogue": {
             EF.ENTITY_ID: "pc_rogue",

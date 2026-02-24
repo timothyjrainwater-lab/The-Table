@@ -1,42 +1,69 @@
-[
-  {
-    "name": "player",
-    "centerX": 0.0,
-    "centerZ": 4.75,
-    "halfWidth": 5.0,
-    "halfHeight": 0.80,
-    "color": "0x44ff88"
-  },
-  {
-    "name": "map",
-    "centerX": 0.0,
-    "centerZ": -0.5,
-    "halfWidth": 3.0,
-    "halfHeight": 2.0,
-    "color": "0x4488ff"
-  },
-  {
-    "name": "dm",
-    "centerX": 0.0,
-    "centerZ": -3.5,
-    "halfWidth": 5.0,
-    "halfHeight": 0.75,
-    "color": "0xff4444"
-  },
-  {
-    "name": "dice_tray",
-    "centerX": 4.5,
-    "centerZ": 1.75,
-    "halfWidth": 1.0,
-    "halfHeight": 0.70,
-    "color": "0xffaa44"
-  },
-  {
-    "name": "dice_tower",
-    "centerX": 4.5,
-    "centerZ": 0.5,
-    "halfWidth": 0.75,
-    "halfHeight": 0.50,
-    "color": "0xff66aa"
+{
+  "schema": "layout-pack-v1",
+  "zones": [
+    {
+      "name": "DM_ZONE",
+      "centerX": 0.0,
+      "centerZ": -3.5,
+      "halfWidth": 5.0,
+      "halfHeight": 0.75,
+      "color": "0xff4444",
+      "description": "Far band — orb / DM presence"
+    },
+    {
+      "name": "VAULT_ZONE",
+      "centerX": 0.0,
+      "centerZ": 0.0,
+      "halfWidth": 4.5,
+      "halfHeight": 2.8,
+      "color": "0x4488ff",
+      "description": "Recessed felt vault — map well. Centered at z=0, spans z=-2.8 to z=2.8. Clear of orb pedestal at z=-3.2."
+    },
+    {
+      "name": "WORK_ZONE",
+      "centerX": 0.0,
+      "centerZ": 2.5,
+      "halfWidth": 3.0,
+      "halfHeight": 0.8,
+      "color": "0xffffff",
+      "description": "Open working surface in front of player — loose handouts, loose dice"
+    },
+    {
+      "name": "TRASH_RING_ZONE",
+      "centerX": 2.7,
+      "centerZ": 3.6,
+      "halfWidth": 0.4,
+      "halfHeight": 0.4,
+      "color": "0x888888",
+      "description": "Discard ring — near back of work zone"
+    },
+    {
+      "name": "SHELF_ZONE",
+      "centerX": 0.0,
+      "centerZ": 4.75,
+      "halfWidth": 5.0,
+      "halfHeight": 0.80,
+      "color": "0x44ff88",
+      "description": "Player shelf strip — sheet, notebook, rulebook, dice bag"
+    },
+    {
+      "name": "DICE_STATION_ZONE",
+      "centerX": 4.5,
+      "centerZ": 3.6,
+      "halfWidth": 1.2,
+      "halfHeight": 1.0,
+      "color": "0xffaa44",
+      "description": "Right-side dice area — tray + tower. Player zone, z=2.6 to z=4.6. Clear of vault."
+    }
+  ],
+  "anchors": {
+    "orb_anchor":       { "x": 0.0,  "y": 1.45, "z": -3.2  },
+    "vault_center":     { "x": 0.0,  "y": 0.0,  "z": 0.0   },
+    "shelf_sheet":      { "x": -2.6, "y": 0.0,  "z": 4.75  },
+    "shelf_notebook":   { "x": -0.2, "y": 0.0,  "z": 4.75  },
+    "shelf_rulebook":   { "x": 2.0,  "y": 0.0,  "z": 4.75  },
+    "shelf_dice_bag":   { "x": -4.0, "y": 0.0,  "z": 4.75  },
+    "dice_tray_center": { "x": 4.5,  "y": 0.065,"z": 3.8   },
+    "dice_tower_base":  { "x": 4.5,  "y": 0.065,"z": 3.0   }
   }
-]
+}

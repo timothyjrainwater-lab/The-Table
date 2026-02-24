@@ -857,13 +857,5 @@ class TestOpposedCheckTies:
         assert result.attacker_wins is False
 
 
-class TestDisarmWeaponTypeModifiers:
-    """B-AMB-04: Disarm weapon type modifier TODO is in place."""
-
-    def test_disarm_weapon_type_todo_exists(self):
-        """Verify the weapon type modifier TODO is present in disarm code."""
-        import inspect
-        source = inspect.getsource(resolve_disarm)
-        assert "B-AMB-04" in source
-        assert "two-handed" in source
-        assert "light" in source
+# TestDisarmWeaponTypeModifiers retired — WO-ENGINE-SUNDER-DISARM-FULL-001 delivered
+# the full implementation; the B-AMB-04 TODO sentinel no longer exists. (WO-ENGINE-MANEUVER-GATE-001)

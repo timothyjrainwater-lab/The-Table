@@ -715,11 +715,124 @@ class DelayIntent:
         )
 
 
+@dataclass
+class RageIntent:
+    """Intent to activate Barbarian Rage (PHB p.25). WO-ENGINE-BARBARIAN-RAGE-001."""
+
+    type: Literal["rage"] = "rage"
+    actor_id: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {"type": self.type, "actor_id": self.actor_id}
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "RageIntent":
+        if data.get("type") != "rage":
+            raise IntentParseError(f"Expected type 'rage', got '{data.get('type')}'")
+        return cls(actor_id=data["actor_id"])
+
+
+@dataclass
+class SmiteEvilIntent:
+    """Intent to use Paladin Smite Evil (PHB p.44). WO-ENGINE-SMITE-EVIL-001."""
+
+    type: Literal["smite_evil"] = "smite_evil"
+    actor_id: str = ""
+    target_id: str = ""
+    weapon: dict = field(default_factory=dict)
+    target_is_evil: bool = True
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "actor_id": self.actor_id,
+            "target_id": self.target_id,
+            "weapon": self.weapon,
+            "target_is_evil": self.target_is_evil,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "SmiteEvilIntent":
+        if data.get("type") != "smite_evil":
+            raise IntentParseError(f"Expected type 'smite_evil', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            target_id=data["target_id"],
+            weapon=data.get("weapon", {}),
+            target_is_evil=data.get("target_is_evil", True),
+        )
+
+
+@dataclass
+class BardicMusicIntent:
+    """Intent to activate Bardic Music Inspire Courage (PHB p.29). WO-ENGINE-BARDIC-MUSIC-001."""
+
+    type: Literal["bardic_music"] = "bardic_music"
+    actor_id: str = ""
+    performance: str = "inspire_courage"
+    ally_ids: List[str] = field(default_factory=list)
+    """IDs of allies within hearing range (60ft). DM/AI asserts this list."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "actor_id": self.actor_id,
+            "performance": self.performance,
+            "ally_ids": self.ally_ids,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "BardicMusicIntent":
+        if data.get("type") != "bardic_music":
+            raise IntentParseError(f"Expected type 'bardic_music', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            performance=data.get("performance", "inspire_courage"),
+            ally_ids=data.get("ally_ids", []),
+        )
+
+
+@dataclass
+class WildShapeIntent:
+    """Intent to Wild Shape into an animal form (PHB p.37). WO-ENGINE-WILD-SHAPE-001."""
+
+    type: Literal["wild_shape"] = "wild_shape"
+    actor_id: str = ""
+    form: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {"type": self.type, "actor_id": self.actor_id, "form": self.form}
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "WildShapeIntent":
+        if data.get("type") != "wild_shape":
+            raise IntentParseError(f"Expected type 'wild_shape', got '{data.get('type')}'")
+        return cls(actor_id=data["actor_id"], form=data["form"])
+
+
+@dataclass
+class RevertFormIntent:
+    """Intent to revert from Wild Shape back to true form. WO-ENGINE-WILD-SHAPE-001."""
+
+    type: Literal["revert_form"] = "revert_form"
+    actor_id: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {"type": self.type, "actor_id": self.actor_id}
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "RevertFormIntent":
+        if data.get("type") != "revert_form":
+            raise IntentParseError(f"Expected type 'revert_form', got '{data.get('type')}'")
+        return cls(actor_id=data["actor_id"])
+
+
 # Type alias for all intent types
 Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent |
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
           TurnUndeadIntent | ReadyActionIntent | AidAnotherIntent | FightDefensivelyIntent |
-          TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent)
+          TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
+          RageIntent | SmiteEvilIntent | BardicMusicIntent | WildShapeIntent | RevertFormIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -773,5 +886,15 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return WithdrawIntent.from_dict(data)
     elif intent_type == "delay":
         return DelayIntent.from_dict(data)
+    elif intent_type == "rage":
+        return RageIntent.from_dict(data)
+    elif intent_type == "smite_evil":
+        return SmiteEvilIntent.from_dict(data)
+    elif intent_type == "bardic_music":
+        return BardicMusicIntent.from_dict(data)
+    elif intent_type == "wild_shape":
+        return WildShapeIntent.from_dict(data)
+    elif intent_type == "revert_form":
+        return RevertFormIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

@@ -7,6 +7,10 @@ PENDING types (Server → Client):
 REQUEST types (Client → Server):
 - DeclareActionIntent: Player declares an action (voice or click)
 - DiceTowerDropIntent: Player drops dice to resolve a PendingRoll
+- HandoutPlacedIntent: Handout physically delivered to tray zone
+- HandoutDiscardedIntent: Handout dragged into recycle well
+- HandoutRetrievedIntent: Handout retrieved from discard stack
+- HandoutPasteToNotebookIntent: Handout dragged to notebook for paste
 
 State machine rules (UI doctrine §7):
 - Only one PENDING active at a time
@@ -144,10 +148,187 @@ class DiceTowerDropIntent:
 
 
 # ---------------------------------------------------------------------------
+# Handout REQUEST intent types (WO-UI-HANDOUTS-01)
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class HandoutPlacedIntent:
+    """Handout physically delivered to the tray zone.
+
+    Attributes:
+        handout_id: Unique identifier of the handout.
+        zone: Zone name where the handout was placed (e.g. "tray").
+        position: World-space (x, z) position on the table surface.
+    """
+
+    handout_id: str
+    zone: str
+    position: Tuple[float, float]
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "HANDOUT_PLACED_INTENT",
+            "handout_id": self.handout_id,
+            "zone": self.zone,
+            "position": list(self.position),
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "HandoutPlacedIntent":
+        return cls(
+            handout_id=data["handout_id"],
+            zone=data["zone"],
+            position=tuple(data["position"]),
+        )
+
+
+@dataclass(frozen=True)
+class HandoutDiscardedIntent:
+    """Handout dragged into the recycle well.
+
+    Attributes:
+        handout_id: Unique identifier of the handout being discarded.
+    """
+
+    handout_id: str
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "HANDOUT_DISCARDED_INTENT",
+            "handout_id": self.handout_id,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "HandoutDiscardedIntent":
+        return cls(
+            handout_id=data["handout_id"],
+        )
+
+
+@dataclass(frozen=True)
+class HandoutRetrievedIntent:
+    """Handout retrieved from the discard stack back to active tray.
+
+    Attributes:
+        handout_id: Unique identifier of the handout being retrieved.
+    """
+
+    handout_id: str
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "HANDOUT_RETRIEVED_INTENT",
+            "handout_id": self.handout_id,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "HandoutRetrievedIntent":
+        return cls(
+            handout_id=data["handout_id"],
+        )
+
+
+@dataclass(frozen=True)
+class HandoutPasteToNotebookIntent:
+    """Handout dragged to notebook — player requests paste of content.
+
+    The target_page reference is opaque; validation belongs to the runtime.
+    Handout content must not affect mechanics; this is a presentation request only.
+
+    Attributes:
+        handout_id: Unique identifier of the handout to paste.
+        target_page: Notebook page index (0-based, opaque to UI).
+    """
+
+    handout_id: str
+    target_page: int
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "HANDOUT_PASTE_TO_NOTEBOOK_INTENT",
+            "handout_id": self.handout_id,
+            "target_page": self.target_page,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "HandoutPasteToNotebookIntent":
+        return cls(
+            handout_id=data["handout_id"],
+            target_page=data["target_page"],
+        )
+
+
+# ---------------------------------------------------------------------------
+# Token drag PENDING / REQUEST types (WO-UI-TOKENS-01)
+# Authority: DOCTRINE_04_TABLE_UI_MEMO_V4 §16, §17.
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class PendingMoveToken:
+    """Server requests player move a specific token to a new position."""
+
+    entity_id: str
+    legal_zone: str         # zone name the token may be dropped into
+    pending_id: str         # server correlation id
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "PENDING_MOVE_TOKEN",
+            "entity_id": self.entity_id,
+            "legal_zone": self.legal_zone,
+            "pending_id": self.pending_id,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "PendingMoveToken":
+        return cls(
+            entity_id=data["entity_id"],
+            legal_zone=data["legal_zone"],
+            pending_id=data["pending_id"],
+        )
+
+
+@dataclass(frozen=True)
+class TokenMoveCommittedIntent:
+    """Player committed a pending token drag to a new grid position."""
+
+    entity_id: str
+    target_x: int
+    target_y: int
+    pending_id: str         # matches the PendingMoveToken that authorized this
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "TOKEN_MOVE_COMMITTED_INTENT",
+            "entity_id": self.entity_id,
+            "target_x": self.target_x,
+            "target_y": self.target_y,
+            "pending_id": self.pending_id,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "TokenMoveCommittedIntent":
+        return cls(
+            entity_id=data["entity_id"],
+            target_x=data["target_x"],
+            target_y=data["target_y"],
+            pending_id=data["pending_id"],
+        )
+
+
+# ---------------------------------------------------------------------------
 # All REQUEST type classes — used by gate tests to scan for hard bans
 # ---------------------------------------------------------------------------
 
-ALL_REQUEST_TYPES = (DeclareActionIntent, DiceTowerDropIntent)
+ALL_REQUEST_TYPES = (
+    DeclareActionIntent,
+    DiceTowerDropIntent,
+    HandoutPlacedIntent,
+    HandoutDiscardedIntent,
+    HandoutRetrievedIntent,
+    HandoutPasteToNotebookIntent,
+    TokenMoveCommittedIntent,
+)
 
 # Banned action-verb names (doctrine §8).  No REQUEST type may use these.
 BANNED_REQUEST_VERBS = frozenset({"ROLL", "CAST", "ATTACK", "END_TURN"})

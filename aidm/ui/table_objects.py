@@ -33,7 +33,9 @@ _ZONES_JSON_PATH = Path(__file__).parent / "zones.json"
 def _load_zone_bounds() -> Dict[str, Tuple[float, float, float, float]]:
     """Load zone boundary data from zones.json."""
     with open(_ZONES_JSON_PATH, encoding="utf-8") as f:
-        zones = json.load(f)
+        data = json.load(f)
+    # Support both legacy bare-array format and layout-pack-v1 {schema, zones, anchors}
+    zones = data.get("zones", data) if isinstance(data, dict) else data
     return {
         z["name"]: (z["centerX"], z["centerZ"], z["halfWidth"], z["halfHeight"])
         for z in zones

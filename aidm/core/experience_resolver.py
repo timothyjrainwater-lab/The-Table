@@ -155,9 +155,17 @@ def check_level_up(entity: dict) -> Optional[LevelUpResult]:
 
     class_name = max(class_levels, key=class_levels.get)
 
-    # Level up available — return None for now
-    # (actual level-up requires apply_level_up with RNG)
-    return None  # Placeholder
+    return LevelUpResult(
+        new_level=current_level + 1,
+        class_name=class_name,
+        hp_roll=0,           # Not yet rolled — apply_level_up does the roll
+        hp_gained=0,         # Not yet computed
+        skill_points=0,      # Not yet computed
+        bab_increase=0,      # Not yet computed
+        save_increases={},   # Not yet computed
+        feat_slot_gained=False,
+        ability_score_increase=False,
+    )
 
 
 def apply_level_up(

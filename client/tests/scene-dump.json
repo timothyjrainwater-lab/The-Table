@@ -1,0 +1,519 @@
+{
+  "_meta": {
+    "generated": "2026-02-23T07:29:03.003Z",
+    "totalMeshes": 23,
+    "namedMeshes": 23,
+    "tool": "dump_scene.mjs",
+    "wo": "WO-UI-TOOLING-SCENE-DUMP-001"
+  },
+  "meshes": [
+    {
+      "name": "table_top",
+      "path": "table_surface/table_top",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": -0.06,
+        "z": 0
+      }
+    },
+    {
+      "name": "felt_vault",
+      "path": "table_surface/felt_vault",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": -0.04,
+        "z": -0.5
+      }
+    },
+    {
+      "name": "dice_tray_bottom",
+      "path": "table_surface/dice_tray_bottom",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.03,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "dice_tray_wall_far",
+      "path": "table_surface/dice_tray_wall_far",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.12,
+        "z": 1.08
+      }
+    },
+    {
+      "name": "dice_tray_wall_near",
+      "path": "table_surface/dice_tray_wall_near",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.12,
+        "z": 2.42
+      }
+    },
+    {
+      "name": "dice_tray_wall_left",
+      "path": "table_surface/dice_tray_wall_left",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 3.33,
+        "y": 0.12,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "dice_tray_wall_right",
+      "path": "table_surface/dice_tray_wall_right",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 5.67,
+        "y": 0.12,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "dice_tray_felt",
+      "path": "table_surface/dice_tray_felt",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.065,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "rail_far",
+      "path": "table_surface/rail_far",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.09,
+        "z": -4.1
+      }
+    },
+    {
+      "name": "rail_left",
+      "path": "table_surface/rail_left",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": -6.2,
+        "y": 0.09,
+        "z": 0.7
+      }
+    },
+    {
+      "name": "rail_right",
+      "path": "table_surface/rail_right",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 6.2,
+        "y": 0.09,
+        "z": 0.7
+      }
+    },
+    {
+      "name": "shelf_edge",
+      "path": "table_surface/shelf_edge",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.03,
+        "z": 4.1
+      }
+    },
+    {
+      "name": "player_shelf",
+      "path": "table_surface/player_shelf",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": -0.09,
+        "z": 5.35
+      }
+    },
+    {
+      "name": "cup_holder",
+      "path": "table_surface/cup_holder",
+      "type": "Mesh",
+      "geometry": "CylinderGeometry",
+      "position": {
+        "x": 4.8,
+        "y": -0.03,
+        "z": 5.5
+      }
+    },
+    {
+      "name": "trash_hole",
+      "path": "table_surface/trash_hole",
+      "type": "Mesh",
+      "geometry": "CylinderGeometry",
+      "position": {
+        "x": 2.7,
+        "y": 0.005,
+        "z": 3.6
+      }
+    },
+    {
+      "name": "trash_hole_ring",
+      "path": "table_surface/trash_hole_ring",
+      "type": "Mesh",
+      "geometry": "TorusGeometry",
+      "position": {
+        "x": 2.7,
+        "y": 0.065,
+        "z": 3.6
+      }
+    },
+    {
+      "name": "stub_character_sheet",
+      "path": "object_stubs/stub_character_sheet",
+      "type": "Mesh",
+      "geometry": "PlaneGeometry",
+      "position": {
+        "x": -2,
+        "y": 0.005,
+        "z": 4.8
+      }
+    },
+    {
+      "name": "stub_notebook",
+      "path": "object_stubs/stub_notebook",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": -0.2,
+        "y": 0.01,
+        "z": 4.8
+      }
+    },
+    {
+      "name": "stub_tome",
+      "path": "object_stubs/stub_tome",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 2,
+        "y": 0.04,
+        "z": 4.8
+      }
+    },
+    {
+      "name": "stub_crystal_ball",
+      "path": "object_stubs/stub_crystal_ball",
+      "type": "Mesh",
+      "geometry": "SphereGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.95,
+        "z": -3.2
+      }
+    },
+    {
+      "name": "pedestal",
+      "path": "object_stubs/pedestal",
+      "type": "Mesh",
+      "geometry": "CylinderGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.25,
+        "z": -3.2
+      }
+    },
+    {
+      "name": "stub_dice_tower",
+      "path": "object_stubs/stub_dice_tower",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.62,
+        "z": 0.5
+      }
+    },
+    {
+      "name": "stub_parchment",
+      "path": "object_stubs/stub_parchment",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": -3.5,
+        "y": 0.005,
+        "z": 3.8
+      }
+    }
+  ],
+  "allMeshes": [
+    {
+      "name": "table_top",
+      "path": "table_surface/table_top",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": -0.06,
+        "z": 0
+      }
+    },
+    {
+      "name": "felt_vault",
+      "path": "table_surface/felt_vault",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": -0.04,
+        "z": -0.5
+      }
+    },
+    {
+      "name": "dice_tray_bottom",
+      "path": "table_surface/dice_tray_bottom",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.03,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "dice_tray_wall_far",
+      "path": "table_surface/dice_tray_wall_far",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.12,
+        "z": 1.08
+      }
+    },
+    {
+      "name": "dice_tray_wall_near",
+      "path": "table_surface/dice_tray_wall_near",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.12,
+        "z": 2.42
+      }
+    },
+    {
+      "name": "dice_tray_wall_left",
+      "path": "table_surface/dice_tray_wall_left",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 3.33,
+        "y": 0.12,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "dice_tray_wall_right",
+      "path": "table_surface/dice_tray_wall_right",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 5.67,
+        "y": 0.12,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "dice_tray_felt",
+      "path": "table_surface/dice_tray_felt",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.065,
+        "z": 1.75
+      }
+    },
+    {
+      "name": "rail_far",
+      "path": "table_surface/rail_far",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.09,
+        "z": -4.1
+      }
+    },
+    {
+      "name": "rail_left",
+      "path": "table_surface/rail_left",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": -6.2,
+        "y": 0.09,
+        "z": 0.7
+      }
+    },
+    {
+      "name": "rail_right",
+      "path": "table_surface/rail_right",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 6.2,
+        "y": 0.09,
+        "z": 0.7
+      }
+    },
+    {
+      "name": "shelf_edge",
+      "path": "table_surface/shelf_edge",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.03,
+        "z": 4.1
+      }
+    },
+    {
+      "name": "player_shelf",
+      "path": "table_surface/player_shelf",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 0,
+        "y": -0.09,
+        "z": 5.35
+      }
+    },
+    {
+      "name": "cup_holder",
+      "path": "table_surface/cup_holder",
+      "type": "Mesh",
+      "geometry": "CylinderGeometry",
+      "position": {
+        "x": 4.8,
+        "y": -0.03,
+        "z": 5.5
+      }
+    },
+    {
+      "name": "trash_hole",
+      "path": "table_surface/trash_hole",
+      "type": "Mesh",
+      "geometry": "CylinderGeometry",
+      "position": {
+        "x": 2.7,
+        "y": 0.005,
+        "z": 3.6
+      }
+    },
+    {
+      "name": "trash_hole_ring",
+      "path": "table_surface/trash_hole_ring",
+      "type": "Mesh",
+      "geometry": "TorusGeometry",
+      "position": {
+        "x": 2.7,
+        "y": 0.065,
+        "z": 3.6
+      }
+    },
+    {
+      "name": "stub_character_sheet",
+      "path": "object_stubs/stub_character_sheet",
+      "type": "Mesh",
+      "geometry": "PlaneGeometry",
+      "position": {
+        "x": -2,
+        "y": 0.005,
+        "z": 4.8
+      }
+    },
+    {
+      "name": "stub_notebook",
+      "path": "object_stubs/stub_notebook",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": -0.2,
+        "y": 0.01,
+        "z": 4.8
+      }
+    },
+    {
+      "name": "stub_tome",
+      "path": "object_stubs/stub_tome",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 2,
+        "y": 0.04,
+        "z": 4.8
+      }
+    },
+    {
+      "name": "stub_crystal_ball",
+      "path": "object_stubs/stub_crystal_ball",
+      "type": "Mesh",
+      "geometry": "SphereGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.95,
+        "z": -3.2
+      }
+    },
+    {
+      "name": "pedestal",
+      "path": "object_stubs/pedestal",
+      "type": "Mesh",
+      "geometry": "CylinderGeometry",
+      "position": {
+        "x": 0,
+        "y": 0.25,
+        "z": -3.2
+      }
+    },
+    {
+      "name": "stub_dice_tower",
+      "path": "object_stubs/stub_dice_tower",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": 4.5,
+        "y": 0.62,
+        "z": 0.5
+      }
+    },
+    {
+      "name": "stub_parchment",
+      "path": "object_stubs/stub_parchment",
+      "type": "Mesh",
+      "geometry": "BoxGeometry",
+      "position": {
+        "x": -3.5,
+        "y": 0.005,
+        "z": 3.8
+      }
+    }
+  ]
+}

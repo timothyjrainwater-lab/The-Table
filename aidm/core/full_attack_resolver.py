@@ -749,6 +749,54 @@ def resolve_full_attack(
         current_hp -= damage
         attacks_executed += 1
 
+        # WO-ENGINE-CLEAVE-WIRE-001: Cleave bonus attack on kill within full attack (PHB p.92/94)
+        if current_hp <= 0 and damage > 0:
+            from aidm.core.feat_resolver import can_use_cleave, get_cleave_limit
+            from aidm.core.attack_resolver import _find_cleave_target
+            from aidm.schemas.attack import AttackIntent as _AttackIntent
+            _cl_attacker = attacker  # already bound above
+            if can_use_cleave(_cl_attacker, intent.target_id, world_state):
+                _cl_limit = get_cleave_limit(_cl_attacker)
+                _cl_used_set = set()
+                if world_state.active_combat is not None:
+                    _cl_used_set = set(world_state.active_combat.get("cleave_used_this_turn", set()))
+                _cl_already = intent.attacker_id in _cl_used_set
+                if _cl_limit is None or not _cl_already:
+                    _cl_target_id = _find_cleave_target(intent.attacker_id, intent.target_id, world_state)
+                    if _cl_target_id is not None:
+                        if _cl_limit == 1 and world_state.active_combat is not None:
+                            world_state.active_combat["cleave_used_this_turn"] = _cl_used_set | {intent.attacker_id}
+                        _feat_name = "great_cleave" if _cl_limit is None else "cleave"
+                        events.append(Event(
+                            event_id=current_event_id,
+                            event_type="cleave_triggered",
+                            timestamp=timestamp + 0.5 * attacks_executed + 0.35,
+                            payload={
+                                "attacker_id": intent.attacker_id,
+                                "killed_target_id": intent.target_id,
+                                "cleave_target_id": _cl_target_id,
+                                "feat": _feat_name,
+                            },
+                            citations=[{"source_id": "681f92bc94ff", "page": 92}],
+                        ))
+                        current_event_id += 1
+                        _cleave_bonus_intent = _AttackIntent(
+                            attacker_id=intent.attacker_id,
+                            target_id=_cl_target_id,
+                            weapon=intent.weapon,
+                            attack_bonus=adjusted_attack_bonus,
+                        )
+                        from aidm.core.attack_resolver import resolve_attack as _resolve_atk
+                        _cl_events = _resolve_atk(
+                            intent=_cleave_bonus_intent,
+                            world_state=world_state,
+                            rng=rng,
+                            next_event_id=current_event_id,
+                            timestamp=timestamp + 0.5 * attacks_executed + 0.4,
+                        )
+                        events.extend(_cl_events)
+                        current_event_id += len(_cl_events)
+
         # WO-FIX-02 (BUG-2): Stop attacking defeated targets
         if current_hp <= 0 and damage > 0:
             break  # Target defeated -- remaining attacks not executed

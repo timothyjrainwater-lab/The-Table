@@ -76,6 +76,7 @@ class ActiveSpellEffect:
             "concentration": self.concentration,
             "condition_applied": self.condition_applied,
             "turn_applied": self.turn_applied,
+            "spell_level": self.spell_level,  # WO-ENGINE-CONCENTRATION-001: required for per-spell DC
         }
 
     @classmethod
@@ -91,6 +92,7 @@ class ActiveSpellEffect:
             concentration=data["concentration"],
             condition_applied=data.get("condition_applied"),
             turn_applied=data.get("turn_applied", 0),
+            spell_level=data.get("spell_level", 0),  # WO-ENGINE-CONCENTRATION-001
         )
 
 
@@ -316,6 +318,22 @@ class DurationTracker:
     # ==========================================================================
     # CONCENTRATION
     # ==========================================================================
+
+    def remove_concentration_effect(self, effect_id: str) -> Optional[ActiveSpellEffect]:
+        """Remove a single concentration effect by ID.
+
+        Called when a specific concentration spell fails its individual check.
+        Does not affect other concentration effects the caster may be maintaining.
+
+        WO-ENGINE-CONCENTRATION-001 (PHB p.170: per-spell independent checks)
+
+        Args:
+            effect_id: ID of the specific effect to remove
+
+        Returns:
+            Removed effect, or None if not found
+        """
+        return self.remove_effect(effect_id)
 
     def break_concentration(self, caster_id: str) -> List[ActiveSpellEffect]:
         """Break concentration for a caster.

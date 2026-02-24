@@ -32,7 +32,7 @@ interface ZoneJsonEntry {
  * Zone definitions loaded from zones.json.
  * Color strings are parsed to numeric values for Three.js.
  */
-export const ZONES: ZoneDef[] = (zoneData as ZoneJsonEntry[]).map(z => ({
+export const ZONES: ZoneDef[] = (zoneData as { zones: ZoneJsonEntry[] }).zones.map(z => ({
   name: z.name,
   centerX: z.centerX,
   centerZ: z.centerZ,

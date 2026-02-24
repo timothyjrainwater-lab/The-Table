@@ -119,12 +119,12 @@ These are preserved reference, not active doctrine.
 | WO-UI-2D-FOUNDATION-001 | ACCEPTED | Skeleton: 4 files, zones, postures, orb, WS, input bar |
 | WO-UI-2D-RELAYOUT-001 | ACCEPTED | 3-region layout, scene-surface, shelf data-attributes, orb in right-col, 12/12 gate |
 | WO-UI-2D-RELAYOUT-002 | ACCEPTED (cbd5d9b, 14/14) | Speaker Panel split rail (`#speaker-panel` + `#dice-section`), 36px heartbeat orb, BATTLE posture label. |
-| WO-UI-2D-ORB-001 | READY TO DISPATCH | Speaker Panel wiring: DM crest idle (CSS filter: `brightness(0.5) sepia(0.4) saturate(0.6)` — warm sepia underexposure, not grey wash; clears to `brightness(1) sepia(0) saturate(1)` on `speaking_start` with ~400ms transition), NPC portrait swap on `speaking_start`, beat strip (opacity-only aging via CSS `nth-last-child` selectors — no timers, no slide, no scroll, no reflow; newest at bottom; oldest at ~0.15 opacity; DOM capped ~8 beats), orb pulse on `speaking_start`, posture-responsive compression. Crest non-interactive (no click handler). Speaking never overrides posture. |
-| WO-UI-2D-DM-PANEL-001 | Blocked on ORB-001 | Two-mode DM voice overlay: exploration panel vs combat transcript strip |
-| WO-UI-2D-MAP-001 | UNBLOCKED — ready to dispatch | Scene canvas: grid, fog, tokens, AoE. Crossfade transition (300–400ms) on scene swap. |
-| WO-UI-2D-SLIP-001 | UNBLOCKED — ready to dispatch | Roll slip ritual: PENDING_ROLL → stamp → archive |
-| WO-UI-2D-SHEET-001 | UNBLOCKED — ready to dispatch | Character sheet: live WS data, clickable abilities |
-| WO-UI-2D-NOTEBOOK-001 | UNBLOCKED — ready to dispatch | Notebook: draw, transcript, bestiary tabs |
+| WO-UI-2D-ORB-001 | ACCEPTED (c14eba7, 12/12) | Speaker Panel wiring: sepia idle filter, beat strip (opacity-only CSS nth-last-child, no timers/scroll/slide), NPC portrait swap, orb pulse, has-portrait class management. Open findings: FINDING-ORB-NPC-PORTRAIT-001 (LOW), FINDING-ORB-BEAT-TEXT-001 (LOW), FINDING-2D-STATUS-DOT-001 (LOW). |
+| WO-UI-2D-DM-PANEL-001 | ACCEPTED (c15c3e1, 10/10) | Two-mode DM voice overlay: exploration (#dm-panel slides from top, 25vh, portrait + narration) vs combat (#orb-transcript strip). Mode detected via `body.combat-active` at `speaking_start`. CSS transform slide. `narration` routed to active mode. |
+| WO-UI-2D-MAP-001 | ACCEPTED (f008765, 12/12) | Scene canvas: `<canvas id="scene-canvas">` in `#scene-display`. Grid, fog, tokens (faction circles, HP bar, name), AoE shapes. Crossfade scene image (two img layers, 350ms). ResizeObserver. WS: scene_set/clear, token_add/move/remove/update, fog_reveal/reset, aoe_add/clear. |
+| WO-UI-2D-SLIP-001 | ACCEPTED (544d66a, 10/10) | Roll slip ritual: PENDING_ROLL → slip prints in #slip-tray → player click stamps (wax-red ::after) → roll_result archives after 3s. MAX_SLIPS=20. DOM cap, oldest pruned. |
+| WO-UI-2D-SHEET-001 | ACCEPTED (d72e721, 10/10) | Character sheet drawer: `#sheet-drawer` overlays scene surface. `character_state` WS event populates name/class/level/HP/AC/abilities. Ability score blocks clickable → `ability_check_declare`. MutationObserver re-renders on drawer open. |
+| WO-UI-2D-NOTEBOOK-001 | ACCEPTED (c9089b2, 10/10) | Notebook drawer: `#notebook-drawer` with Draw/Transcript/Bestiary tabs. Draw tab = write-locked placeholder (&#9871; icon, "consent required"). Transcript = narration log (200-line cap). Bestiary = bestiary_entry cards. ⚿ rendered as HTML entity. |
 
 **All unblocked WOs (ORB, MAP, SLIP, SHEET, NOTEBOOK) can dispatch in parallel.**
 
@@ -134,7 +134,9 @@ These are preserved reference, not active doctrine.
 
 | Finding | Severity | Description |
 |---------|----------|-------------|
-| FINDING-2D-STATUS-DOT-001 | LOW | WS status dot (`#ws-status`) position may collide with orb in right-col after RELAYOUT. Not a blocker — cosmetic call when right rail is rendered. Address in ORB-001 or as a standalone style fix.
+| FINDING-2D-STATUS-DOT-001 | LOW | WS status dot (`#ws-status`) position may collide with speaker panel. Not addressed in ORB-001. Confirm visually — standalone style fix if collision observed. |
+| FINDING-ORB-NPC-PORTRAIT-001 | LOW | NPC portrait swap requires `portrait_url` in `speaking_start` payload. Graceful no-op until backend sends it. Address in DM-PANEL-001 or backend wiring WO. |
+| FINDING-ORB-BEAT-TEXT-001 | LOW | Beat text requires `text` field in `speaking_start`. If backend uses `narration` event instead, beats stay empty until DM-PANEL-001 repurposes the transcript area. |
 
 All WOs after foundation are unblocked from each other — parallel dispatch possible.
 

@@ -581,6 +581,7 @@ def _merge_spellcasting(
         )
         return {
             EF.SPELL_SLOTS: spell_slots,
+            EF.SPELL_SLOTS_MAX: dict(spell_slots),   # snapshot for rest recovery (WO-ENGINE-REST-001)
             EF.SPELLS_KNOWN: spells_known,
             EF.SPELLS_PREPARED: spells_prepared,
             EF.CASTER_LEVEL: lvl,
@@ -607,9 +608,11 @@ def _merge_spellcasting(
 
     result: Dict[str, Any] = {
         EF.SPELL_SLOTS: primary_slots,
+        EF.SPELL_SLOTS_MAX: dict(primary_slots),     # snapshot for rest recovery (WO-ENGINE-REST-001)
         EF.CASTER_LEVEL: primary_lvl,
         EF.CASTER_CLASS: primary,
         EF.SPELL_SLOTS_2: secondary_slots,
+        EF.SPELL_SLOTS_MAX_2: dict(secondary_slots), # snapshot for rest recovery (WO-ENGINE-REST-001)
         EF.CASTER_LEVEL_2: secondary_lvl,
         EF.CASTER_CLASS_2: secondary,
     }
@@ -848,6 +851,7 @@ def build_character(
 
     # Spellcasting fields (always present, empty for non-casters)
     entity[EF.SPELL_SLOTS] = spell_slots
+    entity[EF.SPELL_SLOTS_MAX] = dict(spell_slots)  # snapshot for rest recovery (WO-ENGINE-REST-001)
     entity[EF.SPELLS_KNOWN] = spells_known
     entity[EF.SPELLS_PREPARED] = spells_prepared
     entity[EF.CASTER_LEVEL] = caster_level
@@ -1017,3 +1021,353 @@ def _build_multiclass_character(
     apply_racial_trait_fields(entity, race)
 
     return entity
+
+
+# ---------------------------------------------------------------------------
+# Level-Up System (WO-CHARGEN-PHASE3-LEVELUP)
+# ---------------------------------------------------------------------------
+
+# Per-class features unlocked at each class level (PHB Chapter 3).
+# Only levels with new features are listed — missing levels grant nothing.
+_CLASS_FEATURES: Dict[str, Dict[int, List[str]]] = {
+    "barbarian": {
+        1:  ["fast_movement", "illiteracy", "rage"],
+        2:  ["uncanny_dodge"],
+        3:  ["trap_sense_1"],
+        4:  ["rage_2_per_day"],
+        5:  ["improved_uncanny_dodge"],
+        6:  ["trap_sense_2"],
+        7:  ["damage_reduction_1"],
+        8:  ["rage_3_per_day"],
+        9:  ["trap_sense_3"],
+        10: ["damage_reduction_2"],
+        11: ["greater_rage"],
+        12: ["rage_4_per_day", "trap_sense_4"],
+        13: ["damage_reduction_3"],
+        14: ["indomitable_will"],
+        15: ["trap_sense_5"],
+        16: ["damage_reduction_4", "rage_5_per_day"],
+        17: ["tireless_rage"],
+        18: ["trap_sense_6"],
+        19: ["damage_reduction_5"],
+        20: ["mighty_rage", "rage_6_per_day"],
+    },
+    "bard": {
+        1:  ["bardic_music", "bardic_knowledge", "countersong", "fascinate", "inspire_courage_1"],
+        2:  ["well_versed"],
+        3:  ["inspire_competence"],
+        6:  ["suggestion"],
+        8:  ["inspire_courage_2"],
+        9:  ["inspire_greatness"],
+        12: ["song_of_freedom"],
+        14: ["inspire_courage_3"],
+        15: ["inspire_heroics"],
+        18: ["mass_suggestion"],
+        20: ["inspire_courage_4"],
+    },
+    "cleric": {
+        1:  ["aura", "spontaneous_casting", "turn_undead"],
+    },
+    "druid": {
+        1:  ["animal_companion", "nature_sense", "wild_empathy"],
+        2:  ["woodland_stride"],
+        3:  ["trackless_step"],
+        4:  ["resist_natures_lure", "wild_shape_small_medium"],
+        5:  ["wild_shape_2_per_day"],
+        6:  ["wild_shape_large", "wild_shape_3_per_day"],
+        7:  ["wild_shape_4_per_day"],
+        8:  ["wild_shape_tiny", "wild_shape_5_per_day"],
+        9:  ["venom_immunity", "wild_shape_6_per_day"],
+        10: ["wild_shape_plant"],
+        11: ["wild_shape_huge", "wild_shape_7_per_day"],
+        12: ["wild_shape_8_per_day"],
+        13: ["a_thousand_faces"],
+        14: ["wild_shape_9_per_day"],
+        15: ["timeless_body"],
+        16: ["wild_shape_elemental_small", "wild_shape_10_per_day"],
+        17: ["wild_shape_11_per_day"],
+        18: ["wild_shape_elemental_medium", "wild_shape_12_per_day"],
+        19: ["wild_shape_13_per_day"],
+        20: ["wild_shape_elemental_large", "wild_shape_14_per_day"],
+    },
+    "fighter": {
+        1:  ["bonus_feat"],
+        2:  ["bonus_feat"],
+        4:  ["bonus_feat"],
+        6:  ["bonus_feat"],
+        8:  ["bonus_feat"],
+        10: ["bonus_feat"],
+        12: ["bonus_feat"],
+        14: ["bonus_feat"],
+        16: ["bonus_feat"],
+        18: ["bonus_feat"],
+        20: ["bonus_feat"],
+    },
+    "monk": {
+        1:  ["flurry_of_blows", "unarmed_strike", "bonus_feat_monk"],
+        2:  ["evasion", "bonus_feat_monk"],
+        3:  ["still_mind"],
+        4:  ["ki_strike_magic", "slow_fall_20ft"],
+        5:  ["purity_of_body"],
+        6:  ["bonus_feat_monk", "slow_fall_30ft"],
+        7:  ["wholeness_of_body"],
+        8:  ["slow_fall_40ft"],
+        9:  ["improved_evasion"],
+        10: ["ki_strike_lawful", "slow_fall_50ft"],
+        11: ["diamond_body", "greater_flurry"],
+        12: ["abundant_step", "slow_fall_60ft"],
+        13: ["diamond_soul"],
+        14: ["slow_fall_70ft"],
+        15: ["quivering_palm"],
+        16: ["ki_strike_adamantine", "slow_fall_80ft"],
+        17: ["timeless_body", "tongue_of_sun_and_moon"],
+        18: ["slow_fall_90ft"],
+        19: ["empty_body"],
+        20: ["perfect_self", "slow_fall_any"],
+    },
+    "paladin": {
+        1:  ["aura_of_good", "detect_evil", "smite_evil_1_per_day"],
+        2:  ["divine_grace", "lay_on_hands"],
+        3:  ["aura_of_courage", "divine_health"],
+        4:  ["turn_undead", "special_mount"],
+        5:  ["smite_evil_2_per_day"],
+        6:  ["remove_disease_1_per_week"],
+        8:  ["smite_evil_3_per_day"],
+        9:  ["remove_disease_2_per_week"],
+        10: ["smite_evil_4_per_day"],
+        11: ["remove_disease_3_per_week"],
+        12: ["smite_evil_5_per_day"],
+        13: ["remove_disease_4_per_week"],
+        14: ["remove_disease_5_per_week"],
+        15: ["smite_evil_6_per_day"],
+        16: ["remove_disease_6_per_week"],
+        18: ["smite_evil_7_per_day"],
+        19: ["remove_disease_7_per_week"],
+        20: ["smite_evil_8_per_day", "remove_disease_8_per_week"],
+    },
+    "ranger": {
+        1:  ["first_favored_enemy", "track", "wild_empathy"],
+        2:  ["combat_style"],
+        3:  ["endurance"],
+        4:  ["animal_companion"],
+        5:  ["second_favored_enemy"],
+        6:  ["improved_combat_style"],
+        7:  ["woodland_stride"],
+        8:  ["swift_tracker"],
+        9:  ["evasion"],
+        10: ["third_favored_enemy"],
+        11: ["combat_style_mastery"],
+        13: ["camouflage"],
+        15: ["fourth_favored_enemy"],
+        17: ["hide_in_plain_sight"],
+        20: ["fifth_favored_enemy"],
+    },
+    "rogue": {
+        1:  ["sneak_attack_1d6", "trapfinding"],
+        2:  ["evasion"],
+        3:  ["sneak_attack_2d6", "trap_sense_1"],
+        4:  ["uncanny_dodge"],
+        5:  ["sneak_attack_3d6"],
+        6:  ["trap_sense_2"],
+        7:  ["sneak_attack_4d6"],
+        8:  ["improved_uncanny_dodge"],
+        9:  ["sneak_attack_5d6", "trap_sense_3"],
+        10: ["sneak_attack_6d6", "special_ability"],
+        11: ["sneak_attack_7d6"],
+        12: ["trap_sense_4"],
+        13: ["sneak_attack_8d6"],
+        14: ["special_ability"],
+        15: ["sneak_attack_9d6", "trap_sense_5"],
+        16: ["special_ability"],
+        17: ["sneak_attack_10d6"],
+        18: ["trap_sense_6"],
+        19: ["sneak_attack_11d6"],
+        20: ["sneak_attack_12d6", "special_ability"],
+    },
+    "sorcerer": {
+        1:  ["summon_familiar"],
+    },
+    "wizard": {
+        1:  ["summon_familiar", "scribe_scroll"],
+        5:  ["bonus_feat_wizard"],
+        10: ["bonus_feat_wizard"],
+        15: ["bonus_feat_wizard"],
+        20: ["bonus_feat_wizard"],
+    },
+}
+
+
+def _roll_hp_for_level(
+    hit_die: int,
+    con_mod: int,
+    is_first_class_level: bool,
+    seed: Optional[int] = None,
+) -> int:
+    """Roll HP gained for one level in a class.
+
+    Args:
+        hit_die: Hit die size (e.g., 10 for fighter).
+        con_mod: Constitution modifier.
+        is_first_class_level: True when this is the first level in this class
+            (e.g., multiclassing into wizard for the first time). Takes max.
+        seed: Optional RNG seed for deterministic tests.
+
+    Returns:
+        HP gained (minimum 1).
+    """
+    if is_first_class_level:
+        return max(1, hit_die + con_mod)
+    rng = random.Random(seed)
+    roll = rng.randint(1, hit_die)
+    return max(1, roll + con_mod)
+
+
+def _skill_points_for_level(class_name: str, int_mod: int) -> int:
+    """Skill points awarded for one level in a class.
+
+    Uses the class's base skill points per level from CLASS_PROGRESSIONS,
+    plus INT modifier. Minimum 1 per level (PHB p.57).
+
+    Args:
+        class_name: Class name.
+        int_mod: Intelligence modifier.
+
+    Returns:
+        Skill points awarded (minimum 1).
+    """
+    base = CLASS_PROGRESSIONS[class_name].skill_points_per_level
+    return max(1, base + int_mod)
+
+
+def level_up(
+    entity: Dict[str, Any],
+    class_name: str,
+    new_class_level: int,
+    feat_choices: Optional[List[str]] = None,
+    skill_allocations: Optional[Dict[str, int]] = None,
+    spell_choices: Optional[List[str]] = None,
+    hp_seed: Optional[int] = None,
+) -> Dict[str, Any]:
+    """Advance entity by one level in class_name.
+
+    Pure function — does NOT mutate entity. Caller applies the returned
+    delta dict to the entity.
+
+    WO-CHARGEN-PHASE3-LEVELUP §3.1.
+
+    Args:
+        entity: Existing entity dict (from build_character or prior level_up).
+        class_name: Which class gains the level.
+        new_class_level: The new level reached in this class (e.g. 2 for L1→L2).
+        feat_choices: Feats to add if a feat slot opens this level.
+        skill_allocations: {skill_id: ranks_added} for new skill points.
+        spell_choices: New spells for caster classes (stored, not applied here).
+        hp_seed: Optional RNG seed for deterministic HP rolls.
+
+    Returns:
+        Delta dict with keys:
+            "hp_gained": int
+            "feat_slots_gained": int
+            "feats_added": list[str]
+            "class_features_gained": list[str]
+            "spell_slots": dict  (updated slot table, or {} if non-caster)
+            "skill_points_gained": int
+            "bab": int
+            "saves": {"fort": int, "ref": int, "will": int}
+            "new_total_level": int
+
+    Raises:
+        ValueError: If class_name is unknown, new_class_level is invalid,
+            or the entity's total level would exceed 20.
+    """
+    if class_name not in CLASS_PROGRESSIONS:
+        raise ValueError(
+            f"Unknown class '{class_name}'. Available: {list(CLASS_PROGRESSIONS.keys())}"
+        )
+
+    class_levels: Dict[str, int] = dict(entity.get(EF.CLASS_LEVELS, {}))
+    current_class_level = class_levels.get(class_name, 0)
+
+    # Validate new_class_level is exactly one step up
+    if new_class_level != current_class_level + 1:
+        raise ValueError(
+            f"new_class_level must be current {class_name} level + 1 "
+            f"(got {new_class_level}, current is {current_class_level})"
+        )
+
+    current_total = entity.get(EF.LEVEL, sum(class_levels.values()))
+    new_total_level = current_total + 1
+    if new_total_level > 20:
+        raise ValueError(f"Total level would exceed 20 (current={current_total})")
+
+    race = entity.get(EF.RACE, "human")
+    class_prog = CLASS_PROGRESSIONS[class_name]
+
+    # --- HP ---
+    con_mod = entity.get(EF.CON_MOD, 0)
+    is_first_class_level = (current_class_level == 0)
+    hp_gained = _roll_hp_for_level(class_prog.hit_die, con_mod, is_first_class_level, hp_seed)
+
+    # --- BAB: best single-class BAB across all class levels after advancement ---
+    updated_class_levels = dict(class_levels)
+    updated_class_levels[class_name] = new_class_level
+    bab = max(
+        BAB_PROGRESSION[CLASS_PROGRESSIONS[cls].bab_type][lvl - 1]
+        for cls, lvl in updated_class_levels.items()
+    )
+
+    # --- Saves: best progression independently for each save ---
+    def _save_base(cls: str, lvl: int, save_type: str) -> int:
+        prog = CLASS_PROGRESSIONS[cls]
+        if save_type in prog.good_saves:
+            return GOOD_SAVE_PROGRESSION[lvl - 1]
+        return POOR_SAVE_PROGRESSION[lvl - 1]
+
+    fort_base = max(_save_base(cls, lvl, "fort") for cls, lvl in updated_class_levels.items())
+    ref_base  = max(_save_base(cls, lvl, "ref")  for cls, lvl in updated_class_levels.items())
+    will_base = max(_save_base(cls, lvl, "will") for cls, lvl in updated_class_levels.items())
+
+    saves = {
+        "fort": fort_base + entity.get(EF.CON_MOD, 0),
+        "ref":  ref_base  + entity.get(EF.DEX_MOD, 0),
+        "will": will_base + entity.get(EF.WIS_MOD, 0),
+    }
+
+    # --- Feat slots ---
+    old_total = new_total_level - 1
+    old_feat_slots = _feat_slots_at_level(old_total, race)
+    new_feat_slots = _feat_slots_at_level(new_total_level, race)
+    feat_slots_gained = max(0, new_feat_slots - old_feat_slots)
+
+    feats_added: List[str] = []
+    if feat_slots_gained > 0 and feat_choices:
+        feats_added = list(feat_choices[:feat_slots_gained])
+
+    # --- Class features ---
+    class_features_gained: List[str] = list(
+        _CLASS_FEATURES.get(class_name, {}).get(new_class_level, [])
+    )
+
+    # --- Skill points ---
+    int_mod = entity.get(EF.INT_MOD, 0)
+    skill_points_gained = _skill_points_for_level(class_name, int_mod)
+
+    # --- Spell slots (casters only) ---
+    spell_slots: Dict = {}
+    if is_caster(class_name):
+        casting_stat = CASTING_ABILITY[class_name]
+        final_scores = entity.get(EF.BASE_STATS, {})
+        casting_score = final_scores.get(casting_stat, 10)
+        spell_slots = get_spell_slots(class_name, new_class_level, casting_score)
+
+    return {
+        "hp_gained": hp_gained,
+        "feat_slots_gained": feat_slots_gained,
+        "feats_added": feats_added,
+        "class_features_gained": class_features_gained,
+        "spell_slots": spell_slots,
+        "skill_points_gained": skill_points_gained,
+        "bab": bab,
+        "saves": saves,
+        "new_total_level": new_total_level,
+    }

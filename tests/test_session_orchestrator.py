@@ -86,6 +86,7 @@ def world_state():
                 EF.WEAPON: "longsword",
                 "weapon_damage": "1d8+2",
                 EF.DEX_MOD: 1,
+                EF.SPELL_SLOTS: {1: 5, 2: 4, 3: 3, 4: 2, 5: 1},
             },
             "goblin_1": {
                 EF.ENTITY_ID: "goblin_1",

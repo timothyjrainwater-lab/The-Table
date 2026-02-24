@@ -1,0 +1,51 @@
+{
+  "schema": "layout-pack-v1",
+  "transition_ms": 350,
+  "postures": {
+    "STANDARD": {
+      "position":  { "x": 0.0,  "y": 2.20, "z": 7.5  },
+      "lookAt":    { "x": 0.0,  "y": 0.05, "z": 1.0  },
+      "fov_deg":   55,
+      "near":      0.3,
+      "far":       50,
+      "intent": "Seated adult, upright but slightly elevated. Eye height 2.2u, pulled closer to table (z=7.5). Looking across table to mid-zone. Dice station just barely in right periphery. Shelf visible at bottom. Orb visible upper-center.",
+      "acceptance": ["shelf visible at bottom of frame", "orb visible upper-center", "dice station barely at right edge", "reads like sitting across a real table"]
+    },
+    "DOWN": {
+      "position":  { "x": -0.2, "y": 3.80, "z": 5.8  },
+      "lookAt":    { "x": -0.2, "y": 0.0,  "z": 5.1 },
+      "fov_deg":   38,
+      "near":      0.2,
+      "far":       15,
+      "intent": "Player looks almost straight down to read. High Y (3.8), pulled back (z=5.8), narrow FOV (38). Steep near-vertical angle. Camera centered on notebook (x=-0.2). Looks at z=5.1 so shelf rail clears bottom of frame.",
+      "acceptance": ["notebook pages visible without rail obstruction", "very steep near-vertical angle", "shelf objects face camera — minimal foreshortening", "vault not visible"]
+    },
+    "LEAN_FORWARD": {
+      "position":  { "x": 0.0,  "y": 5.0,  "z": 4.0  },
+      "lookAt":    { "x": 0.0,  "y": 0.0,  "z": 0.0  },
+      "fov_deg":   72,
+      "near":      0.1,
+      "far":       30,
+      "intent": "Player leans forward, near top-down survey of battle map. High Y (5.0), close in (z=4.0). Looking straight down at vault center (z=0.0). Steep pitch. Parchment map cover fills most of frame. Orb visible at far edge.",
+      "acceptance": ["parchment vault cover fills majority of frame", "near top-down pitch", "orb visible at far edge", "reads like leaning over a battle map"]
+    },
+    "DICE_TRAY": {
+      "position":  { "x": 2.5,  "y": 2.2,  "z": 6.5  },
+      "lookAt":    { "x": 4.50, "y": 0.05, "z": 3.5  },
+      "fov_deg":   52,
+      "near":      0.3,
+      "far":       20,
+      "intent": "Player turns head right from seated position to look at dice tray (player zone, z=3.8). Eye at seated height (y=2.2). Looking rightward and steeply down at tray/tower. Tray and tower dominate frame with orb far left.",
+      "acceptance": ["tray visible and dominant", "tower visible", "natural head-turn — not aerial", "dice faces readable"]
+    },
+    "BOOK_READ": {
+      "position":  { "x": 2.00, "y": 2.40, "z": 5.8  },
+      "lookAt":    { "x": 2.00, "y": 0.0,  "z": 5.1  },
+      "fov_deg":   38,
+      "near":      0.1,
+      "far":       15,
+      "intent": "Player looks straight down at rulebook (tome at x=2.0, z=5.1). High Y (2.4) for steep angle. Narrow FOV (38deg). Camera positioned directly above the tome. Page fills frame with minimal foreshortening.",
+      "acceptance": ["rulebook page text legible at 1080p", "page fills majority of frame", "minimal perspective distortion — near top-down"]
+    }
+  }
+}

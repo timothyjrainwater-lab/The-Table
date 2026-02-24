@@ -22,6 +22,30 @@
 import * as THREE from 'three';
 
 // ---------------------------------------------------------------------------
+// WO-ENGINE-MASK-DISPLAY-001 — Fail-closed label render guard
+// ---------------------------------------------------------------------------
+
+/**
+ * Fail-closed render guard for server-provided label strings.
+ * Returns label if safe, 'Unknown' if precision tokens detected.
+ * Injection guard only — never edits the string, never infers knowledge.
+ */
+function _guardLabel(label: string): string {
+  const FORBIDDEN = [
+    /\(\s*\d+\s*[Hh][Pp]\s*\)/,
+    /\(\s*[Hh][Pp]\s*\d+\s*\)/,
+    /\(\s*\d+\s*\/\s*\d+\s*[Hh][Pp]\)/,
+    /\b[Aa][Cc]\s*\d+\b/,
+    /\b[Dd][Cc]\s*\d+\b/,
+    /\b[Cc][Rr]\s*[\d/]+\b/,
+    /\b[Ss][Rr]\s*\d+\b/,
+    /\+\d+\s*to\s*hit/,
+    /\d+d\d+\+\d+/,
+  ];
+  return FORBIDDEN.some(p => p.test(label)) ? 'Unknown' : label;
+}
+
+// ---------------------------------------------------------------------------
 // Seeded PRNG (Gate G)
 // ---------------------------------------------------------------------------
 
@@ -82,7 +106,7 @@ function makeHandoutTexture(title: string, colorSeed: number): THREE.CanvasTextu
   ctx.font = 'bold 20px Georgia, serif';
   ctx.fillStyle = '#d4b878';
   ctx.textAlign = 'center';
-  ctx.fillText(title.toUpperCase(), W / 2, 50);
+  ctx.fillText(_guardLabel(title).toUpperCase(), W / 2, 50);
 
   // Body text lines — placeholder ruled lines
   ctx.strokeStyle = '#c8b898';
@@ -327,6 +351,11 @@ export class HandoutTray {
       h.update(dt);
     }
   }
+
+  /** Clear all handouts from the tray (scene boundary reset). */
+  clearAll(): void {
+    this._handouts = [];
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -380,6 +409,8 @@ export class HandoutManager {
   private _slot:    THREE.Group;
   private _tray:    HandoutTray;
   private _discard: THREE.Mesh;
+  /** Handouts that have been discarded but can be retrieved. Key = handout_id. */
+  private _discardStack: Map<string, HandoutObject> = new Map();
 
   /** All active handout meshes (for raycasting). */
   get handoutMeshes(): THREE.Mesh[] {
@@ -443,18 +474,70 @@ export class HandoutManager {
     mat.emissiveIntensity  = on ? 0.9  : 0.0;
   }
 
-  /** Remove a discarded handout from the scene. */
+  /** Remove a discarded handout from the scene, keeping it in the discard stack for retrieval. */
   removeHandout(handout_id: string): void {
     const ho = this._tray.activeHandouts.find(h => h.data.handout_id === handout_id);
     if (ho) {
       ho.discard();
       this._scene.remove(ho.mesh);
       this._tray.removeDiscarded(handout_id);
+      // Keep in discard stack so retrieveFromDiscard can restore it (≤2 actions)
+      this._discardStack.set(handout_id, ho);
     }
+  }
+
+  /**
+   * Retrieve a handout from the discard stack back to the active tray.
+   * This is action 1 of ≤2 (caller emits HandoutRetrievedIntent as action 2).
+   * Returns true if the handout was found and restored, false otherwise.
+   */
+  retrieveFromDiscard(handout_id: string): boolean {
+    const ho = this._discardStack.get(handout_id);
+    if (!ho) return false;
+    this._discardStack.delete(handout_id);
+    // Re-add mesh to scene and tray
+    this._scene.add(ho.mesh);
+    ho.mesh.visible = true;
+    // Re-deliver into tray using existing data so it fans correctly
+    const restored = this._tray.deliver(ho.data);
+    // Sync the restored object's position to the new fanIndex immediately
+    restored.update(0);
+    return true;
+  }
+
+  /**
+   * WO-UI-HANDOUT-READ-001: Return the canvas element backing the handout texture.
+   * Used by main.ts to display it in the fullscreen read overlay.
+   */
+  getHandoutCanvas(handout_id: string): HTMLCanvasElement | null {
+    const ho = this._tray.activeHandouts.find(h => h.data.handout_id === handout_id);
+    if (!ho) return null;
+    const mat = ho.mesh.material as THREE.MeshStandardMaterial;
+    const tex = mat.map as THREE.CanvasTexture | null;
+    if (!tex || !(tex.image instanceof HTMLCanvasElement)) return null;
+    return tex.image as HTMLCanvasElement;
   }
 
   /** Update delivery animations each frame. */
   update(dt: number): void {
     this._tray.update(dt);
+  }
+
+  /**
+   * Clear all handouts and discard stack at scene boundary.
+   * Called by main.ts _resetToBaseline() on scene_end / scene_start.
+   */
+  clearAll(): void {
+    // Remove active handout meshes from scene
+    for (const ho of this._tray.activeHandouts) {
+      this._scene.remove(ho.mesh);
+      ho.discard();
+    }
+    // Remove discarded meshes from discard stack
+    for (const ho of this._discardStack.values()) {
+      this._scene.remove(ho.mesh);
+    }
+    this._discardStack.clear();
+    this._tray.clearAll();
   }
 }

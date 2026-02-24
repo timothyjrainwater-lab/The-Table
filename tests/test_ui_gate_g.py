@@ -100,8 +100,11 @@ class TestUIG2ZoneValidation:
     def test_valid_zone_names_defined_and_enumerable(self):
         """Valid zone names are defined and enumerable."""
         assert isinstance(VALID_ZONES, frozenset)
-        assert VALID_ZONES == frozenset({"player", "map", "dm", "dice_tray", "dice_tower"})
-        assert len(VALID_ZONES) == 5
+        assert VALID_ZONES == frozenset({
+            "DM_ZONE", "VAULT_ZONE", "WORK_ZONE",
+            "TRASH_RING_ZONE", "SHELF_ZONE", "DICE_STATION_ZONE",
+        })
+        assert len(VALID_ZONES) == 6
 
     def test_position_update_to_invalid_zone_rejected(self):
         """Position update to invalid zone is rejected."""
@@ -110,37 +113,36 @@ class TestUIG2ZoneValidation:
         assert result is False
 
         # Valid zone name but position outside that zone's bounds
-        result = validate_zone_position((0.0, 0.05, 3.0), "dm")
+        result = validate_zone_position((0.0, 0.05, 3.0), "DM_ZONE")
         assert result is False
 
     def test_position_update_to_valid_zone_accepted(self):
         """Position update to valid zone is accepted."""
-        # Player zone center (shelf at z=4.75 after spatial rework)
-        result = validate_zone_position((0.0, 0.05, 4.75), "player")
+        # SHELF_ZONE center (z=4.75)
+        result = validate_zone_position((0.0, 0.05, 4.75), "SHELF_ZONE")
         assert result is True
 
-        # Map zone center
-        result = validate_zone_position((0.0, 0.05, -0.5), "map")
+        # VAULT_ZONE center (z=-0.5)
+        result = validate_zone_position((0.0, 0.05, -0.5), "VAULT_ZONE")
         assert result is True
 
-        # DM zone center
-        result = validate_zone_position((0.0, 0.05, -3.5), "dm")
+        # DM_ZONE center (z=-3.5)
+        result = validate_zone_position((0.0, 0.05, -3.5), "DM_ZONE")
         assert result is True
 
-        # Dice tray zone center (tray at z=1.75)
-        result = validate_zone_position((4.5, 0.3, 1.75), "dice_tray")
+        # DICE_STATION_ZONE center (x=4.5, z=1.125)
+        result = validate_zone_position((4.5, 0.3, 1.125), "DICE_STATION_ZONE")
         assert result is True
 
-        # Dice tower zone center (tower at z=0.5)
-        result = validate_zone_position((4.5, 0.3, 0.5), "dice_tower")
+        # WORK_ZONE center (x=0, z=2.0)
+        result = validate_zone_position((0.0, 0.05, 2.0), "WORK_ZONE")
         assert result is True
 
         # zone_for_position confirms zone detection
-        assert zone_for_position(0.0, 4.75) == "player"
-        assert zone_for_position(0.0, -0.5) == "map"
-        assert zone_for_position(0.0, -3.5) == "dm"
-        assert zone_for_position(4.5, 1.75) == "dice_tray"
-        assert zone_for_position(4.5, 0.5) == "dice_tower"
+        assert zone_for_position(0.0, 4.75) == "SHELF_ZONE"
+        assert zone_for_position(0.0, -0.5) == "VAULT_ZONE"
+        assert zone_for_position(0.0, -3.5) == "DM_ZONE"
+        assert zone_for_position(4.5, 1.125) == "DICE_STATION_ZONE"
         assert zone_for_position(10.0, 10.0) is None  # outside all zones
 
 
@@ -265,8 +267,10 @@ class TestUIG5DriftGuards:
         )
 
     def test_no_backflow_imports_in_ui_boundary(self):
-        """aidm/ui/ modules do not import from Oracle, EventLog, replay_runner, Lens, or Immersion.
+        """aidm/ui/ modules do not import from Oracle, EventLog, replay_runner, Lens, Immersion,
+        or any module that exposes mechanical state (even read-only).
 
+        UI must not import any module that exposes mechanical state, even if it is 'read-only'.
         The UI boundary layer must not depend on canonical state layers.
         """
         root = self._project_root()
@@ -276,6 +280,7 @@ class TestUIG5DriftGuards:
             "aidm.core.event_log",
             "aidm.core.replay_runner",
             "aidm.core.provenance",
+            "aidm.core.state",  # exposes mechanical state — UI must never touch this
             "aidm.lens",
             "aidm.immersion",
         )
@@ -376,8 +381,10 @@ class TestUIG6ZoneAuthority:
         assert zones_json_path.exists(), "zones.json must exist"
 
         # Load zones.json as the authoritative source
-        zones = json.loads(zones_json_path.read_text(encoding="utf-8"))
-        assert len(zones) == 5, f"Expected 5 zones, got {len(zones)}"
+        zones_data = json.loads(zones_json_path.read_text(encoding="utf-8"))
+        # Support layout-pack-v1 schema (object with .zones) or legacy bare array
+        zones = zones_data.get("zones", zones_data) if isinstance(zones_data, dict) else zones_data
+        assert len(zones) == 6, f"Expected 6 zones, got {len(zones)}"
 
         # Scan Python: table_objects.py should NOT contain literal zone tuples
         py_file = root / "aidm" / "ui" / "table_objects.py"
@@ -418,7 +425,9 @@ class TestUIG6ZoneAuthority:
         """
         root = self._project_root()
         zones_json_path = root / "aidm" / "ui" / "zones.json"
-        zones = json.loads(zones_json_path.read_text(encoding="utf-8"))
+        zones_data = json.loads(zones_json_path.read_text(encoding="utf-8"))
+        # Support layout-pack-v1 schema (object with .zones) or legacy bare array
+        zones = zones_data.get("zones", zones_data) if isinstance(zones_data, dict) else zones_data
 
         # Camera parameters (source: client/src/main.ts lines 36-41)
         fov_deg = 60

@@ -185,3 +185,54 @@ def apply_dr_to_damage(
     damage_reduced = min(dr_amount, damage_total)
     final_damage = damage_total - damage_reduced
     return final_damage, damage_reduced
+
+
+def extract_weapon_bypass_flags(
+    weapon: Any,
+    attacker: dict,
+) -> tuple:
+    """Extract magic/material/alignment bypass flags from a Weapon or entity dict.
+
+    Priority order:
+    1. weapon.weapon_type == "natural" -> never magic
+    2. attacker[EF.WEAPON] dict "tags" list: ["magic", "silver", ...]
+    3. attacker[EF.WEAPON] dict "material" key: "adamantine", "cold_iron", etc.
+    4. Default: non-magic steel, no alignment
+
+    WO-ENGINE-DR-001
+
+    Returns:
+        (is_magic: bool, material: str, alignment: str, enhancement: int)
+    """
+    # Natural attacks: never magic
+    weapon_type = getattr(weapon, "weapon_type", "one-handed")
+    if weapon_type == "natural":
+        return (False, "steel", "none", 0)
+
+    entity_weapon = attacker.get(EF.WEAPON, {}) if attacker else {}
+    if not isinstance(entity_weapon, dict):
+        entity_weapon = {}
+    tags = entity_weapon.get("tags", [])
+    material = entity_weapon.get("material", "steel")
+    alignment = entity_weapon.get("alignment", "none")
+    enhancement = entity_weapon.get("enhancement_bonus", 0)
+
+    # "magic" in tags or enhancement >= 1 -> magic weapon
+    is_magic = ("magic" in tags) or (enhancement >= 1)
+
+    return (is_magic, material, alignment, enhancement)
+
+
+def _get_bypass_type(dr_list: list, applied_dr_amount: int) -> str:
+    """Return the bypass type of the DR entry that was applied.
+
+    Used to populate damage_reduced event payload.
+    Returns the bypass of the highest-amount DR entry matching applied_dr_amount,
+    or "-" if not found.
+
+    WO-ENGINE-DR-001
+    """
+    for entry in dr_list:
+        if entry.get("amount", 0) == applied_dr_amount:
+            return entry.get("bypass", "-")
+    return "-"

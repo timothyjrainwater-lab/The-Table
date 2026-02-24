@@ -211,6 +211,36 @@ class GrappleIntent:
     """Entity ID of target being grappled."""
 
 
+@dataclass
+class GrappleEscapeIntent:
+    """Intent to escape a grapple. CP-22.
+
+    PHB p.156: A grappled creature can attempt to escape each round.
+    """
+
+    attacker_id: str
+    """Entity ID of the escaping entity."""
+
+    target_id: str
+    """Entity ID of the entity holding the grapple."""
+
+
+@dataclass
+class PinEscapeIntent:
+    """Intent to escape a pin. WO-ENGINE-GRAPPLE-PIN-001.
+
+    PHB p.156: A pinned creature can attempt to escape each round.
+    Escape requires a full-round action and a successful opposed grapple check.
+    On success, the entity reverts to grappled (still in grapple_pairs).
+    """
+
+    attacker_id: str
+    """Entity ID of the pinned entity attempting to escape."""
+
+    target_id: str
+    """Entity ID of the entity holding the pin."""
+
+
 # ==============================================================================
 # RESULT SCHEMAS
 # ==============================================================================

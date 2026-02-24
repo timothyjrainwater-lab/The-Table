@@ -58,11 +58,15 @@ export class WsBridge {
     };
   }
 
-  on(msgType: string, handler: MessageHandler): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  on<T extends Record<string, any> = Record<string, unknown>>(
+    msgType: string,
+    handler: (data: T) => void,
+  ): void {
     if (!this.handlers.has(msgType)) {
       this.handlers.set(msgType, []);
     }
-    this.handlers.get(msgType)!.push(handler);
+    this.handlers.get(msgType)!.push(handler as MessageHandler);
   }
 
   send(data: Record<string, unknown>): void {
