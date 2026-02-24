@@ -267,6 +267,29 @@ body {
   background: var(--walnut-dark);
   border: 1px solid rgba(139,105,20,0.3);
   border-radius: 3px;
+  /* ORB-001: portrait filter transition + DM crest layout */
+  transition: filter 0.4s ease;
+  background-size: cover;
+  background-position: center top;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ORB-001: DM crest — brass-tinted "DM" label via pseudo-element */
+#speaker-portrait::after {
+  content: 'DM';
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+  color: rgba(139, 105, 20, 0.4);  /* --brass at low opacity */
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ORB-001: hide crest when NPC portrait is loaded */
+#speaker-portrait.has-portrait::after {
+  display: none;
 }
 
 /* Beat strip — ORB-001 renders short text beats here.
@@ -283,6 +306,22 @@ body {
   justify-content: flex-end;
   gap: 2px;
 }
+
+/* ORB-001: beat strip opacity aging — pure CSS, no JS timers */
+.beat {
+  opacity: 0.15;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--parchment-aged);
+  padding: 1px 0;
+  transition: opacity 0.3s ease;
+}
+
+#speaker-beats .beat:nth-last-child(1) { opacity: 1;    }
+#speaker-beats .beat:nth-last-child(2) { opacity: 0.70; }
+#speaker-beats .beat:nth-last-child(3) { opacity: 0.45; }
+#speaker-beats .beat:nth-last-child(4) { opacity: 0.25; }
+/* beats 5+ remain at 0.15 */
 
 /* Orb — heartbeat indicator. 36px. Inside speaker panel. Not the face. */
 #orb {
