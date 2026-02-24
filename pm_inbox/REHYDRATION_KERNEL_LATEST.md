@@ -5,17 +5,17 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-24 (SESSION CONTINUED — WO-ENGINE-NATURAL-ATTACK-001 DRAFTED; new finding FINDING-PLAY-LOOP-ROUTING-001 registered)
-**Delta:** WO-ENGINE-NATURAL-ATTACK-001 drafted and ready to dispatch (FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM — Druid can't attack in Wild Shape). PM inspection found FINDING-PLAY-LOOP-ROUTING-001 MEDIUM: execute_turn has no routing branches for RageIntent/SmiteEvilIntent/BardicMusicIntent/WildShapeIntent/RevertFormIntent — resolvers called directly in tests, bypassing play_loop. 5 open findings (2 MEDIUM). Git clean on master at b009561.
+**Session:** 2026-02-24 (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED — ENGINE-NATURAL-ATTACK 10/10; FINDING-WILDSHAPE-NATURAL-ATTACKS-001 CLOSED)
+**Delta:** Natural attack resolver live. `NaturalAttackIntent` wired. EQUIPMENT_MELDED bypass via deepcopy. WO-ENGINE-PLAY-LOOP-ROUTING-001 DISPATCH-READY. 4 open findings (1 MEDIUM: PLAY-LOOP-ROUTING-001).
 
 ## Priority Stack (top 3)
-1. **Dispatch WO-ENGINE-NATURAL-ATTACK-001.** MEDIUM finding. Druid can't attack in Wild Shape. 10-test gate. Drafted and ready.
-2. **Register and draft play_loop routing wire.** FINDING-PLAY-LOOP-ROUTING-001 MEDIUM: RageIntent/SmiteEvilIntent/BardicMusicIntent/WildShapeIntent/RevertFormIntent not routed in execute_turn. Tests pass because they call resolvers directly. Wire WO needed.
-3. **After dispatch #9:** CONCENTRATION-FIX (unstarted, in inbox). UI 2D candidates: token interaction, handout tray, fog reveal, notebook consent.
+1. **Dispatch WO-ENGINE-PLAY-LOOP-ROUTING-001.** MEDIUM finding. Rage/Smite/Bardic/WildShape/Revert fall through execute_turn silently. 10 integration tests. Single file: play_loop.py only.
+2. **After play-loop routing ACCEPTED:** LOW findings (bardic duration, wild shape HP/duration) and Thunder-directed work. No other MEDIUM engine gaps.
+3. **UI 2D candidates:** Token interaction, handout tray, fog reveal, notebook consent.
 
 ## Active Findings (IDs + status — register has descriptions)
-- FINDING-PLAY-LOOP-ROUTING-001 MEDIUM OPEN (execute_turn missing elif branches for Rage/Smite/Bardic/WildShape/RevertForm intents — tests bypass play_loop)
-- FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM OPEN (Druid can't attack in Wild Shape — natural attack path absent in attack_resolver.py — prioritize before Druid playtest)
+- FINDING-PLAY-LOOP-ROUTING-001 MEDIUM OPEN (execute_turn missing elif branches for Rage/Smite/Bardic/WildShape/RevertForm intents — WO drafted, DISPATCH-READY)
+- FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10)
 - FINDING-WILDSHAPE-HP-001 LOW OPEN (Wild Shape HP simplified formula — PHB proportional swap deferred)
 - FINDING-WILDSHAPE-DURATION-001 LOW OPEN (Wild Shape duration not auto-decremented — DM triggers revert manually)
 - FINDING-BARDIC-DURATION-001 LOW OPEN (Inspire Courage 8-round flat — PHB maintenance not enforced)

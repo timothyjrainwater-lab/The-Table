@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-24 (session continued). **ENGINE DISPATCH #8 ACCEPTED — 62/62.** All tracks GREEN. **WO-ENGINE-NATURAL-ATTACK-001 + WO-ENGINE-PLAY-LOOP-ROUTING-001 DRAFTED** — both DISPATCH-READY. WO-ENGINE-CONCENTRATION-FIX VOIDED (false positive — archived). 5 open findings (2 MEDIUM).
+**Last updated:** 2026-02-24 (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED). **ENGINE-NATURAL-ATTACK 10/10.** FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED. WO-ENGINE-PLAY-LOOP-ROUTING-001 still DISPATCH-READY. 4 open findings (1 MEDIUM remaining).
 
 ---
 
@@ -100,6 +100,7 @@
 |   |       |   |       | ENGINE-SMITE-EVIL | 8/8 |
 |   |       |   |       | ENGINE-BARDIC-MUSIC | 10/10 |
 |   |       |   |       | ENGINE-WILD-SHAPE | 10/10 |
+|   |       |   |       | ENGINE-NATURAL-ATTACK | 10/10 |
 
 *Note: All Anvil UI gap WOs ACCEPTED. 12/12. Layout pack WOs: LAYOUT-PACK + CAMERAS + OBJECT-LAYOUT + LIGHTING + PHYSICALITY-BASELINE ACCEPTED (38/38 gates). ENGINE-SPELL-SLOTS-001 12/12 + ENGINE-REST-001 12/12 ACCEPTED. ENGINE-GOLD-MASTER-REGEN 9/9 + ENGINE-READIED-ACTION 10/10 + ENGINE-AID-ANOTHER 10/10 + ENGINE-DEFEND 10/10 + ENGINE-FEINT 10/10 — ENGINE DISPATCH #5 ALL ACCEPTED. ENGINE DISPATCH #6 ALL ACCEPTED: ABILITY-DAMAGE 10/10 + WITHDRAW-DELAY 10/10 + CONDITIONS-BLIND-DEAF 19/19 + SUNDER-DISARM-FULL 10/10 + POISON-DISEASE 10/10 (59/59 gate tests). Builder fix: SD-09 spurious Weapon() field names removed. 182 engine gate tests all pass. GATES-V1 blocked on golden frames.*
 
@@ -107,9 +108,9 @@
 
 ## Operator Action Queue (max 3)
 
-1. **ENGINE DISPATCH #9 READY.** Two WOs: WO-ENGINE-NATURAL-ATTACK-001 (Druid can't attack in Wild Shape, 10 tests) + WO-ENGINE-PLAY-LOOP-ROUTING-001 (Rage/Smite/Bardic/WildShape/Revert not routed in execute_turn, 10 tests). Both DISPATCH-READY. Can dispatch together (2 WOs, well under cap) or sequentially.
-2. **WO-ENGINE-CONCENTRATION-FIX VOIDED + ARCHIVED.** Was a false positive — `caster_id=target_id` pattern is correct. No fix needed. TWF-WIRE (which the WO was repurposed toward) is already ACCEPTED.
-3. **Next engine candidates after dispatch #9:** GRAPPLE, AOO, TWF all ACCEPTED. Remaining engine work: spell metamagic follow-on, bardic music duration (LOW finding), wild shape HP/duration (LOW findings). No high-priority engine gaps after dispatch #9 lands.
+1. **WO-ENGINE-PLAY-LOOP-ROUTING-001 READY TO DISPATCH.** Fixes FINDING-PLAY-LOOP-ROUTING-001 (MEDIUM). Rage/Smite/Bardic/WildShape/Revert have no elif in execute_turn — fall through silently. 10 integration tests through execute_turn. Single file: play_loop.py only.
+2. **FINDING-WILDSHAPE-NATURAL-ATTACKS-001 CLOSED.** WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10. Debrief deviation noted and accepted: deepcopy bypass instead of `_resolve_single_attack()` refactor (YAGNI correct). Resolver in new `natural_attack_resolver.py` (cleaner than adding to attack_resolver.py).
+3. **No other high-priority engine gaps.** After play-loop routing: LOW findings (bardic duration, wild shape HP/duration) and any Thunder-directed work.
 
 ## Current Focus (Slate's focused recall)
 
@@ -135,8 +136,8 @@
 
 | Finding | Severity | Status | Description |
 |---------|----------|--------|-------------|
-| FINDING-PLAY-LOOP-ROUTING-001 | MEDIUM | OPEN | PM inspection 2026-02-24: `execute_turn` elif routing chain has no branches for RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent. These intents fall through to policy/stub blocks. Gate tests pass because they call resolvers directly (bypassing play_loop). Needs a play_loop integration wire WO. Candidate for ENGINE DISPATCH #9 secondary slot. |
-| FINDING-WILDSHAPE-NATURAL-ATTACKS-001 | MEDIUM | OPEN | ENGINE DISPATCH #8: `EF.NATURAL_ATTACKS` set by Wild Shape but no code path in `attack_resolver.py` consumes it. Druid in Wild Shape cannot attack. Prioritize WO-ENGINE-NATURAL-ATTACK-001 before any Druid playtest. |
+| FINDING-PLAY-LOOP-ROUTING-001 | MEDIUM | OPEN | PM inspection 2026-02-24: `execute_turn` elif routing chain has no branches for RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent. These intents fall through to policy/stub blocks. Gate tests pass because they call resolvers directly (bypassing play_loop). WO-ENGINE-PLAY-LOOP-ROUTING-001 drafted — DISPATCH-READY. |
+| FINDING-WILDSHAPE-NATURAL-ATTACKS-001 | MEDIUM | CLOSED | WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10 — `natural_attack_resolver.py` live, `NaturalAttackIntent` wired. |
 | FINDING-WILDSHAPE-HP-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape HP uses simplified Con-based formula. PHB proportional HP swap deferred. Non-blocking. |
 | FINDING-WILDSHAPE-DURATION-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape duration not auto-decremented. DM must trigger revert manually. Non-blocking. |
 | FINDING-BARDIC-DURATION-001 | LOW | OPEN | ENGINE DISPATCH #8: Inspire Courage uses 8-round flat duration. PHB action-economy maintenance not enforced. Non-blocking. |
@@ -226,6 +227,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-ENGINE-NATURAL-ATTACK-001 | **ACCEPTED** — 10/10 Gate ENGINE-NATURAL-ATTACK. New `aidm/core/natural_attack_resolver.py`: `validate_natural_attack()`, `_build_weapon_from_natural_attack()`, `resolve_natural_attack()`. `NaturalAttackIntent(attacker_id, target_id, attack_name, attack_bonus)` added to `intents.py`. EQUIPMENT_MELDED bypass via deepcopy (WO brief proposed `_resolve_single_attack()` refactor — deferred per YAGNI, deepcopy approach accepted). Play_loop routing wired. FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED. Zero regressions. | (pending commit) |
 | WO-ENGINE-ABILITY-DAMAGE-001 | **ACCEPTED** — 10/10 Gate ENGINE-ABILITY-DAMAGE (AD-01..AD-10). 12 new EF fields (STR_DAMAGE/STR_DRAIN through CHA_DAMAGE/CHA_DRAIN). `ability_damage_resolver.py` live: `get_effective_score()`, `get_ability_modifier()`, `apply_ability_damage()`, `heal_ability_damage()`, `expire_ability_damage_regen()`. STR/DEX penalties wired into attack_resolver; CON/DEX/WIS into save_resolver; 1pt/ability heal in rest_resolver; play_loop routing. CON to 0 = dead, STR/DEX to 0 = helpless. Zero regressions. | (pending commit) |
 | WO-ENGINE-WITHDRAW-DELAY-001 | **ACCEPTED** — 10/10 Gate ENGINE-WITHDRAW-DELAY (WD-01..WD-10). `WithdrawIntent`: full-round, first-square AoO suppressed via `active_combat["withdrew_actors"]` set (presence-then-removal). `DelayIntent`: inserts `initiative_scores` dict at combat start, actor moved to lower count. `withdraw_delay_resolver.py` live. AoO suppression wired in aoo.py. Zero regressions. | (pending commit) |
 | WO-ENGINE-CONDITIONS-BLIND-DEAF-001 | **ACCEPTED** — 19/19 Gate ENGINE-CONDITIONS-BLIND-DEAF (BD-01..BD-10; BD-09 parameterized expands to 10). BLINDED/DEAFENED/ENTANGLED/CONFUSED added to ConditionType. `condition_combat_resolver.py` live: `check_blinded_miss()`, `get_blinded_defender_ac_modifier()`, `check_deafened_spell_failure()`, `roll_confusion_behavior()`. d100 inserted before d20 in attack_resolver for blinded (RNG order preserved for determinism). Confusion turn-start hook in play_loop. Confused AoO guard in aoo.py. Zero regressions. | (pending commit) |
