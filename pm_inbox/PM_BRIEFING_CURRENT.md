@@ -109,8 +109,8 @@
 
 ## Operator Action Queue (max 3)
 
-1. **ENGINE DISPATCH #9 COMPLETE.** Both WOs ACCEPTED: WO-ENGINE-NATURAL-ATTACK-001 (10/10) + WO-ENGINE-PLAY-LOOP-ROUTING-001 (10/10). All MEDIUM findings closed. Bonus: rogue local imports in play_loop.py fixed (UnboundLocalError in 23 pre-existing tests resolved). No MEDIUM engine gaps remain.
-2. **Next engine work: LOW findings only.** FINDING-WILDSHAPE-HP-001 (proportional HP swap), FINDING-WILDSHAPE-DURATION-001 (auto-decrement revert), FINDING-BARDIC-DURATION-001 (action-economy maintenance). Thunder to direct priority or open next track.
+1. **WO-ENGINE-BARDIC-DURATION-001 READY TO DISPATCH.** Fixes FINDING-BARDIC-DURATION-001 (LOW). Dead/unconscious/deafened bard now auto-ends Inspire Courage. `INSPIRE_COURAGE_BARD_ID` field added; `_bard_is_incapacitated()` check in `tick_inspire_courage()`. 2 files + tests. 10 gate tests.
+2. **Two LOW findings remain after bardic duration:** FINDING-WILDSHAPE-HP-001 (proportional HP — needs schema change for form hit_dice) and FINDING-WILDSHAPE-DURATION-001 (needs time infrastructure). Both deferred pending Thunder direction.
 3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent. Thunder to direct.
 
 ## Current Focus (Slate's focused recall)
@@ -408,6 +408,7 @@
 - [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
+- [WO-ENGINE-BARDIC-DURATION-001_DISPATCH.md](pm_inbox/WO-ENGINE-BARDIC-DURATION-001_DISPATCH.md) — **DISPATCH-READY** — Bard incapacitation auto-ends Inspire Courage
 - [WO-PRS-IP-001_DISPATCH.md](pm_inbox/WO-PRS-IP-001_DISPATCH.md) — P8 IP exceptions (open work)
 - [WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md](pm_inbox/WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md) — BLOCKED (frozen track, hold)
 - [WO-UI-GATES-V1_DISPATCH.md](pm_inbox/WO-UI-GATES-V1_DISPATCH.md) — BLOCKED (frozen track, hold)
