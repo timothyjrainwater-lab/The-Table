@@ -392,7 +392,7 @@
 
 ## Active Operational Files
 
-**Root** (15 files — 10 operational + 3 PRS-01 dispatches + 2 chargen Phase 2 drafts):
+**Root** (10 files — 5 persistent + 5 active WOs):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
@@ -403,16 +403,15 @@
 - [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
-- [WO-PRS-IP-001_DISPATCH.md](pm_inbox/WO-PRS-IP-001_DISPATCH.md) — P8 IP exceptions (in flight)
-- [WO-UI-05_DISPATCH.md](pm_inbox/WO-UI-05_DISPATCH.md) — Table surface visual (in flight)
-- [WO-CHARGEN-EQUIPMENT-001_DISPATCH.md](pm_inbox/WO-CHARGEN-EQUIPMENT-001_DISPATCH.md) — Phase 2 equipment (drafted, ready to dispatch)
-- [WO-CHARGEN-MULTICLASS-001_DISPATCH.md](pm_inbox/WO-CHARGEN-MULTICLASS-001_DISPATCH.md) — Phase 2 multiclass (drafted, ready to dispatch)
-- [WO-PRS-SCAN-001_DISPATCH.md](pm_inbox/WO-PRS-SCAN-001_DISPATCH.md) — Gate X original dispatch (accepted w/ finding)
-- [WO-PRS-SCAN-FIX-001_DISPATCH.md](pm_inbox/WO-PRS-SCAN-FIX-001_DISPATCH.md) — Gate X fix WO (READY TO DISPATCH)
-- [WO-PRS-DOCS-001_DISPATCH.md](pm_inbox/WO-PRS-DOCS-001_DISPATCH.md) — Gate AB dispatch (PARTIAL — awaiting builder)
+- [MEMO_UI_PIVOT_2D_20260224.md](pm_inbox/MEMO_UI_PIVOT_2D_20260224.md) — UI pivot locked (2D client active)
 - [MEMO_HORIZON_SCOPE_AUDIT_2026_02_22.md](pm_inbox/MEMO_HORIZON_SCOPE_AUDIT_2026_02_22.md) — Horizon scope audit
+- [WO-PRS-IP-001_DISPATCH.md](pm_inbox/WO-PRS-IP-001_DISPATCH.md) — P8 IP exceptions (open work)
+- [WO-ENGINE-CONCENTRATION-FIX_DISPATCH.md](pm_inbox/WO-ENGINE-CONCENTRATION-FIX_DISPATCH.md) — Unstarted engine candidate
+- [WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md](pm_inbox/WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md) — BLOCKED on 3D optics (frozen track, hold)
+- [WO-UI-GATES-V1_DISPATCH.md](pm_inbox/WO-UI-GATES-V1_DISPATCH.md) — BLOCKED on visreg (frozen track, hold)
+- [WO-UI-VISREG-PLAYWRIGHT-001_DISPATCH.md](pm_inbox/WO-UI-VISREG-PLAYWRIGHT-001_DISPATCH.md) — BLOCKED on golden frames (frozen track, hold)
 
-**Archived this session:** 7 files → `reviewed/` (FIRSTRUN dispatch, LICENSE dispatch+debrief, OFFLINE dispatch+debrief, BURST playtest draft+report)
+**Archived this session:** ~80 files → `reviewed/` (all accepted engine/UI/chargen/PRS dispatch files + debriefs)
 
 ## Persistent Files
 
