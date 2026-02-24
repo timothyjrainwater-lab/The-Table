@@ -638,3 +638,74 @@ body.posture-dice #right-col     { width: 420px; }
 #scene-display.scene-canvas-active::before {
   display: none;
 }
+
+/* =============================================================
+   WO-UI-2D-SLIP-001: Roll slip ritual
+   ============================================================= */
+
+.roll-slip {
+  background: var(--parchment);
+  color: var(--ink);
+  border: 1px solid rgba(26,18,8,0.2);
+  border-radius: 2px;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: opacity 0.4s ease, font-size 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.roll-slip:hover {
+  background: var(--parchment-aged);
+}
+
+.roll-slip.pending::after {
+  content: 'PENDING';
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--brass);
+  font-style: italic;
+}
+
+.roll-slip.stamped::after {
+  content: '✦';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--wax-red);
+  color: var(--parchment);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.roll-slip.archived {
+  opacity: 0.4;
+  font-size: 10px;
+  cursor: default;
+  pointer-events: none;
+}
+
+.slip-formula {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.slip-result {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+}
