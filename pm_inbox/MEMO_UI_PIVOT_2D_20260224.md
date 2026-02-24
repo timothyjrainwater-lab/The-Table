@@ -118,15 +118,15 @@ These are preserved reference, not active doctrine.
 |----|--------|-------|
 | WO-UI-2D-FOUNDATION-001 | ACCEPTED | Skeleton: 4 files, zones, postures, orb, WS, input bar |
 | WO-UI-2D-RELAYOUT-001 | ACCEPTED | 3-region layout, scene-surface, shelf data-attributes, orb in right-col, 12/12 gate |
-| WO-UI-2D-RELAYOUT-002 | READY TO DISPATCH | Speaker Panel split rail (`#speaker-panel` + `#dice-section`), 36px heartbeat orb, BATTLE posture label. Blocks ORB-001. |
-| WO-UI-2D-ORB-001 | Blocked on RELAYOUT-002 — scope locked | Speaker Panel wiring: DM crest idle (CSS filter: `brightness(0.5) sepia(0.4) saturate(0.6)` — warm sepia underexposure, not grey wash; clears to `brightness(1) sepia(0) saturate(1)` on `speaking_start` with ~400ms transition), NPC portrait swap on `speaking_start`, beat strip (opacity-only aging via CSS `nth-last-child` selectors — no timers, no slide, no scroll, no reflow; newest at bottom; oldest at ~0.15 opacity; DOM capped ~8 beats), orb pulse on `speaking_start`, posture-responsive compression. Crest non-interactive (no click handler). Speaking never overrides posture. |
+| WO-UI-2D-RELAYOUT-002 | ACCEPTED (cbd5d9b, 14/14) | Speaker Panel split rail (`#speaker-panel` + `#dice-section`), 36px heartbeat orb, BATTLE posture label. |
+| WO-UI-2D-ORB-001 | READY TO DISPATCH | Speaker Panel wiring: DM crest idle (CSS filter: `brightness(0.5) sepia(0.4) saturate(0.6)` — warm sepia underexposure, not grey wash; clears to `brightness(1) sepia(0) saturate(1)` on `speaking_start` with ~400ms transition), NPC portrait swap on `speaking_start`, beat strip (opacity-only aging via CSS `nth-last-child` selectors — no timers, no slide, no scroll, no reflow; newest at bottom; oldest at ~0.15 opacity; DOM capped ~8 beats), orb pulse on `speaking_start`, posture-responsive compression. Crest non-interactive (no click handler). Speaking never overrides posture. |
 | WO-UI-2D-DM-PANEL-001 | Blocked on ORB-001 | Two-mode DM voice overlay: exploration panel vs combat transcript strip |
-| WO-UI-2D-MAP-001 | Blocked on RELAYOUT | Scene canvas: grid, fog, tokens, AoE. Crossfade transition (300–400ms) on scene swap. |
-| WO-UI-2D-SLIP-001 | Blocked on RELAYOUT | Roll slip ritual: PENDING_ROLL → stamp → archive |
-| WO-UI-2D-SHEET-001 | Blocked on RELAYOUT | Character sheet: live WS data, clickable abilities |
-| WO-UI-2D-NOTEBOOK-001 | Blocked on RELAYOUT | Notebook: draw, transcript, bestiary tabs |
+| WO-UI-2D-MAP-001 | UNBLOCKED — ready to dispatch | Scene canvas: grid, fog, tokens, AoE. Crossfade transition (300–400ms) on scene swap. |
+| WO-UI-2D-SLIP-001 | UNBLOCKED — ready to dispatch | Roll slip ritual: PENDING_ROLL → stamp → archive |
+| WO-UI-2D-SHEET-001 | UNBLOCKED — ready to dispatch | Character sheet: live WS data, clickable abilities |
+| WO-UI-2D-NOTEBOOK-001 | UNBLOCKED — ready to dispatch | Notebook: draw, transcript, bestiary tabs |
 
-**After RELAYOUT accepts:** MAP, SLIP, SHEET, NOTEBOOK, ORB unblock — can dispatch in parallel.
+**All unblocked WOs (ORB, MAP, SLIP, SHEET, NOTEBOOK) can dispatch in parallel.**
 
 ---
 
