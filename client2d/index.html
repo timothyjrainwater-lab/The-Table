@@ -11,20 +11,20 @@
   <!-- Vignette overlay — fixed, non-interactive -->
   <div id="vignette"></div>
 
-  <!-- WS status indicator — diegetic amber dot at table edge -->
+  <!-- WS status indicator — diegetic amber dot -->
   <div id="ws-status" class="ws-status-connecting" title="Connection Status"></div>
 
-  <!-- Table surface -->
-  <div id="table">
+  <!-- DM panel — exploration/roleplay mode only. Hidden by default.
+       Slides down from top on speaking_start (wired in WO-UI-2D-DM-PANEL-001). -->
+  <div id="dm-panel" style="display:none">
+    <div id="dm-panel-portrait"></div>
+    <div id="dm-panel-text"></div>
+  </div>
 
-    <!-- DM Zone: Crystal orb -->
-    <div id="dm-zone">
-      <div id="orb">
-        <div id="orb-portrait"></div>
-      </div>
-    </div>
+  <!-- Main layout: vault zone (map) + right column -->
+  <div id="layout">
 
-    <!-- Vault Zone: Battle map scroll placeholder -->
+    <!-- Vault Zone: Battle map — dominant left region, full height -->
     <div id="vault-zone">
       <div id="battle-map-scroll">
         <div id="battle-map-label">Battle Map</div>
@@ -32,40 +32,51 @@
       </div>
     </div>
 
-    <!-- Work Zone: Handout area -->
-    <div id="work-zone">
-      <div id="handout-area">
-        <div id="handout-label">Handout Area</div>
-        <!-- Handouts injected by future WOs -->
-      </div>
-    </div>
+    <!-- Right column: orb / transcript / slip tray / handout tray -->
+    <div id="right-col">
 
-    <!-- Dice Zone: Roll slip tray -->
-    <div id="dice-zone">
+      <!-- Orb — small ambient DM presence, top of right col -->
+      <div id="orb">
+        <div id="orb-portrait"></div>
+      </div>
+
+      <!-- Orb transcript — compact strip, combat mode only. Hidden by default.
+           Wired in WO-UI-2D-DM-PANEL-001. -->
+      <div id="orb-transcript" style="display:none"></div>
+
+      <!-- Roll slip tray — scrolls internally when slips stack -->
       <div id="slip-tray">
         <div id="slip-tray-label">Roll Slip Tray</div>
-        <!-- Pending slips injected here by future WO-UI-2D-SLIP-001 -->
+        <!-- Pending slips injected by WO-UI-2D-SLIP-001 -->
       </div>
-    </div>
 
-    <!-- Shelf Zone: Sheet | Notebook | Tome | Dice bag -->
-    <div id="shelf-zone">
-      <div class="shelf-item" id="shelf-sheet">Sheet</div>
-      <div class="shelf-item" id="shelf-notebook">Notebook</div>
-      <div class="shelf-item" id="shelf-tome">Tome</div>
-      <div class="shelf-item" id="shelf-dice-bag">Dice Bag</div>
-    </div>
+      <!-- Handout tray — on demand, collapses when empty. Hidden by default.
+           Shown by WS event in WO-UI-2D-SLIP-001 or future handout WO. -->
+      <div id="handout-tray" style="display:none">
+        <div id="handout-tray-label">Handouts</div>
+      </div>
 
-    <!-- Transcript area (hidden by default, populated by narration WS events) -->
-    <div id="transcript-area"></div>
+    </div><!-- /#right-col -->
 
-  </div><!-- /#table -->
+  </div><!-- /#layout -->
 
-  <!-- Text input bar — fixed at bottom -->
-  <div id="text-input-bar">
+  <!-- Shelf zone + text input — single unified bottom rail -->
+  <div id="shelf-zone">
+    <button class="shelf-item" id="shelf-sheet"
+      data-posture="posture-down" data-drawer="sheet-drawer">Sheet</button>
+    <button class="shelf-item" id="shelf-notebook"
+      data-posture="posture-down" data-drawer="notebook-drawer">Notebook</button>
+    <button class="shelf-item" id="shelf-tome"
+      data-posture="posture-down" data-drawer="tome-drawer">Tome</button>
+    <button class="shelf-item" id="shelf-dice-bag"
+      data-posture="posture-dice" data-drawer="dice-drawer">Dice Bag</button>
+
     <input type="text" id="player-input" placeholder="speak your action..." autocomplete="off">
     <button id="send-btn">&#9166;</button>
-  </div>
+
+    <!-- Posture label — plain text, far right, keyboard feedback -->
+    <span id="posture-label">STANDARD</span>
+  </div><!-- /#shelf-zone -->
 
   <script src="ws.js"></script>
   <script src="main.js"></script>

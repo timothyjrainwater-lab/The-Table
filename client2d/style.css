@@ -1,30 +1,30 @@
 /* =============================================================
    DnD 3.5 — 2D Illustrated Table Client
-   style.css — ALL styles, palette variables, posture classes, artifact styles
+   style.css — layout, palette, posture classes, artifact styles
+   WO-UI-2D-RELAYOUT-001: 3-region layout
    ============================================================= */
 
 /* ---------------------------------------------------------------
-   1. Palette — CSS custom properties
+   1. Palette — CSS custom properties (canonical — do not alter)
    --------------------------------------------------------------- */
 :root {
-  --walnut-dark:    #2a1f14;   /* table edge / deep shadow */
-  --walnut-mid:     #3d2b1a;   /* main table surface */
-  --walnut-warm:    #5c3d22;   /* raised areas, rail */
-  --felt-deep:      #1a2a1a;   /* vault inset (dark green felt) */
-  --parchment:      #f4ead5;   /* map, slip paper */
-  --parchment-aged: #e8d5b0;   /* slightly darker parchment */
-  --ink:            #1a1208;   /* text, grid lines */
-  --leather-warm:   #6b3d2e;   /* notebook, bag */
-  --leather-dark:   #3d1f14;   /* tome, darker leather */
-  --brass:          #8b6914;   /* corner details, accents */
-  --wax-red:        #8b1a1a;   /* wax seal */
-  --amber-idle:     rgba(255, 180, 60, 0.3);   /* orb idle glow */
-  --amber-speak:    rgba(255, 200, 80, 0.7);   /* orb speaking glow */
-  --vignette:       radial-gradient(ellipse at center,
-                      transparent 40%, rgba(20,12,5,0.7) 100%);
+  --walnut-dark:    #2a1f14;
+  --walnut-mid:     #3d2b1a;
+  --walnut-warm:    #5c3d22;
+  --felt-deep:      #1a2a1a;
+  --parchment:      #f4ead5;
+  --parchment-aged: #e8d5b0;
+  --ink:            #1a1208;
+  --leather-warm:   #6b3d2e;
+  --leather-dark:   #3d1f14;
+  --brass:          #8b6914;
+  --wax-red:        #8b1a1a;
+  --amber-idle:     rgba(255, 180, 60, 0.3);
+  --amber-speak:    rgba(255, 200, 80, 0.7);
 
-  /* Transition speed */
-  --posture-speed: 0.35s;
+  --shelf-height:   52px;
+  --right-col-width: 280px;
+  --posture-speed:  0.35s;
 }
 
 /* ---------------------------------------------------------------
@@ -42,9 +42,6 @@ html, body {
   overflow: hidden;
 }
 
-/* ---------------------------------------------------------------
-   3. Table surface — walnut background
-   --------------------------------------------------------------- */
 body {
   background-color: var(--walnut-mid);
   background-image: linear-gradient(
@@ -61,18 +58,19 @@ body {
 }
 
 /* ---------------------------------------------------------------
-   4. Vignette overlay
+   3. Vignette
    --------------------------------------------------------------- */
 #vignette {
   position: fixed;
   inset: 0;
-  background: var(--vignette);
+  background: radial-gradient(ellipse at center,
+    transparent 45%, rgba(20,12,5,0.55) 100%);
   pointer-events: none;
   z-index: 100;
 }
 
 /* ---------------------------------------------------------------
-   5. WS status indicator — diegetic amber dot
+   4. WS status dot
    --------------------------------------------------------------- */
 #ws-status {
   position: fixed;
@@ -107,173 +105,106 @@ body {
 }
 
 /* ---------------------------------------------------------------
-   6. Main table grid
+   5. DM panel — exploration/roleplay overlay
+      Slides down from top, overlays ~25% of map.
+      Wired in WO-UI-2D-DM-PANEL-001.
    --------------------------------------------------------------- */
-#table {
-  flex: 1;
-  display: grid;
-  grid-template-areas:
-    "dm     dm"
-    "vault  vault"
-    "work   dice"
-    "shelf  shelf";
-  grid-template-rows:
-    var(--row-dm, 130px)
-    var(--row-vault, 1fr)
-    var(--row-work, 160px)
-    var(--row-shelf, 80px);
-  grid-template-columns: 1fr 280px;
-  gap: 0;
-  overflow: hidden;
-  padding-bottom: 52px; /* height of text-input-bar */
-}
-
-/* ---------------------------------------------------------------
-   7. Zone base styles
-   --------------------------------------------------------------- */
-#dm-zone,
-#vault-zone,
-#work-zone,
-#dice-zone,
-#shelf-zone {
-  transition: all var(--posture-speed) ease-in-out;
-  overflow: hidden;
-  position: relative;
-}
-
-/* ---------------------------------------------------------------
-   8. Individual zone styles
-   --------------------------------------------------------------- */
-
-/* DM Zone */
-#dm-zone {
-  grid-area: dm;
-  background-color: var(--walnut-dark);
-  display: flex;
+#dm-panel {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: var(--right-col-width);
+  height: 25vh;
+  background: rgba(26, 18, 8, 0.92);
+  border-bottom: 2px solid var(--brass);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  z-index: 90;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  border-bottom: 2px solid var(--walnut-warm);
-  box-shadow: inset 0 -4px 12px rgba(0,0,0,0.5);
+  padding: 12px 16px;
+  gap: 16px;
 }
 
-/* Vault Zone */
-#vault-zone {
-  grid-area: vault;
-  background-color: var(--felt-deep);
-  border-top: 2px solid var(--walnut-warm);
-  border-bottom: 2px solid var(--walnut-warm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    inset 0 0 32px rgba(0,0,0,0.8),
-    0 4px 16px rgba(0,0,0,0.6),
-    0 1px 4px rgba(0,0,0,0.4);
-}
-
-#vault-zone.combat-active {
-  border-color: #8b1a1a;
-  box-shadow:
-    inset 0 0 32px rgba(0,0,0,0.8),
-    0 0 12px 3px rgba(139, 26, 26, 0.4),
-    0 4px 16px rgba(0,0,0,0.6);
-}
-
-/* Work Zone */
-#work-zone {
-  grid-area: work;
-  background-color: var(--walnut-mid);
-  border-right: 2px solid var(--walnut-warm);
-  border-top: 2px solid var(--walnut-warm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4);
-}
-
-/* Dice Zone */
-#dice-zone {
-  grid-area: dice;
-  background-color: var(--walnut-dark);
-  border-top: 2px solid var(--walnut-warm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4);
-}
-
-/* Shelf Zone */
-#shelf-zone {
-  grid-area: shelf;
-  background-color: var(--walnut-warm);
-  border-top: 3px solid var(--brass);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 8px 16px;
-  gap: 12px;
-  box-shadow:
-    0 -4px 12px rgba(0,0,0,0.5),
-    0 4px 16px rgba(0,0,0,0.6),
-    0 1px 4px rgba(0,0,0,0.4);
-}
-
-/* ---------------------------------------------------------------
-   9. Crystal Orb
-   --------------------------------------------------------------- */
-#orb {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%,
-    #c8a040, #3a2800);
-  box-shadow:
-    0 0 24px 8px var(--amber-idle),
-    0 4px 16px rgba(0,0,0,0.8);
-  transition: box-shadow 0.4s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
-  position: relative;
-}
-
-#orb-portrait {
+#dm-panel-portrait {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  /* Empty placeholder — portrait wired by WO-UI-2D-ORB-001 */
+  border: 2px solid var(--brass);
+  background: var(--walnut-dark);
+  flex-shrink: 0;
 }
 
-#orb.speaking {
-  box-shadow:
-    0 0 48px 16px var(--amber-speak),
-    0 4px 16px rgba(0,0,0,0.8);
-  animation: orb-pulse 1.2s ease-in-out infinite;
-}
-
-@keyframes orb-pulse {
-  0%, 100% { box-shadow: 0 0 48px 16px var(--amber-speak), 0 4px 16px rgba(0,0,0,0.8); }
-  50%       { box-shadow: 0 0 64px 24px var(--amber-speak), 0 4px 16px rgba(0,0,0,0.8); }
+#dm-panel-text {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--parchment);
+  overflow-y: auto;
+  max-height: calc(25vh - 32px);
 }
 
 /* ---------------------------------------------------------------
-   10. Battle Map Scroll (placeholder)
+   6. Main layout — 3-region
+      #layout: row — vault-zone fills, right-col fixed
    --------------------------------------------------------------- */
+#layout {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  margin-bottom: var(--shelf-height);
+  transition: all var(--posture-speed) ease-in-out;
+}
+
+/* ---------------------------------------------------------------
+   7. Vault zone — dominant left region
+   --------------------------------------------------------------- */
+#vault-zone {
+  flex: 1;
+  background-color: var(--felt-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.8),
+    0 4px 16px rgba(0,0,0,0.6);
+  transition: all var(--posture-speed) ease-in-out;
+}
+
+#vault-zone.combat-active {
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.8),
+    0 0 16px 4px rgba(139, 26, 26, 0.4),
+    0 4px 16px rgba(0,0,0,0.6);
+}
+
 #battle-map-scroll {
   width: 100%;
   height: 100%;
   background: linear-gradient(
     135deg,
-    var(--parchment-aged) 0%,
-    var(--parchment) 40%,
-    var(--parchment-aged) 100%
+    #c8b89a 0%,
+    #d4c4a0 30%,
+    #c0ae88 70%,
+    #b8a47a 100%
   );
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: inset 0 0 24px rgba(0,0,0,0.3);
+}
+
+/* Faint parchment grid — visual indicator this is a play surface */
+#battle-map-scroll::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,18,8,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,18,8,0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 #battle-map-label {
@@ -283,170 +214,219 @@ body {
   color: rgba(26, 18, 8, 0.35);
   font-style: italic;
   user-select: none;
+  position: relative;
+  z-index: 1;
 }
 
 /* ---------------------------------------------------------------
-   11. Handout Area (placeholder)
+   8. Right column — orb, transcript, slip tray, handout tray
    --------------------------------------------------------------- */
-#handout-area {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    145deg,
-    var(--parchment) 0%,
-    var(--parchment-aged) 100%
-  );
+#right-col {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: var(--right-col-width);
+  background-color: var(--walnut-dark);
+  border-left: 2px solid var(--walnut-warm);
+  box-shadow: inset 2px 0 12px rgba(0,0,0,0.4);
+  transition: width var(--posture-speed) ease-in-out;
+}
+
+/* Orb — small ambient presence */
+#orb {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4);
+  padding: 16px;
+  border-bottom: 1px solid rgba(92,61,34,0.4);
 }
 
-#handout-label {
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(26, 18, 8, 0.3);
-  font-style: italic;
-  user-select: none;
+#orb > div:first-child {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #c8a040, #3a2800);
+  box-shadow: 0 0 16px 4px var(--amber-idle), 0 2px 8px rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.4s ease;
 }
 
-/* ---------------------------------------------------------------
-   12. Roll Slip Tray
-   --------------------------------------------------------------- */
+#orb-portrait {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+#orb > div:first-child.speaking {
+  box-shadow: 0 0 32px 12px var(--amber-speak), 0 2px 8px rgba(0,0,0,0.7);
+  animation: orb-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+  0%, 100% { box-shadow: 0 0 32px 12px var(--amber-speak), 0 2px 8px rgba(0,0,0,0.7); }
+  50%       { box-shadow: 0 0 48px 18px var(--amber-speak), 0 2px 8px rgba(0,0,0,0.7); }
+}
+
+/* Orb transcript — compact, combat mode only */
+#orb-transcript {
+  flex: 0 0 auto;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 6px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--parchment-aged);
+  border-bottom: 1px solid rgba(92,61,34,0.4);
+  background: rgba(0,0,0,0.2);
+}
+
+/* Roll slip tray — scrolls internally */
 #slip-tray {
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
+  flex: 1;
+  overflow-y: auto;
   background: linear-gradient(
     170deg,
     var(--parchment-aged) 0%,
     var(--parchment) 60%,
     var(--parchment-aged) 100%
   );
-  border-radius: 4px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 10px;
-  box-shadow:
-    inset 0 2px 8px rgba(0,0,0,0.2),
-    0 4px 16px rgba(0,0,0,0.6),
-    0 1px 4px rgba(0,0,0,0.4);
+  padding: 8px;
+  gap: 4px;
 }
 
 #slip-tray-label {
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(26, 18, 8, 0.35);
   font-style: italic;
-  margin-bottom: 6px;
+  text-align: center;
+  user-select: none;
+  padding: 4px 0;
+}
+
+/* Handout tray — on demand, collapses when display:none */
+#handout-tray {
+  flex: 0 0 auto;
+  display: none;
+  background: linear-gradient(
+    145deg,
+    var(--parchment) 0%,
+    var(--parchment-aged) 100%
+  );
+  border-top: 2px solid var(--brass);
+  padding: 8px;
+  min-height: 80px;
+}
+
+#handout-tray-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26, 18, 8, 0.35);
+  font-style: italic;
+  text-align: center;
   user-select: none;
 }
 
 /* ---------------------------------------------------------------
-   13. Shelf items
+   9. Shelf zone — single unified bottom rail
    --------------------------------------------------------------- */
+#shelf-zone {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--shelf-height);
+  background: var(--walnut-warm);
+  border-top: 3px solid var(--brass);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  z-index: 150;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.6);
+  transition: all var(--posture-speed) ease-in-out;
+}
+
 .shelf-item {
   flex: 0 0 auto;
   background: var(--leather-warm);
   color: var(--parchment-aged);
-  padding: 8px 18px;
+  border: none;
+  padding: 6px 14px;
   border-radius: 3px;
-  font-size: 12px;
+  font-family: inherit;
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
   box-shadow:
-    0 4px 16px rgba(0,0,0,0.6),
-    0 1px 4px rgba(0,0,0,0.4),
+    0 3px 10px rgba(0,0,0,0.5),
     inset 0 1px 0 rgba(255,255,255,0.08);
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  transition: box-shadow 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
   user-select: none;
 }
 
 .shelf-item:hover {
   box-shadow:
-    0 6px 20px rgba(0,0,0,0.7),
-    0 2px 6px rgba(0,0,0,0.5),
+    0 5px 14px rgba(0,0,0,0.6),
     inset 0 1px 0 rgba(255,255,255,0.12);
   transform: translateY(-1px);
+}
+
+.shelf-item:active {
+  transform: scale(0.96);
 }
 
 #shelf-tome {
   background: var(--leather-dark);
 }
 
-/* ---------------------------------------------------------------
-   14. Transcript area
-   --------------------------------------------------------------- */
-#transcript-area {
-  display: none; /* hidden until narration events arrive */
-  position: fixed;
-  bottom: 60px;
-  left: 0;
-  right: 0;
-  max-height: 120px;
-  overflow-y: auto;
-  background: rgba(26, 18, 8, 0.85);
-  color: var(--parchment);
-  font-size: 13px;
-  line-height: 1.6;
-  padding: 8px 16px;
-  z-index: 50;
+/* Input focused — shelf items recede */
+#shelf-zone.input-focused .shelf-item {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-/* ---------------------------------------------------------------
-   15. Text input bar
-   --------------------------------------------------------------- */
-#text-input-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 52px;
-  background: var(--walnut-dark);
-  border-top: 2px solid var(--brass);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  gap: 10px;
-  z-index: 150;
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.6);
-}
-
+/* Player input */
 #player-input {
   flex: 1;
   background: var(--parchment-aged);
   color: var(--ink);
   border: 1px solid var(--brass);
   border-radius: 3px;
-  padding: 6px 12px;
+  padding: 5px 10px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 13px;
   outline: none;
   box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
 }
 
 #player-input:focus {
   border-color: #c8a040;
-  box-shadow: inset 0 1px 4px rgba(0,0,0,0.2), 0 0 4px rgba(200, 160, 64, 0.4);
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.2), 0 0 4px rgba(200,160,64,0.4);
 }
 
 #player-input::placeholder {
-  color: rgba(26, 18, 8, 0.45);
+  color: rgba(26, 18, 8, 0.4);
   font-style: italic;
 }
 
 #send-btn {
+  flex: 0 0 auto;
   background: var(--brass);
   color: var(--walnut-dark);
   border: none;
   border-radius: 3px;
-  width: 38px;
-  height: 32px;
-  font-size: 18px;
+  width: 34px;
+  height: 30px;
+  font-size: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -455,51 +435,41 @@ body {
   transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
-#send-btn:hover {
-  background: #a07818;
-}
+#send-btn:hover  { background: #a07818; }
+#send-btn:active { transform: scale(0.95); }
 
-#send-btn:active {
-  transform: scale(0.95);
+/* Posture label — far right, plain text, low opacity */
+#posture-label {
+  margin-left: auto;
+  opacity: 0.35;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  pointer-events: none;
+  user-select: none;
 }
 
 /* ---------------------------------------------------------------
-   16. Posture classes
+   10. Posture classes — remap to 3-region layout
    --------------------------------------------------------------- */
 
-/* STANDARD (default) — all zones balanced */
-body.posture-standard {
-  --row-dm:    130px;
-  --row-vault: 1fr;
-  --row-work:  160px;
-  --row-shelf: 80px;
+/* STANDARD */
+body.posture-standard #right-col {
+  width: var(--right-col-width);
 }
 
-/* LEAN_FORWARD — vault zone expands (flat top-down, no perspective) */
-body.posture-lean {
-  --row-dm:    90px;
-  --row-vault: 2fr;
-  --row-work:  100px;
-  --row-shelf: 60px;
+/* LEAN_FORWARD — right col narrows, map dominates */
+body.posture-lean #right-col {
+  width: 200px;
 }
 
-/* DOWN — shelf zone expands, vault shrinks */
-body.posture-down {
-  --row-dm:    90px;
-  --row-vault: 0.5fr;
-  --row-work:  200px;
-  --row-shelf: 120px;
+/* DOWN — shelf visually heavier, right col narrows */
+body.posture-down #right-col {
+  width: 200px;
 }
 
-/* DICE_TRAY — dice zone expands */
-body.posture-dice {
-  --row-dm:    90px;
-  --row-vault: 0.6fr;
-  --row-work:  1fr;
-  --row-shelf: 70px;
-}
-
-/* When posture-dice, expand the dice column */
-body.posture-dice #table {
-  grid-template-columns: 1fr 420px;
+/* DICE_TRAY — right col widens for dice/slip tray */
+body.posture-dice #right-col {
+  width: 420px;
 }

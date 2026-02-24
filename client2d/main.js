@@ -16,6 +16,13 @@
     '4': 'posture-dice',
   };
 
+  const POSTURE_LABEL_MAP = {
+    'posture-standard': 'STANDARD',
+    'posture-lean':     'MAP',
+    'posture-down':     'DOWN',
+    'posture-dice':     'DICE',
+  };
+
   const ALL_POSTURE_CLASSES = Object.values(POSTURE_MAP);
 
   function setPosture(key) {
@@ -23,6 +30,7 @@
     if (!cls) return;
     ALL_POSTURE_CLASSES.forEach(c => document.body.classList.remove(c));
     document.body.classList.add(cls);
+    document.getElementById('posture-label').textContent = POSTURE_LABEL_MAP[cls]; // line 3
     console.log('[Posture]', cls);
   }
 
@@ -41,6 +49,10 @@
   // ---------------------------------------------------------------
   const playerInput = document.getElementById('player-input');
   const sendBtn = document.getElementById('send-btn');
+  const shelfZone = document.getElementById('shelf-zone');
+
+  playerInput.addEventListener('focus', () => shelfZone.classList.add('input-focused'));    // line 1
+  playerInput.addEventListener('blur',  () => shelfZone.classList.remove('input-focused')); // line 2
 
   function submitInput() {
     const text = playerInput.value.trim();

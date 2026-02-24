@@ -91,16 +91,18 @@ def test_2d_05_palette_variables():
 
 
 # ---------------------------------------------------------------------------
-# 2D-06  index.html contains all five zone IDs
+# 2D-06  index.html contains core structural IDs
+#        Updated by WO-UI-2D-RELAYOUT-001: dm-zone/work-zone/dice-zone removed.
+#        Now checks the surviving IDs that span both FOUNDATION and RELAYOUT.
 # ---------------------------------------------------------------------------
 def test_2d_06_zone_ids_present():
     html = read('index.html')
     required_ids = [
-        'dm-zone',
         'vault-zone',
-        'work-zone',
-        'dice-zone',
         'shelf-zone',
+        'player-input',
+        'send-btn',
+        'ws-status',
     ]
     for zone_id in required_ids:
         assert zone_id in html, f"Zone ID '{zone_id}' missing from index.html"
