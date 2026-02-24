@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DnD 3.5 — Illustrated Table</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="posture-standard">
+
+  <!-- Vignette overlay — fixed, non-interactive -->
+  <div id="vignette"></div>
+
+  <!-- WS status indicator — diegetic amber dot at table edge -->
+  <div id="ws-status" class="ws-status-connecting" title="Connection Status"></div>
+
+  <!-- Table surface -->
+  <div id="table">
+
+    <!-- DM Zone: Crystal orb -->
+    <div id="dm-zone">
+      <div id="orb">
+        <div id="orb-portrait"></div>
+      </div>
+    </div>
+
+    <!-- Vault Zone: Battle map scroll placeholder -->
+    <div id="vault-zone">
+      <div id="battle-map-scroll">
+        <div id="battle-map-label">Battle Map</div>
+        <!-- Live map canvas added by WO-UI-2D-MAP-001 -->
+      </div>
+    </div>
+
+    <!-- Work Zone: Handout area -->
+    <div id="work-zone">
+      <div id="handout-area">
+        <div id="handout-label">Handout Area</div>
+        <!-- Handouts injected by future WOs -->
+      </div>
+    </div>
+
+    <!-- Dice Zone: Roll slip tray -->
+    <div id="dice-zone">
+      <div id="slip-tray">
+        <div id="slip-tray-label">Roll Slip Tray</div>
+        <!-- Pending slips injected here by future WO-UI-2D-SLIP-001 -->
+      </div>
+    </div>
+
+    <!-- Shelf Zone: Sheet | Notebook | Tome | Dice bag -->
+    <div id="shelf-zone">
+      <div class="shelf-item" id="shelf-sheet">Sheet</div>
+      <div class="shelf-item" id="shelf-notebook">Notebook</div>
+      <div class="shelf-item" id="shelf-tome">Tome</div>
+      <div class="shelf-item" id="shelf-dice-bag">Dice Bag</div>
+    </div>
+
+    <!-- Transcript area (hidden by default, populated by narration WS events) -->
+    <div id="transcript-area"></div>
+
+  </div><!-- /#table -->
+
+  <!-- Text input bar — fixed at bottom -->
+  <div id="text-input-bar">
+    <input type="text" id="player-input" placeholder="speak your action..." autocomplete="off">
+    <button id="send-btn">&#9166;</button>
+  </div>
+
+  <script src="ws.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
