@@ -18,7 +18,7 @@
 
   const POSTURE_LABEL_MAP = {
     'posture-standard': 'STANDARD',
-    'posture-lean':     'MAP',
+    'posture-lean':     'BATTLE',
     'posture-down':     'DOWN',
     'posture-dice':     'DICE',
   };
@@ -91,9 +91,9 @@
   });
 
   // ---------------------------------------------------------------
-  //  Combat state: vault zone highlight
+  //  Combat state: scene surface highlight
   // ---------------------------------------------------------------
-  const vaultZone = document.getElementById('vault-zone');
+  const vaultZone = document.getElementById('scene-surface');
 
   ws.on('combat_start', function () {
     vaultZone.classList.add('combat-active');

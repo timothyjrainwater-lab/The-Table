@@ -1,7 +1,7 @@
 /* =============================================================
    DnD 3.5 — 2D Illustrated Table Client
    style.css — layout, palette, posture classes, artifact styles
-   WO-UI-2D-RELAYOUT-001: 3-region layout
+   WO-UI-2D-RELAYOUT-002: Speaker Panel split rail
    ============================================================= */
 
 /* ---------------------------------------------------------------
@@ -149,7 +149,7 @@ body {
 
 /* ---------------------------------------------------------------
    6. Main layout — 3-region
-      #layout: row — vault-zone fills, right-col fixed
+      #layout: row — scene-surface fills, right-col fixed
    --------------------------------------------------------------- */
 #layout {
   flex: 1;
@@ -161,9 +161,11 @@ body {
 }
 
 /* ---------------------------------------------------------------
-   7. Vault zone — dominant left region
+   7. Scene surface — dominant left region
+      General DM display: battle grid, town painting, NPC portrait,
+      dungeon map, etc. Not just a battle map.
    --------------------------------------------------------------- */
-#vault-zone {
+#scene-surface {
   flex: 1;
   background-color: var(--felt-deep);
   display: flex;
@@ -176,14 +178,14 @@ body {
   transition: all var(--posture-speed) ease-in-out;
 }
 
-#vault-zone.combat-active {
+#scene-surface.combat-active {
   box-shadow:
     inset 0 0 40px rgba(0,0,0,0.8),
     0 0 16px 4px rgba(139, 26, 26, 0.4),
     0 4px 16px rgba(0,0,0,0.6);
 }
 
-#battle-map-scroll {
+#scene-display {
   width: 100%;
   height: 100%;
   background: linear-gradient(
@@ -200,7 +202,7 @@ body {
 }
 
 /* Faint parchment grid — visual indicator this is a play surface */
-#battle-map-scroll::before {
+#scene-display::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -210,7 +212,7 @@ body {
   background-size: 40px 40px;
 }
 
-#battle-map-label {
+#scene-label {
   font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -222,7 +224,7 @@ body {
 }
 
 /* ---------------------------------------------------------------
-   8. Right column — orb, transcript, slip tray, handout tray
+   8. Right column — speaker panel (top) + dice section (bottom)
    --------------------------------------------------------------- */
 #right-col {
   display: flex;
@@ -235,26 +237,71 @@ body {
   transition: width var(--posture-speed) ease-in-out;
 }
 
-/* Orb — small ambient presence, warmer glow at rest */
+/* ---------------------------------------------------------------
+   9. Speaker Panel — DM seat, top of right col
+      Always occupied. Portrait placeholder + beats strip + heartbeat orb.
+   --------------------------------------------------------------- */
+#speaker-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  transition: flex-basis var(--posture-speed) ease-in-out,
+              max-height var(--posture-speed) ease-in-out;
+  border-bottom: 1px solid rgba(92,61,34,0.5);
+  padding: 12px 10px 8px;
+  gap: 8px;
+  /* Default (STANDARD): ~60% of rail height */
+  flex: 6 0 0;
+  min-height: 80px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(139,105,20,0.12) 0%, transparent 70%);
+}
+
+/* Portrait placeholder — 3:4 aspect, fills speaker panel width.
+   Idle: empty dark rect. ORB-001 populates with DM crest / NPC image. */
+#speaker-portrait {
+  width: 100%;
+  flex: 0 0 auto;
+  aspect-ratio: 3 / 4;
+  max-height: 55%;
+  background: var(--walnut-dark);
+  border: 1px solid rgba(139,105,20,0.3);
+  border-radius: 3px;
+}
+
+/* Beat strip — ORB-001 renders short text beats here.
+   Opacity-only aging. Newest at bottom. No scroll chat. */
+#speaker-beats {
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--parchment-aged);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+}
+
+/* Orb — heartbeat indicator. 36px. Inside speaker panel. Not the face. */
 #orb {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px 16px 14px;
-  border-bottom: 1px solid rgba(92,61,34,0.5);
-  background: radial-gradient(ellipse at 50% 0%, rgba(139,105,20,0.15) 0%, transparent 70%);
+  padding: 4px;
 }
 
 #orb > div:first-child {
-  width: 72px;
-  height: 72px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #d4aa48, #3a2800);
   box-shadow:
-    0 0 24px 8px rgba(255, 180, 60, 0.45),
-    0 0 8px 2px rgba(255, 200, 80, 0.2),
-    0 3px 10px rgba(0,0,0,0.8);
+    0 0 12px 4px rgba(255, 180, 60, 0.35),
+    0 0 4px 1px rgba(255, 200, 80, 0.15),
+    0 2px 6px rgba(0,0,0,0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -262,32 +309,45 @@ body {
 }
 
 #orb-portrait {
-  width: 44px;
-  height: 44px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
 }
 
 #orb > div:first-child.speaking {
-  box-shadow: 0 0 32px 12px var(--amber-speak), 0 2px 8px rgba(0,0,0,0.7);
+  box-shadow: 0 0 24px 8px var(--amber-speak), 0 2px 6px rgba(0,0,0,0.6);
   animation: orb-pulse 1.2s ease-in-out infinite;
 }
 
 @keyframes orb-pulse {
-  0%, 100% { box-shadow: 0 0 32px 12px var(--amber-speak), 0 2px 8px rgba(0,0,0,0.7); }
-  50%       { box-shadow: 0 0 48px 18px var(--amber-speak), 0 2px 8px rgba(0,0,0,0.7); }
+  0%, 100% { box-shadow: 0 0 24px 8px var(--amber-speak), 0 2px 6px rgba(0,0,0,0.6); }
+  50%       { box-shadow: 0 0 36px 12px var(--amber-speak), 0 2px 6px rgba(0,0,0,0.6); }
 }
 
-/* Orb transcript — compact, combat mode only */
+/* Orb transcript — combat compact strip, between speaker and dice sections */
 #orb-transcript {
   flex: 0 0 auto;
-  max-height: 120px;
+  display: none;
+  max-height: 80px;
   overflow-y: auto;
-  padding: 6px 10px;
+  padding: 4px 10px;
   font-size: 11px;
-  line-height: 1.5;
+  line-height: 1.4;
   color: var(--parchment-aged);
   border-bottom: 1px solid rgba(92,61,34,0.4);
   background: rgba(0,0,0,0.2);
+}
+
+/* ---------------------------------------------------------------
+   10. Dice section — roll slip tray + handout tray
+   --------------------------------------------------------------- */
+#dice-section {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: flex-basis var(--posture-speed) ease-in-out;
+  /* Default (STANDARD): ~40% of rail height */
+  flex: 4 0 0;
 }
 
 /* Roll slip tray — scrolls internally. Dark walnut interior — distinct from map. */
@@ -344,7 +404,7 @@ body {
 }
 
 /* ---------------------------------------------------------------
-   9. Shelf zone — single unified bottom rail
+   11. Shelf zone — single unified bottom rail
    --------------------------------------------------------------- */
 #shelf-zone {
   position: fixed;
@@ -463,25 +523,25 @@ body {
 }
 
 /* ---------------------------------------------------------------
-   10. Posture classes — remap to 3-region layout
+   12. Posture classes — speaker/dice height split + right-col width
    --------------------------------------------------------------- */
 
-/* STANDARD */
-body.posture-standard #right-col {
-  width: var(--right-col-width);
-}
+/* STANDARD: Speaker ~60%, Dice ~40% */
+body.posture-standard #speaker-panel { flex: 6 0 0; max-height: none; }
+body.posture-standard #dice-section  { flex: 4 0 0; }
+body.posture-standard #right-col     { width: var(--right-col-width); }
 
-/* LEAN_FORWARD — right col narrows, map dominates */
-body.posture-lean #right-col {
-  width: 200px;
-}
+/* LEAN_FORWARD (BATTLE): Speaker compressed 80px, Dice fills — map dominates */
+body.posture-lean #speaker-panel { flex: 0 0 80px; max-height: 80px; }
+body.posture-lean #dice-section  { flex: 1 0 0; }
+body.posture-lean #right-col     { width: 220px; }
 
-/* DOWN — shelf visually heavier, right col narrows */
-body.posture-down #right-col {
-  width: 200px;
-}
+/* DOWN: Speaker compressed 80px, Dice fills — player reading sheet */
+body.posture-down #speaker-panel { flex: 0 0 80px; max-height: 80px; }
+body.posture-down #dice-section  { flex: 1 0 0; }
+body.posture-down #right-col     { width: 200px; }
 
-/* DICE_TRAY — right col widens for dice/slip tray */
-body.posture-dice #right-col {
-  width: 420px;
-}
+/* DICE_TRAY: Right col widens, Dice prominent, Speaker compressed */
+body.posture-dice #speaker-panel { flex: 0 0 80px; max-height: 80px; }
+body.posture-dice #dice-section  { flex: 1 0 0; }
+body.posture-dice #right-col     { width: 420px; }

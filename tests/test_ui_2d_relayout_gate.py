@@ -62,12 +62,12 @@ def test_rl_04_orb_transcript_hidden():
 
 
 # ---------------------------------------------------------------------------
-# RL-05  #vault-zone exists (map region)
+# RL-05  #scene-surface exists (map/display region — renamed from vault-zone)
 # ---------------------------------------------------------------------------
-def test_rl_05_vault_zone_exists():
+def test_rl_05_scene_surface_exists():
     html = read('index.html')
-    assert 'id="vault-zone"' in html, \
-        "index.html missing id='vault-zone'"
+    assert 'id="scene-surface"' in html, \
+        "index.html missing id='scene-surface'"
 
 
 # ---------------------------------------------------------------------------

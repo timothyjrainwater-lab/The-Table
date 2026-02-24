@@ -93,12 +93,13 @@ def test_2d_05_palette_variables():
 # ---------------------------------------------------------------------------
 # 2D-06  index.html contains core structural IDs
 #        Updated by WO-UI-2D-RELAYOUT-001: dm-zone/work-zone/dice-zone removed.
+#        Updated by scene-surface rename: vault-zone → scene-surface.
 #        Now checks the surviving IDs that span both FOUNDATION and RELAYOUT.
 # ---------------------------------------------------------------------------
 def test_2d_06_zone_ids_present():
     html = read('index.html')
     required_ids = [
-        'vault-zone',
+        'scene-surface',
         'shelf-zone',
         'player-input',
         'send-btn',

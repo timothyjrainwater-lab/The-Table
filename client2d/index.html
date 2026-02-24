@@ -21,40 +21,61 @@
     <div id="dm-panel-text"></div>
   </div>
 
-  <!-- Main layout: vault zone (map) + right column -->
+  <!-- Main layout: scene surface (left) + right column -->
   <div id="layout">
 
-    <!-- Vault Zone: Battle map — dominant left region, full height -->
-    <div id="vault-zone">
-      <div id="battle-map-scroll">
-        <div id="battle-map-label">Battle Map</div>
-        <!-- Live map canvas added by WO-UI-2D-MAP-001 -->
+    <!-- Scene Surface: DM display area — dominant left region, full height.
+         May show battle grid, town painting, NPC portrait, dungeon map, etc.
+         The DM puts things on it. Not just a battle map. -->
+    <div id="scene-surface">
+      <div id="scene-display">
+        <div id="scene-label">Scene</div>
+        <!-- Live scene canvas added by WO-UI-2D-MAP-001 -->
       </div>
-    </div>
+    </div><!-- /#scene-surface -->
 
-    <!-- Right column: orb / transcript / slip tray / handout tray -->
+    <!-- Right column: speaker panel (top, DM seat) + dice section (bottom) -->
     <div id="right-col">
 
-      <!-- Orb — small ambient DM presence, top of right col -->
-      <div id="orb">
-        <div id="orb-portrait"></div>
-      </div>
+      <!-- Speaker Panel — DM seat. Always occupied. Portrait + beats + heartbeat orb. -->
+      <div id="speaker-panel">
+
+        <!-- Portrait placeholder — ORB-001 populates with DM crest / NPC portrait -->
+        <div id="speaker-portrait"></div>
+
+        <!-- Beat strip — ORB-001 renders short text beats here.
+             Opacity-only aging. Newest at bottom. No scroll chat. -->
+        <div id="speaker-beats"></div>
+
+        <!-- Orb — heartbeat indicator only. Small (36px). Not the face.
+             Ambient amber glow at idle. Pulses on speaking_start. -->
+        <div id="orb">
+          <div>
+            <img id="orb-portrait" src="" alt="">
+          </div>
+        </div>
+
+      </div><!-- /#speaker-panel -->
 
       <!-- Orb transcript — compact strip, combat mode only. Hidden by default.
            Wired in WO-UI-2D-DM-PANEL-001. -->
       <div id="orb-transcript" style="display:none"></div>
 
-      <!-- Roll slip tray — scrolls internally when slips stack -->
-      <div id="slip-tray">
-        <div id="slip-tray-label">Roll Slip Tray</div>
-        <!-- Pending slips injected by WO-UI-2D-SLIP-001 -->
-      </div>
+      <!-- Dice section — roll slip tray + handout tray -->
+      <div id="dice-section">
 
-      <!-- Handout tray — on demand, collapses when empty. Hidden by default.
-           Shown by WS event in WO-UI-2D-SLIP-001 or future handout WO. -->
-      <div id="handout-tray" style="display:none">
-        <div id="handout-tray-label">Handouts</div>
-      </div>
+        <!-- Roll slip tray — scrolls internally when slips stack -->
+        <div id="slip-tray">
+          <div id="slip-tray-label">Roll Slip Tray</div>
+          <!-- Pending slips injected by WO-UI-2D-SLIP-001 -->
+        </div>
+
+        <!-- Handout tray — on demand, collapses when empty. Hidden by default. -->
+        <div id="handout-tray" style="display:none">
+          <div id="handout-tray-label">Handouts</div>
+        </div>
+
+      </div><!-- /#dice-section -->
 
     </div><!-- /#right-col -->
 
