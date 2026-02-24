@@ -584,3 +584,24 @@ body.posture-down #right-col     { width: 200px; }
 body.posture-dice #speaker-panel { flex: 0 0 80px; max-height: 80px; }
 body.posture-dice #dice-section  { flex: 1 0 0; }
 body.posture-dice #right-col     { width: 420px; }
+
+/* =============================================================
+   WO-UI-2D-DM-PANEL-001: DM panel slide animation
+   ============================================================= */
+
+/* EXPLORATION mode: panel visible */
+#dm-panel.panel-active {
+  display: flex !important;
+  transform: translateY(0);
+}
+
+/* Slide-in transition — defined separately so display:none → flex doesn't fight transition */
+#dm-panel {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+/* COMBAT mode: orb transcript visible */
+#orb-transcript.transcript-active {
+  display: block !important;
+}
