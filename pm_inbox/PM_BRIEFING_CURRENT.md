@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-24 (WO-ENGINE-PLAY-LOOP-ROUTING-001 ACCEPTED). **ENGINE-PLAY-LOOP-ROUTING 10/10.** FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED. ENGINE DISPATCH #9 ALL ACCEPTED. 3 open findings (0 MEDIUM).
+**Last updated:** 2026-02-24 (WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20 — latent decrement-ghost fixed). **ENGINE-BARDIC-DURATION 10/10 + ENGINE-BARDIC-MUSIC 10/10 regression.** FINDING-BARDIC-DURATION-001 LOW CLOSED. 2 open findings (0 MEDIUM). WO-ENGINE-WILDSHAPE-HP-001 drafted.
 
 ---
 
@@ -102,6 +102,7 @@
 |   |       |   |       | ENGINE-WILD-SHAPE | 10/10 |
 |   |       |   |       | ENGINE-NATURAL-ATTACK | 10/10 |
 |   |       |   |       | ENGINE-PLAY-LOOP-ROUTING | 10/10 |
+|   |       |   |       | ENGINE-BARDIC-DURATION | 10/10 |
 
 *Note: All Anvil UI gap WOs ACCEPTED. 12/12. Layout pack WOs: LAYOUT-PACK + CAMERAS + OBJECT-LAYOUT + LIGHTING + PHYSICALITY-BASELINE ACCEPTED (38/38 gates). ENGINE-SPELL-SLOTS-001 12/12 + ENGINE-REST-001 12/12 ACCEPTED. ENGINE-GOLD-MASTER-REGEN 9/9 + ENGINE-READIED-ACTION 10/10 + ENGINE-AID-ANOTHER 10/10 + ENGINE-DEFEND 10/10 + ENGINE-FEINT 10/10 — ENGINE DISPATCH #5 ALL ACCEPTED. ENGINE DISPATCH #6 ALL ACCEPTED: ABILITY-DAMAGE 10/10 + WITHDRAW-DELAY 10/10 + CONDITIONS-BLIND-DEAF 19/19 + SUNDER-DISARM-FULL 10/10 + POISON-DISEASE 10/10 (59/59 gate tests). Builder fix: SD-09 spurious Weapon() field names removed. 182 engine gate tests all pass. GATES-V1 blocked on golden frames.*
 
@@ -109,8 +110,8 @@
 
 ## Operator Action Queue (max 3)
 
-1. **WO-ENGINE-BARDIC-DURATION-001 READY TO DISPATCH.** Fixes FINDING-BARDIC-DURATION-001 (LOW). Dead/unconscious/deafened bard now auto-ends Inspire Courage. `INSPIRE_COURAGE_BARD_ID` field added; `_bard_is_incapacitated()` check in `tick_inspire_courage()`. 2 files + tests. 10 gate tests.
-2. **Two LOW findings remain after bardic duration:** FINDING-WILDSHAPE-HP-001 (proportional HP — needs schema change for form hit_dice) and FINDING-WILDSHAPE-DURATION-001 (needs time infrastructure). Both deferred pending Thunder direction.
+1. **WO-ENGINE-WILDSHAPE-HP-001 READY TO DISPATCH.** Fixes FINDING-WILDSHAPE-HP-001 (LOW). PHB delta formula replaces placeholder: `new_HP_MAX = saved_HP_MAX + (new_CON_mod − old_CON_mod) × druid_level`. 1 file (`wild_shape_resolver.py`) + tests. 10 gate tests. No schema change.
+2. **FINDING-WILDSHAPE-DURATION-001 LOW OPEN.** WO-ENGINE-WILDSHAPE-DURATION-001 draft pending (round-counter proxy: `druid_level × 10 rounds`). Thunder to dispatch when ready.
 3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent. Thunder to direct.
 
 ## Current Focus (Slate's focused recall)
@@ -141,7 +142,7 @@
 | FINDING-WILDSHAPE-NATURAL-ATTACKS-001 | MEDIUM | CLOSED | WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10 — `natural_attack_resolver.py` live, `NaturalAttackIntent` wired. |
 | FINDING-WILDSHAPE-HP-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape HP uses simplified Con-based formula. PHB proportional HP swap deferred. Non-blocking. |
 | FINDING-WILDSHAPE-DURATION-001 | LOW | OPEN | ENGINE DISPATCH #8: Wild Shape duration not auto-decremented. DM must trigger revert manually. Non-blocking. |
-| FINDING-BARDIC-DURATION-001 | LOW | OPEN | ENGINE DISPATCH #8: Inspire Courage uses 8-round flat duration. PHB action-economy maintenance not enforced. Non-blocking. |
+| FINDING-BARDIC-DURATION-001 | LOW | CLOSED | WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20 — `_bard_is_incapacitated()` check in `tick_inspire_courage()`. Latent decrement-ghost fixed (any_mutated pattern). |
 | FINDING-SCAN-BASELINE-01 | MEDIUM | RESOLVED | Gate X: base64 false positives fixed (P5 skip list). `*.jsonl` on asset allowlist. X-01 remains: real tracked artifacts (`models/voices/`, `inbox/`). Gate X 9/10. |
 | FINDING-ORC-P8-001 | MEDIUM | RESOLVED | P8: 296 violations → 0. 59 exceptions in `ip_exceptions.txt` (provenance docs, test fixtures, PM tooling). 4 content removals (README Vecna/Heironeous, npc_stingers Waterdeep×2). |
 | FINDING-ORC-P1-001 | LOW | RESOLVED | P1 dirty tree resolved. Commit `9bf1d3d`. |
@@ -219,6 +220,7 @@
 - **[ACCEPTED] [WO-UI-TOOLING-PLAYWRIGHT-001_DISPATCH.md](pm_inbox/WO-UI-TOOLING-PLAYWRIGHT-001_DISPATCH.md)** — Gate TOOLS-PW 16/16.
 - **[ACCEPTED] [WO-UI-TOOLING-DEBUG-OVERLAY-001_DISPATCH.md](pm_inbox/WO-UI-TOOLING-DEBUG-OVERLAY-001_DISPATCH.md)** — Gate TOOLS-DBG 9/9.
 - **[ACCEPTED] [WO-WORLDGEN-INGESTION-001_DISPATCH.md](pm_inbox/WO-WORLDGEN-INGESTION-001_DISPATCH.md)** — Gate INGESTION 15/15. Step 1 of FINDING-WORLDGEN-IP-001 chain.
+- **[READY] [WO-ENGINE-WILDSHAPE-HP-001_DISPATCH.md](pm_inbox/WO-ENGINE-WILDSHAPE-HP-001_DISPATCH.md)** — PHB delta HP formula for Wild Shape. `new_HP_MAX = saved_HP_MAX + (new_CON_mod − old_CON_mod) × druid_level`. Damage-taken offset preserved. 1 file (`wild_shape_resolver.py`) + tests. 10 gate tests. No schema change. Fixes FINDING-WILDSHAPE-HP-001 LOW.
 - **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — TTS pipeline reference
 - **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Preflight canary system
 - **[READ] [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md)** — TUNING-001 observation protocol
@@ -228,6 +230,7 @@
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-ENGINE-BARDIC-DURATION-001 | **ACCEPTED** — ENGINE-BARDIC-DURATION 10/10 (BD-01..BD-10) + ENGINE-BARDIC-MUSIC 10/10 regression clean (20/20 total). New EF `INSPIRE_COURAGE_BARD_ID`. New `_bard_is_incapacitated()` helper: HP≤0, DYING, UNCONSCIOUS, DEAFENED, or entity not in world_state all interrupt. New event `inspire_courage_interrupted` (grouped by bard_id). Latent decrement-ghost fixed: `tick_inspire_courage()` previously only committed WorldState on expiry — round decrements silently discarded on non-expiry ticks. Fixed with `any_mutated` pattern. Bug predates this WO; surfaced by non-expiry path tests. FINDING-BARDIC-DURATION-001 LOW CLOSED. Zero new regressions. | (pending commit) |
 | WO-ENGINE-PLAY-LOOP-ROUTING-001 | **ACCEPTED** — 10/10 Gate ENGINE-PLAY-LOOP-ROUTING (PLR-01..PLR-10). Five elif branches inserted in `play_loop.py` execute_turn between DelayIntent and StepMoveIntent: RageIntent → `activate_rage` (inline `validate_rage` pre-check), SmiteEvilIntent → `resolve_smite_evil` + concentration break, BardicMusicIntent → `resolve_bardic_music`, WildShapeIntent → `resolve_wild_shape`, RevertFormIntent → `resolve_revert_form`. Bonus fix: two rogue `from aidm.core.attack_resolver import apply_attack_events` local imports removed — these were shadowing the module-level import and causing UnboundLocalError across 23 pre-existing tests. All 10 gate tests go through execute_turn (not direct resolver calls). FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED. Zero regressions (85 affected tests). | (pending commit) |
 | WO-ENGINE-NATURAL-ATTACK-001 | **ACCEPTED** — 10/10 Gate ENGINE-NATURAL-ATTACK. New `aidm/core/natural_attack_resolver.py`: `validate_natural_attack()`, `_build_weapon_from_natural_attack()`, `resolve_natural_attack()`. `NaturalAttackIntent(attacker_id, target_id, attack_name, attack_bonus)` added to `intents.py`. EQUIPMENT_MELDED bypass via deepcopy (WO brief proposed `_resolve_single_attack()` refactor — deferred per YAGNI, deepcopy approach accepted). Play_loop routing wired. FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED. Zero regressions. | (pending commit) |
 | WO-ENGINE-ABILITY-DAMAGE-001 | **ACCEPTED** — 10/10 Gate ENGINE-ABILITY-DAMAGE (AD-01..AD-10). 12 new EF fields (STR_DAMAGE/STR_DRAIN through CHA_DAMAGE/CHA_DRAIN). `ability_damage_resolver.py` live: `get_effective_score()`, `get_ability_modifier()`, `apply_ability_damage()`, `heal_ability_damage()`, `expire_ability_damage_regen()`. STR/DEX penalties wired into attack_resolver; CON/DEX/WIS into save_resolver; 1pt/ability heal in rest_resolver; play_loop routing. CON to 0 = dead, STR/DEX to 0 = helpless. Zero regressions. | (pending commit) |

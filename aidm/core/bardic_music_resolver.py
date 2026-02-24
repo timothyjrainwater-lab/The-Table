@@ -3,6 +3,9 @@
 PHB pp.29-30: Standard action. +morale bonus to attack/damage/fear-charm saves for allies.
 Uses/day = Bard level. Bonus: +1 (lv1-7), +2 (lv8-13), +3 (lv14-19), +4 (lv20).
 Duration: 8 rounds (v1 fixed; FINDING-BARDIC-DURATION-001 deferred).
+
+WO-ENGINE-BARDIC-DURATION-001: Effect ends on next tick if the bard is defeated, dying,
+or deafened. INSPIRE_COURAGE_BARD_ID stored at activation to identify the source bard.
 """
 
 from copy import deepcopy
@@ -19,6 +22,22 @@ def _has_bard_feature(actor: dict) -> bool:
     class_levels = actor.get(EF.CLASS_LEVELS, {}) or {}
     if isinstance(class_levels, dict):
         return class_levels.get("bard", 0) >= 1
+    return False
+
+
+def _bard_is_incapacitated(bard: dict) -> bool:
+    """Return True if the bard can no longer maintain Inspire Courage.
+
+    PHB p.29: Inspire Courage ends if the bard becomes unconscious, dies,
+    or is deafened. Mapped to: DEFEATED, DYING, or DEAFENED condition present.
+    """
+    if bard.get(EF.DEFEATED, False):
+        return True
+    if bard.get(EF.DYING, False):
+        return True
+    conditions = bard.get(EF.CONDITIONS, {}) or {}
+    if isinstance(conditions, dict) and "deafened" in conditions:
+        return True
     return False
 
 
@@ -64,7 +83,9 @@ def resolve_bardic_music(
     """Resolve Bardic Music -- Inspire Courage.
 
     Decrements uses, sets INSPIRE_COURAGE_ACTIVE + INSPIRE_COURAGE_BONUS on bard
-    and all ally_ids. Emits inspire_courage_start. Returns (events, world_state).
+    and all ally_ids. Stores INSPIRE_COURAGE_BARD_ID on each affected entity so
+    tick_inspire_courage can check bard state. Emits inspire_courage_start.
+    Returns (events, world_state).
     """
     events: List[Event] = []
     actor = world_state.entities.get(intent.actor_id, {})
@@ -105,6 +126,7 @@ def resolve_bardic_music(
         target[EF.INSPIRE_COURAGE_ACTIVE] = True
         target[EF.INSPIRE_COURAGE_BONUS] = new_bonus
         target[EF.INSPIRE_COURAGE_ROUNDS_REMAINING] = _INSPIRE_COURAGE_DURATION_ROUNDS
+        target[EF.INSPIRE_COURAGE_BARD_ID] = intent.actor_id  # WO-ENGINE-BARDIC-DURATION-001
 
     world_state = WorldState(
         ruleset_version=world_state.ruleset_version,
@@ -136,25 +158,42 @@ def tick_inspire_courage(
 ) -> Tuple[List[Event], WorldState]:
     """Decrement INSPIRE_COURAGE_ROUNDS_REMAINING for all affected entities at turn end.
 
-    When rounds reach 0, clears INSPIRE_COURAGE_ACTIVE and INSPIRE_COURAGE_BONUS.
+    WO-ENGINE-BARDIC-DURATION-001: If the source bard (INSPIRE_COURAGE_BARD_ID) is
+    defeated, dying, or deafened, the effect expires immediately on this tick regardless
+    of rounds remaining.
+
+    When rounds reach 0 (or bard is incapacitated), clears INSPIRE_COURAGE_ACTIVE,
+    INSPIRE_COURAGE_BONUS, and INSPIRE_COURAGE_BARD_ID.
     Emits inspire_courage_end per affected entity group that expires.
     """
     events: List[Event] = []
     entities = deepcopy(world_state.entities)
     expired_ids = []
+    any_mutated = False
 
     for eid, entity in entities.items():
         if not entity.get(EF.INSPIRE_COURAGE_ACTIVE, False):
             continue
+
+        # Check bard incapacitation (WO-ENGINE-BARDIC-DURATION-001)
+        bard_id = entity.get(EF.INSPIRE_COURAGE_BARD_ID)
+        bard_incapacitated = False
+        if bard_id and bard_id in entities:
+            bard_incapacitated = _bard_is_incapacitated(entities[bard_id])
+
         rounds_left = entity.get(EF.INSPIRE_COURAGE_ROUNDS_REMAINING, 0)
         new_rounds = max(0, rounds_left - 1)
-        if new_rounds <= 0:
+
+        if new_rounds <= 0 or bard_incapacitated:
             entity[EF.INSPIRE_COURAGE_ACTIVE] = False
             entity[EF.INSPIRE_COURAGE_BONUS] = 0
             entity[EF.INSPIRE_COURAGE_ROUNDS_REMAINING] = 0
+            entity[EF.INSPIRE_COURAGE_BARD_ID] = None
             expired_ids.append(eid)
+            any_mutated = True
         else:
             entity[EF.INSPIRE_COURAGE_ROUNDS_REMAINING] = new_rounds
+            any_mutated = True
 
     if expired_ids:
         events.append(Event(
@@ -164,7 +203,7 @@ def tick_inspire_courage(
             payload={"affected_ids": expired_ids},
         ))
 
-    if events or expired_ids:
+    if any_mutated:
         world_state = WorldState(
             ruleset_version=world_state.ruleset_version,
             entities=entities,

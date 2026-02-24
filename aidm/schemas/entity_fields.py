@@ -210,6 +210,7 @@ class _EntityFields:
     INSPIRE_COURAGE_ACTIVE = "inspire_courage_active"   # Bool: inspire courage in effect
     INSPIRE_COURAGE_BONUS = "inspire_courage_bonus"     # Int: current morale bonus (+1 to +4)
     INSPIRE_COURAGE_ROUNDS_REMAINING = "inspire_courage_rounds_remaining"  # Int: rounds left
+    INSPIRE_COURAGE_BARD_ID = "inspire_courage_bard_id"  # Str|None: entity_id of the bard who activated this effect (WO-ENGINE-BARDIC-DURATION-001)
 
     # --- Wild Shape (WO-ENGINE-WILD-SHAPE-001) ---
     WILD_SHAPE_USES_REMAINING = "wild_shape_uses_remaining"  # Int: uses left today

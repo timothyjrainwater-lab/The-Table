@@ -5,12 +5,12 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-24 (ENGINE DISPATCH #9 COMPLETE — WO-ENGINE-NATURAL-ATTACK-001 + WO-ENGINE-PLAY-LOOP-ROUTING-001 both ACCEPTED)
-**Delta:** Natural attack resolver live. 5 class-feature intents routed in execute_turn. Rogue local imports in play_loop.py fixed (UnboundLocalError ×23 resolved). FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED. FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED. 0 MEDIUM findings remain. 3 LOW open.
+**Session:** 2026-02-24 (ENGINE DISPATCH #9 COMPLETE + WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20)
+**Delta:** Natural attack resolver live. 5 class-feature intents routed in execute_turn. Rogue local imports fixed (UnboundLocalError ×23 resolved). Bardic duration enforced: `_bard_is_incapacitated()` in `tick_inspire_courage()`; latent decrement-ghost fixed (any_mutated pattern). `INSPIRE_COURAGE_BARD_ID` field added. FINDING-BARDIC-DURATION-001 LOW CLOSED. WO-ENGINE-WILDSHAPE-HP-001 drafted (READY TO DISPATCH). 0 MEDIUM findings remain. 2 LOW open.
 
 ## Priority Stack (top 3)
-1. **Thunder to direct next track.** No MEDIUM engine findings remain. ENGINE DISPATCH #9 closed.
-2. **LOW engine findings available:** FINDING-WILDSHAPE-HP-001 (proportional HP swap), FINDING-WILDSHAPE-DURATION-001 (auto-decrement revert), FINDING-BARDIC-DURATION-001 (PHB action-economy maintenance). None blocking.
+1. **WO-ENGINE-WILDSHAPE-HP-001 READY TO DISPATCH.** PHB delta HP formula. 1 file + 10 gate tests.
+2. **FINDING-WILDSHAPE-DURATION-001 LOW OPEN.** WO draft pending (round-counter proxy approach).
 3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent.
 
 ## Active Findings (IDs + status — register has descriptions)
@@ -18,7 +18,7 @@
 - FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10)
 - FINDING-WILDSHAPE-HP-001 LOW OPEN (Wild Shape HP simplified formula — PHB proportional swap deferred)
 - FINDING-WILDSHAPE-DURATION-001 LOW OPEN (Wild Shape duration not auto-decremented — DM triggers revert manually)
-- FINDING-BARDIC-DURATION-001 LOW OPEN (Inspire Courage 8-round flat — PHB maintenance not enforced)
+- FINDING-BARDIC-DURATION-001 LOW CLOSED (WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20 — incapacitation check + decrement-ghost fix)
 - FINDING-SCAN-BASELINE-01 MEDIUM RESOLVED (Gate X 9/10 — real violations remain in models/, inbox/)
 - FINDING-ORC-P8-001 MEDIUM RESOLVED (P8: 296→0, 59 exceptions + 4 content removals)
 - FINDING-UI05-P2-001 MEDIUM RESOLVED (Math.random → seeded PRNG; Gate G 22/22)
