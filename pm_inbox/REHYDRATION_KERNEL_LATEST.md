@@ -6,11 +6,11 @@
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
 **Session:** 2026-02-24 (ENGINE DISPATCH #9 COMPLETE + WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20)
-**Delta:** Natural attack resolver live. 5 class-feature intents routed in execute_turn. Rogue local imports fixed (UnboundLocalError ×23 resolved). Bardic duration enforced: `_bard_is_incapacitated()` in `tick_inspire_courage()`; latent decrement-ghost fixed (any_mutated pattern). `INSPIRE_COURAGE_BARD_ID` field added. FINDING-BARDIC-DURATION-001 LOW CLOSED. WO-ENGINE-WILDSHAPE-HP-001 drafted (READY TO DISPATCH). 0 MEDIUM findings remain. 2 LOW open.
+**Delta:** Natural attack resolver live. 5 class-feature intents routed. Rogue local imports fixed. Bardic duration enforced + decrement-ghost fixed. FINDING-BARDIC-DURATION-001 LOW CLOSED. WO-ENGINE-WILDSHAPE-HP-001 + WO-ENGINE-WILDSHAPE-DURATION-001 drafted (both READY TO DISPATCH). 0 MEDIUM findings remain. 2 LOW open.
 
 ## Priority Stack (top 3)
-1. **WO-ENGINE-WILDSHAPE-HP-001 READY TO DISPATCH.** PHB delta HP formula. 1 file + 10 gate tests.
-2. **FINDING-WILDSHAPE-DURATION-001 LOW OPEN.** WO draft pending (round-counter proxy approach).
+1. **Two wild shape WOs READY TO DISPATCH:** WO-ENGINE-WILDSHAPE-HP-001 (PHB delta HP, 1 file + 10 tests) + WO-ENGINE-WILDSHAPE-DURATION-001 (round-counter auto-revert, 3 files + 10 tests). Can dispatch together.
+2. **0 LOW findings remain after both accepted.** All engine LOWs closed.
 3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent.
 
 ## Active Findings (IDs + status — register has descriptions)

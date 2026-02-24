@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-24 (WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20 — latent decrement-ghost fixed). **ENGINE-BARDIC-DURATION 10/10 + ENGINE-BARDIC-MUSIC 10/10 regression.** FINDING-BARDIC-DURATION-001 LOW CLOSED. 2 open findings (0 MEDIUM). WO-ENGINE-WILDSHAPE-HP-001 drafted.
+**Last updated:** 2026-02-24 (WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20; WO-ENGINE-WILDSHAPE-HP-001 + WO-ENGINE-WILDSHAPE-DURATION-001 drafted). **ENGINE-BARDIC-DURATION 10/10.** FINDING-BARDIC-DURATION-001 LOW CLOSED. 2 open findings (0 MEDIUM). Both wild shape WOs READY TO DISPATCH.
 
 ---
 
@@ -111,7 +111,7 @@
 ## Operator Action Queue (max 3)
 
 1. **WO-ENGINE-WILDSHAPE-HP-001 READY TO DISPATCH.** Fixes FINDING-WILDSHAPE-HP-001 (LOW). PHB delta formula replaces placeholder: `new_HP_MAX = saved_HP_MAX + (new_CON_mod − old_CON_mod) × druid_level`. 1 file (`wild_shape_resolver.py`) + tests. 10 gate tests. No schema change.
-2. **FINDING-WILDSHAPE-DURATION-001 LOW OPEN.** WO-ENGINE-WILDSHAPE-DURATION-001 draft pending (round-counter proxy: `druid_level × 10 rounds`). Thunder to dispatch when ready.
+2. **WO-ENGINE-WILDSHAPE-DURATION-001 READY TO DISPATCH.** Fixes FINDING-WILDSHAPE-DURATION-001 (LOW). Round-counter proxy (`druid_level × 10`); `tick_wild_shape_duration()` at round-end auto-reverts. 3 files + tests. 10 gate tests.
 3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent. Thunder to direct.
 
 ## Current Focus (Slate's focused recall)
@@ -221,6 +221,7 @@
 - **[ACCEPTED] [WO-UI-TOOLING-DEBUG-OVERLAY-001_DISPATCH.md](pm_inbox/WO-UI-TOOLING-DEBUG-OVERLAY-001_DISPATCH.md)** — Gate TOOLS-DBG 9/9.
 - **[ACCEPTED] [WO-WORLDGEN-INGESTION-001_DISPATCH.md](pm_inbox/WO-WORLDGEN-INGESTION-001_DISPATCH.md)** — Gate INGESTION 15/15. Step 1 of FINDING-WORLDGEN-IP-001 chain.
 - **[READY] [WO-ENGINE-WILDSHAPE-HP-001_DISPATCH.md](pm_inbox/WO-ENGINE-WILDSHAPE-HP-001_DISPATCH.md)** — PHB delta HP formula for Wild Shape. `new_HP_MAX = saved_HP_MAX + (new_CON_mod − old_CON_mod) × druid_level`. Damage-taken offset preserved. 1 file (`wild_shape_resolver.py`) + tests. 10 gate tests. No schema change. Fixes FINDING-WILDSHAPE-HP-001 LOW.
+- **[READY] [WO-ENGINE-WILDSHAPE-DURATION-001_DISPATCH.md](pm_inbox/WO-ENGINE-WILDSHAPE-DURATION-001_DISPATCH.md)** — Wild Shape auto-revert on duration expiry. `WILD_SHAPE_ROUNDS_REMAINING = druid_level × 10`. `tick_wild_shape_duration()` at round-end. 3 files (`entity_fields.py`, `wild_shape_resolver.py`, `play_loop.py`) + tests. 10 gate tests. Fixes FINDING-WILDSHAPE-DURATION-001 LOW.
 - **[READ] [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md)** — TTS pipeline reference
 - **[READ] [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md)** — Preflight canary system
 - **[READ] [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md)** — TUNING-001 observation protocol
