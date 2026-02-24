@@ -30,7 +30,11 @@
     <div id="scene-surface">
       <div id="scene-display">
         <div id="scene-label">Scene</div>
-        <!-- Live scene canvas added by WO-UI-2D-MAP-001 -->
+        <!-- WO-UI-2D-MAP-001: scene image layers (crossfade swap) -->
+        <img id="scene-img-a" class="scene-img-layer" src="" alt="">
+        <img id="scene-img-b" class="scene-img-layer" src="" alt="">
+        <!-- WO-UI-2D-MAP-001: live scene canvas -->
+        <canvas id="scene-canvas"></canvas>
       </div>
     </div><!-- /#scene-surface -->
 
@@ -102,6 +106,7 @@
   <script src="ws.js"></script>
   <script src="orb.js"></script>   <!-- ORB-001 -->
   <script src="dm-panel.js"></script>   <!-- DM-PANEL-001 -->
+  <script src="map.js"></script>   <!-- MAP-001 -->
   <script src="main.js"></script>
 </body>
 </html>
