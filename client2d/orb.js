@@ -1,7 +1,6 @@
 /* orb.js — Speaker Panel wiring: portrait, beats, orb pulse
    WO-UI-2D-ORB-001
-   Depends on: ws.js (WsBridge), main.js (window.__ws exposed, .speaking class toggle already wired)
-   Load order: ws.js → orb.js → main.js
+   Depends on: ws.js (WsBridge), main.js (window.__ws exposed, orb .speaking toggle)
 */
 (function () {
   'use strict';
@@ -14,14 +13,14 @@
   const ACTIVE_FILTER = 'brightness(1) sepia(0) saturate(1)';
   const MAX_BEATS = 8;
 
-  // Idle state: DM crest placeholder
+  // Idle state: DM crest placeholder — dim filter, no portrait image
   function setIdle() {
     portrait.style.filter = IDLE_FILTER;
     portrait.style.backgroundImage = '';
     portrait.classList.remove('has-portrait');
   }
 
-  // Speaking state
+  // Speaking state: clear filter, optionally load NPC portrait, append beat
   function setSpeaking(data) {
     portrait.style.filter = ACTIVE_FILTER;
     if (data.portrait_url) {
@@ -39,8 +38,7 @@
         beats.removeChild(beats.firstChild);
       }
     }
-    // Orb pulse: main.js toggles .speaking on #orb (the container).
-    // CSS pulse targets #orb > div:first-child.speaking — proxy to inner div.
+    // Proxy .speaking to inner div — CSS pulse targets #orb > div:first-child.speaking
     orbInner.classList.add('speaking');
   }
 
@@ -49,7 +47,7 @@
     orbInner.classList.remove('speaking');
   }
 
-  // Wire to WsBridge — window.__ws is exposed by main.js after load fires
+  // Wire to WsBridge — window.__ws exposed by main.js; load fires after all scripts
   window.addEventListener('load', function () {
     var bridge = window.__ws;
     if (!bridge) { console.warn('[orb] WsBridge not found'); return; }

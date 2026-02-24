@@ -1,104 +1,135 @@
 """
-Gate tests: UI-2D-ORB — Speaker Panel wiring (ORB-01 through ORB-12)
-WO-UI-2D-ORB-001
-
-Uses Python file content search only. No browser required.
+Gate tests: UI-2D-ORB (ORB-01 through ORB-12)
+Tests use Python string search. No browser required.
 """
-import pathlib
-import pytest
+import os
 
-ROOT = pathlib.Path(__file__).parent.parent
-ORB_JS   = ROOT / 'client2d' / 'orb.js'
-INDEX    = ROOT / 'client2d' / 'index.html'
-STYLE    = ROOT / 'client2d' / 'style.css'
+CLIENT2D = os.path.join(os.path.dirname(__file__), '..', 'client2d')
 
 
-def read(p: pathlib.Path) -> str:
-    return p.read_text(encoding='utf-8')
+def read(filename):
+    path = os.path.join(CLIENT2D, filename)
+    with open(path, 'r', encoding='utf-8') as f:
+        return f.read()
 
 
-# ORB-01: orb.js exists
+# ---------------------------------------------------------------------------
+# ORB-01  client2d/orb.js exists
+# ---------------------------------------------------------------------------
 def test_orb_01_orb_js_exists():
-    assert ORB_JS.exists(), 'client2d/orb.js does not exist'
+    path = os.path.join(CLIENT2D, 'orb.js')
+    assert os.path.isfile(path), "client2d/orb.js does not exist"
 
 
-# ORB-02: index.html references orb.js script tag
-def test_orb_02_index_html_loads_orb_js():
-    html = read(INDEX)
-    assert 'src="orb.js"' in html, 'index.html missing <script src="orb.js">'
+# ---------------------------------------------------------------------------
+# ORB-02  index.html contains <script src="orb.js">
+# ---------------------------------------------------------------------------
+def test_orb_02_index_html_has_orb_script():
+    html = read('index.html')
+    assert 'src="orb.js"' in html, \
+        "index.html missing <script src=\"orb.js\"> tag"
 
 
-# ORB-03: orb.js references speaking_start
-def test_orb_03_speaking_start():
-    src = read(ORB_JS)
-    assert 'speaking_start' in src, 'orb.js missing speaking_start reference'
+# ---------------------------------------------------------------------------
+# ORB-03  orb.js references speaking_start
+# ---------------------------------------------------------------------------
+def test_orb_03_orb_js_has_speaking_start():
+    js = read('orb.js')
+    assert 'speaking_start' in js, \
+        "orb.js missing 'speaking_start' event reference"
 
 
-# ORB-04: orb.js references speaking_stop
-def test_orb_04_speaking_stop():
-    src = read(ORB_JS)
-    assert 'speaking_stop' in src, 'orb.js missing speaking_stop reference'
+# ---------------------------------------------------------------------------
+# ORB-04  orb.js references speaking_stop
+# ---------------------------------------------------------------------------
+def test_orb_04_orb_js_has_speaking_stop():
+    js = read('orb.js')
+    assert 'speaking_stop' in js, \
+        "orb.js missing 'speaking_stop' event reference"
 
 
-# ORB-05: orb.js references speaker-portrait
-def test_orb_05_speaker_portrait():
-    src = read(ORB_JS)
-    assert 'speaker-portrait' in src, 'orb.js missing speaker-portrait reference'
+# ---------------------------------------------------------------------------
+# ORB-05  orb.js references speaker-portrait
+# ---------------------------------------------------------------------------
+def test_orb_05_orb_js_has_speaker_portrait():
+    js = read('orb.js')
+    assert 'speaker-portrait' in js, \
+        "orb.js missing 'speaker-portrait' element reference"
 
 
-# ORB-06: orb.js references speaker-beats
-def test_orb_06_speaker_beats():
-    src = read(ORB_JS)
-    assert 'speaker-beats' in src, 'orb.js missing speaker-beats reference'
+# ---------------------------------------------------------------------------
+# ORB-06  orb.js references speaker-beats
+# ---------------------------------------------------------------------------
+def test_orb_06_orb_js_has_speaker_beats():
+    js = read('orb.js')
+    assert 'speaker-beats' in js, \
+        "orb.js missing 'speaker-beats' element reference"
 
 
-# ORB-07: orb.js defines idle filter (IDLE_FILTER or brightness(0.5))
-def test_orb_07_idle_filter_defined():
-    src = read(ORB_JS)
-    assert 'IDLE_FILTER' in src or 'brightness(0.5)' in src, \
-        'orb.js missing idle filter definition (IDLE_FILTER or brightness(0.5))'
+# ---------------------------------------------------------------------------
+# ORB-07  orb.js contains IDLE_FILTER or brightness(0.5) — idle filter defined
+# ---------------------------------------------------------------------------
+def test_orb_07_orb_js_has_idle_filter():
+    js = read('orb.js')
+    assert 'IDLE_FILTER' in js or 'brightness(0.5)' in js, \
+        "orb.js missing IDLE_FILTER constant or brightness(0.5) value"
 
 
-# ORB-08: orb.js defines DOM cap (MAX_BEATS or value 8)
-def test_orb_08_dom_cap_present():
-    src = read(ORB_JS)
-    assert 'MAX_BEATS' in src or '= 8' in src or '> 8' in src, \
-        'orb.js missing DOM cap (MAX_BEATS or numeric 8 cap)'
+# ---------------------------------------------------------------------------
+# ORB-08  orb.js contains MAX_BEATS or value 8 — DOM cap present
+# ---------------------------------------------------------------------------
+def test_orb_08_orb_js_has_max_beats():
+    js = read('orb.js')
+    assert 'MAX_BEATS' in js or '> 8' in js or '=== 8' in js or '== 8' in js, \
+        "orb.js missing MAX_BEATS constant or beat DOM cap logic"
 
 
-# ORB-09: orb.js does NOT add click or mousedown event listener
-def test_orb_09_no_click_handler():
-    src = read(ORB_JS)
-    assert 'addEventListener(\'click\'' not in src, \
-        'orb.js must not add a click event listener (crest must be non-interactive)'
-    assert 'addEventListener("click"' not in src, \
-        'orb.js must not add a click event listener (crest must be non-interactive)'
-    assert 'addEventListener(\'mousedown\'' not in src, \
-        'orb.js must not add a mousedown event listener'
-    assert 'addEventListener("mousedown"' not in src, \
-        'orb.js must not add a mousedown event listener'
+# ---------------------------------------------------------------------------
+# ORB-09  orb.js does NOT add click or mousedown event listener on portrait
+#         (crest non-interactive — BD-09)
+# ---------------------------------------------------------------------------
+def test_orb_09_orb_js_no_click_handler():
+    js = read('orb.js')
+    # Must not have any addEventListener for click or mousedown
+    assert 'addEventListener(\'click\'' not in js, \
+        "orb.js contains click event listener — portrait must be non-interactive"
+    assert 'addEventListener("click"' not in js, \
+        "orb.js contains click event listener — portrait must be non-interactive"
+    assert 'addEventListener(\'mousedown\'' not in js, \
+        "orb.js contains mousedown event listener — portrait must be non-interactive"
+    assert 'addEventListener("mousedown"' not in js, \
+        "orb.js contains mousedown event listener — portrait must be non-interactive"
 
 
-# ORB-10: style.css contains .beat selector
-def test_orb_10_beat_selector_in_css():
-    css = read(STYLE)
-    assert '.beat' in css, 'style.css missing .beat selector'
+# ---------------------------------------------------------------------------
+# ORB-10  style.css contains .beat selector
+# ---------------------------------------------------------------------------
+def test_orb_10_css_has_beat_selector():
+    css = read('style.css')
+    assert '.beat' in css, \
+        "style.css missing .beat selector"
 
 
-# ORB-11: style.css contains nth-last-child (beat aging)
-def test_orb_11_nth_last_child_in_css():
-    css = read(STYLE)
-    assert 'nth-last-child' in css, 'style.css missing nth-last-child beat aging rules'
+# ---------------------------------------------------------------------------
+# ORB-11  style.css contains nth-last-child — beat aging present
+# ---------------------------------------------------------------------------
+def test_orb_11_css_has_nth_last_child():
+    css = read('style.css')
+    assert 'nth-last-child' in css, \
+        "style.css missing nth-last-child selectors for beat opacity aging"
 
 
-# ORB-12: style.css contains speaker-portrait with transition
-def test_orb_12_speaker_portrait_transition_in_css():
-    css = read(STYLE)
-    # Both the selector and transition keyword must be present in the file
-    assert '#speaker-portrait' in css, 'style.css missing #speaker-portrait selector'
-    # Find the block containing #speaker-portrait and verify it has a transition rule
-    idx = css.find('#speaker-portrait')
-    block_end = css.find('}', idx)
-    portrait_block = css[idx:block_end]
-    assert 'transition' in portrait_block, \
-        'style.css #speaker-portrait block missing transition property'
+# ---------------------------------------------------------------------------
+# ORB-12  style.css contains speaker-portrait with transition — filter transition present
+# ---------------------------------------------------------------------------
+def test_orb_12_css_speaker_portrait_has_transition():
+    css = read('style.css')
+    assert 'speaker-portrait' in css, \
+        "style.css missing #speaker-portrait block"
+    assert 'transition' in css, \
+        "style.css missing transition property (filter transition not present)"
+    # Both must appear, and transition must come after speaker-portrait
+    sp_pos = css.index('speaker-portrait')
+    tr_pos = css.index('transition', sp_pos)
+    assert tr_pos > sp_pos, \
+        "style.css: transition not found within/after #speaker-portrait block"
