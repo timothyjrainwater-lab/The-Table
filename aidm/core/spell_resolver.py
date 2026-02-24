@@ -26,6 +26,7 @@ from aidm.core.truth_packets import (
 )
 from aidm.core.rng_protocol import RNGProvider
 from aidm.core.cover_resolver import calculate_cover, CoverDegree
+from aidm.core.conditions import get_condition_modifiers  # CP-18: condition save modifiers
 
 
 # ==============================================================================
@@ -224,6 +225,16 @@ class SpellCastIntent:
     aoe_direction: Optional[AoEDirection] = None
     """Direction for cone/line spells (overrides spell default)."""
 
+    quickened: bool = False
+    """CP-23: If True, spell is cast as a free action (Quicken Spell feat) — no AoO."""
+
+    metamagic: tuple = ()
+    """WO-ENGINE-METAMAGIC-001: Tuple of metamagic keyword strings.
+    Valid values: 'empower', 'maximize', 'extend', 'heighten', 'quicken'."""
+
+    heighten_to_level: Optional[int] = None
+    """WO-ENGINE-METAMAGIC-001: Required when 'heighten' in metamagic — target slot level."""
+
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary."""
         return {
@@ -232,6 +243,9 @@ class SpellCastIntent:
             "target_position": self.target_position.to_dict() if self.target_position else None,
             "target_entity_id": self.target_entity_id,
             "aoe_direction": self.aoe_direction.value if self.aoe_direction else None,
+            "quickened": self.quickened,
+            "metamagic": list(self.metamagic),
+            "heighten_to_level": self.heighten_to_level,
         }
 
 
@@ -539,6 +553,8 @@ class SpellResolver:
         intent: SpellCastIntent,
         caster: CasterStats,
         targets: Dict[str, TargetStats],
+        world_state: Any = None,  # CP-18: optional — used to query condition save modifiers
+        maximize: bool = False,  # WO-ENGINE-METAMAGIC-001: Maximize Spell feat
     ) -> SpellResolution:
         """Resolve a validated spell cast.
 
@@ -613,13 +629,25 @@ class SpellResolver:
             # Resolve save if required
             saved = False
             if spell.save_type is not None:
+                # CP-18: compute condition save modifier for this target
+                cond_save_mod = 0
+                if world_state is not None:
+                    cond_mods = get_condition_modifiers(world_state, entity_id)
+                    if spell.save_type == SaveType.FORT:
+                        cond_save_mod = cond_mods.fort_save_modifier
+                    elif spell.save_type == SaveType.REF:
+                        cond_save_mod = cond_mods.ref_save_modifier
+                    else:
+                        cond_save_mod = cond_mods.will_save_modifier
+
                 saved, roll, save_stp = self._resolve_save(
                     target,
                     spell.save_type,
                     spell_dc,
                     caster.caster_id,
                     cover_bonus,
-                    spell.rule_citations
+                    spell.rule_citations,
+                    condition_save_mod=cond_save_mod,
                 )
                 saves_made[entity_id] = saved
                 save_rolls[entity_id] = roll
@@ -628,7 +656,7 @@ class SpellResolver:
             # Apply damage
             if spell.damage_dice is not None:
                 damage, damage_stp = self._resolve_damage(
-                    spell, caster, target, saved
+                    spell, caster, target, saved, maximize=maximize
                 )
                 damage_dealt[entity_id] = damage
                 stps.append(damage_stp)
@@ -746,6 +774,7 @@ class SpellResolver:
         caster_id: str,
         cover_bonus: int = 0,
         citations: Tuple[str, ...] = (),
+        condition_save_mod: int = 0,  # CP-18: aggregated condition save penalty/bonus
     ) -> Tuple[bool, int, StructuredTruthPacket]:
         """Resolve a saving throw.
 
@@ -756,13 +785,14 @@ class SpellResolver:
             caster_id: ID of caster (for STP)
             cover_bonus: Bonus from cover
             citations: Rule citations
+            condition_save_mod: CP-18 — aggregated condition save modifier (e.g. -2 for shaken)
 
         Returns:
             (saved, roll_total, stp)
         """
         base_roll = self._save_rng.randint(1, 20)
         save_bonus = target.get_save_bonus(save_type)
-        total_roll = base_roll + save_bonus + cover_bonus
+        total_roll = base_roll + save_bonus + cover_bonus + condition_save_mod  # CP-18
 
         # PHB p.177: Natural 1 on a saving throw is always a failure,
         # natural 20 is always a success (regardless of modifiers/DC).
@@ -776,6 +806,8 @@ class SpellResolver:
         modifiers = []
         if cover_bonus > 0:
             modifiers.append(("cover", cover_bonus))
+        if condition_save_mod != 0:  # CP-18: include condition modifier in STP when non-zero
+            modifiers.append(("condition", condition_save_mod))
 
         save_stp = self._stp_builder.saving_throw(
             actor_id=target.entity_id,
@@ -798,7 +830,8 @@ class SpellResolver:
         spell: SpellDefinition,
         caster: CasterStats,
         target: TargetStats,
-        saved: bool
+        saved: bool,
+        maximize: bool = False,  # WO-ENGINE-METAMAGIC-001: Maximize Spell feat
     ) -> Tuple[int, StructuredTruthPacket]:
         """Resolve damage for a spell.
 
@@ -823,8 +856,13 @@ class SpellResolver:
                 citations=list(spell.rule_citations),
             )
 
-        # Parse and roll damage dice
-        rolls, total = self._roll_dice(spell.damage_dice)
+        # Parse and roll damage dice (or maximize without consuming RNG)
+        if maximize:
+            from aidm.core.metamagic_resolver import apply_maximize_dice
+            rolls = []  # No dice consumed — determinism preserved
+            total = apply_maximize_dice(spell.damage_dice)
+        else:
+            rolls, total = self._roll_dice(spell.damage_dice)
 
         # Apply save effect
         if saved:

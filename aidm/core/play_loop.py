@@ -46,10 +46,12 @@ from dataclasses import dataclass
 from aidm.core.event_log import Event, EventLog
 from aidm.core.conditions import get_condition_modifiers
 from aidm.core.state import WorldState, FrozenWorldStateView
+# CP-24: Action economy enforcement
+from aidm.core.action_economy import ActionBudget, get_action_type
 from aidm.schemas.doctrine import MonsterDoctrine
 from aidm.schemas.entity_fields import EF
 from aidm.core.tactical_policy import evaluate_tactics, TacticalPolicyResult
-from aidm.schemas.attack import AttackIntent, Weapon, StepMoveIntent, FullMoveIntent
+from aidm.schemas.attack import AttackIntent, Weapon, StepMoveIntent, FullMoveIntent, EnergyDrainAttackIntent
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
 from aidm.core.full_attack_resolver import FullAttackIntent, resolve_full_attack, apply_full_attack_events
 from aidm.core.rng_protocol import RNGProvider
@@ -62,12 +64,20 @@ from aidm.core.mounted_combat import (
 # CP-18: Combat maneuver imports
 from aidm.schemas.maneuvers import (
     BullRushIntent, TripIntent, OverrunIntent,
-    SunderIntent, DisarmIntent, GrappleIntent,
+    SunderIntent, DisarmIntent, GrappleIntent, GrappleEscapeIntent,
 )
-from aidm.core.maneuver_resolver import resolve_maneuver
+from aidm.core.maneuver_resolver import resolve_maneuver, resolve_grapple_escape, resolve_pin_escape
+from aidm.schemas.maneuvers import PinEscapeIntent
 # WO-ENGINE-COMPANION-WIRE: Companion summon imports
-from aidm.schemas.intents import SummonCompanionIntent
+from aidm.schemas.intents import (
+    SummonCompanionIntent, RestIntent, PrepareSpellsIntent, CoupDeGraceIntent,
+    ChargeIntent, TurnUndeadIntent, ReadyActionIntent, AidAnotherIntent,
+    FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
+    AbilityDamageIntent, WithdrawIntent, DelayIntent,
+)
 from aidm.core.companion_resolver import spawn_companion
+# WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
+from aidm.core.experience_resolver import award_xp, check_level_up, apply_level_up
 # WO-015: Spellcasting imports
 from aidm.schemas.conditions import ConditionType, ConditionModifiers, ConditionInstance
 from aidm.core.spell_resolver import (
@@ -235,6 +245,12 @@ def _create_target_stats(
     ref_save = entity.get(EF.SAVE_REF, 0)
     will_save = entity.get(EF.SAVE_WILL, 0)
 
+    # WO-ENGINE-ENERGY-DRAIN-001: Each negative level gives -1 to all saves (PHB p.215)
+    neg_level_penalty = entity.get(EF.NEGATIVE_LEVELS, 0)
+    fort_save -= neg_level_penalty
+    ref_save -= neg_level_penalty
+    will_save -= neg_level_penalty
+
     # Get SR
     sr = entity.get(EF.SR, 0)
 
@@ -327,6 +343,107 @@ def _make_condition_dict(condition: str, source: str, event_id: int) -> Dict[str
     }
 
 
+# ==============================================================================
+# SPELL SLOT GOVERNOR — WO-ENGINE-SPELL-SLOTS-001
+# ==============================================================================
+
+def _check_spell_slot_for_dict(
+    slots: Dict[int, int],
+    spell_level: int,
+) -> Tuple[bool, str]:
+    """Check a specific slots dict for availability at the given level.
+
+    Returns (ok, reason). Handles both int and str keys (JSON deserialization).
+    """
+    # Support both int and str keys (JSON deserializes all dict keys as strings)
+    available = slots.get(spell_level, slots.get(str(spell_level), 0))
+    if available <= 0:
+        return False, f"spell_slot_empty_level_{spell_level}"
+    return True, ""
+
+
+def _check_spell_slot(
+    entity_state: Dict[str, Any],
+    spell_level: int,
+) -> Tuple[bool, str]:
+    """Returns (ok, reason). reason is empty string on success.
+
+    Cantrips (level 0) always pass.
+    If entity has no SPELL_SLOTS, fails with 'no_spell_slots'.
+    """
+    if spell_level == 0:
+        return True, ""
+
+    slots: Optional[Dict[int, int]] = entity_state.get(EF.SPELL_SLOTS)
+    if slots is None:
+        return False, "no_spell_slots"
+
+    return _check_spell_slot_for_dict(slots, spell_level)
+
+
+def _validate_spell_known(
+    entity_state: Dict[str, Any],
+    spell_id: str,
+    spell_level: int,
+) -> Tuple[bool, str]:
+    """Validates spell is in prepared list (prepared casters) or known list (spontaneous).
+
+    Returns (ok, reason).
+    Cantrips are exempt. Unknown caster class is fail-open (NPCs/monsters).
+    """
+    if spell_level == 0:
+        return True, ""
+
+    caster_class = entity_state.get(EF.CASTER_CLASS, "")
+
+    PREPARED_CASTERS = {"wizard", "cleric", "druid", "ranger", "paladin"}
+    SPONTANEOUS_CASTERS = {"sorcerer", "bard"}
+
+    if caster_class in PREPARED_CASTERS:
+        prepared: Dict[int, List[str]] = entity_state.get(EF.SPELLS_PREPARED, {})
+        # Support both int and str keys (JSON deserialization)
+        level_list = prepared.get(spell_level, prepared.get(str(spell_level), []))
+        if spell_id not in level_list:
+            return False, "spell_not_prepared"
+
+    elif caster_class in SPONTANEOUS_CASTERS:
+        known: Dict[int, List[str]] = entity_state.get(EF.SPELLS_KNOWN, {})
+        # Support both int and str keys (JSON deserialization)
+        level_list = known.get(spell_level, known.get(str(spell_level), []))
+        if spell_id not in level_list:
+            return False, "spell_not_known"
+
+    # Unknown caster class — fail-open for NPCs/monsters
+    return True, ""
+
+
+def _decrement_spell_slot(
+    entity_state: Dict[str, Any],
+    spell_level: int,
+    use_secondary: bool = False,
+) -> None:
+    """Decrements entity spell slot count for the given level.
+
+    Cantrips are no-op. Never goes below 0.
+    If use_secondary is True, decrements SPELL_SLOTS_2 instead.
+    Handles both int and str keys (JSON deserialization).
+    """
+    if spell_level == 0:
+        return
+    slot_key = EF.SPELL_SLOTS_2 if use_secondary else EF.SPELL_SLOTS
+    slots: Dict[int, int] = entity_state[slot_key]
+    # Determine canonical key (int or str)
+    if spell_level in slots:
+        slots[spell_level] = max(0, slots[spell_level] - 1)
+    elif str(spell_level) in slots:
+        slots[str(spell_level)] = max(0, slots[str(spell_level)] - 1)
+
+
+# ==============================================================================
+# END SPELL SLOT GOVERNOR
+# ==============================================================================
+
+
 def _resolve_spell_cast(
     intent: SpellCastIntent,
     world_state: WorldState,
@@ -370,8 +487,109 @@ def _resolve_spell_cast(
         ))
         return events, world_state, "spell_failed"
 
+    # ── Spell slot governor ────────────────────────────────────────────────────
+    spell_level = spell.level
+    # Work on a live reference so we can mutate after success
+    caster_state = world_state.entities.get(intent.caster_id, {})
+
+    # WO-ENGINE-METAMAGIC-001: Validate metamagic prerequisites and compute effective slot level
+    _metamagic = list(getattr(intent, "metamagic", ()) or ())
+    _heighten_to_level: Optional[int] = getattr(intent, "heighten_to_level", None)
+    _effective_slot_level = spell_level
+
+    if _metamagic:
+        from aidm.core.metamagic_resolver import (
+            validate_metamagic, compute_effective_slot_level,
+        )
+        _mm_error = validate_metamagic(
+            metamagic=_metamagic,
+            caster=caster_state,
+            heighten_to_level=_heighten_to_level,
+            base_spell_level=spell_level,
+        )
+        if _mm_error:
+            return [Event(
+                event_id=current_event_id,
+                event_type="metamagic_failed",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_name": spell.name,
+                    "spell_level": spell_level,
+                    "metamagic": _metamagic,
+                    "reason": _mm_error,
+                    "turn_index": turn_index,
+                },
+            )], world_state, "metamagic_failed"
+
+        _effective_slot_level = compute_effective_slot_level(
+            spell_base_level=spell_level,
+            metamagic=_metamagic,
+            heighten_to_level=_heighten_to_level,
+        )
+
+    # Slot check uses the effective slot level (metamagic surcharge consumed)
+    slot_ok, slot_reason = _check_spell_slot(caster_state, _effective_slot_level)
+    _use_secondary = False
+
+    if not slot_ok and EF.SPELL_SLOTS_2 in caster_state:
+        # Dual-caster fallback: try secondary slot pool
+        slots_2: Dict[int, int] = caster_state.get(EF.SPELL_SLOTS_2, {})
+        slot_ok_2, _ = _check_spell_slot_for_dict(slots_2, _effective_slot_level)
+        if slot_ok_2:
+            slot_ok = True
+            slot_reason = ""
+            _use_secondary = True
+
+    if not slot_ok:
+        return [Event(
+            event_id=current_event_id,
+            event_type="spell_slot_empty",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.caster_id,
+                "spell_name": spell.name,
+                "spell_level": _effective_slot_level,
+                "reason": slot_reason,
+                "turn_index": turn_index,
+            },
+        )], world_state, "spell_slot_empty"
+
+    known_ok, known_reason = _validate_spell_known(caster_state, intent.spell_id, spell_level)
+    if not known_ok and _use_secondary:
+        # Dual-caster using secondary slot pool: re-validate against secondary class lists
+        secondary_state = {
+            EF.CASTER_CLASS: caster_state.get(EF.CASTER_CLASS_2, ""),
+            EF.SPELLS_PREPARED: caster_state.get(EF.SPELLS_PREPARED_2, {}),
+            EF.SPELLS_KNOWN: caster_state.get(EF.SPELLS_KNOWN_2, {}),
+        }
+        known_ok, known_reason = _validate_spell_known(secondary_state, intent.spell_id, spell_level)
+    if not known_ok:
+        return [Event(
+            event_id=current_event_id,
+            event_type="spell_slot_empty",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.caster_id,
+                "spell_name": spell.name,
+                "spell_level": spell_level,
+                "reason": known_reason,
+                "turn_index": turn_index,
+            },
+        )], world_state, "spell_slot_empty"
+    # ──────────────────────────────────────────────────────────────────────────
+
     # Create caster stats
     caster = _create_caster_stats(intent.caster_id, world_state)
+
+    # WO-ENGINE-METAMAGIC-001: Heighten Spell raises spell DC by (heighten_to_level - base_level)
+    # CasterStats.get_spell_dc(level) = spell_dc_base + level; raise base by the delta.
+    if "heighten" in _metamagic and _heighten_to_level is not None:
+        from dataclasses import replace as _dc_replace
+        caster = _dc_replace(
+            caster,
+            spell_dc_base=caster.spell_dc_base + (_heighten_to_level - spell_level)
+        )
 
     # Build target stats for all potential targets
     targets: Dict[str, TargetStats] = {}
@@ -423,8 +641,31 @@ def _resolve_spell_cast(
         ))
         return events, world_state, "spell_failed"
 
-    # Resolve the spell
-    resolution = resolver.resolve_spell(intent, caster, targets)
+    # Resolve the spell (CP-18: pass world_state for condition save modifiers)
+    # WO-ENGINE-METAMAGIC-001: pass maximize flag so SpellResolver skips dice consumption
+    _maximize = "maximize" in _metamagic
+    resolution = resolver.resolve_spell(intent, caster, targets, world_state=world_state,
+                                        maximize=_maximize)
+
+    # WO-ENGINE-METAMAGIC-001: Post-process resolution for empower/extend/heighten
+    # Maximize is already handled in spell_resolver._resolve_damage — no post-processing needed.
+    _mm_applied: List[str] = []
+    if _metamagic:
+        from aidm.core.metamagic_resolver import apply_empower
+        # Empower: multiply final damage total by 1.5 (floor)
+        if "empower" in _metamagic and resolution.damage_dealt:
+            _new_damage = {eid: apply_empower(dmg) for eid, dmg in resolution.damage_dealt.items()}
+            from dataclasses import replace as _dc_replace
+            resolution = _dc_replace(resolution, damage_dealt=_new_damage)
+
+        # Empower applied to healing dice (variable numeric)
+        if "empower" in _metamagic and resolution.healing_done:
+            _new_healing = {eid: apply_empower(h) for eid, h in resolution.healing_done.items()}
+            from dataclasses import replace as _dc_replace
+            resolution = _dc_replace(resolution, healing_done=_new_healing)
+
+        _mm_applied = [mm for mm in ("empower", "maximize", "extend", "heighten", "quicken")
+                       if mm in _metamagic]
 
     # Emit spell_cast event
     events.append(Event(
@@ -439,6 +680,8 @@ def _resolve_spell_cast(
             "spell_level": spell.level,
             "affected_entities": list(resolution.affected_entities),
             "turn_index": turn_index,
+            "metamagic_applied": _mm_applied,  # WO-ENGINE-METAMAGIC-001
+            "effective_slot_level": _effective_slot_level,  # WO-ENGINE-METAMAGIC-001
             **({"content_id": spell.content_id} if spell.content_id else {}),
         },
         citations=list(spell.rule_citations),
@@ -473,20 +716,21 @@ def _resolve_spell_cast(
             ))
             current_event_id += 1
 
-            # Check for defeat
-            if new_hp <= 0 and not entities[entity_id].get(EF.DEFEATED, False):
-                entities[entity_id][EF.DEFEATED] = True
-                events.append(Event(
-                    event_id=current_event_id,
-                    event_type="entity_defeated",
-                    timestamp=timestamp + 0.02,
-                    payload={
-                        "entity_id": entity_id,
-                        "source": f"spell:{spell.name}",
-                        **({"content_id": spell.content_id} if spell.content_id else {}),
-                    },
-                ))
-                current_event_id += 1
+            # WO-ENGINE-DEATH-DYING-001: Three-band defeat check (PHB p.145)
+            from aidm.core.dying_resolver import resolve_hp_transition
+            trans_events, field_updates = resolve_hp_transition(
+                entity_id=entity_id,
+                old_hp=old_hp,
+                new_hp=new_hp,
+                source=f"spell:{spell.name}",
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.02,
+            )
+            for field_key, field_val in field_updates.items():
+                entities[entity_id][field_key] = field_val
+            events.extend(trans_events)
+            current_event_id += len(trans_events)
 
     # Apply healing
     for entity_id, healing in resolution.healing_done.items():
@@ -557,11 +801,20 @@ def _resolve_spell_cast(
                 condition=condition,
                 turn=turn_index,
             )
+            # WO-ENGINE-METAMAGIC-001: Extend doubles duration
+            if "extend" in _metamagic:
+                from aidm.core.metamagic_resolver import apply_extend
+                effect = apply_extend(effect)
             duration_tracker.add_effect(effect)
 
     # Update active_combat with duration tracker
     active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
     active_combat["duration_tracker"] = duration_tracker.to_dict()
+
+    # ── Decrement slot post-cast (only reaches here on success) ──────────────
+    if _effective_slot_level > 0 and intent.caster_id in entities:
+        _decrement_spell_slot(entities[intent.caster_id], _effective_slot_level, use_secondary=_use_secondary)
+    # ──────────────────────────────────────────────────────────────────────────
 
     # Create updated world state
     updated_state = WorldState(
@@ -616,28 +869,30 @@ def _check_concentration_break(
     Returns:
         Tuple of (events, updated_world_state)
     """
+    # WO-ENGINE-CONCENTRATION-001: Per-spell iteration (PHB p.170)
     events = []
     current_event_id = next_event_id
 
     duration_tracker = _get_or_create_duration_tracker(world_state)
 
-    # Check if caster has concentration effect
-    concentration_effect = duration_tracker.get_concentration_effect(caster_id)
-    if concentration_effect is None:
+    # Get ALL concentration effects — PHB p.170: each requires its own check
+    concentration_effects = duration_tracker.get_concentration_effects(caster_id)
+    if not concentration_effects:
         return events, world_state
 
-    # Roll Concentration check (PHB p.69: DC = 10 + damage + spell level)
-    spell_level = getattr(concentration_effect, 'spell_level', 0)
-    dc = 10 + damage_dealt + spell_level
     concentration_bonus = world_state.entities.get(caster_id, {}).get("concentration_bonus", 0)
-    roll = rng.stream("combat").randint(1, 20)
-    total = roll + concentration_bonus
 
-    if total < dc:
-        # Concentration broken
-        removed_effects = duration_tracker.break_concentration(caster_id)
+    for effect in list(concentration_effects):  # list() to avoid mutate-during-iterate
+        # Each spell gets its own independent check (PHB p.170)
+        spell_level = getattr(effect, 'spell_level', 0)
+        dc = 10 + damage_dealt + spell_level
+        roll = rng.stream("combat").randint(1, 20)
+        total = roll + concentration_bonus
 
-        for effect in removed_effects:
+        if total < dc:
+            # This specific spell's concentration broken
+            duration_tracker.remove_concentration_effect(effect.effect_id)
+
             events.append(Event(
                 event_id=current_event_id,
                 event_type="concentration_broken",
@@ -655,8 +910,8 @@ def _check_concentration_break(
             ))
             current_event_id += 1
 
-            # Remove condition from target
-            if effect.condition_applied:
+            # Remove condition applied by this specific effect
+            if effect.condition_applied and effect.target_id:
                 entities = deepcopy(world_state.entities)
                 target_entity = entities.get(effect.target_id, {})
                 conditions = target_entity.get(EF.CONDITIONS, {})
@@ -676,7 +931,7 @@ def _check_concentration_break(
                     ))
                     current_event_id += 1
 
-                    # Update state
+                    # Update state after condition removal
                     active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
                     active_combat["duration_tracker"] = duration_tracker.to_dict()
                     world_state = WorldState(
@@ -684,6 +939,33 @@ def _check_concentration_break(
                         entities=entities,
                         active_combat=active_combat,
                     )
+        else:
+            # Check passed — spell maintained; emit audit event
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_check",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": caster_id,
+                    "spell_id": effect.spell_id,
+                    "spell_name": effect.spell_name,
+                    "dc": dc,
+                    "roll": roll,
+                    "total": total,
+                    "maintained": True,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 170}],  # PHB Concentration
+            ))
+            current_event_id += 1
+
+    # Persist updated duration tracker
+    active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
+    active_combat["duration_tracker"] = duration_tracker.to_dict()
+    world_state = WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=world_state.entities,
+        active_combat=active_combat,
+    )
 
     return events, world_state
 
@@ -738,6 +1020,134 @@ class TurnResult:
 
     narration_provenance: Optional[str] = None
     """WO-030: Narration source tag — "[NARRATIVE]" for LLM, "[NARRATIVE:TEMPLATE]" for template"""
+
+
+# ---------------------------------------------------------------------------
+# WO-ENGINE-LEVELUP-WIRE: XP helpers
+# ---------------------------------------------------------------------------
+
+def _calculate_xp(defeated_cr: float, party_size: int) -> int:
+    """Simple CR-to-XP lookup per PHB Table 3-1 / DMG Table 2-6.
+
+    Uses the pre-existing calculate_xp_award() with a fixed party_level of 1
+    as the reference point, then scales by CR. For a full implementation we
+    would pass party avg level — using CR directly as the xp-per-creature
+    column (300 × CR, min 50, split by party_size) matches PHB baseline.
+    """
+    from aidm.core.experience_resolver import calculate_xp_award
+    # Use CR as a proxy for party level to get the on-level XP value
+    cr_int = max(1, int(round(defeated_cr)))
+    base_per_creature = calculate_xp_award(cr_int, 4, defeated_cr)  # 4-person reference
+    if base_per_creature <= 0:
+        # Fallback: PHB flat values — 300 XP per CR, split equally
+        base_per_creature = max(50, int(300 * max(0.5, defeated_cr)))
+    # Re-scale for actual party size
+    if party_size <= 0:
+        party_size = 1
+    return max(1, int(base_per_creature * 4 / party_size))
+
+
+def _best_class_to_level(entity: Dict[str, Any]) -> str:
+    """Return the class to advance when leveling up.
+
+    PHB p.60 simplified rule:
+    - Use EF.FAVORED_CLASS if present and valid.
+    - Otherwise use the class with the most existing levels (max-class rule).
+    - Tie: lexicographic order (deterministic).
+    """
+    class_levels: Dict[str, int] = entity.get(EF.CLASS_LEVELS, {})
+    if not class_levels:
+        return "fighter"  # fallback for entities with no class data
+    favored = entity.get("favored_class")
+    if favored and favored in class_levels:
+        return favored
+    return max(sorted(class_levels.keys()), key=lambda c: class_levels[c])
+
+
+def _award_xp_for_defeat(
+    world_state: "WorldState",
+    defeated_entity_id: str,
+    events: List[Event],
+    current_event_id: int,
+    timestamp: float,
+    rng: Optional["RNGProvider"],
+) -> Tuple["WorldState", int]:
+    """Award XP to the surviving opposing team and check for level-ups.
+
+    Called by execute_turn() immediately after an entity_defeated event is
+    added to the event list.
+
+    Returns:
+        (updated WorldState, updated current_event_id)
+    """
+    defeated = world_state.entities.get(defeated_entity_id, {})
+    defeated_team = defeated.get(EF.TEAM, "")
+    defeated_cr = defeated.get("challenge_rating", 1)
+
+    # Surviving opposing party members
+    survivors = [
+        (eid, e) for eid, e in world_state.entities.items()
+        if e.get(EF.TEAM) != defeated_team
+        and not e.get(EF.DEFEATED, False)
+        and eid != defeated_entity_id
+    ]
+    if not survivors:
+        return world_state, current_event_id
+
+    xp_per_entity = _calculate_xp(defeated_cr, len(survivors))
+    entities = deepcopy(world_state.entities)
+
+    for eid, _entity in survivors:
+        updated_entity = award_xp(entities[eid], xp_per_entity)
+        entities[eid] = updated_entity
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="xp_awarded",
+            timestamp=timestamp + 0.3,
+            payload={
+                "entity_id": eid,
+                "xp_amount": xp_per_entity,
+                "source": f"defeat:{defeated_entity_id}",
+                "new_total": updated_entity.get(EF.XP, 0),
+            },
+        ))
+        current_event_id += 1
+
+        # Check if XP award triggers a level-up
+        level_result = check_level_up(updated_entity)
+        if level_result is not None:
+            # apply_level_up needs RNG for hit-die roll; use a stub if not available
+            if rng is None:
+                from aidm.core.rng_manager import RNGManager
+                _stub_rng: RNGProvider = RNGManager(42)
+            else:
+                _stub_rng = rng
+            leveled_entity, apply_result = apply_level_up(
+                updated_entity, _best_class_to_level(updated_entity), _stub_rng
+            )
+            entities[eid] = leveled_entity
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="level_up_applied",
+                timestamp=timestamp + 0.31,
+                payload={
+                    "entity_id": eid,
+                    "old_level": level_result.new_level - 1,
+                    "new_level": apply_result.new_level,
+                    "hp_gained": apply_result.hp_gained,
+                    "class_leveled": apply_result.class_name,
+                    "new_bab": entities[eid].get(EF.BAB, 0),
+                },
+            ))
+            current_event_id += 1
+
+    updated_state = WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=world_state.active_combat,
+    )
+    return updated_state, current_event_id
 
 
 def execute_turn(
@@ -800,6 +1210,88 @@ def execute_turn(
     ))
     current_event_id += 1
 
+    # WO-ENGINE-CHARGE-001: Clear charge AC penalty at start of actor's turn.
+    # The -2 AC from a charge (PHB p.150) expires at the start of the charger's
+    # next turn. Clearing here (after turn_start, before any action processing)
+    # ensures the penalty applies for the full intervening round.
+    _actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+    _temp_mods = _actor_entity.get(EF.TEMPORARY_MODIFIERS, {})
+    if "charge_ac" in _temp_mods:
+        _entities_cleared = deepcopy(world_state.entities)
+        _cleared_mods = dict(_entities_cleared[turn_ctx.actor_id].get(EF.TEMPORARY_MODIFIERS, {}))
+        del _cleared_mods["charge_ac"]
+        _entities_cleared[turn_ctx.actor_id][EF.TEMPORARY_MODIFIERS] = _cleared_mods
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=_entities_cleared,
+            active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+        )
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="charge_ac_expired",
+            timestamp=timestamp + 0.01,
+            payload={"entity_id": turn_ctx.actor_id},
+            citations=[{"source_id": "681f92bc94ff", "page": 150}],
+        ))
+        current_event_id += 1
+
+    # WO-ENGINE-READIED-ACTION-001: expire readied actions for this actor
+    from aidm.core.readied_action_resolver import expire_readied_actions as _expire_readied
+    world_state, _readied_expire_events, current_event_id = _expire_readied(
+        world_state, turn_ctx.actor_id, current_event_id, timestamp + 0.011
+    )
+    events.extend(_readied_expire_events)
+
+    # WO-ENGINE-FEINT-001: expire feint markers set by this actor
+    from aidm.core.feint_resolver import expire_feint_markers as _expire_feint
+    world_state, _feint_expire_events, current_event_id = _expire_feint(
+        world_state, turn_ctx.actor_id, current_event_id, timestamp + 0.012
+    )
+    events.extend(_feint_expire_events)
+
+    # WO-ENGINE-AID-ANOTHER-001: expire unconsumed Aid Another bonuses from this actor
+    from aidm.core.aid_another_resolver import expire_aid_another_bonuses as _expire_aid
+    world_state, _aid_expire_events = _expire_aid(
+        world_state, turn_ctx.actor_id, timestamp + 0.013, current_event_id
+    )
+    events.extend(_aid_expire_events)
+    current_event_id += len(_aid_expire_events)
+
+    # WO-ENGINE-DEFEND-001: clear fight_defensively / total_defense temp modifiers
+    _defend_keys = ("fight_defensively_attack", "fight_defensively_ac", "total_defense_ac")
+    _actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+    _temp_mods = _actor_entity.get(EF.TEMPORARY_MODIFIERS, {}) or {}
+    _defend_active = {k: _temp_mods[k] for k in _defend_keys if k in _temp_mods}
+    if _defend_active:
+        _entities_def = deepcopy(world_state.entities)
+        _def_mods = dict(_entities_def[turn_ctx.actor_id].get(EF.TEMPORARY_MODIFIERS, {}))
+        for k in _defend_keys:
+            _def_mods.pop(k, None)
+        _entities_def[turn_ctx.actor_id][EF.TEMPORARY_MODIFIERS] = _def_mods
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=_entities_def,
+            active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+        )
+        if "fight_defensively_ac" in _defend_active:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="fight_defensively_expired",
+                timestamp=timestamp + 0.014,
+                payload={"entity_id": turn_ctx.actor_id},
+                citations=[{"source_id": "681f92bc94ff", "page": 142}],
+            ))
+            current_event_id += 1
+        if "total_defense_ac" in _defend_active:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="total_defense_expired",
+                timestamp=timestamp + 0.015,
+                payload={"entity_id": turn_ctx.actor_id},
+                citations=[{"source_id": "681f92bc94ff", "page": 142}],
+            ))
+            current_event_id += 1
+
     # WO-WAYPOINT-002: actions_prohibited gate check
     # If the actor has a condition that sets actions_prohibited=True,
     # reject any action intent deterministically. The engine says no.
@@ -855,10 +1347,70 @@ def execute_turn(
         )
 
     # CP-12/CP-15/CP-18: Combat intent validation and routing
+    # CP-24: Action economy enforcement — check budget before routing
+    if combat_intent is not None:
+        action_type = get_action_type(combat_intent)
+        # CP-24: Load persistent budget from active_combat for cross-call tracking.
+        # Budget is stored in active_combat["action_budget"] keyed by actor.
+        # A fresh budget is initialized whenever the acting entity changes.
+        if world_state.active_combat is not None:
+            _budget_actor = world_state.active_combat.get("action_budget_actor")
+            _budget_raw = world_state.active_combat.get("action_budget")
+            if _budget_actor == turn_ctx.actor_id and isinstance(_budget_raw, dict):
+                _action_budget = ActionBudget.from_dict(_budget_raw)
+            else:
+                _action_budget = ActionBudget.fresh()
+        else:
+            _action_budget = ActionBudget.fresh()
+
+        if not _action_budget.can_use(action_type):
+            # Budget exhausted for this action type
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="ACTION_DENIED",
+                timestamp=timestamp + 0.05,
+                payload={
+                    "entity_id": turn_ctx.actor_id,
+                    "reason": "action_economy",
+                    "slot": action_type,
+                    "denied_intent_type": type(combat_intent).__name__,
+                    "turn_index": turn_ctx.turn_index,
+                }
+            ))
+            current_event_id += 1
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="turn_end",
+                timestamp=timestamp + 0.2,
+                payload={
+                    "turn_index": turn_ctx.turn_index,
+                    "actor_id": turn_ctx.actor_id,
+                    "events_emitted": len(events)
+                }
+            ))
+            return TurnResult(
+                status="action_denied",
+                world_state=world_state,
+                events=events,
+                turn_index=turn_ctx.turn_index,
+                failure_reason=f"Action economy: {action_type} slot already used this turn"
+            )
+        _action_budget.consume(action_type)
+        # Persist updated budget into active_combat for subsequent calls this turn
+        if world_state.active_combat is not None:
+            _ac_updated = deepcopy(world_state.active_combat)
+            _ac_updated["action_budget"] = _action_budget.to_dict()
+            _ac_updated["action_budget_actor"] = turn_ctx.actor_id
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=world_state.entities,
+                active_combat=_ac_updated,
+            )
+
     if combat_intent is not None:
         # Determine intent actor based on intent type
         intent_actor_id = None
-        if isinstance(combat_intent, (AttackIntent, FullAttackIntent)):
+        if isinstance(combat_intent, (AttackIntent, FullAttackIntent, CoupDeGraceIntent)):
             intent_actor_id = combat_intent.attacker_id
         elif isinstance(combat_intent, StepMoveIntent):
             intent_actor_id = combat_intent.actor_id
@@ -874,7 +1426,11 @@ def execute_turn(
             intent_actor_id = combat_intent.rider_id
         # CP-18: Combat maneuver intents
         elif isinstance(combat_intent, (BullRushIntent, TripIntent, OverrunIntent,
-                                        SunderIntent, DisarmIntent, GrappleIntent)):
+                                        SunderIntent, DisarmIntent, GrappleIntent,
+                                        GrappleEscapeIntent)):
+            intent_actor_id = combat_intent.attacker_id
+        # WO-ENGINE-GRAPPLE-PIN-001: Pin escape intent
+        elif isinstance(combat_intent, PinEscapeIntent):
             intent_actor_id = combat_intent.attacker_id
         # WO-015: Spellcasting intents
         elif isinstance(combat_intent, SpellCastIntent):
@@ -882,6 +1438,19 @@ def execute_turn(
         # WO-ENGINE-COMPANION-WIRE: Companion summon intent
         elif isinstance(combat_intent, SummonCompanionIntent):
             intent_actor_id = turn_ctx.actor_id  # actor declares the summon
+        # WO-ENGINE-REST-001: Rest intent
+        elif isinstance(combat_intent, RestIntent):
+            intent_actor_id = turn_ctx.actor_id
+        # WO-ENGINE-SPELL-PREP-001: Spell preparation intent
+        elif isinstance(combat_intent, PrepareSpellsIntent):
+            intent_actor_id = turn_ctx.actor_id
+        # WO-ENGINE-CHARGE-001: Charge intent
+        elif isinstance(combat_intent, ChargeIntent):
+            intent_actor_id = combat_intent.attacker_id
+        elif isinstance(combat_intent, (ReadyActionIntent, AidAnotherIntent,
+                                        FightDefensivelyIntent, TotalDefenseIntent,
+                                        FeintIntent)):
+            intent_actor_id = combat_intent.actor_id
         else:
             # Unknown intent type
             raise ValueError(f"Unknown combat intent type: {type(combat_intent)}")
@@ -924,7 +1493,7 @@ def execute_turn(
             )
 
         # Validate: target must exist in world state (for attack intents and maneuvers)
-        if isinstance(combat_intent, (AttackIntent, FullAttackIntent)):
+        if isinstance(combat_intent, (AttackIntent, FullAttackIntent, CoupDeGraceIntent)):
             if combat_intent.target_id not in world_state.entities:
                 events.append(Event(
                     event_id=current_event_id,
@@ -991,6 +1560,81 @@ def execute_turn(
                     events=events,
                     turn_index=turn_ctx.turn_index,
                     failure_reason=f"Target {combat_intent.target_id} is already defeated"
+                )
+
+        # WO-ENGINE-COUP-DE-GRACE-001: Validate CDG target is helpless/dying
+        if isinstance(combat_intent, CoupDeGraceIntent):
+            _cdg_target = world_state.entities[combat_intent.target_id]
+            _cdg_conditions = _cdg_target.get(EF.CONDITIONS, {})
+            _helpless_conditions = {"helpless", "unconscious", "pinned", "paralyzed"}
+            _target_is_dying = _cdg_target.get(EF.DYING, False)
+            _target_is_helpless = bool(_helpless_conditions & set(_cdg_conditions.keys()))
+
+            if not (_target_is_dying or _target_is_helpless):
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="intent_validation_failed",
+                    timestamp=timestamp + 0.1,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "target_id": combat_intent.target_id,
+                        "reason": "target_not_helpless",
+                        "turn_index": turn_ctx.turn_index,
+                        "target_dying": _target_is_dying,
+                        "target_conditions": list(_cdg_conditions.keys()),
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 153}]
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.2,
+                    payload={
+                        "turn_index": turn_ctx.turn_index,
+                        "actor_id": turn_ctx.actor_id,
+                        "events_emitted": len(events),
+                    }
+                ))
+                return TurnResult(
+                    status="invalid_intent",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    failure_reason=f"Coup de grâce target {combat_intent.target_id} is not helpless or dying"
+                )
+
+            # Validate: crit immunity check
+            if _cdg_target.get(EF.CRIT_IMMUNE, False):
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="intent_validation_failed",
+                    timestamp=timestamp + 0.1,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "target_id": combat_intent.target_id,
+                        "reason": "target_crit_immune",
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 153}]
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.2,
+                    payload={
+                        "turn_index": turn_ctx.turn_index,
+                        "actor_id": turn_ctx.actor_id,
+                        "events_emitted": len(events),
+                    }
+                ))
+                return TurnResult(
+                    status="invalid_intent",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    failure_reason=f"Coup de grâce invalid: target {combat_intent.target_id} is immune to critical hits"
                 )
 
         # CP-18: Validate target for maneuver intents
@@ -1065,8 +1709,8 @@ def execute_turn(
                 )
 
         # Validate: RNG must be provided for combat intents
-        # SummonCompanionIntent is exempt — it uses no RNG.
-        if rng is None and not isinstance(combat_intent, SummonCompanionIntent):
+        # SummonCompanionIntent, RestIntent, and PrepareSpellsIntent are exempt — they use no RNG.
+        if rng is None and not isinstance(combat_intent, (SummonCompanionIntent, RestIntent, PrepareSpellsIntent)):
             raise ValueError("RNG manager required for combat intent resolution")
 
         # WO-BRIEF-WIDTH-001: Generate causal_chain_id for maneuver intents
@@ -1075,6 +1719,21 @@ def execute_turn(
         if isinstance(combat_intent, (BullRushIntent, TripIntent, OverrunIntent,
                                       SunderIntent, DisarmIntent, GrappleIntent)):
             causal_chain_id = f"{type(combat_intent).__name__}_{turn_ctx.turn_index}_{uuid.uuid4().hex[:8]}"
+
+        # WO-ENGINE-READIED-ACTION-001: Check if this intent fires any readied actions
+        from aidm.core.readied_action_resolver import check_readied_triggers as _check_readied
+        _intent_type_name = type(combat_intent).__name__
+        _intent_payload = combat_intent.to_dict() if hasattr(combat_intent, "to_dict") else {}
+        world_state, _readied_trigger_events, current_event_id = _check_readied(
+            world_state,
+            current_actor_id=turn_ctx.actor_id,
+            trigger_event_type=_intent_type_name,
+            event_payload=_intent_payload,
+            rng=rng,
+            current_event_id=current_event_id,
+            timestamp=timestamp + 0.08,
+        )
+        events.extend(_readied_trigger_events)
 
         # CP-15: Check for AoO triggers before resolving main action
         aoo_triggers = check_aoo_triggers(world_state, turn_ctx.actor_id, combat_intent)
@@ -1107,8 +1766,55 @@ def execute_turn(
                     active_combat=active_combat_updated
                 )
 
+            # CP-23: If spell cast, check concentration after any AoO damage
+            # PHB p.170: Concentration DC = 10 + damage from AoO hit
+            _spell_interrupted = False
+            if isinstance(combat_intent, SpellCastIntent) and not getattr(combat_intent, 'quickened', False):
+                aoo_damage_total = sum(
+                    abs(e.payload.get("delta", 0))
+                    for e in aoo_result.events
+                    if e.event_type == "hp_changed"
+                    and e.payload.get("entity_id") == turn_ctx.actor_id
+                    and e.payload.get("delta", 0) < 0
+                )
+                if aoo_damage_total > 0:
+                    conc_dc = 10 + aoo_damage_total
+                    conc_bonus = world_state.entities.get(turn_ctx.actor_id, {}).get("concentration_bonus", 0)
+                    conc_roll = rng.stream("combat").randint(1, 20)
+                    conc_total = conc_roll + conc_bonus
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="concentration_check",
+                        timestamp=timestamp + 0.15,
+                        payload={
+                            "caster_id": turn_ctx.actor_id,
+                            "dc": conc_dc,
+                            "roll": conc_roll,
+                            "bonus": conc_bonus,
+                            "total": conc_total,
+                            "success": conc_total >= conc_dc,
+                        },
+                        citations=[{"source_id": "681f92bc94ff", "page": 170}],
+                    ))
+                    current_event_id += 1
+                    if conc_total < conc_dc:
+                        _spell_interrupted = True
+                        events.append(Event(
+                            event_id=current_event_id,
+                            event_type="spell_interrupted",
+                            timestamp=timestamp + 0.16,
+                            payload={
+                                "caster_id": turn_ctx.actor_id,
+                                "reason": "concentration_check_failed",
+                                "dc": conc_dc,
+                                "total": conc_total,
+                            },
+                            citations=[{"source_id": "681f92bc94ff", "page": 170}],
+                        ))
+                        current_event_id += 1
+
             # If provoker was defeated by AoO, abort the main action
-            if aoo_result.provoker_defeated:
+            if aoo_result.provoker_defeated or _spell_interrupted:
                 events.append(Event(
                     event_id=current_event_id,
                     event_type="action_aborted",
@@ -1183,6 +1889,38 @@ def execute_turn(
             else:
                 narration = "attack_miss"
 
+        elif isinstance(combat_intent, EnergyDrainAttackIntent):
+            # WO-ENGINE-ENERGY-DRAIN-001: Energy drain natural attack
+            from aidm.core.energy_drain_resolver import resolve_energy_drain, apply_energy_drain_events
+            drain_events = resolve_energy_drain(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(drain_events)
+            current_event_id += len(drain_events)
+            world_state = apply_energy_drain_events(drain_events, world_state)
+
+            # Concentration break check
+            hp_events = [e for e in drain_events if e.event_type == "hp_changed"]
+            for hp_event in hp_events:
+                target_id = hp_event.payload.get("entity_id")
+                damage = abs(hp_event.payload.get("delta", 0))
+                if damage > 0 and target_id:
+                    conc_events, world_state = _check_concentration_break(
+                        caster_id=target_id,
+                        damage_dealt=damage,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.15,
+                    )
+                    events.extend(conc_events)
+                    current_event_id += len(conc_events)
+            narration = "energy_drain_attack_resolved"
+
         elif isinstance(combat_intent, FullAttackIntent):
             # CP-11: Full attack resolution
             combat_events = resolve_full_attack(
@@ -1218,7 +1956,249 @@ def execute_turn(
             # Generate narration token
             narration = "full_attack_complete"
 
+        elif isinstance(combat_intent, CoupDeGraceIntent):
+            # WO-ENGINE-COUP-DE-GRACE-001: Coup de grâce resolution
+            # AoO has already been resolved above (CDG provokes per PHB p.153)
+            from aidm.core.attack_resolver import resolve_coup_de_grace, apply_cdg_events
+            combat_events = resolve_coup_de_grace(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1
+            )
+            events.extend(combat_events)
+            current_event_id += len(combat_events)
+
+            # Apply events to get updated state
+            world_state = apply_cdg_events(world_state, combat_events)
+
+            # WO-015: Check concentration break if target took damage
+            hp_events = [e for e in combat_events if e.event_type == "hp_changed"]
+            for hp_event in hp_events:
+                target_id = hp_event.payload.get("entity_id")
+                damage = abs(hp_event.payload.get("delta", 0))
+                if damage > 0 and target_id:
+                    conc_events, world_state = _check_concentration_break(
+                        caster_id=target_id,
+                        damage_dealt=damage,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.15,
+                    )
+                    events.extend(conc_events)
+                    current_event_id += len(conc_events)
+
+            narration = "coup_de_grace_delivered"
+
+        elif isinstance(combat_intent, TurnUndeadIntent):
+            # WO-ENGINE-TURN-UNDEAD-001: Turn/destroy undead
+            from aidm.core.turn_undead_resolver import resolve_turn_undead, apply_turn_undead_events
+            turn_events = resolve_turn_undead(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(turn_events)
+            current_event_id += len(turn_events)
+            world_state = apply_turn_undead_events(turn_events, world_state)
+            narration = "turn_undead_resolved"
+
+        elif isinstance(combat_intent, ReadyActionIntent):
+            # WO-ENGINE-READIED-ACTION-001: Register readied action
+            from aidm.core.readied_action_resolver import register_readied_action as _reg_readied
+            world_state = _reg_readied(world_state, combat_intent, current_event_id)
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="readied_action_registered",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "actor_id": combat_intent.actor_id,
+                    "trigger_type": combat_intent.trigger_type,
+                    "trigger_target_id": combat_intent.trigger_target_id,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 160}],
+            ))
+            current_event_id += 1
+            narration = "readied_action_registered"
+
+        elif isinstance(combat_intent, AidAnotherIntent):
+            # WO-ENGINE-AID-ANOTHER-001: Aid Another
+            from aidm.core.aid_another_resolver import resolve_aid_another as _resolve_aid
+            world_state, _aid_events, current_event_id = _resolve_aid(
+                world_state, combat_intent, rng, current_event_id, timestamp + 0.1
+            )
+            events.extend(_aid_events)
+            narration = "aid_another_resolved"
+
+        elif isinstance(combat_intent, FightDefensivelyIntent):
+            # WO-ENGINE-DEFEND-001: Fight defensively
+            _fd_actor = world_state.entities.get(combat_intent.actor_id, {})
+            _fd_feats = _fd_actor.get(EF.FEATS, [])
+            _has_expertise = ("COMBAT_EXPERTISE" in _fd_feats or "Combat Expertise" in _fd_feats)
+            _fd_attack_pen = -5 if _has_expertise else -4
+            _fd_ac_bon = 5 if _has_expertise else 2
+            _fd_mods = dict(_fd_actor.get(EF.TEMPORARY_MODIFIERS, {}) or {})
+            _fd_mods["fight_defensively_attack"] = _fd_attack_pen
+            _fd_mods["fight_defensively_ac"] = _fd_ac_bon
+            _fd_entities = deepcopy(world_state.entities)
+            _fd_entities[combat_intent.actor_id][EF.TEMPORARY_MODIFIERS] = _fd_mods
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=_fd_entities,
+                active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+            )
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="fight_defensively_applied",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "actor_id": combat_intent.actor_id,
+                    "attack_penalty": _fd_attack_pen,
+                    "ac_bonus": _fd_ac_bon,
+                    "combat_expertise": _has_expertise,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 142}],
+            ))
+            current_event_id += 1
+            narration = "fight_defensively_applied"
+
+        elif isinstance(combat_intent, TotalDefenseIntent):
+            # WO-ENGINE-DEFEND-001: Total defense
+            _td_actor = world_state.entities.get(combat_intent.actor_id, {})
+            _td_mods = dict(_td_actor.get(EF.TEMPORARY_MODIFIERS, {}) or {})
+            _td_mods["total_defense_ac"] = 4
+            _td_entities = deepcopy(world_state.entities)
+            _td_entities[combat_intent.actor_id][EF.TEMPORARY_MODIFIERS] = _td_mods
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=_td_entities,
+                active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+            )
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="total_defense_applied",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "actor_id": combat_intent.actor_id,
+                    "ac_bonus": 4,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 142}],
+            ))
+            current_event_id += 1
+            narration = "total_defense_applied"
+
+        elif isinstance(combat_intent, FeintIntent):
+            # WO-ENGINE-FEINT-001: Feint
+            from aidm.core.feint_resolver import resolve_feint as _resolve_feint
+            world_state, _feint_events, current_event_id = _resolve_feint(
+                world_state, combat_intent, rng, current_event_id, timestamp + 0.1
+            )
+            events.extend(_feint_events)
+            narration = "feint_resolved"
+
+        elif isinstance(combat_intent, AbilityDamageIntent):
+            # WO-ENGINE-ABILITY-DAMAGE-001: Ability damage / drain
+            from aidm.core.ability_damage_resolver import apply_ability_damage as _apply_ab_dmg
+            _ab_target_id = combat_intent.target_id
+            if _ab_target_id in world_state.entities:
+                _ab_entity = deepcopy(world_state.entities[_ab_target_id])
+                _ab_entity, _ab_events = _apply_ab_dmg(
+                    _ab_entity,
+                    ability=combat_intent.ability,
+                    amount=combat_intent.amount,
+                    is_drain=combat_intent.is_drain,
+                    target_id=_ab_target_id,
+                    source_id=combat_intent.source_id,
+                    next_event_id=current_event_id,
+                    timestamp=timestamp + 0.1,
+                )
+                entities_copy = deepcopy(world_state.entities)
+                entities_copy[_ab_target_id] = _ab_entity
+                world_state = WorldState(
+                    ruleset_version=world_state.ruleset_version,
+                    entities=entities_copy,
+                    active_combat=world_state.active_combat,
+                )
+                for _ev in _ab_events:
+                    events.append(Event(
+                        event_id=_ev["event_id"],
+                        event_type=_ev["event_type"],
+                        timestamp=_ev.get("timestamp", timestamp),
+                        payload=_ev["payload"],
+                        citations=_ev.get("citations", []),
+                    ))
+                current_event_id += len(_ab_events)
+            narration = "ability_damage_applied"
+
+        elif isinstance(combat_intent, WithdrawIntent):
+            # WO-ENGINE-WITHDRAW-DELAY-001: Withdraw
+            from aidm.core.withdraw_delay_resolver import resolve_withdraw as _resolve_withdraw
+            world_state, _withdraw_events = _resolve_withdraw(
+                combat_intent, world_state, current_event_id, timestamp + 0.1
+            )
+            for _ev in _withdraw_events:
+                events.append(Event(
+                    event_id=_ev["event_id"],
+                    event_type=_ev["event_type"],
+                    timestamp=_ev.get("timestamp", timestamp),
+                    payload=_ev["payload"],
+                    citations=_ev.get("citations", []),
+                ))
+            current_event_id += len(_withdraw_events)
+            narration = "withdraw_declared"
+
+        elif isinstance(combat_intent, DelayIntent):
+            # WO-ENGINE-WITHDRAW-DELAY-001: Delay
+            from aidm.core.withdraw_delay_resolver import resolve_delay as _resolve_delay
+            world_state, _delay_events = _resolve_delay(
+                combat_intent, world_state, current_event_id, timestamp + 0.1
+            )
+            for _ev in _delay_events:
+                events.append(Event(
+                    event_id=_ev["event_id"],
+                    event_type=_ev["event_type"],
+                    timestamp=_ev.get("timestamp", timestamp),
+                    payload=_ev["payload"],
+                    citations=_ev.get("citations", []),
+                ))
+            current_event_id += len(_delay_events)
+            narration = "delay_declared"
+
         elif isinstance(combat_intent, StepMoveIntent):
+            # CP-22: Block 5-foot step if actor is grappling or grappled
+            actor_conds = world_state.entities.get(turn_ctx.actor_id, {}).get(EF.CONDITIONS, {})
+            if "grappling" in actor_conds or "grappled" in actor_conds:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="action_denied",
+                    timestamp=timestamp + 0.05,
+                    payload={
+                        "entity_id": turn_ctx.actor_id,
+                        "reason": "grappling_no_step",
+                        "denied_intent_type": "StepMoveIntent",
+                        "conditions": [k for k in ["grappling", "grappled"] if k in actor_conds],
+                        "turn_index": turn_ctx.turn_index,
+                    }
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.2,
+                    payload={"turn_index": turn_ctx.turn_index, "actor_id": turn_ctx.actor_id, "events_emitted": len(events)}
+                ))
+                return TurnResult(
+                    status="action_denied",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    failure_reason=f"Actor {turn_ctx.actor_id} cannot 5-foot step while grappling/grappled"
+                )
+
             # CP-15/CP-16: Movement resolution
             # AoOs have already been resolved above; now resolve movement
             events.append(Event(
@@ -1439,6 +2419,39 @@ def execute_turn(
             else:
                 narration = f"{maneuver_type}_failure"
 
+        # CP-22: Grapple escape intent
+        elif isinstance(combat_intent, GrappleEscapeIntent):
+            escape_events, world_state = resolve_grapple_escape(
+                initiator_id=combat_intent.attacker_id,
+                target_id=combat_intent.target_id,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(escape_events)
+            current_event_id += len(escape_events)
+
+            # Determine narration based on event types
+            escape_event_types = [e.event_type for e in escape_events]
+            if "grapple_broken" in escape_event_types:
+                narration = "grapple_escape_success"
+            else:
+                narration = "grapple_escape_failure"
+
+        # WO-ENGINE-GRAPPLE-PIN-001: Pin escape intent
+        elif isinstance(combat_intent, PinEscapeIntent):
+            pin_escape_events, world_state, maneuver_result = resolve_pin_escape(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(pin_escape_events)
+            current_event_id += len(pin_escape_events)
+            narration = "pin_escape_success" if maneuver_result.success else "pin_escape_failed"
+
         # WO-015: Spellcasting intent
         elif isinstance(combat_intent, SpellCastIntent):
             # Resolve the spell cast
@@ -1504,6 +2517,136 @@ def execute_turn(
                     },
                 ))
                 current_event_id += 1
+
+        # WO-ENGINE-REST-001: Rest intent
+        elif isinstance(combat_intent, RestIntent):
+            from aidm.core.rest_resolver import resolve_rest
+            rest_result = resolve_rest(
+                intent=combat_intent,
+                world_state=world_state,
+                actor_id=turn_ctx.actor_id,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            for evt in rest_result.events:
+                events.append(Event(
+                    event_id=evt["event_id"],
+                    event_type=evt["event_type"],
+                    timestamp=evt["timestamp"],
+                    payload=evt["payload"],
+                ))
+            current_event_id += len(rest_result.events)
+            world_state = rest_result.world_state
+            narration = rest_result.narration or "rest_complete"
+
+        # WO-ENGINE-SPELL-PREP-001: Spell preparation intent
+        elif isinstance(combat_intent, PrepareSpellsIntent):
+            from aidm.core.spell_prep_resolver import resolve_prepare_spells
+            prep_events, world_state, narration = resolve_prepare_spells(
+                intent=combat_intent,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+                turn_index=turn_ctx.turn_index,
+            )
+            events.extend(prep_events)
+            current_event_id += len(prep_events)
+
+        # WO-ENGINE-CHARGE-001: Charge action (PHB p.150-151)
+        elif isinstance(combat_intent, ChargeIntent):
+            # AoO for charge movement (simplified: one trigger for full path)
+            from aidm.schemas.attack import StepMoveIntent as _StepMoveIntent
+            from aidm.schemas.position import Position as _Position
+            attacker_pos = world_state.entities.get(turn_ctx.actor_id, {}).get(EF.POSITION)
+            target_pos = world_state.entities.get(combat_intent.target_id, {}).get(EF.POSITION)
+            _charge_aoo_events = []
+            _charge_aoo_defeated = False
+            _from_pos = _Position(x=attacker_pos["x"], y=attacker_pos["y"]) if attacker_pos else None
+            _to_pos = _Position(x=target_pos["x"], y=target_pos["y"]) if target_pos else None
+            if _from_pos and _to_pos and _from_pos.is_adjacent_to(_to_pos):
+                _charge_step = _StepMoveIntent(
+                    actor_id=turn_ctx.actor_id,
+                    from_pos=_from_pos,
+                    to_pos=_to_pos,
+                )
+                _charge_aoo_triggers = check_aoo_triggers(world_state, turn_ctx.actor_id, _charge_step)
+                if _charge_aoo_triggers:
+                    _charge_aoo_result = resolve_aoo_sequence(
+                        triggers=_charge_aoo_triggers,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.05,
+                    )
+                    _charge_aoo_events = _charge_aoo_result.events
+                    events.extend(_charge_aoo_events)
+                    current_event_id += len(_charge_aoo_events)
+                    world_state = apply_attack_events(world_state, _charge_aoo_events)
+                    if _charge_aoo_result.provoker_defeated:
+                        _charge_aoo_defeated = True
+
+            if _charge_aoo_defeated:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="action_aborted",
+                    timestamp=timestamp + 0.2,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "reason": "defeated_by_aoo_during_charge_movement",
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 137}],
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.3,
+                    payload={
+                        "turn_index": turn_ctx.turn_index,
+                        "actor_id": turn_ctx.actor_id,
+                        "events_emitted": len(events),
+                    },
+                ))
+                return TurnResult(
+                    status="ok",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    narration="action_aborted_by_aoo",
+                )
+
+            # Resolve the charge attack
+            from aidm.core.attack_resolver import resolve_charge, apply_charge_events
+            combat_events = resolve_charge(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(combat_events)
+            current_event_id += len(combat_events)
+            world_state = apply_charge_events(world_state, combat_events)
+
+            # WO-015 pattern: concentration break on damage
+            hp_events = [e for e in combat_events if e.event_type == "hp_changed"]
+            for hp_event in hp_events:
+                target_id = hp_event.payload.get("entity_id")
+                damage = abs(hp_event.payload.get("delta", 0))
+                if damage > 0 and target_id:
+                    conc_events, world_state = _check_concentration_break(
+                        caster_id=target_id,
+                        damage_dealt=damage,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.15,
+                    )
+                    events.extend(conc_events)
+                    current_event_id += len(conc_events)
+
+            narration = "charge_complete"
 
     # If no combat intent provided, use policy-based resolution (CP-09 behavior)
     elif doctrine is not None and turn_ctx.actor_team == "monsters":
@@ -1594,6 +2737,22 @@ def execute_turn(
         current_event_id += 1
 
     # Emit turn_end event
+    # WO-ENGINE-LEVELUP-WIRE: Award XP for any entity_defeated events this turn
+    defeated_ids = [
+        e.payload.get("entity_id")
+        for e in events
+        if e.event_type == "entity_defeated" and e.payload.get("entity_id")
+    ]
+    for defeated_id in defeated_ids:
+        world_state, current_event_id = _award_xp_for_defeat(
+            world_state=world_state,
+            defeated_entity_id=defeated_id,
+            events=events,
+            current_event_id=current_event_id,
+            timestamp=timestamp,
+            rng=rng,
+        )
+
     events.append(Event(
         event_id=current_event_id,
         event_type="turn_end",
@@ -1609,6 +2768,75 @@ def execute_turn(
     # State mutation: store turn counter in active_combat metadata
     active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
     active_combat["turn_counter"] = turn_ctx.turn_index + 1
+
+    # CP-19: Round-end condition expiry — tick DurationTracker after last actor's turn
+    initiative_order = active_combat.get("initiative_order", [])
+    if initiative_order:
+        last_actor_index = len(initiative_order) - 1
+        current_position = turn_ctx.turn_index % len(initiative_order)
+        if current_position == last_actor_index:
+            # End of round — tick duration tracker
+            duration_tracker = _get_or_create_duration_tracker(world_state)
+            expired_effects = duration_tracker.tick_round()
+
+            if expired_effects:
+                entities_copy = deepcopy(world_state.entities)
+                for effect in expired_effects:
+                    # Emit spell_effect_expired event (matches existing schema)
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="spell_effect_expired",
+                        timestamp=timestamp + 0.25,
+                        payload={
+                            "spell_id": effect.spell_id,
+                            "spell_name": effect.spell_name,
+                            "caster_id": effect.caster_id,
+                            "target_id": effect.target_id,
+                        },
+                    ))
+                    current_event_id += 1
+
+                    # Remove condition from entity and emit condition_removed event
+                    if effect.condition_applied and effect.target_id in entities_copy:
+                        target_conditions = entities_copy[effect.target_id].get(EF.CONDITIONS, {})
+                        if isinstance(target_conditions, dict) and effect.condition_applied in target_conditions:
+                            del target_conditions[effect.condition_applied]
+                            entities_copy[effect.target_id][EF.CONDITIONS] = target_conditions
+                            events.append(Event(
+                                event_id=current_event_id,
+                                event_type="condition_removed",
+                                timestamp=timestamp + 0.26,
+                                payload={
+                                    "entity_id": effect.target_id,
+                                    "condition": effect.condition_applied,
+                                    "reason": "duration_expired",
+                                    "spell_name": effect.spell_name,
+                                },
+                            ))
+                            current_event_id += 1
+
+                # Rebuild world_state with expired conditions removed
+                world_state = WorldState(
+                    ruleset_version=world_state.ruleset_version,
+                    entities=entities_copy,
+                    active_combat=world_state.active_combat,
+                )
+
+            # Persist updated tracker to active_combat
+            active_combat["duration_tracker"] = duration_tracker.to_dict()
+
+            # WO-ENGINE-DEATH-DYING-001: Dying bleed tick — end of round
+            # PHB p.145: Each dying entity makes DC 10 Fort save or loses 1 HP.
+            if rng is not None:
+                from aidm.core.dying_resolver import resolve_dying_tick
+                dying_events, world_state = resolve_dying_tick(
+                    world_state=world_state,
+                    rng=rng,
+                    next_event_id=current_event_id,
+                    timestamp=timestamp + 0.5,
+                )
+                events.extend(dying_events)
+                current_event_id += len(dying_events)
 
     updated_state = WorldState(
         ruleset_version=world_state.ruleset_version,

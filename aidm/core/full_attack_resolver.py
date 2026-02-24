@@ -51,8 +51,8 @@ RNG CONSUMPTION ORDER (deterministic):
 All state mutations are event-driven only.
 """
 
-from typing import List, Tuple
-from dataclasses import dataclass
+from typing import List, Tuple, Optional
+from dataclasses import dataclass, field
 
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
@@ -83,6 +83,10 @@ class FullAttackIntent:
     power_attack_penalty: int = 0
     """WO-034-FIX: Power Attack trade-off penalty (PHB p.98).
     0 = not using Power Attack. Max = BAB."""
+
+    off_hand_weapon: Optional["Weapon"] = None  # noqa: F821
+    """CP-21: Off-hand weapon for two-weapon fighting. If set, TWF penalty sequence applies.
+    PHB p.160: off-hand gets one attack at BAB with penalty applied."""
 
     def __post_init__(self):
         """Validate full attack intent."""
@@ -119,6 +123,110 @@ def calculate_iterative_attacks(base_attack_bonus: int) -> List[int]:
         current_bab -= 5
 
     return attacks
+
+
+TWD_FEATS = {
+    "Two-Weapon Defense": 1,
+    "Improved Two-Weapon Defense": 2,
+    "Greater Two-Weapon Defense": 3,
+}
+
+
+def _has_off_hand_weapon(entity: dict) -> bool:
+    """Return True if entity is wielding an off-hand weapon.
+
+    PHB p.102: TWD bonus only applies when wielding two weapons.
+    Checks EF.WEAPON dict for is_off_hand=True, or presence of
+    off_hand_weapon key on the entity dict.
+    """
+    # Explicit off_hand_weapon entry on entity
+    if entity.get("off_hand_weapon"):
+        return True
+    # Weapon dict with is_off_hand flag
+    weapon = entity.get(EF.WEAPON)
+    if isinstance(weapon, dict) and weapon.get("is_off_hand", False):
+        return True
+    return False
+
+
+def _compute_twd_ac_bonus(defender: dict) -> int:
+    """Compute Two-Weapon Defense AC bonus for defender.
+
+    PHB p.102: Shield bonus when wielding two weapons.
+    Returns 0 if feat not present, defender is flat-footed, or
+    defender is not wielding an off-hand weapon.
+
+    Progression:
+      Two-Weapon Defense          -> +1
+      Improved Two-Weapon Defense -> +2
+      Greater Two-Weapon Defense  -> +3
+    """
+    from aidm.schemas.conditions import ConditionType
+
+    feats = defender.get(EF.FEATS, [])
+    bonus = 0
+    for feat_name, feat_bonus in TWD_FEATS.items():
+        if feat_name in feats:
+            bonus = feat_bonus  # Higher feat supersedes lower
+
+    if bonus == 0:
+        return 0
+
+    if not _has_off_hand_weapon(defender):
+        return 0
+
+    # Shield bonus is lost when flat-footed (loses Dex to AC)
+    conditions = defender.get(EF.CONDITIONS, {})
+    flat_footed_conditions = {
+        ConditionType.HELPLESS.value,
+        ConditionType.STUNNED.value,
+        ConditionType.PINNED.value,
+        ConditionType.UNCONSCIOUS.value,
+        ConditionType.PARALYZED.value,
+    }
+    if isinstance(conditions, dict):
+        for cond_key in conditions:
+            if cond_key in flat_footed_conditions:
+                return 0
+    elif isinstance(conditions, (list, tuple)):
+        for cond in conditions:
+            if cond in flat_footed_conditions:
+                return 0
+
+    return bonus
+
+
+def _compute_twf_penalties(
+    attacker: dict,
+    off_hand_weapon: "Weapon",  # noqa: F821
+) -> Tuple[int, int]:
+    """Compute main-hand and off-hand attack penalties for two-weapon fighting.
+
+    PHB p.160 penalty table:
+    - Base: -6 main / -10 off
+    - Light off-hand: -4 main / -8 off
+    - TWF feat: -4 main / -4 off
+    - TWF feat + light off-hand: -2 main / -2 off (best case)
+
+    Args:
+        attacker: Entity dict for the attacker
+        off_hand_weapon: Off-hand weapon (used to check is_light)
+
+    Returns:
+        (main_penalty, off_hand_penalty) — both non-positive integers
+    """
+    feats = attacker.get(EF.FEATS, [])
+    has_twf = "Two-Weapon Fighting" in feats
+    light_off_hand = off_hand_weapon.is_light
+
+    if has_twf and light_off_hand:
+        return (-2, -2)
+    elif has_twf:
+        return (-4, -4)
+    elif light_off_hand:
+        return (-4, -8)
+    else:
+        return (-6, -10)
 
 
 def resolve_single_attack_with_critical(
@@ -477,7 +585,7 @@ def resolve_full_attack(
         "weapon_name": "unknown",  # Placeholder until weapon tracking exists
         "range_ft": range_ft,  # WO-WEAPON-PLUMBING-001: actual range from positions
         "is_ranged": intent.weapon.is_ranged,  # WO-WEAPON-PLUMBING-001: from weapon type
-        "is_twf": False,  # TODO: Detect from attack intent
+        "is_twf": intent.off_hand_weapon is not None,  # CP-21: derived from intent
         "power_attack_penalty": intent.power_attack_penalty,  # WO-034-FIX: from intent
         "is_two_handed": intent.weapon.is_two_handed,  # WO-034-FIX: from weapon
     }
@@ -499,9 +607,16 @@ def resolve_full_attack(
     sa_dice = get_sneak_attack_dice(attacker) if sa_eligible else 0
 
     # WO-048: Get applicable Damage Reduction
-    from aidm.core.damage_reduction import get_applicable_dr
+    # WO-ENGINE-DR-001: Extract weapon bypass flags for accurate DR calculation
+    from aidm.core.damage_reduction import get_applicable_dr, extract_weapon_bypass_flags
+    is_magic_weapon, weapon_material, weapon_alignment, weapon_enhancement = \
+        extract_weapon_bypass_flags(intent.weapon, attacker)
     dr_amount = get_applicable_dr(
         world_state, intent.target_id, intent.weapon.damage_type,
+        is_magic_weapon=is_magic_weapon,
+        weapon_material=weapon_material,
+        weapon_alignment=weapon_alignment,
+        weapon_enhancement=weapon_enhancement,
     )
 
     # WO-049: Get miss chance from concealment (PHB p.152)
@@ -525,8 +640,16 @@ def resolve_full_attack(
     # PHB p.113: STR modifier applies to melee damage
     str_modifier = attacker.get(EF.STR_MOD, 0)
 
-    # Calculate iterative attacks
-    attack_bonuses = calculate_iterative_attacks(intent.base_attack_bonus)
+    # CP-21: Detect two-weapon fighting and compute penalties (PHB p.160)
+    is_twf = intent.off_hand_weapon is not None
+    main_penalty = 0
+    off_penalty = 0
+    if is_twf:
+        main_penalty, off_penalty = _compute_twf_penalties(attacker, intent.off_hand_weapon)
+
+    # Calculate iterative attacks — apply TWF main-hand penalty if applicable
+    raw_attack_bonuses = calculate_iterative_attacks(intent.base_attack_bonus)
+    attack_bonuses = [b + main_penalty for b in raw_attack_bonuses]
 
     # Emit full_attack_start event (WO-FIX-003: include modifier audit trail)
     events.append(Event(
@@ -557,6 +680,9 @@ def resolve_full_attack(
             "miss_chance_percent": miss_chance_percent,  # WO-049
             "target_base_ac": base_ac,  # WO-FIX-003
             "target_ac": target_ac,  # WO-FIX-003: fully adjusted AC
+            "is_twf": is_twf,  # CP-21
+            "twf_main_penalty": main_penalty,  # CP-21
+            "twf_off_penalty": off_penalty,  # CP-21
         },
         citations=[{"source_id": "681f92bc94ff", "page": 143}]  # PHB full attack
     ))
@@ -565,13 +691,16 @@ def resolve_full_attack(
     # Resolve each attack in sequence
     # WO-FIX-02 (BUG-2): Track HP per-attack and break on defeat
     total_damage = 0
+    total_dr_absorbed = 0  # WO-ENGINE-DR-001: accumulate per-hit DR
     current_hp = hp_current
     attacks_executed = 0
 
-    for attack_index, raw_attack_bonus in enumerate(attack_bonuses):
+    for attack_index, penalized_bonus in enumerate(attack_bonuses):
+        # Raw BAB for this iterative (without TWF penalty) — for audit trail
+        raw_bab = raw_attack_bonuses[attack_index]
         # WO-FIX-003: Apply all modifiers to each iterative attack bonus
         adjusted_attack_bonus = (
-            raw_attack_bonus +
+            penalized_bonus +
             attacker_modifiers.attack_modifier +
             mounted_bonus +
             terrain_higher_ground +
@@ -592,7 +721,7 @@ def resolve_full_attack(
             str_modifier=str_modifier,
             condition_damage_modifier=attacker_modifiers.damage_modifier,
             feat_damage_modifier=feat_damage_modifier,
-            base_attack_bonus_raw=raw_attack_bonus,
+            base_attack_bonus_raw=raw_bab,
             condition_attack_modifier=attacker_modifiers.attack_modifier,
             mounted_bonus=mounted_bonus,
             terrain_higher_ground=terrain_higher_ground,
@@ -613,6 +742,10 @@ def resolve_full_attack(
 
         events.extend(attack_events)
         total_damage += damage
+        # WO-ENGINE-DR-001: accumulate DR absorbed from damage_roll event
+        for ev in attack_events:
+            if ev.event_type == "damage_roll":
+                total_dr_absorbed += ev.payload.get("damage_reduced", 0)
         current_hp -= damage
         attacks_executed += 1
 
@@ -620,7 +753,112 @@ def resolve_full_attack(
         if current_hp <= 0 and damage > 0:
             break  # Target defeated -- remaining attacks not executed
 
+    # CP-21: Off-hand attack(s) after main-hand sequence
+    if is_twf and current_hp > 0:
+        off_hand_bab = intent.base_attack_bonus + off_penalty
+        off_hand_adjusted = (
+            off_hand_bab +
+            attacker_modifiers.attack_modifier +
+            mounted_bonus +
+            terrain_higher_ground +
+            feat_attack_modifier +
+            flanking_bonus
+        )
+        # Off-hand grip — half STR for damage (PHB p.160)
+        off_str_mod = str_modifier // 2 if str_modifier > 0 else str_modifier
+
+        oh_events, current_event_id, oh_damage = resolve_single_attack_with_critical(
+            attacker_id=intent.attacker_id,
+            target_id=intent.target_id,
+            attack_bonus=off_hand_adjusted,
+            weapon=intent.off_hand_weapon,
+            target_ac=target_ac,
+            rng=rng,
+            next_event_id=current_event_id,
+            timestamp=timestamp + 0.5 * attacks_executed,
+            attack_index=attacks_executed,
+            str_modifier=off_str_mod,  # PHB p.160: half STR for off-hand
+            condition_damage_modifier=attacker_modifiers.damage_modifier,
+            feat_damage_modifier=0,  # feat damage doesn't apply to off-hand by default
+            base_attack_bonus_raw=off_hand_bab,
+            condition_attack_modifier=attacker_modifiers.attack_modifier,
+            mounted_bonus=mounted_bonus,
+            terrain_higher_ground=terrain_higher_ground,
+            feat_attack_modifier=0,
+            target_base_ac=base_ac,
+            target_ac_modifier=condition_ac,
+            cover_type=cover_result.cover_type,
+            cover_ac_bonus=cover_result.ac_bonus,
+            dr_amount=dr_amount,
+            miss_chance_percent=miss_chance_percent,
+            flanking_bonus=flanking_bonus,
+            is_flanking=is_flanking,
+            flanking_ally_ids=flanking_ally_ids,
+            sneak_attack_dice=sa_dice,
+            sneak_attack_eligible=sa_eligible,
+            sneak_attack_reason=sa_reason,
+        )
+        events.extend(oh_events)
+        total_damage += oh_damage
+        for ev in oh_events:
+            if ev.event_type == "damage_roll":
+                total_dr_absorbed += ev.payload.get("damage_reduced", 0)
+        current_hp -= oh_damage
+        attacks_executed += 1
+
+        # CP-21: Improved TWF — second off-hand attack at BAB-5+off_penalty
+        feats = attacker.get(EF.FEATS, [])
+        if "Improved Two-Weapon Fighting" in feats and current_hp > 0:
+            itwf_bab = intent.base_attack_bonus - 5 + off_penalty
+            itwf_adjusted = (
+                itwf_bab +
+                attacker_modifiers.attack_modifier +
+                mounted_bonus +
+                terrain_higher_ground +
+                feat_attack_modifier +
+                flanking_bonus
+            )
+            itwf_events, current_event_id, itwf_damage = resolve_single_attack_with_critical(
+                attacker_id=intent.attacker_id,
+                target_id=intent.target_id,
+                attack_bonus=itwf_adjusted,
+                weapon=intent.off_hand_weapon,
+                target_ac=target_ac,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.5 * attacks_executed,
+                attack_index=attacks_executed,
+                str_modifier=off_str_mod,
+                condition_damage_modifier=attacker_modifiers.damage_modifier,
+                feat_damage_modifier=0,
+                base_attack_bonus_raw=itwf_bab,
+                condition_attack_modifier=attacker_modifiers.attack_modifier,
+                mounted_bonus=mounted_bonus,
+                terrain_higher_ground=terrain_higher_ground,
+                feat_attack_modifier=0,
+                target_base_ac=base_ac,
+                target_ac_modifier=condition_ac,
+                cover_type=cover_result.cover_type,
+                cover_ac_bonus=cover_result.ac_bonus,
+                dr_amount=dr_amount,
+                miss_chance_percent=miss_chance_percent,
+                flanking_bonus=flanking_bonus,
+                is_flanking=is_flanking,
+                flanking_ally_ids=flanking_ally_ids,
+                sneak_attack_dice=sa_dice,
+                sneak_attack_eligible=sa_eligible,
+                sneak_attack_reason=sa_reason,
+            )
+            events.extend(itwf_events)
+            total_damage += itwf_damage
+            for ev in itwf_events:
+                if ev.event_type == "damage_roll":
+                    total_dr_absorbed += ev.payload.get("damage_reduced", 0)
+            current_hp -= itwf_damage
+            attacks_executed += 1
+
     # Apply accumulated damage to HP
+    # WO-ENGINE-DR-001: total_damage is already post-DR (sum of final_damage per hit)
     if total_damage > 0:
         hp_before = hp_current
         hp_after = hp_before - total_damage
@@ -635,25 +873,25 @@ def resolve_full_attack(
                 "hp_before": hp_before,
                 "hp_after": hp_after,
                 "delta": -total_damage,
-                "source": "full_attack_damage"
+                "source": "full_attack_damage",
+                "dr_absorbed": total_dr_absorbed,  # WO-ENGINE-DR-001
             }
         ))
         current_event_id += 1
 
-        # Check for defeat
-        if hp_after <= 0:
-            events.append(Event(
-                event_id=current_event_id,
-                event_type="entity_defeated",
-                timestamp=timestamp + 0.5 * attacks_executed + 0.1,
-                payload={
-                    "entity_id": intent.target_id,
-                    "hp_final": hp_after,
-                    "defeated_by": intent.attacker_id
-                },
-                citations=[{"source_id": "681f92bc94ff", "page": 145}]  # PHB HP/death
-            ))
-            current_event_id += 1
+        # WO-ENGINE-DEATH-DYING-001: Three-band defeat check (PHB p.145)
+        from aidm.core.dying_resolver import resolve_hp_transition
+        trans_events, _field_updates = resolve_hp_transition(
+            entity_id=intent.target_id,
+            old_hp=hp_before,
+            new_hp=hp_after,
+            source="full_attack_damage",
+            world_state=world_state,
+            next_event_id=current_event_id,
+            timestamp=timestamp + 0.5 * attacks_executed + 0.1,
+        )
+        events.extend(trans_events)
+        current_event_id += len(trans_events)
 
     # Emit full_attack_end event
     events.append(Event(
@@ -703,6 +941,29 @@ def apply_full_attack_events(world_state: WorldState, events: List[Event]) -> Wo
             entity_id = event.payload["entity_id"]
             if entity_id in entities:
                 entities[entity_id][EF.DEFEATED] = True
+                entities[entity_id][EF.DYING] = False
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.STABLE] = False
+
+        elif event.event_type == "entity_disabled":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DISABLED] = True
+                entities[entity_id][EF.DYING] = False
+
+        elif event.event_type == "entity_dying":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DYING] = True
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.DEFEATED] = False
+
+        elif event.event_type == "entity_revived":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DYING] = False
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.STABLE] = False
 
     # Return new WorldState
     return WorldState(

@@ -113,6 +113,48 @@ def get_threatened_squares(
     return threatened
 
 
+def _is_standard_spell_intent(intent) -> bool:
+    """Return True if intent is a non-quickened standard-action spell cast.
+
+    CP-23: Supports both SpellCastIntent (from spell_resolver) and
+    CastSpellIntent (from schemas/intents). Quickened spells (free action)
+    do not provoke AoO.
+
+    WO-ENGINE-METAMAGIC-001: Canonical quicken check — 'quicken' in metamagic list
+    takes precedence over legacy quickened bool field.
+    """
+    try:
+        from aidm.core.spell_resolver import SpellCastIntent
+        if isinstance(intent, SpellCastIntent):
+            # Canonical: 'quicken' in metamagic list (WO-ENGINE-METAMAGIC-001)
+            if "quicken" in getattr(intent, "metamagic", ()):
+                return False
+            # Legacy: quickened bool field (backward compat)
+            if getattr(intent, "quickened", False):
+                return False
+            return True
+    except ImportError:
+        pass
+    try:
+        from aidm.schemas.intents import CastSpellIntent
+        if isinstance(intent, CastSpellIntent):
+            # Canonical: 'quicken' in metamagic list
+            if "quicken" in getattr(intent, "metamagic", []):
+                return False
+            if getattr(intent, "quickened", False):
+                return False
+            return True
+    except ImportError:
+        pass
+    return False
+
+
+def _get_spell_caster_id(intent) -> str:
+    """Return the caster entity ID from a spell intent."""
+    # SpellCastIntent uses caster_id; CastSpellIntent may use actor_id
+    return getattr(intent, 'caster_id', None) or getattr(intent, 'actor_id', '')
+
+
 def _extract_maneuver_params(action_name, intent, world_state):
     """Extract common parameters for target-only maneuver AoO provocation.
 
@@ -242,15 +284,40 @@ def check_aoo_triggers(
             _extract_maneuver_params("grapple", intent, world_state)
         )
 
-    # TODO CP-15: Add ranged attack and spellcasting provocation once those intents exist
-    # elif isinstance(intent, RangedAttackIntent):
-    #     provoking_action = "ranged_attack"
-    # elif isinstance(intent, CastSpellIntent):
-    #     provoking_action = "spellcasting"
+    # CP-23: Ranged attack in threatened square → AoO from all threatening enemies
+    # PHB p.137: Using a ranged weapon while threatened provokes AoO.
+    # is_ranged checks weapon_type == "ranged"; also accept range_increment > 0.
+    elif isinstance(intent, AttackIntent) and (intent.weapon.is_ranged or intent.weapon.range_increment > 0):
+        provoking_action = "ranged_attack"
+        provoker_id = intent.attacker_id
+        provokes_from_all = True
+        provoker_entity = world_state.entities.get(provoker_id)
+        if provoker_entity:
+            pos_dict = provoker_entity.get(EF.POSITION)
+            if pos_dict:
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
+
+    # CP-23: Spell cast (standard action, non-quickened) in threatened square → AoO
+    # PHB p.137: Casting a spell with a 1-standard-action casting time while threatened provokes.
+    elif _is_standard_spell_intent(intent):
+        provoking_action = "spellcasting"
+        provoker_id = _get_spell_caster_id(intent)
+        provokes_from_all = True
+        provoker_entity = world_state.entities.get(provoker_id)
+        if provoker_entity:
+            pos_dict = provoker_entity.get(EF.POSITION)
+            if pos_dict:
+                from_pos = Position(x=pos_dict["x"], y=pos_dict["y"])
 
     # No AoO if not a provoking action
     if provoking_action is None:
         return []
+
+    # WO-ENGINE-WITHDRAW-DELAY-001: Withdraw suppresses first-square AoO (PHB p.144)
+    if provoking_action in ("movement_out", "mounted_movement_out"):
+        from aidm.core.withdraw_delay_resolver import is_withdrawn
+        if is_withdrawn(world_state, provoker_id):
+            return []
 
     # Get provoker entity
     provoker = world_state.entities.get(provoker_id)
@@ -314,6 +381,12 @@ def check_aoo_triggers(
 
             # Skip if defeated
             if reactor.get(EF.DEFEATED, False):
+                continue
+
+            # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: Confused entity cannot make AoOs
+            # except against its current target (which we can't track here — suppress all)
+            from aidm.core.condition_combat_resolver import is_confused
+            if is_confused(reactor):
                 continue
 
             # Skip if same team

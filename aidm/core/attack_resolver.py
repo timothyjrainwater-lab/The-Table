@@ -193,6 +193,26 @@ def resolve_attack(
     attacker_modifiers = get_condition_modifiers(world_state, intent.attacker_id, context="attack")
     defender_modifiers = get_condition_modifiers(world_state, intent.target_id, context="defense")
 
+    # WO-ENGINE-SUNDER-DISARM-FULL-001: DISARMED guard (PHB p.155)
+    # A disarmed entity cannot make attacks with the disarmed weapon.
+    attacker = world_state.entities[intent.attacker_id]
+    if attacker.get(EF.DISARMED, False):
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="attack_denied",
+            timestamp=timestamp,
+            payload={
+                "attacker_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "reason": "disarmed",
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 155}],
+        ))
+        return events
+
+    # WO-ENGINE-SUNDER-DISARM-FULL-001: WEAPON_BROKEN penalty applied in attack bonus below (-2)
+    _weapon_broken_penalty = -2 if attacker.get(EF.WEAPON_BROKEN, False) else 0
+
     # CP-18A: Get mounted higher ground bonus
     from aidm.core.mounted_combat import get_mounted_attack_bonus
     mounted_bonus = get_mounted_attack_bonus(intent.attacker_id, intent.target_id, world_state)
@@ -242,22 +262,80 @@ def resolve_attack(
         world_state, intent.attacker_id, intent.target_id
     )
 
+    # CP-17: Helpless auto-hit (PHB p.153) — melee attacks vs helpless targets auto-hit
+    is_melee = not intent.weapon.is_ranged
+    auto_hit_helpless = False
+    if is_melee and defender_modifiers.auto_hit_if_helpless:
+        auto_hit_helpless = True
+
     # Get target AC (base AC + condition modifiers + cover bonus)
     base_ac = target.get(EF.AC, 10)  # Default AC 10 if not specified
+    # CP-17: loses_dex_to_ac — subtract DEX mod from AC when condition active
+    dex_penalty = 0
+    if defender_modifiers.loses_dex_to_ac:
+        dex_mod = target.get(EF.DEX_MOD, 0)
+        if dex_mod > 0:  # Only subtract positive DEX bonus (never penalize further)
+            dex_penalty = -dex_mod
     # CP-16: condition modifier (melee/ranged differentiated), CP-19: cover bonus
-    is_melee = not feat_context.get("is_ranged", False)
     if is_melee and defender_modifiers.ac_modifier_melee != 0:
         condition_ac = defender_modifiers.ac_modifier_melee
     elif not is_melee and defender_modifiers.ac_modifier_ranged != 0:
         condition_ac = defender_modifiers.ac_modifier_ranged
     else:
         condition_ac = defender_modifiers.ac_modifier
-    target_ac = base_ac + condition_ac + cover_result.ac_bonus
+    # WO-ENGINE-TWD-001: Fight defensively / total defense AC bonus (dodge type)
+    _defender_temp_mods = target.get(EF.TEMPORARY_MODIFIERS, {}) or {}
+    _fd_ac_bonus = _defender_temp_mods.get("fight_defensively_ac", 0)
+    _td_ac_bonus = _defender_temp_mods.get("total_defense_ac", 0)
+    _defend_ac_total = _fd_ac_bonus + _td_ac_bonus
+
+    # WO-ENGINE-TWD-001: Two-Weapon Defense passive shield AC bonus (PHB p.102)
+    from aidm.core.full_attack_resolver import _compute_twd_ac_bonus
+    _twd_ac_bonus = _compute_twd_ac_bonus(target)
+
+    # WO-ENGINE-FEINT-001: Check feint flat-footed marker (consumes on use)
+    from aidm.core.feint_resolver import consume_feint_marker as _consume_feint
+    world_state, _feint_active = _consume_feint(
+        world_state, attacker_id=intent.attacker_id, target_id=intent.target_id
+    )
+    if _feint_active:
+        # Feinted target is denied Dex to AC (same path as other denied-Dex cases)
+        if not defender_modifiers.loses_dex_to_ac:
+            dex_mod = target.get(EF.DEX_MOD, 0)
+            if dex_mod > 0:
+                dex_penalty = -dex_mod
+
+    target_ac = base_ac + condition_ac + cover_result.ac_bonus + dex_penalty + _defend_ac_total + _twd_ac_bonus
+
+    # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: +2 attack bonus against blinded defender (PHB p.309)
+    from aidm.core.condition_combat_resolver import is_blinded as _is_blinded
+    _vs_blinded_bonus = 2 if _is_blinded(world_state, intent.target_id) else 0
+
+    # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: Blinded attacker has 50% miss chance (PHB p.309)
+    # Check BEFORE the d20 roll — if miss, return early (no RNG consumed for d20/damage)
+    if _is_blinded(world_state, intent.attacker_id):
+        from aidm.core.condition_combat_resolver import check_blinded_miss as _check_blind
+        _blind_miss, _blind_events = _check_blind(rng, intent.attacker_id, current_event_id, timestamp)
+        for _ev in _blind_events:
+            events.append(Event(
+                event_id=_ev["event_id"],
+                event_type=_ev["event_type"],
+                timestamp=_ev["timestamp"],
+                payload=_ev["payload"],
+                citations=_ev.get("citations", []),
+            ))
+            current_event_id += 1
+        if _blind_miss:
+            return events
 
     # Step 1: Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier + flanking)
     combat_rng = rng.stream("combat")
     d20_result = combat_rng.randint(1, 20)
     # CP-16: condition modifier, CP-18A: mounted bonus, CP-19: terrain higher ground, WO-034: feat modifier, flanking
+    # WO-ENGINE-DEFEND-001: Fight defensively attack penalty
+    _attacker_temp_mods = attacker.get(EF.TEMPORARY_MODIFIERS, {}) or {}
+    _fd_attack_penalty = _attacker_temp_mods.get("fight_defensively_attack", 0)
+
     attack_bonus_with_conditions = (
         intent.attack_bonus +
         attacker_modifiers.attack_modifier +
@@ -265,6 +343,10 @@ def resolve_attack(
         terrain_higher_ground +
         feat_attack_modifier +
         flanking_bonus
+        - attacker.get(EF.NEGATIVE_LEVELS, 0)  # WO-ENGINE-ENERGY-DRAIN-001: -1/neg level (PHB p.215)
+        + _fd_attack_penalty  # WO-ENGINE-DEFEND-001: 0 or negative (e.g. -4)
+        + _weapon_broken_penalty  # WO-ENGINE-SUNDER-DISARM-FULL-001: -2 if weapon broken
+        + _vs_blinded_bonus  # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: +2 vs blinded
     )
     total = d20_result + attack_bonus_with_conditions
 
@@ -273,10 +355,13 @@ def resolve_attack(
     is_natural_20 = (d20_result == 20)
     is_natural_1 = (d20_result == 1)
 
+    # CP-17: Helpless auto-hit bypasses normal hit determination (melee only, PHB p.153)
     # PHB p.140: Natural 1 always misses. Natural 20 always hits AND threatens.
     # Expanded threat range (e.g., 19-20): the roll threatens a critical, but
     # the attack must still meet AC to hit (only natural 20 auto-hits).
-    if is_natural_1:
+    if auto_hit_helpless:
+        hit = True  # Auto-hit: skip roll entirely for melee vs helpless
+    elif is_natural_1:
         hit = False
     elif is_natural_20:
         hit = True
@@ -318,12 +403,18 @@ def resolve_attack(
             "target_ac": target_ac,
             "target_base_ac": base_ac,  # CP-16: Track base AC separately
             "target_ac_modifier": condition_ac,  # CP-16 (melee/ranged differentiated)
+            "dex_penalty": dex_penalty,  # CP-17: DEX stripped from AC when loses_dex_to_ac
+            "auto_hit_helpless": auto_hit_helpless,  # CP-17: melee auto-hit vs helpless
             "hit": hit,
             "is_natural_20": is_natural_20,
             "is_natural_1": is_natural_1,
             "is_threat": is_threat,  # WO-FIX-002
             "is_critical": is_critical,  # WO-FIX-002
-            "confirmation_total": confirmation_total  # WO-FIX-002 (None if no confirmation)
+            "confirmation_total": confirmation_total,  # WO-FIX-002 (None if no confirmation)
+            "fight_defensively_ac_bonus": _defend_ac_total,  # WO-ENGINE-DEFEND-001
+            "fight_defensively_attack_penalty": _fd_attack_penalty,  # WO-ENGINE-DEFEND-001
+            "feint_flat_footed": _feint_active,  # WO-ENGINE-FEINT-001
+            "twd_ac_bonus": _twd_ac_bonus,  # WO-ENGINE-TWD-001
         },
         citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical hit rules
     ))
@@ -356,6 +447,20 @@ def resolve_attack(
                     citations=[{"source_id": "681f92bc94ff", "page": 152}]  # PHB concealment
                 ))
                 current_event_id += 1
+
+    # WO-ENGINE-FEINT-001: emit feint_bonus_consumed when feint marker was active
+    if _feint_active and hit:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="feint_bonus_consumed",
+            timestamp=timestamp + 0.05,
+            payload={
+                "attacker_id": intent.attacker_id,
+                "target_id": intent.target_id,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 76}]
+        ))
+        current_event_id += 1
 
     # If hit, roll damage
     if hit:
@@ -404,11 +509,41 @@ def resolve_attack(
             damage_total += sa_damage
 
         # WO-048: Apply Damage Reduction (PHB p.291)
-        from aidm.core.damage_reduction import get_applicable_dr, apply_dr_to_damage
+        # WO-ENGINE-DR-001: Extract weapon bypass flags for accurate DR calculation
+        from aidm.core.damage_reduction import (
+            get_applicable_dr, apply_dr_to_damage,
+            extract_weapon_bypass_flags, _get_bypass_type,
+        )
+        is_magic_weapon, weapon_material, weapon_alignment, weapon_enhancement = \
+            extract_weapon_bypass_flags(intent.weapon, attacker)
         dr_amount = get_applicable_dr(
             world_state, intent.target_id, intent.weapon.damage_type,
+            is_magic_weapon=is_magic_weapon,
+            weapon_material=weapon_material,
+            weapon_alignment=weapon_alignment,
+            weapon_enhancement=weapon_enhancement,
         )
-        final_damage, damage_reduced = apply_dr_to_damage(damage_total, dr_amount)
+        final_damage, dr_absorbed = apply_dr_to_damage(damage_total, dr_amount)
+
+        # WO-ENGINE-DR-001: Emit damage_reduced event when DR absorbs damage
+        if dr_absorbed > 0:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="damage_reduced",
+                timestamp=timestamp + 0.09,
+                payload={
+                    "entity_id": intent.target_id,
+                    "base_damage": damage_total,
+                    "dr_absorbed": dr_absorbed,
+                    "final_damage": final_damage,
+                    "dr_amount": dr_amount,
+                    "bypass_type": _get_bypass_type(
+                        target.get(EF.DAMAGE_REDUCTIONS, []), dr_amount
+                    ),
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 291}]
+            ))
+            current_event_id += 1
 
         # Emit damage_roll event
         events.append(Event(
@@ -433,7 +568,7 @@ def resolve_attack(
                 "sneak_attack_reason": sa_reason,  # WO-050B
                 "damage_total": damage_total,  # Pre-DR damage (includes sneak attack)
                 "dr_amount": dr_amount,  # WO-048
-                "damage_reduced": damage_reduced,  # WO-048
+                "damage_reduced": dr_absorbed,  # WO-048 / WO-ENGINE-DR-001
                 "final_damage": final_damage,  # WO-048: Post-DR damage
                 "damage_type": intent.weapon.damage_type
             },
@@ -441,41 +576,300 @@ def resolve_attack(
         ))
         current_event_id += 1
 
-        # Get current HP — use final_damage (post-DR)
+        # WO-ENGINE-DR-001: Only emit hp_changed if damage penetrated DR
         hp_before = target.get(EF.HP_CURRENT, 0)
         hp_after = hp_before - final_damage
 
-        # Emit hp_changed event
+        if final_damage > 0:
+            # Emit hp_changed event
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="hp_changed",
+                timestamp=timestamp + 0.2,
+                payload={
+                    "entity_id": intent.target_id,
+                    "hp_before": hp_before,
+                    "hp_after": hp_after,
+                    "delta": -final_damage,
+                    "source": "attack_damage",
+                    "dr_absorbed": dr_absorbed,  # WO-ENGINE-DR-001
+                }
+            ))
+            current_event_id += 1
+
+            # WO-ENGINE-DEATH-DYING-001: Three-band defeat check (PHB p.145)
+            from aidm.core.dying_resolver import resolve_hp_transition
+            trans_events, field_updates = resolve_hp_transition(
+                entity_id=intent.target_id,
+                old_hp=hp_before,
+                new_hp=hp_after,
+                source="attack_damage",
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.3,
+            )
+            events.extend(trans_events)
+            current_event_id += len(trans_events)
+            # (apply_attack_events reads new event types directly)
+
+    return events
+
+
+def check_nonlethal_threshold(current_hp: int, nonlethal_total: int):
+    """Check whether nonlethal damage has crossed a PHB p.146 threshold.
+
+    Args:
+        current_hp: Entity's current lethal HP (EF.HP_CURRENT).
+        nonlethal_total: New total nonlethal damage after this hit.
+
+    Returns:
+        "staggered" if nonlethal_total == current_hp,
+        "unconscious" if nonlethal_total > current_hp,
+        None if below threshold.
+
+    WO-ENGINE-NONLETHAL-001
+    """
+    if nonlethal_total > current_hp:
+        return "unconscious"
+    elif nonlethal_total == current_hp:
+        return "staggered"
+    return None
+
+
+NONLETHAL_ATTACK_PENALTY = -4  # PHB p.146
+
+
+def resolve_nonlethal_attack(
+    intent,
+    world_state: WorldState,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> List[Event]:
+    """Resolve a nonlethal attack intent.
+
+    PHB p.146: -4 attack penalty. On hit, damage accumulates in NONLETHAL_DAMAGE
+    pool. Threshold crossed → STAGGERED or UNCONSCIOUS condition applied.
+
+    RNG consumption order:
+    1. Attack roll (d20)
+    2. IF threat: Confirmation roll (d20)
+    3. IF hit: Damage roll (XdY)
+
+    WO-ENGINE-NONLETHAL-001
+    """
+    from aidm.schemas.conditions import ConditionType
+
+    events: List[Event] = []
+    current_event_id = next_event_id
+
+    if intent.attacker_id not in world_state.entities:
+        raise ValueError(f"Attacker not found in world state: {intent.attacker_id}")
+    if intent.target_id not in world_state.entities:
+        raise ValueError(f"Target not found in world state: {intent.target_id}")
+
+    attacker = world_state.entities[intent.attacker_id]
+    target = world_state.entities[intent.target_id]
+
+    # Apply -4 nonlethal penalty to attack bonus (PHB p.146)
+    adjusted_attack_bonus = intent.attack_bonus + NONLETHAL_ATTACK_PENALTY
+
+    # Get condition modifiers
+    attacker_modifiers = get_condition_modifiers(world_state, intent.attacker_id, context="attack")
+    defender_modifiers = get_condition_modifiers(world_state, intent.target_id, context="defense")
+
+    # Get target AC
+    base_ac = target.get(EF.AC, 10)
+    is_melee = True  # NonlethalAttackIntent is always melee
+    dex_penalty = 0
+    if defender_modifiers.loses_dex_to_ac:
+        dex_mod = target.get(EF.DEX_MOD, 0)
+        if dex_mod > 0:
+            dex_penalty = -dex_mod
+    if is_melee and defender_modifiers.ac_modifier_melee != 0:
+        condition_ac = defender_modifiers.ac_modifier_melee
+    else:
+        condition_ac = defender_modifiers.ac_modifier
+    target_ac = base_ac + condition_ac + dex_penalty
+
+    # Step 1: Attack roll
+    combat_rng = rng.stream("combat")
+    d20_result = combat_rng.randint(1, 20)
+    attack_bonus_with_conditions = adjusted_attack_bonus + attacker_modifiers.attack_modifier
+    total = d20_result + attack_bonus_with_conditions
+
+    is_threat = (d20_result >= intent.weapon.critical_range)
+    is_natural_20 = (d20_result == 20)
+    is_natural_1 = (d20_result == 1)
+
+    auto_hit_helpless = is_melee and defender_modifiers.auto_hit_if_helpless
+
+    if auto_hit_helpless:
+        hit = True
+    elif is_natural_1:
+        hit = False
+    elif is_natural_20:
+        hit = True
+    else:
+        hit = (total >= target_ac)
+
+    # Step 2: Critical confirmation (crit rules still apply per PHB p.146)
+    is_critical = False
+    confirmation_total = None
+    if is_threat and hit:
+        confirmation_d20 = combat_rng.randint(1, 20)
+        confirmation_total = confirmation_d20 + attack_bonus_with_conditions
+        if confirmation_total >= target_ac:
+            is_critical = True
+
+    # Emit attack_roll event (includes nonlethal marker)
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="attack_roll",
+        timestamp=timestamp,
+        payload={
+            "attacker_id": intent.attacker_id,
+            "target_id": intent.target_id,
+            "d20_result": d20_result,
+            "attack_bonus": intent.attack_bonus,
+            "nonlethal": True,
+            "nonlethal_penalty": NONLETHAL_ATTACK_PENALTY,
+            "adjusted_attack_bonus": adjusted_attack_bonus,
+            "condition_modifier": attacker_modifiers.attack_modifier,
+            "total": total,
+            "target_ac": target_ac,
+            "target_base_ac": base_ac,
+            "hit": hit,
+            "is_natural_20": is_natural_20,
+            "is_natural_1": is_natural_1,
+            "is_threat": is_threat,
+            "is_critical": is_critical,
+            "confirmation_total": confirmation_total,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 146}]
+    ))
+    current_event_id += 1
+
+    if hit:
+        # Roll damage (same dice/STR logic as resolve_attack)
+        num_dice, die_size = parse_damage_dice(intent.weapon.damage_dice)
+        damage_rolls = roll_dice(num_dice, die_size, rng)
+
+        str_modifier = attacker.get(EF.STR_MOD, 0)
+        weapon_grip = intent.weapon.grip
+        if weapon_grip == "two-handed":
+            str_to_damage = int(str_modifier * 1.5)
+        elif weapon_grip == "off-hand":
+            str_to_damage = int(str_modifier * 0.5)
+        else:
+            str_to_damage = str_modifier
+
+        base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_to_damage
+        base_damage_with_modifiers = base_damage + attacker_modifiers.damage_modifier
+
+        if is_critical:
+            damage_total = max(1, base_damage_with_modifiers * intent.weapon.critical_multiplier)
+        else:
+            damage_total = max(1, base_damage_with_modifiers)
+
+        # NOTE: DR does NOT apply to nonlethal damage pool per WO-ENGINE-NONLETHAL-001 spec.
+        # PHB p.146 is silent on DR vs nonlethal; nonlethal bypasses DR in this implementation.
+
+        # Check threshold
+        old_nonlethal = target.get(EF.NONLETHAL_DAMAGE, 0)
+        new_nonlethal = old_nonlethal + damage_total
+        current_hp = target.get(EF.HP_CURRENT, 0)
+        threshold = check_nonlethal_threshold(current_hp, new_nonlethal)
+
+        # Emit nonlethal_damage event
         events.append(Event(
             event_id=current_event_id,
-            event_type="hp_changed",
-            timestamp=timestamp + 0.2,
+            event_type="nonlethal_damage",
+            timestamp=timestamp + 0.1,
             payload={
+                "attacker_id": intent.attacker_id,
                 "entity_id": intent.target_id,
-                "hp_before": hp_before,
-                "hp_after": hp_after,
-                "delta": -final_damage,
-                "source": "attack_damage"
-            }
+                "amount": damage_total,
+                "old_nonlethal_total": old_nonlethal,
+                "new_nonlethal_total": new_nonlethal,
+                "current_hp": current_hp,
+                "threshold_crossed": threshold,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 146}]
         ))
         current_event_id += 1
 
-        # Check for defeat
-        if hp_after <= 0:
+        # Emit condition_applied if threshold crossed
+        if threshold == "staggered":
             events.append(Event(
                 event_id=current_event_id,
-                event_type="entity_defeated",
-                timestamp=timestamp + 0.3,
+                event_type="condition_applied",
+                timestamp=timestamp + 0.2,
                 payload={
                     "entity_id": intent.target_id,
-                    "hp_final": hp_after,
-                    "defeated_by": intent.attacker_id
+                    "condition": ConditionType.STAGGERED.value,
+                    "source": "nonlethal_damage",
+                    "notes": f"Nonlethal {new_nonlethal} == HP {current_hp}",
                 },
-                citations=[{"source_id": "681f92bc94ff", "page": 145}]  # PHB HP/death
+                citations=[{"source_id": "681f92bc94ff", "page": 146}]
+            ))
+            current_event_id += 1
+        elif threshold == "unconscious":
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="condition_applied",
+                timestamp=timestamp + 0.2,
+                payload={
+                    "entity_id": intent.target_id,
+                    "condition": ConditionType.UNCONSCIOUS.value,
+                    "source": "nonlethal_damage",
+                    "notes": f"Nonlethal {new_nonlethal} > HP {current_hp}",
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 146}]
             ))
             current_event_id += 1
 
     return events
+
+
+def apply_nonlethal_attack_events(world_state: WorldState, events: List[Event]) -> WorldState:
+    """Apply nonlethal attack events to world state.
+
+    Handles:
+    - nonlethal_damage: updates EF.NONLETHAL_DAMAGE
+    - condition_applied: appends condition to EF.CONDITIONS
+
+    WO-ENGINE-NONLETHAL-001
+    """
+    entities = deepcopy(world_state.entities)
+
+    for event in events:
+        if event.event_type == "nonlethal_damage":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.NONLETHAL_DAMAGE] = event.payload["new_nonlethal_total"]
+
+        elif event.event_type == "condition_applied":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                cond_val = event.payload["condition"]
+                conds = entities[entity_id].get(EF.CONDITIONS, {})
+                if isinstance(conds, dict):
+                    if cond_val not in conds:
+                        conds = dict(conds)
+                        conds[cond_val] = {}
+                    entities[entity_id][EF.CONDITIONS] = conds
+                else:
+                    # List form
+                    if cond_val not in conds:
+                        conds = list(conds) + [cond_val]
+                    entities[entity_id][EF.CONDITIONS] = conds
+
+    return WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+    )
 
 
 def apply_attack_events(world_state: WorldState, events: List[Event]) -> WorldState:
@@ -504,8 +898,490 @@ def apply_attack_events(world_state: WorldState, events: List[Event]) -> WorldSt
             entity_id = event.payload["entity_id"]
             if entity_id in entities:
                 entities[entity_id][EF.DEFEATED] = True
+                entities[entity_id][EF.DYING] = False
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.STABLE] = False
+
+        elif event.event_type == "entity_disabled":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DISABLED] = True
+                entities[entity_id][EF.DYING] = False
+
+        elif event.event_type == "entity_dying":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DYING] = True
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.DEFEATED] = False
+
+        elif event.event_type == "entity_revived":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DYING] = False
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.STABLE] = False
 
     # Return new WorldState
+    return WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None
+    )
+
+
+def resolve_charge(
+    intent,
+    world_state: WorldState,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> List[Event]:
+    """Resolve a charge action intent (PHB p.150-151).
+
+    Full-round action: +2 attack bonus, -2 AC penalty until start of next turn.
+    Handles Spirited Charge feat damage multiplication when mounted.
+
+    WO-ENGINE-CHARGE-001
+    """
+    from aidm.schemas.attack import AttackIntent as _AttackIntent, Weapon as _Weapon
+
+    events: List[Event] = []
+    current_event_id = next_event_id
+
+    # Step 1: path_clear validation
+    if not intent.path_clear:
+        return [Event(
+            event_id=next_event_id,
+            event_type="intent_validation_failed",
+            timestamp=timestamp,
+            payload={
+                "attacker_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "reason": "charge_path_blocked",
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 150}],
+        )]
+
+    # Step 2: target validation
+    target = world_state.entities.get(intent.target_id)
+    if target is None:
+        return [Event(
+            event_id=next_event_id,
+            event_type="intent_validation_failed",
+            timestamp=timestamp,
+            payload={
+                "attacker_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "reason": "target_not_found",
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 150}],
+        )]
+    if target.get(EF.DEFEATED, False):
+        return [Event(
+            event_id=next_event_id,
+            event_type="intent_validation_failed",
+            timestamp=timestamp,
+            payload={
+                "attacker_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "reason": "target_already_defeated",
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 150}],
+        )]
+
+    # Step 3: build AttackIntent with +2 charge bonus
+    attacker = world_state.entities[intent.attacker_id]
+    base_attack_bonus = attacker.get(EF.ATTACK_BONUS, 0)
+    charge_attack_bonus = base_attack_bonus + 2  # PHB p.150: +2 on charge
+
+    weapon_fields = {k: v for k, v in intent.weapon.items() if k != "is_ranged"}
+    # Normalize weapon_type to valid Weapon values; lance → one-handed for dataclass
+    _VALID_WEAPON_TYPES = {"light", "one-handed", "two-handed", "ranged", "natural"}
+    if weapon_fields.get("weapon_type") not in _VALID_WEAPON_TYPES:
+        weapon_fields = dict(weapon_fields)
+        weapon_fields["weapon_type"] = "one-handed"
+    weapon_obj = _Weapon(**weapon_fields)
+
+    attack_intent = _AttackIntent(
+        attacker_id=intent.attacker_id,
+        target_id=intent.target_id,
+        attack_bonus=charge_attack_bonus,
+        weapon=weapon_obj,
+    )
+
+    # Step 4: emit charge_attack event (before attack roll events)
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="charge_attack",
+        timestamp=timestamp,
+        payload={
+            "attacker_id": intent.attacker_id,
+            "target_id": intent.target_id,
+            "attack_bonus_applied": 2,
+            "ac_penalty_applied": -2,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 150}],
+    ))
+    current_event_id += 1
+
+    # Step 5: call resolve_attack()
+    attack_events = resolve_attack(
+        intent=attack_intent,
+        world_state=world_state,
+        rng=rng,
+        next_event_id=current_event_id,
+        timestamp=timestamp + 0.1,
+    )
+    events.extend(attack_events)
+    current_event_id += len(attack_events)
+
+    # Step 6: Spirited Charge damage multiplier (only on hit)
+    hit_events = [e for e in attack_events if e.event_type == "attack_roll" and e.payload.get("hit")]
+    if hit_events:
+        feats = attacker.get(EF.FEATS, [])
+        mounted = attacker.get(EF.MOUNTED_STATE)
+        if "spirited_charge" in feats and mounted is not None:
+            weapon_type = intent.weapon.get("weapon_type", "")
+            multiplier = 3 if weapon_type == "lance" else 2
+
+            # Find hp_changed event and replace delta in-place
+            for idx, evt in enumerate(events):
+                if evt.event_type == "hp_changed" and evt.payload.get("entity_id") == intent.target_id:
+                    original_delta = evt.payload["delta"]
+                    if original_delta < 0:
+                        new_delta = original_delta * multiplier
+                        hp_before = world_state.entities[intent.target_id].get(EF.HP_CURRENT, 0)
+                        new_hp_after = hp_before + new_delta
+                        events[idx] = Event(
+                            event_id=evt.event_id,
+                            event_type="hp_changed",
+                            timestamp=evt.timestamp,
+                            payload={
+                                **evt.payload,
+                                "delta": new_delta,
+                                "hp_after": new_hp_after,
+                            },
+                            citations=evt.citations,
+                        )
+                    break
+
+            # Emit spirited_charge_multiplier event
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spirited_charge_multiplier",
+                timestamp=timestamp + 0.25,
+                payload={
+                    "attacker_id": intent.attacker_id,
+                    "target_id": intent.target_id,
+                    "multiplier": multiplier,
+                    "weapon_type": intent.weapon.get("weapon_type", "unknown"),
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 100}],
+            ))
+            current_event_id += 1
+
+    # Step 7: emit charge_ac_applied event
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="charge_ac_applied",
+        timestamp=timestamp + 0.3,
+        payload={
+            "attacker_id": intent.attacker_id,
+            "charge_ac_penalty": -2,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 150}],
+    ))
+
+    # Step 8: return all events
+    return events
+
+
+def apply_charge_events(world_state: WorldState, events: List[Event]) -> WorldState:
+    """Apply charge resolution events to world state.
+
+    Handles charge_attack (no-op — annotation only), charge_ac_applied
+    (writes EF.TEMPORARY_MODIFIERS["charge_ac"] = -2 on attacker),
+    and delegates hp_changed / entity_defeated / entity_dying /
+    entity_disabled to the same mutation logic as apply_attack_events().
+
+    WO-ENGINE-CHARGE-001
+    """
+    entities = deepcopy(world_state.entities)
+
+    for event in events:
+        if event.event_type == "charge_ac_applied":
+            attacker_id = event.payload["attacker_id"]
+            if attacker_id in entities:
+                mods = dict(entities[attacker_id].get(EF.TEMPORARY_MODIFIERS, {}))
+                mods["charge_ac"] = event.payload["charge_ac_penalty"]  # -2
+                entities[attacker_id][EF.TEMPORARY_MODIFIERS] = mods
+
+        elif event.event_type == "hp_changed":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.HP_CURRENT] = event.payload["hp_after"]
+
+        elif event.event_type == "entity_defeated":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DEFEATED] = True
+                entities[entity_id][EF.DYING] = False
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.STABLE] = False
+
+        elif event.event_type == "entity_disabled":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DISABLED] = True
+                entities[entity_id][EF.DYING] = False
+
+        elif event.event_type == "entity_dying":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DYING] = True
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.DEFEATED] = False
+
+    return WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+    )
+
+
+def resolve_coup_de_grace(
+    intent,
+    world_state: WorldState,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> List[Event]:
+    """Resolve a coup de grâce against a helpless or dying target.
+
+    PHB p.153:
+    - Auto-hit (no attack roll)
+    - Auto-crit (crit_multiplier applied to all damage dice and bonuses)
+    - Fort save DC = 10 + damage dealt; failure = immediate death (HP → -10)
+    - Provokes AoO (handled by play_loop before this call)
+
+    RNG consumption order (deterministic):
+    1. Damage dice (XdY)
+    2. Fort save (d20)
+
+    WO-ENGINE-COUP-DE-GRACE-001
+    """
+    from aidm.core.dying_resolver import resolve_hp_transition
+    from aidm.core.conditions import get_condition_modifiers as _get_cond_mods
+
+    events: List[Event] = []
+    current_event_id = next_event_id
+    combat_rng = rng.stream("combat")
+
+    attacker = world_state.entities.get(intent.attacker_id, {})
+    target = world_state.entities.get(intent.target_id, {})
+
+    # Weapon stats from intent.weapon dict
+    weapon = intent.weapon
+    damage_dice: str = weapon.get("damage_dice", "1d4")
+    damage_bonus: int = weapon.get("damage_bonus", 0)
+    crit_multiplier: int = weapon.get("crit_multiplier", 2)
+    damage_type: str = weapon.get("damage_type", "slashing")
+    grip: str = weapon.get("grip", "one-handed")
+
+    # STR modifier (grip-adjusted), PHB p.113
+    str_mod = attacker.get(EF.STR_MOD, 0)
+    if grip == "two-handed":
+        str_to_damage = int(str_mod * 1.5)
+    elif grip == "off-hand":
+        str_to_damage = int(str_mod * 0.5)
+    else:
+        str_to_damage = str_mod
+
+    # Roll damage dice
+    num_dice, die_size = parse_damage_dice(damage_dice)
+    damage_rolls = [combat_rng.randint(1, die_size) for _ in range(num_dice)]
+
+    # Crit damage: multiply all dice and bonuses by crit_multiplier (PHB p.8/p.140)
+    base_damage = sum(damage_rolls) + damage_bonus + str_to_damage
+    damage_total = max(1, base_damage * crit_multiplier)
+
+    # Apply Damage Reduction
+    from aidm.core.damage_reduction import get_applicable_dr, apply_dr_to_damage
+    dr_amount = get_applicable_dr(world_state, intent.target_id, damage_type)
+    final_damage, damage_reduced = apply_dr_to_damage(damage_total, dr_amount)
+
+    # Emit cdg_damage_roll event (no attack_roll event — auto-hit)
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="cdg_damage_roll",
+        timestamp=timestamp,
+        payload={
+            "attacker_id": intent.attacker_id,
+            "target_id": intent.target_id,
+            "damage_dice": damage_dice,
+            "damage_rolls": damage_rolls,
+            "damage_bonus": damage_bonus,
+            "str_modifier": str_mod,
+            "grip": grip,
+            "str_to_damage": str_to_damage,
+            "base_damage": base_damage,
+            "crit_multiplier": crit_multiplier,
+            "damage_total": damage_total,
+            "dr_amount": dr_amount,
+            "damage_reduced": damage_reduced,
+            "final_damage": final_damage,
+            "damage_type": damage_type,
+            "auto_hit": True,
+            "auto_crit": True,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 153}]
+    ))
+    current_event_id += 1
+
+    # Emit hp_changed
+    hp_before = target.get(EF.HP_CURRENT, 0)
+    hp_after = hp_before - final_damage
+
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="hp_changed",
+        timestamp=timestamp + 0.1,
+        payload={
+            "entity_id": intent.target_id,
+            "hp_before": hp_before,
+            "hp_after": hp_after,
+            "delta": -final_damage,
+            "source": "coup_de_grace",
+        }
+    ))
+    current_event_id += 1
+
+    # Call resolve_hp_transition for dying/defeated/disabled transitions
+    trans_events, _ = resolve_hp_transition(
+        entity_id=intent.target_id,
+        old_hp=hp_before,
+        new_hp=hp_after,
+        source="coup_de_grace",
+        world_state=world_state,
+        next_event_id=current_event_id,
+        timestamp=timestamp + 0.2,
+    )
+    events.extend(trans_events)
+    current_event_id += len(trans_events)
+
+    # Fort save (PHB p.153): DC = 10 + damage dealt (pre-DR value)
+    fort_dc = 10 + damage_total
+    fort_base = target.get(EF.SAVE_FORT, 0)
+
+    # Apply condition modifiers to Fort save
+    _cond_mods = _get_cond_mods(world_state, intent.target_id)
+    fort_condition_mod = _cond_mods.fort_save_modifier
+
+    fort_roll = combat_rng.randint(1, 20)
+    fort_total = fort_roll + fort_base + fort_condition_mod
+    fort_passed = fort_total >= fort_dc
+
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="cdg_fort_save",
+        timestamp=timestamp + 0.3,
+        payload={
+            "entity_id": intent.target_id,
+            "attacker_id": intent.attacker_id,
+            "fort_roll": fort_roll,
+            "fort_base": fort_base,
+            "fort_condition_mod": fort_condition_mod,
+            "fort_total": fort_total,
+            "dc": fort_dc,
+            "damage_total": damage_total,
+            "passed": fort_passed,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 153}]
+    ))
+    current_event_id += 1
+
+    # If Fort save fails and target not already defeated → immediate death
+    already_defeated = any(e.event_type == "entity_defeated" for e in trans_events)
+
+    if not fort_passed and not already_defeated:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="hp_changed",
+            timestamp=timestamp + 0.35,
+            payload={
+                "entity_id": intent.target_id,
+                "hp_before": hp_after,
+                "hp_after": -10,
+                "delta": -(hp_after - (-10)),
+                "source": "coup_de_grace_fort_fail",
+            }
+        ))
+        current_event_id += 1
+
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="entity_defeated",
+            timestamp=timestamp + 0.4,
+            payload={
+                "entity_id": intent.target_id,
+                "hp_final": -10,
+                "cause": "coup_de_grace",
+                "attacker_id": intent.attacker_id,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 153}]
+        ))
+        current_event_id += 1
+
+    return events
+
+
+def apply_cdg_events(world_state: WorldState, events: List[Event]) -> WorldState:
+    """Apply coup de grâce resolution events to world state.
+
+    Handles: hp_changed, entity_defeated, entity_dying, entity_disabled,
+    entity_revived, condition_applied, condition_removed.
+
+    Mirrors apply_attack_events() in structure.
+
+    WO-ENGINE-COUP-DE-GRACE-001
+    """
+    entities = deepcopy(world_state.entities)
+
+    for event in events:
+        if event.event_type == "hp_changed":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.HP_CURRENT] = event.payload["hp_after"]
+
+        elif event.event_type == "entity_defeated":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DEFEATED] = True
+                entities[entity_id][EF.DYING] = False
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.STABLE] = False
+
+        elif event.event_type == "entity_disabled":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DISABLED] = True
+                entities[entity_id][EF.DYING] = False
+
+        elif event.event_type == "entity_dying":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DYING] = True
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.DEFEATED] = False
+
+        elif event.event_type == "entity_revived":
+            entity_id = event.payload["entity_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DYING] = False
+                entities[entity_id][EF.DISABLED] = False
+                entities[entity_id][EF.STABLE] = False
+
     return WorldState(
         ruleset_version=world_state.ruleset_version,
         entities=entities,
