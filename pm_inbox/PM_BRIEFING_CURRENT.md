@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-24 (session continued). **ENGINE DISPATCH #8 ACCEPTED — 62/62.** All tracks GREEN. **WO-ENGINE-NATURAL-ATTACK-001 DRAFTED** — Druid natural attack resolver (MEDIUM finding). New finding registered: FINDING-PLAY-LOOP-ROUTING-001 MEDIUM (RageIntent/SmiteEvilIntent/BardicMusicIntent/WildShapeIntent/RevertFormIntent have no execute_turn routing branches — gate tests call resolvers directly, bypassing play_loop). 5 open findings total (2 MEDIUM).
+**Last updated:** 2026-02-24 (session continued). **ENGINE DISPATCH #8 ACCEPTED — 62/62.** All tracks GREEN. **WO-ENGINE-NATURAL-ATTACK-001 + WO-ENGINE-PLAY-LOOP-ROUTING-001 DRAFTED** — both DISPATCH-READY. WO-ENGINE-CONCENTRATION-FIX VOIDED (false positive — archived). 5 open findings (2 MEDIUM).
 
 ---
 
@@ -107,9 +107,9 @@
 
 ## Operator Action Queue (max 3)
 
-1. **WO-ENGINE-NATURAL-ATTACK-001 READY TO DISPATCH.** Fixes FINDING-WILDSHAPE-NATURAL-ATTACKS-001 (MEDIUM). Druid in Wild Shape cannot attack — `EF.NATURAL_ATTACKS` set but no code path resolves it. 10-test gate. Dispatch when ready.
-2. **FINDING-PLAY-LOOP-ROUTING-001 MEDIUM OPEN.** `execute_turn` routing chain (play_loop.py) has no elif branches for RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent. Gate tests pass because they call resolvers directly (bypassing play_loop). Needs a wire WO. Candidate for ENGINE DISPATCH #9 secondary slot alongside natural attacks (or standalone if scope warrants).
-3. **Engine candidates (unstarted in inbox):** GRAPPLE-001 ✅ ACCEPTED, AOO-WIRE-001 ✅ ACCEPTED, TWF-WIRE ✅ ACCEPTED, CONCENTRATION-FIX (unstarted). After natural attacks: assess CONCENTRATION-FIX priority + play_loop routing wire.
+1. **ENGINE DISPATCH #9 READY.** Two WOs: WO-ENGINE-NATURAL-ATTACK-001 (Druid can't attack in Wild Shape, 10 tests) + WO-ENGINE-PLAY-LOOP-ROUTING-001 (Rage/Smite/Bardic/WildShape/Revert not routed in execute_turn, 10 tests). Both DISPATCH-READY. Can dispatch together (2 WOs, well under cap) or sequentially.
+2. **WO-ENGINE-CONCENTRATION-FIX VOIDED + ARCHIVED.** Was a false positive — `caster_id=target_id` pattern is correct. No fix needed. TWF-WIRE (which the WO was repurposed toward) is already ACCEPTED.
+3. **Next engine candidates after dispatch #9:** GRAPPLE, AOO, TWF all ACCEPTED. Remaining engine work: spell metamagic follow-on, bardic music duration (LOW finding), wild shape HP/duration (LOW findings). No high-priority engine gaps after dispatch #9 lands.
 
 ## Current Focus (Slate's focused recall)
 
@@ -393,26 +393,25 @@
 
 ## Active Operational Files
 
-**Root** (10 files — 5 persistent + 5 active WOs):
+**Root** (active WOs + operational files):
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
-- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — BURST-001 thru 004 (BURST-001 COMPLETE)
+- [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — Research parking lot
 - [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference
 - [MEMO_BUILDER_PREFLIGHT_CANARY.md](pm_inbox/MEMO_BUILDER_PREFLIGHT_CANARY.md) — Preflight canary system
 - [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log
 - [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol
 - [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework
 - [WSM_01_WATCH_SYNC.md](pm_inbox/WSM_01_WATCH_SYNC.md) — Watch Sync Memo (active operational)
-- [MEMO_UI_PIVOT_2D_20260224.md](pm_inbox/MEMO_UI_PIVOT_2D_20260224.md) — UI pivot locked (2D client active)
-- [MEMO_HORIZON_SCOPE_AUDIT_2026_02_22.md](pm_inbox/MEMO_HORIZON_SCOPE_AUDIT_2026_02_22.md) — Horizon scope audit
+- [WO-ENGINE-NATURAL-ATTACK-001_DISPATCH.md](pm_inbox/WO-ENGINE-NATURAL-ATTACK-001_DISPATCH.md) — **DISPATCH-READY** — Druid natural attack resolver
+- [WO-ENGINE-PLAY-LOOP-ROUTING-001_DISPATCH.md](pm_inbox/WO-ENGINE-PLAY-LOOP-ROUTING-001_DISPATCH.md) — **DISPATCH-READY** — Wire Rage/Smite/Bardic/WildShape into execute_turn
 - [WO-PRS-IP-001_DISPATCH.md](pm_inbox/WO-PRS-IP-001_DISPATCH.md) — P8 IP exceptions (open work)
-- [WO-ENGINE-CONCENTRATION-FIX_DISPATCH.md](pm_inbox/WO-ENGINE-CONCENTRATION-FIX_DISPATCH.md) — Unstarted engine candidate
-- [WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md](pm_inbox/WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md) — BLOCKED on 3D optics (frozen track, hold)
-- [WO-UI-GATES-V1_DISPATCH.md](pm_inbox/WO-UI-GATES-V1_DISPATCH.md) — BLOCKED on visreg (frozen track, hold)
+- [WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md](pm_inbox/WO-UI-CAMERA-FRAMING-DICE-TRAY-FINAL_DISPATCH.md) — BLOCKED (frozen track, hold)
+- [WO-UI-GATES-V1_DISPATCH.md](pm_inbox/WO-UI-GATES-V1_DISPATCH.md) — BLOCKED (frozen track, hold)
 - [WO-UI-VISREG-PLAYWRIGHT-001_DISPATCH.md](pm_inbox/WO-UI-VISREG-PLAYWRIGHT-001_DISPATCH.md) — BLOCKED on golden frames (frozen track, hold)
 
-**Archived this session:** ~80 files → `reviewed/` (all accepted engine/UI/chargen/PRS dispatch files + debriefs)
+**Archived this session:** ~80 files + CONCENTRATION-FIX (voided) + BURST-001-PLAYTEST + MEMO_HORIZON + MEMO_UI_PIVOT_2D + MEMO_2D_RELAYOUT → `reviewed/`
 
 ## Persistent Files
 
