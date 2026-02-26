@@ -218,7 +218,8 @@ class _EntityFields:
     WILD_SHAPE_FORM = "wild_shape_form"             # Str: current animal form key
     ORIGINAL_STATS = "original_stats"               # Dict: pre-wild-shape stat snapshot (legacy alias)
     WILD_SHAPE_SAVED_STATS = "wild_shape_saved_stats"  # Dict: snapshot of original stats on transform
-    WILD_SHAPE_HOURS_REMAINING = "wild_shape_hours_remaining"  # Int: hours left in form
+    WILD_SHAPE_HOURS_REMAINING = "wild_shape_hours_remaining"  # Int: hours left in form (PHB display value)
+    WILD_SHAPE_ROUNDS_REMAINING = "wild_shape_rounds_remaining"  # Int: combat proxy countdown (druid_level * 10 per WO-ENGINE-WILDSHAPE-DURATION-001)
     EQUIPMENT_MELDED = "equipment_melded"           # Bool: equipment melded into form (weapon attacks blocked)
     NATURAL_ATTACKS = "natural_attacks"             # List[dict]: natural attack definitions while in form
 

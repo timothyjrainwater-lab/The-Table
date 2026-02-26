@@ -184,9 +184,18 @@ def resolve_wild_shape(
     actor[EF.AC] = 10 + natural_ac + new_dex_mod
     actor[EF.SIZE_CATEGORY] = form_data["size"]
 
-    new_hp_max = max(1, (new_con_mod + 1) * max(1, druid_level))
+    # PHB p.37: HP_MAX adjusts by CON_mod delta × druid level
+    old_con_mod = saved.get("con_mod", 0)
+    saved_hp_max = saved.get("hp_max", 1)
+    current_hp = actor.get(EF.HP_CURRENT, saved_hp_max)
+    damage_taken = max(0, saved_hp_max - current_hp)
+
+    con_delta = new_con_mod - old_con_mod
+    new_hp_max = max(1, saved_hp_max + con_delta * druid_level)
+    new_hp_current = max(1, new_hp_max - damage_taken)
+
     actor[EF.HP_MAX] = new_hp_max
-    actor[EF.HP_CURRENT] = min(actor.get(EF.HP_CURRENT, 1), new_hp_max)
+    actor[EF.HP_CURRENT] = new_hp_current
 
     # --- Wild Shape bookkeeping ---
     uses_remaining = actor.get(EF.WILD_SHAPE_USES_REMAINING, 0) - 1
@@ -194,6 +203,7 @@ def resolve_wild_shape(
     actor[EF.WILD_SHAPE_FORM] = form
     actor[EF.WILD_SHAPE_USES_REMAINING] = uses_remaining
     actor[EF.WILD_SHAPE_HOURS_REMAINING] = druid_level
+    actor[EF.WILD_SHAPE_ROUNDS_REMAINING] = druid_level * 10  # combat proxy (WO-ENGINE-WILDSHAPE-DURATION-001)
     actor[EF.EQUIPMENT_MELDED] = True
     actor[EF.NATURAL_ATTACKS] = list(form_data["attacks"])
 
@@ -277,6 +287,7 @@ def resolve_revert_form(
     actor[EF.WILD_SHAPE_FORM] = ""
     actor[EF.WILD_SHAPE_SAVED_STATS] = {}
     actor[EF.WILD_SHAPE_HOURS_REMAINING] = 0
+    actor[EF.WILD_SHAPE_ROUNDS_REMAINING] = 0
     actor[EF.EQUIPMENT_MELDED] = False
     actor[EF.NATURAL_ATTACKS] = []
 
@@ -294,4 +305,78 @@ def resolve_revert_form(
             },
         )
     )
+    return events, ws
+
+
+# ---------------------------------------------------------------------------
+# Tick Wild Shape Duration (WO-ENGINE-WILDSHAPE-DURATION-001)
+# ---------------------------------------------------------------------------
+
+
+def tick_wild_shape_duration(
+    world_state: WorldState,
+    next_event_id: int,
+    timestamp: float,
+) -> Tuple[List[Event], WorldState]:
+    """Decrement Wild Shape round counter for all transformed druids.
+
+    Called at round-end by play_loop.py. When WILD_SHAPE_ROUNDS_REMAINING
+    reaches 0, triggers auto-revert via resolve_revert_form().
+
+    PHB p.37: Wild Shape lasts druid_level hours. This function uses
+    druid_level * 10 rounds as a combat-session proxy (no real-time
+    infrastructure exists). The PHB display value WILD_SHAPE_HOURS_REMAINING
+    is unchanged and retained for reference only.
+    """
+    from aidm.schemas.intents import RevertFormIntent  # lazy import
+
+    events: List[Event] = []
+    ws = deepcopy(world_state)
+    current_event_id = next_event_id
+
+    # Pass 1: decrement all transformed entities' counters (and reconstruct if missing)
+    expired_ids: List[str] = []
+    for entity_id, entity in ws.entities.items():
+        if not entity.get(EF.WILD_SHAPE_ACTIVE, False):
+            continue
+
+        druid_level = entity.get(EF.CLASS_LEVELS, {}).get("druid", 1)
+
+        # Reconstruct counter if missing (entity transformed before this WO landed)
+        if entity.get(EF.WILD_SHAPE_ROUNDS_REMAINING, None) is None:
+            entity[EF.WILD_SHAPE_ROUNDS_REMAINING] = druid_level * 10
+
+        rounds_left = entity.get(EF.WILD_SHAPE_ROUNDS_REMAINING, 1) - 1
+        entity[EF.WILD_SHAPE_ROUNDS_REMAINING] = rounds_left
+
+        if rounds_left <= 0:
+            expired_ids.append(entity_id)
+
+    # Pass 2: trigger auto-revert for expired entities
+    # resolve_revert_form deepcopies ws, so feed updated ws through each revert
+    for entity_id in expired_ids:
+        entity = ws.entities[entity_id]
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="wild_shape_expired",
+            timestamp=timestamp,
+            payload={
+                "actor_id": entity_id,
+                "reason": "duration_expired",
+                "form_was": entity.get(EF.WILD_SHAPE_FORM, ""),
+            },
+            citations=[],
+        ))
+        current_event_id += 1
+
+        synthetic_intent = RevertFormIntent(actor_id=entity_id)
+        revert_events, ws = resolve_revert_form(
+            intent=synthetic_intent,
+            world_state=ws,
+            next_event_id=current_event_id,
+            timestamp=timestamp + 0.01,
+        )
+        events.extend(revert_events)
+        current_event_id += len(revert_events)
+
     return events, ws

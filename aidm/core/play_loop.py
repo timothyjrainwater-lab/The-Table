@@ -44,7 +44,7 @@ from typing import List, Dict, Any, Optional, Union, Tuple, Literal
 from dataclasses import dataclass
 
 from aidm.core.event_log import Event, EventLog
-from aidm.core.conditions import get_condition_modifiers
+from aidm.core.conditions import get_condition_modifiers, tick_conditions
 from aidm.core.state import WorldState, FrozenWorldStateView
 # CP-24: Action economy enforcement
 from aidm.core.action_economy import ActionBudget, get_action_type
@@ -2972,6 +2972,26 @@ def execute_turn(
                 )
                 events.extend(dying_events)
                 current_event_id += len(dying_events)
+
+            # WO-ENGINE-CONDITION-DURATION-001: Tick timed conditions end-of-round.
+            world_state, events, current_event_id = tick_conditions(
+                world_state, events, current_event_id, timestamp + 0.55
+            )
+
+            # WO-ENGINE-WILDSHAPE-DURATION-001: Wild Shape duration auto-revert
+            _has_ws = any(
+                e.get(EF.WILD_SHAPE_ACTIVE, False)
+                for e in world_state.entities.values()
+            )
+            if _has_ws:
+                from aidm.core.wild_shape_resolver import tick_wild_shape_duration
+                _wsd_events, world_state = tick_wild_shape_duration(
+                    world_state=world_state,
+                    next_event_id=current_event_id,
+                    timestamp=timestamp + 0.6,
+                )
+                events.extend(_wsd_events)
+                current_event_id += len(_wsd_events)
 
     updated_state = WorldState(
         ruleset_version=world_state.ruleset_version,
