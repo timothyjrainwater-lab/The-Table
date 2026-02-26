@@ -105,3 +105,15 @@ Wire it up. Use it. That's the whole point.
 ---
 
 *Filed by Tharrik "Gravel" Ashbone. Seven wisdom, zero regrets.*
+
+---
+
+## Retrospective
+
+**Fragility:** `speak.py` depends on the chatterbox model being loaded and GPU memory being available. Long sessions can exhaust GPU memory if audio generation is called repeatedly without cooldown. Monitor for OOM errors in production.
+
+**Process feedback:** This memo was filed because a WO was nearly issued that would have wired audio output in the wrong layer. The memo pattern (file first, then issue WO) saved builder context. The pattern works — use it for any subsystem with non-obvious constraints.
+
+**Methodology insight:** The "tavern bake" reference approach (baking ambient room tone into the reference audio rather than adding it in post) solved a purity problem elegantly. This pattern (bake the context into the reference, not the generation) is worth reapplying to other audio scenarios.
+
+**Concern:** The emotion router is wired but sparsely tested across the full persona × content-type matrix. High exaggeration values still produce clipping on some reference combos. Systematic coverage testing (not just happy-path) is outstanding.

@@ -27,6 +27,11 @@ Every non-persistent file must use one of these prefixes. Enforced by `tests/tes
 | `BURST_` / `BURST-` | Research intake queue | `BURST_INTAKE_QUEUE.md` |
 | `FIX_WO` / `FIX_WO-` | Fix work order dispatch packet | `FIX_WO_DISPATCH_PACKET.md` |
 | `WO_INSTITUTIONALIZE` | Institutionalization WO (legacy) | `WO_INSTITUTIONALIZE_DEBRIEF_PROTOCOL.md` |
+| `PROBE-` / `PROBE_` | Probe spec / investigation document | `PROBE-JUDGMENT-LAYER-001.md` |
+| `STRAT-` / `STRAT_` | Strategy / policy decision document | `STRAT-CAT-05-CALLED-SHOT-POLICY-001.md` |
+| `TUNING_` / `TUNING-` | Tuning protocol / observation ledger | `TUNING_001_PROTOCOL.md` |
+| `UI_` | UI audit / input document | `UI_POLISH_AUDIT_001.md` |
+| `WSM_` | Watch sync / methodology document | `WSM_01_WATCH_SYNC.md` |
 
 ## Lifecycle Header (ENFORCED — Tier 1)
 
@@ -56,6 +61,7 @@ These files are always present and are not subject to the naming prefix or lifec
 - `README.md` — This file
 - `PM_BRIEFING_CURRENT.md` — Rolling briefing (PM's entry point)
 - `REHYDRATION_KERNEL_LATEST.md` — Compact rehydration block
+- `PREFLIGHT_CANARY_LOG.md` — Append-only operational log; builders append one entry per session
 
 ## Builder Intake Protocol
 

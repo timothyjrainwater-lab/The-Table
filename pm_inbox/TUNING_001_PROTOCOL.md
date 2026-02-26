@@ -3,6 +3,7 @@
 **Origin:** Aegis (ChatGPT 5.2), 2026-02-21, 77-second thinking trace + hardening relay
 **Filed by:** Anvil (Alden Waypoint)
 **Status:** WO candidate — protocol spec, not yet dispatched
+**Lifecycle:** NEW
 **Source session:** `214c47e1-8a74-4f78-a729-15e3b142ba28.jsonl` (architecture sprint)
 **Diary reference:** `D:\anvil_research\ANVIL_OBSERVATION_LOG.md` lines 5892–6055
 

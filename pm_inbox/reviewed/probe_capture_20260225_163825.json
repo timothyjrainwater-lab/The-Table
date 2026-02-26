@@ -1,0 +1,300 @@
+{
+  "frames": [
+    {
+      "probe": "P1",
+      "direction": "SEND",
+      "elapsed": 0.009,
+      "raw": "{\"msg_type\": \"session_control\", \"msg_id\": \"9856e005-bca9-4f39-bfc2-399dd8e46b26\", \"command\": \"join\", \"session_id\": \"probe-p1-2047ae18\"}",
+      "parsed": {
+        "msg_type": "session_control",
+        "msg_id": "9856e005-bca9-4f39-bfc2-399dd8e46b26",
+        "command": "join",
+        "session_id": "probe-p1-2047ae18"
+      }
+    },
+    {
+      "probe": "P1",
+      "direction": "RECV",
+      "elapsed": 0.009,
+      "raw": "{\"msg_type\": \"session_state\", \"msg_id\": \"b84787da-803c-4d10-901c-5b90729d7e40\", \"timestamp\": 1772008651.1280866, \"session_id\": \"probe-p1-2047ae18\", \"campaign_id\": \"\", \"world_id\": \"\", \"entities\": [], \"combat_active\": false, \"round_number\": 0, \"in_reply_to\": \"9856e005-bca9-4f39-bfc2-399dd8e46b26\"}",
+      "parsed": {
+        "msg_type": "session_state",
+        "msg_id": "b84787da-803c-4d10-901c-5b90729d7e40",
+        "timestamp": 1772008651.1280866,
+        "session_id": "probe-p1-2047ae18",
+        "campaign_id": "",
+        "world_id": "",
+        "entities": [],
+        "combat_active": false,
+        "round_number": 0,
+        "in_reply_to": "9856e005-bca9-4f39-bfc2-399dd8e46b26"
+      }
+    },
+    {
+      "probe": "P2-connect1",
+      "direction": "SEND",
+      "elapsed": 8.012,
+      "raw": "{\"msg_type\": \"session_control\", \"msg_id\": \"59a95289-d57c-463a-a0dc-9edbd9bf57e6\", \"command\": \"join\", \"session_id\": \"probe-p2-84a2cad6\"}",
+      "parsed": {
+        "msg_type": "session_control",
+        "msg_id": "59a95289-d57c-463a-a0dc-9edbd9bf57e6",
+        "command": "join",
+        "session_id": "probe-p2-84a2cad6"
+      }
+    },
+    {
+      "probe": "P2-connect1",
+      "direction": "RECV",
+      "elapsed": 8.013,
+      "raw": "{\"msg_type\": \"session_state\", \"msg_id\": \"279069a8-3c5e-42d2-964a-5bd394f4079f\", \"timestamp\": 1772008659.1327136, \"session_id\": \"probe-p2-84a2cad6\", \"campaign_id\": \"\", \"world_id\": \"\", \"entities\": [], \"combat_active\": false, \"round_number\": 0, \"in_reply_to\": \"59a95289-d57c-463a-a0dc-9edbd9bf57e6\"}",
+      "parsed": {
+        "msg_type": "session_state",
+        "msg_id": "279069a8-3c5e-42d2-964a-5bd394f4079f",
+        "timestamp": 1772008659.1327136,
+        "session_id": "probe-p2-84a2cad6",
+        "campaign_id": "",
+        "world_id": "",
+        "entities": [],
+        "combat_active": false,
+        "round_number": 0,
+        "in_reply_to": "59a95289-d57c-463a-a0dc-9edbd9bf57e6"
+      }
+    },
+    {
+      "probe": "P2-reconnect",
+      "direction": "SEND",
+      "elapsed": 16.019,
+      "raw": "{\"msg_type\": \"session_control\", \"msg_id\": \"511ce42d-e787-4056-a9b0-e66f97d42c5c\", \"command\": \"join\", \"session_id\": \"probe-p2-84a2cad6\"}",
+      "parsed": {
+        "msg_type": "session_control",
+        "msg_id": "511ce42d-e787-4056-a9b0-e66f97d42c5c",
+        "command": "join",
+        "session_id": "probe-p2-84a2cad6"
+      }
+    },
+    {
+      "probe": "P2-reconnect",
+      "direction": "RECV",
+      "elapsed": 16.02,
+      "raw": "{\"msg_type\": \"session_state\", \"msg_id\": \"ec79826b-e6a2-43fc-a7ec-4730c4870260\", \"timestamp\": 1772008667.1384594, \"session_id\": \"probe-p2-84a2cad6\", \"campaign_id\": \"\", \"world_id\": \"\", \"entities\": [], \"combat_active\": false, \"round_number\": 0, \"in_reply_to\": \"511ce42d-e787-4056-a9b0-e66f97d42c5c\"}",
+      "parsed": {
+        "msg_type": "session_state",
+        "msg_id": "ec79826b-e6a2-43fc-a7ec-4730c4870260",
+        "timestamp": 1772008667.1384594,
+        "session_id": "probe-p2-84a2cad6",
+        "campaign_id": "",
+        "world_id": "",
+        "entities": [],
+        "combat_active": false,
+        "round_number": 0,
+        "in_reply_to": "511ce42d-e787-4056-a9b0-e66f97d42c5c"
+      }
+    },
+    {
+      "probe": "P4-join",
+      "direction": "SEND",
+      "elapsed": 24.022,
+      "raw": "{\"msg_type\": \"session_control\", \"msg_id\": \"e6514210-66ff-44c6-a1a5-b0f8e8b57fcf\", \"command\": \"join\", \"session_id\": \"probe-p4-09f86055\"}",
+      "parsed": {
+        "msg_type": "session_control",
+        "msg_id": "e6514210-66ff-44c6-a1a5-b0f8e8b57fcf",
+        "command": "join",
+        "session_id": "probe-p4-09f86055"
+      }
+    },
+    {
+      "probe": "P4-join",
+      "direction": "RECV",
+      "elapsed": 24.023,
+      "raw": "{\"msg_type\": \"session_state\", \"msg_id\": \"a93c7ee5-f6f9-4c0d-84f2-2113cd782cc1\", \"timestamp\": 1772008675.1420038, \"session_id\": \"probe-p4-09f86055\", \"campaign_id\": \"\", \"world_id\": \"\", \"entities\": [], \"combat_active\": false, \"round_number\": 0, \"in_reply_to\": \"e6514210-66ff-44c6-a1a5-b0f8e8b57fcf\"}",
+      "parsed": {
+        "msg_type": "session_state",
+        "msg_id": "a93c7ee5-f6f9-4c0d-84f2-2113cd782cc1",
+        "timestamp": 1772008675.1420038,
+        "session_id": "probe-p4-09f86055",
+        "campaign_id": "",
+        "world_id": "",
+        "entities": [],
+        "combat_active": false,
+        "round_number": 0,
+        "in_reply_to": "e6514210-66ff-44c6-a1a5-b0f8e8b57fcf"
+      }
+    },
+    {
+      "probe": "P4-verb-roll_confirm",
+      "direction": "SEND",
+      "elapsed": 32.036,
+      "raw": "{\"msg_type\": \"roll_confirm\", \"msg_id\": \"4f12f225-d57f-4b08-bdf7-2cfb18cb99e7\", \"id\": \"test-handle-001\"}",
+      "parsed": {
+        "msg_type": "roll_confirm",
+        "msg_id": "4f12f225-d57f-4b08-bdf7-2cfb18cb99e7",
+        "id": "test-handle-001"
+      }
+    },
+    {
+      "probe": "P4-verb-roll_confirm",
+      "direction": "RECV",
+      "elapsed": 32.037,
+      "raw": "{\"msg_type\": \"error\", \"msg_id\": \"2e4f25ff-f345-498e-9170-e7a1980c019f\", \"timestamp\": 1772008683.1550956, \"error_code\": \"UNKNOWN_MSG_TYPE\", \"error_message\": \"Unknown message type: 'roll_confirm'. No action taken.\", \"recoverable\": true, \"in_reply_to\": \"4f12f225-d57f-4b08-bdf7-2cfb18cb99e7\"}",
+      "parsed": {
+        "msg_type": "error",
+        "msg_id": "2e4f25ff-f345-498e-9170-e7a1980c019f",
+        "timestamp": 1772008683.1550956,
+        "error_code": "UNKNOWN_MSG_TYPE",
+        "error_message": "Unknown message type: 'roll_confirm'. No action taken.",
+        "recoverable": true,
+        "in_reply_to": "4f12f225-d57f-4b08-bdf7-2cfb18cb99e7"
+      }
+    },
+    {
+      "probe": "P4-verb-ability_check_declare",
+      "direction": "SEND",
+      "elapsed": 34.038,
+      "raw": "{\"msg_type\": \"ability_check_declare\", \"msg_id\": \"2becd105-1e33-4a8b-8b73-9e8a6ac036b2\", \"data\": {}}",
+      "parsed": {
+        "msg_type": "ability_check_declare",
+        "msg_id": "2becd105-1e33-4a8b-8b73-9e8a6ac036b2",
+        "data": {}
+      }
+    },
+    {
+      "probe": "P4-verb-ability_check_declare",
+      "direction": "RECV",
+      "elapsed": 34.038,
+      "raw": "{\"msg_type\": \"error\", \"msg_id\": \"d6b19285-2b49-4afa-90e4-8d04aa7d0941\", \"timestamp\": 1772008685.157878, \"error_code\": \"UNKNOWN_MSG_TYPE\", \"error_message\": \"Unknown message type: 'ability_check_declare'. No action taken.\", \"recoverable\": true, \"in_reply_to\": \"2becd105-1e33-4a8b-8b73-9e8a6ac036b2\"}",
+      "parsed": {
+        "msg_type": "error",
+        "msg_id": "d6b19285-2b49-4afa-90e4-8d04aa7d0941",
+        "timestamp": 1772008685.157878,
+        "error_code": "UNKNOWN_MSG_TYPE",
+        "error_message": "Unknown message type: 'ability_check_declare'. No action taken.",
+        "recoverable": true,
+        "in_reply_to": "2becd105-1e33-4a8b-8b73-9e8a6ac036b2"
+      }
+    },
+    {
+      "probe": "P4-verb-nonexistent_verb_xyz",
+      "direction": "SEND",
+      "elapsed": 36.052,
+      "raw": "{\"msg_type\": \"nonexistent_verb_xyz\", \"msg_id\": \"f0836aeb-cfef-46f7-aa70-12ff489333d8\"}",
+      "parsed": {
+        "msg_type": "nonexistent_verb_xyz",
+        "msg_id": "f0836aeb-cfef-46f7-aa70-12ff489333d8"
+      }
+    },
+    {
+      "probe": "P4-verb-nonexistent_verb_xyz",
+      "direction": "RECV",
+      "elapsed": 36.053,
+      "raw": "{\"msg_type\": \"error\", \"msg_id\": \"f59c7e54-eacd-42df-875a-ea2457187240\", \"timestamp\": 1772008687.172262, \"error_code\": \"UNKNOWN_MSG_TYPE\", \"error_message\": \"Unknown message type: 'nonexistent_verb_xyz'. No action taken.\", \"recoverable\": true, \"in_reply_to\": \"f0836aeb-cfef-46f7-aa70-12ff489333d8\"}",
+      "parsed": {
+        "msg_type": "error",
+        "msg_id": "f59c7e54-eacd-42df-875a-ea2457187240",
+        "timestamp": 1772008687.172262,
+        "error_code": "UNKNOWN_MSG_TYPE",
+        "error_message": "Unknown message type: 'nonexistent_verb_xyz'. No action taken.",
+        "recoverable": true,
+        "in_reply_to": "f0836aeb-cfef-46f7-aa70-12ff489333d8"
+      }
+    },
+    {
+      "probe": "P6-join",
+      "direction": "SEND",
+      "elapsed": 38.067,
+      "raw": "{\"msg_type\": \"session_control\", \"msg_id\": \"18432a21-1b38-4649-b014-c8d600c7fc0b\", \"command\": \"join\", \"session_id\": \"probe-p6-70b38150\"}",
+      "parsed": {
+        "msg_type": "session_control",
+        "msg_id": "18432a21-1b38-4649-b014-c8d600c7fc0b",
+        "command": "join",
+        "session_id": "probe-p6-70b38150"
+      }
+    },
+    {
+      "probe": "P6-join",
+      "direction": "RECV",
+      "elapsed": 38.068,
+      "raw": "{\"msg_type\": \"session_state\", \"msg_id\": \"4a1ee770-0c1a-41f0-a2e4-7bbdea4160b1\", \"timestamp\": 1772008689.187436, \"session_id\": \"probe-p6-70b38150\", \"campaign_id\": \"\", \"world_id\": \"\", \"entities\": [], \"combat_active\": false, \"round_number\": 0, \"in_reply_to\": \"18432a21-1b38-4649-b014-c8d600c7fc0b\"}",
+      "parsed": {
+        "msg_type": "session_state",
+        "msg_id": "4a1ee770-0c1a-41f0-a2e4-7bbdea4160b1",
+        "timestamp": 1772008689.187436,
+        "session_id": "probe-p6-70b38150",
+        "campaign_id": "",
+        "world_id": "",
+        "entities": [],
+        "combat_active": false,
+        "round_number": 0,
+        "in_reply_to": "18432a21-1b38-4649-b014-c8d600c7fc0b"
+      }
+    },
+    {
+      "probe": "P6-turn",
+      "direction": "SEND",
+      "elapsed": 46.077,
+      "raw": "{\"msg_type\": \"player_utterance\", \"msg_id\": \"31864b85-9cd5-479e-bfca-900f8ccfceac\", \"text\": \"I attack the nearest goblin\"}",
+      "parsed": {
+        "msg_type": "player_utterance",
+        "msg_id": "31864b85-9cd5-479e-bfca-900f8ccfceac",
+        "text": "I attack the nearest goblin"
+      }
+    },
+    {
+      "probe": "P6-turn",
+      "direction": "RECV",
+      "elapsed": 46.077,
+      "raw": "{\"msg_type\": \"error\", \"msg_id\": \"8abf6f49-bb29-4234-8b3c-446fa582675c\", \"timestamp\": 1772008697.1969512, \"error_code\": \"NO_TEXT_HANDLER\", \"error_message\": \"Session does not support text input.\", \"recoverable\": true, \"in_reply_to\": \"31864b85-9cd5-479e-bfca-900f8ccfceac\"}",
+      "parsed": {
+        "msg_type": "error",
+        "msg_id": "8abf6f49-bb29-4234-8b3c-446fa582675c",
+        "timestamp": 1772008697.1969512,
+        "error_code": "NO_TEXT_HANDLER",
+        "error_message": "Session does not support text input.",
+        "recoverable": true,
+        "in_reply_to": "31864b85-9cd5-479e-bfca-900f8ccfceac"
+      }
+    }
+  ],
+  "results": [
+    {
+      "probe": "P1",
+      "verdict": "INCONCLUSIVE",
+      "token_add_count": 0,
+      "hp_in_payload": false,
+      "hp_max_in_payload": false,
+      "fields_seen": []
+    },
+    {
+      "probe": "P2",
+      "verdict": "INCONCLUSIVE",
+      "reconnect_token_add_count": 0,
+      "hp_in_reconnect_payload": false
+    },
+    {
+      "probe": "P4",
+      "verdict": "PASS",
+      "verb_results": {
+        "roll_confirm": {
+          "error_returned": true,
+          "unknown_msg_type_code": true,
+          "response_count": 1
+        },
+        "ability_check_declare": {
+          "error_returned": true,
+          "unknown_msg_type_code": true,
+          "response_count": 1
+        },
+        "nonexistent_verb_xyz": {
+          "error_returned": true,
+          "unknown_msg_type_code": true,
+          "response_count": 1
+        }
+      }
+    },
+    {
+      "probe": "P6",
+      "verdict": "INCONCLUSIVE \u2014 no state_update frames observed (no combat turn resolved)",
+      "state_update_count": 0,
+      "leaking_frames": []
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 
 **Issued:** 2026-02-23
 **Authority:** PRS-01 §8 (IP String Hygiene)
+**Lifecycle:** DISPATCH-READY
 **Gate:** P8 (IP scan — currently FAIL: 296 violations)
 **Blocked by:** Orchestrator accepted ✅
 

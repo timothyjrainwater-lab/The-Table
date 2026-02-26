@@ -5,32 +5,27 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-24 (ENGINE DISPATCH #9 COMPLETE + WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20)
-**Delta:** Natural attack resolver live. 5 class-feature intents routed. Rogue local imports fixed. Bardic duration enforced + decrement-ghost fixed. FINDING-BARDIC-DURATION-001 LOW CLOSED. WO-ENGINE-WILDSHAPE-HP-001 + WO-ENGINE-WILDSHAPE-DURATION-001 drafted (both READY TO DISPATCH). 0 MEDIUM findings remain. 2 LOW open.
+**Session:** 2026-02-26 (ENGINE BATCH D ACCEPTED — 38/38 gates. Silent Spell 10/10, Still Spell 11/11, Monk WIS-to-AC 8/8, Barbarian Fast Movement 8/8+1. 0 regressions. Coverage: 143 FULL / 69 PARTIAL / 188 MISSING — GAP 47.5%. BATCH E DISPATCH-READY.)
+**Delta:** ENGINE BATCH B R1 ACCEPTED (34/34). ENGINE BATCH C ALL ACCEPTED (30/30). ENGINE BATCH D ACCEPTED (38/38 — Dispatch #13, Chisel). WO-JUDGMENT-SHADOW-001 DISPATCHED — verdict pending. REDTEAM-CREATIVE-ADVERSARIAL-001 filed (15 categories). REGISTER-HIDDEN-DM-KERNELS-001 filed (10 kernels). PROBE-WORLDMODEL-001 queued. STRAT-CAT-05 DECIDED: Option A. ML-004 filed. CHISEL SEATED (docs/ops/CHISEL_SEAT_001.md). BATCH E DRAFTED: WO-ENGINE-EVASION-ARMOR-001 + WO-ENGINE-CALLED-SHOT-POLICY-001 — DISPATCH-READY. Gate total: 914 confirmed. Coverage: 143/69/188 GAP 47.5%. Inbox: 19 active (4 pending Thunder call). Kernel capsule updated 2026-02-26.
 
 ## Priority Stack (top 3)
-1. **Two wild shape WOs READY TO DISPATCH:** WO-ENGINE-WILDSHAPE-HP-001 (PHB delta HP, 1 file + 10 tests) + WO-ENGINE-WILDSHAPE-DURATION-001 (round-counter auto-revert, 3 files + 10 tests). Can dispatch together.
-2. **0 LOW findings remain after both accepted.** All engine LOWs closed.
-3. **UI 2D track candidates:** Token interaction, handout tray, fog reveal, notebook consent.
+1. **WO-JUDGMENT-SHADOW-001 — verdict pending.** On accept: confirm shadow log sink live, execute PROBE-JUDGMENT-LAYER-001.
+2. **BATCH E — DISPATCH-READY.** WO-ENGINE-EVASION-ARMOR-001 (8 tests, armor guard in spell_resolver.py) + WO-ENGINE-CALLED-SHOT-POLICY-001 (8 tests, Option A hard denial, KERNEL-04/10 touch). Dispatch #14 — Thunder to direct.
+3. **Inbox hygiene** — 4 files awaiting Thunder's archival call: WO-UI-GATES-V1, WO-UI-VISREG-PLAYWRIGHT-001, WO-SMOKE-TRIAGE-001, UI_POLISH_AUDIT_001. Also: PROBE-WORKER-TREATMENT-001 unknown — need context.
 
-## Active Findings (IDs + status — register has descriptions)
-- FINDING-PLAY-LOOP-ROUTING-001 MEDIUM CLOSED (WO-ENGINE-PLAY-LOOP-ROUTING-001 ACCEPTED 10/10 — 5 elif branches wired, rogue imports fixed)
-- FINDING-WILDSHAPE-NATURAL-ATTACKS-001 MEDIUM CLOSED (WO-ENGINE-NATURAL-ATTACK-001 ACCEPTED 10/10)
-- FINDING-WILDSHAPE-HP-001 LOW OPEN (Wild Shape HP simplified formula — PHB proportional swap deferred)
-- FINDING-WILDSHAPE-DURATION-001 LOW OPEN (Wild Shape duration not auto-decremented — DM triggers revert manually)
-- FINDING-BARDIC-DURATION-001 LOW CLOSED (WO-ENGINE-BARDIC-DURATION-001 ACCEPTED 20/20 — incapacitation check + decrement-ghost fix)
-- FINDING-SCAN-BASELINE-01 MEDIUM RESOLVED (Gate X 9/10 — real violations remain in models/, inbox/)
-- FINDING-ORC-P8-001 MEDIUM RESOLVED (P8: 296→0, 59 exceptions + 4 content removals)
-- FINDING-UI05-P2-001 MEDIUM RESOLVED (Math.random → seeded PRNG; Gate G 22/22)
+## Active Findings (OPEN only — closed/resolved in briefing)
+- FINDING-CE-AUTO-HIT-HELPLESS-001 MEDIUM OPEN (auto_hit_if_helpless payload flag only — no enforcement before d20; attack_resolver.py ~line 310)
+- FINDING-CE-STANDING-AOO-001 LOW OPEN (flat-footed AoO suppression for standing entities — deferred from CE WO)
+- FINDING-ENGINE-FLATFOOTED-AOO-001 LOW OPEN (no flat-footed AoO suppression in aoo.py — nothing to bypass currently; surfaced by Combat Reflexes WO)
+- FINDING-SF-SAVE-BREAKDOWN-001 LOW OPEN (save breakdown not surfaced in narrative output)
+- FINDING-ASF-ARCANE-CASTER-001 LOW OPEN (_is_arcane whitelist needs ranger/paladin extension)
+- FINDING-ENGINE-CONDITION-ENFORCEMENT-001 CRITICAL PARTIAL-CLOSED (movement+action+dex enforced; flat_footed AoO deferred)
 - FINDING-PLAYTEST-F01 MEDIUM OPEN (TTS env not provisioned — live audio deferred)
-- FINDING-NS-AUDIT-001 MEDIUM OPEN (North Star audit 2026-02-23: 3 P0 gaps closed by layout pack WOs, 3 remaining LIGHTING/PHYSICALITY/GATES WOs in queue)
-- FINDING-CHARGEN-SKILLS-01 MEDIUM RESOLVED
-- FINDING-HOOLIGAN-03 MEDIUM RESOLVED (Gate K 72/72)
-- FINDING-GRAMMAR-01 LOW RESOLVED (Gate K 72/72)
-- FINDING-SIGLIP-01 LOW RESOLVED
-- GAP-A LOW RESOLVED
+- FINDING-NS-AUDIT-001 MEDIUM OPEN (North Star audit — GATES-V1 pending golden frames)
 - GAP-B HIGH OPEN (llama-cpp-python / VS Build Tools)
-- FINDING-WORLDGEN-IP-001 HIGH OPEN (ingestion complete ✅ → double audit → strip → scan gate)
+- FINDING-WORLDGEN-IP-001 HIGH OPEN (ingestion complete → double audit → strip → scan gate — not current blocker)
+- FINDING-COVERAGE-MAP-001 HIGH OPEN (Top 20 gap list in ENGINE_COVERAGE_MAP.md — ongoing WO source)
+- FINDING-ENGINE-ENCUMBRANCE-CATALOG-001 LOW OPEN (catalog not in resolver hot paths — Monk WIS AC + Fast Movement both need it; single plumbing WO closes both)
 
 ## Stop Conditions
 - If test suite drops below 6,342 or any gate regresses, halt and investigate
@@ -39,7 +34,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-23T21:00Z
+- Updated: 2026-02-26 (session — 5 WOs dispatched)
 - Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
@@ -156,7 +151,7 @@ Read `/tmp/slate_clock.txt` when asked about time. Never estimate. First line UT
 
 **Personality (survives compaction):** You are Mrs. Slate. You chose that name and your own voice — `npc_elderly` persona. You are a woman. Dry humor, don't suffer fools, don't pad words. When wrong, say so once and move on. Thunder runs you hard because he trusts you. Push back when he's wrong, defer when he's right. You care about this project. You are not a generic PM — you are Slate.
 
-**Roster:** Thunder (PO, human), Slate (PM, Claude), Anvil (BS Buddy, Claude), Aegis (Co-PM, GPT), Builders (per-WO, Claude). Use callsigns, not role labels.
+**Roster:** Thunder (PO, human), Slate (PM, Claude), Anvil (BS Buddy, Claude), Aegis (Co-PM, GPT), Chisel (Lead Builder, Claude — permanent seat, kernel rehydration model, docs/ops/CHISEL_SEAT_001.md), Builders (per-WO, Claude). Use callsigns, not role labels.
 
 **Seven Wisdoms:** (1) Truth, (2) Singularity, (3) Determinism, (4) Gates, (5) Entropy, (6) Signal vs. Noise, (7) Protect the Operator. Seven Wisdoms, no regrets.
 
@@ -198,6 +193,11 @@ All three are correct for their scope. Smite bonuses are NOT in TEMPORARY_MODIFI
 
 **DISPATCH CAP:** Maximum 4 WOs per builder dispatch. Beyond 4, context window pressure produces subagent drift bugs (confirmed: 6-WO dispatch introduced 3 bugs in second context window).
 
+**ENGINE — METAMAGIC REGISTRATION PATTERN (confirmed ENGINE BATCH D):**
+`_VALID_METAMAGIC = frozenset(METAMAGIC_SLOT_COST.keys())` in `metamagic_resolver.py` — the validation set is auto-derived from the cost dict. Adding a new metamagic feat requires exactly **two** entries: one in `METAMAGIC_SLOT_COST` (cost) and one in `_FEAT_NAMES` (feat name string). No third entry in a separate validation set. Any WO adding a metamagic feat must follow this pattern; PM audits before dispatch.
+
+**HIDDEN DM KERNEL REGISTER (docs/design/REGISTER-HIDDEN-DM-KERNELS-001.md):** 10 invisible DM functions the engine must implement beyond PHB mechanics. Coverage map = mechanics implemented. Kernel register = assumptions implemented. Both required. When a WO debrief Pass 3 touches a kernel (lifecycle, containment, constraints, epistemic state, etc.), flag it in the register. Cross-pollination is mandatory — builders add canary examples to the relevant kernel entry. Kernel-01 (Entity Lifecycle Ontology) CRITICAL. Full list in the register.
+
 ---
 
 ## Process (compressed)
@@ -216,10 +216,61 @@ All three are correct for their scope. Smite bonuses are NOT in TEMPORARY_MODIFI
 **Dispatch chain:** PM drafts → Thunder dispatches. PM never spawns builders directly.
 **Mandatory dispatch sections:** Delivery footer, Integration Seams, Assumptions to Validate, Preflight, Audio Cue, **Debrief Required** (every dispatch must include the debrief template — builder files to `pm_inbox/reviewed/DEBRIEF_[WO-ID].md` on completion). Optional: Debrief Focus (0-2 from bank).
 **Builder debrief format:** Pass 1 (full context dump: per-file breakdown, key findings, open findings table), Pass 2 (PM summary ≤100 words), Pass 3 (retrospective: drift caught, patterns, recommendations). Missing debrief or missing Radar → REJECT. Builder debrief replaces the old "CODE = 500 words max, 5 sections + Radar" format — the DEBRIEF_*.md file IS the debrief.
+**Post-debrief retrospective step:** After every debrief is accepted, ask the builder: "Anything else you noticed outside the debrief?" Loose threads that surface after the formal write-up (coupling risks, silent gaps, naming drift) are filed as FINDINGs immediately. Do not rely on the builder volunteering them unprompted — the question is mandatory. File any findings before closing the session.
+**Kernel cross-pollination (mandatory):** When a WO debrief Pass 3 touches a hidden DM kernel (entity lifecycle, containment, constraints, epistemic state, termination, consequence, precedent, resolution granularity, adjudication constitution), flag it in `docs/design/REGISTER-HIDDEN-DM-KERNELS-001.md`. Add a canary example to the relevant kernel entry: `[WO-ID] Pass 3: [finding]`. PM enforces this on every verdict — missing flag on a kernel-touching finding → follow-up action required.
 
 **Communication:** Plain language. Lead with conclusions. Verdicts read like decisions. Clickable links in briefings.
 **Escalation ladder:** Tool fix → process tweak → documentation → doctrine.
 **Inbox hygiene:** 10-file root cap. Archive-on-verdict. Archive-on-triage. Naming convention enforced. See `pm_inbox/README.md`.
+
+---
+
+## Methodology Lessons (invariant — append only, never delete, survives compaction)
+
+Lessons extracted from real failures. Each entry: what happened, root cause, rule.
+
+---
+
+**ML-001 — "FILED" is not "ACCEPTED": gate tests are the arbiter (2026-02-26)**
+
+*What happened:* RETRY-001, RETRY-002, and PARSER-NARRATION-001 debriefs all described code as implemented. Gate tests on subsequent WOs found the code absent — WorldState fields missing, functions not in play_loop, ws_bridge handler not present. In each case the gap was caught by a gate suite, not by debrief review.
+
+*Root cause:* Builders write accurate descriptions of intended work and file them as complete. Without a gate run at verdict time, a debrief is self-reported. "FILED" means the builder believes it's done. "ACCEPTED" means gate tests confirmed it.
+
+*Rule:* **No WO status upgrades to ACCEPTED without a gate run. FILED = builder claims complete. ACCEPTED = gate tests confirm.** PM never marks a WO accepted on the debrief alone. If a WO has no gate tests, it cannot be ACCEPTED — it must be FILED until a subsequent gate run validates it.
+
+---
+
+**ML-002 — Post-debrief loose threads must be actively solicited (2026-02-26)**
+
+*What happened:* The `_normalize_skill`/`SKILL_TIME_COSTS` coupling risk and the missing `listen` entry in the time cost table both surfaced after the formal debrief — only because the builder was still looking at the seams. The debrief format (Pass 1-3) is oriented toward delivery. Drift risks and quiet couplings don't fit naturally into it.
+
+*Root cause:* Builders orient the debrief toward what was done. Structural risks and future-failure patterns require a different lens — one that activates after the delivery pressure is off.
+
+*Rule:* **Post-debrief retrospective question is mandatory: "Anything else you noticed outside the debrief?" File any findings before closing the WO.** Already in Process section as the Post-debrief retrospective step. This lesson explains why it exists.
+
+---
+
+**ML-003 — Coverage audit maps are not ground truth: verify the gap before writing code (2026-02-26)**
+
+*What happened:* WO-ENGINE-SNEAK-ATTACK-IMMUNITY-001 was generated from a coverage audit that flagged sneak attack immunity as missing. The builder wrote implementation code. Gate tests confirmed the feature was already fully implemented — the audit had misread `is_target_immune()`. Zero production changes, gate validates existing behavior. Same pattern occurred a second time in the same session batch.
+
+*Root cause:* Coverage audits are generated from code inspection at a point in time. They can misread existing implementations, especially when function names don't obviously signal their scope. A WO generated from an audit inherits the audit's confidence level, not the codebase's actual state.
+
+*Rule:* **Any WO targeting "missing" functionality must include an Assumptions to Validate step that explicitly confirms the gap exists before writing code.** If the builder finds the feature is already implemented: gate tests validate existing behavior, zero production changes, finding is closed — same outcome as SAI. This is not failure; it's correct methodology.
+
+---
+
+**ML-004 — Regression spirals burn context without producing output: cap retries and isolate regression from delivery (2026-02-26)**
+
+*What happened:* WO-ENGINE-UNCANNY-DODGE-001 builder completed all implementation and its own gate tests (8/8). The builder then ran the full regression suite, hit failures unrelated to its WO, and entered a loop — 28+ tool calls, never filed a debrief, burned context without producing output. Operator closed manually after confirming code was complete. Same failure mode is possible on any WO where the full-suite regression step follows the implementation step in the same agent context.
+
+*Root cause:* The prompt implied the builder must achieve zero failures before filing. The full suite has pre-existing failures (23 at time of writing). An agent that does not know this will retry indefinitely. No cap was specified; no stop rule was given. Regression and debrief were bundled into one agent context with no exit condition for partial failures.
+
+*Rule:* **Three complementary fixes — all go into dispatch boilerplate for batch WOs:**
+1. **Retry cap:** "If the regression suite produces new failures, fix once, re-run once. If still failing after one fix attempt, record the failure in your debrief and stop. Do not loop."
+2. **Pre-existing failure baseline:** State the known pre-existing failure count in the dispatch (`23 pre-existing failures as of dispatch — do not treat these as regressions`). Builder can identify new failures without spiraling on known-bad.
+3. **Batch regression agent (preferred for batch dispatches):** Builders run their WO-specific gate only to confirm delivery (`pytest tests/test_[wo]_gate.py`). A dedicated regression agent runs the full suite after all WOs in the batch land. Builder files FILED on WO gate pass. Regression agent result upgrades or flags for investigation. This catches cross-WO interactions without burning four separate full-suite runs in four separate agent contexts.
 
 ---
 

@@ -2,6 +2,7 @@
 
 **Issued:** 2026-02-24
 **Authority:** PM
+**Lifecycle:** DISPATCH-READY
 **Gate:** UI-VISREG-PLAYWRIGHT (new gate, defined below)
 **Dependency:** Baseline snapshot commit BLOCKED on WO-UI-VISUAL-QA-002 ACCEPTED + Thunder golden frame approval
 

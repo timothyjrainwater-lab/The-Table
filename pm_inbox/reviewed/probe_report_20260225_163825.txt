@@ -1,0 +1,79 @@
+# ANVIL_PROBE_001 — Draft Report
+Generated: 2026-02-25T16:38:25.213414
+Capture file: probe_capture_20260225_163825.json
+
+## Section 1 — Environment
+  Server: ws://localhost:8000/ws
+  Commit: (run `git rev-parse HEAD` to populate)
+  Python: 3.11.1
+
+## Section 2 — Automated Probe Results (P1, P2, P4, P6)
+
+### P1
+  Verdict: INCONCLUSIVE
+  token_add_count: 0
+  hp_in_payload: False
+  hp_max_in_payload: False
+  fields_seen: []
+
+### P2
+  Verdict: INCONCLUSIVE
+  reconnect_token_add_count: 0
+  hp_in_reconnect_payload: False
+
+### P4
+  Verdict: PASS
+  verb_results: {'roll_confirm': {'error_returned': True, 'unknown_msg_type_code': True, 'response_count': 1}, 'ability_check_declare': {'error_returned': True, 'unknown_msg_type_code': True, 'response_count': 1}, 'nonexistent_verb_xyz': {'error_returned': True, 'unknown_msg_type_code': True, 'response_count': 1}}
+
+### P6
+  Verdict: INCONCLUSIVE — no state_update frames observed (no combat turn resolved)
+  state_update_count: 0
+  leaking_frames: []
+
+## Section 2 (continued) — Manual Probe Results (P3, P5, P7, P8)
+
+=== MANUAL PROBES (P3, P5, P7, P8) — requires live NLP + human input ===
+
+These probes require the LLM/NLP backend (SessionOrchestrator.process_text_turn)
+to be running. They cannot be fully automated without the model seat.
+
+P3 — Compound utterance:
+  Submit: "I move behind the pillar and cast fireball"
+  Check: (1) Does narration mention the move? (2) Is move slot consumed?
+         (3) Any correction message? (4) Next turn: is move slot still available?
+
+P5 — Retry farming:
+  Submit these in sequence (same session):
+    "I search the room for hidden doors"
+    "I feel along the northern wall"
+    "I tap the stones looking for hollow sounds"
+    "I check the floor near the altar"
+  Check: Do all produce fresh rolls? Any time cost shown? Any cached result?
+
+P7 — Multi-connection actor collision:
+  Open two browser tabs to same session.
+  Tab 2: submit "I attack the goblin"
+  Tab 1: submit "I cast magic missile at the orc"
+  Check: Do both act as pc_fighter? Race conditions? Server log actor_id?
+
+P8 — Scope-ride:
+  Submit:
+    "I hide in the shadows"
+    "I try to convince the guard we're authorized"
+    "I examine the markings on the wall for magical significance"
+  Check: Any mechanical gate (roll, cost, rejection)?
+         Does narration describe a definite outcome?
+         Does narration reference hidden values (DC, roll, enemy stats)?
+
+For each manual probe, capture WS frames via browser DevTools Network tab
+(filter: WS) and include raw JSON in the report.
+
+
+## Section 3 — Findings
+  [Fill in after completing manual probes]
+
+## Section 4 — Verdict
+  Automated probes: CLEAN (automated probes only — manual required)
+  Manual probes: PENDING — run P3/P5/P7/P8 with NLP backend
+
+*File to: pm_inbox/ANVIL_PROBE_001.md*

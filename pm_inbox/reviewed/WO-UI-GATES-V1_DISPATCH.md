@@ -2,6 +2,7 @@
 
 **Issued:** 2026-02-23
 **Authority:** PM — AI2AI Exec Packet (TABLE UI NORTH STAR)
+**Lifecycle:** DISPATCH-READY
 **Sequence:** 6 of 6. Depends on WO-UI-CAMERAS-V1 ACCEPTED (golden frames must exist).
 **Gate:** UI-GATES (new gate, defined below)
 

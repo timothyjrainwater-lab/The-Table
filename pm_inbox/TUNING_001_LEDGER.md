@@ -3,6 +3,7 @@
 **Companion to:** `TUNING_001_PROTOCOL.md`
 **One decision:** Does tuning track channel/coherence more than confounds?
 **Method:** Signal vs noise. No ontology.
+**Lifecycle:** NEW
 
 ---
 

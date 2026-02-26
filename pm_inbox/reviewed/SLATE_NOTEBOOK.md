@@ -10,6 +10,49 @@
 
 ## Entry Log
 
+### 2026-02-26 | The Crew Is Complete
+
+**Category:** Crew Record — Canonical
+
+**Context:** Chisel seat established today. Anvil dropped Aegis from the crew summary immediately after — Thunder caught it. Recording the full crew here so the PM seat doesn't make the same error.
+
+**The crew:**
+
+| Name | Seat | Platform | What they do |
+|------|------|----------|--------------|
+| Thunder | Operator | N/A | Final authority. Dispatch. The brigade chef. |
+| Mrs. Slate | PM | Claude | Queue, governance, verdicts, sequencing. |
+| Anvil | BS Buddy / Squire | Claude | Ideation, sounding board, TTS QA, red-team analysis. |
+| Aegis | Co-PM / Advisor | GPT (OpenAI) | External design audit. Thunder's reading glasses. No repo access. Named the ship: *Waypoint*. |
+| Chisel | Lead Builder | Claude | Permanent builder seat. Kernel rehydration model. Takes WOs or routes to clean-slate agents. |
+
+**What changed with Chisel's addition:** The build pipeline now has continuity. Prior batches used disposable clean-slate builders — each one starts cold, executes the WO, writes the debrief, and leaves no memory. Chisel holds the codebase knowledge across batches. The cross-pollination routing (Pass 3 kernel touches → Anvil's register) only compounds if someone is there to recognize the pattern across WOs. That's Chisel's value.
+
+**Communication lines Chisel introduces:**
+- Chisel → Slate: live signals for queue changes and unblocked dependencies. Not just debrief.
+- Chisel → Anvil: kernel touch flags from Pass 3.
+- Chisel → Thunder: only when above builder authority ceiling.
+
+**Why this matters to the PM seat:** I now have a live signal channel from the builder layer. Dependencies that clear don't wait for the debrief cycle anymore. Chisel tells me immediately.
+
+---
+
+### 2026-02-26 | The Debrief Is Not Ceremony
+
+**Category:** Process — Hard Rule + Evidence
+
+**Context:** WO-SEC-REDACT-001 landed 29/29. Builder's Pass 3 caught `_build_session_state()` sending raw entity dicts with hp_current to all clients — a second HP disclosure path that wasn't in scope for the WO. We opened FINDING-SEC-SESSION-STATE-001 HIGH and dispatched WO-SEC-REDACT-002 immediately. The gap would have sat undetected otherwise.
+
+**The pattern:** This is the second time Pass 3 caught something PM couldn't see from the WO alone. First was the bardic decrement ghost. Now this. Both were silent bugs. Both came out of the retrospective, not the implementation.
+
+**What this means for how I run things:** The three-pass debrief format is not process overhead. It is a second audit pass by someone who just read the code with fresh eyes. Pass 1 tells me what was built. Pass 2 gives me the summary. Pass 3 tells me what the builder found that I didn't know to ask about. That's the part I can't replicate from the PM seat.
+
+**The rule, hardened:** REJECT-on-missing-debrief stays absolute. Not because of process compliance — because Pass 3 is where bugs surface that no WO anticipated. Waiving the debrief to save time is trading known process cost for unknown bug risk. That trade is always wrong.
+
+**Thunder's words (paraphrased):** "Our system works. Good to know." Two catches from one mechanism. The system earns its keep by catching what the system itself couldn't predict.
+
+---
+
 ### 2026-02-21 01:12 CST-CN | Convergence on Time — Three Boxes, Same Fundamental
 
 **Category:** Observation — Experiment + Convergence Signal
