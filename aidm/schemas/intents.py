@@ -764,6 +764,38 @@ class SmiteEvilIntent:
 
 
 @dataclass
+class LayOnHandsIntent:
+    """Intent to use Paladin Lay on Hands (PHB p.44). WO-ENGINE-LAY-ON-HANDS-001.
+
+    Standard action. Touch range (actor_id == target_id for self-heal).
+    Spends `amount` HP from the paladin's daily pool.
+    """
+
+    type: Literal["lay_on_hands"] = "lay_on_hands"
+    actor_id: str = ""
+    target_id: str = ""
+    amount: int = 1  # HP to spend from pool this use (1 to pool_remaining)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "actor_id": self.actor_id,
+            "target_id": self.target_id,
+            "amount": self.amount,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "LayOnHandsIntent":
+        if data.get("type") != "lay_on_hands":
+            raise IntentParseError(f"Expected type 'lay_on_hands', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            target_id=data["target_id"],
+            amount=data.get("amount", 1),
+        )
+
+
+@dataclass
 class BardicMusicIntent:
     """Intent to activate Bardic Music Inspire Courage (PHB p.29). WO-ENGINE-BARDIC-MUSIC-001."""
 
@@ -868,13 +900,136 @@ class NaturalAttackIntent:
         )
 
 
+@dataclass
+class SkillCheckIntent:
+    """Intent for an out-of-combat exploration skill check.
+
+    WO-ENGINE-RETRY-002: routed through execute_exploration_skill_check()
+    which enforces retry policy via evaluate_check().
+    """
+
+    actor_id: str
+    skill_name: str           # e.g., "search", "disable_device"
+    dc: int = 15              # default DC — caller may override
+    take_10: bool = False
+    take_20: bool = False
+    target_id: Optional[str] = None
+    method_tag: str = "default"
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "skill_check",
+            "actor_id": self.actor_id,
+            "skill_name": self.skill_name,
+            "dc": self.dc,
+            "take_10": self.take_10,
+            "take_20": self.take_20,
+            "target_id": self.target_id,
+            "method_tag": self.method_tag,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "SkillCheckIntent":
+        if data.get("type") != "skill_check":
+            raise IntentParseError(f"Expected type 'skill_check', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            skill_name=data["skill_name"],
+            dc=data.get("dc", 15),
+            take_10=data.get("take_10", False),
+            take_20=data.get("take_20", False),
+            target_id=data.get("target_id"),
+            method_tag=data.get("method_tag", "default"),
+        )
+
+
+@dataclass
+class StabilizeIntent:
+    """Intent to administer first aid to a dying ally (PHB p.152).
+
+    Standard action. DC 15 Heal check. On success, target gains EF.STABLE = True
+    (dying bleed stops; HP remains negative). Cannot stabilize self.
+
+    WO-ENGINE-STABILIZE-ALLY-001
+    """
+
+    actor_id: str
+    """Entity ID of the helper performing the Heal check."""
+
+    target_id: str
+    """Entity ID of the dying ally to stabilize (must have HP -1 to -9)."""
+
+    action_type: str = "standard"
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "stabilize",
+            "actor_id": self.actor_id,
+            "target_id": self.target_id,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "StabilizeIntent":
+        if data.get("type") != "stabilize":
+            raise IntentParseError(f"Expected type 'stabilize', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            target_id=data["target_id"],
+        )
+
+
+@dataclass
+class CalledShotIntent:
+    """Player declared a targeted strike without a named mechanic.
+
+    Policy: Option A (STRAT-CAT-05-CALLED-SHOT-POLICY-001).
+    Deny cleanly; surface nearest named mechanics.
+
+    Called shots are not a D&D 3.5e PHB mechanic. The engine emits
+    action_dropped with suggestions for the nearest valid mechanics
+    (trip, disarm, feint, sunder, standard attack).
+
+    KERNEL-04 (Intent Semantics) + KERNEL-10 (Adjudication Constitution) touch.
+    """
+
+    actor_id: str
+    target_description: str           # raw body-part / target text from utterance
+    source_text: str                  # original player utterance
+    target_id: Optional[str] = None  # may be None if target not parsed
+    suggested_mechanics: List[str] = field(default_factory=list)
+    # populated by resolver; empty at parse time
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "called_shot",
+            "actor_id": self.actor_id,
+            "target_id": self.target_id,
+            "target_description": self.target_description,
+            "source_text": self.source_text,
+            "suggested_mechanics": self.suggested_mechanics,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "CalledShotIntent":
+        if data.get("type") != "called_shot":
+            raise IntentParseError(f"Expected type 'called_shot', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            target_id=data.get("target_id"),
+            target_description=data.get("target_description", ""),
+            source_text=data.get("source_text", ""),
+            suggested_mechanics=data.get("suggested_mechanics", []),
+        )
+
+
 # Type alias for all intent types
 Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent |
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
           TurnUndeadIntent | ReadyActionIntent | AidAnotherIntent | FightDefensivelyIntent |
           TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
-          RageIntent | SmiteEvilIntent | BardicMusicIntent | WildShapeIntent | RevertFormIntent |
-          NaturalAttackIntent)
+          RageIntent | SmiteEvilIntent | LayOnHandsIntent | BardicMusicIntent | WildShapeIntent |
+          RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
+          CalledShotIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -932,6 +1087,8 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return RageIntent.from_dict(data)
     elif intent_type == "smite_evil":
         return SmiteEvilIntent.from_dict(data)
+    elif intent_type == "lay_on_hands":
+        return LayOnHandsIntent.from_dict(data)
     elif intent_type == "bardic_music":
         return BardicMusicIntent.from_dict(data)
     elif intent_type == "wild_shape":
@@ -940,5 +1097,11 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return RevertFormIntent.from_dict(data)
     elif intent_type == "natural_attack":
         return NaturalAttackIntent.from_dict(data)
+    elif intent_type == "skill_check":
+        return SkillCheckIntent.from_dict(data)
+    elif intent_type == "stabilize":
+        return StabilizeIntent.from_dict(data)
+    elif intent_type == "called_shot":
+        return CalledShotIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

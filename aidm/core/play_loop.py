@@ -39,6 +39,7 @@ WO-015 SCOPE:
 """
 
 import uuid
+import random
 from copy import deepcopy
 from typing import List, Dict, Any, Optional, Union, Tuple, Literal
 from dataclasses import dataclass
@@ -74,8 +75,8 @@ from aidm.schemas.intents import (
     ChargeIntent, TurnUndeadIntent, ReadyActionIntent, AidAnotherIntent,
     FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
-    RageIntent, SmiteEvilIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
-    NaturalAttackIntent,
+    RageIntent, SmiteEvilIntent, LayOnHandsIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
+    NaturalAttackIntent, StabilizeIntent, CalledShotIntent,
 )
 from aidm.core.companion_resolver import spawn_companion
 # WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
@@ -446,6 +447,38 @@ def _decrement_spell_slot(
 # ==============================================================================
 
 
+# WO-ENGINE-CALLED-SHOT-POLICY-001: Called shot suggestion map (STRAT-CAT-05 Option A)
+_CALLED_SHOT_SUGGESTION_MAP = {
+    # body-part / intent keywords → suggested PHB mechanics
+    "weapon": ["disarm (PHB p.155)", "sunder (PHB p.158)"],
+    "sword": ["disarm (PHB p.155)", "sunder (PHB p.158)"],
+    "shield": ["sunder (PHB p.158)"],
+    "leg": ["trip (PHB p.158)"],
+    "knee": ["trip (PHB p.158)"],
+    "foot": ["trip (PHB p.158)"],
+    "eye": ["standard attack (PHB p.140)"],
+    "head": ["standard attack (PHB p.140)"],
+    "throat": ["standard attack (PHB p.140)"],
+    "hand": ["disarm (PHB p.155)"],
+}
+
+_CALLED_SHOT_DEFAULT_SUGGESTIONS = [
+    "standard attack (PHB p.140)",
+    "trip (PHB p.158)",
+    "disarm (PHB p.155)",
+    "feint (PHB p.68)",
+]
+
+
+def _called_shot_suggestions(target_description: str) -> List[str]:
+    """Map a called shot target description to nearest named mechanics (STRAT-CAT-05)."""
+    desc_lower = target_description.lower()
+    for keyword, suggestions in _CALLED_SHOT_SUGGESTION_MAP.items():
+        if keyword in desc_lower:
+            return suggestions
+    return _CALLED_SHOT_DEFAULT_SUGGESTIONS
+
+
 def _resolve_spell_cast(
     intent: SpellCastIntent,
     world_state: WorldState,
@@ -584,6 +617,19 @@ def _resolve_spell_cast(
     # Create caster stats
     caster = _create_caster_stats(intent.caster_id, world_state)
 
+    # WO-ENGINE-SPELL-FOCUS-DC-001: Spell Focus / Greater Spell Focus DC bonus
+    _spell_focus_bonus = 0
+    _caster_feats = world_state.entities.get(intent.caster_id, {}).get(EF.FEATS, [])
+    _spell_school = spell.school if hasattr(spell, "school") else ""
+    if _spell_school:
+        if f"spell_focus_{_spell_school}" in _caster_feats:
+            _spell_focus_bonus += 1
+        if f"greater_spell_focus_{_spell_school}" in _caster_feats:
+            _spell_focus_bonus += 1
+    if _spell_focus_bonus:
+        from dataclasses import replace as _dc_replace
+        caster = _dc_replace(caster, spell_focus_bonus=_spell_focus_bonus)
+
     # WO-ENGINE-METAMAGIC-001: Heighten Spell raises spell DC by (heighten_to_level - base_level)
     # CasterStats.get_spell_dc(level) = spell_dc_base + level; raise base by the delta.
     if "heighten" in _metamagic and _heighten_to_level is not None:
@@ -642,6 +688,44 @@ def _resolve_spell_cast(
             citations=list(spell.rule_citations),
         ))
         return events, world_state, "spell_failed"
+
+    # WO-ENGINE-ARCANE-SPELL-FAILURE-001: Arcane Spell Failure check (PHB p.123)
+    _asf_pct = caster_state.get(EF.ARCANE_SPELL_FAILURE, 0) if caster_state else 0
+    _has_somatic = getattr(spell, "has_somatic", True)
+    _is_arcane = (
+        caster_state.get(EF.CLASS_LEVELS, {}).get("wizard", 0) > 0
+        or caster_state.get(EF.CLASS_LEVELS, {}).get("sorcerer", 0) > 0
+        or caster_state.get(EF.CLASS_LEVELS, {}).get("bard", 0) > 0
+    )
+
+    # WO-ENGINE-STILL-SPELL-001: Still Spell suppresses somatic component -> bypass ASF (PHB p.100)
+    _is_still = "still" in getattr(intent, "metamagic", ())
+    if _asf_pct > 0 and _has_somatic and not _is_still and _is_arcane:
+        _asf_roll = random.randint(1, 100)
+        if _asf_roll <= _asf_pct:
+            # Slot consumed on failure (PHB p.123)
+            _asf_entities = deepcopy(world_state.entities)
+            if _effective_slot_level > 0 and intent.caster_id in _asf_entities:
+                _decrement_spell_slot(_asf_entities[intent.caster_id], _effective_slot_level, use_secondary=_use_secondary)
+            _asf_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=_asf_entities,
+                active_combat=world_state.active_combat,
+            )
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_failed_asf",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_name": spell.name,
+                    "asf_pct": _asf_pct,
+                    "roll": _asf_roll,
+                    "slot_consumed": True,
+                },
+                citations=["PHB p.123"],
+            ))
+            return events, _asf_state, "spell_failed_asf"
 
     # Resolve the spell (CP-18: pass world_state for condition save modifiers)
     # WO-ENGINE-METAMAGIC-001: pass maximize flag so SpellResolver skips dice consumption
@@ -1294,6 +1378,19 @@ def execute_turn(
             ))
             current_event_id += 1
 
+    # WO-ENGINE-COMBAT-EXPERTISE-001: Clear CE dodge AC bonus at start of actor's turn (PHB p.92).
+    # CE bonus granted by intent.combat_expertise_penalty expires at the start of the
+    # attacker's next turn (same duration as fight_defensively).
+    _actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+    if _actor_entity.get(EF.COMBAT_EXPERTISE_BONUS, 0) != 0:
+        _entities_ce = deepcopy(world_state.entities)
+        _entities_ce[turn_ctx.actor_id][EF.COMBAT_EXPERTISE_BONUS] = 0
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=_entities_ce,
+            active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+        )
+
     # WO-WAYPOINT-002: actions_prohibited gate check
     # If the actor has a condition that sets actions_prohibited=True,
     # reject any action intent deterministically. The engine says no.
@@ -1463,9 +1560,10 @@ def execute_turn(
             intent_actor_id = combat_intent.attacker_id
         elif isinstance(combat_intent, (ReadyActionIntent, AidAnotherIntent,
                                         FightDefensivelyIntent, TotalDefenseIntent,
-                                        FeintIntent, RageIntent, SmiteEvilIntent, BardicMusicIntent,
-                                        WildShapeIntent, RevertFormIntent,
-                                        AbilityDamageIntent, WithdrawIntent, DelayIntent)):
+                                        FeintIntent, RageIntent, SmiteEvilIntent, LayOnHandsIntent,
+                                        BardicMusicIntent, WildShapeIntent, RevertFormIntent,
+                                        AbilityDamageIntent, WithdrawIntent, DelayIntent,
+                                        StabilizeIntent, CalledShotIntent)):
             intent_actor_id = combat_intent.actor_id
         else:
             # Unknown intent type
@@ -1726,7 +1824,7 @@ def execute_turn(
 
         # Validate: RNG must be provided for combat intents
         # SummonCompanionIntent, RestIntent, and PrepareSpellsIntent are exempt — they use no RNG.
-        if rng is None and not isinstance(combat_intent, (SummonCompanionIntent, RestIntent, PrepareSpellsIntent)):
+        if rng is None and not isinstance(combat_intent, (SummonCompanionIntent, RestIntent, PrepareSpellsIntent, CalledShotIntent)):
             raise ValueError("RNG manager required for combat intent resolution")
 
         # WO-BRIEF-WIDTH-001: Generate causal_chain_id for maneuver intents
@@ -1776,6 +1874,11 @@ def execute_turn(
                 aoo_used.extend(aoo_result.aoo_reactors)
                 active_combat_updated = deepcopy(world_state.active_combat)
                 active_combat_updated["aoo_used_this_round"] = aoo_used
+                # WO-ENGINE-COMBAT-REFLEXES-001: Mirror update to count tracker
+                aoo_count = dict(active_combat_updated.get("aoo_count_this_round", {}))
+                for _rid in aoo_result.aoo_reactors:
+                    aoo_count[_rid] = aoo_count.get(_rid, 0) + 1
+                active_combat_updated["aoo_count_this_round"] = aoo_count
                 world_state = WorldState(
                     ruleset_version=world_state.ruleset_version,
                     entities=deepcopy(world_state.entities),
@@ -2050,6 +2153,20 @@ def execute_turn(
             events.extend(_aid_events)
             narration = "aid_another_resolved"
 
+        elif isinstance(combat_intent, StabilizeIntent):
+            # WO-ENGINE-STABILIZE-ALLY-001: PHB p.152 First Aid — DC 15 Heal check to stabilize dying ally
+            from aidm.core.stabilize_resolver import resolve_stabilize as _resolve_stabilize
+            _stab_events, world_state = _resolve_stabilize(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_stab_events)
+            current_event_id += len(_stab_events)
+            narration = "stabilize_resolved"
+
         elif isinstance(combat_intent, FightDefensivelyIntent):
             # WO-ENGINE-DEFEND-001: Fight defensively
             _fd_actor = world_state.entities.get(combat_intent.actor_id, {})
@@ -2228,6 +2345,19 @@ def execute_turn(
             world_state = apply_attack_events(world_state, _smite_events)
             narration = "smite_evil_resolved"
 
+        # WO-ENGINE-LAY-ON-HANDS-001: Paladin Lay on Hands
+        elif isinstance(combat_intent, LayOnHandsIntent):
+            from aidm.core.lay_on_hands_resolver import resolve_lay_on_hands
+            _loh_events, world_state = resolve_lay_on_hands(
+                intent=combat_intent,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_loh_events)
+            current_event_id += len(_loh_events)
+            narration = "lay_on_hands_resolved"
+
         # WO-ENGINE-PLAY-LOOP-ROUTING-001: Bardic Music (Inspire Courage)
         elif isinstance(combat_intent, BardicMusicIntent):
             from aidm.core.bardic_music_resolver import resolve_bardic_music
@@ -2359,6 +2489,11 @@ def execute_turn(
                         aoo_used.extend(aoo_result.aoo_reactors)
                         active_combat_updated = deepcopy(world_state.active_combat)
                         active_combat_updated["aoo_used_this_round"] = aoo_used
+                        # WO-ENGINE-COMBAT-REFLEXES-001: Mirror update to count tracker
+                        aoo_count = dict(active_combat_updated.get("aoo_count_this_round", {}))
+                        for _rid in aoo_result.aoo_reactors:
+                            aoo_count[_rid] = aoo_count.get(_rid, 0) + 1
+                        active_combat_updated["aoo_count_this_round"] = aoo_count
                         world_state = WorldState(
                             ruleset_version=world_state.ruleset_version,
                             entities=deepcopy(world_state.entities),
@@ -2762,6 +2897,30 @@ def execute_turn(
             world_state = apply_attack_events(world_state, nat_events)
             narration = "natural_attack_resolved"
 
+        # WO-ENGINE-CALLED-SHOT-POLICY-001: Called shot hard denial (STRAT-CAT-05 Option A)
+        # Called shots are not a D&D 3.5e mechanic. Deny cleanly; surface nearest named mechanics.
+        # KERNEL-04 (Intent Semantics) + KERNEL-10 (Adjudication Constitution) touch.
+        elif isinstance(combat_intent, CalledShotIntent):
+            suggestions = _called_shot_suggestions(combat_intent.target_description)
+            payload = {
+                "actor_id": combat_intent.actor_id,
+                "dropped_action_type": "called_shot",
+                "resolved_action_type": "none",
+                "source_text": combat_intent.source_text,
+                "reason": "Called shots are not a D&D 3.5e mechanic.",
+                "suggestions": suggestions,
+            }
+            events.append(Event(event_id=current_event_id, event_type="action_dropped", timestamp=timestamp, payload=payload))
+            current_event_id += 1
+            # No state mutation. No action consumed. Player must re-declare.
+            return TurnResult(
+                status="action_dropped",
+                world_state=world_state,
+                events=events,
+                turn_index=turn_ctx.turn_index,
+                narration="called_shot_denied",
+            )
+
     # If no combat intent provided, use policy-based resolution (CP-09 behavior)
     elif doctrine is not None and turn_ctx.actor_team == "monsters":
         # Evaluate tactics using existing policy engine
@@ -3082,6 +3241,63 @@ def execute_turn(
         narration_text=narration_text,
         narration_provenance=narration_provenance,
     )
+
+
+def execute_exploration_skill_check(
+    world_state: WorldState,
+    actor_id: str,
+    skill_name: str,
+    dc: int,
+    modifier: int,
+    rng,
+    take_10: bool = False,
+    take_20: bool = False,
+    target_id=None,
+    method_tag: str = "default",
+    next_event_id: int = 0,
+):
+    """WO-ENGINE-RETRY-001: Entry point for exploration skill checks.
+
+    Wraps evaluate_check() from retry_policy.py, initializes game_clock if
+    absent, and re-sequences raw event IDs to be monotonic from next_event_id.
+
+    Returns:
+        Tuple of (success, roll_used, updated_world_state, events).
+    """
+    from aidm.core.retry_policy import evaluate_check
+    from aidm.schemas.time import GameClock
+
+    ws = world_state
+    if ws.game_clock is None:
+        from copy import deepcopy
+        ws = deepcopy(ws)
+        ws.game_clock = GameClock(t_seconds=0, scale="exploration")
+
+    success, roll_used, updated_ws, raw_events = evaluate_check(
+        world_state=ws,
+        actor_id=actor_id,
+        skill_name=skill_name,
+        dc=dc,
+        modifier=modifier,
+        target_id=target_id,
+        method_tag=method_tag,
+        take_10=take_10,
+        take_20=take_20,
+        rng=rng,
+    )
+
+    # Re-sequence event IDs to be monotonic from next_event_id
+    from aidm.core.event_log import Event
+    events = []
+    for i, ev in enumerate(raw_events):
+        events.append(Event(
+            event_id=next_event_id + i,
+            event_type=ev.event_type,
+            timestamp=ev.timestamp,
+            payload=ev.payload,
+        ))
+
+    return success, roll_used, updated_ws, events
 
 
 def execute_scenario(

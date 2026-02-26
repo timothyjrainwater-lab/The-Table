@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+from aidm.schemas.entity_fields import EF
 from aidm.schemas.position import Position
 from aidm.schemas.saves import SaveType
 from aidm.core.geometry_engine import BattleGrid
@@ -169,6 +170,17 @@ class SpellDefinition:
     look up AbilityPresentationEntry from the PresentationSemanticsRegistry.
     Format: 'spell.{template_id_lower}' (e.g., 'spell.spell_001').
     """
+
+    has_somatic: bool = True
+    """WO-ENGINE-ARCANE-SPELL-FAILURE-001: True if spell has a somatic component.
+    V-only spells (e.g., Message, Silent Image, Alarm, Tongues) set this to False.
+    All other spells default True. PHB p.174."""
+
+    has_verbal: bool = True
+    # PHB: True if spell has a verbal component.
+    # Future: checked by silence-zone enforcement when that condition layer lands.
+    # Silent Spell metamagic suppresses this component (PHB p.98), allowing casting
+    # in areas of magical silence or when speech is impossible.
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary."""
@@ -403,13 +415,16 @@ class CasterStats:
     attack_bonus: int = 0
     """Attack bonus for touch/ray spells."""
 
+    spell_focus_bonus: int = 0
+    """WO-ENGINE-SPELL-FOCUS-DC-001: Bonus DC from Spell Focus / Greater Spell Focus feats."""
+
     def get_spell_dc(self, spell_level: int) -> int:
         """Calculate spell DC for a given spell level.
 
-        DC = 10 + spell level + ability modifier
+        DC = 10 + spell level + ability modifier + spell focus bonus
         spell_dc_base = 10 + ability modifier
         """
-        return self.spell_dc_base + spell_level
+        return self.spell_dc_base + spell_level + self.spell_focus_bonus
 
 
 # ==============================================================================
@@ -656,7 +671,8 @@ class SpellResolver:
             # Apply damage
             if spell.damage_dice is not None:
                 damage, damage_stp = self._resolve_damage(
-                    spell, caster, target, saved, maximize=maximize
+                    spell, caster, target, saved, maximize=maximize,
+                    world_state=world_state, target_entity_id=entity_id
                 )
                 damage_dealt[entity_id] = damage
                 stps.append(damage_stp)
@@ -832,6 +848,8 @@ class SpellResolver:
         target: TargetStats,
         saved: bool,
         maximize: bool = False,  # WO-ENGINE-METAMAGIC-001: Maximize Spell feat
+        world_state: Any = None,  # WO-ENGINE-EVASION-001: for Evasion/Improved Evasion lookup
+        target_entity_id: Optional[str] = None,  # WO-ENGINE-EVASION-001
     ) -> Tuple[int, StructuredTruthPacket]:
         """Resolve damage for a spell.
 
@@ -868,8 +886,25 @@ class SpellResolver:
         if saved:
             if spell.save_effect == SaveEffect.HALF:
                 total = total // 2
+                # WO-ENGINE-EVASION-001: Evasion / Improved Evasion (PHB Rogue p.56, Monk p.41)
+                if spell.save_type == SaveType.REF and world_state is not None and target_entity_id is not None:
+                    _target_raw = world_state.entities.get(target_entity_id, {})
+                    # WO-ENGINE-EVASION-ARMOR-001: Evasion requires light or no armor (PHB p.50)
+                    _armor = _target_raw.get(EF.ARMOR_TYPE, "none")
+                    _evasion_active = _armor in ("none", "light")
+                    if _evasion_active and (_target_raw.get(EF.EVASION, False) or _target_raw.get(EF.IMPROVED_EVASION, False)):
+                        total = 0
             elif spell.save_effect == SaveEffect.NEGATES:
                 total = 0
+        else:
+            # WO-ENGINE-EVASION-001: Improved Evasion on failed save -> half damage (PHB Rogue p.57)
+            if spell.save_type == SaveType.REF and spell.save_effect == SaveEffect.HALF:
+                if world_state is not None and target_entity_id is not None:
+                    _target_raw = world_state.entities.get(target_entity_id, {})
+                    # WO-ENGINE-EVASION-ARMOR-001: Improved Evasion requires light or no armor (PHB p.50)
+                    _armor = _target_raw.get(EF.ARMOR_TYPE, "none")
+                    if _armor in ("none", "light") and _target_raw.get(EF.IMPROVED_EVASION, False):
+                        total = total // 2
 
         # Generate damage STP
         damage_type = spell.damage_type.value if spell.damage_type else "untyped"
