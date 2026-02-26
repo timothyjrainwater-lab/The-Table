@@ -68,15 +68,33 @@ from aidm.schemas.entity_fields import EF
 def _find_cleave_target(attacker_id: str, killed_id: str, world_state: WorldState):
     """Find an adjacent enemy to target with a Cleave bonus attack.
 
-    Returns entity ID of first living hostile entity that is not the just-killed one,
-    or None if no valid target exists.
+    PHB p.92: the bonus attack must be against a foe *adjacent to the killed
+    creature*.  If position data is unavailable for any entity we fall back to
+    the legacy "first living hostile" behaviour so that position-free test
+    scenarios continue to work.
 
-    WO-ENGINE-CLEAVE-WIRE-001
+    WO-ENGINE-CLEAVE-ADJACENCY-001
     """
+    from aidm.schemas.position import Position
+
     attacker = world_state.entities.get(attacker_id)
+    killed = world_state.entities.get(killed_id)
     if attacker is None:
         return None
+
     attacker_team = attacker.get(EF.TEAM, "")
+
+    # Resolve killed creature's position (may be None if not tracked)
+    killed_pos = None
+    if killed is not None:
+        _killed_pos_raw = killed.get(EF.POSITION)
+        if _killed_pos_raw is not None:
+            killed_pos = (
+                Position(**_killed_pos_raw)
+                if isinstance(_killed_pos_raw, dict)
+                else _killed_pos_raw
+            )
+
     for eid, entity in world_state.entities.items():
         if eid == attacker_id or eid == killed_id:
             continue
@@ -86,9 +104,20 @@ def _find_cleave_target(attacker_id: str, killed_id: str, world_state: WorldStat
             continue
         if entity.get(EF.TEAM, "") == attacker_team:
             continue
+        # Adjacency check: candidate must be adjacent to the killed creature.
+        # If killed position is unknown, skip the check (fail-open / legacy).
+        if killed_pos is not None:
+            _cand_pos_raw = entity.get(EF.POSITION)
+            if _cand_pos_raw is not None:
+                _cand_pos = (
+                    Position(**_cand_pos_raw)
+                    if isinstance(_cand_pos_raw, dict)
+                    else _cand_pos_raw
+                )
+                if not killed_pos.is_adjacent_to(_cand_pos):
+                    continue  # Not adjacent to killed creature — skip
         return eid
     return None
-
 
 def parse_damage_dice(dice_expr: str) -> Tuple[int, int]:
     """
@@ -136,6 +165,47 @@ def roll_dice(num_dice: int, die_size: int, rng: RNGProvider) -> List[int]:
     """
     combat_rng = rng.stream("combat")
     return [combat_rng.randint(1, die_size) for _ in range(num_dice)]
+
+
+
+# WO-ENGINE-UNCANNY-DODGE-001: Helper — Uncanny Dodge flat-footed DEX retention (PHB p.51/47/26)
+# IMMOBILIZING conditions (paralyzed, stunned, helpless, unconscious, pinned, blinded) still deny DEX.
+# Only the flat-footed DEX denial is bypassed by Uncanny Dodge.
+_UNCANNY_DODGE_IMMOBILIZING_CONDITIONS = {
+    "paralyzed",
+    "stunned",
+    "helpless",
+    "unconscious",
+    "pinned",
+    "blinded",
+}
+
+
+def _target_retains_dex_via_uncanny_dodge(target: dict) -> bool:
+    """Return True if target has Uncanny Dodge AND is not additionally immobilized.
+
+    Called only when defender_modifiers.loses_dex_to_ac is True.
+    Uncanny Dodge (PHB p.51/47/26) lets the entity keep DEX bonus when flat-footed.
+    Exception: immobilized conditions (paralyzed, stunned, etc.) still deny DEX.
+
+    WO-ENGINE-UNCANNY-DODGE-001
+    """
+    class_levels = target.get(EF.CLASS_LEVELS, {}) or {}
+    has_uncanny_dodge = (
+        class_levels.get("rogue", 0) >= 2
+        or class_levels.get("ranger", 0) >= 4
+        or class_levels.get("barbarian", 0) >= 2
+    )
+    if not has_uncanny_dodge:
+        return False
+
+    # Check for immobilizing conditions — these override Uncanny Dodge
+    conditions = target.get(EF.CONDITIONS, {}) or {}
+    for cond_key in conditions:
+        if cond_key in _UNCANNY_DODGE_IMMOBILIZING_CONDITIONS:
+            return False  # Immobilized: still deny DEX even with Uncanny Dodge
+
+    return True  # Uncanny Dodge active, not immobilized -> retain DEX
 
 
 def resolve_attack(
@@ -313,8 +383,9 @@ def resolve_attack(
     # Get target AC (base AC + condition modifiers + cover bonus)
     base_ac = target.get(EF.AC, 10)  # Default AC 10 if not specified
     # CP-17: loses_dex_to_ac — subtract DEX mod from AC when condition active
+    # WO-ENGINE-UNCANNY-DODGE-001: Uncanny Dodge bypasses flat-footed DEX denial (PHB p.51/47/26)
     dex_penalty = 0
-    if defender_modifiers.loses_dex_to_ac:
+    if defender_modifiers.loses_dex_to_ac and not _target_retains_dex_via_uncanny_dodge(target):
         dex_mod = target.get(EF.DEX_MOD, 0)
         if dex_mod > 0:  # Only subtract positive DEX bonus (never penalize further)
             dex_penalty = -dex_mod
@@ -335,6 +406,9 @@ def resolve_attack(
     from aidm.core.full_attack_resolver import _compute_twd_ac_bonus
     _twd_ac_bonus = _compute_twd_ac_bonus(target)
 
+    # WO-ENGINE-COMBAT-EXPERTISE-001: CE dodge AC bonus on target (if target declared CE) (PHB p.92)
+    _ce_ac_bonus = target.get(EF.COMBAT_EXPERTISE_BONUS, 0)
+
     # WO-ENGINE-FEINT-001: Check feint flat-footed marker (consumes on use)
     from aidm.core.feint_resolver import consume_feint_marker as _consume_feint
     world_state, _feint_active = _consume_feint(
@@ -347,7 +421,20 @@ def resolve_attack(
             if dex_mod > 0:
                 dex_penalty = -dex_mod
 
-    target_ac = base_ac + condition_ac + cover_result.ac_bonus + dex_penalty + _defend_ac_total + _twd_ac_bonus
+    # WO-ENGINE-MONK-WIS-AC-001: Monk WIS bonus to AC (PHB p.41) — applies when unarmored
+    _monk_wis_ac = 0
+    _monk_level_target = target.get(EF.CLASS_LEVELS, {}).get("monk", 0)
+    if _monk_level_target >= 1:
+        _armor_bonus = target.get(EF.ARMOR_AC_BONUS, 0)
+        if _armor_bonus == 0:
+            _monk_wis_ac = target.get(EF.MONK_WIS_AC_BONUS, 0)
+            # Note: encumbrance (heavy load) check deferred — catalog not available in this call path
+
+    # WO-ENGINE-DEFLECTION-BONUS-001: Deflection bonus to AC (PHB p.136)
+    # Applies vs ALL attacks including touch attacks (unlike armor/shield which touch bypasses).
+    _deflection_ac = target.get(EF.DEFLECTION_BONUS, 0)
+
+    target_ac = base_ac + condition_ac + cover_result.ac_bonus + dex_penalty + _defend_ac_total + _twd_ac_bonus + _ce_ac_bonus + _monk_wis_ac + _deflection_ac  # WO-ENGINE-COMBAT-EXPERTISE-001, WO-ENGINE-MONK-WIS-AC-001, WO-ENGINE-DEFLECTION-BONUS-001
 
     # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: +2 attack bonus against blinded defender (PHB p.309)
     from aidm.core.condition_combat_resolver import is_blinded as _is_blinded
@@ -383,6 +470,25 @@ def resolve_attack(
         if attacker.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
     )
 
+    # WO-ENGINE-FAVORED-ENEMY-001: Ranger Favored Enemy attack/damage bonus (PHB p.47)
+    _favored_enemy_bonus = 0
+    _attacker_favored = attacker.get(EF.FAVORED_ENEMIES, [])
+    if _attacker_favored:
+        _target_type = target.get(EF.CREATURE_TYPE, "")
+        for _fe in _attacker_favored:
+            if _fe.get("creature_type", "") == _target_type and _target_type != "":
+                _favored_enemy_bonus = _fe.get("bonus", 0)
+                break
+
+    # WO-ENGINE-WEAPON-FINESSE-001: Weapon Finesse � DEX replaces STR for light weapon attacks (PHB p.102)
+    # intent.attack_bonus is BAB + STR_MOD (from intent_bridge.py); delta = DEX - STR replaces STR with DEX
+    _finesse_delta = 0
+    _attacker_feats = attacker.get(EF.FEATS, [])
+    if "weapon_finesse" in _attacker_feats and intent.weapon.is_light:
+        _str_mod = attacker.get(EF.STR_MOD, 0)
+        _dex_mod = attacker.get(EF.DEX_MOD, 0)
+        _finesse_delta = _dex_mod - _str_mod  # positive if DEX > STR, negative if DEX < STR
+
     attack_bonus_with_conditions = (
         intent.attack_bonus +
         attacker_modifiers.attack_modifier +
@@ -395,8 +501,18 @@ def resolve_attack(
         + _weapon_broken_penalty  # WO-ENGINE-SUNDER-DISARM-FULL-001: -2 if weapon broken
         + _vs_blinded_bonus  # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: +2 vs blinded
         + _inspire_attack_bonus  # WO-ENGINE-BARDIC-MUSIC-001: morale bonus to attack
+        + _favored_enemy_bonus  # WO-ENGINE-FAVORED-ENEMY-001: ranger favored enemy bonus
+        + intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: magic weapon (PHB p.224)
+        + _finesse_delta  # WO-ENGINE-WEAPON-FINESSE-001: DEX delta for light weapons
+        - intent.combat_expertise_penalty  # WO-ENGINE-COMBAT-EXPERTISE-001: CE attack penalty (PHB p.92)
     )
     total = d20_result + attack_bonus_with_conditions
+
+    # WO-ENGINE-COMBAT-EXPERTISE-001: Write CE dodge AC bonus to attacker entity (PHB p.92)
+    # penalty==1 -> +1; penalty 2-5 -> +2. Cleared at start of attacker next turn.
+    if intent.combat_expertise_penalty > 0:
+        _ce_ac = 1 if intent.combat_expertise_penalty == 1 else 2
+        world_state.entities[intent.attacker_id][EF.COMBAT_EXPERTISE_BONUS] = _ce_ac
 
     # Determine threat and hit (PHB p.140)
     is_threat = (d20_result >= intent.weapon.critical_range)
@@ -535,7 +651,7 @@ def resolve_attack(
         else:
             str_to_damage = str_modifier
 
-        base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_to_damage
+        base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_to_damage + intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: enhancement is pre-crit (PHB p.224)
         # CP-16: Apply condition damage modifier, WO-034: Apply feat damage modifier
         # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus to damage (PHB p.29)
         _inspire_dmg_bonus = (
@@ -549,6 +665,9 @@ def resolve_attack(
             damage_total = max(1, base_damage_with_modifiers * intent.weapon.critical_multiplier)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
         else:
             damage_total = max(1, base_damage_with_modifiers)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
+
+        # WO-ENGINE-FAVORED-ENEMY-001: Favored Enemy damage bonus is NOT multiplied on crit (PHB p.47 — flat bonus)
+        damage_total += _favored_enemy_bonus
 
         # WO-050B: Sneak Attack precision damage (PHB p.50)
         # Added AFTER critical multiplier — precision damage is NOT multiplied on crits
@@ -632,6 +751,36 @@ def resolve_attack(
         # WO-ENGINE-DR-001: Only emit hp_changed if damage penetrated DR
         hp_before = target.get(EF.HP_CURRENT, 0)
         hp_after = hp_before - final_damage
+
+        # WO-ENGINE-MASSIVE-DAMAGE-001: PHB p.145 — Massive Damage instant-death check
+        # Trigger: single attack dealing 50+ post-DR damage → DC 15 Fort save or die
+        if final_damage >= 50:
+            from aidm.core.save_resolver import get_save_bonus, SaveType
+            _md_save_bonus = get_save_bonus(world_state, intent.target_id, SaveType.FORT)
+            _md_roll = rng.stream("combat").randint(1, 20)
+            _md_total = _md_roll + _md_save_bonus
+            _md_saved = _md_total >= 15
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="massive_damage_check",
+                timestamp=timestamp + 0.15,
+                payload={
+                    "target_id": intent.target_id,
+                    "damage": final_damage,
+                    "fort_roll": _md_roll,
+                    "fort_bonus": _md_save_bonus,
+                    "fort_total": _md_total,
+                    "dc": 15,
+                    "saved": _md_saved,
+                },
+                citations=["PHB p.145"],
+            ))
+            current_event_id += 1
+
+            if not _md_saved:
+                # Instant death — override hp_after to -10 (dead threshold)
+                hp_after = -10
 
         if final_damage > 0:
             # Emit hp_changed event
@@ -783,8 +932,9 @@ def resolve_nonlethal_attack(
     # Get target AC
     base_ac = target.get(EF.AC, 10)
     is_melee = True  # NonlethalAttackIntent is always melee
+    # WO-ENGINE-UNCANNY-DODGE-001: Uncanny Dodge bypasses flat-footed DEX denial (PHB p.51/47/26)
     dex_penalty = 0
-    if defender_modifiers.loses_dex_to_ac:
+    if defender_modifiers.loses_dex_to_ac and not _target_retains_dex_via_uncanny_dodge(target):
         dex_mod = target.get(EF.DEX_MOD, 0)
         if dex_mod > 0:
             dex_penalty = -dex_mod
@@ -792,12 +942,27 @@ def resolve_nonlethal_attack(
         condition_ac = defender_modifiers.ac_modifier_melee
     else:
         condition_ac = defender_modifiers.ac_modifier
-    target_ac = base_ac + condition_ac + dex_penalty
+    # WO-ENGINE-MONK-WIS-AC-001: Monk WIS bonus to AC (PHB p.41) — applies when unarmored
+    _monk_wis_ac_nl = 0
+    _monk_level_target_nl = target.get(EF.CLASS_LEVELS, {}).get("monk", 0)
+    if _monk_level_target_nl >= 1:
+        _armor_bonus_nl = target.get(EF.ARMOR_AC_BONUS, 0)
+        if _armor_bonus_nl == 0:
+            _monk_wis_ac_nl = target.get(EF.MONK_WIS_AC_BONUS, 0)
+    target_ac = base_ac + condition_ac + dex_penalty + _monk_wis_ac_nl
 
     # Step 1: Attack roll
     combat_rng = rng.stream("combat")
     d20_result = combat_rng.randint(1, 20)
-    attack_bonus_with_conditions = adjusted_attack_bonus + attacker_modifiers.attack_modifier
+    # WO-ENGINE-WEAPON-FINESSE-001: Weapon Finesse � DEX replaces STR for light weapon attacks (PHB p.102)
+    # adjusted_attack_bonus includes NONLETHAL_ATTACK_PENALTY applied to BAB+STR_MOD
+    _nl_finesse_delta = 0
+    _nl_attacker_feats = attacker.get(EF.FEATS, [])
+    if "weapon_finesse" in _nl_attacker_feats and intent.weapon.is_light:
+        _nl_str_mod = attacker.get(EF.STR_MOD, 0)
+        _nl_dex_mod = attacker.get(EF.DEX_MOD, 0)
+        _nl_finesse_delta = _nl_dex_mod - _nl_str_mod  # positive if DEX > STR
+    attack_bonus_with_conditions = adjusted_attack_bonus + attacker_modifiers.attack_modifier + _nl_finesse_delta
     total = d20_result + attack_bonus_with_conditions
 
     is_threat = (d20_result >= intent.weapon.critical_range)
