@@ -205,6 +205,14 @@ class _EntityFields:
     # --- Paladin Smite Evil (WO-ENGINE-SMITE-EVIL-001) ---
     SMITE_USES_REMAINING = "smite_uses_remaining"  # Int: smite uses left today
 
+    # --- Paladin Lay on Hands (WO-ENGINE-LAY-ON-HANDS-001) ---
+    LAY_ON_HANDS_POOL = "lay_on_hands_pool"
+    # int: total HP paladin can heal today via Lay on Hands.
+    # = paladin_level * max(1, CHA_mod). 0 if CHA_mod <= 0.
+    # Refreshes on full rest. PHB p.44.
+    LAY_ON_HANDS_USED = "lay_on_hands_used"
+    # int: HP already consumed from pool this day. 0 at rest.
+
     # --- Bardic Music (WO-ENGINE-BARDIC-MUSIC-001) ---
     BARDIC_MUSIC_USES_REMAINING = "bardic_music_uses_remaining"  # Int: uses left today
     INSPIRE_COURAGE_ACTIVE = "inspire_courage_active"   # Bool: inspire courage in effect
@@ -223,6 +231,20 @@ class _EntityFields:
     EQUIPMENT_MELDED = "equipment_melded"           # Bool: equipment melded into form (weapon attacks blocked)
     NATURAL_ATTACKS = "natural_attacks"             # List[dict]: natural attack definitions while in form
 
+    # --- Ranger Favored Enemy (WO-ENGINE-FAVORED-ENEMY-001) ---
+    FAVORED_ENEMIES = "favored_enemies"
+    # list[dict]: Ranger's favored enemy table.
+    # Each entry: {"creature_type": str, "bonus": int}
+    # Example: [{"creature_type": "humanoid", "bonus": 4}, {"creature_type": "undead", "bonus": 2}]
+    # Populated at chargen. Empty list = no favored enemies (non-ranger).
+    # PHB p.47. Bonus applies to attack rolls and damage rolls (not skills — deferred).
+
+    CREATURE_TYPE = "creature_type"
+    # str: Creature's primary type for mechanical matching.
+    # PHB types: humanoid, undead, aberration, animal, construct, dragon, elemental,
+    #   fey, giant, magical beast, monstrous humanoid, ooze, outsider, plant, vermin.
+    # Default "": no type match (no favored enemy bonus applies).
+
     # --- Racial Traits (WO-CHARGEN-RACIAL-001) ---
     SAVE_BONUS_SPELLS = "save_bonus_spells"        # Racial bonus vs spells and spell-like abilities
     STONECUNNING = "stonecunning"                  # Bool: +2 Search on stone/underground features
@@ -240,6 +262,69 @@ class _EntityFields:
     ILLUSION_DC_BONUS = "illusion_dc_bonus"        # Int: bonus to illusion spell save DCs (gnome)
     DARKVISION_RANGE = "darkvision_range"          # Int: darkvision range in feet
     SAVE_BONUS_POISON = "save_bonus_poison"        # Int: racial bonus vs poison saves
+
+    # --- Arcane Spell Failure (WO-ENGINE-ARCANE-SPELL-FAILURE-001) ---
+    ARCANE_SPELL_FAILURE = "arcane_spell_failure"
+    # int: percentage chance (0-100) that arcane spells with somatic components fail.
+    # 0 = no armor or divine caster. Set by chargen/equip system.
+
+
+    # --- Combat Expertise (WO-ENGINE-COMBAT-EXPERTISE-001) ---
+    COMBAT_EXPERTISE_BONUS = "combat_expertise_bonus"
+    # int: Dodge AC bonus granted this turn by Combat Expertise declaration (PHB p.92).
+    # penalty==1 -> +1 AC; penalty 2-5 -> +2 AC.
+    # Cleared at start of attacker's next turn.
+
+    # --- Evasion (WO-ENGINE-EVASION-001) ---
+    EVASION = "evasion"
+    # bool: True if entity has Evasion class ability (Rogue 2, Monk 2).
+    # On successful Reflex save vs half-damage area effect: take 0 damage instead of half.
+    # PHB Rogue p.56, Monk p.41. Armor restriction not enforced by this WO.
+
+    IMPROVED_EVASION = "improved_evasion"
+    # bool: True if entity has Improved Evasion (Rogue 10, Monk 9).
+    # On failed Reflex save vs half-damage area effect: take half damage instead of full.
+    # On successful save: take 0 damage (same as Evasion).
+    # PHB Rogue p.57, Monk p.43.
+
+    # --- Monk WIS-to-AC (WO-ENGINE-MONK-WIS-AC-001) ---
+    MONK_WIS_AC_BONUS = "monk_wis_ac_bonus"
+    # int: WIS modifier applied to monk AC at runtime (PHB p.41).
+    # 0 for non-monks. Set at chargen for monks. Read in attack_resolver.
+    # Applies only when unarmored (ARMOR_AC_BONUS == 0).
+    # Encumbrance check deferred to encumbrance system integration.
+
+    ARMOR_AC_BONUS = "armor_ac_bonus"
+    # int: AC bonus from worn armor. 0 = unarmored. Set at chargen.
+    # Used to gate monk WIS-to-AC and other armor-conditional features.
+
+    ARMOR_TYPE = "armor_type"
+    # str: "none" | "light" | "medium" | "heavy". Set at chargen.
+    # Used to gate barbarian Fast Movement (blocked only by heavy armor, PHB p.26).
+
+    # --- Barbarian Fast Movement (WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001) ---
+    FAST_MOVEMENT_BONUS = "fast_movement_bonus"
+    # int: bonus feet added to base speed (PHB p.26). 10 for barbarians, 0 for others.
+    # Applied when NOT wearing heavy armor and NOT under heavy load.
+
+    # --- Energy Resistance (WO-ENGINE-ENERGY-RESISTANCE-001) ---
+    ENERGY_RESISTANCE = "energy_resistance"
+    # dict[str, int]: energy type → resistance value (PHB p.291).
+    # e.g., {"fire": 10, "cold": 5}. Absent key = no resistance. 0 = no resistance.
+    # Resistance absorbs the first N points of that energy type per damage instance.
+
+    # --- Defensive Casting / Concentration (WO-ENGINE-DEFENSIVE-CASTING-001) ---
+    CONCENTRATION_BONUS = "concentration_bonus"
+    # int: bonus to Concentration skill checks. = CON mod + skill ranks + class bonuses.
+    # Used for defensive casting DC (15 + spell level), vigorous motion, violent weather, etc.
+    # PHB p.69 (Concentration skill). Default 0 if not set.
+
+    # --- Deflection Bonus to AC (WO-ENGINE-DEFLECTION-BONUS-001) ---
+    DEFLECTION_BONUS = "deflection_bonus"
+    # int: deflection bonus to AC from magical sources (rings of protection, Shield of Faith, etc.)
+    # PHB p.136: deflection bonuses apply vs ALL attacks including touch attacks.
+    # Multiple deflection bonuses do NOT stack — only highest applies.
+    # 0 = no deflection bonus (default / absent key).
 
 
 # Singleton instance — import this

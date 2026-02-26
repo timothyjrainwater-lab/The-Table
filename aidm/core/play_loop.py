@@ -76,7 +76,7 @@ from aidm.schemas.intents import (
     FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
     RageIntent, SmiteEvilIntent, LayOnHandsIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
-    NaturalAttackIntent, StabilizeIntent, CalledShotIntent,
+    NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent,
 )
 from aidm.core.companion_resolver import spawn_companion
 # WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
@@ -527,6 +527,67 @@ def _resolve_spell_cast(
     # Work on a live reference so we can mutate after success
     caster_state = world_state.entities.get(intent.caster_id, {})
 
+    # WO-ENGINE-VERBAL-SPELL-BLOCK-001: Verbal component block (PHB p.174)
+    # Check BEFORE metamagic — a gagged/silenced caster cannot speak regardless
+    # of any metamagic feat applied. Silent Spell suppresses the V component.
+    _has_verbal = getattr(spell, "has_verbal", True)
+    _is_silent = "silent" in getattr(intent, "metamagic", ())
+    if _has_verbal and not _is_silent:
+        _caster_conditions = caster_state.get(EF.CONDITIONS, {})
+        _speech_blocked = (
+            "silenced" in _caster_conditions
+            or "gagged" in _caster_conditions
+        )
+        if _speech_blocked:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_blocked",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "spell_name": spell.name,
+                    "reason": "verbal_component_blocked",
+                    "detail": "Caster cannot speak — Verbal component unavailable (PHB p.174).",
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.174"],
+            ))
+            # No slot consumed — clean deny, player must re-declare (PHB p.174)
+            return events, world_state, "spell_blocked"
+
+    # WO-ENGINE-SOMATIC-COMPONENT-001: Somatic component block (PHB p.174)
+    # A pinned or bound caster cannot gesture — somatic component unavailable.
+    # Still Spell metamagic removes the somatic requirement — bypass this block.
+    # GRAPPLED (not pinned) does NOT block somatic; it triggers Concentration instead (future WO).
+    _has_somatic_sc = getattr(spell, "has_somatic", True)
+    _is_still_sc = "still" in getattr(intent, "metamagic", ())
+    if _has_somatic_sc and not _is_still_sc:
+        _caster_conds_sc = caster_state.get(EF.CONDITIONS, {})
+        _somatic_blocked = (
+            "pinned" in _caster_conds_sc
+            or "bound" in _caster_conds_sc
+        )
+        if _somatic_blocked:
+            _blocking_cond = "pinned" if "pinned" in _caster_conds_sc else "bound"
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_blocked",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "spell_name": spell.name,
+                    "reason": "somatic_component_blocked",
+                    "blocking_condition": _blocking_cond,
+                    "detail": "Caster cannot gesture — Somatic component unavailable (PHB p.174).",
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.174"],
+            ))
+            # No slot consumed — clean deny (PHB p.174)
+            return events, world_state, "spell_blocked"
+
     # WO-ENGINE-METAMAGIC-001: Validate metamagic prerequisites and compute effective slot level
     _metamagic = list(getattr(intent, "metamagic", ()) or ())
     _heighten_to_level: Optional[int] = getattr(intent, "heighten_to_level", None)
@@ -782,6 +843,34 @@ def _resolve_spell_cast(
         if damage > 0 and entity_id in entities:
             old_hp = entities[entity_id].get(EF.HP_CURRENT, 0)
             new_hp = old_hp - damage
+
+            # WO-ENGINE-MASSIVE-DAMAGE-RULE-001: Massive Damage check (PHB p.145)
+            # Single hit 50+ HP damage → Fort DC 15 save or instant death.
+            if damage >= 50:
+                from aidm.core.save_resolver import get_save_bonus, SaveType as _SaveType
+                _md_save_bonus = get_save_bonus(world_state, entity_id, _SaveType.FORT)
+                _md_roll = rng.stream("combat").randint(1, 20)
+                _md_total = _md_roll + _md_save_bonus
+                _md_saved = _md_total >= 15
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="massive_damage_check",
+                    timestamp=timestamp + 0.005,
+                    payload={
+                        "target_id": entity_id,
+                        "damage": damage,
+                        "fort_roll": _md_roll,
+                        "fort_bonus": _md_save_bonus,
+                        "fort_total": _md_total,
+                        "dc": 15,
+                        "saved": _md_saved,
+                    },
+                    citations=["PHB p.145"],
+                ))
+                current_event_id += 1
+                if not _md_saved:
+                    new_hp = -10  # Instant death (PHB p.145)
+
             entities[entity_id][EF.HP_CURRENT] = new_hp
 
             events.append(Event(
@@ -1563,7 +1652,7 @@ def execute_turn(
                                         FeintIntent, RageIntent, SmiteEvilIntent, LayOnHandsIntent,
                                         BardicMusicIntent, WildShapeIntent, RevertFormIntent,
                                         AbilityDamageIntent, WithdrawIntent, DelayIntent,
-                                        StabilizeIntent, CalledShotIntent)):
+                                        StabilizeIntent, CalledShotIntent, DemoralizeIntent)):
             intent_actor_id = combat_intent.actor_id
         else:
             # Unknown intent type
@@ -1851,6 +1940,60 @@ def execute_turn(
 
         # CP-15: Check for AoO triggers before resolving main action
         aoo_triggers = check_aoo_triggers(world_state, turn_ctx.actor_id, combat_intent)
+
+        # WO-ENGINE-DEFENSIVE-CASTING-001: Defensive casting bypass (PHB p.140)
+        # If the intent is a SpellCastIntent with defensive=True, run Concentration check.
+        # DC = 15 + spell level. Success: suppress AoO triggers for this cast.
+        # Failure: AoO proceeds; concentration_failed event emitted.
+        # Failure by 5+: spell also disrupted (spell_disrupted event, slot consumed). KERNEL-03.
+        _defensive_cast_disrupted = False
+        if (aoo_triggers
+                and isinstance(combat_intent, SpellCastIntent)
+                and getattr(combat_intent, "defensive", False)):
+            _dc_spell = SPELL_REGISTRY.get(combat_intent.spell_id)
+            _dc_spell_level = _dc_spell.level if _dc_spell else 0
+            _dc_dc = 15 + _dc_spell_level
+            _dc_caster_entity = world_state.entities.get(combat_intent.caster_id, {})
+            _dc_conc_bonus = _dc_caster_entity.get(EF.CONCENTRATION_BONUS, 0)
+            _dc_roll = rng.stream("combat").randint(1, 20)
+            _dc_total = _dc_roll + _dc_conc_bonus
+            if _dc_total >= _dc_dc:
+                # Concentration success: suppress AoO
+                aoo_triggers = []
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="concentration_success",
+                    timestamp=timestamp + 0.05,
+                    payload={
+                        "actor_id": combat_intent.caster_id,
+                        "spell_id": combat_intent.spell_id,
+                        "roll": _dc_total,
+                        "dc": _dc_dc,
+                    },
+                    citations=["PHB p.140"],
+                ))
+                current_event_id += 1
+            else:
+                # Concentration failure: AoO proceeds
+                _dc_margin = _dc_dc - _dc_total  # how much it missed by
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="concentration_failed",
+                    timestamp=timestamp + 0.05,
+                    payload={
+                        "actor_id": combat_intent.caster_id,
+                        "spell_id": combat_intent.spell_id,
+                        "roll": _dc_total,
+                        "dc": _dc_dc,
+                        "margin": _dc_margin,
+                        "spell_disrupted": _dc_margin >= 5,
+                    },
+                    citations=["PHB p.140"],
+                ))
+                current_event_id += 1
+                if _dc_margin >= 5:
+                    # Failed by 5+: spell lost (slot consumed later in resolution)
+                    _defensive_cast_disrupted = True
 
         if aoo_triggers:
             # Resolve AoO sequence
@@ -2688,18 +2831,46 @@ def execute_turn(
 
         # WO-015: Spellcasting intent
         elif isinstance(combat_intent, SpellCastIntent):
-            # Resolve the spell cast
-            spell_events, world_state, narration = _resolve_spell_cast(
-                intent=combat_intent,
-                world_state=world_state,
-                rng=rng,
-                grid=None,  # Grid created internally if needed
-                next_event_id=current_event_id,
-                timestamp=timestamp + 0.1,
-                turn_index=turn_ctx.turn_index,
-            )
-            events.extend(spell_events)
-            current_event_id += len(spell_events)
+            # WO-ENGINE-DEFENSIVE-CASTING-001: If concentration failed by 5+, spell is disrupted
+            # Slot consumed; no effect. (PHB p.140)
+            if _defensive_cast_disrupted:
+                _dc_entities = deepcopy(world_state.entities)
+                _dc_spell_obj = SPELL_REGISTRY.get(combat_intent.spell_id)
+                _dc_eff_level = _dc_spell_obj.level if _dc_spell_obj else 0
+                if _dc_eff_level > 0 and combat_intent.caster_id in _dc_entities:
+                    _decrement_spell_slot(_dc_entities[combat_intent.caster_id], _dc_eff_level)
+                world_state = WorldState(
+                    ruleset_version=world_state.ruleset_version,
+                    entities=_dc_entities,
+                    active_combat=world_state.active_combat,
+                )
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="spell_disrupted",
+                    timestamp=timestamp + 0.15,
+                    payload={
+                        "actor_id": combat_intent.caster_id,
+                        "spell_id": combat_intent.spell_id,
+                        "reason": "concentration_failed_by_5",
+                        "slot_consumed": True,
+                    },
+                    citations=["PHB p.140"],
+                ))
+                current_event_id += 1
+                narration = "spell_disrupted"
+            else:
+                # Resolve the spell cast
+                spell_events, world_state, narration = _resolve_spell_cast(
+                    intent=combat_intent,
+                    world_state=world_state,
+                    rng=rng,
+                    grid=None,  # Grid created internally if needed
+                    next_event_id=current_event_id,
+                    timestamp=timestamp + 0.1,
+                    turn_index=turn_ctx.turn_index,
+                )
+                events.extend(spell_events)
+                current_event_id += len(spell_events)
 
             # Check concentration break if the caster took damage this turn
             # (from AoO for example)
@@ -2920,6 +3091,20 @@ def execute_turn(
                 turn_index=turn_ctx.turn_index,
                 narration="called_shot_denied",
             )
+
+        # WO-ENGINE-INTIMIDATE-DEMORALIZE-001: Demoralize Opponent (PHB p.76)
+        # Standard action. Intimidate vs. target HD+WIS. Applies SHAKEN on success.
+        # KERNEL-07 (Social Consequence) touch.
+        elif isinstance(combat_intent, DemoralizeIntent):
+            from aidm.core.skill_resolver import resolve_demoralize
+            world_state, current_event_id, dem_events = resolve_demoralize(
+                world_state=world_state,
+                intent=combat_intent,
+                next_event_id=current_event_id,
+                rng=rng,
+            )
+            events.extend(dem_events)
+            narration = "demoralize_resolved"
 
     # If no combat intent provided, use policy-based resolution (CP-09 behavior)
     elif doctrine is not None and turn_ctx.actor_team == "monsters":

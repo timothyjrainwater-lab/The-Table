@@ -263,3 +263,92 @@ def resolve_opposed_check(
         opponent_skill=opponent_skill,
         tie=tie,
     )
+
+
+def resolve_demoralize(world_state, intent, next_event_id: int, rng: RNGProvider):
+    """Resolve Intimidate — Demoralize Opponent (PHB p.76).
+
+    Standard action opposed check:
+    - Actor: d20 + Intimidate bonus (CHA mod + skill ranks)
+    - Target DC: target HD + WIS mod
+
+    On success: SHAKEN for 1 round + 1 round per 5 by which roll beats DC.
+    On failure: skill_check_failed event, no condition applied.
+    PHB p.76: already-Shaken target does not become Frightened — duration refreshed.
+
+    WO-ENGINE-INTIMIDATE-DEMORALIZE-001
+    """
+    from copy import deepcopy
+    from aidm.core.event_log import Event
+    from aidm.schemas.conditions import create_shaken_condition
+    from aidm.schemas.entity_fields import EF
+
+    actor = world_state.entities.get(intent.actor_id, {})
+    target = world_state.entities.get(intent.target_id, {})
+    entities = deepcopy(world_state.entities)
+    events = []
+
+    # Actor roll: d20 + CHA mod + Intimidate ranks
+    combat_rng = rng.stream("combat")
+    d20_roll = combat_rng.randint(1, 20)
+    cha_mod = actor.get(EF.CHA_MOD, 0)
+    intimidate_ranks = actor.get(EF.SKILL_RANKS, {}).get("intimidate", 0)
+    intimidate_total = d20_roll + cha_mod + intimidate_ranks
+
+    # Target DC: HD + WIS mod
+    target_hd = target.get(EF.HD_COUNT, 1)
+    target_wis_mod = target.get(EF.WIS_MOD, 0)
+    dc = target_hd + target_wis_mod
+
+    if intimidate_total >= dc:
+        margin = intimidate_total - dc
+        duration = 1 + (margin // 5)
+
+        # Apply SHAKEN — refresh if already present (PHB p.76: does not escalate to Frightened)
+        shaken_instance = create_shaken_condition(
+            source="intimidate_demoralize",
+            applied_at_event_id=next_event_id,
+        )
+        shaken_dict = shaken_instance.to_dict()
+        shaken_dict["duration_rounds"] = duration
+
+        if EF.CONDITIONS not in entities[intent.target_id]:
+            entities[intent.target_id][EF.CONDITIONS] = {}
+        entities[intent.target_id][EF.CONDITIONS]["shaken"] = shaken_dict
+
+        events.append(Event(
+            event_id=next_event_id,
+            event_type="condition_applied",
+            timestamp=0.0,
+            payload={
+                "target_id": intent.target_id,
+                "condition": "shaken",
+                "duration_rounds": duration,
+                "source": "intimidate_demoralize",
+                "actor_id": intent.actor_id,
+                "roll": intimidate_total,
+                "dc": dc,
+            },
+            citations=["PHB p.76"],
+        ))
+    else:
+        events.append(Event(
+            event_id=next_event_id,
+            event_type="skill_check_failed",
+            timestamp=0.0,
+            payload={
+                "actor_id": intent.actor_id,
+                "skill": "intimidate",
+                "roll": intimidate_total,
+                "dc": dc,
+                "target_id": intent.target_id,
+            },
+        ))
+
+    from aidm.core.state import WorldState
+    new_world_state = WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=world_state.active_combat,
+    )
+    return new_world_state, next_event_id + len(events), events

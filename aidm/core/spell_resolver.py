@@ -247,6 +247,12 @@ class SpellCastIntent:
     heighten_to_level: Optional[int] = None
     """WO-ENGINE-METAMAGIC-001: Required when 'heighten' in metamagic — target slot level."""
 
+    defensive: bool = False
+    """WO-ENGINE-DEFENSIVE-CASTING-001: If True, caster declared defensive casting.
+    Triggers Concentration check (DC 15 + spell level) to suppress AoO.
+    On success: no AoO. On failure: AoO triggers + concentration_failed event.
+    On failure by 5+: spell also disrupted (spell_disrupted event, slot consumed). PHB p.140."""
+
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary."""
         return {
@@ -905,6 +911,16 @@ class SpellResolver:
                     _armor = _target_raw.get(EF.ARMOR_TYPE, "none")
                     if _armor in ("none", "light") and _target_raw.get(EF.IMPROVED_EVASION, False):
                         total = total // 2
+
+        # WO-ENGINE-ENERGY-RESISTANCE-001: Energy resistance (PHB p.291)
+        # Resistance absorbs the first N points of a specific energy type per damage instance.
+        if total > 0 and world_state is not None and target_entity_id is not None:
+            _target_raw_er = world_state.entities.get(target_entity_id, {})
+            _dmg_type = spell.damage_type.value if spell.damage_type else None
+            if _dmg_type:
+                _resistance = _target_raw_er.get(EF.ENERGY_RESISTANCE, {}).get(_dmg_type, 0)
+                if _resistance > 0:
+                    total = max(0, total - _resistance)
 
         # Generate damage STP
         damage_type = spell.damage_type.value if spell.damage_type else "untyped"

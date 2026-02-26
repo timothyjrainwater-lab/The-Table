@@ -979,6 +979,40 @@ class StabilizeIntent:
 
 
 @dataclass
+class DemoralizeIntent:
+    """Player uses Intimidate to demoralize a target in combat (PHB p.76).
+
+    Standard action. Opposed check: actor Intimidate (d20 + CHA + ranks)
+    vs. target DC (HD + WIS mod). On success: SHAKEN for 1+ rounds.
+    Already-Shaken target refreshes duration, does not escalate (PHB p.76).
+
+    WO-ENGINE-INTIMIDATE-DEMORALIZE-001. KERNEL-07 (Social Consequence) touch.
+    """
+
+    actor_id: str
+    target_id: str
+    source_text: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": "demoralize",
+            "actor_id": self.actor_id,
+            "target_id": self.target_id,
+            "source_text": self.source_text,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "DemoralizeIntent":
+        if data.get("type") != "demoralize":
+            raise IntentParseError(f"Expected type 'demoralize', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            target_id=data["target_id"],
+            source_text=data.get("source_text", ""),
+        )
+
+
+@dataclass
 class CalledShotIntent:
     """Player declared a targeted strike without a named mechanic.
 
@@ -1029,7 +1063,7 @@ Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | Rest
           TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
           RageIntent | SmiteEvilIntent | LayOnHandsIntent | BardicMusicIntent | WildShapeIntent |
           RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
-          CalledShotIntent)
+          DemoralizeIntent | CalledShotIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -1101,6 +1135,8 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return SkillCheckIntent.from_dict(data)
     elif intent_type == "stabilize":
         return StabilizeIntent.from_dict(data)
+    elif intent_type == "demoralize":
+        return DemoralizeIntent.from_dict(data)
     elif intent_type == "called_shot":
         return CalledShotIntent.from_dict(data)
     else:
