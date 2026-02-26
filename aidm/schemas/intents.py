@@ -1056,6 +1056,30 @@ class CalledShotIntent:
         )
 
 
+@dataclass
+class StandIntent:
+    """Intent to stand up from the prone condition (PHB p.137).
+
+    Standing from prone is a move action that provokes attacks of opportunity
+    from all enemies threatening the actor's square. The AoO fires BEFORE the
+    prone condition is cleared (entity is still prone when AoOs resolve).
+
+    WO-ENGINE-AOO-STAND-FROM-PRONE-001.
+    """
+
+    type: Literal["stand"] = "stand"
+    actor_id: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {"type": self.type, "actor_id": self.actor_id}
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "StandIntent":
+        if data.get("type") != "stand":
+            raise IntentParseError(f"Expected type 'stand', got '{data.get('type')}'")
+        return cls(actor_id=data["actor_id"])
+
+
 # Type alias for all intent types
 Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent |
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
@@ -1063,7 +1087,7 @@ Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | Rest
           TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
           RageIntent | SmiteEvilIntent | LayOnHandsIntent | BardicMusicIntent | WildShapeIntent |
           RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
-          DemoralizeIntent | CalledShotIntent)
+          DemoralizeIntent | CalledShotIntent | StandIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -1139,5 +1163,7 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return DemoralizeIntent.from_dict(data)
     elif intent_type == "called_shot":
         return CalledShotIntent.from_dict(data)
+    elif intent_type == "stand":
+        return StandIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

@@ -169,6 +169,11 @@ def resolve_skill_check(
     # Total = d20 + ability + ranks + circumstance - armor_check_penalty
     total = d20_roll + ability_mod + ranks + circumstance_modifier - acp
 
+    # WO-ENGINE-DAZZLED-CONDITION-001: -1 penalty to Spot checks when dazzled (PHB p.310)
+    _entity_conditions = entity.get(EF.CONDITIONS, {})
+    if skill_id == "spot" and "dazzled" in _entity_conditions:
+        total -= 1
+
     return SkillCheckResult(
         success=(total >= dc),
         total=total,

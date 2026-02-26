@@ -704,3 +704,114 @@ def aoo_dealt_damage(events: List[Event]) -> bool:
             if delta < 0:
                 return True
     return False
+
+
+def check_stand_from_prone_aoo(
+    world_state: WorldState,
+    actor_id: str,
+) -> List[AooTrigger]:
+    """Check if standing from prone triggers AoOs (PHB p.137).
+
+    Standing from prone is a move action that provokes attacks of opportunity
+    from ALL enemies threatening the actor's square. The actor must currently
+    have the PRONE condition for this to trigger.
+
+    AoO fires BEFORE the prone condition is cleared — entity is still prone
+    when AoOs resolve (KERNEL-06 Termination Doctrine).
+
+    WO-ENGINE-AOO-STAND-FROM-PRONE-001.
+
+    Args:
+        world_state: Current world state
+        actor_id: Entity standing from prone
+
+    Returns:
+        List of AooTrigger objects (sorted by initiative → lexicographic)
+    """
+    actor = world_state.entities.get(actor_id)
+    if actor is None:
+        return []
+
+    # Only triggers if actor is currently prone
+    actor_conditions = actor.get(EF.CONDITIONS, {})
+    if "prone" not in actor_conditions:
+        return []
+
+    actor_pos_dict = actor.get(EF.POSITION)
+    if actor_pos_dict is None:
+        return []
+    actor_pos = Position(x=actor_pos_dict["x"], y=actor_pos_dict["y"])
+    actor_team = actor.get(EF.TEAM, "unknown")
+
+    active_combat = world_state.active_combat
+    if active_combat is None:
+        return []
+
+    initiative_order = active_combat.get("initiative_order", [])
+    aoo_count_this_round = active_combat.get("aoo_count_this_round", {})
+
+    potential_reactors = []
+
+    for entity_id in initiative_order:
+        if entity_id == actor_id:
+            continue
+
+        reactor = world_state.entities.get(entity_id)
+        if reactor is None:
+            continue
+
+        if reactor.get(EF.DEFEATED, False):
+            continue
+
+        # AoO limit check (Combat Reflexes aware)
+        _reactor_feats = reactor.get(EF.FEATS, [])
+        _reactor_dex = reactor.get(EF.DEX_MOD, 0)
+        _aoo_limit = 1 + max(0, _reactor_dex) if "combat_reflexes" in _reactor_feats else 1
+        _aoo_used = aoo_count_this_round.get(entity_id, 0)
+        if _aoo_used >= _aoo_limit:
+            continue
+
+        # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: Confused entity cannot make AoOs
+        from aidm.core.condition_combat_resolver import is_confused
+        if is_confused(reactor):
+            continue
+
+        # WO-ENGINE-FLATFOOTED-AOO-001: Flat-footed entity cannot make AoOs (PHB p.136)
+        _reactor_conditions = reactor.get(EF.CONDITIONS, {})
+        if "flat_footed" in _reactor_conditions:
+            continue
+
+        # Skip same-team reactors
+        reactor_team = reactor.get(EF.TEAM, "unknown")
+        if reactor_team == actor_team or reactor_team == "unknown":
+            continue
+
+        # Check if reactor is adjacent (threatens actor's square)
+        reactor_pos_dict = reactor.get(EF.POSITION)
+        if reactor_pos_dict is None:
+            continue
+        reactor_pos = Position(x=reactor_pos_dict["x"], y=reactor_pos_dict["y"])
+
+        if reactor_pos.is_adjacent_to(actor_pos):
+            potential_reactors.append((entity_id, reactor_pos))
+
+    # Sort by initiative order, then lexicographic
+    def sort_key(reactor_tuple):
+        reactor_id, _ = reactor_tuple
+        init_index = initiative_order.index(reactor_id) if reactor_id in initiative_order else 9999
+        return (init_index, reactor_id)
+
+    sorted_reactors = sorted(potential_reactors, key=sort_key)
+
+    triggers = []
+    for reactor_id, reactor_pos in sorted_reactors:
+        triggers.append(AooTrigger(
+            reactor_id=reactor_id,
+            provoker_id=actor_id,
+            provoking_action="stand_from_prone",
+            reactor_position=reactor_pos,
+            provoker_from_pos=actor_pos,
+            provoker_to_pos=actor_pos,  # Standing in place — same square
+        ))
+
+    return triggers

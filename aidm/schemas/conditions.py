@@ -51,6 +51,9 @@ class ConditionType(str, Enum):
     ENTANGLED = "entangled"     # -2 attack, -4 Dex
     CONFUSED = "confused"       # d100 behavior roll each turn
 
+    # WO-ENGINE-DAZZLED-CONDITION-001
+    DAZZLED = "dazzled"         # -1 attack rolls; -1 Spot checks (PHB p.309)
+
 
 @dataclass
 class ConditionModifiers:
@@ -181,15 +184,21 @@ class ConditionInstance:
     notes: Optional[str] = None
     """Optional notes (e.g., 'Prone from successful trip attempt')"""
 
+    duration_rounds: Optional[int] = None
+    """Number of rounds remaining (None = permanent, removed only by explicit action)."""
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
-        return {
+        result = {
             "condition_type": self.condition_type.value,
             "source": self.source,
             "modifiers": self.modifiers.to_dict(),
             "applied_at_event_id": self.applied_at_event_id,
             "notes": self.notes
         }
+        if self.duration_rounds is not None:
+            result["duration_rounds"] = self.duration_rounds
+        return result
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "ConditionInstance":
@@ -199,7 +208,8 @@ class ConditionInstance:
             source=data["source"],
             modifiers=ConditionModifiers.from_dict(data["modifiers"]),
             applied_at_event_id=data["applied_at_event_id"],
-            notes=data.get("notes")
+            notes=data.get("notes"),
+            duration_rounds=data.get("duration_rounds", None)
         )
 
 
@@ -347,7 +357,8 @@ def create_stunned_condition(source: str, applied_at_event_id: int) -> Condition
             actions_prohibited=True  # Metadata: cannot take actions
         ),
         applied_at_event_id=applied_at_event_id,
-        notes="Stunned: -2 AC, loses Dex to AC, cannot act"
+        notes="Stunned: -2 AC, loses Dex to AC, cannot act",
+        duration_rounds=1
     )
 
 
@@ -367,7 +378,8 @@ def create_dazed_condition(source: str, applied_at_event_id: int) -> ConditionIn
             actions_prohibited=True  # Metadata: cannot take actions
         ),
         applied_at_event_id=applied_at_event_id,
-        notes="Dazed: cannot take actions, no AC penalty"
+        notes="Dazed: cannot take actions, no AC penalty",
+        duration_rounds=1
     )
 
 
@@ -489,7 +501,8 @@ def create_nauseated_condition(source: str, applied_at_event_id: int) -> Conditi
             actions_prohibited=True  # Can only take move action
         ),
         applied_at_event_id=applied_at_event_id,
-        notes="Nauseated: cannot attack/cast, only move action per turn"
+        notes="Nauseated: cannot attack/cast, only move action per turn",
+        duration_rounds=1
     )
 
 
@@ -640,4 +653,27 @@ def create_turned_condition(source: str, applied_at_event_id: int) -> ConditionI
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Turned: flees from cleric for 10 rounds, cannot attack unless cornered"
+    )
+
+
+def create_dazzled_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Dazzled condition instance.
+
+    PHB p.309: "The creature is unable to see well because of overstimulation
+    of the eyes. A dazzled creature takes a -1 penalty on attack rolls, Search
+    checks, and Spot checks."
+
+    WO-ENGINE-DAZZLED-CONDITION-001:
+    - attack_modifier: -1 (flows automatically through get_condition_modifiers)
+    - Spot check penalty: -1 (enforced explicitly in skill_resolver for SkillID.SPOT)
+    - Does NOT affect saves, AC, or other attributes.
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.DAZZLED,
+        source=source,
+        modifiers=ConditionModifiers(
+            attack_modifier=-1,  # -1 to attack rolls (PHB p.309)
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Dazzled: -1 attack rolls, -1 Spot checks"
     )

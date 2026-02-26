@@ -319,6 +319,14 @@ class _EntityFields:
     # Used for defensive casting DC (15 + spell level), vigorous motion, violent weather, etc.
     # PHB p.69 (Concentration skill). Default 0 if not set.
 
+    # --- Vigorous/Violent Motion (WO-ENGINE-CONCENTRATION-VIGOROUS-001) ---
+    MOTION_STATE = "motion_state"
+    # str | None: current motion state affecting spellcasting concentration.
+    # "vigorous"  → DC 10 + spell level (fast mount, minor jostling — PHB p.69)
+    # "violent"   → DC 15 + spell level (galloping, earthquake, etc. — PHB p.69)
+    # None or absent → no motion penalty
+    # Cleared when motion ends. Set by movement resolver / environmental triggers.
+
     # --- Deflection Bonus to AC (WO-ENGINE-DEFLECTION-BONUS-001) ---
     DEFLECTION_BONUS = "deflection_bonus"
     # int: deflection bonus to AC from magical sources (rings of protection, Shield of Faith, etc.)

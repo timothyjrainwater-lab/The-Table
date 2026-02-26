@@ -56,7 +56,7 @@ from aidm.schemas.attack import AttackIntent, Weapon, StepMoveIntent, FullMoveIn
 from aidm.core.attack_resolver import resolve_attack, apply_attack_events
 from aidm.core.full_attack_resolver import FullAttackIntent, resolve_full_attack, apply_full_attack_events
 from aidm.core.rng_protocol import RNGProvider
-from aidm.core.aoo import check_aoo_triggers, resolve_aoo_sequence, aoo_dealt_damage  # CP-15/CP-18
+from aidm.core.aoo import check_aoo_triggers, resolve_aoo_sequence, aoo_dealt_damage, check_stand_from_prone_aoo  # CP-15/CP-18
 # CP-18A: Mounted combat imports
 from aidm.schemas.mounted_combat import MountedMoveIntent, DismountIntent, MountIntent
 from aidm.core.mounted_combat import (
@@ -76,7 +76,7 @@ from aidm.schemas.intents import (
     FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
     RageIntent, SmiteEvilIntent, LayOnHandsIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
-    NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent,
+    NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent, StandIntent,
 )
 from aidm.core.companion_resolver import spawn_companion
 # WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
@@ -639,6 +639,52 @@ def _resolve_spell_cast(
                     "turn_index": turn_index,
                 },
                 citations=["PHB p.175"],
+            ))
+            current_event_id += 1
+
+    # WO-ENGINE-CONCENTRATION-VIGOROUS-001: Vigorous/violent motion Concentration check (PHB p.69)
+    # Vigorous motion (fast mount, jostling) → DC 10 + spell level.
+    # Violent motion (galloping, earthquake) → DC 15 + spell level.
+    # "violent" takes priority over "vigorous" (elif chain).
+    _caster_motion = caster_state.get(EF.MOTION_STATE)
+    if _caster_motion in ("vigorous", "violent"):
+        _motion_dc = (15 if _caster_motion == "violent" else 10) + spell_level
+        _motion_conc_bonus = caster_state.get(EF.CONCENTRATION_BONUS, 0)
+        _motion_roll = rng.stream("combat").randint(1, 20)
+        _motion_total = _motion_roll + _motion_conc_bonus
+        if _motion_total < _motion_dc:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_failed",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "spell_name": spell.name,
+                    "roll": _motion_roll,
+                    "total": _motion_total,
+                    "dc": _motion_dc,
+                    "reason": _caster_motion,
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.69"],
+            ))
+            return events, world_state, "concentration_failed"
+        else:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_success",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "roll": _motion_roll,
+                    "total": _motion_total,
+                    "dc": _motion_dc,
+                    "reason": _caster_motion,
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.69"],
             ))
             current_event_id += 1
 
@@ -1661,6 +1707,43 @@ def execute_turn(
         else:
             _action_budget = ActionBudget.fresh()
 
+        # WO-ENGINE-STAGGERED-ACTION-ECONOMY-001: Staggered actors limited to one move OR
+        # standard action per round (PHB p.301). Full-round actions blocked outright.
+        _staggered_actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+        _staggered_conds = _staggered_actor_entity.get(EF.CONDITIONS, {})
+        if "staggered" in _staggered_conds:
+            if action_type == "full_round":
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="ACTION_DENIED",
+                    timestamp=timestamp + 0.05,
+                    payload={
+                        "entity_id": turn_ctx.actor_id,
+                        "reason": "staggered_no_full_round",
+                        "slot": action_type,
+                        "denied_intent_type": type(combat_intent).__name__,
+                        "turn_index": turn_ctx.turn_index,
+                    }
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.2,
+                    payload={
+                        "turn_index": turn_ctx.turn_index,
+                        "actor_id": turn_ctx.actor_id,
+                        "events_emitted": len(events)
+                    }
+                ))
+                return TurnResult(
+                    status="action_denied",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    failure_reason="Staggered: cannot take full-round actions (PHB p.301)"
+                )
+
         if not _action_budget.can_use(action_type):
             # Budget exhausted for this action type
             events.append(Event(
@@ -1694,6 +1777,13 @@ def execute_turn(
                 failure_reason=f"Action economy: {action_type} slot already used this turn"
             )
         _action_budget.consume(action_type)
+        # WO-ENGINE-STAGGERED-ACTION-ECONOMY-001: After consuming one slot, lock the other.
+        # Staggered = single move OR standard per round (not both). PHB p.301.
+        if "staggered" in _staggered_conds:
+            if action_type == "standard":
+                _action_budget.move_used = True   # Prevents move after standard
+            elif action_type == "move":
+                _action_budget.standard_used = True  # Prevents standard after move
         # Persist updated budget into active_combat for subsequent calls this turn
         if world_state.active_combat is not None:
             _ac_updated = deepcopy(world_state.active_combat)
@@ -1751,7 +1841,8 @@ def execute_turn(
                                         FeintIntent, RageIntent, SmiteEvilIntent, LayOnHandsIntent,
                                         BardicMusicIntent, WildShapeIntent, RevertFormIntent,
                                         AbilityDamageIntent, WithdrawIntent, DelayIntent,
-                                        StabilizeIntent, CalledShotIntent, DemoralizeIntent)):
+                                        StabilizeIntent, CalledShotIntent, DemoralizeIntent,
+                                        StandIntent)):
             intent_actor_id = combat_intent.actor_id
         else:
             # Unknown intent type
@@ -3214,6 +3305,106 @@ def execute_turn(
             )
             events.extend(dem_events)
             narration = "demoralize_resolved"
+
+        # WO-ENGINE-AOO-STAND-FROM-PRONE-001: Stand from prone (PHB p.137)
+        # Standing from prone is a move action that provokes AoOs from all threatening enemies.
+        # AoO fires BEFORE the prone condition is cleared (KERNEL-06 Termination Doctrine).
+        elif isinstance(combat_intent, StandIntent):
+            _stand_actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+            _stand_conditions = _stand_actor_entity.get(EF.CONDITIONS, {})
+
+            if "prone" not in _stand_conditions:
+                # Actor is not prone — stand action is a no-op (but valid move action)
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="stand_resolved",
+                    timestamp=timestamp + 0.1,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "was_prone": False,
+                        "aoo_triggered": False,
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                    citations=["PHB p.137"],
+                ))
+                current_event_id += 1
+            else:
+                # Actor IS prone — trigger AoOs FIRST, then clear prone
+                stand_aoo_triggers = check_stand_from_prone_aoo(
+                    world_state=world_state,
+                    actor_id=turn_ctx.actor_id,
+                )
+
+                if stand_aoo_triggers:
+                    stand_aoo_result = resolve_aoo_sequence(
+                        triggers=stand_aoo_triggers,
+                        world_state=world_state,
+                        rng=rng,
+                        next_event_id=current_event_id,
+                        timestamp=timestamp + 0.1,
+                        causal_chain_id=causal_chain_id,
+                    )
+                    events.extend(stand_aoo_result.events)
+                    current_event_id += len(stand_aoo_result.events)
+
+                    # Update AoO tracking
+                    if world_state.active_combat is not None:
+                        _stand_aoo_used = list(world_state.active_combat.get("aoo_used_this_round", []))
+                        _stand_aoo_used.extend(stand_aoo_result.aoo_reactors)
+                        _stand_ac_updated = deepcopy(world_state.active_combat)
+                        _stand_ac_updated["aoo_used_this_round"] = _stand_aoo_used
+                        _stand_aoo_count = dict(_stand_ac_updated.get("aoo_count_this_round", {}))
+                        for _rid in stand_aoo_result.aoo_reactors:
+                            _stand_aoo_count[_rid] = _stand_aoo_count.get(_rid, 0) + 1
+                        _stand_ac_updated["aoo_count_this_round"] = _stand_aoo_count
+                        world_state = WorldState(
+                            ruleset_version=world_state.ruleset_version,
+                            entities=deepcopy(world_state.entities),
+                            active_combat=_stand_ac_updated,
+                        )
+
+                # Now clear the PRONE condition (after AoOs resolve)
+                # Only clear if actor is still alive (AoO may have killed them)
+                _stand_actor_post = world_state.entities.get(turn_ctx.actor_id, {})
+                if not _stand_actor_post.get(EF.DEFEATED, False):
+                    _stand_entities = deepcopy(world_state.entities)
+                    _stand_actor_conds = _stand_entities[turn_ctx.actor_id].get(EF.CONDITIONS, {})
+                    if "prone" in _stand_actor_conds:
+                        del _stand_actor_conds["prone"]
+                        _stand_entities[turn_ctx.actor_id][EF.CONDITIONS] = _stand_actor_conds
+                        world_state = WorldState(
+                            ruleset_version=world_state.ruleset_version,
+                            entities=_stand_entities,
+                            active_combat=world_state.active_combat,
+                        )
+                        events.append(Event(
+                            event_id=current_event_id,
+                            event_type="condition_removed",
+                            timestamp=timestamp + 0.2,
+                            payload={
+                                "entity_id": turn_ctx.actor_id,
+                                "condition": "prone",
+                                "reason": "stood_from_prone",
+                                "turn_index": turn_ctx.turn_index,
+                            },
+                            citations=["PHB p.137"],
+                        ))
+                        current_event_id += 1
+
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="stand_resolved",
+                    timestamp=timestamp + 0.25,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "was_prone": True,
+                        "aoo_triggered": len(stand_aoo_triggers) > 0,
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                    citations=["PHB p.137"],
+                ))
+                current_event_id += 1
+            narration = "stand_resolved"
 
     # If no combat intent provided, use policy-based resolution (CP-09 behavior)
     elif doctrine is not None and turn_ctx.actor_team == "monsters":

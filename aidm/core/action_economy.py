@@ -161,6 +161,9 @@ def _build_action_types() -> Dict[type, str]:
     _try_add(mapping, "aidm.schemas.intents", "AbilityDamageIntent", "standard")
     _try_add(mapping, "aidm.schemas.intents", "WithdrawIntent", "full_round")
     _try_add(mapping, "aidm.schemas.intents", "DelayIntent", "free")
+    _try_add(mapping, "aidm.schemas.intents", "StabilizeIntent", "standard")  # WO-ENGINE-STABILIZE-ALLY-001: PHB p.152 First Aid is a standard action
+    _try_add(mapping, "aidm.schemas.intents", "LayOnHandsIntent", "standard")  # WO-ENGINE-LAY-ON-HANDS-001: PHB p.44 standard action
+    _try_add(mapping, "aidm.schemas.intents", "StandIntent", "move")  # WO-ENGINE-AOO-STAND-FROM-PRONE-001: PHB p.137 standing is a move action
 
     return mapping
 
