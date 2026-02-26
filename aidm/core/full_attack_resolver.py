@@ -259,6 +259,8 @@ def resolve_single_attack_with_critical(
     sneak_attack_dice: int = 0,
     sneak_attack_eligible: bool = False,
     sneak_attack_reason: str = "",
+    favored_enemy_bonus: int = 0,
+    attacker_feats: list = None,
 ) -> Tuple[List[Event], int]:
     """
     Resolve a single attack with critical hit logic.
@@ -309,7 +311,15 @@ def resolve_single_attack_with_critical(
     total = d20_result + attack_bonus
 
     # Determine threat and hit
-    is_threat = (d20_result >= weapon.critical_range)  # PHB p.140: threat range from weapon
+    # WO-ENGINE-IMPROVED-CRITICAL-001: Improved Critical feat doubles threat range (PHB p.96)
+    # e.g., crit_range 20→19, 19→17, 18→15. Formula: 21 - (21 - base_range) * 2
+    _eff_crit_range = weapon.critical_range
+    _ic_feats = attacker_feats if attacker_feats is not None else []
+    _weapon_type = getattr(weapon, "weapon_type", None)
+    _ic_specific = f"improved_critical_{_weapon_type}" if _weapon_type else None
+    if "improved_critical" in _ic_feats or (_ic_specific and _ic_specific in _ic_feats):
+        _eff_crit_range = max(1, 21 - (21 - weapon.critical_range) * 2)
+    is_threat = (d20_result >= _eff_crit_range)  # PHB p.140: threat range from weapon
     is_natural_1 = (d20_result == 1)
     is_natural_20 = (d20_result == 20)
 
@@ -411,7 +421,7 @@ def resolve_single_attack_with_critical(
         else:
             str_to_damage = str_modifier
 
-        base_damage = sum(damage_rolls) + weapon.damage_bonus + str_to_damage
+        base_damage = sum(damage_rolls) + weapon.damage_bonus + str_to_damage + weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: enhancement is pre-crit (PHB p.224)
         # CP-16: condition damage modifier, WO-034: feat damage modifier
         base_damage_with_modifiers = base_damage + condition_damage_modifier + feat_damage_modifier
 
@@ -420,6 +430,9 @@ def resolve_single_attack_with_critical(
             damage_total = max(1, base_damage_with_modifiers * weapon.critical_multiplier)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
         else:
             damage_total = max(1, base_damage_with_modifiers)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
+
+        # WO-ENGINE-FAVORED-ENEMY-001: Favored Enemy damage bonus is NOT multiplied on crit (PHB p.47 — flat bonus)
+        damage_total += favored_enemy_bonus
 
         # WO-050B: Sneak Attack precision damage (PHB p.50)
         # Added AFTER critical multiplier — precision damage is NOT multiplied on crits
@@ -592,6 +605,16 @@ def resolve_full_attack(
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
     feat_damage_modifier = get_damage_modifier(attacker, target, feat_context)
 
+    # WO-ENGINE-FAVORED-ENEMY-001: Ranger Favored Enemy attack/damage bonus (PHB p.47)
+    _favored_enemy_bonus = 0
+    _attacker_favored = attacker.get(EF.FAVORED_ENEMIES, [])
+    if _attacker_favored:
+        _target_type = target.get(EF.CREATURE_TYPE, "")
+        for _fe in _attacker_favored:
+            if _fe.get("creature_type", "") == _target_type and _target_type != "":
+                _favored_enemy_bonus = _fe.get("bonus", 0)
+                break
+
     # Flanking: +2 melee attack bonus when attacker and ally on opposite sides (PHB p.153)
     from aidm.core.flanking import get_flanking_info
     flanking_bonus, is_flanking, flanking_ally_ids = get_flanking_info(
@@ -651,6 +674,14 @@ def resolve_full_attack(
     raw_attack_bonuses = calculate_iterative_attacks(intent.base_attack_bonus)
     attack_bonuses = [b + main_penalty for b in raw_attack_bonuses]
 
+    # WO-ENGINE-RAPID-SHOT-001: Rapid Shot extra attack (PHB p.99)
+    # Penalty (-2 to all attacks) already handled by feat_resolver.get_attack_modifier().
+    _attacker_feats = attacker.get(EF.FEATS, [])
+    if "rapid_shot" in _attacker_feats and intent.weapon.is_ranged:
+        raw_attack_bonuses = list(raw_attack_bonuses)  # ensure mutable
+        raw_attack_bonuses.append(raw_attack_bonuses[0])  # extra attack at highest BAB
+        attack_bonuses = [b + main_penalty for b in raw_attack_bonuses]  # rebuild with extra
+
     # Emit full_attack_start event (WO-FIX-003: include modifier audit trail)
     events.append(Event(
         event_id=current_event_id,
@@ -705,7 +736,9 @@ def resolve_full_attack(
             mounted_bonus +
             terrain_higher_ground +
             feat_attack_modifier +
-            flanking_bonus
+            flanking_bonus +
+            _favored_enemy_bonus +  # WO-ENGINE-FAVORED-ENEMY-001: ranger favored enemy (PHB p.47)
+            intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: magic weapon (PHB p.224)
         )
 
         attack_events, current_event_id, damage = resolve_single_attack_with_critical(
@@ -738,6 +771,8 @@ def resolve_full_attack(
             sneak_attack_dice=sa_dice,
             sneak_attack_eligible=sa_eligible,
             sneak_attack_reason=sa_reason,
+            favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
+            attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
         )
 
         events.extend(attack_events)
@@ -845,6 +880,8 @@ def resolve_full_attack(
             sneak_attack_dice=sa_dice,
             sneak_attack_eligible=sa_eligible,
             sneak_attack_reason=sa_reason,
+            favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
+            attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
         )
         events.extend(oh_events)
         total_damage += oh_damage
@@ -896,6 +933,8 @@ def resolve_full_attack(
                 sneak_attack_dice=sa_dice,
                 sneak_attack_eligible=sa_eligible,
                 sneak_attack_reason=sa_reason,
+                favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
+                attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
             )
             events.extend(itwf_events)
             total_damage += itwf_damage

@@ -523,6 +523,54 @@ def _resolve_spell_cast(
         ))
         return events, world_state, "spell_failed"
 
+    # WO-ENGINE-CLERIC-SPONTANEOUS-001: Cleric spontaneous cure redirect (PHB p.32)
+    # Must run BEFORE verbal/somatic/ASF guards — it rewrites WHAT spell is cast,
+    # not WHETHER the cast succeeds. Declared spell's slot is consumed as normal.
+    if getattr(intent, "spontaneous_cure", False):
+        _CURE_SPELLS_BY_LEVEL = {
+            1: "cure_light_wounds",
+            2: "cure_moderate_wounds",
+            3: "cure_serious_wounds",
+            4: "cure_critical_wounds",
+            5: "mass_cure_light_wounds",
+        }
+        _cleric_level = world_state.entities.get(intent.caster_id, {}).get(
+            EF.CLASS_LEVELS, {}
+        ).get("cleric", 0)
+        if _cleric_level == 0:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_cast_failed",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "reason": "spontaneous_cure_not_cleric",
+                    "reason_detail": "Only clerics can spontaneously cast cure spells (PHB p.32)",
+                    "turn_index": turn_index,
+                }
+            ))
+            return events, world_state, "spell_failed"
+        _declared_level = spell.level
+        _cure_id = _CURE_SPELLS_BY_LEVEL.get(_declared_level)
+        _cure_spell = SPELL_REGISTRY.get(_cure_id) if _cure_id else None
+        if _cure_spell is None:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_cast_failed",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "reason": "cure_spell_not_in_registry",
+                    "reason_detail": f"No cure spell for level {_declared_level} in SPELL_REGISTRY",
+                    "turn_index": turn_index,
+                }
+            ))
+            return events, world_state, "spell_failed"
+        # Redirect to cure spell; declared spell's slot consumed as normal
+        spell = _cure_spell
+
     # ── Spell slot governor ────────────────────────────────────────────────────
     spell_level = spell.level
     # Work on a live reference so we can mutate after success

@@ -515,7 +515,12 @@ def resolve_attack(
         world_state.entities[intent.attacker_id][EF.COMBAT_EXPERTISE_BONUS] = _ce_ac
 
     # Determine threat and hit (PHB p.140)
-    is_threat = (d20_result >= intent.weapon.critical_range)
+    # WO-ENGINE-IMPROVED-CRITICAL-001: Improved Critical feat doubles threat range (PHB p.96)
+    _ic_eff_range = intent.weapon.critical_range
+    _ic_specific = f"improved_critical_{getattr(intent.weapon, 'weapon_type', None)}" if getattr(intent.weapon, 'weapon_type', None) else None
+    if "improved_critical" in _attacker_feats or (_ic_specific and _ic_specific in _attacker_feats):
+        _ic_eff_range = max(1, 21 - (21 - intent.weapon.critical_range) * 2)
+    is_threat = (d20_result >= _ic_eff_range)
     is_natural_20 = (d20_result == 20)
     is_natural_1 = (d20_result == 1)
 
@@ -965,7 +970,13 @@ def resolve_nonlethal_attack(
     attack_bonus_with_conditions = adjusted_attack_bonus + attacker_modifiers.attack_modifier + _nl_finesse_delta
     total = d20_result + attack_bonus_with_conditions
 
-    is_threat = (d20_result >= intent.weapon.critical_range)
+    # WO-ENGINE-IMPROVED-CRITICAL-001: Improved Critical feat doubles threat range (PHB p.96)
+    _nl_ic_eff_range = intent.weapon.critical_range
+    _nl_weapon_type = getattr(intent.weapon, 'weapon_type', None)
+    _nl_ic_specific = f"improved_critical_{_nl_weapon_type}" if _nl_weapon_type else None
+    if "improved_critical" in _nl_attacker_feats or (_nl_ic_specific and _nl_ic_specific in _nl_attacker_feats):
+        _nl_ic_eff_range = max(1, 21 - (21 - intent.weapon.critical_range) * 2)
+    is_threat = (d20_result >= _nl_ic_eff_range)
     is_natural_20 = (d20_result == 20)
     is_natural_1 = (d20_result == 1)
 

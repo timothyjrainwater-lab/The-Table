@@ -54,6 +54,10 @@ class ConditionType(str, Enum):
     # WO-ENGINE-DAZZLED-CONDITION-001
     DAZZLED = "dazzled"         # -1 attack rolls; -1 Spot checks (PHB p.309)
 
+    # WO-ENGINE-COWERING-FASCINATED-001
+    COWERING = "cowering"       # Frozen in fear: no actions, -2 AC, loses Dex to AC (PHB p.309)
+    FASCINATED = "fascinated"   # Entranced: no actions, -4 reactive skill checks (PHB p.310)
+
 
 @dataclass
 class ConditionModifiers:
@@ -676,4 +680,67 @@ def create_dazzled_condition(source: str, applied_at_event_id: int) -> Condition
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Dazzled: -1 attack rolls, -1 Spot checks"
+    )
+
+
+def create_cowering_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Cowering condition instance.
+
+    PHB p.309: "A cowering character is frozen in fear and can take no actions.
+    A cowering character takes a -2 penalty to Armor Class and loses her
+    Dexterity bonus (if any)."
+
+    WO-ENGINE-COWERING-FASCINATED-001:
+    - ac_modifier: -2 (PHB p.309)
+    - loses_dex_to_ac: True (PHB p.309 — attacker uses flat-footed AC)
+    - actions_prohibited: True (no actions possible)
+
+    FINDING-ENGINE-COWERING-FEAR-STACK-001: PHB fear progression is
+    Shaken → Frightened → Panicked → Cowering. Engine does not enforce
+    escalation. Future WO.
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.COWERING,
+        source=source,
+        modifiers=ConditionModifiers(
+            ac_modifier=-2,          # -2 AC penalty (PHB p.309)
+            loses_dex_to_ac=True,    # Loses Dex bonus to AC
+            actions_prohibited=True, # Cannot take any actions
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Cowering: frozen in fear. -2 AC, loses Dex to AC, no actions (PHB p.309)"
+    )
+
+
+def create_fascinated_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Fascinated condition instance.
+
+    PHB p.310: "A fascinated creature is entranced by a supernatural or spell
+    effect. The creature stands or sits quietly, taking no actions other than
+    to pay attention to the fascinating effect... It takes a -4 penalty on
+    skill checks made as reactions, such as Listen and Spot checks."
+
+    WO-ENGINE-COWERING-FASCINATED-001:
+    - actions_prohibited: True (cannot take any actions while fascinated)
+    - No AC modifier (PHB p.310 does not grant AC penalty)
+
+    FINDING-ENGINE-FASCINATED-SKILL-PENALTY-001: PHB grants -4 to reactive
+    skill checks (Spot/Listen). ConditionModifiers has no reactive_skill_modifier
+    field. The penalty is documented but not wired. Future WO to add
+    skill_modifier_reactive: int = 0 to ConditionModifiers.
+
+    KERNEL-06 NOTE: FASCINATED ends on any hostile action directed at the target
+    or its allies (PHB p.310). Engine has no 'hostile action directed at' detector.
+    Architectural gap — future WO.
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.FASCINATED,
+        source=source,
+        modifiers=ConditionModifiers(
+            actions_prohibited=True, # Cannot take any actions while fascinated
+            # NOTE: -4 reactive skill penalty (Spot/Listen) not wired —
+            # see FINDING-ENGINE-FASCINATED-SKILL-PENALTY-001
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Fascinated: entranced. No actions, -4 reactive skill checks (PHB p.310)"
     )

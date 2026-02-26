@@ -253,6 +253,16 @@ class SpellCastIntent:
     On success: no AoO. On failure: AoO triggers + concentration_failed event.
     On failure by 5+: spell also disrupted (spell_disrupted event, slot consumed). PHB p.140."""
 
+    spontaneous_cure: bool = False
+    """WO-ENGINE-CLERIC-SPONTANEOUS-001: Cleric spontaneous cure conversion (PHB p.32).
+    When True: the declared spell slot is consumed but a cure spell of equal
+    level is cast instead. Only valid for clerics. Resolver handles the redirect
+    before verbal/somatic/ASF guard chain.
+    FINDING-ENGINE-SPONTANEOUS-ALIGNMENT-001: PHB restricts to good clerics only.
+    Alignment check not wired (EF.ALIGNMENT not tracked). Any cleric may use this.
+    FINDING-ENGINE-SPONTANEOUS-DOMAIN-001: Domain slots cannot be converted (PHB p.32).
+    EF.DOMAIN_SPELLS_PREPARED not tracked. Future WO."""
+
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary."""
         return {
@@ -264,6 +274,7 @@ class SpellCastIntent:
             "quickened": self.quickened,
             "metamagic": list(self.metamagic),
             "heighten_to_level": self.heighten_to_level,
+            "spontaneous_cure": self.spontaneous_cure,
         }
 
 

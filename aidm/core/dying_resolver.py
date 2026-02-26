@@ -159,6 +159,33 @@ def resolve_dying_tick(
 
     for entity_id in dying_entities:
         entity = entities[entity_id]
+
+        # WO-ENGINE-DIEHARD-001: Diehard feat — auto-stabilize at -1 to -9 HP (PHB p.93)
+        # Fires BEFORE Fort save roll. Entity becomes DISABLED (can act), not DYING.
+        # NOTE: FINDING-ENGINE-DIEHARD-TRANSITION-001 — PHB says Diehard prevents
+        # entering DYING state entirely (at damage event). This implementation fires at
+        # bleed tick only, meaning a one-round window exists where entity is DYING before
+        # Diehard activates. Architectural fix requires touching resolve_hp_transition.
+        entity_feats = entity.get(EF.FEATS, [])
+        if "diehard" in entity_feats:
+            entity[EF.STABLE] = True
+            entity[EF.DYING] = False   # DISABLED, not DYING (PHB p.93)
+            entity[EF.DISABLED] = True  # Can take one move or standard action
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="entity_stabilized",
+                timestamp=timestamp,
+                payload={
+                    "entity_id": entity_id,
+                    "hp": entity.get(EF.HP_CURRENT, -1),
+                    "reason": "diehard",
+                    "feat": "diehard",
+                },
+                citations=[{"source_id": "PHB", "page": 93}],
+            ))
+            current_event_id += 1
+            continue  # Skip Fort save and bleed for this entity
+
         fort_save = entity.get(EF.SAVE_FORT, 0)
 
         roll = rng.stream("combat").randint(1, 20)
