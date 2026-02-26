@@ -333,14 +333,26 @@ def check_aoo_triggers(
 
     initiative_order = active_combat.get("initiative_order", [])
     aoo_used_this_round = set(active_combat.get("aoo_used_this_round", []))
+    # WO-ENGINE-COMBAT-REFLEXES-001: per-entity AoO count tracker for Combat Reflexes
+    aoo_count_this_round = active_combat.get("aoo_count_this_round", {})
 
     # Find all eligible reactors
     potential_reactors = []
 
     # For target-only maneuvers, only check the target
     if target_only and target_id is not None:
-        if target_id in aoo_used_this_round:
-            return []  # Target already used AoO
+        # WO-ENGINE-COMBAT-REFLEXES-001: check Combat Reflexes limit for target-only path
+        _to_target = world_state.entities.get(target_id)
+        if _to_target is not None:
+            _to_feats = _to_target.get(EF.FEATS, [])
+            _to_dex = _to_target.get(EF.DEX_MOD, 0)
+            _to_limit = 1 + max(0, _to_dex) if "combat_reflexes" in _to_feats else 1
+            _to_used = aoo_count_this_round.get(target_id, 0)
+            if _to_used >= _to_limit:
+                return []  # Target exhausted AoO limit
+        else:
+            if target_id in aoo_used_this_round:
+                return []  # Target already used AoO (fallback)
 
         target = world_state.entities.get(target_id)
         if target is None:
@@ -370,11 +382,8 @@ def check_aoo_triggers(
             if entity_id == provoker_id:
                 continue
 
-            # Skip if already used AoO this round
-            if entity_id in aoo_used_this_round:
-                continue
-
-            # Get reactor entity
+            # WO-ENGINE-COMBAT-REFLEXES-001: check Combat Reflexes limit (PHB p.92)
+            # Must get reactor entity first to check feats
             reactor = world_state.entities.get(entity_id)
             if reactor is None:
                 continue
@@ -383,11 +392,23 @@ def check_aoo_triggers(
             if reactor.get(EF.DEFEATED, False):
                 continue
 
+            _reactor_feats = reactor.get(EF.FEATS, [])
+            _reactor_dex = reactor.get(EF.DEX_MOD, 0)
+            _aoo_limit = 1 + max(0, _reactor_dex) if "combat_reflexes" in _reactor_feats else 1
+            _aoo_used = aoo_count_this_round.get(entity_id, 0)
+            if _aoo_used >= _aoo_limit:
+                continue  # Reactor has exhausted AoO limit for this round
+
             # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: Confused entity cannot make AoOs
             # except against its current target (which we can't track here — suppress all)
             from aidm.core.condition_combat_resolver import is_confused
             if is_confused(reactor):
                 continue
+
+            # WO-ENGINE-FLATFOOTED-AOO-001: Flat-footed entity cannot make AoOs (PHB p.136)
+            _reactor_conditions = reactor.get(EF.CONDITIONS, {})
+            if "flat_footed" in _reactor_conditions:
+                continue  # Flat-footed: no AoO regardless of Combat Reflexes
 
             # Skip if same team
             reactor_team = reactor.get(EF.TEAM, "unknown")

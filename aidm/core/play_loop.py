@@ -487,6 +487,7 @@ def _resolve_spell_cast(
     next_event_id: int,
     timestamp: float,
     turn_index: int,
+    damage_taken_this_turn: int = 0,
 ) -> Tuple[List[Event], WorldState, str]:
     """Resolve a spell cast intent.
 
@@ -587,6 +588,104 @@ def _resolve_spell_cast(
             ))
             # No slot consumed — clean deny (PHB p.174)
             return events, world_state, "spell_blocked"
+
+    # WO-ENGINE-CONCENTRATION-GRAPPLE-001: Grappled/entangled caster Concentration check (PHB p.175)
+    # GRAPPLED/GRAPPLING → DC 20 + spell level. ENTANGLED → DC 15 + spell level.
+    # These are checks, not blocks — the spell can still succeed. PINNED blocks somatic (above).
+    _caster_conds_cg = caster_state.get(EF.CONDITIONS, {})
+    _conc_grapple_dc = 0
+    _conc_grapple_reason = None
+    if "grappled" in _caster_conds_cg or "grappling" in _caster_conds_cg:
+        _conc_grapple_dc = 20 + spell_level
+        _conc_grapple_reason = "grappled"
+    elif "entangled" in _caster_conds_cg:
+        _conc_grapple_dc = 15 + spell_level
+        _conc_grapple_reason = "entangled"
+
+    if _conc_grapple_dc > 0:
+        _cg_conc_bonus = caster_state.get(EF.CONCENTRATION_BONUS, 0)
+        _cg_roll = rng.stream("combat").randint(1, 20)
+        _cg_total = _cg_roll + _cg_conc_bonus
+        if _cg_total < _conc_grapple_dc:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_failed",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "spell_name": spell.name,
+                    "roll": _cg_roll,
+                    "total": _cg_total,
+                    "dc": _conc_grapple_dc,
+                    "reason": _conc_grapple_reason,
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.175"],
+            ))
+            return events, world_state, "concentration_failed"
+        else:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_success",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "roll": _cg_roll,
+                    "total": _cg_total,
+                    "dc": _conc_grapple_dc,
+                    "reason": _conc_grapple_reason,
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.175"],
+            ))
+            current_event_id += 1
+
+    # WO-ENGINE-CONCENTRATION-DAMAGE-001: Took damage this turn while casting (PHB p.69/p.175)
+    # DC = 10 + damage taken + spell level. Checks against concentration before spell resolves.
+    # damage_taken_this_turn is pre-computed by execute_turn from hp_changed events before this call.
+    if damage_taken_this_turn > 0:
+        _cd_conc_bonus = caster_state.get(EF.CONCENTRATION_BONUS, 0)
+        _cd_dc = 10 + damage_taken_this_turn + spell_level
+        _cd_roll = rng.stream("combat").randint(1, 20)
+        _cd_total = _cd_roll + _cd_conc_bonus
+        if _cd_total < _cd_dc:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_failed",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "spell_name": spell.name,
+                    "roll": _cd_roll,
+                    "total": _cd_total,
+                    "dc": _cd_dc,
+                    "damage_taken": damage_taken_this_turn,
+                    "reason": "took_damage",
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.175"],
+            ))
+            return events, world_state, "concentration_failed"
+        else:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="concentration_maintained",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "roll": _cd_roll,
+                    "total": _cd_total,
+                    "dc": _cd_dc,
+                    "damage_taken": damage_taken_this_turn,
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.175"],
+            ))
+            current_event_id += 1
 
     # WO-ENGINE-METAMAGIC-001: Validate metamagic prerequisites and compute effective slot level
     _metamagic = list(getattr(intent, "metamagic", ()) or ())
@@ -2859,6 +2958,15 @@ def execute_turn(
                 current_event_id += 1
                 narration = "spell_disrupted"
             else:
+                # WO-ENGINE-CONCENTRATION-DAMAGE-001: Compute damage caster took this turn
+                # before spell resolves (e.g., from AoO). Scan hp_changed events for caster.
+                _cd_damage_this_turn = sum(
+                    abs(e.payload.get("delta", 0))
+                    for e in events
+                    if e.event_type == "hp_changed"
+                    and e.payload.get("entity_id") == combat_intent.caster_id
+                    and e.payload.get("delta", 0) < 0
+                )
                 # Resolve the spell cast
                 spell_events, world_state, narration = _resolve_spell_cast(
                     intent=combat_intent,
@@ -2868,6 +2976,7 @@ def execute_turn(
                     next_event_id=current_event_id,
                     timestamp=timestamp + 0.1,
                     turn_index=turn_ctx.turn_index,
+                    damage_taken_this_turn=_cd_damage_this_turn,
                 )
                 events.extend(spell_events)
                 current_event_id += len(spell_events)
