@@ -664,23 +664,47 @@ def resolve_attack(
         if miss_chance_percent > 0:
             miss_chance_d100 = combat_rng.randint(1, 100)
             if check_miss_chance(miss_chance_percent, miss_chance_d100):
-                miss_chance_miss = True
-                hit = False  # Override hit to miss
-                # Emit concealment_miss event
-                events.append(Event(
-                    event_id=current_event_id,
-                    event_type="concealment_miss",
-                    timestamp=timestamp + 0.05,
-                    payload={
-                        "attacker_id": intent.attacker_id,
-                        "target_id": intent.target_id,
-                        "miss_chance_percent": miss_chance_percent,
-                        "d100_result": miss_chance_d100,
-                        "original_hit": True,
-                    },
-                    citations=[{"source_id": "681f92bc94ff", "page": 152}]  # PHB concealment
-                ))
-                current_event_id += 1
+                # WO-ENGINE-BLIND-FIGHT-001: Blind-Fight feat — reroll once on miss (PHB p.91)
+                _bf_rerolled = False
+                if "blind_fight" in attacker.get(EF.FEATS, []):
+                    _bf_reroll = combat_rng.randint(1, 100)
+                    # Always emit reroll event (records outcome for event log)
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="blind_fight_reroll",
+                        timestamp=timestamp + 0.05,
+                        payload={
+                            "attacker_id": intent.attacker_id,
+                            "target_id": intent.target_id,
+                            "original_roll": miss_chance_d100,
+                            "reroll": _bf_reroll,
+                            "miss_chance_percent": miss_chance_percent,
+                        },
+                        citations=[{"source_id": "681f92bc94ff", "page": 91}]  # PHB Blind-Fight
+                    ))
+                    current_event_id += 1
+                    if not check_miss_chance(miss_chance_percent, _bf_reroll):
+                        # Reroll succeeds — attack proceeds past miss chance
+                        _bf_rerolled = True  # Do not miss; continue to damage
+
+                if not _bf_rerolled:
+                    miss_chance_miss = True
+                    hit = False  # Override hit to miss
+                    # Emit concealment_miss event
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="concealment_miss",
+                        timestamp=timestamp + 0.05,
+                        payload={
+                            "attacker_id": intent.attacker_id,
+                            "target_id": intent.target_id,
+                            "miss_chance_percent": miss_chance_percent,
+                            "d100_result": miss_chance_d100,
+                            "original_hit": True,
+                        },
+                        citations=[{"source_id": "681f92bc94ff", "page": 152}]  # PHB concealment
+                    ))
+                    current_event_id += 1
 
     # WO-ENGINE-FEINT-001: emit feint_bonus_consumed when feint marker was active
     if _feint_active and hit:
