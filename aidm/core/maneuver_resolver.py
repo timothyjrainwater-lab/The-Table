@@ -306,6 +306,9 @@ def resolve_bull_rush(
     attacker_size = _get_size_modifier(world_state, attacker_id)
     charge_bonus = 2 if intent.is_charge else 0
     attacker_modifier = attacker_str + attacker_size + charge_bonus
+    # WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001: Improved Bull Rush grants +4 (PHB p.96)
+    if "improved_bull_rush" in world_state.entities.get(attacker_id, {}).get(EF.FEATS, []):
+        attacker_modifier += 4
 
     defender_str = _get_str_modifier(world_state, target_id)
     defender_size = _get_size_modifier(world_state, target_id)
@@ -617,6 +620,9 @@ def resolve_trip(
     # Attacker uses Str + special size, Defender uses max(Str, Dex) + special size + stability
     attacker_size = _get_size_modifier(world_state, attacker_id)
     attacker_modifier = attacker_str + attacker_size
+    # WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001: Improved Trip grants +4 to STR check (PHB p.96)
+    if "improved_trip" in world_state.entities.get(attacker_id, {}).get(EF.FEATS, []):
+        attacker_modifier += 4
 
     defender_str = _get_str_modifier(world_state, target_id)
     defender_dex = _get_dex_modifier(world_state, target_id)
@@ -1199,6 +1205,9 @@ def resolve_sunder(
     attacker_str = _get_str_modifier(world_state, attacker_id)
     attacker_size = _get_standard_attack_size_modifier(world_state, attacker_id)
     attacker_modifier = attacker_bab + attacker_str + attacker_size
+    # WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001: Improved Sunder grants +4 (PHB p.96)
+    if "improved_sunder" in world_state.entities.get(attacker_id, {}).get(EF.FEATS, []):
+        attacker_modifier += 4
 
     defender_bab = _get_bab(world_state, target_id)
     defender_str = _get_str_modifier(world_state, target_id)
@@ -1455,6 +1464,9 @@ def resolve_disarm(
         defender_modifier += 4
     elif defender_weapon_type == "light":
         defender_modifier -= 4
+    # WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001: Improved Disarm grants +4 (PHB p.96)
+    if "improved_disarm" in world_state.entities.get(attacker_id, {}).get(EF.FEATS, []):
+        attacker_modifier += 4
 
     # Roll opposed attack rolls
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "disarm")
@@ -1730,6 +1742,9 @@ def resolve_grapple(
 
     attacker_size = _get_size_modifier(world_state, attacker_id)
     attacker_grapple_modifier = attacker_bab + attacker_str + attacker_size
+    # WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001: Improved Grapple grants +4 (PHB p.96)
+    if "improved_grapple" in world_state.entities.get(attacker_id, {}).get(EF.FEATS, []):
+        attacker_grapple_modifier += 4
 
     defender_bab = _get_bab(world_state, target_id)
     defender_str = _get_str_modifier(world_state, target_id)
