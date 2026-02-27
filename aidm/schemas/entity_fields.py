@@ -168,6 +168,9 @@ class _EntityFields:
     TURN_UNDEAD_USES_MAX = "turn_undead_uses_max"  # Int: max turn uses per day (3 + CHA mod, min 1)
     IS_UNDEAD = "is_undead"                        # Bool: True if creature is undead type
 
+    # --- Domain System (WO-ENGINE-DOMAIN-SYSTEM-001, Batch V WO3) ---
+    DOMAINS = "domains"  # List[str]: cleric/druid domain names, e.g. ["sun", "fire"]. Max 2 for clerics (PHB p.32). Default [].
+
     # --- Negative Levels (WO-ENGINE-ENERGY-DRAIN-001) ---
     NEGATIVE_LEVELS = "negative_levels"  # Int: accumulated negative levels (0 = none)
 

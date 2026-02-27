@@ -16,11 +16,12 @@ MECHANICS IMPLEMENTED:
 - Paladin: effective cleric level = paladin_level // 2 (PHB p.33)
 - Evil cleric: channels_negative_energy flag → rebukes instead of turning
 - TURN_UNDEAD_USES decremented per use; restored to MAX on overnight rest
+- Sun domain Greater Turning: intent.greater_turning=True + "sun" in EF.DOMAINS
+  → turned undead are destroyed instead (PHB p.33). Consumes one regular use.
 
 DEFERRED:
 - Command undead (evil cleric persistent control)
 - Line of sight / 60ft range enforcement
-- Domain bonuses (+2 effective level for Sun domain)
 - 10-round expiry of TURNED condition
 """
 
@@ -203,6 +204,12 @@ def resolve_turn_undead(
     current_id += 1
 
     # ── Collect valid undead targets ─────────────────────────────────────────
+    # Sun domain Greater Turning (PHB p.33): turned → destroyed when flag is set
+    _greater_turning_active = (
+        getattr(intent, "greater_turning", False)
+        and "sun" in cleric.get(EF.DOMAINS, [])
+    )
+
     valid_targets: List[Tuple[int, str, Dict]] = []
     for tid in intent.target_ids:
         target = world_state.entities.get(tid)
@@ -259,18 +266,32 @@ def resolve_turn_undead(
                 },
             ))
         elif outcome == "turned":
-            events.append(Event(
-                event_id=current_id,
-                event_type="undead_turned",
-                timestamp=timestamp + 0.01,
-                payload={
-                    "cleric_id": intent.cleric_id,
-                    "target_id": tid,
-                    "target_hd": hd,
-                    "duration_rounds": 10,
-                    "source": "turn_undead",
-                },
-            ))
+            if _greater_turning_active:
+                # PHB p.33: Sun domain Greater Turning — turned undead destroyed instead
+                events.append(Event(
+                    event_id=current_id,
+                    event_type="undead_destroyed_by_greater_turning",
+                    timestamp=timestamp + 0.01,
+                    payload={
+                        "cleric_id": intent.cleric_id,
+                        "target_id": tid,
+                        "target_hd": hd,
+                        "source": "greater_turning",
+                    },
+                ))
+            else:
+                events.append(Event(
+                    event_id=current_id,
+                    event_type="undead_turned",
+                    timestamp=timestamp + 0.01,
+                    payload={
+                        "cleric_id": intent.cleric_id,
+                        "target_id": tid,
+                        "target_hd": hd,
+                        "duration_rounds": 10,
+                        "source": "turn_undead",
+                    },
+                ))
         elif outcome in ("rebuked", "commanded"):
             # commanded is deferred; emit as rebuked for now
             events.append(Event(
@@ -352,6 +373,14 @@ def apply_turn_undead_events(events: List[Event], world_state: WorldState) -> Wo
                 target[EF.CONDITIONS] = conditions
 
         elif et == "undead_destroyed":
+            tid = p["target_id"]
+            target = world_state.entities.get(tid)
+            if target is not None:
+                target[EF.DEFEATED] = True
+                target[EF.HP_CURRENT] = -10
+
+        elif et == "undead_destroyed_by_greater_turning":
+            # PHB p.33: Greater Turning — same outcome as destroyed
             tid = p["target_id"]
             target = world_state.entities.get(tid)
             if target is not None:

@@ -416,6 +416,10 @@ class TurnUndeadIntent:
     target_ids: List[str]
     """Undead entities to attempt to turn (must have UNDEAD_TYPE set). May be empty."""
 
+    greater_turning: bool = False
+    """If True and cleric has Sun domain, resolve as Greater Turning — turned undead are
+    destroyed instead (PHB p.33). Consumes one regular turn use. No separate counter."""
+
     def __post_init__(self):
         if not self.cleric_id:
             raise IntentParseError("cleric_id cannot be empty")
@@ -427,6 +431,7 @@ class TurnUndeadIntent:
             "type": "turn_undead",
             "cleric_id": self.cleric_id,
             "target_ids": self.target_ids,
+            "greater_turning": self.greater_turning,
         }
 
     @classmethod
@@ -436,6 +441,7 @@ class TurnUndeadIntent:
         return cls(
             cleric_id=data["cleric_id"],
             target_ids=data.get("target_ids", []),
+            greater_turning=data.get("greater_turning", False),
         )
 
 

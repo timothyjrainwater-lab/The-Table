@@ -705,6 +705,7 @@ def build_character(
     class_mix: Optional[Dict[str, int]] = None,
     favored_class: Optional[str] = None,
     creature_type: str = "",
+    domains: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """Build a complete D&D 3.5e character entity dict.
 
@@ -726,6 +727,8 @@ def build_character(
         class_mix: Multiclass dict, e.g. {"fighter": 3, "wizard": 2}. If provided,
             class_name and level are ignored.
         favored_class: Optional favored class name (PHB p.56). Stored informational only.
+        domains: List of domain name strings for clerics/druids (PHB p.32). Max 2 for clerics.
+            Default None → stored as []. E.g. ["sun", "fire"].
 
     Returns:
         Complete entity dict with all EF fields populated.
@@ -1010,6 +1013,9 @@ def build_character(
         _turn_max = _turn_base + 4 * _extra_turning_count
         entity[EF.TURN_UNDEAD_USES_MAX] = _turn_max
         entity[EF.TURN_UNDEAD_USES] = _turn_max
+
+    # WO-ENGINE-DOMAIN-SYSTEM-001 (Batch V WO3): Cleric/druid domain selections (PHB p.32)
+    entity[EF.DOMAINS] = list(domains) if domains else []
 
     # WO-ENGINE-MONK-UNARMED-PROGRESSION-001: Monk unarmed strike damage (PHB Table 3-10)
     _monk_level_mup = level if class_name == "monk" else 0
