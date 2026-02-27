@@ -180,6 +180,13 @@ def _build_action_types() -> Dict[type, str]:
     _try_add(mapping, "aidm.schemas.intents", "StandIntent", "move")  # WO-ENGINE-AOO-STAND-FROM-PRONE-001: PHB p.137 standing is a move action
     _try_add(mapping, "aidm.schemas.intents", "ImmediateActionIntent", "immediate")  # WO-ENGINE-IMMEDIATE-ACTION-001: PHB p.127 immediate action
     _try_add(mapping, "aidm.schemas.intents", "RunIntent", "full_round")  # WO-ENGINE-RUN-ACTION-001: PHB p.144 run is full-round
+    # Batch V WO1 — FINDING-AUDIT-AE-002: six intents previously fell through to "free" default
+    _try_add(mapping, "aidm.schemas.attack", "FullMoveIntent", "move")           # PHB p.141: full move = move action
+    _try_add(mapping, "aidm.schemas.intents", "NaturalAttackIntent", "standard") # PHB p.141: attack = standard action
+    _try_add(mapping, "aidm.schemas.intents", "BardicMusicIntent", "standard")   # PHB p.29: bardic music = standard action
+    _try_add(mapping, "aidm.schemas.intents", "WildShapeIntent", "standard")     # PHB p.37: wild shape = standard action
+    _try_add(mapping, "aidm.schemas.intents", "RevertFormIntent", "standard")    # PHB p.37: reverting = standard action
+    _try_add(mapping, "aidm.schemas.intents", "DemoralizeIntent", "standard")    # PHB p.76: Intimidate demoralize = standard action
 
     return mapping
 
