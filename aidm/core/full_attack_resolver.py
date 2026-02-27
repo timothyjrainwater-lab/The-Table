@@ -726,6 +726,10 @@ def resolve_full_attack(
     current_hp = hp_current
     attacks_executed = 0
 
+    # WO-ENGINE-WEAPON-PROFICIENCY-001: Non-proficiency penalty (PHB p.113) — compute once per full attack
+    from aidm.core.attack_resolver import _is_weapon_proficient as _wp_proficient_check
+    _prof_proficient = _wp_proficient_check(attacker, intent.weapon)
+
     for attack_index, penalized_bonus in enumerate(attack_bonuses):
         # Raw BAB for this iterative (without TWF penalty) — for audit trail
         raw_bab = raw_attack_bonuses[attack_index]
@@ -739,6 +743,7 @@ def resolve_full_attack(
             flanking_bonus +
             _favored_enemy_bonus +  # WO-ENGINE-FAVORED-ENEMY-001: ranger favored enemy (PHB p.47)
             intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: magic weapon (PHB p.224)
+            + (0 if _prof_proficient else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
         )
 
         attack_events, current_event_id, damage = resolve_single_attack_with_critical(
@@ -846,6 +851,7 @@ def resolve_full_attack(
             terrain_higher_ground +
             feat_attack_modifier +
             flanking_bonus
+            + (0 if _wp_proficient_check(attacker, intent.off_hand_weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001
         )
         # Off-hand grip — half STR for damage (PHB p.160)
         off_str_mod = str_modifier // 2 if str_modifier > 0 else str_modifier
@@ -902,6 +908,7 @@ def resolve_full_attack(
                 terrain_higher_ground +
                 feat_attack_modifier +
                 flanking_bonus
+                + (0 if _wp_proficient_check(attacker, intent.off_hand_weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001
             )
             itwf_events, current_event_id, itwf_damage = resolve_single_attack_with_critical(
                 attacker_id=intent.attacker_id,

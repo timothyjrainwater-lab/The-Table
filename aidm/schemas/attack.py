@@ -55,6 +55,16 @@ class Weapon:
     0 = melee weapon. Positive = ranged weapon.
     Max range = range_increment * 10 (10 increments per SRD)."""
 
+    enhancement_bonus: int = 0
+    """WO-ENGINE-WEAPON-ENHANCEMENT-001: Enhancement bonus to attack and damage.
+    +1 to +5 for magic weapons. 0 = non-magical weapon. PHB p.224."""
+
+    proficiency_category: Optional[str] = None
+    """WO-ENGINE-WEAPON-PROFICIENCY-001: Proficiency category for non-proficiency check (PHB p.113).
+    Values: 'simple', 'martial', 'exotic', or None (unknown = assume proficient).
+    Natural attacks always proficient regardless of this field (weapon_type='natural' checked first).
+    Default None preserves existing behavior — no proficiency penalty applied for legacy Weapon instances."""
+
     def __post_init__(self):
         """Validate weapon data."""
         if not self.damage_dice:
@@ -124,6 +134,10 @@ class AttackIntent:
     """WO-034-FIX: Power Attack trade-off penalty (PHB p.98).
     0 = not using Power Attack. Max = BAB."""
 
+    combat_expertise_penalty: int = 0
+    """WO-ENGINE-COMBAT-EXPERTISE-001: Combat Expertise trade-off penalty (PHB p.92).
+    0 = not using Combat Expertise. Max = 5. Reduces attack roll; grants dodge AC bonus."""
+
     def __post_init__(self):
         """Validate attack intent."""
         if not self.attacker_id:
@@ -132,6 +146,8 @@ class AttackIntent:
             raise ValueError("target_id cannot be empty")
         if self.power_attack_penalty < 0:
             raise ValueError("power_attack_penalty cannot be negative")
+        if self.combat_expertise_penalty < 0:
+            raise ValueError("combat_expertise_penalty cannot be negative")
 
 
 @dataclass

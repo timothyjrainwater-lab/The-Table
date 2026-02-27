@@ -65,7 +65,70 @@ from aidm.core.targeting_resolver import evaluate_target_legality, get_entity_po
 from aidm.schemas.entity_fields import EF
 
 
-def _find_cleave_target(attacker_id: str, killed_id: str, world_state: WorldState):
+# =============================================================================
+# WO-ENGINE-WEAPON-PROFICIENCY-001: Non-proficiency penalty (PHB p.113)
+# =============================================================================
+
+# Classes proficient with ALL martial weapons (PHB p.113)
+_MARTIAL_PROFICIENT_CLASSES = frozenset({"barbarian", "fighter", "paladin", "ranger"})
+
+
+def _is_weapon_proficient(attacker: dict, weapon) -> bool:
+    """Return True if attacker is proficient with weapon (no -4 non-proficiency penalty).
+
+    PHB p.113: A character who uses a weapon with which he or she is not
+    proficient takes a -4 penalty on attack rolls.
+
+    Proficiency rules:
+    - Natural attacks: always proficient (weapon_type='natural')
+    - proficiency_category=None: unknown → assume proficient (safe default)
+    - 'simple': always proficient for all classes
+    - 'martial': proficient if class in martial list OR has martial_weapon_proficiency feat
+    - 'exotic': proficient if has any exotic_weapon_proficiency* feat
+
+    Args:
+        attacker: Entity dict of the attacker.
+        weapon: Weapon dataclass instance.
+
+    Returns:
+        True if proficient (no -4 penalty), False if non-proficient (-4 applies).
+    """
+    # Natural attacks: always proficient regardless of category
+    if getattr(weapon, "weapon_type", "") == "natural":
+        return True
+
+    prof_cat = getattr(weapon, "proficiency_category", None)
+
+    # Unknown proficiency: assume proficient (backwards-compatible safe default)
+    if prof_cat is None:
+        return True
+
+    # Simple: all classes are proficient (PHB p.113)
+    if prof_cat == "simple":
+        return True
+
+    attacker_feats = attacker.get(EF.FEATS, [])
+    class_levels = attacker.get(EF.CLASS_LEVELS, {})
+
+    # Martial: proficient if class is in martial list OR has feat
+    if prof_cat == "martial":
+        if any(cls in _MARTIAL_PROFICIENT_CLASSES for cls in class_levels):
+            return True
+        if "martial_weapon_proficiency" in attacker_feats:
+            return True
+        return False
+
+    # Exotic: proficient only if has matching exotic_weapon_proficiency feat
+    if prof_cat == "exotic":
+        if any(feat.startswith("exotic_weapon_proficiency") for feat in attacker_feats):
+            return True
+        return False
+
+    # Unknown category string: assume proficient
+    return True
+
+
+def _find_cleave_target(attacker_id: str, killed_id: str, world_state: "WorldState"):
     """Find an adjacent enemy to target with a Cleave bonus attack.
 
     PHB p.92: the bonus attack must be against a foe *adjacent to the killed
@@ -506,6 +569,7 @@ def resolve_attack(
         + intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: magic weapon (PHB p.224)
         + _finesse_delta  # WO-ENGINE-WEAPON-FINESSE-001: DEX delta for light weapons
         - intent.combat_expertise_penalty  # WO-ENGINE-COMBAT-EXPERTISE-001: CE attack penalty (PHB p.92)
+        + (0 if _is_weapon_proficient(attacker, intent.weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
     )
     total = d20_result + attack_bonus_with_conditions
 
