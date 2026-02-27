@@ -154,6 +154,20 @@ def resolve_natural_attack(
 
     weapon = _build_weapon_from_natural_attack(attack_dict, damage_dice_override=attack_damage_dice if attack_damage_dice != base_damage_dice else None)
 
+    # WO-ENGINE-ATTACK-MODIFIER-FIDELITY-001: Secondary natural attacks get ½ STR (PHB p.314)
+    # Setting grip="off-hand" reuses existing ½ STR logic in attack_resolver (line 866)
+    if not is_primary:
+        weapon = Weapon(
+            damage_dice=weapon.damage_dice,
+            damage_bonus=weapon.damage_bonus,
+            damage_type=weapon.damage_type,
+            critical_multiplier=weapon.critical_multiplier,
+            critical_range=weapon.critical_range,
+            weapon_type=weapon.weapon_type,
+            grip="off-hand",
+            is_two_handed=weapon.is_two_handed,
+        )
+
     # Build AttackIntent for delegation to resolve_attack
     # Apply secondary penalty to attack_bonus (primary attacks unaffected).
     attack_intent = AttackIntent(

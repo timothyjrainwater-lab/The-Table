@@ -880,16 +880,13 @@ def resolve_attack(
             attacker.get(EF.INSPIRE_COURAGE_BONUS, 0)
             if attacker.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
         )
-        base_damage_with_modifiers = base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier + _inspire_dmg_bonus
+        base_damage_with_modifiers = base_damage + attacker_modifiers.damage_modifier + feat_damage_modifier + _inspire_dmg_bonus + _favored_enemy_bonus  # WO-ENGINE-ATTACK-MODIFIER-FIDELITY-001: FE is pre-crit (PHB p.140)
 
         # WO-FIX-002: Apply critical multiplier (PHB p.140)
         if is_critical:
             damage_total = max(1, base_damage_with_modifiers * intent.weapon.critical_multiplier)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
         else:
             damage_total = max(1, base_damage_with_modifiers)  # WO-FIX-01 (BUG-8/9): min 1 on hit, before DR
-
-        # WO-ENGINE-FAVORED-ENEMY-001: Favored Enemy damage bonus is NOT multiplied on crit (PHB p.47 — flat bonus)
-        damage_total += _favored_enemy_bonus
 
         # WO-ENGINE-IMPROVED-UNCANNY-DODGE-001: IUD suppresses flanking-based sneak attack (PHB p.26/50)
         # The flanking_bonus already applied to attack roll above is preserved — IUD only blocks SA.
