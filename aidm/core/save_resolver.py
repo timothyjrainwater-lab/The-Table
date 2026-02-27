@@ -71,6 +71,7 @@ def get_save_bonus(
     actor_id: str,
     save_type: SaveType,
     save_descriptor: str = "",
+    school: str = "",
 ) -> int:
     """Calculate total save bonus for an actor.
 
@@ -79,6 +80,8 @@ def get_save_bonus(
         actor_id: Entity making the save
         save_type: Type of save (Fort/Ref/Will)
         save_descriptor: Optional context tag — "poison", "spell", "sla" (default: "")
+        school: Spell school (lowercase) for school-specific racial bonuses (default: "")
+                WO-ENGINE-RACIAL-ENCHANT-SAVE-001: pass "enchantment" for enchantment spells.
 
     Returns:
         Total save bonus (base + ability + condition modifiers)
@@ -155,11 +158,17 @@ def get_save_bonus(
     if save_descriptor in ("spell", "sla"):
         racial_spell_bonus = entity.get(EF.SAVE_BONUS_SPELLS, 0)
 
+    # WO-ENGINE-RACIAL-ENCHANT-SAVE-001: Elf/half-elf +2 vs enchantment spells (PHB p.14/18)
+    racial_enchantment_bonus = 0
+    if school == "enchantment":
+        racial_enchantment_bonus = entity.get(EF.SAVE_BONUS_ENCHANTMENT, 0)
+
     # Total bonus
     total_bonus = (
         base_save + ability_mod + condition_save_mod + inspire_courage_bonus
         + feat_save_bonus + divine_grace_bonus
         + racial_save_bonus + racial_poison_bonus + racial_spell_bonus
+        + racial_enchantment_bonus
     )
 
     return total_bonus

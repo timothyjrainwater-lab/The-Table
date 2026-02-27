@@ -221,12 +221,15 @@ def _create_caster_stats(
 def _create_target_stats(
     entity_id: str,
     world_state: WorldState,
+    school: str = "",
 ) -> TargetStats:
     """Create TargetStats from WorldState entity data.
 
     Args:
         entity_id: Entity ID of the target
         world_state: Current world state
+        school: Spell school (lowercase) — used to apply school-specific racial save bonuses.
+                WO-ENGINE-RACIAL-ENCHANT-SAVE-001: pass spell.school for enchantment bonuses.
 
     Returns:
         TargetStats with position, HP, and saves
@@ -254,6 +257,10 @@ def _create_target_stats(
     fort_save -= neg_level_penalty
     ref_save -= neg_level_penalty
     will_save -= neg_level_penalty
+
+    # WO-ENGINE-RACIAL-ENCHANT-SAVE-001: Elf/half-elf +2 vs enchantment spells (PHB p.14/18)
+    if school == "enchantment":
+        will_save += entity.get(EF.SAVE_BONUS_ENCHANTMENT, 0)
 
     # Get SR
     sr = entity.get(EF.SR, 0)
@@ -927,10 +934,10 @@ def _resolve_spell_cast(
     targets: Dict[str, TargetStats] = {}
     for entity_id in world_state.entities:
         if entity_id != intent.caster_id:
-            targets[entity_id] = _create_target_stats(entity_id, world_state)
+            targets[entity_id] = _create_target_stats(entity_id, world_state, school=spell.school)
 
     # Add caster as potential target (for self spells)
-    targets[intent.caster_id] = _create_target_stats(intent.caster_id, world_state)
+    targets[intent.caster_id] = _create_target_stats(intent.caster_id, world_state, school=spell.school)
 
     # Create a minimal grid if none provided
     if grid is None:
@@ -1175,6 +1182,22 @@ def _resolve_spell_cast(
         # Initialize conditions dict if needed
         if EF.CONDITIONS not in entities[entity_id]:
             entities[entity_id][EF.CONDITIONS] = {}
+
+        # WO-ENGINE-RACIAL-ENCHANT-SAVE-001: Sleep immunity for elf/half-elf (PHB p.14/18)
+        # Magical sleep effects (enchantment school, "unconscious" condition) are blocked.
+        # Slot is consumed as normal; the immunity only blocks the condition application.
+        if (condition == "unconscious"
+                and spell.school == "enchantment"
+                and entities[entity_id].get(EF.IMMUNE_SLEEP, False)):
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="sleep_immunity",
+                timestamp=timestamp + 0.02,
+                payload={"entity_id": entity_id, "reason": "racial_sleep_immunity"},
+                citations=[{"source_id": "681f92bc94ff", "page": 14}],
+            ))
+            current_event_id += 1
+            continue
 
         # Add condition if not already present (keyed by condition name)
         if condition not in entities[entity_id][EF.CONDITIONS]:
