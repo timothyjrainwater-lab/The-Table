@@ -287,10 +287,12 @@ def _target_retains_dex_via_uncanny_dodge(target: dict) -> bool:
     WO-ENGINE-UNCANNY-DODGE-001
     """
     class_levels = target.get(EF.CLASS_LEVELS, {}) or {}
-    has_uncanny_dodge = (
-        class_levels.get("rogue", 0) >= 2
-        or class_levels.get("ranger", 0) >= 4
-        or class_levels.get("barbarian", 0) >= 2
+    # WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001: PHB p.26 barb L2, PHB p.50 rogue L4
+    # Rangers do NOT get Uncanny Dodge in D&D 3.5e (PHB p.48)
+    _UD_THRESHOLDS = {"barbarian": 2, "rogue": 4}
+    has_uncanny_dodge = any(
+        class_levels.get(cls, 0) >= lvl
+        for cls, lvl in _UD_THRESHOLDS.items()
     )
     if not has_uncanny_dodge:
         return False
