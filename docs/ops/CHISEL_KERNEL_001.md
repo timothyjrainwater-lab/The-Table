@@ -798,3 +798,31 @@ Note: `test_ws_bridge` and `test_ws_deadverb_001_gate` excluded — require live
 - FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 LOW OPEN (carried from Batch O)
 - FINDING-ENGINE-BLIND-FIGHT-INVIS-001 LOW OPEN (carried)
 - All prior open findings carried forward
+
+---
+
+## Session Delta — 2026-02-27 (Batch R ACCEPTED)
+
+**WOs completed:**
+- WO-ENGINE-IMPROVED-EVASION-001 — IE-001–IE-008 8/8 PASS. **SAI.** Both branches wired at spell_resolver.py:909-927. EF.IMPROVED_EVASION set at chargen (rogue≥10, monk≥9). Gate tests confirm existing behavior. Commit 38f12e0.
+- WO-ENGINE-MOBILITY-001 — MB-001–MB-008 8/8 PASS. **SAI + cleanup.** deepcopy path at aoo.py:615-624 confirmed live. Removed stale WO-034 TODO comment (5 lines). FeatID.MOBILITY="mobility" (lowercase). Commit 0452427.
+- WO-ENGINE-AOO-STANDING-PRONE-001 — SP-001–SP-008 8/8 PASS. **Full SAI.** check_stand_from_prone_aoo() at aoo.py:709-817. Existing Batch I gate confirmed. FINDING-CE-STANDING-AOO-001 CLOSED. No code change.
+- WO-ENGINE-GREATER-TWF-001 — GTWF-001–GTWF-008 8/8 PASS. **New work.** Inserted GTWF block in full_attack_resolver.py after ITWF (post line 952). Feat string "Greater Two-Weapon Fighting" (Title Case). BAB-10+off_penalty. off_str_mod (half-STR). Commit 4083663.
+
+**Gate total:** 32/32 new gates; 0 regressions. Suite: 8456 passing / 141 pre-existing failures.
+
+**Kernel touches flagged:**
+- KERNEL-04 (Intent Semantics) — GTWF expands full-attack off-hand chain (2→3 attacks) without changing FullAttackIntent dataclass.
+
+**New findings:**
+- FINDING-ENGINE-GTWF-PREREQ-CHAIN-001 — LOW OPEN. GTWF prereqs (Int 15, Dex 17, BAB+11) not enforced at resolution time (consistent with no-prereq policy).
+- FINDING-ENGINE-MOBILITY-DODGE-CHAIN-001 — LOW OPEN. Mobility requires Dodge (PHB prereq). Not enforced at resolution time.
+
+**Closed findings:**
+- FINDING-CE-STANDING-AOO-001 — CLOSED (flat-footed guard at aoo.py:779 confirmed).
+
+**Open threads for next session:**
+- Batch Q execution (now unblocked — Batch R WO4/GTWF committed)
+- Batch T WO4 (SD) BLOCKED — FINDING-ENGINE-DOMAIN-SYSTEM-MISSING-001 MEDIUM OPEN
+- Data Batch B IN FLIGHT
+- All prior open findings carried forward
