@@ -5,16 +5,16 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-27 (session 7 — Batch M ACCEPTED 37/37. Batch N ACCEPTED 40/40 (MD/SA/SF/IT — 3 SAI, IT got 2 bonus tests). Batch O ACCEPTED 32/32 (IO/CE/BF/TG — CE SAI, commits 3232b76/9d5b6f5/6057476/99d79af). Batch P READY. Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
-**Delta:** Batch N + O both ACCEPTED 2026-02-27. 8 debriefs filed. Inbox normalized. Suite: 8374 passed / 142 pre-existing failures. Queue: Batch P READY — Thunder dispatches when ready.
+**Session:** 2026-02-27 (session 9 — 4 parallel tracks active: R IN FLIGHT, P READY, S/T DISPATCH-READY, Q waiting for P+R WO4. PM recon debrief filed: DEBRIEF_BATCH-R-PM-RECON-001.md. Batch R corrected: 24 new gate tests (WO3 full SAI). Batch T dispatched: MA/INA/ITN/SD — natural_attack_resolver.py + turn_undead_resolver.py.)
+**Delta:** Batches Q/S/T dispatched 2026-02-27. PM recon debrief process gap patched (rule added to Process). Suite: 8374 passed / 142 pre-existing failures. Inbox 12/15.
 
 ## Priority Stack (top 3)
-1. **Batch P READY.** `WO_SET_ENGINE_BATCH_P.md` in inbox (32 gate tests: PA/IMB/PS/IDC). Prereq: Batch O ACCEPTED — SATISFIED. Thunder dispatches when ready. (Note: original DG/LH/EV/UD content was all SAI — dispatch rebuilt with genuine new work.)
-2. **Data Batch B IN FLIGHT.** WO-DATA-MONSTERS-001 and WO-INFRA-DICE-001 still in inbox. No action until builder debrief.
-3. **Inbox at 10/15.** Within cap. No hygiene action needed.
+1. **Batch R IN FLIGHT.** 24 new gate tests: IE/MB/GTWF (+WO3 SAI existing gate). Awaiting builder debrief. Batch Q WO3 (WFC) waits for R WO4 (GTWF) to settle.
+2. **Batch P READY.** 32 gate tests: PA/IMB/PS/IDC. Batch Q follows P. Thunder dispatches.
+3. **Batches S/T DISPATCH-READY.** Third (BDR/RSV/ETN/MUP) and fourth (MA/INA/ITN/SD) parallel tracks. Both start immediately — zero overlap with P/R/Q.
 
 ## Active Findings (OPEN only — closed/resolved in briefing)
-- FINDING-CE-STANDING-AOO-001 LOW OPEN (flat-footed AoO suppression for standing entities — deferred from CE WO)
+- FINDING-CE-STANDING-AOO-001 LOW → **CLOSING in Batch R WO3 debrief** (flat-footed guard at aoo.py:779 confirmed by pre-dispatch recon)
 - FINDING-ENGINE-FLATFOOTED-AOO-001 LOW OPEN (no flat-footed AoO suppression in aoo.py — nothing to bypass currently; surfaced by Combat Reflexes WO)
 - FINDING-SF-SAVE-BREAKDOWN-001 LOW OPEN (save breakdown not surfaced in narrative output)
 - FINDING-ASF-ARCANE-CASTER-001 LOW OPEN (_is_arcane whitelist needs ranger/paladin extension)
@@ -47,7 +47,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-27 (session 7 — Batch N + O ACCEPTED, Batch P rebuilt PA/IMB/PS/IDC, inbox 8/15)
+- Updated: 2026-02-27 (session 9 — Batches Q/S/T dispatched, Batch R recon filed, 4 parallel tracks active, inbox 12/15)
 - Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
@@ -225,6 +225,8 @@ All three are correct for their scope. Smite bonuses are NOT in TEMPORARY_MODIFI
 **Drift tripwire:** If Slate contradicts locked protocol or references stale state → stoplight downgrade → halt until rehydrated.
 
 **PM execution boundary (HARD):** NEVER run tests, read source code, debug, write code, or execute python against codebase (except verify_session_start.py). Draft a WO instead.
+
+**PM reconnaissance deliverable (HARD):** Any session where PM reads source files to audit or correct a draft dispatch must file `pm_inbox/reviewed/DEBRIEF_[BATCH-ID]-PM-RECON-001.md` before session close. Three-pass format (Pass 1: per-WO findings with file:line, Pass 2: PM summary ≤100 words, Pass 3: retrospective lessons). Missing PM recon debrief = incomplete session close. This rule fires whenever PM performs file-level reconnaissance, not only when a draft is found incorrect.
 
 **Dispatch chain:** PM drafts → Thunder dispatches. PM never spawns builders directly.
 **Mandatory dispatch sections:** Delivery footer, Integration Seams, Assumptions to Validate, Preflight, Audio Cue, **Debrief Required** (every dispatch must include the debrief template — builder files to `pm_inbox/reviewed/DEBRIEF_[WO-ID].md` on completion). Optional: Debrief Focus (0-2 from bank).
