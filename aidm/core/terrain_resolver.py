@@ -185,7 +185,7 @@ def check_cover(
 
     Cover bonuses (PHB p.150-152):
     - Standard: +4 AC, +2 Reflex, blocks AoO
-    - Improved: +8 AC, +4 Reflex, blocks AoO
+    - Improved: +4 AC, +3 Reflex, blocks AoO
     - Total: Cannot be targeted, blocks AoO
     - Soft: +4 AC melee only, does NOT block AoO
 
@@ -239,8 +239,8 @@ def check_cover(
             attacker_id=attacker_id,
             defender_id=defender_id,
             cover_type=CoverType.IMPROVED,
-            ac_bonus=8,
-            reflex_bonus=4,
+            ac_bonus=4,   # WO-ENGINE-COVER-FIX-001: PHB p.150 three-quarters cover = +4 AC (was 8 — bug)
+            reflex_bonus=3,  # WO-ENGINE-COVER-FIX-001: PHB p.150 three-quarters cover = +3 Ref (was 4 — bug)
             blocks_aoo=True,
             blocks_targeting=False,
         )
