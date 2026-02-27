@@ -1,6 +1,6 @@
 # PM Briefing — Current
 
-**Last updated:** 2026-02-27 (session 6) — **ENGINE BATCH M ACCEPTED** (commits 548e2cf/ad21df2/14b2c18/8e07dd5, 37/37 gates: CF/EW/SI/WP2): Cover fix + Encumbrance wire + SA auto-immune + Weapon proficiency. Findings: FINDING-SCHEMA-COVER-DOCSTRING-001, FINDING-SCHEMA-TERRAIN-TAG-ORPHAN-001, FINDING-ENGINE-MULTICLASS-BUILDER-IMMUNE-001, FINDING-ENGINE-BARD-ROGUE-MARTIAL-PARTIAL-001 (all LOW). **ENGINE BATCH N DISPATCHED** (commit 7638473, 32 gate tests: MD/SA/SF/IT). **ENGINE BATCH O DISPATCHED** (commit 1753b3d, 32 gate tests: IO/CE/BF/TG). **ENGINE BATCH P READY** (32 gate tests: DG/LH/EV/UD). **DATA BATCH B IN FLIGHT**.
+**Last updated:** 2026-02-27 (session 7) — **ENGINE BATCH M ACCEPTED** (commits 548e2cf/ad21df2/14b2c18/8e07dd5, 37/37 gates: CF/EW/SI/WP2). **ENGINE BATCH N ACCEPTED** (commit 7638473, 40/40 gates: MD/SA/SF/IT — 3 SAI + 1 new work; IT bonus tests 10 vs 8 planned). **ENGINE BATCH O ACCEPTED** (commits 3232b76/9d5b6f5/6057476/99d79af, 32/32 gates: IO/CE/BF/TG — CE SAI, 3 new). **ENGINE BATCH P READY** (32 gate tests: DG/LH/EV/UD). **DATA BATCH B IN FLIGHT**. Suite: 8374 passed / 142 pre-existing failures, 0 gate regressions.
 
 ---
 

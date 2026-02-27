@@ -5,13 +5,13 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-27 (session 6 — Batch M ACCEPTED 548e2cf/ad21df2/14b2c18/8e07dd5 37/37. Batch N READY TO COMMIT (38/38, 3 SAI + IT new work). Batch O IN FLIGHT. Batch P REBUILT (PA/IMB/PS/IDC). Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
-**Delta:** Batch M ACCEPTED (4 WOs, 37 tests, 4 LOW findings). Batch N work complete — 3 SAIs (MD/SA/SF pre-implemented), 1 new work (IT), 38 tests. READY TO COMMIT — Batch M prereq now satisfied. PLANNING ERROR: Batch P original DG/LH/EV/UD all SAI (accepted Batches B R1/C/Paladin) — coverage map not cross-referenced against briefing gate table. Rebuilt with PA/IMB/PS/IDC. Inbox at 12/15.
+**Session:** 2026-02-27 (session 7 — Batch M ACCEPTED 37/37. Batch N ACCEPTED 40/40 (MD/SA/SF/IT — 3 SAI, IT got 2 bonus tests). Batch O ACCEPTED 32/32 (IO/CE/BF/TG — CE SAI, commits 3232b76/9d5b6f5/6057476/99d79af). Batch P READY. Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
+**Delta:** Batch N + O both ACCEPTED 2026-02-27. 8 debriefs filed. Inbox normalized. Suite: 8374 passed / 142 pre-existing failures. Queue: Batch P READY — Thunder dispatches when ready.
 
 ## Priority Stack (top 3)
-1. **Batch N CLEAR TO COMMIT.** 38/38 tests confirmed. Prerequisite (Batch M ACCEPTED) now satisfied. Thunder directs Chisel to commit. Gate labels: MD/SA/SF/IT.
-2. **Batch O IN FLIGHT.** WO2 (CE) is SAI — builder should commit untracked test file. WO1/WO3/WO4 are new work. No action needed until debrief.
-3. **Batch P READY** (rebuilt). `DISPATCH_ENGINE_BATCH_P.md` in inbox. Prereq: Batch O ACCEPTED.
+1. **Batch P READY.** `WO_SET_ENGINE_BATCH_P.md` in inbox (32 gate tests: DG/LH/EV/UD). Prereq: Batch O ACCEPTED — SATISFIED. Thunder dispatches when ready.
+2. **Data Batch B IN FLIGHT.** WO-DATA-MONSTERS-001 and WO-INFRA-DICE-001 still in inbox. No action until builder debrief.
+3. **Inbox at 10/15.** Within cap. No hygiene action needed.
 
 ## Active Findings (OPEN only — closed/resolved in briefing)
 - FINDING-CE-STANDING-AOO-001 LOW OPEN (flat-footed AoO suppression for standing entities — deferred from CE WO)
