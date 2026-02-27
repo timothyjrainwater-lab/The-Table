@@ -86,7 +86,7 @@
 | Great Cleave — unlimited cleaves per round | PHB p.155 | **IMPLEMENTED** | `attack_resolver.py` | Great Cleave feat check; no limit on cleaves per round |
 | Coup de Grace — helpless target, instant kill | PHB p.155 | **IMPLEMENTED** | `play_loop.py`, `schemas/entity_fields.py` | CoupDeGraceIntent; auto-crit; Fort DC (10 + damage dealt) or die; CRIT_IMMUNE flag |
 | Disarm — opposed attack rolls | PHB p.155 | **IMPLEMENTED** | `maneuver_resolver.py` | DisarmIntent; attacker vs defender opposed attack rolls; DISARMED field |
-| Disarm — counter-disarm | PHB p.155 | **IMPLEMENTED** | `maneuver_resolver.py` | Counter-disarm margin = `defender_total − attacker_total >= 10`. Improved Disarm suppresses counter. Attacker DEX-strip deferred (FINDING-ENGINE-IDC-DEX-STRIPPED-001 LOW). DEBRIEF_WO-ENGINE-IMPROVED-DISARM-001. |
+| Disarm — counter-disarm | PHB p.155 | **IMPLEMENTED** | `maneuver_resolver.py` | Any attacker failure allows counter-disarm (PHB p.155). Improved Disarm suppresses counter. Size modifier verified (+4 per category). WO-ENGINE-DISARM-FIDELITY-001. |
 | Disarm — two-handed weapon advantage | PHB p.155 | **NOT STARTED** | — | +4 if using two-handed weapon for disarm not implemented |
 | Disarm — weapon drops to ground | PHB p.155 | **PARTIAL** | `maneuver_resolver.py` | DISARMED flag set; no world-space "dropped weapon" object tracking |
 | Feint — Bluff vs Sense Motive | PHB p.156 | **IMPLEMENTED** | `feint_resolver.py`, `play_loop.py` | FeintIntent; Bluff vs Sense Motive opposed check; deny DEX to AC on success |
@@ -146,7 +146,7 @@
 | Entangled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack, -4 DEX; from web spell and similar |
 | Exhausted | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -6 STR/DEX (proxied as -3 attack/-3 damage/-6 DEX mod); half speed |
 | Fascinated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py`, `session_orchestrator.py` | FASCINATED condition; cannot attack or move; flat-footed AC; -4 skill penalty (PHB p.308). WO-ENGINE-MD-SAVE-RULES-001 (FSKL). |
-| Fatigued | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `schemas/entity_fields.py` | -2 STR/DEX; FATIGUED bool field and condition; post-rage fatigue |
+| Fatigued | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `schemas/entity_fields.py`, `play_loop.py` | -2 STR/DEX; FATIGUED bool field and condition; post-rage fatigue; blocks charge and run (PHB p.308). WO-ENGINE-FATIGUE-MOBILITY-001. |
 | Flat-footed | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | FLAT_FOOTED condition; loses DEX to AC |
 | Frightened | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack/saves; flees from source; FRIGHTENED condition |
 | Grappled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -4 DEX, no normal movement; GRAPPLED condition |
@@ -527,6 +527,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Rage duration (3 + CON mod rounds) | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | RAGE_ROUNDS_REMAINING field |
 | Rage uses per day (scaling by level) | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | RAGE_USES_REMAINING; 1 to 6 per day by level |
 | Post-rage fatigue | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | FATIGUED field set to True after rage ends |
+| Rage HP transition (+2 HP/HD enter, -2 HP/HD exit) | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | HP_MAX and HP_CURRENT adjust by 2×total_HD on enter/exit; unconscious event if HP≤0 after exit. WO-ENGINE-RAGE-HP-TRANSITION-001. |
 | Fast Movement (+10 speed) | PHB p.25 | **IMPLEMENTED** | `movement_resolver.py`, `chargen/builder.py` | EF.FAST_MOVEMENT_BONUS +10 at chargen; heavy armor or heavy load suppresses. Medium load OK (PHB p.25). WO-ENGINE-FAST-MOVEMENT-LOAD-FIX-001. |
 | Uncanny Dodge (Dex to AC when flat-footed) | PHB p.25 | **IMPLEMENTED** | `attack_resolver.py` | _UD_THRESHOLDS: barbarian L2, rogue L4. Ranger removed. WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001. |
 | Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.26 | **NOT STARTED** | — | No trap sense bonus |
@@ -576,7 +577,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 |---------|--------|--------|----------------|--------------------------|
 | Druid Spellcasting (prepared, divine) | PHB p.35 | **IMPLEMENTED** | `spell_prep_resolver.py` | Full prepared caster |
 | Wild Shape (Small/Medium/Large animal) | PHB p.37 | **IMPLEMENTED** | `wild_shape_resolver.py` | WildShapeIntent; stat swap; natural attacks; EF.WILD_SHAPE_* fields; WO-ENGINE-WILD-SHAPE-001 |
-| Wild Shape uses per day (level-based) | PHB p.37 | **IMPLEMENTED** | `schemas/entity_fields.py` | WILD_SHAPE_USES_REMAINING field |
+| Wild Shape uses per day (level-based) | PHB p.37 | **IMPLEMENTED** | `wild_shape_resolver.py`, `chargen/builder.py` | WILD_SHAPE_USES_REMAINING field; PHB Table 3-14 lookup (irregular progression: 5→1, 6→2, 7→3, 10→4, 14→5, 18→6). Chargen delegates to resolver lookup. WO-ENGINE-WS-FORMULA-FIX-001. |
 | Wild Shape duration (hours = druid level) | PHB p.37 | **IMPLEMENTED** | `schemas/entity_fields.py`, `wild_shape_resolver.py` | WILD_SHAPE_HOURS_REMAINING; WO-ENGINE-WILDSHAPE-DURATION-001 |
 | Wild Shape — equipment melds | PHB p.37 | **IMPLEMENTED** | `schemas/entity_fields.py` | EQUIPMENT_MELDED flag; weapon attacks blocked |
 | Wild Shape — HP management | PHB p.37 | **IMPLEMENTED** | `wild_shape_resolver.py` | WO-ENGINE-WILDSHAPE-HP-001; HP scaled correctly on transform/revert |
