@@ -122,8 +122,27 @@ def get_save_bonus(
         if entity.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
     )
 
+    # WO-ENGINE-SAVE-FEATS-001: Great Fortitude / Iron Will / Lightning Reflexes
+    feats = entity.get(EF.FEATS, [])
+    feat_save_bonus = 0
+    if save_type == SaveType.FORT and "great_fortitude" in feats:
+        feat_save_bonus = 2
+    elif save_type == SaveType.REF and "lightning_reflexes" in feats:
+        feat_save_bonus = 2
+    elif save_type == SaveType.WILL and "iron_will" in feats:
+        feat_save_bonus = 2
+
+    # WO-ENGINE-DIVINE-GRACE-001: Paladin Divine Grace � CHA mod to all saves (PHB p.44)
+    # Gained at paladin level 2+. Bonus is 0 if CHA mod is not positive.
+    divine_grace_bonus = 0
+    _paladin_level = entity.get(EF.CLASS_LEVELS, {}).get("paladin", 0)
+    if _paladin_level >= 2:
+        _cha_mod = entity.get(EF.CHA_MOD, 0)
+        if _cha_mod > 0:
+            divine_grace_bonus = _cha_mod
+
     # Total bonus
-    total_bonus = base_save + ability_mod + condition_save_mod + inspire_courage_bonus
+    total_bonus = base_save + ability_mod + condition_save_mod + inspire_courage_bonus + feat_save_bonus + divine_grace_bonus
 
     return total_bonus
 
@@ -171,7 +190,17 @@ def check_spell_resistance(
     # Roll SR check (d20 + caster level)
     saves_rng = rng.stream("saves")
     d20_result = saves_rng.randint(1, 20)
-    total = d20_result + sr_check.caster_level
+
+    # WO-ENGINE-SPELL-PENETRATION-001: Spell Penetration feat bonus (PHB p.100)
+    _caster = world_state.entities.get(sr_check.source_id, {})
+    _caster_feats = _caster.get(EF.FEATS, [])
+    _sp_bonus = 0
+    if "spell_penetration" in _caster_feats:
+        _sp_bonus += 2
+    if "greater_spell_penetration" in _caster_feats:
+        _sp_bonus += 2  # Stacks with spell_penetration per PHB p.94
+
+    total = d20_result + sr_check.caster_level + _sp_bonus
 
     sr_passed = (total >= sr)
 
@@ -185,6 +214,7 @@ def check_spell_resistance(
             "target_id": target_id,
             "d20_result": d20_result,
             "caster_level": sr_check.caster_level,
+            "penetration_bonus": _sp_bonus,
             "total": total,
             "target_sr": sr,
             "sr_passed": sr_passed
