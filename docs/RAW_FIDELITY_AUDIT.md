@@ -179,39 +179,58 @@ This audit confirms:
 
 ## 13. COMBAT FEATS — Maneuvers
 
-*Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-002.*
+*Added 2026-02-27. Audited by AUDIT-WO-002 (2026-02-27).*
 
 | Mechanic | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
-| Improved Bull Rush — bonus | PHB p.155 | PENDING | +4 to Str check — verify site |
-| Improved Trip — bonus | PHB p.158 | PENDING | +4 to trip check — verify site |
-| Improved Disarm — bonus | PHB p.96 | PENDING | +4 to disarm — verify site |
-| Improved Grapple — bonus | PHB p.96 | PENDING | +4 to grapple — verify site |
-| Improved Sunder — bonus | PHB p.96 | PENDING | +4 to sunder — verify site |
-| Improved Overrun — defender suppression | PHB p.157 | PENDING | Defender cannot choose to avoid |
-| Improved Disarm Counter — margin threshold | PHB p.155 | PENDING | Counter if margin ≥ 10 |
-| Multiattack — secondary penalty | MM p.312 | PENDING | -2 with feat / -5 without |
-| Improved Natural Attack — die step table | MM p.303 | PENDING | Full step table verified? |
+| Improved Bull Rush — +4 bonus | PHB p.96, p.154 | FULL | +4 to opposed Str check at `maneuver_resolver.py:309-311`. Correct check type. |
+| Improved Trip — +4 bonus | PHB p.96, p.158 | FULL | +4 to trip opposed check at `maneuver_resolver.py:623-625`. Correct check type. |
+| Improved Disarm — +4 bonus | PHB p.95 | FULL | +4 to opposed attack roll at `maneuver_resolver.py:1467-1469`. Correct check type. |
+| Improved Grapple — +4 bonus | PHB p.96 | FULL | +4 to grapple check at `maneuver_resolver.py:1748-1750`. Correct check type (special size modifier). |
+| Improved Sunder — +4 bonus | PHB p.96 | FULL | +4 to opposed attack roll at `maneuver_resolver.py:1208-1210`. Correct check type (standard attack size modifier). |
+| Improved Overrun — defender suppression | PHB p.96, p.157 | FULL | `_attacker_has_improved_overrun` suppresses `intent.defender_avoids` at `maneuver_resolver.py:915`. No +4 bonus (correct — PHB Improved Overrun grants no +4). |
+| Improved Overrun — prone sub-check | PHB p.157 | DEGRADED | Attacker uses Str-only instead of max(Str, Dex) in prone-avoidance sub-check at `maneuver_resolver.py:1007`. FINDING-ENGINE-OVERRUN-FAILURE-PRONE-CHECK-001 MEDIUM OPEN. |
+| Improved Trip — free attack | PHB p.96 | DEGRADED | Free melee attack via `resolve_attack()` at `maneuver_resolver.py:685-721`. Silently skips if attacker has no `EF.WEAPON` (unarmed strike path missing). FINDING-ENGINE-TRIP-FREE-ATTACK-UNARMED-001 LOW OPEN. |
+| Disarm — size modifier type | PHB p.155 | DEGRADED | Uses `_get_size_modifier()` (SPECIAL scale) at line 1448 instead of `_get_standard_attack_size_modifier()` (standard attack scale). Disarm uses opposed attack rolls per PHB — should match Sunder. FINDING-ENGINE-DISARM-SIZE-MODIFIER-001 MEDIUM OPEN. |
+| Disarm counter — trigger threshold | PHB p.155 | DEGRADED | Code gates counter-disarm on `margin >= 10` at `maneuver_resolver.py:1526`. PHB says defender may counter on ANY failed disarm, no margin threshold. FINDING-ENGINE-COUNTER-DISARM-THRESHOLD-001 MEDIUM OPEN. |
+| Improved Disarm — counter suppression | PHB p.95 | DEGRADED | Code suppresses counter-disarm when attacker has `improved_disarm` at `maneuver_resolver.py:1548`. PHB 3.5e Improved Disarm only grants AoO suppression + +4 bonus — no counter-disarm suppression. FINDING-ENGINE-IMPROVED-DISARM-COUNTER-SUPPRESS-001 LOW OPEN. |
+| AoO suppression — all 6 maneuvers | PHB p.96 | FULL | Elif chain at `play_loop.py:2271-2300` correctly suppresses AoO for all 6 improved feats. Disarm/Grapple/BullRush/Trip/Sunder/Overrun. |
+| Multiattack — secondary penalty | MM p.312 | FULL | -2 with feat / -5 without at `natural_attack_resolver.py:127-138`. Correct. |
+| Improved Natural Attack — die step | MM p.303 | DEGRADED | Table `_INA_STEP_TABLE` at `natural_attack_resolver.py:70` matches standard progression. Non-standard dice (1d10, 1d12, 2d4, 2d8) silently pass through. FINDING-ENGINE-INA-NONSTANDARD-DIE-001 LOW OPEN (pre-existing). |
+| Natural attack — base damage source | MM creature entries | FULL | Damage dice from `EF.NATURAL_ATTACKS` entity data. Correct architecture — data accuracy depends on chargen population. |
+| Natural attack — secondary STR | MM p.312 | DEGRADED | All natural attacks use `grip="one-handed"` at `natural_attack_resolver.py:64`. Secondary attacks should use 0.5x STR (half modifier). Currently get 1x STR. FINDING-ENGINE-SECONDARY-STR-HALF-001 MEDIUM OPEN. |
+| Action economy — Trip/Disarm/Sunder | PHB p.155, p.158 | DEGRADED | Registered as "standard" in `action_economy.py:161-163`. PHB defines them as melee attack replacements (can substitute into full attack sequence). Cannot currently be used in full attack. FINDING-ENGINE-MANEUVER-ATTACK-REPLACEMENT-001 MEDIUM OPEN. |
+| Action economy — Overrun | PHB p.157 | DEGRADED | Registered as "standard" in `action_economy.py:164`. PHB says "taken during your move action." Movement-embedded nature not modeled. FINDING-ENGINE-OVERRUN-DURING-MOVE-001 LOW OPEN. |
 
 ---
 
 ## 14. CLASS FEATURES — Martial
 
-*Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-003.*
+*Audited 2026-02-27 by AUDIT-WO-003 (Chisel).*
 
 | Mechanic | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
-| Barbarian Rage — STR/CON bonus | PHB p.25 | PENDING | +4 STR, +4 CON, +2 Will, -2 AC |
-| Barbarian Rage — HP gain on entry | PHB p.25 | PENDING | +2 HP/barb level during rage |
-| Barbarian Rage — HP loss on exit | PHB p.25 | PENDING | Lose 2 HP/barb level if below threshold |
-| Barbarian DR progression | PHB p.26 | PENDING | DR 1/- at lvl 7, 2/- at 10, 3/- at 13, 4/- at 16, 5/- at 19 |
-| Barbarian Fast Movement | PHB p.26 | PENDING | +10 ft; heavy armor suppresses only |
-| Ranger Favored Enemy progression | PHB p.47 | PENDING | +2/+4/+6/+8/+10 at 1/5/10/15/20 |
-| Rogue Sneak Attack — immunity list | PHB p.50 | PENDING | Full creature type list vs MM |
-| Uncanny Dodge — level thresholds | PHB p.52 | PENDING | Rogue≥4, barbarian≥2, ranger≥4? verify |
-| Wild Shape — form availability by level | PHB p.37 | PENDING | Small/Medium at 5, Large at 8, Tiny/Huge at 11 |
-| Wild Shape — HP rules | PHB p.37 | PENDING | Take form HP; revert at old HP |
-| Wild Shape — duration | PHB p.37 | PENDING | Hours = druid level |
+| Barbarian Rage — stat bonuses | PHB p.25 | FULL | +4 STR, +4 CON, +2 Will, -2 AC via `TEMPORARY_MODIFIERS` at `rage_resolver.py:104-107`. Correct. |
+| Barbarian Rage — uses/day table | PHB p.25 Table 3-3 | FULL | L1=1, L4=2, L8=3, L12=4, L16=5, L20=6 at `rage_resolver.py:28-61`. Matches PHB. |
+| Barbarian Rage — duration | PHB p.25 | DEGRADED | Code uses pre-rage CON mod (`rage_resolver.py:97-98`). PHB says "3 + newly improved Constitution modifier" — should use rage-enhanced CON. FINDING-ENGINE-RAGE-DURATION-PRECON-001 LOW OPEN. |
+| Barbarian Rage — HP gain on entry | PHB p.25 | DEGRADED | +4 CON = +2 CON mod = +2 temp HP per barbarian level NOT implemented. Rage sets `rage_con_bonus=4` in TEMPORARY_MODIFIERS but no code consumes it for HP. FINDING-ENGINE-RAGE-HP-ABSENT-001 MEDIUM OPEN. |
+| Barbarian Rage — HP loss on exit | PHB p.25 | DEGRADED | Coupled with HP gain above — no temp HP added means none removed. Functionally safe but RAW-incomplete. Same FINDING. |
+| Barbarian Rage — fatigue | PHB p.25 | DEGRADED | -2 STR, -2 DEX at `rage_resolver.py:162-163` correct. "Can't charge or run" while fatigued not enforced. FINDING-ENGINE-RAGE-FATIGUE-MOBILITY-001 LOW OPEN. |
+| Barbarian DR progression | PHB p.26 Table 3-3 | FULL | L7=1/-, L10=2/-, L13=3/-, L16=4/-, L19=5/- at `builder.py:987-997`. Bypass=`"-"` (unbypassed). Correct. |
+| Barbarian Fast Movement — armor | PHB p.26 | FULL | +10 ft, heavy armor suppresses at `movement_resolver.py:244-250`. Light/medium OK. Correct. |
+| Barbarian Fast Movement — encumbrance | PHB p.26 | DEGRADED | Code blocks medium load (`_enc_load not in ("medium", "heavy", "overloaded")` at `movement_resolver.py:249`). PHB says only heavy load suppresses. FINDING-ENGINE-FAST-MOVEMENT-MEDIUM-LOAD-001 MEDIUM OPEN. |
+| Ranger Favored Enemy — attack bonus | PHB p.47 | FULL | Reads from `EF.FAVORED_ENEMIES` list per creature type at `attack_resolver.py:605-612`. Applied to attack roll at line 651. Correct. |
+| Ranger Favored Enemy — damage bonus | PHB p.47, p.145 | DEGRADED | Added AFTER crit multiplier at `attack_resolver.py:847-848`. PHB p.145: standard damage bonuses ARE multiplied on crit (only precision/extra dice exempted). Inspire Courage is correctly pre-crit at line 839 — inconsistent. FINDING-ENGINE-FE-CRIT-MULTIPLIER-001 MEDIUM OPEN. |
+| Rogue Sneak Attack — immunity list | PHB p.50, MM | FULL | `SNEAK_ATTACK_IMMUNE_TYPES` at `sneak_attack.py:45-52`: undead, construct, ooze, plant, elemental, incorporeal. Complete and correct per PHB/MM. |
+| Rogue Sneak Attack — dice formula | PHB p.50 | FULL | `(rogue_level + 1) // 2` at `sneak_attack.py:82`. L1=1d6, L3=2d6, L5=3d6, etc. Correct. |
+| Uncanny Dodge — barbarian | PHB p.26 | FULL | `barbarian >= 2` at `attack_resolver.py:293`. Correct. |
+| Uncanny Dodge — rogue | PHB p.50 | DEGRADED | Code: `rogue >= 2` at `attack_resolver.py:291`. PHB Table 3-10: uncanny_dodge at Rogue L4. Class features table at `builder.py:1403` correctly lists L4. Resolver wrong. FINDING-ENGINE-UD-ROGUE-THRESHOLD-001 MEDIUM OPEN. |
+| Uncanny Dodge — ranger | PHB p.46-48 | DEGRADED | Code: `ranger >= 4` at `attack_resolver.py:292`. Rangers do NOT have Uncanny Dodge in PHB 3.5e (confirmed via Table 3-13 + SRD). FINDING-ENGINE-UD-RANGER-FALSE-001 MEDIUM OPEN. |
+| Wild Shape — unlock level | PHB p.37 | DEGRADED | Resolver: `druid >= 4` at `wild_shape_resolver.py:85`. PHB says druid L5. Chargen init at L5 (`builder.py:957`) prevents L4 usage (0 uses). Off-by-one in resolver. FINDING-ENGINE-WS-UNLOCK-LEVEL-001 LOW OPEN. |
+| Wild Shape — uses/day formula | PHB p.37 | DEGRADED | Code: `max(1, 1 + (druid_level - 4) // 2)` at `builder.py:958`. PHB: L5=1, L6=2, L7=3, L10=4, L14=5, L18=6 (non-linear). Code gives L7=2 (should be 3), L14=6 (should be 5). FINDING-ENGINE-WS-USES-FORMULA-001 MEDIUM OPEN. |
+| Wild Shape — size gating by level | PHB p.37 | DEGRADED | No size validation in `validate_wild_shape()` at `wild_shape_resolver.py:105-122`. All forms available at any druid level. PHB: Small/Medium at L5, Large at L8, Tiny at L11, Huge at L15. FINDING-ENGINE-WS-SIZE-GATING-001 LOW OPEN. |
+| Wild Shape — HP rules | PHB p.37 | FULL | HP adjusted by CON delta * druid_level at `wild_shape_resolver.py:193-195`. Standard interpretation: changing CON recalculates HP. On revert, HP capped at restored max (line 282). Correct. |
+| Wild Shape — duration | PHB p.37 | FULL | `druid_level * 10` rounds as combat proxy for `druid_level` hours at `wild_shape_resolver.py:206`. Documented simplification (no real-time system). Acceptable. |
 
 ---
 
@@ -274,15 +293,18 @@ This audit confirms:
 
 ## 18. SAVING THROWS
 
-*Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-003.*
+*Audited 2026-02-27 by AUDIT-WO-003 (Chisel).*
 
 | Mechanic | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
-| Great Fortitude | PHB p.94 | PENDING | +2 Fort — verify site in save_resolver.py |
-| Iron Will | PHB p.96 | PENDING | +2 Will |
-| Lightning Reflexes | PHB p.97 | PENDING | +2 Ref |
-| Divine Grace — stacking with feats | PHB p.43 | PENDING | Separate bonus type — stacks with GF/IW/LR |
-| Massive Damage Fort save | PHB p.145 | PENDING | DC 15, triggers at ≥50 damage |
+| Great Fortitude | PHB p.94 | FULL | +2 Fort at `save_resolver.py:130-131`. Correct. |
+| Iron Will | PHB p.96 | FULL | +2 Will at `save_resolver.py:134-135`. Correct. |
+| Lightning Reflexes | PHB p.97 | FULL | +2 Ref at `save_resolver.py:132-133`. Correct. |
+| Divine Grace — CHA to all saves | PHB p.43 | FULL | Paladin L2+ adds CHA mod (positive only) at `save_resolver.py:139-144`. Correct threshold and application. |
+| Divine Grace — stacking | PHB p.43, p.177 | FULL | Additive with feat bonuses, racial bonuses, inspire courage at `save_resolver.py:159-163`. All computed independently. Correct. |
+| Massive Damage — threshold | PHB p.145 | FULL | `final_damage >= 50` post-DR at `attack_resolver.py:935`. Correct. |
+| Massive Damage — DC 15 Fort | PHB p.145 | DEGRADED | Roll + bonus vs DC 15 at `attack_resolver.py:938-940`. Does NOT handle nat 1 auto-fail / nat 20 auto-succeed (PHB p.136). Normal saves in `resolve_save()` DO handle nat 1/20 at `save_resolver.py:321-326`. Inconsistent. FINDING-ENGINE-MD-NAT1-NAT20-001 MEDIUM OPEN. |
+| Massive Damage — failure result | PHB p.145 | FULL | Instant death (hp_after = -10) at `attack_resolver.py:961`. Correct. |
 
 ---
 
