@@ -611,6 +611,20 @@ def resolve_attack(
                 _favored_enemy_bonus = _fe.get("bonus", 0)
                 break
 
+    # WO-ENGINE-RACIAL-ATTACK-BONUS-001: Racial attack bonuses (PHB p.15/p.17/p.21)
+    # Dwarf: +1 vs orcs/goblinoids. Gnome: +1 vs kobolds/goblinoids. Halfling: +1 thrown/sling.
+    _racial_attack_bonus = 0
+    _target_subtypes = target.get(EF.CREATURE_SUBTYPES, [])
+    _dwarf_orc_bonus = attacker.get(EF.ATTACK_BONUS_VS_ORCS, 0)
+    _gnome_kobold_bonus = attacker.get(EF.ATTACK_BONUS_VS_KOBOLDS, 0)
+    _thrown_bonus = attacker.get(EF.ATTACK_BONUS_THROWN, 0)
+    if _dwarf_orc_bonus and ("orc" in _target_subtypes or "goblinoid" in _target_subtypes):
+        _racial_attack_bonus = max(_racial_attack_bonus, _dwarf_orc_bonus)
+    if _gnome_kobold_bonus and ("kobold" in _target_subtypes or "goblinoid" in _target_subtypes):
+        _racial_attack_bonus = max(_racial_attack_bonus, _gnome_kobold_bonus)
+    if _thrown_bonus and getattr(intent.weapon, "is_thrown", False):
+        _racial_attack_bonus = max(_racial_attack_bonus, _thrown_bonus)
+
     # WO-ENGINE-WEAPON-FINESSE-001: Weapon Finesse � DEX replaces STR for light weapon attacks (PHB p.102)
     # intent.attack_bonus is BAB + STR_MOD (from intent_bridge.py); delta = DEX - STR replaces STR with DEX
     _finesse_delta = 0
@@ -668,6 +682,7 @@ def resolve_attack(
         + (0 if _is_weapon_proficient(attacker, intent.weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
         + _ranged_into_melee_penalty  # WO-ENGINE-PRECISE-SHOT-001: PHB p.140
         + _wf_bonus  # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack (PHB p.102)
+        + _racial_attack_bonus  # WO-ENGINE-RACIAL-ATTACK-BONUS-001: Dwarf/Gnome/Halfling (PHB p.15/17/21)
     )
     total = d20_result + attack_bonus_with_conditions
 

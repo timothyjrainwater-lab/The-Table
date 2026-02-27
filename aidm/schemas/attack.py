@@ -65,6 +65,11 @@ class Weapon:
     Natural attacks always proficient regardless of this field (weapon_type='natural' checked first).
     Default None preserves existing behavior — no proficiency penalty applied for legacy Weapon instances."""
 
+    is_thrown: bool = False
+    """WO-ENGINE-RACIAL-ATTACK-BONUS-001: Whether this is a thrown weapon (PHB p.21).
+    True for thrown weapons (dagger thrown, javelin, etc.) and slings.
+    Enables halfling +1 racial attack bonus on thrown weapon/sling attacks."""
+
     def __post_init__(self):
         """Validate weapon data."""
         if not self.damage_dice:

@@ -248,6 +248,12 @@ class _EntityFields:
     #   fey, giant, magical beast, monstrous humanoid, ooze, outsider, plant, vermin.
     # Default "": no type match (no favored enemy bonus applies).
 
+    CREATURE_SUBTYPES = "creature_subtypes"
+    # List[str]: Creature's subtypes for racial attack bonus matching.
+    # WO-ENGINE-RACIAL-ATTACK-BONUS-001: dwarf +1 vs "orc"/"goblinoid"; gnome +1 vs "kobold"/"goblinoid".
+    # Examples: ["orc"], ["goblinoid"], ["kobold"], [].
+    # Populated in apply_racial_trait_fields() for PC races; creature_registry.py for monsters.
+
     # --- Racial Traits (WO-CHARGEN-RACIAL-001) ---
     SAVE_BONUS_SPELLS = "save_bonus_spells"        # Racial bonus vs spells and spell-like abilities
     STONECUNNING = "stonecunning"                  # Bool: +2 Search on stone/underground features
