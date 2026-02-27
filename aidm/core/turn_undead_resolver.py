@@ -7,7 +7,7 @@ HP budget.
 WO-ENGINE-TURN-UNDEAD-001
 
 MECHANICS IMPLEMENTED:
-- Turning check: 2d6 + cleric_level + cha_mod
+- Turning check: 1d20 + CHA_mod only (PHB p.159) — cleric_level is NOT part of the check
 - HP budget: (2d6) × 10 → total HP of undead that can be affected
 - Targets sorted by HD ascending (lowest first); budget consumed by HP_MAX
 - Undead HD > cleric_level + 4 → immune (no effect)
@@ -59,12 +59,10 @@ def _is_evil_cleric(entity: Dict[str, Any]) -> bool:
     return bool(class_features.get("channels_negative_energy", False))
 
 
-def _roll_turning_check(cleric_level: int, cha_mod: int, rng: RNGProvider) -> int:
-    """Roll 2d6 + cleric_level + CHA_mod (PHB p.160)."""
-    combat_rng = rng.stream("combat")
-    d1 = combat_rng.randint(1, 6)
-    d2 = combat_rng.randint(1, 6)
-    return d1 + d2 + cleric_level + cha_mod, d1, d2
+def _roll_turning_check(cha_mod: int, rng: RNGProvider) -> Tuple[int, int]:
+    """Roll 1d20 + CHA_mod (PHB p.159). Turn check only — no cleric_level."""
+    d20 = rng.stream("combat").randint(1, 20)
+    return d20 + cha_mod, d20
 
 
 def _roll_hp_budget(rng: RNGProvider) -> Tuple[int, int, int]:
@@ -115,7 +113,7 @@ def resolve_turn_undead(
     """Resolve a TurnUndeadIntent.
 
     RNG consumption order (deterministic):
-    1. Turning check: 2d6 (combat stream)
+    1. Turning check: 1d20 (combat stream)
     2. HP budget: 2d6 (combat stream)
 
     Returns list of events (state NOT mutated — call apply_turn_undead_events).
@@ -182,7 +180,7 @@ def resolve_turn_undead(
     # ── Turning check ────────────────────────────────────────────────────────
     cha_mod = cleric.get(EF.CHA_MOD, 0)
     is_evil = _is_evil_cleric(cleric)
-    turning_check, tc_d1, tc_d2 = _roll_turning_check(cleric_level, cha_mod, rng)
+    turning_check, tc_d20 = _roll_turning_check(cha_mod, rng)
 
     # ── HP budget ────────────────────────────────────────────────────────────
     hp_budget, hb_d1, hb_d2 = _roll_hp_budget(rng)
@@ -198,7 +196,7 @@ def resolve_turn_undead(
             "cha_mod": cha_mod,
             "is_evil": is_evil,
             "hp_budget": hp_budget,
-            "turning_dice": [tc_d1, tc_d2],
+            "turning_dice": [tc_d20],
             "budget_dice": [hb_d1, hb_d2],
         },
     ))

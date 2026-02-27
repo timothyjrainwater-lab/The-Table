@@ -134,20 +134,19 @@ def test_tu02_no_uses_exhausted_event():
 # ---------------------------------------------------------------------------
 
 def test_tu03_turning_check_rolled_event():
-    """turning_check_rolled: roll_result = d1+d2+cleric_level+cha_mod, all fields present."""
+    """turning_check_rolled: roll_result = d20+cha_mod (PHB p.159), all fields present."""
     cleric = _cleric(level=5, cha_mod=2, uses=3)
     ws = _world(cleric)
     intent = TurnUndeadIntent(cleric_id="cleric1", target_ids=[])
-    # Turning check dice: d1=3, d2=4 → 7 + 5 + 2 = 14
-    # Budget dice: d1=2, d2=3 → (2+3)*10 = 50
-    rng = _rng_fixed(3, 4, 2, 3)
+    # Turning check: d20=12 → 12+2=14; budget dice: d1=2, d2=3 → (2+3)*10=50
+    rng = _rng_fixed(12, 2, 3)
 
     events = resolve_turn_undead(intent, ws, rng, next_event_id=0, timestamp=0.0)
 
     tc_ev = next((e for e in events if e.event_type == "turning_check_rolled"), None)
     assert tc_ev is not None
     p = tc_ev.payload
-    assert p["roll_result"] == 14  # 3+4+5+2
+    assert p["roll_result"] == 14  # d20(12) + cha_mod(2); NOT 12+5+2=19 (old 2d6+level formula)
     assert p["cleric_level"] == 5
     assert p["cha_mod"] == 2
     assert p["hp_budget"] == 50  # (2+3)*10
@@ -299,12 +298,13 @@ def test_tu09_hp_budget_limits_targets():
     spectre = _undead("spectre1", hd=7, hp_max=35)
     ws = _world(cleric, zombie, spectre)
     intent = TurnUndeadIntent(cleric_id="cleric1", target_ids=["zombie1", "spectre1"])
-    # Turning check: 6+6+10+2=24 (both ≤ 24); budget dice: 1+1=2*10=20
-    rng = _rng_fixed(6, 6, 1, 1)
+    # Turning check: d20=15 → 15+2=17 (both HD 2 and HD 7 ≤ 17 qualify)
+    # Budget dice: 1+1 → (1+1)*10=20 → zombie (10) fits, spectre (35) does not
+    rng = _rng_fixed(15, 1, 1)
 
     events = resolve_turn_undead(intent, ws, rng, next_event_id=0, timestamp=0.0)
 
-    # Zombie destroyed (HD 2 ≤ 10-4=6), spectre skipped (HP_MAX 35 > budget 20)
+    # Zombie destroyed (HD 2 ≤ 10-4=6), spectre skipped (HP_MAX 35 > remaining budget 10)
     destroyed = [e for e in events if e.event_type == "undead_destroyed"]
     assert len(destroyed) == 1
     assert destroyed[0].payload["target_id"] == "zombie1"

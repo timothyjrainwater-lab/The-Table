@@ -149,15 +149,15 @@ def test_itn001_effective_level_plus_one():
 def test_itn002_higher_hd_turned_with_improved_turning():
     """ITN-002: Improved Turning allows turning an undead that base level cannot.
 
-    Cleric 5, CHA mod=0. RNG d6=1 → turning check = 1+1+6+0 = 8, budget = (1+1)*10 = 20.
+    Cleric 5, CHA mod=0. RNG d20=8 → turning check = 8+0 = 8 (effective_level=6).
     HD-8 undead with hp=15 (fits budget): turning check 8, HD 8 ≤ 8 → turned.
-    Without Improved Turning: check = 1+1+5+0 = 7, HD 8 > 7 → unaffected.
+    Without Improved Turning: check = d20(1)+0 = 1, HD 8 > 1 → unaffected.
     """
     cleric = _cleric(cleric_level=5, cha_mod=0, feats=["improved_turning"])
-    # HD-8 with low HP so it fits within budget (1+1)*10 = 20
+    # HD-8 with low HP so it fits within budget (6+6)*10 = 120
     undead_hd8 = _undead("ghoul", hd=8, hp=15)
     ws = _world({"cleric": cleric, "ghoul": undead_hd8})
-    rng = _FixedRNG(d6_val=1)  # turning check = 1+1+6+0 = 8, budget = 20
+    rng = _FixedRNG(d6_val=8)  # d20=min(8,20)=8 → check=8+0=8, budget=(6+6)*10=120
 
     intent = TurnUndeadIntent(cleric_id="cleric", target_ids=["ghoul"])
     events = resolve_turn_undead(intent, ws, rng, next_event_id=1, timestamp=0.0)
