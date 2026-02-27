@@ -284,7 +284,9 @@ Thunder to direct next dispatch on verdicts.
 | FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 | LOW | OPEN | Improved Disarm +4 bonus variant — confirm full +4 bonus is wired at all call sites. Deferred from Batch L. Future WO. |
 | FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 | LOW | OPEN | Improved Grapple +4 grapple check bonus — confirm all grapple check paths read the feat. Deferred from Batch L. Future WO. |
 | FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 | LOW | OPEN | Improved Bull Rush +4 bonus follow-through (bull rush after initial charge). Deferred from Batch L. Future WO. |
-| FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 | LOW | OPEN | Improved Overrun AoO suppression not wired — targets of Improved Overrun should not get AoO. Deferred from Batch L. Future WO. |
+| FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 | LOW | **CLOSED** | WO-ENGINE-IMPROVED-OVERRUN-001 ACCEPTED Batch O. AoO suppression wired in play_loop.py + defender-avoid suppression in maneuver_resolver.py. |
+| FINDING-ENGINE-BLIND-FIGHT-INVIS-001 | LOW | OPEN | Blind Fight miss-chance reroll applies to concealment-based misses (fog/darkness) but not invisibility-based (different PHB rule set). Deferred from Batch O WO3. Future WO. |
+| FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 | LOW | OPEN | Improved Overrun +4 Strength check bonus — confirm all overrun check paths read the feat (same pattern as DISARM/GRAPPLE/BULL-RUSH bonus findings). Deferred from Batch O WO1. Future WO. |
 | FINDING-SCHEMA-COVER-DOCSTRING-001 | LOW | OPEN | `terrain.py:49` docstring still says `IMPROVED = +8 AC` after WO-ENGINE-COVER-FIX-001 fixed the resolver. One-line docstring fix. Non-blocking; surfaced Batch M WO1 Pass 3. |
 | FINDING-SCHEMA-TERRAIN-TAG-ORPHAN-001 | LOW | OPEN | `HALF_COVER`/`THREE_QUARTERS_COVER` enum members in `terrain.py:34-35` are unused (orphaned). Rename or remove to match implemented `CoverType.HALF`/`CoverType.IMPROVED`. Surfaced Batch M WO1 Pass 3. |
 | FINDING-ENGINE-MULTICLASS-BUILDER-IMMUNE-001 | LOW | OPEN | `_apply_creature_type_immunities()` not called in `_build_multiclass_character()` — only `build_character()` got it. Multiclass undead/construct PCs will not receive SA/crit immunity at build time. Surfaced Batch M WO3 Pass 3. |
@@ -375,21 +377,21 @@ Thunder to direct next dispatch on verdicts.
 
 | WO | Verdict | Commit |
 |---|---|---|
+| WO-ENGINE-IMPROVED-OVERRUN-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-OVERRUN (IO-001–IO-008). Batch O, commit 3232b76. AoO suppression in play_loop.py + defender-avoid suppression in maneuver_resolver.py (check BEFORE `if intent.defender_avoids:`). New finding: FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 (LOW). | 3232b76 |
+| WO-ENGINE-COMBAT-EXPERTISE-001 (O) | **ACCEPTED** — 8/8 Gate ENGINE-COMBAT-EXPERTISE (CEX-001–CEX-008). Batch O, SAI — already wired. Untracked test file committed. Zero production changes. | 9d5b6f5 |
+| WO-ENGINE-BLIND-FIGHT-001 | **ACCEPTED** — 8/8 Gate ENGINE-BLIND-FIGHT (BF-001–BF-008). Batch O, commit 6057476. Miss-chance reroll event (`blind_fight_reroll`) emitted on every reroll. `EF.MISS_CHANCE` on target entity (not WorldState). New finding: FINDING-ENGINE-BLIND-FIGHT-INVIS-001 (LOW). | 6057476 |
+| WO-ENGINE-TOUGHNESS-001 | **ACCEPTED** — 8/8 Gate ENGINE-TOUGHNESS (TG-001–TG-008). Batch O, commit 99d79af. `list.count("toughness")` for stackable feat. Wired at chargen + level_up(). | 99d79af |
+| WO-ENGINE-MASSIVE-DAMAGE-001 | **ACCEPTED** — 10/10 Gate ENGINE-MASSIVE-DAMAGE (MD-001–MD-010). Batch N, SAI — already wired at attack_resolver.py:761 (DR-aware threshold). Test file pre-written. Bonus finding: FINDING-ENGINE-MASSIVE-DAMAGE-FULL-ATTACK-001 (LOW — batched per-hit gap in full-attack path). | 7638473 |
+| WO-ENGINE-STABILIZE-ALLY-001 | **ACCEPTED** — 10/10 Gate ENGINE-STABILIZE-ALLY (SA-001–SA-010). Batch N, SAI — stabilize_resolver.py wired into play_loop.py:2628 + action_economy.py. Test file pre-written. | 7638473 |
+| WO-ENGINE-IMPROVED-TRIP-001 | **ACCEPTED** — 10/10 Gate ENGINE-IMPROVED-TRIP (IT-001–IT-010). Batch N, new work. AoO suppression wired in play_loop.py elif chain. Free attack via resolve_attack() when TripIntent.weapon present. Optional weapon field added to TripIntent. New findings: IMPROVED-TRIP-BONUS-001 + IMPROVED-SUNDER-BONUS-001 + IMPROVED-TRIP-WEAPON-CONTEXT-001 (all LOW). | 7638473 |
 | WO-ENGINE-COVER-FIX-001 | **ACCEPTED** — 8/8 Gate ENGINE-COVER-FIX (CF-001–CF-008). Batch M, commit 548e2cf. IMPROVED cover fixed: +8→+4 AC, +4→+3 Ref per PHB p.150. terrain_resolver.py only. Findings: FINDING-SCHEMA-COVER-DOCSTRING-001 + FINDING-SCHEMA-TERRAIN-TAG-ORPHAN-001 (both LOW). | 548e2cf |
-| WO-ENGINE-ENCUMBRANCE-WIRE-001 | **ACCEPTED** — 10/10 Gate ENGINE-ENCUMBRANCE-WIRE (EW-001–EW-010). Batch M, commit ad21df2. EF.ENCUMBRANCE_LOAD pre-computed at chargen (deferred comment was wrong). Two-line wire-up in movement + attack resolvers. EW-009 PHB correction noted (medium armor blocks barbarian FM, confirmed by FM-003). | ad21df2 |
-| WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001 | **ACCEPTED** — 8/8 Gate ENGINE-SNEAK-ATTACK-IMMUNITY (SI-001–SI-008). Batch M, commit 14b2c18. `_apply_creature_type_immunities(entity)` in builder.py. ooze/plant/elemental = SA-immune only; undead/construct = SA + crit immune. Finding: FINDING-ENGINE-MULTICLASS-BUILDER-IMMUNE-001 (LOW — multiclass path not covered). | 14b2c18 |
-| WO-ENGINE-WEAPON-PROFICIENCY-001 | **ACCEPTED** — 11/11 Gate ENGINE-WEAPON-PROFICIENCY (WP2-001–WP2-011). Batch M, commit 8e07dd5. `proficiency_category: Optional[str]` added to Weapon. `_is_weapon_proficient()` helper in attack_resolver.py, imported by full_attack_resolver. All 3 attack bonus sites covered. Finding: FINDING-ENGINE-BARD-ROGUE-MARTIAL-PARTIAL-001 (LOW). | 8e07dd5 |
-| WO-ENGINE-IMPROVED-DISARM-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-DISARM (ID-001–ID-008). Batch L, commit ba3e62f. Improved Disarm: no AoO on disarm attempt, +4 bonus to disarm check. New findings: FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 + FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 (both LOW). | ba3e62f |
-| WO-ENGINE-IMPROVED-GRAPPLE-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-GRAPPLE (IG-001–IG-008). Batch L, commit ba3e62f. Improved Grapple: no AoO on grapple attempt, +4 bonus to grapple checks. New finding: FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 (LOW). | ba3e62f |
-| WO-ENGINE-IMPROVED-BULL-RUSH-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-BULL-RUSH (IB-001–IB-008). Batch L, commit ba3e62f. Improved Bull Rush: no AoO on bull rush attempt, +4 strength check bonus. New finding: FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 (LOW). | ba3e62f |
-| WO-ENGINE-SPELL-PENETRATION-001 | **ACCEPTED** — 8/8 Gate ENGINE-SPELL-PENETRATION (SP-001–SP-008). Batch L, commit ba3e62f. Spell Penetration: +2 caster level bonus to spell resistance checks. Greater Spell Penetration stacks (+4 total). New finding: FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 (LOW, adjacent surfaced finding). | ba3e62f |
-| WO-ENGINE-COWERING-FASCINATED-001 | **ACCEPTED** — 8/8 Gate ENGINE-COWERING-FASCINATED (CF-001–CF-008). Batch K, commit 4cb2f72. COWERING condition: −2 AC, loses Dex, actions prohibited. FASCINATED condition: actions prohibited (non-combat only), broken by hostile action. | 4cb2f72 |
-| WO-ENGINE-DIEHARD-001 | **ACCEPTED** — 8/8 Gate ENGINE-DIEHARD (DH-001–DH-008). Batch K, commit 4cb2f72. Diehard feat: entity at −1 to −9 HP acts as if disabled (0 HP) rather than dying. Stabilization check fires at bleed tick. FINDING-ENGINE-DIEHARD-TRANSITION-001 filed (LOW — one-round window gap vs PHB instant prevention; architectural fix deferred). | 4cb2f72 |
-| WO-ENGINE-CLERIC-SPONTANEOUS-001 | **ACCEPTED** — 10/10 Gate ENGINE-CLERIC-SPONTANEOUS (CS-001–CS-010). Batch K, commit 4cb2f72. Cleric spontaneous cure: any prepared spell slot redirected to cure spell of same level. Redirect fires BEFORE verbal/somatic/ASF guards. Declared slot consumed as normal. | 4cb2f72 |
-| WO-ENGINE-IMPROVED-CRITICAL-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-CRITICAL (IC-001–IC-008). Batch K, commit 4cb2f72. Improved Critical: doubles threat range (×2 via halving threshold). Per-weapon-type feat IDs use weapon_type categories (light/one-handed/etc.), not weapon names. | 4cb2f72 |
-| WO-ENGINE-IMMEDIATE-ACTION-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMMEDIATE-ACTION (IA-001–IA-008). Batch J, commit 03a2a47. Immediate action economy wired — can be used at any time (even off-turn), consumes swift action for next turn. | 03a2a47 |
-| WO-ENGINE-SOMATIC-HAND-FREE-001 | **ACCEPTED** — 8/8 Gate ENGINE-SOMATIC-HAND-FREE (SH-001–SH-008). Batch J, commit 03a2a47. Somatic component hand-free check: shield/off-hand item blocks somatic component unless Eschew Materials / Still Spell. | 03a2a47 |
-| WO-ENGINE-SKILL-SYNERGY-001 | **ACCEPTED** — 8/8 Gate ENGINE-SKILL-SYNERGY (SS-001–SS-008). Batch J, commit 03a2a47. Skill synergy bonuses wired from PCGen rsrd_skills.lst data (all 9 PHB synergy pairs). +2 circumstance bonus when prerequisite skill ≥ 5 ranks. | 03a2a47 |
+| WO-ENGINE-ENCUMBRANCE-WIRE-001 | **ACCEPTED** — 10/10 Gate ENGINE-ENCUMBRANCE-WIRE (EW-001–EW-010). Batch M, commit ad21df2. EF.ENCUMBRANCE_LOAD pre-computed at chargen. Two-line wire-up in movement + attack resolvers. | ad21df2 |
+| WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001 | **ACCEPTED** — 8/8 Gate ENGINE-SNEAK-ATTACK-IMMUNITY (SI-001–SI-008). Batch M, commit 14b2c18. `_apply_creature_type_immunities(entity)` in builder.py. Finding: FINDING-ENGINE-MULTICLASS-BUILDER-IMMUNE-001 (LOW). | 14b2c18 |
+| WO-ENGINE-WEAPON-PROFICIENCY-001 | **ACCEPTED** — 11/11 Gate ENGINE-WEAPON-PROFICIENCY (WP2-001–WP2-011). Batch M, commit 8e07dd5. `proficiency_category: Optional[str]` on Weapon. `_is_weapon_proficient()` helper. Finding: FINDING-ENGINE-BARD-ROGUE-MARTIAL-PARTIAL-001 (LOW). | 8e07dd5 |
+| WO-ENGINE-IMPROVED-DISARM-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-DISARM (ID-001–ID-008). Batch L, commit ba3e62f. No AoO on disarm attempt, +4 bonus to disarm check. New findings: FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 + FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 (both LOW). | ba3e62f |
+| WO-ENGINE-IMPROVED-GRAPPLE-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-GRAPPLE (IG-001–IG-008). Batch L, commit ba3e62f. No AoO on grapple attempt, +4 bonus to grapple checks. New finding: FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 (LOW). | ba3e62f |
+| WO-ENGINE-IMPROVED-BULL-RUSH-001 | **ACCEPTED** — 8/8 Gate ENGINE-IMPROVED-BULL-RUSH (IB-001–IB-008). Batch L, commit ba3e62f. No AoO on bull rush attempt, +4 STR check bonus. New finding: FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 (LOW). | ba3e62f |
+| WO-ENGINE-SPELL-PENETRATION-001 | **ACCEPTED** — 8/8 Gate ENGINE-SPELL-PENETRATION (SP-001–SP-008). Batch L, commit ba3e62f. SP: +2 CL bonus to SR checks. Greater SP stacks (+4 total). New finding: FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 (LOW, **CLOSED** Batch O). | ba3e62f |
 **Full verdict history:** `reviewed/BRIEFING_ARCHIVE_GRADUATION_20260222.md` (18 older entries archived)
 
 ## Dispatches (most recent 15 — older entries archived)
@@ -493,23 +495,17 @@ Thunder to direct next dispatch on verdicts.
 - [PM_BRIEFING_CURRENT.md](pm_inbox/PM_BRIEFING_CURRENT.md) — This file
 - [REHYDRATION_KERNEL_LATEST.md](pm_inbox/REHYDRATION_KERNEL_LATEST.md) — PM rehydration block
 - [README.md](pm_inbox/README.md) — Inbox hygiene rules
-- [DISPATCH_ENGINE_BATCH_M.md](pm_inbox/DISPATCH_ENGINE_BATCH_M.md) — **ACTIVE DISPATCH** — Cover fix + Encumbrance + SA auto-immune + Weapon proficiency (34 tests)
-- [WO-ENGINE-COVER-FIX-001_DISPATCH.md](pm_inbox/WO-ENGINE-COVER-FIX-001_DISPATCH.md) — Batch M WO 1
-- [WO-ENGINE-ENCUMBRANCE-WIRE-001_DISPATCH.md](pm_inbox/WO-ENGINE-ENCUMBRANCE-WIRE-001_DISPATCH.md) — Batch M WO 2
-- [WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001_DISPATCH.md](pm_inbox/WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001_DISPATCH.md) — Batch M WO 3
-- [WO-ENGINE-WEAPON-PROFICIENCY-001_DISPATCH.md](pm_inbox/WO-ENGINE-WEAPON-PROFICIENCY-001_DISPATCH.md) — Batch M WO 4
-- *Batch L (DISPATCH_21) — ACCEPTED (commit ba3e62f, 32/32) — archived to reviewed/*
-- *Batch K (DISPATCH_20) — ACCEPTED (commit 4cb2f72, 34/34) — archived to reviewed/*
-- *Batch J (DISPATCH_19) — ACCEPTED (commit 03a2a47, 32/32) — archived to reviewed/*
-- *Batch I (DISPATCH_18) — ACCEPTED (commit f671cdb, 32/32) — archived to reviewed/*
-- *OSS Data Batch A — ACCEPTED (commit 0b73fb9) — archived to reviewed/*
-- [WO-DATA-MONSTERS-001_DISPATCH.md](pm_inbox/WO-DATA-MONSTERS-001_DISPATCH.md) — Data WO (pending dispatch)
-- [WO-INFRA-DICE-001_DISPATCH.md](pm_inbox/WO-INFRA-DICE-001_DISPATCH.md) — Infra WO (pending dispatch)
+- [WO_SET_ENGINE_BATCH_P.md](pm_inbox/WO_SET_ENGINE_BATCH_P.md) — **ACTIVE DISPATCH** — PA/IMB/PS/IDC (32 gate tests). Prereq: Batch O ACCEPTED ✓
+- [WO_SET_OSS_DATA_BATCH_B.md](pm_inbox/WO_SET_OSS_DATA_BATCH_B.md) — **DATA BATCH B IN FLIGHT** — WO-DATA-MONSTERS-001 + WO-INFRA-DICE-001
+- [WO-DATA-MONSTERS-001_DISPATCH.md](pm_inbox/WO-DATA-MONSTERS-001_DISPATCH.md) — Data WO (deferred)
+- [WO-INFRA-DICE-001_DISPATCH.md](pm_inbox/WO-INFRA-DICE-001_DISPATCH.md) — Infra WO (deferred)
+- [WO-ENGINE-MASSIVE-DAMAGE-001_DISPATCH.md](pm_inbox/WO-ENGINE-MASSIVE-DAMAGE-001_DISPATCH.md) — Batch N WO1 spec ref (SAI — accepted 7638473)
+- [WO-ENGINE-STABILIZE-ALLY-001_DISPATCH.md](pm_inbox/WO-ENGINE-STABILIZE-ALLY-001_DISPATCH.md) — Batch N WO2 spec ref (SAI — accepted 7638473)
 - [BURST_INTAKE_QUEUE.md](pm_inbox/BURST_INTAKE_QUEUE.md) — Research parking lot (Thunder to call)
-- [MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md](pm_inbox/MEMO_TTS_AUDIO_PIPELINE_ARCHITECTURE.md) — TTS pipeline reference (Thunder to call)
-- [PREFLIGHT_CANARY_LOG.md](pm_inbox/PREFLIGHT_CANARY_LOG.md) — Builder preflight log (Thunder to call)
-- [TUNING_001_PROTOCOL.md](pm_inbox/TUNING_001_PROTOCOL.md) — Coupled-coherence observation protocol (Thunder to call)
-- [TUNING_001_LEDGER.md](pm_inbox/TUNING_001_LEDGER.md) — Session ledger + analysis framework (Thunder to call)
+- [PROBE-JUDGMENT-LAYER-001.md](pm_inbox/PROBE-JUDGMENT-LAYER-001.md) — Judgment layer probe (Thunder to call)
+- *Batch N (7638473) — ACCEPTED (40/40) — dispatch archived to reviewed/*
+- *Batch O (3232b76–99d79af) — ACCEPTED (32/32) — dispatch archived to reviewed/*
+- *Batch M–L/K/J/I (prior) — all ACCEPTED — archived to reviewed/*
 - [PROBE-WORLDMODEL-001.md](pm_inbox/PROBE-WORLDMODEL-001.md) — World model gap probe (Thunder to call)
 - [PROBE-WORKER-TREATMENT-001.md](pm_inbox/PROBE-WORKER-TREATMENT-001.md) — (Thunder to call)
 - [PROBE-JUDGMENT-LAYER-001.md](pm_inbox/PROBE-JUDGMENT-LAYER-001.md) — (Thunder to call)
