@@ -960,9 +960,10 @@ def build_character(
     if _bard_level >= 1:
         entity[EF.BARDIC_MUSIC_USES_REMAINING] = max(1, _bard_level + _cha_mod)
 
-    # Druid: Wild Shape uses remaining (PHB p.37 — unlocks at L5; max(1, 1 + (druid_level - 4) // 2))
+    # Druid: Wild Shape uses remaining (PHB p.37, Table 3-14 — unlocks at L5; lookup table)
     if _druid_level >= 5:
-        entity[EF.WILD_SHAPE_USES_REMAINING] = max(1, 1 + (_druid_level - 4) // 2)
+        from aidm.core.wild_shape_resolver import _get_wild_shape_uses
+        entity[EF.WILD_SHAPE_USES_REMAINING] = _get_wild_shape_uses(_druid_level)
 
     # WO-ENGINE-EVASION-001: Evasion and Improved Evasion boolean flags (PHB Rogue p.56, Monk p.41)
     _rogue_level = level if class_name == "rogue" else 0
@@ -1198,7 +1199,8 @@ def _build_multiclass_character(
         entity[EF.BARDIC_MUSIC_USES_REMAINING] = max(1, _bard_level + _cha_mod)
 
     if _druid_level >= 5:
-        entity[EF.WILD_SHAPE_USES_REMAINING] = max(1, 1 + (_druid_level - 4) // 2)
+        from aidm.core.wild_shape_resolver import _get_wild_shape_uses as _mc_ws_uses
+        entity[EF.WILD_SHAPE_USES_REMAINING] = _mc_ws_uses(_druid_level)
 
     # WO-ENGINE-EVASION-001: Evasion and Improved Evasion for multiclass (PHB Rogue p.56, Monk p.41)
     _rogue_level = class_mix.get("rogue", 0)

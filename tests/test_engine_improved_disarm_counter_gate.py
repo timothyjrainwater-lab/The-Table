@@ -127,28 +127,27 @@ def test_idc001_disarm_success_no_counter():
 
 
 # ---------------------------------------------------------------------------
-# IDC-002: Disarm fails by < 10 → no counter-disarm
+# IDC-002: Disarm fails by < 10 → counter-disarm now allowed (PHB p.155)
+# Updated by WO-ENGINE-DISARM-FIDELITY-001: any failure allows counter.
 # ---------------------------------------------------------------------------
-def test_idc002_fail_lt10_no_counter():
-    """IDC-002: Disarm fails by < 10 → disarm_failure with counter_disarm_allowed=False."""
-    # SeqRNG: att_roll=10, def_roll=15 → att_total=17, def_total=22 → margin=5, no counter
+def test_idc002_fail_lt10_counter_allowed():
+    """IDC-002: Disarm fails by < 10 → counter_disarm_allowed=True (PHB p.155)."""
+    # SeqRNG: att_roll=10, def_roll=15 → att_total=17, def_total=22 → margin=5
+    # WO-ENGINE-DISARM-FIDELITY-001: any failure allows counter-disarm
     att = _entity("att", bab=5, str_mod=2)
     tgt = _entity("tgt", bab=5, str_mod=2)
     ws = _ws(att, tgt)
     events, _, result = resolve_disarm(
         DisarmIntent(attacker_id="att", target_id="tgt"),
-        ws, _seq_rng(10, 15), 0, 0.0,
+        ws, _seq_rng(10, 15, 10, 10), 0, 0.0,
         aoo_events=[], aoo_defeated=False, aoo_dealt_damage=False,
     )
-    assert not result.success, "IDC-002: disarm should fail (tie)"
+    assert not result.success, "IDC-002: disarm should fail"
     fail_ev = _get_ev(events, "disarm_failure")
     assert fail_ev is not None, "IDC-002: disarm_failure event missing"
-    assert fail_ev.payload["counter_disarm_allowed"] is False, (
-        f"IDC-002: counter_disarm_allowed should be False (margin=0); "
+    assert fail_ev.payload["counter_disarm_allowed"] is True, (
+        f"IDC-002: counter_disarm_allowed should be True per PHB p.155; "
         f"got {fail_ev.payload['counter_disarm_allowed']}")
-    # No counter events
-    assert _get_ev(events, "counter_disarm_suppressed") is None, \
-        "IDC-002: counter_disarm_suppressed should NOT appear when margin < 10"
 
 
 # ---------------------------------------------------------------------------

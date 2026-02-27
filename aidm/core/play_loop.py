@@ -3398,6 +3398,33 @@ def execute_turn(
 
         # WO-ENGINE-CHARGE-001: Charge action (PHB p.150-151)
         elif isinstance(combat_intent, ChargeIntent):
+            # WO-ENGINE-FATIGUE-MOBILITY-001: Fatigued/exhausted cannot charge (PHB p.308)
+            _charge_actor = world_state.entities.get(turn_ctx.actor_id, {})
+            _charge_fatigued = _charge_actor.get(EF.FATIGUED, False)
+            _charge_conditions = _charge_actor.get(EF.CONDITIONS, {}) or {}
+            _charge_exhausted = "exhausted" in _charge_conditions
+            if _charge_fatigued or _charge_exhausted:
+                _block_reason = "exhausted" if _charge_exhausted else "fatigued"
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="charge_blocked_fatigued",
+                    timestamp=timestamp + 0.01,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "reason": _block_reason,
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                    citations=["PHB p.308"],
+                ))
+                current_event_id += 1
+                return TurnResult(
+                    status="ok",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    narration="charge_blocked_fatigued",
+                )
+
             # AoO for charge movement (simplified: one trigger for full path)
             from aidm.schemas.attack import StepMoveIntent as _StepMoveIntent
             from aidm.schemas.position import Position as _Position
@@ -3669,6 +3696,33 @@ def execute_turn(
         # RUNNING expires at start of actor's next turn (charge_ac pattern).
         # STAGGERED guard blocks full_round actions, so no separate staggered check needed.
         elif isinstance(combat_intent, RunIntent):
+            # WO-ENGINE-FATIGUE-MOBILITY-001: Fatigued/exhausted cannot run (PHB p.308)
+            _run_actor = world_state.entities.get(turn_ctx.actor_id, {})
+            _run_fatigued = _run_actor.get(EF.FATIGUED, False)
+            _run_conditions = _run_actor.get(EF.CONDITIONS, {}) or {}
+            _run_exhausted = "exhausted" in _run_conditions
+            if _run_fatigued or _run_exhausted:
+                _run_block_reason = "exhausted" if _run_exhausted else "fatigued"
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="run_blocked_fatigued",
+                    timestamp=timestamp + 0.01,
+                    payload={
+                        "actor_id": turn_ctx.actor_id,
+                        "reason": _run_block_reason,
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                    citations=["PHB p.308"],
+                ))
+                current_event_id += 1
+                return TurnResult(
+                    status="ok",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    narration="run_blocked_fatigued",
+                )
+
             _run_actor_data = world_state.entities.get(turn_ctx.actor_id, {})
             _base_speed = _run_actor_data.get(EF.BASE_SPEED, 30)
             _run_distance = _base_speed * 4

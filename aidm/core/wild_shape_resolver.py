@@ -80,9 +80,9 @@ def _ability_modifier(score: int) -> int:
 
 
 def _has_wild_shape_feature(actor: dict) -> bool:
-    """Return True if the actor has at least 4 levels of Druid (Wild Shape unlock)."""
+    """Return True if the actor has at least 5 levels of Druid (Wild Shape unlock, PHB p.37)."""
     class_levels: dict = actor.get(EF.CLASS_LEVELS, {})
-    return class_levels.get("druid", 0) >= 4
+    return class_levels.get("druid", 0) >= 5
 
 
 def _get_druid_level(actor: dict) -> int:
@@ -90,11 +90,22 @@ def _get_druid_level(actor: dict) -> int:
     return actor.get(EF.CLASS_LEVELS, {}).get("druid", 0)
 
 
+# WO-ENGINE-WS-FORMULA-FIX-001: PHB Table 3-14 lookup (irregular progression).
+_WS_USES_BY_LEVEL = {5: 1, 6: 2, 7: 3, 10: 4, 14: 5, 18: 6}
+
+
 def _get_wild_shape_uses(druid_level: int) -> int:
-    """Return the maximum Wild Shape uses per day for the given Druid level."""
-    if druid_level < 4:
+    """Return the maximum Wild Shape uses per day for the given Druid level.
+
+    Uses PHB Table 3-14 lookup table — progression is irregular.
+    """
+    if druid_level < 5:
         return 0
-    return max(1, 1 + (druid_level - 4) // 2)
+    uses = 0
+    for lvl, count in sorted(_WS_USES_BY_LEVEL.items()):
+        if druid_level >= lvl:
+            uses = count
+    return uses
 
 
 # ---------------------------------------------------------------------------

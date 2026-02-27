@@ -111,6 +111,15 @@ def activate_rage(
     actor[EF.RAGE_ROUNDS_REMAINING] = rage_rounds
     actor[EF.RAGE_USES_REMAINING] = uses_after
 
+    # WO-ENGINE-RAGE-HP-TRANSITION-001: HP gain on rage enter (PHB p.25)
+    # "The increase in Constitution increases the barbarian's hit points by
+    #  2 points per Hit Die" — total HD = sum of all class levels (multiclass)
+    _class_levels = actor.get(EF.CLASS_LEVELS, {}) or {}
+    _total_hd = sum(_class_levels.values()) if isinstance(_class_levels, dict) else 1
+    _hp_gain = 2 * _total_hd
+    actor[EF.HP_MAX] = actor.get(EF.HP_MAX, 1) + _hp_gain
+    actor[EF.HP_CURRENT] = actor.get(EF.HP_CURRENT, 1) + _hp_gain
+
     world_state = WorldState(
         ruleset_version=world_state.ruleset_version,
         entities=entities,
@@ -129,6 +138,8 @@ def activate_rage(
             "con_bonus": 4,
             "will_bonus": 2,
             "ac_penalty": -2,
+            "hp_gain": _hp_gain,
+            "total_hit_dice": _total_hd,
         },
         citations=[{"source_id": "681f92bc94ff", "page": 25}],
     ))
@@ -167,6 +178,19 @@ def end_rage(
     actor[EF.RAGE_ROUNDS_REMAINING] = 0
     actor[EF.FATIGUED] = True
 
+    # WO-ENGINE-RAGE-HP-TRANSITION-001: HP loss on rage exit (PHB p.25)
+    # "These extra hit points go away at the end of the rage when his
+    #  Constitution score drops back 4 points."
+    _class_levels = actor.get(EF.CLASS_LEVELS, {}) or {}
+    _total_hd = sum(_class_levels.values()) if isinstance(_class_levels, dict) else 1
+    _hp_loss = 2 * _total_hd
+    actor[EF.HP_MAX] = max(1, actor.get(EF.HP_MAX, 1) - _hp_loss)
+    _new_current = actor.get(EF.HP_CURRENT, 1) - _hp_loss
+    actor[EF.HP_CURRENT] = _new_current  # can go to 0 or below
+
+    # If HP drops to 0 or below after rage, entity falls unconscious
+    _unconscious = _new_current <= 0
+
     world_state = WorldState(
         ruleset_version=world_state.ruleset_version,
         entities=entities,
@@ -181,9 +205,28 @@ def end_rage(
             "actor_id": actor_id,
             "reason": reason,
             "fatigued": True,
+            "hp_loss": _hp_loss,
+            "total_hit_dice": _total_hd,
+            "hp_after": _new_current,
+            "unconscious": _unconscious,
         },
         citations=[{"source_id": "681f92bc94ff", "page": 25}],
     ))
+
+    _next_eid = next_event_id + 1
+
+    if _unconscious:
+        events.append(Event(
+            event_id=_next_eid,
+            event_type="entity_unconscious",
+            timestamp=timestamp + 0.01,
+            payload={
+                "entity_id": actor_id,
+                "reason": "rage_hp_loss",
+                "hp_current": _new_current,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 25}],
+        ))
 
     return events, world_state
 
