@@ -120,6 +120,16 @@ def resolve_rest(
         if turn_max is not None and actor.get(EF.TURN_UNDEAD_USES, turn_max) < turn_max:
             actor[EF.TURN_UNDEAD_USES] = turn_max
 
+    # ── Lay on Hands pool recovery (WO-ENGINE-LAY-ON-HANDS-001) ──────────────
+    # PHB p.44: Pool of (paladin_level × CHA_mod) HP refreshes on full rest.
+    if is_full_rest:
+        paladin_level = actor.get(EF.CLASS_LEVELS, {}).get("paladin", 0)
+        if paladin_level > 0:
+            cha_mod = actor.get(EF.CHA_MOD, 0)
+            pool_max = paladin_level * max(1, cha_mod) if cha_mod > 0 else 0
+            actor[EF.LAY_ON_HANDS_POOL] = pool_max
+            actor[EF.LAY_ON_HANDS_USED] = 0
+
     # ── Condition cleanup (overnight rest clears fatigue, exhaustion) ─────────
     # 3.5e: 8h rest removes fatigued; exhausted → fatigued after 1h rest (PHB p.300)
     conditions = actor.get(EF.CONDITIONS, [])

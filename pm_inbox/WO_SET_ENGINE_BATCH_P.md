@@ -27,11 +27,15 @@
 
 **File conflicts:**
 - WO1 (PA) and WO3 (PS) both touch `attack_resolver.py`. Commit WO1 before WO3.
-- WO2 (IMB) and WO4 (IDC) both touch `schemas/maneuvers.py` + `play_loop.py`. Commit WO2 before WO4.
+- WO2 (IMB) and WO4 (IDC) both touch `maneuver_resolver.py` + `play_loop.py`. Commit WO2 before WO4.
 
 **Recommended commit order:** WO1 → WO2 → WO3 → WO4.
 
-**Batch N WO4 architecture note:** Improved maneuver path lives in `schemas/maneuvers.py` + `play_loop.py` — NOT `maneuver_resolver.py` or `aoo.py`. Confirmed by Chisel during Batch N execution.
+**Maneuver architecture (CORRECTED from prior session note):** Three-layer split:
+- `play_loop.py` — AoO suppression only (elif chain after `check_aoo_triggers()`)
+- `maneuver_resolver.py` — actual maneuver resolution (opposed checks, results, free attacks)
+- `schemas/maneuvers.py` — intent dataclass definitions ONLY (do NOT add logic here)
+Confirmed by IT debrief (Batch N WO4, 020d091) and IO debrief (Batch O WO1, 3232b76).
 
 **EF.TEMPORARY_MODIFIERS pattern (Power Attack):** Same pattern as Fight Defensively and Combat Expertise. Declare penalty before rolling; store in EF.TEMPORARY_MODIFIERS. Clear at turn start (already handled by play_loop.py turn reset). Check Combat Expertise implementation from Batch C as the reference pattern.
 
@@ -107,8 +111,7 @@ Feat guard: if `"power_attack" not in attacker_feats` and `pa_penalty > 0`, emit
 
 ## WO 2 — WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001
 
-**Scope:** `aidm/schemas/maneuvers.py`, `aidm/core/play_loop.py`
-**Gate file:** `tests/test_engine_improved_maneuver_bonuses_gate.py`
+**Scope:** `aidm/core/maneuver_resolver.py`, `aidm/core/play_loop.py`
 **Gate label:** ENGINE-IMPROVED-MANEUVER-BONUSES
 **Gate count:** 8 tests (IMB-001 – IMB-008)
 **Kernel touch:** NONE
@@ -158,7 +161,7 @@ Trace each maneuver from play_loop.py through to every opposed check computation
 ```
 
 ### Session Close Conditions
-- [ ] `git add aidm/schemas/maneuvers.py aidm/core/play_loop.py tests/test_engine_improved_maneuver_bonuses_gate.py`
+- [ ] `git add aidm/core/maneuver_resolver.py aidm/core/play_loop.py tests/test_engine_improved_maneuver_bonuses_gate.py`
 - [ ] `git commit`
 - [ ] IMB-001–IMB-008: 8/8 PASS; zero regressions
 - [ ] File CLOSED on all 5 maneuver bonus FINDINGs in debrief
@@ -221,8 +224,7 @@ If `_is_target_in_melee()` does not exist, implement it as: target has at least 
 
 ## WO 4 — WO-ENGINE-IMPROVED-DISARM-COUNTER-001
 
-**Scope:** `aidm/schemas/maneuvers.py`, `aidm/core/play_loop.py`
-**Gate file:** `tests/test_engine_improved_disarm_counter_gate.py`
+**Scope:** `aidm/core/maneuver_resolver.py`, `aidm/core/play_loop.py`
 **Gate label:** ENGINE-IMPROVED-DISARM-COUNTER
 **Gate count:** 8 tests (IDC-001 – IDC-008)
 **Kernel touch:** NONE
@@ -274,7 +276,7 @@ If `_trigger_counter_disarm()` doesn't exist, implement it inline or as a small 
 ```
 
 ### Session Close Conditions
-- [ ] `git add aidm/schemas/maneuvers.py aidm/core/play_loop.py tests/test_engine_improved_disarm_counter_gate.py`
+- [ ] `git add aidm/core/maneuver_resolver.py aidm/core/play_loop.py tests/test_engine_improved_disarm_counter_gate.py`
 - [ ] `git commit`
 - [ ] IDC-001–IDC-008: 8/8 PASS; zero regressions
 - [ ] FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001: CLOSED in debrief
@@ -286,13 +288,13 @@ If `_trigger_counter_disarm()` doesn't exist, implement it inline or as a small 
 | WO | Files touched |
 |---|---|
 | WO1 | `attack_resolver.py` |
-| WO2 | `schemas/maneuvers.py`, `play_loop.py` |
+| WO2 | `maneuver_resolver.py`, `play_loop.py` |
 | WO3 | `attack_resolver.py` |
-| WO4 | `schemas/maneuvers.py`, `play_loop.py` |
+| WO4 | `maneuver_resolver.py`, `play_loop.py` |
 
 **WO1 and WO3 both touch attack_resolver.py.** Commit WO1 first, then WO3 builds on it.
 
-**WO2 and WO4 both touch maneuvers.py + play_loop.py.** Commit WO2 first, then WO4 builds on it.
+**WO2 and WO4 both touch maneuver_resolver.py + play_loop.py.** Commit WO2 first, then WO4 builds on it.
 
 **Recommended commit order:** WO1 → WO2 → WO3 → WO4.
 

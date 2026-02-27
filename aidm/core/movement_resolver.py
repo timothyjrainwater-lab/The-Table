@@ -225,6 +225,18 @@ def build_full_move_intent(
     if from_pos == destination:
         return None, "You're already there."
 
+    # WO-ENGINE-CONDITION-ENFORCEMENT-001: Block movement for movement-prohibited conditions
+    from aidm.core.conditions import get_condition_modifiers
+    _cond_mods = get_condition_modifiers(world_state, actor_id)
+    if _cond_mods.movement_prohibited:
+        # Find the blocking condition name for a clear error message
+        _blocking_conds = [
+            k for k, v in entity.get(EF.CONDITIONS, {}).items()
+            if isinstance(v, dict) and v.get("movement_prohibited", False)
+        ]
+        _reason = _blocking_conds[0] if _blocking_conds else "condition"
+        return None, f"movement_prohibited: {_reason} prevents movement"
+
     speed_ft = entity.get(EF.BASE_SPEED, 30)
 
     # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: Fast Movement (PHB p.26)

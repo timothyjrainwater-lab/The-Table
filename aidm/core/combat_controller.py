@@ -203,6 +203,7 @@ def start_combat(
         "initiative_order": initiative_order,
         "flat_footed_actors": list(initiative_order),  # All actors start flat-footed
         "aoo_used_this_round": [],  # CP-15: Track AoO usage (reset each round)
+        "aoo_count_this_round": {},  # WO-ENGINE-COMBAT-REFLEXES-001: per-entity AoO count
         "grapple_pairs": [],  # CP-22: Active grapple pairs [[initiator_id, target_id], ...]
     }
 
@@ -342,6 +343,7 @@ def execute_combat_round(
     active_combat["round_index"] = current_round
     active_combat["flat_footed_actors"] = list(flat_footed_actors)  # Convert set to list for serialization
     active_combat["aoo_used_this_round"] = aoo_used_this_round  # CP-15: Reset for next round
+    active_combat["aoo_count_this_round"] = {}  # WO-ENGINE-COMBAT-REFLEXES-001: Reset per-entity count
 
     # Apply the updated active_combat to world_state BEFORE finishing round
     world_state = WorldState(

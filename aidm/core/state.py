@@ -34,6 +34,9 @@ class WorldState:
     entities: Dict[str, Any] = field(default_factory=dict)
     active_combat: Optional[Dict[str, Any]] = None
     pending_aoe: Optional["PendingAoE"] = field(default=None, compare=False)
+    # WO-ENGINE-RETRY-001: exploration time tracking + skill check cache
+    game_clock: Optional[Any] = field(default=None, compare=False)
+    skill_check_cache: Dict[str, Any] = field(default_factory=dict, compare=False)
 
     def clear_pending_aoe(self) -> "WorldState":
         """Return a copy of this WorldState with pending_aoe cleared."""

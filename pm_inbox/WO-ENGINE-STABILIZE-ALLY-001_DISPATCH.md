@@ -4,6 +4,7 @@
 **Type:** Engine feature
 **Issued by:** Slate (PM)
 **Date:** 2026-02-27
+**Lifecycle:** DISPATCH-READY
 **Batch:** Engine Batch N
 **Gate label:** ENGINE-STABILIZE-ALLY
 **Gate file:** `tests/test_engine_stabilize_ally_gate.py`

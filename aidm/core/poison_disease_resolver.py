@@ -305,6 +305,24 @@ def apply_disease_exposure(
     events: List[Dict[str, Any]] = []
     eid = next_event_id
 
+    # WO-ENGINE-DIVINE-HEALTH-001: Paladin Divine Health — immune to all diseases at level 3+
+    # PHB p.44: "Beginning at 3rd level, a paladin is immune to all diseases,
+    # including supernatural and magical diseases."
+    _paladin_level = entity.get(EF.CLASS_LEVELS, {}).get("paladin", 0)
+    if _paladin_level >= 3:
+        events.append({
+            "event_id": eid,
+            "event_type": "disease_immunity",
+            "payload": {
+                "target_id": target_id,
+                "disease_id": disease_stat.get("disease_id"),
+                "reason": "divine_health",
+            },
+            "timestamp": timestamp,
+            "citations": [{"source_id": "681f92bc94ff", "page": 44}],
+        })
+        return entity, events
+
     dc = disease_stat["dc"]
     fort_base = entity.get(EF.SAVE_FORT, 0)
     con_mod = entity.get(EF.CON_MOD, 0)
@@ -384,6 +402,13 @@ def process_disease_ticks(
     """
     events: List[Dict[str, Any]] = []
     eid = next_event_id
+
+    # WO-ENGINE-DIVINE-HEALTH-001: Belt-and-suspenders — clear diseases on paladin 3+
+    # Handles any disease contracted before the paladin reached level 3.
+    _paladin_level = entity.get(EF.CLASS_LEVELS, {}).get("paladin", 0)
+    if _paladin_level >= 3 and entity.get(EF.ACTIVE_DISEASES):
+        entity[EF.ACTIVE_DISEASES] = []
+        return entity, events
 
     active_diseases = entity.get(EF.ACTIVE_DISEASES, [])
     remaining_diseases = []

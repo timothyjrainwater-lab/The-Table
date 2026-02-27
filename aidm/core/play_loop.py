@@ -267,6 +267,7 @@ def _create_target_stats(
         ref_save=ref_save,
         will_save=will_save,
         spell_resistance=sr,
+        is_undead=entity.get(EF.IS_UNDEAD, False),
     )
 
 
@@ -1130,13 +1131,26 @@ def _resolve_spell_cast(
             current_event_id += len(trans_events)
 
     # Apply healing
+    # WO-ENGINE-HOOLIGAN-TIER-A-001: Positive energy damages undead (PHB p.189)
+    # Negative values in healing_done mean undead took damage from positive energy
     for entity_id, healing in resolution.healing_done.items():
-        if healing > 0 and entity_id in entities:
-            old_hp = entities[entity_id].get(EF.HP_CURRENT, 0)
-            max_hp = entities[entity_id].get(EF.HP_MAX, old_hp)
-            new_hp = min(old_hp + healing, max_hp)
-            entities[entity_id][EF.HP_CURRENT] = new_hp
+        if healing == 0 or entity_id not in entities:
+            continue
+        old_hp = entities[entity_id].get(EF.HP_CURRENT, 0)
+        max_hp = entities[entity_id].get(EF.HP_MAX, old_hp)
+        is_undead = entities[entity_id].get(EF.IS_UNDEAD, False)
 
+        if is_undead:
+            # Negative healing_done = damage to undead (no HP cap)
+            new_hp = old_hp + healing  # healing is negative here
+            delta = healing
+        else:
+            new_hp = min(old_hp + healing, max_hp)
+            delta = new_hp - old_hp
+
+        entities[entity_id][EF.HP_CURRENT] = new_hp
+
+        if delta != 0:
             events.append(Event(
                 event_id=current_event_id,
                 event_type="hp_changed",
@@ -1145,7 +1159,7 @@ def _resolve_spell_cast(
                     "entity_id": entity_id,
                     "old_hp": old_hp,
                     "new_hp": new_hp,
-                    "delta": healing,
+                    "delta": delta,
                     "source": f"spell:{spell.name}",
                     **({"content_id": spell.content_id} if spell.content_id else {}),
                 },
@@ -2946,6 +2960,35 @@ def execute_turn(
 
         # CP-16: Full multi-square movement intent
         elif isinstance(combat_intent, FullMoveIntent):
+            # WO-ENGINE-CONDITION-ENFORCEMENT-001: Block movement for movement-prohibited conditions
+            _actor_cond_mods = get_condition_modifiers(world_state, turn_ctx.actor_id)
+            if _actor_cond_mods.movement_prohibited:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="action_denied",
+                    timestamp=timestamp + 0.05,
+                    payload={
+                        "entity_id": turn_ctx.actor_id,
+                        "reason": "movement_prohibited",
+                        "denied_intent_type": "FullMoveIntent",
+                        "turn_index": turn_ctx.turn_index,
+                    }
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.2,
+                    payload={"turn_index": turn_ctx.turn_index, "actor_id": turn_ctx.actor_id, "events_emitted": len(events)}
+                ))
+                return TurnResult(
+                    status="action_denied",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    failure_reason=f"Actor {turn_ctx.actor_id} cannot move due to movement_prohibited condition"
+                )
+
             # Process movement step-by-step for AoO resolution at each departure
             prev_pos = combat_intent.from_pos
             actor_defeated = False

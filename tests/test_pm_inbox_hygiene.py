@@ -36,6 +36,7 @@ PERSISTENT_FILES = {
     "README.md",
     "PM_BRIEFING_CURRENT.md",
     "REHYDRATION_KERNEL_LATEST.md",
+    "PREFLIGHT_CANARY_LOG.md",  # Append-only operational log; builders add entries per session
 }
 
 # Non-markdown persistent files (also exempt from .md rules)
@@ -59,6 +60,14 @@ VALID_PREFIXES = (
     "FIX_WO",         # Fix work order dispatch packet
     "FIX_WO-",        # Fix work order dispatch packet (hyphen variant)
     "WO_INSTITUTIONALIZE",  # Institutionalization WO (legacy naming)
+    "PROBE-",         # Probe spec / investigation document
+    "PROBE_",         # Probe spec (underscore variant)
+    "STRAT-",         # Strategy / policy decision document
+    "STRAT_",         # Strategy (underscore variant)
+    "TUNING_",        # Tuning protocol / observation ledger
+    "TUNING-",        # Tuning (hyphen variant)
+    "UI_",            # UI audit / input document
+    "WSM_",           # Watch sync / methodology document
 )
 
 # Regex for valid lifecycle values

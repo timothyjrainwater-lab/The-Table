@@ -254,6 +254,7 @@ def build_simple_combat_fixture(
             "initiative_order": initiative_order,
             "flat_footed_actors": [],
             "aoo_used_this_round": [],
+            "aoo_count_this_round": {},  # WO-ENGINE-COMBAT-REFLEXES-001
         },
     )
 

@@ -34,6 +34,10 @@ MSG_STATE_UPDATE = "state_update"
 MSG_COMBAT_EVENT = "combat_event"
 MSG_ERROR = "error"
 MSG_SESSION_STATE = "session_state"
+MSG_TOKEN_ADD = "token_add"
+MSG_TOKEN_UPDATE = "token_update"
+MSG_TOKEN_REMOVE = "token_remove"
+MSG_CHARACTER_STATE = "character_state"
 
 
 # ---------------------------------------------------------------------------
@@ -395,6 +399,168 @@ class ErrorEvent(ServerMessage):
 
 
 @dataclass(frozen=True)
+class TokenAdd(ServerMessage):
+    """Token placement event — sent for each positioned entity on join/reconnect."""
+
+    id: str = ""
+    """Entity ID."""
+
+    name: str = ""
+    """Display name."""
+
+    faction: str = ""
+    """Team/faction (e.g. 'player', 'monsters')."""
+
+    col: int = 0
+    """Grid column (x)."""
+
+    row: int = 0
+    """Grid row (y)."""
+
+    hp: Optional[int] = None
+    """Current HP — DM only; None if stripped for player connections."""
+
+    hp_max: Optional[int] = None
+    """Max HP — DM only; None if stripped for player connections."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "msg_type": self.msg_type,
+            "msg_id": self.msg_id,
+            "timestamp": self.timestamp,
+            "id": self.id,
+            "name": self.name,
+            "faction": self.faction,
+            "col": self.col,
+            "row": self.row,
+        }
+        if self.in_reply_to is not None:
+            d["in_reply_to"] = self.in_reply_to
+        if self.hp is not None:
+            d["hp"] = self.hp
+        if self.hp_max is not None:
+            d["hp_max"] = self.hp_max
+        return d
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "TokenAdd":
+        return cls(
+            msg_type=data.get("msg_type", MSG_TOKEN_ADD),
+            msg_id=data.get("msg_id", ""),
+            in_reply_to=data.get("in_reply_to"),
+            timestamp=data.get("timestamp", 0.0),
+            id=data.get("id", ""),
+            name=data.get("name", ""),
+            faction=data.get("faction", ""),
+            col=data.get("col", 0),
+            row=data.get("row", 0),
+            hp=data.get("hp"),
+            hp_max=data.get("hp_max"),
+        )
+
+
+@dataclass(frozen=True)
+class TokenUpdate(ServerMessage):
+    """Token state update — sent when an entity's displayed state changes."""
+
+    id: str = ""
+    """Entity ID."""
+
+    hp: Optional[int] = None
+    """Current HP — DM only; None if stripped for player connections."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "msg_type": self.msg_type,
+            "msg_id": self.msg_id,
+            "timestamp": self.timestamp,
+            "id": self.id,
+        }
+        if self.in_reply_to is not None:
+            d["in_reply_to"] = self.in_reply_to
+        if self.hp is not None:
+            d["hp"] = self.hp
+        return d
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "TokenUpdate":
+        return cls(
+            msg_type=data.get("msg_type", MSG_TOKEN_UPDATE),
+            msg_id=data.get("msg_id", ""),
+            in_reply_to=data.get("in_reply_to"),
+            timestamp=data.get("timestamp", 0.0),
+            id=data.get("id", ""),
+            hp=data.get("hp"),
+        )
+
+
+@dataclass(frozen=True)
+class TokenRemove(ServerMessage):
+    """Token removal event — sent when an entity is defeated or leaves the map."""
+
+    id: str = ""
+    """Entity ID to remove."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "msg_type": self.msg_type,
+            "msg_id": self.msg_id,
+            "timestamp": self.timestamp,
+            "id": self.id,
+        }
+        if self.in_reply_to is not None:
+            d["in_reply_to"] = self.in_reply_to
+        return d
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "TokenRemove":
+        return cls(
+            msg_type=data.get("msg_type", MSG_TOKEN_REMOVE),
+            msg_id=data.get("msg_id", ""),
+            in_reply_to=data.get("in_reply_to"),
+            timestamp=data.get("timestamp", 0.0),
+            id=data.get("id", ""),
+        )
+
+
+@dataclass(frozen=True)
+class CharacterState(ServerMessage):
+    """Player character state summary — emitted after each turn for player entities."""
+
+    name: str = ""
+    hp: int = 0
+    hp_max: int = 0
+    ac: int = 0
+
+    def to_dict(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "msg_type": self.msg_type,
+            "msg_id": self.msg_id,
+            "timestamp": self.timestamp,
+            "name": self.name,
+            "hp": self.hp,
+            "hp_max": self.hp_max,
+            "ac": self.ac,
+        }
+        if self.in_reply_to is not None:
+            d["in_reply_to"] = self.in_reply_to
+        return d
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "CharacterState":
+        return cls(
+            msg_type=data.get("msg_type", MSG_CHARACTER_STATE),
+            msg_id=data.get("msg_id", ""),
+            in_reply_to=data.get("in_reply_to"),
+            timestamp=data.get("timestamp", 0.0),
+            name=data.get("name", ""),
+            hp=data.get("hp", 0),
+            hp_max=data.get("hp_max", 0),
+            ac=data.get("ac", 0),
+        )
+
+
+@dataclass(frozen=True)
 class SessionStateMsg(ServerMessage):
     """Full session state snapshot (sent on join/reconnect)."""
 
@@ -468,6 +634,10 @@ SERVER_MSG_TYPES: Dict[str, type] = {
     MSG_COMBAT_EVENT: CombatEvent,
     MSG_ERROR: ErrorEvent,
     MSG_SESSION_STATE: SessionStateMsg,
+    MSG_TOKEN_ADD: TokenAdd,
+    MSG_TOKEN_UPDATE: TokenUpdate,
+    MSG_TOKEN_REMOVE: TokenRemove,
+    MSG_CHARACTER_STATE: CharacterState,
 }
 
 

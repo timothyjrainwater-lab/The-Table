@@ -179,13 +179,57 @@ class TurnResult:
 class ParsedCommand:
     """Result of keyword-based intent parsing."""
 
-    command_type: str  # "attack", "spell", "move", "rest", "transition", "unknown"
+    command_type: str  # "attack", "spell", "move", "rest", "transition", "skill", "unknown"
     target_ref: Optional[str] = None
     weapon: Optional[str] = None
     spell_name: Optional[str] = None
     destination: Optional[Position] = None
     exit_id: Optional[str] = None
     rest_type: str = "8_hours"
+    # WO-ENGINE-RETRY-002: skill check fields
+    skill_name: Optional[str] = None
+    take_10: bool = False
+    take_20: bool = False
+    dc: Optional[int] = None
+
+
+def _normalize_skill(verb: str) -> str:
+    """Map player-facing skill verbs to canonical SKILL_TIME_COSTS keys.
+
+    WO-ENGINE-RETRY-002: Handles common player phrasings.
+    """
+    _MAP = {
+        "search": "search",
+        "look": "search",
+        "examine": "search",
+        "listen": "listen",
+        "hear": "listen",
+        "hide": "hide",
+        "sneak": "move_silently",
+        "move silently": "move_silently",
+        "move_silently": "move_silently",
+        "disable": "disable_device",
+        "disable device": "disable_device",
+        "disable_device": "disable_device",
+        "pick lock": "open_lock",
+        "open lock": "open_lock",
+        "open_lock": "open_lock",
+        "climb": "climb",
+        "swim": "swim",
+        "jump": "jump",
+        "balance": "balance",
+        "tumble": "tumble",
+        "bluff": "bluff",
+        "diplomacy": "diplomacy",
+        "intimidate": "intimidate",
+        "sense motive": "sense_motive",
+        "sense_motive": "sense_motive",
+        "gather information": "gather_information",
+        "gather_information": "gather_information",
+        "knowledge": "knowledge",
+        "spellcraft": "spellcraft",
+    }
+    return _MAP.get(verb.lower(), verb.lower().replace(" ", "_"))
 
 
 def parse_text_command(text: str) -> ParsedCommand:
@@ -269,6 +313,34 @@ def parse_text_command(text: str) -> ParsedCommand:
     if go_match:
         exit_id = go_match.group(1).strip()
         return ParsedCommand(command_type="transition", exit_id=exit_id)
+
+    # Take 10: "take 10 [on] [skill]" or "take ten [on] [skill]"
+    take10_match = re.match(r"take\s+(?:10|ten)\s+(?:on\s+)?(.+)$", lower)
+    if take10_match:
+        raw = take10_match.group(1).strip()
+        skill_name = _normalize_skill(raw)
+        return ParsedCommand(command_type="skill", skill_name=skill_name, take_10=True)
+
+    # Take 20: "take 20 [on] [skill]" or "take twenty [on] [skill]"
+    take20_match = re.match(r"take\s+(?:20|twenty)\s+(?:on\s+)?(.+)$", lower)
+    if take20_match:
+        raw = take20_match.group(1).strip()
+        skill_name = _normalize_skill(raw)
+        return ParsedCommand(command_type="skill", skill_name=skill_name, take_20=True)
+
+    # Skill check: recognized skill verbs
+    _SKILL_VERBS = (
+        r"search|listen|hide|sneak|climb|swim|jump|balance|tumble|bluff|diplomacy|"
+        r"intimidate|knowledge|spellcraft|disable|pick\s+lock|open\s+lock|"
+        r"move\s+silently|sense\s+motive|gather\s+information"
+    )
+    skill_match = re.match(
+        r"(?P<verb>" + _SKILL_VERBS + r")(?:\s+.*)?$", lower
+    )
+    if skill_match:
+        raw_verb = skill_match.group("verb").strip()
+        skill_name = _normalize_skill(raw_verb)
+        return ParsedCommand(command_type="skill", skill_name=skill_name)
 
     return ParsedCommand(command_type="unknown")
 
@@ -487,6 +559,8 @@ class SessionOrchestrator:
             return self._process_rest(command)
         elif command.command_type == "transition":
             return self._process_transition(command)
+        elif command.command_type == "skill":
+            return self._process_skill(actor_id, command)
 
         return self._build_clarification_result(
             "Unknown command type.", self._get_available_actions()
@@ -770,6 +844,70 @@ class SessionOrchestrator:
         )
 
         return self._narrate_and_output(brief, transition_result.events)
+
+    def _process_skill(self, actor_id: str, command: ParsedCommand) -> TurnResult:
+        """Process an exploration skill check.
+
+        WO-ENGINE-RETRY-002: routes through execute_exploration_skill_check().
+        WO-ENGINE-SKILL-MODIFIER-001: computes real modifier from entity dict.
+
+        Out-of-combat only. Returns failure if active_combat is not None.
+        """
+        if self._world_state.active_combat is not None:
+            return TurnResult(
+                success=False,
+                narration_text="You cannot use exploration skill checks in combat.",
+                clarification_needed=False,
+            )
+
+        skill_name = command.skill_name or "search"
+
+        # WO-ENGINE-SKILL-MODIFIER-001: inline modifier lookup (no private helper imports)
+        from aidm.schemas.skills import SKILLS
+        from aidm.core import play_loop as _pl_module
+        _entity = self._world_state.entities.get(actor_id, {})
+        _skill_def = SKILLS.get(skill_name)
+        if _skill_def is not None:
+            _ability_map = {
+                "str": EF.STR_MOD, "dex": EF.DEX_MOD, "con": EF.CON_MOD,
+                "int": EF.INT_MOD, "wis": EF.WIS_MOD, "cha": EF.CHA_MOD,
+            }
+            _ability_mod = _entity.get(_ability_map.get(_skill_def.key_ability, ""), 0)
+            _ranks = _entity.get(EF.SKILL_RANKS, {}).get(skill_name, 0)
+            _acp = _entity.get(EF.ARMOR_CHECK_PENALTY, 0) if _skill_def.armor_check_penalty else 0
+            modifier = _ability_mod + _ranks - _acp
+        else:
+            modifier = 0  # skill not in registry — fail soft
+
+        success, roll_used, updated_ws, events = _pl_module.execute_exploration_skill_check(
+            world_state=self._world_state,
+            actor_id=actor_id,
+            skill_name=skill_name,
+            dc=command.dc or 15,
+            modifier=modifier,
+            rng=self._rng,
+            take_10=command.take_10,
+            take_20=command.take_20,
+            next_event_id=self._turn_count * 100,
+        )
+        self._world_state = updated_ws
+
+        outcome = "succeeded" if success else "failed"
+        t10_prefix = "Take 10: " if command.take_10 else ""
+        t20_prefix = "Take 20: " if command.take_20 else ""
+        narration_text = f"{t10_prefix}{t20_prefix}{skill_name} check {outcome} (rolled {roll_used})."
+
+        event_dicts = tuple(
+            {"event_id": e.event_id, "event_type": e.event_type,
+             "timestamp": e.timestamp, **e.payload}
+            for e in events
+        )
+
+        return TurnResult(
+            success=True,
+            narration_text=narration_text,
+            events=event_dicts,
+        )
 
     # ------------------------------------------------------------------
     # Scene Management

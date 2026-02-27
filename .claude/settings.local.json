@@ -95,7 +95,8 @@
       "Bash(git -C \"f:/DnD-3.5\" log --all --diff-filter=A --name-only --pretty=format: -- \"Vault/\")",
       "Bash(git checkout:*)",
       "Bash(HTTPS_PROXY=http://127.0.0.1:7890 git push:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "mcp__google-docs__hello"
     ],
     "additionalDirectories": [
       "f:\\DnD-3.5\\docs\\cp19"

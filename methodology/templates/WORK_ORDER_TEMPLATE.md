@@ -50,6 +50,14 @@ See: [Dispatch Self-Containment Pattern](../patterns/DISPATCH_SELF_CONTAINMENT.m
 - Expected: [what passing looks like]
 - Write new test: `test_[description]()` in `tests/test_[module].py`
 
+## Regression
+
+[Standard regression instruction — copy verbatim for batch WOs, adjust for solo WOs]
+
+**Batch WO (preferred):** Run your WO-specific gate only: `pytest tests/test_[wo_id]_gate.py`. File your debrief on that result. A dedicated regression agent runs the full suite after all batch WOs land.
+
+**Solo WO:** Run full suite: `pytest tests/`. Pre-existing failures as of dispatch: [N] — do not treat these as regressions. If the suite produces new failures: fix once, re-run once. If still failing after one fix attempt, record the failure in your debrief and stop. Do not loop.
+
 ## Scope Boundaries
 
 [What NOT to do. Adjacent work that belongs to other work orders. Files the agent must not modify.]

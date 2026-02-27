@@ -13,7 +13,7 @@ Conditions describe mechanical truth but do NOT enforce legality.
 """
 
 from copy import deepcopy
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Tuple
 from aidm.core.state import WorldState
 from aidm.schemas.conditions import ConditionInstance, ConditionModifiers
 from aidm.schemas.entity_fields import EF
@@ -237,3 +237,88 @@ def has_condition(
 
     conditions = entity.get(EF.CONDITIONS, {})
     return condition_type in conditions
+
+
+def tick_conditions(
+    world_state: WorldState,
+    events: List,
+    current_event_id: int,
+    timestamp: float,
+) -> Tuple[WorldState, List, int]:
+    """Decrement duration_rounds on timed conditions; remove expired ones.
+
+    ARCH-TICK-001 two-pass protocol:
+    - Pass 1: Collect conditions that will expire (duration_rounds decrements to <= 0).
+              Decrement in-place on a deep copy of entities for non-expiring timed conditions.
+    - Pass 2: Build new_entities from the deep copy, removing expired conditions,
+              then emit condition_expired events.
+
+    Args:
+        world_state:      Current WorldState (not mutated).
+        events:           Existing event list (extended in-place on the copy returned).
+        current_event_id: Next event ID to use.
+        timestamp:        Timestamp for emitted events.
+
+    Returns:
+        (new_world_state, new_events, new_current_event_id)
+    """
+    from aidm.core.event_log import Event
+
+    # Deep-copy entities so we never mutate the caller's WorldState.
+    entities_copy = deepcopy(world_state.entities)
+
+    # ARCH-TICK-001 Pass 1 — decrement and collect expiries.
+    # expiries: list of (entity_id, cond_type_str, source)
+    expiries: List[Tuple[str, str, str]] = []
+
+    for entity_id, entity in entities_copy.items():
+        conditions = entity.get(EF.CONDITIONS, {})
+        if not conditions:
+            continue
+        for cond_type_str, cond_dict in list(conditions.items()):
+            if not isinstance(cond_dict, dict):
+                continue
+            dur = cond_dict.get("duration_rounds")
+            if dur is None:
+                # Permanent condition — skip.
+                continue
+            # Timed condition — decrement.
+            new_dur = dur - 1
+            if new_dur <= 0:
+                # Mark for removal in Pass 2.
+                source = cond_dict.get("source", "unknown")
+                expiries.append((entity_id, cond_type_str, source))
+            else:
+                # Still alive — update the decremented value in the copy.
+                cond_dict["duration_rounds"] = new_dur
+
+    # ARCH-TICK-001 Pass 2 — remove expired conditions and emit events.
+    new_events = list(events)
+
+    for entity_id, cond_type_str, source in expiries:
+        entity = entities_copy[entity_id]
+        conditions = entity.get(EF.CONDITIONS, {})
+        if cond_type_str in conditions:
+            del conditions[cond_type_str]
+        entity[EF.CONDITIONS] = conditions
+
+        new_events.append(Event(
+            event_id=current_event_id,
+            event_type="condition_expired",
+            timestamp=timestamp,
+            payload={
+                "entity_id": entity_id,
+                "condition_type": cond_type_str,
+                "source": source,
+                "reason": "condition_tick",
+            },
+        ))
+        current_event_id += 1
+
+    new_world_state = WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities_copy,
+        active_combat=world_state.active_combat,
+    )
+
+    return new_world_state, new_events, current_event_id

@@ -6,6 +6,21 @@
 
 ---
 
+## Session: 2026-02-27 — Aldric "Ledger" Forsham (Human Fighter 3 / Expert 3)
+
+| Date | Character | Persona | Reference | Text (summary) | Emotional Target | Result | Notes |
+|------|-----------|---------|-----------|-----------------|-----------------|--------|-------|
+| 2026-02-27 | Ledger | dm_narrator_male | michael_24k | Intro line — "Aldric Forsham. Formerly of the Iron Crest Company..." | confident/measured | fail | signal_reference_michael_24k.wav NOT ON DISK — persona-only fallback fired. Reference files (michael/george/signal_reference_24k) listed in onboarding never deployed. |
+| 2026-02-27 | Ledger | dm_narrator_male | built-in | Intro line (retry) — same text | confident/measured | TBD | Persona-only fallback. First clean test of dm_narrator_male as character lead. |
+| 2026-02-27 | Ledger | heroic | built-in | "Batch G is already done. All four debriefs are filed. What it needs is a verdict, not a re-dispatch." | dramatic/authoritative | pass | Exit 0. Clipping: min=-0.7808, max=1.0044. Slight over-range — may clip on loudspeakers. First heroic test this session. **Operator verdict: "really good voice."** |
+| 2026-02-27 | Ledger | npc_male | built-in | "Still here. Batch L in flight, Batch G waiting on a verdict. What do you need?" | casual/conversational | pass | Exit 0. Clipping: min=-1.0037, max=0.6536. NEW WARNING: "Reference mel length is not equal to 2 * reference token length" — npc_male ref WAV length mismatch. May affect voice quality. |
+
+### Session Findings
+- **`signal_reference_michael_24k.wav` MISSING** — `dm_narrator_male` persona has hardcoded ref path to this file. Not on disk. Error fires ("Reference audio not found") but exit 0 — graceful fallback to built-in. Persona is NOT cloning intended voice; using fallback reference. All three `signal_reference_*` files listed in onboarding doc (michael, george, signal_reference_24k) confirmed absent. Onboarding doc needs correction.
+- **TBD:** Operator verdict on dm_narrator_male built-in reference quality pending.
+
+---
+
 ## Log Format
 
 | Date | Character | Persona | Reference | Text (summary) | Emotional Target | Result | Notes |

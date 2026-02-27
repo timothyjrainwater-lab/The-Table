@@ -395,6 +395,9 @@ class TargetStats:
     spell_resistance: int = 0
     """Spell resistance (0 = none)."""
 
+    is_undead: bool = False
+    """True if entity is undead (positive energy damages, negative heals)."""
+
     def get_save_bonus(self, save_type: SaveType) -> int:
         """Get save bonus for a specific save type."""
         if save_type == SaveType.FORT:
@@ -987,9 +990,14 @@ class SpellResolver:
         caster_level_bonus = min(caster.caster_level, spell.level * 5) if spell.level > 0 else caster.caster_level
         total += caster_level_bonus
 
-        # Cap at max HP
-        max_healing = target.max_hit_points - target.hit_points
-        actual_healing = min(total, max_healing)
+        # WO-ENGINE-HOOLIGAN-TIER-A-001: Positive energy damages undead (PHB p.189)
+        # Return negative value; play_loop applies as damage (no HP cap for damage)
+        if target.is_undead:
+            actual_healing = -total
+        else:
+            # Cap at max HP for living creatures
+            max_healing = target.max_hit_points - target.hit_points
+            actual_healing = min(total, max_healing)
 
         modifiers = [("caster_level", caster_level_bonus)]
 
