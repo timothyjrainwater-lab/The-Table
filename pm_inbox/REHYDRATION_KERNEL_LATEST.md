@@ -215,6 +215,21 @@ All three are correct for their scope. Smite bonuses are NOT in TEMPORARY_MODIFI
 
 **HIDDEN DM KERNEL REGISTER (docs/design/REGISTER-HIDDEN-DM-KERNELS-001.md):** 10 invisible DM functions the engine must implement beyond PHB mechanics. Coverage map = mechanics implemented. Kernel register = assumptions implemented. Both required. When a WO debrief Pass 3 touches a kernel (lifecycle, containment, constraints, epistemic state, etc.), flag it in the register. Cross-pollination is mandatory — builders add canary examples to the relevant kernel entry. Kernel-01 (Entity Lifecycle Ontology) CRITICAL. Full list in the register.
 
+**TWO-SOURCE AUTHORITY MODEL (No-Opaque-DM Doctrine — 2026-02-12, BINDING):**
+Every mechanical decision in AIDM traces to exactly one of:
+- **RAW** — Rules As Written, cited to specific PHB/DMG/MM page number
+- **HOUSE_POLICY** — Explicit, versioned, deterministic, logged, player-inspectable
+
+No third source. Spark cannot originate mechanical facts. Box cannot silently assume. When Box encounters a question with no RAW rule and no declared House Policy: action refused, `UNSPECIFIED_POLICY_HIT` logged, gap enters policy backlog — never guesses.
+
+**PM dispatch obligation:** Every WO touching a mechanic with known RAW ambiguity (bonus stacking, multiplier interactions, maneuver resolution, spell components, AoO triggers, action economy) must include an Authority Tag in the Contract Spec:
+- **RAW:** cite PHB/DMG page number
+- **HOUSE_POLICY:** cite rationale, confirm with Thunder before dispatch
+- **If uncertain:** consult before drafting the spec:
+  - `docs/research/findings/SKIP_WILLIAMS_DESIGNER_INTENT.md` (designer intent, Priority 5 in authority hierarchy)
+  - `docs/specs/RQ-BOX-002_RAW_SILENCE_CATALOG.md` (systematic RAW silence catalog)
+  - `pm_inbox/reviewed/PO_BRIEF_RAW_GAPS_RESEARCH_SPRINT.md` (doctrine source)
+
 ---
 
 ## Process (compressed)
@@ -241,6 +256,8 @@ All three are correct for their scope. Smite bonuses are NOT in TEMPORARY_MODIFI
 **Communication:** Plain language. Lead with conclusions. Verdicts read like decisions. Clickable links in briefings.
 **Escalation ladder:** Tool fix → process tweak → documentation → doctrine.
 **Inbox hygiene:** 10-file root cap. Archive-on-verdict. Archive-on-triage. Naming convention enforced. See `pm_inbox/README.md`.
+
+**Bone/Muscle/Skin Dispatch Methodology (LOCKED — 2026-02-14):** Engine targets RAW FULL implementation for all 3.5e mechanics. BONE = exact rulebook numbers (PHB/SRD tables). MUSCLE = exact formulas combining them. Before routing any engine WO: (1) check `docs/RAW_FIDELITY_AUDIT.md` for the mechanic's current status (FULL / DEGRADED / DEFERRED / FORBIDDEN), (2) reference the relevant CP decision document (docs/CP10–CP20+) for prior design decisions from whiteboard sessions. Every WO delivery footer must cite PHB/SRD page. On ACCEPTED: builder updates RAW_FIDELITY_AUDIT.md row to FULL. DEGRADED status requires explicit Thunder approval and CP reference. Authority chain: PHB/SRD 3.5e → PHB errata → Pathfinder SRD corrections (where 3.5e has documented flaws) → CP decision record. No silent assumptions — the PA-2H case (1.5× vs PHB 2×) is the canonical failure mode this prevents.
 
 ---
 
@@ -300,6 +317,16 @@ Lessons extracted from real failures. Each entry: what happened, root cause, rul
 *Root cause:* `git commit` (no `-a` flag) commits ALL staged content, not just the files explicitly added in the most recent `git add`. A parallel builder staging without committing creates a shared staging area trap. PM had no `git status` check in the pre-commit sequence.
 
 *Rule:* **PM must run `git status` before every commit. If any engine files appear in the staging area, do NOT proceed. Signal Chisel to commit their staged changes first, then PM commits separately. Never proceed when engine files are staged.**
+
+---
+
+**ML-006 — Missing RAW/HOUSE_POLICY tagging lets spec errors ship as engine behavior (2026-02-27)**
+
+*What happened:* WO-ENGINE-POWER-ATTACK-001 dispatched with 2H Power Attack at 1.5× multiplier — widespread community convention. PHB p.98 explicitly states 2× for two-handed weapons. FINDING-ENGINE-PA-2H-PHB-DEVIATION-001 was raised at debrief, not at spec stage. The engine now implements a deviation from RAW with no HOUSE_POLICY tag — neither RAW-correct nor declared. Thunder decision still pending.
+
+*Root cause:* The WO Contract Spec had no obligation to declare RAW authority or HOUSE_POLICY status. PM did not consult the RAW Silence Catalog or designer intent documents before drafting the spec. A silent deviation shipped as if it were RAW.
+
+*Rule:* **Every WO touching a mechanic with community dispute (multipliers, bonus stacking, maneuver resolution, AoO triggers, action economy overlaps) must include an Authority Tag in the Contract Spec.** RAW: cite page. HOUSE_POLICY: cite rationale + Thunder sign-off before dispatch. Uncertain: consult `docs/research/findings/SKIP_WILLIAMS_DESIGNER_INTENT.md` and `docs/specs/RQ-BOX-002_RAW_SILENCE_CATALOG.md` before the spec is written. The two-source authority model is not optional — it is the No-Opaque-DM Doctrine (BINDING since 2026-02-12).
 
 ---
 
