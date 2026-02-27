@@ -676,6 +676,44 @@ def resolve_trip(
         ))
         current_event_id += 1
 
+        # WO-ENGINE-IMPROVED-TRIP-001: Free attack after successful trip (PHB p.96)
+        # Improved Trip: "If you trip an opponent in melee combat, you immediately get
+        # a melee attack against that opponent as if you hadn't used your attack for
+        # the trip attempt." PHB p.96.
+        attacker = world_state.entities.get(attacker_id)
+        if attacker is not None and "improved_trip" in attacker.get(EF.FEATS, []):
+            _weapon_dict = attacker.get(EF.WEAPON)
+            if _weapon_dict is not None:
+                from aidm.schemas.attack import Weapon, AttackIntent
+                from aidm.core.attack_resolver import resolve_attack as _resolve_attack_free
+                _weapon_fields = {k: v for k, v in _weapon_dict.items()
+                                  if k in Weapon.__dataclass_fields__}
+                _free_weapon = Weapon(**_weapon_fields)
+                _free_attack_bonus = attacker.get(EF.ATTACK_BONUS, attacker.get(EF.BAB, 0))
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="improved_trip_free_attack",
+                    timestamp=current_timestamp + 0.01,
+                    payload={"attacker_id": attacker_id, "target_id": target_id},
+                    citations=[{"source_id": "681f92bc94ff", "page": 96}],
+                ))
+                current_event_id += 1
+                _free_intent = AttackIntent(
+                    attacker_id=attacker_id,
+                    target_id=target_id,
+                    weapon=_free_weapon,
+                    attack_bonus=_free_attack_bonus,
+                )
+                _free_events = _resolve_attack_free(
+                    intent=_free_intent,
+                    world_state=world_state,
+                    rng=rng,
+                    next_event_id=current_event_id,
+                    timestamp=current_timestamp + 0.02,
+                )
+                events.extend(_free_events)
+                current_event_id += len(_free_events)
+
         result = ManeuverResult(
             maneuver_type="trip",
             success=True,

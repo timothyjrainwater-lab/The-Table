@@ -2269,6 +2269,16 @@ def execute_turn(
             _ib_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
             if "improved_bull_rush" in _ib_feats:
                 aoo_triggers = []
+        # WO-ENGINE-IMPROVED-TRIP-001: Improved Trip suppresses AoO on trip attempt (PHB p.96)
+        elif isinstance(combat_intent, TripIntent):
+            _it_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
+            if "improved_trip" in _it_feats:
+                aoo_triggers = []
+        # WO-ENGINE-IMPROVED-TRIP-001: Improved Sunder suppresses AoO on sunder attempt (PHB p.96)
+        elif isinstance(combat_intent, SunderIntent):
+            _is_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
+            if "improved_sunder" in _is_feats:
+                aoo_triggers = []
         # WO-ENGINE-IMPROVED-OVERRUN-001: Improved Overrun suppresses AoO from target (PHB p.96)
         elif isinstance(combat_intent, OverrunIntent):
             _io_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
