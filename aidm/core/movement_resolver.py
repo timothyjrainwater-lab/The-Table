@@ -244,9 +244,10 @@ def build_full_move_intent(
     _fast_movement = entity.get(EF.FAST_MOVEMENT_BONUS, 0)
     if _fast_movement > 0:
         _armor_type = entity.get(EF.ARMOR_TYPE, "none")
-        # WO-ENGINE-ENCUMBRANCE-WIRE-001: Fast Movement also suppressed by medium/heavy load (PHB p.26)
+        # WO-ENGINE-ENCUMBRANCE-WIRE-001: Fast Movement suppressed by heavy load only (PHB p.25)
+        # WO-ENGINE-FAST-MOVEMENT-LOAD-FIX-001: medium load is fine — only heavy/overloaded blocks
         _enc_load = entity.get(EF.ENCUMBRANCE_LOAD, "light")
-        if _armor_type != "heavy" and _enc_load not in ("medium", "heavy", "overloaded"):
+        if _armor_type != "heavy" and _enc_load not in ("heavy", "overloaded"):
             speed_ft += _fast_movement
 
     enemy_squares, _ = _get_occupied_squares(world_state, actor_id)
