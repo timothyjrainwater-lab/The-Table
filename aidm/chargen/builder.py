@@ -982,6 +982,20 @@ def build_character(
         entity[EF.HP_MAX] = entity.get(EF.HP_MAX, 0) + _toughness_hp
         entity[EF.HP_CURRENT] = entity.get(EF.HP_CURRENT, 0) + _toughness_hp
 
+    # WO-ENGINE-BARBARIAN-DR-001: Barbarian DR/— (PHB p.26)
+    # Scales: 7=1/—, 10=2/—, 13=3/—, 16=4/—, 19=5/—
+    _barb_dr_table = [(19, 5), (16, 4), (13, 3), (10, 2), (7, 1)]
+    for _threshold, _dr_value in _barb_dr_table:
+        if _barbarian_level >= _threshold:
+            _existing_dr = entity.get(EF.DAMAGE_REDUCTIONS, [])
+            _existing_dash = next((d for d in _existing_dr if d.get("bypass") == "-"), None)
+            if _existing_dash is None or _existing_dash["amount"] < _dr_value:
+                entity[EF.DAMAGE_REDUCTIONS] = (
+                    [d for d in _existing_dr if d.get("bypass") != "-"]
+                    + [{"amount": _dr_value, "bypass": "-"}]
+                )
+            break
+
     return entity
 
 
@@ -1183,6 +1197,19 @@ def _build_multiclass_character(
         _toughness_hp = _toughness_count * 3
         entity[EF.HP_MAX] = entity.get(EF.HP_MAX, 0) + _toughness_hp
         entity[EF.HP_CURRENT] = entity.get(EF.HP_CURRENT, 0) + _toughness_hp
+
+    # WO-ENGINE-BARBARIAN-DR-001: Barbarian DR/— (PHB p.26)
+    _barb_dr_table = [(19, 5), (16, 4), (13, 3), (10, 2), (7, 1)]
+    for _threshold, _dr_value in _barb_dr_table:
+        if _barbarian_level >= _threshold:
+            _existing_dr = entity.get(EF.DAMAGE_REDUCTIONS, [])
+            _existing_dash = next((d for d in _existing_dr if d.get("bypass") == "-"), None)
+            if _existing_dash is None or _existing_dash["amount"] < _dr_value:
+                entity[EF.DAMAGE_REDUCTIONS] = (
+                    [d for d in _existing_dr if d.get("bypass") != "-"]
+                    + [{"amount": _dr_value, "bypass": "-"}]
+                )
+            break
 
     return entity
 
