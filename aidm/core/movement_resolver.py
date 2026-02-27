@@ -227,6 +227,16 @@ def build_full_move_intent(
 
     speed_ft = entity.get(EF.BASE_SPEED, 30)
 
+    # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: Fast Movement (PHB p.26)
+    # +10 ft for barbarians; blocked by heavy armor only (light/medium OK per PHB p.26)
+    _fast_movement = entity.get(EF.FAST_MOVEMENT_BONUS, 0)
+    if _fast_movement > 0:
+        _armor_type = entity.get(EF.ARMOR_TYPE, "none")
+        # WO-ENGINE-ENCUMBRANCE-WIRE-001: Fast Movement also suppressed by medium/heavy load (PHB p.26)
+        _enc_load = entity.get(EF.ENCUMBRANCE_LOAD, "light")
+        if _armor_type != "heavy" and _enc_load not in ("medium", "heavy", "overloaded"):
+            speed_ft += _fast_movement
+
     enemy_squares, _ = _get_occupied_squares(world_state, actor_id)
 
     # Check if destination is enemy-occupied

@@ -426,9 +426,10 @@ def resolve_attack(
     _monk_level_target = target.get(EF.CLASS_LEVELS, {}).get("monk", 0)
     if _monk_level_target >= 1:
         _armor_bonus = target.get(EF.ARMOR_AC_BONUS, 0)
-        if _armor_bonus == 0:
+        # WO-ENGINE-ENCUMBRANCE-WIRE-001: Monk WIS AC also suppressed by medium+ load (PHB p.41)
+        _monk_enc_load = target.get(EF.ENCUMBRANCE_LOAD, "light")
+        if _armor_bonus == 0 and _monk_enc_load == "light":
             _monk_wis_ac = target.get(EF.MONK_WIS_AC_BONUS, 0)
-            # Note: encumbrance (heavy load) check deferred — catalog not available in this call path
 
     # WO-ENGINE-DEFLECTION-BONUS-001: Deflection bonus to AC (PHB p.136)
     # Applies vs ALL attacks including touch attacks (unlike armor/shield which touch bypasses).
