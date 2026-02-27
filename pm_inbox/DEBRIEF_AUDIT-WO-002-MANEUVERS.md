@@ -37,7 +37,28 @@ AUDIT-WO-002 audited 18 mechanics across maneuvers (Domain C) and natural attack
 
 ---
 
-## Pass 3: Retrospective
+## Pass 2.5: Fidelity Verification
+
+- **Authority Tag honored?** YES — all mechanics checked against PHB/MM RAW
+- **PHB/SRD citations checked against code?** YES — PHB p.95/96/155/157/158, MM p.303/312
+- **RAW_FIDELITY_AUDIT.md updated?** YES — Section 13, 18 rows (8 FULL, 10 DEGRADED)
+- **Deviation found?** YES — 8 new findings (4 MEDIUM, 4 LOW) + 1 pre-existing
+
+---
+
+## Pass 3: Parallel Path / Drift Check
+
+- **Parallel paths checked:**
+  - `maneuver_resolver.py` — singular path for all maneuver resolution (bull rush, trip, disarm, grapple, sunder, overrun). No parallel implementation. CLEAN.
+  - `natural_attack_resolver.py` — delegates to `attack_resolver.resolve_attack()` via deferred import. Per Resolver Parity Map (BUILDER_FIELD_MANUAL.md #34): marked **YES / Clean**. Confirmed — no independent attack roll path.
+  - `play_loop.py` AoO suppression chain — singular path for all AoO suppression. CLEAN.
+  - `action_economy.py` — singular action type registry. CLEAN.
+- **Parity result:** Clean. No drift risk in audited domain.
+- **Delegation status:** natural_attack_resolver delegates correctly. All maneuver types resolve through a single `_roll_opposed_check()` function — no per-maneuver duplication.
+
+---
+
+## Pass 4: Retrospective
 
 ### Out-of-Scope Findings
 

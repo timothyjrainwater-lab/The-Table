@@ -236,58 +236,63 @@ This audit confirms:
 
 ## 15. CLASS FEATURES — Divine
 
-*Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-004.*
+*Audited 2026-02-27 — AUDIT-WO-004. Inspector: builder seat (Sonnet).*
 
 | Mechanic | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
-| Paladin Divine Grace — level threshold | PHB p.43 | PENDING | Applies at paladin level ≥ 2 — verify exact level |
-| Paladin Divine Grace — CHA to saves | PHB p.43 | PENDING | All three saves, full CHA mod |
-| Paladin Lay on Hands — pool formula | PHB p.44 | PENDING | Paladin level × CHA mod HP/day |
-| Paladin Smite Evil — bonus formula | PHB p.44 | PENDING | +CHA to attack, +level to damage |
-| Paladin Smite Evil — uses/day | PHB p.44 | PENDING | 1/day at 1st, +1 per 5 levels |
-| Paladin Divine Health — immunity | PHB p.44 | PENDING | Immune to all disease including magical |
-| Cleric Turn Undead — table formula | PHB p.159 | PENDING | Full table and 2d6 HD formula |
-| Cleric Spontaneous — redirect rules | PHB p.32 | PENDING | Cleric only; same level or lower; clears prepared slot |
-| Cleric Extra Turning — uses | PHB p.93 | PENDING | +4 turning attempts/day; stackable? |
-| Cleric Improved Turning — effective level | PHB p.95 | PENDING | +1 effective turning level |
+| Paladin Divine Grace — level threshold | PHB p.43 | FULL | `paladin_level >= 2` — save_resolver.py:137-144 |
+| Paladin Divine Grace — CHA to saves | PHB p.43 | FULL | Full CHA mod; applied to all three saves — save_resolver.py:161 |
+| Paladin Lay on Hands — pool formula | PHB p.44 | FULL | `paladin_level × CHA_mod` (min 0) — builder.py:947-950 |
+| Paladin Smite Evil — bonus formula | PHB p.44 | FULL | `+CHA atk, +level dmg`; conditional on `target_is_evil` — smite_evil_resolver.py:86-124 |
+| Paladin Smite Evil — uses/day | PHB p.44 | DEGRADED | Level progression off: code L1/5/8/10/12 vs PHB L1/6/11/16/21 — FINDING-AUDIT-SMITE-USES-001 HIGH |
+| Paladin Divine Health — immunity | PHB p.44 | FULL | `paladin_level >= 3` disease immunity — poison_disease_resolver.py:308-324 |
+| Cleric Turn Undead — check roll | PHB p.159 | DEGRADED | Turn check uses 2d6+level+CHA; PHB p.159 specifies 1d20+CHA for check — FINDING-AUDIT-TURN-CHECK-001 HIGH |
+| Cleric Turn Undead — damage roll | PHB p.160 | FULL | Damage = 2d6×10 HD budget (via `_roll_hp_budget`) — turn_undead_resolver.py:72-77 |
+| Cleric Spontaneous — redirect rules | PHB p.32 | DEGRADED | Strict level-to-level mapping only; PHB allows same-or-lower slot — FINDING-AUDIT-SPONT-SLOT-001 LOW |
+| Cleric Extra Turning — uses | PHB p.93 | FULL | +4 per feat, stackable via `.count()` — builder.py:999-1008 |
+| Cleric Improved Turning — effective level | PHB p.95 | FULL | `cleric_level += 1` before classification — turn_undead_resolver.py:142-154 |
 
 ---
 
 ## 16. CLASS FEATURES — Arcane / Monk / Bard
 
-*Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-005.*
+*Audited 2026-02-27 — AUDIT-WO-005. Inspector: builder seat (Sonnet).*
 
 | Mechanic | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
-| Arcane Spell Failure — % by armor | PHB Table 7-6 | PENDING | Values per armor type; V-only bypass |
-| Evasion — level thresholds | PHB p.51 | PENDING | Rogue≥2, ranger≥9, barbarian? — verify |
-| Improved Evasion — fail-half | PHB p.52 | PENDING | Still half on failed Reflex |
-| Monk WIS to AC — level threshold | PHB p.41 | PENDING | WIS mod to AC; when does it start? |
-| Monk WIS to AC — max WIS | PHB p.41 | PENDING | Any armor restriction cap? |
-| Monk Unarmed — damage table | PHB p.40 | PENDING | Full progression table by level |
-| Bardic Music — uses/day | PHB p.29 | PENDING | Bard level + CHA mod? verify formula |
-| Bardic Inspire Courage — bonus | PHB p.29 | PENDING | +1 at 1st, +2 at 8th, +3 at 14th, +4 at 20th |
-| Racial Saves — dwarf | PHB p.15 | PENDING | +2 vs spells and spell-like abilities |
-| Racial Saves — halfling | PHB p.20 | PENDING | +1 all saves |
-| Racial Illusion Save — gnome | PHB p.17 | PENDING | +2 vs illusion (FINDING-ENGINE-GNOME-ILLUSION-SAVE-001 OPEN) |
+| Arcane Spell Failure — % by armor | PHB Table 7-6 | FULL | All armor ASF values match PHB exactly — equipment_catalog.json; applied in play_loop.py:976-1012 |
+| Evasion — rogue level threshold | PHB p.51 | FULL | `rogue_level >= 2` — builder.py:960-967 |
+| Evasion — monk level threshold | PHB p.41 | FULL | `monk_level >= 2` — builder.py:960-967 |
+| Evasion — ranger level threshold | PHB p.56 | FULL | `ranger_level >= 9` — builder.py:960-967 |
+| Improved Evasion — fail-half | PHB p.52 | FULL | Success=0 dmg, failed Reflex=half dmg — spell_resolver.py:920-927 |
+| Monk WIS to AC — level threshold | PHB p.41 | FULL | Starts at monk level 1 — builder.py:241-246 |
+| Monk WIS to AC — armor restriction | PHB p.41 | FULL | Lost in armor; `_armor in ("none","light")` guard pattern — builder.py:1214 |
+| Monk Unarmed — damage table | PHB Table 3-10 | FULL | L1=1d6, L4=1d8, L8=1d10, L12=2d6, L16=2d8, L20=2d10 — class_definitions.py:33-54 |
+| Bardic Music — uses/day | PHB p.29 | FULL | `max(1, bard_level + CHA_mod)` — builder.py:953-954 |
+| Bardic Inspire Courage — bonus | PHB p.29 | FULL | L1-7:+1, L8-13:+2, L14-19:+3, L20:+4 — bardic_music_resolver.py:51-62 |
+| Racial Saves — dwarf | PHB p.15 | FULL | +2 vs poison (`EF.SAVE_BONUS_POISON`), +2 vs spells (`EF.SAVE_BONUS_SPELLS`) — races.py:294-295, save_resolver.py:153-156 |
+| Racial Saves — halfling | PHB p.20 | FULL | +1 all saves (`EF.RACIAL_SAVE_BONUS`) — races.py:309, save_resolver.py:150 |
+| Racial Illusion Save — gnome | PHB p.17 | DEGRADED | Field `spell_resistance_illusion=2` set in races.py:315 but NOT applied in save checks — FINDING-ENGINE-GNOME-ILLUSION-SAVE-001 LOW OPEN (requires spell school in SaveContext) |
 
 ---
 
 ## 17. SPELLCASTING CONSTRAINTS
 
-*Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-005.*
+*Audited 2026-02-27 — AUDIT-WO-005. Inspector: builder seat (Sonnet).*
 
 | Mechanic | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
-| Concentration DC — vigorous motion | PHB p.171 | PENDING | DC = 10 + spell level |
-| Concentration DC — violent weather | PHB p.172 | PENDING | DC = 10 + spell level |
-| Concentration DC — taking damage | PHB p.171 | PENDING | DC = 10 + damage dealt + spell level |
-| Spell Resistance check — no auto-fail | PHB p.172 | PENDING | Unlike saves, no auto-fail on 1 |
-| Spell Penetration — SP/GSP bonuses | PHB p.100 | PENDING | +2 each = +4 total |
-| Metamagic slot costs | PHB p.88–99 | PENDING | Full table by feat |
-| Silent Spell — verbal bypass | PHB p.100 | PENDING | +1 slot, no verbal component |
-| Still Spell — somatic bypass | PHB p.101 | PENDING | +1 slot, no somatic component |
-| Spell Focus DC | PHB p.100 | PENDING | +1 / +2 Greater to school DC |
+| Concentration DC — vigorous motion | PHB p.171 | FULL | DC = 10 + spell_level — play_loop.py:729 |
+| Concentration DC — violent motion | PHB p.172 | FULL | DC = 15 + spell_level — play_loop.py:729 |
+| Concentration DC — taking damage | PHB p.171 | FULL | DC = 10 + damage_taken + spell_level — play_loop.py:774 |
+| Spell Resistance check — no auto-fail | PHB p.172 | FULL | Direct d20+bonus vs SR, no nat-1 auto-fail — save_resolver.py:210-223 |
+| Spell Penetration — SP bonus | PHB p.100 | FULL | +2 to caster level vs SR — save_resolver.py:216-217 |
+| Spell Penetration — GSP bonus | PHB p.100 | FULL | Additional +2 (total +4 with SP) — save_resolver.py:218-219 |
+| Metamagic slot costs | PHB p.88–99 | FULL | empower+2, extend+1, maximize+3, quicken+4, silent+1, still+1 — metamagic_resolver.py:18-26 |
+| Silent Spell — verbal bypass | PHB p.100 | FULL | +1 slot cost, verbal component suppressed — metamagic_resolver.py:24, play_loop.py:587-588 |
+| Still Spell — somatic bypass + ASF | PHB p.101 | FULL | +1 slot cost, somatic suppressed, ASF bypassed — metamagic_resolver.py:25, play_loop.py:618,986 |
+| Spell Focus DC | PHB p.100 | FULL | +1 per matching `spell_focus_{school}` feat — play_loop.py:909-912; spell_resolver.py:447 |
+| Greater Spell Focus DC | PHB p.100 | FULL | +1 additional per `greater_spell_focus_{school}` — same site, stacks correctly |
 
 ---
 
@@ -310,30 +315,34 @@ This audit confirms:
 
 ## 19. CONDITIONS (IMPLEMENTED BATCH A+)
 
-*Added 2026-02-27 — audit sprint placeholder. Rows verified or PENDING.*
+*Audited 2026-02-27 — AUDIT-WO-006. Inspector: builder seat (Sonnet). Prone/Stunned carried forward from CP-16.*
 
 | Condition | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
 | Prone | PHB p.311 | FULL | CP-16 (carried forward) |
 | Stunned | PHB p.315 | FULL | CP-16 (carried forward) |
-| Dazzled | PHB p.307 | PENDING | -1 attack; any other effects? |
-| Cowering | PHB p.307 | PENDING | Lose DEX; no actions |
-| Fascinated | PHB p.308 | PENDING | No actions; -4 perception |
-| Staggered | PHB p.314 | PENDING | Single move or standard per round |
-| Concentration check (damage) | PHB p.171 | PENDING | See spellcasting constraints above |
+| Dazzled | PHB p.307 | FULL | -1 attack; Spot penalty documented in notes — conditions.py:666-686 |
+| Cowering | PHB p.307 | FULL | -2 AC, loses DEX to AC, no actions — conditions.py:689-715 |
+| Fascinated | PHB p.308 | DEGRADED | No-actions enforced; -4 reactive skill penalty (Spot/Listen) NOT wired — FINDING-ENGINE-FASCINATED-SKILL-PENALTY-001 LOW OPEN |
+| Staggered | PHB p.314 | FULL | One move or standard per round; action economy enforced — conditions.py |
 
 ---
 
 ## 20. DATA LAYER
 
-*Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-006.*
+*Audited 2026-02-27 — AUDIT-WO-006 spot-check. Inspector: builder seat (Sonnet).*
 
 | Dataset | Source | Status | Notes |
 |---------|--------|--------|-------|
-| Feat prerequisites (221 feats) | PHB feats chapter | PENDING | From PCGen LST — spot check for known feats |
-| Equipment stats (weapons/armor) | PHB Table 7-4/7-6 | PENDING | ASF%, damage, weight from OSS data |
-| Spell data (~350 spells) | PHB spells | PENDING | From Obsidian SRD — components, DCs, durations |
-| Class BAB/save tables | PHB class chapters | PENDING | From PCGen class tables — spot check |
+| Feat prerequisites — Power Attack | PHB p.89 | DEGRADED | Code adds STR 13 req; PHB only requires BAB +1 — FINDING-AUDIT-FEAT-PREREQ-001 LOW |
+| Feat prerequisites — Cleave | PHB p.91 | DEGRADED | Code omits BAB +1 prereq; PHB requires STR 13 + Power Attack + BAB +1 — FINDING-AUDIT-FEAT-PREREQ-001 LOW |
+| Feat prerequisites — Great Cleave | PHB p.93 | FULL | STR 13, BAB +4, Cleave, Power Attack — matches PHB |
+| Feat prerequisites — Improved Trip | PHB p.96 | FULL | INT 13, Combat Expertise — matches PHB |
+| Feat prerequisites — Weapon Focus | PHB p.102 | DEGRADED | Code omits proficiency req; PHB requires weapon proficiency + BAB +1 — FINDING-AUDIT-FEAT-PREREQ-001 LOW |
+| Feat prerequisites — Weapon Specialization | PHB p.102 | FULL | Weapon Focus (same) + Fighter 4 — matches PHB |
+| Equipment ASF values | PHB Table 7-6 p.123 | FULL | Chain shirt 20%, chainmail 30%, full plate 35% all verified — equipment_catalog.json |
+| Spell data (~350 spells) | PHB spells | PENDING | OSS data batch in progress — not yet spot-checked |
+| Class BAB/save tables | PHB class chapters | PENDING | From PCGen class tables — not yet spot-checked |
 
 This document must be updated **whenever a CP closes**.
 
