@@ -49,6 +49,8 @@ from aidm.chargen.spellcasting import (
 
 # ---------------------------------------------------------------------------
 # Equipment catalog helpers (WO-CHARGEN-EQUIPMENT-001) — read-only
+# Canonical runtime source for equipment data (armor, weapons, gear).
+# aidm/data/equipment_definitions.py was deleted 2026-02-27 (no runtime consumer — Thunder Option B).
 # ---------------------------------------------------------------------------
 
 _CATALOG_PATH = os.path.join(
@@ -801,6 +803,8 @@ def build_character(
             skill_ranks[skill_id] = actual_ranks
 
     # --- Step 8: Feats ---
+    # Canonical runtime source for feat data: feat keys stored directly in EF.FEATS list.
+    # aidm/data/feat_definitions.py was deleted 2026-02-27 (no runtime consumer — Thunder Option B).
     feat_slot_count = _feat_slots_at_level(level, race)
     feats = []
     if feat_choices:
@@ -1261,6 +1265,8 @@ def _build_multiclass_character(
 # Level-Up System (WO-CHARGEN-PHASE3-LEVELUP)
 # ---------------------------------------------------------------------------
 
+# Canonical runtime source for class feature and class table data.
+# aidm/data/class_definitions.py was deleted 2026-02-27 (no runtime consumer — Thunder Option B).
 # Per-class features unlocked at each class level (PHB Chapter 3).
 # Only levels with new features are listed — missing levels grant nothing.
 _CLASS_FEATURES: Dict[str, Dict[int, List[str]]] = {
