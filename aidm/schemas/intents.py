@@ -1080,6 +1080,66 @@ class StandIntent:
         return cls(actor_id=data["actor_id"])
 
 
+@dataclass
+class ImmediateActionIntent:
+    """Intent to take an immediate action (PHB p.127).
+
+    Once-per-round action that can be taken on any turn (including opponents').
+    Using an immediate action burns the NEXT TURN's swift action slot.
+    Cannot use an immediate action if you already used your swift action this turn.
+
+    WO-ENGINE-IMMEDIATE-ACTION-001.
+
+    FINDING-ENGINE-IMMEDIATE-INTERRUPT-001: PHB allows immediate actions between
+    turns (interrupting another actor). The engine only models immediate actions
+    on the actor's OWN turn. The between-turn interrupt window is an architectural
+    gap deferred to a future WO.
+    """
+
+    type: Literal["immediate_action"] = "immediate_action"
+    actor_id: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {"type": self.type, "actor_id": self.actor_id}
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "ImmediateActionIntent":
+        if data.get("type") != "immediate_action":
+            raise IntentParseError(f"Expected type 'immediate_action', got '{data.get('type')}'")
+        return cls(actor_id=data["actor_id"])
+
+
+@dataclass
+class RunIntent:
+    """Intent to take the Run full-round action (PHB p.144).
+
+    Full-round action. Character moves at ×4 base speed (×5 with Run feat).
+    Applies RUNNING condition (loses DEX to AC until start of next action).
+    Requires straight-line movement — engine does not enforce terrain path.
+
+    Guard: STAGGERED actors cannot run (full-round action blocked by staggered guard).
+
+    WO-ENGINE-RUN-ACTION-001.
+
+    FINDING-ENGINE-RUN-FEAT-001: Run feat increases multiplier to ×5 and removes
+    DEX-to-AC penalty. Baseline only here (×4, DEX penalty). Deferred.
+    FINDING-ENGINE-RUN-STRAIGHT-LINE-001: PHB requires straight line. Engine does
+    not model terrain paths. Known architectural gap.
+    """
+
+    type: Literal["run"] = "run"
+    actor_id: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {"type": self.type, "actor_id": self.actor_id}
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "RunIntent":
+        if data.get("type") != "run":
+            raise IntentParseError(f"Expected type 'run', got '{data.get('type')}'")
+        return cls(actor_id=data["actor_id"])
+
+
 # Type alias for all intent types
 Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent |
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
@@ -1087,7 +1147,8 @@ Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | Rest
           TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
           RageIntent | SmiteEvilIntent | LayOnHandsIntent | BardicMusicIntent | WildShapeIntent |
           RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
-          DemoralizeIntent | CalledShotIntent | StandIntent)
+          DemoralizeIntent | CalledShotIntent | StandIntent |
+          ImmediateActionIntent | RunIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -1165,5 +1226,9 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return CalledShotIntent.from_dict(data)
     elif intent_type == "stand":
         return StandIntent.from_dict(data)
+    elif intent_type == "immediate_action":
+        return ImmediateActionIntent.from_dict(data)
+    elif intent_type == "run":
+        return RunIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

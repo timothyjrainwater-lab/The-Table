@@ -58,6 +58,9 @@ class ConditionType(str, Enum):
     COWERING = "cowering"       # Frozen in fear: no actions, -2 AC, loses Dex to AC (PHB p.309)
     FASCINATED = "fascinated"   # Entranced: no actions, -4 reactive skill checks (PHB p.310)
 
+    # WO-ENGINE-RUN-ACTION-001
+    RUNNING = "running"         # Running: loses DEX to AC until start of next turn (PHB p.144)
+
 
 @dataclass
 class ConditionModifiers:
@@ -743,4 +746,32 @@ def create_fascinated_condition(source: str, applied_at_event_id: int) -> Condit
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Fascinated: entranced. No actions, -4 reactive skill checks (PHB p.310)"
+    )
+
+
+def create_running_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Running condition instance.
+
+    PHB p.144: A running character loses their Dexterity bonus to Armor Class
+    until the start of their next action. Run is a full-round action granting ×4
+    movement speed (×5 with the Run feat — deferred).
+
+    WO-ENGINE-RUN-ACTION-001:
+    - loses_dex_to_ac: True (PHB p.144 — attacker uses flat-footed AC)
+    - No numeric AC modifier (Dex bonus is entity-specific)
+    - No duration_rounds — cleared explicitly at start of actor's next turn
+      (same pattern as charge_ac: expires at start of next actor turn, NOT via tick)
+
+    FINDING-ENGINE-RUN-FEAT-001: Run feat removes the DEX-to-AC penalty and
+    increases multiplier to ×5. This WO implements baseline only (×4, DEX penalty).
+    """
+    return ConditionInstance(
+        condition_type=ConditionType.RUNNING,
+        source=source,
+        modifiers=ConditionModifiers(
+            loses_dex_to_ac=True,  # Loses Dex bonus to AC while running (PHB p.144)
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Running: loses Dex bonus to AC until start of next turn (PHB p.144)"
+        # No duration_rounds — cleared at start of actor's next turn (like charge_ac pattern)
     )

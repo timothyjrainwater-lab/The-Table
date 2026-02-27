@@ -4,6 +4,7 @@ Implements per-round action budget tracking per PHB p.127:
 - 1 standard action per round (attack, cast spell, etc.)
 - 1 move action per round (move speed, draw weapon, etc.)
 - 1 swift action per round (quickened spells, some class features)
+- 1 immediate action per round (can be taken out of turn; burns NEXT turn's swift)
 - Unlimited free actions
 - 1 full-round action (uses both standard + move slots)
 - 5-foot step (free but mutually exclusive with move action)
@@ -46,6 +47,11 @@ class ActionBudget:
     five_foot_step_used: bool = False
     """5-foot step (free action, mutually exclusive with move action)."""
 
+    immediate_used: bool = False
+    """Immediate action slot (PHB p.127). Once per round, can be taken on any turn.
+    Using an immediate action burns the NEXT TURN's swift action slot.
+    Cannot use immediate if swift already used this turn."""
+
     def can_use(self, action_type: str) -> bool:
         """Return True if the action_type slot is still available.
 
@@ -64,6 +70,9 @@ class ActionBudget:
             return not self.move_used and not self.full_round_used and not self.five_foot_step_used
         if action_type == "swift":
             return not self.swift_used
+        if action_type == "immediate":
+            # Cannot use immediate if swift already used this turn (PHB p.127)
+            return not self.immediate_used and not self.swift_used
         if action_type == "full_round":
             return not self.standard_used and not self.move_used and not self.full_round_used
         if action_type == "five_foot_step":
@@ -85,6 +94,9 @@ class ActionBudget:
             self.move_used = True
         elif action_type == "swift":
             self.swift_used = True
+        elif action_type == "immediate":
+            self.immediate_used = True
+            # Note: burns next turn's swift — caller must set pending_swift_burn in active_combat
         elif action_type == "full_round":
             self.full_round_used = True
             self.standard_used = True
@@ -100,6 +112,7 @@ class ActionBudget:
             "swift_used": self.swift_used,
             "full_round_used": self.full_round_used,
             "five_foot_step_used": self.five_foot_step_used,
+            "immediate_used": self.immediate_used,
         }
 
     @classmethod
@@ -111,6 +124,7 @@ class ActionBudget:
             swift_used=data.get("swift_used", False),
             full_round_used=data.get("full_round_used", False),
             five_foot_step_used=data.get("five_foot_step_used", False),
+            immediate_used=data.get("immediate_used", False),
         )
 
     @classmethod
@@ -164,6 +178,8 @@ def _build_action_types() -> Dict[type, str]:
     _try_add(mapping, "aidm.schemas.intents", "StabilizeIntent", "standard")  # WO-ENGINE-STABILIZE-ALLY-001: PHB p.152 First Aid is a standard action
     _try_add(mapping, "aidm.schemas.intents", "LayOnHandsIntent", "standard")  # WO-ENGINE-LAY-ON-HANDS-001: PHB p.44 standard action
     _try_add(mapping, "aidm.schemas.intents", "StandIntent", "move")  # WO-ENGINE-AOO-STAND-FROM-PRONE-001: PHB p.137 standing is a move action
+    _try_add(mapping, "aidm.schemas.intents", "ImmediateActionIntent", "immediate")  # WO-ENGINE-IMMEDIATE-ACTION-001: PHB p.127 immediate action
+    _try_add(mapping, "aidm.schemas.intents", "RunIntent", "full_round")  # WO-ENGINE-RUN-ACTION-001: PHB p.144 run is full-round
 
     return mapping
 

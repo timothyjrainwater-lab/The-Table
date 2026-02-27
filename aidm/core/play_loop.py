@@ -77,6 +77,7 @@ from aidm.schemas.intents import (
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
     RageIntent, SmiteEvilIntent, LayOnHandsIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
     NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent, StandIntent,
+    ImmediateActionIntent, RunIntent,
 )
 from aidm.core.companion_resolver import spawn_companion
 # WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
@@ -299,6 +300,7 @@ from aidm.schemas.conditions import (
     create_nauseated_condition, create_fatigued_condition,
     create_exhausted_condition, create_paralyzed_condition,
     create_staggered_condition, create_unconscious_condition,
+    create_running_condition,
 )
 
 _CONDITION_FACTORIES = {
@@ -318,6 +320,7 @@ _CONDITION_FACTORIES = {
     "paralyzed": create_paralyzed_condition,
     "staggered": create_staggered_condition,
     "unconscious": create_unconscious_condition,
+    "running": create_running_condition,
 }
 
 
@@ -603,6 +606,32 @@ def _resolve_spell_cast(
                 citations=["PHB p.174"],
             ))
             # No slot consumed — clean deny, player must re-declare (PHB p.174)
+            return events, world_state, "spell_blocked"
+
+    # WO-ENGINE-SOMATIC-HAND-FREE-001: Somatic component requires free hand (PHB p.174).
+    # If the caster has no free hand (FREE_HAND_BLOCKED=True), the somatic component
+    # cannot be provided at all — spell fails before ASF% roll.
+    # FINDING-ENGINE-FREE-HAND-SETTER-001: This WO adds the field and guard only.
+    # Chargen/equip WO will wire FREE_HAND_BLOCKED from weapon type and condition state.
+    _has_somatic_fh = getattr(spell, "has_somatic", True)
+    _is_still_fh = "still" in getattr(intent, "metamagic", ())
+    if _has_somatic_fh and not _is_still_fh:
+        if caster_state.get(EF.FREE_HAND_BLOCKED, False):
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_blocked",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "spell_name": spell.name,
+                    "reason": "somatic_blocked",
+                    "detail": "No free hand for somatic component (PHB p.174).",
+                    "turn_index": turn_index,
+                },
+                citations=["PHB p.174"],
+            ))
+            # No slot consumed — clean deny (PHB p.174)
             return events, world_state, "spell_blocked"
 
     # WO-ENGINE-SOMATIC-COMPONENT-001: Somatic component block (PHB p.174)
@@ -1677,6 +1706,35 @@ def execute_turn(
     # If the actor has a condition that sets actions_prohibited=True,
     # reject any action intent deterministically. The engine says no.
 
+    # WO-ENGINE-RUN-ACTION-001: Clear RUNNING condition at start of actor's next turn (PHB p.144).
+    # RUNNING expires when the actor takes their next action — cleared here before action processing,
+    # same expiry pattern as charge_ac (not via tick_conditions, which runs at end-of-turn).
+    _run_actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+    _run_conditions = _run_actor_entity.get(EF.CONDITIONS, {})
+    if "running" in _run_conditions:
+        _run_entities = deepcopy(world_state.entities)
+        _run_actor_conds = dict(_run_entities[turn_ctx.actor_id].get(EF.CONDITIONS, {}))
+        del _run_actor_conds["running"]
+        _run_entities[turn_ctx.actor_id][EF.CONDITIONS] = _run_actor_conds
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=_run_entities,
+            active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+        )
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="condition_removed",
+            timestamp=timestamp + 0.016,
+            payload={
+                "entity_id": turn_ctx.actor_id,
+                "condition": "running",
+                "reason": "running_expired_turn_start",
+                "turn_index": turn_ctx.turn_index,
+            },
+            citations=["PHB p.144"],
+        ))
+        current_event_id += 1
+
     # WO-ENGINE-CLEAVE-WIRE-001: clear cleave_used_this_turn at start of each turn (PHB p.92)
     if world_state.active_combat is not None and "cleave_used_this_turn" in world_state.active_combat:
         _cl_combat = deepcopy(world_state.active_combat)
@@ -1754,6 +1812,19 @@ def execute_turn(
                 _action_budget = ActionBudget.fresh()
         else:
             _action_budget = ActionBudget.fresh()
+
+        # WO-ENGINE-IMMEDIATE-ACTION-001: Cross-turn swift burn from prior immediate action.
+        # If pending_swift_burn is set (from a previous turn's immediate action), pre-burn
+        # this turn's swift slot and clear the flag. PHB p.127.
+        if world_state.active_combat and world_state.active_combat.get("pending_swift_burn"):
+            _action_budget.swift_used = True
+            _psb_updated = deepcopy(world_state.active_combat)
+            _psb_updated["pending_swift_burn"] = False
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=world_state.entities,
+                active_combat=_psb_updated,
+            )
 
         # WO-ENGINE-STAGGERED-ACTION-ECONOMY-001: Staggered actors limited to one move OR
         # standard action per round (PHB p.301). Full-round actions blocked outright.
@@ -1837,6 +1908,10 @@ def execute_turn(
             _ac_updated = deepcopy(world_state.active_combat)
             _ac_updated["action_budget"] = _action_budget.to_dict()
             _ac_updated["action_budget_actor"] = turn_ctx.actor_id
+            # WO-ENGINE-IMMEDIATE-ACTION-001: Immediate action burns NEXT turn's swift slot.
+            # Set the flag in active_combat so the next turn's budget init pre-burns swift.
+            if action_type == "immediate":
+                _ac_updated["pending_swift_burn"] = True
             world_state = WorldState(
                 ruleset_version=world_state.ruleset_version,
                 entities=world_state.entities,
@@ -1890,7 +1965,7 @@ def execute_turn(
                                         BardicMusicIntent, WildShapeIntent, RevertFormIntent,
                                         AbilityDamageIntent, WithdrawIntent, DelayIntent,
                                         StabilizeIntent, CalledShotIntent, DemoralizeIntent,
-                                        StandIntent)):
+                                        StandIntent, ImmediateActionIntent, RunIntent)):
             intent_actor_id = combat_intent.actor_id
         else:
             # Unknown intent type
@@ -2178,6 +2253,22 @@ def execute_turn(
 
         # CP-15: Check for AoO triggers before resolving main action
         aoo_triggers = check_aoo_triggers(world_state, turn_ctx.actor_id, combat_intent)
+
+        # WO-ENGINE-IMPROVED-DISARM-001: Improved Disarm suppresses AoO (PHB p.96)
+        if isinstance(combat_intent, DisarmIntent):
+            _id_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
+            if "improved_disarm" in _id_feats:
+                aoo_triggers = []
+        # WO-ENGINE-IMPROVED-GRAPPLE-001: Improved Grapple suppresses AoO (PHB p.96)
+        elif isinstance(combat_intent, GrappleIntent):
+            _ig_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
+            if "improved_grapple" in _ig_feats:
+                aoo_triggers = []
+        # WO-ENGINE-IMPROVED-BULL-RUSH-001: Improved Bull Rush suppresses AoO (PHB p.96)
+        elif isinstance(combat_intent, BullRushIntent):
+            _ib_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
+            if "improved_bull_rush" in _ib_feats:
+                aoo_triggers = []
 
         # WO-ENGINE-DEFENSIVE-CASTING-001: Defensive casting bypass (PHB p.140)
         # If the intent is a SpellCastIntent with defensive=True, run Concentration check.
@@ -3454,7 +3545,74 @@ def execute_turn(
                 current_event_id += 1
             narration = "stand_resolved"
 
-    # If no combat intent provided, use policy-based resolution (CP-09 behavior)
+        # WO-ENGINE-IMMEDIATE-ACTION-001: Immediate action (PHB p.127)
+        # Takes the immediate action slot; burns NEXT TURN's swift slot (pending_swift_burn).
+        # Cannot use if swift already used this turn.
+        # FINDING-ENGINE-IMMEDIATE-INTERRUPT-001: PHB allows immediate actions on other
+        # actors' turns (interrupt window). Engine only models own-turn immediate actions.
+        elif isinstance(combat_intent, ImmediateActionIntent):
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="immediate_action_resolved",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "actor_id": turn_ctx.actor_id,
+                    "turn_index": turn_ctx.turn_index,
+                },
+                citations=["PHB p.127"],
+            ))
+            current_event_id += 1
+            narration = "immediate_action_resolved"
+
+        # WO-ENGINE-RUN-ACTION-001: Run full-round action (PHB p.144)
+        # Moves actor at ×4 base speed. Applies RUNNING condition (loses DEX to AC).
+        # RUNNING expires at start of actor's next turn (charge_ac pattern).
+        # STAGGERED guard blocks full_round actions, so no separate staggered check needed.
+        elif isinstance(combat_intent, RunIntent):
+            _run_actor_data = world_state.entities.get(turn_ctx.actor_id, {})
+            _base_speed = _run_actor_data.get(EF.BASE_SPEED, 30)
+            _run_distance = _base_speed * 4
+
+            # Apply RUNNING condition
+            _run_cond_dict = _make_condition_dict("running", "run_action", current_event_id)
+            _run_entities = deepcopy(world_state.entities)
+            _run_conds = dict(_run_entities[turn_ctx.actor_id].get(EF.CONDITIONS, {}))
+            _run_conds["running"] = _run_cond_dict
+            _run_entities[turn_ctx.actor_id][EF.CONDITIONS] = _run_conds
+            world_state = WorldState(
+                ruleset_version=world_state.ruleset_version,
+                entities=_run_entities,
+                active_combat=world_state.active_combat,
+            )
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="condition_applied",
+                timestamp=timestamp + 0.05,
+                payload={
+                    "entity_id": turn_ctx.actor_id,
+                    "condition": "running",
+                    "source": "run_action",
+                    "turn_index": turn_ctx.turn_index,
+                },
+                citations=["PHB p.144"],
+            ))
+            current_event_id += 1
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="entity_moved",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "entity_id": turn_ctx.actor_id,
+                    "distance_ft": _run_distance,
+                    "action": "run",
+                    "base_speed": _base_speed,
+                    "turn_index": turn_ctx.turn_index,
+                },
+                citations=["PHB p.144"],
+            ))
+            current_event_id += 1
+            narration = "run_resolved"
     elif doctrine is not None and turn_ctx.actor_team == "monsters":
         # Evaluate tactics using existing policy engine
         policy_result = evaluate_tactics(doctrine, world_state, turn_ctx.actor_id)

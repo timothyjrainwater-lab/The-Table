@@ -334,6 +334,14 @@ class _EntityFields:
     # Multiple deflection bonuses do NOT stack — only highest applies.
     # 0 = no deflection bonus (default / absent key).
 
+    # --- Somatic Component Restriction (WO-ENGINE-SOMATIC-HAND-FREE-001) ---
+    FREE_HAND_BLOCKED = "free_hand_blocked"
+    # bool: True if caster has no free hand for somatic components (PHB p.174).
+    # Set by: two-handed weapon grip, PINNED condition, hand binding.
+    # When True: spells with has_somatic=True fail before ASF roll (cannot provide component).
+    # FINDING-ENGINE-FREE-HAND-SETTER-001: chargen/equip WO will wire setter from
+    # weapon type and condition state. This WO adds the field and guard only.
+
 
 # Singleton instance — import this
 EF = _EntityFields()

@@ -5,6 +5,7 @@ This module resolves skill checks and opposed skill checks per D&D 3.5e rules:
 - Opposed checks (roll vs roll)
 - Armor check penalties
 - Trained-only skill enforcement
+- Skill synergy bonuses (PHB p.65)
 
 Reference: Player's Handbook 3.5e, Chapter 4 (Skills)
 """
@@ -15,6 +16,58 @@ from typing import Optional
 from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.entity_fields import EF
 from aidm.schemas.skills import SKILLS, SkillDefinition
+
+
+# WO-ENGINE-SKILL-SYNERGY-001: Skill synergy bonuses (PHB p.65)
+# 5+ ranks in source skill → +2 circumstance bonus to target skill.
+# Source: PHB Table 4-5, p.65. All entries wired.
+# FINDING-ENGINE-SYNERGY-CONTEXT-001: PHB specifies three synergies apply only in
+# specific contexts (knowledge_dungeoneering→survival only underground;
+# knowledge_planes→survival only on other planes; search→survival only for tracking).
+# Engine applies them universally — no context tracking exists. Known gap.
+_SKILL_SYNERGIES: dict = {
+    # source_skill: [(target_skill, bonus), ...]
+    "bluff":                    [("disguise", 2), ("diplomacy", 2), ("intimidate", 2), ("sleight_of_hand", 2)],
+    "escape_artist":            [("use_rope", 2)],
+    "handle_animal":            [("ride", 2), ("wild_empathy", 2)],
+    "jump":                     [("tumble", 2)],
+    "knowledge_arcana":         [("spellcraft", 2)],
+    "knowledge_architecture":   [("search", 2)],
+    "knowledge_dungeoneering":  [("survival", 2)],   # underground only — FINDING-ENGINE-SYNERGY-CONTEXT-001
+    "knowledge_geography":      [("survival", 2), ("navigate", 2)],
+    "knowledge_history":        [("bardic_knowledge", 2)],
+    "knowledge_local":          [("gather_information", 2)],
+    "knowledge_nature":         [("survival", 2), ("handle_animal", 2)],
+    "knowledge_nobility":       [("diplomacy", 2)],
+    "knowledge_planes":         [("survival", 2)],   # other planes only — FINDING-ENGINE-SYNERGY-CONTEXT-001
+    "knowledge_religion":       [("turn_undead", 2)],
+    "search":                   [("survival", 2)],   # tracking only — FINDING-ENGINE-SYNERGY-CONTEXT-001
+    "sense_motive":             [("diplomacy", 2)],
+    "spellcraft":               [("use_magic_device", 2)],
+    "survival":                 [("knowledge_nature", 2)],
+    "tumble":                   [("balance", 2), ("jump", 2)],
+    "use_magic_device":         [("spellcraft", 2)],
+    "use_rope":                 [("climb", 2), ("escape_artist", 2)],
+}
+
+
+def _get_synergy_bonus(actor_ranks: dict, target_skill_id: str) -> int:
+    """Sum all applicable synergy bonuses for target_skill_id.
+
+    Args:
+        actor_ranks: dict mapping skill_id → rank count (EF.SKILL_RANKS)
+        target_skill_id: The skill being checked
+
+    Returns:
+        Total synergy bonus from all qualifying source skills (PHB p.65)
+    """
+    total = 0
+    for source_skill, targets in _SKILL_SYNERGIES.items():
+        if actor_ranks.get(source_skill, 0) >= 5:
+            for target, bonus in targets:
+                if target == target_skill_id:
+                    total += bonus
+    return total
 
 
 @dataclass(frozen=True)
@@ -173,6 +226,12 @@ def resolve_skill_check(
     _entity_conditions = entity.get(EF.CONDITIONS, {})
     if skill_id == "spot" and "dazzled" in _entity_conditions:
         total -= 1
+
+    # WO-ENGINE-SKILL-SYNERGY-001: Apply synergy bonuses (PHB p.65)
+    # 5+ ranks in a source skill → +2 circumstance bonus on synergistic target skills.
+    # Circumstance bonuses from different sources stack (PHB — confirmed KERNEL-14).
+    _actor_ranks = entity.get(EF.SKILL_RANKS, {})
+    total += _get_synergy_bonus(_actor_ranks, skill_id)
 
     return SkillCheckResult(
         success=(total >= dc),
