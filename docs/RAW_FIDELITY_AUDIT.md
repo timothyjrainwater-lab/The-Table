@@ -161,6 +161,8 @@ This audit confirms:
 | Precise Shot — no-penalty threshold | PHB p.98 | PENDING | Shooting into melee penalty suppressed |
 | Blind-Fight — reroll rule | PHB p.89 | PENDING | Reroll miss chance from concealment |
 | Combat Reflexes — AoO count | PHB p.92 | PENDING | Max AoOs = 1 + DEX mod per round |
+| Weapon Focus — +1 attack bonus | PHB p.102 | FULL | `weapon_focus_{weapon_type}` feat key (categorical, not per-specific-weapon — documented simplification). Applied at attack_resolver.py:641+670, full_attack_resolver.py:704+768. WFC-001–WFC-008: 8/8 PASS. Commit d0e4ef2. |
+| Weapon Specialization — +2 damage pre-crit | PHB p.102 | FULL | `weapon_specialization_{weapon_type}` feat key. Pre-crit site: multiplied on crits (PHB p.224). attack_resolver.py:849-850, full_attack_resolver.py:428-429. WSP-001–WSP-008: 8/8 PASS. Commit 056e525. |
 
 ---
 
