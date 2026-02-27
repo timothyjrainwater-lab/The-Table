@@ -138,6 +138,21 @@ def resolve_turn_undead(
 
     # ── Effective level check ────────────────────────────────────────────────
     cleric_level = _get_cleric_level(cleric)
+
+    # Improved Turning feat: +1 to effective turning level (PHB p.96)
+    if "improved_turning" in cleric.get(EF.FEATS, []):
+        cleric_level += 1
+        events.append(Event(
+            event_id=current_id,
+            event_type="improved_turning_active",
+            timestamp=timestamp,
+            payload={
+                "cleric_id": intent.cleric_id,
+                "effective_level": cleric_level,
+            },
+        ))
+        current_id += 1
+
     if cleric_level <= 0:
         events.append(Event(
             event_id=current_id,
