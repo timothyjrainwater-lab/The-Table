@@ -221,7 +221,7 @@ def get_damage_modifier(
         is_two_handed = context.get("is_two_handed", False)
         grip = context.get("grip", "one-handed")
         if is_two_handed:
-            modifier += int(power_attack_penalty * 1.5)  # 1.5:1 for two-handed
+            modifier += int(power_attack_penalty * 2)     # PHB p.98: 2:1 for two-handed
         elif grip == "off-hand":
             modifier += power_attack_penalty // 2  # 0.5:1 for off-hand (TWF)
         else:

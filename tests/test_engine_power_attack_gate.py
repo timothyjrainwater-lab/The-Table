@@ -2,7 +2,7 @@
 ENGINE GATE -- WO-ENGINE-POWER-ATTACK-001: Power Attack
 Tests PA-001 through PA-008.
 PHB p.98: Subtract up to BAB from attack rolls; gain equal bonus to damage.
-Two-handed: damage bonus = floor(N * 1.5). Off-hand: floor(N * 0.5).
+Two-handed: damage bonus = 2× penalty (PHB p.98). Off-hand: floor(N * 0.5).
 """
 from aidm.core.attack_resolver import resolve_attack
 from aidm.schemas.attack import AttackIntent, Weapon
@@ -120,10 +120,10 @@ def test_pa001_one_handed_attack_minus2_damage_plus2():
 
 
 # ---------------------------------------------------------------------------
-# PA-002: PA=2, 2H weapon → damage +3 (floor(2×1.5)=3)
+# PA-002: PA=2, 2H weapon → damage +4 (2×2=4, PHB p.98)
 # ---------------------------------------------------------------------------
-def test_pa002_two_handed_damage_plus3():
-    """PA-002: PA=2, 2H weapon → damage feat_modifier=+3 (floor(2*1.5))."""
+def test_pa002_two_handed_damage_plus4():
+    """PA-002: PA=2, 2H weapon → damage feat_modifier=+4 (2*2, PHB p.98)."""
     att = _attacker()
     ws = _make_ws(att, _target())
     intent = AttackIntent(
@@ -136,8 +136,8 @@ def test_pa002_two_handed_damage_plus3():
                             next_event_id=0, timestamp=0.0)
     dmg_ev = _get_event(events, "damage_roll")
     assert dmg_ev is not None, "Should emit damage_roll"
-    assert dmg_ev.payload["feat_modifier"] == 3, (
-        f"2H PA=2 → feat_modifier should be 3 (floor(2*1.5)); got {dmg_ev.payload['feat_modifier']}")
+    assert dmg_ev.payload["feat_modifier"] == 4, (
+        f"2H PA=2 → feat_modifier should be 4 (2*2, PHB p.98); got {dmg_ev.payload['feat_modifier']}")
 
 
 # ---------------------------------------------------------------------------

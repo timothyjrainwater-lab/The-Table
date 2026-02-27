@@ -79,6 +79,7 @@ Every non-FULL entry must reference a CP or kernel decision.
 | Flanking | PHB 157 | DEGRADED | Simplified |
 | Aid Another | PHB 154 | DEFERRED | SKR-005 |
 | Mounted combat | PHB 157 | DEGRADED | CP-18A |
+| Power Attack | PHB p.97–98 | FULL | 2H=2×, 1H=1×, off-hand=0.5×; BAB cap on penalty (WO-ENGINE-PA-2H-FIX-001) |
 
 ---
 
@@ -147,6 +148,7 @@ This audit confirms:
 ## 11. COMBAT FEATS — Attack Modifiers
 
 *Added 2026-02-27 — audit sprint placeholder. Rows = PENDING until AUDIT-WO-001.*
+*Updated 2026-02-27 — FAGU delivery (Batch U WO1, commit a2dc1e6): resolve_full_attack() now delegates per-iterative attack to resolve_attack(). All 52 mechanics in resolve_attack() now apply to full-attack sequences. 21 previously-missing mechanics (Inspire Courage atk/dmg, Weapon Finesse, Negative Levels, Blinded attacker, flat-footed DEX denial, Monk WIS AC, Deflection, Feint, TWD AC, CE AC, IUD, Fight Def, Massive Damage, Blind-Fight reroll, Disarmed/EqMelded guards, +2 vs Blinded, Precise Shot) now handled by AR per-hit. FAGU-001–FAGU-010: 10/10 PASS.*
 
 | Mechanic | PHB Reference | Status | Notes |
 |---------|--------------|--------|-------|
@@ -161,8 +163,8 @@ This audit confirms:
 | Precise Shot — no-penalty threshold | PHB p.98 | PENDING | Shooting into melee penalty suppressed |
 | Blind-Fight — reroll rule | PHB p.89 | PENDING | Reroll miss chance from concealment |
 | Combat Reflexes — AoO count | PHB p.92 | PENDING | Max AoOs = 1 + DEX mod per round |
-| Weapon Focus — +1 attack bonus | PHB p.102 | FULL | `weapon_focus_{weapon_type}` feat key (categorical, not per-specific-weapon — documented simplification). Applied at attack_resolver.py:641+670, full_attack_resolver.py:704+768. WFC-001–WFC-008: 8/8 PASS. Commit d0e4ef2. |
-| Weapon Specialization — +2 damage pre-crit | PHB p.102 | FULL | `weapon_specialization_{weapon_type}` feat key. Pre-crit site: multiplied on crits (PHB p.224). attack_resolver.py:849-850, full_attack_resolver.py:428-429. WSP-001–WSP-008: 8/8 PASS. Commit 056e525. |
+| Weapon Focus — +1 attack bonus | PHB p.102 | FULL | `weapon_focus_{weapon_type}` feat key (categorical, not per-specific-weapon — documented simplification). Applied at attack_resolver.py:641+670. Full-attack path via FAGU delegation to resolve_attack() — WFC-003/FAGU-009 confirm no double-count. WFC-001–WFC-008: 8/8 PASS. Commits d0e4ef2/a2dc1e6. |
+| Weapon Specialization — +2 damage pre-crit | PHB p.102 | FULL | `weapon_specialization_{weapon_type}` feat key. Pre-crit site: multiplied on crits (PHB p.224). attack_resolver.py:849-850. Full-attack path via FAGU delegation — WSP-003/FAGU-010 confirm no double-count. WSP-001–WSP-008: 8/8 PASS. Commits 056e525/a2dc1e6. |
 
 ---
 
@@ -246,9 +248,9 @@ This audit confirms:
 | Paladin Divine Grace — CHA to saves | PHB p.43 | FULL | Full CHA mod; applied to all three saves — save_resolver.py:161 |
 | Paladin Lay on Hands — pool formula | PHB p.44 | FULL | `paladin_level × CHA_mod` (min 0) — builder.py:947-950 |
 | Paladin Smite Evil — bonus formula | PHB p.44 | FULL | `+CHA atk, +level dmg`; conditional on `target_is_evil` — smite_evil_resolver.py:86-124 |
-| Paladin Smite Evil — uses/day | PHB p.44 | DEGRADED | Level progression off: code L1/5/8/10/12 vs PHB L1/6/11/16/21 — FINDING-AUDIT-SMITE-USES-001 HIGH |
+| Paladin Smite Evil — uses/day | PHB p.44 | FULL | L1/6/11/16 unlock (max 4/day at L20 per PHB parenthetical). Fixed by WO-ENGINE-SMITE-USES-001 — FINDING-AUDIT-SMITE-USES-001 CLOSED. SMITE-001–SMITE-008: 8/8 PASS. Commit 3c3404d. |
 | Paladin Divine Health — immunity | PHB p.44 | FULL | `paladin_level >= 3` disease immunity — poison_disease_resolver.py:308-324 |
-| Cleric Turn Undead — check roll | PHB p.159 | DEGRADED | Turn check uses 2d6+level+CHA; PHB p.159 specifies 1d20+CHA for check — FINDING-AUDIT-TURN-CHECK-001 HIGH |
+| Cleric Turn Undead — check roll | PHB p.159 | FULL | Roll = 1d20 + CHA_mod (no cleric_level term). Fixed by WO-ENGINE-TURN-CHECK-001 — FINDING-AUDIT-TURN-CHECK-001 CLOSED. TURN-001–TURN-006: 6/6 PASS. Commit 03b45d4. |
 | Cleric Turn Undead — damage roll | PHB p.160 | FULL | Damage = 2d6×10 HD budget (via `_roll_hp_budget`) — turn_undead_resolver.py:72-77 |
 | Cleric Spontaneous — redirect rules | PHB p.32 | DEGRADED | Strict level-to-level mapping only; PHB allows same-or-lower slot — FINDING-AUDIT-SPONT-SLOT-001 LOW |
 | Cleric Extra Turning — uses | PHB p.93 | FULL | +4 per feat, stackable via `.count()` — builder.py:999-1008 |
