@@ -565,7 +565,16 @@ def resolve_attack(
     # Applies vs ALL attacks including touch attacks (unlike armor/shield which touch bypasses).
     _deflection_ac = target.get(EF.DEFLECTION_BONUS, 0)
 
-    target_ac = base_ac + condition_ac + cover_result.ac_bonus + dex_penalty + _defend_ac_total + _twd_ac_bonus + _ce_ac_bonus + _monk_wis_ac + _deflection_ac  # WO-ENGINE-COMBAT-EXPERTISE-001, WO-ENGINE-MONK-WIS-AC-001, WO-ENGINE-DEFLECTION-BONUS-001
+    # WO-ENGINE-RACIAL-DODGE-AC-001: Dwarf/gnome +4 dodge AC vs. giants (PHB p.15/17)
+    # Dodge bonuses lost when flat-footed (PHB p.179).
+    _racial_dodge_vs_giants = 0
+    _attacker_creature_type = attacker.get(EF.CREATURE_TYPE, "")
+    if _attacker_creature_type == "giant":
+        _is_flat_footed = defender_modifiers.loses_dex_to_ac and not _target_retains_dex_via_uncanny_dodge(target)
+        if not _is_flat_footed:
+            _racial_dodge_vs_giants = target.get(EF.DODGE_BONUS_VS_GIANTS, 0)
+
+    target_ac = base_ac + condition_ac + cover_result.ac_bonus + dex_penalty + _defend_ac_total + _twd_ac_bonus + _ce_ac_bonus + _monk_wis_ac + _deflection_ac + _racial_dodge_vs_giants  # WO-ENGINE-COMBAT-EXPERTISE-001, WO-ENGINE-MONK-WIS-AC-001, WO-ENGINE-DEFLECTION-BONUS-001, WO-ENGINE-RACIAL-DODGE-AC-001
 
     # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: +2 attack bonus against blinded defender (PHB p.309)
     from aidm.core.condition_combat_resolver import is_blinded as _is_blinded
