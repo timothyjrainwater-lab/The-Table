@@ -951,6 +951,61 @@ def resolve_full_attack(
             current_hp -= itwf_damage
             attacks_executed += 1
 
+        # Greater Two-Weapon Fighting: third off-hand attack at BAB-10+off_penalty
+        # PHB p.96: GTWF grants a third off-hand attack (same chain as ITWF at -5, GTWF at -10)
+        # Feat string: "Greater Two-Weapon Fighting" (Title Case — matches TWF/ITWF convention)
+        if "Greater Two-Weapon Fighting" in feats and current_hp > 0:
+            gtwf_bab = intent.base_attack_bonus - 10 + off_penalty
+            gtwf_adjusted = (
+                gtwf_bab +
+                attacker_modifiers.attack_modifier +
+                mounted_bonus +
+                terrain_higher_ground +
+                feat_attack_modifier +
+                flanking_bonus
+                + (0 if _wp_proficient_check(attacker, intent.off_hand_weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001
+            )
+            gtwf_events, current_event_id, gtwf_damage = resolve_single_attack_with_critical(
+                attacker_id=intent.attacker_id,
+                target_id=intent.target_id,
+                attack_bonus=gtwf_adjusted,
+                weapon=intent.off_hand_weapon,
+                target_ac=target_ac,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.5 * attacks_executed,
+                attack_index=attacks_executed,
+                str_modifier=off_str_mod,
+                condition_damage_modifier=attacker_modifiers.damage_modifier,
+                feat_damage_modifier=0,
+                base_attack_bonus_raw=gtwf_bab,
+                condition_attack_modifier=attacker_modifiers.attack_modifier,
+                mounted_bonus=mounted_bonus,
+                terrain_higher_ground=terrain_higher_ground,
+                feat_attack_modifier=0,
+                target_base_ac=base_ac,
+                target_ac_modifier=condition_ac,
+                cover_type=cover_result.cover_type,
+                cover_ac_bonus=cover_result.ac_bonus,
+                dr_amount=dr_amount,
+                miss_chance_percent=miss_chance_percent,
+                flanking_bonus=flanking_bonus,
+                is_flanking=is_flanking,
+                flanking_ally_ids=flanking_ally_ids,
+                sneak_attack_dice=sa_dice,
+                sneak_attack_eligible=sa_eligible,
+                sneak_attack_reason=sa_reason,
+                favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
+                attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
+            )
+            events.extend(gtwf_events)
+            total_damage += gtwf_damage
+            for ev in gtwf_events:
+                if ev.event_type == "damage_roll":
+                    total_dr_absorbed += ev.payload.get("damage_reduced", 0)
+            current_hp -= gtwf_damage
+            attacks_executed += 1
+
     # Apply accumulated damage to HP
     # WO-ENGINE-DR-001: total_damage is already post-DR (sum of final_damage per hit)
     if total_damage > 0:
