@@ -5,27 +5,32 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-26 (ENGINE BATCH D ACCEPTED — 38/38 gates. Silent Spell 10/10, Still Spell 11/11, Monk WIS-to-AC 8/8, Barbarian Fast Movement 8/8+1. 0 regressions. Coverage: 143 FULL / 69 PARTIAL / 188 MISSING — GAP 47.5%. BATCH E DISPATCH-READY.)
-**Delta:** ENGINE BATCH B R1 ACCEPTED (34/34). ENGINE BATCH C ALL ACCEPTED (30/30). ENGINE BATCH D ACCEPTED (38/38 — Dispatch #13, Chisel). WO-JUDGMENT-SHADOW-001 DISPATCHED — verdict pending. REDTEAM-CREATIVE-ADVERSARIAL-001 filed (15 categories). REGISTER-HIDDEN-DM-KERNELS-001 filed (10 kernels). PROBE-WORLDMODEL-001 queued. STRAT-CAT-05 DECIDED: Option A. ML-004 filed. CHISEL SEATED (docs/ops/CHISEL_SEAT_001.md). BATCH E DRAFTED: WO-ENGINE-EVASION-ARMOR-001 + WO-ENGINE-CALLED-SHOT-POLICY-001 — DISPATCH-READY. Gate total: 914 confirmed. Coverage: 143/69/188 GAP 47.5%. Inbox: 19 active (4 pending Thunder call). Kernel capsule updated 2026-02-26.
+**Session:** 2026-02-27 (session 4 — Batch J ACCEPTED 03a2a47. Batch K ACCEPTED 4cb2f72. Batch L ACCEPTED ba3e62f 32/32. Data Batch B WO1 ACCEPTED edcad35. Engine Batch M READY. Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
+**Delta:** Batch L ACCEPTED ba3e62f (Improved Disarm + Grapple + Bull Rush + Spell Penetration, 32/32, 0 regressions). Five new LOW findings surfaced (see below). Inbox at 10 active files (under 15 cap). All Batch J/K/L WOs + OSS dispatches archived. Engine Batch M READY to dispatch. Data Batch B WO2+3 (Monsters + Dice) awaiting Chisel dispatch — background agent died ×2, do NOT use background agent.
 
 ## Priority Stack (top 3)
-1. **WO-JUDGMENT-SHADOW-001 — verdict pending.** On accept: confirm shadow log sink live, execute PROBE-JUDGMENT-LAYER-001.
-2. **BATCH E — DISPATCH-READY.** WO-ENGINE-EVASION-ARMOR-001 (8 tests, armor guard in spell_resolver.py) + WO-ENGINE-CALLED-SHOT-POLICY-001 (8 tests, Option A hard denial, KERNEL-04/10 touch). Dispatch #14 — Thunder to direct.
-3. **Inbox hygiene** — 4 files awaiting Thunder's archival call: WO-UI-GATES-V1, WO-UI-VISREG-PLAYWRIGHT-001, WO-SMOKE-TRIAGE-001, UI_POLISH_AUDIT_001. Also: PROBE-WORKER-TREATMENT-001 unknown — need context.
+1. **ENGINE BATCH M READY to dispatch.** `DISPATCH_ENGINE_BATCH_M.md` in inbox. Prereq (Batch L ACCEPTED ba3e62f) satisfied. Thunder dispatches to Chisel.
+2. **DATA BATCH B WO2+3 pending dispatch.** WO1 done (edcad35). Thunder dispatches `DISPATCH_OSS_DATA_BATCH_B.md` to Chisel (skip WO1, start WO2+WO3). Do NOT use background agent — died ×2.
+3. **Inbox clean.** 10 active files, under 15 cap. No action needed.
 
 ## Active Findings (OPEN only — closed/resolved in briefing)
-- FINDING-CE-AUTO-HIT-HELPLESS-001 MEDIUM OPEN (auto_hit_if_helpless payload flag only — no enforcement before d20; attack_resolver.py ~line 310)
 - FINDING-CE-STANDING-AOO-001 LOW OPEN (flat-footed AoO suppression for standing entities — deferred from CE WO)
 - FINDING-ENGINE-FLATFOOTED-AOO-001 LOW OPEN (no flat-footed AoO suppression in aoo.py — nothing to bypass currently; surfaced by Combat Reflexes WO)
 - FINDING-SF-SAVE-BREAKDOWN-001 LOW OPEN (save breakdown not surfaced in narrative output)
 - FINDING-ASF-ARCANE-CASTER-001 LOW OPEN (_is_arcane whitelist needs ranger/paladin extension)
-- FINDING-ENGINE-CONDITION-ENFORCEMENT-001 CRITICAL PARTIAL-CLOSED (movement+action+dex enforced; flat_footed AoO deferred)
 - FINDING-PLAYTEST-F01 MEDIUM OPEN (TTS env not provisioned — live audio deferred)
 - FINDING-NS-AUDIT-001 MEDIUM OPEN (North Star audit — GATES-V1 pending golden frames)
 - GAP-B HIGH OPEN (llama-cpp-python / VS Build Tools)
 - FINDING-WORLDGEN-IP-001 HIGH OPEN (ingestion complete → double audit → strip → scan gate — not current blocker)
 - FINDING-COVERAGE-MAP-001 HIGH OPEN (Top 20 gap list in ENGINE_COVERAGE_MAP.md — ongoing WO source)
-- FINDING-ENGINE-ENCUMBRANCE-CATALOG-001 LOW OPEN (catalog not in resolver hot paths — Monk WIS AC + Fast Movement both need it; single plumbing WO closes both)
+- FINDING-ENGINE-ENCUMBRANCE-CATALOG-001 LOW OPEN → CLOSING: WO-ENGINE-ENCUMBRANCE-WIRE-001 in Batch M
+- FINDING-ENGINE-COVER-VALUES-001 HIGH OPEN → CLOSING: WO-ENGINE-COVER-FIX-001 in Batch M
+- FINDING-SAI-FRAGMENTATION-001 LOW OPEN → CLOSING: WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001 in Batch M
+- FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 LOW OPEN (counter-disarm bonus from Improved Disarm not wired — deferred from Batch L)
+- FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 LOW OPEN (Improved Disarm +4 attack bonus variant — deferred from Batch L)
+- FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 LOW OPEN (Improved Grapple +4 grapple check bonus — deferred from Batch L)
+- FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 LOW OPEN (Improved Bull Rush +4 bonus follow-through — deferred from Batch L)
+- FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 LOW OPEN (Improved Overrun AoO suppression — deferred from Batch L)
 
 ## Stop Conditions
 - If test suite drops below 6,342 or any gate regresses, halt and investigate
@@ -34,7 +39,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-26 (session — 5 WOs dispatched)
+- Updated: 2026-02-27 (session 4 — Batch L ACCEPTED ba3e62f, inbox 10/15, Batch M READY, 5 new LOW findings)
 - Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
