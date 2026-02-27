@@ -182,6 +182,39 @@ def _find_cleave_target(attacker_id: str, killed_id: str, world_state: "WorldSta
         return eid
     return None
 
+def _is_target_in_melee(target_id: str, attacker_team: str, world_state: "WorldState") -> bool:
+    """Check if target is engaged in melee with a friendly of the attacker.
+
+    PHB p.140: -4 penalty on ranged attacks if target is in melee with friendly.
+    Target is "in melee" if any non-defeated ally of the attacker is adjacent (within 5 ft).
+    """
+    from aidm.schemas.position import Position
+
+    target = world_state.entities.get(target_id)
+    if target is None:
+        return False
+
+    target_pos_raw = target.get(EF.POSITION)
+    if target_pos_raw is None:
+        return False
+    target_pos = Position(**target_pos_raw) if isinstance(target_pos_raw, dict) else target_pos_raw
+
+    for eid, entity in world_state.entities.items():
+        if eid == target_id:
+            continue
+        if entity.get(EF.DEFEATED, False):
+            continue
+        if entity.get(EF.TEAM, "") != attacker_team:
+            continue  # Only allies of the ranged attacker matter
+        pos_raw = entity.get(EF.POSITION)
+        if pos_raw is None:
+            continue
+        pos = Position(**pos_raw) if isinstance(pos_raw, dict) else pos_raw
+        if target_pos.is_adjacent_to(pos):
+            return True
+    return False
+
+
 def parse_damage_dice(dice_expr: str) -> Tuple[int, int]:
     """
     Parse simple dice expression like '1d8' or '2d6'.
@@ -587,6 +620,22 @@ def resolve_attack(
         _dex_mod = attacker.get(EF.DEX_MOD, 0)
         _finesse_delta = _dex_mod - _str_mod  # positive if DEX > STR, negative if DEX < STR
 
+    # WO-ENGINE-PRECISE-SHOT-001: Ranged-into-melee penalty (PHB p.140)
+    # -4 to attack when shooting at target engaged in melee with an ally. Negated by Precise Shot.
+    _ranged_into_melee_penalty = 0
+    if not is_melee and _is_target_in_melee(intent.target_id, attacker.get(EF.TEAM, ""), world_state):
+        if "precise_shot" in _attacker_feats:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="precise_shot_active",
+                timestamp=timestamp,
+                payload={"actor_id": intent.attacker_id},
+                citations=[{"source_id": "681f92bc94ff", "page": 99}],
+            ))
+            current_event_id += 1
+        else:
+            _ranged_into_melee_penalty = -4
+
     attack_bonus_with_conditions = (
         intent.attack_bonus +
         attacker_modifiers.attack_modifier +
@@ -604,6 +653,7 @@ def resolve_attack(
         + _finesse_delta  # WO-ENGINE-WEAPON-FINESSE-001: DEX delta for light weapons
         - intent.combat_expertise_penalty  # WO-ENGINE-COMBAT-EXPERTISE-001: CE attack penalty (PHB p.92)
         + (0 if _is_weapon_proficient(attacker, intent.weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
+        + _ranged_into_melee_penalty  # WO-ENGINE-PRECISE-SHOT-001: PHB p.140
     )
     total = d20_result + attack_bonus_with_conditions
 
