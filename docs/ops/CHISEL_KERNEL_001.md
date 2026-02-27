@@ -17,6 +17,23 @@ My seat document: `docs/ops/CHISEL_SEAT_001.md`
 
 ---
 
+## Seven Wisdoms (DOCTRINE_09 — invariant, survives compaction)
+
+Foundational governance principles. When debating a design choice, test it against the seven. Name which wisdom a decision violates and why the violation is acceptable — or change the design.
+
+1. **Truth first** — if reality says no, write "no" and pivot.
+2. **Singular authority per surface** — one thing decides, everything else renders.
+3. **Replay or it did not happen** — determinism is your audit trail.
+4. **Tests are contracts with teeth** — if a rule matters, it deserves a gate.
+5. **Decisions decay unless sealed** — record the why, scope, and acceptance signal.
+6. **Separate narration from mechanics** — vibe can be free, outcomes must be provable.
+7. **Protect the operator** — reduce cognitive load by turning unknowns into named gaps.
+
+*Anchor: "Truth above morale. One authority per surface. Replay or it did not happen."*
+*Full doctrine: `pm_inbox/doctrine/DOCTRINE_09_SEVEN_WISDOM.txt`*
+
+---
+
 ## Project State (as of 2026-02-26)
 
 **Engine:**
@@ -707,3 +724,77 @@ Note: `test_ws_bridge` and `test_ws_deadverb_001_gate` excluded — require live
 - FINDING-ENGINE-BLIND-FIGHT-INVIS-001 LOW OPEN
 - FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 LOW OPEN
 - All prior open findings carried forward (see OSS Data Batch A delta above)
+
+---
+
+## Session Delta — 2026-02-27 (Batch P FILED — 4/4 SAI)
+
+**WOs completed:** All 4 confirmed SAI (implementations already committed before this session)
+- WO-ENGINE-POWER-ATTACK-001 — PA 8/8 PASS. `attack_resolver.py` + `feat_resolver.py`. PA penalty via feat_context dict (same pattern as Combat Expertise). 2H multiplier 1.5× (dispatch spec, not PHB 2×). Commit cd429fb.
+- WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001 — IMB 8/8 PASS. `maneuver_resolver.py`. +4 wired at single check site for all 5 maneuvers (disarm/sunder/trip/grapple/bull rush). Commit 336f04d.
+- WO-ENGINE-PRECISE-SHOT-001 — PS 8/8 PASS. `attack_resolver.py`. `_is_target_in_melee()` pre-existing helper; -4 penalty guarded by `"precise_shot"` feat check. Commit e39c921.
+- WO-ENGINE-IMPROVED-DISARM-COUNTER-001 — IDC 8/8 PASS. `maneuver_resolver.py`. Counter-disarm base was already implemented (WO-ENGINE-SUNDER-DISARM-FULL-001). IDC adds Improved Disarm suppression only. Commit 5d088d6.
+
+**Debrief commit:** 81620c5
+
+**Tests now passing:** 8465 passed / 141 pre-existing failures / 0 new failures
+
+**Findings closed:**
+- FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 — CLOSED (SAI)
+- FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 — CLOSED (SAI)
+- FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 — CLOSED (SAI)
+- FINDING-ENGINE-IMPROVED-TRIP-BONUS-001 — CLOSED (SAI)
+- FINDING-ENGINE-IMPROVED-SUNDER-BONUS-001 — CLOSED (SAI)
+- FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 — CLOSED (SAI)
+
+**New findings:**
+- FINDING-ENGINE-IDC-DEX-AC-STRIP-001 — LOW OPEN. PHB p.155 says attacker loses DEX to AC on counter-disarm. Disarm uses opposed attack rolls (not AC), so DEX strip is not applicable to the check. Future scope if AC-based defense is added.
+- FINDING-ENGINE-PA-2H-MULTIPLIER-001 — LOW DOCUMENTED. Dispatch specifies 1.5× for 2H PA; PHB RAW says 2×. Deliberate dispatch decision, documented in feat_resolver.py:216-218.
+
+**Kernel touches:** NONE
+
+**Open threads for next session:**
+- Batch Q (DISPATCH-READY, prereqs: Batch P ACCEPTED + R WO4 GTWF)
+- Batch R IN FLIGHT (IE/MB/GTWF — awaiting verdict)
+- Batch T IN FLIGHT (MA/INA/ITN/SD)
+- FINDING-ENGINE-BLIND-FIGHT-INVIS-001 LOW OPEN
+- FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 LOW OPEN
+- FINDING-ENGINE-IDC-DEX-AC-STRIP-001 LOW OPEN (new)
+
+---
+
+## Session Delta — 2026-02-27 (Batch P ACCEPTED)
+
+**WOs completed:**
+- WO-ENGINE-POWER-ATTACK-001 — PA-001–PA-008 8/8 PASS. `feat_resolver.py` (2H multiplier fix + off-hand path) + `attack_resolver.py` (validation block + grip context key). Commit cd429fb.
+- WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001 — IMB-001–IMB-008 8/8 PASS. `maneuver_resolver.py` — +4 added to all 5 maneuver opposed checks. ALL were new work (Batch L claim of "+4 wired" was false; Batch L was AoO suppression only). Commit 336f04d.
+- WO-ENGINE-PRECISE-SHOT-001 — PS-001–PS-008 8/8 PASS. `attack_resolver.py` — new `_is_target_in_melee()` helper + -4 ranged-into-melee penalty + Precise Shot bypass. Commit e39c921.
+- WO-ENGINE-IMPROVED-DISARM-COUNTER-001 — IDC-001–IDC-008 8/8 PASS. `maneuver_resolver.py` — fixed inverted counter-disarm branches and raw-roll margin. Improved Disarm suppression wired. Engine commit 0440ffa; gate tests 5d088d6.
+
+**Gate total:** 32/32 new gates; 0 in-scope regressions. Regression floor: 141.
+
+**Closed findings:**
+- FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 → CLOSED
+- FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 → CLOSED
+- FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 → CLOSED
+- FINDING-ENGINE-IMPROVED-TRIP-BONUS-001 → CLOSED
+- FINDING-ENGINE-IMPROVED-SUNDER-BONUS-001 → CLOSED
+- FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 → CLOSED
+
+**New findings:**
+- FINDING-ENGINE-PA-2H-PHB-DEVIATION-001 — LOW OPEN. Dispatch spec: 1.5× for 2H PA. PHB p.98: 2×. Thunder decision needed.
+- FINDING-ENGINE-PA-FULL-ATTACK-ROUND-LOCK-001 — LOW OPEN. Round-level PA declaration not enforced; each AttackIntent carries its own penalty. Trust-the-caller pattern.
+- FINDING-ENGINE-PRECISE-SHOT-FEAT-RESOLVER-DEAD-CODE-001 — LOW OPEN. `ignores_shooting_into_melee_penalty()` in feat_resolver.py never called.
+- FINDING-ENGINE-IDC-DEX-STRIPPED-001 — LOW OPEN. PHB p.96/155: attacker loses DEX to AC for counter attempt. Not implemented.
+
+**Correction:**
+- MEMORY.md Batch L entry "wired +4 in main path for disarm/grapple/bull_rush" was FALSE. Corrected via Batch P debrief. Batch L was AoO suppression only.
+
+**Kernel touches flagged:** NONE (all WOs were additive modifiers; no lifecycle/constraint/topology kernel interactions).
+
+**Open threads for next session:**
+- FINDING-ENGINE-PA-2H-PHB-DEVIATION-001 — Thunder decision needed (1.5× vs 2×)
+- FINDING-ENGINE-IDC-DEX-STRIPPED-001 — future WO to strip DEX from attacker's AC on counter
+- FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 LOW OPEN (carried from Batch O)
+- FINDING-ENGINE-BLIND-FIGHT-INVIS-001 LOW OPEN (carried)
+- All prior open findings carried forward
