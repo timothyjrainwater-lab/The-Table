@@ -606,12 +606,7 @@ def resolve_aoo_sequence(
         }
         feat_ac_modifier = get_ac_modifier(provoker, reactor, feat_context)
 
-        # TODO WO-034: Apply feat_ac_modifier to AoO attack
-        # Current limitation: attack_resolver doesn't accept context-specific AC modifiers.
-        # For now, Mobility +4 AC is computed but not applied to the attack.
-        # This requires refactoring attack_resolver to accept an optional AC modifier parameter.
-        # Tracked in WO-034 acceptance criteria.
-        # WORKAROUND: Temporarily modify provoker's AC in world_state copy
+        # WO-ENGINE-MOBILITY-001: Modify provoker's AC in world_state copy for this AoO only
         if feat_ac_modifier != 0:
             # Create a modified world state with updated AC for this AoO only
             from copy import deepcopy
