@@ -5,13 +5,13 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-27 (session 5 — Batch J ACCEPTED 03a2a47. Batch K ACCEPTED 4cb2f72. Batch L ACCEPTED ba3e62f 32/32. Data Batch B WO1 ACCEPTED edcad35. Batch N DISPATCHED 7638473. Batch O DISPATCHED 1753b3d. Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
-**Delta:** Batch N + Batch O both dispatched to Chisel 2026-02-27. Queue empty — Batch P drafted. Inbox at 17/15 (2 over cap — normalizes on Batch M acceptance, freeing 5 slots).
+**Session:** 2026-02-27 (session 6 — Batch M ACCEPTED 548e2cf/ad21df2/14b2c18/8e07dd5 37/37. Batch N READY TO COMMIT (38/38, 3 SAI + IT new work). Batch O IN FLIGHT. Batch P REBUILT (PA/IMB/PS/IDC). Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
+**Delta:** Batch M ACCEPTED (4 WOs, 37 tests, 4 LOW findings). Batch N work complete — 3 SAIs (MD/SA/SF pre-implemented), 1 new work (IT), 38 tests. READY TO COMMIT — Batch M prereq now satisfied. PLANNING ERROR: Batch P original DG/LH/EV/UD all SAI (accepted Batches B R1/C/Paladin) — coverage map not cross-referenced against briefing gate table. Rebuilt with PA/IMB/PS/IDC. Inbox at 12/15.
 
 ## Priority Stack (top 3)
-1. **QUEUE EMPTY — draft Batch P READY.** `DISPATCH_ENGINE_BATCH_P.md` in inbox. Prereq: Batch O ACCEPTED. Thunder dispatches when ready.
-2. **Await Batch M debrief.** On acceptance: archive 5 files (DISPATCH_M + 4 WOs) → inbox normalizes to 12/15.
-3. **Inbox at 17/15.** 2 over cap — temporary. Normalizes on first batch acceptance. No action needed.
+1. **Batch N CLEAR TO COMMIT.** 38/38 tests confirmed. Prerequisite (Batch M ACCEPTED) now satisfied. Thunder directs Chisel to commit. Gate labels: MD/SA/SF/IT.
+2. **Batch O IN FLIGHT.** WO2 (CE) is SAI — builder should commit untracked test file. WO1/WO3/WO4 are new work. No action needed until debrief.
+3. **Batch P READY** (rebuilt). `DISPATCH_ENGINE_BATCH_P.md` in inbox. Prereq: Batch O ACCEPTED.
 
 ## Active Findings (OPEN only — closed/resolved in briefing)
 - FINDING-CE-STANDING-AOO-001 LOW OPEN (flat-footed AoO suppression for standing entities — deferred from CE WO)
@@ -23,14 +23,20 @@
 - GAP-B HIGH OPEN (llama-cpp-python / VS Build Tools)
 - FINDING-WORLDGEN-IP-001 HIGH OPEN (ingestion complete → double audit → strip → scan gate — not current blocker)
 - FINDING-COVERAGE-MAP-001 HIGH OPEN (Top 20 gap list in ENGINE_COVERAGE_MAP.md — ongoing WO source)
-- FINDING-ENGINE-ENCUMBRANCE-CATALOG-001 LOW OPEN → CLOSING: WO-ENGINE-ENCUMBRANCE-WIRE-001 in Batch M
-- FINDING-ENGINE-COVER-VALUES-001 HIGH OPEN → CLOSING: WO-ENGINE-COVER-FIX-001 in Batch M
-- FINDING-SAI-FRAGMENTATION-001 LOW OPEN → CLOSING: WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001 in Batch M
-- FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 LOW OPEN (counter-disarm bonus from Improved Disarm not wired — deferred from Batch L)
-- FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 LOW OPEN (Improved Disarm +4 attack bonus variant — deferred from Batch L)
-- FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 LOW OPEN (Improved Grapple +4 grapple check bonus — deferred from Batch L)
-- FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 LOW OPEN (Improved Bull Rush +4 bonus follow-through — deferred from Batch L)
+- FINDING-ENGINE-ENCUMBRANCE-CATALOG-001 LOW **CLOSED** (WO-ENGINE-ENCUMBRANCE-WIRE-001 ACCEPTED Batch M ad21df2)
+- FINDING-ENGINE-COVER-VALUES-001 HIGH **CLOSED** (WO-ENGINE-COVER-FIX-001 ACCEPTED Batch M 548e2cf)
+- FINDING-SAI-FRAGMENTATION-001 LOW **CLOSED** (WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001 ACCEPTED Batch M 14b2c18)
+- FINDING-SCHEMA-COVER-DOCSTRING-001 LOW OPEN (terrain.py:49 docstring still says +8 — surfaced Batch M WO1)
+- FINDING-ENGINE-MULTICLASS-BUILDER-IMMUNE-001 LOW OPEN (immunity not applied in multiclass builder path — Batch M WO3)
+- FINDING-ENGINE-BARD-ROGUE-MARTIAL-PARTIAL-001 LOW OPEN (partial martial proficiency not modeled — Batch M WO4)
+- FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 LOW OPEN → **CLOSING in Batch P WO4**
+- FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
+- FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
+- FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
 - FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 LOW OPEN → **CLOSING in Batch O WO1**
+- FINDING-ENGINE-IMPROVED-TRIP-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
+- FINDING-ENGINE-IMPROVED-SUNDER-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
+- FINDING-ENGINE-IMPROVED-TRIP-WEAPON-CONTEXT-001 LOW OPEN (free attack silently skipped if no weapon in TripIntent — Batch N WO4)
 
 ## Stop Conditions
 - If test suite drops below 6,342 or any gate regresses, halt and investigate
@@ -39,7 +45,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-27 (session 5 — Batch N DISPATCHED 7638473, Batch O DISPATCHED 1753b3d, inbox 17/15, Batch P READY)
+- Updated: 2026-02-27 (session 6 — Batch M ACCEPTED, Batch N READY TO COMMIT, Batch P REBUILT, inbox 12/15)
 - Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
