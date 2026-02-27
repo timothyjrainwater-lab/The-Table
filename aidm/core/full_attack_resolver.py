@@ -422,6 +422,11 @@ def resolve_single_attack_with_critical(
             str_to_damage = str_modifier
 
         base_damage = sum(damage_rolls) + weapon.damage_bonus + str_to_damage + weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: enhancement is pre-crit (PHB p.224)
+        # WO-ENGINE-WEAPON-SPECIALIZATION-001: Weapon Specialization +2 damage bonus (PHB p.102)
+        # Pre-crit: multiplied on critical hits (same as enhancement bonus, PHB p.224)
+        _ic_wsp = attacker_feats if attacker_feats is not None else []
+        _wsp_bonus = 2 if f"weapon_specialization_{getattr(weapon, 'weapon_type', '')}" in _ic_wsp else 0
+        base_damage += _wsp_bonus
         # CP-16: condition damage modifier, WO-034: feat damage modifier
         base_damage_with_modifiers = base_damage + condition_damage_modifier + feat_damage_modifier
 
@@ -694,6 +699,10 @@ def resolve_full_attack(
         raw_attack_bonuses.append(raw_attack_bonuses[0])  # extra attack at highest BAB
         attack_bonuses = [b + main_penalty for b in raw_attack_bonuses]  # rebuild with extra
 
+    # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack bonus (PHB p.102)
+    # Feat key: f"weapon_focus_{weapon_type}" (e.g. "weapon_focus_one-handed")
+    _wf_bonus = 1 if f"weapon_focus_{intent.weapon.weapon_type}" in _attacker_feats else 0
+
     # Emit full_attack_start event (WO-FIX-003: include modifier audit trail)
     events.append(Event(
         event_id=current_event_id,
@@ -756,6 +765,7 @@ def resolve_full_attack(
             _favored_enemy_bonus +  # WO-ENGINE-FAVORED-ENEMY-001: ranger favored enemy (PHB p.47)
             intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: magic weapon (PHB p.224)
             + (0 if _prof_proficient else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
+            + _wf_bonus  # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack (PHB p.102)
         )
 
         attack_events, current_event_id, damage = resolve_single_attack_with_critical(

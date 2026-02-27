@@ -636,6 +636,19 @@ def resolve_attack(
         else:
             _ranged_into_melee_penalty = -4
 
+    # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack bonus (PHB p.102)
+    # Feat key: f"weapon_focus_{weapon_type}" (e.g. "weapon_focus_light", "weapon_focus_one-handed")
+    _wf_bonus = 1 if f"weapon_focus_{intent.weapon.weapon_type}" in _attacker_feats else 0
+    if _wf_bonus:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="weapon_focus_active",
+            timestamp=timestamp,
+            payload={"actor_id": intent.attacker_id, "weapon_type": intent.weapon.weapon_type},
+            citations=[{"source_id": "681f92bc94ff", "page": 102}],
+        ))
+        current_event_id += 1
+
     attack_bonus_with_conditions = (
         intent.attack_bonus +
         attacker_modifiers.attack_modifier +
@@ -654,6 +667,7 @@ def resolve_attack(
         - intent.combat_expertise_penalty  # WO-ENGINE-COMBAT-EXPERTISE-001: CE attack penalty (PHB p.92)
         + (0 if _is_weapon_proficient(attacker, intent.weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
         + _ranged_into_melee_penalty  # WO-ENGINE-PRECISE-SHOT-001: PHB p.140
+        + _wf_bonus  # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack (PHB p.102)
     )
     total = d20_result + attack_bonus_with_conditions
 
@@ -830,6 +844,10 @@ def resolve_attack(
             str_to_damage = str_modifier
 
         base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_to_damage + intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: enhancement is pre-crit (PHB p.224)
+        # WO-ENGINE-WEAPON-SPECIALIZATION-001: Weapon Specialization +2 damage bonus (PHB p.102)
+        # Pre-crit: multiplied on critical hits (same as enhancement bonus, PHB p.224)
+        _wsp_bonus = 2 if f"weapon_specialization_{intent.weapon.weapon_type}" in _attacker_feats else 0
+        base_damage += _wsp_bonus
         # CP-16: Apply condition damage modifier, WO-034: Apply feat damage modifier
         # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus to damage (PHB p.29)
         _inspire_dmg_bonus = (
