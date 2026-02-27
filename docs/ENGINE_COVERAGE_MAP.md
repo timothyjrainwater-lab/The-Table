@@ -183,7 +183,7 @@
 | Negative level penalty to saves | PHB p.215 | **IMPLEMENTED** | `energy_drain_resolver.py`, `save_resolver.py` | NEGATIVE_LEVELS × -1 applied to saves |
 | Natural 1 on save (auto-fail) | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | d20 = 1 → automatic failure |
 | Natural 20 on save (auto-succeed) | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | d20 = 20 → automatic success |
-| Spell Resistance check (d20 + caster level vs SR) | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | SR field on target; SRCheck schema; d20 + CL vs entity SR |
+| Spell Resistance check (d20 + caster level vs SR) | PHB p.177 | **IMPLEMENTED** | `save_resolver.py`, `spell_resolver.py` | SR function in save_resolver; now wired into spell resolution per-target loop (PHB p.177 order: SR before save). Spell Penetration bonus flows through. WO-ENGINE-SR-SPELL-PATH-001. |
 | Energy resistance (absorb first N damage) | PHB p.291 | **IMPLEMENTED** | `energy_resistance_resolver.py`, `schemas/entity_fields.py` | EF.ENERGY_RESISTANCES dict; absorbs first N damage per energy type. WO-ENGINE-ENERGY-RESISTANCE-001. |
 | Evasion (no damage on successful Reflex save) | PHB p.50 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.HAS_EVASION; Ref save success → 0 damage. Armor guard: none/light only. WO-ENGINE-EVASION-ARMOR-001. |
 | Improved Evasion (half damage on failed Reflex) | PHB p.51 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.IMPROVED_EVASION; failed Ref save → half damage. Monk class feature. WO-ENGINE-EVASION-ARMOR-001. |
