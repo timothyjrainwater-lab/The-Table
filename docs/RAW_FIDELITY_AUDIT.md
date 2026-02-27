@@ -352,4 +352,33 @@ This document must be updated **whenever a CP closes**.
 
 ---
 
+## 21. ACTION ECONOMY
+
+*Added 2026-02-27 — Batch V WO1/WO2 (ENGINE-AE-INTENT-MAPPING-001, ENGINE-AE-DEAD-MODULE-001).*
+
+| Mechanic | PHB Reference | Status | Notes |
+|---------|--------------|--------|-------|
+| FullMoveIntent → move slot | PHB p.141 | FULL | `_build_action_types()` in action_economy.py — Batch V WO1 |
+| NaturalAttackIntent → standard slot | PHB p.141 | FULL | `_build_action_types()` in action_economy.py — Batch V WO1 |
+| BardicMusicIntent → standard slot | PHB p.29 | FULL | `_build_action_types()` in action_economy.py — Batch V WO1 |
+| WildShapeIntent → standard slot | PHB p.37 | FULL | `_build_action_types()` in action_economy.py — Batch V WO1 |
+| RevertFormIntent → standard slot | PHB p.37 | FULL | `_build_action_types()` in action_economy.py — Batch V WO1 |
+| DemoralizeIntent → standard slot | PHB p.76 | FULL | `_build_action_types()` in action_economy.py — Batch V WO1 |
+| Stale parallel action_economy module | — | FULL | `aidm/combat/action_economy.py` deleted — Batch V WO2. Live module: `aidm/core/action_economy.py` only |
+
+---
+
+## 22. DOMAIN SYSTEM
+
+*Added 2026-02-27 — Batch V WO3 (ENGINE-DOMAIN-SYSTEM-001).*
+
+| Mechanic | PHB Reference | Status | Notes |
+|---------|--------------|--------|-------|
+| Domain system — EF.DOMAINS field | PHB p.32 | PARTIAL | `EF.DOMAINS = "domains"` in entity_fields.py; wired at chargen via `build_character(domains=...)`. Max-2 validation deferred (FINDING-ENGINE-DOMAIN-MAX-TWO-001 LOW OPEN). Sun domain only consumer in this WO. |
+| Sun domain Greater Turning | PHB p.33 | FULL | `TurnUndeadIntent.greater_turning=True` + `"sun" in EF.DOMAINS` → turned undead destroyed (`undead_destroyed_by_greater_turning` event). Same turn check + HP budget. Consumes 1 regular turn use. `turn_undead_resolver.py`. |
+
+---
+
+---
+
 ## END OF RAW FIDELITY AUDIT
