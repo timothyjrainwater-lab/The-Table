@@ -6,7 +6,7 @@
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
 **Session:** 2026-02-27 (session 9 — 4 parallel tracks active: R IN FLIGHT, P READY, S/T DISPATCH-READY, Q waiting for P+R WO4. PM recon debrief filed: DEBRIEF_BATCH-R-PM-RECON-001.md. Batch R corrected: 24 new gate tests (WO3 full SAI). Batch T dispatched: MA/INA/ITN/SD — natural_attack_resolver.py + turn_undead_resolver.py.)
-**Delta:** Batches Q/S/T dispatched 2026-02-27. PM recon debrief process gap patched (rule added to Process). Suite: 8374 passed / 142 pre-existing failures. Inbox 12/15.
+**Delta:** Batches Q/S/T/T dispatched 2026-02-27. PM recon debrief process gap patched (rule added to Process). CLAUDE.md created — methodology enforcement now auto-loads for all agents. settings.local.json cleaned (dead schema fields removed). Suite: 8374 passed / 142 pre-existing failures. Inbox 12/15.
 
 ## Priority Stack (top 3)
 1. **Batch R IN FLIGHT.** 24 new gate tests: IE/MB/GTWF (+WO3 SAI existing gate). Awaiting builder debrief. Batch Q WO3 (WFC) waits for R WO4 (GTWF) to settle.
