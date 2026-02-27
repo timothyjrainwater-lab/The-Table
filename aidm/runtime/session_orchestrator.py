@@ -875,7 +875,9 @@ class SessionOrchestrator:
             _ability_mod = _entity.get(_ability_map.get(_skill_def.key_ability, ""), 0)
             _ranks = _entity.get(EF.SKILL_RANKS, {}).get(skill_name, 0)
             _acp = _entity.get(EF.ARMOR_CHECK_PENALTY, 0) if _skill_def.armor_check_penalty else 0
-            modifier = _ability_mod + _ranks - _acp
+            # WO-ENGINE-RACIAL-SKILL-BONUS-001: Racial skill bonuses (PHB p.14/17/18/21)
+            _racial_skill_bonus = _entity.get(EF.RACIAL_SKILL_BONUS, {}).get(skill_name, 0)
+            modifier = _ability_mod + _ranks - _acp + _racial_skill_bonus
         else:
             modifier = 0  # skill not in registry — fail soft
 
