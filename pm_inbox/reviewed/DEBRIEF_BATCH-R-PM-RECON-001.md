@@ -172,6 +172,8 @@ ML-003 validated again: coverage audits and draft dispatches inherit the confide
 
 TWF chain uses Title Case with hyphens. Anyone generating a GTWF WO from a coverage audit without reading the actual ITWF feat string will write lowercase. This should be noted in the briefing as a standing pattern note, not just caught per-WO.
 
+**Radar:** YELLOW. Batch R in-flight with corrected dispatch. Three wrong assumptions caught pre-builder — no code damage. Environment disruption (VS Code → Cursor migration) caused flat context boot this session; full three-layer rehydration not completed. Process discipline partially degraded. Boot protocol needs re-establishing before next PM session.
+
 ---
 
 *Debrief filed by Slate. Batch R dispatched (commit 17b6d93). Awaiting Chisel builder debriefs.*

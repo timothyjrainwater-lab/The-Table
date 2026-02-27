@@ -5,15 +5,18 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-27 (session 9 — 4 parallel tracks active: R IN FLIGHT, P READY, S/T DISPATCH-READY, Q waiting for P+R WO4. PM recon debrief filed: DEBRIEF_BATCH-R-PM-RECON-001.md. Batch R corrected: 24 new gate tests (WO3 full SAI). Batch T dispatched: MA/INA/ITN/SD — natural_attack_resolver.py + turn_undead_resolver.py.)
-**Delta:** Batches Q/S/T/T dispatched 2026-02-27. PM recon debrief process gap patched (rule added to Process). CLAUDE.md created — methodology enforcement now auto-loads for all agents. settings.local.json cleaned (dead schema fields removed). Suite: 8374 passed / 142 pre-existing failures. Inbox 12/15.
+**Session:** 2026-02-27 (session 9 — 4 active tracks: R IN FLIGHT, P READY, T IN FLIGHT, Q gated. Batch S ACCEPTED 33/33. PM recon debrief filed. CLAUDE.md enforcement layer live.)
+**Delta:** Batch S ACCEPTED (9416925/dabeaee/652590d/1516009). 3 new LOW findings. EF.TURN_UNDEAD_USES confirmed (not EF.TURN_UNDEAD_USES_REMAINING). CLAUDE.md created. Suite: 8407 passed / 141 pre-existing failures. Inbox 12/15.
 
 ## Priority Stack (top 3)
 1. **Batch R IN FLIGHT.** 24 new gate tests: IE/MB/GTWF (+WO3 SAI existing gate). Awaiting builder debrief. Batch Q WO3 (WFC) waits for R WO4 (GTWF) to settle.
 2. **Batch P READY.** 32 gate tests: PA/IMB/PS/IDC. Batch Q follows P. Thunder dispatches.
-3. **Batches S/T DISPATCH-READY.** Third (BDR/RSV/ETN/MUP) and fourth (MA/INA/ITN/SD) parallel tracks. Both start immediately — zero overlap with P/R/Q.
+3. **Batch T IN FLIGHT.** 32 gate tests: MA/INA/ITN/SD. CORRIGENDUM: use EF.TURN_UNDEAD_USES (not EF.TURN_UNDEAD_USES_REMAINING). builder.py lock released (Batch S complete).
 
 ## Active Findings (OPEN only — closed/resolved in briefing)
+- FINDING-ENGINE-GNOME-ILLUSION-SAVE-001 LOW OPEN (gnome +2 vs illusion — SaveContext has no spell school field; Batch S RSV-006 BLOCKED)
+- FINDING-ENGINE-MONK-UNARMED-ATTACK-WIRE-001 LOW OPEN (EF.MONK_UNARMED_DICE set at chargen; attack resolver does not yet read it — Batch S MUP)
+- FINDING-ENGINE-LEVELUP-POOL-SYNC-001 LOW OPEN (level-up path does not apply barbarian DR pool effects; chargen builder.py does — Batch S BDR; KERNEL-01 touch)
 - FINDING-CE-STANDING-AOO-001 LOW → **CLOSING in Batch R WO3 debrief** (flat-footed guard at aoo.py:779 confirmed by pre-dispatch recon)
 - FINDING-ENGINE-FLATFOOTED-AOO-001 LOW OPEN (no flat-footed AoO suppression in aoo.py — nothing to bypass currently; surfaced by Combat Reflexes WO)
 - FINDING-SF-SAVE-BREAKDOWN-001 LOW OPEN (save breakdown not surfaced in narrative output)

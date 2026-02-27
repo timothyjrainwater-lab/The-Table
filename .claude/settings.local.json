@@ -101,5 +101,18 @@
     "additionalDirectories": [
       "f:\\DnD-3.5\\docs\\cp19"
     ]
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python scripts/speak.py \"Thunder, session complete.\""
+          }
+        ]
+      }
+    ]
   }
 }

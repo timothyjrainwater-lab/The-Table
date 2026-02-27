@@ -6,6 +6,29 @@
 **Batch:** T — 4 WOs, 32 gate tests
 **Prerequisite:** NONE — fourth parallel track
 
+---
+
+## ⚠ CORRIGENDUM — BATCH S FINDINGS (read before WO3/WO4)
+
+**Filed:** 2026-02-27 (after Batch S accepted, commits 9416925/dabeaee/652590d/1516009)
+
+**CRITICAL — field name correction:**
+
+The Batch T dispatch was written before Batch S confirmed the turn undead field names. WO3 (ITN) and WO4 (SD) use the wrong field name throughout. Use the corrected names below.
+
+| Dispatch says | Actual field (confirmed by Batch S ETN) |
+|---|---|
+| `EF.TURN_UNDEAD_USES_REMAINING` | **`EF.TURN_UNDEAD_USES`** |
+| `EF.GREATER_TURNING_USES_REMAINING` | **`EF.GREATER_TURNING_USES`** (use this pattern for consistency) |
+
+`EF.TURN_UNDEAD_USES_MAX` — correct, no change.
+
+**builder.py lock released:** Batch S is complete. `aidm/chargen/builder.py` is no longer locked. WO4 (SD) deferred condition on builder.py is resolved. The `play_loop.py` block condition (Batch P lock) still holds.
+
+**EF.TURN_UNDEAD_USES initialization:** Confirmed by Batch S ETN — initialized at chargen: `max(1, 3 + CHA_mod)` for cleric L1+ and paladin L4+. Both `EF.TURN_UNDEAD_USES` and `EF.TURN_UNDEAD_USES_MAX` are set.
+
+---
+
 **Parallel track:** Batch T locks only `natural_attack_resolver.py` and `turn_undead_resolver.py`. No overlap with Batch P (`attack_resolver.py` / `maneuver_resolver.py` / `play_loop.py`), Batch R (`spell_resolver.py` / `aoo.py` / `full_attack_resolver.py`), or Batch S (`builder.py` / `save_resolver.py`). Start immediately after dirty-tree baseline is committed.
 
 **Batch Q coupling note:** Batch Q WO3 (WFC) notes that `natural_attack_resolver.py` may or may not inherit Weapon Focus through the call chain. Batch T WO1 boot audit should document whether `natural_attack_resolver.py` delegates to `attack_resolver.py` or maintains its own attack path — file this in WO1 debrief to inform Batch Q WO3.

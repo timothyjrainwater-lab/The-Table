@@ -1453,7 +1453,7 @@ def resolve_disarm(
     defender_size = _get_size_modifier(world_state, target_id)
     defender_modifier = defender_bab + defender_str + defender_size
 
-    # Disarm weapon type modifiers (PHB p.155)
+    # Disarm weapon type modifiers (PHB p.155) — B-AMB-04
     attacker_weapon_type = _get_weapon_type(world_state, attacker_id)
     if attacker_weapon_type == "two-handed":
         attacker_modifier += 4
@@ -1521,7 +1521,9 @@ def resolve_disarm(
         )
     else:
         # Disarm failed — check for counter-disarm (attacker loses by 10+)
-        margin = check_result.defender_roll - check_result.attacker_roll
+        # WO-ENGINE-IDC-001: margin uses totals, not raw rolls (PHB p.155)
+        margin = check_result.defender_total - check_result.attacker_total
+        counter_disarm_allowed = margin >= 10
         events.append(Event(
             event_id=current_event_id,
             event_type="disarm_failure",
@@ -1531,7 +1533,7 @@ def resolve_disarm(
                 "target_id": target_id,
                 "reason": "opposed_check_lost",
                 "margin": margin,
-                "counter_disarm_allowed": True,
+                "counter_disarm_allowed": counter_disarm_allowed,
                 **({"causal_chain_id": causal_chain_id, "chain_position": 1} if causal_chain_id is not None else {}),
             },
             citations=[{"source_id": "681f92bc94ff", "page": 155}],
@@ -1539,98 +1541,99 @@ def resolve_disarm(
         current_event_id += 1
         current_timestamp += 0.01
 
-        # PHB p.155: If attacker loses by 10+, attacker drops their weapon
+        # PHB p.155: If attacker loses by 10+, defender may attempt counter-disarm
         if margin >= 10:
-            entities = deepcopy(world_state.entities)
-            if attacker_id in entities:
-                entities[attacker_id][EF.DISARMED] = True
-            world_state = WorldState(
-                ruleset_version=world_state.ruleset_version,
-                entities=entities,
-                active_combat=world_state.active_combat,
-            )
-            events.append(Event(
-                event_id=current_event_id,
-                event_type="attacker_disarmed",
-                timestamp=current_timestamp,
-                payload={
-                    "attacker_id": attacker_id,
-                    "target_id": target_id,
-                    "margin": margin,
-                },
-                citations=[{"source_id": "681f92bc94ff", "page": 155}],
-            ))
-            current_event_id += 1
+            _att_entity = world_state.entities.get(attacker_id, {})
+            _att_feats = _att_entity.get(EF.FEATS, [])
+            if "improved_disarm" in _att_feats:
+                # WO-ENGINE-IDC-001: Improved Disarm suppresses the counter-disarm attempt
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="counter_disarm_suppressed",
+                    timestamp=current_timestamp,
+                    payload={
+                        "actor_id": attacker_id,
+                        "feat": "improved_disarm",
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 96}],
+                ))
+                current_event_id += 1
+                result = ManeuverResult(
+                    maneuver_type="disarm",
+                    success=False,
+                    events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+                )
+            else:
+                # Defender rolls counter-disarm: defender_modifier vs attacker_modifier
+                counter_result = _roll_opposed_check(rng, defender_modifier, attacker_modifier, "counter_disarm")
+
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="opposed_check",
+                    timestamp=current_timestamp,
+                    payload={
+                        **counter_result.to_dict(),
+                        "is_counter_disarm": True,
+                        "original_attacker": attacker_id,
+                        "counter_attacker": target_id,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 155}],
+                ))
+                current_event_id += 1
+                current_timestamp += 0.01
+
+                if counter_result.attacker_wins:
+                    entities = deepcopy(world_state.entities)
+                    if attacker_id in entities:
+                        entities[attacker_id][EF.DISARMED] = True
+                    world_state = WorldState(
+                        ruleset_version=world_state.ruleset_version,
+                        entities=entities,
+                        active_combat=world_state.active_combat,
+                    )
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="counter_disarm_success",
+                        timestamp=current_timestamp,
+                        payload={
+                            "counter_attacker": target_id,
+                            "target_id": attacker_id,
+                            "weapon_dropped": True,
+                        },
+                        citations=[{"source_id": "681f92bc94ff", "page": 155}],
+                    ))
+                    current_event_id += 1
+                    result = ManeuverResult(
+                        maneuver_type="disarm",
+                        success=False,
+                        events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+                        counter_attack_result={"success": True},
+                    )
+                else:
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="counter_disarm_failure",
+                        timestamp=current_timestamp,
+                        payload={
+                            "counter_attacker": target_id,
+                            "target_id": attacker_id,
+                        },
+                        citations=[{"source_id": "681f92bc94ff", "page": 155}],
+                    ))
+                    current_event_id += 1
+                    result = ManeuverResult(
+                        maneuver_type="disarm",
+                        success=False,
+                        events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
+                        counter_attack_result={"success": False},
+                    )
+        else:
+            # Normal fail — margin < 10, no counter-disarm (PHB p.155)
             result = ManeuverResult(
                 maneuver_type="disarm",
                 success=False,
                 events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
-                counter_attack_result={"success": True},
             )
-        else:
-            # Normal fail — still roll counter-disarm for consistency with old behavior
-            counter_result = _roll_opposed_check(rng, defender_modifier, attacker_modifier, "counter_disarm")
-
-            events.append(Event(
-                event_id=current_event_id,
-                event_type="opposed_check",
-                timestamp=current_timestamp,
-                payload={
-                    **counter_result.to_dict(),
-                    "is_counter_disarm": True,
-                    "original_attacker": attacker_id,
-                    "counter_attacker": target_id,
-                },
-                citations=[{"source_id": "681f92bc94ff", "page": 155}],
-            ))
-            current_event_id += 1
-            current_timestamp += 0.01
-
-            if counter_result.attacker_wins:
-                entities = deepcopy(world_state.entities)
-                if attacker_id in entities:
-                    entities[attacker_id][EF.DISARMED] = True
-                world_state = WorldState(
-                    ruleset_version=world_state.ruleset_version,
-                    entities=entities,
-                    active_combat=world_state.active_combat,
-                )
-                events.append(Event(
-                    event_id=current_event_id,
-                    event_type="counter_disarm_success",
-                    timestamp=current_timestamp,
-                    payload={
-                        "counter_attacker": target_id,
-                        "target_id": attacker_id,
-                        "weapon_dropped": True,
-                    },
-                    citations=[{"source_id": "681f92bc94ff", "page": 155}],
-                ))
-                current_event_id += 1
-                result = ManeuverResult(
-                    maneuver_type="disarm",
-                    success=False,
-                    events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
-                    counter_attack_result={"success": True},
-                )
-            else:
-                events.append(Event(
-                    event_id=current_event_id,
-                    event_type="counter_disarm_failure",
-                    timestamp=current_timestamp,
-                    payload={
-                        "counter_attacker": target_id,
-                        "target_id": attacker_id,
-                    },
-                    citations=[{"source_id": "681f92bc94ff", "page": 155}],
-                ))
-                current_event_id += 1
-                result = ManeuverResult(
-                    maneuver_type="disarm",
-                    success=False,
-                    events=[{"event_type": e.event_type, "payload": e.payload} for e in events],
-                    counter_attack_result={"success": False},
-                )
 
     return events, world_state, result
 
