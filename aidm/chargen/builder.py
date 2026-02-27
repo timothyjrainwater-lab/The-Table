@@ -996,6 +996,17 @@ def build_character(
                 )
             break
 
+    # WO-ENGINE-EXTRA-TURNING-001: Turn Undead pool init + Extra Turning feat (PHB p.94)
+    # Base uses = max(1, 3 + CHA mod) for cleric (L1+) and paladin (L4+).
+    _cleric_level_et = level if class_name == "cleric" else 0
+    _paladin_level_et = level if class_name == "paladin" else 0
+    if _cleric_level_et >= 1 or _paladin_level_et >= 4:
+        _turn_base = max(1, 3 + _cha_mod)
+        _extra_turning_count = entity.get(EF.FEATS, []).count("extra_turning")
+        _turn_max = _turn_base + 4 * _extra_turning_count
+        entity[EF.TURN_UNDEAD_USES_MAX] = _turn_max
+        entity[EF.TURN_UNDEAD_USES] = _turn_max
+
     return entity
 
 
@@ -1210,6 +1221,16 @@ def _build_multiclass_character(
                     + [{"amount": _dr_value, "bypass": "-"}]
                 )
             break
+
+    # WO-ENGINE-EXTRA-TURNING-001: Turn Undead pool init + Extra Turning feat (PHB p.94)
+    _cleric_level_et = class_mix.get("cleric", 0)
+    _paladin_level_et = class_mix.get("paladin", 0)
+    if _cleric_level_et >= 1 or _paladin_level_et >= 4:
+        _turn_base = max(1, 3 + _cha_mod)
+        _extra_turning_count = entity.get(EF.FEATS, []).count("extra_turning")
+        _turn_max = _turn_base + 4 * _extra_turning_count
+        entity[EF.TURN_UNDEAD_USES_MAX] = _turn_max
+        entity[EF.TURN_UNDEAD_USES] = _turn_max
 
     return entity
 
