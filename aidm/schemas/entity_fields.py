@@ -294,6 +294,12 @@ class _EntityFields:
     # Applies only when unarmored (ARMOR_AC_BONUS == 0).
     # Encumbrance check deferred to encumbrance system integration.
 
+    # --- Monk Unarmed Damage (WO-ENGINE-MONK-UNARMED-PROGRESSION-001) ---
+    MONK_UNARMED_DICE = "monk_unarmed_dice"
+    # str: dice expression for monk unarmed strike damage (PHB Table 3-10, p.41).
+    # "1d6" at L1-3, "1d8" at L4-7, "1d10" at L8-11, "2d6" at L12-15,
+    # "2d8" at L16-19, "2d10" at L20. Absent for non-monks.
+
     ARMOR_AC_BONUS = "armor_ac_bonus"
     # int: AC bonus from worn armor. 0 = unarmored. Set at chargen.
     # Used to gate monk WIS-to-AC and other armor-conditional features.

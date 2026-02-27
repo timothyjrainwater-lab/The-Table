@@ -1007,6 +1007,17 @@ def build_character(
         entity[EF.TURN_UNDEAD_USES_MAX] = _turn_max
         entity[EF.TURN_UNDEAD_USES] = _turn_max
 
+    # WO-ENGINE-MONK-UNARMED-PROGRESSION-001: Monk unarmed strike damage (PHB Table 3-10)
+    _monk_level_mup = level if class_name == "monk" else 0
+    _unarmed_table = [
+        (20, "2d10"), (16, "2d8"), (12, "2d6"),
+        (8, "1d10"), (4, "1d8"), (1, "1d6"),
+    ]
+    for _threshold, _dice in _unarmed_table:
+        if _monk_level_mup >= _threshold:
+            entity[EF.MONK_UNARMED_DICE] = _dice
+            break
+
     return entity
 
 
@@ -1231,6 +1242,17 @@ def _build_multiclass_character(
         _turn_max = _turn_base + 4 * _extra_turning_count
         entity[EF.TURN_UNDEAD_USES_MAX] = _turn_max
         entity[EF.TURN_UNDEAD_USES] = _turn_max
+
+    # WO-ENGINE-MONK-UNARMED-PROGRESSION-001: Monk unarmed strike damage (PHB Table 3-10)
+    _monk_level_mup = class_mix.get("monk", 0)
+    _unarmed_table = [
+        (20, "2d10"), (16, "2d8"), (12, "2d6"),
+        (8, "1d10"), (4, "1d8"), (1, "1d6"),
+    ]
+    for _threshold, _dice in _unarmed_table:
+        if _monk_level_mup >= _threshold:
+            entity[EF.MONK_UNARMED_DICE] = _dice
+            break
 
     return entity
 
