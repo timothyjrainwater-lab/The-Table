@@ -9,7 +9,7 @@
 **Delta:** Batch N + O both ACCEPTED 2026-02-27. 8 debriefs filed. Inbox normalized. Suite: 8374 passed / 142 pre-existing failures. Queue: Batch P READY — Thunder dispatches when ready.
 
 ## Priority Stack (top 3)
-1. **Batch P READY.** `WO_SET_ENGINE_BATCH_P.md` in inbox (32 gate tests: DG/LH/EV/UD). Prereq: Batch O ACCEPTED — SATISFIED. Thunder dispatches when ready.
+1. **Batch P READY.** `WO_SET_ENGINE_BATCH_P.md` in inbox (32 gate tests: PA/IMB/PS/IDC). Prereq: Batch O ACCEPTED — SATISFIED. Thunder dispatches when ready. (Note: original DG/LH/EV/UD content was all SAI — dispatch rebuilt with genuine new work.)
 2. **Data Batch B IN FLIGHT.** WO-DATA-MONSTERS-001 and WO-INFRA-DICE-001 still in inbox. No action until builder debrief.
 3. **Inbox at 10/15.** Within cap. No hygiene action needed.
 
@@ -33,7 +33,7 @@
 - FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
 - FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
 - FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
-- FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 LOW OPEN → **CLOSING in Batch O WO1**
+- FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-OVERRUN-001 ACCEPTED Batch O)
 - FINDING-ENGINE-IMPROVED-TRIP-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
 - FINDING-ENGINE-IMPROVED-SUNDER-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
 - FINDING-ENGINE-IMPROVED-TRIP-WEAPON-CONTEXT-001 LOW OPEN (free attack silently skipped if no weapon in TripIntent — Batch N WO4)
@@ -45,7 +45,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-27 (session 6 — Batch M ACCEPTED, Batch N READY TO COMMIT, Batch P REBUILT, inbox 12/15)
+- Updated: 2026-02-27 (session 7 — Batch N + O ACCEPTED, Batch P rebuilt PA/IMB/PS/IDC, inbox 8/15)
 - Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
