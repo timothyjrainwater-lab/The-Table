@@ -314,7 +314,11 @@ def test_rng_consumption_order_with_mixed_threat_results():
 
 
 def test_multiple_attacks_accumulate_damage():
-    """Tier 1: Multiple iterative attacks should accumulate damage to single HP change."""
+    """Tier 1: Multiple iterative attacks emit one hp_changed per hit (post-FAGU per-hit semantics).
+
+    Post-FAGU: resolve_attack() emits one hp_changed per hit (source='attack_damage').
+    Total HP delta across all hp_changed events must equal sum of final_damage from damage_roll events.
+    """
     world_state = WorldState(
         ruleset_version="3.5e",
         entities={
@@ -337,14 +341,16 @@ def test_multiple_attacks_accumulate_damage():
         damage_events = [e for e in events if e.event_type == "damage_roll"]
 
         if len(damage_events) > 1:
-            # Should have exactly one hp_changed event
+            # FAGU: one hp_changed per hit (not one cumulative event)
             hp_events = [e for e in events if e.event_type == "hp_changed"]
-            assert len(hp_events) == 1
+            assert len(hp_events) == len(damage_events), (
+                f"Expected {len(damage_events)} hp_changed events (one per hit), got {len(hp_events)}"
+            )
 
-            # Total damage should equal sum of all damage_roll events
-            total_damage_from_rolls = sum(d.payload["damage_total"] for d in damage_events)
-            hp_event = hp_events[0]
-            assert hp_event.payload["delta"] == -total_damage_from_rolls
+            # Sum of hp_changed deltas must equal sum of final_damage from damage_roll events
+            total_final_damage = sum(d.payload["final_damage"] for d in damage_events)
+            total_hp_delta = sum(abs(e.payload["delta"]) for e in hp_events)
+            assert total_hp_delta == total_final_damage
             break
     else:
         pytest.fail("Could not find scenario with multiple hits in 200 seeds")
@@ -411,6 +417,7 @@ def test_full_attack_events_sufficient_for_audit():
     assert "attack_bonuses" in start_events[0].payload
 
     # Check attack_roll events have required fields (including CP-11 additions)
+    # Note: attack_index was a RSAWC artifact; post-FAGU AR events don't include it
     attack_events = [e for e in events if e.event_type == "attack_roll"]
     for attack in attack_events:
         assert "d20_result" in attack.payload
@@ -423,7 +430,6 @@ def test_full_attack_events_sufficient_for_audit():
         assert "is_threat" in attack.payload  # CP-11
         assert "is_critical" in attack.payload  # CP-11
         assert "confirmation_total" in attack.payload  # CP-11 (may be None)
-        assert "attack_index" in attack.payload  # CP-11
 
     # Check damage_roll events have CP-11 fields
     damage_events = [e for e in events if e.event_type == "damage_roll"]
@@ -431,7 +437,6 @@ def test_full_attack_events_sufficient_for_audit():
         assert "base_damage" in damage.payload  # CP-11
         assert "critical_multiplier" in damage.payload  # CP-11
         assert "damage_total" in damage.payload
-        assert "attack_index" in damage.payload  # CP-11
 
 
 # ==============================================================================

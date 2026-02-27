@@ -392,9 +392,8 @@ def test_full_attack_concealment_miss_prevents_damage():
         if concealment_events:
             concealment_miss_in_full = True
 
-            # Verify concealment_miss has attack_index field
+            # Verify concealment_miss payload fields (attack_index removed post-FAGU — AR event)
             ce = concealment_events[0]
-            assert "attack_index" in ce.payload
             assert ce.payload["miss_chance_percent"] == 50
             assert ce.payload["original_hit"] is True
 

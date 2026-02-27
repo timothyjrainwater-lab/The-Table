@@ -52,13 +52,13 @@ All state mutations are event-driven only.
 """
 
 from typing import List, Tuple, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 from aidm.core.event_log import Event
 from aidm.core.state import WorldState
 from aidm.core.rng_protocol import RNGProvider
 from aidm.schemas.attack import AttackIntent
-from aidm.core.attack_resolver import parse_damage_dice, roll_dice
+from aidm.core.attack_resolver import parse_damage_dice, roll_dice, resolve_attack
 from aidm.core.conditions import get_condition_modifiers
 from aidm.core.targeting_resolver import evaluate_target_legality, get_entity_position
 from aidm.schemas.entity_fields import EF
@@ -626,23 +626,12 @@ def resolve_full_attack(
         world_state, intent.attacker_id, intent.target_id
     )
 
-    # WO-ENGINE-IMPROVED-UNCANNY-DODGE-001: IUD suppresses flanking-based sneak attack (PHB p.26/50)
-    # Flanking attack bonus is preserved — IUD only suppresses SA eligibility.
-    _sa_is_flanking = is_flanking
-    if is_flanking and "improved_uncanny_dodge" in target.get(EF.FEATS, []):
-        _attacker_rogue = attacker.get(EF.CLASS_LEVELS, {}).get("rogue", 0)
-        _target_iud_base = (
-            target.get(EF.CLASS_LEVELS, {}).get("rogue", 0)
-            + target.get(EF.CLASS_LEVELS, {}).get("barbarian", 0)
-        )
-        if _attacker_rogue < _target_iud_base + 4:
-            _sa_is_flanking = False  # Flanking suppressed for sneak attack eligibility
-
-    # WO-050B: Check sneak attack eligibility (computed once per full attack)
+    # WO-050B: Check sneak attack eligibility (for full_attack_start event payload)
+    # NOTE: IUD suppression is handled per-hit inside resolve_attack() (FAGU delegation).
     from aidm.core.sneak_attack import is_sneak_attack_eligible, get_sneak_attack_dice
     sa_eligible, sa_reason = is_sneak_attack_eligible(
         world_state, intent.attacker_id, intent.target_id,
-        is_flanking=_sa_is_flanking,
+        is_flanking=is_flanking,
     )
     sa_dice = get_sneak_attack_dice(attacker) if sa_eligible else 0
 
@@ -699,9 +688,7 @@ def resolve_full_attack(
         raw_attack_bonuses.append(raw_attack_bonuses[0])  # extra attack at highest BAB
         attack_bonuses = [b + main_penalty for b in raw_attack_bonuses]  # rebuild with extra
 
-    # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack bonus (PHB p.102)
-    # Feat key: f"weapon_focus_{weapon_type}" (e.g. "weapon_focus_one-handed")
-    _wf_bonus = 1 if f"weapon_focus_{intent.weapon.weapon_type}" in _attacker_feats else 0
+    # WO-ENGINE-WEAPON-FOCUS-001: _wf_bonus removed — resolve_attack() handles it per-hit (FAGU)
 
     # Emit full_attack_start event (WO-FIX-003: include modifier audit trail)
     events.append(Event(
@@ -747,324 +734,188 @@ def resolve_full_attack(
     current_hp = hp_current
     attacks_executed = 0
 
-    # WO-ENGINE-WEAPON-PROFICIENCY-001: Non-proficiency penalty (PHB p.113) — compute once per full attack
-    from aidm.core.attack_resolver import _is_weapon_proficient as _wp_proficient_check
-    _prof_proficient = _wp_proficient_check(attacker, intent.weapon)
+    # FAGU: Working WorldState copy for inter-attack HP tracking.
+    # resolve_attack() reads HP from world_state; we update _ws between attacks
+    # so Cleave detection and per-hit hp_changed events reflect actual cumulative HP.
+    _ws = world_state
 
     for attack_index, penalized_bonus in enumerate(attack_bonuses):
-        # Raw BAB for this iterative (without TWF penalty) — for audit trail
-        raw_bab = raw_attack_bonuses[attack_index]
-        # WO-FIX-003: Apply all modifiers to each iterative attack bonus
-        adjusted_attack_bonus = (
-            penalized_bonus +
-            attacker_modifiers.attack_modifier +
-            mounted_bonus +
-            terrain_higher_ground +
-            feat_attack_modifier +
-            flanking_bonus +
-            _favored_enemy_bonus +  # WO-ENGINE-FAVORED-ENEMY-001: ranger favored enemy (PHB p.47)
-            intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: magic weapon (PHB p.224)
-            + (0 if _prof_proficient else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
-            + _wf_bonus  # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack (PHB p.102)
-        )
-
-        attack_events, current_event_id, damage = resolve_single_attack_with_critical(
+        # FAGU: Build per-iterative AttackIntent and delegate to resolve_attack().
+        # resolve_attack() handles ALL 21 mechanics previously missing from FAR
+        # (Inspire Courage, Finesse, Neg Levels, Fight Def, Broken, vs-Blinded,
+        #  Blind attacker, CE, Precise Shot, DEX denial, TWD AC, CE AC, Monk WIS AC,
+        #  Deflection, Feint, Inspire dmg, Disarmed, EqMelded, Blind-Fight, MassiveDmg).
+        iter_intent = AttackIntent(
             attacker_id=intent.attacker_id,
             target_id=intent.target_id,
-            attack_bonus=adjusted_attack_bonus,
             weapon=intent.weapon,
-            target_ac=target_ac,
+            attack_bonus=penalized_bonus,  # iterative BAB (base_attack_bonus - 5*i + twf_penalty)
+            power_attack_penalty=intent.power_attack_penalty,
+        )
+        attack_events = resolve_attack(
+            intent=iter_intent,
+            world_state=_ws,
             rng=rng,
             next_event_id=current_event_id,
             timestamp=timestamp + 0.5 * attack_index,
-            attack_index=attack_index,
-            str_modifier=str_modifier,
-            condition_damage_modifier=attacker_modifiers.damage_modifier,
-            feat_damage_modifier=feat_damage_modifier,
-            base_attack_bonus_raw=raw_bab,
-            condition_attack_modifier=attacker_modifiers.attack_modifier,
-            mounted_bonus=mounted_bonus,
-            terrain_higher_ground=terrain_higher_ground,
-            feat_attack_modifier=feat_attack_modifier,
-            target_base_ac=base_ac,
-            target_ac_modifier=condition_ac,
-            cover_type=cover_result.cover_type,
-            cover_ac_bonus=cover_result.ac_bonus,
-            dr_amount=dr_amount,
-            miss_chance_percent=miss_chance_percent,
-            flanking_bonus=flanking_bonus,
-            is_flanking=is_flanking,
-            flanking_ally_ids=flanking_ally_ids,
-            sneak_attack_dice=sa_dice,
-            sneak_attack_eligible=sa_eligible,
-            sneak_attack_reason=sa_reason,
-            favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
-            attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
         )
-
         events.extend(attack_events)
-        total_damage += damage
+        current_event_id += len(attack_events)
+        attacks_executed += 1
+
+        _hit_damage = next(
+            (e.payload.get("final_damage", 0) for e in attack_events
+             if e.event_type == "damage_roll"),
+            0
+        )
+        total_damage += _hit_damage
         # WO-ENGINE-DR-001: accumulate DR absorbed from damage_roll event
         for ev in attack_events:
             if ev.event_type == "damage_roll":
                 total_dr_absorbed += ev.payload.get("damage_reduced", 0)
-        current_hp -= damage
-        attacks_executed += 1
+        current_hp -= _hit_damage
 
-        # WO-ENGINE-CLEAVE-WIRE-001: Cleave bonus attack on kill within full attack (PHB p.92/94)
-        if current_hp <= 0 and damage > 0:
-            from aidm.core.feat_resolver import can_use_cleave, get_cleave_limit
-            from aidm.core.attack_resolver import _find_cleave_target
-            from aidm.schemas.attack import AttackIntent as _AttackIntent
-            _cl_attacker = attacker  # already bound above
-            if can_use_cleave(_cl_attacker, intent.target_id, world_state):
-                _cl_limit = get_cleave_limit(_cl_attacker)
-                _cl_used_set = set()
-                if world_state.active_combat is not None:
-                    _cl_used_set = set(world_state.active_combat.get("cleave_used_this_turn", set()))
-                _cl_already = intent.attacker_id in _cl_used_set
-                if _cl_limit is None or not _cl_already:
-                    _cl_target_id = _find_cleave_target(intent.attacker_id, intent.target_id, world_state)
-                    if _cl_target_id is not None:
-                        if _cl_limit == 1 and world_state.active_combat is not None:
-                            world_state.active_combat["cleave_used_this_turn"] = _cl_used_set | {intent.attacker_id}
-                        _feat_name = "great_cleave" if _cl_limit is None else "cleave"
-                        events.append(Event(
-                            event_id=current_event_id,
-                            event_type="cleave_triggered",
-                            timestamp=timestamp + 0.5 * attacks_executed + 0.35,
-                            payload={
-                                "attacker_id": intent.attacker_id,
-                                "killed_target_id": intent.target_id,
-                                "cleave_target_id": _cl_target_id,
-                                "feat": _feat_name,
-                            },
-                            citations=[{"source_id": "681f92bc94ff", "page": 92}],
-                        ))
-                        current_event_id += 1
-                        _cleave_bonus_intent = _AttackIntent(
-                            attacker_id=intent.attacker_id,
-                            target_id=_cl_target_id,
-                            weapon=intent.weapon,
-                            attack_bonus=adjusted_attack_bonus,
-                        )
-                        from aidm.core.attack_resolver import resolve_attack as _resolve_atk
-                        _cl_events = _resolve_atk(
-                            intent=_cleave_bonus_intent,
-                            world_state=world_state,
-                            rng=rng,
-                            next_event_id=current_event_id,
-                            timestamp=timestamp + 0.5 * attacks_executed + 0.4,
-                        )
-                        events.extend(_cl_events)
-                        current_event_id += len(_cl_events)
+        # FAGU: Update _ws target HP so next resolve_attack() call sees correct HP
+        # (enables Cleave detection and per-hit hp_changed events to be accurate)
+        if _hit_damage > 0:
+            _tgt = dict(_ws.entities.get(intent.target_id, {}))
+            _tgt[EF.HP_CURRENT] = current_hp
+            _ws = WorldState(
+                ruleset_version=_ws.ruleset_version,
+                entities={**_ws.entities, intent.target_id: _tgt},
+                active_combat=_ws.active_combat,
+            )
 
         # WO-FIX-02 (BUG-2): Stop attacking defeated targets
-        if current_hp <= 0 and damage > 0:
-            break  # Target defeated -- remaining attacks not executed
+        # Cleave handled inside resolve_attack() automatically (FAGU)
+        if current_hp <= 0:
+            break
 
     # CP-21: Off-hand attack(s) after main-hand sequence
     if is_twf and current_hp > 0:
         off_hand_bab = intent.base_attack_bonus + off_penalty
-        off_hand_adjusted = (
-            off_hand_bab +
-            attacker_modifiers.attack_modifier +
-            mounted_bonus +
-            terrain_higher_ground +
-            feat_attack_modifier +
-            flanking_bonus
-            + (0 if _wp_proficient_check(attacker, intent.off_hand_weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001
+        # FAGU: Ensure off-hand weapon has grip="off-hand" so resolve_attack() applies half-STR
+        # to damage correctly (PHB p.160). Default weapon grip may be "one-handed".
+        off_weapon = (
+            replace(intent.off_hand_weapon, grip="off-hand")
+            if intent.off_hand_weapon.grip != "off-hand"
+            else intent.off_hand_weapon
         )
-        # Off-hand grip — half STR for damage (PHB p.160)
-        off_str_mod = str_modifier // 2 if str_modifier > 0 else str_modifier
 
-        oh_events, current_event_id, oh_damage = resolve_single_attack_with_critical(
+        oh_intent = AttackIntent(
             attacker_id=intent.attacker_id,
             target_id=intent.target_id,
-            attack_bonus=off_hand_adjusted,
-            weapon=intent.off_hand_weapon,
-            target_ac=target_ac,
+            weapon=off_weapon,
+            attack_bonus=off_hand_bab,  # base_attack_bonus + off_penalty
+            power_attack_penalty=0,
+        )
+        oh_events = resolve_attack(
+            intent=oh_intent,
+            world_state=_ws,
             rng=rng,
             next_event_id=current_event_id,
             timestamp=timestamp + 0.5 * attacks_executed,
-            attack_index=attacks_executed,
-            str_modifier=off_str_mod,  # PHB p.160: half STR for off-hand
-            condition_damage_modifier=attacker_modifiers.damage_modifier,
-            feat_damage_modifier=0,  # feat damage doesn't apply to off-hand by default
-            base_attack_bonus_raw=off_hand_bab,
-            condition_attack_modifier=attacker_modifiers.attack_modifier,
-            mounted_bonus=mounted_bonus,
-            terrain_higher_ground=terrain_higher_ground,
-            feat_attack_modifier=0,
-            target_base_ac=base_ac,
-            target_ac_modifier=condition_ac,
-            cover_type=cover_result.cover_type,
-            cover_ac_bonus=cover_result.ac_bonus,
-            dr_amount=dr_amount,
-            miss_chance_percent=miss_chance_percent,
-            flanking_bonus=flanking_bonus,
-            is_flanking=is_flanking,
-            flanking_ally_ids=flanking_ally_ids,
-            sneak_attack_dice=sa_dice,
-            sneak_attack_eligible=sa_eligible,
-            sneak_attack_reason=sa_reason,
-            favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
-            attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
         )
         events.extend(oh_events)
-        total_damage += oh_damage
+        current_event_id += len(oh_events)
+        attacks_executed += 1
+
+        _oh_damage = next(
+            (e.payload.get("final_damage", 0) for e in oh_events
+             if e.event_type == "damage_roll"),
+            0
+        )
+        total_damage += _oh_damage
         for ev in oh_events:
             if ev.event_type == "damage_roll":
                 total_dr_absorbed += ev.payload.get("damage_reduced", 0)
-        current_hp -= oh_damage
-        attacks_executed += 1
+        current_hp -= _oh_damage
+        if _oh_damage > 0:
+            _tgt = dict(_ws.entities.get(intent.target_id, {}))
+            _tgt[EF.HP_CURRENT] = current_hp
+            _ws = WorldState(
+                ruleset_version=_ws.ruleset_version,
+                entities={**_ws.entities, intent.target_id: _tgt},
+                active_combat=_ws.active_combat,
+            )
 
         # CP-21: Improved TWF — second off-hand attack at BAB-5+off_penalty
         feats = attacker.get(EF.FEATS, [])
         if "Improved Two-Weapon Fighting" in feats and current_hp > 0:
             itwf_bab = intent.base_attack_bonus - 5 + off_penalty
-            itwf_adjusted = (
-                itwf_bab +
-                attacker_modifiers.attack_modifier +
-                mounted_bonus +
-                terrain_higher_ground +
-                feat_attack_modifier +
-                flanking_bonus
-                + (0 if _wp_proficient_check(attacker, intent.off_hand_weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001
-            )
-            itwf_events, current_event_id, itwf_damage = resolve_single_attack_with_critical(
+            itwf_intent = AttackIntent(
                 attacker_id=intent.attacker_id,
                 target_id=intent.target_id,
-                attack_bonus=itwf_adjusted,
-                weapon=intent.off_hand_weapon,
-                target_ac=target_ac,
+                weapon=off_weapon,
+                attack_bonus=itwf_bab,
+                power_attack_penalty=0,
+            )
+            itwf_events = resolve_attack(
+                intent=itwf_intent,
+                world_state=_ws,
                 rng=rng,
                 next_event_id=current_event_id,
                 timestamp=timestamp + 0.5 * attacks_executed,
-                attack_index=attacks_executed,
-                str_modifier=off_str_mod,
-                condition_damage_modifier=attacker_modifiers.damage_modifier,
-                feat_damage_modifier=0,
-                base_attack_bonus_raw=itwf_bab,
-                condition_attack_modifier=attacker_modifiers.attack_modifier,
-                mounted_bonus=mounted_bonus,
-                terrain_higher_ground=terrain_higher_ground,
-                feat_attack_modifier=0,
-                target_base_ac=base_ac,
-                target_ac_modifier=condition_ac,
-                cover_type=cover_result.cover_type,
-                cover_ac_bonus=cover_result.ac_bonus,
-                dr_amount=dr_amount,
-                miss_chance_percent=miss_chance_percent,
-                flanking_bonus=flanking_bonus,
-                is_flanking=is_flanking,
-                flanking_ally_ids=flanking_ally_ids,
-                sneak_attack_dice=sa_dice,
-                sneak_attack_eligible=sa_eligible,
-                sneak_attack_reason=sa_reason,
-                favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
-                attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
             )
             events.extend(itwf_events)
-            total_damage += itwf_damage
+            current_event_id += len(itwf_events)
+            attacks_executed += 1
+
+            _itwf_damage = next(
+                (e.payload.get("final_damage", 0) for e in itwf_events
+                 if e.event_type == "damage_roll"),
+                0
+            )
+            total_damage += _itwf_damage
             for ev in itwf_events:
                 if ev.event_type == "damage_roll":
                     total_dr_absorbed += ev.payload.get("damage_reduced", 0)
-            current_hp -= itwf_damage
-            attacks_executed += 1
+            current_hp -= _itwf_damage
+            if _itwf_damage > 0:
+                _tgt = dict(_ws.entities.get(intent.target_id, {}))
+                _tgt[EF.HP_CURRENT] = current_hp
+                _ws = WorldState(
+                    ruleset_version=_ws.ruleset_version,
+                    entities={**_ws.entities, intent.target_id: _tgt},
+                    active_combat=_ws.active_combat,
+                )
 
         # Greater Two-Weapon Fighting: third off-hand attack at BAB-10+off_penalty
         # PHB p.96: GTWF grants a third off-hand attack (same chain as ITWF at -5, GTWF at -10)
         # Feat string: "Greater Two-Weapon Fighting" (Title Case — matches TWF/ITWF convention)
         if "Greater Two-Weapon Fighting" in feats and current_hp > 0:
             gtwf_bab = intent.base_attack_bonus - 10 + off_penalty
-            gtwf_adjusted = (
-                gtwf_bab +
-                attacker_modifiers.attack_modifier +
-                mounted_bonus +
-                terrain_higher_ground +
-                feat_attack_modifier +
-                flanking_bonus
-                + (0 if _wp_proficient_check(attacker, intent.off_hand_weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001
-            )
-            gtwf_events, current_event_id, gtwf_damage = resolve_single_attack_with_critical(
+            gtwf_intent = AttackIntent(
                 attacker_id=intent.attacker_id,
                 target_id=intent.target_id,
-                attack_bonus=gtwf_adjusted,
-                weapon=intent.off_hand_weapon,
-                target_ac=target_ac,
+                weapon=off_weapon,
+                attack_bonus=gtwf_bab,
+                power_attack_penalty=0,
+            )
+            gtwf_events = resolve_attack(
+                intent=gtwf_intent,
+                world_state=_ws,
                 rng=rng,
                 next_event_id=current_event_id,
                 timestamp=timestamp + 0.5 * attacks_executed,
-                attack_index=attacks_executed,
-                str_modifier=off_str_mod,
-                condition_damage_modifier=attacker_modifiers.damage_modifier,
-                feat_damage_modifier=0,
-                base_attack_bonus_raw=gtwf_bab,
-                condition_attack_modifier=attacker_modifiers.attack_modifier,
-                mounted_bonus=mounted_bonus,
-                terrain_higher_ground=terrain_higher_ground,
-                feat_attack_modifier=0,
-                target_base_ac=base_ac,
-                target_ac_modifier=condition_ac,
-                cover_type=cover_result.cover_type,
-                cover_ac_bonus=cover_result.ac_bonus,
-                dr_amount=dr_amount,
-                miss_chance_percent=miss_chance_percent,
-                flanking_bonus=flanking_bonus,
-                is_flanking=is_flanking,
-                flanking_ally_ids=flanking_ally_ids,
-                sneak_attack_dice=sa_dice,
-                sneak_attack_eligible=sa_eligible,
-                sneak_attack_reason=sa_reason,
-                favored_enemy_bonus=_favored_enemy_bonus,  # WO-ENGINE-FAVORED-ENEMY-001
-                attacker_feats=_attacker_feats,  # WO-ENGINE-IMPROVED-CRITICAL-001
             )
             events.extend(gtwf_events)
-            total_damage += gtwf_damage
+            current_event_id += len(gtwf_events)
+            attacks_executed += 1
+
+            _gtwf_damage = next(
+                (e.payload.get("final_damage", 0) for e in gtwf_events
+                 if e.event_type == "damage_roll"),
+                0
+            )
+            total_damage += _gtwf_damage
             for ev in gtwf_events:
                 if ev.event_type == "damage_roll":
                     total_dr_absorbed += ev.payload.get("damage_reduced", 0)
-            current_hp -= gtwf_damage
-            attacks_executed += 1
+            current_hp -= _gtwf_damage
 
-    # Apply accumulated damage to HP
-    # WO-ENGINE-DR-001: total_damage is already post-DR (sum of final_damage per hit)
-    if total_damage > 0:
-        hp_before = hp_current
-        hp_after = hp_before - total_damage
-
-        # Emit hp_changed event
-        events.append(Event(
-            event_id=current_event_id,
-            event_type="hp_changed",
-            timestamp=timestamp + 0.5 * attacks_executed,
-            payload={
-                "entity_id": intent.target_id,
-                "hp_before": hp_before,
-                "hp_after": hp_after,
-                "delta": -total_damage,
-                "source": "full_attack_damage",
-                "dr_absorbed": total_dr_absorbed,  # WO-ENGINE-DR-001
-            }
-        ))
-        current_event_id += 1
-
-        # WO-ENGINE-DEATH-DYING-001: Three-band defeat check (PHB p.145)
-        from aidm.core.dying_resolver import resolve_hp_transition
-        trans_events, _field_updates = resolve_hp_transition(
-            entity_id=intent.target_id,
-            old_hp=hp_before,
-            new_hp=hp_after,
-            source="full_attack_damage",
-            world_state=world_state,
-            next_event_id=current_event_id,
-            timestamp=timestamp + 0.5 * attacks_executed + 0.1,
-        )
-        events.extend(trans_events)
-        current_event_id += len(trans_events)
-
-    # Emit full_attack_end event
+    # FAGU: Per-hit hp_changed + resolve_hp_transition now handled by resolve_attack() per-hit.
+    # FAR's cumulative hp_changed removed — event applier processes AR's per-hit events.
     events.append(Event(
         event_id=current_event_id,
         event_type="full_attack_end",
