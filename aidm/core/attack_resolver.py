@@ -1001,7 +1001,13 @@ def resolve_attack(
             _md_save_bonus = get_save_bonus(world_state, intent.target_id, SaveType.FORT)
             _md_roll = rng.stream("combat").randint(1, 20)
             _md_total = _md_roll + _md_save_bonus
-            _md_saved = _md_total >= 15
+            # WO-ENGINE-MD-SAVE-RULES-001: nat1/nat20 auto-fail/pass (PHB p.136)
+            if _md_roll == 1:
+                _md_saved = False  # natural 1 always fails
+            elif _md_roll == 20:
+                _md_saved = True  # natural 20 always succeeds
+            else:
+                _md_saved = _md_total >= 15
 
             events.append(Event(
                 event_id=current_event_id,

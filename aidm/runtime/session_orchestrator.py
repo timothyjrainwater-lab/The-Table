@@ -877,7 +877,10 @@ class SessionOrchestrator:
             _acp = _entity.get(EF.ARMOR_CHECK_PENALTY, 0) if _skill_def.armor_check_penalty else 0
             # WO-ENGINE-RACIAL-SKILL-BONUS-001: Racial skill bonuses (PHB p.14/17/18/21)
             _racial_skill_bonus = _entity.get(EF.RACIAL_SKILL_BONUS, {}).get(skill_name, 0)
-            modifier = _ability_mod + _ranks - _acp + _racial_skill_bonus
+            # WO-ENGINE-MD-SAVE-RULES-001: Fascinated -4 penalty on skill checks (PHB p.308)
+            _conditions = _entity.get(EF.CONDITIONS, {}) or {}
+            _fascinated_penalty = -4 if "fascinated" in _conditions else 0
+            modifier = _ability_mod + _ranks - _acp + _racial_skill_bonus + _fascinated_penalty
         else:
             modifier = 0  # skill not in registry — fail soft
 
