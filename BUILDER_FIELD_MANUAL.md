@@ -48,8 +48,8 @@ Running the entire suite in one shot can produce ~47 extra failures from state l
 
 ## Development Environment
 
-### 11. VSCode format-on-save race condition
-If file edits fail mid-session with read-write conflicts, it's likely VSCode format-on-save modifying files between your read and write. Retry the edit. Not a code problem.
+### 11. Cursor is the current IDE — VSCode extension retired
+Project has migrated to Cursor. The VSCode Claude Code extension (Bun standalone executable) was panic-crashing mid-stream on Bun v1.3.10 and has been retired. Format-on-save race conditions from VSCode are no longer relevant. CLAUDE.md is the methodology injection point — not settings.json projectInstructions (that field was silently deprecated by Anthropic).
 
 ### 12. Two attack intent classes — different layers
 `DeclaredAttackIntent` (in `aidm.schemas.intents`) = voice/interaction layer. `AttackIntent` (in `aidm.schemas.attack`) = combat resolution layer. Never import `AttackIntent` from `aidm.schemas.intents` — it doesn't exist there. This is also in the onboarding checklist but worth repeating because the error is silent.
@@ -117,6 +117,35 @@ As of WO-UI-04 (`db66426`), `roll_result` is a frozen `RollResult` dataclass in 
 ### 33. Creating a message registry from nothing
 When a WO says "add to the message registry" but no registry exists, build the smallest viable registry: a `Dict[str, Type]` mapping type strings to `from_dict` constructors, plus a `parse_message()` dispatcher that raises on unknowns. Test the registry by temporarily removing the entry and proving breakage. This "remove-and-break" pattern proves the registry is load-bearing, not decorative. (Source: WO-UI-04 builder debrief.)
 
+### 34. Resolver Parity Map — parallel implementation paths
+Multiple code paths resolve the same logical operation. When a WO modifies any of these, builder MUST verify parity across ALL paths for that operation, or the debrief is REJECT.
+
+**Attack Resolution:**
+| Path | File | Delegates to resolve_attack()? | Status |
+|------|------|-------------------------------|--------|
+| `resolve_attack()` | `attack_resolver.py` | — (PRIMARY) | Canonical |
+| `resolve_single_attack_with_critical()` | `full_attack_resolver.py` | NO — independent copy | **DRIFT RISK** |
+| `resolve_nonlethal_attack()` | `attack_resolver.py` | NO — independent copy | **DRIFT RISK** |
+| `resolve_natural_attack()` | `natural_attack_resolver.py` | YES ✓ | Clean |
+| `resolve_charge()` | `attack_resolver.py` | YES ✓ | Clean |
+
+**Save Resolution:**
+| Path | File | Delegates to get_save_bonus()? |
+|------|------|-------------------------------|
+| `get_save_bonus()` | `save_resolver.py` | — (PRIMARY) |
+| Spell save path | `spell_resolver.py` | YES ✓ |
+
+When adding a new resolver, add it to this map. When modifying an existing resolver, check this map first. (Source: AUDIT-WO-001, 2026-02-27 — 21 modifiers drifted between resolve_attack and resolve_full_attack over 30+ WOs.)
+
+### 35. Dual-Path Anti-Pattern — delegation, not duplication
+**Anti-pattern:** Two functions that compute the same result with independent code. Every modifier added to one must be manually synced to the other. Manual sync fails silently.
+
+**Correct pattern:** One function is PRIMARY. All others delegate to it. Example: `resolve_natural_attack()` builds an `AttackIntent` and calls `resolve_attack()`. Zero drift risk.
+
+**Canonical failure:** `resolve_single_attack_with_critical()` in `full_attack_resolver.py` is an independent copy of `resolve_attack()`'s logic. It accumulated 21 missing modifiers (Inspire Courage, Weapon Finesse, Negative Levels, Uncanny Dodge, Monk WIS AC, Deflection Bonus, etc.) as WOs patched the primary path only. Filed as FINDING-AUDIT-FULL-ATTACK-MODIFIER-DRIFT-001 HIGH OPEN.
+
+**Rule:** If two paths compute the same thing, one MUST delegate to the other. Never maintain parallel implementations of the same logic.
+
 ---
 
-*Last updated: 2026-02-18. 33 entries, ~250 lines. Curated from H1 builder findings + smoke test + WO-SMOKE-FUZZER + WO-ORACLE-SURVEY + WO-FUZZER-DETERMINISM-GATES + WO-SMOKE-TEST-003 + WO-ORACLE-01 + WO-ORACLE-02 + WO-ORACLE-03 + WO-DIRECTOR-01 + WO-DIRECTOR-02 + WO-UI-01 + WO-UI-02 + WO-UI-DRIFT-GUARD + WO-UI-ZONE-AUTHORITY + WO-UI-03 + WO-UI-04.*
+*Last updated: 2026-02-27. 35 entries, ~300 lines. Curated from H1 builder findings + smoke test + WO-SMOKE-FUZZER + WO-ORACLE-SURVEY + WO-FUZZER-DETERMINISM-GATES + WO-SMOKE-TEST-003 + WO-ORACLE-01 + WO-ORACLE-02 + WO-ORACLE-03 + WO-DIRECTOR-01 + WO-DIRECTOR-02 + WO-UI-01 + WO-UI-02 + WO-UI-DRIFT-GUARD + WO-UI-ZONE-AUTHORITY + WO-UI-03 + WO-UI-04 + AUDIT-WO-001.*

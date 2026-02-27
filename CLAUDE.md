@@ -33,6 +33,20 @@ Slate issues WO → Thunder relays to builder → builder executes → 3-pass de
 
 ---
 
+## Dispatch Parity Rule
+
+Every WO that modifies a resolver function MUST identify ALL parallel implementation paths that compute the same logic. Builder verifies parity across all paths before filing the debrief. Missing parity check = debrief REJECT.
+
+Anti-pattern: Two code paths that compute the same result independently (must delegate, not duplicate). See `BUILDER_FIELD_MANUAL.md` #34–35 for the resolver parity map.
+
+---
+
+## Sweep Audit Cadence
+
+Every 5 engine batches, PM files one Anvil-seat audit WO targeting a specific subsystem (attack, saves, conditions, spellcasting). Anvil reads code, files findings, never writes production code. PM triages findings into builder WOs. Sonnet for single-subsystem sweeps; Opus for large cross-cutting audits.
+
+---
+
 ## Key Coding Rules
 
 1. Use `EF.*` constants from `aidm/schemas/entity_fields.py` — never bare string literals

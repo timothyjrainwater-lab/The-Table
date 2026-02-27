@@ -155,6 +155,7 @@ These are the five most common mistakes agents make on this project. Memorize th
 6. **DO NOT** close a session after WO completion without writing a debrief — knowledge dies with your context window (Section 15.5). This applies even if the WO says "read-only" or "do not modify files" — the debrief is about the work, not part of it.
 7. **DO NOT** add a file to `pm_inbox/` without also updating `pm_inbox/PM_BRIEFING_CURRENT.md` — the PM won't see it otherwise
 8. **DO NOT** write a completion report or debrief without first running `git add` + `git commit` (Rule 15a). Code that exists only in the working tree is unverifiable and at risk of loss. If the session is ending and commit is impossible, write `UNCOMMITTED` in the debrief header and list all affected files.
+9. **DO NOT** modify a resolver function without first identifying all parallel implementation paths that compute the same logical operation (grep for the function name and its callers). If parallel paths exist, verify parity in your debrief Pass 1. See `BUILDER_FIELD_MANUAL.md` #34 for the Resolver Parity Map.
 
 ---
 
