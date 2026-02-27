@@ -263,6 +263,10 @@ class SpellCastIntent:
     FINDING-ENGINE-SPONTANEOUS-DOMAIN-001: Domain slots cannot be converted (PHB p.32).
     EF.DOMAIN_SPELLS_PREPARED not tracked. Future WO."""
 
+    use_secondary: bool = False
+    """WO-ENGINE-CASTER-LEVEL-2-001: True if casting from secondary caster class (PHB p.57).
+    When True, spell resolution uses EF.CASTER_LEVEL_2 for CL-dependent effects."""
+
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to dictionary."""
         return {
@@ -275,6 +279,7 @@ class SpellCastIntent:
             "metamagic": list(self.metamagic),
             "heighten_to_level": self.heighten_to_level,
             "spontaneous_cure": self.spontaneous_cure,
+            "use_secondary": self.use_secondary,
         }
 
 

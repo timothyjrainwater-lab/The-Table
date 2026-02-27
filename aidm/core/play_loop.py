@@ -178,15 +178,30 @@ def resolve_monster_combat_intent(
 # WO-015: SPELLCASTING RESOLUTION HELPERS
 # ==============================================================================
 
+def _get_caster_level(entity: dict, use_secondary: bool = False) -> int:
+    """Return effective caster level for a spell cast. PHB p.57/p.176.
+
+    Dual-caster entities have two independent caster levels. When casting from
+    the secondary class, use EF.CASTER_LEVEL_2. Default 1 (PHB p.176 minimum).
+
+    WO-ENGINE-CASTER-LEVEL-2-001.
+    """
+    if use_secondary:
+        return entity.get(EF.CASTER_LEVEL_2, 1)
+    return entity.get(EF.CASTER_LEVEL, 1)
+
+
 def _create_caster_stats(
     caster_id: str,
     world_state: WorldState,
+    use_secondary: bool = False,
 ) -> CasterStats:
     """Create CasterStats from WorldState entity data.
 
     Args:
         caster_id: Entity ID of the caster
         world_state: Current world state
+        use_secondary: If True, use secondary caster level (WO-ENGINE-CASTER-LEVEL-2-001)
 
     Returns:
         CasterStats with position and spell parameters
@@ -200,8 +215,8 @@ def _create_caster_stats(
     else:
         position = Position(x=pos_data.get("x", 0), y=pos_data.get("y", 0))
 
-    # Get caster level (default 5 for testing)
-    caster_level = entity.get("caster_level", 5)
+    # WO-ENGINE-CASTER-LEVEL-2-001: Use _get_caster_level() for correct primary/secondary CL
+    caster_level = _get_caster_level(entity, use_secondary)
 
     # Get spell DC base (default 10 + 3 for INT/WIS mod)
     spell_dc_base = entity.get("spell_dc_base", 13)
@@ -867,6 +882,10 @@ def _resolve_spell_cast(
             slot_reason = ""
             _use_secondary = True
 
+    # WO-ENGINE-CASTER-LEVEL-2-001: honor explicit secondary cast request from intent
+    if getattr(intent, 'use_secondary', False):
+        _use_secondary = True
+
     if not slot_ok:
         return [Event(
             event_id=current_event_id,
@@ -905,8 +924,8 @@ def _resolve_spell_cast(
         )], world_state, "spell_slot_empty"
     # ──────────────────────────────────────────────────────────────────────────
 
-    # Create caster stats
-    caster = _create_caster_stats(intent.caster_id, world_state)
+    # Create caster stats — WO-ENGINE-CASTER-LEVEL-2-001: thread _use_secondary for correct CL
+    caster = _create_caster_stats(intent.caster_id, world_state, use_secondary=_use_secondary)
 
     # WO-ENGINE-SPELL-FOCUS-DC-001: Spell Focus / Greater Spell Focus DC bonus
     _spell_focus_bonus = 0
