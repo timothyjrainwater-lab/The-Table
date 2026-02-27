@@ -428,8 +428,42 @@ def resolve_attack(
         "is_twf": False,  # TODO: Detect from attack intent
         "power_attack_penalty": intent.power_attack_penalty,  # WO-034-FIX: from intent
         "is_two_handed": intent.weapon.is_two_handed,  # WO-034-FIX: from weapon
+        "grip": intent.weapon.grip,  # WO-ENGINE-POWER-ATTACK-001: for off-hand damage ratio
     }
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
+
+    # WO-ENGINE-POWER-ATTACK-001: Validate Power Attack declaration (PHB p.98)
+    _pa_penalty = intent.power_attack_penalty
+    if _pa_penalty > 0:
+        _pa_feats = attacker.get(EF.FEATS, [])
+        if "power_attack" not in _pa_feats:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="intent_validation_failed",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.attacker_id,
+                    "reason": "feat_requirement_not_met",
+                    "feat": "power_attack",
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 98}],
+            ))
+            return events
+        _attacker_bab = attacker.get(EF.BAB, 0)
+        if _pa_penalty > _attacker_bab:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="intent_validation_failed",
+                timestamp=timestamp,
+                payload={
+                    "actor_id": intent.attacker_id,
+                    "reason": "penalty_exceeds_bab",
+                    "power_attack_penalty": _pa_penalty,
+                    "bab": _attacker_bab,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 98}],
+            ))
+            return events
 
     # Flanking: +2 melee attack bonus when attacker and ally on opposite sides (PHB p.153)
     from aidm.core.flanking import get_flanking_info

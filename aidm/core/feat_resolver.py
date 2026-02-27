@@ -212,17 +212,20 @@ def get_damage_modifier(
         if is_ranged and range_ft <= 30:
             modifier += 1
 
-    # Power Attack: damage bonus (1:1 one-hand, 1:2 two-hand)
-    # PHB p.98: "You can choose to take a penalty [...] and gain the same number as a bonus on
-    # melee damage rolls. If you attack with a two-handed weapon [...] you gain double the number
-    # you subtracted from your attack rolls."
+    # Power Attack: damage bonus (1:1 one-hand, 1.5:1 two-hand, 0.5:1 off-hand)
+    # PHB p.98 note: RAW says 2:1 for two-handed; dispatch WO-ENGINE-POWER-ATTACK-001 specifies
+    # 1.5:1 to mirror STR-to-damage multipliers (house rule / errata variant).
+    # Off-hand (TWF) receives 0.5:1 per dispatch spec.
     if FeatID.POWER_ATTACK in feats:
         power_attack_penalty = context.get("power_attack_penalty", 0)
         is_two_handed = context.get("is_two_handed", False)
+        grip = context.get("grip", "one-handed")
         if is_two_handed:
-            modifier += power_attack_penalty * 2  # 1:2 for two-handed
+            modifier += int(power_attack_penalty * 1.5)  # 1.5:1 for two-handed
+        elif grip == "off-hand":
+            modifier += power_attack_penalty // 2  # 0.5:1 for off-hand (TWF)
         else:
-            modifier += power_attack_penalty  # 1:1 for one-handed
+            modifier += power_attack_penalty  # 1:1 for one-handed/natural
 
     return modifier
 
