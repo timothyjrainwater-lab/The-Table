@@ -5,13 +5,13 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-27 (session 4 — Batch J ACCEPTED 03a2a47. Batch K ACCEPTED 4cb2f72. Batch L ACCEPTED ba3e62f 32/32. Data Batch B WO1 ACCEPTED edcad35. Engine Batch M READY. Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
-**Delta:** Batch L ACCEPTED ba3e62f (Improved Disarm + Grapple + Bull Rush + Spell Penetration, 32/32, 0 regressions). Five new LOW findings surfaced (see below). Inbox at 10 active files (under 15 cap). All Batch J/K/L WOs + OSS dispatches archived. Engine Batch M READY to dispatch. Data Batch B WO2+3 (Monsters + Dice) awaiting Chisel dispatch — background agent died ×2, do NOT use background agent.
+**Session:** 2026-02-27 (session 5 — Batch J ACCEPTED 03a2a47. Batch K ACCEPTED 4cb2f72. Batch L ACCEPTED ba3e62f 32/32. Data Batch B WO1 ACCEPTED edcad35. Batch N DISPATCHED 7638473. Batch O DISPATCHED 1753b3d. Ops contract: Thunder dispatches builders; PM spawns read-only agents only.)
+**Delta:** Batch N + Batch O both dispatched to Chisel 2026-02-27. Queue empty — Batch P drafted. Inbox at 17/15 (2 over cap — normalizes on Batch M acceptance, freeing 5 slots).
 
 ## Priority Stack (top 3)
-1. **ENGINE BATCH M READY to dispatch.** `DISPATCH_ENGINE_BATCH_M.md` in inbox. Prereq (Batch L ACCEPTED ba3e62f) satisfied. Thunder dispatches to Chisel.
-2. **DATA BATCH B WO2+3 pending dispatch.** WO1 done (edcad35). Thunder dispatches `DISPATCH_OSS_DATA_BATCH_B.md` to Chisel (skip WO1, start WO2+WO3). Do NOT use background agent — died ×2.
-3. **Inbox clean.** 10 active files, under 15 cap. No action needed.
+1. **QUEUE EMPTY — draft Batch P READY.** `DISPATCH_ENGINE_BATCH_P.md` in inbox. Prereq: Batch O ACCEPTED. Thunder dispatches when ready.
+2. **Await Batch M debrief.** On acceptance: archive 5 files (DISPATCH_M + 4 WOs) → inbox normalizes to 12/15.
+3. **Inbox at 17/15.** 2 over cap — temporary. Normalizes on first batch acceptance. No action needed.
 
 ## Active Findings (OPEN only — closed/resolved in briefing)
 - FINDING-CE-STANDING-AOO-001 LOW OPEN (flat-footed AoO suppression for standing entities — deferred from CE WO)
@@ -30,7 +30,7 @@
 - FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 LOW OPEN (Improved Disarm +4 attack bonus variant — deferred from Batch L)
 - FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 LOW OPEN (Improved Grapple +4 grapple check bonus — deferred from Batch L)
 - FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 LOW OPEN (Improved Bull Rush +4 bonus follow-through — deferred from Batch L)
-- FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 LOW OPEN (Improved Overrun AoO suppression — deferred from Batch L)
+- FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 LOW OPEN → **CLOSING in Batch O WO1**
 
 ## Stop Conditions
 - If test suite drops below 6,342 or any gate regresses, halt and investigate
@@ -39,7 +39,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-27 (session 4 — Batch L ACCEPTED ba3e62f, inbox 10/15, Batch M READY, 5 new LOW findings)
+- Updated: 2026-02-27 (session 5 — Batch N DISPATCHED 7638473, Batch O DISPATCHED 1753b3d, inbox 17/15, Batch P READY)
 - Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
