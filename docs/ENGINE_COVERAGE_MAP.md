@@ -65,7 +65,7 @@
 | Stable (dying but not losing HP) | PHB p.145 | **IMPLEMENTED** | `dying_resolver.py`, `schemas/entity_fields.py` | STABLE field; DC 10 Fort save each round or -1 HP |
 | Dying → bleed 1 HP/round (DC 10 Fort) | PHB p.145 | **IMPLEMENTED** | `dying_resolver.py` | Fort save each round; pass = stable; fail = -1 HP |
 | Nonlethal damage tracking | PHB p.146 | **IMPLEMENTED** | `play_loop.py` | NONLETHAL_DAMAGE field; staggered when NL ≥ HP; unconscious when NL > HP |
-| Massive damage rule (50+ HP = Fort DC 15 or die) | PHB p.145 | **PARTIAL** | `attack_resolver.py` | Post-DR check implemented (~line 763): `if final_damage >= 50`. Single-attack path only; full-attack per-hit enforcement deferred (FINDING-ENGINE-MASSIVE-DAMAGE-FULL-ATTACK-001 LOW). DEBRIEF_WO-ENGINE-MASSIVE-DAMAGE-RULE-001. |
+| Massive damage rule (50+ HP = Fort DC 15 or die) | PHB p.145 | **IMPLEMENTED** | `attack_resolver.py` | Post-DR check: `if final_damage >= 50`. nat1/nat20 auto-fail/pass enforced (PHB p.136). WO-ENGINE-MD-SAVE-RULES-001. |
 | Natural healing (level HP/night) | PHB p.130 | **IMPLEMENTED** | `rest_resolver.py` | RestIntent → level × max(1, CON mod) HP per night; full day = double |
 | Stabilization by ally (DC 15 Heal) | PHB p.145 | **PARTIAL** | `heal_resolver.py`, `play_loop.py` | HealIntent + DC 15 Heal skill check wired; entity must be DYING. 8/8 gate pass. DEBRIEF_WO-ENGINE-STABILIZE-ALLY-001. |
 
@@ -145,7 +145,7 @@
 | Deafened | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | DEAFENED condition type; 20% verbal spell failure; bardic music check |
 | Entangled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack, -4 DEX; from web spell and similar |
 | Exhausted | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -6 STR/DEX (proxied as -3 attack/-3 damage/-6 DEX mod); half speed |
-| Fascinated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py` | FASCINATED condition; cannot attack or move; flat-footed AC. DEBRIEF_WO-ENGINE-COWERING-FASCINATED-001. |
+| Fascinated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py`, `session_orchestrator.py` | FASCINATED condition; cannot attack or move; flat-footed AC; -4 skill penalty (PHB p.308). WO-ENGINE-MD-SAVE-RULES-001 (FSKL). |
 | Fatigued | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `schemas/entity_fields.py` | -2 STR/DEX; FATIGUED bool field and condition; post-rage fatigue |
 | Flat-footed | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | FLAT_FOOTED condition; loses DEX to AC |
 | Frightened | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack/saves; flees from source; FRIGHTENED condition |
@@ -351,6 +351,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Exotic Weapon Proficiency | PHB p.94 | **NOT STARTED** | No weapon proficiency enforcement system |
 | Simple/Martial Weapon Proficiency | PHB p.100 | **NOT STARTED** | No proficiency enforcement |
 | Multiattack | MM feat | **IMPLEMENTED** | `feat_resolver.py`, `natural_attack_resolver.py` | Secondary natural attacks at -2 instead of -5. DEBRIEF_WO-ENGINE-MULTIATTACK-001. |
+| Secondary natural attack ½ STR | PHB p.314 | **IMPLEMENTED** | `natural_attack_resolver.py`, `attack_resolver.py` | Secondary natural attacks use grip="off-hand" → `int(str_mod * 0.5)`. WO-ENGINE-ATTACK-MODIFIER-FIDELITY-001. |
 | Stunning Fist | PHB p.101 | **NOT STARTED** | Monk feat; no Stunning Fist resolver |
 | Improved Unarmed Strike | PHB p.96 | **NOT STARTED** | No unarmed strike system beyond natural attacks |
 
@@ -526,8 +527,8 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Rage duration (3 + CON mod rounds) | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | RAGE_ROUNDS_REMAINING field |
 | Rage uses per day (scaling by level) | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | RAGE_USES_REMAINING; 1 to 6 per day by level |
 | Post-rage fatigue | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | FATIGUED field set to True after rage ends |
-| Fast Movement (+10 speed) | PHB p.25 | **IMPLEMENTED** | `play_loop.py`, `schemas/entity_fields.py` | EF.BASE_SPEED += 10 at chargen; heavy armor suppresses (medium OK per PHB p.26). |
-| Uncanny Dodge (Dex to AC when flat-footed) | PHB p.25 | **IMPLEMENTED** | `schemas/entity_fields.py`, `conditions.py` | EF.HAS_UNCANNY_DODGE; flat-footed does not strip DEX. FINDING-ENGINE-UD-ROGUE-THRESHOLD-001 (Batch X fix). |
+| Fast Movement (+10 speed) | PHB p.25 | **IMPLEMENTED** | `movement_resolver.py`, `chargen/builder.py` | EF.FAST_MOVEMENT_BONUS +10 at chargen; heavy armor or heavy load suppresses. Medium load OK (PHB p.25). WO-ENGINE-FAST-MOVEMENT-LOAD-FIX-001. |
+| Uncanny Dodge (Dex to AC when flat-footed) | PHB p.25 | **IMPLEMENTED** | `attack_resolver.py` | _UD_THRESHOLDS: barbarian L2, rogue L4. Ranger removed. WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001. |
 | Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.26 | **NOT STARTED** | — | No trap sense bonus |
 | Damage Reduction (DR X/-) | PHB p.26 | **IMPLEMENTED** | `damage_reduction.py`, `chargen/builder.py` | EF.DAMAGE_REDUCTIONS list of dicts; barbarian DR/- set by level at chargen. DEBRIEF_WO-ENGINE-BARBARIAN-DR-001. |
 | Improved Uncanny Dodge (flank immunity) | PHB p.26 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanking rogue must be 4+ levels higher. gate(Q-WO2). |
@@ -647,7 +648,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Combat Style — TWF (TWF feat) | PHB p.47 | **PARTIAL** | `schemas/feats.py` | TWF registered; no automatic free feat at level 2 |
 | Endurance | PHB p.47 | **PARTIAL** | `schemas/feats.py` | Registered; +4 environmental not wired |
 | Animal Companion | PHB p.47 | **PARTIAL** | `companion_resolver.py` | Companion resolver exists; ranger gets companion at level 4 not auto-enforced |
-| Favored Enemy (+2 attack/damage) | PHB p.47 | **IMPLEMENTED** | `feat_resolver.py`, `attack_resolver.py`, `schemas/entity_fields.py` | EF.FAVORED_ENEMIES list; +2 attack/damage vs favored type. WO-ENGINE-FAVORED-ENEMY-001. |
+| Favored Enemy (+2 attack/damage) | PHB p.47 | **IMPLEMENTED** | `attack_resolver.py`, `schemas/entity_fields.py` | EF.FAVORED_ENEMIES list; +2 attack/damage vs favored type. FE bonus now in pre-crit base (multiplied on crit per PHB p.140). WO-ENGINE-ATTACK-MODIFIER-FIDELITY-001. |
 | Ranger Spellcasting (level 4+) | PHB p.47 | **IMPLEMENTED** | `spell_prep_resolver.py` | Prepared caster from level 4 |
 | Swift Tracker | PHB p.48 | **NOT STARTED** | — | No tracking system |
 | Woodland Stride | PHB p.48 | **NOT STARTED** | — | No difficult terrain interaction |
@@ -664,7 +665,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Trapfinding | PHB p.50 | **NOT STARTED** | — | No trap detection/disabling system |
 | Evasion | PHB p.50 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.HAS_EVASION; Ref success → 0 damage; armor guard. WO-ENGINE-EVASION-ARMOR-001. |
 | Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.51 | **NOT STARTED** | — | No trap sense |
-| Uncanny Dodge | PHB p.51 | **PARTIAL** | `schemas/entity_fields.py`, `conditions.py` | EF.HAS_UNCANNY_DODGE; flat-footed DEX retained. Threshold bug: code L2 vs PHB L4. FINDING-ENGINE-UD-ROGUE-THRESHOLD-001 → Batch X WO1. |
+| Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `attack_resolver.py` | Rogue L4 threshold (was L2). Ranger removed (PHB p.48). _UD_THRESHOLDS dict. WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001. |
 | Improved Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanker rogue must be 4+ levels higher. gate(Q-WO2). |
 | Rogue Special Abilities (each) | PHB p.51 | **NOT STARTED** | — | Crippling Strike, Defensive Roll, Feat, Improved Evasion, Opportunist, Skill Mastery, Slippery Mind — none implemented |
 
