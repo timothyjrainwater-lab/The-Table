@@ -2269,6 +2269,11 @@ def execute_turn(
             _ib_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
             if "improved_bull_rush" in _ib_feats:
                 aoo_triggers = []
+        # WO-ENGINE-IMPROVED-OVERRUN-001: Improved Overrun suppresses AoO from target (PHB p.96)
+        elif isinstance(combat_intent, OverrunIntent):
+            _io_feats = world_state.entities.get(combat_intent.attacker_id, {}).get(EF.FEATS, [])
+            if "improved_overrun" in _io_feats:
+                aoo_triggers = []
 
         # WO-ENGINE-DEFENSIVE-CASTING-001: Defensive casting bypass (PHB p.140)
         # If the intent is a SpellCastIntent with defensive=True, run Concentration check.

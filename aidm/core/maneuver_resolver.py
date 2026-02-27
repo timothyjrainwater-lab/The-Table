@@ -861,8 +861,14 @@ def resolve_overrun(
     current_event_id += 1
     current_timestamp += 0.01
 
+    # WO-ENGINE-IMPROVED-OVERRUN-001: Improved Overrun forces opposed check — defender cannot avoid
+    # PHB p.157: "If you have the Improved Overrun feat, the defender may not choose to avoid."
+    _attacker_has_improved_overrun = "improved_overrun" in world_state.entities.get(
+        attacker_id, {}
+    ).get(EF.FEATS, [])
+
     # Check if defender avoids (controlled by AI/doctrine)
-    if intent.defender_avoids:
+    if intent.defender_avoids and not _attacker_has_improved_overrun:
         events.append(Event(
             event_id=current_event_id,
             event_type="overrun_avoided",
