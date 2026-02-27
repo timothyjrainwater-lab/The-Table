@@ -216,6 +216,7 @@ def _assign_starting_equipment(
     armor_id = kit.get("armor_id")
     armor_ac_bonus = 0
     armor_check_penalty = 0
+    armor_type_str = "none"  # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: "none"|"light"|"medium"|"heavy"
     effective_dex = dex_mod
 
     if armor_id:
@@ -226,16 +227,27 @@ def _assign_starting_equipment(
             total_weight += a.get("weight_lb", 0.0)
             armor_ac_bonus = a.get("ac_bonus", 0)
             armor_check_penalty = a.get("armor_check_penalty", 0)
+            armor_type_str = a.get("armor_type", "none")  # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001
             max_dex = a.get("max_dex_bonus")
             if max_dex is not None and max_dex < 99:
                 effective_dex = min(dex_mod, max_dex)
 
-    # AC (§3.5): 10 + effective_dex + armor_bonus [+ WIS for monk]
+    # AC (§3.5): 10 + effective_dex + armor_bonus
+    # WO-ENGINE-MONK-WIS-AC-001: WIS bonus tracked separately; applied at runtime by attack_resolver
     ac = 10 + effective_dex + armor_ac_bonus
-    if kit.get("wis_to_ac"):  # Monk class feature PHB p.41
-        ac += wis_mod
     entity[EF.AC] = ac
     entity[EF.ARMOR_CHECK_PENALTY] = armor_check_penalty
+
+    # WO-ENGINE-MONK-WIS-AC-001: Track WIS AC bonus separately for runtime computation (PHB p.41)
+    # Branch B: WIS is NOT pre-baked into EF.AC — attack_resolver adds MONK_WIS_AC_BONUS at runtime.
+    if kit.get("wis_to_ac"):
+        entity[EF.MONK_WIS_AC_BONUS] = wis_mod
+    else:
+        entity[EF.MONK_WIS_AC_BONUS] = 0
+
+    # WO-ENGINE-MONK-WIS-AC-001 / WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: Armor tracking fields
+    entity[EF.ARMOR_AC_BONUS] = armor_ac_bonus  # 0 = unarmored
+    entity[EF.ARMOR_TYPE] = armor_type_str  # "none"|"light"|"medium"|"heavy"
 
     # Standard adventuring gear
     for item_id, qty in _STANDARD_GEAR_ORDER:
@@ -636,6 +648,46 @@ def _merge_spellcasting(
     return result
 
 
+# =============================================================================
+# WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001: Creature type immunity auto-set
+# =============================================================================
+
+# PHB p.50: Immune to sneak attack (no discernible anatomy or vital spots)
+_SA_IMMUNE_TYPES = frozenset({"undead", "construct", "ooze", "plant", "elemental", "incorporeal"})
+# PHB p.50 / DMG p.290: Also immune to critical hits
+_CRIT_IMMUNE_TYPES = frozenset({"undead", "construct"})
+
+
+def _apply_creature_type_immunities(entity: Dict[str, Any]) -> None:
+    """Auto-set sneak attack / crit immunity from EF.CREATURE_TYPE.
+
+    PHB p.50: undead, constructs, plants, oozes, and elementals are immune
+    to sneak attack. Constructs and undead are also immune to critical hits.
+
+    Uses the same field names read by sneak_attack.py:is_target_immune():
+      - "creature_type" (= EF.CREATURE_TYPE)
+      - "immune_to_sneak_attack"
+      - "immune_to_critical_hits"
+
+    Additive: does NOT overwrite an existing explicit True flag.
+    """
+    creature_type = entity.get(EF.CREATURE_TYPE, "")
+    if not creature_type:
+        return
+
+    ct = creature_type.lower()
+
+    # WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001: SA immunity auto-set
+    if ct in _SA_IMMUNE_TYPES:
+        if not entity.get("immune_to_sneak_attack"):
+            entity["immune_to_sneak_attack"] = True
+
+    # WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001: Crit immunity auto-set (undead + construct only)
+    if ct in _CRIT_IMMUNE_TYPES:
+        if not entity.get("immune_to_critical_hits"):
+            entity["immune_to_critical_hits"] = True
+
+
 def build_character(
     race: str,
     class_name: str,
@@ -650,6 +702,7 @@ def build_character(
     use_rolled_gold: bool = False,
     class_mix: Optional[Dict[str, int]] = None,
     favored_class: Optional[str] = None,
+    creature_type: str = "",
 ) -> Dict[str, Any]:
     """Build a complete D&D 3.5e character entity dict.
 
@@ -873,6 +926,55 @@ def build_character(
         starting_equipment=starting_equipment,
     )
 
+    # --- Step 12: Class feature pool initialization (FINDING-CHARGEN-POOL-INIT-001) ---
+    # Pools that live-engine resolvers consume must be non-None at chargen.
+    # class_levels dict for single-class is always {class_name: level}.
+    _paladin_level = level if class_name == "paladin" else 0
+    _bard_level = level if class_name == "bard" else 0
+    _druid_level = level if class_name == "druid" else 0
+    _cha_mod = modifiers["cha"]
+
+    # Paladin: Smite Evil uses (PHB p.44 — 1 use at L1, +1 per 5 levels)
+    if _paladin_level >= 1:
+        smite_count = sum(
+            1 for lvl, feats in _CLASS_FEATURES["paladin"].items()
+            if lvl <= _paladin_level
+            for feat in feats
+            if feat.startswith("smite_evil_") and feat.endswith("_per_day")
+        )
+        entity[EF.SMITE_USES_REMAINING] = smite_count
+
+    # Paladin: Lay on Hands pool (PHB p.44 — unlocks at L2; pool = paladin_level × cha_mod if cha_mod > 0 else 0)
+    if _paladin_level >= 2:
+        entity[EF.LAY_ON_HANDS_POOL] = _paladin_level * _cha_mod if _cha_mod > 0 else 0
+        entity[EF.LAY_ON_HANDS_USED] = 0
+
+    # Bard: Bardic Music uses remaining (PHB p.29 — bard_level + CHA mod per day, min 1)
+    if _bard_level >= 1:
+        entity[EF.BARDIC_MUSIC_USES_REMAINING] = max(1, _bard_level + _cha_mod)
+
+    # Druid: Wild Shape uses remaining (PHB p.37 — unlocks at L5; max(1, 1 + (druid_level - 4) // 2))
+    if _druid_level >= 5:
+        entity[EF.WILD_SHAPE_USES_REMAINING] = max(1, 1 + (_druid_level - 4) // 2)
+
+    # WO-ENGINE-EVASION-001: Evasion and Improved Evasion boolean flags (PHB Rogue p.56, Monk p.41)
+    _rogue_level = level if class_name == "rogue" else 0
+    _monk_level = level if class_name == "monk" else 0
+    _ranger_level = level if class_name == "ranger" else 0
+    if _rogue_level >= 2 or _monk_level >= 2 or _ranger_level >= 9:
+        entity[EF.EVASION] = True      # Rogue 2, Monk 2, Ranger 9 (PHB p.56, p.41, p.47)
+    if _rogue_level >= 10 or _monk_level >= 9:
+        entity[EF.IMPROVED_EVASION] = True  # Rogue 10, Monk 9 (PHB p.57, p.43)
+
+    # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: Fast Movement bonus (PHB p.26)
+    _barbarian_level = level if class_name == "barbarian" else 0
+    entity[EF.FAST_MOVEMENT_BONUS] = 10 if _barbarian_level >= 1 else 0
+
+    # WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001: Creature type + immunity fields
+    if creature_type:
+        entity[EF.CREATURE_TYPE] = creature_type
+    _apply_creature_type_immunities(entity)
+
     return entity
 
 
@@ -1019,6 +1121,54 @@ def _build_multiclass_character(
 
     # Racial trait fields (WO-CHARGEN-RACIAL-001)
     apply_racial_trait_fields(entity, race)
+
+    # --- Class feature pool initialization (FINDING-CHARGEN-POOL-INIT-001) ---
+    _paladin_level = class_mix.get("paladin", 0)
+    _bard_level = class_mix.get("bard", 0)
+    _druid_level = class_mix.get("druid", 0)
+    _cha_mod = modifiers["cha"]
+
+    if _paladin_level >= 1:
+        smite_count = sum(
+            1 for lvl, feats in _CLASS_FEATURES["paladin"].items()
+            if lvl <= _paladin_level
+            for feat in feats
+            if feat.startswith("smite_evil_") and feat.endswith("_per_day")
+        )
+        entity[EF.SMITE_USES_REMAINING] = smite_count
+
+    if _paladin_level >= 2:
+        entity[EF.LAY_ON_HANDS_POOL] = _paladin_level * _cha_mod if _cha_mod > 0 else 0
+        entity[EF.LAY_ON_HANDS_USED] = 0
+
+    if _bard_level >= 1:
+        entity[EF.BARDIC_MUSIC_USES_REMAINING] = max(1, _bard_level + _cha_mod)
+
+    if _druid_level >= 5:
+        entity[EF.WILD_SHAPE_USES_REMAINING] = max(1, 1 + (_druid_level - 4) // 2)
+
+    # WO-ENGINE-EVASION-001: Evasion and Improved Evasion for multiclass (PHB Rogue p.56, Monk p.41)
+    _rogue_level = class_mix.get("rogue", 0)
+    _monk_level = class_mix.get("monk", 0)
+    _ranger_level = class_mix.get("ranger", 0)
+    if _rogue_level >= 2 or _monk_level >= 2 or _ranger_level >= 9:
+        entity[EF.EVASION] = True
+    if _rogue_level >= 10 or _monk_level >= 9:
+        entity[EF.IMPROVED_EVASION] = True
+
+    # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: Fast Movement bonus (PHB p.26)
+    _barbarian_level = class_mix.get("barbarian", 0)
+    entity[EF.FAST_MOVEMENT_BONUS] = 10 if _barbarian_level >= 1 else 0
+
+    # WO-ENGINE-MONK-WIS-AC-001: Multiclass does not call _assign_starting_equipment;
+    # set armor defaults and MONK_WIS_AC_BONUS directly.
+    # Multiclass entities start unarmored (no equipment assignment path).
+    if EF.ARMOR_AC_BONUS not in entity:
+        entity[EF.ARMOR_AC_BONUS] = 0
+    if EF.ARMOR_TYPE not in entity:
+        entity[EF.ARMOR_TYPE] = "none"
+    if EF.MONK_WIS_AC_BONUS not in entity:
+        entity[EF.MONK_WIS_AC_BONUS] = modifiers["wis"] if _monk_level >= 1 else 0
 
     return entity
 
