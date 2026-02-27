@@ -69,7 +69,8 @@ CONDITION_FACTORIES = {
 def get_save_bonus(
     world_state: WorldState,
     actor_id: str,
-    save_type: SaveType
+    save_type: SaveType,
+    save_descriptor: str = "",
 ) -> int:
     """Calculate total save bonus for an actor.
 
@@ -77,6 +78,7 @@ def get_save_bonus(
         world_state: Current world state
         actor_id: Entity making the save
         save_type: Type of save (Fort/Ref/Will)
+        save_descriptor: Optional context tag — "poison", "spell", "sla" (default: "")
 
     Returns:
         Total save bonus (base + ability + condition modifiers)
@@ -141,8 +143,24 @@ def get_save_bonus(
         if _cha_mod > 0:
             divine_grace_bonus = _cha_mod
 
+    # WO-ENGINE-RACIAL-SAVES-001: Racial saving throw bonuses (PHB Table 2-1)
+    # Halfling: +1 all saves. Dwarf: +2 vs poison (Fort), +2 vs spells/SLAs.
+    # Gnome +2 vs illusions: DEFERRED — spell school not in save_descriptor yet.
+    # FINDING-ENGINE-GNOME-ILLUSION-SAVE-001: needs spell school in save context.
+    racial_save_bonus = entity.get(EF.RACIAL_SAVE_BONUS, 0)  # halfling all-saves
+    racial_poison_bonus = 0
+    racial_spell_bonus = 0
+    if save_descriptor == "poison":
+        racial_poison_bonus = entity.get(EF.SAVE_BONUS_POISON, 0)
+    if save_descriptor in ("spell", "sla"):
+        racial_spell_bonus = entity.get(EF.SAVE_BONUS_SPELLS, 0)
+
     # Total bonus
-    total_bonus = base_save + ability_mod + condition_save_mod + inspire_courage_bonus + feat_save_bonus + divine_grace_bonus
+    total_bonus = (
+        base_save + ability_mod + condition_save_mod + inspire_courage_bonus
+        + feat_save_bonus + divine_grace_bonus
+        + racial_save_bonus + racial_poison_bonus + racial_spell_bonus
+    )
 
     return total_bonus
 
