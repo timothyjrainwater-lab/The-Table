@@ -373,6 +373,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Spell components — DF (divine focus) | PHB p.174 | **NOT STARTED** | — | No holy symbol requirement enforcement |
 | Spell components — XP (experience) | PHB p.174 | **NOT STARTED** | — | No XP cost deduction for spells |
 | Caster level effects (variable dice/range/etc.) | PHB p.174 | **PARTIAL** | `spell_resolver.py` | CasterStats.caster_level field; used for SR; dice are fixed per spell definition (not CL-scaled dynamically) |
+| Multiclass spellcasting — independent CL per class | PHB p.57 | **IMPLEMENTED** | `play_loop.py` | `_get_caster_level(entity, use_secondary)` helper; `_create_caster_stats(use_secondary=True)` routes CL_2; SpellCastIntent.use_secondary flag. WO-ENGINE-CASTER-LEVEL-2-001. |
 | Spell DC (10 + spell level + ability mod) | PHB p.175 | **IMPLEMENTED** | `spell_resolver.py` | Full DC computation in SpellResolver |
 | SR penetration check (d20 + CL vs SR) | PHB p.175 | **IMPLEMENTED** | `save_resolver.py` | SRCheck schema; full roll vs entity SR |
 | Dispel magic check | PHB p.223 | **NOT STARTED** | — | No dispel mechanic; duration_tracker has no dispel interface |
