@@ -975,6 +975,13 @@ def build_character(
         entity[EF.CREATURE_TYPE] = creature_type
     _apply_creature_type_immunities(entity)
 
+    # WO-ENGINE-TOUGHNESS-001: Toughness feat +3 HP per instance (PHB p.101; stackable)
+    _toughness_count = entity.get(EF.FEATS, []).count("toughness")
+    if _toughness_count > 0:
+        _toughness_hp = _toughness_count * 3
+        entity[EF.HP_MAX] = entity.get(EF.HP_MAX, 0) + _toughness_hp
+        entity[EF.HP_CURRENT] = entity.get(EF.HP_CURRENT, 0) + _toughness_hp
+
     return entity
 
 
@@ -1169,6 +1176,13 @@ def _build_multiclass_character(
         entity[EF.ARMOR_TYPE] = "none"
     if EF.MONK_WIS_AC_BONUS not in entity:
         entity[EF.MONK_WIS_AC_BONUS] = modifiers["wis"] if _monk_level >= 1 else 0
+
+    # WO-ENGINE-TOUGHNESS-001: Toughness feat +3 HP per instance (PHB p.101; stackable)
+    _toughness_count = entity.get(EF.FEATS, []).count("toughness")
+    if _toughness_count > 0:
+        _toughness_hp = _toughness_count * 3
+        entity[EF.HP_MAX] = entity.get(EF.HP_MAX, 0) + _toughness_hp
+        entity[EF.HP_CURRENT] = entity.get(EF.HP_CURRENT, 0) + _toughness_hp
 
     return entity
 
@@ -1509,6 +1523,11 @@ def level_up(
         final_scores = entity.get(EF.BASE_STATS, {})
         casting_score = final_scores.get(casting_stat, 10)
         spell_slots = get_spell_slots(class_name, new_class_level, casting_score)
+
+    # WO-ENGINE-TOUGHNESS-001: New Toughness feats at level-up add +3 HP each (PHB p.101)
+    _new_toughness = feats_added.count("toughness")
+    if _new_toughness > 0:
+        hp_gained += _new_toughness * 3
 
     return {
         "hp_gained": hp_gained,
