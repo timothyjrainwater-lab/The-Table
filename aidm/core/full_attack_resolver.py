@@ -621,11 +621,23 @@ def resolve_full_attack(
         world_state, intent.attacker_id, intent.target_id
     )
 
+    # WO-ENGINE-IMPROVED-UNCANNY-DODGE-001: IUD suppresses flanking-based sneak attack (PHB p.26/50)
+    # Flanking attack bonus is preserved — IUD only suppresses SA eligibility.
+    _sa_is_flanking = is_flanking
+    if is_flanking and "improved_uncanny_dodge" in target.get(EF.FEATS, []):
+        _attacker_rogue = attacker.get(EF.CLASS_LEVELS, {}).get("rogue", 0)
+        _target_iud_base = (
+            target.get(EF.CLASS_LEVELS, {}).get("rogue", 0)
+            + target.get(EF.CLASS_LEVELS, {}).get("barbarian", 0)
+        )
+        if _attacker_rogue < _target_iud_base + 4:
+            _sa_is_flanking = False  # Flanking suppressed for sneak attack eligibility
+
     # WO-050B: Check sneak attack eligibility (computed once per full attack)
     from aidm.core.sneak_attack import is_sneak_attack_eligible, get_sneak_attack_dice
     sa_eligible, sa_reason = is_sneak_attack_eligible(
         world_state, intent.attacker_id, intent.target_id,
-        is_flanking=is_flanking,
+        is_flanking=_sa_is_flanking,
     )
     sa_dice = get_sneak_attack_dice(attacker) if sa_eligible else 0
 

@@ -847,12 +847,32 @@ def resolve_attack(
         # WO-ENGINE-FAVORED-ENEMY-001: Favored Enemy damage bonus is NOT multiplied on crit (PHB p.47 — flat bonus)
         damage_total += _favored_enemy_bonus
 
+        # WO-ENGINE-IMPROVED-UNCANNY-DODGE-001: IUD suppresses flanking-based sneak attack (PHB p.26/50)
+        # The flanking_bonus already applied to attack roll above is preserved — IUD only blocks SA.
+        _sa_is_flanking = is_flanking
+        if is_flanking and "improved_uncanny_dodge" in target.get(EF.FEATS, []):
+            _attacker_rogue = attacker.get(EF.CLASS_LEVELS, {}).get("rogue", 0)
+            _target_iud_base = (
+                target.get(EF.CLASS_LEVELS, {}).get("rogue", 0)
+                + target.get(EF.CLASS_LEVELS, {}).get("barbarian", 0)
+            )
+            if _attacker_rogue < _target_iud_base + 4:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="improved_uncanny_dodge_active",
+                    timestamp=timestamp + 0.06,
+                    payload={"target_id": intent.target_id},
+                    citations=[{"source_id": "681f92bc94ff", "page": 26}],
+                ))
+                current_event_id += 1
+                _sa_is_flanking = False  # Flanking suppressed for sneak attack eligibility
+
         # WO-050B: Sneak Attack precision damage (PHB p.50)
         # Added AFTER critical multiplier — precision damage is NOT multiplied on crits
         from aidm.core.sneak_attack import calculate_sneak_attack
         sa_eligible, sa_damage, sa_dice_expr, sa_rolls, sa_reason = calculate_sneak_attack(
             world_state, intent.attacker_id, intent.target_id,
-            is_flanking=is_flanking,
+            is_flanking=_sa_is_flanking,
             rng=rng,
         )
         if sa_eligible:
