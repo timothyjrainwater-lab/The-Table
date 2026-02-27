@@ -5,13 +5,13 @@
 ---
 
 **Identity:** Slate (Mrs. Slate). PM for D&D 3.5e combat engine. Full PM authority delegated by Thunder (PO) 2026-02-11.
-**Session:** 2026-02-27 (session 9 — 4 active tracks: R IN FLIGHT, P READY, T IN FLIGHT, Q gated. Batch S ACCEPTED 33/33. PM recon debrief filed. CLAUDE.md enforcement layer live.)
-**Delta:** Batch S ACCEPTED (9416925/dabeaee/652590d/1516009). 3 new LOW findings. EF.TURN_UNDEAD_USES confirmed (not EF.TURN_UNDEAD_USES_REMAINING). CLAUDE.md created. Suite: 8407 passed / 141 pre-existing failures. Inbox 12/15.
+**Session:** 2026-02-27 (session 9 — 2 active tracks: R IN FLIGHT, Q gated on R WO4. Batch P ACCEPTED 32/32. Batch S ACCEPTED 33/33. Batch T ACCEPTED 3/4: MA/INA/ITN; WO4 SD BLOCKED — FINDING-ENGINE-DOMAIN-SYSTEM-MISSING-001 MEDIUM OPEN. CLAUDE.md enforcement layer live.)
+**Delta:** Batch P close-out: 6 findings CLOSED (IDC/IMB×5), 4 new LOW OPEN (PA-2H-PHB-DEVIATION/PA-FULL-ATTACK-ROUND-LOCK/PRECISE-SHOT-DEAD-CODE/IDC-DEX-STRIPPED), ML-005 filed. Batch T complete: natural_attack_resolver.py Multiattack secondary penalty (−5/−2) + INA die step upgrade. turn_undead_resolver.py: Improved Turning +1 effective level. New findings: DOMAIN-SYSTEM-MISSING-001 MEDIUM, NAT-ATTACK-DELEGATION-PATH-001 LOW INFO, INA-NONSTANDARD-DIE-001 LOW. Suite: 8407 passed / 141 pre-existing failures. Inbox 11/15.
 
 ## Priority Stack (top 3)
 1. **Batch R IN FLIGHT.** 24 new gate tests: IE/MB/GTWF (+WO3 SAI existing gate). Awaiting builder debrief. Batch Q WO3 (WFC) waits for R WO4 (GTWF) to settle.
-2. **Batch P READY.** 32 gate tests: PA/IMB/PS/IDC. Batch Q follows P. Thunder dispatches.
-3. **Batch T IN FLIGHT.** 32 gate tests: MA/INA/ITN/SD. CORRIGENDUM: use EF.TURN_UNDEAD_USES (not EF.TURN_UNDEAD_USES_REMAINING). builder.py lock released (Batch S complete).
+2. **Thunder decision on FINDING-ENGINE-PA-2H-PHB-DEVIATION-001.** 2H Power Attack: dispatch spec says 1.5×, PHB p.98 says 2×. Intentional deviation or spec error?
+3. **FINDING-ENGINE-DOMAIN-SYSTEM-MISSING-001 MEDIUM OPEN.** No EF.DOMAINS — Sun domain and all domain-granted powers blocked. New WO needed: EF.DOMAINS + chargen wire + EF.GREATER_TURNING_USES_REMAINING.
 
 ## Active Findings (OPEN only — closed/resolved in briefing)
 - FINDING-ENGINE-GNOME-ILLUSION-SAVE-001 LOW OPEN (gnome +2 vs illusion — SaveContext has no spell school field; Batch S RSV-006 BLOCKED)
@@ -26,22 +26,23 @@
 - GAP-B HIGH OPEN (llama-cpp-python / VS Build Tools)
 - FINDING-WORLDGEN-IP-001 HIGH OPEN (ingestion complete → double audit → strip → scan gate — not current blocker)
 - FINDING-COVERAGE-MAP-001 HIGH OPEN (Top 20 gap list in ENGINE_COVERAGE_MAP.md — ongoing WO source)
+- FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 LOW OPEN (Improved Overrun +4 STR bonus — confirm all paths — Batch O WO1)
+- FINDING-ENGINE-IMPROVED-TRIP-WEAPON-CONTEXT-001 LOW OPEN (free attack silently skipped if no weapon in TripIntent — Batch N WO4)
+- FINDING-ENGINE-PA-2H-PHB-DEVIATION-001 LOW OPEN (**Thunder decision needed** — 2H PA at 1.5× per spec; PHB p.98 says 2×)
+- FINDING-ENGINE-PA-FULL-ATTACK-ROUND-LOCK-001 LOW OPEN (PA penalty not enforced at round level — trusts caller — Batch P WO1)
+- FINDING-ENGINE-PRECISE-SHOT-FEAT-RESOLVER-DEAD-CODE-001 LOW OPEN (`ignores_shooting_into_melee_penalty()` dead code in feat_resolver.py — Batch P WO3)
+- FINDING-ENGINE-IDC-DEX-STRIPPED-001 LOW OPEN (attacker loses DEX to AC for counter-disarm attempt — not implemented — Batch P WO4)
+- FINDING-ENGINE-DOMAIN-SYSTEM-MISSING-001 MEDIUM OPEN (no EF.DOMAINS in entity_fields.py — Sun domain + all domain powers blocked — surfaced Batch T WO4 block)
+- FINDING-ENGINE-NAT-ATTACK-DELEGATION-PATH-001 LOW OPEN/INFO (natural_attack_resolver.py delegates to attack_resolver.resolve_attack() — Batch Q WO3 WFC implementable in attack_resolver.py, no natural_attack_resolver touch needed — surfaced Batch T WO1 Pass 3)
+- FINDING-ENGINE-INA-NONSTANDARD-DIE-001 LOW OPEN (non-standard dice not in _INA_STEP_TABLE silently pass through without INA upgrade — surfaced Batch T WO2 Pass 3)
 - FINDING-ENGINE-ENCUMBRANCE-CATALOG-001 LOW **CLOSED** (WO-ENGINE-ENCUMBRANCE-WIRE-001 ACCEPTED Batch M ad21df2)
 - FINDING-ENGINE-COVER-VALUES-001 HIGH **CLOSED** (WO-ENGINE-COVER-FIX-001 ACCEPTED Batch M 548e2cf)
-- FINDING-SAI-FRAGMENTATION-001 LOW **CLOSED** (WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001 ACCEPTED Batch M 14b2c18)
-- FINDING-SCHEMA-COVER-DOCSTRING-001 LOW OPEN (terrain.py:49 docstring still says +8 — surfaced Batch M WO1)
-- FINDING-ENGINE-MULTICLASS-BUILDER-IMMUNE-001 LOW OPEN (immunity not applied in multiclass builder path — Batch M WO3)
-- FINDING-ENGINE-BARD-ROGUE-MARTIAL-PARTIAL-001 LOW OPEN (partial martial proficiency not modeled — Batch M WO4)
-- FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 LOW OPEN → **CLOSING in Batch P WO4**
-- FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
-- FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
-- FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
-- FINDING-ENGINE-IMPROVED-OVERRUN-AOO-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-OVERRUN-001 ACCEPTED Batch O)
-- FINDING-ENGINE-BLIND-FIGHT-INVIS-001 LOW OPEN (Blind Fight reroll applies to concealment misses, not invisibility — Batch O WO3)
-- FINDING-ENGINE-IMPROVED-OVERRUN-BONUS-001 LOW OPEN (Improved Overrun +4 STR bonus — confirm all paths — Batch O WO1)
-- FINDING-ENGINE-IMPROVED-TRIP-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
-- FINDING-ENGINE-IMPROVED-SUNDER-BONUS-001 LOW OPEN → **CLOSING in Batch P WO2**
-- FINDING-ENGINE-IMPROVED-TRIP-WEAPON-CONTEXT-001 LOW OPEN (free attack silently skipped if no weapon in TripIntent — Batch N WO4)
+- FINDING-ENGINE-IMPROVED-DISARM-COUNTER-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-DISARM-COUNTER-001 ACCEPTED Batch P — inverted branches + raw-roll margin fixed)
+- FINDING-ENGINE-IMPROVED-DISARM-BONUS-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001 ACCEPTED Batch P — +4 wired at single site)
+- FINDING-ENGINE-IMPROVED-GRAPPLE-BONUS-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001 ACCEPTED Batch P)
+- FINDING-ENGINE-IMPROVED-BULL-RUSH-BONUS-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001 ACCEPTED Batch P)
+- FINDING-ENGINE-IMPROVED-TRIP-BONUS-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001 ACCEPTED Batch P)
+- FINDING-ENGINE-IMPROVED-SUNDER-BONUS-001 LOW **CLOSED** (WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001 ACCEPTED Batch P)
 
 ## Stop Conditions
 - If test suite drops below 6,342 or any gate regresses, halt and investigate
@@ -50,7 +51,7 @@
 
 ## State Register Pointer
 - File: pm_inbox/PM_BRIEFING_CURRENT.md
-- Updated: 2026-02-27 (session 9 — Batches Q/S/T dispatched, Batch R recon filed, 4 parallel tracks active, inbox 12/15)
+- Updated: 2026-02-27 (session 9 — Batch P ACCEPTED + T ACCEPTED 3/4, Batch R recon filed, 2 active tracks, inbox 11/15)
 - Briefing carries: gate counts (A-AA + WP), WO verdicts (30+), dispatch list, build order, open findings, doctrine status
 
 ---
@@ -289,6 +290,16 @@ Lessons extracted from real failures. Each entry: what happened, root cause, rul
 1. **Retry cap:** "If the regression suite produces new failures, fix once, re-run once. If still failing after one fix attempt, record the failure in your debrief and stop. Do not loop."
 2. **Pre-existing failure baseline:** State the known pre-existing failure count in the dispatch (`23 pre-existing failures as of dispatch — do not treat these as regressions`). Builder can identify new failures without spiraling on known-bad.
 3. **Batch regression agent (preferred for batch dispatches):** Builders run their WO-specific gate only to confirm delivery (`pytest tests/test_[wo]_gate.py`). A dedicated regression agent runs the full suite after all WOs in the batch land. Builder files FILED on WO gate pass. Regression agent result upgrades or flags for investigation. This catches cross-WO interactions without burning four separate full-suite runs in four separate agent contexts.
+
+---
+
+**ML-005 — PM commits can sweep staged engine code: run `git status` before every PM commit (2026-02-27)**
+
+*What happened:* Batch P WO4 (IDC) — Chisel staged `aidm/core/maneuver_resolver.py` (147 lines of engine changes) but had not yet committed. PM then ran `git add <pm files> && git commit` to land the PM-side IDC work (gate test file, debrief). Git committed ALL staged content — including Chisel's staged engine file. PM commit `0440ffa` contains both the PM-side gate test AND the engine code. The audit trail is wrong: engine code appears in a PM commit.
+
+*Root cause:* `git commit` (no `-a` flag) commits ALL staged content, not just the files explicitly added in the most recent `git add`. A parallel builder staging without committing creates a shared staging area trap. PM had no `git status` check in the pre-commit sequence.
+
+*Rule:* **PM must run `git status` before every commit. If any engine files appear in the staging area, do NOT proceed. Signal Chisel to commit their staged changes first, then PM commits separately. Never proceed when engine files are staged.**
 
 ---
 
