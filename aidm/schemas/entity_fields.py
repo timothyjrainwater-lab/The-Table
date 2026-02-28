@@ -352,6 +352,19 @@ class _EntityFields:
 
     # --- Somatic Component Restriction (WO-ENGINE-SOMATIC-HAND-FREE-001) ---
     FREE_HAND_BLOCKED = "free_hand_blocked"
+
+    # --- Monk Wholeness of Body (WO-ENGINE-WHOLENESS-OF-BODY-001) ---
+    WHOLENESS_OF_BODY_POOL = "wholeness_of_body_pool"
+    # int: Total HP monk can heal via Wholeness of Body today (= monk_level * 2).
+    # Refreshes on full rest. PHB p.42. Unlocks at monk L7+.
+    WHOLENESS_OF_BODY_USED = "wholeness_of_body_used"
+    # int: HP already consumed from pool this day. 0 at rest.
+
+    # --- Paladin Aura of Courage (WO-ENGINE-AURA-OF-COURAGE-001) ---
+    FEAR_IMMUNE = "fear_immune"
+    # bool: True if entity is immune to fear effects (magical or otherwise).
+    # Set at chargen for paladin L2+. PHB p.44.
+    # Also checked in save_resolver.get_save_bonus() when save_descriptor == "fear".
     # bool: True if caster has no free hand for somatic components (PHB p.174).
     # Set by: two-handed weapon grip, PINNED condition, hand binding.
     # When True: spells with has_somatic=True fail before ASF roll (cannot provide component).

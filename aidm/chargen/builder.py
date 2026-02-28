@@ -1032,6 +1032,22 @@ def build_character(
             entity[EF.MONK_UNARMED_DICE] = _dice
             break
 
+    # WO-ENGINE-DIAMOND-SOUL-001: Monk Diamond Soul SR (PHB p.43)
+    # SR = monk_level + 10 at monk L13+. max() preserves racial SR if higher.
+    _monk_level_ds = level if class_name == "monk" else 0
+    if _monk_level_ds >= 13:
+        entity[EF.SR] = max(entity.get(EF.SR, 0), _monk_level_ds + 10)
+
+    # WO-ENGINE-WHOLENESS-OF-BODY-001: Monk Wholeness of Body pool (PHB p.42, L7+)
+    # Pool = 2 × monk_level per day. Splits across uses.
+    if _monk_level >= 7:
+        entity[EF.WHOLENESS_OF_BODY_POOL] = _monk_level * 2
+        entity[EF.WHOLENESS_OF_BODY_USED] = 0
+
+    # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity (PHB p.44, L2+)
+    if _paladin_level >= 2:
+        entity[EF.FEAR_IMMUNE] = True
+
     return entity
 
 
@@ -1271,6 +1287,20 @@ def _build_multiclass_character(
         if _monk_level_mup >= _threshold:
             entity[EF.MONK_UNARMED_DICE] = _dice
             break
+
+    # WO-ENGINE-DIAMOND-SOUL-001: Monk Diamond Soul SR (PHB p.43) — multiclass path
+    _monk_level_ds_mc = class_mix.get("monk", 0)
+    if _monk_level_ds_mc >= 13:
+        entity[EF.SR] = max(entity.get(EF.SR, 0), _monk_level_ds_mc + 10)
+
+    # WO-ENGINE-WHOLENESS-OF-BODY-001: Monk Wholeness of Body pool (PHB p.42, L7+) — multiclass path
+    if _monk_level >= 7:
+        entity[EF.WHOLENESS_OF_BODY_POOL] = _monk_level * 2
+        entity[EF.WHOLENESS_OF_BODY_USED] = 0
+
+    # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity (PHB p.44, L2+) — multiclass path
+    if _paladin_level >= 2:
+        entity[EF.FEAR_IMMUNE] = True
 
     return entity
 
@@ -1613,6 +1643,16 @@ def level_up(
     if _new_toughness > 0:
         hp_gained += _new_toughness * 3
 
+    # WO-ENGINE-DIAMOND-SOUL-001: Monk Diamond Soul SR on level-up (PHB p.43)
+    # Returns new SR value when monk crosses L13+; None if no change.
+    _new_monk_level = updated_class_levels.get("monk", 0)
+    _spell_resistance_delta = None
+    if _new_monk_level >= 13:
+        _old_sr = entity.get(EF.SR, 0)
+        _candidate_sr = _new_monk_level + 10
+        if _candidate_sr > _old_sr:
+            _spell_resistance_delta = _candidate_sr
+
     return {
         "hp_gained": hp_gained,
         "feat_slots_gained": feat_slots_gained,
@@ -1623,4 +1663,5 @@ def level_up(
         "bab": bab,
         "saves": saves,
         "new_total_level": new_total_level,
+        "spell_resistance": _spell_resistance_delta,
     }

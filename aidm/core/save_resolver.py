@@ -175,6 +175,58 @@ def get_save_bonus(
         if _temp_mods.get("indomitable_will_active", False):
             indomitable_will_bonus = 4
 
+    # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity + ally +4 morale (PHB p.44)
+    # Paladin L2+ is immune to fear; allies within 10 ft get +4 morale vs fear saves.
+    # FINDING-ENGINE-SAVE-DESCRIPTOR-PASS-001: save_descriptor not passed from resolve_save()
+    # (SaveContext has no descriptor field). Tests call get_save_bonus() directly with
+    # save_descriptor="fear" — full round-trip via resolve_save() is CONSUME_DEFERRED.
+    fear_bonus = 0
+    if save_descriptor == "fear":
+        if entity.get(EF.FEAR_IMMUNE, False):
+            # Immunity: return a large sentinel that guarantees auto-pass vs any realistic DC
+            fear_bonus = 999
+        else:
+            # Check for conscious paladin ally within 10 ft (2 squares, Chebyshev)
+            _actor_pos = entity.get(EF.POSITION)
+            _actor_team = entity.get(EF.TEAM)
+            _best_aoc = 0
+            for _eid, _ent in world_state.entities.items():
+                if _eid == actor_id:
+                    continue
+                if _ent.get(EF.CLASS_LEVELS, {}).get("paladin", 0) < 2:
+                    continue
+                if _ent.get(EF.TEAM) != _actor_team:
+                    continue
+                # Conscious check: not defeated, not dying
+                if _ent.get(EF.DEFEATED, False) or _ent.get(EF.DYING, False):
+                    continue
+                _conds = _ent.get(EF.CONDITIONS, [])
+                if any(
+                    (c.get("type") == "unconscious" if isinstance(c, dict) else False)
+                    for c in _conds
+                ):
+                    continue
+                # Distance check: ≤ 2 squares = within 10 ft
+                _ent_pos = _ent.get(EF.POSITION)
+                if _actor_pos is not None and _ent_pos is not None:
+                    _ax = _actor_pos.get("x", 0) if isinstance(_actor_pos, dict) else getattr(_actor_pos, "x", 0)
+                    _ay = _actor_pos.get("y", 0) if isinstance(_actor_pos, dict) else getattr(_actor_pos, "y", 0)
+                    _px = _ent_pos.get("x", 0) if isinstance(_ent_pos, dict) else getattr(_ent_pos, "x", 0)
+                    _py = _ent_pos.get("y", 0) if isinstance(_ent_pos, dict) else getattr(_ent_pos, "y", 0)
+                    if max(abs(_ax - _px), abs(_ay - _py)) > 2:
+                        continue
+                _best_aoc = 4
+                break  # One conscious paladin within range is sufficient
+            fear_bonus = _best_aoc
+
+    # Morale non-stacking: Inspire Courage and Aura of Courage are both morale bonuses.
+    # PHB p.136: same-type bonuses don't stack — use the higher of the two for fear saves.
+    # For non-fear saves: inspire_courage applies normally (no AoC interaction).
+    if save_descriptor == "fear" and fear_bonus < 999:
+        effective_morale = max(inspire_courage_bonus, fear_bonus)
+        inspire_courage_bonus = 0
+        fear_bonus = effective_morale
+
     # Total bonus
     # WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001: ability_mod already in base_save (Type 2 field)
     total_bonus = (
@@ -183,6 +235,7 @@ def get_save_bonus(
         + racial_save_bonus + racial_poison_bonus + racial_spell_bonus
         + racial_enchantment_bonus
         + still_mind_bonus + indomitable_will_bonus
+        + fear_bonus
     )
 
     return total_bonus

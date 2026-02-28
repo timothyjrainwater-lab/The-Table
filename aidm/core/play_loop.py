@@ -79,6 +79,8 @@ from aidm.schemas.intents import (
     NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent, StandIntent,
     ImmediateActionIntent, RunIntent,
 )
+from aidm.core.flurry_of_blows_resolver import FlurryOfBlowsIntent
+from aidm.core.wholeness_of_body_resolver import WholenessOfBodyIntent
 from aidm.core.companion_resolver import spawn_companion
 # WO-ENGINE-LEVELUP-WIRE: XP award and level-up wiring
 from aidm.core.experience_resolver import award_xp, check_level_up, apply_level_up
@@ -2028,7 +2030,8 @@ def execute_turn(
                                         BardicMusicIntent, WildShapeIntent, RevertFormIntent,
                                         AbilityDamageIntent, WithdrawIntent, DelayIntent,
                                         StabilizeIntent, CalledShotIntent, DemoralizeIntent,
-                                        StandIntent, ImmediateActionIntent, RunIntent)):
+                                        StandIntent, ImmediateActionIntent, RunIntent,
+                                        FlurryOfBlowsIntent, WholenessOfBodyIntent)):
             intent_actor_id = combat_intent.actor_id
         else:
             # Unknown intent type
@@ -2907,6 +2910,33 @@ def execute_turn(
             events.extend(_loh_events)
             current_event_id += len(_loh_events)
             narration = "lay_on_hands_resolved"
+
+        # WO-ENGINE-FLURRY-OF-BLOWS-001: Monk Flurry of Blows
+        elif isinstance(combat_intent, FlurryOfBlowsIntent):
+            from aidm.core.flurry_of_blows_resolver import resolve_flurry_of_blows
+            _fob_events, world_state = resolve_flurry_of_blows(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_fob_events)
+            current_event_id += len(_fob_events)
+            narration = "flurry_of_blows_resolved"
+
+        # WO-ENGINE-WHOLENESS-OF-BODY-001: Monk Wholeness of Body
+        elif isinstance(combat_intent, WholenessOfBodyIntent):
+            from aidm.core.wholeness_of_body_resolver import resolve_wholeness_of_body
+            _wob_events, world_state = resolve_wholeness_of_body(
+                intent=combat_intent,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_wob_events)
+            current_event_id += len(_wob_events)
+            narration = "wholeness_of_body_resolved"
 
         # WO-ENGINE-PLAY-LOOP-ROUTING-001: Bardic Music (Inspire Courage)
         elif isinstance(combat_intent, BardicMusicIntent):
