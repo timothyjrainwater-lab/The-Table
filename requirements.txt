@@ -1,4 +1,5 @@
 pytest>=7.0.0
+d20>=1.1.2
 
 # server extras
 starlette>=0.27.0
