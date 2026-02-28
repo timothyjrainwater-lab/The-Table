@@ -93,7 +93,7 @@
 | Improved Feint (feint as move action) | PHB p.156 | **IMPLEMENTED** | `schemas/feats.py` | IMPROVED_FEINT feat registered and wired |
 | Grapple — provokes AoO | PHB p.156 | **IMPLEMENTED** | `maneuver_resolver.py`, `aoo.py` | AoO from target before grapple resolution |
 | Grapple — touch attack to grab | PHB p.156 | **IMPLEMENTED** | `maneuver_resolver.py` | Touch attack resolved before grapple check |
-| Grapple — opposed grapple checks | PHB p.156 | **IMPLEMENTED** | `maneuver_resolver.py` | BAB + STR + size modifier; GRAPPLED/GRAPPLING conditions applied |
+| Grapple — opposed grapple checks | PHB p.156 | **IMPLEMENTED** | `maneuver_resolver.py` | BAB + STR + size modifier; GRAPPLED/GRAPPLING conditions applied. _get_bab() now uses EF.BAB (Type 1) — WO-ENGINE-MANEUVER-BAB-FIX-001 (all 5 maneuver types). |
 | Grapple — in-grapple actions (damage, pin, escape) | PHB p.156-158 | **IMPLEMENTED** | `maneuver_resolver.py` | GrappleEscapeIntent, PinEscapeIntent wired; PINNED condition added |
 | Grapple — pin (helpless) | PHB p.157 | **IMPLEMENTED** | `maneuver_resolver.py`, `schemas/conditions.py` | PINNED condition; auto-hit_if_helpless; WO-ENGINE-GRAPPLE-PIN-001 |
 | Grapple — tie up/bound | PHB p.157 | **NOT STARTED** | — | No rope-binding mechanic; tied condition not implemented |
@@ -175,9 +175,9 @@
 
 | Mechanic | Source | Status | Engine File(s) | Notes / Gap Description |
 |----------|--------|--------|----------------|--------------------------|
-| Fortitude save base calculation | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | SAVE_FORT entity field; CON mod applied |
-| Reflex save base calculation | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | SAVE_REF entity field; DEX mod applied |
-| Will save base calculation | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | SAVE_WILL entity field; WIS mod applied |
+| Fortitude save base calculation | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | SAVE_FORT is Type 2 (base + CON baked at chargen). WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001: ability_mod no longer double-counted. |
+| Reflex save base calculation | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | SAVE_REF is Type 2 (base + DEX baked at chargen). WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001. |
+| Will save base calculation | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | SAVE_WILL is Type 2 (base + WIS baked at chargen). WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001. |
 | Condition modifiers to saves | PHB p.310-311 | **IMPLEMENTED** | `save_resolver.py`, `schemas/conditions.py` | fort_save_modifier, ref_save_modifier, will_save_modifier in ConditionModifiers |
 | Racial bonuses to saves (halfling +1 all) | PHB p.20 | **IMPLEMENTED** | `schemas/entity_fields.py` | RACIAL_SAVE_BONUS field; SAVE_BONUS_SPELLS for dwarves/gnomes |
 | Negative level penalty to saves | PHB p.215 | **IMPLEMENTED** | `energy_drain_resolver.py`, `save_resolver.py` | NEGATIVE_LEVELS × -1 applied to saves |
@@ -188,7 +188,8 @@
 | Evasion (no damage on successful Reflex save) | PHB p.50 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.HAS_EVASION; Ref save success → 0 damage. Armor guard: none/light only. WO-ENGINE-EVASION-ARMOR-001. |
 | Improved Evasion (half damage on failed Reflex) | PHB p.51 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.IMPROVED_EVASION; failed Ref save → half damage. Monk class feature. WO-ENGINE-EVASION-ARMOR-001. |
 | Spell save DC calculation (10 + spell level + ability mod) | PHB p.175 | **IMPLEMENTED** | `spell_resolver.py` | DC computed from CasterStats; ability mod from caster class |
-| Concentration checks (damage during casting) | PHB p.175 | **IMPLEMENTED** | `play_loop.py` | Concentration break on damage; DC = 10 + damage + spell level |
+| Spell target saves (TargetStats) | PHB p.175 | **IMPLEMENTED** | `play_loop.py`, `save_resolver.py` | _create_target_stats() now routes through canonical save_resolver.get_save_bonus(). Includes Divine Grace, save feats, racial bonuses, conditions, inspire courage. WO-ENGINE-SPELL-SAVE-UNIFY-001. |
+| Concentration checks (damage during casting) | PHB p.175 | **IMPLEMENTED** | `play_loop.py` | Concentration break on damage; DC = 10 + damage + spell level. EF.CONCENTRATION_BONUS wired at chargen (ranks + CON_MOD). WO-ENGINE-CONCENTRATION-WRITE-001. |
 | Concentration — vigorous motion | PHB p.175 | **PARTIAL** | `play_loop.py` | Vigorous motion DC check added; not all motion contexts covered. WO-ENGINE-CONCENTRATION-VIGOROUS-001. |
 | Concentration — violent weather | PHB p.175 | **NOT STARTED** | — | No weather-based concentration DC |
 | Concentration — entangled | PHB p.175 | **NOT STARTED** | — | Entangled condition does not trigger concentration penalty |
