@@ -273,6 +273,27 @@ class _EntityFields:
     DARKVISION_RANGE = "darkvision_range"          # Int: darkvision range in feet
     SAVE_BONUS_POISON = "save_bonus_poison"        # Int: racial bonus vs poison saves
 
+    # --- Alignment (WO-ENGINE-EVIL-CLERIC-INFLICT-001) ---
+    ALIGNMENT = "alignment"
+    # Str: lowercase underscore — e.g. "chaotic_evil", "lawful_evil", "neutral_evil",
+    # "true_neutral", "neutral_good", "chaotic_good", "lawful_good", "chaotic_neutral",
+    # "lawful_neutral". Evil clerics (any *_evil) use inflict spontaneous swap.
+
+    # --- Druid class features (WO-ENGINE-DRUID-SAVES-FEATURES-001) ---
+    RESIST_NATURES_LURE = "resist_natures_lure"
+    # Bool: True when druid L4+. +4 bonus on saves vs fey spell-like/supernatural abilities.
+    # PHB p.36. Uses save_descriptor="fey" at call site.
+
+    # --- Inspire Greatness temp buffs (WO-ENGINE-INSPIRE-GREATNESS-001) ---
+    HP_TEMP = "hp_temp"
+    # Int: temporary hit points. Lost before permanent HP. Removed when effect expires.
+    INSPIRE_GREATNESS_ACTIVE = "inspire_greatness_active"
+    # Bool: True while Inspire Greatness effect is running on this entity.
+    INSPIRE_GREATNESS_ROUNDS_REMAINING = "inspire_greatness_rounds_remaining"
+    # Int: rounds left on the effect (concentration + 5 after).
+    INSPIRE_GREATNESS_BARD_ID = "inspire_greatness_bard_id"
+    # Str|None: entity_id of the bard who applied the effect.
+
     # --- Arcane Spell Failure (WO-ENGINE-ARCANE-SPELL-FAILURE-001) ---
     ARCANE_SPELL_FAILURE = "arcane_spell_failure"
     # int: percentage chance (0-100) that arcane spells with somatic components fail.

@@ -185,6 +185,16 @@ class SaveContext:
     sr_check: Optional[SRCheck] = None
     """Spell Resistance check (if applicable)"""
 
+    save_descriptor: str = ""
+    """Optional context tag — "fear", "poison", "spell", "sla", "fey" (default: "").
+    WO-ENGINE-SAVECONTEXT-DESCRIPTOR-001: threaded into get_save_bonus() via resolve_save().
+    Type 3 (Runtime-Only): not persisted, passed at call site."""
+
+    school: str = ""
+    """Spell school (lowercase) for school-specific bonuses — e.g. "enchantment", "illusion".
+    WO-ENGINE-SAVECONTEXT-DESCRIPTOR-001: threaded into get_save_bonus() via resolve_save().
+    Type 3 (Runtime-Only): not persisted, passed at call site."""
+
     def __post_init__(self):
         """Validate save context."""
         if self.dc < 0:
@@ -207,7 +217,9 @@ class SaveContext:
             "on_success": self.on_success.to_dict() if self.on_success else None,
             "on_failure": self.on_failure.to_dict() if self.on_failure else None,
             "on_partial": self.on_partial.to_dict() if self.on_partial else None,
-            "sr_check": self.sr_check.to_dict() if self.sr_check else None
+            "sr_check": self.sr_check.to_dict() if self.sr_check else None,
+            "save_descriptor": self.save_descriptor,
+            "school": self.school,
         }
 
     @classmethod
@@ -222,5 +234,7 @@ class SaveContext:
             on_success=EffectSpec.from_dict(data["on_success"]) if data.get("on_success") else None,
             on_failure=EffectSpec.from_dict(data["on_failure"]) if data.get("on_failure") else None,
             on_partial=EffectSpec.from_dict(data["on_partial"]) if data.get("on_partial") else None,
-            sr_check=SRCheck.from_dict(data["sr_check"]) if data.get("sr_check") else None
+            sr_check=SRCheck.from_dict(data["sr_check"]) if data.get("sr_check") else None,
+            save_descriptor=data.get("save_descriptor", ""),
+            school=data.get("school", ""),
         )

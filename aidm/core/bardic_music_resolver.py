@@ -1,11 +1,10 @@
-"""Bardic Music -- Inspire Courage runtime resolver -- WO-ENGINE-BARDIC-MUSIC-001.
+"""Bardic Music -- Inspire Courage + Inspire Greatness runtime resolver.
 
-PHB pp.29-30: Standard action. +morale bonus to attack/damage/fear-charm saves for allies.
-Uses/day = Bard level. Bonus: +1 (lv1-7), +2 (lv8-13), +3 (lv14-19), +4 (lv20).
-Duration: 8 rounds (v1 fixed; FINDING-BARDIC-DURATION-001 deferred).
+WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage (PHB pp.29-30).
+WO-ENGINE-INSPIRE-GREATNESS-001: Inspire Greatness (PHB p.30).
 
-WO-ENGINE-BARDIC-DURATION-001: Effect ends on next tick if the bard is defeated, dying,
-or deafened. INSPIRE_COURAGE_BARD_ID stored at activation to identify the source bard.
+Uses/day = Bard level. Inspire Greatness requires L9+ and 12+ Perform ranks.
+Duration: 8 rounds (Inspire Courage v1 fixed); concentration + 5 rounds (Inspire Greatness).
 """
 
 from copy import deepcopy
@@ -67,7 +66,7 @@ def validate_bardic_music(actor: dict, world_state: WorldState,
     """Validate bardic music activation. Returns error reason or None."""
     if not _has_bard_feature(actor):
         return "not_a_bard"
-    if performance != "inspire_courage":
+    if performance not in ("inspire_courage", "inspire_greatness"):
         return "unsupported_performance"
     if actor.get(EF.BARDIC_MUSIC_USES_REMAINING, 0) <= 0:
         return "no_bardic_music_uses"
@@ -199,6 +198,211 @@ def tick_inspire_courage(
         events.append(Event(
             event_id=next_event_id,
             event_type="inspire_courage_end",
+            timestamp=timestamp,
+            payload={"affected_ids": expired_ids},
+        ))
+
+    if any_mutated:
+        world_state = WorldState(
+            ruleset_version=world_state.ruleset_version,
+            entities=entities,
+            active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+        )
+
+    return events, world_state
+
+
+# ==============================================================================
+# WO-ENGINE-INSPIRE-GREATNESS-001: Inspire Greatness (PHB p.30)
+# ==============================================================================
+
+_INSPIRE_GREATNESS_MIN_BARD_LEVEL = 9
+_INSPIRE_GREATNESS_MIN_PERFORM_RANKS = 12
+_INSPIRE_GREATNESS_DURATION_ROUNDS = 8  # concentration + 5 (approx, same as IC v1)
+
+
+def resolve_inspire_greatness(
+    intent,
+    world_state: WorldState,
+    rng,
+    next_event_id: int,
+    timestamp: float,
+) -> Tuple[List[Event], WorldState]:
+    """Resolve Inspire Greatness bardic performance (PHB p.30).
+
+    Bard L9+, 12+ Perform ranks. Targets up to 1 + Cha mod allies within 30 ft.
+    Each target gains:
+      - 2d10 + (2 × Con mod) temp HP (EF.HP_TEMP)
+      - +2 competence bonus to attack (TEMPORARY_MODIFIERS["inspire_greatness_bab"])
+      - +1 competence bonus to Fort saves (TEMPORARY_MODIFIERS["inspire_greatness_fort"])
+    Competence non-stacking: higher value wins (PHB p.136).
+    Consumes one bardic music use.
+    """
+    events: List[Event] = []
+    actor = world_state.entities.get(intent.actor_id, {})
+
+    # Gate: validate base bardic music rules
+    err = validate_bardic_music(actor, world_state, "inspire_greatness")
+    if err:
+        events.append(Event(
+            event_id=next_event_id,
+            event_type="intent_validation_failed",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.actor_id,
+                "intent_type": "BardicMusicIntent",
+                "reason": err,
+            },
+        ))
+        return events, world_state
+
+    # Gate: bard L9+ requirement
+    bard_level = _get_bard_level(actor)
+    if bard_level < _INSPIRE_GREATNESS_MIN_BARD_LEVEL:
+        events.append(Event(
+            event_id=next_event_id,
+            event_type="intent_validation_failed",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.actor_id,
+                "intent_type": "BardicMusicIntent",
+                "reason": "inspire_greatness_level_too_low",
+                "reason_detail": f"Bard L{bard_level} < L{_INSPIRE_GREATNESS_MIN_BARD_LEVEL} required (PHB p.30)",
+            },
+        ))
+        return events, world_state
+
+    # Gate: 12+ Perform ranks requirement
+    perform_ranks = actor.get(EF.SKILL_RANKS, {}).get("perform", 0)
+    if perform_ranks < _INSPIRE_GREATNESS_MIN_PERFORM_RANKS:
+        events.append(Event(
+            event_id=next_event_id,
+            event_type="intent_validation_failed",
+            timestamp=timestamp,
+            payload={
+                "actor_id": intent.actor_id,
+                "intent_type": "BardicMusicIntent",
+                "reason": "inspire_greatness_perform_ranks_too_low",
+                "reason_detail": f"Perform ranks {perform_ranks} < {_INSPIRE_GREATNESS_MIN_PERFORM_RANKS} required (PHB p.30)",
+            },
+        ))
+        return events, world_state
+
+    entities = deepcopy(world_state.entities)
+    bard_actor = entities[intent.actor_id]
+
+    # Decrement bardic music uses
+    uses_before = bard_actor.get(EF.BARDIC_MUSIC_USES_REMAINING, 0)
+    uses_after = max(0, uses_before - 1)
+    bard_actor[EF.BARDIC_MUSIC_USES_REMAINING] = uses_after
+
+    # Apply to bard + all specified allies
+    affected_ids = [intent.actor_id] + [a for a in (intent.ally_ids or []) if a != intent.actor_id]
+    music_rng = rng.stream("bardic_music") if hasattr(rng, "stream") else rng
+
+    temp_hp_grants = []
+    for eid in affected_ids:
+        if eid not in entities:
+            continue
+        target = entities[eid]
+
+        # Temp HP: 2d10 + (2 × Con mod) — no floats, all int
+        _con_mod = target.get(EF.CON_MOD, 0)
+        _roll1 = music_rng.randint(1, 10)
+        _roll2 = music_rng.randint(1, 10)
+        _temp_hp = _roll1 + _roll2 + 2 * _con_mod
+        # Temp HP min 0 (edge case: negative Con mod can't make it negative)
+        _temp_hp = max(0, _temp_hp)
+        existing_temp = target.get(EF.HP_TEMP, 0) or 0
+        target[EF.HP_TEMP] = existing_temp + _temp_hp
+        temp_hp_grants.append({"entity_id": eid, "temp_hp": _temp_hp, "roll1": _roll1, "roll2": _roll2})
+
+        # +2 competence attack (TEMPORARY_MODIFIERS — higher wins, non-stacking)
+        _temp_mods = dict(target.get(EF.TEMPORARY_MODIFIERS, {}) or {})
+        _existing_ig_bab = _temp_mods.get("inspire_greatness_bab", 0)
+        _temp_mods["inspire_greatness_bab"] = max(_existing_ig_bab, 2)
+        # +1 competence Fort save
+        _existing_ig_fort = _temp_mods.get("inspire_greatness_fort", 0)
+        _temp_mods["inspire_greatness_fort"] = max(_existing_ig_fort, 1)
+        target[EF.TEMPORARY_MODIFIERS] = _temp_mods
+
+        # Inspire Greatness state flags
+        target[EF.INSPIRE_GREATNESS_ACTIVE] = True
+        target[EF.INSPIRE_GREATNESS_ROUNDS_REMAINING] = _INSPIRE_GREATNESS_DURATION_ROUNDS
+        target[EF.INSPIRE_GREATNESS_BARD_ID] = intent.actor_id
+
+    world_state = WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+    )
+
+    events.append(Event(
+        event_id=next_event_id,
+        event_type="inspire_greatness_start",
+        timestamp=timestamp,
+        payload={
+            "actor_id": intent.actor_id,
+            "affected_ids": affected_ids,
+            "temp_hp_grants": temp_hp_grants,
+            "attack_bonus": 2,
+            "fort_bonus": 1,
+            "rounds": _INSPIRE_GREATNESS_DURATION_ROUNDS,
+            "uses_remaining": uses_after,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 30}],
+    ))
+
+    return events, world_state
+
+
+def tick_inspire_greatness(
+    world_state: WorldState,
+    next_event_id: int,
+    timestamp: float,
+) -> Tuple[List[Event], WorldState]:
+    """Decrement INSPIRE_GREATNESS_ROUNDS_REMAINING at turn end; clear on expiry.
+
+    On expiry: removes temp HP granted by Inspire Greatness, clears competence bonuses.
+    Bard incapacitation causes immediate expiry (mirrors tick_inspire_courage pattern).
+    """
+    events: List[Event] = []
+    entities = deepcopy(world_state.entities)
+    expired_ids = []
+    any_mutated = False
+
+    for eid, entity in entities.items():
+        if not entity.get(EF.INSPIRE_GREATNESS_ACTIVE, False):
+            continue
+
+        bard_id = entity.get(EF.INSPIRE_GREATNESS_BARD_ID)
+        bard_incapacitated = False
+        if bard_id and bard_id in entities:
+            bard_incapacitated = _bard_is_incapacitated(entities[bard_id])
+
+        rounds_left = entity.get(EF.INSPIRE_GREATNESS_ROUNDS_REMAINING, 0)
+        new_rounds = max(0, rounds_left - 1)
+
+        if new_rounds <= 0 or bard_incapacitated:
+            # Expire: remove temp HP and competence bonuses
+            entity[EF.INSPIRE_GREATNESS_ACTIVE] = False
+            entity[EF.INSPIRE_GREATNESS_ROUNDS_REMAINING] = 0
+            entity[EF.INSPIRE_GREATNESS_BARD_ID] = None
+            entity[EF.HP_TEMP] = 0
+            _temp_mods = dict(entity.get(EF.TEMPORARY_MODIFIERS, {}) or {})
+            _temp_mods.pop("inspire_greatness_bab", None)
+            _temp_mods.pop("inspire_greatness_fort", None)
+            entity[EF.TEMPORARY_MODIFIERS] = _temp_mods
+            expired_ids.append(eid)
+            any_mutated = True
+        else:
+            entity[EF.INSPIRE_GREATNESS_ROUNDS_REMAINING] = new_rounds
+            any_mutated = True
+
+    if expired_ids:
+        events.append(Event(
+            event_id=next_event_id,
+            event_type="inspire_greatness_end",
             timestamp=timestamp,
             payload={"affected_ids": expired_ids},
         ))

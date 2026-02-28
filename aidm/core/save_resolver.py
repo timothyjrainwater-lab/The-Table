@@ -158,6 +158,13 @@ def get_save_bonus(
     if school == "enchantment":
         racial_enchantment_bonus = entity.get(EF.SAVE_BONUS_ENCHANTMENT, 0)
 
+    # WO-ENGINE-SAVECONTEXT-DESCRIPTOR-001: Gnome +2 vs illusions (PHB p.16)
+    # EF.SPELL_RESISTANCE_ILLUSION stores the gnome illusion save bonus (despite name).
+    # Fires when school="illusion" is passed via SaveContext.school.
+    illusion_save_bonus = 0
+    if school == "illusion":
+        illusion_save_bonus = entity.get(EF.SPELL_RESISTANCE_ILLUSION, 0)
+
     # WO-ENGINE-STILL-MIND-INDOMITABLE-WILL-001: Monk Still Mind (PHB p.41)
     # "A monk of 3rd level or higher gains a +2 bonus on saving throws against
     #  enchantment spells and effects." — ALL saves (Fort, Ref, Will).
@@ -174,6 +181,20 @@ def get_save_bonus(
         _temp_mods = entity.get(EF.TEMPORARY_MODIFIERS, {})
         if _temp_mods.get("indomitable_will_active", False):
             indomitable_will_bonus = 4
+
+    # WO-ENGINE-DRUID-SAVES-FEATURES-001: Resist Nature's Lure (PHB p.36)
+    # Druid L4+: +4 on saves vs fey spell-like and supernatural abilities.
+    # Call site must pass save_descriptor="fey" for this to fire.
+    resist_natures_lure_bonus = 0
+    if save_descriptor == "fey" and entity.get(EF.RESIST_NATURES_LURE, False):
+        resist_natures_lure_bonus = 4
+
+    # WO-ENGINE-INSPIRE-GREATNESS-001: Inspire Greatness competence Fort bonus (PHB p.30)
+    # +1 competence to Fortitude saves while Inspire Greatness is active on this entity.
+    inspire_greatness_fort_bonus = 0
+    if save_type == SaveType.FORT:
+        _temp_mods_ig = entity.get(EF.TEMPORARY_MODIFIERS, {})
+        inspire_greatness_fort_bonus = _temp_mods_ig.get("inspire_greatness_fort", 0)
 
     # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity + ally +4 morale (PHB p.44)
     # Paladin L2+ is immune to fear; allies within 10 ft get +4 morale vs fear saves.
@@ -233,8 +254,10 @@ def get_save_bonus(
         base_save + condition_save_mod + inspire_courage_bonus
         + feat_save_bonus + divine_grace_bonus
         + racial_save_bonus + racial_poison_bonus + racial_spell_bonus
-        + racial_enchantment_bonus
+        + racial_enchantment_bonus + illusion_save_bonus
         + still_mind_bonus + indomitable_will_bonus
+        + resist_natures_lure_bonus
+        + inspire_greatness_fort_bonus
         + fear_bonus
     )
 
@@ -383,7 +406,12 @@ def resolve_save(
             return (SaveOutcome.SUCCESS, events)  # Treat as success (no effect)
 
     # Step 2: Calculate save bonus
-    save_bonus = get_save_bonus(world_state, save_context.target_id, save_context.save_type)
+    # WO-ENGINE-SAVECONTEXT-DESCRIPTOR-001: thread descriptor+school from SaveContext
+    save_bonus = get_save_bonus(
+        world_state, save_context.target_id, save_context.save_type,
+        save_descriptor=save_context.save_descriptor,
+        school=save_context.school,
+    )
 
     # Step 3: Roll save (d20 + bonus)
     saves_rng = rng.stream("saves")

@@ -968,7 +968,18 @@ def build_character(
         from aidm.core.wild_shape_resolver import _get_wild_shape_uses
         entity[EF.WILD_SHAPE_USES_REMAINING] = _get_wild_shape_uses(_druid_level)
 
-    # WO-ENGINE-EVASION-001: Evasion and Improved Evasion boolean flags (PHB Rogue p.56, Monk p.41)
+    # WO-ENGINE-DRUID-SAVES-FEATURES-001: Nature Sense (PHB p.36)
+    # Druid L1+: +2 bonus on Knowledge (nature) and Survival checks. Untyped, stacks.
+    if _druid_level >= 1:
+        _ns_bonuses = dict(entity.get(EF.RACIAL_SKILL_BONUS, {}) or {})
+        _ns_bonuses["knowledge_nature"] = _ns_bonuses.get("knowledge_nature", 0) + 2
+        _ns_bonuses["survival"] = _ns_bonuses.get("survival", 0) + 2
+        entity[EF.RACIAL_SKILL_BONUS] = _ns_bonuses
+
+    # WO-ENGINE-DRUID-SAVES-FEATURES-001: Resist Nature's Lure (PHB p.36)
+    # Druid L4+: +4 on saves vs fey spell-like and supernatural abilities.
+    if _druid_level >= 4:
+        entity[EF.RESIST_NATURES_LURE] = True
     _rogue_level = level if class_name == "rogue" else 0
     _monk_level = level if class_name == "monk" else 0
     _ranger_level = level if class_name == "ranger" else 0
@@ -1223,6 +1234,19 @@ def _build_multiclass_character(
     if _druid_level >= 5:
         from aidm.core.wild_shape_resolver import _get_wild_shape_uses as _mc_ws_uses
         entity[EF.WILD_SHAPE_USES_REMAINING] = _mc_ws_uses(_druid_level)
+
+    # WO-ENGINE-DRUID-SAVES-FEATURES-001: Nature Sense — multiclass (PHB p.36)
+    # Druid L1+: +2 bonus on Knowledge (nature) and Survival checks. Untyped, stacks.
+    if _druid_level >= 1:
+        _ns_bonuses_mc = dict(entity.get(EF.RACIAL_SKILL_BONUS, {}) or {})
+        _ns_bonuses_mc["knowledge_nature"] = _ns_bonuses_mc.get("knowledge_nature", 0) + 2
+        _ns_bonuses_mc["survival"] = _ns_bonuses_mc.get("survival", 0) + 2
+        entity[EF.RACIAL_SKILL_BONUS] = _ns_bonuses_mc
+
+    # WO-ENGINE-DRUID-SAVES-FEATURES-001: Resist Nature's Lure — multiclass (PHB p.36)
+    # Druid L4+: +4 on saves vs fey spell-like and supernatural abilities.
+    if _druid_level >= 4:
+        entity[EF.RESIST_NATURES_LURE] = True
 
     # WO-ENGINE-EVASION-001: Evasion and Improved Evasion for multiclass (PHB Rogue p.56, Monk p.41)
     _rogue_level = class_mix.get("rogue", 0)

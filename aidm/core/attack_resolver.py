@@ -611,6 +611,9 @@ def resolve_attack(
         attacker.get(EF.INSPIRE_COURAGE_BONUS, 0)
         if attacker.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
     )
+    # WO-ENGINE-INSPIRE-GREATNESS-001: Inspire Greatness competence attack bonus (PHB p.30)
+    # Competence bonuses don't stack — already stored as max() in bardic_music_resolver.
+    _inspire_greatness_attack_bonus = _attacker_temp_mods.get("inspire_greatness_bab", 0)
 
     # WO-ENGINE-FAVORED-ENEMY-001: Ranger Favored Enemy attack/damage bonus (PHB p.47)
     _favored_enemy_bonus = 0
@@ -686,6 +689,7 @@ def resolve_attack(
         + _weapon_broken_penalty  # WO-ENGINE-SUNDER-DISARM-FULL-001: -2 if weapon broken
         + _vs_blinded_bonus  # WO-ENGINE-CONDITIONS-BLIND-DEAF-001: +2 vs blinded
         + _inspire_attack_bonus  # WO-ENGINE-BARDIC-MUSIC-001: morale bonus to attack
+        + _inspire_greatness_attack_bonus  # WO-ENGINE-INSPIRE-GREATNESS-001: competence bonus
         + _favored_enemy_bonus  # WO-ENGINE-FAVORED-ENEMY-001: ranger favored enemy bonus
         + intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: magic weapon (PHB p.224)
         + _finesse_delta  # WO-ENGINE-WEAPON-FINESSE-001: DEX delta for light weapons

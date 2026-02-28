@@ -241,6 +241,112 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
     ),
 
     # ==========================================================================
+    # INFLICT SPELLS (WO-ENGINE-EVIL-CLERIC-INFLICT-001)
+    # PHB p.244-245: Necromancy, deals negative energy damage to living (heals undead).
+    # Evil cleric spontaneous swap — mirrors cure spells by level.
+    # ==========================================================================
+
+    "inflict_light_wounds": SpellDefinition(
+        spell_id="inflict_light_wounds",
+        name="Inflict Light Wounds",
+        level=1,
+        school="necromancy",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.DAMAGE,
+        damage_dice="1d8",
+        damage_type=DamageType.NEGATIVE,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.HALF,
+        duration_rounds=0,
+        concentration=False,
+        rule_citations=("PHB p.244",),
+        content_id="spell.inflict_light_wounds_003",
+    ),
+
+    "inflict_moderate_wounds": SpellDefinition(
+        spell_id="inflict_moderate_wounds",
+        name="Inflict Moderate Wounds",
+        level=2,
+        school="necromancy",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.DAMAGE,
+        damage_dice="2d8",
+        damage_type=DamageType.NEGATIVE,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.HALF,
+        duration_rounds=0,
+        concentration=False,
+        rule_citations=("PHB p.244",),
+        content_id="spell.inflict_moderate_wounds_003",
+    ),
+
+    "inflict_serious_wounds": SpellDefinition(
+        spell_id="inflict_serious_wounds",
+        name="Inflict Serious Wounds",
+        level=3,
+        school="necromancy",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.DAMAGE,
+        damage_dice="3d8",
+        damage_type=DamageType.NEGATIVE,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.HALF,
+        duration_rounds=0,
+        concentration=False,
+        rule_citations=("PHB p.244",),
+        content_id="spell.inflict_serious_wounds_003",
+    ),
+
+    "inflict_critical_wounds": SpellDefinition(
+        spell_id="inflict_critical_wounds",
+        name="Inflict Critical Wounds",
+        level=4,
+        school="necromancy",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.DAMAGE,
+        damage_dice="4d8",
+        damage_type=DamageType.NEGATIVE,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.HALF,
+        duration_rounds=0,
+        concentration=False,
+        rule_citations=("PHB p.244",),
+        content_id="spell.inflict_critical_wounds_003",
+    ),
+
+    "mass_inflict_light_wounds": SpellDefinition(
+        spell_id="mass_inflict_light_wounds",
+        name="Inflict Light Wounds, Mass",
+        level=5,
+        school="necromancy",
+        target_type=SpellTarget.TOUCH,
+        range_ft=0,
+        aoe_shape=None,
+        aoe_radius_ft=None,
+        effect_type=SpellEffect.DAMAGE,
+        damage_dice="1d8",
+        damage_type=DamageType.NEGATIVE,
+        save_type=SaveType.WILL,
+        save_effect=SaveEffect.HALF,
+        duration_rounds=0,
+        concentration=False,
+        rule_citations=("PHB p.244",),
+        content_id="spell.mass_inflict_light_wounds_003",
+    ),
+
+    # ==========================================================================
     # BUFF SPELLS
     # ==========================================================================
 

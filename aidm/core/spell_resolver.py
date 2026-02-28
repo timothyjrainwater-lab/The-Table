@@ -265,10 +265,15 @@ class SpellCastIntent:
     When True: the declared spell slot is consumed but a cure spell of equal
     level is cast instead. Only valid for clerics. Resolver handles the redirect
     before verbal/somatic/ASF guard chain.
-    FINDING-ENGINE-SPONTANEOUS-ALIGNMENT-001: PHB restricts to good clerics only.
-    Alignment check not wired (EF.ALIGNMENT not tracked). Any cleric may use this.
+    FINDING-ENGINE-SPONTANEOUS-ALIGNMENT-001: Closed by WO-ENGINE-EVIL-CLERIC-INFLICT-001.
     FINDING-ENGINE-SPONTANEOUS-DOMAIN-001: Domain slots cannot be converted (PHB p.32).
     EF.DOMAIN_SPELLS_PREPARED not tracked. Future WO."""
+
+    spontaneous_inflict: bool = False
+    """WO-ENGINE-EVIL-CLERIC-INFLICT-001: Evil cleric spontaneous inflict conversion (PHB p.32).
+    When True: the declared spell slot is consumed but an inflict wounds spell of
+    equal level is cast instead. Only valid for evil-aligned clerics (EF.ALIGNMENT in
+    chaotic_evil / lawful_evil / neutral_evil). Good/neutral clerics blocked; use cure swap."""
 
     use_secondary: bool = False
     """WO-ENGINE-CASTER-LEVEL-2-001: True if casting from secondary caster class (PHB p.57).

@@ -606,6 +606,69 @@ def _resolve_spell_cast(
         # Redirect to cure spell; declared spell's slot consumed as normal
         spell = _cure_spell
 
+    # WO-ENGINE-EVIL-CLERIC-INFLICT-001: Evil cleric spontaneous inflict redirect (PHB p.32)
+    # Mirrors spontaneous_cure block above. Alignment check gates inflict vs cure.
+    # true_neutral / neutral defaults to cure swap (PHB — no deity tracking in scope).
+    elif getattr(intent, "spontaneous_inflict", False):
+        _INFLICT_SPELLS_BY_LEVEL = {
+            1: "inflict_light_wounds",
+            2: "inflict_moderate_wounds",
+            3: "inflict_serious_wounds",
+            4: "inflict_critical_wounds",
+            5: "mass_inflict_light_wounds",
+        }
+        _evil_caster = world_state.entities.get(intent.caster_id, {})
+        _evil_cleric_level = _evil_caster.get(EF.CLASS_LEVELS, {}).get("cleric", 0)
+        if _evil_cleric_level == 0:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_cast_failed",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "reason": "spontaneous_inflict_not_cleric",
+                    "reason_detail": "Only clerics can spontaneously cast inflict spells (PHB p.32)",
+                    "turn_index": turn_index,
+                }
+            ))
+            return events, world_state, "spell_failed"
+        _caster_alignment = _evil_caster.get(EF.ALIGNMENT, "")
+        _evil_alignments = ("chaotic_evil", "lawful_evil", "neutral_evil")
+        if _caster_alignment not in _evil_alignments:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_cast_failed",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "reason": "spontaneous_inflict_alignment_blocked",
+                    "reason_detail": f"Only evil clerics can use inflict swap (PHB p.32). Alignment: {_caster_alignment!r}",
+                    "turn_index": turn_index,
+                }
+            ))
+            return events, world_state, "spell_failed"
+        _declared_level_inflict = spell.level
+        _inflict_id = _INFLICT_SPELLS_BY_LEVEL.get(_declared_level_inflict)
+        _inflict_spell = SPELL_REGISTRY.get(_inflict_id) if _inflict_id else None
+        if _inflict_spell is None:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_cast_failed",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "reason": "inflict_spell_not_in_registry",
+                    "reason_detail": f"No inflict spell for level {_declared_level_inflict} in SPELL_REGISTRY",
+                    "turn_index": turn_index,
+                }
+            ))
+            return events, world_state, "spell_failed"
+        # Redirect to inflict spell; declared spell's slot consumed as normal
+        spell = _inflict_spell
+
     # ── Spell slot governor ────────────────────────────────────────────────────
     spell_level = spell.level
     # Work on a live reference so we can mutate after success

@@ -233,6 +233,13 @@ def resolve_skill_check(
     _actor_ranks = entity.get(EF.SKILL_RANKS, {})
     total += _get_synergy_bonus(_actor_ranks, skill_id)
 
+    # WO-ENGINE-DRUID-SAVES-FEATURES-001: RACIAL_SKILL_BONUS dict (PHB p.36 Nature Sense)
+    # Also used by racial bonuses set at chargen. Dict: {skill_id: bonus_int}.
+    # Untyped bonuses — stacks with ranks, synergy, and circumstance.
+    _skill_bonus_dict = entity.get(EF.RACIAL_SKILL_BONUS, {}) or {}
+    _racial_skill_bonus = _skill_bonus_dict.get(skill_id, 0)
+    total += _racial_skill_bonus
+
     return SkillCheckResult(
         success=(total >= dc),
         total=total,
