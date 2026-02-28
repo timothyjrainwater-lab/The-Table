@@ -146,6 +146,7 @@ class _EntityFields:
     SPELLS_KNOWN_2 = "spells_known_2"              # Second caster known spells (spontaneous)
     CASTER_CLASS_2 = "caster_class_2"              # Name of the second caster class
     CASTER_LEVEL_2 = "caster_level_2"              # Class level of second caster
+    SPELL_DC_BASE = "spell_dc_base"                # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: 10 + casting ability modifier (Type 2)
 
     # --- Rest / Slot Recovery (WO-ENGINE-REST-001) ---
     SPELL_SLOTS_MAX = "spell_slots_max"            # Dict[int, int] — max slots snapshot at chargen, never decremented

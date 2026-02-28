@@ -219,7 +219,7 @@ def _create_caster_stats(
     caster_level = _get_caster_level(entity, use_secondary)
 
     # Get spell DC base (default 10 + 3 for INT/WIS mod)
-    spell_dc_base = entity.get("spell_dc_base", 13)
+    spell_dc_base = entity.get(EF.SPELL_DC_BASE, 13)
 
     # Get attack bonus for touch/ray spells
     attack_bonus = entity.get(EF.ATTACK_BONUS, 0)

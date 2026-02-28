@@ -23,6 +23,8 @@ METAMAGIC_SLOT_COST: Dict[str, int] = {
     "quicken": 4,
     "silent": 1,   # WO-ENGINE-SILENT-SPELL-001: Silent Spell (PHB p.98), slot +1
     "still": 1,    # WO-ENGINE-STILL-SPELL-001: Still Spell (PHB p.100), slot +1
+    "enlarge": 1,  # WO-ENGINE-METAMAGIC-COMPLETION-001: Enlarge Spell (PHB p.94), slot +1
+    "widen": 3,    # WO-ENGINE-METAMAGIC-COMPLETION-001: Widen Spell (PHB p.100), slot +3
 }
 
 # Feat name in EF.FEATS corresponding to each metamagic keyword
@@ -34,6 +36,8 @@ _FEAT_NAMES: Dict[str, str] = {
     "quicken": "Quicken Spell",
     "silent": "Silent Spell",  # WO-ENGINE-SILENT-SPELL-001
     "still": "Still Spell",    # WO-ENGINE-STILL-SPELL-001
+    "enlarge": "Enlarge Spell",  # WO-ENGINE-METAMAGIC-COMPLETION-001
+    "widen": "Widen Spell",      # WO-ENGINE-METAMAGIC-COMPLETION-001
 }
 
 _VALID_METAMAGIC = frozenset(METAMAGIC_SLOT_COST.keys())

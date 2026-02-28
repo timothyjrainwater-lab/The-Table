@@ -412,6 +412,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=100,  # 10 min/level
         concentration=False,
         conditions_on_fail=("entangled",),
+        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.301 SR: No
         rule_citations=("PHB p.301",),
         content_id="spell.web_003",
     ),
@@ -610,6 +611,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=1,  # 1 round/level
         concentration=False,
         conditions_on_fail=("prone",),  # Balance DC 10 or fall prone
+        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.237 SR: No
         rule_citations=("PHB p.237",),
         content_id="spell.grease_003",
     ),
@@ -929,6 +931,7 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         duration_rounds=1,  # 1 round/level
         concentration=True,  # Concentration required
         conditions_on_fail=("nauseated",),  # Nauseated 1d4+1 rounds
+        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.284 SR: No
         rule_citations=("PHB p.284",),
         content_id="spell.stinking_cloud_003",
     ),
@@ -1971,7 +1974,9 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="grease", name="Grease", level=1, school="conjuration",
         target_type=SpellTarget.AREA, range_ft=25, effect_type=SpellEffect.DEBUFF,
         save_type=SaveType.REF, has_verbal=True, has_somatic=True,
-        duration_rounds=10, rule_citations=("PHB p.237",),
+        duration_rounds=10,
+        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.237 SR: No
+        rule_citations=("PHB p.237",),
     ),
     "hide_from_animals": SpellDefinition(
         spell_id="hide_from_animals", name="Hide from Animals", level=1, school="abjuration",
@@ -2123,7 +2128,9 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
     "fog_cloud": SpellDefinition(
         spell_id="fog_cloud", name="Fog Cloud", level=2, school="conjuration",
         target_type=SpellTarget.AREA, range_ft=100, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.232",),
+        has_verbal=True, has_somatic=True, duration_rounds=10,
+        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.232 SR: No
+        rule_citations=("PHB p.232",),
     ),
     "ghoul_touch": SpellDefinition(
         spell_id="ghoul_touch", name="Ghoul Touch", level=2, school="necromancy",
@@ -2313,7 +2320,9 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="stinking_cloud", name="Stinking Cloud", level=3, school="conjuration",
         target_type=SpellTarget.AREA, range_ft=25, effect_type=SpellEffect.DEBUFF,
         save_type=SaveType.FORT, has_verbal=True, has_somatic=True,
-        duration_rounds=10, rule_citations=("PHB p.284",),
+        duration_rounds=10,
+        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.284 SR: No
+        rule_citations=("PHB p.284",),
     ),
     "summon_monster_iii": SpellDefinition(
         spell_id="summon_monster_iii", name="Summon Monster III", level=3, school="conjuration",

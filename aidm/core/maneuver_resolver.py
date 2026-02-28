@@ -1010,10 +1010,14 @@ def resolve_overrun(
         prone_defender_roll = combat_rng.randint(1, 20)
         prone_attacker_str = _get_str_modifier(world_state, attacker_id)
         prone_defender_str = _get_str_modifier(world_state, target_id)
+        # WO-ENGINE-MANEUVER-FIDELITY-002: PHB p.157 — "Strength or Dexterity
+        # check (defender's choice)" → use max(STR_MOD, DEX_MOD) for defender
+        prone_defender_dex = _get_dex_modifier(world_state, target_id)
+        prone_defender_mod = max(prone_defender_str, prone_defender_dex)
         prone_attacker_special_size = _get_size_modifier(world_state, attacker_id)
         prone_defender_special_size = _get_size_modifier(world_state, target_id)
         prone_attacker_total = prone_attacker_roll + prone_attacker_str + prone_attacker_special_size
-        prone_defender_total = prone_defender_roll + prone_defender_str + prone_defender_special_size
+        prone_defender_total = prone_defender_roll + prone_defender_mod + prone_defender_special_size
         # Defender wins ties
         attacker_prone = prone_defender_total >= prone_attacker_total
 

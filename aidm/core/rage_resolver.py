@@ -99,11 +99,22 @@ def activate_rage(
     uses_before = actor.get(EF.RAGE_USES_REMAINING, 0)
     uses_after = max(0, uses_before - 1)
 
+    # WO-ENGINE-RAGE-PROGRESSION-001: Level-gated rage bonuses (PHB p.25-26)
+    # Greater Rage (L11): +6/+6/+3, Mighty Rage (L20): +8/+8/+4
+    _class_levels_rage = actor.get(EF.CLASS_LEVELS, {}) or {}
+    _barb_level = _class_levels_rage.get("barbarian", 0) if isinstance(_class_levels_rage, dict) else 0
+    if _barb_level >= 20:
+        str_bonus, con_bonus, will_bonus = 8, 8, 4  # Mighty Rage
+    elif _barb_level >= 11:
+        str_bonus, con_bonus, will_bonus = 6, 6, 3  # Greater Rage
+    else:
+        str_bonus, con_bonus, will_bonus = 4, 4, 2  # Base Rage
+
     # Apply rage modifiers to TEMPORARY_MODIFIERS
     temp_mods = dict(actor.get(EF.TEMPORARY_MODIFIERS, {}) or {})
-    temp_mods["rage_str_bonus"] = 4
-    temp_mods["rage_con_bonus"] = 4
-    temp_mods["rage_will_bonus"] = 2
+    temp_mods["rage_str_bonus"] = str_bonus
+    temp_mods["rage_con_bonus"] = con_bonus
+    temp_mods["rage_will_bonus"] = will_bonus
     temp_mods["rage_ac_penalty"] = -2
 
     actor[EF.TEMPORARY_MODIFIERS] = temp_mods
@@ -114,9 +125,11 @@ def activate_rage(
     # WO-ENGINE-RAGE-HP-TRANSITION-001: HP gain on rage enter (PHB p.25)
     # "The increase in Constitution increases the barbarian's hit points by
     #  2 points per Hit Die" — total HD = sum of all class levels (multiclass)
+    # WO-ENGINE-RAGE-PROGRESSION-001: HP gain scales with CON bonus tier
     _class_levels = actor.get(EF.CLASS_LEVELS, {}) or {}
     _total_hd = sum(_class_levels.values()) if isinstance(_class_levels, dict) else 1
-    _hp_gain = 2 * _total_hd
+    _hp_per_hd = con_bonus // 2  # +4 CON → 2, +6 → 3, +8 → 4
+    _hp_gain = _hp_per_hd * _total_hd
     actor[EF.HP_MAX] = actor.get(EF.HP_MAX, 1) + _hp_gain
     actor[EF.HP_CURRENT] = actor.get(EF.HP_CURRENT, 1) + _hp_gain
 
@@ -134,9 +147,9 @@ def activate_rage(
             "actor_id": actor_id,
             "rage_rounds_total": rage_rounds,
             "rage_uses_remaining": uses_after,
-            "str_bonus": 4,
-            "con_bonus": 4,
-            "will_bonus": 2,
+            "str_bonus": str_bonus,
+            "con_bonus": con_bonus,
+            "will_bonus": will_bonus,
             "ac_penalty": -2,
             "hp_gain": _hp_gain,
             "total_hit_dice": _total_hd,
@@ -169,21 +182,35 @@ def end_rage(
     for key in ("rage_str_bonus", "rage_con_bonus", "rage_will_bonus", "rage_ac_penalty"):
         temp_mods.pop(key, None)
 
-    # Apply fatigue penalties (PHB p.25: -2 Str, -2 Dex after rage)
-    temp_mods["fatigued_str_penalty"] = -2
-    temp_mods["fatigued_dex_penalty"] = -2
+    # WO-ENGINE-RAGE-PROGRESSION-001: Tireless Rage (L17+) — no fatigue (PHB p.25)
+    _class_levels_end = actor.get(EF.CLASS_LEVELS, {}) or {}
+    _barb_level_end = _class_levels_end.get("barbarian", 0) if isinstance(_class_levels_end, dict) else 0
+    _tireless = _barb_level_end >= 17
+
+    if not _tireless:
+        # Apply fatigue penalties (PHB p.25: -2 Str, -2 Dex after rage)
+        temp_mods["fatigued_str_penalty"] = -2
+        temp_mods["fatigued_dex_penalty"] = -2
 
     actor[EF.TEMPORARY_MODIFIERS] = temp_mods
     actor[EF.RAGE_ACTIVE] = False
     actor[EF.RAGE_ROUNDS_REMAINING] = 0
-    actor[EF.FATIGUED] = True
+    actor[EF.FATIGUED] = not _tireless
 
     # WO-ENGINE-RAGE-HP-TRANSITION-001: HP loss on rage exit (PHB p.25)
     # "These extra hit points go away at the end of the rage when his
     #  Constitution score drops back 4 points."
+    # WO-ENGINE-RAGE-PROGRESSION-001: HP loss scales with rage tier CON bonus
+    if _barb_level_end >= 20:
+        _con_bonus_end = 8
+    elif _barb_level_end >= 11:
+        _con_bonus_end = 6
+    else:
+        _con_bonus_end = 4
     _class_levels = actor.get(EF.CLASS_LEVELS, {}) or {}
     _total_hd = sum(_class_levels.values()) if isinstance(_class_levels, dict) else 1
-    _hp_loss = 2 * _total_hd
+    _hp_per_hd_end = _con_bonus_end // 2
+    _hp_loss = _hp_per_hd_end * _total_hd
     actor[EF.HP_MAX] = max(1, actor.get(EF.HP_MAX, 1) - _hp_loss)
     _new_current = actor.get(EF.HP_CURRENT, 1) - _hp_loss
     actor[EF.HP_CURRENT] = _new_current  # can go to 0 or below
@@ -204,7 +231,7 @@ def end_rage(
         payload={
             "actor_id": actor_id,
             "reason": reason,
-            "fatigued": True,
+            "fatigued": not _tireless,
             "hp_loss": _hp_loss,
             "total_hit_dice": _total_hd,
             "hp_after": _new_current,
