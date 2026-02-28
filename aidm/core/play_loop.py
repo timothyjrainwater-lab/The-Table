@@ -262,20 +262,27 @@ def _create_target_stats(
     hp_current = entity.get(EF.HP_CURRENT, 10)
     hp_max = entity.get(EF.HP_MAX, 10)
 
-    # Get saves
-    fort_save = entity.get(EF.SAVE_FORT, 0)
-    ref_save = entity.get(EF.SAVE_REF, 0)
-    will_save = entity.get(EF.SAVE_WILL, 0)
+    # WO-ENGINE-SPELL-SAVE-UNIFY-001: Route saves through canonical save_resolver
+    # instead of reading raw EF.SAVE_* (which missed feats, Divine Grace, Inspire Courage, racial).
+    # Lazy import to avoid circular dependency.
+    from aidm.core.save_resolver import get_save_bonus as _get_save_bonus
+    from aidm.schemas.saves import SaveType as _TSaveType
+
+    # Build a temporary WorldState-like context for save_resolver
+    _save_descriptor = "spell" if school else ""
+    fort_save = _get_save_bonus(world_state, entity_id, _TSaveType.FORT,
+                                save_descriptor=_save_descriptor, school=school)
+    ref_save = _get_save_bonus(world_state, entity_id, _TSaveType.REF,
+                               save_descriptor=_save_descriptor, school=school)
+    will_save = _get_save_bonus(world_state, entity_id, _TSaveType.WILL,
+                                save_descriptor=_save_descriptor, school=school)
 
     # WO-ENGINE-ENERGY-DRAIN-001: Each negative level gives -1 to all saves (PHB p.215)
+    # save_resolver doesn't handle negative levels, so apply here.
     neg_level_penalty = entity.get(EF.NEGATIVE_LEVELS, 0)
     fort_save -= neg_level_penalty
     ref_save -= neg_level_penalty
     will_save -= neg_level_penalty
-
-    # WO-ENGINE-RACIAL-ENCHANT-SAVE-001: Elf/half-elf +2 vs enchantment spells (PHB p.14/18)
-    if school == "enchantment":
-        will_save += entity.get(EF.SAVE_BONUS_ENCHANTMENT, 0)
 
     # Get SR
     sr = entity.get(EF.SR, 0)
@@ -1333,7 +1340,7 @@ def _check_concentration_break(
     if not concentration_effects:
         return events, world_state
 
-    concentration_bonus = world_state.entities.get(caster_id, {}).get("concentration_bonus", 0)
+    concentration_bonus = world_state.entities.get(caster_id, {}).get(EF.CONCENTRATION_BONUS, 0)
 
     for effect in list(concentration_effects):  # list() to avoid mutate-during-iterate
         # Each spell gets its own independent check (PHB p.170)

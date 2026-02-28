@@ -898,6 +898,9 @@ def build_character(
         EF.SKILL_RANKS: skill_ranks,
         EF.CLASS_SKILLS: class_skills_list,
 
+        # WO-ENGINE-CONCENTRATION-WRITE-001: Concentration bonus = ranks + CON_MOD (PHB p.66)
+        EF.CONCENTRATION_BONUS: skill_ranks.get("concentration", 0) + modifiers["con"],
+
         # Size & Speed
         EF.SIZE_CATEGORY: race_def.size,
         EF.BASE_SPEED: race_def.base_speed,
@@ -1145,6 +1148,9 @@ def _build_multiclass_character(
         # Skills
         EF.SKILL_RANKS: skill_ranks,
         EF.CLASS_SKILLS: class_skills_list,
+
+        # WO-ENGINE-CONCENTRATION-WRITE-001: Concentration bonus = ranks + CON_MOD (PHB p.66)
+        EF.CONCENTRATION_BONUS: skill_ranks.get("concentration", 0) + modifiers["con"],
 
         # Size & Speed
         EF.SIZE_CATEGORY: race_def.size,

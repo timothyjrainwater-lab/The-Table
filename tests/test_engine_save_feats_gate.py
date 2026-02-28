@@ -29,6 +29,12 @@ def _entity(
     wis_mod=0,
     feats=None,
 ):
+    """Create synthetic entity.
+
+    save_fort/ref/will are base progression values. This helper auto-bakes
+    the ability mod into EF.SAVE_* per Type 2 field contract
+    (WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001).
+    """
     return {
         EF.ENTITY_ID: eid,
         EF.TEAM: "party",
@@ -36,9 +42,9 @@ def _entity(
         EF.HP_MAX: 20,
         EF.AC: 12,
         EF.DEFEATED: False,
-        EF.SAVE_FORT: save_fort,
-        EF.SAVE_REF: save_ref,
-        EF.SAVE_WILL: save_will,
+        EF.SAVE_FORT: save_fort + con_mod,   # Type 2: base + ability_mod baked
+        EF.SAVE_REF: save_ref + dex_mod,     # Type 2: base + ability_mod baked
+        EF.SAVE_WILL: save_will + wis_mod,   # Type 2: base + ability_mod baked
         EF.CON_MOD: con_mod,
         EF.DEX_MOD: dex_mod,
         EF.WIS_MOD: wis_mod,

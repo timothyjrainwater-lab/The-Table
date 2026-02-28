@@ -133,13 +133,17 @@ def _get_weapon_grip(world_state: WorldState, entity_id: str) -> str:
 
 
 def _get_bab(world_state: WorldState, entity_id: str) -> int:
-    """Get entity's Base Attack Bonus. Defaults to attack_bonus field if available."""
+    """Get entity's Base Attack Bonus.
+
+    WO-ENGINE-MANEUVER-BAB-FIX-001: Uses EF.BAB (Type 1 component — BAB only).
+    Previous code used EF.ATTACK_BONUS (BAB+STR composite) which double-counted STR
+    in maneuver opposed checks that add STR separately.
+    """
     entity = world_state.entities.get(entity_id)
     if entity is None:
         logger.warning("Entity '%s' not found; defaulting BAB to 0", entity_id)
         return 0
-    # Use attack_bonus as BAB proxy (actual BAB would need character level system)
-    return entity.get(EF.ATTACK_BONUS, entity.get(EF.BAB, 0))
+    return entity.get(EF.BAB, 0)
 
 
 def _get_touch_ac(world_state: WorldState, entity_id: str) -> int:

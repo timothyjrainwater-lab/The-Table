@@ -101,14 +101,9 @@ def get_save_bonus(
     }
     base_save = entity.get(save_key_map[save_type], 0)
 
-    # Get ability modifier (mapped to save type)
-    # PHB p. 177: Fort = CON, Ref = DEX, Will = WIS
-    ability_map = {
-        SaveType.FORT: EF.CON_MOD,
-        SaveType.REF: EF.DEX_MOD,
-        SaveType.WILL: EF.WIS_MOD,
-    }
-    ability_mod = entity.get(ability_map[save_type], 0)
+    # WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001: ability_mod removal (PHB p.136)
+    # EF.SAVE_FORT/REF/WILL are Type 2 fields (base + ability_mod baked in at chargen).
+    # Do NOT add ability_mod again here. The old code double-counted.
 
     # Get condition modifiers
     condition_mods = get_condition_modifiers(world_state, actor_id)
@@ -164,8 +159,9 @@ def get_save_bonus(
         racial_enchantment_bonus = entity.get(EF.SAVE_BONUS_ENCHANTMENT, 0)
 
     # Total bonus
+    # WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001: ability_mod already in base_save (Type 2 field)
     total_bonus = (
-        base_save + ability_mod + condition_save_mod + inspire_courage_bonus
+        base_save + condition_save_mod + inspire_courage_bonus
         + feat_save_bonus + divine_grace_bonus
         + racial_save_bonus + racial_poison_bonus + racial_spell_bonus
         + racial_enchantment_bonus
