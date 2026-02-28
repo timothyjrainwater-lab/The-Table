@@ -552,7 +552,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Fascinate | PHB p.29 | **NOT STARTED** | — | No Fascinate bardic performance |
 | Inspire Competence | PHB p.30 | **NOT STARTED** | — | +2 competence to skill not implemented |
 | Suggestion (bardic) | PHB p.30 | **NOT STARTED** | — | No Suggestion bardic performance |
-| Inspire Greatness | PHB p.30 | **NOT STARTED** | — | +2 HD, +1 BAB, +1 Fort not implemented |
+| Inspire Greatness | PHB p.30 | **IMPLEMENTED** | `bardic_music_resolver.py`, `attack_resolver.py`, `save_resolver.py` | resolve_inspire_greatness(): bard L9+, 12+ Perform; 2d10+(2×Con) temp HP; inspire_greatness_bab=2 competence (TEMPORARY_MODIFIERS, non-stacking max); inspire_greatness_fort=1 Fort competence. tick_inspire_greatness() clears on expiry. attack_resolver reads bab bonus. save_resolver reads Fort bonus. Batch AD. IG-001–008. |
 | Song of Freedom | PHB p.30 | **NOT STARTED** | — | No breaking-enchantment performance |
 | Inspire Heroics | PHB p.30 | **NOT STARTED** | — | No bardic heroics performance |
 | Mass Suggestion | PHB p.30 | **NOT STARTED** | — | No mass bardic Suggestion |
@@ -566,8 +566,8 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Turn Undead | PHB p.32 | **IMPLEMENTED** | `turn_undead_resolver.py` | TurnUndeadIntent; 1d20+CHA mod check (PHB p.159; corrected Batch U WO2); HP budget; WO-ENGINE-TURN-UNDEAD-001 |
 | Rebuke Undead (evil clerics) | PHB p.32 | **PARTIAL** | `turn_undead_resolver.py` | channels_negative_energy flag; command undead DEFERRED |
 | Domain powers | PHB p.32 | **NOT STARTED** | — | No domain system; no domain power resolver |
-| Spontaneous casting (cure spells) | PHB p.32 | **IMPLEMENTED** | `play_loop.py` | Cure redirect wired; declared slot consumed. DEBRIEF_WO-ENGINE-CLERIC-SPONTANEOUS-001. FINDING-ENGINE-SPONTANEOUS-ALIGNMENT-001 (LOW: no alignment guard on evil clerics). |
-| Spontaneous casting (inflict spells, evil) | PHB p.32 | **NOT STARTED** | — | Evil cleric inflict swap not implemented |
+| Spontaneous casting (cure spells) | PHB p.32 | **IMPLEMENTED** | `play_loop.py` | Cure redirect wired; declared slot consumed. DEBRIEF_WO-ENGINE-CLERIC-SPONTANEOUS-001. FINDING-ENGINE-SPONTANEOUS-ALIGNMENT-001 CLOSED (Batch AD: evil cleric inflict swap added; alignment check now enforced). |
+| Spontaneous casting (inflict spells, evil) | PHB p.32 | **IMPLEMENTED** | `play_loop.py`, `spell_definitions.py`, `spell_resolver.py` | Evil cleric (chaotic/lawful/neutral evil) inflict swap: 5 inflict spells added to SPELL_REGISTRY (L1-L5, necromancy, NEGATIVE damage, Will save half). elif block after cure swap; alignment-gated. SpellCastIntent +spontaneous_inflict flag. Batch AD. ECI-001–008. |
 | Aura (good/evil/lawful/chaotic) | PHB p.32 | **NOT STARTED** | — | No alignment aura tracking |
 | Command undead (persistent, evil) | PHB p.159 | **DEFERRED** | `turn_undead_resolver.py` | Explicitly noted as DEFERRED in module |
 | Domain spells (bonus slot per level) | PHB p.32 | **NOT STARTED** | — | No domain spell slot |
@@ -587,11 +587,11 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Wild Shape — Plant forms (12th level) | PHB p.38 | **NOT STARTED** | — | No plant form support |
 | Wild Shape — Elemental (16th level) | PHB p.38 | **NOT STARTED** | — | No elemental form support |
 | Animal Companion | PHB p.36 | **IMPLEMENTED** | `companion_resolver.py` | SummonCompanionIntent; build_animal_companion(); WO-ENGINE-COMPANION-WIRE |
-| Nature Sense | PHB p.36 | **NOT STARTED** | — | +2 Knowledge (nature) / Survival not applied |
+| Nature Sense | PHB p.36 | **IMPLEMENTED** | `builder.py`, `skill_resolver.py` | Druid L1+: writes +2 to EF.RACIAL_SKILL_BONUS["knowledge_nature"] and ["survival"] at chargen. skill_resolver.py now consumes RACIAL_SKILL_BONUS dict (was write-only gap). Batch AD. NS-001–004. |
 | Wild Empathy | PHB p.36 | **NOT STARTED** | — | No animal attitude system |
 | Woodland Stride | PHB p.36 | **NOT STARTED** | — | No difficult terrain interaction |
 | Trackless Step | PHB p.36 | **NOT STARTED** | — | No tracking system to be immune to |
-| Resist Nature's Lure | PHB p.36 | **NOT STARTED** | — | +4 vs fey enchantments not implemented |
+| Resist Nature's Lure | PHB p.36 | **IMPLEMENTED** | `builder.py`, `save_resolver.py` | Druid L4+: builder sets EF.RESIST_NATURES_LURE=True. save_resolver reads when save_descriptor="fey": +4 bonus. Requires WO1 SaveContext threading to fire via resolve_save() path. Batch AD. RNL-001–004. |
 | Venom Immunity | PHB p.38 | **IMPLEMENTED** | `poison_disease_resolver.py` | Druid L9+ immune to all poisons. `is_immune_to_poison()` checks CLASS_LEVELS. WO-ENGINE-CLASS-IMMUNITY-001. Batch AB. |
 | Thousand Faces | PHB p.38 | **NOT STARTED** | — | No alter self at will |
 | Timeless Body | PHB p.38 | **NOT STARTED** | — | No aging mechanic |
@@ -632,7 +632,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Divine Grace (CHA mod to all saves) | PHB p.44 | **IMPLEMENTED** | `save_resolver.py`, `schemas/entity_fields.py` | CHA mod added to all saves for paladin. WO-ENGINE-DIVINE-GRACE-001. |
 | Lay on Hands (CHA × level HP) | PHB p.44 | **PARTIAL** | `aidm/core/lay_on_hands_resolver.py` | Healing pool computed; lay_on_hands_resolver wired. Full consume-site verification pending. WO-ENGINE-LAY-ON-HANDS-001. |
 | Detect Evil (at will) | PHB p.44 | **NOT STARTED** | — | No alignment detection |
-| Aura of Courage (+4 morale vs fear) | PHB p.44 | **PARTIAL** | `aidm/core/save_resolver.py`, `aidm/chargen/builder.py`, `aidm/schemas/entity_fields.py` | EF.FEAR_IMMUNE=True (paladin L2+, sentinel=999); ally +4 morale Chebyshev≤2; morale non-stacking max(IC,AoC). CONSUME_DEFERRED: save_descriptor not passed through resolve_save() full path (SaveContext gap). FINDING-ENGINE-SAVE-DESCRIPTOR-PASS-001 OPEN. AOC-001–008. Batch AC. |
+| Aura of Courage (+4 morale vs fear) | PHB p.44 | **IMPLEMENTED** | `aidm/core/save_resolver.py`, `aidm/chargen/builder.py`, `aidm/schemas/entity_fields.py`, `aidm/schemas/saves.py` | EF.FEAR_IMMUNE=True (paladin L2+, sentinel=999); ally +4 morale Chebyshev≤2; morale non-stacking max(IC,AoC). WO1 (Batch AD) closed SaveContext gap: save_descriptor now threaded through resolve_save() → get_save_bonus() full path. FINDING-ENGINE-SAVE-DESCRIPTOR-PASS-001 CLOSED. AOC-001–008. SCS-001–008. |
 | Divine Health (disease immunity) | PHB p.44 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py` | EF.IMMUNE_DISEASE set at paladin L3+ chargen. WO-ENGINE-DIVINE-HEALTH-001. |
 | Turn Undead (as cleric level -2) | PHB p.44 | **IMPLEMENTED** | `turn_undead_resolver.py` | Effective cleric level = paladin_level // 2; 1d20+CHA check; full turn resolution wired. |
 | Aura of Good | PHB p.44 | **NOT STARTED** | — | No alignment aura |
