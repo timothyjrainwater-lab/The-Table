@@ -137,10 +137,10 @@ def apply_poison(
 
     dc = poison_stat["dc"]
     fort_base = entity.get(EF.SAVE_FORT, 0)
-    con_mod = entity.get(EF.CON_MOD, 0)
+    # WO-AE-WO1: EF.SAVE_FORT is Type 2 (base+CON already included). Strip redundant CON.
     bonus = _get_poison_save_bonus(entity)
     roll = rng.stream("combat").randint(1, 20)
-    total = roll + fort_base + con_mod + bonus
+    total = roll + fort_base + bonus
     saved = total >= dc
 
     events.append({
@@ -236,10 +236,10 @@ def process_poison_secondaries(
         # Secondary save is due
         dc = poison["dc"]
         fort_base = entity.get(EF.SAVE_FORT, 0)
-        con_mod = entity.get(EF.CON_MOD, 0)
+        # WO-AE-WO1: EF.SAVE_FORT is Type 2 (base+CON already included). Strip redundant CON.
         bonus = _get_poison_save_bonus(entity)
         roll = rng.stream("combat").randint(1, 20)
-        total = roll + fort_base + con_mod + bonus
+        total = roll + fort_base + bonus
         saved = total >= dc
 
         events.append({
@@ -361,9 +361,9 @@ def apply_disease_exposure(
 
     dc = disease_stat["dc"]
     fort_base = entity.get(EF.SAVE_FORT, 0)
-    con_mod = entity.get(EF.CON_MOD, 0)
+    # WO-AE-WO1: EF.SAVE_FORT is Type 2 (base+CON already included). Strip redundant CON.
     roll = rng.stream("combat").randint(1, 20)
-    total = roll + fort_base + con_mod
+    total = roll + fort_base
     saved = total >= dc
 
     events.append({
@@ -456,9 +456,9 @@ def process_disease_ticks(
 
         dc = disease["dc"]
         fort_base = entity.get(EF.SAVE_FORT, 0)
-        con_mod = entity.get(EF.CON_MOD, 0)
+        # WO-AE-WO1: EF.SAVE_FORT is Type 2 (base+CON already included). Strip redundant CON.
         roll = rng.stream("combat").randint(1, 20)
-        total = roll + fort_base + con_mod
+        total = roll + fort_base
         saved = total >= dc
 
         disease["consecutive_successes"] = disease.get("consecutive_successes", 0) + (1 if saved else 0)

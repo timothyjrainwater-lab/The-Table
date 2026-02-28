@@ -171,11 +171,13 @@ def test_sf09_iron_will_no_effect_on_reflex():
 # SF-10: Great Fortitude stacks with Inspire Courage (both add to Fort)
 # ===========================================================================
 def test_sf10_great_fortitude_stacks_with_inspire_courage():
-    """SF-10: Great Fortitude bonus stacks with inspire courage morale bonus on Fort."""
+    """SF-10: Great Fortitude bonus stacks with inspire courage morale bonus on fear Fort save.
+    WO-AE-WO3: IC only fires for fear/charm descriptors (PHB p.29). Test uses save_descriptor='fear'.
+    """
     ent = _entity(save_fort=2, con_mod=1, feats=["great_fortitude"])
     ent[EF.INSPIRE_COURAGE_ACTIVE] = True
     ent[EF.INSPIRE_COURAGE_BONUS] = 1
     ws = _world({"pc": ent})
-    bonus = get_save_bonus(ws, "pc", SaveType.FORT)
+    bonus = get_save_bonus(ws, "pc", SaveType.FORT, save_descriptor="fear")
     # base=2, con=1, inspire=1, feat=2 → 6
     assert bonus == 6, f"Expected 6 (2+1+1+2), got {bonus}"

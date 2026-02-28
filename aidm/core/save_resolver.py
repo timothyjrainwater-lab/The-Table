@@ -114,13 +114,13 @@ def get_save_bonus(
     }
     condition_save_mod = save_mod_map[save_type]
 
-    # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus for fear/charm saves (PHB p.29)
-    # v1: applied to all saves (no descriptor tracking yet; fear/charm are Will saves)
-    # FINDING-BARDIC-SAVE-SCOPE-001: narrow to fear/charm descriptors when descriptor tracking added
-    inspire_courage_bonus = (
-        entity.get(EF.INSPIRE_COURAGE_BONUS, 0)
-        if entity.get(EF.INSPIRE_COURAGE_ACTIVE, False) else 0
-    )
+    # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus — fear/charm saves only (PHB p.29)
+    # PHB p.29: "a morale bonus on saving throws against charm and fear effects."
+    # WO-AE-WO3: Scoped to fear/charm descriptors. Attack/damage bonus is unaffected.
+    _inspire_active = entity.get(EF.INSPIRE_COURAGE_ACTIVE, False)
+    inspire_courage_bonus = 0
+    if _inspire_active and save_descriptor in ("fear", "charm"):
+        inspire_courage_bonus = entity.get(EF.INSPIRE_COURAGE_BONUS, 0)
 
     # WO-ENGINE-SAVE-FEATS-001: Great Fortitude / Iron Will / Lightning Reflexes
     feats = entity.get(EF.FEATS, [])
@@ -214,7 +214,7 @@ def get_save_bonus(
             for _eid, _ent in world_state.entities.items():
                 if _eid == actor_id:
                     continue
-                if _ent.get(EF.CLASS_LEVELS, {}).get("paladin", 0) < 2:
+                if _ent.get(EF.CLASS_LEVELS, {}).get("paladin", 0) < 3:  # WO-AE-WO3: PHB p.49 — AoC granted at L3, not L2
                     continue
                 if _ent.get(EF.TEAM) != _actor_team:
                     continue
@@ -248,6 +248,18 @@ def get_save_bonus(
         inspire_courage_bonus = 0
         fear_bonus = effective_morale
 
+    # WO-AE-WO2: Fatigued condition → -2 Reflex save (PHB p.308: fatigued gives -2 Dex)
+    # EF.FATIGUED boolean (set by rage_resolver on rage end). Not a ConditionInstance.
+    fatigue_ref_penalty = 0
+    if save_type == SaveType.REF and entity.get(EF.FATIGUED, False):
+        fatigue_ref_penalty = -2
+
+    # WO-AE-WO4: Trap Sense Reflex bonus (PHB p.26 Barbarian, p.51 Rogue)
+    # Fires only when save_descriptor="trap" and save_type=Ref.
+    trap_sense_bonus = 0
+    if save_type == SaveType.REF and save_descriptor == "trap":
+        trap_sense_bonus = entity.get(EF.TRAP_SENSE_BONUS, 0)
+
     # Total bonus
     # WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001: ability_mod already in base_save (Type 2 field)
     total_bonus = (
@@ -259,6 +271,8 @@ def get_save_bonus(
         + resist_natures_lure_bonus
         + inspire_greatness_fort_bonus
         + fear_bonus
+        + fatigue_ref_penalty  # WO-AE-WO2: -2 Ref when fatigued (PHB p.308)
+        + trap_sense_bonus      # WO-AE-WO4: Trap Sense Ref bonus vs traps (PHB p.26/p.51)
     )
 
     return total_bonus

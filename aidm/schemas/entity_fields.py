@@ -318,6 +318,13 @@ class _EntityFields:
     # On successful save: take 0 damage (same as Evasion).
     # PHB Rogue p.57, Monk p.43.
 
+    # --- Trap Sense (WO-AE-WO4) ---
+    TRAP_SENSE_BONUS = "trap_sense_bonus"
+    # int: Intuitive bonus on Reflex saves vs traps (PHB p.26 Barbarian, p.51 Rogue).
+    # = (barbarian_level // 3) + (rogue_level // 3). Computed at chargen. Type 3 (Runtime-Only).
+    # House Policy: barb + rogue contributions sum (RAW silent on dual-class stacking).
+    # AC vs traps is CONSUME_DEFERRED (no trap attack subsystem). FINDING-ENGINE-TRAP-SENSE-AC-001.
+
     # --- Monk WIS-to-AC (WO-ENGINE-MONK-WIS-AC-001) ---
     MONK_WIS_AC_BONUS = "monk_wis_ac_bonus"
     # int: WIS modifier applied to monk AC at runtime (PHB p.41).

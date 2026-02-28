@@ -150,9 +150,11 @@ def test_scs_002_indomitable_will_via_resolve_save():
 # ---------------------------------------------------------------------------
 
 def test_scs_003_aura_of_courage_via_resolve_save():
-    """Paladin L2 ally within 10 ft: resolve_save() with save_descriptor='fear' → +4."""
+    """Paladin L3 ally within 10 ft: resolve_save() with save_descriptor='fear' → +4.
+    WO-AE-WO3: AoC granted at L3+ (PHB p.49), not L2. Updated from L2 to L3.
+    """
     paladin = {
-        EF.CLASS_LEVELS: {"paladin": 2},
+        EF.CLASS_LEVELS: {"paladin": 3},
         EF.SAVE_FORT: 5, EF.SAVE_REF: 2, EF.SAVE_WILL: 2,
         EF.CONDITIONS: {}, EF.FEATS: [], EF.TEMPORARY_MODIFIERS: {},
         EF.POSITION: {"x": 0, "y": 0}, EF.TEAM: "heroes",

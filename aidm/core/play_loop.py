@@ -271,7 +271,7 @@ def _create_target_stats(
     from aidm.schemas.saves import SaveType as _TSaveType
 
     # Build a temporary WorldState-like context for save_resolver
-    _save_descriptor = "spell" if school else ""
+    _save_descriptor = "spell"  # WO-AE-WO1: always "spell" — zero-school spells still trigger racial spell bonuses
     fort_save = _get_save_bonus(world_state, entity_id, _TSaveType.FORT,
                                 save_descriptor=_save_descriptor, school=school)
     ref_save = _get_save_bonus(world_state, entity_id, _TSaveType.REF,

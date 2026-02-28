@@ -135,11 +135,14 @@ def test_ssu_005_elf_enchantment_preserved():
 
 
 # ---------------------------------------------------------------------------
-# SSU-006: Inspire Courage morale bonus appears in spell saves
+# SSU-006: Inspire Courage does NOT fire on generic spell saves (PHB p.29)
 # ---------------------------------------------------------------------------
 
-def test_ssu_006_inspire_courage_in_spell():
-    """SSU-006: Inspire Courage morale bonus appears in spell saves."""
+def test_ssu_006_inspire_courage_not_in_spell():
+    """SSU-006: Inspire Courage morale bonus does NOT fire on spell saves (fear/charm only).
+    WO-AE-WO3 fix: PHB p.29 — IC grants +morale vs charm and fear effects only.
+    A generic evocation spell Fort save uses save_descriptor='spell', not 'fear'/'charm'.
+    """
     entity = build_character(
         race="human",
         class_name="fighter",
@@ -151,8 +154,10 @@ def test_ssu_006_inspire_courage_in_spell():
     entity[EF.INSPIRE_COURAGE_BONUS] = 1
     ws = _ws_from_entity(entity)
     ts = _make_target_stats(entity, ws, school="evocation")
-    # Fort: good L5(4) + CON(2) = 6 + inspire(1) = 7
-    assert ts.fort_save == 7, f"Fort expected 7 (with inspire), got {ts.fort_save}"
+    # Fort: good L5(4) + CON(2) = 6 (no inspire — IC only fires for fear/charm, not generic spells)
+    assert ts.fort_save == 6, (
+        f"Fort expected 6 (IC does not fire for spell saves per PHB p.29). Got {ts.fort_save}"
+    )
 
 
 # ---------------------------------------------------------------------------

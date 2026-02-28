@@ -992,6 +992,12 @@ def build_character(
     _barbarian_level = level if class_name == "barbarian" else 0
     entity[EF.FAST_MOVEMENT_BONUS] = 10 if _barbarian_level >= 1 else 0
 
+    # WO-AE-WO4: Trap Sense (PHB p.26 Barbarian, p.51 Rogue)
+    # +1 Ref vs traps per 3 class levels (first grant at L3). Type 3 field.
+    # House Policy: multiclass sums barb + rogue contributions.
+    _trap_sense_rogue_level = level if class_name == "rogue" else 0
+    entity[EF.TRAP_SENSE_BONUS] = (_barbarian_level // 3) + (_trap_sense_rogue_level // 3)
+
     # WO-ENGINE-SNEAK-ATTACK-AUTO-IMMUNE-001: Creature type + immunity fields
     if creature_type:
         entity[EF.CREATURE_TYPE] = creature_type
@@ -1055,8 +1061,9 @@ def build_character(
         entity[EF.WHOLENESS_OF_BODY_POOL] = _monk_level * 2
         entity[EF.WHOLENESS_OF_BODY_USED] = 0
 
-    # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity (PHB p.44, L2+)
-    if _paladin_level >= 2:
+    # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity (PHB p.49, L3+)
+    # WO-AE-WO3: Fixed off-by-one — AoC granted at 3rd level, not 2nd.
+    if _paladin_level >= 3:
         entity[EF.FEAR_IMMUNE] = True
 
     return entity
@@ -1261,6 +1268,11 @@ def _build_multiclass_character(
     _barbarian_level = class_mix.get("barbarian", 0)
     entity[EF.FAST_MOVEMENT_BONUS] = 10 if _barbarian_level >= 1 else 0
 
+    # WO-AE-WO4: Trap Sense (PHB p.26 Barbarian, p.51 Rogue) — multiclass path
+    # House Policy: sum contributions from barbarian + rogue levels.
+    _trap_sense_rogue_level = class_mix.get("rogue", 0)
+    entity[EF.TRAP_SENSE_BONUS] = (_barbarian_level // 3) + (_trap_sense_rogue_level // 3)
+
     # WO-ENGINE-MONK-WIS-AC-001: Multiclass does not call _assign_starting_equipment;
     # set armor defaults and MONK_WIS_AC_BONUS directly.
     # Multiclass entities start unarmored (no equipment assignment path).
@@ -1322,8 +1334,9 @@ def _build_multiclass_character(
         entity[EF.WHOLENESS_OF_BODY_POOL] = _monk_level * 2
         entity[EF.WHOLENESS_OF_BODY_USED] = 0
 
-    # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity (PHB p.44, L2+) — multiclass path
-    if _paladin_level >= 2:
+    # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity (PHB p.49, L3+) — multiclass path
+    # WO-AE-WO3: Fixed off-by-one — AoC granted at 3rd level, not 2nd.
+    if _paladin_level >= 3:
         entity[EF.FEAR_IMMUNE] = True
 
     return entity
