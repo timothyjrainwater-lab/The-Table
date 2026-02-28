@@ -535,7 +535,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Damage Reduction (DR X/-) | PHB p.26 | **IMPLEMENTED** | `damage_reduction.py`, `chargen/builder.py` | EF.DAMAGE_REDUCTIONS list of dicts; barbarian DR/- set by level at chargen. DEBRIEF_WO-ENGINE-BARBARIAN-DR-001. |
 | Improved Uncanny Dodge (flank immunity) | PHB p.26 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanking rogue must be 4+ levels higher. gate(Q-WO2). |
 | Greater Rage (+6 STR/CON, +3 Will) | PHB p.26 | **IMPLEMENTED** | `rage_resolver.py` | L11+ barbarian gets +6/+6/+3/-2. WO-ENGINE-RAGE-PROGRESSION-001. Batch AA. |
-| Indomitable Will (extra Will in rage) | PHB p.26 | **NOT STARTED** | — | Not separated from base rage bonus |
+| Indomitable Will (extra Will in rage) | PHB p.26 | **IMPLEMENTED** | `save_resolver.py`, `rage_resolver.py` | Barbarian L14+ gets +4 Will vs enchantment while raging. Set via TEMPORARY_MODIFIERS indomitable_will_active. WO-ENGINE-STILL-MIND-INDOMITABLE-WILL-001. Batch AB. |
 | Tireless Rage (no post-rage fatigue) | PHB p.27 | **IMPLEMENTED** | `rage_resolver.py` | L17+ barbarian skips FATIGUED + fatigue penalties on rage end. HP loss still fires. WO-ENGINE-RAGE-PROGRESSION-001. Batch AA. |
 | Mighty Rage (+8 STR/CON, +4 Will) | PHB p.27 | **IMPLEMENTED** | `rage_resolver.py` | L20+ barbarian gets +8/+8/+4/-2. HP gain/loss scales with tier. WO-ENGINE-RAGE-PROGRESSION-001. Batch AA. |
 
@@ -592,7 +592,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Woodland Stride | PHB p.36 | **NOT STARTED** | — | No difficult terrain interaction |
 | Trackless Step | PHB p.36 | **NOT STARTED** | — | No tracking system to be immune to |
 | Resist Nature's Lure | PHB p.36 | **NOT STARTED** | — | +4 vs fey enchantments not implemented |
-| Venom Immunity | PHB p.38 | **NOT STARTED** | — | No poison immunity from level |
+| Venom Immunity | PHB p.38 | **IMPLEMENTED** | `poison_disease_resolver.py` | Druid L9+ immune to all poisons. `is_immune_to_poison()` checks CLASS_LEVELS. WO-ENGINE-CLASS-IMMUNITY-001. Batch AB. |
 | Thousand Faces | PHB p.38 | **NOT STARTED** | — | No alter self at will |
 | Timeless Body | PHB p.38 | **NOT STARTED** | — | No aging mechanic |
 
@@ -609,14 +609,14 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Unarmed Strike (scaling damage by level) | PHB p.41 | **PARTIAL** | `chargen/builder.py`, `schemas/entity_fields.py` | EF.MONK_UNARMED_DICE set at chargen per PHB Table 3-10; attack resolver consumption is NOT YET wired. DEBRIEF_WO-ENGINE-MONK-UNARMED-PROGRESSION-001. FINDING-ENGINE-MONK-UNARMED-ATTACK-WIRE-001 LOW OPEN. |
 | Flurry of Blows | PHB p.41 | **NOT STARTED** | — | No flurry action |
 | AC Bonus (WIS mod to AC in no armor) | PHB p.41 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py` | WIS mod to AC when unarmored; enforced at chargen. WO-ENGINE-MONK-WIS-AC-001. |
-| Fast Movement (monk speed bonus) | PHB p.41 | **NOT STARTED** | — | No speed bonus from monk level |
-| Still Mind (+2 vs enchantments) | PHB p.41 | **NOT STARTED** | — | No save bonus |
-| Ki Strike (magic, lawful, adamantine) | PHB p.42 | **NOT STARTED** | — | No Ki Strike DR bypass |
+| Fast Movement (monk speed bonus) | PHB p.41 | **IMPLEMENTED** | `movement_resolver.py` | Monk L3+ speed bonus per PHB Table 3-13 (+10 to +60). Blocked by ANY armor or medium+ load. WO-ENGINE-MONK-FAST-MOVEMENT-001. Batch AB. |
+| Still Mind (+2 vs enchantments) | PHB p.41 | **IMPLEMENTED** | `save_resolver.py` | Monk L3+ gets +2 all saves vs enchantment. Stacks with racial enchantment bonus. WO-ENGINE-STILL-MIND-INDOMITABLE-WILL-001. Batch AB. |
+| Ki Strike (magic, lawful, adamantine) | PHB p.42 | **IMPLEMENTED** | `damage_reduction.py` | Monk L4 magic, L10 lawful, L16 adamantine. `extract_weapon_bypass_flags()` checks CLASS_LEVELS + MONK_UNARMED_DICE. WO-ENGINE-KI-STRIKE-001. Batch AB. |
 | Slow Fall | PHB p.42 | **NOT STARTED** | — | No fall distance reduction |
-| Purity of Body (disease immunity) | PHB p.42 | **NOT STARTED** | — | No disease immunity |
+| Purity of Body (disease immunity) | PHB p.42 | **IMPLEMENTED** | `poison_disease_resolver.py` | Monk L5+ immune to all diseases. `apply_disease_exposure()` emits disease_immunity event. WO-ENGINE-CLASS-IMMUNITY-001. Batch AB. |
 | Wholeness of Body (self-heal 2/level) | PHB p.42 | **NOT STARTED** | — | No wholeness of body ability |
 | Improved Evasion | PHB p.42 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.IMPROVED_EVASION; failed Ref → half damage. WO-ENGINE-EVASION-ARMOR-001. |
-| Diamond Body (poison immunity) | PHB p.42 | **NOT STARTED** | — | No poison immunity |
+| Diamond Body (poison immunity) | PHB p.42 | **IMPLEMENTED** | `poison_disease_resolver.py` | Monk L11+ immune to all poisons. `is_immune_to_poison()` checks CLASS_LEVELS. WO-ENGINE-CLASS-IMMUNITY-001. Batch AB. |
 | Abundant Step (dimension door) | PHB p.42 | **NOT STARTED** | — | No ability |
 | Diamond Soul (SR = level + 10) | PHB p.43 | **NOT STARTED** | — | No automatic SR from monk level |
 | Quivering Palm | PHB p.43 | **NOT STARTED** | — | No death touch ability |
