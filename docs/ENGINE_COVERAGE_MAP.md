@@ -606,7 +606,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 
 | Feature | Source | Status | Engine File(s) | Notes / Gap Description |
 |---------|--------|--------|----------------|--------------------------|
-| Unarmed Strike (scaling damage by level) | PHB p.41 | **PARTIAL** | `chargen/builder.py`, `schemas/entity_fields.py` | EF.MONK_UNARMED_DICE set at chargen per PHB Table 3-10; attack resolver consumption is NOT YET wired. DEBRIEF_WO-ENGINE-MONK-UNARMED-PROGRESSION-001. FINDING-ENGINE-MONK-UNARMED-ATTACK-WIRE-001 LOW OPEN. |
+| Unarmed Strike (scaling damage by level) | PHB p.41 | **IMPLEMENTED** | `chargen/builder.py`, `schemas/entity_fields.py`, `aidm/core/attack_resolver.py` | EF.MONK_UNARMED_DICE set at chargen per PHB Table 3-10; attack_resolver.py now reads MONK_UNARMED_DICE for unarmed strikes (WO2 Batch AF). level_up() returns monk_unarmed_dice delta. Flurry path already reading MONK_UNARMED_DICE (confirmed parity). 8 gates MUW-001–008. Closes FINDING-ENGINE-MONK-UNARMED-ATTACK-WIRE-001. |
 | Flurry of Blows | PHB p.41 | **IMPLEMENTED** | `aidm/core/flurry_of_blows_resolver.py`, `aidm/core/play_loop.py` | FlurryOfBlowsIntent; penalty table (L1-4:-2, L5-8:-1, L9+:0); unarmed/monk-weapon gate; armor/enc block; iterative attack sequence. FOB-001–008. Batch AC. |
 | AC Bonus (WIS mod to AC in no armor) | PHB p.41 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py` | WIS mod to AC when unarmored; enforced at chargen. WO-ENGINE-MONK-WIS-AC-001. |
 | Fast Movement (monk speed bonus) | PHB p.41 | **IMPLEMENTED** | `movement_resolver.py` | Monk L3+ speed bonus per PHB Table 3-13 (+10 to +60). Blocked by ANY armor or medium+ load. WO-ENGINE-MONK-FAST-MOVEMENT-001. Batch AB. |
@@ -630,13 +630,13 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 |---------|--------|--------|----------------|--------------------------|
 | Smite Evil (+CHA attack, +level damage) | PHB p.44 | **IMPLEMENTED** | `smite_evil_resolver.py` | SmiteEvilIntent; CHA to attack, level to damage; SMITE_USES_REMAINING |
 | Divine Grace (CHA mod to all saves) | PHB p.44 | **IMPLEMENTED** | `save_resolver.py`, `schemas/entity_fields.py` | CHA mod added to all saves for paladin. WO-ENGINE-DIVINE-GRACE-001. |
-| Lay on Hands (CHA × level HP) | PHB p.44 | **PARTIAL** | `aidm/core/lay_on_hands_resolver.py` | Healing pool computed; lay_on_hands_resolver wired. Full consume-site verification pending. WO-ENGINE-LAY-ON-HANDS-001. |
+| Lay on Hands (CHA × level HP) | PHB p.44 | **IMPLEMENTED** | `aidm/core/lay_on_hands_resolver.py`, `chargen/builder.py`, `core/rest_resolver.py`, `core/play_loop.py` | Pool = paladin_level × CHA_mod (0 if CHA_mod ≤ 0); divisible across recipients; standard action. Write: builder.py:959 (EF.LAY_ON_HANDS_POOL). Read: lay_on_hands_resolver.py (clamps to remaining). Reset: rest_resolver.py:130–131. Dispatch: play_loop.py:2965. 8 play_loop gate tests LOH-WO1-001–008 (WO1 Batch AF). SAI close — file committed from untracked. Closes PARTIAL. |
 | Detect Evil (at will) | PHB p.44 | **NOT STARTED** | — | No alignment detection |
 | Aura of Courage (+4 morale vs fear) | PHB p.44 | **IMPLEMENTED** | `aidm/core/save_resolver.py`, `aidm/chargen/builder.py`, `aidm/schemas/entity_fields.py`, `aidm/schemas/saves.py` | EF.FEAR_IMMUNE=True (paladin L3+, sentinel=999); ally +4 morale Chebyshev≤2; morale non-stacking max(IC,AoC). WO1 (Batch AD) closed SaveContext gap. WO-AE-WO3: threshold fixed L2→L3 (PHB p.49). ALT-AE-001–004. SCS-001–008. |
 | Divine Health (disease immunity) | PHB p.44 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py` | EF.IMMUNE_DISEASE set at paladin L3+ chargen. WO-ENGINE-DIVINE-HEALTH-001. |
 | Turn Undead (as cleric level -2) | PHB p.44 | **IMPLEMENTED** | `turn_undead_resolver.py` | Effective cleric level = paladin_level // 2; 1d20+CHA check; full turn resolution wired. |
 | Aura of Good | PHB p.44 | **NOT STARTED** | — | No alignment aura |
-| Remove Disease (1/week per 3 levels) | PHB p.44 | **NOT STARTED** | — | No remove disease ability |
+| Remove Disease (1/week per 3 levels) | PHB p.44 | **IMPLEMENTED** | `aidm/core/remove_disease_resolver.py`, `chargen/builder.py`, `core/rest_resolver.py`, `core/play_loop.py`, `schemas/entity_fields.py` | Uses = paladin_level // 3 (1 at L3, 2 at L6, 3 at L9). HOUSE_POLICY: "per week" = "per full rest" (consistent with LOH, smite, spell slots). Write: builder.py. Read: remove_disease_resolver.py. Reset: rest_resolver.py. Clears EF.ACTIVE_DISEASES list. 8 gate tests RD-001–008 (WO3 Batch AF). NOT STARTED → IMPLEMENTED. |
 | Special Mount | PHB p.44 | **NOT STARTED** | — | No special mount summoning |
 | Paladin Spellcasting | PHB p.44 | **IMPLEMENTED** | `spell_prep_resolver.py` | Prepared divine caster from level 4; SPELL_SLOTS managed |
 
@@ -669,7 +669,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.51 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py`, `core/save_resolver.py` | EF.TRAP_SENSE_BONUS = (barb_level // 3) + (rogue_level // 3). Multiclass sums contributions. Resolver consume on REF + 'trap' descriptor. TSB-AE-001–008. CONSUME_DEFERRED: AC vs traps (FINDING-ENGINE-TRAP-SENSE-AC-001). WO-AE-WO4. |
 | Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `attack_resolver.py` | Rogue L4 threshold (was L2). Ranger removed (PHB p.48). _UD_THRESHOLDS dict. WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001. |
 | Improved Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanker rogue must be 4+ levels higher. gate(Q-WO2). |
-| Rogue Special Abilities (each) | PHB p.51 | **NOT STARTED** | — | Crippling Strike, Defensive Roll, Feat, Improved Evasion, Opportunist, Skill Mastery, Slippery Mind — none implemented |
+| Rogue Special Abilities (each) | PHB p.51 | **PARTIAL** | `aidm/core/attack_resolver.py`, `chargen/builder.py`, `core/rest_resolver.py`, `schemas/entity_fields.py` | **Defensive Roll IMPLEMENTED** (WO4 Batch AF): triggers in attack_resolver.py on physical blow that would reduce HP ≤ 0; Reflex save DC = damage dealt; success = half damage; 1/day; blocked when flat-footed or DEFENSIVE_ROLL_USED=True; resets on rest; NOT triggered by spell_resolver.py (RAW: "not a spell"). 8 gate tests DR-001–008. Remaining NOT STARTED: Crippling Strike, Feat, Improved Evasion, Opportunist, Skill Mastery, Slippery Mind. |
 
 ### 10j. Sorcerer
 
