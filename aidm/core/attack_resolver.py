@@ -1790,15 +1790,23 @@ def resolve_coup_de_grace(
 
     # Fort save (PHB p.153): DC = 10 + damage dealt (pre-DR value)
     fort_dc = 10 + damage_total
-    fort_base = target.get(EF.SAVE_FORT, 0)
 
-    # Apply condition modifiers to Fort save
-    _cond_mods = _get_cond_mods(world_state, intent.target_id)
-    fort_condition_mod = _cond_mods.fort_save_modifier
+    # WO-ENGINE-CDG-SAVE-PATH-001: canonical save path via get_save_bonus()
+    # Includes: base save, condition mods, feat bonuses (Great Fortitude),
+    # Divine Grace, racial bonuses (halfling +1), Inspire Courage.
+    from aidm.core.save_resolver import get_save_bonus, SaveType
+    fort_bonus = get_save_bonus(world_state, intent.target_id, SaveType.FORT)
 
     fort_roll = combat_rng.randint(1, 20)
-    fort_total = fort_roll + fort_base + fort_condition_mod
-    fort_passed = fort_total >= fort_dc
+    fort_total = fort_roll + fort_bonus
+
+    # WO-ENGINE-CDG-SAVE-PATH-001: nat1/nat20 auto-fail/pass (PHB p.136)
+    if fort_roll == 1:
+        fort_passed = False   # natural 1 always fails
+    elif fort_roll == 20:
+        fort_passed = True    # natural 20 always succeeds
+    else:
+        fort_passed = fort_total >= fort_dc
 
     events.append(Event(
         event_id=current_event_id,
@@ -1808,8 +1816,7 @@ def resolve_coup_de_grace(
             "entity_id": intent.target_id,
             "attacker_id": intent.attacker_id,
             "fort_roll": fort_roll,
-            "fort_base": fort_base,
-            "fort_condition_mod": fort_condition_mod,
+            "fort_bonus": fort_bonus,
             "fort_total": fort_total,
             "dc": fort_dc,
             "damage_total": damage_total,

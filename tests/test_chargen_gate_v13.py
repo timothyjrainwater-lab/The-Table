@@ -227,14 +227,17 @@ class TestV1310MulticlassLevelUp:
             ability_overrides={"str": 14, "dex": 10, "con": 12, "int": 16, "wis": 10, "cha": 10},
         )
 
-    def test_bab_uses_best_single_class(self):
+    def test_bab_uses_sum_across_classes(self):
         delta = level_up(self._entity(), "wizard", 3, hp_seed=7)
-        assert delta["bab"] == 3
+        # BAB: sum(fighter full L3=3, wizard half L3=1) = 4 (PHB p.22)
+        assert delta["bab"] == 4
 
-    def test_saves_use_best_per_type(self):
+    def test_saves_use_sum_per_type(self):
         delta = level_up(self._entity(), "wizard", 3, hp_seed=7)
-        assert delta["saves"]["fort"] == 4
-        assert delta["saves"]["will"] == 3
+        # Fort: sum(fighter good L3=3, wizard poor L3=1) + CON(+1) = 5 (PHB p.22)
+        assert delta["saves"]["fort"] == 5
+        # Will: sum(fighter poor L3=1, wizard good L3=3) + WIS(0) = 4
+        assert delta["saves"]["will"] == 4
 
 
 # --------------------------------------------------------------------------

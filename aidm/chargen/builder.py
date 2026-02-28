@@ -439,22 +439,22 @@ def _resolve_multiclass_stats(
     """
     total_level = sum(class_mix.values())
 
-    # --- BAB: best single class BAB (PHB p.57) ---
-    bab = max(
+    # --- BAB: sum across classes (PHB p.22) ---
+    bab = sum(
         BAB_PROGRESSION[CLASS_PROGRESSIONS[cls].bab_type][lvl - 1]
         for cls, lvl in class_mix.items()
     )
 
-    # --- Saves: each save takes best progression independently ---
+    # --- Saves: sum across classes (PHB p.22) ---
     def _save_val(cls: str, lvl: int, save_type: str) -> int:
         prog = CLASS_PROGRESSIONS[cls]
         if save_type in prog.good_saves:
             return GOOD_SAVE_PROGRESSION[lvl - 1]
         return POOR_SAVE_PROGRESSION[lvl - 1]
 
-    fort_base = max(_save_val(cls, lvl, "fort") for cls, lvl in class_mix.items())
-    ref_base  = max(_save_val(cls, lvl, "ref")  for cls, lvl in class_mix.items())
-    will_base = max(_save_val(cls, lvl, "will") for cls, lvl in class_mix.items())
+    fort_base = sum(_save_val(cls, lvl, "fort") for cls, lvl in class_mix.items())
+    ref_base  = sum(_save_val(cls, lvl, "ref")  for cls, lvl in class_mix.items())
+    will_base = sum(_save_val(cls, lvl, "will") for cls, lvl in class_mix.items())
 
     saves = {
         "fort": fort_base + modifiers["con"],
@@ -1556,24 +1556,24 @@ def level_up(
     is_first_class_level = (current_class_level == 0)
     hp_gained = _roll_hp_for_level(class_prog.hit_die, con_mod, is_first_class_level, hp_seed)
 
-    # --- BAB: best single-class BAB across all class levels after advancement ---
+    # --- BAB: sum across classes after advancement (PHB p.22) ---
     updated_class_levels = dict(class_levels)
     updated_class_levels[class_name] = new_class_level
-    bab = max(
+    bab = sum(
         BAB_PROGRESSION[CLASS_PROGRESSIONS[cls].bab_type][lvl - 1]
         for cls, lvl in updated_class_levels.items()
     )
 
-    # --- Saves: best progression independently for each save ---
+    # --- Saves: sum across classes after advancement (PHB p.22) ---
     def _save_base(cls: str, lvl: int, save_type: str) -> int:
         prog = CLASS_PROGRESSIONS[cls]
         if save_type in prog.good_saves:
             return GOOD_SAVE_PROGRESSION[lvl - 1]
         return POOR_SAVE_PROGRESSION[lvl - 1]
 
-    fort_base = max(_save_base(cls, lvl, "fort") for cls, lvl in updated_class_levels.items())
-    ref_base  = max(_save_base(cls, lvl, "ref")  for cls, lvl in updated_class_levels.items())
-    will_base = max(_save_base(cls, lvl, "will") for cls, lvl in updated_class_levels.items())
+    fort_base = sum(_save_base(cls, lvl, "fort") for cls, lvl in updated_class_levels.items())
+    ref_base  = sum(_save_base(cls, lvl, "ref")  for cls, lvl in updated_class_levels.items())
+    will_base = sum(_save_base(cls, lvl, "will") for cls, lvl in updated_class_levels.items())
 
     saves = {
         "fort": fort_base + entity.get(EF.CON_MOD, 0),

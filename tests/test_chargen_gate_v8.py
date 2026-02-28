@@ -54,12 +54,12 @@ def test_v8_02_fighter3_wizard2_saves():
         class_mix={"fighter": 3, "wizard": 2},
         ability_overrides=NEUTRAL,
     )
-    # Fort: max(fighter good L3=3, wizard poor L2=0) = 3 + CON(0) = 3
-    # Ref:  max(fighter poor L3=1, wizard poor L2=0) = 1 + DEX(0) = 1
-    # Will: max(fighter poor L3=1, wizard good L2=3) = 3 + WIS(0) = 3
+    # Fort: sum(fighter good L3=3, wizard poor L2=0) = 3 + CON(0) = 3 (PHB p.22)
+    # Ref:  sum(fighter poor L3=1, wizard poor L2=0) = 1 + DEX(0) = 1
+    # Will: sum(fighter poor L3=1, wizard good L2=3) = 4 + WIS(0) = 4
     assert entity[EF.SAVE_FORT] == 3
     assert entity[EF.SAVE_REF] == 1
-    assert entity[EF.SAVE_WILL] == 3
+    assert entity[EF.SAVE_WILL] == 4
 
 
 # ---------------------------------------------------------------------------
@@ -234,11 +234,11 @@ def test_v8_13_bard2_rogue3_saves_and_spellcasting():
         ability_overrides=NEUTRAL,
     )
     # Bard good: ref, will. Rogue good: ref.
-    # Ref: max(bard good L2=3, rogue good L3=3) = 3
-    # Will: max(bard good L2=3, rogue poor L3=1) = 3
-    # Fort: max(bard poor L2=0, rogue poor L3=1) = 1
-    assert entity[EF.SAVE_REF] == 3
-    assert entity[EF.SAVE_WILL] == 3
+    # Ref: sum(bard good L2=3, rogue good L3=3) = 6 (PHB p.22)
+    # Will: sum(bard good L2=3, rogue poor L3=1) = 4
+    # Fort: sum(bard poor L2=0, rogue poor L3=1) = 1
+    assert entity[EF.SAVE_REF] == 6
+    assert entity[EF.SAVE_WILL] == 4
     assert entity[EF.SAVE_FORT] == 1
     # Bard is a spontaneous caster — should have spell slots at bard level 2
     assert entity[EF.CASTER_LEVEL] == 2
@@ -254,13 +254,13 @@ def test_v8_14_paladin2_ranger3_full_bab_saves():
         class_mix={"paladin": 2, "ranger": 3},
         ability_overrides=NEUTRAL,
     )
-    # BAB: max(paladin full L2=2, ranger full L3=3) = 3
-    assert entity[EF.BAB] == 3
-    # Fort: max(paladin good L2=3, ranger good L3=3) = 3
-    assert entity[EF.SAVE_FORT] == 3
-    # Ref: max(paladin poor L2=0, ranger good L3=3) = 3
+    # BAB: sum(paladin full L2=2, ranger full L3=3) = 5 (PHB p.22)
+    assert entity[EF.BAB] == 5
+    # Fort: sum(paladin good L2=3, ranger good L3=3) = 6
+    assert entity[EF.SAVE_FORT] == 6
+    # Ref: sum(paladin poor L2=0, ranger good L3=3) = 3
     assert entity[EF.SAVE_REF] == 3
-    # Will: max(paladin poor L2=0, ranger poor L3=1) = 1
+    # Will: sum(paladin poor L2=0, ranger poor L3=1) = 1
     assert entity[EF.SAVE_WILL] == 1
 
 
