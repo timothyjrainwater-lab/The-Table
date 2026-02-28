@@ -250,6 +250,22 @@ def build_full_move_intent(
         if _armor_type != "heavy" and _enc_load not in ("heavy", "overloaded"):
             speed_ft += _fast_movement
 
+    # WO-ENGINE-MONK-FAST-MOVEMENT-001: Monk speed bonus (PHB p.41, Table 3-13)
+    # Blocked by ANY armor or medium/heavy load (stricter than barbarian).
+    _class_levels_fm = entity.get(EF.CLASS_LEVELS, {}) or {}
+    _monk_level_fm = _class_levels_fm.get("monk", 0) if isinstance(_class_levels_fm, dict) else 0
+    if _monk_level_fm >= 3:
+        _armor_type_fm = entity.get(EF.ARMOR_TYPE, "none")
+        _enc_load_fm = entity.get(EF.ENCUMBRANCE_LOAD, "light")
+        if _armor_type_fm == "none" and _enc_load_fm == "light":
+            _monk_speed_table = [
+                (18, 60), (15, 50), (12, 40), (9, 30), (6, 20), (3, 10),
+            ]
+            for _threshold, _bonus in _monk_speed_table:
+                if _monk_level_fm >= _threshold:
+                    speed_ft += _bonus
+                    break
+
     enemy_squares, _ = _get_occupied_squares(world_state, actor_id)
 
     # Check if destination is enemy-occupied

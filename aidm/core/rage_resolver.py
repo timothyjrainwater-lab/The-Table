@@ -116,6 +116,10 @@ def activate_rage(
     temp_mods["rage_con_bonus"] = con_bonus
     temp_mods["rage_will_bonus"] = will_bonus
     temp_mods["rage_ac_penalty"] = -2
+    # WO-ENGINE-STILL-MIND-INDOMITABLE-WILL-001: Indomitable Will (PHB p.26)
+    # Barbarian L14+: +4 Will vs enchantment while raging
+    if _barb_level >= 14:
+        temp_mods["indomitable_will_active"] = True
 
     actor[EF.TEMPORARY_MODIFIERS] = temp_mods
     actor[EF.RAGE_ACTIVE] = True
@@ -179,7 +183,7 @@ def end_rage(
 
     # Remove rage modifiers
     temp_mods = dict(actor.get(EF.TEMPORARY_MODIFIERS, {}) or {})
-    for key in ("rage_str_bonus", "rage_con_bonus", "rage_will_bonus", "rage_ac_penalty"):
+    for key in ("rage_str_bonus", "rage_con_bonus", "rage_will_bonus", "rage_ac_penalty", "indomitable_will_active"):
         temp_mods.pop(key, None)
 
     # WO-ENGINE-RAGE-PROGRESSION-001: Tireless Rage (L17+) — no fatigue (PHB p.25)

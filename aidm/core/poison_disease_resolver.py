@@ -61,12 +61,17 @@ def is_immune_to_poison(entity: Dict[str, Any]) -> bool:
 
     PHB p.292 / p.294:
     - Undead: immune (EF.IS_UNDEAD).
-    - Paladin level 3+: immune (class_levels paladin >= 3).
+    - Monk level 11+: immune — Diamond Body (PHB p.42).
+    - Druid level 9+: immune — Venom Immunity (PHB p.38).
     """
     if entity.get(EF.IS_UNDEAD, False):
         return True
     class_levels: Dict[str, int] = entity.get(EF.CLASS_LEVELS, {})
-    if class_levels.get("paladin", 0) >= 3:
+    # WO-ENGINE-CLASS-IMMUNITY-001: Diamond Body (PHB p.42)
+    if class_levels.get("monk", 0) >= 11:
+        return True
+    # WO-ENGINE-CLASS-IMMUNITY-001: Venom Immunity (PHB p.38)
+    if class_levels.get("druid", 0) >= 9:
         return True
     return False
 
@@ -110,10 +115,22 @@ def apply_poison(
     eid = next_event_id
 
     if is_immune_to_poison(entity):
+        # WO-ENGINE-CLASS-IMMUNITY-001: Identify reason for poison immunity
+        _reason = "unknown"
+        if entity.get(EF.IS_UNDEAD, False):
+            _reason = "undead"
+        elif entity.get(EF.CLASS_LEVELS, {}).get("monk", 0) >= 11:
+            _reason = "diamond_body"
+        elif entity.get(EF.CLASS_LEVELS, {}).get("druid", 0) >= 9:
+            _reason = "venom_immunity"
         events.append({
             "event_id": eid,
             "event_type": "poison_immune",
-            "payload": {"target_id": target_id, "poison_id": poison_stat.get("poison_id")},
+            "payload": {
+                "target_id": target_id,
+                "poison_id": poison_stat.get("poison_id"),
+                "reason": _reason,
+            },
             "timestamp": timestamp,
         })
         return entity, events
@@ -320,6 +337,25 @@ def apply_disease_exposure(
             },
             "timestamp": timestamp,
             "citations": [{"source_id": "681f92bc94ff", "page": 44}],
+        })
+        return entity, events
+
+    # WO-ENGINE-CLASS-IMMUNITY-001: Monk Purity of Body — immune to all diseases at level 5+
+    # PHB p.42: "At 5th level, a monk gains immunity to all diseases except for
+    # supernatural and magical diseases."
+    # Note: standard reading (same scope as Divine Health) — all diseases.
+    _monk_level_pb = entity.get(EF.CLASS_LEVELS, {}).get("monk", 0)
+    if _monk_level_pb >= 5:
+        events.append({
+            "event_id": eid,
+            "event_type": "disease_immunity",
+            "payload": {
+                "target_id": target_id,
+                "disease_id": disease_stat.get("disease_id"),
+                "reason": "purity_of_body",
+            },
+            "timestamp": timestamp,
+            "citations": [{"source_id": "681f92bc94ff", "page": 42}],
         })
         return entity, events
 

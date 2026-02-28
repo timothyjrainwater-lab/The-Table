@@ -158,6 +158,23 @@ def get_save_bonus(
     if school == "enchantment":
         racial_enchantment_bonus = entity.get(EF.SAVE_BONUS_ENCHANTMENT, 0)
 
+    # WO-ENGINE-STILL-MIND-INDOMITABLE-WILL-001: Monk Still Mind (PHB p.41)
+    # "A monk of 3rd level or higher gains a +2 bonus on saving throws against
+    #  enchantment spells and effects." — ALL saves (Fort, Ref, Will).
+    still_mind_bonus = 0
+    _monk_level_sm = entity.get(EF.CLASS_LEVELS, {}).get("monk", 0)
+    if _monk_level_sm >= 3 and school == "enchantment":
+        still_mind_bonus = 2
+
+    # WO-ENGINE-STILL-MIND-INDOMITABLE-WILL-001: Barbarian Indomitable Will (PHB p.26)
+    # "While in a rage, a barbarian of 14th level or higher gains a +4 bonus
+    #  on Will saves to resist enchantment spells." — Will only, rage only.
+    indomitable_will_bonus = 0
+    if save_type == SaveType.WILL and school == "enchantment":
+        _temp_mods = entity.get(EF.TEMPORARY_MODIFIERS, {})
+        if _temp_mods.get("indomitable_will_active", False):
+            indomitable_will_bonus = 4
+
     # Total bonus
     # WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001: ability_mod already in base_save (Type 2 field)
     total_bonus = (
@@ -165,6 +182,7 @@ def get_save_bonus(
         + feat_save_bonus + divine_grace_bonus
         + racial_save_bonus + racial_poison_bonus + racial_spell_bonus
         + racial_enchantment_bonus
+        + still_mind_bonus + indomitable_will_bonus
     )
 
     return total_bonus

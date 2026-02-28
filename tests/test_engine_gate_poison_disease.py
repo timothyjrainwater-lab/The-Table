@@ -87,13 +87,15 @@ def test_pp01_undead_immune_to_poison():
 
 
 # ---------------------------------------------------------------------------
-# PP-02: is_immune_to_poison — paladin level 3+
+# PP-02: is_immune_to_poison — paladin level 3+ is NOT immune to poison
+# (Paladin has Divine Health = disease immunity, NOT poison immunity per PHB p.44)
+# WO-ENGINE-CLASS-IMMUNITY-001: corrected pre-existing bug
 # ---------------------------------------------------------------------------
 
-def test_pp02_paladin3_immune_to_poison():
+def test_pp02_paladin3_not_immune_to_poison():
     entity = _entity()
     entity[EF.CLASS_LEVELS] = {"paladin": 3}
-    assert is_immune_to_poison(entity) is True
+    assert is_immune_to_poison(entity) is False
 
 
 # ---------------------------------------------------------------------------

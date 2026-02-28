@@ -204,9 +204,17 @@ def extract_weapon_bypass_flags(
     Returns:
         (is_magic: bool, material: str, alignment: str, enhancement: int)
     """
-    # Natural attacks: never magic
+    # Natural attacks: never magic (unless monk Ki Strike)
     weapon_type = getattr(weapon, "weapon_type", "one-handed")
     if weapon_type == "natural":
+        # WO-ENGINE-KI-STRIKE-001: Monk Ki Strike (PHB p.42)
+        # L4: magic, L10: lawful, L16: adamantine — unarmed only (MONK_UNARMED_DICE set)
+        _monk_level_ks = attacker.get(EF.CLASS_LEVELS, {}).get("monk", 0) if attacker else 0
+        if _monk_level_ks >= 4 and (attacker or {}).get(EF.MONK_UNARMED_DICE):
+            _is_magic = True
+            _alignment = "lawful" if _monk_level_ks >= 10 else "none"
+            _material = "adamantine" if _monk_level_ks >= 16 else "steel"
+            return (_is_magic, _material, _alignment, 0)
         return (False, "steel", "none", 0)
 
     entity_weapon = attacker.get(EF.WEAPON, {}) if attacker else {}
