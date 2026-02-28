@@ -607,18 +607,18 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Feature | Source | Status | Engine File(s) | Notes / Gap Description |
 |---------|--------|--------|----------------|--------------------------|
 | Unarmed Strike (scaling damage by level) | PHB p.41 | **PARTIAL** | `chargen/builder.py`, `schemas/entity_fields.py` | EF.MONK_UNARMED_DICE set at chargen per PHB Table 3-10; attack resolver consumption is NOT YET wired. DEBRIEF_WO-ENGINE-MONK-UNARMED-PROGRESSION-001. FINDING-ENGINE-MONK-UNARMED-ATTACK-WIRE-001 LOW OPEN. |
-| Flurry of Blows | PHB p.41 | **NOT STARTED** | — | No flurry action |
+| Flurry of Blows | PHB p.41 | **IMPLEMENTED** | `aidm/core/flurry_of_blows_resolver.py`, `aidm/core/play_loop.py` | FlurryOfBlowsIntent; penalty table (L1-4:-2, L5-8:-1, L9+:0); unarmed/monk-weapon gate; armor/enc block; iterative attack sequence. FOB-001–008. Batch AC. |
 | AC Bonus (WIS mod to AC in no armor) | PHB p.41 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py` | WIS mod to AC when unarmored; enforced at chargen. WO-ENGINE-MONK-WIS-AC-001. |
 | Fast Movement (monk speed bonus) | PHB p.41 | **IMPLEMENTED** | `movement_resolver.py` | Monk L3+ speed bonus per PHB Table 3-13 (+10 to +60). Blocked by ANY armor or medium+ load. WO-ENGINE-MONK-FAST-MOVEMENT-001. Batch AB. |
 | Still Mind (+2 vs enchantments) | PHB p.41 | **IMPLEMENTED** | `save_resolver.py` | Monk L3+ gets +2 all saves vs enchantment. Stacks with racial enchantment bonus. WO-ENGINE-STILL-MIND-INDOMITABLE-WILL-001. Batch AB. |
 | Ki Strike (magic, lawful, adamantine) | PHB p.42 | **IMPLEMENTED** | `damage_reduction.py` | Monk L4 magic, L10 lawful, L16 adamantine. `extract_weapon_bypass_flags()` checks CLASS_LEVELS + MONK_UNARMED_DICE. WO-ENGINE-KI-STRIKE-001. Batch AB. |
 | Slow Fall | PHB p.42 | **NOT STARTED** | — | No fall distance reduction |
 | Purity of Body (disease immunity) | PHB p.42 | **IMPLEMENTED** | `poison_disease_resolver.py` | Monk L5+ immune to all diseases. `apply_disease_exposure()` emits disease_immunity event. WO-ENGINE-CLASS-IMMUNITY-001. Batch AB. |
-| Wholeness of Body (self-heal 2/level) | PHB p.42 | **NOT STARTED** | — | No wholeness of body ability |
+| Wholeness of Body (self-heal 2/level) | PHB p.42 | **IMPLEMENTED** | `aidm/core/wholeness_of_body_resolver.py`, `aidm/chargen/builder.py`, `aidm/core/play_loop.py` | WholenessOfBodyIntent; pool=2×monk_level (L7+), clamped heal, five event types. EF.WHOLENESS_OF_BODY_POOL + WHOLENESS_OF_BODY_USED. WOB-001–008. Batch AC. |
 | Improved Evasion | PHB p.42 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.IMPROVED_EVASION; failed Ref → half damage. WO-ENGINE-EVASION-ARMOR-001. |
 | Diamond Body (poison immunity) | PHB p.42 | **IMPLEMENTED** | `poison_disease_resolver.py` | Monk L11+ immune to all poisons. `is_immune_to_poison()` checks CLASS_LEVELS. WO-ENGINE-CLASS-IMMUNITY-001. Batch AB. |
 | Abundant Step (dimension door) | PHB p.42 | **NOT STARTED** | — | No ability |
-| Diamond Soul (SR = level + 10) | PHB p.43 | **NOT STARTED** | — | No automatic SR from monk level |
+| Diamond Soul (SR = level + 10) | PHB p.43 | **IMPLEMENTED** | `aidm/chargen/builder.py`, `aidm/core/save_resolver.py` | EF.SR = monk_level+10 at L13+; max() preserves racial SR; level_up() delta["spell_resistance"]; check_spell_resistance path. DS-001–008. Batch AC. |
 | Quivering Palm | PHB p.43 | **NOT STARTED** | — | No death touch ability |
 | Empty Body (etherealness) | PHB p.43 | **NOT STARTED** | — | No ethereal plane interaction |
 | Perfect Self (outsider type) | PHB p.43 | **NOT STARTED** | — | No type change mechanic |
@@ -632,7 +632,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Divine Grace (CHA mod to all saves) | PHB p.44 | **IMPLEMENTED** | `save_resolver.py`, `schemas/entity_fields.py` | CHA mod added to all saves for paladin. WO-ENGINE-DIVINE-GRACE-001. |
 | Lay on Hands (CHA × level HP) | PHB p.44 | **PARTIAL** | `aidm/core/lay_on_hands_resolver.py` | Healing pool computed; lay_on_hands_resolver wired. Full consume-site verification pending. WO-ENGINE-LAY-ON-HANDS-001. |
 | Detect Evil (at will) | PHB p.44 | **NOT STARTED** | — | No alignment detection |
-| Aura of Courage (+4 morale vs fear) | PHB p.44 | **NOT STARTED** | — | No aura fear save bonus |
+| Aura of Courage (+4 morale vs fear) | PHB p.44 | **PARTIAL** | `aidm/core/save_resolver.py`, `aidm/chargen/builder.py`, `aidm/schemas/entity_fields.py` | EF.FEAR_IMMUNE=True (paladin L2+, sentinel=999); ally +4 morale Chebyshev≤2; morale non-stacking max(IC,AoC). CONSUME_DEFERRED: save_descriptor not passed through resolve_save() full path (SaveContext gap). FINDING-ENGINE-SAVE-DESCRIPTOR-PASS-001 OPEN. AOC-001–008. Batch AC. |
 | Divine Health (disease immunity) | PHB p.44 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py` | EF.IMMUNE_DISEASE set at paladin L3+ chargen. WO-ENGINE-DIVINE-HEALTH-001. |
 | Turn Undead (as cleric level -2) | PHB p.44 | **IMPLEMENTED** | `turn_undead_resolver.py` | Effective cleric level = paladin_level // 2; 1d20+CHA check; full turn resolution wired. |
 | Aura of Good | PHB p.44 | **NOT STARTED** | — | No alignment aura |
