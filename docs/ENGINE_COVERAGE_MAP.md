@@ -146,7 +146,7 @@
 | Entangled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack, -4 DEX; from web spell and similar |
 | Exhausted | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -6 STR/DEX (proxied as -3 attack/-3 damage/-6 DEX mod); half speed |
 | Fascinated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py`, `session_orchestrator.py` | FASCINATED condition; cannot attack or move; flat-footed AC; -4 skill penalty (PHB p.308). WO-ENGINE-MD-SAVE-RULES-001 (FSKL). |
-| Fatigued | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `schemas/entity_fields.py`, `play_loop.py` | -2 STR/DEX; FATIGUED bool field and condition; post-rage fatigue; blocks charge and run (PHB p.308). WO-ENGINE-FATIGUE-MOBILITY-001. |
+| Fatigued | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `schemas/entity_fields.py`, `play_loop.py`, `save_resolver.py` | -2 STR/DEX; FATIGUED bool field and condition; post-rage fatigue; blocks charge and run (PHB p.308). WO-ENGINE-FATIGUE-MOBILITY-001. WO-AE-WO2: EF.FATIGUED=True now wired to -2 Ref penalty in save_resolver.get_save_bonus(). |
 | Flat-footed | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | FLAT_FOOTED condition; loses DEX to AC |
 | Frightened | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack/saves; flees from source; FRIGHTENED condition |
 | Grappled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -4 DEX, no normal movement; GRAPPLED condition |
@@ -531,7 +531,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Rage HP transition (+2 HP/HD enter, -2 HP/HD exit) | PHB p.25 | **IMPLEMENTED** | `rage_resolver.py` | HP_MAX and HP_CURRENT adjust by 2×total_HD on enter/exit; unconscious event if HP≤0 after exit. WO-ENGINE-RAGE-HP-TRANSITION-001. |
 | Fast Movement (+10 speed) | PHB p.25 | **IMPLEMENTED** | `movement_resolver.py`, `chargen/builder.py` | EF.FAST_MOVEMENT_BONUS +10 at chargen; heavy armor or heavy load suppresses. Medium load OK (PHB p.25). WO-ENGINE-FAST-MOVEMENT-LOAD-FIX-001. |
 | Uncanny Dodge (Dex to AC when flat-footed) | PHB p.25 | **IMPLEMENTED** | `attack_resolver.py` | _UD_THRESHOLDS: barbarian L2, rogue L4. Ranger removed. WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001. |
-| Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.26 | **NOT STARTED** | — | No trap sense bonus |
+| Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.26 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py`, `core/save_resolver.py` | EF.TRAP_SENSE_BONUS = (barb_level // 3) + (rogue_level // 3). Chargen write; resolver consume on REF + 'trap' descriptor. TSB-AE-001–008. CONSUME_DEFERRED: AC vs traps (FINDING-ENGINE-TRAP-SENSE-AC-001). WO-AE-WO4. |
 | Damage Reduction (DR X/-) | PHB p.26 | **IMPLEMENTED** | `damage_reduction.py`, `chargen/builder.py` | EF.DAMAGE_REDUCTIONS list of dicts; barbarian DR/- set by level at chargen. DEBRIEF_WO-ENGINE-BARBARIAN-DR-001. |
 | Improved Uncanny Dodge (flank immunity) | PHB p.26 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanking rogue must be 4+ levels higher. gate(Q-WO2). |
 | Greater Rage (+6 STR/CON, +3 Will) | PHB p.26 | **IMPLEMENTED** | `rage_resolver.py` | L11+ barbarian gets +6/+6/+3/-2. WO-ENGINE-RAGE-PROGRESSION-001. Batch AA. |
@@ -543,7 +543,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 
 | Feature | Source | Status | Engine File(s) | Notes / Gap Description |
 |---------|--------|--------|----------------|--------------------------|
-| Inspire Courage (morale bonus to attack/damage/fear saves) | PHB p.29 | **IMPLEMENTED** | `bardic_music_resolver.py` | BardicMusicIntent; +1 to +4 by level; 8-round duration; WO-ENGINE-BARDIC-MUSIC-001 |
+| Inspire Courage (morale bonus to attack/damage/fear saves) | PHB p.29 | **IMPLEMENTED** | `bardic_music_resolver.py`, `save_resolver.py` | BardicMusicIntent; +1 to +4 by level; 8-round duration; WO-ENGINE-BARDIC-MUSIC-001. WO-AE-WO3: IC save bonus now scoped to fear/charm descriptors only in get_save_bonus() (PHB p.29 — was firing on ALL saves). BSS-AE-001–004. |
 | Inspire Courage — level scaling (+1/+2/+3/+4) | PHB p.29 | **IMPLEMENTED** | `bardic_music_resolver.py` | get_inspire_courage_bonus() at levels 1-7/8-13/14-19/20 |
 | Inspire Courage — ends on bard incapacitation | PHB p.29 | **IMPLEMENTED** | `bardic_music_resolver.py` | WO-ENGINE-BARDIC-DURATION-001; DEFEATED/DYING/DEAFENED ends effect |
 | Bardic Music uses per day (bard level) | PHB p.29 | **IMPLEMENTED** | `schemas/entity_fields.py` | BARDIC_MUSIC_USES_REMAINING field |
@@ -632,7 +632,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Divine Grace (CHA mod to all saves) | PHB p.44 | **IMPLEMENTED** | `save_resolver.py`, `schemas/entity_fields.py` | CHA mod added to all saves for paladin. WO-ENGINE-DIVINE-GRACE-001. |
 | Lay on Hands (CHA × level HP) | PHB p.44 | **PARTIAL** | `aidm/core/lay_on_hands_resolver.py` | Healing pool computed; lay_on_hands_resolver wired. Full consume-site verification pending. WO-ENGINE-LAY-ON-HANDS-001. |
 | Detect Evil (at will) | PHB p.44 | **NOT STARTED** | — | No alignment detection |
-| Aura of Courage (+4 morale vs fear) | PHB p.44 | **IMPLEMENTED** | `aidm/core/save_resolver.py`, `aidm/chargen/builder.py`, `aidm/schemas/entity_fields.py`, `aidm/schemas/saves.py` | EF.FEAR_IMMUNE=True (paladin L2+, sentinel=999); ally +4 morale Chebyshev≤2; morale non-stacking max(IC,AoC). WO1 (Batch AD) closed SaveContext gap: save_descriptor now threaded through resolve_save() → get_save_bonus() full path. FINDING-ENGINE-SAVE-DESCRIPTOR-PASS-001 CLOSED. AOC-001–008. SCS-001–008. |
+| Aura of Courage (+4 morale vs fear) | PHB p.44 | **IMPLEMENTED** | `aidm/core/save_resolver.py`, `aidm/chargen/builder.py`, `aidm/schemas/entity_fields.py`, `aidm/schemas/saves.py` | EF.FEAR_IMMUNE=True (paladin L3+, sentinel=999); ally +4 morale Chebyshev≤2; morale non-stacking max(IC,AoC). WO1 (Batch AD) closed SaveContext gap. WO-AE-WO3: threshold fixed L2→L3 (PHB p.49). ALT-AE-001–004. SCS-001–008. |
 | Divine Health (disease immunity) | PHB p.44 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py` | EF.IMMUNE_DISEASE set at paladin L3+ chargen. WO-ENGINE-DIVINE-HEALTH-001. |
 | Turn Undead (as cleric level -2) | PHB p.44 | **IMPLEMENTED** | `turn_undead_resolver.py` | Effective cleric level = paladin_level // 2; 1d20+CHA check; full turn resolution wired. |
 | Aura of Good | PHB p.44 | **NOT STARTED** | — | No alignment aura |
@@ -666,7 +666,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Sneak Attack — level scaling (1d6 per 2 levels) | PHB p.50 | **IMPLEMENTED** | `sneak_attack.py` | (level+1)//2 dice |
 | Trapfinding | PHB p.50 | **NOT STARTED** | — | No trap detection/disabling system |
 | Evasion | PHB p.50 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.HAS_EVASION; Ref success → 0 damage; armor guard. WO-ENGINE-EVASION-ARMOR-001. |
-| Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.51 | **NOT STARTED** | — | No trap sense |
+| Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.51 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py`, `core/save_resolver.py` | EF.TRAP_SENSE_BONUS = (barb_level // 3) + (rogue_level // 3). Multiclass sums contributions. Resolver consume on REF + 'trap' descriptor. TSB-AE-001–008. CONSUME_DEFERRED: AC vs traps (FINDING-ENGINE-TRAP-SENSE-AC-001). WO-AE-WO4. |
 | Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `attack_resolver.py` | Rogue L4 threshold (was L2). Ranger removed (PHB p.48). _UD_THRESHOLDS dict. WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001. |
 | Improved Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanker rogue must be 4+ levels higher. gate(Q-WO2). |
 | Rogue Special Abilities (each) | PHB p.51 | **NOT STARTED** | — | Crippling Strike, Defensive Roll, Feat, Improved Evasion, Opportunist, Skill Mastery, Slippery Mind — none implemented |
