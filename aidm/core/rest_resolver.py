@@ -144,6 +144,12 @@ def resolve_rest(
         if actor.get(EF.HAS_DEFENSIVE_ROLL, False):
             actor[EF.DEFENSIVE_ROLL_USED] = False
 
+    # ── Stunning Fist reset (WO-ENGINE-AG-WO1) ────────────────────────────────
+    # PHB p.101: Uses per day refresh on full rest.
+    if is_full_rest:
+        if actor.get(EF.HAS_STUNNING_FIST, False):
+            actor[EF.STUNNING_FIST_USED] = 0
+
     # ── Condition cleanup (overnight rest clears fatigue, exhaustion) ─────────
     # 3.5e: 8h rest removes fatigued; exhausted → fatigued after 1h rest (PHB p.300)
     conditions = actor.get(EF.CONDITIONS, [])

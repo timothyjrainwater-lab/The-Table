@@ -859,6 +859,36 @@ class BardicMusicIntent:
 
 
 @dataclass
+class FascinateIntent:
+    """Intent to use Bardic Music Fascinate ability (PHB p.29). WO-ENGINE-AG-WO4.
+
+    Bard uses a standard action to attempt to fascinate up to (bard_level // 3) creatures.
+    Requires: 3+ Perform ranks, bardic music uses remaining, targets not in active combat.
+    """
+
+    type: Literal["fascinate"] = "fascinate"
+    actor_id: str = ""
+    target_ids: List[str] = field(default_factory=list)
+    """IDs of potential targets within 90 ft who can see and hear the bard."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "actor_id": self.actor_id,
+            "target_ids": self.target_ids,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "FascinateIntent":
+        if data.get("type") != "fascinate":
+            raise IntentParseError(f"Expected type 'fascinate', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            target_ids=data.get("target_ids", []),
+        )
+
+
+@dataclass
 class WildShapeIntent:
     """Intent to Wild Shape into an animal form (PHB p.37). WO-ENGINE-WILD-SHAPE-001."""
 
@@ -1179,7 +1209,8 @@ Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | Rest
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
           TurnUndeadIntent | ReadyActionIntent | AidAnotherIntent | FightDefensivelyIntent |
           TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
-          RageIntent | SmiteEvilIntent | LayOnHandsIntent | RemoveDiseaseIntent | BardicMusicIntent | WildShapeIntent |
+          RageIntent | SmiteEvilIntent | LayOnHandsIntent | RemoveDiseaseIntent | BardicMusicIntent |
+          FascinateIntent | WildShapeIntent |
           RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
           DemoralizeIntent | CalledShotIntent | StandIntent |
           ImmediateActionIntent | RunIntent)
@@ -1246,6 +1277,8 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return RemoveDiseaseIntent.from_dict(data)
     elif intent_type == "bardic_music":
         return BardicMusicIntent.from_dict(data)
+    elif intent_type == "fascinate":
+        return FascinateIntent.from_dict(data)
     elif intent_type == "wild_shape":
         return WildShapeIntent.from_dict(data)
     elif intent_type == "revert_form":

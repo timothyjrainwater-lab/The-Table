@@ -472,7 +472,116 @@ def resolve_save(
         citations=[{"source_id": "681f92bc94ff", "page": 177}]  # PHB saving throw rules
     ))
 
+    # WO-ENGINE-AG-WO3: Slippery Mind (PHB p.51)
+    # If enchantment save failed and target has Slippery Mind and retry not already pending:
+    # queue a retry next round at same DC. Only one extra attempt.
+    if outcome == SaveOutcome.FAILURE and save_context.school == "enchantment":
+        target = world_state.entities.get(save_context.target_id, {})
+        if (target.get(EF.HAS_SLIPPERY_MIND, False)
+                and not target.get(EF.SLIPPERY_MIND_RETRY_PENDING, False)):
+            current_event_id += 1
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="slippery_mind_retry_queued",
+                timestamp=current_timestamp + 0.01,
+                payload={
+                    "target_id": save_context.target_id,
+                    "save_type": save_context.save_type.value,
+                    "dc": save_context.dc,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 51}],
+            ))
+
     return (outcome, events)
+
+
+def resolve_slippery_mind_retry(
+    world_state: WorldState,
+    target_id: str,
+    save_type: SaveType,
+    dc: int,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> Tuple[SaveOutcome, List[Event]]:
+    """Resolve Slippery Mind retry save (PHB p.51).
+
+    Called the round AFTER slippery_mind_retry_queued was emitted.
+    Rolls a second save at the same DC. Clears retry state via events.
+    One extra attempt only — SM-004: further failures do not re-queue.
+
+    WO-ENGINE-AG-WO3
+    # PHB p.51
+    """
+    events: List[Event] = []
+    current_event_id = next_event_id
+
+    target = world_state.entities.get(target_id, {})
+    save_bonus = get_save_bonus(world_state, target_id, save_type)
+    saves_rng = rng.stream("saves")
+    d20_result = saves_rng.randint(1, 20)
+    total = d20_result + save_bonus
+
+    is_natural_20 = (d20_result == 20)
+    is_natural_1 = (d20_result == 1)
+    if is_natural_20:
+        success = True
+    elif is_natural_1:
+        success = False
+    else:
+        success = (total >= dc)
+
+    outcome = SaveOutcome.SUCCESS if success else SaveOutcome.FAILURE
+    event_type = "slippery_mind_success" if success else "slippery_mind_failed"
+
+    events.append(Event(
+        event_id=current_event_id,
+        event_type=event_type,
+        timestamp=timestamp,
+        payload={
+            "target_id": target_id,
+            "save_type": save_type.value,
+            "d20_result": d20_result,
+            "save_bonus": save_bonus,
+            "total": total,
+            "dc": dc,
+            "outcome": outcome.value,
+        },
+        citations=[{"source_id": "681f92bc94ff", "page": 51}],
+    ))
+    current_event_id += 1
+
+    return (outcome, events)
+
+
+def apply_save_events(world_state: WorldState, events: List[Event]) -> WorldState:
+    """Apply Slippery Mind state events to world state.
+
+    Handles:
+    - slippery_mind_retry_queued: sets EF.SLIPPERY_MIND_RETRY_PENDING = True
+    - slippery_mind_success / slippery_mind_failed: clears EF.SLIPPERY_MIND_RETRY_PENDING
+
+    WO-ENGINE-AG-WO3
+    """
+    from copy import deepcopy
+    entities = deepcopy(world_state.entities)
+
+    for event in events:
+        if event.event_type == "slippery_mind_retry_queued":
+            entity_id = event.payload["target_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.SLIPPERY_MIND_RETRY_PENDING] = True
+
+        elif event.event_type in ("slippery_mind_success", "slippery_mind_failed"):
+            entity_id = event.payload["target_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.SLIPPERY_MIND_RETRY_PENDING] = False
+
+    return WorldState(
+        ruleset_version=world_state.ruleset_version,
+        entities=entities,
+        active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None,
+    )
 
 
 def apply_save_effects(

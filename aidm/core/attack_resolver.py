@@ -599,6 +599,30 @@ def resolve_attack(
         if _blind_miss:
             return events
 
+    # WO-ENGINE-AG-WO1: Stunning Fist early validation (PHB p.101)
+    # Must declare before attack roll. Invalid/exhausted → return early (no attack made).
+    if getattr(intent, 'stunning_fist', False):
+        if not attacker.get(EF.HAS_STUNNING_FIST, False):
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="stunning_fist_invalid",
+                timestamp=timestamp,
+                payload={"actor_id": intent.attacker_id, "reason": "no_feat"},
+                citations=[{"source_id": "681f92bc94ff", "page": 101}],
+            ))
+            return events
+        _sf_uses_max = attacker.get(EF.STUNNING_FIST_USES, 0)
+        _sf_uses_used = attacker.get(EF.STUNNING_FIST_USED, 0)
+        if _sf_uses_used >= _sf_uses_max:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="stunning_fist_exhausted",
+                timestamp=timestamp,
+                payload={"actor_id": intent.attacker_id, "uses_max": _sf_uses_max},
+                citations=[{"source_id": "681f92bc94ff", "page": 101}],
+            ))
+            return events
+
     # Step 1: Roll attack (d20 + bonus + condition modifiers + mounted bonus + terrain higher ground + feat modifier + flanking)
     combat_rng = rng.stream("combat")
     d20_result = combat_rng.randint(1, 20)
@@ -834,6 +858,21 @@ def resolve_attack(
                     ))
                     current_event_id += 1
 
+    # WO-ENGINE-AG-WO1: Stunning Fist — consume use (declared before roll; forfeited on hit or miss, PHB p.101)
+    if getattr(intent, 'stunning_fist', False) and attacker.get(EF.HAS_STUNNING_FIST, False):
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="stunning_fist_used",
+            timestamp=timestamp + 0.06,
+            payload={
+                "actor_id": intent.attacker_id,
+                "target_id": intent.target_id,
+                "hit": hit,
+            },
+            citations=[{"source_id": "681f92bc94ff", "page": 101}],
+        ))
+        current_event_id += 1
+
     # WO-ENGINE-FEINT-001: emit feint_bonus_consumed when feint marker was active
     if _feint_active and hit:
         events.append(Event(
@@ -933,6 +972,22 @@ def resolve_attack(
         if sa_eligible:
             damage_total += sa_damage
 
+        # WO-ENGINE-AG-WO2: Crippling Strike (PHB p.51)
+        # After confirmed sneak attack: target takes 1 STR ability damage. No save. No daily limit.
+        if sa_eligible and attacker.get(EF.HAS_CRIPPLING_STRIKE, False):
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="crippling_strike",
+                timestamp=timestamp + 0.065,
+                payload={
+                    "attacker_id": intent.attacker_id,
+                    "target_id": intent.target_id,
+                    "str_damage": 1,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 51}],
+            ))
+            current_event_id += 1
+
         # WO-048: Apply Damage Reduction (PHB p.291)
         # WO-ENGINE-DR-001: Extract weapon bypass flags for accurate DR calculation
         from aidm.core.damage_reduction import (
@@ -1000,6 +1055,59 @@ def resolve_attack(
             citations=[{"source_id": "681f92bc94ff", "page": 140}]  # PHB critical/damage rules
         ))
         current_event_id += 1
+
+        # WO-ENGINE-AG-WO1: Stunning Fist — Fort save on hit (PHB p.101)
+        # DC = 10 + (char_level // 2) + WIS_mod. STUNNED 1 round on failure.
+        # Fort save goes through canonical resolve_save() — not inline.
+        if getattr(intent, 'stunning_fist', False) and attacker.get(EF.HAS_STUNNING_FIST, False):
+            from aidm.core.save_resolver import resolve_save as _sf_resolve_save
+            from aidm.schemas.saves import SaveContext as _SFSaveContext, SaveType as _SFSaveType, SaveOutcome as _SFSaveOutcome
+            _sf_char_level = attacker.get(EF.LEVEL, 1)
+            _sf_wis_mod = attacker.get(EF.WIS_MOD, 0)
+            _sf_dc = 10 + (_sf_char_level // 2) + _sf_wis_mod
+            _sf_ctx = _SFSaveContext(
+                save_type=_SFSaveType.FORT,
+                dc=_sf_dc,
+                source_id=intent.attacker_id,
+                target_id=intent.target_id,
+            )
+            _sf_outcome, _sf_save_events = _sf_resolve_save(
+                _sf_ctx, world_state, rng, current_event_id, timestamp + 0.11
+            )
+            events.extend(_sf_save_events)
+            current_event_id += len(_sf_save_events)
+            if _sf_outcome == _SFSaveOutcome.FAILURE:
+                # Target STUNNED 1 round — can't act, loses DEX to AC, attackers +2 (PHB p.101)
+                from aidm.schemas.conditions import create_stunned_condition as _sf_mkstun
+                _sf_cond = _sf_mkstun(source="stunning_fist", applied_at_event_id=current_event_id)
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="condition_applied",
+                    timestamp=timestamp + 0.12,
+                    payload={
+                        "entity_id": intent.target_id,
+                        "condition": _sf_cond.condition_type,
+                        "source": "stunning_fist",
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 101}],
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="stunning_fist_hit",
+                    timestamp=timestamp + 0.125,
+                    payload={"actor_id": intent.attacker_id, "target_id": intent.target_id, "dc": _sf_dc},
+                    citations=[{"source_id": "681f92bc94ff", "page": 101}],
+                ))
+            else:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="stunning_fist_saved",
+                    timestamp=timestamp + 0.12,
+                    payload={"actor_id": intent.attacker_id, "target_id": intent.target_id, "dc": _sf_dc},
+                    citations=[{"source_id": "681f92bc94ff", "page": 101}],
+                ))
+            current_event_id += 1
 
         # WO-ENGINE-DR-001: Only emit hp_changed if damage penetrated DR
         hp_before = target.get(EF.HP_CURRENT, 0)
@@ -1529,6 +1637,26 @@ def apply_attack_events(world_state: WorldState, events: List[Event]) -> WorldSt
             entity_id = event.payload["target_id"]
             if entity_id in entities:
                 entities[entity_id][EF.DEFENSIVE_ROLL_USED] = True
+
+        elif event.event_type == "stunning_fist_used":
+            # WO-ENGINE-AG-WO1: Increment uses consumed today (PHB p.101)
+            entity_id = event.payload["actor_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.STUNNING_FIST_USED] = (
+                    entities[entity_id].get(EF.STUNNING_FIST_USED, 0) + 1
+                )
+
+        elif event.event_type == "crippling_strike":
+            # WO-ENGINE-AG-WO2: Apply 1 STR ability damage to target (PHB p.51)
+            entity_id = event.payload["target_id"]
+            if entity_id in entities:
+                _old_str_dmg = entities[entity_id].get(EF.STR_DAMAGE, 0)
+                _new_str_dmg = _old_str_dmg + event.payload["str_damage"]
+                entities[entity_id][EF.STR_DAMAGE] = _new_str_dmg
+                # Recompute EF.STR_MOD: effective STR = base STR - STR_DAMAGE (CS-005)
+                _base_str = entities[entity_id].get(EF.BASE_STATS, {}).get("strength", 10)
+                _eff_str = max(0, _base_str - _new_str_dmg)
+                entities[entity_id][EF.STR_MOD] = (_eff_str - 10) // 2
 
     # Return new WorldState
     return WorldState(

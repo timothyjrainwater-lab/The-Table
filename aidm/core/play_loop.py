@@ -75,7 +75,7 @@ from aidm.schemas.intents import (
     ChargeIntent, TurnUndeadIntent, ReadyActionIntent, AidAnotherIntent,
     FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
-    RageIntent, SmiteEvilIntent, LayOnHandsIntent, RemoveDiseaseIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
+    RageIntent, SmiteEvilIntent, LayOnHandsIntent, RemoveDiseaseIntent, BardicMusicIntent, FascinateIntent, WildShapeIntent, RevertFormIntent,
     NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent, StandIntent,
     ImmediateActionIntent, RunIntent,
 )
@@ -2090,7 +2090,7 @@ def execute_turn(
         elif isinstance(combat_intent, (ReadyActionIntent, AidAnotherIntent,
                                         FightDefensivelyIntent, TotalDefenseIntent,
                                         FeintIntent, RageIntent, SmiteEvilIntent, LayOnHandsIntent,
-                                        BardicMusicIntent, WildShapeIntent, RevertFormIntent,
+                                        BardicMusicIntent, FascinateIntent, WildShapeIntent, RevertFormIntent,
                                         AbilityDamageIntent, WithdrawIntent, DelayIntent,
                                         StabilizeIntent, CalledShotIntent, DemoralizeIntent,
                                         StandIntent, ImmediateActionIntent, RunIntent,
@@ -3026,6 +3026,21 @@ def execute_turn(
             events.extend(_bardic_events)
             current_event_id += len(_bardic_events)
             narration = "bardic_music_resolved"
+
+        # WO-ENGINE-AG-WO4: Bard Fascinate
+        elif isinstance(combat_intent, FascinateIntent):
+            from aidm.core.fascinate_resolver import resolve_fascinate, apply_fascinate_events
+            _fas_events = resolve_fascinate(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            world_state = apply_fascinate_events(world_state, _fas_events)
+            events.extend(_fas_events)
+            current_event_id += len(_fas_events)
+            narration = "fascinate_resolved"
 
         # WO-ENGINE-PLAY-LOOP-ROUTING-001: Druid Wild Shape
         elif isinstance(combat_intent, WildShapeIntent):

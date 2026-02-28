@@ -402,6 +402,31 @@ class _EntityFields:
     DEFENSIVE_ROLL_USED = "defensive_roll_used"
     # bool: True if Defensive Roll was used today. Resets on full rest.
 
+    # --- Stunning Fist (WO-ENGINE-AG-WO1) ---
+    HAS_STUNNING_FIST = "has_stunning_fist"
+    # bool: True if entity has Stunning Fist feat/ability (PHB p.101).
+    # Monks receive it as class feature (L1+). Others via feat (char_level // 4 uses/day).
+    STUNNING_FIST_USES = "stunning_fist_uses"
+    # int: max Stunning Fist attempts per day. Monk: monk_level. Non-monk: char_level // 4.
+    STUNNING_FIST_USED = "stunning_fist_used"
+    # int: attempts consumed today. Resets on full rest.
+
+    # --- Rogue Crippling Strike (WO-ENGINE-AG-WO2) ---
+    HAS_CRIPPLING_STRIKE = "has_crippling_strike"
+    # bool: True if entity has Crippling Strike rogue special ability (PHB p.51).
+    # On sneak attack: target takes 1 STR ability damage. No save. No daily limit.
+
+    # --- Rogue Slippery Mind (WO-ENGINE-AG-WO3) ---
+    HAS_SLIPPERY_MIND = "has_slippery_mind"
+    # bool: True if entity has Slippery Mind rogue special ability (PHB p.51).
+    # On failed enchantment save: get one retry the next round at same DC.
+    SLIPPERY_MIND_RETRY_PENDING = "slippery_mind_retry_pending"
+    # bool: True when retry is queued. Cleared on resolution (success or fail).
+
+    # --- Bard Fascinate (WO-ENGINE-AG-WO4) ---
+    PERFORM_RANKS = "perform_ranks"
+    # int: ranks in Perform skill. Fascinate requires >= 3 (PHB p.29).
+
     # --- Paladin Aura of Courage (WO-ENGINE-AURA-OF-COURAGE-001) ---
     FEAR_IMMUNE = "fear_immune"
     # bool: True if entity is immune to fear effects (magical or otherwise).

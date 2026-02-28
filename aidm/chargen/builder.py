@@ -1072,6 +1072,34 @@ def build_character(
         entity[EF.WHOLENESS_OF_BODY_POOL] = _monk_level * 2
         entity[EF.WHOLENESS_OF_BODY_USED] = 0
 
+    # WO-ENGINE-AG-WO1: Stunning Fist (PHB p.101)
+    # Monk L1+: class feature, uses = monk_level. Non-monk with feat: uses = char_level // 4.
+    _sf_monk_level = level if class_name == "monk" else 0
+    _sf_has_feat = "stunning_fist" in entity.get(EF.FEATS, [])
+    if _sf_monk_level >= 1 or _sf_has_feat:
+        entity[EF.HAS_STUNNING_FIST] = True
+        if _sf_monk_level >= 1:
+            entity[EF.STUNNING_FIST_USES] = _sf_monk_level
+        else:
+            entity[EF.STUNNING_FIST_USES] = entity.get(EF.LEVEL, level) // 4
+        entity[EF.STUNNING_FIST_USED] = 0
+
+    # WO-ENGINE-AG-WO2: Rogue Crippling Strike (PHB p.51)
+    # Rogue special ability — set by feat key "crippling_strike" in feats list.
+    if "crippling_strike" in entity.get(EF.FEATS, []):
+        entity[EF.HAS_CRIPPLING_STRIKE] = True
+
+    # WO-ENGINE-AG-WO3: Rogue Slippery Mind (PHB p.51)
+    # Rogue special ability — set by feat key "slippery_mind" in feats list.
+    if "slippery_mind" in entity.get(EF.FEATS, []):
+        entity[EF.HAS_SLIPPERY_MIND] = True
+        entity[EF.SLIPPERY_MIND_RETRY_PENDING] = False
+
+    # WO-ENGINE-AG-WO4: Bard Perform ranks for Fascinate (PHB p.29)
+    # Bards maximize Perform as class skill; default = bard_level ranks.
+    if _bard_level >= 1:
+        entity[EF.PERFORM_RANKS] = _bard_level
+
     # WO-ENGINE-AURA-OF-COURAGE-001: Paladin fear immunity (PHB p.49, L3+)
     # WO-AE-WO3: Fixed off-by-one — AoC granted at 3rd level, not 2nd.
     if _paladin_level >= 3:

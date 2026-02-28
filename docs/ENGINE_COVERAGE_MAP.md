@@ -353,7 +353,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Simple/Martial Weapon Proficiency | PHB p.100 | **NOT STARTED** | No proficiency enforcement |
 | Multiattack | MM feat | **IMPLEMENTED** | `feat_resolver.py`, `natural_attack_resolver.py` | Secondary natural attacks at -2 instead of -5. DEBRIEF_WO-ENGINE-MULTIATTACK-001. |
 | Secondary natural attack ½ STR | PHB p.314 | **IMPLEMENTED** | `natural_attack_resolver.py`, `attack_resolver.py` | Secondary natural attacks use grip="off-hand" → `int(str_mod * 0.5)`. WO-ENGINE-ATTACK-MODIFIER-FIDELITY-001. |
-| Stunning Fist | PHB p.101 | **NOT STARTED** | Monk feat; no Stunning Fist resolver |
+| Stunning Fist | PHB p.101 | **IMPLEMENTED** | `attack_resolver.py`, `chargen/builder.py`, `rest_resolver.py`, `schemas/entity_fields.py` | EF.HAS_STUNNING_FIST, STUNNING_FIST_USES, STUNNING_FIST_USED. Must declare before roll; use consumed on miss. Fort DC = 10 + (level//2) + WIS_mod. STUNNED 1 round on failure. Monk gets monk_level uses; non-monk with feat gets char_level//4. Resets on overnight rest. 8 gate tests SF-001–008. WO-ENGINE-AG-WO1. |
 | Improved Unarmed Strike | PHB p.96 | **NOT STARTED** | No unarmed strike system beyond natural attacks |
 
 ---
@@ -549,7 +549,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Bardic Music uses per day (bard level) | PHB p.29 | **IMPLEMENTED** | `schemas/entity_fields.py` | BARDIC_MUSIC_USES_REMAINING field |
 | Bardic Knowledge | PHB p.29 | **NOT STARTED** | — | No Knowledge check with Bardic Knowledge bonus |
 | Countersong | PHB p.29 | **NOT STARTED** | — | No Perform check vs sonic/language effects |
-| Fascinate | PHB p.29 | **NOT STARTED** | — | No Fascinate bardic performance |
+| Fascinate | PHB p.29 | **IMPLEMENTED** | `fascinate_resolver.py`, `play_loop.py`, `schemas/intents.py`, `schemas/entity_fields.py` | FascinateIntent; up to bard_level//3 targets; Will DC = 10 + (bard_level//2) + CHA_mod; FASCINATED condition on failure; requires PERFORM_RANKS ≥ 3; blocked if target has in_combat condition; uses BARDIC_MUSIC_USES_REMAINING resource. 8 gate tests FA-001–008. WO-ENGINE-AG-WO4. |
 | Inspire Competence | PHB p.30 | **NOT STARTED** | — | +2 competence to skill not implemented |
 | Suggestion (bardic) | PHB p.30 | **NOT STARTED** | — | No Suggestion bardic performance |
 | Inspire Greatness | PHB p.30 | **IMPLEMENTED** | `bardic_music_resolver.py`, `attack_resolver.py`, `save_resolver.py` | resolve_inspire_greatness(): bard L9+, 12+ Perform; 2d10+(2×Con) temp HP; inspire_greatness_bab=2 competence (TEMPORARY_MODIFIERS, non-stacking max); inspire_greatness_fort=1 Fort competence. tick_inspire_greatness() clears on expiry. attack_resolver reads bab bonus. save_resolver reads Fort bonus. Batch AD. IG-001–008. |
@@ -669,7 +669,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.51 | **IMPLEMENTED** | `schemas/entity_fields.py`, `chargen/builder.py`, `core/save_resolver.py` | EF.TRAP_SENSE_BONUS = (barb_level // 3) + (rogue_level // 3). Multiclass sums contributions. Resolver consume on REF + 'trap' descriptor. TSB-AE-001–008. CONSUME_DEFERRED: AC vs traps (FINDING-ENGINE-TRAP-SENSE-AC-001). WO-AE-WO4. |
 | Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `attack_resolver.py` | Rogue L4 threshold (was L2). Ranger removed (PHB p.48). _UD_THRESHOLDS dict. WO-ENGINE-UNCANNY-DODGE-CLASS-FIX-001. |
 | Improved Uncanny Dodge | PHB p.51 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanker rogue must be 4+ levels higher. gate(Q-WO2). |
-| Rogue Special Abilities (each) | PHB p.51 | **PARTIAL** | `aidm/core/attack_resolver.py`, `chargen/builder.py`, `core/rest_resolver.py`, `schemas/entity_fields.py` | **Defensive Roll IMPLEMENTED** (WO4 Batch AF): triggers in attack_resolver.py on physical blow that would reduce HP ≤ 0; Reflex save DC = damage dealt; success = half damage; 1/day; blocked when flat-footed or DEFENSIVE_ROLL_USED=True; resets on rest; NOT triggered by spell_resolver.py (RAW: "not a spell"). 8 gate tests DR-001–008. Remaining NOT STARTED: Crippling Strike, Feat, Improved Evasion, Opportunist, Skill Mastery, Slippery Mind. |
+| Rogue Special Abilities (each) | PHB p.51 | **PARTIAL** | `aidm/core/attack_resolver.py`, `core/save_resolver.py`, `chargen/builder.py`, `core/rest_resolver.py`, `schemas/entity_fields.py` | **Defensive Roll IMPLEMENTED** (WO4 Batch AF): triggers in attack_resolver.py on physical blow that would reduce HP ≤ 0; Reflex save DC = damage dealt; success = half damage; 1/day; blocked when flat-footed or DEFENSIVE_ROLL_USED=True; resets on rest. **Crippling Strike IMPLEMENTED** (WO-ENGINE-AG-WO2): sneak attack → target takes 1 STR ability damage; STR_DAMAGE accumulates; heals 1/overnight rest; EF.STR_MOD recalculated. 8 gate tests CS-001–008. **Slippery Mind IMPLEMENTED** (WO-ENGINE-AG-WO3): failed enchantment Will save → SLIPPERY_MIND_RETRY_PENDING queued; one retry at same DC; resolve_slippery_mind_retry(); SaveContext.school="enchantment" trigger. 8 gate tests SM-001–008. Remaining NOT STARTED: Feat, Improved Evasion, Opportunist, Skill Mastery. |
 
 ### 10j. Sorcerer
 

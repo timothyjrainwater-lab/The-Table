@@ -143,6 +143,11 @@ class AttackIntent:
     """WO-ENGINE-COMBAT-EXPERTISE-001: Combat Expertise trade-off penalty (PHB p.92).
     0 = not using Combat Expertise. Max = 5. Reduces attack roll; grants dodge AC bonus."""
 
+    stunning_fist: bool = False
+    """WO-ENGINE-AG-WO1: Stunning Fist declared for this attack (PHB p.101).
+    Must be declared before attack roll. Use consumed on hit OR miss. Fort save on hit;
+    STUNNED condition applied on failure. Blocked if HAS_STUNNING_FIST=False or uses exhausted."""
+
     def __post_init__(self):
         """Validate attack intent."""
         if not self.attacker_id:
