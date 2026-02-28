@@ -84,7 +84,7 @@
 | Charge — lance/mounted charge (×2 damage) | PHB p.154 | **PARTIAL** | `mounted_combat.py` | Mounted combat resolver exists; lance ×2 damage not auto-applied |
 | Cleave — free attack after dropping foe | PHB p.154 | **IMPLEMENTED** | `attack_resolver.py` | _find_cleave_target(); free attack on adjacent enemy when foe drops |
 | Great Cleave — unlimited cleaves per round | PHB p.155 | **IMPLEMENTED** | `attack_resolver.py` | Great Cleave feat check; no limit on cleaves per round |
-| Coup de Grace — helpless target, instant kill | PHB p.155 | **IMPLEMENTED** | `play_loop.py`, `schemas/entity_fields.py` | CoupDeGraceIntent; auto-crit; Fort DC (10 + damage dealt) or die; CRIT_IMMUNE flag |
+| Coup de Grace — helpless target, instant kill | PHB p.153 | **IMPLEMENTED** | `attack_resolver.py`, `save_resolver.py` | CoupDeGraceIntent; auto-crit; Fort DC (10 + damage) via get_save_bonus(); nat1/nat20; feats/Divine Grace/racial bonuses apply. WO-ENGINE-CDG-SAVE-PATH-001. |
 | Disarm — opposed attack rolls | PHB p.155 | **IMPLEMENTED** | `maneuver_resolver.py` | DisarmIntent; attacker vs defender opposed attack rolls; DISARMED field |
 | Disarm — counter-disarm | PHB p.155 | **IMPLEMENTED** | `maneuver_resolver.py` | Any attacker failure allows counter-disarm (PHB p.155). Improved Disarm suppresses counter. Size modifier verified (+4 per category). WO-ENGINE-DISARM-FIDELITY-001. |
 | Disarm — two-handed weapon advantage | PHB p.155 | **NOT STARTED** | — | +4 if using two-handed weapon for disarm not implemented |
@@ -829,7 +829,7 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 |----------|--------|--------|----------------|--------------------------|
 | XP total tracking | PHB p.22 | **IMPLEMENTED** | `schemas/entity_fields.py`, `experience_resolver.py` | EF.XP field; award_xp() function; WO-ENGINE-LEVELUP-WIRE |
 | Level threshold checks (when to level up) | PHB p.22 | **IMPLEMENTED** | `experience_resolver.py` | LEVEL_THRESHOLDS schema; check_level_up() |
-| Level-up procedure (HP, saves, BAB, feats) | PHB p.22 | **IMPLEMENTED** | `experience_resolver.py` | apply_level_up(); HP rolled + CON; BAB/save progressions; feat slot granted |
+| Level-up procedure (HP, saves, BAB, feats) | PHB p.22 | **IMPLEMENTED** | `builder.py`, `experience_resolver.py` | apply_level_up(); HP rolled + CON; multiclass saves/BAB use sum() across classes (PHB p.22). WO-ENGINE-MULTICLASS-FORMULA-FIX-001. |
 | Multiclass XP penalty (-20% per favored class violation) | PHB p.60 | **NOT STARTED** | — | No multiclass XP penalty applied; DEFERRED |
 | Ability score increase (every 4 levels) | PHB p.8 | **PARTIAL** | `experience_resolver.py` | Feat slot granted at odd levels; ability score increase at 4/8/12/16/20 not auto-applied |
 | Feat slots (every odd level: 1, 3, 5...) | PHB p.8 | **IMPLEMENTED** | `experience_resolver.py` | FEAT_SLOTS granted at levels 1, 3, 5, 7, 9... |
