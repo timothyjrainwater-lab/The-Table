@@ -99,7 +99,7 @@
 | Grapple — tie up/bound | PHB p.157 | **NOT STARTED** | — | No rope-binding mechanic; tied condition not implemented |
 | Grapple — multiple combatants | PHB p.158 | **NOT STARTED** | — | Multi-person grapples not modeled |
 | Overrun — provokes AoO | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | AoO on entry |
-| Overrun — opposed checks / avoid | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | OverrunIntent; defender may avoid or oppose; STR/size checks |
+| Overrun — opposed checks / avoid | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | OverrunIntent; defender may avoid or oppose; STR/size checks. Prone sub-check uses max(STR,DEX) for defender per PHB p.157. WO-ENGINE-MANEUVER-FIDELITY-002. Batch AA. |
 | Sunder — attack weapon/shield | PHB p.158 | **PARTIAL** | `maneuver_resolver.py` | SunderIntent wired; AoO triggered; attack roll resolved; WEAPON_HP/WEAPON_BROKEN fields tracked (WO-ENGINE-SUNDER-DISARM-FULL-001) |
 | Sunder — object hardness | PHB p.158 | **PARTIAL** | `damage_reduction.py` | Hardness as DR; WEAPON_HP/WEAPON_HP_MAX/WEAPON_DESTROYED fields present; full item destruction flow partial |
 | Trip — provokes AoO from target | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | TripIntent; AoO from target |
@@ -183,7 +183,7 @@
 | Negative level penalty to saves | PHB p.215 | **IMPLEMENTED** | `energy_drain_resolver.py`, `save_resolver.py` | NEGATIVE_LEVELS × -1 applied to saves |
 | Natural 1 on save (auto-fail) | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | d20 = 1 → automatic failure |
 | Natural 20 on save (auto-succeed) | PHB p.174 | **IMPLEMENTED** | `save_resolver.py` | d20 = 20 → automatic success |
-| Spell Resistance check (d20 + caster level vs SR) | PHB p.177 | **IMPLEMENTED** | `save_resolver.py`, `spell_resolver.py` | SR function in save_resolver; now wired into spell resolution per-target loop (PHB p.177 order: SR before save). Spell Penetration bonus flows through. WO-ENGINE-SR-SPELL-PATH-001. |
+| Spell Resistance check (d20 + caster level vs SR) | PHB p.177 | **IMPLEMENTED** | `save_resolver.py`, `spell_resolver.py` | SR function in save_resolver; now wired into spell resolution per-target loop (PHB p.177 order: SR before save). Spell Penetration bonus flows through. WO-ENGINE-SR-SPELL-PATH-001. Conjuration (creation) spells (web, grease, stinking_cloud, fog_cloud) set spell_resistance=False. WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001. Batch AA. |
 | Energy resistance (absorb first N damage) | PHB p.291 | **IMPLEMENTED** | `energy_resistance_resolver.py`, `schemas/entity_fields.py` | EF.ENERGY_RESISTANCES dict; absorbs first N damage per energy type. WO-ENGINE-ENERGY-RESISTANCE-001. |
 | Evasion (no damage on successful Reflex save) | PHB p.50 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.HAS_EVASION; Ref save success → 0 damage. Armor guard: none/light only. WO-ENGINE-EVASION-ARMOR-001. |
 | Improved Evasion (half damage on failed Reflex) | PHB p.51 | **IMPLEMENTED** | `spell_resolver.py`, `schemas/entity_fields.py` | EF.IMPROVED_EVASION; failed Ref save → half damage. Monk class feature. WO-ENGINE-EVASION-ARMOR-001. |
@@ -399,10 +399,10 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Metamagic — Extend | PHB p.94 | **IMPLEMENTED** | `metamagic_resolver.py` | +1 slot; duration ×2 |
 | Metamagic — Heighten | PHB p.95 | **IMPLEMENTED** | `metamagic_resolver.py` | Variable slot; raises save DC |
 | Metamagic — Quicken | PHB p.98 | **IMPLEMENTED** | `metamagic_resolver.py` | +4 slot; swift action; no AoO |
-| Metamagic — Enlarge | PHB p.93 | **PARTIAL** | `metamagic_resolver.py` | Slot cost defined; range doubling not applied to spell |
+| Metamagic — Enlarge | PHB p.93 | **IMPLEMENTED** | `metamagic_resolver.py` | +1 slot; registered in METAMAGIC_SLOT_COST + _FEAT_NAMES. Range doubling effect deferred (registration-only). WO-ENGINE-METAMAGIC-COMPLETION-001. Batch AA. |
 | Metamagic — Silent | PHB p.100 | **IMPLEMENTED** | `metamagic_resolver.py`, `play_loop.py` | `has_verbal` flag; verbal-free cast. WO-ENGINE-SILENT-SPELL-001. |
 | Metamagic — Still | PHB p.100 | **IMPLEMENTED** | `metamagic_resolver.py`, `play_loop.py` | `is_still` guard; ASF bypass. WO-ENGINE-STILL-SPELL-001. |
-| Metamagic — Widen | PHB p.102 | **NOT STARTED** | — | Not in metamagic_resolver |
+| Metamagic — Widen | PHB p.102 | **IMPLEMENTED** | `metamagic_resolver.py` | +3 slot; registered in METAMAGIC_SLOT_COST + _FEAT_NAMES. AoE doubling effect deferred (registration-only). WO-ENGINE-METAMAGIC-COMPLETION-001. Batch AA. Completes 9/9 PHB metamagic feats. |
 | Spontaneous casting (cleric cure/inflict) | PHB p.32 | **IMPLEMENTED** | `play_loop.py` | Cleric cure redirect before V/S/ASF guards; SpellDefinition rewritten; declared slot consumed. DEBRIEF_WO-ENGINE-CLERIC-SPONTANEOUS-001. FINDING-ENGINE-SPONTANEOUS-ALIGNMENT-001 (LOW, no alignment check). |
 
 ---
@@ -534,10 +534,10 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45
 | Trap Sense (+1 Ref vs traps per 3 levels) | PHB p.26 | **NOT STARTED** | — | No trap sense bonus |
 | Damage Reduction (DR X/-) | PHB p.26 | **IMPLEMENTED** | `damage_reduction.py`, `chargen/builder.py` | EF.DAMAGE_REDUCTIONS list of dicts; barbarian DR/- set by level at chargen. DEBRIEF_WO-ENGINE-BARBARIAN-DR-001. |
 | Improved Uncanny Dodge (flank immunity) | PHB p.26 | **IMPLEMENTED** | `schemas/entity_fields.py`, `sneak_attack.py` | EF.HAS_IMPROVED_UNCANNY_DODGE; flanking rogue must be 4+ levels higher. gate(Q-WO2). |
-| Greater Rage (+6 STR/CON, +3 Will) | PHB p.26 | **NOT STARTED** | — | Only +4/+4/+2 implemented; no level-scaling to Greater/Mighty |
+| Greater Rage (+6 STR/CON, +3 Will) | PHB p.26 | **IMPLEMENTED** | `rage_resolver.py` | L11+ barbarian gets +6/+6/+3/-2. WO-ENGINE-RAGE-PROGRESSION-001. Batch AA. |
 | Indomitable Will (extra Will in rage) | PHB p.26 | **NOT STARTED** | — | Not separated from base rage bonus |
-| Tireless Rage (no post-rage fatigue) | PHB p.27 | **NOT STARTED** | — | No level-gated fatigue exemption |
-| Mighty Rage (+8 STR/CON, +4 Will) | PHB p.27 | **NOT STARTED** | — | Rage does not scale beyond +4/+4/+2 |
+| Tireless Rage (no post-rage fatigue) | PHB p.27 | **IMPLEMENTED** | `rage_resolver.py` | L17+ barbarian skips FATIGUED + fatigue penalties on rage end. HP loss still fires. WO-ENGINE-RAGE-PROGRESSION-001. Batch AA. |
+| Mighty Rage (+8 STR/CON, +4 Will) | PHB p.27 | **IMPLEMENTED** | `rage_resolver.py` | L20+ barbarian gets +8/+8/+4/-2. HP gain/loss scales with tier. WO-ENGINE-RAGE-PROGRESSION-001. Batch AA. |
 
 ### 10b. Bard
 
