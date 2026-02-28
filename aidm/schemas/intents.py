@@ -802,6 +802,34 @@ class LayOnHandsIntent:
 
 
 @dataclass
+class RemoveDiseaseIntent:
+    """Intent to use Paladin Remove Disease (PHB p.44). WO-ENGINE-AF-WO3.
+
+    HOUSE_POLICY: 'per week' modeled as 'per full rest'.
+    """
+
+    type: Literal["remove_disease"] = "remove_disease"
+    actor_id: str = ""
+    target_id: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "actor_id": self.actor_id,
+            "target_id": self.target_id,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "RemoveDiseaseIntent":
+        if data.get("type") != "remove_disease":
+            raise IntentParseError(f"Expected type 'remove_disease', got '{data.get('type')}'")
+        return cls(
+            actor_id=data["actor_id"],
+            target_id=data["target_id"],
+        )
+
+
+@dataclass
 class BardicMusicIntent:
     """Intent to activate Bardic Music Inspire Courage (PHB p.29). WO-ENGINE-BARDIC-MUSIC-001."""
 
@@ -1151,7 +1179,7 @@ Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | Rest
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
           TurnUndeadIntent | ReadyActionIntent | AidAnotherIntent | FightDefensivelyIntent |
           TotalDefenseIntent | FeintIntent | AbilityDamageIntent | WithdrawIntent | DelayIntent |
-          RageIntent | SmiteEvilIntent | LayOnHandsIntent | BardicMusicIntent | WildShapeIntent |
+          RageIntent | SmiteEvilIntent | LayOnHandsIntent | RemoveDiseaseIntent | BardicMusicIntent | WildShapeIntent |
           RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
           DemoralizeIntent | CalledShotIntent | StandIntent |
           ImmediateActionIntent | RunIntent)
@@ -1214,6 +1242,8 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return SmiteEvilIntent.from_dict(data)
     elif intent_type == "lay_on_hands":
         return LayOnHandsIntent.from_dict(data)
+    elif intent_type == "remove_disease":
+        return RemoveDiseaseIntent.from_dict(data)
     elif intent_type == "bardic_music":
         return BardicMusicIntent.from_dict(data)
     elif intent_type == "wild_shape":

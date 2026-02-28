@@ -75,7 +75,7 @@ from aidm.schemas.intents import (
     ChargeIntent, TurnUndeadIntent, ReadyActionIntent, AidAnotherIntent,
     FightDefensivelyIntent, TotalDefenseIntent, FeintIntent,
     AbilityDamageIntent, WithdrawIntent, DelayIntent,
-    RageIntent, SmiteEvilIntent, LayOnHandsIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
+    RageIntent, SmiteEvilIntent, LayOnHandsIntent, RemoveDiseaseIntent, BardicMusicIntent, WildShapeIntent, RevertFormIntent,
     NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent, StandIntent,
     ImmediateActionIntent, RunIntent,
 )
@@ -2973,6 +2973,19 @@ def execute_turn(
             events.extend(_loh_events)
             current_event_id += len(_loh_events)
             narration = "lay_on_hands_resolved"
+
+        # WO-ENGINE-AF-WO3: Paladin Remove Disease
+        elif isinstance(combat_intent, RemoveDiseaseIntent):
+            from aidm.core.remove_disease_resolver import resolve_remove_disease
+            _rd_events, world_state = resolve_remove_disease(
+                intent=combat_intent,
+                world_state=world_state,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(_rd_events)
+            current_event_id += len(_rd_events)
+            narration = "remove_disease_resolved"
 
         # WO-ENGINE-FLURRY-OF-BLOWS-001: Monk Flurry of Blows
         elif isinstance(combat_intent, FlurryOfBlowsIntent):

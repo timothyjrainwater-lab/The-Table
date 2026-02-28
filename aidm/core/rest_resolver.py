@@ -130,6 +130,20 @@ def resolve_rest(
             actor[EF.LAY_ON_HANDS_POOL] = pool_max
             actor[EF.LAY_ON_HANDS_USED] = 0
 
+    # ── Remove Disease uses recovery (WO-ENGINE-AF-WO3) ──────────────────────
+    # PHB p.44: 1 use per 3 paladin levels; HOUSE_POLICY: per full rest.
+    if is_full_rest:
+        paladin_level = actor.get(EF.CLASS_LEVELS, {}).get("paladin", 0)
+        if paladin_level >= 3:
+            actor[EF.REMOVE_DISEASE_USES] = paladin_level // 3
+            actor[EF.REMOVE_DISEASE_USED] = 0
+
+    # ── Defensive Roll reset (WO-ENGINE-AF-WO4) ───────────────────────────────
+    # PHB p.51: 1/day. Refreshes on full rest.
+    if is_full_rest:
+        if actor.get(EF.HAS_DEFENSIVE_ROLL, False):
+            actor[EF.DEFENSIVE_ROLL_USED] = False
+
     # ── Condition cleanup (overnight rest clears fatigue, exhaustion) ─────────
     # 3.5e: 8h rest removes fatigued; exhausted → fatigued after 1h rest (PHB p.300)
     conditions = actor.get(EF.CONDITIONS, [])

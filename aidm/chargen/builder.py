@@ -959,6 +959,12 @@ def build_character(
         entity[EF.LAY_ON_HANDS_POOL] = _paladin_level * _cha_mod if _cha_mod > 0 else 0
         entity[EF.LAY_ON_HANDS_USED] = 0
 
+    # WO-ENGINE-AF-WO3: Paladin Remove Disease (PHB p.44 — unlocks at L3; 1 use per 3 levels per rest)
+    # HOUSE_POLICY: "per week" modeled as "per full rest".
+    if _paladin_level >= 3:
+        entity[EF.REMOVE_DISEASE_USES] = _paladin_level // 3
+        entity[EF.REMOVE_DISEASE_USED] = 0
+
     # Bard: Bardic Music uses remaining (PHB p.29 — bard_level + CHA mod per day, min 1)
     if _bard_level >= 1:
         entity[EF.BARDIC_MUSIC_USES_REMAINING] = max(1, _bard_level + _cha_mod)
@@ -987,6 +993,11 @@ def build_character(
         entity[EF.EVASION] = True      # Rogue 2, Monk 2, Ranger 9 (PHB p.56, p.41, p.47)
     if _rogue_level >= 10 or _monk_level >= 9:
         entity[EF.IMPROVED_EVASION] = True  # Rogue 10, Monk 9 (PHB p.57, p.43)
+
+    # WO-ENGINE-AF-WO4: Rogue Defensive Roll (PHB p.51 — Rogue L10 special ability)
+    if _rogue_level >= 10:
+        entity[EF.HAS_DEFENSIVE_ROLL] = True
+        entity[EF.DEFENSIVE_ROLL_USED] = False
 
     # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: Fast Movement bonus (PHB p.26)
     _barbarian_level = level if class_name == "barbarian" else 0
@@ -1235,6 +1246,12 @@ def _build_multiclass_character(
         entity[EF.LAY_ON_HANDS_POOL] = _paladin_level * _cha_mod if _cha_mod > 0 else 0
         entity[EF.LAY_ON_HANDS_USED] = 0
 
+    # WO-ENGINE-AF-WO3: Paladin Remove Disease — multiclass (PHB p.44)
+    # HOUSE_POLICY: "per week" modeled as "per full rest".
+    if _paladin_level >= 3:
+        entity[EF.REMOVE_DISEASE_USES] = _paladin_level // 3
+        entity[EF.REMOVE_DISEASE_USED] = 0
+
     if _bard_level >= 1:
         entity[EF.BARDIC_MUSIC_USES_REMAINING] = max(1, _bard_level + _cha_mod)
 
@@ -1263,6 +1280,11 @@ def _build_multiclass_character(
         entity[EF.EVASION] = True
     if _rogue_level >= 10 or _monk_level >= 9:
         entity[EF.IMPROVED_EVASION] = True
+
+    # WO-ENGINE-AF-WO4: Rogue Defensive Roll — multiclass (PHB p.51)
+    if _rogue_level >= 10:
+        entity[EF.HAS_DEFENSIVE_ROLL] = True
+        entity[EF.DEFENSIVE_ROLL_USED] = False
 
     # WO-ENGINE-BARBARIAN-FAST-MOVEMENT-001: Fast Movement bonus (PHB p.26)
     _barbarian_level = class_mix.get("barbarian", 0)
@@ -1690,6 +1712,18 @@ def level_up(
         if _candidate_sr > _old_sr:
             _spell_resistance_delta = _candidate_sr
 
+    # WO-ENGINE-MONK-UNARMED-WIRE-AF: Monk unarmed dice scaling on level-up (PHB Table 3-10, p.41)
+    _monk_unarmed_dice = None
+    if class_name == "monk":
+        _lu_unarmed_table = [
+            (20, "2d10"), (16, "2d8"), (12, "2d6"),
+            (8, "1d10"), (4, "1d8"), (1, "1d6"),
+        ]
+        for _threshold, _dice in _lu_unarmed_table:
+            if new_class_level >= _threshold:
+                _monk_unarmed_dice = _dice
+                break
+
     return {
         "hp_gained": hp_gained,
         "feat_slots_gained": feat_slots_gained,
@@ -1701,4 +1735,5 @@ def level_up(
         "saves": saves,
         "new_total_level": new_total_level,
         "spell_resistance": _spell_resistance_delta,
+        "monk_unarmed_dice": _monk_unarmed_dice,
     }

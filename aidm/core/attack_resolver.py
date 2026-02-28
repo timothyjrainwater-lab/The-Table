@@ -850,8 +850,18 @@ def resolve_attack(
 
     # If hit, roll damage
     if hit:
+        # WO-ENGINE-MONK-UNARMED-WIRE-AF: Override damage dice for monk unarmed strikes (PHB Table 3-10, p.41)
+        # Flurry path already uses MONK_UNARMED_DICE via _make_unarmed_weapon() in flurry_of_blows_resolver.
+        # AttackIntent path did not — this closes FINDING-ENGINE-MONK-UNARMED-ATTACK-WIRE-001.
+        _damage_dice_expr = intent.weapon.damage_dice
+        if (intent.weapon.weapon_type == "natural"
+                and attacker.get(EF.CLASS_LEVELS, {}).get("monk", 0) > 0):
+            _monk_override = attacker.get(EF.MONK_UNARMED_DICE)
+            if _monk_override:
+                _damage_dice_expr = _monk_override
+
         # Parse damage dice
-        num_dice, die_size = parse_damage_dice(intent.weapon.damage_dice)
+        num_dice, die_size = parse_damage_dice(_damage_dice_expr)
 
         # Roll damage
         damage_rolls = roll_dice(num_dice, die_size, rng)
@@ -995,7 +1005,77 @@ def resolve_attack(
         hp_before = target.get(EF.HP_CURRENT, 0)
         hp_after = hp_before - final_damage
 
-        # WO-ENGINE-MASSIVE-DAMAGE-001: PHB p.145 — Massive Damage instant-death check
+        # WO-ENGINE-AF-WO4: Rogue Defensive Roll (PHB p.51)
+        # Trigger: weapon/physical blow (not spell) that would reduce rogue to ≤0 HP.
+        # 1/day. Cannot use if flat-footed (denied DEX to AC). Reflex save DC = final_damage.
+        # Success: take half damage. Failure: full damage. Uses save_resolver canonical path.
+        if (hp_before > 0
+                and hp_after <= 0
+                and target.get(EF.HAS_DEFENSIVE_ROLL, False)
+                and not target.get(EF.DEFENSIVE_ROLL_USED, False)):
+            _dr_flat_footed = (
+                defender_modifiers.loses_dex_to_ac
+                and not _target_retains_dex_via_uncanny_dodge(target)
+            )
+            # Also handle legacy list-format conditions (e.g., ["flat_footed"])
+            _target_conditions = target.get(EF.CONDITIONS, [])
+            if isinstance(_target_conditions, list) and "flat_footed" in _target_conditions:
+                _dr_flat_footed = True
+            if not _dr_flat_footed:
+                from aidm.core.save_resolver import get_save_bonus, SaveType
+                _dr_ref_bonus = get_save_bonus(world_state, intent.target_id, SaveType.REF)
+                _dr_roll = rng.stream("combat").randint(1, 20)
+                _dr_total = _dr_roll + _dr_ref_bonus
+                _dr_dc = final_damage
+                _dr_saved = _dr_total >= _dr_dc
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="defensive_roll_check",
+                    timestamp=timestamp + 0.16,
+                    payload={
+                        "target_id": intent.target_id,
+                        "ref_roll": _dr_roll,
+                        "ref_bonus": _dr_ref_bonus,
+                        "ref_total": _dr_total,
+                        "dc": _dr_dc,
+                        "saved": _dr_saved,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 51}],
+                ))
+                current_event_id += 1
+                if _dr_saved:
+                    final_damage = final_damage // 2
+                    hp_after = hp_before - final_damage
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="defensive_roll_success",
+                        timestamp=timestamp + 0.17,
+                        payload={
+                            "target_id": intent.target_id,
+                            "damage_halved": final_damage,
+                        },
+                        citations=[{"source_id": "681f92bc94ff", "page": 51}],
+                    ))
+                else:
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="defensive_roll_failure",
+                        timestamp=timestamp + 0.17,
+                        payload={"target_id": intent.target_id},
+                        citations=[{"source_id": "681f92bc94ff", "page": 51}],
+                    ))
+                current_event_id += 1
+                # Mark used (applied by apply_attack_events on "defensive_roll_used" event)
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="defensive_roll_used",
+                    timestamp=timestamp + 0.175,
+                    payload={"target_id": intent.target_id},
+                    citations=[{"source_id": "681f92bc94ff", "page": 51}],
+                ))
+                current_event_id += 1
+
+        # PHB p.145 -- Massive Damage instant-death check
         # Trigger: single attack dealing 50+ post-DR damage → DC 15 Fort save or die
         if final_damage >= 50:
             from aidm.core.save_resolver import get_save_bonus, SaveType
@@ -1443,6 +1523,12 @@ def apply_attack_events(world_state: WorldState, events: List[Event]) -> WorldSt
                 entities[entity_id][EF.DYING] = False
                 entities[entity_id][EF.DISABLED] = False
                 entities[entity_id][EF.STABLE] = False
+
+        elif event.event_type == "defensive_roll_used":
+            # WO-ENGINE-AF-WO4: Mark defensive roll consumed for the day (PHB p.51)
+            entity_id = event.payload["target_id"]
+            if entity_id in entities:
+                entities[entity_id][EF.DEFENSIVE_ROLL_USED] = True
 
     # Return new WorldState
     return WorldState(

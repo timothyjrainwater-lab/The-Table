@@ -388,6 +388,20 @@ class _EntityFields:
     WHOLENESS_OF_BODY_USED = "wholeness_of_body_used"
     # int: HP already consumed from pool this day. 0 at rest.
 
+    # --- Paladin Remove Disease (WO-ENGINE-AF-WO3) ---
+    REMOVE_DISEASE_USES = "remove_disease_uses"
+    # int: total Remove Disease uses available this rest (= paladin_level // 3). 0 at L1-2.
+    # HOUSE_POLICY: "per week" modeled as "per full rest". PHB p.44.
+    REMOVE_DISEASE_USED = "remove_disease_used"
+    # int: uses consumed this rest. 0 at rest.
+
+    # --- Rogue Defensive Roll (WO-ENGINE-AF-WO4) ---
+    HAS_DEFENSIVE_ROLL = "has_defensive_roll"
+    # bool: True if entity has Defensive Roll special ability (Rogue L10, PHB p.51).
+    # 1/day. Cannot trigger when flat-footed. Reflex save DC = damage dealt.
+    DEFENSIVE_ROLL_USED = "defensive_roll_used"
+    # bool: True if Defensive Roll was used today. Resets on full rest.
+
     # --- Paladin Aura of Courage (WO-ENGINE-AURA-OF-COURAGE-001) ---
     FEAR_IMMUNE = "fear_immune"
     # bool: True if entity is immune to fear effects (magical or otherwise).
