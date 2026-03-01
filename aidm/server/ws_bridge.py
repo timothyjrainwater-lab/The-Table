@@ -309,6 +309,7 @@ class WebSocketBridge:
                             hp=_ent.get(EF.HP_CURRENT, 0),
                             hp_max=_ent.get(EF.HP_MAX, 0),
                             ac=_ent.get(EF.AC, 0),
+                            abilities={k: _ent.get(k, 0) for k in ("str", "dex", "con", "int", "wis", "cha")},  # WO-UI-PHASE1-POLISH-001 GAP-10
                         ))
 
             # Message loop
@@ -766,6 +767,7 @@ class WebSocketBridge:
                 total = payload.get("total", event_dict.get("total"))
                 target_ac = payload.get("target_ac", event_dict.get("target_ac"))
                 hit = payload.get("hit", event_dict.get("hit"))
+                d20 = payload.get("d20", payload.get("roll", 0))
                 hit_str = "HIT" if hit else "MISS"
                 text = f"Attack: {total} vs AC {target_ac} — {hit_str}"
                 messages.append(NarrationEvent(
@@ -774,6 +776,13 @@ class WebSocketBridge:
                     in_reply_to=in_reply_to,
                     timestamp=_now(),
                     text=text,
+                ))
+                # WO-UI-PHASE1-POLISH-001 GAP-09: Emit roll_result for dice slip tray
+                from aidm.ui.ws_protocol import RollResult
+                messages.append(RollResult(
+                    d20_result=d20,
+                    total=total or 0,
+                    success=bool(hit),
                 ))
 
             elif event_type == "save_rolled":
@@ -889,6 +898,7 @@ class WebSocketBridge:
                             hp=entity.get(EF.HP_CURRENT, 0),
                             hp_max=entity.get(EF.HP_MAX, 0),
                             ac=entity.get(EF.AC, 0),
+                            abilities={k: entity.get(k, 0) for k in ("str", "dex", "con", "int", "wis", "cha")},  # WO-UI-PHASE1-POLISH-001 GAP-10
                         ))
 
         # If nothing was generated, send a minimal narration

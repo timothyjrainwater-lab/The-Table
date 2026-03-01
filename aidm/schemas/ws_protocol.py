@@ -18,7 +18,7 @@ All message dataclasses are frozen. All support to_dict() / from_dict().
 Message routing uses the msg_type discriminator field.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
 
@@ -534,6 +534,7 @@ class CharacterState(ServerMessage):
     hp: int = 0
     hp_max: int = 0
     ac: int = 0
+    abilities: Dict[str, int] = field(default_factory=dict)  # WO-UI-PHASE1-POLISH-001 GAP-10
 
     def to_dict(self) -> Dict[str, Any]:
         d: Dict[str, Any] = {
@@ -544,6 +545,7 @@ class CharacterState(ServerMessage):
             "hp": self.hp,
             "hp_max": self.hp_max,
             "ac": self.ac,
+            "abilities": self.abilities,
         }
         if self.in_reply_to is not None:
             d["in_reply_to"] = self.in_reply_to
@@ -560,6 +562,7 @@ class CharacterState(ServerMessage):
             hp=data.get("hp", 0),
             hp_max=data.get("hp_max", 0),
             ac=data.get("ac", 0),
+            abilities=data.get("abilities", {}),
         )
 
 

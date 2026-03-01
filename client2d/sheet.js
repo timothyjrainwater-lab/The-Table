@@ -65,10 +65,13 @@
         '<div class="ability-score">' + (score !== null ? score : '—') + '</div>' +
         '<div class="ability-mod">' + (score !== null ? mod(score) : '') + '</div>';
       if (score !== null) {
-        block.addEventListener('click', function () {
-          var bridge = window.__ws;
-          if (bridge) bridge.send({ msg_type: 'ability_check_declare', ability: key });
-        });
+        // WO-UI-PHASE1-POLISH-001 GAP-12: ability_check_declare not yet handled server-side.
+        // Disabled to prevent unknown-msg-type error noise during integration testing.
+        // Re-enable when ws_bridge._route_message() implements the handler.
+        // block.addEventListener('click', function () {
+        //   var bridge = window.__ws;
+        //   if (bridge) bridge.send({ msg_type: 'ability_check_declare', ability: key });
+        // });
       }
       abGrid.appendChild(block);
     });
