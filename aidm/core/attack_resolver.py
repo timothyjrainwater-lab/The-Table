@@ -959,9 +959,19 @@ def resolve_attack(
 
         base_damage = sum(damage_rolls) + intent.weapon.damage_bonus + str_to_damage + intent.weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: enhancement is pre-crit (PHB p.224)
         # WO-ENGINE-WEAPON-SPECIALIZATION-001: Weapon Specialization +2 damage bonus (PHB p.102)
-        # Pre-crit: multiplied on critical hits (same as enhancement bonus, PHB p.224)
-        _wsp_bonus = 2 if f"weapon_specialization_{intent.weapon.weapon_type}" in _attacker_feats else 0
-        base_damage += _wsp_bonus
+        # WO-ENGINE-WSP-SCHEMA-FIX-001: WSP is handled via feat_resolver.get_damage_modifier()
+        # using canonical weapon_name key in feat_context. _wsp_bonus removed here to prevent
+        # double-count with feat_resolver path. Emit weapon_specialization_active event.
+        _wsp_bonus = 2 if (_weapon_name and f"weapon_specialization_{_weapon_name}" in _attacker_feats) else 0
+        if _wsp_bonus and _weapon_name:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="weapon_specialization_active",
+                timestamp=timestamp,
+                payload={"actor_id": intent.attacker_id, "weapon_name": _weapon_name},
+                citations=[{"source_id": "681f92bc94ff", "page": 102}],
+            ))
+            current_event_id += 1        # NOTE: do NOT add _wsp_bonus to base_damage -- feat_resolver.get_damage_modifier() adds it via feat_context
         # CP-16: Apply condition damage modifier, WO-034: Apply feat damage modifier
         # WO-ENGINE-BARDIC-MUSIC-001: Inspire Courage morale bonus to damage (PHB p.29)
         _inspire_dmg_bonus = (

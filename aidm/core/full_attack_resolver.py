@@ -423,10 +423,11 @@ def resolve_single_attack_with_critical(
 
         base_damage = sum(damage_rolls) + weapon.damage_bonus + str_to_damage + weapon.enhancement_bonus  # WO-ENGINE-WEAPON-ENHANCEMENT-001: enhancement is pre-crit (PHB p.224)
         # WO-ENGINE-WEAPON-SPECIALIZATION-001: Weapon Specialization +2 damage bonus (PHB p.102)
-        # Pre-crit: multiplied on critical hits (same as enhancement bonus, PHB p.224)
+        # WO-ENGINE-WSP-SCHEMA-FIX-001: WSP handled by feat_resolver via resolve_attack() delegation.
+        # resolve_single_attack_with_critical() is RETIRED (FAGU); _wsp_bonus removed here.
+        # Canonical source: feat_resolver.get_damage_modifier() via feat_context[weapon_name].
         _ic_wsp = attacker_feats if attacker_feats is not None else []
-        _wsp_bonus = 2 if f"weapon_specialization_{getattr(weapon, 'weapon_type', '')}" in _ic_wsp else 0
-        base_damage += _wsp_bonus
+        _wsp_bonus = 0  # WO-ENGINE-WSP-SCHEMA-FIX-001: no longer applied here (feat_resolver canonical)        # base_damage += _wsp_bonus  # REMOVED -- double-count prevention
         # CP-16: condition damage modifier, WO-034: feat damage modifier
         base_damage_with_modifiers = base_damage + condition_damage_modifier + feat_damage_modifier
 

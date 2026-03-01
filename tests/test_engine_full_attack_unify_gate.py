@@ -562,7 +562,7 @@ def test_fagu010_weapon_specialization_no_double_count():
     """
     # WSP requires WF as prerequisite; WF key uses canonical weapon name (WO-ENGINE-WF-SCHEMA-FIX-001)
     a_no_wsp = _attacker(feats=["weapon_focus_longsword"])
-    a_wsp = _attacker(feats=["weapon_focus_longsword", "weapon_specialization_light"])
+    a_wsp = _attacker(feats=["weapon_focus_longsword", "weapon_specialization_longsword"])  # WO-ENGINE-WSP-SCHEMA-FIX-001: canonical name key
     t = _target(ac=10, hp=300)
 
     ws_no = _ws(a_no_wsp, t)
