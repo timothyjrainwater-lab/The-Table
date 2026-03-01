@@ -1,0 +1,380 @@
+[
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "appraise",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "autohypnosis",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": true,
+    "name": "balance",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "bluff",
+    "synergy": [
+      "diplomacy",
+      "disguise",
+      "intimidate",
+      "sleight_of_hand"
+    ],
+    "trained_only": false
+  },
+  {
+    "ability": "str",
+    "armor_check_penalty": true,
+    "name": "climb",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "con",
+    "armor_check_penalty": false,
+    "name": "concentration",
+    "synergy": [
+      "autohypnosis"
+    ],
+    "trained_only": false
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "control_shape",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "craft",
+    "synergy": [
+      "appraise"
+    ],
+    "trained_only": false
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "decipher_script",
+    "synergy": [
+      "use_magic_device"
+    ],
+    "trained_only": true
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "diplomacy",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "disable_device",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "disguise",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": true,
+    "name": "escape_artist",
+    "synergy": [
+      "use_rope"
+    ],
+    "trained_only": false
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "forgery",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "gather_information",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "handle_animal",
+    "synergy": [
+      "ride"
+    ],
+    "trained_only": true
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "heal",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": true,
+    "name": "hide",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "intimidate",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "str",
+    "armor_check_penalty": true,
+    "name": "jump",
+    "synergy": [
+      "tumble"
+    ],
+    "trained_only": false
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(arcana)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(architecture_and_engineering)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(dungeoneering)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(geography)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(history)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(local)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(nature)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(nobility_and_royalty)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(religion)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "knowledge_(the_planes)",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "listen",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": true,
+    "name": "move_silently",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": false,
+    "name": "open_lock",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "perform",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "profession",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "psicraft",
+    "synergy": [
+      "use_psionic_device"
+    ],
+    "trained_only": true
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": false,
+    "name": "ride",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "search",
+    "synergy": [
+      "survival"
+    ],
+    "trained_only": false
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "sense_motive",
+    "synergy": [
+      "diplomacy"
+    ],
+    "trained_only": false
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": true,
+    "name": "sleight_of_hand",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "",
+    "armor_check_penalty": false,
+    "name": "speak_language",
+    "synergy": [],
+    "trained_only": true
+  },
+  {
+    "ability": "int",
+    "armor_check_penalty": false,
+    "name": "spellcraft",
+    "synergy": [
+      "use_magic_device"
+    ],
+    "trained_only": true
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "spot",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "wis",
+    "armor_check_penalty": false,
+    "name": "survival",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "str",
+    "armor_check_penalty": true,
+    "name": "swim",
+    "synergy": [],
+    "trained_only": false
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": true,
+    "name": "tumble",
+    "synergy": [
+      "balance",
+      "jump"
+    ],
+    "trained_only": true
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "use_magic_device",
+    "synergy": [
+      "spellcraft"
+    ],
+    "trained_only": true
+  },
+  {
+    "ability": "cha",
+    "armor_check_penalty": false,
+    "name": "use_psionic_device",
+    "synergy": [
+      "psicraft"
+    ],
+    "trained_only": true
+  },
+  {
+    "ability": "dex",
+    "armor_check_penalty": false,
+    "name": "use_rope",
+    "synergy": [
+      "climb",
+      "escape_artist"
+    ],
+    "trained_only": false
+  }
+]

@@ -966,5 +966,17 @@ Ordered by: (1) frequency in normal play, (2) dependency depth (other mechanics 
 
 ---
 
+---
+
+## Phase 2 — Data Layer
+
+| File / Artifact | What it covers | Status |
+|----------------|----------------|--------|
+| `data/srd_skills.json` | 49 PHB SRD skill entries: name, ability, trained_only, armor_check_penalty, synergy. Source: dnd-generator CC0. Consumer: WO-JUDGMENT-VALIDATOR-001 (CONSUME_DEFERRED). | IMPLEMENTED — SE-001–SE-008 |
+| `data/srd_dc_ranges.json` | DC bounds constants: dc_min=5, dc_max=40 (PHB p.65). Must match ruling_validator.py constants when built. | IMPLEMENTED — SE-005–SE-006 |
+
+---
+
 *Document generated 2026-02-26. Engine baseline: master branch, post-WO-ENGINE-WILDSHAPE-DURATION-001.*
+*Updated 2026-03-01: WSP schema fix (WSS), AoO round reset (AOR), SRD data extract (SE).*
 *Next recommended review: after any WO that adds new mechanics to cross-check against this map.*
