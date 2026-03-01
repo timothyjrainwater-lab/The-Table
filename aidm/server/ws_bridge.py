@@ -638,7 +638,7 @@ class WebSocketBridge:
             if not isinstance(event_dict, dict):
                 continue
 
-            event_type = event_dict.get("event_type", "")
+            event_type = event_dict.get("event_type") or event_dict.get("type", "")
 
             if event_type == "hp_changed":
                 entity_id = (
@@ -697,6 +697,79 @@ class WebSocketBridge:
                     in_reply_to=in_reply_to,
                     timestamp=_now(),
                     text=f"[{dropped} not taken — only one action resolved]",
+                ))
+
+            elif event_type == "attack_roll":
+                # PHB: attack roll summary — roll, total vs AC, hit/miss
+                payload = event_dict.get("payload", {}) or event_dict
+                total = payload.get("total", event_dict.get("total"))
+                target_ac = payload.get("target_ac", event_dict.get("target_ac"))
+                hit = payload.get("hit", event_dict.get("hit"))
+                hit_str = "HIT" if hit else "MISS"
+                text = f"Attack: {total} vs AC {target_ac} — {hit_str}"
+                messages.append(NarrationEvent(
+                    msg_type=MSG_NARRATION,
+                    msg_id=_make_msg_id(),
+                    in_reply_to=in_reply_to,
+                    timestamp=_now(),
+                    text=text,
+                ))
+
+            elif event_type == "save_rolled":
+                # PHB: save roll summary — type, DC, total, outcome
+                payload = event_dict.get("payload", {}) or event_dict
+                save_type = payload.get("save_type", event_dict.get("save_type", "save"))
+                dc = payload.get("dc", event_dict.get("dc"))
+                total = payload.get("total", event_dict.get("total"))
+                outcome = payload.get("outcome", event_dict.get("outcome", ""))
+                text = f"{save_type.capitalize()} save: {total} vs DC {dc} — {outcome.upper()}"
+                messages.append(NarrationEvent(
+                    msg_type=MSG_NARRATION,
+                    msg_id=_make_msg_id(),
+                    in_reply_to=in_reply_to,
+                    timestamp=_now(),
+                    text=text,
+                ))
+
+            elif event_type == "condition_applied":
+                # Condition applied to entity — name and duration
+                payload = event_dict.get("payload", {}) or event_dict
+                condition = payload.get("condition", event_dict.get("condition", "condition"))
+                duration = payload.get("duration_rounds", event_dict.get("duration_rounds"))
+                duration_str = f" ({duration} rounds)" if duration else ""
+                text = f"Condition applied: {condition}{duration_str}"
+                messages.append(NarrationEvent(
+                    msg_type=MSG_NARRATION,
+                    msg_id=_make_msg_id(),
+                    in_reply_to=in_reply_to,
+                    timestamp=_now(),
+                    text=text,
+                ))
+
+            elif event_type == "xp_awarded":
+                # XP awarded after combat
+                payload = event_dict.get("payload", {}) or event_dict
+                xp_amount = payload.get("xp_amount", event_dict.get("xp_amount", 0))
+                text = f"XP gained: {xp_amount}"
+                messages.append(NarrationEvent(
+                    msg_type=MSG_NARRATION,
+                    msg_id=_make_msg_id(),
+                    in_reply_to=in_reply_to,
+                    timestamp=_now(),
+                    text=text,
+                ))
+
+            elif event_type == "level_up_applied":
+                # Level up event
+                payload = event_dict.get("payload", {}) or event_dict
+                new_level = payload.get("new_level", event_dict.get("new_level", "?"))
+                text = f"Level up! Now level {new_level}"
+                messages.append(NarrationEvent(
+                    msg_type=MSG_NARRATION,
+                    msg_id=_make_msg_id(),
+                    in_reply_to=in_reply_to,
+                    timestamp=_now(),
+                    text=text,
                 ))
 
             else:

@@ -839,6 +839,14 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 
 ---
 
+## SECTION 17 — INFRASTRUCTURE SYSTEMS
+
+| Mechanic | Source | Status | Engine File(s) | Notes / Gap Description |
+|----------|--------|--------|----------------|--------------------------|
+| WS Event Routing (player_utterance → engine → client) | INFRA | **IMPLEMENTED** | `aidm/server/ws_bridge.py`, `client/src/main.ts` | WO-INFRA-WS-PLUMB-001. Fixed msg_type mismatch (player_input→player_utterance). Expanded _turn_result_to_messages() from 5 to 10 handlers: added attack_roll, save_rolled, condition_applied, xp_awarded, level_up_applied. Fixed dual event format key lookup ("type" vs "event_type"). 8/8 gates (WP-001–WP-008). |
+
+---
+
 ## SUMMARY TABLE
 
 | Domain | Total Mechanics | Implemented | Partial | Not Started | Deferred | Coverage % |

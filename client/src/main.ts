@@ -1533,7 +1533,7 @@ window.addEventListener('resize', () => {
     if (!_textField) return;
     const text = _textField.value.trim();
     if (!text) return;
-    bridge.send({ msg_type: 'player_input', text });
+    bridge.send({ msg_type: 'player_utterance', text });
     _textField.value = '';
     _textField.blur();
   }
