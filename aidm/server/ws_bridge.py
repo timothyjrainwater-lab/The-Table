@@ -47,6 +47,12 @@ from aidm.schemas.ws_protocol import (
     CharacterState,
     ServerMessage,
     parse_client_message,
+    MSG_SPEAKING_START,
+    MSG_SPEAKING_STOP,
+    MSG_SCENE_SET,
+    SpeakingStart,
+    SpeakingStop,
+    SceneSet,
 )
 
 logger = logging.getLogger(__name__)
@@ -199,7 +205,10 @@ class WebSocketBridge:
             col = pos.get("x", 0)
             row = pos.get("y", 0)
             name = entity.get("name", "")
-            faction = entity.get(EF.TEAM, "")
+            # WO-UI-PHASE1-DISPLAY-001: map faction to map.js FACTION_COLOR keys
+            _raw_team = entity.get(EF.TEAM, "")
+            _FACTION_MAP = {"party": "ally", "monsters": "enemy"}
+            faction = _FACTION_MAP.get(_raw_team, _raw_team)
 
             if role == ConnectionRole.DM:
                 hp = entity.get(EF.HP_CURRENT)
@@ -265,6 +274,42 @@ class WebSocketBridge:
             # Send role-filtered token_add messages
             for token_msg in self._build_token_add_messages(session, join_msg.msg_id, role):
                 await self._send_message(websocket, token_msg)
+
+            # WO-UI-PHASE1-DISPLAY-001: scene_set — emit grid dimensions derived from entity positions
+            _ws_snap = getattr(session, "world_state", None)
+            if _ws_snap is not None:
+                _all_x = [e.get(EF.POSITION, {}).get("x", 0)
+                          for e in _ws_snap.entities.values() if e.get(EF.POSITION)]
+                _all_y = [e.get(EF.POSITION, {}).get("y", 0)
+                          for e in _ws_snap.entities.values() if e.get(EF.POSITION)]
+                _cols = max(max(_all_x) + 2, 10) if _all_x else 10
+                _rows = max(max(_all_y) + 2, 10) if _all_y else 10
+            else:
+                _cols, _rows = 10, 10
+            await self._send_message(websocket, SceneSet(
+                msg_type=MSG_SCENE_SET,
+                msg_id=_make_msg_id(),
+                in_reply_to=join_msg.msg_id,
+                timestamp=_now(),
+                cols=_cols,
+                rows=_rows,
+                grid=True,
+            ))
+
+            # WO-UI-PHASE1-DISPLAY-001: character_state at join for party members
+            if _ws_snap is not None:
+                for _eid, _ent in _ws_snap.entities.items():
+                    if _ent.get(EF.TEAM) == "party":
+                        await self._send_message(websocket, CharacterState(
+                            msg_type=MSG_CHARACTER_STATE,
+                            msg_id=_make_msg_id(),
+                            in_reply_to=join_msg.msg_id,
+                            timestamp=_now(),
+                            name=_ent.get("name", ""),
+                            hp=_ent.get(EF.HP_CURRENT, 0),
+                            hp_max=_ent.get(EF.HP_MAX, 0),
+                            ac=_ent.get(EF.AC, 0),
+                        ))
 
             # Message loop
             await self._message_loop(websocket, session, session_id, role)
@@ -613,7 +658,7 @@ class WebSocketBridge:
         """
         messages: List[ServerMessage] = []
 
-        # Narration event
+        # Narration event — WO-UI-PHASE1-DISPLAY-001: wrap with speaking_start/stop
         narration_text = getattr(result, "narration_text", "")
         if narration_text:
             audio_b64 = None
@@ -622,6 +667,15 @@ class WebSocketBridge:
                 import base64
                 audio_b64 = base64.b64encode(narration_audio).decode("ascii")
 
+            # speaking_start: triggers orb.js setSpeaking({text, portrait_url})
+            messages.append(SpeakingStart(
+                msg_type=MSG_SPEAKING_START,
+                msg_id=_make_msg_id(),
+                in_reply_to=in_reply_to,
+                timestamp=_now(),
+                text=narration_text,
+                portrait_url=None,
+            ))
             messages.append(NarrationEvent(
                 msg_type=MSG_NARRATION,
                 msg_id=_make_msg_id(),
@@ -629,6 +683,13 @@ class WebSocketBridge:
                 timestamp=_now(),
                 text=narration_text,
                 audio_base64=audio_b64,
+            ))
+            # speaking_stop: triggers orb.js clearSpeaking()
+            messages.append(SpeakingStop(
+                msg_type=MSG_SPEAKING_STOP,
+                msg_id=_make_msg_id(),
+                in_reply_to=in_reply_to,
+                timestamp=_now(),
             ))
 
         # Role-aware event dispatch — explicit allowlist only.
@@ -818,7 +879,7 @@ class WebSocketBridge:
             if world_state is not None:
                 entities: Dict[str, Any] = getattr(world_state, "entities", {})
                 for entity in entities.values():
-                    if entity.get(EF.TEAM) == "player":
+                    if entity.get(EF.TEAM) == "party":  # WO-UI-PHASE1-DISPLAY-001: fixture uses "party" not "player"
                         messages.append(CharacterState(
                             msg_type=MSG_CHARACTER_STATE,
                             msg_id=_make_msg_id(),

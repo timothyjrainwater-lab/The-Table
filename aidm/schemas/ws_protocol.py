@@ -38,6 +38,9 @@ MSG_TOKEN_ADD = "token_add"
 MSG_TOKEN_UPDATE = "token_update"
 MSG_TOKEN_REMOVE = "token_remove"
 MSG_CHARACTER_STATE = "character_state"
+MSG_SPEAKING_START = "speaking_start"   # WO-UI-PHASE1-DISPLAY-001: orb.js setSpeaking trigger
+MSG_SPEAKING_STOP = "speaking_stop"    # WO-UI-PHASE1-DISPLAY-001: orb.js clearSpeaking trigger
+MSG_SCENE_SET = "scene_set"            # WO-UI-PHASE1-DISPLAY-001: map.js grid init on join
 
 
 # ---------------------------------------------------------------------------
@@ -560,7 +563,66 @@ class CharacterState(ServerMessage):
         )
 
 
+# WO-UI-PHASE1-DISPLAY-001 -----------------------------------------------
+
 @dataclass(frozen=True)
+class SpeakingStart(ServerMessage):
+    """Emitted before NarrationEvent. Triggers orb.js setSpeaking({text, portrait_url})."""
+
+    text: str = ""
+    portrait_url: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "msg_type": self.msg_type,
+            "msg_id": self.msg_id,
+            "timestamp": self.timestamp,
+            "text": self.text,
+            "portrait_url": self.portrait_url,
+        }
+        if self.in_reply_to is not None:
+            d["in_reply_to"] = self.in_reply_to
+        return d
+
+
+@dataclass(frozen=True)
+class SpeakingStop(ServerMessage):
+    """Emitted after NarrationEvent. Triggers orb.js clearSpeaking()."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "msg_type": self.msg_type,
+            "msg_id": self.msg_id,
+            "timestamp": self.timestamp,
+        }
+        if self.in_reply_to is not None:
+            d["in_reply_to"] = self.in_reply_to
+        return d
+
+
+@dataclass(frozen=True)
+class SceneSet(ServerMessage):
+    """Emitted at join. map.js bridge.on(scene_set) sets gridCols/gridRows/showGrid."""
+
+    cols: int = 0
+    rows: int = 0
+    grid: bool = True
+
+    def to_dict(self) -> Dict[str, Any]:
+        d: Dict[str, Any] = {
+            "msg_type": self.msg_type,
+            "msg_id": self.msg_id,
+            "timestamp": self.timestamp,
+            "cols": self.cols,
+            "rows": self.rows,
+            "grid": self.grid,
+        }
+        if self.in_reply_to is not None:
+            d["in_reply_to"] = self.in_reply_to
+        return d
+
+
+# -------------------------------------------------------------------------
 class SessionStateMsg(ServerMessage):
     """Full session state snapshot (sent on join/reconnect)."""
 
