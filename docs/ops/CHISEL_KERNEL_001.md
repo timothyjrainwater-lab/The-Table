@@ -920,3 +920,40 @@ PM will spot-check every future WO. This is a hard rule going forward.
 | Gate baseline | 8/8 EL gates + 8/8 PIPE gates = 16 UI Phase 1 gates live |
 | Known blockers | None |
 | BFM protocol rule | BACKLOG_OPEN.md must be committed BEFORE debrief commit on all future WOs |
+
+
+---
+
+## Session Delta -- 2026-03-01 (WO-UI-PHASE1-DISPLAY-001 ACCEPTED)
+
+**WOs completed this delta:**
+- WO-UI-PHASE1-DISPLAY-001 -- ACCEPTED. UI Phase 1 Stage 3.
+  - client2d/index.html: transcript-area div added (GAP-06)
+  - aidm/schemas/ws_protocol.py: SpeakingStart, SpeakingStop, SceneSet + MSG constants (GAP-07, GAP-08)
+  - aidm/server/ws_bridge.py: speaking_start/stop wrap, scene_set at join, faction map, team check fix, char_state at join (GAP-07/08/11/CS)
+  - tests/test_ui_phase1_display_gate.py (NEW): DS-001..DS-008
+
+**Commits:** b576f32 (backlog), 7361271 (code), 4956f92 (debrief)
+
+**Gates:** 8/8 PASS. 0 new regressions.
+
+**PM Acceptance Notes:** 5/5 CONFIRMED.
+
+**Findings open (all LOW):**
+- FINDING-UI-DISPLAY-SESSION-STATE-KWARG-001 -- SessionStateMsg kwarg mismatch; Stage 4
+- FINDING-UI-DISPLAY-SPEAKING-WRAP-MULTI-NARRATION-001 -- only primary narration block wrapped; Stage 4
+- All prior open findings carried forward
+
+**UI Phase 1 gate summary:**
+- Stage 1 (PIPE-001): 8/8 PASS
+- Stage 2 (ENEMY-LOOP-001): 8/8 PASS
+- Stage 3 (DISPLAY-001): 8/8 PASS
+- Total UI Phase 1 gates live: 24/24
+
+**Active Capsule update:**
+| Field | Value |
+|-------|-------|
+| Session / Date | Session 26 / 2026-03-01 |
+| Active WO | None -- awaiting Stage 4 dispatch (WO-UI-PHASE1-POLISH-001) |
+| Last completed | WO-UI-PHASE1-DISPLAY-001 ACCEPTED |
+| Protocol rule | BACKLOG_OPEN.md committed BEFORE debrief commit -- mandatory every WO |
