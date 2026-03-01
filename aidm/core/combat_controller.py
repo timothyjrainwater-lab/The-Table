@@ -345,6 +345,7 @@ def execute_combat_round(
     active_combat["flat_footed_actors"] = list(flat_footed_actors)  # Convert set to list for serialization
     active_combat["aoo_used_this_round"] = aoo_used_this_round  # CP-15: Reset for next round
     active_combat["aoo_count_this_round"] = {}  # WO-ENGINE-COMBAT-REFLEXES-001: Reset per-entity count
+    active_combat["deflect_arrows_used"] = []  # WO-ENGINE-DA-ROUND-RESET-001: Reset per-round DA list
 
     # Apply the updated active_combat to world_state BEFORE finishing round
     world_state = WorldState(
