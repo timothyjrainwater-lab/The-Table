@@ -53,3 +53,5 @@ pm_inbox/reviewed/experiment_artifacts/*.png
 
 # RC evidence packet (generated artifact — operator-triggered, not committed)
 RC_PACKET/
+
+logs/
