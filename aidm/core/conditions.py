@@ -71,6 +71,10 @@ def _normalize_condition_dict(condition_id: str, condition_dict: dict) -> dict:
     for empty-dict conditions should use _get_modifiers_for_condition_type() instead.
     This function is kept for test-verifiability.
 
+    NOTE (WO-ENGINE-CONDITIONS-LEGACY-FIX-001): test-verifiability only — not called
+    from live code paths. Live code uses get_condition_modifiers() which now raises
+    ValueError on non-dict conditions data.
+
     Args:
         condition_id: The condition key (e.g., "flat_footed")
         condition_dict: The raw dict value
@@ -120,15 +124,16 @@ def get_condition_modifiers(
         # No conditions: return zero modifiers
         return ConditionModifiers()
 
-    # Safety guard: conditions should be dict format {condition_id: {condition_dict...}}.
-    # List format was deprecated by WO-CONDFIX-01. Guard kept for fail-closed safety.
-    if isinstance(conditions_data, list):
-        _log.warning(
-            "get_condition_modifiers: legacy list format for entity %s — returning zero modifiers. "
-            "Upgrade to dict format. (FINDING-ENGINE-CONDITIONS-LEGACY-FORMAT-001)",
-            actor_id,
+    # WO-ENGINE-CONDITIONS-LEGACY-FIX-001: Raise ValueError on non-dict conditions data.
+    # Previously returned zero modifiers silently for list format — bugs went undetected.
+    # Raises immediately so callers discover the format error at the point of failure.
+    if not isinstance(conditions_data, dict):
+        raise ValueError(
+            f"get_condition_modifiers() requires a dict of {{condition_name: ConditionInstance}}, "
+            f"got {type(conditions_data).__name__!r} for entity {actor_id!r}. "
+            "Legacy list format ['condition'] is not supported. "
+            "Use create_*_condition().to_dict() or build ConditionInstance directly."
         )
-        return ConditionModifiers()
 
     # Aggregate modifiers
     total_ac = 0

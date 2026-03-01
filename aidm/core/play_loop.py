@@ -1363,7 +1363,7 @@ def _resolve_spell_cast(
                     "entity_id": entity_id,
                     "condition": condition,
                     "source": f"spell:{spell.name}",
-                    "duration_rounds": spell.duration_rounds if spell.duration_rounds > 0 else None,
+                    "duration_rounds": spell.effective_duration_rounds(_get_caster_level(entities.get(intent.caster_id, {}))) if spell.effective_duration_rounds(_get_caster_level(entities.get(intent.caster_id, {}))) > 0 else None,
                     **({"content_id": spell.content_id} if spell.content_id else {}),
                 },
                 citations=list(spell.rule_citations),
@@ -1371,13 +1371,15 @@ def _resolve_spell_cast(
             current_event_id += 1
 
         # Track duration for conditions with duration
-        if spell.duration_rounds > 0:
+        # WO-ENGINE-CL-DURATION-SCALE-001: use CL-scaled duration
+        _eff_dur = spell.effective_duration_rounds(_get_caster_level(entities.get(intent.caster_id, {})))
+        if _eff_dur > 0:
             effect = create_effect(
                 spell_id=spell.spell_id,
                 spell_name=spell.name,
                 caster_id=intent.caster_id,
                 target_id=entity_id,
-                duration_rounds=spell.duration_rounds,
+                duration_rounds=_eff_dur,
                 concentration=spell.concentration,
                 condition=condition,
                 turn=turn_index,

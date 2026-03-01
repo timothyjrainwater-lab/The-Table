@@ -936,6 +936,18 @@ def build_character(
         starting_equipment=starting_equipment,
     )
 
+    # WO-ENGINE-FREE-HAND-SETTER-001: Free hand count for Deflect Arrows gate (PHB p.93)
+    # EF.WEAPON is set by the default kit path; the override path does not set it.
+    # If absent, scan inventory for the first weapon to determine grip.
+    _fhs_wdict = entity.get(EF.WEAPON) or {}
+    if not _fhs_wdict:
+        for _fhs_item in entity.get(EF.INVENTORY, []):
+            _fhs_w = _catalog_weapon(_fhs_item.get("item_id", ""))
+            if _fhs_w:
+                _fhs_wdict = _fhs_w
+                break
+    entity[EF.FREE_HANDS] = 0 if _fhs_wdict.get("weapon_type") == "two-handed" else 1
+
     # --- Step 12: Class feature pool initialization (FINDING-CHARGEN-POOL-INIT-001) ---
     # Pools that live-engine resolvers consume must be non-None at chargen.
     # class_levels dict for single-class is always {class_name: level}.
@@ -1332,6 +1344,17 @@ def _build_multiclass_character(
         entity[EF.ARMOR_TYPE] = "none"
     if EF.MONK_WIS_AC_BONUS not in entity:
         entity[EF.MONK_WIS_AC_BONUS] = modifiers["wis"] if _monk_level >= 1 else 0
+
+    # WO-ENGINE-FREE-HAND-SETTER-001: Free hand count for Deflect Arrows gate (PHB p.93)
+    # Multiclass path: no equipment assignment; default free_hands=1 (unarmed start).
+    _fhs_wdict_mc = entity.get(EF.WEAPON) or {}
+    if not _fhs_wdict_mc:
+        for _fhs_item_mc in entity.get(EF.INVENTORY, []):
+            _fhs_w_mc = _catalog_weapon(_fhs_item_mc.get("item_id", ""))
+            if _fhs_w_mc:
+                _fhs_wdict_mc = _fhs_w_mc
+                break
+    entity[EF.FREE_HANDS] = 0 if _fhs_wdict_mc.get("weapon_type") == "two-handed" else 1
 
     # WO-ENGINE-TOUGHNESS-001: Toughness feat +3 HP per instance (PHB p.101; stackable)
     _toughness_count = entity.get(EF.FEATS, []).count("toughness")

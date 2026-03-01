@@ -132,6 +132,14 @@ class SpellDefinition:
     damage_dice: Optional[str] = None
     """Damage dice expression (e.g., '8d6' for fireball)."""
 
+    damage_dice_per_cl: Optional[str] = None
+    """WO-ENGINE-CL-DAMAGE-SCALE-001: Per-CL damage die suffix (e.g., 'd6' → rolls CL×d6).
+    None = use static damage_dice. Set max_damage_cl to cap the CL multiplier."""
+
+    max_damage_cl: int = 0
+    """WO-ENGINE-CL-DAMAGE-SCALE-001: Max caster level for damage scaling (e.g., 10 for
+    fireball's 10d6 cap). 0 = uncapped. Ignored when damage_dice_per_cl is None."""
+
     damage_type: Optional[DamageType] = None
     """Type of damage dealt."""
 
@@ -146,6 +154,10 @@ class SpellDefinition:
 
     duration_rounds: int = 0
     """Duration in rounds (0 = instantaneous)."""
+
+    duration_rounds_per_cl: int = 0
+    """WO-ENGINE-CL-DURATION-SCALE-001: Rounds added per caster level (0 = use static
+    duration_rounds). 1 = '1 round/level'; 10 = '1 minute/level' (10 rounds). PHB p.173."""
 
     concentration: bool = False
     """Whether spell requires concentration."""
@@ -203,11 +215,14 @@ class SpellDefinition:
             "aoe_direction": self.aoe_direction.value if self.aoe_direction else None,
             "effect_type": self.effect_type.value,
             "damage_dice": self.damage_dice,
+            "damage_dice_per_cl": self.damage_dice_per_cl,
+            "max_damage_cl": self.max_damage_cl,
             "damage_type": self.damage_type.value if self.damage_type else None,
             "healing_dice": self.healing_dice,
             "save_type": self.save_type.value if self.save_type else None,
             "save_effect": self.save_effect.value,
             "duration_rounds": self.duration_rounds,
+            "duration_rounds_per_cl": self.duration_rounds_per_cl,
             "concentration": self.concentration,
             "conditions_on_fail": list(self.conditions_on_fail),
             "conditions_on_success": list(self.conditions_on_success),
@@ -216,6 +231,25 @@ class SpellDefinition:
             "rule_citations": list(self.rule_citations),
             "content_id": self.content_id,
         }
+
+    def effective_damage_dice(self, caster_level: int) -> Optional[str]:
+        """WO-ENGINE-CL-DAMAGE-SCALE-001: Return CL-scaled dice string or static fallback.
+
+        Returns None for spells with no damage (both damage_dice and damage_dice_per_cl unset).
+        """
+        if self.damage_dice_per_cl is not None:
+            cl_cap = min(caster_level, self.max_damage_cl) if self.max_damage_cl > 0 else caster_level
+            return f"{cl_cap}{self.damage_dice_per_cl}"
+        return self.damage_dice
+
+    def effective_duration_rounds(self, caster_level: int) -> int:
+        """WO-ENGINE-CL-DURATION-SCALE-001: Return CL-scaled or static duration in rounds.
+
+        Returns 0 for instantaneous spells (both duration_rounds and duration_rounds_per_cl zero).
+        """
+        if self.duration_rounds_per_cl > 0:
+            return self.duration_rounds_per_cl * caster_level
+        return self.duration_rounds
 
 
 # ==============================================================================
@@ -773,7 +807,7 @@ class SpellResolver:
                 for condition in spell.conditions_on_fail:
                     conditions_applied.append((entity_id, condition))
                     condition_stp = self._create_condition_stp(
-                        caster.caster_id, entity_id, condition, spell
+                        caster.caster_id, entity_id, condition, spell, caster.caster_level
                     )
                     stps.append(condition_stp)
 
@@ -782,7 +816,7 @@ class SpellResolver:
                 for condition in spell.conditions_on_success:
                     conditions_applied.append((entity_id, condition))
                     condition_stp = self._create_condition_stp(
-                        caster.caster_id, entity_id, condition, spell
+                        caster.caster_id, entity_id, condition, spell, caster.caster_level
                     )
                     stps.append(condition_stp)
 
@@ -856,7 +890,7 @@ class SpellResolver:
             affected_squares=[sq.to_dict() for sq in affected_squares],
             affected_entities=affected_entities,
             save_dc=caster.get_spell_dc(spell.level) if spell.save_type else 0,
-            damage_dice=spell.damage_dice or "",
+            damage_dice=spell.effective_damage_dice(caster.caster_level) or "",
             citations=list(spell.rule_citations),
         )
 
@@ -946,7 +980,9 @@ class SpellResolver:
         Returns:
             (damage_dealt, damage_stp)
         """
-        if spell.damage_dice is None:
+        # WO-ENGINE-CL-DAMAGE-SCALE-001: Compute CL-scaled or static damage dice
+        _dmg_expr = spell.effective_damage_dice(caster.caster_level)
+        if _dmg_expr is None:
             return 0, self._stp_builder.damage_roll(
                 actor_id=caster.caster_id,
                 target_id=target.entity_id,
@@ -962,9 +998,9 @@ class SpellResolver:
         if maximize:
             from aidm.core.metamagic_resolver import apply_maximize_dice
             rolls = []  # No dice consumed — determinism preserved
-            total = apply_maximize_dice(spell.damage_dice)
+            total = apply_maximize_dice(_dmg_expr)
         else:
-            rolls, total = self._roll_dice(spell.damage_dice)
+            rolls, total = self._roll_dice(_dmg_expr)
 
         # Apply save effect
         if saved:
@@ -1005,7 +1041,7 @@ class SpellResolver:
         damage_stp = self._stp_builder.damage_roll(
             actor_id=caster.caster_id,
             target_id=target.entity_id,
-            dice=spell.damage_dice,
+            dice=_dmg_expr,
             rolls=rolls,
             damage_type=damage_type,
             modifiers=[],
@@ -1089,14 +1125,16 @@ class SpellResolver:
         target_id: str,
         condition: str,
         spell: SpellDefinition,
+        caster_level: int = 0,
     ) -> StructuredTruthPacket:
         """Create STP for condition application."""
+        _dur = spell.effective_duration_rounds(caster_level)
         return self._stp_builder.condition_applied(
             actor_id=caster_id,
             target_id=target_id,
             condition_name=condition,
             source=spell.name,
-            duration_rounds=spell.duration_rounds if spell.duration_rounds > 0 else None,
+            duration_rounds=_dur if _dur > 0 else None,
             save_dc=None,  # Already resolved
             save_type=spell.save_type.value if spell.save_type else None,
             citations=list(spell.rule_citations),

@@ -36,7 +36,9 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         aoe_shape=AoEShape.BURST,
         aoe_radius_ft=20,
         effect_type=SpellEffect.DAMAGE,
-        damage_dice="8d6",
+        damage_dice=None,           # WO-ENGINE-CL-DAMAGE-SCALE-001: CL-scaled below
+        damage_dice_per_cl="d6",    # 1d6 per CL (PHB p.231)
+        max_damage_cl=10,           # Cap at 10d6
         damage_type=DamageType.FIRE,
         save_type=SaveType.REF,
         save_effect=SaveEffect.HALF,
@@ -76,7 +78,9 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         aoe_shape=AoEShape.LINE,
         aoe_radius_ft=120,  # 120-foot line
         effect_type=SpellEffect.DAMAGE,
-        damage_dice="8d6",  # 1d6/level, max 10d6
+        damage_dice=None,           # WO-ENGINE-CL-DAMAGE-SCALE-001: CL-scaled below
+        damage_dice_per_cl="d6",    # 1d6 per CL (PHB p.243)
+        max_damage_cl=10,           # Cap at 10d6
         damage_type=DamageType.ELECTRICITY,
         save_type=SaveType.REF,
         save_effect=SaveEffect.HALF,
@@ -427,7 +431,8 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         damage_type=None,
         save_type=None,  # Harmless
         save_effect=SaveEffect.NONE,
-        duration_rounds=10,  # 1 round/level
+        duration_rounds=0,              # WO-ENGINE-CL-DURATION-SCALE-001: CL-scaled below
+        duration_rounds_per_cl=1,       # 1 round/level (PHB p.239)
         concentration=False,
         conditions_on_success=("hasted",),
         rule_citations=("PHB p.239",),
@@ -473,7 +478,8 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         damage_type=None,
         save_type=SaveType.WILL,
         save_effect=SaveEffect.NEGATES,
-        duration_rounds=10,  # 1 round/level
+        duration_rounds=0,              # WO-ENGINE-CL-DURATION-SCALE-001: CL-scaled below
+        duration_rounds_per_cl=1,       # 1 round/level (PHB p.280)
         concentration=False,
         conditions_on_fail=("slowed",),
         rule_citations=("PHB p.280",),
@@ -672,7 +678,8 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         damage_type=None,
         save_type=None,
         save_effect=SaveEffect.NONE,
-        duration_rounds=10,  # 1 min/level
+        duration_rounds=0,              # WO-ENGINE-CL-DURATION-SCALE-001: CL-scaled below
+        duration_rounds_per_cl=10,      # 1 min/level = 10 rounds/level (PHB p.205)
         concentration=False,
         conditions_on_success=("blessed",),  # +1 morale attack & fear saves
         rule_citations=("PHB p.205",),
@@ -2032,7 +2039,8 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="cause_fear", name="Cause Fear", level=1, school="necromancy",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.DEBUFF,
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
-        duration_rounds=10, rule_citations=("PHB p.208",),
+        duration_rounds=0, duration_rounds_per_cl=1,  # WO-ENGINE-CL-DURATION-SCALE-001: 1r/CL (PHB p.208)
+        rule_citations=("PHB p.208",),
     ),
     "charm_person": SpellDefinition(
         spell_id="charm_person", name="Charm Person", level=1, school="enchantment",
