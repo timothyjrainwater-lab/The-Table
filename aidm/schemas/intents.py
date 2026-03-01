@@ -1204,6 +1204,116 @@ class RunIntent:
         return cls(actor_id=data["actor_id"])
 
 
+@dataclass
+class SpringAttackIntent:
+    """Intent to use Spring Attack feat (PHB p.100). WO-ENGINE-AH-WO2.
+
+    Full-round action: move up to speed, make one melee attack at any point during
+    movement, continue moving. Target does not get AoO against the attacker.
+    Cannot use in heavy armor.
+    """
+
+    type: Literal["spring_attack"] = "spring_attack"
+    attacker_id: str = ""
+    target_id: str = ""
+    weapon: Dict[str, Any] = field(default_factory=dict)
+    """Weapon dict in Weapon-schema format (melee only; ranged invalid for Spring Attack)."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "attacker_id": self.attacker_id,
+            "target_id": self.target_id,
+            "weapon": self.weapon,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "SpringAttackIntent":
+        if data.get("type") != "spring_attack":
+            raise IntentParseError(f"Expected type 'spring_attack', got '{data.get('type')}'")
+        return cls(
+            attacker_id=data["attacker_id"],
+            target_id=data["target_id"],
+            weapon=data.get("weapon", {}),
+        )
+
+
+@dataclass
+class ShotOnTheRunIntent:
+    """Intent to use Shot on the Run feat (PHB p.99). WO-ENGINE-AH-WO3.
+
+    Full-round action: move up to speed, make one ranged attack at any point during
+    movement, continue moving. Target does not get AoO against the attacker.
+    Range increment penalties still apply. Cannot use in heavy armor.
+    """
+
+    type: Literal["shot_on_the_run"] = "shot_on_the_run"
+    attacker_id: str = ""
+    target_id: str = ""
+    weapon: Dict[str, Any] = field(default_factory=dict)
+    """Weapon dict in Weapon-schema format (ranged weapon required)."""
+    range_penalty: int = 0
+    """Range increment penalty to apply (still applies per PHB p.99)."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "attacker_id": self.attacker_id,
+            "target_id": self.target_id,
+            "weapon": self.weapon,
+            "range_penalty": self.range_penalty,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "ShotOnTheRunIntent":
+        if data.get("type") != "shot_on_the_run":
+            raise IntentParseError(f"Expected type 'shot_on_the_run', got '{data.get('type')}'")
+        return cls(
+            attacker_id=data["attacker_id"],
+            target_id=data["target_id"],
+            weapon=data.get("weapon", {}),
+            range_penalty=data.get("range_penalty", 0),
+        )
+
+
+@dataclass
+class ManyShotIntent:
+    """Intent to use Manyshot feat (PHB p.97). WO-ENGINE-AH-WO4.
+
+    Standard action: fire two arrows at a single target within 30 feet.
+    Single attack roll at -4 penalty. Each arrow deals damage independently on hit.
+    BAB scaling (3+ arrows at BAB +11/+16) is explicitly out of scope.
+    """
+
+    type: Literal["manyshot"] = "manyshot"
+    attacker_id: str = ""
+    target_id: str = ""
+    weapon: Dict[str, Any] = field(default_factory=dict)
+    """Weapon dict in Weapon-schema format (ranged weapon required)."""
+    within_30_feet: bool = True
+    """DM/AI asserts target is within 30 feet (PHB p.97 range requirement)."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "attacker_id": self.attacker_id,
+            "target_id": self.target_id,
+            "weapon": self.weapon,
+            "within_30_feet": self.within_30_feet,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "ManyShotIntent":
+        if data.get("type") != "manyshot":
+            raise IntentParseError(f"Expected type 'manyshot', got '{data.get('type')}'")
+        return cls(
+            attacker_id=data["attacker_id"],
+            target_id=data["target_id"],
+            weapon=data.get("weapon", {}),
+            within_30_feet=data.get("within_30_feet", True),
+        )
+
+
 # Type alias for all intent types
 Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent |
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
@@ -1213,7 +1323,8 @@ Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | Rest
           FascinateIntent | WildShapeIntent |
           RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
           DemoralizeIntent | CalledShotIntent | StandIntent |
-          ImmediateActionIntent | RunIntent)
+          ImmediateActionIntent | RunIntent |
+          SpringAttackIntent | ShotOnTheRunIntent | ManyShotIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -1299,5 +1410,11 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return ImmediateActionIntent.from_dict(data)
     elif intent_type == "run":
         return RunIntent.from_dict(data)
+    elif intent_type == "spring_attack":
+        return SpringAttackIntent.from_dict(data)
+    elif intent_type == "shot_on_the_run":
+        return ShotOnTheRunIntent.from_dict(data)
+    elif intent_type == "manyshot":
+        return ManyShotIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

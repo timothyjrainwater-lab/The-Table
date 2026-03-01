@@ -18,6 +18,43 @@ from aidm.schemas.entity_fields import EF
 from aidm.schemas.skills import SKILLS, SkillDefinition
 
 
+# WO-ENGINE-AH-WO1: Skill-bonus feat table (PHB p.91-102)
+# Each feat grants +2 untyped bonus to two specific skills. Untyped = stacks with everything.
+# All 12 PHB skill-bonus feats wired. Authority: RAW (PHB names no bonus type for these).
+_SKILL_BONUS_FEATS: dict = {
+    "alertness":       ("listen",             "spot"),
+    "athletic":        ("climb",              "swim"),
+    "acrobatic":       ("jump",               "tumble"),
+    "deceitful":       ("bluff",              "forgery"),
+    "deft_hands":      ("sleight_of_hand",    "use_rope"),
+    "diligent":        ("appraise",           "decipher_script"),
+    "investigator":    ("gather_information", "search"),
+    "negotiator":      ("diplomacy",          "sense_motive"),
+    "nimble_fingers":  ("disable_device",     "open_lock"),
+    "persuasive":      ("bluff",              "intimidate"),
+    "self_sufficient": ("heal",               "survival"),
+    "stealthy":        ("hide",               "move_silently"),
+}
+
+
+def _get_feat_skill_bonus(actor_feats: list, target_skill_id: str) -> int:
+    """Sum all applicable skill-bonus feat bonuses for target_skill_id.
+
+    Args:
+        actor_feats: List of feat IDs the actor has (EF.FEATS)
+        target_skill_id: The skill being checked
+
+    Returns:
+        Total untyped bonus from skill-bonus feats (PHB p.91-102, untyped, stacks)
+    """
+    total = 0
+    for feat_id in actor_feats:
+        skills = _SKILL_BONUS_FEATS.get(feat_id)
+        if skills and target_skill_id in skills:
+            total += 2
+    return total
+
+
 # WO-ENGINE-SKILL-SYNERGY-001: Skill synergy bonuses (PHB p.65)
 # 5+ ranks in source skill → +2 circumstance bonus to target skill.
 # Source: PHB Table 4-5, p.65. All entries wired.
@@ -239,6 +276,11 @@ def resolve_skill_check(
     _skill_bonus_dict = entity.get(EF.RACIAL_SKILL_BONUS, {}) or {}
     _racial_skill_bonus = _skill_bonus_dict.get(skill_id, 0)
     total += _racial_skill_bonus
+
+    # WO-ENGINE-AH-WO1: Skill-bonus feat bonuses (PHB p.91-102, untyped, stacks with everything)
+    # Alertness +2 Listen/Spot, Athletic +2 Climb/Swim, etc. See _SKILL_BONUS_FEATS table.
+    _actor_feats = entity.get(EF.FEATS, []) or []
+    total += _get_feat_skill_bonus(_actor_feats, skill_id)
 
     return SkillCheckResult(
         success=(total >= dc),

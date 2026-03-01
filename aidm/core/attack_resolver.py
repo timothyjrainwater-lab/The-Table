@@ -2130,3 +2130,366 @@ def apply_cdg_events(world_state: WorldState, events: List[Event]) -> WorldState
         entities=entities,
         active_combat=deepcopy(world_state.active_combat) if world_state.active_combat else None
     )
+
+
+def resolve_spring_attack(
+    intent,
+    world_state: WorldState,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> List[Event]:
+    """Resolve a Spring Attack (PHB p.100). WO-ENGINE-AH-WO2.
+
+    Full-round action: move up to speed, make one melee attack, continue moving.
+    Target does not get AoO against the attacker (suppressed via filter_aoo_from_target
+    in play_loop handler). Other threatening creatures may still get movement AoOs.
+
+    Validation:
+    - Attacker must have 'spring_attack' in EF.FEATS (PHB p.100)
+    - Attacker must NOT wear heavy armor (PHB p.100 — cannot use in heavy armor)
+
+    Returns events starting at next_event_id. Caller must call apply_attack_events().
+    """
+    from aidm.schemas.attack import AttackIntent as _AttackIntent, Weapon as _Weapon
+
+    events: List[Event] = []
+    current_event_id = next_event_id
+
+    attacker = world_state.entities.get(intent.attacker_id)
+    if attacker is None:
+        return [Event(
+            event_id=current_event_id,
+            event_type="spring_attack_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "attacker_not_found"},
+            citations=["PHB p.100"],
+        )]
+
+    # Gate 1: Spring Attack feat required (PHB p.100)
+    feats = attacker.get(EF.FEATS, []) or []
+    if "spring_attack" not in feats:
+        return [Event(
+            event_id=current_event_id,
+            event_type="spring_attack_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "missing_feat_spring_attack"},
+            citations=["PHB p.100"],
+        )]
+
+    # Gate 2: Heavy armor blocks Spring Attack (PHB p.100)
+    armor_type = attacker.get(EF.ARMOR_TYPE, "none")
+    if armor_type == "heavy":
+        return [Event(
+            event_id=current_event_id,
+            event_type="spring_attack_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "heavy_armor"},
+            citations=["PHB p.100"],
+        )]
+
+    # Build AttackIntent: single melee attack, no bonus/penalty from feat itself
+    base_attack_bonus = attacker.get(EF.ATTACK_BONUS, 0)
+    weapon_fields = {k: v for k, v in intent.weapon.items()}
+    _VALID_WEAPON_TYPES = {"light", "one-handed", "two-handed", "ranged", "natural"}
+    if weapon_fields.get("weapon_type") not in _VALID_WEAPON_TYPES:
+        weapon_fields = dict(weapon_fields)
+        weapon_fields["weapon_type"] = "one-handed"
+    weapon_obj = _Weapon(**weapon_fields)
+
+    attack_intent = _AttackIntent(
+        attacker_id=intent.attacker_id,
+        target_id=intent.target_id,
+        attack_bonus=base_attack_bonus,
+        weapon=weapon_obj,
+    )
+
+    # Resolve the single melee attack.
+    # AoO suppression (no AoO from target): handled in play_loop via filter_aoo_from_target.
+    # Melee attacks do not provoke in the first place; filter_aoo_from_target is still called
+    # as the shared mechanism with Shot on the Run (WO3) — see aoo.py:filter_aoo_from_target.
+    attack_events = resolve_attack(
+        intent=attack_intent,
+        world_state=world_state,
+        rng=rng,
+        next_event_id=current_event_id,
+        timestamp=timestamp,
+    )
+    events.extend(attack_events)
+
+    return events
+
+
+def resolve_shot_on_the_run(
+    intent,
+    world_state: WorldState,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> List[Event]:
+    """Resolve Shot on the Run (PHB p.99). WO-ENGINE-AH-WO3.
+
+    Full-round action: move up to speed, make one ranged attack, continue moving.
+    Target does not get AoO against the attacker (suppressed via filter_aoo_from_target
+    in play_loop handler — same mechanism as Spring Attack, WO2). Range increment
+    penalties still apply (intent.range_penalty added to effective bonus).
+
+    Validation:
+    - Attacker must have 'shot_on_the_run' in EF.FEATS (PHB p.99)
+    - Attacker must NOT wear heavy armor (PHB p.99 — works like Spring Attack)
+
+    Returns events starting at next_event_id. Caller must call apply_attack_events().
+    """
+    from aidm.schemas.attack import AttackIntent as _AttackIntent, Weapon as _Weapon
+
+    events: List[Event] = []
+    current_event_id = next_event_id
+
+    attacker = world_state.entities.get(intent.attacker_id)
+    if attacker is None:
+        return [Event(
+            event_id=current_event_id,
+            event_type="shot_on_the_run_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "attacker_not_found"},
+            citations=["PHB p.99"],
+        )]
+
+    # Gate 1: Shot on the Run feat required (PHB p.99)
+    feats = attacker.get(EF.FEATS, []) or []
+    if "shot_on_the_run" not in feats:
+        return [Event(
+            event_id=current_event_id,
+            event_type="shot_on_the_run_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "missing_feat_shot_on_the_run"},
+            citations=["PHB p.99"],
+        )]
+
+    # Gate 2: Heavy armor blocks Shot on the Run (PHB p.99)
+    armor_type = attacker.get(EF.ARMOR_TYPE, "none")
+    if armor_type == "heavy":
+        return [Event(
+            event_id=current_event_id,
+            event_type="shot_on_the_run_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "heavy_armor"},
+            citations=["PHB p.99"],
+        )]
+
+    # Build AttackIntent: single ranged attack with range_penalty applied
+    # Range increment penalty still applies (PHB p.99 — not suppressed by feat)
+    base_attack_bonus = attacker.get(EF.ATTACK_BONUS, 0)
+    effective_bonus = base_attack_bonus + intent.range_penalty  # range_penalty is negative or 0
+    weapon_fields = {k: v for k, v in intent.weapon.items()}
+    if weapon_fields.get("weapon_type") not in ("ranged",):
+        weapon_fields = dict(weapon_fields)
+        weapon_fields["weapon_type"] = "ranged"
+        if "range_increment" not in weapon_fields:
+            weapon_fields["range_increment"] = 30
+    weapon_obj = _Weapon(**weapon_fields)
+
+    attack_intent = _AttackIntent(
+        attacker_id=intent.attacker_id,
+        target_id=intent.target_id,
+        attack_bonus=effective_bonus,
+        weapon=weapon_obj,
+    )
+
+    # Resolve the single ranged attack.
+    # AoO suppression (no AoO from target): handled in play_loop via filter_aoo_from_target.
+    # SAME mechanism as Spring Attack (WO2) — aoo.filter_aoo_from_target called from both
+    # play_loop Spring Attack and Shot on the Run handlers.
+    attack_events = resolve_attack(
+        intent=attack_intent,
+        world_state=world_state,
+        rng=rng,
+        next_event_id=current_event_id,
+        timestamp=timestamp,
+    )
+    events.extend(attack_events)
+
+    return events
+
+
+def resolve_manyshot(
+    intent,
+    world_state: WorldState,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> List[Event]:
+    """Resolve Manyshot (PHB p.97). WO-ENGINE-AH-WO4.
+
+    Standard action: fire two arrows at a single target within 30 feet.
+    Single attack roll at -4 penalty. Each arrow deals damage independently on hit.
+    BAB scaling (3+ arrows at BAB +11/+16) is OUT OF SCOPE — base 2-arrow case only.
+    CONSUME_DEFERRED: BAB scaling left for future WO.
+
+    Authority: PHB p.97 — '-4 penalty' for 2-arrow volley (NOT Rapid Shot's -2).
+
+    Validation:
+    - Attacker must have 'manyshot' in EF.FEATS (PHB p.97)
+    - within_30_feet must be True (DM/AI assertion, PHB p.97)
+
+    Returns events starting at next_event_id. Caller must call apply_attack_events().
+    """
+    events: List[Event] = []
+    current_event_id = next_event_id
+
+    attacker = world_state.entities.get(intent.attacker_id)
+    target = world_state.entities.get(intent.target_id)
+
+    if attacker is None:
+        return [Event(
+            event_id=current_event_id,
+            event_type="manyshot_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "attacker_not_found"},
+            citations=["PHB p.97"],
+        )]
+
+    # Gate 1: Manyshot feat required (PHB p.97)
+    feats = attacker.get(EF.FEATS, []) or []
+    if "manyshot" not in feats:
+        return [Event(
+            event_id=current_event_id,
+            event_type="manyshot_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "missing_feat_manyshot"},
+            citations=["PHB p.97"],
+        )]
+
+    # Gate 2: Target must be within 30 feet (PHB p.97)
+    if not intent.within_30_feet:
+        return [Event(
+            event_id=current_event_id,
+            event_type="manyshot_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "target_id": intent.target_id,
+                     "reason": "target_out_of_30ft_range"},
+            citations=["PHB p.97"],
+        )]
+
+    if target is None:
+        return [Event(
+            event_id=current_event_id,
+            event_type="manyshot_invalid",
+            timestamp=timestamp,
+            payload={"attacker_id": intent.attacker_id, "reason": "target_not_found"},
+            citations=["PHB p.97"],
+        )]
+
+    # PHB p.97: single attack roll at -4 penalty (Manyshot penalty, NOT Rapid Shot -2)
+    base_attack_bonus = attacker.get(EF.ATTACK_BONUS, 0)
+    manyshot_penalty = -4  # PHB p.97: 2-arrow volley at -4
+    effective_bonus = base_attack_bonus + manyshot_penalty
+
+    # Roll ONE d20 — single attack roll for both arrows (MS-007: only one d20 roll event)
+    combat_rng = rng.stream("combat")
+    d20_roll = combat_rng.randint(1, 20)
+    attack_total = d20_roll + effective_bonus
+    target_ac = target.get(EF.AC, 10)
+    hit = attack_total >= target_ac
+
+    events.append(Event(
+        event_id=current_event_id,
+        event_type="attack_roll",
+        timestamp=timestamp,
+        payload={
+            "attacker_id": intent.attacker_id,
+            "target_id": intent.target_id,
+            "roll": d20_roll,
+            "attack_bonus": effective_bonus,
+            "manyshot_penalty": manyshot_penalty,
+            "total": attack_total,
+            "target_ac": target_ac,
+            "hit": hit,
+            "source": "manyshot",
+        },
+        citations=["PHB p.97"],
+    ))
+    current_event_id += 1
+
+    if hit:
+        # Both arrows hit — roll damage independently for each (PHB p.97: "deal damage normally")
+        # CONSUME_DEFERRED: BAB +11 (3 arrows) / BAB +16 (4 arrows) scaling not implemented.
+        weapon = intent.weapon
+        damage_dice: str = weapon.get("damage_dice", "1d8")
+        damage_bonus: int = weapon.get("damage_bonus", 0)
+        damage_type: str = weapon.get("damage_type", "piercing")
+        str_modifier = 0  # PHB p.113: standard ranged attacks do not add STR to damage
+
+        target_hp_current = target.get(EF.HP_CURRENT, 0)
+        hp_after = target_hp_current
+
+        for arrow_index in range(2):
+            num_dice, die_size = parse_damage_dice(damage_dice)
+            damage_rolls = roll_dice(num_dice, die_size, rng)
+            damage_total = max(1, sum(damage_rolls) + damage_bonus + str_modifier)
+
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="damage_roll",
+                timestamp=timestamp + 0.1 + arrow_index * 0.01,
+                payload={
+                    "attacker_id": intent.attacker_id,
+                    "target_id": intent.target_id,
+                    "damage_dice": damage_dice,
+                    "damage_rolls": damage_rolls,
+                    "damage_bonus": damage_bonus,
+                    "str_modifier": str_modifier,
+                    "total": damage_total,
+                    "damage_type": damage_type,
+                    "arrow_index": arrow_index,
+                    "source": "manyshot",
+                },
+                citations=["PHB p.97"],
+            ))
+            current_event_id += 1
+
+            hp_before = hp_after
+            hp_after = hp_before - damage_total
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="hp_changed",
+                timestamp=timestamp + 0.1 + arrow_index * 0.01,
+                payload={
+                    "entity_id": intent.target_id,
+                    "hp_before": hp_before,
+                    "hp_after": hp_after,
+                    "delta": -damage_total,
+                    "source": "manyshot",
+                    "arrow_index": arrow_index,
+                },
+            ))
+            current_event_id += 1
+
+        # Check defeat/dying/disabled after all arrows
+        if hp_after <= -10:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="entity_defeated",
+                timestamp=timestamp + 0.2,
+                payload={"entity_id": intent.target_id, "source": "manyshot"},
+            ))
+            current_event_id += 1
+        elif hp_after < 0:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="entity_dying",
+                timestamp=timestamp + 0.2,
+                payload={"entity_id": intent.target_id, "hp": hp_after, "source": "manyshot"},
+            ))
+            current_event_id += 1
+        elif hp_after == 0:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="entity_disabled",
+                timestamp=timestamp + 0.2,
+                payload={"entity_id": intent.target_id, "source": "manyshot"},
+            ))
+            current_event_id += 1
+
+    return events
+

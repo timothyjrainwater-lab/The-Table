@@ -187,6 +187,9 @@ def _build_action_types() -> Dict[type, str]:
     _try_add(mapping, "aidm.schemas.intents", "WildShapeIntent", "standard")     # PHB p.37: wild shape = standard action
     _try_add(mapping, "aidm.schemas.intents", "RevertFormIntent", "standard")    # PHB p.37: reverting = standard action
     _try_add(mapping, "aidm.schemas.intents", "DemoralizeIntent", "standard")    # PHB p.76: Intimidate demoralize = standard action
+    _try_add(mapping, "aidm.schemas.intents", "SpringAttackIntent", "full_round")  # PHB p.100: Spring Attack = full-round action (WO-ENGINE-AH-WO2)
+    _try_add(mapping, "aidm.schemas.intents", "ShotOnTheRunIntent", "full_round")  # PHB p.99: Shot on the Run = full-round action (WO-ENGINE-AH-WO3)
+    _try_add(mapping, "aidm.schemas.intents", "ManyShotIntent", "standard")        # PHB p.97: Manyshot = standard action (WO-ENGINE-AH-WO4)
 
     return mapping
 

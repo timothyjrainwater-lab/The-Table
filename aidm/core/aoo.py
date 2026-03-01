@@ -456,6 +456,28 @@ def check_aoo_triggers(
     return triggers
 
 
+def filter_aoo_from_target(triggers: "List[AooTrigger]", target_id: str) -> "List[AooTrigger]":
+    """Remove AoO triggers where the reactor is the specified target.
+
+    WO-ENGINE-AH-WO2+WO3: Shared suppression mechanism for Spring Attack and Shot on the Run.
+    PHB p.100 (Spring Attack) / PHB p.99 (Shot on the Run): "without provoking an attack
+    of opportunity from the target of your attack." Other threatening creatures can still
+    get AoOs from movement normally.
+
+    Called by both Spring Attack and Shot on the Run handlers in play_loop.py.
+    For Spring Attack (melee): triggers is [] since melee doesn't provoke — no-op.
+    For Shot on the Run (ranged): filters target from all-enemy triggers.
+
+    Args:
+        triggers: List of AooTrigger from check_aoo_triggers()
+        target_id: Entity ID of the attack target (suppress their AoO only)
+
+    Returns:
+        Filtered trigger list with target's AoO removed.
+    """
+    return [t for t in triggers if t.reactor_id != target_id]
+
+
 def resolve_aoo_sequence(
     triggers: List[AooTrigger],
     world_state: WorldState,

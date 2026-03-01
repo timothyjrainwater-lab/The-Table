@@ -78,6 +78,7 @@ from aidm.schemas.intents import (
     RageIntent, SmiteEvilIntent, LayOnHandsIntent, RemoveDiseaseIntent, BardicMusicIntent, FascinateIntent, WildShapeIntent, RevertFormIntent,
     NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent, StandIntent,
     ImmediateActionIntent, RunIntent,
+    SpringAttackIntent, ShotOnTheRunIntent, ManyShotIntent,
 )
 from aidm.core.flurry_of_blows_resolver import FlurryOfBlowsIntent
 from aidm.core.wholeness_of_body_resolver import WholenessOfBodyIntent
@@ -2087,6 +2088,9 @@ def execute_turn(
         # WO-ENGINE-CHARGE-001: Charge intent
         elif isinstance(combat_intent, ChargeIntent):
             intent_actor_id = combat_intent.attacker_id
+        # WO-ENGINE-AH-WO2/WO3/WO4: Spring Attack / Shot on the Run / Manyshot
+        elif isinstance(combat_intent, (SpringAttackIntent, ShotOnTheRunIntent, ManyShotIntent)):
+            intent_actor_id = combat_intent.attacker_id
         elif isinstance(combat_intent, (ReadyActionIntent, AidAnotherIntent,
                                         FightDefensivelyIntent, TotalDefenseIntent,
                                         FeintIntent, RageIntent, SmiteEvilIntent, LayOnHandsIntent,
@@ -3646,6 +3650,189 @@ def execute_turn(
                     current_event_id += len(conc_events)
 
             narration = "charge_complete"
+
+        # WO-ENGINE-AH-WO2: Spring Attack (PHB p.100)
+        # Full-round action. Single melee attack. No AoO from target (filter_aoo_from_target).
+        elif isinstance(combat_intent, SpringAttackIntent):
+            from aidm.core.attack_resolver import resolve_spring_attack
+            from aidm.core.aoo import filter_aoo_from_target
+            from aidm.schemas.attack import AttackIntent as _SAAttackIntent, Weapon as _SAWeapon
+
+            sa_events = resolve_spring_attack(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp,
+            )
+            events.extend(sa_events)
+            current_event_id += len(sa_events)
+
+            # AoO suppression: melee attacks don't provoke, so check_aoo_triggers returns [].
+            # filter_aoo_from_target called as the shared mechanism (WO2+WO3 parity).
+            _sa_invalid = any(e.event_type == "spring_attack_invalid" for e in sa_events)
+            if not _sa_invalid:
+                # Build melee AttackIntent to query check_aoo_triggers (returns [] for melee)
+                _sa_attacker = world_state.entities.get(combat_intent.attacker_id, {})
+                _sa_wf = {k: v for k, v in combat_intent.weapon.items()}
+                if _sa_wf.get("weapon_type") not in {"light", "one-handed", "two-handed", "ranged", "natural"}:
+                    _sa_wf["weapon_type"] = "one-handed"
+                _sa_weapon_obj = _SAWeapon(**_sa_wf)
+                _sa_attack_intent = _SAAttackIntent(
+                    attacker_id=combat_intent.attacker_id,
+                    target_id=combat_intent.target_id,
+                    attack_bonus=_sa_attacker.get(EF.ATTACK_BONUS, 0),
+                    weapon=_sa_weapon_obj,
+                )
+                _sa_aoo_triggers = check_aoo_triggers(world_state, combat_intent.attacker_id, _sa_attack_intent)
+                # Suppress target AoO — shared mechanism with Shot on the Run (WO3)
+                _sa_aoo_triggers = filter_aoo_from_target(_sa_aoo_triggers, combat_intent.target_id)
+                # (For melee: _sa_aoo_triggers is already [] — no ranged-attack triggers)
+
+                world_state = apply_attack_events(world_state, sa_events)
+
+                # Concentration check on damage
+                for _sa_hp_ev in [e for e in sa_events if e.event_type == "hp_changed"]:
+                    _sa_tgt_id = _sa_hp_ev.payload.get("entity_id")
+                    _sa_dmg = abs(_sa_hp_ev.payload.get("delta", 0))
+                    if _sa_dmg > 0 and _sa_tgt_id:
+                        _sa_conc, world_state = _check_concentration_break(
+                            caster_id=_sa_tgt_id,
+                            damage_dealt=_sa_dmg,
+                            world_state=world_state,
+                            rng=rng,
+                            next_event_id=current_event_id,
+                            timestamp=timestamp + 0.15,
+                        )
+                        events.extend(_sa_conc)
+                        current_event_id += len(_sa_conc)
+
+            narration = "spring_attack_resolved"
+
+        # WO-ENGINE-AH-WO3: Shot on the Run (PHB p.99)
+        # Full-round action. Single ranged attack. No AoO from target (filter_aoo_from_target).
+        elif isinstance(combat_intent, ShotOnTheRunIntent):
+            from aidm.core.attack_resolver import resolve_shot_on_the_run
+            from aidm.core.aoo import filter_aoo_from_target
+            from aidm.schemas.attack import AttackIntent as _SRAttackIntent, Weapon as _SRWeapon
+
+            # AoO suppression for ranged attack: suppress AoO from target specifically.
+            # Other threatening creatures still get AoOs from the ranged attack provocation.
+            # Shared mechanism with Spring Attack (WO2): filter_aoo_from_target in aoo.py.
+            _sr_attacker = world_state.entities.get(combat_intent.attacker_id, {})
+            _sr_wf = {k: v for k, v in combat_intent.weapon.items()}
+            if _sr_wf.get("weapon_type") not in ("ranged",):
+                _sr_wf = dict(_sr_wf)
+                _sr_wf["weapon_type"] = "ranged"
+                if "range_increment" not in _sr_wf:
+                    _sr_wf["range_increment"] = 30
+            _sr_weapon_obj = _SRWeapon(**_sr_wf)
+            _sr_attack_intent = _SRAttackIntent(
+                attacker_id=combat_intent.attacker_id,
+                target_id=combat_intent.target_id,
+                attack_bonus=_sr_attacker.get(EF.ATTACK_BONUS, 0) + combat_intent.range_penalty,
+                weapon=_sr_weapon_obj,
+            )
+            _sr_aoo_triggers = check_aoo_triggers(world_state, combat_intent.attacker_id, _sr_attack_intent)
+            # Suppress AoO from target — shared mechanism with Spring Attack (WO2)
+            _sr_aoo_triggers = filter_aoo_from_target(_sr_aoo_triggers, combat_intent.target_id)
+
+            # Resolve remaining AoO triggers (non-target threatening creatures)
+            if _sr_aoo_triggers:
+                _sr_aoo_result = resolve_aoo_sequence(
+                    triggers=_sr_aoo_triggers,
+                    world_state=world_state,
+                    rng=rng,
+                    next_event_id=current_event_id,
+                    timestamp=timestamp + 0.05,
+                )
+                events.extend(_sr_aoo_result.events)
+                current_event_id += len(_sr_aoo_result.events)
+                world_state = apply_attack_events(world_state, _sr_aoo_result.events)
+                if _sr_aoo_result.provoker_defeated:
+                    events.append(Event(
+                        event_id=current_event_id,
+                        event_type="action_aborted",
+                        timestamp=timestamp + 0.1,
+                        payload={"actor_id": combat_intent.attacker_id,
+                                 "reason": "defeated_by_aoo_during_shot_on_the_run"},
+                    ))
+                    current_event_id += 1
+                    narration = "action_aborted_by_aoo"
+                    return TurnResult(
+                        status="ok",
+                        world_state=world_state,
+                        events=events,
+                        turn_index=turn_ctx.turn_index,
+                        narration=narration,
+                    )
+
+            sotr_events = resolve_shot_on_the_run(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp + 0.1,
+            )
+            events.extend(sotr_events)
+            current_event_id += len(sotr_events)
+
+            _sotr_invalid = any(e.event_type == "shot_on_the_run_invalid" for e in sotr_events)
+            if not _sotr_invalid:
+                world_state = apply_attack_events(world_state, sotr_events)
+
+                for _sotr_hp_ev in [e for e in sotr_events if e.event_type == "hp_changed"]:
+                    _sotr_tgt_id = _sotr_hp_ev.payload.get("entity_id")
+                    _sotr_dmg = abs(_sotr_hp_ev.payload.get("delta", 0))
+                    if _sotr_dmg > 0 and _sotr_tgt_id:
+                        _sotr_conc, world_state = _check_concentration_break(
+                            caster_id=_sotr_tgt_id,
+                            damage_dealt=_sotr_dmg,
+                            world_state=world_state,
+                            rng=rng,
+                            next_event_id=current_event_id,
+                            timestamp=timestamp + 0.15,
+                        )
+                        events.extend(_sotr_conc)
+                        current_event_id += len(_sotr_conc)
+
+            narration = "shot_on_the_run_resolved"
+
+        # WO-ENGINE-AH-WO4: Manyshot (PHB p.97)
+        # Standard action. Single attack roll at -4. Two damage events on hit.
+        elif isinstance(combat_intent, ManyShotIntent):
+            from aidm.core.attack_resolver import resolve_manyshot
+
+            ms_events = resolve_manyshot(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp,
+            )
+            events.extend(ms_events)
+            current_event_id += len(ms_events)
+
+            _ms_invalid = any(e.event_type == "manyshot_invalid" for e in ms_events)
+            if not _ms_invalid:
+                world_state = apply_attack_events(world_state, ms_events)
+
+                for _ms_hp_ev in [e for e in ms_events if e.event_type == "hp_changed"]:
+                    _ms_tgt_id = _ms_hp_ev.payload.get("entity_id")
+                    _ms_dmg = abs(_ms_hp_ev.payload.get("delta", 0))
+                    if _ms_dmg > 0 and _ms_tgt_id:
+                        _ms_conc, world_state = _check_concentration_break(
+                            caster_id=_ms_tgt_id,
+                            damage_dealt=_ms_dmg,
+                            world_state=world_state,
+                            rng=rng,
+                            next_event_id=current_event_id,
+                            timestamp=timestamp + 0.15,
+                        )
+                        events.extend(_ms_conc)
+                        current_event_id += len(_ms_conc)
+
+            narration = "manyshot_resolved"
 
         # WO-ENGINE-NATURAL-ATTACK-001: Natural attack (bite, claw, talon, etc.)
         elif isinstance(combat_intent, NaturalAttackIntent):
