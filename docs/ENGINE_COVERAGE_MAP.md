@@ -168,7 +168,7 @@
 | Unconscious | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | Helpless; cannot move or act; UNCONSCIOUS condition |
 | Condition duration tracking (tick-down) | PHB p.309 | **IMPLEMENTED** | `conditions.py`, `duration_tracker.py` | duration_rounds field; tick_conditions() in play loop |
 | Condition auto-removal on expiry | PHB p.309 | **IMPLEMENTED** | `conditions.py` | Conditions with duration_rounds expire automatically |
-| Condition empty-dict format robustness | Engine infra | **IMPLEMENTED** | `conditions.py` | {cond_id: {}} no longer silently drops condition; _get_modifiers_for_condition_type() calls factory to get canonical ConditionModifiers; legacy list format logs warning + returns zero. CF-001–008. Batch AI. |
+| Condition empty-dict format robustness | Engine infra | **IMPLEMENTED** | `conditions.py` | {cond_id: {}} no longer silently drops condition; _get_modifiers_for_condition_type() calls factory to get canonical ConditionModifiers; legacy list format (or any non-dict) raises ValueError. CLF-001..008. Batch AI/AM. |
 
 ---
 
@@ -328,7 +328,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Feat | Source | Status | Notes |
 |------|--------|--------|-------|
 | Augment Summoning | PHB p.91 | **NOT STARTED** | No summoning system |
-| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS field added. DA-001–008. Batch AI. |
+| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. DA-001..008. FHS-001..008. Batch AI/AM. |
 | Far Shot | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py` | compute_range_penalty(feats, distance_ft, weapon_dict); ranged: increment×3//2 (integer, no float); thrown: increment×2; penalty = −2 per full effective increment. Trusted-caller model. FSHOT-001–008. Batch AI. |
 | Leadership | PHB p.97 / DMG | **NOT STARTED** | DMG system; no cohort/follower framework |
 | Empower Spell (metamagic) | PHB p.93 | **IMPLEMENTED** | `metamagic_resolver.py` | ×1.5 variable numeric effects |
@@ -375,7 +375,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Spell components — F (focus) | PHB p.174 | **NOT STARTED** | — | No focus item tracking |
 | Spell components — DF (divine focus) | PHB p.174 | **NOT STARTED** | — | No holy symbol requirement enforcement |
 | Spell components — XP (experience) | PHB p.174 | **NOT STARTED** | — | No XP cost deduction for spells |
-| Caster level effects (variable dice/range/etc.) | PHB p.174 | **PARTIAL** | `spell_resolver.py` | CasterStats.caster_level field; used for SR; dice are fixed per spell definition (not CL-scaled dynamically). Note: `requires_attack_roll` field on SpellDefinition is write-only at runtime — set on TOUCH/RAY spell definitions but never read in `resolve_spell()`. |
+| Caster level effects (variable dice/range/etc.) | PHB p.174 | **IMPLEMENTED** | `spell_resolver.py`, `data/spell_definitions.py`, `play_loop.py` | SpellDefinition.effective_damage_dice(cl) + effective_duration_rounds(cl); fireball/lightning_bolt 1d6/CL max 10d6; haste/slow 1r/CL, bless 10r/CL, cause_fear 1r/CL. Both resolver and play_loop paths updated for parity. Note: `requires_attack_roll` write-only (CONSUME_DEFERRED); magic missile multi-missile CL scale CONSUME_DEFERRED. CDS-001..008, CDU-001..008. Batch AM. |
 | Multiclass spellcasting — independent CL per class | PHB p.57 | **IMPLEMENTED** | `play_loop.py` | `_get_caster_level(entity, use_secondary)` helper; `_create_caster_stats(use_secondary=True)` routes CL_2; SpellCastIntent.use_secondary flag. WO-ENGINE-CASTER-LEVEL-2-001. |
 | Spell DC (10 + spell level + ability mod) | PHB p.175 | **IMPLEMENTED** | `spell_resolver.py` | Full DC computation in SpellResolver |
 | SR penetration check (d20 + CL vs SR) | PHB p.175 | **IMPLEMENTED** | `save_resolver.py` | SRCheck schema; full roll vs entity SR |
