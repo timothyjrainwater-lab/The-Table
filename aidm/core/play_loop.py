@@ -670,6 +670,58 @@ def _resolve_spell_cast(
         # Redirect to inflict spell; declared spell's slot consumed as normal
         spell = _inflict_spell
 
+    # WO-ENGINE-DRUID-SPONTANEOUS-SUMMON-001: Druid spontaneous summon (PHB p.35)
+    # Druids may 'lose' any prepared spell to cast summon nature's ally of same level.
+    # Same-level redirect only; lower-level redirect is CONSUME_DEFERRED (trust-caller).
+    elif getattr(intent, "spontaneous_summon", False):
+        _SNA_SPELLS_BY_LEVEL = {
+            1: "summon_natures_ally_i",
+            2: "summon_natures_ally_ii",
+            3: "summon_natures_ally_iii",
+            4: "summon_natures_ally_iv",
+            5: "summon_natures_ally_v",
+            6: "summon_natures_ally_vi",
+            7: "summon_natures_ally_vii",
+            8: "summon_natures_ally_viii",
+            9: "summon_natures_ally_ix",
+        }
+        _druid_level = world_state.entities.get(intent.caster_id, {}).get(
+            EF.CLASS_LEVELS, {}
+        ).get("druid", 0)
+        if _druid_level == 0:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_cast_failed",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "reason": "spontaneous_summon_not_druid",
+                    "reason_detail": "Only druids can spontaneously cast summon nature's ally (PHB p.35)",
+                    "turn_index": turn_index,
+                }
+            ))
+            return events, world_state, "spell_failed"
+        _declared_level_sna = spell.level
+        _sna_id = _SNA_SPELLS_BY_LEVEL.get(_declared_level_sna)
+        _sna_spell = SPELL_REGISTRY.get(_sna_id) if _sna_id else None
+        if _sna_spell is None:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="spell_cast_failed",
+                timestamp=timestamp,
+                payload={
+                    "caster_id": intent.caster_id,
+                    "spell_id": intent.spell_id,
+                    "reason": "sna_spell_not_in_registry",
+                    "reason_detail": f"No summon nature's ally for level {_declared_level_sna} in SPELL_REGISTRY",
+                    "turn_index": turn_index,
+                }
+            ))
+            return events, world_state, "spell_failed"
+        # Redirect to SNA spell; declared spell's slot consumed as normal
+        spell = _sna_spell
+
     # ── Spell slot governor ────────────────────────────────────────────────────
     spell_level = spell.level
     # Work on a live reference so we can mutate after success
@@ -1009,6 +1061,9 @@ def _resolve_spell_cast(
             _spell_focus_bonus += 1
         if f"greater_spell_focus_{_spell_school}" in _caster_feats:
             _spell_focus_bonus += 1
+    # WO-ENGINE-ILLUSION-DC-WIRE-001: Gnome +1 illusion spell DC (PHB p.16)
+    if _spell_school == "illusion":
+        _spell_focus_bonus += world_state.entities.get(intent.caster_id, {}).get(EF.ILLUSION_DC_BONUS, 0)
     if _spell_focus_bonus:
         from dataclasses import replace as _dc_replace
         caster = _dc_replace(caster, spell_focus_bonus=_spell_focus_bonus)

@@ -275,6 +275,12 @@ class SpellCastIntent:
     equal level is cast instead. Only valid for evil-aligned clerics (EF.ALIGNMENT in
     chaotic_evil / lawful_evil / neutral_evil). Good/neutral clerics blocked; use cure swap."""
 
+    spontaneous_summon: bool = False
+    """WO-ENGINE-DRUID-SPONTANEOUS-SUMMON-001: Druid spontaneous summon nature's ally (PHB p.35).
+    When True: the declared spell slot is consumed but a summon nature's ally spell of
+    the same level is cast instead. Only valid for druids. Same-level redirect only;
+    lower-level selection is CONSUME_DEFERRED (trust-caller for level selection)."""
+
     use_secondary: bool = False
     """WO-ENGINE-CASTER-LEVEL-2-001: True if casting from secondary caster class (PHB p.57).
     When True, spell resolution uses EF.CASTER_LEVEL_2 for CL-dependent effects."""

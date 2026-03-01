@@ -375,7 +375,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Spell components — F (focus) | PHB p.174 | **NOT STARTED** | — | No focus item tracking |
 | Spell components — DF (divine focus) | PHB p.174 | **NOT STARTED** | — | No holy symbol requirement enforcement |
 | Spell components — XP (experience) | PHB p.174 | **NOT STARTED** | — | No XP cost deduction for spells |
-| Caster level effects (variable dice/range/etc.) | PHB p.174 | **PARTIAL** | `spell_resolver.py` | CasterStats.caster_level field; used for SR; dice are fixed per spell definition (not CL-scaled dynamically) |
+| Caster level effects (variable dice/range/etc.) | PHB p.174 | **PARTIAL** | `spell_resolver.py` | CasterStats.caster_level field; used for SR; dice are fixed per spell definition (not CL-scaled dynamically). Note: `requires_attack_roll` field on SpellDefinition is write-only at runtime — set on TOUCH/RAY spell definitions but never read in `resolve_spell()`. |
 | Multiclass spellcasting — independent CL per class | PHB p.57 | **IMPLEMENTED** | `play_loop.py` | `_get_caster_level(entity, use_secondary)` helper; `_create_caster_stats(use_secondary=True)` routes CL_2; SpellCastIntent.use_secondary flag. WO-ENGINE-CASTER-LEVEL-2-001. |
 | Spell DC (10 + spell level + ability mod) | PHB p.175 | **IMPLEMENTED** | `spell_resolver.py` | Full DC computation in SpellResolver |
 | SR penetration check (d20 + CL vs SR) | PHB p.175 | **IMPLEMENTED** | `save_resolver.py` | SRCheck schema; full roll vs entity SR |
@@ -594,6 +594,7 @@ The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 73
 | Trackless Step | PHB p.36 | **NOT STARTED** | — | No tracking system to be immune to |
 | Resist Nature's Lure | PHB p.36 | **IMPLEMENTED** | `builder.py`, `save_resolver.py` | Druid L4+: builder sets EF.RESIST_NATURES_LURE=True. save_resolver reads when save_descriptor="fey": +4 bonus. Requires WO1 SaveContext threading to fire via resolve_save() path. Batch AD. RNL-001–004. |
 | Venom Immunity | PHB p.38 | **IMPLEMENTED** | `poison_disease_resolver.py` | Druid L9+ immune to all poisons. `is_immune_to_poison()` checks CLASS_LEVELS. WO-ENGINE-CLASS-IMMUNITY-001. Batch AB. |
+| Spontaneous summon (summon nature's ally) | PHB p.35 | **IMPLEMENTED** | `play_loop.py`, `spell_resolver.py` | Druid loses any prepared spell slot to cast SNA of same level. elif block after spontaneous_inflict; druid class gate; _SNA_SPELLS_BY_LEVEL dict levels 1–9. SpellCastIntent.spontaneous_summon flag. Lower-level selection CONSUME_DEFERRED (FINDING-ENGINE-DRUID-SUMMON-LOWER-LEVEL-001). WO-ENGINE-DRUID-SPONTANEOUS-SUMMON-001. Batch AK. DSS-001–008. |
 | Thousand Faces | PHB p.38 | **NOT STARTED** | — | No alter self at will |
 | Timeless Body | PHB p.38 | **NOT STARTED** | — | No aging mechanic |
 
@@ -701,7 +702,7 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 | Human | PHB p.12 | None | +1 feat, +4 skill pts | Normal | **IMPLEMENTED** — Bonus feat and skill pts at chargen |
 | Dwarf | PHB p.14 | STR/CON, -CHA | Stonecunning, darkvision, +2 vs poison/spells/SLAs, +4 vs giants, +1 vs orcs/goblinoids, speed penalty w/ armor immunity | Darkvision 60 ft | **IMPLEMENTED** — All fields in EF; STONECUNNING, DARKVISION_RANGE, SAVE_BONUS_POISON, etc. |
 | Elf | PHB p.15 | DEX, -CON | Immunity to sleep, +2 vs enchantment, low-light vision, automatic search secret doors, +2 Spot/Listen/Search | Low-light | **IMPLEMENTED** — IMMUNE_SLEEP, SAVE_BONUS_ENCHANTMENT, LOW_LIGHT_VISION, AUTOMATIC_SEARCH_DOORS fields |
-| Gnome | PHB p.16 | CON, -STR | Darkvision, +2 vs illusion SR, +1 DC illusions, +1 vs kobolds/goblinoids, +4 vs giants, +2 Craft(alchemy)/Listen | Low-light + darkvision | **IMPLEMENTED** — SPELL_RESISTANCE_ILLUSION, ILLUSION_DC_BONUS, ATTACK_BONUS_VS_KOBOLDS fields |
+| Gnome | PHB p.16 | CON, -STR | Darkvision, +2 vs illusion SR, +1 DC illusions, +1 vs kobolds/goblinoids, +4 vs giants, +2 Craft(alchemy)/Listen | Low-light + darkvision | **IMPLEMENTED** — SPELL_RESISTANCE_ILLUSION, ILLUSION_DC_BONUS, ATTACK_BONUS_VS_KOBOLDS fields. ILLUSION_DC_BONUS now consumed at runtime in `_resolve_spell_cast()`: gnome +1 caster-side illusion DC wired (WO-ENGINE-ILLUSION-DC-WIRE-001, Batch AK, ILD-001–008). |
 | Half-Elf | PHB p.18 | None | Low-light vision, immunity to sleep, +2 vs enchantment, +2 Diplomacy/Gather Info | Low-light | **IMPLEMENTED** — Fields tracked |
 | Half-Orc | PHB p.18 | STR, -INT/-CHA | Darkvision, orc blood | Darkvision 60 ft | **IMPLEMENTED** — Fields tracked |
 | Halfling | PHB p.20 | DEX, -STR | +2 saves all, +1 attack w/ thrown, +2 Climb/Jump/Listen/Move Silently, +2 vs fear | Normal | **IMPLEMENTED** — RACIAL_SAVE_BONUS, ATTACK_BONUS_THROWN fields |
