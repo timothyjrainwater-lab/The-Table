@@ -544,9 +544,28 @@ class SessionOrchestrator:
         command = parse_text_command(text_input)
 
         if command.command_type == "unknown":
-            return self._build_clarification_result(
+            # WO-JUDGMENT-SHADOW-001: Routing hook - classify and log unroutable action.
+            # Phase 0: all unknowns -> impossible_or_clarify / escalate. No LLM. No engine mutation.
+            from aidm.schemas.ruling_artifact import RulingArtifactShadow
+            from aidm.core.ruling_validator import validate_ruling_artifact
+
+            _clarify_msg = (
                 "I don't understand that command. Try: attack [target], "
-                "cast [spell], move to [x,y], rest, or go [exit].",
+                "cast [spell], move to [x,y], rest, or go [exit]."
+            )
+            _artifact = RulingArtifactShadow(
+                player_action_raw=text_input,
+                route_class="impossible_or_clarify",
+                routing_confidence="escalate",
+                clarification_message=_clarify_msg,
+            )
+            _verdict, _reasons = validate_ruling_artifact(_artifact)
+            _artifact.validator_verdict = _verdict
+            _artifact.validator_reasons = _reasons
+            self._log_shadow_ruling(_artifact)  # non-canonical, log-only
+
+            return self._build_clarification_result(
+                _clarify_msg,
                 self._get_available_actions(),
             )
 
@@ -1344,3 +1363,18 @@ class SessionOrchestrator:
         if self._session_state == SessionState.EXPLORATION:
             actions.extend(["rest", "go [exit]"])
         return actions
+
+    def _log_shadow_ruling(self, artifact: object) -> None:
+        """WO-JUDGMENT-SHADOW-001: Log Shadow phase ruling artifact to structured log.
+
+        Non-canonical -- does not emit to game state engine or canonical event stream.
+        Output file: logs/shadow_rulings.jsonl (append mode).
+        sort_keys=True ensures idempotent, diffable output.
+        """
+        import json
+        import dataclasses
+        from pathlib import Path
+        log_path = Path("logs/shadow_rulings.jsonl")
+        log_path.parent.mkdir(exist_ok=True)
+        with log_path.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(dataclasses.asdict(artifact), sort_keys=True) + "\n")
