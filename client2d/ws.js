@@ -4,7 +4,7 @@
    ============================================================= */
 
 class WsBridge {
-  constructor(url = 'ws://localhost:8765/ws') {
+  constructor(url = 'ws://localhost:8000/ws') {
     this._url = url;
     this._ws = null;
     this._handlers = {};   // { msg_type: [fn, ...] }

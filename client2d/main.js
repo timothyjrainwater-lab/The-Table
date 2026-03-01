@@ -57,7 +57,7 @@
   function submitInput() {
     const text = playerInput.value.trim();
     if (!text) return;
-    ws.send({ msg_type: 'player_input', text: text });
+    ws.send({ msg_type: 'player_utterance', text: text });
     playerInput.value = '';
   }
 
@@ -75,7 +75,7 @@
   // ---------------------------------------------------------------
   //  WebSocket — instantiate and connect
   // ---------------------------------------------------------------
-  const ws = new WsBridge('ws://localhost:8765/ws');
+  const ws = new WsBridge('ws://localhost:8000/ws');
 
   // ---------------------------------------------------------------
   //  Orb: speaking_start / speaking_stop
