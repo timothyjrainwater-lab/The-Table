@@ -456,8 +456,15 @@ def resolve_attack(
     target = world_state.entities[intent.target_id]
 
     # Build context for feat modifier computation
+    # WO-ENGINE-WF-SCHEMA-FIX-001: extract canonical weapon name from EF.WEAPON dict
+    _ef_weapon = attacker.get(EF.WEAPON, {})
+    _weapon_name = (
+        _ef_weapon.get("name", "").lower().replace(" ", "_")
+        if isinstance(_ef_weapon, dict)
+        else str(_ef_weapon).lower().replace(" ", "_")
+    )
     feat_context = {
-        "weapon_name": attacker.get(EF.WEAPON, "unknown"),  # WO-WAYPOINT-003: actual weapon name from entity
+        "weapon_name": _weapon_name,  # WO-ENGINE-WF-SCHEMA-FIX-001: canonical name from entity dict
         "range_ft": range_ft,  # WO-WEAPON-PLUMBING-001: actual range from positions
         "is_ranged": intent.weapon.is_ranged,  # WO-WEAPON-PLUMBING-001: from weapon type
         "is_twf": False,  # TODO: Detect from attack intent
@@ -466,6 +473,16 @@ def resolve_attack(
         "grip": intent.weapon.grip,  # WO-ENGINE-POWER-ATTACK-001: for off-hand damage ratio
     }
     feat_attack_modifier = get_attack_modifier(attacker, target, feat_context)
+    # WO-ENGINE-WF-SCHEMA-FIX-001: emit weapon_focus_active event if WF applies (PHB p.102)
+    if _weapon_name and f"weapon_focus_{_weapon_name}" in attacker.get(EF.FEATS, []):
+        events.append(Event(
+            event_id=current_event_id,
+            event_type="weapon_focus_active",
+            timestamp=timestamp,
+            payload={"actor_id": intent.attacker_id, "weapon_name": _weapon_name},
+            citations=[{"source_id": "681f92bc94ff", "page": 102}],
+        ))
+        current_event_id += 1
 
     # WO-ENGINE-POWER-ATTACK-001: Validate Power Attack declaration (PHB p.98)
     _pa_penalty = intent.power_attack_penalty
@@ -688,19 +705,6 @@ def resolve_attack(
         else:
             _ranged_into_melee_penalty = -4
 
-    # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack bonus (PHB p.102)
-    # Feat key: f"weapon_focus_{weapon_type}" (e.g. "weapon_focus_light", "weapon_focus_one-handed")
-    _wf_bonus = 1 if f"weapon_focus_{intent.weapon.weapon_type}" in _attacker_feats else 0
-    if _wf_bonus:
-        events.append(Event(
-            event_id=current_event_id,
-            event_type="weapon_focus_active",
-            timestamp=timestamp,
-            payload={"actor_id": intent.attacker_id, "weapon_type": intent.weapon.weapon_type},
-            citations=[{"source_id": "681f92bc94ff", "page": 102}],
-        ))
-        current_event_id += 1
-
     attack_bonus_with_conditions = (
         intent.attack_bonus +
         attacker_modifiers.attack_modifier +
@@ -720,7 +724,6 @@ def resolve_attack(
         - intent.combat_expertise_penalty  # WO-ENGINE-COMBAT-EXPERTISE-001: CE attack penalty (PHB p.92)
         + (0 if _is_weapon_proficient(attacker, intent.weapon) else -4)  # WO-ENGINE-WEAPON-PROFICIENCY-001: PHB p.113
         + _ranged_into_melee_penalty  # WO-ENGINE-PRECISE-SHOT-001: PHB p.140
-        + _wf_bonus  # WO-ENGINE-WEAPON-FOCUS-001: Weapon Focus +1 attack (PHB p.102)
         + _racial_attack_bonus  # WO-ENGINE-RACIAL-ATTACK-BONUS-001: Dwarf/Gnome/Halfling (PHB p.15/17/21)
     )
     total = d20_result + attack_bonus_with_conditions

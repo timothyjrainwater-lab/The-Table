@@ -111,7 +111,7 @@ def _attacker(
         EF.WEAPON_BROKEN: False,
         EF.FAVORED_ENEMIES: [],
         EF.CLASS_LEVELS: {},
-        EF.WEAPON: {"enhancement_bonus": 0, "tags": [], "material": "steel", "alignment": "none"},
+        EF.WEAPON: {"name": "longsword", "enhancement_bonus": 0, "tags": [], "material": "steel", "alignment": "none"},
     }
 
 
@@ -517,7 +517,7 @@ def test_fagu009_weapon_focus_no_double_count():
     PHB p.102: Weapon Focus grants +1 attack bonus.
     """
     a_no_wf = _attacker(feats=[])
-    a_wf = _attacker(feats=["weapon_focus_light"])  # light weapon
+    a_wf = _attacker(feats=["weapon_focus_longsword"])  # canonical name key
     t = _target(ac=10, hp=200)
 
     ws_no = _ws(a_no_wf, t)
@@ -560,9 +560,9 @@ def test_fagu010_weapon_specialization_no_double_count():
     Verify: damage total differs by exactly +2 (WSP) not +4 (double-count).
     PHB p.102: Weapon Specialization grants +2 damage bonus.
     """
-    # WSP requires WF as prerequisite; feat key matches weapon_type
-    a_no_wsp = _attacker(feats=["weapon_focus_light"])
-    a_wsp = _attacker(feats=["weapon_focus_light", "weapon_specialization_light"])
+    # WSP requires WF as prerequisite; WF key uses canonical weapon name (WO-ENGINE-WF-SCHEMA-FIX-001)
+    a_no_wsp = _attacker(feats=["weapon_focus_longsword"])
+    a_wsp = _attacker(feats=["weapon_focus_longsword", "weapon_specialization_light"])
     t = _target(ac=10, hp=300)
 
     ws_no = _ws(a_no_wsp, t)

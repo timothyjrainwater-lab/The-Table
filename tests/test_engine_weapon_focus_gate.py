@@ -1,18 +1,19 @@
-"""Gate tests: ENGINE-WEAPON-FOCUS — WO-ENGINE-WEAPON-FOCUS-001.
+"""Gate tests: ENGINE-WEAPON-FOCUS — WO-ENGINE-WEAPON-FOCUS-001 + WO-ENGINE-WF-SCHEMA-FIX-001.
 
-Tests:
-WFC-001: weapon_focus_light + light weapon → +1 to attack roll total
-WFC-002: weapon_focus_one-handed + two-handed weapon → no bonus (type mismatch)
+Tests (updated to canonical weapon-name key format per WO-ENGINE-WF-SCHEMA-FIX-001):
+WFC-001: weapon_focus_shortsword + shortsword (light) → +1 to attack roll total
+WFC-002: weapon_focus_longsword + greataxe (name mismatch) → no bonus
 WFC-003: Full attack (FullAttackIntent) — iterative attacks get +1 (both resolvers covered)
-WFC-004: weapon_focus_two-handed → +1 with two-handed weapon
-WFC-005: weapon_focus_ranged → +1 with ranged weapon
+WFC-004: weapon_focus_greataxe → +1 with greataxe (two-handed)
+WFC-005: weapon_focus_longbow → +1 with longbow (ranged)
 WFC-006: No Weapon Focus feat → no attack bonus (regression guard)
-WFC-007: weapon_focus_natural → +1 with natural attacks
-WFC-008: weapon_focus_active event emitted in attack sequence when feat active
+WFC-007: weapon_focus_bite → +1 with bite (natural)
+WFC-008: weapon_focus_active event emitted with weapon_name payload when feat active
 
-Insertion sites:
-  attack_resolver.py: _wf_bonus before attack_bonus_with_conditions, event emitted
-  full_attack_resolver.py: _wf_bonus before adjusted_attack_bonus per iterative attack
+Insertion sites (post-WO-ENGINE-WF-SCHEMA-FIX-001):
+  attack_resolver.py: canonical path via feat_resolver.get_attack_modifier() + event emission
+  full_attack_resolver.py: feat_context["weapon_name"] from EF.WEAPON dict
+  feat_resolver.py: get_attack_modifier() checks f"weapon_focus_{weapon_name}" (Path A — now canonical)
 """
 
 import unittest.mock as mock
@@ -28,7 +29,7 @@ from aidm.schemas.entity_fields import EF
 
 
 # ---------------------------------------------------------------------------
-# Weapons
+# Weapons (schema objects — no name field, name lives in EF.WEAPON entity dict)
 # ---------------------------------------------------------------------------
 
 LIGHT_WEAPON = Weapon(
@@ -101,11 +102,16 @@ NATURAL_WEAPON = Weapon(
 # Helpers
 # ---------------------------------------------------------------------------
 
+def _weapon_dict(name: str) -> dict:
+    """Build EF.WEAPON dict with canonical name field."""
+    return {"name": name, "enhancement_bonus": 0, "tags": [], "material": "steel", "alignment": "none"}
+
+
 def _attacker(
     eid: str = "fighter",
     feats: list = None,
     bab: int = 5,
-    weapon_override: dict = None,
+    weapon_name: str = "longsword",
 ) -> Dict[str, Any]:
     return {
         EF.ENTITY_ID: eid,
@@ -130,7 +136,7 @@ def _attacker(
         EF.WEAPON_BROKEN: False,
         EF.FAVORED_ENEMIES: [],
         EF.CLASS_LEVELS: {"fighter": 5},
-        EF.WEAPON: weapon_override or {"enhancement_bonus": 0, "tags": [], "material": "steel", "alignment": "none"},
+        EF.WEAPON: _weapon_dict(weapon_name),
     }
 
 
@@ -199,19 +205,18 @@ def _get_attack_total(events) -> int:
 
 
 # ---------------------------------------------------------------------------
-# WFC-001: weapon_focus_light + light weapon → +1 attack total
+# WFC-001: weapon_focus_shortsword + shortsword (light) → +1 attack total
 # ---------------------------------------------------------------------------
 
 def test_wfc001_light_weapon_focus_adds_one_attack():
-    """WFC-001: weapon_focus_light feat + light weapon → attack total +1 vs no-feat baseline."""
-    a_with = _attacker(feats=["weapon_focus_light"])
-    a_without = _attacker(eid="fighter2", feats=[])
+    """WFC-001: weapon_focus_shortsword feat + shortsword → attack total +1 vs no-feat baseline."""
+    a_with = _attacker(feats=["weapon_focus_shortsword"], weapon_name="shortsword")
+    a_without = _attacker(eid="fighter2", feats=[], weapon_name="shortsword")
     t = _target()
 
     ws_with = _world(a_with, t)
     ws_without = _world(a_without, t)
 
-    # Same d20=15 for both
     events_with = resolve_attack(_intent("fighter", "goblin", LIGHT_WEAPON), ws_with, _rng(15, 3), next_event_id=0, timestamp=0.0)
     events_without = resolve_attack(_intent("fighter2", "goblin", LIGHT_WEAPON), ws_without, _rng(15, 3), next_event_id=0, timestamp=0.0)
 
@@ -219,19 +224,20 @@ def test_wfc001_light_weapon_focus_adds_one_attack():
     total_without = _get_attack_total(events_without)
 
     assert total_with == total_without + 1, (
-        f"weapon_focus_light should add +1 to attack total; "
+        f"weapon_focus_shortsword should add +1 to attack total; "
         f"got {total_with} (with WF) vs {total_without} (without WF)"
     )
 
 
 # ---------------------------------------------------------------------------
-# WFC-002: weapon_focus_one-handed + two-handed weapon → no bonus
+# WFC-002: weapon_focus_longsword + greataxe (name mismatch) → no bonus
 # ---------------------------------------------------------------------------
 
-def test_wfc002_type_mismatch_no_bonus():
-    """WFC-002: weapon_focus_one-handed but using two-handed weapon → no WF bonus."""
-    a_mismatch = _attacker(feats=["weapon_focus_one-handed"])
-    a_baseline = _attacker(eid="fighter2", feats=[])
+def test_wfc002_name_mismatch_no_bonus():
+    """WFC-002: weapon_focus_longsword but entity wields greataxe → no WF bonus."""
+    # Attacker has WF for longsword but EF.WEAPON is greataxe
+    a_mismatch = _attacker(feats=["weapon_focus_longsword"], weapon_name="greataxe")
+    a_baseline = _attacker(eid="fighter2", feats=[], weapon_name="greataxe")
     t = _target()
 
     ws_mismatch = _world(a_mismatch, t)
@@ -244,7 +250,7 @@ def test_wfc002_type_mismatch_no_bonus():
     total_baseline = _get_attack_total(events_baseline)
 
     assert total_mismatch == total_baseline, (
-        f"weapon_focus_one-handed should NOT apply to two-handed weapon; "
+        f"weapon_focus_longsword should NOT apply when wielding greataxe; "
         f"got {total_mismatch} (mismatch) vs {total_baseline} (baseline)"
     )
 
@@ -254,8 +260,8 @@ def test_wfc002_type_mismatch_no_bonus():
 # ---------------------------------------------------------------------------
 
 def test_wfc003_full_attack_all_iteratives_get_bonus():
-    """WFC-003: Full attack with weapon_focus_one-handed → all iterative attack totals +1."""
-    a = _attacker(feats=["weapon_focus_one-handed"], bab=11)  # BAB 11 → 3 attacks
+    """WFC-003: Full attack with weapon_focus_longsword → all iterative attack totals +1."""
+    a = _attacker(feats=["weapon_focus_longsword"], bab=11, weapon_name="longsword")
     t = _target(hp=100, ac=30)  # High AC to force misses so all iteratives run
     ws = _world(a, t)
 
@@ -267,11 +273,10 @@ def test_wfc003_full_attack_all_iteratives_get_bonus():
         power_attack_penalty=0,
     )
 
-    # d20=5 for all attacks → miss vs AC=30 regardless (5+bonus < 30), so all 3 run
     events_with = resolve_full_attack(fa_intent, ws, _rng(5, 3), next_event_id=0, timestamp=0.0)
 
     # Baseline: same setup, no feat
-    a_no = _attacker(eid="fighter2", feats=[], bab=11)
+    a_no = _attacker(eid="fighter2", feats=[], bab=11, weapon_name="longsword")
     ws_no = _world(a_no, t)
     fa_no = FullAttackIntent(
         attacker_id="fighter2",
@@ -293,13 +298,13 @@ def test_wfc003_full_attack_all_iteratives_get_bonus():
 
 
 # ---------------------------------------------------------------------------
-# WFC-004: weapon_focus_two-handed → +1 with two-handed weapon
+# WFC-004: weapon_focus_greataxe → +1 with greataxe (two-handed)
 # ---------------------------------------------------------------------------
 
 def test_wfc004_two_handed_weapon_focus():
-    """WFC-004: weapon_focus_two-handed + two-handed weapon → +1 attack."""
-    a_with = _attacker(feats=["weapon_focus_two-handed"])
-    a_without = _attacker(eid="fighter2", feats=[])
+    """WFC-004: weapon_focus_greataxe + greataxe → +1 attack."""
+    a_with = _attacker(feats=["weapon_focus_greataxe"], weapon_name="greataxe")
+    a_without = _attacker(eid="fighter2", feats=[], weapon_name="greataxe")
     t = _target()
 
     ws_with = _world(a_with, t)
@@ -309,19 +314,18 @@ def test_wfc004_two_handed_weapon_focus():
     events_without = resolve_attack(_intent("fighter2", "goblin", TWO_HANDED_WEAPON), ws_without, _rng(15, 3), next_event_id=0, timestamp=0.0)
 
     assert _get_attack_total(events_with) == _get_attack_total(events_without) + 1, (
-        "weapon_focus_two-handed should add +1 to two-handed attack total"
+        "weapon_focus_greataxe should add +1 to greataxe attack total"
     )
 
 
 # ---------------------------------------------------------------------------
-# WFC-005: weapon_focus_ranged → +1 with ranged weapon
+# WFC-005: weapon_focus_longbow → +1 with longbow (ranged)
 # ---------------------------------------------------------------------------
 
 def test_wfc005_ranged_weapon_focus():
-    """WFC-005: weapon_focus_ranged + ranged weapon → +1 attack."""
-    a_with = _attacker(feats=["weapon_focus_ranged"])
-    a_without = _attacker(eid="fighter2", feats=[])
-    # Target is same tile — close range, no range penalty
+    """WFC-005: weapon_focus_longbow + longbow → +1 attack."""
+    a_with = _attacker(feats=["weapon_focus_longbow"], weapon_name="longbow")
+    a_without = _attacker(eid="fighter2", feats=[], weapon_name="longbow")
     t = _target()
 
     ws_with = _world(a_with, t)
@@ -331,7 +335,7 @@ def test_wfc005_ranged_weapon_focus():
     events_without = resolve_attack(_intent("fighter2", "goblin", RANGED_WEAPON), ws_without, _rng(15, 3), next_event_id=0, timestamp=0.0)
 
     assert _get_attack_total(events_with) == _get_attack_total(events_without) + 1, (
-        "weapon_focus_ranged should add +1 to ranged attack total"
+        "weapon_focus_longbow should add +1 to longbow attack total"
     )
 
 
@@ -340,16 +344,13 @@ def test_wfc005_ranged_weapon_focus():
 # ---------------------------------------------------------------------------
 
 def test_wfc006_no_feat_no_bonus():
-    """WFC-006: Attacker without any weapon_focus feat → attack total unmodified."""
-    a = _attacker(feats=[])  # No WF feat
+    """WFC-006: Attacker without any weapon_focus feat → no weapon_focus_active event."""
+    a = _attacker(feats=[], weapon_name="longsword")
     t = _target()
     ws = _world(a, t)
 
     events = resolve_attack(_intent("fighter", "goblin", ONE_HANDED_WEAPON, attack_bonus=5), ws, _rng(15, 3), next_event_id=0, timestamp=0.0)
 
-    total = _get_attack_total(events)
-    # d20=15 + BAB5 + STR2 (included in intent.attack_bonus=5) = 20 (no WF)
-    # We check no weapon_focus_active event fired
     wf_events = [e for e in events if e.event_type == "weapon_focus_active"]
     assert len(wf_events) == 0, (
         f"No weapon_focus feat → no weapon_focus_active event; got: {[e.event_type for e in events]}"
@@ -357,13 +358,13 @@ def test_wfc006_no_feat_no_bonus():
 
 
 # ---------------------------------------------------------------------------
-# WFC-007: weapon_focus_natural → +1 with natural attacks
+# WFC-007: weapon_focus_bite → +1 with bite (natural)
 # ---------------------------------------------------------------------------
 
 def test_wfc007_natural_weapon_focus():
-    """WFC-007: weapon_focus_natural + natural weapon → +1 attack."""
-    a_with = _attacker(feats=["weapon_focus_natural"])
-    a_without = _attacker(eid="fighter2", feats=[])
+    """WFC-007: weapon_focus_bite + bite (natural) → +1 attack."""
+    a_with = _attacker(feats=["weapon_focus_bite"], weapon_name="bite")
+    a_without = _attacker(eid="fighter2", feats=[], weapon_name="bite")
     t = _target()
 
     ws_with = _world(a_with, t)
@@ -373,17 +374,17 @@ def test_wfc007_natural_weapon_focus():
     events_without = resolve_attack(_intent("fighter2", "goblin", NATURAL_WEAPON), ws_without, _rng(15, 3), next_event_id=0, timestamp=0.0)
 
     assert _get_attack_total(events_with) == _get_attack_total(events_without) + 1, (
-        "weapon_focus_natural should add +1 to natural attack total"
+        "weapon_focus_bite should add +1 to bite attack total"
     )
 
 
 # ---------------------------------------------------------------------------
-# WFC-008: weapon_focus_active event emitted when feat active
+# WFC-008: weapon_focus_active event emitted with weapon_name payload when feat active
 # ---------------------------------------------------------------------------
 
 def test_wfc008_event_emitted_when_feat_active():
-    """WFC-008: weapon_focus_active event emitted in attack sequence when feat is active."""
-    a = _attacker(feats=["weapon_focus_light"])
+    """WFC-008: weapon_focus_active event emitted with weapon_name='shortsword' when feat is active."""
+    a = _attacker(feats=["weapon_focus_shortsword"], weapon_name="shortsword")
     t = _target()
     ws = _world(a, t)
 
@@ -393,6 +394,6 @@ def test_wfc008_event_emitted_when_feat_active():
     assert len(wf_events) >= 1, (
         f"weapon_focus_active event should fire when feat active; got: {[e.event_type for e in events]}"
     )
-    assert wf_events[0].payload.get("weapon_type") == "light", (
-        f"Event payload should include weapon_type='light'; got: {wf_events[0].payload}"
+    assert wf_events[0].payload.get("weapon_name") == "shortsword", (
+        f"Event payload should include weapon_name='shortsword'; got: {wf_events[0].payload}"
     )

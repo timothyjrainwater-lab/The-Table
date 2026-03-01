@@ -599,8 +599,15 @@ def resolve_full_attack(
     attacker = world_state.entities[intent.attacker_id]
     target = world_state.entities[intent.target_id]
 
+    # WO-ENGINE-WF-SCHEMA-FIX-001: extract canonical weapon name from EF.WEAPON dict
+    _fa_ef_weapon = attacker.get(EF.WEAPON, {})
+    _fa_weapon_name = (
+        _fa_ef_weapon.get("name", "").lower().replace(" ", "_")
+        if isinstance(_fa_ef_weapon, dict)
+        else str(_fa_ef_weapon).lower().replace(" ", "_")
+    )
     feat_context = {
-        "weapon_name": "unknown",  # Placeholder until weapon tracking exists
+        "weapon_name": _fa_weapon_name,  # WO-ENGINE-WF-SCHEMA-FIX-001: canonical name from entity dict
         "range_ft": range_ft,  # WO-WEAPON-PLUMBING-001: actual range from positions
         "is_ranged": intent.weapon.is_ranged,  # WO-WEAPON-PLUMBING-001: from weapon type
         "is_twf": intent.off_hand_weapon is not None,  # CP-21: derived from intent
