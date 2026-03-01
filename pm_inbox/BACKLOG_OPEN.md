@@ -374,3 +374,16 @@
 ### FINDING-UI-DISPLAY-SPEAKING-WRAP-MULTI-NARRATION-001 (LOW, OPEN)
 **Description:** _turn_result_to_messages() has multiple NarrationEvent emission blocks (lines 662, 694, 710, 726, 741, 754, 767, 835). Only the FIRST block (line 662) received speaking_start/stop wrap in this WO. The other blocks (clarification, fallback, spell narration, etc.) do not have speaking_start/stop wrapping. They may fire narration text without triggering orb animation. Stage 3 scope -- clarification/spell narration paths are low-frequency.
 **Status:** OPEN -- future WO
+
+
+---
+
+## 2026-03-01 -- WO-JUDGMENT-SHADOW-001 findings
+
+### FINDING-JUDGMENT-SHADOW-FULL-REGRESSION-HANG-001 (LOW, OPEN)
+**Description:** Full test suite (`python -m pytest tests/ -q`) hangs indefinitely (>120s) on pre-existing test infrastructure. The hang predates this WO -- baseline 161 failures implies existing broken tests. Likely culprit: test(s) that block on file I/O, network, or TTS adapter. Not caused by Shadow instrumentation. Targeted gate runs (42 tests) complete in 1.2s cleanly.
+**Status:** OPEN -- pre-existing; blocked-test audit needed in future WO.
+
+### FINDING-JUDGMENT-SHADOW-SORT-KEYS-LOG-ONLY-001 (INFO, CLOSED)
+**Description:** Shadow log uses sort_keys=True per spec. Confirmed key order in sample: clarification_message, dc, player_action_raw, route_class, routing_confidence, validator_reasons, validator_verdict. Log is append-only, not emitted to game event stream. Event stream contains zero "needs_clarification" or "unroutable_action" events.
+**Status:** CLOSED -- documented.
