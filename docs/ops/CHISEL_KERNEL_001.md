@@ -878,3 +878,45 @@ Note: `test_ws_bridge` and `test_ws_deadverb_001_gate` excluded — require live
 - FINDING-UI-PIPE-TARGET-AMBIGUITY-001 LOW OPEN
 - FINDING-UI-PIPE-ASYNCIO-DEPRECATION-001 LOW OPEN
 - All prior engine/data findings carried forward (see previous deltas)
+
+
+---
+
+## Session Delta -- 2026-03-01 (WO-UI-PHASE1-ENEMY-LOOP-001 ACCEPTED)
+
+**WOs completed:**
+- WO-UI-PHASE1-ENEMY-LOOP-001 -- ACCEPTED. UI Phase 1 Stage 2.
+  - session_orchestrator.py: `_initiative_index`, `_run_enemy_loop()`, enemy loop injected post-player in `process_text_turn()`
+  - start_server.py: session isolation fixed -- fixture built inside factory per-connection
+  - tests/test_ui_phase1_enemy_loop_gate.py (NEW): EL-001..EL-008
+
+**Commits:** c9e0428 (code), cfcaf0c (debrief)
+
+**Gates:** 8/8 PASS. 0 new regressions.
+
+**PROTOCOL CORRECTION (mandatory -- do not repeat):**
+'Filed to backlog before debrief' means BACKLOG_OPEN.md is EDITED AND COMMITTED
+before the debrief file is committed. NOT just noted inline in the debrief.
+PM will spot-check every future WO. This is a hard rule going forward.
+
+**Findings closed:**
+- FINDING-UI-PIPE-START-SERVER-SHARED-STATE-001 -- CLOSED (fixed this WO)
+
+**Findings open (all LOW):**
+- FINDING-UI-ENEMY-LOOP-SEED-ENTROPY-001 -- Stage 3+ scope
+- FINDING-UI-ENEMY-LOOP-INITIATIVE-WRAP-001 -- Stage 3 scope
+- FINDING-UI-ENEMY-LOOP-NARRATION-ENEMY-001 -- Stage 3 scope (GAP-06)
+- All prior open findings carried forward
+
+**Dispatch note confirmed:**
+- run_enemy_turn lives in play.py:463, NOT play_controller.py -- dispatch doc naming gap (LOW doc finding, not code error)
+
+**Active Capsule update:**
+| Field | Value |
+|-------|-------|
+| Session / Date | Session 26 / 2026-03-01 |
+| Active WO | None -- awaiting Stage 3 dispatch (WO-UI-PHASE1-DISPLAY-001) |
+| Last completed | WO-UI-PHASE1-ENEMY-LOOP-001 ACCEPTED |
+| Gate baseline | 8/8 EL gates + 8/8 PIPE gates = 16 UI Phase 1 gates live |
+| Known blockers | None |
+| BFM protocol rule | BACKLOG_OPEN.md must be committed BEFORE debrief commit on all future WOs |
