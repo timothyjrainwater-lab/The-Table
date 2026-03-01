@@ -263,7 +263,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Great Cleave | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py`, `schemas/feats.py` | Unlimited cleaves per round |
 | Dodge | PHB p.93 | **PARTIAL** | `feat_resolver.py`, `schemas/feats.py` | +1 dodge AC vs designated target; designating not enforced per-round |
 | Mobility | PHB p.98 | **IMPLEMENTED** | `feat_resolver.py`, `aoo.py` | +4 dodge AC vs AoO from movement |
-| Spring Attack | PHB p.100 | **PARTIAL** | `schemas/feats.py` | Registered; move-attack-move flow not fully wired |
+| Spring Attack | PHB p.100 | **IMPLEMENTED** | `attack_resolver.py`, `aoo.py`, `play_loop.py`, `action_economy.py` | Full-round; single melee; no AoO from target via filter_aoo_from_target; heavy armor blocked. Batch AH. SPRK-001–008. |
 | Point Blank Shot | PHB p.98 | **IMPLEMENTED** | `feat_resolver.py` | +1 attack/damage within 30 ft |
 | Precise Shot | PHB p.98 | **IMPLEMENTED** | `feat_resolver.py` | No -4 penalty for shooting into melee |
 | Rapid Shot | PHB p.99 | **IMPLEMENTED** | `feat_resolver.py`, `full_attack_resolver.py` | Extra ranged attack at -2 all; wired. WO-ENGINE-RAPID-SHOT-001. |
@@ -289,24 +289,24 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Ride-By Attack | PHB p.99 | **PARTIAL** | `schemas/feats.py` | Registered; move-attack-move-mounted not fully wired |
 | Spirited Charge | PHB p.100 | **PARTIAL** | `schemas/feats.py` | Registered; ×2/×3 damage on mounted charge not auto-applied |
 | Trample | PHB p.101 | **PARTIAL** | `schemas/feats.py` | Registered; no automatic hoof attack on overrun |
-| Shot on the Run | PHB p.99 | **PARTIAL** | `schemas/feats.py` | Registered; move-shoot-move not wired |
-| Manyshot | PHB p.97 | **PARTIAL** | `schemas/feats.py` | Registered; simultaneous arrow shot not implemented |
+| Shot on the Run | PHB p.99 | **IMPLEMENTED** | `attack_resolver.py`, `aoo.py`, `play_loop.py`, `action_economy.py` | Full-round; single ranged; target AoO suppressed via filter_aoo_from_target (shared with Spring Attack); heavy armor blocked; range penalty still applies. Batch AH. SOTR-001–008. |
+| Manyshot | PHB p.97 | **IMPLEMENTED** | `attack_resolver.py`, `play_loop.py`, `action_economy.py` | Standard action; single roll at −4 penalty; 2 damage_roll events on hit; 30-ft cap; BAB+11/+16 scaling CONSUME_DEFERRED. Batch AH. MS-001–008. |
 | Improved Critical | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `attack_resolver.py` | Threat range doubled for chosen weapon. DEBRIEF_WO-ENGINE-IMPROVED-CRITICAL-001. |
 | Blind-Fight | PHB p.91 | **IMPLEMENTED** | `schemas/feats.py`, `attack_resolver.py` | Reroll miss chance; `blind_fight_reroll` event emitted on every reroll. Batch O. |
 | Combat Expertise | PHB p.92 | **IMPLEMENTED** | `schemas/feats.py`, `feat_resolver.py` | Trade attack bonus for AC dodge bonus. Batch O SAI — already wired. |
 | Whirlwind Attack | PHB p.102 | **PARTIAL** | `schemas/feats.py` | Registered; no multi-target attack-all-adjacent action |
-| Alertness | PHB p.91 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Spot/Listen); not auto-added to skill checks |
-| Athletic | PHB p.91 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Climb/Swim); not wired |
-| Acrobatic | PHB p.91 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Jump/Tumble); not wired |
-| Deceitful | PHB p.93 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Bluff/Forgery); not wired |
-| Deft Hands | PHB p.93 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Sleight of Hand/Use Rope); not wired |
-| Diligent | PHB p.93 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Appraise/Decipher Script); not wired |
-| Investigator | PHB p.97 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Gather Info/Search); not wired |
-| Negotiator | PHB p.97 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Diplomacy/Sense Motive); not wired |
-| Nimble Fingers | PHB p.97 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Disable Device/Open Lock); not wired |
-| Persuasive | PHB p.97 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Bluff/Intimidate); not wired |
-| Self-Sufficient | PHB p.99 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Heal/Survival); not wired |
-| Stealthy | PHB p.100 | **PARTIAL** | `schemas/feats.py` | Registered (+2 Hide/Move Silently); not wired |
+| Alertness | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Listen/Spot via _SKILL_BONUS_FEATS dict in skill_resolver; untyped bonus stacks. Batch AH. SBF-001–002. |
+| Athletic | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Climb/Swim via _SKILL_BONUS_FEATS; untyped. Batch AH. SBF-004. |
+| Acrobatic | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Jump/Tumble via _SKILL_BONUS_FEATS; untyped. Batch AH. |
+| Deceitful | PHB p.93 | **IMPLEMENTED** | `skill_resolver.py` | +2 Bluff/Forgery via _SKILL_BONUS_FEATS; untyped. Batch AH. |
+| Deft Hands | PHB p.93 | **IMPLEMENTED** | `skill_resolver.py` | +2 Sleight of Hand/Use Rope via _SKILL_BONUS_FEATS; untyped. Batch AH. |
+| Diligent | PHB p.93 | **IMPLEMENTED** | `skill_resolver.py` | +2 Appraise/Decipher Script via _SKILL_BONUS_FEATS; untyped. Batch AH. |
+| Investigator | PHB p.97 | **IMPLEMENTED** | `skill_resolver.py` | +2 Gather Info/Search via _SKILL_BONUS_FEATS; untyped. Batch AH. SBF-008. |
+| Negotiator | PHB p.97 | **IMPLEMENTED** | `skill_resolver.py` | +2 Diplomacy/Sense Motive via _SKILL_BONUS_FEATS; untyped. Batch AH. |
+| Nimble Fingers | PHB p.97 | **IMPLEMENTED** | `skill_resolver.py` | +2 Disable Device/Open Lock via _SKILL_BONUS_FEATS; untyped. Batch AH. |
+| Persuasive | PHB p.97 | **IMPLEMENTED** | `skill_resolver.py` | +2 Bluff/Intimidate via _SKILL_BONUS_FEATS; untyped; both skills fire independently. Batch AH. SBF-007. |
+| Self-Sufficient | PHB p.99 | **IMPLEMENTED** | `skill_resolver.py` | +2 Heal/Survival via _SKILL_BONUS_FEATS; untyped. Batch AH. |
+| Stealthy | PHB p.100 | **IMPLEMENTED** | `skill_resolver.py` | +2 Hide/Move Silently via _SKILL_BONUS_FEATS; untyped. Batch AH. SBF-005–006. |
 | Spell Focus | PHB p.100 | **IMPLEMENTED** | `schemas/feats.py`, `spell_resolver.py` | +1 save DC per school; wired into spell_resolver DC computation. WO-ENGINE-SPELL-FOCUS-001. |
 | Greater Spell Focus | PHB p.94 | **IMPLEMENTED** | `schemas/feats.py`, `spell_resolver.py` | +1 additional DC per school; stacks with Spell Focus for +2 total. WO-ENGINE-SPELL-FOCUS-DC-001. |
 | Spell Penetration | PHB p.100 | **IMPLEMENTED** | `schemas/feats.py`, `save_resolver.py` | +2 CL for SR checks; wired into check_spell_resistance(). DEBRIEF_WO-ENGINE-SPELL-PENETRATION-001. |
