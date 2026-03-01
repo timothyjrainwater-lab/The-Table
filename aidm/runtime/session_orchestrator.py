@@ -52,6 +52,7 @@ from aidm.core.play_loop import (
     TurnContext as BoxTurnContext,
     TurnResult as BoxTurnResult,
 )
+from play import run_enemy_turn as _play_run_enemy_turn  # WO-UI-PHASE1-ENEMY-LOOP-001: canonical enemy logic
 from aidm.core.boundary_pressure import evaluate_pressure
 from aidm.core.rng_manager import RNGManager
 from aidm.core.spell_resolver import SpellCastIntent as BoxSpellCastIntent
@@ -445,6 +446,7 @@ class SessionOrchestrator:
         self._current_scene_id: Optional[str] = None
         self._brief_history: List[NarrativeBrief] = []
         self._turn_count: int = 0
+        self._initiative_index: int = 0  # WO-UI-PHASE1-ENEMY-LOOP-001: cursor into active_combat[initiative_order]
         self._segment_tracker = SegmentTracker()
         self._preset_manager = ProsodicPresetManager()
 
@@ -549,21 +551,120 @@ class SessionOrchestrator:
             )
 
         # 2. Route by command type
+        # WO-UI-PHASE1-ENEMY-LOOP-001: each branch captures player result, then
+        # runs _run_enemy_loop() to advance initiative and process all monster turns.
+        _player_result: Optional["TurnResult"] = None
         if command.command_type == "attack":
-            return self._process_attack(actor_id, command)
+            _player_result = self._process_attack(actor_id, command)
         elif command.command_type == "spell":
-            return self._process_spell(actor_id, command)
+            _player_result = self._process_spell(actor_id, command)
         elif command.command_type == "move":
-            return self._process_move(actor_id, command)
+            _player_result = self._process_move(actor_id, command)
         elif command.command_type == "rest":
-            return self._process_rest(command)
+            _player_result = self._process_rest(command)
         elif command.command_type == "transition":
-            return self._process_transition(command)
+            _player_result = self._process_transition(command)
         elif command.command_type == "skill":
-            return self._process_skill(actor_id, command)
+            _player_result = self._process_skill(actor_id, command)
+        if _player_result is not None:
+            return self._run_enemy_loop(_player_result, actor_id)
 
         return self._build_clarification_result(
             "Unknown command type.", self._get_available_actions()
+        )
+
+    def _run_enemy_loop(self, player_result: "TurnResult", actor_id: str = "") -> "TurnResult":
+        """Run all consecutive enemy turns after the player acts.
+
+        WO-UI-PHASE1-ENEMY-LOOP-001: Delegates to play.run_enemy_turn() (canonical).
+        Does NOT reimplement target selection or attack resolution.
+
+        After the player resolves, advances the initiative cursor and runs every
+        monster turn sequentially until the cursor returns to a player actor (or
+        combat ends). All accumulated events are merged into the returned TurnResult.
+        """
+        if not player_result.success:
+            return player_result
+
+        ws = self._world_state
+        active = ws.active_combat if ws.active_combat else {}
+        initiative_order = active.get("initiative_order", [])
+
+        if not initiative_order:
+            return player_result  # no combat active
+
+        n = len(initiative_order)
+        all_enemy_event_dicts: List[Dict[str, Any]] = []
+
+        # Find acting player in initiative order and advance cursor past them
+        if actor_id and actor_id in initiative_order:
+            self._initiative_index = (initiative_order.index(actor_id) + 1) % n
+        else:
+            self._initiative_index = (self._initiative_index + 1) % n
+
+        # Run consecutive monster turns until we hit a player actor (or loop completes)
+        steps = 0
+        while steps < n:
+            actor_id = initiative_order[self._initiative_index]
+            entity = ws.entities.get(actor_id, {})
+
+            # Skip defeated actors
+            if entity.get(EF.DEFEATED, False):
+                self._initiative_index = (self._initiative_index + 1) % n
+                steps += 1
+                continue
+
+            # Stop when we reach a player actor
+            if entity.get(EF.TEAM, "monsters") != "monsters":
+                break
+
+            # Guard: if all enemies defeated, break (termination guard - EL-007)
+            enemies_alive = [
+                eid for eid, e in ws.entities.items()
+                if e.get(EF.TEAM) == "monsters" and not e.get(EF.DEFEATED, False)
+            ]
+            if not enemies_alive:
+                break
+
+            # Delegate to canonical enemy logic (EL-008: no reimplementation here)
+            enemy_box_result = _play_run_enemy_turn(
+                ws=ws,
+                actor_id=actor_id,
+                seed=self._rng._master_seed,
+                turn_index=self._turn_count,
+                next_event_id=self._turn_count * 100 + len(all_enemy_event_dicts),
+            )
+
+            # Update authoritative world state from enemy turn result
+            if enemy_box_result.status == "ok":
+                ws = enemy_box_result.world_state
+                self._world_state = ws
+                self._turn_count += 1
+
+                for ev in enemy_box_result.events:
+                    ev_dict = {"type": ev.event_type, **ev.payload}
+                    # Normalise event_type field for ws_bridge compatibility
+                    ev_dict["event_type"] = ev.event_type
+                    all_enemy_event_dicts.append(ev_dict)
+
+            self._initiative_index = (self._initiative_index + 1) % n
+            steps += 1
+
+        if not all_enemy_event_dicts:
+            return player_result
+
+        # Merge enemy events into player result
+        merged_events = tuple(player_result.events) + tuple(all_enemy_event_dicts)
+        return TurnResult(
+            success=player_result.success,
+            narration_text=player_result.narration_text,
+            narration_audio=player_result.narration_audio,
+            events=merged_events,
+            clarification_needed=player_result.clarification_needed,
+            clarification_message=player_result.clarification_message,
+            candidates=player_result.candidates,
+            provenance=player_result.provenance,
+            error_message=player_result.error_message,
         )
 
     # ------------------------------------------------------------------

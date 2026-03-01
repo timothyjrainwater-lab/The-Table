@@ -1,4 +1,4 @@
-"""start_server.py  - Phase 1 launch entry point.
+﻿"""start_server.py  - Phase 1 launch entry point.
 
 Wires the real engine (3v3 combat fixture) into the WebSocket server and starts
 uvicorn on port 8000.
@@ -6,9 +6,11 @@ uvicorn on port 8000.
 Usage:
     python start_server.py
 
-The server accepts WebSocket connections at ws://localhost:8000/ws.
-First connection is assigned DM role; all subsequent connections are PLAYER role
-(handled by existing ws_bridge._assign_role logic  - no change needed here).
+Each WebSocket connection gets its own independent SessionOrchestrator and WorldState.
+First connection is assigned DM role; subsequent connections PLAYER role
+(ws_bridge._assign_role logic, unchanged).
+
+Stage 1: per-connection fixture isolation (FINDING-UI-PIPE-START-SERVER-SHARED-STATE-001 fixed).
 """
 
 from __future__ import annotations
@@ -26,15 +28,17 @@ from aidm.spark.dm_persona import DMPersona
 
 
 def _make_session_factory():
-    """Return a factory callable that creates a SessionOrchestrator per new session.
+    """Return a factory that creates an independent SessionOrchestrator per connection.
 
+    BEFORE (Stage 1 / PIPE-001): fixture built at startup, shared across all connections.
+    AFTER  (Stage 2 / ENEMY-LOOP-001): fixture built INSIDE factory, one per connection.
+
+    This closes FINDING-UI-PIPE-START-SERVER-SHARED-STATE-001.
     Pattern sourced from aidm/evaluation/harness.py:203.
-    Each call produces a fresh orchestrator bound to the same 3v3 fixture.
-    (Stage 1: single shared encounter. Stage 2+ will individualise per connection.)
     """
-    fixture = build_simple_combat_fixture()
-
     def factory(session_id: str) -> SessionOrchestrator:
+        # Build a fresh fixture for every new WebSocket connection
+        fixture = build_simple_combat_fixture()
         return SessionOrchestrator(
             world_state=fixture.world_state,
             intent_bridge=IntentBridge(),
