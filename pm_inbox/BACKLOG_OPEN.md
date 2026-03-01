@@ -337,3 +337,16 @@
 ### FINDING-ENGINE-WSP-FAR-DEAD-PATH-001 (LOW, OPEN)
 **Description:** resolve_single_attack_with_critical() in full_attack_resolver.py still contains WSP logic (now zeroed). Function is dead code -- retired by FAGU delegation. Should be removed in a future cleanup WO. No runtime impact.
 **Status:** OPEN -- future cleanup WO
+
+
+---
+
+## 2026-03-01 -- WO-ENGINE-AOO-ROUND-RESET-001 findings
+
+### FINDING-ENGINE-AOO-CONTROLLER-RESET-DIVERGENCE-001 (LOW, OPEN)
+**Description:** aoo_used_this_round + aoo_count_this_round are reset in TWO places: (1) combat_controller.py:346-347 (execute_combat_round path, used by CLI harness) and (2) play_loop.py:4350-4351 (end-of-round block, used by SessionOrchestrator path). The two reset mechanisms are now in sync but are structurally duplicated. Long-term: consolidate reset logic into a single location. Not blocking.
+**Status:** OPEN -- future cleanup WO (low priority)
+
+### FINDING-ENGINE-AOO-ACTIVE-COMBAT-AUDIT-001 (LOW, OPEN)
+**Description:** Full audit of per-round/per-turn fields in active_combat conducted during this WO. Fields found: aoo_used_this_round (now fixed), aoo_count_this_round (now fixed), deflect_arrows_used (fixed d1fecb4), cleave_used_this_turn (fixed WO-ENGINE-CLEAVE-WIRE-001). No additional uncleared per-round fields found. Audit is complete as of this WO.
+**Status:** OPEN (informational -- no action needed unless new per-round fields added)
