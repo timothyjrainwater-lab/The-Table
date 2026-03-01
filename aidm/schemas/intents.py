@@ -1314,6 +1314,42 @@ class ManyShotIntent:
         )
 
 
+@dataclass
+class WhirlwindAttackIntent:
+    """Intent to use Whirlwind Attack feat (PHB p.102). WO-ENGINE-AI-WO1.
+
+    Full-round action: make one melee attack at full attack bonus against every
+    opponent within reach. DM/AI asserts all target_ids are adjacent.
+    No armor restriction (PHB p.102 names none).
+    Melee attacks do not provoke AoO by default (PHB p.140).
+    """
+
+    type: Literal["whirlwind_attack"] = "whirlwind_attack"
+    attacker_id: str = ""
+    target_ids: List[str] = field(default_factory=list)
+    """DM/AI asserts all listed entity IDs are within reach."""
+    weapon: Dict[str, Any] = field(default_factory=dict)
+    """Weapon dict in Weapon-schema format (melee weapon required)."""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "attacker_id": self.attacker_id,
+            "target_ids": self.target_ids,
+            "weapon": self.weapon,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "WhirlwindAttackIntent":
+        if data.get("type") != "whirlwind_attack":
+            raise IntentParseError(f"Expected type 'whirlwind_attack', got '{data.get('type')}'")
+        return cls(
+            attacker_id=data["attacker_id"],
+            target_ids=data.get("target_ids", []),
+            weapon=data.get("weapon", {}),
+        )
+
+
 # Type alias for all intent types
 Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | RestIntent |
           SummonCompanionIntent | PrepareSpellsIntent | ChargeIntent | CoupDeGraceIntent |
@@ -1324,7 +1360,8 @@ Intent = (CastSpellIntent | MoveIntent | DeclaredAttackIntent | BuyIntent | Rest
           RevertFormIntent | NaturalAttackIntent | SkillCheckIntent | StabilizeIntent |
           DemoralizeIntent | CalledShotIntent | StandIntent |
           ImmediateActionIntent | RunIntent |
-          SpringAttackIntent | ShotOnTheRunIntent | ManyShotIntent)
+          SpringAttackIntent | ShotOnTheRunIntent | ManyShotIntent |
+          WhirlwindAttackIntent)
 
 
 def parse_intent(data: Dict[str, Any]) -> Intent:
@@ -1416,5 +1453,7 @@ def parse_intent(data: Dict[str, Any]) -> Intent:
         return ShotOnTheRunIntent.from_dict(data)
     elif intent_type == "manyshot":
         return ManyShotIntent.from_dict(data)
+    elif intent_type == "whirlwind_attack":
+        return WhirlwindAttackIntent.from_dict(data)
     else:
         raise IntentParseError(f"Unknown intent type: {intent_type}")

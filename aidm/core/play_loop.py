@@ -78,7 +78,7 @@ from aidm.schemas.intents import (
     RageIntent, SmiteEvilIntent, LayOnHandsIntent, RemoveDiseaseIntent, BardicMusicIntent, FascinateIntent, WildShapeIntent, RevertFormIntent,
     NaturalAttackIntent, StabilizeIntent, CalledShotIntent, DemoralizeIntent, StandIntent,
     ImmediateActionIntent, RunIntent,
-    SpringAttackIntent, ShotOnTheRunIntent, ManyShotIntent,
+    SpringAttackIntent, ShotOnTheRunIntent, ManyShotIntent, WhirlwindAttackIntent,
 )
 from aidm.core.flurry_of_blows_resolver import FlurryOfBlowsIntent
 from aidm.core.wholeness_of_body_resolver import WholenessOfBodyIntent
@@ -2091,6 +2091,9 @@ def execute_turn(
         # WO-ENGINE-AH-WO2/WO3/WO4: Spring Attack / Shot on the Run / Manyshot
         elif isinstance(combat_intent, (SpringAttackIntent, ShotOnTheRunIntent, ManyShotIntent)):
             intent_actor_id = combat_intent.attacker_id
+        # WO-ENGINE-AI-WO1: Whirlwind Attack
+        elif isinstance(combat_intent, WhirlwindAttackIntent):
+            intent_actor_id = combat_intent.attacker_id
         elif isinstance(combat_intent, (ReadyActionIntent, AidAnotherIntent,
                                         FightDefensivelyIntent, TotalDefenseIntent,
                                         FeintIntent, RageIntent, SmiteEvilIntent, LayOnHandsIntent,
@@ -3834,6 +3837,22 @@ def execute_turn(
 
             narration = "manyshot_resolved"
 
+        # WO-ENGINE-AI-WO1: Whirlwind Attack (PHB p.102)
+        # Full-round action: one melee attack at full AB against each target in target_ids.
+        elif isinstance(combat_intent, WhirlwindAttackIntent):
+            from aidm.core.attack_resolver import resolve_whirlwind_attack
+            wa_events = resolve_whirlwind_attack(
+                intent=combat_intent,
+                world_state=world_state,
+                rng=rng,
+                next_event_id=current_event_id,
+                timestamp=timestamp,
+            )
+            events.extend(wa_events)
+            current_event_id += len(wa_events)
+            world_state = apply_attack_events(world_state, wa_events)
+            narration = "whirlwind_attack_resolved"
+
         # WO-ENGINE-NATURAL-ATTACK-001: Natural attack (bite, claw, talon, etc.)
         elif isinstance(combat_intent, NaturalAttackIntent):
             from aidm.core.natural_attack_resolver import resolve_natural_attack
@@ -4222,6 +4241,16 @@ def execute_turn(
     # State mutation: store turn counter in active_combat metadata
     active_combat = deepcopy(world_state.active_combat) if world_state.active_combat else {}
     active_combat["turn_counter"] = turn_ctx.turn_index + 1
+
+    # WO-ENGINE-AI-WO3: Update deflect_arrows_used from emitted events (once per round per defender)
+    _da_events = [e for e in events if e.event_type == "deflect_arrows"]
+    if _da_events:
+        _da_used = list(active_combat.get("deflect_arrows_used", []))
+        for _dae in _da_events:
+            _did = _dae.payload.get("defender_id")
+            if _did and _did not in _da_used:
+                _da_used.append(_did)
+        active_combat["deflect_arrows_used"] = _da_used
 
     # CP-19: Round-end condition expiry — tick DurationTracker after last actor's turn
     initiative_order = active_combat.get("initiative_order", [])

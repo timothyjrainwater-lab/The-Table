@@ -438,6 +438,12 @@ class _EntityFields:
     # FINDING-ENGINE-FREE-HAND-SETTER-001: chargen/equip WO will wire setter from
     # weapon type and condition state. This WO adds the field and guard only.
 
+    # --- Deflect Arrows (WO-ENGINE-AI-WO3) ---
+    FREE_HANDS = "free_hands"
+    # int: number of free hands available. Default 1 (bare or one-handed weapon).
+    # Set to 0 when both hands are occupied (two-handed weapon, two weapons, shield + weapon in two-handed grip).
+    # PHB p.93: Deflect Arrows requires "at least one hand free."
+
 
 # Singleton instance — import this
 EF = _EntityFields()

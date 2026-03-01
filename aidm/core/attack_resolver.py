@@ -889,6 +889,38 @@ def resolve_attack(
 
     # If hit, roll damage
     if hit:
+        # WO-ENGINE-AI-WO3: Deflect Arrows (PHB p.93) — reactive feat gate.
+        # Check BEFORE damage roll: feat present + ranged weapon + free hand + not flat-footed + not used this round.
+        _target_feats = target.get(EF.FEATS, [])
+        _weapon_is_ranged = (
+            intent.weapon.is_ranged
+            or intent.weapon.range_increment > 0
+            or intent.weapon.weapon_type == "ranged"
+            or intent.weapon.weapon_type == "thrown"
+        )
+        _da_used_list = world_state.active_combat.get("deflect_arrows_used", []) if world_state.active_combat else []
+        _da_already_used = intent.target_id in _da_used_list
+        _target_free_hands = target.get(EF.FREE_HANDS, 1)
+        _target_flat_footed = "flat_footed" in target.get(EF.CONDITIONS, {})
+        if (
+            "deflect_arrows" in _target_feats
+            and _weapon_is_ranged
+            and not _da_already_used
+            and _target_free_hands >= 1
+            and not _target_flat_footed
+        ):
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="deflect_arrows",
+                timestamp=timestamp + 0.07,
+                payload={
+                    "defender_id": intent.target_id,
+                    "attacker_id": intent.attacker_id,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 93}],
+            ))
+            return events  # No damage_roll or hp_changed
+
         # WO-ENGINE-MONK-UNARMED-WIRE-AF: Override damage dice for monk unarmed strikes (PHB Table 3-10, p.41)
         # Flurry path already uses MONK_UNARMED_DICE via _make_unarmed_weapon() in flurry_of_blows_resolver.
         # AttackIntent path did not — this closes FINDING-ENGINE-MONK-UNARMED-ATTACK-WIRE-001.
@@ -2492,4 +2524,137 @@ def resolve_manyshot(
             current_event_id += 1
 
     return events
+
+
+def resolve_whirlwind_attack(
+    intent,
+    world_state: WorldState,
+    rng: RNGProvider,
+    next_event_id: int,
+    timestamp: float,
+) -> List[Event]:
+    """Resolve Whirlwind Attack (PHB p.102). WO-ENGINE-AI-WO1.
+
+    Full-round action: make one melee attack at full attack bonus against each
+    target in intent.target_ids. DM/AI asserts all targets are within reach.
+    No armor restriction. Melee attacks do not provoke AoO (PHB p.140).
+    Delegates to resolve_attack() for each target — one roll per target.
+
+    Validation:
+    - Attacker must have 'whirlwind_attack' in EF.FEATS
+    - intent.target_ids must be non-empty
+
+    Returns events starting at next_event_id.
+    """
+    from aidm.schemas.attack import AttackIntent as _AttackIntent, Weapon as _Weapon
+
+    events: List[Event] = []
+    current_event_id = next_event_id
+
+    attacker = world_state.entities.get(intent.attacker_id)
+    if attacker is None:
+        return [Event(
+            event_id=current_event_id,
+            event_type="whirlwind_attack_invalid",
+            timestamp=timestamp,
+            payload={"reason": "attacker_not_found", "attacker_id": intent.attacker_id},
+            citations=[{"source_id": "681f92bc94ff", "page": 102}],
+        )]
+
+    # Gate 1: feat check
+    if "whirlwind_attack" not in attacker.get(EF.FEATS, []):
+        return [Event(
+            event_id=current_event_id,
+            event_type="whirlwind_attack_invalid",
+            timestamp=timestamp,
+            payload={"reason": "feat_not_present", "attacker_id": intent.attacker_id},
+            citations=[{"source_id": "681f92bc94ff", "page": 102}],
+        )]
+
+    # Gate 2: non-empty target list
+    if not intent.target_ids:
+        return [Event(
+            event_id=current_event_id,
+            event_type="whirlwind_attack_invalid",
+            timestamp=timestamp,
+            payload={"reason": "no_valid_targets", "attacker_id": intent.attacker_id},
+            citations=[{"source_id": "681f92bc94ff", "page": 102}],
+        )]
+
+    # Build weapon object from dict
+    weapon_dict = intent.weapon
+    weapon = _Weapon(
+        damage_dice=weapon_dict.get("damage_dice", "1d6"),
+        damage_bonus=weapon_dict.get("damage_bonus", 0),
+        damage_type=weapon_dict.get("damage_type", "slashing"),
+        critical_multiplier=weapon_dict.get("critical_multiplier", 2),
+        critical_range=weapon_dict.get("critical_range", 20),
+        is_two_handed=weapon_dict.get("is_two_handed", False),
+        grip=weapon_dict.get("grip", "one-handed"),
+        weapon_type=weapon_dict.get("weapon_type", "one-handed"),
+        range_increment=weapon_dict.get("range_increment", 0),
+    )
+
+    # PHB p.102: full attack bonus — no iterative penalty
+    full_attack_bonus = attacker.get(EF.ATTACK_BONUS, 0)
+
+    # Iterate over all targets — one resolve_attack() call per target
+    for target_id in intent.target_ids:
+        attack_intent = _AttackIntent(
+            attacker_id=intent.attacker_id,
+            target_id=target_id,
+            attack_bonus=full_attack_bonus,
+            weapon=weapon,
+        )
+        target_events = resolve_attack(
+            intent=attack_intent,
+            world_state=world_state,
+            rng=rng,
+            next_event_id=current_event_id,
+            timestamp=timestamp,
+        )
+        events.extend(target_events)
+        current_event_id += len(target_events)
+        timestamp += 0.05
+
+        # Apply events to track HP changes (defeat checks) between targets
+        world_state = apply_attack_events(world_state, target_events)
+
+    return events
+
+
+def compute_range_penalty(feats: list, distance_ft: int, weapon_dict: dict) -> int:
+    """Compute range penalty for a ranged/thrown attack. WO-ENGINE-AI-WO2.
+
+    Implements Far Shot (PHB p.94) range increment extension:
+    - Projectile weapons (ranged): increment × 1.5 (integer: × 3 // 2)
+    - Thrown weapons: increment × 2
+
+    Formula: penalty = -2 × floor((distance_ft - 1) / effective_increment)
+    Returns 0 or negative int. No floats in deterministic path.
+
+    Args:
+        feats: Attacker's feat list (e.g., entity.get(EF.FEATS, []))
+        distance_ft: Range to target in feet (must be > 0)
+        weapon_dict: Weapon dict with optional 'range_increment' and 'weapon_type'
+
+    Returns:
+        int: 0 or negative range penalty
+    """
+    base_increment = weapon_dict.get("range_increment", 30)
+    weapon_type = weapon_dict.get("weapon_type", "ranged")
+
+    if "far_shot" in feats:
+        if weapon_type == "thrown":
+            effective_increment = base_increment * 2
+        else:  # ranged / projectile — PHB p.94: ×1.5, integer arithmetic
+            effective_increment = base_increment * 3 // 2
+    else:
+        effective_increment = base_increment
+
+    if distance_ft <= 0 or effective_increment <= 0:
+        return 0
+
+    penalty = -2 * ((distance_ft - 1) // effective_increment)
+    return penalty
 

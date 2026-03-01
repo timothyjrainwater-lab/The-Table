@@ -190,6 +190,7 @@ def _build_action_types() -> Dict[type, str]:
     _try_add(mapping, "aidm.schemas.intents", "SpringAttackIntent", "full_round")  # PHB p.100: Spring Attack = full-round action (WO-ENGINE-AH-WO2)
     _try_add(mapping, "aidm.schemas.intents", "ShotOnTheRunIntent", "full_round")  # PHB p.99: Shot on the Run = full-round action (WO-ENGINE-AH-WO3)
     _try_add(mapping, "aidm.schemas.intents", "ManyShotIntent", "standard")        # PHB p.97: Manyshot = standard action (WO-ENGINE-AH-WO4)
+    _try_add(mapping, "aidm.schemas.intents", "WhirlwindAttackIntent", "full_round")  # PHB p.102: Whirlwind Attack = full-round action (WO-ENGINE-AI-WO1)
 
     return mapping
 

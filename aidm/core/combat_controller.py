@@ -205,6 +205,7 @@ def start_combat(
         "aoo_used_this_round": [],  # CP-15: Track AoO usage (reset each round)
         "aoo_count_this_round": {},  # WO-ENGINE-COMBAT-REFLEXES-001: per-entity AoO count
         "grapple_pairs": [],  # CP-22: Active grapple pairs [[initiator_id, target_id], ...]
+        "deflect_arrows_used": [],  # WO-ENGINE-AI-WO3: defenders who used DA this round
     }
 
     updated_state = WorldState(

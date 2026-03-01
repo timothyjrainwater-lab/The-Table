@@ -14,9 +14,73 @@ Conditions describe mechanical truth but do NOT enforce legality.
 
 from copy import deepcopy
 from typing import Dict, Any, Optional, List, Tuple
+import logging
 from aidm.core.state import WorldState
 from aidm.schemas.conditions import ConditionInstance, ConditionModifiers
 from aidm.schemas.entity_fields import EF
+
+_log = logging.getLogger(__name__)
+
+# Mapping from condition_id string → factory function name in aidm.schemas.conditions.
+# Used by _get_modifiers_for_condition_type() to resolve empty-dict conditions.
+_CONDITION_FACTORY_NAMES: Dict[str, str] = {
+    "flat_footed": "create_flat_footed_condition",
+    "prone": "create_prone_condition",
+    "grappled": "create_grappled_condition",
+    "grappling": "create_grappling_condition",
+    "helpless": "create_helpless_condition",
+    "stunned": "create_stunned_condition",
+    "dazed": "create_dazed_condition",
+    "shaken": "create_shaken_condition",
+    "sickened": "create_sickened_condition",
+    "frightened": "create_frightened_condition",
+    "panicked": "create_panicked_condition",
+    "nauseated": "create_nauseated_condition",
+    "fatigued": "create_fatigued_condition",
+    "exhausted": "create_exhausted_condition",
+    "paralyzed": "create_paralyzed_condition",
+}
+
+
+def _get_modifiers_for_condition_type(condition_id: str) -> Optional[ConditionModifiers]:
+    """Return canonical ConditionModifiers for a known condition type.
+
+    WO-ENGINE-AI-WO4: Used to resolve conditions stored as empty-dict {}.
+    Calls the appropriate create_XXX_condition() factory function to get canonical defaults.
+
+    Returns None if condition_id is not a known condition type.
+    """
+    import aidm.schemas.conditions as _conds
+    factory_name = _CONDITION_FACTORY_NAMES.get(condition_id)
+    if factory_name is None:
+        return None
+    factory = getattr(_conds, factory_name, None)
+    if factory is None:
+        return None
+    try:
+        instance = factory("_empty_dict_default", 0)
+        return instance.modifiers
+    except Exception:
+        return None
+
+
+def _normalize_condition_dict(condition_id: str, condition_dict: dict) -> dict:
+    """Return condition_dict unchanged (for non-empty) or a sentinel for empty dicts.
+
+    WO-ENGINE-AI-WO4: Documents the empty-dict case. Callers that need modifiers
+    for empty-dict conditions should use _get_modifiers_for_condition_type() instead.
+    This function is kept for test-verifiability.
+
+    Args:
+        condition_id: The condition key (e.g., "flat_footed")
+        condition_dict: The raw dict value
+
+    Returns:
+        Original dict if non-empty; {"condition_type": condition_id} if empty.
+    """
+    if condition_dict == {}:
+        return {"condition_type": condition_id}
+    return condition_dict
 
 
 def get_condition_modifiers(
@@ -59,6 +123,11 @@ def get_condition_modifiers(
     # Safety guard: conditions should be dict format {condition_id: {condition_dict...}}.
     # List format was deprecated by WO-CONDFIX-01. Guard kept for fail-closed safety.
     if isinstance(conditions_data, list):
+        _log.warning(
+            "get_condition_modifiers: legacy list format for entity %s — returning zero modifiers. "
+            "Upgrade to dict format. (FINDING-ENGINE-CONDITIONS-LEGACY-FORMAT-001)",
+            actor_id,
+        )
         return ConditionModifiers()
 
     # Aggregate modifiers
@@ -83,13 +152,22 @@ def get_condition_modifiers(
     for condition_id, condition_dict in conditions_data.items():
         if not isinstance(condition_dict, dict):
             continue  # Skip malformed entries
-        try:
-            condition = ConditionInstance.from_dict(condition_dict)
-        except (ValueError, KeyError):
-            # Unknown condition type (e.g., spell buff labels like "mage_armor")
-            # — no mechanical modifiers, skip aggregation
-            continue
-        mods = condition.modifiers
+
+        # WO-ENGINE-AI-WO4: Empty dict {} → condition present with default mechanics.
+        # FINDING-ENGINE-FLAT-FOOTED-COND-FORMAT-001: {flat_footed: {}} was silently dropped.
+        # Fix: use factory lookup to get canonical modifiers; bypass from_dict() for this case.
+        if condition_dict == {}:
+            mods = _get_modifiers_for_condition_type(condition_id)
+            if mods is None:
+                continue  # unknown condition type — no modifiers
+        else:
+            try:
+                condition = ConditionInstance.from_dict(condition_dict)
+                mods = condition.modifiers
+            except (ValueError, KeyError):
+                # Unknown condition type (e.g., spell buff labels like "mage_armor")
+                # — no mechanical modifiers, skip aggregation
+                continue
 
         total_ac += mods.ac_modifier
         total_ac_melee += mods.ac_modifier_melee
