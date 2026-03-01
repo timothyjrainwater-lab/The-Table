@@ -297,6 +297,8 @@ class SpellCastIntent:
             "metamagic": list(self.metamagic),
             "heighten_to_level": self.heighten_to_level,
             "spontaneous_cure": self.spontaneous_cure,
+            "spontaneous_inflict": self.spontaneous_inflict,
+            "spontaneous_summon": self.spontaneous_summon,
             "use_secondary": self.use_secondary,
         }
 
@@ -689,6 +691,14 @@ class SpellResolver:
             # SR is checked per-target BEFORE saving throw.
             # If SR blocks, skip this target entirely (no save, no damage, no condition).
             if spell.spell_resistance and target.spell_resistance > 0:
+                # WO-ENGINE-SR-NULL-GUARD-001: Explicit guard — never silently bypass SR
+                if world_state is None and target.spell_resistance > 0:
+                    raise ValueError(
+                        f"resolve_spell() called without world_state but target "
+                        f"'{entity_id}' has spell_resistance={target.spell_resistance}. "
+                        "SR check requires world_state. Pass world_state=None only for "
+                        "non-SR targets in test contexts."
+                    )
                 if world_state is not None:
                     sr_check = SRCheck(
                         caster_level=caster.caster_level,

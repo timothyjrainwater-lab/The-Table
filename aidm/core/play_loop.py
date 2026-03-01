@@ -2576,7 +2576,7 @@ def execute_turn(
                 )
                 if aoo_damage_total > 0:
                     conc_dc = 10 + aoo_damage_total
-                    conc_bonus = world_state.entities.get(turn_ctx.actor_id, {}).get("concentration_bonus", 0)
+                    conc_bonus = world_state.entities.get(turn_ctx.actor_id, {}).get(EF.CONCENTRATION_BONUS, 0)
                     conc_roll = rng.stream("combat").randint(1, 20)
                     conc_total = conc_roll + conc_bonus
                     events.append(Event(
