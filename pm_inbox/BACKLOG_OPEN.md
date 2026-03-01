@@ -1,7 +1,7 @@
 # BACKLOG — Open Findings Awaiting Triage
 
 **Lifecycle:** ACTIVE (permanent file — not subject to inbox cap or archival)
-**Last triaged:** 2026-03-01 (session 26) — WO-INFRA-MEMORY-CHAIN-AUDIT-001 VERDICT: ACCEPTED. 10 new FINDING-INFRA-MEMORY-* entries registered (2 HIGH, 3 MEDIUM active, 3 MEDIUM Thunder-deferred, 2 LOW). Dispatch archived. Wave 1 self-execute pending. Next triage: after Batch AJ + 2 batches.
+**Last triaged:** 2026-03-01 (session 27) — Phase 2 OSS research memos triaged (first+second pass). 2 MEDIUM + 2 LOW findings added (WM foundation, SRD extract, third-pass targets, ZenLib queue). WSP debrief findings added (WSP-DOUBLE-COUNT closed, WSP-FAR-DEAD-PATH LOW open). Next triage: after Batch AJ verdict + Stage 3 verdict.
 **Triage cadence:** Every 3 engine batches, PM reviews this file. For each finding: promote to WO, explicitly defer with rationale, or close. No new batch dispatch without backlog review.
 
 ---
@@ -107,6 +107,15 @@
 | FINDING-INFRA-MEMORY-005 | MCP Tools list quadruplicated — Slate Kernel, MEMORY.md, BS_BUDDY, Chisel Seat each carry their own version (~8–23 lines). ~500 tokens recoverable. Recommended: move canonical list to CLAUDE.md; seats retain seat-specific notes only (1–2 lines). Requires Thunder decision: CLAUDE.md expansion authority. | PROBE-MEMORY-ARCHITECTURE-001 (2026-02-28) | DEFERRED — Thunder decision required (CLAUDE.md expansion authority) |
 | FINDING-INFRA-MEMORY-006 | Seed Canon loaded every Slate boot — 54 rules (~750 tokens) from `REHYDRATION_KERNEL_LATEST.md` load every boot; not referenced operationally in 16 sessions. Graduate to `docs/doctrine/SEED_CANON_V0.1.md`; replace with 1-line pointer. Requires Thunder decision: approve philosophical doctrine graduation. | PROBE-MEMORY-ARCHITECTURE-001 (2026-02-28) | DEFERRED — Thunder decision required (approve Seed Canon graduation) |
 
+### Phase 2 — World Model / Judgment Infrastructure (OSS Research 2026-03-01)
+
+| ID | Summary | Filed | Status |
+|----|---------|-------|--------|
+| FINDING-PHASE2-OSS-WM-FOUNDATION-READY-001 | SPEC-WORLD-MODEL-001 implementation foundation locked from phase 2 OSS research (both passes). Storage: simple-graph schema (copy 20-line SQL, add `t_valid`/`t_invalid` columns — do NOT pip install, own the schema). Temporal contradiction: Graphiti exact UPDATE+INSERT+SELECT SQL extracted (bi-temporal, "latest wins" rule). Traversal: AriGraph BFS concept (~30 lines Python wrapper on simple-graph CTE — AriGraph code has hard OpenAI dep, port by reference only). No speculation remaining. WO-WORLD-MODEL-RELATIONS-001 can dispatch once SPEC-WORLD-MODEL-001 is filed. | Phase 2 OSS research pass 2 (2026-03-01) | OPEN — file SPEC-WORLD-MODEL-001 next |
+| FINDING-PHASE2-OSS-SRD-DATA-EXTRACT-001 | pydnd has 2 skills only — dead end. WO-DATA-PYDND-READ-001 CLOSED. **Pass 3 update: dnd-generator phb/ is the source (not DnD-3.5-SRD-Markdown).** Scope drops from "write Markdown parser" to "map JSON fields to EF schema" (~30 lines Python). Output: `aidm/data/srd_skills.json` + `aidm/data/srd_dc_ranges.json`. | Phase 2 OSS research pass 3 (2026-03-01) | OPEN — dispatch WO-DATA-SRD-EXTRACT-001 before validator WO |
+| FINDING-PHASE2-OSS-DNDGEN-JSON-001 | dnd-generator (zellfaze-zz/dnd-generator) phb/ directory is the **primary 3.5e data source** — CC0/OGL, no parser needed. Contains: `skills.json` (all skills: ability key, trained flag, armor check, synergy array), `feats.json` (all feats: prerequisites as string[], numeric benefits structured), `classes.json` (full level progressions: BAB/saves/abilities per level). Also: spells, races, magic items, mundane items. This is the data source for DC validator + mechanic registry + future feat ingestion expansion. DnD-3.5-SRD-Markdown demoted to QA reference. PCGen LST fallback only. | Phase 2 OSS research pass 3 (2026-03-01) | OPEN — feeds WO-DATA-SRD-EXTRACT-001 |
+| FINDING-PHASE2-OSS-INSTRUCTOR-API-CORRECTION-001 | MEMO_PHASE2_OSS_RESEARCH_BRIEF_001 instructor integration API is **WRONG**. Correct API (pass 3 confirmed): `instructor.patch(create=llama.create_chat_completion_openai_v1, mode=instructor.Mode.JSON_SCHEMA)` — NOT `instructor.patch(Llama(...))`. WO-JUDGMENT-GUARDED-001 spec must use the corrected form. Do NOT draft WO-JUDGMENT-GUARDED-001 from the brief — pull from this finding. | Phase 2 OSS research pass 3 (2026-03-01) | OPEN — apply in WO-JUDGMENT-GUARDED-001 spec |
+
 ---
 
 ## LOW Severity
@@ -182,6 +191,8 @@
 | FINDING-UI-ENEMY-LOOP-INITIATIVE-WRAP-001 | `_initiative_index` wraps correctly per round but orchestrator does not fire `round_start` event or increment `round_index` in `active_combat`. Engine tracks round_index; orchestrator loop does not advance it. | WO-UI-PHASE1-ENEMY-LOOP-001 debrief | OPEN — Stage 3 scope |
 | FINDING-UI-ENEMY-LOOP-NARRATION-ENEMY-001 | Enemy turn events merged into TurnResult but no narration generated for enemy actions. Orchestrator narrates only player action. Enemy attacks/kills appear as raw events with no narrative text. | WO-UI-PHASE1-ENEMY-LOOP-001 debrief | OPEN — Stage 3 scope (GAP-06) |
 | FINDING-UI-PIPE-ASYNCIO-DEPRECATION-001 | PIPE-005 uses deprecated `asyncio.get_event_loop().run_until_complete()` (Python 3.10+). Future test hygiene: migrate ws_bridge tests to `pytest-asyncio`. Non-fatal. | WO-UI-PHASE1-PIPE-001 debrief | OPEN — test hygiene WO |
+| FINDING-PHASE2-OSS-THIRD-PASS-TARGETS-001 | 5 items from pass 2 — all resolved in pass 3: (1) dnd-generator FOUND — CC0/OGL, phb/ JSON, no parser, see FINDING-PHASE2-OSS-DNDGEN-JSON-001; (2) django-srd20 — Pathfinder only, SKIP; (3) PCGen LST Python parser — moot, dnd-generator covers the need; (4) instructor compat — corrected API documented, see FINDING-PHASE2-OSS-INSTRUCTOR-API-CORRECTION-001; (5) DnD-3.5-SRD-Markdown file structure — moot, demoted to QA reference. | Phase 2 OSS research pass 3 (2026-03-01) | **CLOSED** — all 5 targets resolved |
+| FINDING-PHASE2-OSS-ZENLIB-QUEUE-001 | 10 items from OSS research memos identified for ZenLibrary indexing before Phase 2 build WOs: AriGraph paper (IJCAI 2025, HIGH), MemGPT paper (arXiv 2310.08560, HIGH), SimpleMem paper (arXiv 2601.02553, HIGH), simple-graph repo (HIGH), Graphiti design docs (MEDIUM), CALYPSO paper (AIIDE 2024, MEDIUM), instructor docs (MEDIUM), fedefreak92 DM project (LOW). WO-TOOLS-ZENLIB-INDEX-001 exists in pm_inbox — confirm scope covers these research items. | Phase 2 OSS research memos (2026-03-01) | OPEN — check WO-TOOLS-ZENLIB-INDEX-001 scope |
 
 ---
 
@@ -350,3 +361,16 @@
 ### FINDING-ENGINE-AOO-ACTIVE-COMBAT-AUDIT-001 (LOW, OPEN)
 **Description:** Full audit of per-round/per-turn fields in active_combat conducted during this WO. Fields found: aoo_used_this_round (now fixed), aoo_count_this_round (now fixed), deflect_arrows_used (fixed d1fecb4), cleave_used_this_turn (fixed WO-ENGINE-CLEAVE-WIRE-001). No additional uncleared per-round fields found. Audit is complete as of this WO.
 **Status:** OPEN (informational -- no action needed unless new per-round fields added)
+
+
+---
+
+## 2026-03-01 -- WO-UI-PHASE1-DISPLAY-001 findings
+
+### FINDING-UI-DISPLAY-SESSION-STATE-KWARG-001 (LOW, OPEN)
+**Description:** SessionStateMsg construction in ws_bridge._build_session_state() fails with `TypeError: ServerMessage.__init__() got an unexpected keyword argument session_id` when called with a real WebSocket (discovered during DS-005/DS-008 integration test harness). Pre-existing construction mismatch between _build_session_state() and SessionStateMsg frozen dataclass. Does not affect gate tests (bypassed via _turn_result_to_messages path). Needs fix before live websocket testing.
+**Status:** OPEN -- future WO (LOW priority, Stage 4 scope)
+
+### FINDING-UI-DISPLAY-SPEAKING-WRAP-MULTI-NARRATION-001 (LOW, OPEN)
+**Description:** _turn_result_to_messages() has multiple NarrationEvent emission blocks (lines 662, 694, 710, 726, 741, 754, 767, 835). Only the FIRST block (line 662) received speaking_start/stop wrap in this WO. The other blocks (clarification, fallback, spell narration, etc.) do not have speaking_start/stop wrapping. They may fire narration text without triggering orb animation. Stage 3 scope -- clarification/spell narration paths are low-frequency.
+**Status:** OPEN -- future WO
