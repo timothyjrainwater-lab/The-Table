@@ -141,6 +141,59 @@ class FeatID:
     BREW_POTION = "brew_potion"
     CRAFT_WONDROUS_ITEM = "craft_wondrous_item"
 
+    # --- OSS-INGESTION-SPRINT-001 additions (zellfaze CC0, source: feats.json) ---
+
+    # Skill bonus feats
+    AGILE = "agile"
+    ANIMAL_AFFINITY = "animal_affinity"
+    MAGICAL_APTITUDE = "magical_aptitude"
+    SKILL_FOCUS = "skill_focus"
+
+    # Weapon / combat feats
+    DEFLECT_ARROWS = "deflect_arrows"
+    EXOTIC_WEAPON_PROFICIENCY = "exotic_weapon_proficiency"
+    FAR_SHOT = "far_shot"
+    GREATER_WEAPON_FOCUS = "greater_weapon_focus"
+    GREATER_WEAPON_SPECIALIZATION = "greater_weapon_specialization"
+    IMPROVED_COUNTERSPELL = "improved_counterspell"
+    IMPROVED_PRECISE_SHOT = "improved_precise_shot"
+    IMPROVED_SHIELD_BASH = "improved_shield_bash"
+    IMPROVED_TURNING = "improved_turning"
+    IMPROVED_UNARMED_STRIKE = "improved_unarmed_strike"
+    LEADERSHIP = "leadership"
+    MARTIAL_WEAPON_PROFICIENCY = "martial_weapon_proficiency"
+    MOUNTED_ARCHERY = "mounted_archery"
+    QUICK_DRAW = "quick_draw"
+    RAPID_RELOAD = "rapid_reload"
+    RUN = "run"
+    SIMPLE_WEAPON_PROFICIENCY = "simple_weapon_proficiency"
+    SNATCH_ARROWS = "snatch_arrows"
+    STUNNING_FIST = "stunning_fist"
+    TWO_WEAPON_DEFENSE = "two_weapon_defense"
+    WEAPON_FINESSE = "weapon_finesse"
+
+    # Metamagic feats
+    AUGMENT_SUMMONING = "augment_summoning"
+    COMBAT_CASTING = "combat_casting"
+    EMPOWER_SPELL = "empower_spell"
+    ENLARGE_SPELL = "enlarge_spell"
+    ESCHEW_MATERIALS = "eschew_materials"
+    EXTEND_SPELL = "extend_spell"
+    HEIGHTEN_SPELL = "heighten_spell"
+    MAXIMIZE_SPELL = "maximize_spell"
+    QUICKEN_SPELL = "quicken_spell"
+    SILENT_SPELL = "silent_spell"
+    SPELL_MASTERY = "spell_mastery"
+    STILL_SPELL = "still_spell"
+    WIDEN_SPELL = "widen_spell"
+
+    # Item creation (additional)
+    CRAFT_MAGIC_ARMS_AND_ARMOR = "craft_magic_arms_and_armor"
+    CRAFT_ROD = "craft_rod"
+    CRAFT_STAFF = "craft_staff"
+    CRAFT_WAND = "craft_wand"
+    FORGE_RING = "forge_ring"
+
 
 # Feat registry
 FEAT_REGISTRY: Dict[str, FeatDefinition] = {
@@ -860,6 +913,415 @@ FEAT_REGISTRY: Dict[str, FeatDefinition] = {
         modifier_type="item_creation",
         phb_page=92,
         description="Create miscellaneous magic items"
+    ),
+
+    # =========================================================================
+    # OSS-INGESTION-SPRINT-001 — zellfaze CC0 (feats.json, 109 feats)
+    # 43 novel feats not previously in registry
+    # =========================================================================
+
+    # --- Skill Bonus Feats ---
+    FeatID.AGILE: FeatDefinition(
+        feat_id=FeatID.AGILE,
+        name="Agile",
+        prerequisites={},
+        modifier_type="skill",
+        phb_page=89,
+        description="+2 Balance, +2 Escape Artist"
+    ),
+    FeatID.ANIMAL_AFFINITY: FeatDefinition(
+        feat_id=FeatID.ANIMAL_AFFINITY,
+        name="Animal Affinity",
+        prerequisites={},
+        modifier_type="skill",
+        phb_page=89,
+        description="+2 Handle Animal, +2 Ride"
+    ),
+    FeatID.MAGICAL_APTITUDE: FeatDefinition(
+        feat_id=FeatID.MAGICAL_APTITUDE,
+        name="Magical Aptitude",
+        prerequisites={},
+        modifier_type="skill",
+        phb_page=97,
+        description="+2 Spellcraft, +2 Use Magic Device"
+    ),
+    FeatID.SKILL_FOCUS: FeatDefinition(
+        feat_id=FeatID.SKILL_FOCUS,
+        name="Skill Focus",
+        prerequisites={},
+        modifier_type="skill",
+        phb_page=100,
+        description="+3 to one selected skill"
+    ),
+
+    # --- Combat / Weapon Feats ---
+    FeatID.DEFLECT_ARROWS: FeatDefinition(
+        feat_id=FeatID.DEFLECT_ARROWS,
+        name="Deflect Arrows",
+        prerequisites={
+            "min_dex": 13,
+            "required_feats": [FeatID.IMPROVED_UNARMED_STRIKE],
+        },
+        modifier_type="special",
+        phb_page=93,
+        description="Once per round deflect one non-magical ranged attack"
+    ),
+    FeatID.EXOTIC_WEAPON_PROFICIENCY: FeatDefinition(
+        feat_id=FeatID.EXOTIC_WEAPON_PROFICIENCY,
+        name="Exotic Weapon Proficiency",
+        prerequisites={
+            "min_bab": 1,
+        },
+        modifier_type="special",
+        phb_page=94,
+        description="Proficiency with one selected exotic weapon"
+    ),
+    FeatID.FAR_SHOT: FeatDefinition(
+        feat_id=FeatID.FAR_SHOT,
+        name="Far Shot",
+        prerequisites={
+            "required_feats": [FeatID.POINT_BLANK_SHOT],
+        },
+        modifier_type="special",
+        phb_page=94,
+        description="Increase projectile range by 50%; double thrown weapon range"
+    ),
+    FeatID.GREATER_WEAPON_FOCUS: FeatDefinition(
+        feat_id=FeatID.GREATER_WEAPON_FOCUS,
+        name="Greater Weapon Focus",
+        prerequisites={
+            "required_feats": [FeatID.WEAPON_FOCUS],
+            "min_class_level": {"fighter": 8},
+        },
+        modifier_type="attack",
+        phb_page=94,
+        description="+1 attack with selected weapon (stacks with Weapon Focus)"
+    ),
+    FeatID.GREATER_WEAPON_SPECIALIZATION: FeatDefinition(
+        feat_id=FeatID.GREATER_WEAPON_SPECIALIZATION,
+        name="Greater Weapon Specialization",
+        prerequisites={
+            "required_feats": [FeatID.WEAPON_SPECIALIZATION, FeatID.GREATER_WEAPON_FOCUS],
+            "min_class_level": {"fighter": 12},
+        },
+        modifier_type="damage",
+        phb_page=94,
+        description="+2 damage with selected weapon (stacks with Weapon Specialization)"
+    ),
+    FeatID.IMPROVED_COUNTERSPELL: FeatDefinition(
+        feat_id=FeatID.IMPROVED_COUNTERSPELL,
+        name="Improved Counterspell",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=95,
+        description="Counter with same-school spell of equal or higher level"
+    ),
+    FeatID.IMPROVED_PRECISE_SHOT: FeatDefinition(
+        feat_id=FeatID.IMPROVED_PRECISE_SHOT,
+        name="Improved Precise Shot",
+        prerequisites={
+            "min_dex": 19,
+            "min_bab": 11,
+            "required_feats": [FeatID.POINT_BLANK_SHOT, FeatID.PRECISE_SHOT],
+        },
+        modifier_type="special",
+        phb_page=96,
+        description="Ranged attacks ignore cover/concealment less than total"
+    ),
+    FeatID.IMPROVED_SHIELD_BASH: FeatDefinition(
+        feat_id=FeatID.IMPROVED_SHIELD_BASH,
+        name="Improved Shield Bash",
+        prerequisites={
+            "required_feats": [FeatID.SHIELD_PROFICIENCY],
+        },
+        modifier_type="special",
+        phb_page=96,
+        description="Retain shield AC bonus when making a shield bash"
+    ),
+    FeatID.IMPROVED_TURNING: FeatDefinition(
+        feat_id=FeatID.IMPROVED_TURNING,
+        name="Improved Turning",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=97,
+        description="+1 effective cleric level for turning/rebuking"
+    ),
+    FeatID.IMPROVED_UNARMED_STRIKE: FeatDefinition(
+        feat_id=FeatID.IMPROVED_UNARMED_STRIKE,
+        name="Improved Unarmed Strike",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=97,
+        description="Unarmed attacks don't provoke AoO; deal lethal or nonlethal"
+    ),
+    FeatID.LEADERSHIP: FeatDefinition(
+        feat_id=FeatID.LEADERSHIP,
+        name="Leadership",
+        prerequisites={
+            "min_character_level": 6,
+        },
+        modifier_type="special",
+        phb_page=97,
+        description="Attract a cohort and followers based on Leadership score"
+    ),
+    FeatID.MARTIAL_WEAPON_PROFICIENCY: FeatDefinition(
+        feat_id=FeatID.MARTIAL_WEAPON_PROFICIENCY,
+        name="Martial Weapon Proficiency",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=97,
+        description="Proficiency with one selected martial weapon"
+    ),
+    FeatID.MOUNTED_ARCHERY: FeatDefinition(
+        feat_id=FeatID.MOUNTED_ARCHERY,
+        name="Mounted Archery",
+        prerequisites={
+            "required_feats": [FeatID.MOUNTED_COMBAT],
+        },
+        modifier_type="special",
+        phb_page=98,
+        description="Halve penalties for using ranged weapons while mounted"
+    ),
+    FeatID.QUICK_DRAW: FeatDefinition(
+        feat_id=FeatID.QUICK_DRAW,
+        name="Quick Draw",
+        prerequisites={
+            "min_bab": 1,
+        },
+        modifier_type="special",
+        phb_page=98,
+        description="Draw weapons as a free action; draw hidden weapons as a move action"
+    ),
+    FeatID.RAPID_RELOAD: FeatDefinition(
+        feat_id=FeatID.RAPID_RELOAD,
+        name="Rapid Reload",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=99,
+        description="Reduce crossbow reload to free (light/hand) or move (heavy) action"
+    ),
+    FeatID.RUN: FeatDefinition(
+        feat_id=FeatID.RUN,
+        name="Run",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=99,
+        description="Run at x5 speed; retain Dex bonus to AC while running"
+    ),
+    FeatID.SIMPLE_WEAPON_PROFICIENCY: FeatDefinition(
+        feat_id=FeatID.SIMPLE_WEAPON_PROFICIENCY,
+        name="Simple Weapon Proficiency",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=100,
+        description="Proficiency with all simple weapons"
+    ),
+    FeatID.SNATCH_ARROWS: FeatDefinition(
+        feat_id=FeatID.SNATCH_ARROWS,
+        name="Snatch Arrows",
+        prerequisites={
+            "min_dex": 13,
+            "required_feats": [FeatID.DEFLECT_ARROWS, FeatID.IMPROVED_UNARMED_STRIKE],
+        },
+        modifier_type="special",
+        phb_page=100,
+        description="Catch deflected ranged weapons; immediately throw caught thrown weapons"
+    ),
+    FeatID.STUNNING_FIST: FeatDefinition(
+        feat_id=FeatID.STUNNING_FIST,
+        name="Stunning Fist",
+        prerequisites={
+            "min_dex": 13,
+            "min_wis": 13,
+            "min_bab": 8,
+            "required_feats": [FeatID.IMPROVED_UNARMED_STRIKE],
+        },
+        modifier_type="special",
+        phb_page=101,
+        description="Declare before attack: target Fort DC 10+level/2+Wis or stunned 1 round"
+    ),
+    FeatID.TWO_WEAPON_DEFENSE: FeatDefinition(
+        feat_id=FeatID.TWO_WEAPON_DEFENSE,
+        name="Two-Weapon Defense",
+        prerequisites={
+            "min_dex": 15,
+            "required_feats": [FeatID.TWO_WEAPON_FIGHTING],
+        },
+        modifier_type="ac",
+        phb_page=102,
+        description="+1 shield bonus to AC while wielding two weapons or a double weapon"
+    ),
+    FeatID.WEAPON_FINESSE: FeatDefinition(
+        feat_id=FeatID.WEAPON_FINESSE,
+        name="Weapon Finesse",
+        prerequisites={
+            "min_bab": 1,
+        },
+        modifier_type="attack",
+        phb_page=102,
+        description="Use Dex instead of Str for attack rolls with light weapons"
+    ),
+
+    # --- Metamagic Feats ---
+    FeatID.AUGMENT_SUMMONING: FeatDefinition(
+        feat_id=FeatID.AUGMENT_SUMMONING,
+        name="Augment Summoning",
+        prerequisites={
+            "required_feats": [FeatID.SPELL_FOCUS],
+        },
+        modifier_type="metamagic",
+        phb_page=90,
+        description="Summoned creatures gain +4 Str and +4 Con"
+    ),
+    FeatID.COMBAT_CASTING: FeatDefinition(
+        feat_id=FeatID.COMBAT_CASTING,
+        name="Combat Casting",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=92,
+        description="+4 Concentration when casting defensively or while grappled"
+    ),
+    FeatID.EMPOWER_SPELL: FeatDefinition(
+        feat_id=FeatID.EMPOWER_SPELL,
+        name="Empower Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=94,
+        description="Increase numeric variables of a spell by 50% (+2 slot levels)"
+    ),
+    FeatID.ENLARGE_SPELL: FeatDefinition(
+        feat_id=FeatID.ENLARGE_SPELL,
+        name="Enlarge Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=94,
+        description="Double a spell's range (+1 slot level)"
+    ),
+    FeatID.ESCHEW_MATERIALS: FeatDefinition(
+        feat_id=FeatID.ESCHEW_MATERIALS,
+        name="Eschew Materials",
+        prerequisites={},
+        modifier_type="special",
+        phb_page=94,
+        description="Cast spells without material components costing less than 1 gp"
+    ),
+    FeatID.EXTEND_SPELL: FeatDefinition(
+        feat_id=FeatID.EXTEND_SPELL,
+        name="Extend Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=94,
+        description="Double a spell's duration (+1 slot level)"
+    ),
+    FeatID.HEIGHTEN_SPELL: FeatDefinition(
+        feat_id=FeatID.HEIGHTEN_SPELL,
+        name="Heighten Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=95,
+        description="Cast a spell as a higher-level slot, increasing DC and level-dependent effects"
+    ),
+    FeatID.MAXIMIZE_SPELL: FeatDefinition(
+        feat_id=FeatID.MAXIMIZE_SPELL,
+        name="Maximize Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=97,
+        description="Maximize all numeric variables of a spell (+3 slot levels)"
+    ),
+    FeatID.QUICKEN_SPELL: FeatDefinition(
+        feat_id=FeatID.QUICKEN_SPELL,
+        name="Quicken Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=98,
+        description="Cast a spell as a free action (+4 slot levels)"
+    ),
+    FeatID.SILENT_SPELL: FeatDefinition(
+        feat_id=FeatID.SILENT_SPELL,
+        name="Silent Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=100,
+        description="Remove verbal component from a spell (+1 slot level)"
+    ),
+    FeatID.SPELL_MASTERY: FeatDefinition(
+        feat_id=FeatID.SPELL_MASTERY,
+        name="Spell Mastery",
+        prerequisites={
+            "min_class_level": {"wizard": 1},
+        },
+        modifier_type="special",
+        phb_page=100,
+        description="Prepare selected spells without a spellbook"
+    ),
+    FeatID.STILL_SPELL: FeatDefinition(
+        feat_id=FeatID.STILL_SPELL,
+        name="Still Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=101,
+        description="Remove somatic component from a spell (+1 slot level)"
+    ),
+    FeatID.WIDEN_SPELL: FeatDefinition(
+        feat_id=FeatID.WIDEN_SPELL,
+        name="Widen Spell",
+        prerequisites={},
+        modifier_type="metamagic",
+        phb_page=103,
+        description="Double a spell's area (+3 slot levels)"
+    ),
+
+    # --- Item Creation Feats (additional) ---
+    FeatID.CRAFT_MAGIC_ARMS_AND_ARMOR: FeatDefinition(
+        feat_id=FeatID.CRAFT_MAGIC_ARMS_AND_ARMOR,
+        name="Craft Magic Arms and Armor",
+        prerequisites={
+            "min_caster_level": 5,
+        },
+        modifier_type="item_creation",
+        phb_page=92,
+        description="Create and repair magic weapons, armor, and shields"
+    ),
+    FeatID.CRAFT_ROD: FeatDefinition(
+        feat_id=FeatID.CRAFT_ROD,
+        name="Craft Rod",
+        prerequisites={
+            "min_caster_level": 9,
+        },
+        modifier_type="item_creation",
+        phb_page=92,
+        description="Create magic rods"
+    ),
+    FeatID.CRAFT_STAFF: FeatDefinition(
+        feat_id=FeatID.CRAFT_STAFF,
+        name="Craft Staff",
+        prerequisites={
+            "min_caster_level": 12,
+        },
+        modifier_type="item_creation",
+        phb_page=93,
+        description="Create magic staffs"
+    ),
+    FeatID.CRAFT_WAND: FeatDefinition(
+        feat_id=FeatID.CRAFT_WAND,
+        name="Craft Wand",
+        prerequisites={
+            "min_caster_level": 5,
+        },
+        modifier_type="item_creation",
+        phb_page=93,
+        description="Create magic wands"
+    ),
+    FeatID.FORGE_RING: FeatDefinition(
+        feat_id=FeatID.FORGE_RING,
+        name="Forge Ring",
+        prerequisites={
+            "min_caster_level": 12,
+        },
+        modifier_type="item_creation",
+        phb_page=94,
+        description="Create magic rings"
     ),
 }
 

@@ -534,3 +534,12 @@ CREATURE_REGISTRY: Dict[str, CreatureStatBlock] = {
                            "immunity_fire", "rock_catching", "rock_throwing"],
     ),
 }
+
+
+# ---------------------------------------------------------------------------
+# OSS-INGESTION-SPRINT-001 — Obsidian SRD Markdown extensions (CC0 / OGL)
+# 196 novel creatures parsed from Monsters.md, Animals, Vermin.
+# Existing entries above remain unmodified with full MM fidelity.
+# ---------------------------------------------------------------------------
+from aidm.data.creature_registry_ext import CREATURE_REGISTRY_EXT  # noqa: E402
+CREATURE_REGISTRY.update(CREATURE_REGISTRY_EXT)

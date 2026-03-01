@@ -168,6 +168,7 @@
 | Unconscious | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | Helpless; cannot move or act; UNCONSCIOUS condition |
 | Condition duration tracking (tick-down) | PHB p.309 | **IMPLEMENTED** | `conditions.py`, `duration_tracker.py` | duration_rounds field; tick_conditions() in play loop |
 | Condition auto-removal on expiry | PHB p.309 | **IMPLEMENTED** | `conditions.py` | Conditions with duration_rounds expire automatically |
+| Condition empty-dict format robustness | Engine infra | **IMPLEMENTED** | `conditions.py` | {cond_id: {}} no longer silently drops condition; _get_modifiers_for_condition_type() calls factory to get canonical ConditionModifiers; legacy list format logs warning + returns zero. CF-001–008. Batch AI. |
 
 ---
 
@@ -267,7 +268,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Point Blank Shot | PHB p.98 | **IMPLEMENTED** | `feat_resolver.py` | +1 attack/damage within 30 ft |
 | Precise Shot | PHB p.98 | **IMPLEMENTED** | `feat_resolver.py` | No -4 penalty for shooting into melee |
 | Rapid Shot | PHB p.99 | **IMPLEMENTED** | `feat_resolver.py`, `full_attack_resolver.py` | Extra ranged attack at -2 all; wired. WO-ENGINE-RAPID-SHOT-001. |
-| Weapon Focus | PHB p.102 | **IMPLEMENTED** | `feat_resolver.py` | +1 attack with chosen weapon |
+| Weapon Focus | PHB p.102 | **IMPLEMENTED** | `feat_resolver.py` (canonical), `attack_resolver.py` (event) | +1 attack with chosen weapon. WO-ENGINE-WF-SCHEMA-FIX-001: unified to canonical `weapon_focus_{weapon_name}` key. 8/8 WFS + 8/8 WFC gates. |
 | Weapon Specialization | PHB p.102 | **IMPLEMENTED** | `feat_resolver.py` | +2 damage with chosen weapon |
 | Two-Weapon Fighting | PHB p.102 | **IMPLEMENTED** | `play_loop.py`, `schemas/feats.py` | -4/-4 with light offhand; wired in TWF play |
 | Improved Two-Weapon Fighting | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `full_attack_resolver.py` | Second off-hand attack at BAB-5 |
@@ -294,7 +295,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Improved Critical | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `attack_resolver.py` | Threat range doubled for chosen weapon. DEBRIEF_WO-ENGINE-IMPROVED-CRITICAL-001. |
 | Blind-Fight | PHB p.91 | **IMPLEMENTED** | `schemas/feats.py`, `attack_resolver.py` | Reroll miss chance; `blind_fight_reroll` event emitted on every reroll. Batch O. |
 | Combat Expertise | PHB p.92 | **IMPLEMENTED** | `schemas/feats.py`, `feat_resolver.py` | Trade attack bonus for AC dodge bonus. Batch O SAI — already wired. |
-| Whirlwind Attack | PHB p.102 | **PARTIAL** | `schemas/feats.py` | Registered; no multi-target attack-all-adjacent action |
+| Whirlwind Attack | PHB p.102 | **IMPLEMENTED** | `schemas/intents.py`, `attack_resolver.py`, `play_loop.py`, `action_economy.py` | WhirlwindAttackIntent; resolve_whirlwind_attack() loops resolve_attack() once per target at full attack bonus (PHB p.102: no iterative penalty). Feat gate + empty-target guard. Full-round action. WA-001–008. Batch AI. |
 | Alertness | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Listen/Spot via _SKILL_BONUS_FEATS dict in skill_resolver; untyped bonus stacks. Batch AH. SBF-001–002. |
 | Athletic | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Climb/Swim via _SKILL_BONUS_FEATS; untyped. Batch AH. SBF-004. |
 | Acrobatic | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Jump/Tumble via _SKILL_BONUS_FEATS; untyped. Batch AH. |
@@ -327,8 +328,8 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Feat | Source | Status | Notes |
 |------|--------|--------|-------|
 | Augment Summoning | PHB p.91 | **NOT STARTED** | No summoning system |
-| Deflect Arrows | PHB p.93 | **NOT STARTED** | No deflection mechanic |
-| Far Shot | PHB p.94 | **NOT STARTED** | Range increment extension |
+| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS field added. DA-001–008. Batch AI. |
+| Far Shot | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py` | compute_range_penalty(feats, distance_ft, weapon_dict); ranged: increment×3//2 (integer, no float); thrown: increment×2; penalty = −2 per full effective increment. Trusted-caller model. FSHOT-001–008. Batch AI. |
 | Leadership | PHB p.97 / DMG | **NOT STARTED** | DMG system; no cohort/follower framework |
 | Empower Spell (metamagic) | PHB p.93 | **IMPLEMENTED** | `metamagic_resolver.py` | ×1.5 variable numeric effects |
 | Enlarge Spell (metamagic) | PHB p.93 | **PARTIAL** | `metamagic_resolver.py` | Registered; range doubling not wired |
@@ -409,7 +410,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 
 ## SECTION 9 — SPELLS BY CATEGORY
 
-The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 45 defined spells (core spells + WO-036 expansion). The PHB contains approximately 400+ spells across all levels. Coverage is representative rather than comprehensive.
+The SPELL_REGISTRY in `aidm/data/spell_definitions.py` contains approximately 733 spells (215 prior + 518 PCGen RSRD stubs added by STRAT-OSS-INGESTION-SPRINT-001 WO2). Prior entries have full PHB fidelity. PCGen stubs have correct school/level/components/SR; target_type/effect_type/damage_type inferred heuristically. Coverage is now broad (≥90% PHB spells by name).
 
 ### 9a. Damage Spells
 
@@ -868,6 +869,17 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 | Section 15 — DMG Systems | 25 | 3 | 0 | 22 | 0 | 12% |
 | Section 16 — Experience & Leveling | 9 | 4 | 4 | 1 | 0 | 44% |
 | **TOTALS** | **563** | **192** | **157** | **212** | **4** | **34% implemented / 62% touched** |
+
+---
+
+## SECTION 18 — DATA LAYER (OSS-INGESTION-SPRINT-001)
+
+| Registry | Before | After | Source | Status | Notes |
+|----------|--------|-------|--------|--------|-------|
+| FEAT_REGISTRY (`aidm/schemas/feats.py`) | 66 | 109 | zellfaze CC0 feats.json (109 entries) | **EXPANDED** | 43 novel feats added: skill bonus, metamagic, item creation, combat. FI-001–FI-008 (29/29). Adjusted threshold: ≥109 (STRAT estimated ≥200 from incorrect source count). |
+| SPELL_REGISTRY (`aidm/data/spell_definitions.py`) | 215 | 733 | PCGen rsrd_spells.lst (CC0/OGL, 721 entries) | **EXPANDED** | 518 PCGen stub entries added via spell_definitions_ext.py. SI-001–SI-008 (22/22). Stubs: school/level/components/SR faithful; target_type/effect_type heuristic. Original 215 unchanged. |
+| equipment_catalog.json | 22 weapons, 18 armor | unchanged | PCGen rsrd_equip_arms_and_armor.lst (cross-validation) | **VERIFIED** | All 18 PHB armor types confirmed against PCGen. All 5 weapon spot-checks (dagger/longsword/greatsword/battleaxe/greataxe) match PCGen exactly. EI-001–EI-008 (27/27). No updates needed — catalog was already correct. |
+| CREATURE_REGISTRY (`aidm/data/creature_registry.py`) | 29 | 225 | Obsidian SRD Markdown (CC0/OGL) — Monsters.md + Animals + Vermin | **EXPANDED** | 196 novel creatures added via creature_registry_ext.py. Custom parser (`scripts/parse_obsidian_monsters.py`). MI-001–MI-008 (24/24). CR/HP/AC/saves/abilities from source text; attack parsing heuristic. |
 
 ---
 

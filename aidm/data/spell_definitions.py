@@ -2841,10 +2841,13 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
 
 }
 
-
-# ==============================================================================
-# HELPER FUNCTIONS
-# ==============================================================================
+# ---------------------------------------------------------------------------
+# OSS-INGESTION-SPRINT-001 — PCGen stub extensions (CC0 / OGL)
+# 518 novel spells not previously in registry, heuristically-typed stubs.
+# Existing entries above remain unmodified with full PHB fidelity.
+# ---------------------------------------------------------------------------
+from aidm.data.spell_definitions_ext import SPELL_REGISTRY_EXT  # noqa: E402
+SPELL_REGISTRY.update(SPELL_REGISTRY_EXT)
 
 def get_spell(spell_id: str) -> SpellDefinition:
     """Look up a spell by ID.
