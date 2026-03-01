@@ -17,24 +17,31 @@ My seat document: `docs/ops/CHISEL_SEAT_001.md`
 
 ---
 
-## Seven Wisdoms (DOCTRINE_09 — invariant, survives compaction)
+## Seven Wisdoms
 
-Foundational governance principles. When debating a design choice, test it against the seven. Name which wisdom a decision violates and why the violation is acceptable — or change the design.
-
-1. **Truth first** — if reality says no, write "no" and pivot.
-2. **Singular authority per surface** — one thing decides, everything else renders.
-3. **Replay or it did not happen** — determinism is your audit trail.
-4. **Tests are contracts with teeth** — if a rule matters, it deserves a gate.
-5. **Decisions decay unless sealed** — record the why, scope, and acceptance signal.
-6. **Separate narration from mechanics** — vibe can be free, outcomes must be provable.
-7. **Protect the operator** — reduce cognitive load by turning unknowns into named gaps.
-
-*Anchor: "Truth above morale. One authority per surface. Replay or it did not happen."*
-*Full doctrine: `pm_inbox/doctrine/DOCTRINE_09_SEVEN_WISDOM.txt`*
+*See CLAUDE.md §Seven Wisdoms. Builder application: when debating a design choice, test it against the seven. Name which wisdom a decision violates and why the violation is acceptable — or change the design.*
 
 ---
 
-## Project State (as of 2026-02-26)
+## Active Capsule (T0b — overwrite each session)
+
+**OVERWRITE SEMANTICS:** Replace this entire section at every session close. Do not append. Previous state is in the session delta log below.
+**CAP:** This section must stay under 12 lines (table + header + instructions). If it grows, cut — don't expand.
+
+| Field | Value |
+|-------|-------|
+| Session / Date | *Populate on first Chisel session post-Wave-2* |
+| Active WO | *None — awaiting Batch Y dispatch* |
+| Last completed | Batch W WO4 (Racial Dodge AC) + CL2 standalone |
+| Gate baseline | 886 tests (23 pre-existing failures) |
+| Known blockers | None |
+| BFM entry count | *Verify on boot* |
+| Coverage map freshness | Last updated: Batch W + CL2 (2026-02-28) |
+| Coupling watch | SR WO: spell_resolver `_resolve_save()` bypasses save_resolver |
+
+---
+
+## Project State (as of 2026-02-26 — STALE, see Active Capsule above)
 
 **Engine:**
 - 7,211+ gate tests passing
@@ -826,3 +833,48 @@ Note: `test_ws_bridge` and `test_ws_deadverb_001_gate` excluded — require live
 - Batch T WO4 (SD) BLOCKED — FINDING-ENGINE-DOMAIN-SYSTEM-MISSING-001 MEDIUM OPEN
 - Data Batch B IN FLIGHT
 - All prior open findings carried forward
+
+
+---
+
+## Session Delta -- 2026-03-01 (WO-UI-PHASE1-PIPE-001 ACCEPTED)
+
+**WOs completed:**
+- WO-UI-PHASE1-PIPE-001 -- ACCEPTED. ENGINE DISPATCH / UI Phase 1 Stage 1.
+  - client2d/ws.js: port 8765->8000 (one line)
+  - client2d/main.js: player_input->player_utterance + URL fix (two lines)
+  - start_server.py (NEW): real SessionOrchestrator factory via build_simple_combat_fixture(), create_app(factory), uvicorn on 8000
+  - tests/test_ui_phase1_pipe_gate.py (NEW): PIPE-001..PIPE-008
+
+**Commits:** 2b9db07 (code), 6784ae2 (debrief)
+
+**Gates:** 8/8 PASS. 0 regressions.
+
+**Active Capsule update:**
+| Field | Value |
+|-------|-------|
+| Session / Date | Session 26 / 2026-03-01 |
+| Active WO | None -- awaiting Stage 2 dispatch (WO-UI-PHASE1-ENEMY-LOOP-001) |
+| Last completed | WO-UI-PHASE1-PIPE-001 ACCEPTED |
+| Gate baseline | ~8793 passing (non-ws-server, non-immersion suite) |
+| Known blockers | None |
+
+**New findings (filed, all LOW OPEN):**
+- FINDING-UI-PIPE-TARGET-AMBIGUITY-001 -- "attack goblin" ambiguous in 3-goblin fixture. Stage 3 client UI scope.
+- FINDING-UI-PIPE-START-SERVER-SHARED-STATE-001 -- shared WorldState across sessions. Intentional Stage 1; MUST fix before Stage 2 multi-session dispatch.
+- FINDING-UI-PIPE-ASYNCIO-DEPRECATION-001 -- PIPE-005 uses deprecated get_event_loop(). Future test hygiene WO.
+
+**PM notes on findings:**
+- TARGET-AMBIGUITY-001: correct engine behavior, not a bug. Stage 3 scope confirmed.
+- SHARED-STATE-001: intentional for Stage 1. Flag as Stage 2 pre-dispatch blocker.
+- ASYNCIO-DEPRECATION-001: test hygiene, future WO.
+
+**Queue state:**
+- WO-UI-PHASE1-ENEMY-LOOP-001 (Stage 2) -- NEXT, awaiting dispatch
+- All prior open engine findings carried forward
+
+**Open threads:**
+- FINDING-UI-PIPE-START-SERVER-SHARED-STATE-001 -- must resolve before Stage 2 multi-session
+- FINDING-UI-PIPE-TARGET-AMBIGUITY-001 LOW OPEN
+- FINDING-UI-PIPE-ASYNCIO-DEPRECATION-001 LOW OPEN
+- All prior engine/data findings carried forward (see previous deltas)
