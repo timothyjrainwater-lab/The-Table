@@ -10,9 +10,9 @@ DESIGN PRINCIPLES (per CP18_COMBAT_MANEUVERS_DECISIONS.md):
 - Gate-safe: G-T1 only (no G-T3C relational conditions)
 
 DEGRADATIONS:
-- Sunder: Narrative only (no persistent item damage)
-- Disarm: No persistence (weapon "drops" but no state change)
-- Grapple: Unidirectional condition only (defender gets Grappled, attacker unchanged)
+- Sunder: IMPLEMENTED (PHB p.158)
+- Disarm: IMPLEMENTED — sets EF.DISARMED on success (PHB p.155)
+- Grapple: IMPLEMENTED — applies grappled (defender) + grappling (attacker) conditions (PHB p.155-156)
 - Overrun: Defender avoidance controlled by AI (not interactive)
 """
 

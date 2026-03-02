@@ -1217,11 +1217,14 @@ def _resolve_spell_cast(
             new_hp = old_hp - damage
 
             # WO-ENGINE-MASSIVE-DAMAGE-RULE-001: Massive Damage check (PHB p.145)
-            # Single hit 50+ HP damage → Fort DC 15 save or instant death.
+            # Threshold = max(entity_max_hp // 2, 50) — PHB p.145: "half your total HP (min 50)"
             # WO-ENGINE-SAVE-PATH-HARDEN-001: route through resolve_save() to pick up all
             # global modifiers (Bless, Divine Grace, Trap Sense, negative levels, etc.)
             # and use rng.stream("saves") — not rng.stream("combat").
-            if damage >= 50:
+            # WO-ENGINE-MASSIVE-DAMAGE-THRESHOLD-001: half-HP threshold (not static 50).
+            _md_entity_max_hp = entities[entity_id].get(EF.HP_MAX, 50)
+            _md_threshold = max(_md_entity_max_hp // 2, 50)
+            if damage >= _md_threshold:
                 from aidm.core.save_resolver import resolve_save as _resolve_save, SaveType as _SaveType
                 from aidm.schemas.saves import SaveContext as _SaveContext, SaveOutcome as _SaveOutcome
                 _md_ctx = _SaveContext(

@@ -66,7 +66,7 @@
 | Dying → bleed 1 HP/round (DC 10 Fort) | PHB p.145 | **IMPLEMENTED** | `dying_resolver.py` | Fort save each round; pass = stable; fail = -1 HP |
 | Nonlethal damage tracking | PHB p.146 | **IMPLEMENTED** | `play_loop.py` | NONLETHAL_DAMAGE field; staggered when NL ≥ HP; unconscious when NL > HP |
 | Nonlethal attack (resolve_nonlethal_attack) | PHB p.146 | **IMPLEMENTED** | `attack_resolver.py` | -4 attack penalty; WF + ImprCrit shadow path removed Batch AQ — both now delegate to _compute_finesse_delta/_compute_effective_crit_range shared helpers. NSP-001..008. |
-| Massive damage rule (50+ HP = Fort DC 15 or die) | PHB p.145 | **IMPLEMENTED** | `attack_resolver.py`, `play_loop.py` | Post-DR check: `if final_damage >= 50`. nat1/nat20 auto-fail/pass enforced. Wired to resolve_save() (PHB p.145). SPH-001..003. Batch AT. |
+| Massive damage rule (50+ HP = Fort DC 15 or die) | PHB p.145 | **IMPLEMENTED** | `attack_resolver.py`, `play_loop.py` | Threshold = max(entity_max_hp // 2, 50); formula confirmed correct (not static-50). Post-DR check in attack path; post-damage check in spell path. nat1/nat20 auto-fail/pass enforced. Wired to resolve_save() (PHB p.145). SPH-001..003. MDT-001..008. Batch AT + AV. |
 | Negative level save penalty | PHB p.294 | **IMPLEMENTED** | `save_resolver.py` | `get_save_bonus()` subtracts `EF.NEGATIVE_LEVELS` from total. PHB p.294. SPH-004..005. Batch AT. |
 | Natural healing (level HP/night) | PHB p.130 | **IMPLEMENTED** | `rest_resolver.py` | RestIntent → level × max(1, CON mod) HP per night; full day = double |
 | Stabilization by ally (DC 15 Heal) | PHB p.145 | **PARTIAL** | `heal_resolver.py`, `play_loop.py` | HealIntent + DC 15 Heal skill check wired; entity must be DYING. 8/8 gate pass. DEBRIEF_WO-ENGINE-STABILIZE-ALLY-001. |
@@ -201,6 +201,7 @@
 | Concentration — grappled | PHB p.175 | **IMPLEMENTED** | `play_loop.py` | DC 20 + spell_level for grappled/grappling; check fires before spell resolves. WO-ENGINE-CONCENTRATION-GRAPPLE-001. GCE-003..005. Batch AU confirms pre-existing. |
 | Arcane Spell Failure (armor) | PHB p.175 | **IMPLEMENTED** | `play_loop.py` | ASF d100 check in `_resolve_spell_cast()`; slot consumed on failure; V-only spells bypass; divine casters bypass. WO-ENGINE-ARCANE-SPELL-FAILURE-001. |
 | Casting defensively (DC 15 Concentration or provoke AoO) | PHB p.140 | **IMPLEMENTED** | `aoo.py`, `play_loop.py` | DefensiveCastingIntent; Concentration check vs DC 15; success bypasses AoO. WO-ENGINE-DEFENSIVE-CASTING-001. |
+| stinking_cloud — conditions_on_fail=(nauseated) | PHB p.282 | **IMPLEMENTED** | `spell_definitions.py`, `spell_resolver.py`, `play_loop.py` | conditions_on_fail=("nauseated",) in SpellDefinition; applied at save resolution via conditions_applied path. Ghost target (WO1-AV): field was already present. SCN-001..008. Batch AV. |
 
 ---
 
