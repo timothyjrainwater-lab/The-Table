@@ -29,3 +29,6 @@ class RulingArtifactShadow:
     # Optional Phase 0 fields (populated when routing hook has more context)
     dc: Optional[int] = None
     clarification_message: Optional[str] = None
+
+    # Phase 1: mechanic legality check (WO-JUDGMENT-VALIDATOR-001)
+    ability_or_skill: Optional[str] = None
