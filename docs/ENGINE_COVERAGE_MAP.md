@@ -291,7 +291,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Spirited Charge | PHB p.100 | **PARTIAL** | `schemas/feats.py` | Registered; ×2/×3 damage on mounted charge not auto-applied |
 | Trample | PHB p.101 | **PARTIAL** | `schemas/feats.py` | Registered; no automatic hoof attack on overrun |
 | Shot on the Run | PHB p.99 | **IMPLEMENTED** | `attack_resolver.py`, `aoo.py`, `play_loop.py`, `action_economy.py` | Full-round; single ranged; target AoO suppressed via filter_aoo_from_target (shared with Spring Attack); heavy armor blocked; range penalty still applies. Batch AH. SOTR-001–008. |
-| Manyshot | PHB p.97 | **IMPLEMENTED** | `attack_resolver.py`, `play_loop.py`, `action_economy.py` | Standard action; single roll at −4 penalty; 2 damage_roll events on hit; 30-ft cap; BAB+11/+16 scaling CONSUME_DEFERRED. Batch AH. MS-001–008. |
+| Manyshot | PHB p.97 | **IMPLEMENTED** | `attack_resolver.py`, `play_loop.py`, `action_economy.py` | Standard action; single roll at −4 penalty; 2 damage_roll events on hit; 30-ft cap; BAB+11/+16 scaling CONSUME_DEFERRED. Condition modifiers (attacker + defender) applied via get_condition_modifiers() (WO-AP). MS-001–008. MCB-001..008. Batch AH/AP. |
 | Improved Critical | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `attack_resolver.py` | Threat range doubled for chosen weapon. DEBRIEF_WO-ENGINE-IMPROVED-CRITICAL-001. |
 | Blind-Fight | PHB p.91 | **IMPLEMENTED** | `schemas/feats.py`, `attack_resolver.py` | Reroll miss chance; `blind_fight_reroll` event emitted on every reroll. Batch O. |
 | Combat Expertise | PHB p.92 | **IMPLEMENTED** | `schemas/feats.py`, `feat_resolver.py` | Trade attack bonus for AC dodge bonus. Batch O SAI — already wired. |
@@ -328,7 +328,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Feat | Source | Status | Notes |
 |------|--------|--------|-------|
 | Augment Summoning | PHB p.91 | **NOT STARTED** | No summoning system |
-| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. DA-001..008. FHS-001..008. Batch AI/AM. |
+| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. Per-round reset: CC path (combat_controller.py:348) + SO path (play_loop.py:4409). DA-001..008. FHS-001..008. DAR-001..008. Batch AI/AM/AP. |
 | Far Shot | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py` | compute_range_penalty(feats, distance_ft, weapon_dict); ranged: increment×3//2 (integer, no float); thrown: increment×2; penalty = −2 per full effective increment. Trusted-caller model. FSHOT-001–008. Batch AI. |
 | Leadership | PHB p.97 / DMG | **NOT STARTED** | DMG system; no cohort/follower framework |
 | Empower Spell (metamagic) | PHB p.93 | **IMPLEMENTED** | `metamagic_resolver.py` | ×1.5 variable numeric effects |
