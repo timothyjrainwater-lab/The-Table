@@ -65,6 +65,7 @@
 | Stable (dying but not losing HP) | PHB p.145 | **IMPLEMENTED** | `dying_resolver.py`, `schemas/entity_fields.py` | STABLE field; DC 10 Fort save each round or -1 HP |
 | Dying → bleed 1 HP/round (DC 10 Fort) | PHB p.145 | **IMPLEMENTED** | `dying_resolver.py` | Fort save each round; pass = stable; fail = -1 HP |
 | Nonlethal damage tracking | PHB p.146 | **IMPLEMENTED** | `play_loop.py` | NONLETHAL_DAMAGE field; staggered when NL ≥ HP; unconscious when NL > HP |
+| Nonlethal attack (resolve_nonlethal_attack) | PHB p.146 | **IMPLEMENTED** | `attack_resolver.py` | -4 attack penalty; WF + ImprCrit shadow path removed Batch AQ — both now delegate to _compute_finesse_delta/_compute_effective_crit_range shared helpers. NSP-001..008. |
 | Massive damage rule (50+ HP = Fort DC 15 or die) | PHB p.145 | **IMPLEMENTED** | `attack_resolver.py` | Post-DR check: `if final_damage >= 50`. nat1/nat20 auto-fail/pass enforced (PHB p.136). WO-ENGINE-MD-SAVE-RULES-001. |
 | Natural healing (level HP/night) | PHB p.130 | **IMPLEMENTED** | `rest_resolver.py` | RestIntent → level × max(1, CON mod) HP per night; full day = double |
 | Stabilization by ally (DC 15 Heal) | PHB p.145 | **PARTIAL** | `heal_resolver.py`, `play_loop.py` | HealIntent + DC 15 Heal skill check wired; entity must be DYING. 8/8 gate pass. DEBRIEF_WO-ENGINE-STABILIZE-ALLY-001. |
@@ -736,6 +737,7 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 | Encumbrance penalties (speed, max DEX, ACP) | PHB p.162 | **PARTIAL** | `encumbrance.py` | Tier computed; penalties not yet auto-applied to movement/skill resolvers |
 | Inventory tracking | PHB p.162 | **IMPLEMENTED** | `schemas/entity_fields.py` | INVENTORY list of item dicts with item_id, quantity, stow_location |
 | Equipment catalog | PHB p.112 | **PARTIAL** | `data/equipment_catalog.json` | Equipment catalog loaded; not fully integrated into entity equipment model |
+| Ranged/thrown weapon catalog (Table 7-5) | PHB p.116 | **IMPLEMENTED** | `data/equipment_catalog.json` | 5 weapons added Batch AQ: crossbow_heavy, hand_crossbow, light_hammer, throwing_axe, bola. Total catalog: 27 weapons. net excluded (entangle mechanic CONSUME_DEFERRED, FINDING-ENGINE-NET-CATALOG-SPECIAL-001). CT75-001..008. |
 
 ---
 
@@ -880,7 +882,7 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 |----------|--------|-------|--------|--------|-------|
 | FEAT_REGISTRY (`aidm/schemas/feats.py`) | 66 | 109 | zellfaze CC0 feats.json (109 entries) | **EXPANDED** | 43 novel feats added: skill bonus, metamagic, item creation, combat. FI-001–FI-008 (29/29). Adjusted threshold: ≥109 (STRAT estimated ≥200 from incorrect source count). |
 | SPELL_REGISTRY (`aidm/data/spell_definitions.py`) | 215 | 733 | PCGen rsrd_spells.lst (CC0/OGL, 721 entries) | **EXPANDED** | 518 PCGen stub entries added via spell_definitions_ext.py. SI-001–SI-008 (22/22). Stubs: school/level/components/SR faithful; target_type/effect_type heuristic. Original 215 unchanged. |
-| equipment_catalog.json | 22 weapons, 18 armor | unchanged | PCGen rsrd_equip_arms_and_armor.lst (cross-validation) | **VERIFIED** | All 18 PHB armor types confirmed against PCGen. All 5 weapon spot-checks (dagger/longsword/greatsword/battleaxe/greataxe) match PCGen exactly. EI-001–EI-008 (27/27). No updates needed — catalog was already correct. |
+| equipment_catalog.json | 27 weapons, 18 armor | 22→27 weapons (Batch AQ CT75) | PCGen rsrd_equip_arms_and_armor.lst (cross-validation) | **VERIFIED** | All 18 PHB armor types confirmed against PCGen. All 5 weapon spot-checks (dagger/longsword/greatsword/battleaxe/greataxe) match PCGen exactly. EI-001–EI-008 (27/27). Batch AQ added 5 Table 7-5 ranged/thrown weapons. CT75-001..008. |
 | CREATURE_REGISTRY (`aidm/data/creature_registry.py`) | 29 | 225 | Obsidian SRD Markdown (CC0/OGL) — Monsters.md + Animals + Vermin | **EXPANDED** | 196 novel creatures added via creature_registry_ext.py. Custom parser (`scripts/parse_obsidian_monsters.py`). MI-001–MI-008 (24/24). CR/HP/AC/saves/abilities from source text; attack parsing heuristic. |
 
 ---
