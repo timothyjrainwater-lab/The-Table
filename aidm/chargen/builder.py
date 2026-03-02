@@ -946,7 +946,7 @@ def build_character(
             if _fhs_w:
                 _fhs_wdict = _fhs_w
                 break
-    entity[EF.FREE_HANDS] = 0 if _fhs_wdict.get("weapon_type") == "two-handed" else 1
+    entity[EF.FREE_HANDS] = 0 if _fhs_wdict.get("grip_hands", 1) >= 2 or _fhs_wdict.get("weapon_type") == "two-handed" else 1
 
     # --- Step 12: Class feature pool initialization (FINDING-CHARGEN-POOL-INIT-001) ---
     # Pools that live-engine resolvers consume must be non-None at chargen.
@@ -1354,7 +1354,7 @@ def _build_multiclass_character(
             if _fhs_w_mc:
                 _fhs_wdict_mc = _fhs_w_mc
                 break
-    entity[EF.FREE_HANDS] = 0 if _fhs_wdict_mc.get("weapon_type") == "two-handed" else 1
+    entity[EF.FREE_HANDS] = 0 if _fhs_wdict_mc.get("grip_hands", 1) >= 2 or _fhs_wdict_mc.get("weapon_type") == "two-handed" else 1
 
     # WO-ENGINE-TOUGHNESS-001: Toughness feat +3 HP per instance (PHB p.101; stackable)
     _toughness_count = entity.get(EF.FEATS, []).count("toughness")

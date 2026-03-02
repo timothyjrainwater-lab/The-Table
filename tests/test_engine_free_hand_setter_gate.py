@@ -81,12 +81,12 @@ def test_fhs_005_free_hands_key_present():
 
 
 # ---------------------------------------------------------------------------
-# FHS-006: longbow → FREE_HANDS = 1 (ranged, one-handed grip in catalog)
+# FHS-006: longbow → FREE_HANDS = 0 (ranged two-handed; grip_hands=2 — WO-ENGINE-GRIP-HANDS-SETTER-001)
 # ---------------------------------------------------------------------------
-def test_fhs_006_longbow_free_hands_one():
+def test_fhs_006_longbow_free_hands_zero():
     entity = _ranger({"longbow": 1})
-    assert entity.get(EF.FREE_HANDS) == 1, (
-        f"longbow wielder should have FREE_HANDS=1, got {entity.get(EF.FREE_HANDS)}"
+    assert entity.get(EF.FREE_HANDS) == 0, (
+        f"longbow wielder should have FREE_HANDS=0, got {entity.get(EF.FREE_HANDS)}"
     )
 
 

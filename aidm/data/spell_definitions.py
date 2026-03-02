@@ -2039,7 +2039,8 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="cause_fear", name="Cause Fear", level=1, school="necromancy",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.DEBUFF,
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
-        duration_rounds=0, duration_rounds_per_cl=1,  # WO-ENGINE-CL-DURATION-SCALE-001: 1r/CL (PHB p.208)
+        duration_rounds=2,         # PHB p.208: 1d4 rounds — static midpoint; dice-duration hook deferred
+        duration_rounds_per_cl=0,  # NOT per-CL; cause_fear is flat 1d4 (PHB p.229 *fear* = 1r/CL)
         rule_citations=("PHB p.208",),
     ),
     "charm_person": SpellDefinition(
