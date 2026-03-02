@@ -98,6 +98,8 @@
 | Grapple — opposed grapple checks | PHB p.156 | **IMPLEMENTED** | `maneuver_resolver.py` | BAB + STR + size modifier; GRAPPLED/GRAPPLING conditions applied. _get_bab() now uses EF.BAB (Type 1) — WO-ENGINE-MANEUVER-BAB-FIX-001 (all 5 maneuver types). |
 | Grapple — in-grapple actions (damage, pin, escape) | PHB p.156-158 | **IMPLEMENTED** | `maneuver_resolver.py` | GrappleEscapeIntent, PinEscapeIntent wired; PINNED condition added |
 | Grapple — pin (helpless) | PHB p.157 | **IMPLEMENTED** | `maneuver_resolver.py`, `schemas/conditions.py` | PINNED condition; auto-hit_if_helpless; WO-ENGINE-GRAPPLE-PIN-001 |
+| Grapple — AoO restriction (grappled/grappling cannot react) | PHB p.156 | **IMPLEMENTED** | `aoo.py`, `schemas/conditions.py` | aoo_blocked=True on GRAPPLED and GRAPPLING conditions; check_aoo_triggers() skips grappled/grappling reactors. GCE-001..002. Batch AU. |
+| Grapple — concentration check for casters | PHB p.156 | **IMPLEMENTED** | `play_loop.py` | DC 20 + spell_level; check fires before spell resolves; concentration_failed → spell lost. WO-ENGINE-CONCENTRATION-GRAPPLE-001. GCE-003..005. |
 | Grapple — tie up/bound | PHB p.157 | **NOT STARTED** | — | No rope-binding mechanic; tied condition not implemented |
 | Grapple — multiple combatants | PHB p.158 | **NOT STARTED** | — | Multi-person grapples not modeled |
 | Overrun — provokes AoO | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | AoO on entry |
@@ -196,7 +198,7 @@
 | Concentration — vigorous motion | PHB p.175 | **PARTIAL** | `play_loop.py` | Vigorous motion DC check added; not all motion contexts covered. WO-ENGINE-CONCENTRATION-VIGOROUS-001. |
 | Concentration — violent weather | PHB p.175 | **NOT STARTED** | — | No weather-based concentration DC |
 | Concentration — entangled | PHB p.175 | **NOT STARTED** | — | Entangled condition does not trigger concentration penalty |
-| Concentration — grappled | PHB p.175 | **IMPLEMENTED** | `play_loop.py` | Grappled condition triggers concentration DC 10 + spell level. DEBRIEF_WO-ENGINE-CONCENTRATION-GRAPPLE-001. |
+| Concentration — grappled | PHB p.175 | **IMPLEMENTED** | `play_loop.py` | DC 20 + spell_level for grappled/grappling; check fires before spell resolves. WO-ENGINE-CONCENTRATION-GRAPPLE-001. GCE-003..005. Batch AU confirms pre-existing. |
 | Arcane Spell Failure (armor) | PHB p.175 | **IMPLEMENTED** | `play_loop.py` | ASF d100 check in `_resolve_spell_cast()`; slot consumed on failure; V-only spells bypass; divine casters bypass. WO-ENGINE-ARCANE-SPELL-FAILURE-001. |
 | Casting defensively (DC 15 Concentration or provoke AoO) | PHB p.140 | **IMPLEMENTED** | `aoo.py`, `play_loop.py` | DefensiveCastingIntent; Concentration check vs DC 15; success bypasses AoO. WO-ENGINE-DEFENSIVE-CASTING-001. |
 
@@ -324,7 +326,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Scribe Scroll | PHB p.99 | **PARTIAL** | `schemas/feats.py` | Registered; no scroll creation system |
 | Brew Potion | PHB p.91 | **PARTIAL** | `schemas/feats.py` | Registered; no potion brewing system |
 | Craft Wondrous Item | PHB p.92 | **PARTIAL** | `schemas/feats.py` | Registered; no item creation system |
-| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. Per-round reset: CC path (combat_controller.py:348) + SO path (play_loop.py:4409). DA-001..008. FHS-001..008. DAR-001..008. Batch AI/AM/AP. |
+| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. Per-round reset: CC path (combat_controller.py:348) + SO path (play_loop.py:4403). DA-001..008. FHS-001..008. DAR-001..008. Batch AI/AM/AP/AU. |
 | Far Shot | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py` | compute_range_penalty(feats, distance_ft, weapon_dict); ranged: increment×3//2 (integer, no float); thrown: increment×2; penalty = −2 per full effective increment. Trusted-caller model. FSHOT-001–008. Batch AI. |
 
 ### 7b. PHB Feats Not Yet Registered

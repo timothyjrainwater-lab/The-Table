@@ -410,6 +410,10 @@ def check_aoo_triggers(
             if "flat_footed" in _reactor_conditions:
                 continue  # Flat-footed: no AoO regardless of Combat Reflexes
 
+            # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001: Grappled/grappling cannot make AoOs (PHB p.156)
+            if "grappled" in _reactor_conditions or "grappling" in _reactor_conditions:
+                continue  # Grappled: no AoO (PHB p.156 -- "while grappling you cannot make attacks of opportunity")
+
             # Skip if same team
             reactor_team = reactor.get(EF.TEAM, "unknown")
             if reactor_team == provoker_team or reactor_team == "unknown":

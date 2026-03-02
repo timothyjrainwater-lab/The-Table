@@ -152,6 +152,7 @@ def get_condition_modifiers(
     any_standing_triggers_aoo = False
     any_auto_hit_if_helpless = False
     any_loses_dex_to_ac = False
+    any_aoo_blocked = False  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
 
     # Sum all condition modifiers
     for condition_id, condition_dict in conditions_data.items():
@@ -189,6 +190,7 @@ def get_condition_modifiers(
         any_standing_triggers_aoo = any_standing_triggers_aoo or mods.standing_triggers_aoo
         any_auto_hit_if_helpless = any_auto_hit_if_helpless or mods.auto_hit_if_helpless
         any_loses_dex_to_ac = any_loses_dex_to_ac or mods.loses_dex_to_ac
+        any_aoo_blocked = any_aoo_blocked or mods.aoo_blocked  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
 
     return ConditionModifiers(
         ac_modifier=total_ac,
@@ -204,7 +206,8 @@ def get_condition_modifiers(
         actions_prohibited=any_actions_prohibited,
         standing_triggers_aoo=any_standing_triggers_aoo,
         auto_hit_if_helpless=any_auto_hit_if_helpless,
-        loses_dex_to_ac=any_loses_dex_to_ac
+        loses_dex_to_ac=any_loses_dex_to_ac,
+        aoo_blocked=any_aoo_blocked  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
     )
 
 

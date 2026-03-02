@@ -123,6 +123,9 @@ class ConditionModifiers:
     loses_dex_to_ac: bool = False
     """Metadata: loses Dex bonus to AC (enforcement deferred to CP-17+)"""
 
+    aoo_blocked: bool = False
+    """Metadata: cannot make attacks of opportunity (PHB p.156 — grappled/grappling)"""
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
@@ -139,7 +142,8 @@ class ConditionModifiers:
             "actions_prohibited": self.actions_prohibited,
             "standing_triggers_aoo": self.standing_triggers_aoo,
             "auto_hit_if_helpless": self.auto_hit_if_helpless,
-            "loses_dex_to_ac": self.loses_dex_to_ac
+            "loses_dex_to_ac": self.loses_dex_to_ac,
+            "aoo_blocked": self.aoo_blocked
         }
 
     @classmethod
@@ -159,7 +163,8 @@ class ConditionModifiers:
             actions_prohibited=data.get("actions_prohibited", False),
             standing_triggers_aoo=data.get("standing_triggers_aoo", False),
             auto_hit_if_helpless=data.get("auto_hit_if_helpless", False),
-            loses_dex_to_ac=data.get("loses_dex_to_ac", False)
+            loses_dex_to_ac=data.get("loses_dex_to_ac", False),
+            aoo_blocked=data.get("aoo_blocked", False)
         )
 
 
@@ -289,7 +294,8 @@ def create_grappled_condition(source: str, applied_at_event_id: int) -> Conditio
         source=source,
         modifiers=ConditionModifiers(
             dex_modifier=-4,
-            movement_prohibited=True  # Metadata: no normal movement
+            movement_prohibited=True,  # Metadata: no normal movement
+            aoo_blocked=True  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001: PHB p.156
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Grappled: -4 Dex, no normal movement"
@@ -307,7 +313,8 @@ def create_grappling_condition(source: str, applied_at_event_id: int) -> Conditi
         source=source,
         modifiers=ConditionModifiers(
             dex_modifier=-4,
-            movement_prohibited=True
+            movement_prohibited=True,
+            aoo_blocked=True  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001: PHB p.156
         ),
         applied_at_event_id=applied_at_event_id,
         notes="Grappling: -4 Dex, no 5-foot step, limited actions"
