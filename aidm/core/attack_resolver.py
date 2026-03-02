@@ -2425,16 +2425,32 @@ def resolve_manyshot(
             citations=["PHB p.97"],
         )]
 
+    # Condition modifiers — PHB: all standard attack modifiers apply (WO-ENGINE-MANYSHOT-CONDITION-BLIND-001)
+    attacker_modifiers = get_condition_modifiers(world_state, intent.attacker_id, context="attack")
+    defender_modifiers = get_condition_modifiers(world_state, intent.target_id, context="defense")
+
     # PHB p.97: single attack roll at -4 penalty (Manyshot penalty, NOT Rapid Shot -2)
     base_attack_bonus = attacker.get(EF.ATTACK_BONUS, 0)
     manyshot_penalty = -4  # PHB p.97: 2-arrow volley at -4
-    effective_bonus = base_attack_bonus + manyshot_penalty
+    effective_bonus = base_attack_bonus + manyshot_penalty + attacker_modifiers.attack_modifier
 
     # Roll ONE d20 — single attack roll for both arrows (MS-007: only one d20 roll event)
     combat_rng = rng.stream("combat")
     d20_roll = combat_rng.randint(1, 20)
     attack_total = d20_roll + effective_bonus
-    target_ac = target.get(EF.AC, 10)
+
+    # Manyshot is always ranged — apply ranged AC modifiers + DEX denial on loses_dex_to_ac
+    base_target_ac = target.get(EF.AC, 10)
+    _ms_dex_penalty = 0
+    if defender_modifiers.loses_dex_to_ac and not _target_retains_dex_via_uncanny_dodge(target):
+        dex_mod = target.get(EF.DEX_MOD, 0)
+        if dex_mod > 0:
+            _ms_dex_penalty = -dex_mod
+    _ms_condition_ac = (
+        defender_modifiers.ac_modifier_ranged if defender_modifiers.ac_modifier_ranged != 0
+        else defender_modifiers.ac_modifier
+    )
+    target_ac = base_target_ac + _ms_condition_ac + _ms_dex_penalty
     hit = attack_total >= target_ac
 
     events.append(Event(

@@ -4402,10 +4402,11 @@ def execute_turn(
             # PHB p.137: each creature gets 1 AoO per round (+ DEX mod with Combat Reflexes).
             # aoo_used_this_round and aoo_count_this_round accumulate across execute_turn()
             # calls (SessionOrchestrator path bypasses combat_controller.execute_combat_round).
-            # Reset here so round 2+ AoOs fire correctly. Do NOT touch deflect_arrows_used
-            # (already reset in combat_controller.py:348 / WO-ENGINE-DA-ROUND-RESET-001).
+            # Per-round reset: AoO counters + Deflect Arrows (PHB p.137/p.93)
+            # Note: combat_controller.py:348 resets DA on the CC path; this block covers the SO path.
             active_combat["aoo_used_this_round"] = []   # CP-15: PHB p.137 -- 1 AoO per round
             active_combat["aoo_count_this_round"] = {}  # WO-ENGINE-COMBAT-REFLEXES-001: per-entity count
+            active_combat["deflect_arrows_used"] = []   # WO-ENGINE-DEFLECT-ARROWS-RESET-001: PHB p.93 -- once per round
 
     updated_state = WorldState(
         ruleset_version=world_state.ruleset_version,
