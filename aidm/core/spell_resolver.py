@@ -1125,9 +1125,11 @@ class SpellResolver:
         target_id: str,
         condition: str,
         spell: SpellDefinition,
-        caster_level: int = 0,
+        caster_level: Optional[int] = None,
     ) -> StructuredTruthPacket:
         """Create STP for condition application."""
+        if caster_level is None:
+            raise ValueError("caster_level must be provided explicitly to _create_condition_stp")
         _dur = spell.effective_duration_rounds(caster_level)
         return self._stp_builder.condition_applied(
             actor_id=caster_id,

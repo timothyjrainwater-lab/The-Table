@@ -723,6 +723,41 @@ def resolve_trip(
                 )
                 events.extend(_free_events)
                 current_event_id += len(_free_events)
+            else:
+                # PHB p.96: free attack fires for unarmed Improved Trippers too — no weapon restriction
+                from aidm.schemas.attack import Weapon, AttackIntent
+                from aidm.core.attack_resolver import resolve_attack as _resolve_attack_free
+                _unarmed_dmg = attacker.get(EF.MONK_UNARMED_DICE, "1d3")
+                _free_weapon = Weapon(
+                    damage_dice=_unarmed_dmg,
+                    damage_bonus=0,
+                    damage_type="bludgeoning",
+                    weapon_type="light",  # PHB p.140: unarmed attacks treated as light weapons
+                )
+                _free_attack_bonus = attacker.get(EF.ATTACK_BONUS, attacker.get(EF.BAB, 0))
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="improved_trip_free_attack",
+                    timestamp=current_timestamp + 0.01,
+                    payload={"attacker_id": attacker_id, "target_id": target_id},
+                    citations=[{"source_id": "681f92bc94ff", "page": 96}],
+                ))
+                current_event_id += 1
+                _free_intent = AttackIntent(
+                    attacker_id=attacker_id,
+                    target_id=target_id,
+                    weapon=_free_weapon,
+                    attack_bonus=_free_attack_bonus,
+                )
+                _free_events = _resolve_attack_free(
+                    intent=_free_intent,
+                    world_state=world_state,
+                    rng=rng,
+                    next_event_id=current_event_id,
+                    timestamp=current_timestamp + 0.02,
+                )
+                events.extend(_free_events)
+                current_event_id += len(_free_events)
 
         result = ManeuverResult(
             maneuver_type="trip",
@@ -940,7 +975,8 @@ def resolve_overrun(
     attacker_str = _get_str_modifier(world_state, attacker_id)
     attacker_size = _get_size_modifier(world_state, attacker_id)
     charge_bonus = 2 if intent.is_charge else 0
-    attacker_modifier = attacker_str + attacker_size + charge_bonus
+    improved_overrun_bonus = 4 if _attacker_has_improved_overrun else 0  # PHB p.157: +4 bonus on opposed STR check
+    attacker_modifier = attacker_str + attacker_size + charge_bonus + improved_overrun_bonus
 
     defender_str = _get_str_modifier(world_state, target_id)
     defender_dex = _get_dex_modifier(world_state, target_id)

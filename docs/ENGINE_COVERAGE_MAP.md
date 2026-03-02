@@ -284,9 +284,9 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Improved Disarm | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `maneuver_resolver.py`, `play_loop.py` | AoO suppression + +4 bonus; counter-disarm suppressed. DEBRIEF_WO-ENGINE-IMPROVED-DISARM-001. |
 | Improved Feint | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `feint_resolver.py` | Feint as move action |
 | Improved Grapple | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `maneuver_resolver.py`, `play_loop.py` | AoO suppression + +4 grapple bonus. DEBRIEF_WO-ENGINE-IMPROVED-GRAPPLE-001. |
-| Improved Overrun | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `maneuver_resolver.py` | AoO suppression + defender cannot avoid. Batch O. |
+| Improved Overrun | PHB p.157 | **IMPLEMENTED** | `schemas/feats.py`, `maneuver_resolver.py` | AoO suppression + defender cannot avoid + **improved_overrun +4 STR bonus wired**. IMR-001..004. Batch AS. |
 | Improved Sunder | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `maneuver_resolver.py`, `play_loop.py` | AoO suppression + +4 sunder bonus. Batch N. |
-| Improved Trip | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `maneuver_resolver.py`, `play_loop.py` | AoO suppression + free attack after trip (if weapon provided). Batch N. |
+| Improved Trip | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `maneuver_resolver.py`, `play_loop.py` | AoO suppression + free attack after trip (weapon + **unarmed path wired**). IMR-005..008. Batch AS. |
 | Mounted Combat | PHB p.98 | **PARTIAL** | `schemas/feats.py`, `mounted_combat.py` | Registered; mounted_combat resolver exists; Ride check to negate hit not wired |
 | Ride-By Attack | PHB p.99 | **PARTIAL** | `schemas/feats.py` | Registered; move-attack-move-mounted not fully wired |
 | Spirited Charge | PHB p.100 | **PARTIAL** | `schemas/feats.py` | Registered; ×2/×3 damage on mounted charge not auto-applied |
@@ -323,14 +323,14 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Scribe Scroll | PHB p.99 | **PARTIAL** | `schemas/feats.py` | Registered; no scroll creation system |
 | Brew Potion | PHB p.91 | **PARTIAL** | `schemas/feats.py` | Registered; no potion brewing system |
 | Craft Wondrous Item | PHB p.92 | **PARTIAL** | `schemas/feats.py` | Registered; no item creation system |
+| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. Per-round reset: CC path (combat_controller.py:348) + SO path (play_loop.py:4409). DA-001..008. FHS-001..008. DAR-001..008. Batch AI/AM/AP. |
+| Far Shot | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py` | compute_range_penalty(feats, distance_ft, weapon_dict); ranged: increment×3//2 (integer, no float); thrown: increment×2; penalty = −2 per full effective increment. Trusted-caller model. FSHOT-001–008. Batch AI. |
 
 ### 7b. PHB Feats Not Yet Registered
 
 | Feat | Source | Status | Notes |
 |------|--------|--------|-------|
 | Augment Summoning | PHB p.91 | **NOT STARTED** | No summoning system |
-| Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. Per-round reset: CC path (combat_controller.py:348) + SO path (play_loop.py:4409). DA-001..008. FHS-001..008. DAR-001..008. Batch AI/AM/AP. |
-| Far Shot | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py` | compute_range_penalty(feats, distance_ft, weapon_dict); ranged: increment×3//2 (integer, no float); thrown: increment×2; penalty = −2 per full effective increment. Trusted-caller model. FSHOT-001–008. Batch AI. |
 | Leadership | PHB p.97 / DMG | **NOT STARTED** | DMG system; no cohort/follower framework |
 | Empower Spell (metamagic) | PHB p.93 | **IMPLEMENTED** | `metamagic_resolver.py` | ×1.5 variable numeric effects |
 | Enlarge Spell (metamagic) | PHB p.93 | **PARTIAL** | `metamagic_resolver.py` | Registered; range doubling not wired |
