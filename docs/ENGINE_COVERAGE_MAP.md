@@ -66,7 +66,8 @@
 | Dying → bleed 1 HP/round (DC 10 Fort) | PHB p.145 | **IMPLEMENTED** | `dying_resolver.py` | Fort save each round; pass = stable; fail = -1 HP |
 | Nonlethal damage tracking | PHB p.146 | **IMPLEMENTED** | `play_loop.py` | NONLETHAL_DAMAGE field; staggered when NL ≥ HP; unconscious when NL > HP |
 | Nonlethal attack (resolve_nonlethal_attack) | PHB p.146 | **IMPLEMENTED** | `attack_resolver.py` | -4 attack penalty; WF + ImprCrit shadow path removed Batch AQ — both now delegate to _compute_finesse_delta/_compute_effective_crit_range shared helpers. NSP-001..008. |
-| Massive damage rule (50+ HP = Fort DC 15 or die) | PHB p.145 | **IMPLEMENTED** | `attack_resolver.py` | Post-DR check: `if final_damage >= 50`. nat1/nat20 auto-fail/pass enforced (PHB p.136). WO-ENGINE-MD-SAVE-RULES-001. |
+| Massive damage rule (50+ HP = Fort DC 15 or die) | PHB p.145 | **IMPLEMENTED** | `attack_resolver.py`, `play_loop.py` | Post-DR check: `if final_damage >= 50`. nat1/nat20 auto-fail/pass enforced. Wired to resolve_save() (PHB p.145). SPH-001..003. Batch AT. |
+| Negative level save penalty | PHB p.294 | **IMPLEMENTED** | `save_resolver.py` | `get_save_bonus()` subtracts `EF.NEGATIVE_LEVELS` from total. PHB p.294. SPH-004..005. Batch AT. |
 | Natural healing (level HP/night) | PHB p.130 | **IMPLEMENTED** | `rest_resolver.py` | RestIntent → level × max(1, CON mod) HP per night; full day = double |
 | Stabilization by ally (DC 15 Heal) | PHB p.145 | **PARTIAL** | `heal_resolver.py`, `play_loop.py` | HealIntent + DC 15 Heal skill check wired; entity must be DYING. 8/8 gate pass. DEBRIEF_WO-ENGINE-STABILIZE-ALLY-001. |
 
