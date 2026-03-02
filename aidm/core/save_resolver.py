@@ -260,6 +260,10 @@ def get_save_bonus(
     if save_type == SaveType.REF and save_descriptor == "trap":
         trap_sense_bonus = entity.get(EF.TRAP_SENSE_BONUS, 0)
 
+    # WO-ENGINE-SAVE-PATH-HARDEN-001: Negative level save penalty (PHB p.294)
+    # Each negative level imposes a cumulative -1 penalty on all saving throws.
+    negative_level_penalty = entity.get(EF.NEGATIVE_LEVELS, 0)
+
     # Total bonus
     # WO-ENGINE-SAVE-DOUBLE-COUNT-FIX-001: ability_mod already in base_save (Type 2 field)
     total_bonus = (
@@ -273,6 +277,7 @@ def get_save_bonus(
         + fear_bonus
         + fatigue_ref_penalty  # WO-AE-WO2: -2 Ref when fatigued (PHB p.308)
         + trap_sense_bonus      # WO-AE-WO4: Trap Sense Ref bonus vs traps (PHB p.26/p.51)
+        - negative_level_penalty  # WO-ENGINE-SAVE-PATH-HARDEN-001: -1/level (PHB p.294)
     )
 
     return total_bonus

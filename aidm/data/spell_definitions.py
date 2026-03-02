@@ -1993,11 +1993,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, rule_citations=("PHB p.249",),
     ),
-    "mending": SpellDefinition(
-        spell_id="mending", name="Mending", level=0, school="transmutation",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=True, rule_citations=("PHB p.253",),
-    ),
     "open_close": SpellDefinition(
         spell_id="open_close", name="Open/Close", level=0, school="transmutation",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
@@ -2007,16 +2002,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="prestidigitation", name="Prestidigitation", level=0, school="universal",
         target_type=SpellTarget.SINGLE, range_ft=10, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, rule_citations=("PHB p.264",),
-    ),
-    "read_magic": SpellDefinition(
-        spell_id="read_magic", name="Read Magic", level=0, school="divination",
-        target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=True, rule_citations=("PHB p.269",),
-    ),
-    "resistance": SpellDefinition(
-        spell_id="resistance", name="Resistance", level=0, school="abjuration",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=1, rule_citations=("PHB p.270",),
     ),
     "touch_of_fatigue": SpellDefinition(
         spell_id="touch_of_fatigue", name="Touch of Fatigue", level=0, school="necromancy",
@@ -2049,11 +2034,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
         duration_rounds=600, rule_citations=("PHB p.209",),
     ),
-    "color_spray": SpellDefinition(
-        spell_id="color_spray", name="Color Spray", level=1, school="illusion",
-        target_type=SpellTarget.AREA, range_ft=0, effect_type=SpellEffect.DEBUFF,
-        save_type=SaveType.WILL, has_verbal=True, has_somatic=True, rule_citations=("PHB p.210",),
-    ),
     "comprehend_languages": SpellDefinition(
         spell_id="comprehend_languages", name="Comprehend Languages", level=1, school="divination",
         target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
@@ -2084,14 +2064,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="feather_fall", name="Feather Fall", level=1, school="transmutation",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.BUFF,
         has_verbal=False, has_somatic=False, duration_rounds=10, rule_citations=("PHB p.229",),
-    ),
-    "grease": SpellDefinition(
-        spell_id="grease", name="Grease", level=1, school="conjuration",
-        target_type=SpellTarget.AREA, range_ft=25, effect_type=SpellEffect.DEBUFF,
-        save_type=SaveType.REF, has_verbal=True, has_somatic=True,
-        duration_rounds=10,
-        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.237 SR: No
-        rule_citations=("PHB p.237",),
     ),
     "hide_from_animals": SpellDefinition(
         spell_id="hide_from_animals", name="Hide from Animals", level=1, school="abjuration",
@@ -2171,12 +2143,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
         duration_rounds=10, rule_citations=("PHB p.274",),
     ),
-    "sleep": SpellDefinition(
-        spell_id="sleep", name="Sleep", level=1, school="enchantment",
-        target_type=SpellTarget.AREA, range_ft=100, effect_type=SpellEffect.DEBUFF,
-        save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
-        duration_rounds=10, rule_citations=("PHB p.280",),
-    ),
     "summon_monster_i": SpellDefinition(
         spell_id="summon_monster_i", name="Summon Monster I", level=1, school="conjuration",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
@@ -2198,16 +2164,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="arcane_lock", name="Arcane Lock", level=2, school="abjuration",
         target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=9999, rule_citations=("PHB p.201",),
-    ),
-    "bears_endurance": SpellDefinition(
-        spell_id="bears_endurance", name="Bear's Endurance", level=2, school="transmutation",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.203",),
-    ),
-    "cats_grace": SpellDefinition(
-        spell_id="cats_grace", name="Cat's Grace", level=2, school="transmutation",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.208",),
     ),
     "command_undead": SpellDefinition(
         spell_id="command_undead", name="Command Undead", level=2, school="necromancy",
@@ -2259,11 +2215,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
         duration_rounds=10, rule_citations=("PHB p.236",),
     ),
-    "invisibility": SpellDefinition(
-        spell_id="invisibility", name="Invisibility", level=2, school="illusion",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.245",),
-    ),
     "knock": SpellDefinition(
         spell_id="knock", name="Knock", level=2, school="transmutation",
         target_type=SpellTarget.SINGLE, range_ft=100, effect_type=SpellEffect.UTILITY,
@@ -2280,25 +2231,10 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.249",),
     ),
-    "mirror_image": SpellDefinition(
-        spell_id="mirror_image", name="Mirror Image", level=2, school="illusion",
-        target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.254",),
-    ),
-    "owls_wisdom": SpellDefinition(
-        spell_id="owls_wisdom", name="Owl's Wisdom", level=2, school="transmutation",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.259",),
-    ),
     "remove_paralysis": SpellDefinition(
         spell_id="remove_paralysis", name="Remove Paralysis", level=2, school="conjuration",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, rule_citations=("PHB p.271",),
-    ),
-    "resist_energy": SpellDefinition(
-        spell_id="resist_energy", name="Resist Energy", level=2, school="abjuration",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=100, rule_citations=("PHB p.272",),
     ),
     "scare": SpellDefinition(
         spell_id="scare", name="Scare", level=2, school="necromancy",
@@ -2315,12 +2251,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="shatter", name="Shatter", level=2, school="evocation",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.DAMAGE,
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True, rule_citations=("PHB p.278",),
-    ),
-    "silence": SpellDefinition(
-        spell_id="silence", name="Silence", level=2, school="illusion",
-        target_type=SpellTarget.SINGLE, range_ft=400, effect_type=SpellEffect.UTILITY,
-        save_type=SaveType.WILL, has_verbal=True, has_somatic=False,
-        duration_rounds=10, rule_citations=("PHB p.279",),
     ),
     "spider_climb": SpellDefinition(
         spell_id="spider_climb", name="Spider Climb", level=2, school="transmutation",
@@ -2372,11 +2302,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
         duration_rounds=100, rule_citations=("PHB p.218",),
     ),
-    "dispel_magic": SpellDefinition(
-        spell_id="dispel_magic", name="Dispel Magic", level=3, school="abjuration",
-        target_type=SpellTarget.SINGLE, range_ft=100, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=True, rule_citations=("PHB p.223",),
-    ),
     "explosive_runes": SpellDefinition(
         spell_id="explosive_runes", name="Explosive Runes", level=3, school="abjuration",
         target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.DAMAGE,
@@ -2392,12 +2317,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="heroism", name="Heroism", level=3, school="enchantment",
         target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
         has_verbal=True, has_somatic=True, duration_rounds=100, rule_citations=("PHB p.240",),
-    ),
-    "magic_circle_against_evil": SpellDefinition(
-        spell_id="magic_circle_against_evil", name="Magic Circle against Evil",
-        level=3, school="abjuration",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=100, rule_citations=("PHB p.249",),
     ),
     "magic_circle_against_chaos": SpellDefinition(
         spell_id="magic_circle_against_chaos", name="Magic Circle against Chaos",
@@ -2430,14 +2349,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="sleet_storm", name="Sleet Storm", level=3, school="conjuration",
         target_type=SpellTarget.AREA, range_ft=400, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.280",),
-    ),
-    "stinking_cloud": SpellDefinition(
-        spell_id="stinking_cloud", name="Stinking Cloud", level=3, school="conjuration",
-        target_type=SpellTarget.AREA, range_ft=25, effect_type=SpellEffect.DEBUFF,
-        save_type=SaveType.FORT, has_verbal=True, has_somatic=True,
-        duration_rounds=10,
-        spell_resistance=False,  # WO-ENGINE-SPELLCASTING-DATA-CLEANUP-001: PHB p.284 SR: No
-        rule_citations=("PHB p.284",),
     ),
     "summon_monster_iii": SpellDefinition(
         spell_id="summon_monster_iii", name="Summon Monster III", level=3, school="conjuration",
@@ -2478,21 +2389,10 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
         duration_rounds=10, rule_citations=("PHB p.212",),
     ),
-    "cure_critical_wounds": SpellDefinition(
-        spell_id="cure_critical_wounds", name="Cure Critical Wounds", level=4, school="conjuration",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.HEALING,
-        healing_dice="4d8", save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
-        rule_citations=("PHB p.215",),
-    ),
     "dimensional_anchor": SpellDefinition(
         spell_id="dimensional_anchor", name="Dimensional Anchor", level=4, school="abjuration",
         target_type=SpellTarget.RAY, range_ft=100, effect_type=SpellEffect.DEBUFF,
         has_verbal=True, has_somatic=True, duration_rounds=100, rule_citations=("PHB p.221",),
-    ),
-    "dimension_door": SpellDefinition(
-        spell_id="dimension_door", name="Dimension Door", level=4, school="conjuration",
-        target_type=SpellTarget.SELF, range_ft=400, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=False, rule_citations=("PHB p.221",),
     ),
     "enervation": SpellDefinition(
         spell_id="enervation", name="Enervation", level=4, school="necromancy",
@@ -2509,17 +2409,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="fire_shield", name="Fire Shield", level=4, school="evocation",
         target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.BUFF,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.230",),
-    ),
-    "greater_invisibility": SpellDefinition(
-        spell_id="greater_invisibility", name="Greater Invisibility", level=4, school="illusion",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.245",),
-    ),
-    "ice_storm": SpellDefinition(
-        spell_id="ice_storm", name="Ice Storm", level=4, school="evocation",
-        target_type=SpellTarget.AREA, range_ft=400, effect_type=SpellEffect.DAMAGE,
-        damage_dice="3d6", has_verbal=True, has_somatic=True,
-        duration_rounds=1, rule_citations=("PHB p.243",),
     ),
     "minor_creation": SpellDefinition(
         spell_id="minor_creation", name="Minor Creation", level=4, school="conjuration",
@@ -2566,21 +2455,10 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         target_type=SpellTarget.AREA, range_ft=25, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.281",),
     ),
-    "stoneskin": SpellDefinition(
-        spell_id="stoneskin", name="Stoneskin", level=4, school="abjuration",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=100, rule_citations=("PHB p.284",),
-    ),
     "summon_monster_iv": SpellDefinition(
         spell_id="summon_monster_iv", name="Summon Monster IV", level=4, school="conjuration",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.285",),
-    ),
-    "wall_of_fire": SpellDefinition(
-        spell_id="wall_of_fire", name="Wall of Fire", level=4, school="evocation",
-        target_type=SpellTarget.AREA, range_ft=100, effect_type=SpellEffect.DAMAGE,
-        damage_dice="2d4", save_type=SaveType.REF, has_verbal=True, has_somatic=True,
-        concentration=True, rule_citations=("PHB p.298",),
     ),
     "wall_of_ice": SpellDefinition(
         spell_id="wall_of_ice", name="Wall of Ice", level=4, school="evocation",
@@ -2590,12 +2468,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
     ),
 
     # -- Level 5 ---------------------------------------------------------------
-    "baleful_polymorph": SpellDefinition(
-        spell_id="baleful_polymorph", name="Baleful Polymorph", level=5, school="transmutation",
-        target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.DEBUFF,
-        save_type=SaveType.FORT, has_verbal=True, has_somatic=True,
-        duration_rounds=9999, rule_citations=("PHB p.202",),
-    ),
     "break_enchantment": SpellDefinition(
         spell_id="break_enchantment", name="Break Enchantment", level=5, school="abjuration",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
@@ -2619,12 +2491,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         save_type=SaveType.WILL, has_verbal=False, has_somatic=True,
         duration_rounds=9999, rule_citations=("PHB p.229",),
     ),
-    "hold_monster": SpellDefinition(
-        spell_id="hold_monster", name="Hold Monster", level=5, school="enchantment",
-        target_type=SpellTarget.SINGLE, range_ft=100, effect_type=SpellEffect.DEBUFF,
-        save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
-        duration_rounds=10, rule_citations=("PHB p.241",),
-    ),
     "mind_fog": SpellDefinition(
         spell_id="mind_fog", name="Mind Fog", level=5, school="enchantment",
         target_type=SpellTarget.AREA, range_ft=100, effect_type=SpellEffect.DEBUFF,
@@ -2646,17 +2512,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.285",),
     ),
-    "telekinesis": SpellDefinition(
-        spell_id="telekinesis", name="Telekinesis", level=5, school="transmutation",
-        target_type=SpellTarget.SINGLE, range_ft=400, effect_type=SpellEffect.UTILITY,
-        save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
-        concentration=True, rule_citations=("PHB p.291",),
-    ),
-    "true_seeing": SpellDefinition(
-        spell_id="true_seeing", name="True Seeing", level=5, school="divination",
-        target_type=SpellTarget.TOUCH, range_ft=0, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=100, rule_citations=("PHB p.296",),
-    ),
     "waves_of_fatigue": SpellDefinition(
         spell_id="waves_of_fatigue", name="Waves of Fatigue", level=5, school="necromancy",
         target_type=SpellTarget.AREA, range_ft=0, effect_type=SpellEffect.DEBUFF,
@@ -2664,17 +2519,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
     ),
 
     # -- Level 6 ---------------------------------------------------------------
-    "antimagic_field": SpellDefinition(
-        spell_id="antimagic_field", name="Antimagic Field", level=6, school="abjuration",
-        target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=True, duration_rounds=100, rule_citations=("PHB p.200",),
-    ),
-    "chain_lightning": SpellDefinition(
-        spell_id="chain_lightning", name="Chain Lightning", level=6, school="evocation",
-        target_type=SpellTarget.SINGLE, range_ft=400, effect_type=SpellEffect.DAMAGE,
-        damage_dice="1d6", save_type=SaveType.REF, save_effect=SaveEffect.HALF,
-        has_verbal=True, has_somatic=True, rule_citations=("PHB p.208",),
-    ),
     "circle_of_death": SpellDefinition(
         spell_id="circle_of_death", name="Circle of Death", level=6, school="necromancy",
         target_type=SpellTarget.AREA, range_ft=100, effect_type=SpellEffect.DAMAGE,
@@ -2685,12 +2529,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="contingency", name="Contingency", level=6, school="evocation",
         target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=1440, rule_citations=("PHB p.213",),
-    ),
-    "disintegrate": SpellDefinition(
-        spell_id="disintegrate", name="Disintegrate", level=6, school="transmutation",
-        target_type=SpellTarget.RAY, range_ft=25, effect_type=SpellEffect.DAMAGE,
-        damage_dice="2d6", save_type=SaveType.FORT, has_verbal=True, has_somatic=True,
-        rule_citations=("PHB p.222",),
     ),
     "flesh_to_stone": SpellDefinition(
         spell_id="flesh_to_stone", name="Flesh to Stone", level=6, school="transmutation",
@@ -2719,11 +2557,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.285",),
     ),
-    "greater_dispel_magic": SpellDefinition(
-        spell_id="greater_dispel_magic", name="Greater Dispel Magic", level=6, school="abjuration",
-        target_type=SpellTarget.SINGLE, range_ft=100, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=True, rule_citations=("PHB p.223",),
-    ),
     "undeath_to_death": SpellDefinition(
         spell_id="undeath_to_death", name="Undeath to Death", level=6, school="necromancy",
         target_type=SpellTarget.AREA, range_ft=100, effect_type=SpellEffect.DAMAGE,
@@ -2732,17 +2565,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
     ),
 
     # -- Level 7+ --------------------------------------------------------------
-    "finger_of_death": SpellDefinition(
-        spell_id="finger_of_death", name="Finger of Death", level=7, school="necromancy",
-        target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.DAMAGE,
-        damage_dice="3d6", save_type=SaveType.FORT, has_verbal=True, has_somatic=True,
-        rule_citations=("PHB p.230",),
-    ),
-    "greater_teleport": SpellDefinition(
-        spell_id="greater_teleport", name="Greater Teleport", level=7, school="conjuration",
-        target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=False, rule_citations=("PHB p.293",),
-    ),
     "limited_wish": SpellDefinition(
         spell_id="limited_wish", name="Limited Wish", level=7, school="universal",
         target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
@@ -2752,16 +2574,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="power_word_blind", name="Power Word Blind", level=7, school="enchantment",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.DEBUFF,
         has_verbal=True, has_somatic=False, duration_rounds=10, rule_citations=("PHB p.263",),
-    ),
-    "prismatic_spray": SpellDefinition(
-        spell_id="prismatic_spray", name="Prismatic Spray", level=7, school="evocation",
-        target_type=SpellTarget.AREA, range_ft=0, effect_type=SpellEffect.DAMAGE,
-        damage_dice="8d6", has_verbal=True, has_somatic=True, rule_citations=("PHB p.264",),
-    ),
-    "reverse_gravity": SpellDefinition(
-        spell_id="reverse_gravity", name="Reverse Gravity", level=7, school="transmutation",
-        target_type=SpellTarget.AREA, range_ft=100, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=True, concentration=True, rule_citations=("PHB p.272",),
     ),
     "spell_turning": SpellDefinition(
         spell_id="spell_turning", name="Spell Turning", level=7, school="abjuration",
@@ -2783,27 +2595,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         target_type=SpellTarget.AREA, range_ft=25, effect_type=SpellEffect.DEBUFF,
         save_type=SaveType.WILL, has_verbal=True, has_somatic=True,
         duration_rounds=1440, rule_citations=("PHB p.200",),
-    ),
-    "horrid_wilting": SpellDefinition(
-        spell_id="horrid_wilting", name="Horrid Wilting", level=8, school="necromancy",
-        target_type=SpellTarget.AREA, range_ft=400, effect_type=SpellEffect.DAMAGE,
-        damage_dice="1d6", save_type=SaveType.FORT, save_effect=SaveEffect.HALF,
-        has_verbal=True, has_somatic=True, rule_citations=("PHB p.242",),
-    ),
-    "mind_blank": SpellDefinition(
-        spell_id="mind_blank", name="Mind Blank", level=8, school="abjuration",
-        target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.BUFF,
-        has_verbal=True, has_somatic=True, duration_rounds=1440, rule_citations=("PHB p.254",),
-    ),
-    "polar_ray": SpellDefinition(
-        spell_id="polar_ray", name="Polar Ray", level=8, school="evocation",
-        target_type=SpellTarget.RAY, range_ft=25, effect_type=SpellEffect.DAMAGE,
-        damage_dice="1d6", has_verbal=True, has_somatic=True, rule_citations=("PHB p.263",),
-    ),
-    "power_word_stun": SpellDefinition(
-        spell_id="power_word_stun", name="Power Word Stun", level=8, school="enchantment",
-        target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.DEBUFF,
-        has_verbal=True, has_somatic=False, duration_rounds=10, rule_citations=("PHB p.263",),
     ),
     "summon_monster_viii": SpellDefinition(
         spell_id="summon_monster_viii", name="Summon Monster VIII", level=8, school="conjuration",
@@ -2841,11 +2632,6 @@ SPELL_REGISTRY: Dict[str, SpellDefinition] = {
         spell_id="summon_monster_ix", name="Summon Monster IX", level=9, school="conjuration",
         target_type=SpellTarget.SINGLE, range_ft=25, effect_type=SpellEffect.UTILITY,
         has_verbal=True, has_somatic=True, duration_rounds=10, rule_citations=("PHB p.285",),
-    ),
-    "wish": SpellDefinition(
-        spell_id="wish", name="Wish", level=9, school="universal",
-        target_type=SpellTarget.SELF, range_ft=0, effect_type=SpellEffect.UTILITY,
-        has_verbal=True, has_somatic=False, rule_citations=("PHB p.302",),
     ),
 
 }

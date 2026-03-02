@@ -279,13 +279,8 @@ def _create_target_stats(
                                save_descriptor=_save_descriptor, school=school)
     will_save = _get_save_bonus(world_state, entity_id, _TSaveType.WILL,
                                 save_descriptor=_save_descriptor, school=school)
-
-    # WO-ENGINE-ENERGY-DRAIN-001: Each negative level gives -1 to all saves (PHB p.215)
-    # save_resolver doesn't handle negative levels, so apply here.
-    neg_level_penalty = entity.get(EF.NEGATIVE_LEVELS, 0)
-    fort_save -= neg_level_penalty
-    ref_save -= neg_level_penalty
-    will_save -= neg_level_penalty
+    # WO-ENGINE-SAVE-PATH-HARDEN-001: negative_level_penalty now applied inside get_save_bonus()
+    # (save_resolver.py, PHB p.294). Removed explicit subtraction here to avoid double-apply.
 
     # Get SR
     sr = entity.get(EF.SR, 0)
@@ -1223,30 +1218,29 @@ def _resolve_spell_cast(
 
             # WO-ENGINE-MASSIVE-DAMAGE-RULE-001: Massive Damage check (PHB p.145)
             # Single hit 50+ HP damage → Fort DC 15 save or instant death.
+            # WO-ENGINE-SAVE-PATH-HARDEN-001: route through resolve_save() to pick up all
+            # global modifiers (Bless, Divine Grace, Trap Sense, negative levels, etc.)
+            # and use rng.stream("saves") — not rng.stream("combat").
             if damage >= 50:
-                from aidm.core.save_resolver import get_save_bonus, SaveType as _SaveType
-                _md_save_bonus = get_save_bonus(world_state, entity_id, _SaveType.FORT)
-                _md_roll = rng.stream("combat").randint(1, 20)
-                _md_total = _md_roll + _md_save_bonus
-                _md_saved = _md_total >= 15
-                events.append(Event(
-                    event_id=current_event_id,
-                    event_type="massive_damage_check",
+                from aidm.core.save_resolver import resolve_save as _resolve_save, SaveType as _SaveType
+                from aidm.schemas.saves import SaveContext as _SaveContext, SaveOutcome as _SaveOutcome
+                _md_ctx = _SaveContext(
+                    save_type=_SaveType.FORT,
+                    dc=15,
+                    source_id="massive_damage",
+                    target_id=entity_id,
+                )
+                _md_outcome, _md_save_events = _resolve_save(
+                    save_context=_md_ctx,
+                    world_state=world_state,
+                    rng=rng,
+                    next_event_id=current_event_id,
                     timestamp=timestamp + 0.005,
-                    payload={
-                        "target_id": entity_id,
-                        "damage": damage,
-                        "fort_roll": _md_roll,
-                        "fort_bonus": _md_save_bonus,
-                        "fort_total": _md_total,
-                        "dc": 15,
-                        "saved": _md_saved,
-                    },
-                    citations=["PHB p.145"],
-                ))
-                current_event_id += 1
-                if not _md_saved:
-                    new_hp = -10  # Instant death (PHB p.145)
+                )
+                events.extend(_md_save_events)
+                current_event_id += len(_md_save_events)
+                if _md_outcome != _SaveOutcome.SUCCESS:
+                    new_hp = -10  # Instant death on failed Fort save (PHB p.145)
 
             entities[entity_id][EF.HP_CURRENT] = new_hp
 
