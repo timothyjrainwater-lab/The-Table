@@ -124,8 +124,8 @@ Multiple code paths resolve the same logical operation. When a WO modifies any o
 | Path | File | Delegates to resolve_attack()? | Status |
 |------|------|-------------------------------|--------|
 | `resolve_attack()` | `attack_resolver.py` | — (PRIMARY) | Canonical |
-| `resolve_single_attack_with_critical()` | `full_attack_resolver.py` | NO — independent copy | **DRIFT RISK** |
-| `resolve_nonlethal_attack()` | `attack_resolver.py` | NO — independent copy | **DRIFT RISK** |
+| `resolve_single_attack_with_critical()` | `full_attack_resolver.py` | DELETED (Batch AL FAR WO) | N/A — removed |
+| `resolve_nonlethal_attack()` | `attack_resolver.py` | Delegates via shared helpers | Clean ✓ (Batch AQ NSP) |
 | `resolve_natural_attack()` | `natural_attack_resolver.py` | YES ✓ | Clean |
 | `resolve_charge()` | `attack_resolver.py` | YES ✓ | Clean |
 
@@ -148,4 +148,60 @@ When adding a new resolver, add it to this map. When modifying an existing resol
 
 ---
 
-*Last updated: 2026-02-27. 35 entries, ~300 lines. Curated from H1 builder findings + smoke test + WO-SMOKE-FUZZER + WO-ORACLE-SURVEY + WO-FUZZER-DETERMINISM-GATES + WO-SMOKE-TEST-003 + WO-ORACLE-01 + WO-ORACLE-02 + WO-ORACLE-03 + WO-DIRECTOR-01 + WO-DIRECTOR-02 + WO-UI-01 + WO-UI-02 + WO-UI-DRIFT-GUARD + WO-UI-ZONE-AUTHORITY + WO-UI-03 + WO-UI-04 + AUDIT-WO-001.*
+### 36. PM Artifact Prohibition — never write to PM-owned files
+
+**NEVER write to:**
+- `pm_inbox/BACKLOG_OPEN.md`
+- `pm_inbox/PM_BRIEFING_CURRENT.md`
+- `pm_inbox/REHYDRATION_KERNEL_LATEST.md`
+
+These files are PM (Slate) property. The builder's debrief may contain "FILED" or "CLOSED" status **as text in the debrief** — do not write those statuses directly into PM artifacts. If you believe a finding should be closed, note it in the debrief Radar section. PM reads the debrief and updates the backlog.
+
+**Root cause:** FINDING-PROCESS-BUILDER-PRE-ACCEPTED-RECURRING-001 — escalated LOW→MEDIUM after 3rd occurrence (Batches AG, AH, AM). Debrief pre-population of ACCEPTED status in BACKLOG_OPEN.md is a process violation regardless of whether the status is correct.
+
+### 37. Idempotency guard pattern for event emission
+
+For any event that should fire exactly once per entity per encounter (e.g., triggering a reaction, expending a resource), apply the idempotency guard pattern:
+
+```python
+if "event_name" not in entity.get(EF.TRIGGERED_EVENTS, set()):
+    fire_event()
+    entity[EF.TRIGGERED_EVENTS].add("event_name")
+```
+
+Prevents double-trigger on retry or re-entry. Apply as standard pattern in all new resolvers. Source: `docs/design/STRATEGY-OSS-INTEGRATION-001.md` §"Idempotency" (Evennia Tags pattern). FINDING-AUDIT-GOV-IDEMPOTENCY-PATTERN-001.
+
+### 38. SeededRNG does not exist — use _FixedRNG in gate tests
+
+`SeededRNG` is NOT a class in `rng_protocol.py` or anywhere in the codebase. Do not look for it. The correct pattern for gate tests requiring deterministic RNG is a local `_FixedRNG` class that implements the `stream(name).randint(lo, hi)` interface.
+
+Example (from existing gate tests):
+```python
+class _FixedRNG:
+    class _Stream:
+        def __init__(self, values): self._values = iter(values)
+        def randint(self, lo, hi): return next(self._values)
+    def stream(self, name): return _FixedRNG._Stream([roll1, roll2, ...])
+```
+
+Source: FINDING-INFRA-SEEDED-RNG-DISCOVERABILITY-001.
+
+### 39. Condition dict correct shorthand for get_condition_modifiers()
+
+`get_condition_modifiers()` in `conditions.py` uses the condition dict key as the condition type when the inner dict is empty. **Correct shorthand:**
+
+```python
+# CORRECT — inner dict empty, key used as condition_type
+conditions = {"shaken": {}, "flat_footed": {}}
+
+# WRONG — nested shorthand silently no-ops (KeyError swallowed)
+conditions = {"shaken": {"condition_type": "shaken"}}  # DO NOT USE
+```
+
+The wrong format routes to `_get_modifiers_for_condition_type(cond_data)` where `cond_data` is the inner dict — the function expects `condition_type` to be the outer key, not a field in the inner dict. No exception is raised; the condition modifier is silently skipped.
+
+Source: FINDING-ENGINE-CONDITION-SHORTHAND-SILENT-SKIP-001 (discovered Batch AP).
+
+---
+
+*Last updated: 2026-03-02. 39 entries. Batch AR: Rule #34 parity map corrected (FAR deleted, NSP clean). Rules #36–#39 added (PM artifact prohibition, idempotency guard, SeededRNG pattern, condition dict shorthand).*

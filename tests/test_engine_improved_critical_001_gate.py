@@ -10,8 +10,9 @@ Gate labels: IC-001 through IC-008.
 
 import pytest
 
-from aidm.core.full_attack_resolver import resolve_single_attack_with_critical
-from aidm.schemas.attack import Weapon
+from aidm.core.attack_resolver import resolve_attack
+from aidm.core.state import WorldState
+from aidm.schemas.attack import AttackIntent, Weapon
 from aidm.schemas.entity_fields import EF
 
 
@@ -91,21 +92,70 @@ def _standard_weapon():
 
 
 def _run_attack(d20_roll, weapon, feats=None, target_ac=5, confirm_roll=15):
-    """Run resolve_single_attack_with_critical with fixed rolls; return events."""
-    rng = _FixedRNG(attack_roll=d20_roll, confirm_roll=confirm_roll, damage_roll=4)
-    events, new_eid, damage = resolve_single_attack_with_critical(
+    """Run resolve_attack with fixed rolls; return events."""
+    attacker = {
+        EF.ENTITY_ID: "att",
+        EF.TEAM: "party",
+        EF.HP_CURRENT: 50, EF.HP_MAX: 50,
+        EF.AC: 10,
+        EF.ATTACK_BONUS: 10, EF.BAB: 10,
+        EF.STR_MOD: 2, EF.DEX_MOD: 1,
+        EF.DEFEATED: False, EF.DYING: False,
+        EF.STABLE: False, EF.DISABLED: False,
+        EF.CONDITIONS: {},
+        EF.FEATS: feats or [],
+        EF.POSITION: {"x": 0, "y": 0},
+        EF.SIZE_CATEGORY: "medium",
+        EF.FAVORED_ENEMIES: [],
+        EF.DAMAGE_REDUCTIONS: [],
+        EF.WEAPON: {"enhancement_bonus": 0, "tags": [], "material": "steel", "alignment": "none"},
+        EF.ARMOR_TYPE: "none",
+        EF.INSPIRE_COURAGE_ACTIVE: False,
+        EF.INSPIRE_COURAGE_BONUS: 0,
+        EF.NEGATIVE_LEVELS: 0,
+        EF.DISARMED: False,
+        EF.WEAPON_BROKEN: False,
+        EF.NONLETHAL_DAMAGE: 0,
+    }
+    target = {
+        EF.ENTITY_ID: "tgt",
+        EF.TEAM: "monsters",
+        EF.HP_CURRENT: 50, EF.HP_MAX: 50,
+        EF.AC: target_ac,
+        EF.DEX_MOD: 0,
+        EF.DEFEATED: False, EF.DYING: False,
+        EF.STABLE: False, EF.DISABLED: False,
+        EF.CONDITIONS: {},
+        EF.FEATS: [],
+        EF.POSITION: {"x": 1, "y": 0},
+        EF.SIZE_CATEGORY: "medium",
+        EF.SAVE_FORT: 3, EF.CON_MOD: 2,
+        EF.CREATURE_TYPE: "humanoid",
+        EF.DAMAGE_REDUCTIONS: [],
+        EF.ARMOR_TYPE: "none",
+        EF.ARMOR_AC_BONUS: 0,
+        EF.CLASS_LEVELS: {},
+        EF.NONLETHAL_DAMAGE: 0,
+    }
+    ws = WorldState(
+        ruleset_version="3.5e",
+        entities={"att": attacker, "tgt": target},
+        active_combat={
+            "initiative_order": ["att", "tgt"],
+            "deflect_arrows_used": [],
+            "aoo_used_this_round": [],
+            "aoo_count_this_round": {},
+            "cleave_used_this_turn": set(),
+        },
+    )
+    intent = AttackIntent(
         attacker_id="att",
         target_id="tgt",
-        attack_bonus=10,  # High bonus; almost always hits
+        attack_bonus=10,
         weapon=weapon,
-        target_ac=target_ac,
-        rng=rng,
-        next_event_id=1,
-        timestamp=0.0,
-        attack_index=0,
-        attacker_feats=feats or [],
     )
-    return events
+    rng = _FixedRNG(attack_roll=d20_roll, confirm_roll=confirm_roll, damage_roll=4)
+    return resolve_attack(intent, ws, rng, next_event_id=1, timestamp=0.0)
 
 
 def _is_threat(events):
