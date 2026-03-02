@@ -306,6 +306,38 @@ def _target_retains_dex_via_uncanny_dodge(target: dict) -> bool:
     return True  # Uncanny Dodge active, not immobilized -> retain DEX
 
 
+def _compute_finesse_delta(attacker_entity: dict, weapon_intent) -> int:
+    """Weapon Finesse DEX-replaces-STR delta for light weapons. PHB p.102.
+
+    Returns DEX_MOD - STR_MOD when Weapon Finesse feat is present and weapon is light.
+    Returns 0 if feat absent or weapon is not light.
+
+    WO-ENGINE-NONLETHAL-SHADOW-PATH-001: shared helper — eliminates duplicate inline
+    implementations in resolve_attack and resolve_nonlethal_attack.
+    """
+    feats = attacker_entity.get(EF.FEATS, [])
+    if "weapon_finesse" in feats and weapon_intent.is_light:
+        return attacker_entity.get(EF.DEX_MOD, 0) - attacker_entity.get(EF.STR_MOD, 0)
+    return 0
+
+
+def _compute_effective_crit_range(weapon_intent, attacker_feats: list) -> int:
+    """Effective critical threat range after Improved Critical doubling. PHB p.96.
+
+    Returns doubled range when Improved Critical (general or weapon-specific) is present.
+    Returns weapon base critical_range if feat absent.
+
+    WO-ENGINE-NONLETHAL-SHADOW-PATH-001: shared helper — eliminates duplicate inline
+    implementations in resolve_attack and resolve_nonlethal_attack.
+    """
+    base_range = weapon_intent.critical_range
+    weapon_type = getattr(weapon_intent, 'weapon_type', None)
+    ic_specific = f"improved_critical_{weapon_type}" if weapon_type else None
+    if "improved_critical" in attacker_feats or (ic_specific and ic_specific in attacker_feats):
+        return max(1, 21 - (21 - base_range) * 2)
+    return base_range
+
+
 def resolve_attack(
     intent: AttackIntent,
     world_state: WorldState,
@@ -682,12 +714,8 @@ def resolve_attack(
 
     # WO-ENGINE-WEAPON-FINESSE-001: Weapon Finesse � DEX replaces STR for light weapon attacks (PHB p.102)
     # intent.attack_bonus is BAB + STR_MOD (from intent_bridge.py); delta = DEX - STR replaces STR with DEX
-    _finesse_delta = 0
     _attacker_feats = attacker.get(EF.FEATS, [])
-    if "weapon_finesse" in _attacker_feats and intent.weapon.is_light:
-        _str_mod = attacker.get(EF.STR_MOD, 0)
-        _dex_mod = attacker.get(EF.DEX_MOD, 0)
-        _finesse_delta = _dex_mod - _str_mod  # positive if DEX > STR, negative if DEX < STR
+    _finesse_delta = _compute_finesse_delta(attacker, intent.weapon)  # WO-ENGINE-NONLETHAL-SHADOW-PATH-001
 
     # WO-ENGINE-PRECISE-SHOT-001: Ranged-into-melee penalty (PHB p.140)
     # -4 to attack when shooting at target engaged in melee with an ally. Negated by Precise Shot.
@@ -736,10 +764,7 @@ def resolve_attack(
 
     # Determine threat and hit (PHB p.140)
     # WO-ENGINE-IMPROVED-CRITICAL-001: Improved Critical feat doubles threat range (PHB p.96)
-    _ic_eff_range = intent.weapon.critical_range
-    _ic_specific = f"improved_critical_{getattr(intent.weapon, 'weapon_type', None)}" if getattr(intent.weapon, 'weapon_type', None) else None
-    if "improved_critical" in _attacker_feats or (_ic_specific and _ic_specific in _attacker_feats):
-        _ic_eff_range = max(1, 21 - (21 - intent.weapon.critical_range) * 2)
+    _ic_eff_range = _compute_effective_crit_range(intent.weapon, _attacker_feats)  # WO-ENGINE-NONLETHAL-SHADOW-PATH-001
     is_threat = (d20_result >= _ic_eff_range)
     is_natural_20 = (d20_result == 20)
     is_natural_1 = (d20_result == 1)
@@ -1438,21 +1463,13 @@ def resolve_nonlethal_attack(
     d20_result = combat_rng.randint(1, 20)
     # WO-ENGINE-WEAPON-FINESSE-001: Weapon Finesse � DEX replaces STR for light weapon attacks (PHB p.102)
     # adjusted_attack_bonus includes NONLETHAL_ATTACK_PENALTY applied to BAB+STR_MOD
-    _nl_finesse_delta = 0
     _nl_attacker_feats = attacker.get(EF.FEATS, [])
-    if "weapon_finesse" in _nl_attacker_feats and intent.weapon.is_light:
-        _nl_str_mod = attacker.get(EF.STR_MOD, 0)
-        _nl_dex_mod = attacker.get(EF.DEX_MOD, 0)
-        _nl_finesse_delta = _nl_dex_mod - _nl_str_mod  # positive if DEX > STR
+    _nl_finesse_delta = _compute_finesse_delta(attacker, intent.weapon)  # WO-ENGINE-NONLETHAL-SHADOW-PATH-001
     attack_bonus_with_conditions = adjusted_attack_bonus + attacker_modifiers.attack_modifier + _nl_finesse_delta
     total = d20_result + attack_bonus_with_conditions
 
     # WO-ENGINE-IMPROVED-CRITICAL-001: Improved Critical feat doubles threat range (PHB p.96)
-    _nl_ic_eff_range = intent.weapon.critical_range
-    _nl_weapon_type = getattr(intent.weapon, 'weapon_type', None)
-    _nl_ic_specific = f"improved_critical_{_nl_weapon_type}" if _nl_weapon_type else None
-    if "improved_critical" in _nl_attacker_feats or (_nl_ic_specific and _nl_ic_specific in _nl_attacker_feats):
-        _nl_ic_eff_range = max(1, 21 - (21 - intent.weapon.critical_range) * 2)
+    _nl_ic_eff_range = _compute_effective_crit_range(intent.weapon, _nl_attacker_feats)  # WO-ENGINE-NONLETHAL-SHADOW-PATH-001
     is_threat = (d20_result >= _nl_ic_eff_range)
     is_natural_20 = (d20_result == 20)
     is_natural_1 = (d20_result == 1)
