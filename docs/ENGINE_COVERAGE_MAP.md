@@ -846,6 +846,7 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 | Mechanic | Source | Status | Engine File(s) | Notes / Gap Description |
 |----------|--------|--------|----------------|--------------------------|
 | WS Event Routing (player_utterance → engine → client) | INFRA | **IMPLEMENTED** | `aidm/server/ws_bridge.py`, `client/src/main.ts` | WO-INFRA-WS-PLUMB-001. Fixed msg_type mismatch (player_input→player_utterance). Expanded _turn_result_to_messages() from 5 to 10 handlers: added attack_roll, save_rolled, condition_applied, xp_awarded, level_up_applied. Fixed dual event format key lookup ("type" vs "event_type"). 8/8 gates (WP-001–WP-008). |
+| Judgment Layer Validator (ruling_validator.py) | SPEC-RULING-CONTRACT-001 | **PARTIAL** | `aidm/core/ruling_validator.py`, `aidm/schemas/ruling_artifact.py` | Phase 0 (JS-001..008): schema completeness + DC bounds. Phase 1 (JV-001..008): mechanic legality via `_VALID_MECHANICS` frozenset (49 SRD skills + 6 ability scores + abbrevs + "none" sentinel); DC bounds data-driven from `srd_dc_ranges.json`. IMPLEMENTED: schema check, DC bounds, mechanic legality. NOT STARTED: modifier source checking, rationale quality. WO-JUDGMENT-SHADOW-001 + WO-JUDGMENT-VALIDATOR-001. Batch AN. |
 
 ---
 
