@@ -172,6 +172,7 @@ class SpellDefinition:
     """Whether spell automatically hits (e.g., magic missile)."""
 
     requires_attack_roll: bool = False
+    # CONSUME_DEFERRED — not read by SpellResolver. TOUCH/RAY attack roll not yet implemented. See FINDING-AUDIT-SPELL-012-REQUIRES-ATTACK-ROLL-DEAD-001.
     """Whether spell requires an attack roll (touch/ray)."""
 
     rule_citations: Tuple[str, ...] = field(default_factory=tuple)
@@ -707,6 +708,7 @@ class SpellResolver:
 
         elif intent.target_entity_id is not None:
             # Single target spells
+            # CONSUME_DEFERRED — requires_attack_roll not gated here. TOUCH/RAY spells resolve without attack roll per FINDING-AUDIT-SPELL-012-REQUIRES-ATTACK-ROLL-DEAD-001. Implement touch attack roll when Phase 2 spell resolution WO is dispatched.
             affected_entities = [intent.target_entity_id]
 
         # Calculate spell DC

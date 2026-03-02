@@ -49,7 +49,7 @@ from aidm.schemas.conditions import (
     create_prone_condition, create_grappled_condition, create_grappling_condition,
     create_pinned_condition, ConditionType,
 )
-from aidm.core.conditions import apply_condition, remove_condition
+from aidm.core.conditions import apply_condition, remove_condition, get_condition_modifiers
 
 
 @dataclass(frozen=True)
@@ -318,6 +318,12 @@ def resolve_bull_rush(
     defender_size = _get_size_modifier(world_state, target_id)
     defender_stability = _get_stability_bonus(world_state, target_id)
     defender_modifier = defender_str + defender_size + defender_stability
+
+    # Condition modifiers — PHB: condition penalties apply to maneuver checks (WO-ENGINE-MANEUVER-CONDITION-MODIFIER-001)
+    attacker_cond = get_condition_modifiers(world_state, attacker_id, context="attack")
+    defender_cond = get_condition_modifiers(world_state, target_id, context="defense")
+    attacker_modifier += attacker_cond.attack_modifier
+    defender_modifier += defender_cond.attack_modifier
 
     # Roll opposed Strength check
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "strength")
@@ -634,6 +640,12 @@ def resolve_trip(
     defender_size = _get_size_modifier(world_state, target_id)
     defender_stability = _get_stability_bonus(world_state, target_id)
     defender_modifier = defender_ability + defender_size + defender_stability
+
+    # Condition modifiers — PHB: condition penalties apply to maneuver checks (WO-ENGINE-MANEUVER-CONDITION-MODIFIER-001)
+    attacker_cond = get_condition_modifiers(world_state, attacker_id, context="attack")
+    defender_cond = get_condition_modifiers(world_state, target_id, context="defense")
+    attacker_modifier += attacker_cond.attack_modifier
+    defender_modifier += defender_cond.attack_modifier
 
     # Roll opposed trip check
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "trip")
@@ -985,6 +997,12 @@ def resolve_overrun(
     defender_stability = _get_stability_bonus(world_state, target_id)
     defender_modifier = defender_ability + defender_size + defender_stability
 
+    # Condition modifiers — PHB: condition penalties apply to maneuver checks (WO-ENGINE-MANEUVER-CONDITION-MODIFIER-001)
+    attacker_cond = get_condition_modifiers(world_state, attacker_id, context="attack")
+    defender_cond = get_condition_modifiers(world_state, target_id, context="defense")
+    attacker_modifier += attacker_cond.attack_modifier
+    defender_modifier += defender_cond.attack_modifier
+
     # Roll opposed check
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "overrun")
 
@@ -1258,6 +1276,12 @@ def resolve_sunder(
     defender_size = _get_standard_attack_size_modifier(world_state, target_id)
     defender_modifier = defender_bab + defender_str + defender_size
 
+    # Condition modifiers — PHB: condition penalties apply to maneuver checks (WO-ENGINE-MANEUVER-CONDITION-MODIFIER-001)
+    attacker_cond = get_condition_modifiers(world_state, attacker_id, context="attack")
+    defender_cond = get_condition_modifiers(world_state, target_id, context="defense")
+    attacker_modifier += attacker_cond.attack_modifier
+    defender_modifier += defender_cond.attack_modifier
+
     # Roll opposed attack rolls
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "sunder")
 
@@ -1511,6 +1535,12 @@ def resolve_disarm(
     # WO-ENGINE-IMPROVED-MANEUVER-BONUSES-001: Improved Disarm grants +4 (PHB p.96)
     if "improved_disarm" in world_state.entities.get(attacker_id, {}).get(EF.FEATS, []):
         attacker_modifier += 4
+
+    # Condition modifiers — PHB: condition penalties apply to maneuver checks (WO-ENGINE-MANEUVER-CONDITION-MODIFIER-001)
+    attacker_cond = get_condition_modifiers(world_state, attacker_id, context="attack")
+    defender_cond = get_condition_modifiers(world_state, target_id, context="defense")
+    attacker_modifier += attacker_cond.attack_modifier
+    defender_modifier += defender_cond.attack_modifier
 
     # Roll opposed attack rolls
     check_result = _roll_opposed_check(rng, attacker_modifier, defender_modifier, "disarm")
@@ -1790,6 +1820,12 @@ def resolve_grapple(
     defender_str = _get_str_modifier(world_state, target_id)
     defender_size = _get_size_modifier(world_state, target_id)
     defender_grapple_modifier = defender_bab + defender_str + defender_size
+
+    # Condition modifiers — PHB: condition penalties apply to maneuver checks (WO-ENGINE-MANEUVER-CONDITION-MODIFIER-001)
+    attacker_cond = get_condition_modifiers(world_state, attacker_id, context="attack")
+    defender_cond = get_condition_modifiers(world_state, target_id, context="defense")
+    attacker_grapple_modifier += attacker_cond.attack_modifier
+    defender_grapple_modifier += defender_cond.attack_modifier
 
     check_result = _roll_opposed_check(rng, attacker_grapple_modifier, defender_grapple_modifier, "grapple")
 

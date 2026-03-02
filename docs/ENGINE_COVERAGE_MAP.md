@@ -110,6 +110,7 @@
 | Trip — touch attack (if weapon) | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | Touch attack resolved before trip check |
 | Trip — opposed STR/DEX checks | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | Attacker vs defender; PRONE condition on success |
 | Trip — counter-trip | PHB p.158 | **IMPLEMENTED** | `maneuver_resolver.py` | Defender may counter-trip on failure |
+| Maneuver checks — condition modifiers (shaken/frightened/prone) | PHB p.154–158, p.304–306 | **IMPLEMENTED** | `maneuver_resolver.py` | get_condition_modifiers() wired for attacker + defender in all 6 resolvers (bull_rush, trip, overrun, sunder, disarm, grapple). WO-ENGINE-MANEUVER-CONDITION-MODIFIER-001. MCM-001..008. Batch AX. |
 | Aid Another (combat) — +2 attack or AC | PHB p.154 | **IMPLEMENTED** | `aid_another_resolver.py`, `play_loop.py` | AidAnotherIntent; DC 10 attack roll; +2 bonus to ally attack or AC |
 
 ---
