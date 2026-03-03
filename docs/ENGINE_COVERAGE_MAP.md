@@ -143,11 +143,11 @@
 | Condition | Source | Status | Engine File(s) | Notes / Gap Description |
 |-----------|--------|--------|----------------|--------------------------|
 | Blinded | PHB p.309 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py` | 50% miss on attacks; opponents +2; -2 AC; loses DEX to AC; WO-ENGINE-CONDITIONS-BLIND-DEAF-001 |
-| Confused | PHB p.309 | **IMPLEMENTED** | `schemas/conditions.py` | d100 behavior roll per turn; -2 attack, -4 DEX |
+| Confused | PHB p.309 | **PARTIAL** | `schemas/conditions.py`, `core/condition_combat_resolver.py`, `play_loop.py` | d100 roll + act_normally/babble/attack_nearest enforced; 01–10 attack_caster + 51–70 flee CONSUME_DEFERRED. WO-ENGINE-CONFUSED-BEHAVIOR-001 Batch BE. |
 | Cowering | PHB p.309 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py` | COWERING condition type; loses DEX to AC, no actions. DEBRIEF_WO-ENGINE-COWERING-FASCINATED-001. |
 | Dazed | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | No actions, no AC penalty; 1-round duration default |
-| Dazzled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py` | DAZZLED condition; -1 attack, -1 Spot. DEBRIEF_WO-ENGINE-DAZZLED-CONDITION-001. |
-| Deafened | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | DEAFENED condition type; 20% verbal spell failure; bardic music check |
+| Dazzled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py`, `skill_resolver.py` | DAZZLED condition; -1 attack, -1 Spot, -1 Search. DEBRIEF_WO-ENGINE-DAZZLED-CONDITION-001. WO-ENGINE-CONDITION-SKILL-COVERAGE-001 Batch BE. |
+| Deafened | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `play_loop.py` | DEAFENED condition type; 20% spell failure for verbal-component spells wired in play_loop (PHB p.310); bardic music check. WO-ENGINE-CONDITION-SKILL-COVERAGE-001 Batch BE. |
 | Entangled | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack, -4 DEX; from web spell and similar |
 | Exhausted | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | -6 STR/DEX (proxied as -3 attack/-3 damage/-6 DEX mod); half speed |
 | Fascinated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `conditions.py`, `session_orchestrator.py` | FASCINATED condition; cannot attack or move; flat-footed AC; -4 skill penalty (PHB p.308). WO-ENGINE-MD-SAVE-RULES-001 (FSKL). |
@@ -158,7 +158,7 @@
 | Helpless | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | DEX 0; -4 AC vs melee; auto-hit_if_helpless; HELPLESS condition |
 | Incorporeal | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `core/conditions.py`, `attack_resolver.py` | ConditionType.INCORPOREAL + create_incorporeal_condition() factory. Nonmagical weapon auto-miss in resolve_attack/resolve_nonlethal_attack/resolve_manyshot. full_attack_resolver delegates to resolve_attack (auto-covered). enhancement_bonus>=1 bypasses. 50% magic damage avoidance CONSUME_DEFERRED. WO-ENGINE-INCORPOREAL-MISS-CHANCE-001. Batch BC. |
 | Invisible | PHB p.310 | **PARTIAL** | `concealment.py` | MISS_CHANCE field set to 50% for invisibility; no "invisible" condition type; no granular see-invisible enforcement |
-| Nauseated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | Only move action per turn; actions_prohibited=True |
+| Nauseated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py`, `play_loop.py` | allows_move_only=True; move_only gate in play_loop; attack/cast/full_round → action_denied("nauseated_move_only"). WO-ENGINE-NAUSEATED-MOVE-ONLY-001 Batch BE. |
 | Panicked | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | Drops items, flees; -2 saves; PANICKED condition |
 | Paralyzed | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | STR/DEX 0; helpless; cannot act; PARALYZED condition |
 | Petrified | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py`, `core/conditions.py` | DEX 0 (-5 mod), cannot act, immune to poison/disease. Entity-specific DEX override in get_condition_modifiers(). WO-ENGINE-PETRIFIED-CONDITION-001. Batch BB. |
@@ -384,7 +384,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Spell preparation — wizard spellbook | PHB p.178 | **NOT STARTED** | — | No spellbook object; wizard may prepare any known spell (no spellbook restriction) |
 | Bonus spells from high ability score | PHB p.8 | **PARTIAL** | `chargen/spellcasting.py` | Bonus slots included in SPELL_SLOTS at chargen; dynamic recalculation on ability change not wired |
 | Arcane spell failure (armor) | PHB p.123 | **IMPLEMENTED** | `play_loop.py` | ASF% d100 check in `_resolve_spell_cast()`; slot consumed on failure. WO-ENGINE-ARCANE-SPELL-FAILURE-001. |
-| Spell components — V (verbal) | PHB p.174 | **IMPLEMENTED** | `play_loop.py` | Verbal block enforced; silenced/deafened condition prevents verbal spells. DEBRIEF_WO-ENGINE-VERBAL-SPELL-BLOCK-001. |
+| Spell components — V (verbal) | PHB p.174 | **IMPLEMENTED** | `play_loop.py` | silenced/gagged hard block; deafened 20% spell failure wired (Batch BE WO-ENGINE-CONDITION-SKILL-COVERAGE-001). DEBRIEF_WO-ENGINE-VERBAL-SPELL-BLOCK-001. |
 | Spell components — S (somatic) | PHB p.174 | **IMPLEMENTED** | `play_loop.py`, `schemas/entity_fields.py` | FREE_HAND_BLOCKED guard; hand-free requirement enforced; grapple/pin block somatic. DEBRIEF_WO-ENGINE-SOMATIC-HAND-FREE-001. |
 | Spell components — M (material) | PHB p.174 | **NOT STARTED** | — | No material component inventory or consumption |
 | Spell components — F (focus) | PHB p.174 | **NOT STARTED** | — | No focus item tracking |

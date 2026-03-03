@@ -274,6 +274,9 @@ def resolve_skill_check(
     _entity_conditions = entity.get(EF.CONDITIONS, {})
     if skill_id == "spot" and "dazzled" in _entity_conditions:
         total -= 1
+    # WO-ENGINE-CONDITION-SKILL-COVERAGE-001 Part A: -1 penalty to Search checks when dazzled (PHB p.309)
+    if skill_id == "search" and "dazzled" in _entity_conditions:
+        total -= 1
 
     # WO-ENGINE-SKILL-SYNERGY-001: Apply synergy bonuses (PHB p.65)
     # 5+ ranks in a source skill → +2 circumstance bonus on synergistic target skills.

@@ -132,6 +132,10 @@ class ConditionModifiers:
     aoo_blocked: bool = False
     """Metadata: cannot make attacks of opportunity (PHB p.156 — grappled/grappling)"""
 
+    allows_move_only: bool = False
+    """WO-ENGINE-NAUSEATED-MOVE-ONLY-001: Only a single move action per turn is allowed.
+    PHB p.311 — Nauseated: cannot attack, cast, concentrate; only move action."""
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
@@ -149,7 +153,8 @@ class ConditionModifiers:
             "standing_triggers_aoo": self.standing_triggers_aoo,
             "auto_hit_if_helpless": self.auto_hit_if_helpless,
             "loses_dex_to_ac": self.loses_dex_to_ac,
-            "aoo_blocked": self.aoo_blocked
+            "aoo_blocked": self.aoo_blocked,
+            "allows_move_only": self.allows_move_only,
         }
 
     @classmethod
@@ -170,7 +175,8 @@ class ConditionModifiers:
             standing_triggers_aoo=data.get("standing_triggers_aoo", False),
             auto_hit_if_helpless=data.get("auto_hit_if_helpless", False),
             loses_dex_to_ac=data.get("loses_dex_to_ac", False),
-            aoo_blocked=data.get("aoo_blocked", False)
+            aoo_blocked=data.get("aoo_blocked", False),
+            allows_move_only=data.get("allows_move_only", False),
         )
 
 
@@ -524,10 +530,10 @@ def create_nauseated_condition(source: str, applied_at_event_id: int) -> Conditi
         condition_type=ConditionType.NAUSEATED,
         source=source,
         modifiers=ConditionModifiers(
-            actions_prohibited=True  # Can only take move action
+            allows_move_only=True  # WO-ENGINE-NAUSEATED-MOVE-ONLY-001: only move action (PHB p.311)
         ),
         applied_at_event_id=applied_at_event_id,
-        notes="Nauseated: cannot attack/cast, only move action per turn",
+        notes="Nauseated: cannot attack/cast, only move action per turn (PHB p.311)",
         duration_rounds=1
     )
 

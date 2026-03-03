@@ -41,6 +41,15 @@ _CONDITION_FACTORY_NAMES: Dict[str, str] = {
     "paralyzed": "create_paralyzed_condition",
     "petrified": "create_petrified_condition",  # WO-ENGINE-PETRIFIED-CONDITION-001
     "incorporeal": "create_incorporeal_condition",  # WO-ENGINE-INCORPOREAL-MISS-CHANCE-001
+    # WO-ENGINE-CONDITION-SKILL-COVERAGE-001 (Batch BE): 8 additional factory registrations
+    "staggered": "create_staggered_condition",
+    "unconscious": "create_unconscious_condition",
+    "pinned": "create_pinned_condition",
+    "turned": "create_turned_condition",
+    "dazzled": "create_dazzled_condition",
+    "cowering": "create_cowering_condition",
+    "fascinated": "create_fascinated_condition",
+    "running": "create_running_condition",
 }
 
 
@@ -155,6 +164,7 @@ def get_condition_modifiers(
     any_auto_hit_if_helpless = False
     any_loses_dex_to_ac = False
     any_aoo_blocked = False  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
+    any_allows_move_only = False  # WO-ENGINE-NAUSEATED-MOVE-ONLY-001
 
     # Sum all condition modifiers
     for condition_id, condition_dict in conditions_data.items():
@@ -193,6 +203,7 @@ def get_condition_modifiers(
         any_auto_hit_if_helpless = any_auto_hit_if_helpless or mods.auto_hit_if_helpless
         any_loses_dex_to_ac = any_loses_dex_to_ac or mods.loses_dex_to_ac
         any_aoo_blocked = any_aoo_blocked or mods.aoo_blocked  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
+        any_allows_move_only = any_allows_move_only or mods.allows_move_only  # WO-ENGINE-NAUSEATED-MOVE-ONLY-001
 
     # WO-ENGINE-PETRIFIED-CONDITION-001: PHB p.310 — entity-specific DEX override.
     # EF.AC is Type 2 (chargen bakes in entity's DEX mod). To treat DEX as 0 (modifier = -5),
@@ -218,7 +229,8 @@ def get_condition_modifiers(
         standing_triggers_aoo=any_standing_triggers_aoo,
         auto_hit_if_helpless=any_auto_hit_if_helpless,
         loses_dex_to_ac=any_loses_dex_to_ac,
-        aoo_blocked=any_aoo_blocked  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
+        aoo_blocked=any_aoo_blocked,  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
+        allows_move_only=any_allows_move_only,  # WO-ENGINE-NAUSEATED-MOVE-ONLY-001
     )
 
 

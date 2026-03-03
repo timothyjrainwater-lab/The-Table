@@ -46,6 +46,7 @@ from dataclasses import dataclass
 
 from aidm.core.event_log import Event, EventLog
 from aidm.core.conditions import get_condition_modifiers, tick_conditions
+from aidm.core.condition_combat_resolver import roll_confused_behavior, check_deafened_spell_failure
 from aidm.core.state import WorldState, FrozenWorldStateView
 # CP-24: Action economy enforcement
 from aidm.core.action_economy import ActionBudget, get_action_type
@@ -750,6 +751,17 @@ def _resolve_spell_cast(
             ))
             # No slot consumed — clean deny, player must re-declare (PHB p.174)
             return events, world_state, "spell_blocked"
+
+        # WO-ENGINE-CONDITION-SKILL-COVERAGE-001 Part B: Deafened 20% verbal spell failure (PHB p.310)
+        if "deafened" in _caster_conditions:
+            _deaf_failed, _deaf_raw_events = check_deafened_spell_failure(
+                rng, intent.caster_id, spell.name, True, current_event_id, timestamp
+            )
+            for _dr in _deaf_raw_events:
+                events.append(Event.from_dict(_dr))
+            current_event_id += len(_deaf_raw_events)
+            if _deaf_failed:
+                return events, world_state, "spell_blocked"
 
     # WO-ENGINE-SOMATIC-HAND-FREE-001: Somatic component requires free hand (PHB p.174).
     # If the caster has no free hand (FREE_HAND_BLOCKED=True), the somatic component
@@ -1990,6 +2002,203 @@ def execute_turn(
             turn_index=turn_ctx.turn_index,
             failure_reason=f"Actor {turn_ctx.actor_id} cannot act: actions_prohibited ({', '.join(prohibiting_conditions)})"
         )
+
+    # WO-ENGINE-NAUSEATED-MOVE-ONLY-001: Nauseated allows only a single move action (PHB p.311)
+    if condition_mods.allows_move_only and combat_intent is not None:
+        _nmo_action_type = get_action_type(combat_intent)
+        if _nmo_action_type != "move":
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="action_denied",
+                timestamp=timestamp + 0.05,
+                payload={
+                    "entity_id": turn_ctx.actor_id,
+                    "reason": "nauseated_move_only",
+                    "denied_intent_type": type(combat_intent).__name__,
+                    "turn_index": turn_ctx.turn_index,
+                }
+            ))
+            current_event_id += 1
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="turn_end",
+                timestamp=timestamp + 0.2,
+                payload={
+                    "turn_index": turn_ctx.turn_index,
+                    "actor_id": turn_ctx.actor_id,
+                    "events_emitted": len(events),
+                }
+            ))
+            return TurnResult(
+                status="action_denied",
+                world_state=world_state,
+                events=events,
+                turn_index=turn_ctx.turn_index,
+                failure_reason=f"Actor {turn_ctx.actor_id} cannot act (nauseated): only move action permitted",
+            )
+
+    # WO-ENGINE-CONFUSED-BEHAVIOR-001: Confused d100 behavior roll (PHB p.310)
+    _cf_actor_entity = world_state.entities.get(turn_ctx.actor_id, {})
+    if "confused" in (_cf_actor_entity.get(EF.CONDITIONS, {}) or {}):
+        _cf_behavior, _cf_roll_events = roll_confused_behavior(
+            rng, turn_ctx.actor_id, current_event_id, timestamp
+        )
+        for _cf_re in _cf_roll_events:
+            events.append(Event.from_dict(_cf_re))
+        current_event_id += len(_cf_roll_events)
+
+        if _cf_behavior == "act_normally":
+            # 11–20: proceed to normal intent routing
+            pass
+
+        elif _cf_behavior == "babble":
+            # 21–50: skip turn (PHB p.310)
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="confused_babble",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "entity_id": turn_ctx.actor_id,
+                    "turn_index": turn_ctx.turn_index,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 310}],
+            ))
+            current_event_id += 1
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="turn_end",
+                timestamp=timestamp + 0.2,
+                payload={"turn_index": turn_ctx.turn_index, "actor_id": turn_ctx.actor_id, "events_emitted": len(events)},
+            ))
+            return TurnResult(
+                status="confused_babble",
+                world_state=world_state,
+                events=events,
+                turn_index=turn_ctx.turn_index,
+                failure_reason=f"Actor {turn_ctx.actor_id} babbles incoherently (confused, PHB p.310)",
+            )
+
+        elif _cf_behavior == "attack_nearest":
+            # 71–100: attack nearest creature (not necessarily enemy) by Euclidean position
+            _cf_actor_pos = _cf_actor_entity.get(EF.POSITION, {}) or {}
+            _cf_ax = _cf_actor_pos.get("x", 0) if isinstance(_cf_actor_pos, dict) else 0
+            _cf_ay = _cf_actor_pos.get("y", 0) if isinstance(_cf_actor_pos, dict) else 0
+            _cf_nearest_id: Optional[str] = None
+            _cf_nearest_dist = float("inf")
+            for _cf_eid, _cf_edata in world_state.entities.items():
+                if _cf_eid == turn_ctx.actor_id:
+                    continue
+                if not isinstance(_cf_edata, dict):
+                    continue
+                _cf_epos = _cf_edata.get(EF.POSITION, {}) or {}
+                if not isinstance(_cf_epos, dict) or not _cf_epos:
+                    continue
+                _cf_dist = ((_cf_ax - _cf_epos.get("x", 0)) ** 2 + (_cf_ay - _cf_epos.get("y", 0)) ** 2) ** 0.5
+                if _cf_dist < _cf_nearest_dist:
+                    _cf_nearest_dist = _cf_dist
+                    _cf_nearest_id = _cf_eid
+            # Build weapon from actor EF.WEAPON
+            _cf_weapon_data = _cf_actor_entity.get(EF.WEAPON)
+            _cf_weapon = None
+            if isinstance(_cf_weapon_data, Weapon):
+                _cf_weapon = _cf_weapon_data
+            elif isinstance(_cf_weapon_data, dict):
+                try:
+                    _cf_weapon = Weapon(**{k: v for k, v in _cf_weapon_data.items() if k in Weapon.__dataclass_fields__})
+                except (TypeError, ValueError):
+                    _cf_weapon = None
+            if _cf_nearest_id is not None and _cf_weapon is not None:
+                # Substitute attack intent toward nearest entity
+                _cf_attack_bonus = _cf_actor_entity.get(EF.ATTACK_BONUS, 0)
+                combat_intent = AttackIntent(
+                    attacker_id=turn_ctx.actor_id,
+                    target_id=_cf_nearest_id,
+                    attack_bonus=_cf_attack_bonus,
+                    weapon=_cf_weapon,
+                )
+                # Fall through to normal intent routing
+            else:
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="confused_attack_nearest_blocked",
+                    timestamp=timestamp + 0.1,
+                    payload={
+                        "entity_id": turn_ctx.actor_id,
+                        "reason": "no_position_data_or_weapon",
+                        "turn_index": turn_ctx.turn_index,
+                    },
+                    citations=[{"source_id": "681f92bc94ff", "page": 310}],
+                ))
+                current_event_id += 1
+                events.append(Event(
+                    event_id=current_event_id,
+                    event_type="turn_end",
+                    timestamp=timestamp + 0.2,
+                    payload={"turn_index": turn_ctx.turn_index, "actor_id": turn_ctx.actor_id, "events_emitted": len(events)},
+                ))
+                return TurnResult(
+                    status="confused_attack_nearest_blocked",
+                    world_state=world_state,
+                    events=events,
+                    turn_index=turn_ctx.turn_index,
+                    failure_reason=f"Actor {turn_ctx.actor_id} confused attack_nearest: no position data or weapon",
+                )
+
+        elif _cf_behavior == "attack_caster":
+            # 01–10: CONSUME_DEFERRED — no caster tracking in world_state (PHB p.310)
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="confused_attack_caster_deferred",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "entity_id": turn_ctx.actor_id,
+                    "reason": "CONSUME_DEFERRED_no_caster_tracking",
+                    "turn_index": turn_ctx.turn_index,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 310}],
+            ))
+            current_event_id += 1
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="turn_end",
+                timestamp=timestamp + 0.2,
+                payload={"turn_index": turn_ctx.turn_index, "actor_id": turn_ctx.actor_id, "events_emitted": len(events)},
+            ))
+            return TurnResult(
+                status="confused_attack_caster_deferred",
+                world_state=world_state,
+                events=events,
+                turn_index=turn_ctx.turn_index,
+                failure_reason=f"Actor {turn_ctx.actor_id} confused attack_caster: CONSUME_DEFERRED (no caster tracking)",
+            )
+
+        elif _cf_behavior == "flee":
+            # 51–70: CONSUME_DEFERRED — no movement subsystem for flee (PHB p.310)
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="confused_flee_deferred",
+                timestamp=timestamp + 0.1,
+                payload={
+                    "entity_id": turn_ctx.actor_id,
+                    "reason": "CONSUME_DEFERRED_no_flee_subsystem",
+                    "turn_index": turn_ctx.turn_index,
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 310}],
+            ))
+            current_event_id += 1
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="turn_end",
+                timestamp=timestamp + 0.2,
+                payload={"turn_index": turn_ctx.turn_index, "actor_id": turn_ctx.actor_id, "events_emitted": len(events)},
+            ))
+            return TurnResult(
+                status="confused_flee_deferred",
+                world_state=world_state,
+                events=events,
+                turn_index=turn_ctx.turn_index,
+                failure_reason=f"Actor {turn_ctx.actor_id} confused flee: CONSUME_DEFERRED (no flee subsystem)",
+            )
 
     # CP-12/CP-15/CP-18: Combat intent validation and routing
     # CP-24: Action economy enforcement — check budget before routing

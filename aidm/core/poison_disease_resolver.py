@@ -47,7 +47,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional, Tuple
 
 from aidm.schemas.entity_fields import EF
-from aidm.schemas.conditions import ConditionType
+from aidm.schemas.conditions import ConditionType, ConditionInstance
 from aidm.core.state import WorldState
 from aidm.core.rng_protocol import RNGProvider
 
@@ -73,6 +73,12 @@ def is_immune_to_poison(entity: Dict[str, Any]) -> bool:
     # WO-ENGINE-CLASS-IMMUNITY-001: Venom Immunity (PHB p.38)
     if class_levels.get("druid", 0) >= 9:
         return True
+    # WO-ENGINE-CONDITION-IMMUNE-TO-WIRE-001: Scan ConditionInstance.immune_to (PHB p.311)
+    for _cond_dict in (entity.get(EF.CONDITIONS, {}) or {}).values():
+        if isinstance(_cond_dict, dict):
+            _ci = ConditionInstance.from_dict(_cond_dict)
+            if "poison" in _ci.immune_to:
+                return True
     return False
 
 
@@ -358,6 +364,24 @@ def apply_disease_exposure(
             "citations": [{"source_id": "681f92bc94ff", "page": 42}],
         })
         return entity, events
+
+    # WO-ENGINE-CONDITION-IMMUNE-TO-WIRE-001: Scan ConditionInstance.immune_to for "disease" (PHB p.311)
+    for _dis_cond_dict in (entity.get(EF.CONDITIONS, {}) or {}).values():
+        if isinstance(_dis_cond_dict, dict):
+            _dis_ci = ConditionInstance.from_dict(_dis_cond_dict)
+            if "disease" in _dis_ci.immune_to:
+                events.append({
+                    "event_id": eid,
+                    "event_type": "disease_immunity",
+                    "payload": {
+                        "target_id": target_id,
+                        "disease_id": disease_stat.get("disease_id"),
+                        "reason": "condition_immune_to",
+                    },
+                    "timestamp": timestamp,
+                    "citations": [{"source_id": "681f92bc94ff", "page": 311}],
+                })
+                return entity, events
 
     dc = disease_stat["dc"]
     fort_base = entity.get(EF.SAVE_FORT, 0)
