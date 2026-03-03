@@ -39,6 +39,7 @@ _CONDITION_FACTORY_NAMES: Dict[str, str] = {
     "fatigued": "create_fatigued_condition",
     "exhausted": "create_exhausted_condition",
     "paralyzed": "create_paralyzed_condition",
+    "petrified": "create_petrified_condition",  # WO-ENGINE-PETRIFIED-CONDITION-001
 }
 
 
@@ -191,6 +192,15 @@ def get_condition_modifiers(
         any_auto_hit_if_helpless = any_auto_hit_if_helpless or mods.auto_hit_if_helpless
         any_loses_dex_to_ac = any_loses_dex_to_ac or mods.loses_dex_to_ac
         any_aoo_blocked = any_aoo_blocked or mods.aoo_blocked  # WO-ENGINE-GRAPPLE-CONDITION-ENFORCE-001
+
+    # WO-ENGINE-PETRIFIED-CONDITION-001: PHB p.310 — entity-specific DEX override.
+    # EF.AC is Type 2 (chargen bakes in entity's DEX mod). To treat DEX as 0 (modifier = -5),
+    # we must subtract the existing DEX mod and apply -5 flat.
+    # Net penalty = -5 - entity.dex_mod (applied to AC and attack rolls).
+    if "petrified" in conditions_data:
+        _dex_penalty = -5 - entity.get(EF.DEX_MOD, 0)
+        total_ac += _dex_penalty
+        total_attack += _dex_penalty
 
     return ConditionModifiers(
         ac_modifier=total_ac,

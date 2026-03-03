@@ -236,6 +236,8 @@ def _assign_starting_equipment(
 
     # AC (§3.5): 10 + effective_dex + armor_bonus
     # WO-ENGINE-MONK-WIS-AC-001: WIS bonus tracked separately; applied at runtime by attack_resolver
+    # WO-ENGINE-DEFLECTION-BONUS-AC-001: deflection bonus read at runtime by attack_resolver.py:617
+    # (Type 3 runtime field — NOT baked into EF.AC to avoid double-count with runtime application)
     ac = 10 + effective_dex + armor_ac_bonus
     entity[EF.AC] = ac
     entity[EF.ARMOR_CHECK_PENALTY] = armor_check_penalty
@@ -878,6 +880,7 @@ def build_character(
         EF.BAB: bab,
         EF.ATTACK_BONUS: bab + modifiers["str"],  # Melee default
         EF.AC: 10 + modifiers["dex"],
+        EF.DEFLECTION_BONUS: 0,          # WO-ENGINE-DEFLECTION-BONUS-AC-001: PHB p.151 — no item bonus at chargen
         EF.DEFEATED: False,
 
         # Saves
@@ -1216,6 +1219,7 @@ def _build_multiclass_character(
         EF.BAB: bab,
         EF.ATTACK_BONUS: bab + modifiers["str"],
         EF.AC: 10 + modifiers["dex"],
+        EF.DEFLECTION_BONUS: 0,          # WO-ENGINE-DEFLECTION-BONUS-AC-001: PHB p.151 — no item bonus at chargen
         EF.DEFEATED: False,
 
         # Saves

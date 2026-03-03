@@ -61,6 +61,9 @@ class ConditionType(str, Enum):
     # WO-ENGINE-RUN-ACTION-001
     RUNNING = "running"         # Running: loses DEX to AC until start of next turn (PHB p.144)
 
+    # WO-ENGINE-PETRIFIED-CONDITION-001
+    PETRIFIED = "petrified"     # Turned to stone: DEX 0 (-5 mod), cannot act, immune to poison/disease (PHB p.310)
+
 
 @dataclass
 class ConditionModifiers:
@@ -199,6 +202,9 @@ class ConditionInstance:
     duration_rounds: Optional[int] = None
     """Number of rounds remaining (None = permanent, removed only by explicit action)."""
 
+    immune_to: List[str] = field(default_factory=list)
+    """List of damage/effect types this condition grants immunity to (e.g., ['poison', 'disease'])."""
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         result = {
@@ -210,6 +216,8 @@ class ConditionInstance:
         }
         if self.duration_rounds is not None:
             result["duration_rounds"] = self.duration_rounds
+        if self.immune_to:
+            result["immune_to"] = list(self.immune_to)
         return result
 
     @classmethod
@@ -221,7 +229,8 @@ class ConditionInstance:
             modifiers=ConditionModifiers.from_dict(data["modifiers"]),
             applied_at_event_id=data["applied_at_event_id"],
             notes=data.get("notes"),
-            duration_rounds=data.get("duration_rounds", None)
+            duration_rounds=data.get("duration_rounds", None),
+            immune_to=list(data.get("immune_to", []))
         )
 
 
@@ -781,4 +790,34 @@ def create_running_condition(source: str, applied_at_event_id: int) -> Condition
         applied_at_event_id=applied_at_event_id,
         notes="Running: loses Dex bonus to AC until start of next turn (PHB p.144)"
         # No duration_rounds — cleared at start of actor's next turn (like charge_ac pattern)
+    )
+
+
+def create_petrified_condition(source: str, applied_at_event_id: int) -> ConditionInstance:
+    """Create Petrified condition instance.
+
+    PHB p.310: A petrified creature is turned to stone.
+    - DEX is treated as 0 (–5 DEX modifier) — effectively immobilized
+    - No actions can be taken (no attacks, no spells, no movement)
+    - Immune to poison and disease (stone doesn't metabolize)
+    - Permanent until Remove Petrification / Stone to Flesh
+
+    WO-ENGINE-PETRIFIED-CONDITION-001:
+    - actions_prohibited: True (cannot act)
+    - immune_to: ["poison", "disease"]
+    - DEX override (–5 - entity.dex_mod) applied entity-specifically in get_condition_modifiers()
+      because EF.AC is Type 2 (DEX already baked in at chargen).
+    - duration_rounds: None (permanent)
+    """
+    # WO-ENGINE-PETRIFIED-CONDITION-001: PHB p.310
+    return ConditionInstance(
+        condition_type=ConditionType.PETRIFIED,
+        source=source,
+        modifiers=ConditionModifiers(
+            actions_prohibited=True,  # Cannot take any actions (PHB p.310)
+        ),
+        applied_at_event_id=applied_at_event_id,
+        notes="Petrified: turned to stone. DEX 0, cannot act, immune to poison/disease (PHB p.310)",
+        duration_rounds=None,         # Permanent until Stone to Flesh / Remove Petrification
+        immune_to=["poison", "disease"],  # Stone doesn't metabolize
     )

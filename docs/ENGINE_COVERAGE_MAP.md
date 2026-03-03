@@ -42,7 +42,7 @@
 | DEX bonus to AC (lost when flat-footed) | PHB p.136 | **IMPLEMENTED** | `conditions.py`, `attack_resolver.py` | DEX_MOD field; loses_dex_to_ac flag in ConditionModifiers applied |
 | Natural armor bonus | PHB p.136 | **PARTIAL** | `wild_shape_resolver.py` | natural_ac tracked for Wild Shape forms; not a generalized entity field |
 | Dodge bonus to AC | PHB p.136 | **PARTIAL** | `feat_resolver.py` | Dodge feat (+1 vs designated target); stackable rule acknowledged but general dodge tracking limited |
-| Deflection bonus to AC | PHB p.136 | **NOT STARTED** | — | No deflection bonus field on entity; needed for rings of protection |
+| Deflection bonus to AC | PHB p.136 | **IMPLEMENTED** | `builder.py`, `entity_fields.py` | EF.DEFLECTION_BONUS constant + baked into EF.AC at chargen (Type 2 field). WO-ENGINE-DEFLECTION-BONUS-AC-001. Batch BB. |
 | Size modifier to AC/attack | PHB p.136 | **IMPLEMENTED** | `schemas/maneuvers.py`, `maneuver_resolver.py` | SIZE_CATEGORY and size modifiers for maneuvers; size-to-AC also referenced in attack |
 | Cover bonus to AC | PHB p.151 | **IMPLEMENTED** | `cover_resolver.py`, `attack_resolver.py` | Standard +4, improved +8; total cover blocks targeting |
 | Concealment miss chance | PHB p.152 | **IMPLEMENTED** | `concealment.py`, `attack_resolver.py` | MISS_CHANCE entity field; 20%/50% miss; d100 rolled post-hit |
@@ -161,7 +161,7 @@
 | Nauseated | PHB p.310 | **IMPLEMENTED** | `schemas/conditions.py` | Only move action per turn; actions_prohibited=True |
 | Panicked | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | Drops items, flees; -2 saves; PANICKED condition |
 | Paralyzed | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | STR/DEX 0; helpless; cannot act; PARALYZED condition |
-| Petrified | PHB p.311 | **NOT STARTED** | — | Not in ConditionType enum; no stone statue mechanic |
+| Petrified | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py`, `core/conditions.py` | DEX 0 (-5 mod), cannot act, immune to poison/disease. Entity-specific DEX override in get_condition_modifiers(). WO-ENGINE-PETRIFIED-CONDITION-001. Batch BB. |
 | Pinned | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | Helpless; DEX 0; melee +4; PINNED condition from grapple escalation |
 | Prone | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | -4 AC vs melee, +4 AC vs ranged, -4 melee attack; PRONE condition |
 | Shaken | PHB p.311 | **IMPLEMENTED** | `schemas/conditions.py` | -2 attack, -2 Fort/Ref/Will; SHAKEN condition |
@@ -761,7 +761,7 @@ All 7 PHB races are defined in `aidm/data/races.py` with stat mods, speed, favor
 |----------|--------|--------|----------------|--------------------------|
 | Armor enhancement bonus (+1 to +5) | DMG p.218 | **NOT STARTED** | — | No magic item equipping system; enhancement not applied to entity AC |
 | Armor special abilities | DMG p.219 | **NOT STARTED** | — | No magic armor special properties |
-| Weapon enhancement bonus (+1 to +5) | DMG p.224 | **PARTIAL** | `damage_reduction.py` | is_magic / enhancement_bonus used for DR bypass; not applied as attack/damage bonus |
+| Weapon enhancement bonus (+1 to +5) | DMG p.224 | **IMPLEMENTED** | `attack_resolver.py` | enhancement_bonus to attack (line 750) and damage (line 985). WO-ENGINE-WEAPON-ENHANCEMENT-001 (prior). Gate coverage: WO-ENGINE-WEAPON-ENHANCEMENT-BONUS-001 (Batch BB). |
 | Weapon special abilities (flaming, keen, etc.) | DMG p.225 | **NOT STARTED** | — | No weapon special property system |
 | Potions | DMG p.229 | **NOT STARTED** | — | No potion item or consumption system |
 | Rings | DMG p.230 | **NOT STARTED** | — | No ring equip/effect system |
@@ -922,7 +922,7 @@ Ordered by: (1) frequency in normal play, (2) dependency depth (other mechanics 
 | 13 | **Lay on Hands (paladin)** | Class Features | Paladin's other core feature besides smite. No healing ability at all beyond spells. Frequently used every session for paladin builds. | Small — add LAY_ON_HANDS_POOL field; resolve like HP heal |
 | 14 | ~~**Tumble to avoid AoO (DC 15)**~~ | Skills | **ALREADY IMPLEMENTED** — confirmed 2026-02-26. aoo.py lines 493–548. Remove from gap list. | — |
 | 15 | **Massive damage rule (50+ HP = DC 15 Fort or die)** | Combat Core | Absent entirely. Any single hit dealing 50+ damage against a character of any HP should trigger instant-death check. Silent wrong outcome. | Trivial — add check in attack_resolver after damage applied |
-| 16 | **Weapon enhancement bonus to attack/damage** | Equipment | Magic weapons (+1 longsword etc.) are the most common magic items in play. The enhancement bonus is only used for DR bypass; it does not add to attack or damage rolls. Every magic weapon is mechanically equivalent to mundane. | Small — add enhancement_bonus modifier in attack_resolver |
+| 16 | ~~**Weapon enhancement bonus to attack/damage**~~ | Equipment | **IMPLEMENTED** — attack_resolver.py:750 (attack) + :985 (damage). WO-ENGINE-WEAPON-ENHANCEMENT-001 + gate coverage WO-ENGINE-WEAPON-ENHANCEMENT-BONUS-001 (Batch BB). | — |
 | 17 | **Concentration checks (grappled / entangled / other causes)** | Spellcasting | Only damage-during-casting is checked. Grappled casters, entangled casters, and casters on unstable surfaces should also make Concentration checks. Common scenario in grapple-focused monsters. | Small — add condition checks in play_loop before spell resolution |
 | 18 | **Stabilization by ally (DC 15 Heal check)** | Combat Core | A dying PC can be saved by an ally using Heal skill (DC 15). No mechanic exists. Dying characters must self-stabilize (Fort save) or die. Missing means standard rescue action doesn't work. | Small — add HealIntent or Stabilize action; Heal skill check |
 | 19 | **Sneak Attack immunity (constructs, undead, plants, oozes)** | Class Features | Sneak attack is implemented but CRIT_IMMUNE flag handles this. However, the flag is opt-in and not auto-applied based on creature type. Any undead/construct without the explicit flag takes sneak attack damage incorrectly. | Small — add creature_type field; auto-set CRIT_IMMUNE for relevant types |
