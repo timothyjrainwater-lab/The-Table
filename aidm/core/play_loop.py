@@ -4125,7 +4125,9 @@ def execute_turn(
 
             _run_actor_data = world_state.entities.get(turn_ctx.actor_id, {})
             _base_speed = _run_actor_data.get(EF.BASE_SPEED, 30)
-            _run_distance = _base_speed * 4
+            # WO-ENGINE-RUN-FEAT-SPEED-001: Run feat → ×5 multiplier (PHB p.101); default ×4
+            _run_multiplier = 5 if "run" in _run_actor_data.get(EF.FEATS, []) else 4
+            _run_distance = _base_speed * _run_multiplier
 
             # Apply RUNNING condition
             _run_cond_dict = _make_condition_dict("running", "run_action", current_event_id)

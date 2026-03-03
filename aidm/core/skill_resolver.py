@@ -34,6 +34,10 @@ _SKILL_BONUS_FEATS: dict = {
     "persuasive":      ("bluff",              "intimidate"),
     "self_sufficient": ("heal",               "survival"),
     "stealthy":        ("hide",               "move_silently"),
+    # WO-ENGINE-OSS-SKILL-FEATS-WIRE-001: PHB p.91-102 — three OSS feats missing from prior wire
+    "agile":           ("balance",            "escape_artist"),
+    "animal_affinity": ("handle_animal",      "ride"),
+    "magical_aptitude":("spellcraft",         "use_magic_device"),
 }
 
 
@@ -52,6 +56,13 @@ def _get_feat_skill_bonus(actor_feats: list, target_skill_id: str) -> int:
         skills = _SKILL_BONUS_FEATS.get(feat_id)
         if skills and target_skill_id in skills:
             total += 2
+
+    # WO-ENGINE-OSS-SKILL-FEATS-WIRE-001: Skill Focus — +3 bonus to one named skill (PHB p.100)
+    # Dynamic key pattern: skill_focus_{skill_id} (cannot use dict table — one feat per skill).
+    skill_focus_id = f"skill_focus_{target_skill_id}"
+    if skill_focus_id in actor_feats:
+        total += 3
+
     return total
 
 

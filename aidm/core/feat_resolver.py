@@ -157,6 +157,12 @@ def get_attack_modifier(
     if weapon_focus_id in feats:
         modifier += 1
 
+    # Greater Weapon Focus: +1 attack (stacks with WF — total +2 with both)
+    # WO-ENGINE-GWF-GWS-FEAT-RESOLVER-001: PHB p.94
+    greater_weapon_focus_id = f"greater_weapon_focus_{weapon_name}"
+    if greater_weapon_focus_id in feats:
+        modifier += 1
+
     # Point Blank Shot: +1 attack within 30 ft
     if FeatID.POINT_BLANK_SHOT in feats:
         range_ft = context.get("range_ft", 999)
@@ -203,6 +209,12 @@ def get_damage_modifier(
     weapon_name = context.get("weapon_name", "")
     weapon_spec_id = f"weapon_specialization_{weapon_name}"
     if weapon_spec_id in feats:
+        modifier += 2
+
+    # Greater Weapon Specialization: +2 damage (stacks with WS — total +4 with both)
+    # WO-ENGINE-GWF-GWS-FEAT-RESOLVER-001: PHB p.94
+    greater_weapon_spec_id = f"greater_weapon_specialization_{weapon_name}"
+    if greater_weapon_spec_id in feats:
         modifier += 2
 
     # Point Blank Shot: +1 damage within 30 ft

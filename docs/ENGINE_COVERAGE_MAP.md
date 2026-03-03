@@ -278,6 +278,8 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Rapid Shot | PHB p.99 | **IMPLEMENTED** | `feat_resolver.py`, `full_attack_resolver.py` | Extra ranged attack at -2 all; wired. WO-ENGINE-RAPID-SHOT-001. |
 | Weapon Focus | PHB p.102 | **IMPLEMENTED** | `feat_resolver.py` (canonical), `attack_resolver.py` (event) | +1 attack with chosen weapon. WO-ENGINE-WF-SCHEMA-FIX-001: unified to canonical `weapon_focus_{weapon_name}` key. 8/8 WFS + 8/8 WFC gates. |
 | Weapon Specialization | PHB p.102 | **IMPLEMENTED** | `feat_resolver.py` | +2 damage with chosen weapon |
+| Greater Weapon Focus | PHB p.94 | **IMPLEMENTED** | `feat_resolver.py` | +1 attack (stacks with WF → +2 total); `greater_weapon_focus_{weapon}` dynamic key. GWF-001..008. WO-ENGINE-GWF-GWS-FEAT-RESOLVER-001. Batch AZ. |
+| Greater Weapon Specialization | PHB p.94 | **IMPLEMENTED** | `feat_resolver.py` | +2 damage (stacks with WS → +4 total); `greater_weapon_specialization_{weapon}` dynamic key. GWF-005..007. WO-ENGINE-GWF-GWS-FEAT-RESOLVER-001. Batch AZ. |
 | Two-Weapon Fighting | PHB p.102 | **IMPLEMENTED** | `play_loop.py`, `schemas/feats.py` | -4/-4 with light offhand; wired in TWF play |
 | Improved Two-Weapon Fighting | PHB p.96 | **IMPLEMENTED** | `schemas/feats.py`, `full_attack_resolver.py` | Second off-hand attack at BAB-5 |
 | Greater Two-Weapon Fighting | PHB p.94 | **IMPLEMENTED** | `schemas/feats.py` | Third off-hand attack |
@@ -316,6 +318,10 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Persuasive | PHB p.97 | **IMPLEMENTED** | `skill_resolver.py` | +2 Bluff/Intimidate via _SKILL_BONUS_FEATS; untyped; both skills fire independently. Batch AH. SBF-007. |
 | Self-Sufficient | PHB p.99 | **IMPLEMENTED** | `skill_resolver.py` | +2 Heal/Survival via _SKILL_BONUS_FEATS; untyped. Batch AH. |
 | Stealthy | PHB p.100 | **IMPLEMENTED** | `skill_resolver.py` | +2 Hide/Move Silently via _SKILL_BONUS_FEATS; untyped. Batch AH. SBF-005–006. |
+| Agile | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Balance/Escape Artist via _SKILL_BONUS_FEATS; untyped. SKF-001. WO-ENGINE-OSS-SKILL-FEATS-WIRE-001. Batch AZ. |
+| Animal Affinity | PHB p.91 | **IMPLEMENTED** | `skill_resolver.py` | +2 Handle Animal/Ride via _SKILL_BONUS_FEATS; untyped. SKF-002. WO-ENGINE-OSS-SKILL-FEATS-WIRE-001. Batch AZ. |
+| Magical Aptitude | PHB p.97 | **IMPLEMENTED** | `skill_resolver.py` | +2 Spellcraft/Use Magic Device via _SKILL_BONUS_FEATS; untyped. SKF-003. WO-ENGINE-OSS-SKILL-FEATS-WIRE-001. Batch AZ. |
+| Skill Focus | PHB p.100 | **IMPLEMENTED** | `skill_resolver.py` | +3 bonus to one named skill; `skill_focus_{skill_id}` dynamic key in `_get_feat_skill_bonus()`. SKF-004..006. WO-ENGINE-OSS-SKILL-FEATS-WIRE-001. Batch AZ. |
 | Spell Focus | PHB p.100 | **IMPLEMENTED** | `schemas/feats.py`, `spell_resolver.py` | +1 save DC per school; wired into spell_resolver DC computation. WO-ENGINE-SPELL-FOCUS-001. |
 | Greater Spell Focus | PHB p.94 | **IMPLEMENTED** | `schemas/feats.py`, `spell_resolver.py` | +1 additional DC per school; stacks with Spell Focus for +2 total. WO-ENGINE-SPELL-FOCUS-DC-001. |
 | Spell Penetration | PHB p.100 | **IMPLEMENTED** | `schemas/feats.py`, `save_resolver.py` | +2 CL for SR checks; wired into check_spell_resistance(). DEBRIEF_WO-ENGINE-SPELL-PENETRATION-001. |
@@ -356,7 +362,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Forge Ring | PHB p.94 | **NOT STARTED** | No item creation |
 | Improved Counterspell | PHB p.96 | **NOT STARTED** | No counterspell system |
 | Improved Familiar | PHB p.96 | **NOT STARTED** | No familiar system |
-| Run | PHB p.99 | **IMPLEMENTED** | `play_loop.py`, `action_economy.py` | RunIntent; ×4 speed (×3 with heavy armor); full-round action. DEBRIEF_WO-ENGINE-RUN-ACTION-001. |
+| Run | PHB p.99 | **IMPLEMENTED** | `play_loop.py`, `action_economy.py` | RunIntent; ×4 speed (×5 with Run feat, ×3 with heavy armor); full-round action. Run feat multiplier: WO-ENGINE-RUN-FEAT-SPEED-001. RUN-001..006. Batch AZ. |
 | Mounted Archery | PHB p.98 | **NOT STARTED** | No mounted archery system |
 | Exotic Weapon Proficiency | PHB p.94 | **NOT STARTED** | No weapon proficiency enforcement system |
 | Simple/Martial Weapon Proficiency | PHB p.100 | **NOT STARTED** | No proficiency enforcement |
