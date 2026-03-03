@@ -309,7 +309,7 @@ class WebSocketBridge:
                             hp=_ent.get(EF.HP_CURRENT, 0),
                             hp_max=_ent.get(EF.HP_MAX, 0),
                             ac=_ent.get(EF.AC, 0),
-                            abilities={k: _ent.get(k, 0) for k in ("str", "dex", "con", "int", "wis", "cha")},  # WO-UI-PHASE1-POLISH-001 GAP-10
+                            abilities={k: _ent.get(k, 0) for k in (EF.STR, EF.DEX, EF.CON, EF.INT, EF.WIS, EF.CHA)},  # WO-ENGINE-EF-ABILITY-SCORE-CONSTANTS-001
                         ))
 
             # Message loop
@@ -898,7 +898,7 @@ class WebSocketBridge:
                             hp=entity.get(EF.HP_CURRENT, 0),
                             hp_max=entity.get(EF.HP_MAX, 0),
                             ac=entity.get(EF.AC, 0),
-                            abilities={k: entity.get(k, 0) for k in ("str", "dex", "con", "int", "wis", "cha")},  # WO-UI-PHASE1-POLISH-001 GAP-10
+                            abilities={k: entity.get(k, 0) for k in (EF.STR, EF.DEX, EF.CON, EF.INT, EF.WIS, EF.CHA)},  # WO-ENGINE-EF-ABILITY-SCORE-CONSTANTS-001
                         ))
 
         # If nothing was generated, send a minimal narration

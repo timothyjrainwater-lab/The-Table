@@ -63,6 +63,15 @@ class _EntityFields:
     INT_MOD = "int_mod"
     CHA_MOD = "cha_mod"
 
+    # --- Raw Ability Scores (WO-ENGINE-EF-ABILITY-SCORE-CONSTANTS-001) ---
+    # PHB raw ability score (not modifier) — same keys as ability_scores.ABILITY_NAMES
+    STR: str = "str"
+    DEX: str = "dex"
+    CON: str = "con"
+    INT: str = "int"
+    WIS: str = "wis"
+    CHA: str = "cha"
+
     # --- Saves (CP-17) ---
     SAVE_FORT = "save_fortitude"
     SAVE_REF = "save_reflex"

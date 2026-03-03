@@ -221,8 +221,8 @@ def _create_caster_stats(
     # WO-ENGINE-CASTER-LEVEL-2-001: Use _get_caster_level() for correct primary/secondary CL
     caster_level = _get_caster_level(entity, use_secondary)
 
-    # Get spell DC base (default 10 + 3 for INT/WIS mod)
-    spell_dc_base = entity.get(EF.SPELL_DC_BASE, 13)
+    # Get spell DC base (default 10 per PHB p.150 — WO-ENGINE-SPELL-DC-BASE-WRITE-SITE-001)
+    spell_dc_base = entity.get(EF.SPELL_DC_BASE, 10)
 
     # Get attack bonus for touch/ray spells
     attack_bonus = entity.get(EF.ATTACK_BONUS, 0)
@@ -1206,6 +1206,18 @@ def _resolve_spell_cast(
         citations=list(spell.rule_citations),
     ))
     current_event_id += 1
+
+    # WO-ENGINE-SR-EVENTS-EMIT-001: Emit SR check events to EventLog (PHB p.172)
+    # sr_events populated by spell_resolver per-target SR check; re-stamp IDs/timestamp here.
+    for _sr_evt in resolution.sr_events:
+        events.append(Event(
+            event_id=current_event_id,
+            event_type=_sr_evt.event_type,
+            timestamp=timestamp + 0.005,
+            payload=_sr_evt.payload,
+            citations=_sr_evt.citations,
+        ))
+        current_event_id += 1
 
     # Deep copy entities for mutation
     entities = deepcopy(world_state.entities)

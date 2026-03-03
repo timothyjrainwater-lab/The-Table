@@ -920,6 +920,7 @@ def build_character(
     entity[EF.CASTER_LEVEL] = caster_level
     if is_caster(class_name):
         entity[EF.CASTER_CLASS] = class_name
+        entity[EF.SPELL_DC_BASE] = 10  # WO-ENGINE-SPELL-DC-BASE-WRITE-SITE-001: PHB p.150 — base is always 10
 
     # --- Racial trait fields (WO-CHARGEN-RACIAL-001) ---
     apply_racial_trait_fields(entity, race)
@@ -1259,6 +1260,7 @@ def _build_multiclass_character(
         entity[EF.CASTER_LEVEL] = 0
     else:
         entity.update(spell_data)
+        entity[EF.SPELL_DC_BASE] = 10  # WO-ENGINE-SPELL-DC-BASE-WRITE-SITE-001: PHB p.150 — base is always 10
 
     # Favored class (informational, PHB p.56)
     if favored_class is not None:
