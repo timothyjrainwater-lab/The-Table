@@ -329,6 +329,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Armor Proficiency (Light/Medium/Heavy) | PHB p.91 | **PARTIAL** | `schemas/feats.py` | Registered; proficiency not enforced (no ASF/ACP enforcement) |
 | Shield Proficiency / Tower Shield | PHB p.99 | **PARTIAL** | `schemas/feats.py` | Registered; not enforced |
 | Extra Turning | PHB p.94 | **IMPLEMENTED** | `schemas/feats.py`, `chargen/builder.py` | +4 turning uses; stackable via .count(); applied to TURN_UNDEAD_USES_MAX at chargen. DEBRIEF_WO-ENGINE-EXTRA-TURNING-001. |
+| Improved Turning | PHB p.95 | **IMPLEMENTED** | `turn_undead_resolver.py` | +4 effective cleric level for turning checks; wired at `turn_undead_resolver.py:142`. WO-ENGINE-IMPROVED-TURNING-001. Batch T. |
 | Natural Spell | PHB p.97 | **PARTIAL** | `schemas/feats.py` | Registered; Wild Shape + spellcasting not wired |
 | Track | PHB p.101 | **PARTIAL** | `schemas/feats.py` | Registered; no tracking system |
 | Endurance | PHB p.93 | **PARTIAL** | `schemas/feats.py` | Registered (+4 vs environmental checks); not wired |
@@ -338,6 +339,7 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Craft Wondrous Item | PHB p.92 | **PARTIAL** | `schemas/feats.py` | Registered; no item creation system |
 | Deflect Arrows | PHB p.93 | **IMPLEMENTED** | `attack_resolver.py`, `combat_controller.py`, `play_loop.py`, `schemas/entity_fields.py`, `chargen/builder.py` | Reactive gate in resolve_attack() after hit, before damage_roll; conditions: feat present + ranged weapon + free hand (EF.FREE_HANDS≥1) + not flat-footed + not used this round; deflect_arrows_used list in active_combat; EF.FREE_HANDS set at chargen (both paths) via inventory scan fallback. Per-round reset: CC path (combat_controller.py:348) + SO path (play_loop.py:4403). DA-001..008. FHS-001..008. DAR-001..008. Batch AI/AM/AP/AU. |
 | Far Shot | PHB p.94 | **IMPLEMENTED** | `attack_resolver.py` | compute_range_penalty(feats, distance_ft, weapon_dict); ranged: increment×3//2 (integer, no float); thrown: increment×2; penalty = −2 per full effective increment. Trusted-caller model. FSHOT-001–008. Batch AI. |
+| Weapon Finesse | PHB p.102 | **IMPLEMENTED** | `attack_resolver.py` | DEX to attack for light/unarmed/ranged weapons; `_compute_finesse_delta()` helper at `attack_resolver.py:309-321`. WO-ENGINE-WEAPON-FINESSE-001. Batch B R1. |
 
 ### 7b. PHB Feats Not Yet Registered
 
@@ -362,14 +364,13 @@ Feats are defined in `aidm/schemas/feats.py`. The feat_resolver provides prerequ
 | Forge Ring | PHB p.94 | **NOT STARTED** | No item creation |
 | Improved Counterspell | PHB p.96 | **NOT STARTED** | No counterspell system |
 | Improved Familiar | PHB p.96 | **NOT STARTED** | No familiar system |
-| Run | PHB p.99 | **IMPLEMENTED** | `play_loop.py`, `action_economy.py` | RunIntent; ×4 speed (×5 with Run feat, ×3 with heavy armor); full-round action. Run feat multiplier: WO-ENGINE-RUN-FEAT-SPEED-001. RUN-001..006. Batch AZ. |
 | Mounted Archery | PHB p.98 | **NOT STARTED** | No mounted archery system |
 | Exotic Weapon Proficiency | PHB p.94 | **NOT STARTED** | No weapon proficiency enforcement system |
 | Simple/Martial Weapon Proficiency | PHB p.100 | **NOT STARTED** | No proficiency enforcement |
 | Multiattack | MM feat | **IMPLEMENTED** | `feat_resolver.py`, `natural_attack_resolver.py` | Secondary natural attacks at -2 instead of -5. DEBRIEF_WO-ENGINE-MULTIATTACK-001. |
 | Secondary natural attack ½ STR | PHB p.314 | **IMPLEMENTED** | `natural_attack_resolver.py`, `attack_resolver.py` | Secondary natural attacks use grip="off-hand" → `int(str_mod * 0.5)`. WO-ENGINE-ATTACK-MODIFIER-FIDELITY-001. |
 | Stunning Fist | PHB p.101 | **IMPLEMENTED** | `attack_resolver.py`, `chargen/builder.py`, `rest_resolver.py`, `schemas/entity_fields.py` | EF.HAS_STUNNING_FIST, STUNNING_FIST_USES, STUNNING_FIST_USED. Must declare before roll; use consumed on miss. Fort DC = 10 + (level//2) + WIS_mod. STUNNED 1 round on failure. Monk gets monk_level uses; non-monk with feat gets char_level//4. Resets on overnight rest. 8 gate tests SF-001–008. WO-ENGINE-AG-WO1. |
-| Improved Unarmed Strike | PHB p.96 | **NOT STARTED** | No unarmed strike system beyond natural attacks |
+| Improved Unarmed Strike | PHB p.96 | **NOT STARTED** | Feat registered in FEAT_REGISTRY (OSS Sprint 001). Mechanic (bonus unarmed damage tier above natural attacks) NOT STARTED. |
 
 ---
 

@@ -909,7 +909,8 @@ def build_character(
         EF.CONDITIONS: [],
 
         # Position
-        EF.POSITION: (0, 0),
+        # WO-ENGINE-POSITION-TUPLE-NORMALIZE-001: dict format matches _create_target_stats() consumer
+        EF.POSITION: {"x": 0, "y": 0},
     }
 
     # Spellcasting fields (always present, empty for non-casters)
@@ -1246,7 +1247,8 @@ def _build_multiclass_character(
         EF.CONDITIONS: [],
 
         # Position
-        EF.POSITION: (0, 0),
+        # WO-ENGINE-POSITION-TUPLE-NORMALIZE-001: dict format matches _create_target_stats() consumer
+        EF.POSITION: {"x": 0, "y": 0},
     }
 
     # Spellcasting fields — merge all returned spell_data keys into entity
