@@ -64,6 +64,9 @@ class ConditionType(str, Enum):
     # WO-ENGINE-PETRIFIED-CONDITION-001
     PETRIFIED = "petrified"     # Turned to stone: DEX 0 (-5 mod), cannot act, immune to poison/disease (PHB p.310)
 
+    # WO-ENGINE-INCORPOREAL-MISS-CHANCE-001
+    INCORPOREAL = "incorporeal"  # Immune to nonmagical physical attacks (PHB p.310)
+
 
 @dataclass
 class ConditionModifiers:
@@ -820,4 +823,34 @@ def create_petrified_condition(source: str, applied_at_event_id: int) -> Conditi
         notes="Petrified: turned to stone. DEX 0, cannot act, immune to poison/disease (PHB p.310)",
         duration_rounds=None,         # Permanent until Stone to Flesh / Remove Petrification
         immune_to=["poison", "disease"],  # Stone doesn't metabolize
+    )
+
+
+def create_incorporeal_condition(
+    source: str = "incorporeal_form",
+    applied_at_event_id: int = 0,
+) -> ConditionInstance:
+    """Create Incorporeal condition instance.
+
+    PHB p.310: Incorporeal creatures have no physical body.
+    - Immune to all nonmagical attack forms (weapons, natural attacks without magic)
+    - +1 or better magic weapons can harm incorporeal creatures
+    - 50% chance to ignore damage from corporeal magical sources: CONSUME_DEFERRED
+    - Spells harm incorporeal creatures normally (PHB p.310)
+    - No AC penalty, no action prohibition, no movement restriction
+
+    WO-ENGINE-INCORPOREAL-MISS-CHANCE-001:
+    - Auto-miss enforced in attack_resolver.py for nonmagical physical attacks
+    - enhancement_bonus >= 1 = magical weapon (bypasses auto-miss)
+    - 50% damage avoidance vs magical weapons: CONSUME_DEFERRED
+    - duration_rounds: None (permanent for creature type; spell-granted has duration)
+    """
+    # WO-ENGINE-INCORPOREAL-MISS-CHANCE-001: PHB p.310
+    return ConditionInstance(
+        condition_type=ConditionType.INCORPOREAL,
+        source=source,
+        modifiers=ConditionModifiers(),  # No standard modifiers; immunity enforced in attack_resolver
+        applied_at_event_id=applied_at_event_id,
+        notes="Incorporeal: immune to nonmagical physical attacks (PHB p.310). 50% magic damage avoidance CONSUME_DEFERRED.",
+        duration_rounds=None,  # Permanent for creature type; spell-granted forms may have duration
     )

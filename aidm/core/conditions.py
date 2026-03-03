@@ -40,6 +40,7 @@ _CONDITION_FACTORY_NAMES: Dict[str, str] = {
     "exhausted": "create_exhausted_condition",
     "paralyzed": "create_paralyzed_condition",
     "petrified": "create_petrified_condition",  # WO-ENGINE-PETRIFIED-CONDITION-001
+    "incorporeal": "create_incorporeal_condition",  # WO-ENGINE-INCORPOREAL-MISS-CHANCE-001
 }
 
 

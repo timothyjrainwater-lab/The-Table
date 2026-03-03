@@ -487,6 +487,26 @@ def resolve_attack(
     attacker = world_state.entities[intent.attacker_id]
     target = world_state.entities[intent.target_id]
 
+    # WO-ENGINE-INCORPOREAL-MISS-CHANCE-001: PHB p.310 — nonmagical weapon auto-miss vs incorporeal
+    _inc_target_conds = target.get(EF.CONDITIONS, {}) or {}
+    if "incorporeal" in _inc_target_conds:
+        _inc_is_magic = intent.weapon.enhancement_bonus >= 1
+        if not _inc_is_magic:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="attack_denied",
+                timestamp=timestamp,
+                payload={
+                    "attacker_id": intent.attacker_id,
+                    "target_id": intent.target_id,
+                    "reason": "auto_miss_incorporeal",
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 310}],
+            ))
+            return events
+        # Magical weapon (+1 or better): attack roll proceeds normally
+        # 50% damage avoidance from magical sources: CONSUME_DEFERRED
+
     # Build context for feat modifier computation
     # WO-ENGINE-WF-SCHEMA-FIX-001: extract canonical weapon name from EF.WEAPON dict
     _ef_weapon = attacker.get(EF.WEAPON, {})
@@ -1428,6 +1448,25 @@ def resolve_nonlethal_attack(
 
     attacker = world_state.entities[intent.attacker_id]
     target = world_state.entities[intent.target_id]
+
+    # WO-ENGINE-INCORPOREAL-MISS-CHANCE-001: PHB p.310 — nonmagical nonlethal attack auto-miss vs incorporeal
+    _nl_inc_conds = target.get(EF.CONDITIONS, {}) or {}
+    if "incorporeal" in _nl_inc_conds:
+        _nl_inc_is_magic = intent.weapon.enhancement_bonus >= 1
+        if not _nl_inc_is_magic:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="attack_denied",
+                timestamp=timestamp,
+                payload={
+                    "attacker_id": intent.attacker_id,
+                    "target_id": intent.target_id,
+                    "reason": "auto_miss_incorporeal",
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 310}],
+            ))
+            return events
+        # Magical weapon: attack proceeds; 50% damage avoidance CONSUME_DEFERRED
 
     # Apply -4 nonlethal penalty to attack bonus (PHB p.146)
     adjusted_attack_bonus = intent.attack_bonus + NONLETHAL_ATTACK_PENALTY
@@ -2441,6 +2480,26 @@ def resolve_manyshot(
             payload={"attacker_id": intent.attacker_id, "reason": "target_not_found"},
             citations=["PHB p.97"],
         )]
+
+    # WO-ENGINE-INCORPOREAL-MISS-CHANCE-001: PHB p.310 — nonmagical ranged auto-miss vs incorporeal
+    _ms_inc_conds = target.get(EF.CONDITIONS, {}) or {}
+    if "incorporeal" in _ms_inc_conds:
+        _ms_entity_weapon = attacker.get(EF.WEAPON, {}) or {}
+        _ms_enh = _ms_entity_weapon.get("enhancement_bonus", 0) if isinstance(_ms_entity_weapon, dict) else 0
+        if _ms_enh < 1:
+            events.append(Event(
+                event_id=current_event_id,
+                event_type="attack_denied",
+                timestamp=timestamp,
+                payload={
+                    "attacker_id": intent.attacker_id,
+                    "target_id": intent.target_id,
+                    "reason": "auto_miss_incorporeal",
+                },
+                citations=[{"source_id": "681f92bc94ff", "page": 310}],
+            ))
+            return events
+        # Magical arrows/bow: ranged attack proceeds; 50% damage avoidance CONSUME_DEFERRED
 
     # Condition modifiers — PHB: all standard attack modifiers apply (WO-ENGINE-MANYSHOT-CONDITION-BLIND-001)
     attacker_modifiers = get_condition_modifiers(world_state, intent.attacker_id, context="attack")
